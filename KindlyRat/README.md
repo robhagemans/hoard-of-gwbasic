@@ -22,8 +22,7 @@ GWBASIC GAMES
 `HAMURABI`    ...    rule a primitive society  
 `Slot6`    ...    a good slot machine game  
 `Pic3`    ...    draws random colorful rectangles  
-`BATNUM`    ...    a good math game. add line "110 RANDOMIZE
-TIMER" for better random numbers  
+`BATNUM`    ...    a good math game. add line `110 RANDOMIZE TIMER` for better random numbers  
 `23mtch`    ...     an old 23 Match game  
 `aceydu`    ...     acey deucy anyone?  
 `buzzwd`    ...     a buzzword creator  
@@ -40,9 +39,8 @@ CODE EXAMPLES
 ---
 
 `archie`    ...    learn Structured BASIC Programming!  
-`sequential`    ...    demonstrates search, list first and
-read  
-`circles`    ...     random circles in SCREEN1  
+`sequential`    ...    demonstrates search, list first and read  
+`circles`    ...     random circles in `SCREEN 1`  
 `SDOFRND2`    ...     predict future by random generators  
 `snails`    ...    population sampeling theory test  
 `PIBAS`    ...    PI calculation by the casino method  
@@ -52,23 +50,17 @@ read
 `menuet`    ...     PLAY music demonstration  
 `binary`    ...    demonstrates search, list first and read  
 `dietest`    ...    checks the Random Generator  
-`two-buffer`    ...    demonstrates sort of A  $, list first
-and read  
-`bubble`    ...    demonstrates sort of A  $, list first and
-read  
+`two-buffer`    ...    demonstrates sort of `A$`, list first and read  
+`bubble`    ...    demonstrates sort of `A$`, list first and read  
 `Mandelbrot`    ...    Mandelbrot Fractal demonstration  
-`ListDisk`    ...     by Eric Tchong, formats BASIC programs
-for listing or printing.  
-`SortThem`    ...     another Eric Tchong QuickBASIC program that
-demonstrates sorts.  
+`ListDisk`    ...     by Eric Tchong, formats BASIC programs for listing or printing.  
+`SortThem`    ...     another Eric Tchong QuickBASIC program that demonstrates sorts.  
 `RanHex`    ...    random hexadecimal generator  
 `Cypher`    ...    a text encoding program  
 `AnimalVegtableMineral`    ...    a game/example that learns  
 `99bob`    ...    demonstrates messing around in BASIC  
-`combinations`    ...    possible combinations of three
-numbers  
-`MorseConverter`    ...    converts
-a message to Morse Code.
+`combinations`    ...    possible combinations of three numbers  
+`MorseConverter`    ...    converts a message to Morse Code.
 
 KindlyRat
 
