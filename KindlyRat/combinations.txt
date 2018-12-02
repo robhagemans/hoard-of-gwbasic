@@ -1,0 +1,34 @@
+10 CLS
+20 PRINT "Possible combinations by KindlyRat, 22 Feb 06"
+30 PRINT
+40 INPUT "input the first of three numbers : ",A$
+50 INPUT "input the second of three numbers : ",B$
+60 INPUT "input the third of three numbers : ",C$
+70 PRINT
+80 INPUT " Do you want to display repeating numbers? ( y/n ) ", Q$
+90 FOR X = 1 TO 3
+100 FOR Y = 1 TO 3
+110 FOR Z = 1 TO 3
+120 IF Q$ = "y" THEN GOTO 190
+130 IF Z = X GOTO 310
+140 IF Z = Y GOTO 310
+150 IF Y = X GOTO 320
+160 IF Y = Z GOTO 320
+170 IF X = Z GOTO 330
+180 IF X = Y GOTO 330
+190 IF X = 1 THEN PRINT A$,
+200 IF X = 2 THEN PRINT B$,
+210 IF X = 3 THEN PRINT C$,
+220 IF Y = 1 THEN PRINT A$,
+230 IF Y = 2 THEN PRINT B$,
+240 IF Y = 3 THEN PRINT C$,
+250 IF Z = 1 THEN PRINT A$
+260 IF Z = 2 THEN PRINT B$
+270 IF Z = 3 THEN PRINT C$
+280 PRINT
+290 INPUT "Hit Enter to continue", P$
+300 PRINT
+310 NEXT Z
+320 NEXT Y
+330 NEXT X
+ 
