@@ -40,8 +40,6 @@ CODE EXAMPLES
 ---
 
 `archie`    ...    learn Structured BASIC Programming!  
-`BAS-INT`    ...    C code for a tiny BASIC interpreter.  
-`gwup07`    ...    decodes protected GW-BASIC programs  
 `sequential`    ...    demonstrates search, list first and
 read  
 `circles`    ...     random circles in SCREEN1  
