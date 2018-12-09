@@ -9,6 +9,7 @@ with the following notice:
 
     These programs are now freeware: you may ignore the shareware notices.
 
+![](cover.jpg)
 
 Welcome to Basic Computer Adventures
 --------------------------------------

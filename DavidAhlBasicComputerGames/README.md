@@ -1,5 +1,5 @@
 
-David Ahl's _BASIC computer games_
+David Ahl's _BASIC Computer Games_
 ==================================
 
 These are the games from David Ahl's classic book, as curated by Sam Moore at
