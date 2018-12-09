@@ -3,7 +3,7 @@ ABC 1995
 
 | File           | Description                   | Author             | Date
 |----------------|-------------------------------|--------------------|--------------
-| `XWING.BAS`    | X-WING FIGHTER                | George Blank	      | 1978-09-28
+| `XWING.BAS`    | X-WING FIGHTER                | George Blank       | 1978-09-28
 | `BATTLE.BAS`   | BATTLE OF NUMBERS GAME        | Unknown Author(s)  | -
 | `TIMEZONE.BAS` | TIME ZONES WORLDWIDE          | Unknown Author(s)  | -
 | `ORGAN.BAS`    | MUSICAL ORGAN SIMULATOR       | Unknown Author(s)  | -
@@ -13,4 +13,4 @@ ABC 1995
 | `SWATFLYS.BAS` | SWAT THE FLYS                 | Unknown Author(s)  | -
 | `3DTTT.BAS`    | 3D TIC-TAC-TOE                | Rez Beheshti       | 1982
 | `MAZEGEN.BAS`  | MAZE GENERATOR                | Unknown Author(s)  | -
-| `ST.BAS`       | SUPER STAR TREK               | Ron Williams	      | 1976-05-15
+| `ST.BAS`       | SUPER STAR TREK               | Ron Williams       | 1976-05-15
