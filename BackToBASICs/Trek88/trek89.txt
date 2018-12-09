@@ -1,0 +1,283 @@
+90 SCREEN 0,0,0:COLOR 7,0,0:CLS
+100 CLEAR ,,1000:ON ERROR GOTO 65100:DEFINT A-Z:KEY OFF:WIDTH 80:COLOR 14:LOCATE 25,25,0:PLAY"mb"
+105 DEF SEG=0:IF PEEK(&H109)<>&H54 THEN SOND=-1 ELSE SOND=0
+107 ON KEY(1) GOSUB 65300
+108 KEY (1) ON
+110 ON KEY(2) GOSUB 90
+120 KEY(2) ON
+130 DIM A(63):FOR X=1 TO 63:READ B:A(X)=B:NEXT X
+147 '
+148 ' ********** Title mover **********
+150 A$="    V I D E O   T R E K    8 8                     ":B$=" Copyright 1982 Windmill Software                 "
+200 CLS:LOCATE 24,1:COLOR 15:PRINT A$;:COLOR 14:GOSUB 49100:GOSUB 49000:GOSUB 49000:LOCATE 24,1:PRINT B$;
+300 FOR B=1 TO 12:GOSUB 49000:NEXT B
+500 FOR A=1 TO 25:FOR B=1 TO 2:IF SOND THEN SOUND RND(1)*1000+400,2
+510 NEXT B:LOCATE 10,A:COLOR 15:PRINT A$;:LOCATE 12,A:COLOR 14:PRINT B$;:NEXT A:SOUND 32000,0:FOR A=1000 TO 5000 STEP 100:IF SOND THEN SOUND A,1
+520 NEXT A:COUNT=0
+600 LOCATE 20,1:PRINT "                        To begin game ...          press 1                                                                                                                              For unattended demo ...    press 9";
+700 A$=INKEY$:IF A$="1" OR A$="9" THEN 800 ELSE COUNT=COUNT+1:IF COUNT>5000 THEN CHAIN"trekdemo" ELSE GOTO 700
+800 IF A$="9" THEN CLS:CHAIN"trekdemo"
+900 CLS:FOR X=1 TO 1000:NEXT X
+997 '
+998 ' ********** Telex frame **********
+999 '
+1000 COLOR 13,1,1: CLS: A$="Romulan and Klingon Empires Form United Front":LOCATE 12,18:GOSUB 48000
+1010 A$="Threat to Galactic Peace Mounts":LOCATE 15,24:GOSUB 48000
+1020 A$="United Federation of Planets Formulates Defense":LOCATE 18,17:GOSUB 48000
+1090 GOSUB 47500:CLS:LOCATE 25,18:PRINT "DO YOU WISH TO SEE BRIEFING (Y OR N)";:INPUT ASD$:IF ASD$="Y" OR ASD$="y" THEN 1095 ELSE 11500
+1095 LOCATE 23,25:PRINT "To continue, press the space bar";
+1997 '
+1998 ' ********** Draw Enterprise **********
+1999 '
+2000 STAR=1:COLOR 15,0,0: CLS: LOCATE 2,1:PRINT"                                                                   ЪННННННї"
+2010 PRINT"                   ЙНН»                   ЙЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ"
+2020 PRINT"       ЬЬЬЬЬЬЬЬЬЫЫЫЫЫЫЫЫЫЫЬЬЬЬЬЬЬЬ        ИЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫНј"
+2030 PRINT" ЯЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЯ          єє"
+2040 PRINT"             ИННННННННННННННј ЯЫЫЫЫЫЫЫ            єє"
+2050 PRINT"                                ЯЫЫЫЫЫЫ           єє"
+2060 PRINT"                               »  ЯЫЫЫЫЫ          єє"
+2070 PRINT"                               МЬЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ»"
+2080 PRINT"                               МЯЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЯЯЯЯ"
+2090 PRINT"                               ј"
+2100 FOR X=1 TO 63 STEP 6:A=A(X):LOCATE INT((A)/80)+1,((A-1) MOD 80)+1:PRINT "*";:NEXT X
+2997 '
+2998 ' ********** Text frames **********
+2999 '
+3000 GOSUB 46000:PRINT "          The United Federation of Planets has recommissioned you  from                   retirement to take charge of the defensive attack against the                   combined forces of the Romulan and Klingon Empires."
+3400 GOSUB 47000:GOSUB 46000
+3500 PRINT "           Interstellar  war has already been declared.  Our satellite                     probe has not yet returned with the report  determining the                     precise number of enemy forces.  The preservation of Truth,
+3510 PRINT "           Justice and the  democratic  way depends  on the success of                     your mission."
+3900 GOSUB 47000:GOSUB 46000
+4000 PRINT "          Your starship  has  been  refitted  to give you every advantage                 of the latest technology.  The evolution of defense tactics has                 been left to you."
+4400 GOSUB 47000:GOSUB 46000
+4500 PRINT "          The Enterprise  is currently in drydock at  Federation                          headquarters.  When  the  transporter  has beamed your                          personnel  on board,  you are  automatically  shuttled"
+4510 PRINT "          into space."
+4900 GOSUB 47000:GOSUB 46000
+5000 PRINT "          As your warp  drives  stabilize,  your  instrumentation  panel                  shows full power,  your  chronometer  logs  the stardates, and                  the Enterprise becomes dependent on your skillful manipulation"
+5010 PRINT "          of the following devices:"
+5400 GOSUB 47000:GOSUB 46000
+5500 PRINT "          1:-  Long Range Sensor ":PRINT
+5510 PRINT "               Updates information on surrounding quadrants                                    in the galactic chart."
+5900 GOSUB 47500:GOSUB 46000
+6000 PRINT "          2:-  Short Range Sensor ":PRINT
+6010 PRINT "               Automatically probes the quadrant for information.                              May be activated manually if necessary."
+6400 GOSUB 47500:GOSUB 46000
+6500 PRINT "          3:-  Ship's Computer ":PRINT
+6510 PRINT "               Redistributes energy levels among your devices.                                 Enter device number when prompted."
+6900 GOSUB 47500:GOSUB 46000
+7000 PRINT "          4:-  Deflector Shields":PRINT
+7010 PRINT "               Greater power to shields deflects a larger amount                               of  enemy  attack  but  consumes  greater energy,                               especially when warp engines are engaged."
+7400 GOSUB 47500:GOSUB 46000
+7500 PRINT "          5:-  Warp":PRINT
+7510 PRINT "               Engage to speed across quadrants in the galaxy.                                 Enter  warp factor and direction when prompted.                                 Press space bar to disengage warp drive."
+7900 GOSUB 47500:GOSUB 46000
+8000 PRINT "          6:-  Impulse":PRINT
+8010 PRINT "               Use to  maneuver  within a quadrant.  Enter impulse                             speed and direction when prompted.  Press space bar                             to disengage impulse power."
+8400 GOSUB 47500:GOSUB 46000
+8500 PRINT "          7:-  Phasers":PRINT
+8510 PRINT "               Primary weapon for instantaneous response.  Enter                               energy level and direction when prompted.  Damage                               to enemy decreases with distance."
+8900 GOSUB 47500:GOSUB 46000
+9000 PRINT "          8:-  Photon Torpedoes":PRINT
+9010 PRINT "               Maximum of  9 torpedoes  on  board  at  one  time.                              Strike force  is  predetermined,  but  is  greater                              than phaser power.  Enter direction when prompted."
+9400 GOSUB 47500:GOSUB 46000
+9500 PRINT "          A:-  Anti-matter pods":PRINT
+9510 PRINT "               Heavy  artillery.  Restricted to 3  pods per                                    excursion from starbase.  Enter direction of                                    launch.  Press space bar to detonate."
+9900 GOSUB 47500:GOSUB 46000
+10000 PRINT "          R:-  Repair Status":PRINT
+10010 PRINT "               Reports the estimated  time in tenths of                                        stardates for repair of damaged devices."
+10400 GOSUB 47500:GOSUB 46000
+10500 PRINT "          D:-  Dock at Starbase":PRINT
+10510 PRINT "               Use when adjacent to starbase in quadrant                                       to replenish fuel and repair ship."
+10900 GOSUB 47500:GOSUB 46000
+11000 PRINT "          S:-  Self-Destruct":PRINT
+11010 PRINT "               Use only as  a  last  resort  to destroy                                        enemies remaining  in the quadrant.  You                                        must enter self-destruct code correctly."
+11400 GOSUB 47500
+11500 COLOR 15,0,0:CLS:LOCATE 1,1:PRINT "                                                                                ";
+11510 STAR=0:LOCATE 2,1:PRINT"                                                                   ЪННННННї   ";
+11520 PRINT"                   ЙНН»                   ЙЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ";
+11530 PRINT"       ЬЬЬЬЬЬЬЬЬЫЫЫЫЫЫЫЫЫЫЬЬЬЬЬЬЬЬ        ИЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫНј";
+11540 PRINT" ЯЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЯ          єє                            ";
+11560 PRINT"             ИННННННННННННННј ЯЫЫЫЫЫЫЫ            єє                            ";
+11570 PRINT"                                ЯЫЫЫЫЫЫ           єє                            ";
+11580 PRINT"                               »  ЯЫЫЫЫЫ          єє                            ";
+11590 PRINT"                               МЬЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫ»                      ";
+11600 PRINT"                               МЯЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЫЯЯЯЯ                      ";
+11610 PRINT"                               ј                                                ";
+11700 FOR X=12 TO 23:LOCATE X,1:PRINT "                                                                                ";:NEXT X
+11710 LOCATE 24,1:PRINT "                                                                               ";
+11720 LOCATE 25,1:PRINT "                                                                               ";
+20000 GOSUB 46000:LOCATE 16,10:PRINT " Primary system check complete.":LOCATE 18,10:PRINT " Engineering Officer confirms all systems operational."
+20010 LOCATE 20,10:PRINT " Prepare for security classification check."
+20020 GOSUB 47000:GOSUB 46000:COUNT=0
+21000 PRINT "          Enter your present rank ( 1 - 5 )                                                                                                                       1:- Trainee    2:- Ensign    3:- Lieutenant    4:- Captain    5:- Admiral"
+21010 A$=INKEY$:IF A$="" THEN COUNT=COUNT+1:IF COUNT<5000 THEN GOTO 21010 ELSE CHAIN"TREKDEMO"
+21020 A=VAL(A$):IF A<1 OR A>5 THEN PRINT " ":PRINT "          Enter a VALID rank";:FOR X=1 TO 400:NEXT X:GOSUB 46000:GOTO 21000
+21030 IF A=1 THEN LEVEL=1:C$="Trainee"
+21040 IF A=2 THEN LEVEL=3:C$="Ensign"
+21050 IF A=3 THEN LEVEL=6:C$="Lieutenant"
+21060 IF A=4 THEN LEVEL=7:C$="Captain"
+21070 IF A=5 THEN LEVEL=8:C$="Admiral"
+21400 GOSUB 46000
+21500 PRINT "          Good luck ";C$;".":PRINT:PRINT "          Enter your Self-destruct code number ( 1 - 8 )"
+21510 A$=INKEY$:IF A$="" THEN GOTO 21510
+21520 A=VAL(A$):IF A<1 OR A>8 THEN PRINT " ":PRINT "          Enter a VALID Self-destruct code";:FOR X=1 TO 400:NEXT X::GOSUB 46000:GOTO 21500
+21530 PRINT " "
+21550 LOCATE 18,5:PRINT "          Your Self-destruct code is ";A;"                    ";:DESTROY=A:FOR X=1 TO 2000:NEXT X:GOSUB 46000
+21560 LOCATE 14,22:COLOR 12:PRINT "          Sector Map Symbols";:COLOR 11
+21565 LOCATE 16,11:PRINT "Romulan  М№      Klingon Жµ     Tholian   Хё     Commander  ";:COLOR 29:PRINT "Жµ";:COLOR 11
+21567 LOCATE 18,11:PRINT "Star     **      Planet  ®Ї     Starbase  ќќ     Black hole °°";
+21570 LOCATE 21,30:COLOR 12:PRINT "Galactic Chart Symbols";:COLOR 11
+21575 LOCATE 23,7:PRINT "Starbase  ќ      Supernova  ";:COLOR 12,4:PRINT "**";:COLOR 11,0:PRINT "     Number represents enemies detected";
+29997 '
+29998 ' ********** Chain to TREK **********
+29999 '
+30000 CHAIN "TMAIN",50000!,ALL
+30997 '
+30998 ' ********** SUBROUTINES **********
+30999 '
+44997 '
+44998 ' Star flicker
+44999 '
+45000 IF RND(9)>.8499999 THEN B=INT(RND(8)*63)+1:X=A(B):LOCATE INT((X)/80)+1,((X-1) MOD 80)+1:IF RND(9)>.5 THEN PRINT " "; ELSE PRINT "*";
+45010 RETURN
+45997 '
+45998 ' ********** Blank lines 17 - 22 and LOCATE 18,10 **********
+45999 '
+46000 B$="                                                                           ":FOR A=16 TO 22:LOCATE A,1:PRINT B$;:NEXT A:LOCATE 16,10:IF SOND THEN SOUND 600+800*RND(1),1
+46010 RETURN
+46997 '
+46998 ' ********** Wait 10 seconds unless a key is pressed, then exit *********
+46999 '
+47000 FOR A=1 TO 1000:A$=INKEY$:IF A$<>"" THEN A=4000
+47005 IF STAR THEN GOSUB 45000
+47010 NEXT A:RETURN
+47099 '
+47500 FOR A=1 TO 600:A$=INKEY$:IF A$<>"" THEN A=2000
+47505 IF STAR THEN GOSUB 45000
+47510 NEXT A:RETURN
+47997 '
+47998 ' ********** Telex type output **********
+47999 '
+48000 PLAY "MB":FOR A=1 TO LEN(A$):IF SOND THEN PLAY"L64MST255N60":SOUND 32000,0
+48010 PRINT MID$(A$,A,1);:FOR B=1 TO 50:NEXT B:NEXT A:FOR A=1 TO 1000:NEXT A:RETURN
+48997 '
+48998 ' ********** Scroll text up by lines **********
+48999 '
+49000 PRINT
+49100 FOR A=1 TO 3:IF SOND THEN SOUND RND(1)*1000+400,2
+49110 NEXT A:FOR A=1 TO 200:NEXT A:RETURN
+60995 '
+60996 '********************** End of game sequence ****************************
+60998 '
+61000 DEFINT A-Z:COLOR 14:CLS
+61007 ON ERROR GOTO 65100
+61009 ON KEY(1) GOSUB 65300:KEY (1) ON
+61010 LOCATE 3,1:IF DEAD>0 THEN ON DEAD GOTO 62100,62200,62300,62400,62500,62600,62700,62800,62900,63000,63100,63200
+61097 '
+61098 ' Winning sequence
+61099 '
+61100 CLS:A$="Enterprise Returns Safely - Mission Accomplished":LOCATE 12,18:GOSUB 48000
+61110 A$="Romulan and Klingon Empires Destroyed":LOCATE 15,23:GOSUB 48000
+61120 A$="Democracy Reigns Victorious":LOCATE 18,28:GOSUB 48000
+61150 FOR X=1 TO 1000:NEXT X
+61200 CLS:LOCATE 7,1:PRINT "                           C o n g r a t u l a t i o n s":PRINT " "
+61210 PRINT "          The United Federation  of  Planets  has assembled a huge victory                celebration  in  honor  of  your  heroic  mission.  The combined                forces of the Romulan and Klingon Empires presented a formidable "
+61220 PRINT "          enemy,  but  you  overpowered  the  threat  to  galactic  peace.                Your time was well  planned  and  your stategy well implemented.                You will be  forever  remembered  in  the  chronicles of time as"
+61230 PRINT "          the savior of civilization."
+61800 PLAY "MB":A$="MNT150O3L4GGL8FEL4EL8D+EL2E.L8D+EL4EL8D+EL4GL8EGL2FL4D.L8DL4DL8C+DL4DL8C+DL2F.L8EDEL4GL8GL4AAL2D.L4GGL8FEL4EL8D+EL2E.L8D+EL4EL8D+EFEDO2BO3l2dL4c.L8CL4CL8O2BO3CL4CL8O2BO3CL2E-L8CDEGCDEGCDEL2DL4C"
+61810 IF SOND THEN PLAY "XA$;"
+61900 GOTO 64500
+62100 PRINT "          A star has gone nova in your quadrant.  You have destroyed                      the Enterprise and your entire crew due to your poor judgement."
+62110 PRINT "          You must navigate around galactic obstacles and exercise more                   care when firing photon torpedoes in the direction of stars."
+62190 GOTO 64000
+62199 '
+62200 PRINT "          You have ended your mission bravely by sacrificing your lives                   to eliminate one more ";A$;"in the galaxy. ";
+62205 IF RM+KL<1 THEN GOTO 62240
+62210 PRINT "          Without the valuable resources of the Enterprise and your crew,                 it is only a matter of a few stardates before the enemy destroys                civilization as we know it.  No longer will Truth, Justice,"
+62220 PRINT "          and the democratic way reign supreme."
+62225 GOTO 64000
+62240 PRINT "          You and the crew of the Enterprise have died a noble death                      and will be forever remembered in the chronicles of time                        as the saviors of Truth, Justice and the democratic way."
+62290 GOTO 64000
+62299 '
+62300 PRINT "          Your poor navigation of the starship has caused fiery                           death.  The Enterprise and crew have burned up in the                           planet's atmosphere."
+62390 GOTO 64000
+62399 '
+62400 PRINT "          You have neglected your instrumentation and automatic                           warning devices.  The combination of shield and reserve                         power was too low to withstand intensive enemy attack."
+62410 PRINT "          Your only hope would have been to redistribute power                            or to escape in order to dock at a starbase."
+62490 GOTO 64000
+62499 '
+62500 PRINT "          Your warp engines have been pressed beyond their limits,                        causing the matter/anti-matter channel to fuse.  The                            resulting explosion fragmented the Enterprise throughout"
+62510 PRINT "          the galaxy."
+62590 GOTO 64000
+62599 '
+62600 PRINT "          The Enterprise was annihilated by the detonation of                             an anti-matter pod.  It was adjacent to the heart of the                        explosion and was destroyed in the blast.
+62690 GOTO 64000
+62699 '
+62700 PRINT "          You have neglected your instrumentation and automatic                           warning devices.  Reserve energy levels dropped below                           a level where the Enterprise could sustain itself."
+62720 PRINT "          Your only hope might have been to redistribute your                             energy to allow you to limp back to a starbase."
+62790 GOTO 64000
+62799 '
+62800 PRINT "          Tholians are notoriously deceptive creatures.  As a                             result of your misplaced trust, you have been destroyed."
+62890 GOTO 64000
+62899 '
+62900 PRINT "          You failed to dock within the time remaining in your                            life-support back-up system.  You suffered an agonizing                         death as the cold void of space consumed the Enterprise."
+62990 GOTO 64000
+62999 '
+63000 PRINT "          You have transgressed the Tholian neutrality agreement                          by refusing to lower your shields as a sign of peace.                           You have been eternally suspended in the Tholian"
+63010 PRINT "          Web of Death."
+63090 GOTO 64000
+63099 '
+63100 PRINT "          You have terminated the lives of your entire crew as a                          final attempt to save the galaxy from corruption by killing                     a few last enemies in your blaze of glory.  Your bravery"
+63110 PRINT "          will be praised";
+63120 IF KL+RM>9 THEN GOTO 63180
+63125 IF KL+RM>1 THEN GOTO 63160
+63130 PRINT ".  Your crew, however, might have preferred an"
+63140 PRINT "          alternate method of eliminating the remaining threat to the                     Federation."
+63145 GOTO 64000
+63160 PRINT ".  Unfortunately, your suicide was in vain."
+63165 PRINT "          Just before the self-destruct sequence was initiated, the                       Federation had transmitted a message via subspace radio to                      return home victoriously.  A peace treaty with the enemy"
+63170 PRINT "          had just been negotiated to include their full surrender."
+63175 GOTO 64000
+63180 PRINT " as you have delayed the inevitable demise of"
+63185 PRINT "          democracy by destroying the secrets of the Enterprise as you die.               Your mission was the Federation's only hope, and though the                     future looks bleak, your contribution to civilization will"
+63187 PRINT "          long be remembered."
+63190 GOTO 64000
+63199 '
+63200 PRINT "          You've run out of time.  The Romulan and Klingon forces                         have conquered the United Federation of Planets.  Your                          starbases and planets are enemy-occupied and your ship"
+63210 PRINT "          has been destroyed in order to safeguard the secrets                            aboard."
+63290 GOTO 64000
+63399 '
+64000 ' Enter here after dead message
+64005 IF DEAD=12 THEN GOTO 64015
+64010 PRINT " ":PRINT " ":PRINT "          With you and the Enterprise combatting evil, the Federation                     expected to resist the United Forces for ";:PRINT USING "###.#";(EDATE!-SDATE!);:PRINT " Stardates,"
+64013 PRINT "          but has now been left defenseless."
+64015 PRINT " ":PRINT  " ":PRINT "          The following enemies will soon overthrow the Federation:":PRINT " "
+64020 IF KLQ THEN PRINT "              1  Klingon Commander"
+64030 IF RM THEN PRINT "             ";RM;" Romulans"
+64040 IF KL THEN PRINT "             ";KL;" Klingons"
+64100 PLAY "mb"
+64110 A$="MLT180O3L4CO2AO3L2DO2A.P4L4O3CO2AO3L2DO2A.P4O3CFEDL4CO2AO3L2DO2A.P4O3C.P32L4CP32CO2B-AGL2FO3CO2A.P4O3C.P32L4CP32CO2B-AGL2FO3CO2A.P4O3DP32L4DP32DL2O2AP32AO3FL4EDL2CO2AO3DFEDL4CO2AL2O3DO2A."
+64120 IF SOND THEN PLAY "XA$;"
+64130 IF INKEY$="" THEN 64500 ELSE 64130
+64500 LOCATE 24,16:PRINT "Would you like to play again? ( Y or N )";:COUNT=0
+64510 A$=INKEY$:IF A$="" THEN COUNT=COUNT+1:IF COUNT<2500 THEN GOTO 64510 ELSE CHAIN"TREKDEMO"
+64520 IF A$="y" OR A$="Y" THEN CLS:RUN
+64530 IF A$="n" OR A$="N" THEN CLS:END
+64540 IF SOND THEN SOUND 100,2
+64550 GOTO 64500
+64995 '
+65000 DATA 11,28,42,53,65,76,84,98,112,172,189,197,367,382,398,456,461,466,472,485,493,507,524,529,533,581,623,626,631,639,647,652,724,739,748,786,790,796
+65010 DATA 809,812,821,827,861,880,884,913,923,931,946,950,968,978,986,989,1020,1026,1044,1064,1073,1082,1089,1091,1116
+65097 '
+65098 ' Faital error trap
+65099 '
+65100 CLS:IF ERR=71 OR ERR=53 THEN 65200 ELSE PRINT "ERROR ";ERR;"  AT";ERL;" in module TREK88  VER 1.3":PRINT "Please notify Windmill Software":PRINT "Oh wait, they no longer exist--never mind"
+65110 GOTO 65110
+65200 LOCATE 15,10:PRINT " VIDEO TREK 88 diskette must remain in drive during the game":LOCATE 17,10,0:PRINT " Please insert diskette and press any key to RESTART game ... "
+65210 IF INKEY$="" THEN 65220 ELSE 65210
+65220 IF INKEY$="" THEN 65220
+65230 CLS:RESUME 65240
+65240 ON ERROR GOTO 65100:CHAIN"trek89"
+65300 SOUND 32000,0:SOND=NOT SOND
+65320 RETURN
+

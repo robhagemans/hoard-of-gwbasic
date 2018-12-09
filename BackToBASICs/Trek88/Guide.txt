@@ -1,0 +1,377 @@
+
+    V I D E O   T R E K    8 8
+  B e g i n n e r' s   G u i d e
+
+         by Leon Baradat
+
+
+
+INTRODUCTION
+
+Video Trek 88 is an old text-based Star Trek game.  These have a long 
+history dating back to the early 1970s.  Many people were first introduced 
+to this type of game with David Ahl's Super Star Trek, published in Basic 
+Computer Games (1978).  Another famous version, written in Integer BASIC 
+for the Apple II, was Apple Trek.  The goal is to destroy all enemy ships 
+on the board while avoiding obstacles (usually stars), and repairing and 
+refueling at starbases.  Most often the enemy ships were Klingons; some 
+games also included Romulans, and some had more obscure enemies.  Often, 
+names were changed (e.g., "Klarnons" in Apple Trek, "Megaton cruisers" in 
+Galaxy Trek) to avoid copyright infringement.
+
+Video Trek 88, published in 1982 by Windmill Software, took the genre to 
+about the limit of what can be done with text-only graphics.  It runs in 
+real time (the clock ticks and enemies fire at you even if you just sit 
+there), text animations occur in many places, and there are plenty of sound
+effects.  Its real-time nature (most text games are strictly turn-based) 
+plus its responsiveness (all commands were single characters, and it 
+accepted commands immediately) gave Video Trek a snappier pace than others.
+
+For Christmas 1982 or '83, a friend gave me, shall we say, a homemade copy 
+of the game.  He also lent me the manual--which I didn't photocopy, much to
+my regret now.  I spent many hours playing it on our computer, an original 
+IBM PC.  I rediscovered the game years later, but couldn't play it because 
+it choked on a particular line of code.  In April 2010 it finally occurred 
+to me to apply my old BASIC programming knowledge to the offending code, 
+and after that and a little subsequent debugging, the game now works in 
+GWBASIC.  Playing it again brought back my knowledge of the game, and 
+reminded me that the controls aren't necessarily intuitive and that most 
+people today won't know how to play it.  And the manual seems to be lost to
+history; certainly I haven't been able to find it online.  So I've written 
+this short guide to the game; hope it helps.  If you find any inaccuracies 
+or would like to suggest changes or additions, please write me at 
+dos11basic@yahoo.com.
+
+---------------------------------------------------------------------------
+
+RUNNING THE GAME
+
+This is no mean feat on modern systems.  Video Trek originally shipped on a
+5¼" floppy disk that you had to boot from in order to play: it loaded 
+automatically, and took you straight into the game.  It ran in BASICA, 
+which can't be used on modern machines because it relies on some ROM-
+resident stuff that was built into the IBM PC.  The obvious solution is to 
+run Video Trek in GWBASIC, BASICA's successor.  Unfortunately in GWBASIC, 
+the game errors out on certain lines of the original code.  I've gone 
+through and modified those lines so they don't kill the game any more.  So 
+here's how to get started.
+
+It's a good idea, first, to put the GWBASIC.EXE file somewhere close to 
+your Video Trek folder, like inside it, or in the folder above it, or 
+something.  (Remember that DOS was limited to 8.3 filenames, so it won't 
+properly handle a folder named "Video Trek 88".  I named mine Trek88, and 
+that works well.)
+
+On Windows machines, you can either run the game in DOSBox or use a third-
+party utility to slow your processor temporarily.  In Mac or Linux, you'll 
+need to use DOSBox.  However you do it, you'll want to slow your processor 
+to about 300-400 CPU cycles.  Ctrl-Shift-F11 will slow your processor in 
+DOSBox, and Ctrl-Shift-F12 will speed it up.
+
+- In Windows, if you're using a third-party utility, after slowing the 
+  processor simply double-click on the GWBASIC.EXE file, wherever it is.  
+  If you want to use DOSBox in Windows, there are some great GUI front ends
+  like D-Fend Reloaded that will make it easier to get the game working, 
+  but you'll have to figure those out.
+- In Mac or Linux, or in Windows using DOSBox without a front end, mount 
+  the directory where GWBASIC is located (e.g., assuming a Linux user has a
+  folder called DOS in his/her home directory, "mount d DOS" will mount the
+  DOS directory as the d drive).  Then enter the drive letter followed by a
+  colon (e.g., "d:"), and enter "gwbasic".
+
+If at some point you need to navigate to a directory that doesn't conform 
+to the 8.3 format (like if it contains spaces or is longer than 8 
+characters), use quotation marks around the directory name: e.g., 
+cd "video trek".
+
+Once GWBASIC is running, navigate to the directory where Video Trek is 
+located, using chdir (e.g.: CHDIR"trek88).  Then enter LOAD"trek89, and 
+enter RUN.  Notice that end quotation marks are optional in BASIC, and 
+BASIC is case-insensitive; it sees run and RUN as being the same.
+
+You can hit F3 to automatically type LOAD" for you, and you can hit F2 to 
+automatically enter RUN for you.  That saves a little typing on your part.
+
+If you should need to force the game to close at some point, hit Ctrl-
+Scroll Lock, not Ctrl-C.  Enter "system" to close GWBASIC.  Entering "exit"
+will close DOSBox.
+
+---------------------------------------------------------------------------
+
+ONCE THE GAME'S RUNNING
+
+The board consists of the usual 8x8 quadrant galaxy, each quadrant 
+containing an 8x8 sector grid.  On the left is your Galactic Chart showing 
+the quadrants of the galaxy*.  It shows the number of enemy vessels in each
+quadrant that's been mapped, and the location of starbases in mapped 
+quadrants.  More quadrants can be mapped by moving next to (or to the 
+middle of some) unmapped quadrants and running a Long-Range scan.
+
+* Realistically speaking, this would be just a small part of the galaxy--
+  even in the Star Trek universe, the Federation, Klingons, Romulans, and 
+  everybody else occupy just a part of the Milky Way--but for purposes of 
+  the game, I guess it's ok to call it "the galaxy".
+
+To the right of the Galactic Chart is your Sector Map, showing the sectors 
+of the quadrant you're in.  On the far right is a display showing how much 
+energy is in each of your ship's systems, how many torpedoes you have left,
+etc.  It also shows how many enemies remain: Klingons on the left, Romulans
+on the right.  The Klingon Commander, if there is one, is included in the 
+Klingon count, if I remember right.  Also on the far right it shows how 
+many stardates you have before the game ends.  Note that that figure is an 
+estimate: it's fairly accurate, but the game can end a bit before or after 
+the numbers run down.  At the bottom is a space where your senior officers 
+report to you.
+
+At the top right you see the alert status: RED if there are enemies in the 
+current quadrant, Green if not.  Many text Trek games showed status Yellow 
+when there were enemies in adjacent quadrants but in yours.  Video Trek 
+doesn't do that.
+
+Unlike in many of the text-based Trek games, your energy reserve drains 
+slowly even if you're not doing anything, in order to run life support and 
+other shipboard systems.  That's something to be aware of.  The reserve is 
+also used to replenish your warp drive, phasers, and other systems, and to 
+power your shields when you're under attack.
+
+If you navigate past the edge of the map (either on the Galactic Chart or 
+the Sector Map), you'll wrap around to the far side.  Makes for a small 
+universe, I suppose!  Most Star Trek games stop you at the edge of the 
+galaxy, and move you over to the next quadrant if you go past the edge of 
+the short-range scan, but Video Trek 88 takes a simpler approach.  Luckily 
+it doesn't do the same with weaponry; your phasers and torpedoes don't 
+bounce around until they hit something--like your ship.
+
+---------------------------------------------------------------------------
+
+COMMANDS
+
+Most text-based Trek games were written to be portable to any version of 
+BASIC (every PC maker at the time had its own dialect) or were written for 
+a version of BASIC that was fairly limited.  However, Video Trek set out to
+take advantage of the capabilities of BASICA running on the then new and 
+powerful 8088 processor.  One of those advanced (for the time) capabilities
+was accepting single-button commands rather than waiting for the player to 
+press the Enter key, which the more universal INPUT statement requires.
+
+So all the commands in Video Trek are single-character.  Most of them are 
+numbers, but a few are letters.  The numbers are displayed along the right 
+side of the screen, as well as letters representing the few non-numeric 
+commands.
+
+1  Long-Range Scan - Sweeps the quadrants around you and reveals how many 
+   enemies and starbases are located in each.
+
+2  Short-Range Scan - Refreshes your view of what's in the current sector. 
+   Rarely used.
+
+3  Computer - Used to replenish the energy in a given system (e.g., 
+   phasers).
+
+4  Shields - Used to adjust shield strength.  Higher strength gives better 
+   protection from damage, but drains more energy.  It defaults to level 
+   2, which I find is usually fine to leave alone.
+
+5  Warp Drive - Used to move between quadrants.  Unlike most early Trek 
+   games, which incorrectly used "Warp Factor" as a unit of distance (how 
+   many quadrants to move), here it's a unit of speed, as it should be.  
+   Traveling faster takes less time but uses more energy.  Press the space 
+   bar to stop the ship, or a number 1-8 to change direction.  Traveling at
+   Warp 8 will sometimes send the Enterprise into a "time warp", which 
+   deposits the ship in a random quadrant.  That's more common at higher 
+   levels, but can happen even at Trainee.
+
+6  Impulse Drive - Used to move within quadrants.  Like warp drive, impulse
+   has a maximum speed of 8.  Unlike warp, impulse uses power only when the
+   drive is engaged, to start the ship or change direction.  Moving five 
+   spaces in a straight line takes no more power than moving one space.  
+   Press the space bar to stop the ship, or a number 1-8 to change 
+   direction.  (Changing direction does use energy.)  Unfortunately, 
+   Impulse can't be used to move from one quadrant to the next.
+
+7  Phasers - Your primary weapon, with a max power of 8.  Effectiveness 
+   decreases with distance.  If you fire at low power from far enough away,
+   you may not damage your target at all.  These are effective against 
+   Klingons and Romulans.
+
+8  Photon Torpedoes - Effectiveness doesn't decrease with distance, but 
+   some enemies may move out of the way when they see one coming.  These 
+   are effective against Klingons, Romulans, and the Klingon Commander.  
+   Oh, and stars.  More on that later.
+
+A  Antimatter Pods - Like torpedoes, their effectiveness doesn't decrease 
+   with distance, but they're far more powerful than torpedoes.  In fact 
+   they'll destroy anything.  Wait until they're at least a couple spaces 
+   away, then press any key to detonate.  They destroy everything in a 1- 
+   sector radius around them, turning all 9 sectors into black holes.  
+   These weapons are entirely made up, as far as I can tell.  They're great
+   against powerful enemies, but also for the sheer convenience of taking 
+   out several ships at a time if they're clustered right.  Warning: if 
+   your pods hit something, they'll bounce off in a random direction, 
+   possibly back at you.  So make sure you detonate them when they're next 
+   to your target--don't wait for them to actually hit.  And if they do 
+   start going the wrong way, be patient.  Your enemies stop shooting while
+   pods are floating around, and the pods won't detonate if they hit your 
+   ship either.
+
+R  Repair Status, aka Damage Report.
+
+D  Dock with Starbase.  You have to be right next to a starbase to use this
+   command.
+
+S  Self-Destruct causes the engines to implode and puts the hurt on anyone 
+   in the quadrant.  Unfortunately you won't be there to see the looks on 
+   their faces.  You can abort self-destruct by pressing a key.
+
+PAUSE 
+Unfortunately, there isn't a Pause command.  To pause the game, press a 
+command that needs parameters (e.g., warp, impulse, phasers).  Then to 
+resume the game, cancel by pressing the space bar.
+
+---------------------------------------------------------------------------
+
+ENEMIES
+
+Video Trek went in for a little more variation than most old-style Trek 
+games, at least depending on your level of play.  At Trainee and Ensign 
+level, only Klingons appear; at Lieutenant and up, you encounter all enemy 
+types.  Also, at the low levels you run into just one per quadrant, while 
+at higher levels you find a lot of quadrants with 2 or 3.  Usually that 
+means two Klingons and a Romulan, but not always--so be prepared.
+
+KLINGONS
+Klingons are your most common enemy.  They sit there and shoot at you, but 
+don't move around and aren't much of a threat.  Move up right next to one 
+and hit it with a full-power phaser blast--that always takes them out.  
+Oddly, at levels above Trainee, a single torpedo hit won't destroy a 
+Klingon ship, though it does damage it heavily.  I say "oddly" because 
+torpedoes are supposed to be more powerful than phasers, but I guess 
+Klingons are resistant to them or something.
+
+ROMULANS
+Romulans are tougher than Klingons.  They have more powerful and scarier-
+sounding weapons, and they move around.  They sometimes move out of the way
+of incoming torpedoes, but they still aren't much of a threat.  Two or 
+three full-power phaser blasts at point blank range will smoke these guys, 
+as will a couple of torpedo hits, usually.  Of course you can mix and match
+phasers and torpedoes.
+
+THOLIANS (misspelled "Tholeans" in the original game) 
+These are rare and not to be underestimated.  They're always alone, so a 
+Tholian quadrant will show a 1, and they often surprise you at a time when 
+you're running around mopping up stray Klingons late in the game.  You'll 
+find yourself in the middle of the quadrant with the Tholian ship in the 
+top left, and their commander demands you lower your shields as a sign of 
+peace.  If you comply, they'll destroy you.  If you sit around too long, 
+they will entrap you in the Tholian Web (a bad thing).  If you engage them 
+in combat, be aware that phasers and torpedoes are completely ineffective 
+against Tholians in this game.  Your best option is to just stay put and 
+lob an antimatter pod their way.  If you prefer the better part of valor, 
+they won't prevent you warping out--and you don't have to destroy them, 
+since they're neutrals.  In my experience, there's never more than one per 
+game.
+
+KLINGON COMMANDER 
+The Klingon Commander is a tough S.O.B. who is sometimes found with other 
+ships, but more often all by itself.  At Admiral level it's even been known
+to pull you out of high warp and drag you off to its quadrant to engage 
+you.  When you meet, it demands your surrender, but of course there's no 
+option to surrender...go figure.  Like the Romulans, the Klingon Commander 
+moves around, and it has even stronger, scarier-sounding weapons than they 
+do.  And like the Tholians, it's impervious to phaser fire.  You can hit it
+with torpedoes, and four or so should destroy or disable it.  If you 
+disable the Commander, it stops moving around but keeps shooting, and now 
+it's more dangerous than before because radiation (from outgassing?) 
+destroys any more torpedoes you shoot at it.  So you usually have to hit it
+with an antimatter pod anyway.  Luckily, you never see more than one of 
+these per game.
+
+---------------------------------------------------------------------------
+
+OBSTACLES
+
+Most text-based Star Trek games have stars and starbases, but that's it.  
+Video Trek 88 added a couple other items.  Beware of running into them--
+unlike Super Star Trek, Video Trek doesn't shut down your engines to 
+prevent you accidentally killing yourself.  Lower levels have fewer of 
+these (except starbases) and higher levels have more: at Trainee your maps 
+are full of empty space, while at Admiral you sometimes have to run an 
+obstacle course to take a shot at someone.
+
+STARS
+It wouldn't be a text-based Trek game without stars scattered randomly 
+about.  I could swear I learned somewhere that stars are very far from one 
+another, but apparently in the text Trek universe, you can travel between 
+them in minutes at sublight speed.  Shooting stars with torpedoes is 
+dangerous--it makes them go nova.  At lower levels that can be a fun way of
+taking out multiple enemies, or single enemies that are just off your 
+direct firing path and not worth the time to move up next to them.  At 
+higher levels, though, it can turn into a supernova.  If that happens, the 
+whole quadrant goes up in smoke and if you don't have enough warp energy, 
+you go up with it.  And the higher the level, the more likely you are to 
+be destroyed anyway, even if you do have enough warp power to escape.  If 
+you do escape, the quadrant will be marked "**" for the rest of the game, 
+and if you go back there it'll cook your bacon.
+
+PLANETS
+WTH, planets scattered around randomly too?  Stars were bad enough, but 
+dozens of rogue planets?  Yep, in Video Trek it happens all the time.  
+Don't try to land on one; you'll burn up in the atmosphere.  So will your 
+torpedoes, realistically enough.  But with no special abilities (like going
+nova, see above), planets are actually the least interesting of the game's 
+obstacles.
+
+BLACK HOLES
+Black holes?  Don't go in or you'll be destroyed, right?  Well, in the 
+popular imagination, black holes sometimes get confused with wormholes, and
+this game makes the same mistake.  Yes, in Video Trek, black holes are 
+wormholes, so if you enter one you'll be sent to a random quadrant.  This 
+does make them one of the few possible ways to get to a starbase if your 
+warp drive is knocked out.  Remember that you can create black holes by 
+detonating an antimatter pod in your quadrant.
+
+STARBASES
+Ah, repair and refueling.  Starbases show on the Long-Range Scan, so 
+they're easy to keep track of.  To repair and refuel, go to a quadrant with
+a starbase, move up next to it, and hit D.  Don't run into it--your ship 
+won't be harmed, but the starbase will be destroyed.  And yes, like in 
+other text Trek games a torpedo hit will destroy a starbase.  In fact, 
+starbases are incredibly fragile in Video Trek: the slightest hit, even a 
+minimum-power phaser shot from maximum range--which won't even damage a 
+Klingon--will obliterate a starbase.  Incidentally, when you destroy one, 
+the game makes an obscure reference to "the microdrone" escaping.  I've 
+never figured out what that was supposed to mean.
+
+---------------------------------------------------------------------------
+
+DIRECTION
+Direction is a little goofy in this game.  Some games, like Apple Trek, use
+the standard 360 degrees from geometry, with zero pointing to the right.  
+Others, like Seabattle, used a nautical standard, where the directional 
+points start with 1 at due north.  But the designers of Video Trek seem to 
+have just done what they felt like.  Fortunately, whenever you need to 
+select a direction, a diagram will display:
+                     6
+                   5 | 7
+                 4 --+-- 8
+                   3 | 1
+                     2
+
+LOSING POWER
+Don't let reserve power drop too low or your game will come to an early 
+end.  Also don't let your individual systems drop to zero.  If your phasers
+run out completely, for instance, you won't be able to repower them until 
+you dock at a starbase.  And if your long-range scanners drop to one or 
+zero, you'll lose all your information on the Galactic Chart and will have 
+to remap everything.
+
+WINNING THE GAME
+You win, of course, by destroying all enemy ships on the board: Klingons,
+Romulans, and the Klingon Commander (if there is one).  Tholians don't show
+in the enemy count and you don't have to destroy them.  But, once you have 
+cleared the board, to claim your victory you have to dock at a starbase.  
+Don't get killed on your way back to base!
+
+
+
+Last updated May 7, 2010
