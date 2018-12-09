@@ -99,3 +99,12 @@ ABC 1999
 | `DRAG.BAS`     | OLD DRAG RACE SIMULATION GAME | Adlor de Bard      | 1999-07-14
 | `ISBN.BAS`     | VERIFY ISBN CHECKSUMS         | Frank Cox          | 1999-06-15
 | `ADV-OLD.BAS`  | HAUNTED HOUSE TEXT ADVENTURE  | Nigel Traves       | 1999-03-09
+
+ABC 2001
+--------
+
+| File           | Description                   | Author             | Date
+|----------------|-------------------------------|--------------------|--------------
+| `Connect4.bas` | Connect 4 in a row            | Richard Kelly      | 2001-07-14
+| `Encode.bas`   | Encode Text                   | Richard Kelly      | 2001-06-15
+| `chaos.bas`    | Chaos in Space                | Richard Kelly      | 2001-06-29
