@@ -1,9 +1,9 @@
 
 
-All Basic Code
+All BASIC Code
 ==============
 
-All Basic Code (ABC) was a collection of BASIC source code snippets,
+All BASIC Code (ABC) was a collection of BASIC source code snippets,
 curated and packaged monthly by William Yu using a packaging system he developed.
 
     The All BASIC Code (ABC) Archives contains hundreds of BASIC source codes
@@ -24,6 +24,7 @@ curated and packaged monthly by William Yu using a packaging system he developed
     without prior written consent.
 
 This repository contains only those snippets written in GW-BASIC.
+
 
 Origin
 ------
