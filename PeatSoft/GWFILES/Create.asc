@@ -1,0 +1,87 @@
+1 CLS:KEY OFF
+2 REM  AN EXAMPLE OF HOW TO USE THIS DBMS FOLLOWS: TYPE "TEL" FOR INDEX FILE
+3 REM   NAME: TYPE "TEL1" FOR SCREEN FORM FILE NAME (THIS LISTS THE FORMAT FOR
+4 REM   YOUR DATA LISTINGS). TYPE "TEL2" FOR THE DATA FILE NAME (THIS LISTS THE
+5 REM   ACTUAL DATA, I.E. ADDRESSES AND TELEPHONES).
+100 REM--------------------------------------------------------
+105 REM
+110 REM                      CREATE.BAS
+115 REM     Create a database from information about the files
+120 REM
+125 REM--------------------------------------------------------
+130 GOTO 340
+140 REM--------------------------------------------------------
+145 REM   WRITE ( P%,FLAG%,KEYS$, ARC%, LINK% )
+150 REM--------------------------------------------------------
+170 REC$=SPACE$ (127)
+180 FOR INDEX%=1 TO N%
+190  CH%=SIZE% * (INDEX%-1)
+200  ON FLAG% (INDEX%)+1 GOTO 210,230,250
+210    FLAG$="E":GOTO 260
+220    REM
+230    FLAG%="F":GOTO 260
+240    REM
+250    FLAG%="D"
+260  MID$(REC$,CH%+1,1)=FLAG$
+270  MID$(REC$,CH%+2,SIZE%-3)=KEYS$(INDEX%)
+280  MID$(REC$,CH%+SIZE%-1,2)=MKI$(ARC%(INDEX%))
+290 NEXT INDEX%
+300 MID$(REC$,126,2)=MKI$(LINK%)
+310 LSET R$=REC$
+320 PUT 1, P%
+330 RETURN
+340 REM----------------------------------------------------
+350 REM   create: make header file for b-tree index
+360 REM----------------------------------------------------
+370 FOR I%=1 TO 10:PRINT:NEXT I%
+380 PRINT"    Create Index File Header"
+390 PRINT:PRINT:PRINT
+395 LINE INPUT   "Enter index file name: " ;INDEX$
+400 LINE INPUT   "      Correct (Y/N) ? ";Y$
+410       IF Y$<>"Y" AND Y$<>"y" THEN 395
+420 PRINT "How many characters per search key ";:INPUT SIZE%
+430 LINE INPUT   "      Correct (Y/N) ? ";Y$
+440       IF Y$<>"Y" AND Y$<>"y" THEN 420
+450 LINE INPUT   "Enter the file name for the screen form : ";FSCREEN$
+460 LINE INPUT   "      Correct (Y/N) ? ";Y$
+470       IF Y$<>"Y" AND Y$<>"y" THEN 450
+475 PRINT"How many screen lines in form";:INPUT LINS%
+480 LINE INPUT   "      Correct (Y/N) ? ";Y$
+485       IF Y$<>"Y" AND Y$<>"y" THEN 475
+490 LINE INPUT   "Enter data file name : ";MAST$
+495 LINE INPUT   "      Correct (Y/N) ? ";Y$
+500       IF Y$<>"Y" AND Y$<>"y" THEN 490
+505 PRINT"Enter number of fields in screen form : ";:INPUT AN%
+510 LINE INPUT   "      Correct (Y/N) ? ";Y$
+515       IF Y$<>"Y" AND Y$<>"y" THEN 505
+520 REM-------------------------------------------------------
+525 REM    write header file
+530 REM-------------------------------------------------------
+535 SIZE%=SIZE%+3
+540 N%=INT(126/SIZE%)
+545 OPEN "O",2, "HEADER.DAT"
+550 ROOT%=1
+555 LNF%=1:LNG%=0
+560 P%=ROOT%
+565 PRINT #2,FSCREEN$;",";ROOT%;LNG%;LNF%;AN%;LINS%;N%;SIZE%;INDEX$;",";MAST$
+570 CLOSE 2
+575 REM-------------------------------------------
+580 REM   WRITE FIRST ROOT NODE
+585 REM--------------------------------------------
+590 DIM FLAG%(N%+1),KEYS$(N%+1),ARC%(N%+1)
+595 ZERO$=SPACE$(SIZE%-3):LSET ZERO$="0"
+600 FOR I0%=1 TO N%
+605  KEYS$(I0%)=SPACE$(SIZE%-3)
+610  FLAG%(I0%)=0:KEYS$(I0%)=ZERO$:ARC%(I0%)=0
+615 NEXT I0%
+620 LINK%=0
+625 OPEN "R",1,INDEX$
+630 FIELD 1, 127 AS R$
+635 GOSUB 140
+640 CLOSE 1
+645 REM----------------------------------------------
+650 REM    ALL DONE. RETURN TO DBMENU.BAS
+655 REM-----------------------------------------------
+660 RUN "DBMENU"
+665 END
+

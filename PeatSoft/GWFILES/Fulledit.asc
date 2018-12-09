@@ -1,0 +1,296 @@
+1 CLS
+90  '  AN ENHANCED FULL SCREEN EDITOR PROGRAM FOR THE IBM PC
+95  '  ADAPTED FROM THE BELOW LISTED PROGRAM, BY HANK FREEMAN
+100 '**************** THE STOPGAP EDITOR IN IBM BASIC ********************
+110 '           **** by D.E. CORTESI
+120 DEFINT A-Z : MAXL=400 : MAXW = 79 : ' MAXW=40 FOR COLOR TV
+125 DIM LF(400),LB(400),LT$(400)
+126 PRINT TAB(30) "Stopgap Editor"
+127 PRINT:PRINT:PRINT "Use [ESC] for commands"
+130 GOTO 1490
+140 ' ::: right-arrow key: move cursor right
+150 IF SCOL=MAXW THEN RETURN
+160 SCOL=SCOL+1 : INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+170 ' ::: left-arrow key: move cursor left
+180 IF SCOL=1 THEN RETURN
+190 SCOL=SCOL-1 : INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+200 ' ::: tab key: jump right from one to eight columns
+210 S=((SCOL+8) AND (-8))+1 : IF S<=MAXW THEN SCOL=S
+220 INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+230 ' ::: end key: go to right end of the current line
+240 SCOL=MAXW : INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+250 ' ::: printable character, action depends on inschar
+260 IF NOT LMOD THEN L$=LT$(LCUR) : LMOD=TRUE
+270 IF NOT INSCHAR THEN MID$(L$,SCOL,1)=CIN$ : GOTO 300
+280 CIN$=CIN$+MID$(L$,SCOL,MAXW-SCOL)
+290 L$=LEFT$(L$,SCOL-1)+CIN$
+300 PRINT CIN$; : IF SCOL <MAXW THEN SCOL=SCOL+1
+310 LOCATE SROW,SCOL,1 : CLR=FALSE : RETURN
+320 ' ::: backspace: blank current character, move left
+330 IF NOT LMOD THEN L$=LT$(LCUR) : LMOD = TRUE
+340 MID$(L$,SCOL,1)=" " : PRINT " ";
+350 IF SCOL>1 THEN SCOL=SCOL-1
+360 INSCHAR=FALSE : LOCATE SROW,SCOL,1 : RETURN
+370 ' ::: del key:  kill current char, pull line left
+380 IF NOT LMOD THEN L$=LT$(LCUR) : LMOD=TRUE
+390 CIN$=RIGHT$(L$,MAXW-SCOL)+" " : PRINT CIN$;
+400 L$=LEFT$(L$,SCOL-1)+CIN$
+410 INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+420 ' ::: if current line has changed, update the file
+430 INSCHAR=FALSE : LOCATE ,,1,CSL : IF NOT LMOD THEN RETURN
+440 FMOD=LMOD : LT$(LCUR)=L$ : LMOD=FALSE : RETURN
+450 ' ::: return the index of the next free line in L
+460 IF LFREE=0 THEN L=FALSE : RETURN :'no free lines left
+470 L=LFREE : LFREE=LF(L) : LF(L)=0 : LT$(L)=LMT$ : RETURN
+480 ' ::: free the line whose index is in L
+490 LF(L)=LFREE : LFREE=L : LT$(L)="" : RETURN
+500 ' ::: forward one line in the file image
+510 GOSUB 430 : L=LF(LCUR) : ' L=0 if LCUR is bottom line
+520 IF L=0 THEN GOSUB 460 : IF L THEN LF(LCUR)=L : LB(L)=LCUR
+530 IF L THEN LCUR=L : 'FALSE if bottom and no free lines
+540 RETURN
+550 ' ::: backward one line in the file image
+560 GOSUB 430 : L=LB(LCUR)
+570 IF L THEN LCUR=L : 'false if top line
+580 RETURN
+590 ' ::: enter key : cursor to left margin, then down
+600 SCOL=1
+610 ' ::: down-arrow: cursor down (data up, on line 24)
+620 Q=LCUR : GOSUB 510 : IF Q=LCUR THEN RETURN
+630 SROW=SROW+1 : IF SROW<25 THEN LOCATE SROW,SCOL,1 : RETURN
+640 SROW=24 : PRINT :' force blank line, return cursor
+650 PRINT LT$(LCUR); : LOCATE SROW,SCOL,1 : RETURN
+660 ' ::: up-arrow: cursor up (data down 23 lines on line 1)
+670 IF SROW=1 THEN 710
+680 Q=LCUR : GOSUB 560 : IF Q=LCUR THEN RETURN
+690 SROW=SROW-1 : LOCATE SROW,SCOL,1 : RETURN
+700 ' ::: up-arrow on line 1: slide current line down 23
+710 GOSUB 960 : S=0
+720 WHILE (S<22) AND LB(T) : T=LB(T) : B=LB(B) : S=S+1 : WEND
+730 SROW=SROW+S : GOTO 1020
+740 ' ::: PgUp key: back up 23 lines, hold cursor still
+750 GOSUB 430 : GOSUB 960 : S=0
+760 WHILE (S<23) AND LB(T) : GOSUB 560 : T=LB(T) : B=LB(B) : S=S+1 : WEND
+770 IF LF(B)=0 THEN 890 ELSE 1020
+780 ' ::: PgDn key: ahead 23 lines, hold cursor still
+790 GOSUB 430 : GOSUB 960 : S=0
+800 WHILE (S<23) AND LF(B) : GOSUB 510 : T=LF(T) : B=LF(B) : S=S+1 : WEND
+810 IF LB(T)=0 THEN 920 ELSE 1020
+820 ' ::: Home key: go to left, then to top, then to bottom
+830 IF SCOL>1 THEN SCOL=1 : INSCHAR=FALSE : LOCATE SROW,SCOL,1,CSL : RETURN
+840 GOSUB 430 : GOSUB 960 : S=SROW
+850 IF SROW=1 THEN WHILE LCUR<>B : GOSUB 510 : S=S+1 : WEND
+860 IF SROW>1 THEN WHILE LCUR<>T : GOSUB 560 : S=S-1 : WEND
+870 SROW=S : LOCATE SROW,SCOL,1 : RETURN
+880 ' ::: control-a: go to top of the file
+890 GOSUB 430 : GOSUB 2240 : LCUR=A
+900 SROW=1 : SCOL=1 : GOSUB 960 : GOTO 1020
+910 ' ::: control-z: go to the end of the file
+920 GOSUB 430 : GOSUB 2240 : LCUR=Z : T=Z : B=Z : S=1
+930 WHILE LB(T) AND S<24 : T=LB(T) : S=S+1 : WEND
+940 SROW=S : SCOL=1 : GOTO 1020
+950 ' ::: find the lines now at the top(t) and bottom(b) of the screen
+960 S=SROW : T=LCUR
+970 WHILE (S>1) AND (LB(T)<>0) : S=S-1 : T=LB(T) : WEND
+980 S=SROW : B=LCUR
+990 WHILE (S<24) AND (LF(B)<>0) : S=S+1 : B=LF(B) : WEND
+1000 RETURN
+1010 ' ::: redraw the screen using lines from T to B
+1020 CLS : L=T
+1030 WHILE L<>B : PRINT LT$(L) : L=LF(L) : WEND
+1040 PRINT LT$(B);
+1050 LOCATE SROW,SCOL,1 : RETURN
+1060 ' ::: Ins key: toggle insert-character mode
+1070 INSCHAR=NOT INSCHAR
+1080 IF INSCHAR THEN LOCATE ,,1,CSL,1 ELSE LOCATE ,,1,CSL
+1090 RETURN
+1100 ' ::: control-o: split the file for bulk insertion
+1110 IF INSLINE OR LF(LCUR)=0 OR LFREE=0 THEN RETURN
+1120 GOSUB 430 : LINS=LCUR : LCUR=LB(LCUR)
+1130 IF LCUR THEN LF(LCUR)=0 : GOSUB 510
+1140 IF LCUR=0 THEN GOSUB 460 : LB(L)=0 : LCUR=L
+1150 INSLINE=TRUE : GOSUB 960 : GOTO 1020
+1160 ' ::: control-c: splice the file after bulk insertion
+1170 IF NOT INSLINE THEN RETURN
+1180 GOSUB 430 : WHILE LF(LCUR) : LCUR=LF(LCUR) : WEND
+1190 LF(LCUR)=LINS : LB(LINS)=LCUR
+1200 IF LT$(LCUR)<>LMT$ THEN 1240
+1210 L=LCUR : LCUR=LF(LCUR) : LB(LCUR)=LB(L)
+1220 IF LB(L) THEN LF(LB(L))=LCUR
+1230 GOSUB 490
+1240 INSLINE=FALSE : GOSUB 960 : GOTO 1020
+1250 ' ::: control-d: delete the current line
+1260 IF (LF(LCUR)+LB(LCUR)=0) THEN RETURN :'can't delete only line
+1270 IF LB(LCUR) THEN LF(LB(LCUR))=LF(LCUR)
+1280 IF LF(LCUR) THEN LB(LF(LCUR))=LB(LCUR)
+1290 L=LCUR : IF LF(L)>0 THEN LCUR=LF(L)
+1300 IF LF(L)=0 THEN LCUR=LB(L) : IF SROW>0 THEN SROW=SROW-1
+1310 GOSUB 490 : GOSUB 960 : GOTO 1020
+1320 ' ************************ MAIN LOOP *******************************
+1330 CIN$=INKEY$ : ON 1+LEN(CIN$) GOTO 1330,1390,1350
+1340 ' ::: handle a special key (numeric pad, ins, del)
+1350 S=ASC(RIGHT$(CIN$,1)) : IF S<71 OR S>83 THEN 1330
+1360 ON S-70 GOSUB 830,670,750,1330,180,1330,150,1330,240,620,790,1070,380
+1370 GOTO 1330
+1380 ' :::handle regular character or control key
+1390 S=ASC(CIN$) : IF S>31 THEN GOSUB 260 : GOTO 1330
+1400 IF S=>8 AND S<=13 THEN ON S-7 GOSUB 330,210,620,830,1330,600 : GOTO 1330
+1410 IF S=1 THEN GOSUB 890 : GOTO 1330 : '^A-top of file
+1420 IF S=3 THEN GOSUB 1170 : GOTO 1330 : '^C-split file
+1430 IF S=4 THEN GOSUB 1260 : GOTO 1330 : '^D-line delete
+1432 IF S=15 THEN GOSUB 1110 : GOTO 1330 : '^O-splice file
+1435 IF S=19 THEN F=S : GOSUB 2350 : GOTO 1330 : '^S-block move
+1438 IF S=23 THEN F=S : GOSUB 2300 : GOTO 1330 : '^W-block merge/load
+1440 IF S=24 THEN F=S : GOSUB 2500 : GOTO 1330 : '^Z-bottom of file
+1450 IF S=26 THEN GOSUB 920 : GOTO 1330 : '^X-block delete
+1460 IF S=27 THEN GOSUB 1630 : GOTO 1330 : 'ESC global commands
+1470 GOTO 1330
+1480 ' ::: **********************INITIALIZATION***************************
+1490 GOSUB 1520 : FSPEC$="" :' clear all data and set up
+1500 CLS : LOCATE SROW,SCOL,1 : GOTO 1330
+1510 ' ::: clear all variables, set up null data array
+1520 ' ::: **************************************************************
+1530 LMT$=SPACE$(MAXW)
+1540 FALSE=(1=2) : TRUE=NOT FALSE
+1550 LMOD=FALSE : FMOD=FALSE
+1560 CSL=12 : ' cursor scan line -- make 7 for color tv
+1570 INSCHAR=FALSE : LOCATE ,,1,CSL : INSLINE=FALSE
+1575 CLR=TRUE : KEY OFF
+1580 FOR I=2 TO MAXL-1 : LF(I)=I+1 : NEXT I : LF(MAXL)=0 : LFREE=2
+1590 LCUR=1 : LF(LCUR)=0 : LB(LCUR)=0 : LT$(LCUR)=LMT$
+1600 SROW=1 : SCOL=1 : LCUR=1 : T=1 : B=1
+1610 RETURN
+1620 ' ********************* GLOBAL COMMANDS ****************************
+1630 GOSUB 1170 : GOSUB 430 : GOSUB 960
+1640 CLS : LOCATE 10,1
+1650 PRINT "COMMAND CHOICES ARE..." : PRINT
+1660 PRINT "   1. SAVE the present file"
+1670 PRINT "   2. LOAD another file"
+1685 PRINT "   3. CLEAR the data buffer of all data"
+1690 PRINT "   4. QUIT and return to DOS"
+1693 PRINT "   5. QUIT and return to BASIC"
+1695 PRINT : PRINT "       PRESS ENTER TO RETURN TO EDITOR"
+1700 PRINT
+1710 INPUT "Enter your choice of 1,2,3,4 OR ENTER ";CIN$
+1720 IF CIN$="" THEN GOSUB 1020 : GOTO 1330
+1730 CIN$=LEFT$(CIN$,1)
+1740 IF CIN$="1" THEN GOSUB 1800 : GOTO 1640
+1750 IF CIN$="2" THEN GOSUB 1930 : GOTO 1640
+1760 IF CIN$="3" THEN GOSUB 2070 : GOTO 1640
+1770 IF CIN$="4" THEN GOSUB 2100 : GOTO 1640
+1775 IF CIN$="5" THEN F=5 : GOSUB 2100 : GOTO 1640
+1780 GOTO 1640
+1790 ' ::: the command is: SAVE (global save)
+1800 GOSUB 2180 : OPEN FSPEC$ FOR OUTPUT AS #1
+1810 GOSUB 2240 :'find the top and bottom of the data
+1820 ' ::: write all lines, deleting trailing blanks
+1830 WHILE A<>Z
+1840 L$=LT$(A)
+1850 I=MAXW
+1860 WHILE I>1 AND MID$(L$,I,1)=" " : I=I-1 : WEND
+1870 L$=LEFT$(L$,I)
+1880 PRINT #1,L$
+1890 A=LF(A)
+1900 WEND
+1910 CLOSE#1 : FMOD=FALSE : RETURN
+1920 ' ::: the command is: LOAD/MERGE
+1930 GOSUB 2070 : IF NOT Q THEN RETURN
+1940 GOSUB 2180 : OPEN FSPEC$ FOR INPUT AS #1
+1950 ' ::: read up to MAXL lines, force all to MAXW bytes
+1960 WHILE (LFREE>0) AND NOT(EOF(1))
+1970 LINE INPUT#1,CIN$
+1980 L$=LMT$ : LSET L$=LEFT$(CIN$,MAXW)
+1990 LMOD=TRUE
+2000 GOSUB 510
+2010 WEND
+2020 CLOSE#1
+2025 IF F=23 THEN F=0 : RETURN : ' ::: merge function exits early
+2030 LMOD=FALSE : FMOD=FALSE : CLR=FALSE
+2040 LCUR=1 : SROW=1 : SCOL=1 : GOSUB 960
+2050 RETURN
+2060 ' ::: the command is: CLEAR (or clear prior load)
+2070 GOSUB 2120 : IF NOT Q THEN RETURN
+2080 GOSUB 1520 : RETURN
+2090 ' ::: the command is: QUIT
+2100 GOSUB 2120 : IF Q AND F=5 THEN STOP ELSE IF Q THEN SYSTEM ELSE RETURN
+2105 RETURN
+2110 ' ::: if the file has been changed, get confirmation
+2120 IF NOT FMOD THEN Q=TRUE : RETURN
+2130 PRINT  : PRINT  "The file has been modified...!"
+2140 INPUT "...are you SURE you want to do this (Y/N) ";CIN$
+2150 CIN$=LEFT$(CIN$,1)
+2160 Q=(CIN$="y") OR (CIN$="Y") : RETURN
+2170 '::: get a filespec for load or save
+2180 PRINT : PRINT  "Give me a filspec";
+2190 IF FSPEC$<>"" THEN PRINT " (";FSPEC$;")";
+2200 INPUT CIN$ : IF (CIN$+FSPEC$)="" THEN PRINT  : GOTO 2180
+2210 IF CIN$<>"" THEN FSPEC$=CIN$
+2220 RETURN
+2230 ' ::: find the top(A) and bottom(Z) lines of data
+2240 A=LCUR : WHILE LB(A) : A=LB(A) : WEND
+2250 Z=LCUR : WHILE LF(Z) : Z=LF(Z) : WEND
+2260 ' ::: minus trailing, empty lines, if any
+2270 WHILE LT$(Z)=""  AND Z<>A : Z=LB(Z) : WEND
+2280 RETURN
+2290 ' ::: ^W-the command is MERGE/LOAD
+2300 IF CLR THEN F=0 : GOSUB 1940 : GOTO 1020
+2305 IF LF(LCUR)=0 OR LB(LCUR)=0  THEN RETURN
+2308 GOSUB 1110 : ' split the file
+2310 GOSUB 1940 : ' use load to merge
+2320 GOSUB 1170 : ' splice the file
+2340 RETURN
+2350 ' ::: ^S the command is "SAVE" (selective)
+2360 GOSUB 430 : LOCATE 25,1 : LSV=MAXL
+2370 PRINT "SAVE HOW MANY LINES (#,ALL, OR END)? ";
+2380 INPUT; CIN$
+2385 IF CIN$="END" THEN GOTO 2410
+2390 IF CIN$="ALL" THEN GOSUB 1800 : GOTO 2460
+2400 FOR I=1 TO LEN(CIN$) : IF MID$(CIN$,I,1)<"0" THEN RETURN
+2405 IF MID$(CIN$,I,1)>"9" THEN GOTO 2460
+2407 NEXT I
+2408 IF CIN$<>"" THEN LSV=VAL(CIN$) ELSE GOTO 2360
+2409 IF LSV=0 THEN GOTO 2460
+2410 LOCATE 25,1 : PRINT "Give me a FILESPEC                             ";
+2411 IF FSPEC$<>"" THEN LOCATE 25,19 : PRINT "(";FSPEC$;")                   ";
+2412 LOCATE 25,32 : INPUT; CIN$
+2414 IF (CIN$+FSPEC$)="" THEN BEEP : GOTO 2410
+2416 IF CIN$<>"" THEN FSPEC$=CIN$
+2417 OPEN FSPEC$ FOR OUTPUT AS #1
+2420 A=LCUR : Z=LCUR : LSAV=0
+2430 WHILE LSV>0 AND LF(Z)
+2432 LSV=LSV-1 : LSAV=LSAV+1 : Z=LF(Z) : 'find bottom of file/last line to save
+2434 WEND
+2436 GOSUB 2270
+2440 LOCATE 25,1 : PRINT "*************** SAVING " STR$(LSAV) " LINES *********
+2441 WHILE A<>Z : ' assume last line of file is a blank line
+2442 L$=LT$(A) : I=MAXW
+2443 WHILE I>1 AND MID$(L$,I,1)=" " : I=I-1 : WEND
+2444 L$=LEFT$(L$,I)
+2445 PRINT #1,L$
+2446 A=LF(A)
+2447 WEND
+2448 CLOSE #1
+2460 GOSUB 960 : GOTO 1020
+2490 '^X the command is DELETE BLOCK
+2500 IF (LF(LCUR)+LB(LCUR)=0) THEN RETURN : 'CANNOT DELETE ONLY LINE
+2510 GOSUB 430 : LOCATE 25,1 : LDEL=0
+2520 PRINT "DELETE HOW MANY (#,END)? ";
+2530 INPUT; CIN$
+2540 IF CIN$="END" THEN LDEL=MAXL-1 : GOTO 2590
+2550 FOR I=1 TO LEN(CIN$) : IF MID$(CIN$,I,1)<"0" THEN GOTO 2680
+2560 IF MID$(CIN$,I,1)>"9" THEN GOTO 2680
+2570 NEXT I
+2580 LDEL=VAL(CIN$)
+2590 WHILE LDEL>0
+2600 IF LF(LCUR)=0 AND LB(LCUR)=0 THEN GOTO 2670
+2610 IF LB(LCUR) THEN LF(LB(LCUR))=LF(LCUR)
+2620 IF LF(LCUR) THEN LB(LF(LCUR))=LB(LCUR)
+2630 L=LCUR : IF LF(L)>0 THEN LCUR=LF(L)
+2640 IF LF(L)=0 THEN LDEL=0 : LCUR=LB(L) : IF SROW>0 THEN SROW=SROW-1
+2650 GOSUB 490 : GOSUB 960 : LDEL=LDEL-1
+2660 WEND
+2665 IF LF(LCUR)=0 THEN GOSUB 510
+2670 IF CIN$="END" THEN GOSUB 920 ELSE GOSUB 960 : RETURN
+2680 GOTO 1020
+2690 END
+

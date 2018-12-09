@@ -1,0 +1,288 @@
+10 REM------------------------------------------------------
+20 REM
+30 REM                   insert.bas
+40 REM      Add to the contents of a data file thru its index
+50 REM
+60 REM-------------------------------------------------------
+70 CLS:KEY OFF
+80 S0%=20:DIM STACK%(S0%):GOTO 2220
+90 REM
+100 REM       Subroutines used:
+110 REM         100,150:read, write a node of b-tree
+120 REM         200,250:save, restore copy of b-tree node
+130 REM         300,350,395:push, pop, init the stack
+140 REM         400 :shift items in node for splitting node
+150 REM         500: search down b-tree
+160 REM         600: allocate more space for b-tree
+170 REM         700: split b-tree node to root node
+180 REM         800: overflow b-tree node to root node
+190 REM         900: insert a new item into b-tree
+200 REM        1000: close all files and finish up
+210 REM
+220 REM
+230 REM
+240 REM
+250 REM-----------------------------------------------------------
+260 REM
+270 REM                          READ.BAS
+280 REM      INPUT A B-TREE NODE FROM DISK FILE #1
+290 REM------------------------------------------------------------
+300 GET 1, P%:LSET REC$=R$
+310 FOR INDEX%=1 TO N%
+320   CH%=SIZE%*(INDEX%-1)
+330   FLAG$=MID$(REC$,CH%+1,1)
+340    IF FLAG$="E" THEN FLAG%(INDEX%)=0
+350    IF FLAG$="F" THEN FLAG%(INDEX%)=1
+360    IF FLAG$="D" THEN FLAG%(INDEX%)=2
+370   KEYS$(INDEX%)=MID$(REC$,CH%+2,SIZE%-3)
+380   ARC%(INDEX%)=CVI(MID$(REC$,CH%+SIZE%-1,2))
+390 NEXT INDEX%
+400 ARC%(N%+1)=CVI(MID$(REC$,126,2))
+410 RETURN
+420 REM------------------------------------------------------------
+430 REM                      WRITE.BAS
+440 REM     Output a b-tree node to file #1
+450 REM-------------------------------------------------------------
+460 REC$=STRING$(127, " " )
+470 FOR INDEX%=1 TO N%
+480   CH%=SIZE%*(INDEX%-1)
+490   FLAG$=MID$(REC$,CH%+1,1)
+500     FLAG$="E" :GOTO 530
+510     FLAG$="F":GOTO 530
+520     FLAG$="D"
+530   MID$(REC$,CH%+1,1)=FLAG$
+540   MID$(REC$,CH%+2,SIZE%-3)=KEYS$(INDEX%)
+550   MID$(REC$,CH%+SIZE%-1,2)=MKI$(ARC%(INDEX%))
+560 NEXT INDEX%
+570 MID$(REC$,126,2)=MKI$(ARC%(N%+1))
+580 LSET R$=REC$:PUT 1, P%
+590 RETURN
+600 REM-------------------------------------
+610 REM       SAVE A B-TREE NODE
+620 REM-------------------------------------
+630 FOR INDEX%=1 TO N%+1
+640     SFLAG%(INDEX%)=FLAG%(INDEX%)
+650     SKEYS$(INDEX%)=KEYS$(INDEX%)
+660     SARC%(INDEX%)=ARC%(INDEX%)
+670 NEXT INDEX%
+680 RETURN
+690 REM------------------------------------------
+700 REM       RESTORE A B-TREE NODE
+710 REM------------------------------------------
+720 FOR INDEX%=1 TO N%+1
+730     FLAG%(INDEX%)=SFLAG%(INDEX%)
+740     KEYS$(INDEX%)=SKEYS$(INDEX%)
+750     ARC%(INDEX%)=SARC%(INDEX%)
+760 NEXT INDEX%
+770 RETURN
+780 REM------------------------
+790 REM       PUSH
+800 REM------------------------
+810 IF TS%<=S0% THEN 840
+820    D$="Stack overflow"
+830    RETURN
+840 STACK%(TS%)=A%:TS%=TS%+1
+850 D$= "" :RETURN
+860 REM---------------------
+870 REM     pop
+880 REM----------------------
+890 TS%=TS%-1
+900 IF TS%>0 THEN 930
+910    D$="Stack underflow"
+920    RETURN
+930 A%=STACK%(TS%)
+940 D$= "" :RETURN
+950 REM--------------------------
+960 REM   Initialize stack
+970 REM--------------------------
+980 TS%=1:RETURN
+990 REM--------------------------------
+1000 REM   Shift b-tree node
+1010 REM--------------------------------
+1020 SPLIT%=INT((N%+1)/2)
+1030 I%=1
+1040 IF SPLIT%+I%<=N% THEN 1050 ELSE 1100
+1050   ARC%(I%)=ARC%(SPLIT%+I%)
+1060   KEYS$(I%)=KEYS$(SPLIT%+I%)
+1070   FLAG%(I%)=FLAG%(SPLIT%+I%)
+1080   I%=I%+1
+1090   GOTO 1040
+1100 ARC%(I%)=TEMP%
+1110 KEYS$(I%)=ZERO$
+1120 FLAG%(I%)=0
+1130 REM---------------------------------------
+1140 REM   Zero out remaining items in node
+1150 REM---------------------------------------
+1160 FOR I%=I%+1 TO N%
+1170  ARC%(I%)=0
+1180  KEYS$(I%)=ZERO$
+1190  FLAG%(I%)=0
+1200 NEXT I%
+1210 GOSUB 1420   'allocate disk space at p2%
+1220 SWAP P%,P2%
+1230 GOSUB 420    'write right son to disk
+1240 SWAP P%,P2%
+1250 RETURN
+1260 REM------------------------------------
+1270 REM       search b-tree for k$
+1280 REM-------------------------------------
+1290 D$= ""                   'message
+1300 GOSUB 950                'initialize stack
+1310 P%=ROOT%
+1320 REM repeat until found or not-in-file
+1330  I%=1
+1340  GOSUB 250
+1350  IF KEYS$(I%)=ZERO$ THEN 1380
+1360  IF KEYS$(I%)<K$ THEN 1370 ELSE 1380
+1370     I%=I%+1:GOTO 1350
+1380  A%=P%:GOSUB 780    'push node number
+1390  A%=I%:GOSUB 780    'push item number
+1400 P%=ARC%(I%):IF P%<=0 THEN RETURN
+1410 GOTO 1320
+1420 REM----------------------------------------------------
+1430 REM    Allocate more disk space for b-tree
+1440 REM----------------------------------------------------
+1450 D$= "" :LNF%=LNF%+1
+1460 P2%=LNF%
+1470 RETURN
+1480 REM------------------------------------------------------
+1490 REM   Split a b-tree node into lf and rt nodes
+1500 REM------------------------------------------------------
+1510 GOSUB 600
+1520 GOSUB 990
+1530 GOSUB 690
+1540 K$=KEYS$(SPLIT%)
+1550 FOR I%=SPLIT%+1 TO N%
+1560  KEYS$(I%)=ZERO$
+1570  FLAG%(I%)=0
+1580  ARC%(I%)=0
+1590 NEXT I%
+1600 ARC%(N%+1)=P2%
+1610 GOSUB 420
+1620 RETURN
+1630 REM----------------------
+1640 REM   Overflow
+1650 REM----------------------
+1660 GOSUB 1480:P0%=P%
+1670 GOSUB 860:ITEM%=A%
+1680 GOSUB 860:P%=A%
+1690 IF D$="Stack underflow" THEN 1700 ELSE 1810
+1700    FLAG%(1)=1:KEYS$(1)=K$:ARC%(1)=P0%
+1710    FLAG%(2)=0:KEYS$(2)=ZERO$:ARC%(2)=P2%
+1720    FOR I%=3 TO N%
+1730        FLAG%(I%)=0
+1740        KEYS$(I%)=ZERO$
+1750        ARC%(I%)=0
+1760   NEXT I%
+1770   ARC%(N%+1)=0
+1780 GOSUB 1420:P%=P2%
+1790 GOSUB 420:ROOT%=P%
+1800   D$="Done":RETURN
+1810 REM--------------------------------
+1820 GOSUB 250     'read parent node
+1830 ARC%(ITEM%)=P2%
+1840 D$="Not done"
+1850 RETURN
+1860 REM-----------------------------------------
+1870 REM       Insert new item in b-tree
+1880 REM-----------------------------------------
+1890 GOSUB 1260    'SEARCH
+1900 GOSUB 860:ITEM%=A%      'POP
+1910 GOSUB 860:P%=A%        'POP
+1920 IF K$=KEYS$(ITEM%) THEN 1930 ELSE 1960
+1930   D$="Found":PRINT"Alreay indexed"
+1940   LINE INPUT"Strike return to continue";Y$
+1950   RETURN
+1960 REM--------------------------------
+1970 TEMP%=ARC%(N%)
+1980 FOR I%=N% TO ITEM%+1 STEP (-1)
+1990   ARC%(I%)=ARC%(I%-1)
+2000   KEYS$(I%)=KEYS$(I%-1)
+2010   FLAG%(I%)=FLAG%(I%-1)
+2020 NEXT I%
+2030 ARC%(ITEM%)=P0%
+2040 KEYS$(ITEM%)=K$
+2050 FLAG%(ITEM%)=1
+2060 REM----------------------- Insert done ----------------------
+2070 IF KEYS$(N%)=ZERO$ THEN 2080 ELSE 2090
+2080   GOSUB 420:RETURN                    're-write node
+2090 GOSUB 1630:IF D$<>"Done" THEN 1960      'ascend b-tree?
+2100 RETURN
+2110 REM----------------------------
+2120 REM       Finish up
+2130 REM-----------------------------
+2140 FOR I%=1 TO 24
+2150 PRINT
+2160 NEXT I%        'clear screen
+2170 CLOSE 1,2
+2180 OPEN "o",2,"HEADER.DAT"
+2190 PRINT #2,FSCREEN$;",";ROOT%;LNG%;LNF%;AN%;LINS%;N%;SIZE%;INDEX$;",";MAST$
+2200 CLOSE 2
+2210 RETURN
+2220 REM--------------------------------------------
+2230 REM Capture data from screen form
+2240 REM--------------------------------------------
+2241 PRINT :PRINT:PRINT "As each line of your screen form appears, type in the requested"
+2242 PRINT " information.":PRINT:PRINT
+2250 FOR I%=1 TO  3:PRINT:NEXT I%
+2260 OPEN "I",2,"HEADER.DAT"
+2270 INPUT #2,FSCREEN$,    ROOT%,LNG%,LNF%,AN%,LINS%,N%,SIZE%,INDEX$,    MAST$
+2280 CLOSE 2
+2290 N0%=N%+1:DIM FLAG%(N0%),KEYS$(N0%),ARC%(N0%)
+2300          DIM SFLAG%(N0%),SKEYS$ (N0%),SARC%(N0%)
+2310 OPEN "I",2,FSCREEN$
+2320   FOR L%=1 TO LINS%:INPUT #2,RW$(L%):NEXT L%
+2330 CLOSE 2
+2340 OPEN "R",1,INDEX$
+2350 FIELD 1,127 AS R$
+2360 REC$=SPACE$(128):ZERO$=SPACE$(SIZE%-3):LSET ZERO$="0"
+2370 K$=SPACE$(SIZE%-3)
+2380 OPEN "R",2,MAST$
+2390  FIELD 2, 127 AS MR$
+2400 REM --------------------FORMS INPUT----------------------
+2410 DIM AN$(AN%)             'ANSWERS IN AN$
+2420 K%=0
+2430 FOR L%=1 TO LINS%
+2440   SRW$=RW$(L%)                    'SAVE FORM PROMPT
+2450   PRINT USING "##";L%;:PRINT ".";
+2460   IF INSTR(LEFT$(RW$(L%),1),"-")=1 THEN 2480
+2470   IF INSTR(LEFT$(RW$(L%),1)," ")=0 THEN 2500
+2480    RW$(L%)=RIGHT$(RW$(L%),LEN(RW$(L%))-1)
+2490    GOTO 2460
+2500    STAR%=INSTR(RW$(L%), "*")
+2510    J%=INSTR(RW$(L%), ":")
+2520    IF STAR%=0 THEN 2540
+2530    IF STAR%<J% THEN 2590
+2540    IF J%=0 THEN 2590
+2550      PRINT "  ";LEFT$(RW$(L%),J%);
+2560      K%=K%+1:RW$(L%)=RIGHT$(RW$(L%),LEN(RW$(L%))-J%)
+2570      LINE INPUT AN$(K%)
+2580      GOTO 2460
+2590    J%=INSTR(RW$(L%), "*")
+2600    IF J%=0 THEN 2680
+2610      PRINT "  ";LEFT$(RW$(L%),J%);
+2620      K%=K%+1:RW$(L%)=RIGHT$(RW$(L%),LEN(RW$(L%))-J%)
+2630      LINE INPUT AN$(K%):K$= ""
+2640    K$=LEFT$(AN$(K%),SIZE%-3)
+2650    LNG%=LNG%+1:P0%=-LNG%
+2660    PRINT "INDEXING BY ";K$
+2670    GOSUB 1860:GOTO 2460             'INSERT K$,P0% INTO B-TREE
+2680    RW$(L%)=SRW$
+2690    IF D$="Found" THEN 2450              'try again
+2700 NEXT L%
+2710 TR$=STRING$(127, ":"):I1%=1
+2720 FOR I%=1 TO AN%
+2730   I2%=I1%+LEN(AN$(I%))-1
+2740   MID$(TR$,I1%,I2%)=AN$(I%)
+2750   I1%=I2%+2
+2760 NEXT I%                       'pack answers into tr$
+2770 LSET MR$=TR$
+2780 PUT 2, LNG%                    'write random record
+2790  PRINT"Inputs stored in file: ";MAST$
+2800  REM--------------------DO IT AGAIN ?---------------------
+2810 LINE INPUT"Do you want to enter more (Y/N) ? ";Y$
+2820  IF Y$="Y" OR Y$="y" THEN 2420
+2830 GOSUB 2110
+2840 RUN"dbmenu"
+2850 END
+

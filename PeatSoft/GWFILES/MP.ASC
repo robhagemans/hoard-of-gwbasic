@@ -1,0 +1,36 @@
+10 ' Ryan Curtis
+20 ' Game 2
+30 ' Easier
+40 CLS
+50 PRINT "Input the access code to play, or press CTRL+BREAK"
+60 INPUT ""; ACCESS
+70 IF ACCESS=1234 THEN GOTO 80 :ELSE GOTO 75
+75 PRINT "access denied"
+77 END
+80 PRINT "Welcome, where do you want to go"
+90 PRINT "#1 to start game"
+100 PRINT "#2 to see how to play (recommended on first use)"
+110 PRINT "#3 to exit"
+120 INPUT "Where to" ; GO1
+130 IF GO1=1 THEN GOTO 160
+140 IF GO1=2 THEN GOTO
+150 IF GO1=3 THEN GOTO 77
+160 CLS
+170 PRINT "------------------------------------------------------------------"
+180 PRINT "                                                                  "
+190 PRINT "                     Mission might be possible                    "
+200 PRINT "                                                                  "
+210 PRINT "------------------------------------------------------------------"
+220 PLAY "l10 eeeebaeeeebaccccbabaeeeeabeeaaccbbedecdc l15 bccfefabcdeffdddeffadffadd"
+230 PRINT
+240 PRINT "What mission will you choose to accept"
+250 PRINT
+260 PRINT "Helecopter"
+270 PRINT "Sneak and destroy"
+280 PRINT "Monkey  bandit"
+290 INPUT "Which mission will you chose"; CH1$
+300 IF CH1$="Helecopter" THEN GOTO 330
+310 IF CH1$="Sneak and destroy" THEN GOTO
+320 IF CH1$="Monkey bandit" THEN GOTO
+330 CLS
+340 PRINT "You are in a helecopter traveling away from a burning building.  You are heading back to headquarters."

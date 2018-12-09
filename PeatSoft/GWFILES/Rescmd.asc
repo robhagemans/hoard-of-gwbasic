@@ -1,0 +1,83 @@
+100 '
+200 ' COMMAND.COM   MODIFICATION TRANSFER PROGRAM
+300 '               "RESCMD.BAS"                   Last Update 11/26/82
+350 '                                              John Chapman
+351 '                                              CIS 70205,1217
+400 '
+500 'This program will read in an unmodified COMMAND.COM (Release 1.1)
+600 '     and produce an output file called COMMAND.CMD.. which can be
+700 '     renamed to COMMAND.COM.. This output file will contain all of 
+800 '     the modifications to COMMAND.COM currently available from the
+900 '     author. See COMMAND.DOC for complete list and limitations.
+910 '
+950 DEFINT A-Z
+1000 BFIL$ = "COMMAND.COM"
+1100 CFIL$ = "COMMAND.CMD"
+1200 INPUT "Enter Drive where COMMAND.COM resides followed by a colon ?",DRV$
+1210 BFIL$=DRV$+BFIL$
+1220 CFIL$=DRV$+CFIL$
+1230 '
+1240 OPEN BFIL$ FOR INPUT AS #1:CLOSE #1
+1250 OPEN BFIL$ AS #1 LEN=1
+1260 V= VARPTR(#1)
+1270 L0=PEEK(V)
+1280 IF L0 <>4 THEN GOTO 5000
+1290 L1=PEEK(V+17) + 256 * PEEK(V+18) 'FILESIZE IN BYTES
+1300 LIMIT = L1: IF LIMIT>6800 THEN PRINT "file too large":GOTO 5000 :
+2000 'check base and change files for random, size and
+2100 ' equal length .. abort if not correct conditions
+2200 PRINT "BASE    FILE SIZE = ",LIMIT
+2300 READ T:PRINT "ORIGIN  FILE SIZE = ",T
+3000 DIM BB%(6800)
+3100 '
+3200 FIELD #1,1 AS INB$
+3300 '
+3400 FOR I = 1 TO LIMIT
+3410 GET #1,I
+3420 BB%(I) = ASC(INB$)
+3430 NEXT I
+3431 CLOSE #1
+3432 '
+3440 READ BYTES:
+3500 FOR I = 1 TO BYTES
+3600 READ IKJ%,XOLD%,XNEW%
+3700 IF BB%(IKJ%) <> XOLD% THEN GOTO 3950
+3800 BB%(IKJ%) = XNEW%
+3900 GOTO 4300
+3950 PRINT "VERIFY REJECT AT ";IKJ%," (";XOLD%;" / ";XNEW%;") ":
+4100 PRINT "TARGET FILE COMMAND.CMD UNUSABLE":
+4200 END
+4300 NEXT I
+4500 '
+4501 PRINT "last byte = ";IKJ%;" was ";XOLD%;" now ";XNEW%
+4600 '
+4610 OPEN CFIL$ FOR OUTPUT AS #2:CLOSE #2
+4620 OPEN CFIL$ AS #2 LEN=1
+4630 FIELD #2,1 AS INC$
+4700 '
+4710 FOR I = 1 TO LIMIT
+4712 IF BB%(I)>255 THEN PRINT "FORMAT ERROR AT";I;" = ";BB%(I):
+4720 LSET INC$ = CHR$(BB%(I))
+4730 PUT #2,I
+4740 NEXT I
+4741 PRINT I;" Bytes Written to COMMAND.CMD"
+4750 CLOSE #2
+4760 '
+4800 PRINT "File COMMAND.CMD Created .. Rename to Use"
+4900 END
+4990 ' ** DATA STATEMENT WRITE SUBROUTINE
+4991 '
+4999 DATA  4959,  34
+5000 DATA  865, 70, 84, 868, 3, 79, 869, 1, 4
+5010 DATA  870, 161, 5, 871, 2, 12, 872, 0, 1
+5020 DATA  877, 163, 64, 878, 82, 163, 879, 4, 3
+5030 DATA  880, 45, 1, 881, 12, 161, 882, 1, 2
+5040 DATA  883, 144, 0, 885, 79, 82, 890, 232, 184
+5050 DATA  1369, 140, 144, 1370, 200, 161, 1371, 43, 2
+5060 DATA  1372, 6, 0, 1373, 159, 43, 1374, 15, 6
+5070 DATA  1375, 186, 159, 1376, 16, 15, 1377, 0, 186
+5080 DATA  1378, 247, 16, 1379, 226, 0, 1380, 11, 247
+5090 DATA  1381, 210, 226, 1382, 116, 115, 4052, 140, 144
+5100 DATA  4053, 200, 161, 4054, 5, 2, 4055, 192, 0
+5110 DATA  4056, 0, 72
+

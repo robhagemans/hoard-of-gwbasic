@@ -1,0 +1,283 @@
+10 REM*************************************************************************
+20 REM******--  Multiple Linear Regression                             --******
+30 REM*****--                                                          --******
+40 REM******--  From:                                                  --******
+50 REM*****--     Alonso,J.R.F.                                        --******
+60 REM******--    BASIC Programs for Business Applications             --******
+70 REM*****--     Prentice-Hall, Inc.                                  --******
+80 REM*****--                                                          --******
+90 REM******--  Programmed by:                                         --******
+100 REM******--   David Hopper                                          --*****
+110 REM*****--    SENES Consultants Limited                             --*****
+120 REM*****--    499 McNicoll Avenue                                   --*****
+130 REM*****--    Willowdale, Ontario                                   --*****
+140 REM*****--    M2H 2C9                                               --*****
+150 REM*****--    (416) 499 5030                                        --*****
+160 REM************************************************************************
+170 REM******-- This program calculates multiple linear regression      --*****
+180 REM*****-- coefficients, Bj, that fit the equation "                --*****
+190 REM*****--  Y=B0 + B1*X1 + B2*X2 + ... + BJ*XJ + ... + BP*XP        --*****
+200 REM*****--   to a set of N values of a dependent variable Y         --*****
+210 REM*****-- each of the N values corresponding to P known values of  --*****
+220 REM*****-- the P independent variables Xj, where 1<J<P              --*****
+230 REM*****-- The design matrix is                                     --*****
+240 REM*****--                                                          --*****
+250 REM*****-- X(1,1) X(1,2) ... X(1,J) ...X(1,P) = Y(1)                --*****
+260 REM*****-- X(2,1) X(2,2) ... X(2,J) ... X(2,P) = Y(2)               --*****
+270 REM*****--  :      :           :          :       :                 --*****
+280 REM*****-- X(I,1) X(I,2) ... X(I,J) ... X(I,P) = Y(I)               --*****
+290 REM*****--  :      :           :          :       :                 --*****
+300 REM*****-- X(N,1) X(N,2) ... X(N,J) ... X(N,P) = Y(N)              --*****
+310 REM*****--                                                         --*****
+320 REM*****-- The maximum number of Y values permitted is 50          --*****
+330 REM*****-- The maximum number of X values permitted is 500(10 X 50)--*****
+340 REM***********************************************************************
+350 OPTION BASE 1
+360 DEFINT I-P
+370 DEFDBL A-H,Q-Z
+380 ON ERROR GOTO 2730
+390 DIM X(50,10),Y(50),X1(10),C(10,10),D(10),X5(10)
+400 CLS:KEY OFF:WIDTH 80
+410 PRINT :PRINT
+420 T$=STRING$(79,205)
+430 PRINT T$
+440 PRINT
+450 PRINT " This program calculates multiple linear regression coefficients Bj"
+460 PRINT "  that fit the equation "
+470 PRINT "    Y=B0 + B1*X1 + B2*X2 + ... + BJ*XJ + ... + BP*XP"
+480 PRINT " to a set of N values of a dependent variable Y"
+490 PRINT " each of the N values corresponding to P known values of the "
+500 PRINT " P independent variables XJ, where 1<J<P"
+510 PRINT " The design matrix is"
+520 PRINT
+530 PRINT "X(1,1) X(1,2) ... X(1,J) ...X(1,P) = Y(1)"
+540 PRINT "X(2,1) X(2,2) ... X(2,J) ... X(2,P) = Y(2)"
+550 PRINT "  :      :           :          :       :
+560 PRINT "X(I,1) X(I,2) ... X(I,J) ... X(I,P) = Y(I)"
+570 PRINT "  :      :           :          :       :
+580 PRINT "X(N,1) X(N,2) ... X(N,J) ... X(N,P) = Y(N)"
+590 PRINT
+600 PRINT " The maximum number of Y values permitted is 50"
+610 PRINT " The maximum number of X values permitted is 500(10 X 50)"
+620 PRINT
+630 PRINT T$
+640 PRINT "   Press any key to continue "
+650 A$=INKEY$:IF A$="" THEN 650
+660 CLS
+670 PRINT :PRINT :PRINT
+680 INPUT " Enter the number of Y values            ";N
+690 IF N<=50 GOTO 730
+700 IF N>50 THEN PRINT " Maximum number of Y values allowed is 50"
+710 PRINT " Press any key to return to the start"
+720 C$=INKEY$:IF C$="" THEN 720 ELSE 400
+730 INPUT " Enter the number of independent variables";P
+740 IF P<=10 GOTO 780
+750 IF P>10 THEN PRINT " Maximum number of X values is exceeded"
+760 PRINT " Press any key to return to the start"
+770 D$=INKEY$:IF D$="" THEN 770 ELSE 400
+780 FOR I=1 TO P
+790   FOR J=1 TO P
+800     C(I,J)=0#
+810   NEXT J
+820   D(I)=0#
+830 NEXT I
+840 FOR I=1 TO N
+850   FOR J=1 TO P
+860     X(I,J)=0#
+870     PRINT "Enter X(";I",";J")=";:INPUT X(I,J)
+880   NEXT J
+890   PRINT USING "Enter Y(##)     =";I;:
+900   INPUT Y(I)
+910 NEXT I
+920 REM************************************************************************
+930 REM******--  Calculate moments                                     --******
+940 REM************************************************************************
+950 FOR I=1 TO P
+960  X1(I)=0#
+970  FOR I1=1 TO N
+980   X1(I)=X1(I)+X(I1,I)
+990  NEXT I1
+1000  X1(I)=X1(I)/N
+1010 NEXT I
+1020 Y1=0
+1030 FOR I1=1 TO N
+1040  Y1=Y1+Y(I1)
+1050 NEXT I1
+1060 Y1=Y1/N
+1070 REM************************************************************************
+1080 REM*****--  Compute coefficients                                   --******
+1090 REM***********************************************************************
+1100 FOR J=1 TO P
+1110 REM*****--  Calculate D(J)  --******
+1120   S1=0
+1130   FOR I=1 TO N
+1140     S1=S1+(Y(I)-Y1)*(X(I,J)-X1(J))
+1150   NEXT I
+1160   D(J)=S1
+1170   S1=0
+1180   FOR K=J TO P
+1190     IF J>K GOTO 1270
+1200     REM*****--  Calculate C(J,K)  --*****
+1210     S1=0
+1220     FOR I=1 TO N
+1230       S1=S1+(X(I,J)-X1(J))*(X(I,K)-X1(K))
+1240     NEXT I
+1250     C(J,K)=S1
+1260     C(K,J)=C(J,K)
+1270   NEXT K
+1280 NEXT J
+1290 CLS:SCREEN 0,0,0
+1300 PRINT " Correlation matrices follow, C X B = D, to be solved for vector B"
+1310 PRINT " where C is a P X P matrix and B and D are P X 1 vectors "
+1320 FOR I= 1 TO P
+1330   PRINT " Correlation matrix C(";I;",J) elements "
+1340     FOR J =1 TO P
+1350     PRINT "C(";I;",";J;")=";C(I,J)
+1360     NEXT J
+1370 NEXT I
+1380 PRINT " Coefficient matrix D(J) vector elements "
+1390 FOR I= 1 TO P
+1400  PRINT "D(";I;")=";D(I)
+1410 NEXT I
+1420 FOR I= 1 TO P
+1430   D1(I)=D(I)
+1440 NEXT I
+1450 PRINT "   Press any key to continue "
+1460 B$=INKEY$:IF B$ = "" THEN 1460
+1470 REM***********************************************************************
+1480 REM*****--  Solve system C X B = D for B                           --*****
+1490 REM*****--  where C is the correlation matrix and                  --*****
+1500 REM*****--  D is the right hand vector                             --*****
+1510 REM*****--  Matrix routines are in subroutines                     --*****
+1520 REM***********************************************************************
+1530 GOSUB 2300 `MATRIX INVERSION
+1540 GOSUB 2560  `MATRIX MULTIPLICATION
+1550 H1 = 0#
+1560 FOR I=1 TO P
+1570   H1=H1+X5(I)*X1(I)
+1580 NEXT I
+1590 Q0=Y1-H1
+1600 CLS:SCREEN 0,0,0
+1610 PRINT :PRINT :PRINT
+1620 PRINT "  Calculated multiple linear regression coefficients "
+1630 PRINT
+1640 PRINT USING " B  0 = #.###^^^^ ";Q0
+1650 FOR I=1 TO P
+1660   PRINT USING " B ## = #.###^^^^";I, X5(I)
+1670 NEXT I
+1680 REM*****--  Write ANOVA table
+1690 PRINT :PRINT :PRINT
+1700 Y9=0
+1710 FOR I=1 TO N
+1720 Y9=Y9+(Y(I)-Y1)^2
+1730 NEXT I
+1740 C9=Y9
+1750 C1=0
+1760 FOR I=1 TO P
+1770   C1=C1+X5(I)*D1(I)
+1780 NEXT I
+1790 C2=C9-C1
+1800 L=N-1
+1810 K=L-P
+1820 C8=C1/P
+1830 C7=C2/K
+1840 C6=C9/L
+1850 PRINT "  |                        |   SUM OF SQ  |DEG OF FR |  MEAN SQ   |
+1860 PRINT "  |~~~~~~~~~~~~~~~~~~~~~~~~|~~~~~~~~~~~~~~|~~~~~~~~~~|~~~~~~~~~~~~|
+1870 PRINT USING "  | Due to regression      |   #.###^^^^  |   ###    | #.###^^^^  |";C1,P,C8
+1880 PRINT USING "  | About regression       |   #.###^^^^  |   ###    | #.###^^^^  |";C2,K,C7
+1890 PRINT USING "  |  Total                 |   #.###^^^^  |   ###    | #.###^^^^  |";C9,L,C6
+1900 PRINT "  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+1910 Z1=SQR(1#-(C2/C9))
+1920 PRINT :PRINT
+1930 PRINT USING "  Coefficient of multiple regression R  = ##.### ";Z1
+1940 PRINT USING "                                    R^2 = ##.### ";Z1^2
+1950 F=(Z1^2)*(N-P-1)/((1-Z1^2)*P)
+1960 PRINT USING " The F-statistic is                   F = ##.### ";F
+1970 REM***********************************************************************
+1980 REM*****--  Statistical routines directly from:                    --*****
+1990 REM*****--          Madron,D.W.                                    --*****
+2000 REM***********************************************************************
+2010 RP=1#
+2020 P2=N-P-1
+2030 IF P*P2*F = 0# THEN 2250
+2040 IF F<1# THEN 2090
+2050 A=P
+2060 B=P2
+2070 F1=F
+2080 GOTO 2120
+2090 A=P2
+2100 B=P
+2110 F1=1#/F
+2120 A1=2#/(9#*A)
+2130 B1=2#/(9#*B)
+2140 X=((1#-B1)*F1^.3333333#-1#+A1)
+2150 Y=SQR(B1*F1^.666666667#+A1)
+2160 Z=ABS(X/Y)
+2170 IF B<4# THEN 2190
+2180 GOTO 2200
+2190 Z=Z*(1#+.08#*Z^4#/B^3#)
+2200 Z1=(.115194#+Z*(.000344#+Z*.019527#))
+2210 RP=.5#/(1#+Z*(.196854#+Z*Z1))^4#
+2220 IF F<1# THEN 2240
+2230 GOTO 2250
+2240 RP=1#-RP
+2250 RP=RP
+2260 PRINT USING " The P statistic is                   P = ##.#### ";RP
+2270 PRINT USING " For ## observations of ## independent variables";N,P
+2280 KEY ON
+2290 END
+2300 REM**********************************************************************
+2310 REM*****--  Subroutine MATINV                                     --*****
+2320 REM*****--   Extracted from :                                     --*****
+2330 REM*****--    Madron, Douglas William                             --*****
+2340 REM*****--    "Multiple Regression for the TRS-80"                --*****
+2350 REM*****--     BYTE ,October 1981, pp. 430-447                    --*****
+2360 REM*****--                                                        --*****
+2370 REM*****--  Adapted by:                                           --*****
+2380 REM*****--   David Hopper                                         --*****
+2390 REM*****--                                                       --*****
+2400 REM*****--  Note that this inversion routine writes the          --*****
+2410 REM*****--  inverted matrix over the original matrix             --*****
+2420 REM**********************************************************************
+2430 FOR K= 1 TO P:D=-1/C(K,K)
+2440 FOR J = 1 TO P:IF J=K THEN 2460
+2450 C(K,J)=C(K,J)*D
+2460 NEXT J
+2470 D=-D
+2480 FOR I= 1 TO P:IF I=K THEN 2540
+2490 E=C(I,K)
+2500 FOR J = 1 TO P:IF J=K THEN 2520
+2510 C(I,J)=C(I,J)+C(K,J)*E:GOTO 2530
+2520 C(I,K)=C(I,K)*D
+2530 NEXT J
+2540 NEXT I
+2550 C(K,K)=D:NEXT K:RETURN
+2560 REM**********************************************************************
+2570 REM*****--  Subroutine MATMUL                                    --******
+2580 REM*****--   To multiply a P X P matrix by a P X 1 matrix        --******
+2590 REM*****--   and return a P X 1 matrix                           --******
+2600 REM*****--   In this case the multiplication is                  --******
+2610 REM*****--   C X D = B                                           --******
+2620 REM**********************************************************************
+2630  B(I)=0#
+2640 FOR I = 1 TO P
+2650   FOR J= 1 TO P
+2660    X5(I)=X5(I)+C(I,J)*D(J)
+2670   NEXT J
+2680 NEXT I
+2690 RETURN
+2700 REM**********************************************************************
+2710 REM******--   Error trapping routine                             --******
+2720 REM**********************************************************************
+2730 IF ERR<> 6 THEN 2760
+2740   CLS:BEEP:LOCATE 5,28
+2750   PRINT " Overflow error. Data set is not compatible with this program":                  STOP
+2760 IF ERR<>11 THEN 2810
+2770   CLS:BEEP:LOCATE 5,28
+2780   PRINT " Division by zero error. Caused by either an ill-conditioned"
+2790   LOCATE 6,28
+2800   PRINT " matrix of data or a perfect data set. Check your data":STOP
+2810 ON ERROR GOTO 0
+2820 RESUME
+

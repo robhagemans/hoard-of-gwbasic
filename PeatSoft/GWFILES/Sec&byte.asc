@@ -1,0 +1,14 @@
+10 'SAVE "B:Sec&Byte.BAS"
+20 REM Program to print table of sectors and bytes
+30 REM David Reussow - 3/8/83
+40 KEY OFF : CLS
+50 Y$ =  "      ###  ###,###      ###  ###,###      ###  ###,###      ###  ###,###  "
+60 LPRINT CHR$(27);CHR$(71);
+70 PRINT "      Sec   Bytes       Sec   Bytes       Sec   Bytes       Sec   Bytes  " : PRINT
+80 LPRINT "      Sec   Bytes       Sec   Bytes       Sec   Bytes       Sec   Bytes  " : LPRINT
+90 FOR X = 1 TO 55
+100 PRINT USING Y$;X,(X*512),X+55,((X+55)*512),X+110,((X+110)*512),X+165,((X+165)*512)
+110 LPRINT USING Y$;X,(X*512),X+55,((X+55)*512),X+110,((X+110)*512),X+165,((X+165)*512)
+120 NEXT X
+130 LPRINT CHR$(27);CHR$(64);
+

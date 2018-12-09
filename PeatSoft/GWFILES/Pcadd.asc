@@ -1,0 +1,141 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+12 '***************** GRAPHICS PRINT ROUTINE -- BASIC *************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                80 OR 40 COLUMN GRAPICS PRINTOUT                         บ
+20 'บ                                                                         บ
+22 'บ     This program will make a graphics printout of screen to a EPSON     บ
+24 'บ GRAFTRAK or GEMINI 10/15 printer. The quality and detail of the print   บ
+26 'บ are excellent.  Simply insert desired printout text in between lines    บ
+28 'บ 150  and  680.  You may add or subtract lines as desired.  To get an    บ
+30 'บ idea of the amount of text you can put in the designated program area,  บ
+31 'บ run this program with both a 80 and 40 screen width response to the     บ
+32 'บ input query. COLOR/GRAPHICS CARD REQUIRED!                              บ
+34 'บ     Before you run the program, ascertain that your printer in on line  บ
+35 'บ and the paper is about five spaces below the perforation. A 80 Column   บ
+36 'บ version is on the 320k disk as MENUPRNT.BAS. This is both 40 & 80 wide. บ
+38 'บ     This program, in whole or in part, may be used without license or   บ
+39 'บ attribution.   G I N A C O    -  1983.              REV 5.2/320/160     บ
+41 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 REM
+100 CLS
+110 SCREEN 0,0,0
+120 WIDTH 80
+130 CLEAR
+140 FOR I! = 1 TO 10
+150   KEY I!,""
+160 NEXT
+170 DEFINT A,Q,F,I,E,H,K,W
+180 DIM E%(200)
+190 Q% = 0
+200 F% = 0
+210 E% = 0
+220 I% = 0
+230 W% = 0
+240 H% = 0
+250 K% = 0
+260 A$ = ""
+270 CLS
+280 LOCATE 10,24
+290 PRINT "INDICATE 40 OR 80 WIDTH SCREEN/PRINT"
+300 LOCATE 12,29
+310 PRINT "ENTER "; CHR$(34);"NARROW"; CHR$(34);" FOR 80 WIDTH"
+320 LOCATE 14,30
+330 PRINT "ENTER "; CHR$(34);"WIDE"; CHR$(34);" FOR 40 WIDTH"
+340 LOCATE 16,40
+350 INPUT A$
+360 IF (A$ = "NARROW" OR A$ = "WIDE") THEN 430 ELSE 370
+370 CLS
+380 LOCATE 12,21
+390 PRINT "ENTER CAPITAL LETTER "; CHR$(34);"WIDE"; CHR$(34);" OR "; CHR$(34);"NARROW"; CHR$(34)" ONLY."
+400 FOR I% = 1 TO 3000
+410 NEXT
+420 GOTO 270
+430 IF A$ = "NARROW" THEN W% = 80
+440 IF A$ = "WIDE" THEN W% = 40
+450 SCREEN 1
+460 WIDTH W%
+470 REM ******* THE MESSAGE TO PRINT STARTS HERE ** ADD LINES AS NEEDED *****
+480 REM ******* PRINT YOUR BORDER AND THEN PUT IN TEST WITH LOCATE " " ********
+490 REM ******* USE ANY PRINTABLE CHR$ CHARACTER FOR BORDER AND TEXT **********
+500 LOCATE 2,4
+510 FOR I% = 5 TO 38
+520   PRINT CHR$(1);
+530 NEXT
+540 FOR I% = 2 TO 23
+550   LOCATE I%,3
+560   PRINT CHR$(1) CHR$(2)
+570   LOCATE I%,37
+580   PRINT CHR$(2) CHR$(1)
+590 NEXT
+600 LOCATE 23,4
+610 FOR I% = 5 TO 38
+620   PRINT CHR$(1);
+630 NEXT
+640 LOCATE 4,6
+650 PRINT CHR$(3)
+660 LOCATE 4,35
+670 PRINT CHR$(4)
+680 LOCATE 4,11
+690 PRINT CHR$(34)"BIG BLUE" CHR$(34)" berry Pie"
+700 LOCATE 5,7
+710 PRINT "          a la Mode"
+720 LOCATE 7,8
+730 PRINT "BASIC UTILITIES & PROGRAMS"
+740 LOCATE 8,8
+750 PRINT " MERGE Routines for those"
+760 LOCATE 9,8
+770 PRINT " who do not have the time"
+780 LOCATE 10,8
+790 PRINT "  to re-invent the wheel "
+800 LOCATE 12,8
+810 PRINT " Useful utilities and lots"
+820 LOCATE 13,8
+830 PRINT "  of programming aids for"
+840 LOCATE 14,8
+850 PRINT "   the IBM-PC enthusiast"
+860 LOCATE 16,7
+870 PRINT "320K Disk @ $19.95 Post Paid"
+880 LOCATE 17,8
+890 PRINT " Runs with DOS 1.1 or 2.0"
+900 LOCATE 19,7
+910 PRINT "        G I N A C O"
+920 LOCATE 20,7
+930 PRINT "    10708 Santa Fe Drive"
+940 LOCATE 21,7
+950 PRINT "    Sun City,  AZ  85351"
+960 LOCATE 21,6
+970 PRINT CHR$(5)
+980 LOCATE 21,35
+990 PRINT CHR$(6)
+1000 REM ****** END OF THE TEXT/GRAPHIC INPUT AREA ** ADD LINES AS NEEDED *****
+1010 REM ****************  GRAPHICS SCREEN/PRINT ROUTINE **********************
+1020 REM ********* WILL PRINT WITH EPSON GRAFTEX OR GEMENI STAR ***************
+1030 LPRINT START.DSTRIKE$;
+1040 WIDTH "LPT1:",255
+1050 DEF SEG = - 18432
+1060 LPRINT CHR$(13); CHR$(10); CHR$(27); CHR$(65); CHR$(8); CHR$(10);
+1070 FOR I% = 0 TO 79
+1080 :REM ********** SET 1,632 DOTS PITCH OF BI-IMAGE-COLUMN-SCAN MODE *************
+1090   LPRINT CHR$(10); CHR$(27); CHR$(76); CHR$(32); CHR$(3);
+1100   FOR K% = 0 TO 99
+1110     H% = I% + (80 * K%)
+1120     F% = PEEK(H%)
+1130     Q% = PEEK(8192 + H%)
+1140     IF F% = 13 THEN F% = 9
+1150     IF Q% = 13 THEN Q% = 9
+1160     E%(K%) = F%
+1170     E%(K% + 100) = Q%
+1180   NEXT
+1190   FOR K% = 99 TO 0 STEP - 1
+1200     LPRINT STRING$(4,E%(K% + 100)); STRING$(4,E%(K%));
+1210   NEXT
+1220 NEXT
+1230 LPRINT CHR$(27); CHR$(64)
+1240 SCREEN 0,0,0
+1250 WIDTH 80
+1260 END
+65000 REM  ************************* SAVE ROUTINE ****************************
+65100 SAVE"B:PCADD.GRA"
+

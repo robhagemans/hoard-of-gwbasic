@@ -1,0 +1,36 @@
+5 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+12 '*****************   DEBIT/CREDIT INPUT WORK FORM  *************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                      DEBIT CREDIT WORK SHEET                            บ
+20 'บ                                                                         บ
+22 'บ    This basic form can be used with WORKFILE.BAS as a manual D & C      บ 24 'บ entry worksheet. When the program is run, you will be queried as to     บ
+26 'บ the number of copies desired. Make certain the printhead is over the    บ
+28 'บ perforation and the printer is on line before responding to the number  บ
+30 'บ question. While the format for the form is for expenditures it may be   บ
+32 'บ modified easily by changing the headings and changing the spacing in    บ
+34 'บ the print lines (LINE 160 -- SPACING) which actually generate the form. บ
+36 'บ                       (c) G I N A C O - 1983          Ver 5.2/160/320   บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 KEY OFF
+110 CLS:LOCATE 10,30:INPUT"HOW MANY COPIES ",N
+120 WIDTH "LPT1:",80
+125 FOR NUMBER = 1 TO N
+130 LPRINT STRING$(4,10)
+140 LPRINT TAB(30)"DEBIT CREDIT WORKSHEET"
+150 LPRINT CHR$(27)"U"+CHR$(1);
+160 LPRINT STRING$(80,42);
+170 LPRINT" REF    DATE     CHECK#      DESCRIPTION      TO/FROM        D#    C#   AMOUNT";
+180 LPRINT STRING$(80,45);
+190 FOR I = 1 TO 32
+200 LPRINT"I    I        I           I               I               I     I     I        I";
+210 LPRINT"I____I________I___________I_______________I_______________I_____I_____I________I";
+220 NEXT
+230 LPRINT CHR$(12);
+240 NEXT NUMBER
+250 END
+65000 '************************* SAVE ROUTINE ********************************
+65100 SAVE"B:D&CFORM.BAS"
+

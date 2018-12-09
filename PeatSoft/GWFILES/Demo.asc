@@ -1,0 +1,155 @@
+10000 REM *******************************************************************
+10010 REM **         DEMO - Program to Demonstrate Animation               **
+10020 REM **          Using Files Created by "The Designer"                **
+10030 REM **  Copyright 1983, by Jan B. Young.  Permission is granted to   **
+10040 REM **  all purchasers to copy and modify this program for non-      **
+10050 REM **  commercial uses, providing the copyright notice is retained. **
+10060 REM *******************************************************************
+10070 KEY OFF
+10080 REM *******************************************************************
+10090 REM **              Put Introduction Panel on Screen                 **
+10100 REM *******************************************************************
+10110 SCREEN 1:COLOR 1,1                  'Clear screen
+10120 LOCATE 6,18:PRINT "T H E"
+10130 LOCATE 8,16:PRINT "M O U S E"
+10140 LOCATE 16,8:PRINT "An Animation Demonstration"
+10150 LOCATE 18,6:PRINT "Copyright 1983 by Jan B. Young"
+10160 LOCATE 23,8:PRINT "Press Any Key to Continue"
+10170 X$=INPUT$(1)
+10180 REM *******************************************************************
+10190 REM **              Get Sprite and Load in Matrix                    **
+10200 REM *******************************************************************
+10210 OPEN "A:MOUSE.SPR" FOR INPUT AS #1
+10220 INPUT #1,RES,PAL,ARR,WID,HGHT        'Defines parameters for the mouse
+10230 DIM MOUSE(ARR)
+10240 FOR I=0 TO ARR                       'Load mouse into array
+10250 INPUT#1,J(0),J(1),J(2),J(3)
+10260 P=VARPTR(MOUSE(I))
+10270 FOR N=0 TO 3
+10280 POKE P+N,J(N)
+10290 NEXT N
+10300 NEXT I
+10310 CLOSE #1
+10320 REM *******************************************************************
+10330 REM **               Put background on Screen                        **
+10340 REM *******************************************************************
+10350 OPEN "A:MAZE.RES" FOR INPUT AS #1
+10360 INPUT #1,RES,BAK,PAL                 'Defines parameters for maze
+10370 CLOSE #1
+10380 SCREEN RES:COLOR BAK,PAL:CLS         'Clear screen
+10390 DEF SEG= &HB800                      'Locate screen buffer
+10400 BLOAD "A:MAZE",0                     'Put maze on screen
+10410 DEF SEG
+10420 REM *******************************************************************
+10430 REM **                      Animate                                  **
+10440 REM *******************************************************************
+10450 HPOS=7:VPOS=4:HNEW=7:VNEW=4:DIR$="E"              'Initial values
+10460 T = VAL(MID$(TIME$,4,2))*100+VAL(MID$(TIME$,7,2))
+10470 RANDOMIZE T
+10480 PUT (HPOS,VPOS),MOUSE                             'Put mouse on screen
+10490 REM LINE (HPOS-5,VPOS-3)-(HPOS+18,VPOS+14),1,B    'Debugging only
+10500 GOSUB 11250                               'Determines freedom to move
+10510 REM LOCATE 20,20:PRINT NORTH:LOCATE 21,21:PRINT EAST:LOCATE 22,20:PRINT SOUTH:LOCATE 21,19:PRINT WEST:LOCATE 21,30:PRINT DIR$  'Delete REM for debugging
+10520 IF DIR$ = "E" THEN GOTO 10570
+10530 IF DIR$ = "N" THEN GOTO 10720           'DIR$ is direction of motion
+10540 IF DIR$ = "S" THEN GOTO 10860
+10550 IF DIR$ = "W" THEN GOTO 11020
+10560 REM *** Now going east - logic selects next move ***
+10570 IF EAST=1 THEN GOTO 10630
+10580 IF SOUTH=1 THEN GOTO 10610         'Value East=1 means OK to go east
+10590 IF NORTH=1 THEN GOTO 11180        'Value East=0 means path east is blocked
+10600 GOTO 11170                        'See GOTO line for direction chosen
+10610 IF NORTH=0 THEN 11200
+10620 I=RND:IF I>.5 THEN 11200 ELSE 11180
+10630 IF SOUTH=1 THEN GOTO 10670
+10640 IF NORTH=1 THEN GOTO 10660
+10650 GOTO 11190
+10660 I=RND:IF I>.4 THEN 11190 ELSE 11180
+10670 IF NORTH=1 THEN GOTO 10690
+10680 I=RND:IF I>.4 THEN 11190 ELSE 11200
+10690 I=RND:IF I>.7 THEN 11200
+10700 IF I>.4 THEN 11180 ELSE 11190
+10710 REM *** Now going north- logic selects next move ***
+10720 IF NORTH=1 THEN GOTO 10780
+10730 IF WEST=1 THEN GOTO 10760
+10740 IF EAST=1 THEN GOTO 11190
+10750 GOTO 11200
+10760 IF EAST=0 THEN 11170
+10770 I=RND:IF I>.5 THEN 11190 ELSE 11170
+10780 IF WEST=1 THEN GOTO 10820
+10790 IF EAST=1 THEN GOTO 10810
+10800 GOTO 11180
+10810 I=RND:IF I>.4 THEN 11180 ELSE 11190
+10820 IF EAST=1 THEN GOTO 10840
+10830 IF I>.4 THEN 11180 ELSE 11170
+10840 I=RND:IF I>.6 THEN 11180
+10850 I=RND:IF I>.3 THEN 11170 ELSE 11190
+10860 REM *** Now going south- logic selects next move ***
+10870 IF SOUTH=1 THEN GOTO 10940
+10880 IF WEST=1 THEN GOTO 10910
+10890 IF EAST=1 THEN GOTO 11190
+10900 GOTO 11180
+10910 IF EAST=0 THEN 11170
+10920 I=RND:IF I>.5 THEN 11170 ELSE 11190
+10930 IF I>.2 THEN 11170 ELSE 11180
+10940 IF WEST=1 THEN GOTO 10980
+10950 IF EAST=1 THEN GOTO 10970
+10960 GOTO 11200
+10970 I=RND:IF I>.4 THEN 11200 ELSE 11190
+10980 IF EAST=1 THEN GOTO 11000
+10990 I=RND:IF I>.4 THEN 11200 ELSE 11170
+11000 I=RND:IF I>.7 THEN 11190
+11010 IF I>.4 THEN 11170 ELSE 11200
+11020 REM *** Now going west- logic selects next move ***
+11030 IF WEST=1 THEN GOTO 11090
+11040 IF NORTH=1 THEN GOTO 11070
+11050 IF SOUTH=1 THEN GOTO 11200
+11060 GOTO 11180
+11070 IF SOUTH=0 THEN 11180
+11080 I=RND:IF I>.5 THEN 11200 ELSE 11180
+11090 IF NORTH=1 THEN GOTO 11130
+11100 IF SOUTH=1 THEN GOTO 11120
+11110 GOTO 11170
+11120 I=RND:IF I>.4 THEN 11170 ELSE 11200
+11130 IF SOUTH=1 THEN GOTO 11150
+11140 I=RND:IF I>.4 THEN 11170 ELSE 11180
+11150 I=RND:IF I>.7 THEN 11180
+11160 IF I>.4 THEN 11200 ELSE 11170
+11170 DIR$="W":HNEW=HNEW-1:GOTO 11210     '4 statements calculate next position
+11180 DIR$="N":VNEW=VPOS-1:GOTO 11210
+11190 DIR$="E":HNEW=HPOS+1:GOTO 11210
+11200 DIR$="S":VNEW=VPOS+1:GOTO 11210
+11210 PUT (HPOS,VPOS),MOUSE              'remove mouse from old position
+11220 REM LINE (HPOS-5,VPOS-3)-(HPOS+18,VPOS+14),0,B   'Debugging only
+11230 HPOS=HNEW:VPOS=VNEW                'Change position
+11240 GOTO 10480                           'Go back to start
+11250 REM *******************************************************************
+11260 REM **                 "Feel" for open paths                         **
+11270 REM ** Note: Mouse occupies a box extending horizontally from        **
+11280 REM ** HPOS-6 to HPOS+19 and vertically from VPOS-4 to VPOS+15       **
+11290 REM *******************************************************************
+11300 WHILE DIR$="E"
+11310    IF POINT(HPOS+18,VPOS-4)=0 AND POINT(HPOS+19,VPOS-4)<>0                            THEN NORTH=1 ELSE NORTH=0
+11320    IF POINT(HPOS+18,VPOS+15)=0 AND POINT(HPOS+19,VPOS+15)<>0                         THEN SOUTH=1 ELSE SOUTH=0
+11330    IF POINT(HPOS+19,VPOS+6)=0 THEN EAST=1 ELSE EAST=0
+11340    RETURN
+11350 WEND
+11360 WHILE DIR$="W"
+11370    IF POINT(HPOS-5,VPOS-4)=0 AND POINT(HPOS-6,VPOS-4)<>0                              THEN NORTH=1 ELSE NORTH=0
+11380    IF POINT(HPOS-5,VPOS+15)=0 AND POINT(HPOS-6,VPOS+15)<>0                            THEN SOUTH=1 ELSE SOUTH=0
+11390    IF POINT(HPOS-6,VPOS+6)=0 THEN WEST=1 ELSE WEST=0
+11400    RETURN
+11410 WEND
+11420 WHILE DIR$="N"
+11430    IF POINT(HPOS-6,VPOS-3)=0 AND POINT(HPOS-6,VPOS-4)<>0                              THEN WEST=1 ELSE WEST=0
+11440    IF POINT(HPOS+19,VPOS-3)=0 AND POINT(HPOS+19,VPOS-4)<>0                            THEN EAST=1 ELSE EAST=0
+11450    IF POINT (HPOS+6,VPOS-4)=0 THEN NORTH = 1 ELSE NORTH = 0
+11460    RETURN
+11470 WEND
+11480 WHILE DIR$="S"
+11490    IF POINT(HPOS-6,VPOS+14)=0 AND POINT(HPOS-6,VPOS+15)<>0                            THEN WEST=1 ELSE WEST=0
+11500    IF POINT(HPOS+19,VPOS+14)=0 AND POINT(HPOS+19,VPOS+15)<>0                          THEN EAST=1 ELSE EAST=0
+11510    IF POINT (HPOS+5,VPOS+15)=0 THEN SOUTH=1 ELSE SOUTH=0
+11520    RETURN
+11530 WEND
+

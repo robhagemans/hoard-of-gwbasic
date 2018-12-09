@@ -1,0 +1,59 @@
+5 DEFINT A-Z
+7 RANDOMIZE VAL(MID$(TIME$,7,2))
+8 CLS
+10 WHILE 1=1
+15    BIRD = INT(RND*4)+1
+18    LOCATE 1,1
+20    ON BIRD GOTO 30, 40, 50, 60
+30    GOSUB 200  : GOTO 100
+40    GOSUB 400  : GOTO 100
+50    GOSUB 600  : GOTO 100
+60    GOSUB 1000 : GOTO 100
+100   IF INKEY$ <> "" THEN STOP
+105   SOUND 32000,RND*50+20
+110   IF RND>.95 THEN SOUND 32000,RND*500
+112   PRINT BIRD
+115   IF INKEY$ <> "" THEN STOP
+120 WEND
+130 STOP
+180 '
+190 '***************** bird1 *****************
+200 PLAY "l64 mb ml t255 n64n66n68n70 p64"
+210 PLAY "l64 mb ml t255 n66n68n70n72n74n76n78 p64"
+220 PLAY "l64 mb ml t255 n66n68n70n72 p64"
+230 PLAY "l64 mb ml t255 n64n66n68n70 p64"
+240 PLAY "l64 mb ml t255 n70n72n74n76n78n80 p64"
+250 PLAY "l64 mb ml t255 n66n68n70n72 p64"
+260 RETURN
+380 '
+390 ' *************** bird2 ****************
+400 PLAY " mf ml l62 t255 n64n66n68n70 p64"
+410 PLAY " mf ml l62 t255 n66n68n70n72n74n76n78 p64"
+420 PLAY "mf ml l62 t255 n64n66n68n70 p64"
+430 PLAY "mf ml l62 t255 n70n72n74n76n78n80 p64"
+440 '
+450 PLAY " mf ml l62 t255 n64n66n68n70 p64"
+460 PLAY " mf ml l62 t255 n66n68n70n72n74n76n78 p64"
+470 PLAY "mf ml l62 t255 n64n66n68n70 p64"
+480 PLAY "mf ml l62 t255 n70n72n74n76n78n80 p64"
+490 '
+500 PLAY "mf ml l62 t255 n66n70n66n70n66n70n74n74"
+510 PLAY "mf ml l62 t255 n66n70n66n70n66n70n74n74"
+550 RETURN
+590 ' **************** bird4 *********************
+600 'Song Sparrow  (Wallace Intro to Orn.  Macmillan pg 406)
+610 PLAY "l50 mb ml t255 o5 f#gf#gp64 f#gf#gp64 "
+620 PLAY "l50 mb ml t255 o5 f#gf#gp64 f#gf#gp64 "
+630 PLAY "l50 mb ml t255 o5 aa#ba#aa#ba#a"
+640 PLAY "l50 mb ml t255 o5 p32 bbbbbb p64"
+650 PLAY "l50 mb ml t255 o5 f#gp64 f#gp64 f#gp64 f#gp64 f#g "
+690 RETURN
+990 ' ***************** bird5 ********************
+1000 'Eastern Meadow Lark  (Wallace Intro to Orn.  Macmillan pg 406)
+1010 PLAY "l60 mb ml t255 o5 g+g+a g+g+a g+g+a g+g+a"
+1020 PLAY "l60 mb ml t255 o5 g+g+a g+g+a g+g+a g+g+a p32"
+1030 PLAY "l60 mb ml t255 o5 b-b-bb-b-bb-b-b"
+1040 PLAY "l60 mb ml t255 o5 b-b-bb-b-bb-b-bp32"
+1050 PLAY "l60 mb ml t255 o5 a+a+aa+aa+ aa a- g+g+ g g-g f+f+ fff+fff+f p64"
+1090 RETURN
+

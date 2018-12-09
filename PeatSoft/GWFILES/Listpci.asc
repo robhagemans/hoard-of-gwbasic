@@ -1,0 +1,129 @@
+90 WIDTH "scrn:", 80
+95 SCREEN 0,1,0,0
+100 TITLE$ = "List the Parent/Child Index Program"
+105 TITLE$ = TITLE$ + " ON DISPLAY"
+110 VERSION$ = "Version 2.0"
+115 COPY1$ = "Copyright (c) 1983, 1984, by:"
+120 COPY2$ = "Melvin O. Duke"
+125 PRICE$ = "$35"
+130 ADDR1$ = "Melvin O. Duke"
+135 ADDR2$ = "P. O. Box 20836"
+140 ADDR3$ = "San Jose, CA  95160"
+145 REM Dimension Statements go here
+170 REM Produce the first screen
+175 KEY OFF : CLS
+180 REM Draw the outer double box
+185 R1 = 1 : C1 = 1 : R2 = 24 : C2 = 79 : GOSUB 400
+190 REM Find the title location
+195 TITLE.POS = 40 - INT(LEN(TITLE$)/2)
+200 REM Draw the title box
+205 R1=3:C1=TITLE.POS-2:R2=6:C2=TITLE.POS+LEN(TITLE$)+1:GOSUB 600
+210 REM Print the title
+215 LOCATE 4,TITLE.POS : PRINT TITLE$
+220 LOCATE 5,40-INT(LEN(VERSION$)/2) :  PRINT VERSION$;
+225 REM Draw the Contribution box
+230 R1 = 8 : C1 = 19 : R2 = 17 : C2 = 62 : GOSUB 400
+235 REM Request the Contribution
+240 LOCATE 9,23 : PRINT "If you are using these programs, and"
+245 LOCATE 10,21 : PRINT "finding them of value, your contribution"
+250 LOCATE 11,23 : PRINT "("+PRICE$+" suggested) will be anticipated."
+255 REM Draw the Mailing Label
+260 R1 = 12 : C1 = 28 : R2 = 16 : C2 = 52 : GOSUB 600
+265 REM Print the Name and Address
+270 LOCATE 13,40-INT(LEN(ADDR1$)/2) :  PRINT ADDR1$;
+275 LOCATE 14,40-INT(LEN(ADDR2$)/2) :  PRINT ADDR2$;
+280 LOCATE 15,40-INT(LEN(ADDR3$)/2) :  PRINT ADDR3$;
+285 REM Draw the Copyright box
+290 R1 = 19 : C1 = 24 : R2 = 22 : C2 = 56 : GOSUB 400
+295 REM Print the Copyright
+300 LOCATE 20,40-INT(LEN(COPY1$)/2) :  PRINT COPY1$;
+305 LOCATE 21,40-INT(LEN(COPY2$)/2) :  PRINT COPY2$;
+310 GOTO 740
+400 REM subroutine to print a double box
+410 FOR I = R1 + 1 TO R2 - 1
+420  LOCATE I, C1 : PRINT CHR$(186);
+430  LOCATE I, C2 : PRINT CHR$(186);
+440 NEXT I
+450 FOR J = C1 + 1 TO C2 - 1
+460  LOCATE R1, J : PRINT CHR$(205);
+470  LOCATE R2, J : PRINT CHR$(205);
+480 NEXT J
+490  LOCATE R1, C1 : PRINT CHR$(201);
+500  LOCATE R1, C2 : PRINT CHR$(187);
+510  LOCATE R2, C1 : PRINT CHR$(200);
+520  LOCATE R2, C2 : PRINT CHR$(188);
+530 RETURN
+600 REM subroutine to print a single box
+610 FOR I = R1 + 1 TO R2 - 1
+620  LOCATE I, C1 : PRINT CHR$(179);
+630  LOCATE I, C2 : PRINT CHR$(179);
+640 NEXT I
+650 FOR J = C1 + 1 TO C2 - 1
+660  LOCATE R1, J : PRINT CHR$(196);
+670  LOCATE R2, J : PRINT CHR$(196);
+680 NEXT J
+690  LOCATE R1, C1 : PRINT CHR$(218);
+700  LOCATE R1, C2 : PRINT CHR$(191);
+710  LOCATE R2, C1 : PRINT CHR$(192);
+720  LOCATE R2, C2 : PRINT CHR$(217);
+730 RETURN
+740 REM ask user to press a key to continue
+750 LOCATE 25,1
+760 PRINT "Have Data Diskette(s) in Place, then Press any key to continue.";
+770 K$ = INKEY$ : IF K$ = "" THEN 770
+780 CLS
+1000 REM List the Parent/Child Index Program.
+1010 REM By:  Melvin O. Duke.  Last Updated:  02 December 1983.
+1020 OPEN "a:persfile" AS #1 LEN = 256
+1030 FIELD 1, 5 AS F1$, 20 AS F2$, 30 AS F3$, 2 AS F4$, 5 AS F5$, 5 AS F6$, 5 AS F7$, 11 AS F8$, 18 AS F9$, 16 AS F10$, 16 AS F11$, 11 AS F12$, 18 AS F13$, 16 AS F14$, 16 AS F15$, 11 AS F16$, 18 AS F17$, 16 AS F18$, 16 AS F19$
+1040 REM Read all records, and print the actual ones
+1050 OPEN "a:pcindex" FOR INPUT AS #2
+1060 INPUT #2, C
+1070 CLS : LOCATE 19,1
+1080 PRINT "There are";C;"Parent/Child Index Records in the File"
+1090 GOSUB 1110
+1100 GOTO 1180
+1110 LPRINT "Listing of the Parent/Child Index Records ";DATE$;"  ";TIME$
+1120 LPRINT
+1130 LPRINT "PARENT PARENT-NAME";
+1140 LPRINT TAB(40);"CHILD  CHILD-NAME"
+1150 LPRINT "------ -----------";
+1160 LPRINT TAB(40);"-----  ----------"
+1170 RETURN
+1180 FOR I = 1 TO C
+1190  INPUT #2, PAR.ID
+1200  LOCATE 23,1 : PRINT "Listing Parent/Child Index Record";I
+1210  LPRINT USING "####"; PAR.ID;
+1220  GET #1, PAR.ID
+1230  REM Extract information from the file for use
+1240  T2$ = F2$
+1250  T3$ = F3$
+1260  FOR J = 1 TO LEN(F2$)-1
+1270   IF RIGHT$(T2$,1)=" "THEN T2$ = LEFT$(T2$,LEN(T2$)-1) ELSE J = LEN(F2$)-1
+1280  NEXT J
+1290  FOR J = 1 TO LEN(F3$)-1
+1300   IF RIGHT$(T3$,1)=" "THEN T3$ = LEFT$(T3$,LEN(T3$)-1) ELSE J = LEN(F3$)-1
+1310  NEXT J
+1320  LPRINT TAB(7); T2$ + ", " + T3$;
+1330  INPUT #2, CHI.ID
+1340  LPRINT TAB(40);: LPRINT USING "####"; CHI.ID;
+1350  GET #1, CHI.ID
+1360  T2$ = F2$
+1370  T3$ = F3$
+1380  T8$ = F8$
+1390  FOR J = 1 TO LEN(F2$)-1
+1400   IF RIGHT$(T2$,1)=" "THEN T2$ = LEFT$(T2$,LEN(T2$)-1) ELSE J = LEN(F2$)-1
+1410  NEXT J
+1420  FOR J = 1 TO LEN(F3$)-1
+1430   IF RIGHT$(T3$,1)=" "THEN T3$ = LEFT$(T3$,LEN(T3$)-1) ELSE J = LEN(F3$)-1
+1440  NEXT J
+1450  LPRINT TAB(47); T2$ + ", " + T3$
+1460  IF I MOD 55 = 0 THEN LPRINT CHR$(12);: GOSUB 1110
+1470 NEXT I
+1480 CLOSE #2
+1490 CLOSE #1
+1500 CLS : LOCATE 21,1
+1510 PRINT "End of Program"
+1520 LPRINT CHR$(12);
+1530 RUN "a:menu"
+

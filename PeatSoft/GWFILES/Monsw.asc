@@ -1,0 +1,43 @@
+6999 DEFINT A-Z:DIM MON(1,50):GOSUB 7000:END
+7000 DEF SEG=&H40: EQUIP=PEEK(&H10)
+7010 IF (EQUIP AND &H30) = &H30 THEN I=0:INEW=1: ELSE I=1:INEW=0
+7020 FOR J=0 TO &H1D: MON(I,J)=PEEK(&H49+J): NEXT J
+7030 DEF SEG:MON(I,31)=PEEK(&H29):MON(I,32)=PEEK(&H48) 'width, SCREEN MODE
+7040 MON(I,33)=PEEK(&H68):MON(I,34)=PEEK(&H69) 'CURSOR end, START-SCAN
+7050 MON(I,35)=PEEK(&H4B):MON(I,36)=PEEK(&H4C) 'foreground, BACKGROUND COLOR
+7060 MON(I,37)=PEEK(&H4E):MON(I,38)=PEEK(&H4F) 'COLOR PARMS FOR 6845
+7065 MON(I,39)=PEEK(&H56):MON(I,40)=PEEK(&H57) 'Cursor row/col
+7070 DEF SEG=&H40:IF I=0 THEN POKE &H10,(EQUIP AND &HCF) OR &H20 ELSE POKE &H10,EQUIP OR &H30 'Change the equipment flag to the other flavor
+7080 IF MON(INEW,31)=0 THEN GOTO 7160 'No saved value, so init from scratch
+7090 I=INEW: FOR J=0 TO &H1D:POKE &H49+J,MON(I,J):NEXT J
+7100 DEF SEG:POKE &H29,MON(I,31):POKE &H48,MON(I,32) 'width, screen
+7110 POKE &H68,MON(I,33):POKE &H69,MON(I,34) 'cursor end,start scans
+7120 POKE &H4B,MON(I,35):POKE &H4C,MON(I,36) 'fore/background colors
+7130 POKE &H4E,MON(I,37):POKE &H4F,MON(I,38) 'COLOR PARMS FOR 6845
+7135 POKE &H56,MON(I,39):POKE &H57,MON(I,40) 'Cursor row/col
+7140 IF I=0 THEN PRINT "IBM monitor" ELSE PRINT "Color Monitor"
+7150 RETURN
+7160 DEF SEG: IF INEW=1 THEN SCREEN 0,1:SCREEN 1,0:COLOR 1,1:WIDTH 40:CLS:LOCATE 1,1,1,6,7:OUT &H3D4,2:OUT &H3D5,&H2C
+7180 IF INEW=0 THEN SCREEN 0:WIDTH 80:COLOR 7,0:LOCATE 1,1,1,12,13
+7190 IF INEW=0 THEN PRINT "IBM monitor!" ELSE PRINT "Color Monitor!"
+7200 RETURN
+7210 REM We first determine our equipment (i=0 => monochrome display).
+7220 REM Then we preserve our current status which includes the
+7230 REM video display data area from segment &h40 and some pieces of the
+7240 REM BASIC segment.  We then switch monitors, using the previous saved
+7250 REM status if there is some, or a sane default if none.
+7260 REM
+7499 REM Subroutine to switch between medium and hi resolution graphic modes.
+7500 DEF SEG=&H40: EQUIP=PEEK(&H10): DEF SEG
+7510 IF (EQUIP AND &H30)=&H30 THEN PRINT"Switch to Color monitor first": RETURN
+7520 RES=PEEK(&H48): IF (RES=4) OR (RES=5) THEN GOTO 7600 'low now, go high
+7525 IF RES<>6 THEN PRINT "Switch to graphics mode first": RETURN
+7530 IF PALLET%=0 THEN PALLET%=&H31 'default to pretty blue
+7540 POKE &H48,4: POKE &H29,40: OUT &H3D8,&H2A: OUT &H3D9,PALLET%
+7560 DEF SEG=&H40: POKE &H49,4: POKE &H4A,40: POKE &H65,&H2A: POKE &H66,PALLET%
+7570 DEF SEG: PRINT "Now in med res": RETURN
+7600 POKE &H48,6: POKE &H29,80: OUT &H3D8,&H1E: OUT &H3D9,&H3F:
+7610 DEF SEG=&H40: POKE &H49,6: POKE &H4A,80: POKE &H65,&H1E:PALLET%=PEEK(&H66)
+7615 POKE &H66,&H3F
+7620 DEF SEG: PRINT "Now in hi res": RETURN
+

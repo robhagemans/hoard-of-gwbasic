@@ -1,0 +1,151 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '*****************  ELECTRONIC CALCULATOR MODE!  ***************************
+12 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+14 'บ                     SIMPLE CALCULATOR PROGRAM                           บ
+16 'บ This simple program will run in SCREEN 0,0,0 WIDTH 40 in either mono-   บ
+18 'บ chrome or color.  The program has been expanded to show the structure   บ
+20 'บ of multiple statements.  Some of the basic routines may be applicable   บ
+22 'บ to your programming efforts. Note the use of INPUT$(n) in the RESPONSE  บ
+24 'บ routine. This is an interesting programming feature.  You may increase  บ
+26 'บ the screen width for use with a monochrome monitor, by changing the 40  บ
+28 'บ to 80 in line 160. This program, or any part, may be used without any   บ
+30 'บ license or attribution.   (c)  G I N A C O  -- 1983    Ver 5.1/160/320  บ
+32 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 CLS
+250 CLS
+260 SCREEN 0,0,0
+270 WIDTH 80
+280 CLEAR
+290 FOR I! = 1 TO 10
+300   KEY I!,""
+310 NEXT
+320 S$ = "###,###.##"
+330 X! = 0
+340 Y! = 0
+350 COLOR 7,0
+360 SCREEN 0,0,0
+370 WIDTH 40
+380 LOCATE 10,10
+390 PRINT "WHAT MODE?"
+400 CLS
+410 LOCATE 12,1
+420 PRINT " -- ADD, SUBTRACT, MULTIPLY, DIVIDE -- "
+430 LOCATE 14,10
+440 PRINT "SELECT A, S, M, OR D"
+450 LOCATE 16,1
+460 PRINT SPC( 39)
+470 LOCATE 16,16
+480 INPUT A$
+490 IF (A$ = "A" OR A$ = "a") THEN X! = 1
+500 IF (A$ = "S" OR A$ = "s") THEN X! = 2
+510 IF (A$ = "M" OR A$ = "m") THEN X! = 3
+520 IF (A$ = "D" OR A$ = "d") THEN X! = 4
+530 IF X! < 1 OR X! > 4 THEN 540 ELSE 600
+540 CLS
+550 COLOR 2,0
+560 LOCATE 10,8
+570 PRINT "A ,D, S OR M ONLY PLEASE"
+580 COLOR 7,0
+590 GOTO 430
+600 ON X! GOTO 610,970,1150,790
+610 REM ******************** ADDITION ROUTINE *****************************
+620 CLS
+630 LOCATE 6,16
+640 PRINT "A D D I T I O N"
+650 LOCATE 8,12
+660 INPUT "1st NUMBER  ",AA!
+670 LOCATE 10,12
+680 INPUT "ADD         ",BB!
+690 CC! = AA! + BB!
+700 LOCATE 12,22
+710 PRINT "_________"
+720 LOCATE 14,14
+730 COLOR 4,0
+740 PRINT "SUM IS ";
+750 PRINT USING S$;CC!
+760 COLOR 7,0
+770 GOSUB 1330
+780 ON Y! GOTO 620,100
+790 REM ******************** DIVISION ROUTINE *****************************
+800 CLS
+810 LOCATE 6,16
+820 PRINT "D I V I S I O N"
+830 LOCATE 8,13
+840 INPUT "1st NUMBER  ",AA!
+850 LOCATE 10,13
+860 INPUT "DIVIDED BY  ",BB!
+870 CC! = AA! / BB!
+880 LOCATE 12,22
+890 PRINT "_________"
+900 LOCATE 14,7
+910 COLOR 2,0
+920 PRINT "QUOTIENT IS ";
+930 PRINT USING S$;CC!
+940 COLOR 7,0
+950 GOSUB 1330
+960 ON Y! GOTO 800,100
+970 REM ******************** SUBTRACTION ROUTINE **************************
+980 CLS
+990 LOCATE 6,15
+1000 PRINT "S U B T R A C T I O N"
+1010 LOCATE 8,12
+1020 INPUT "1st NUMBER  ",AA!
+1030 LOCATE 10,12
+1040 INPUT "SUBTRACT    ",BB!
+1050 CC! = AA! - BB!
+1060 LOCATE 12,22
+1070 PRINT "_________"
+1080 LOCATE 14,6
+1090 COLOR 2,0
+1100 PRINT "DIFFERENCE IS ";
+1110 PRINT USING S$;CC!
+1120 COLOR 7,0
+1130 GOSUB 1330
+1140 ON Y! GOTO 980,100
+1150 REM ******************** MULTIPLY ROUTINE *****************************
+1160 CLS
+1170 LOCATE 6,8
+1180 PRINT "M U L T I P L I C A T I O N"
+1190 LOCATE 8,12
+1200 INPUT "1st NUMBER  ",AA!
+1210 LOCATE 10,12
+1220 INPUT "TIMES       ",BB!
+1230 CC! = AA! * BB!
+1240 LOCATE 12,22
+1250 PRINT "_________"
+1260 LOCATE 14,8
+1270 COLOR 3,0
+1280 PRINT "PRODUCT IS ";
+1290 PRINT USING S$;CC!
+1300 COLOR 7,0
+1310 GOSUB 1330
+1320 ON Y! GOTO 1160,100
+1330 REM ******************* RESPONSE SUBROUTINE ****************************
+1340 LOCATE 20,10
+1350 PRINT "PRESS SPACE BAR FOR REPEAT"
+1360 LOCATE 22,10
+1370 PRINT "PRESS ESC FOR NEW FUNCTION"
+1380 LOCATE 24,20
+1390 RSP$ = INPUT$(1)
+1400 IF ( ASC(RSP$) = 27 OR ASC(RSP$) = 32) THEN 1410 ELSE 1480
+1410 IF ASC(RSP$) = 27 THEN Y! = 2
+1420 IF ASC(RSP$) = 32 THEN Y! = 1
+1430 RETURN
+1440 LOCATE 22,1
+1450 PRINT SPC( 254)
+1460 GOTO 1340
+1470 RETURN
+1480 LOCATE 24,11
+1490 PRINT "ESC OR SPACE-BAR PLEASE";
+1500 FOR I! = 1 TO 2000
+1510 NEXT
+1520 LOCATE 23,1
+1530 PRINT SPC( 79)
+1540 GOTO 1340
+1550 END
+65000 REM ===== SAVE ROUTINE =====
+65100 SAVE"B:CALULATE.BAS"
+

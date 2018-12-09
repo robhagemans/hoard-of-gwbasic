@@ -1,0 +1,4 @@
+10 FOR I=1 TO 40
+20    PLAY "l50 mb ms t255 n1p1n2p1n1p1n2p1"
+30 NEXT
+

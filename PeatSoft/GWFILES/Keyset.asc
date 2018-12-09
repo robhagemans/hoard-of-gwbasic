@@ -1,0 +1,35 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+12 '***************** PROGRAMMERS BASIC F-KEY SETTINGS  ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ            PROGRAMMERS FUNCTION KEY SETTING COMBINATION                 บ
+20 'บ  F1: CLS -- CLEARS THE SCREEN      F2: RUNS RESIDENT PROGRAM            บ
+22 'บ  F3: CLEARS SCREEN, LISTS PROGRAM  F4: SETS UP LOAD FROM DRIVE A:       บ
+24 'บ  F5: SETS UP LOAD FROM DRIVE B:    F6: CLEARS & LISTS SPECIFIED LINES   บ
+26 'บ  F7: READS DIRECTORY IN DRIVE A:   F8: READS DIRECTORY IN DRIVE B:      บ
+28 'บ  F9: SETS UP SAVE TO DRIVE B:      F10: STEPS THRU LISTING.  JUST PUT   บ
+30 'บ                                         IN NEXT NUMBER.  OLD WILL SHOW. บ
+31 'บ                    (c) G I N A C O  1983           Ver 5.2/160/320      บ
+32 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 REM
+100 SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+110 KEY 1,"CLS" + CHR$(13)   'CLEARS SCREEN
+120 KEY 2,"RUN" + CHR$(13)   'RUNS RESIDENT PROGRAM
+130 KEY 3,"CLS:LIST" + CHR$(13) 'CLEARS SCREEM AND LISTS RESIDENT PROGRAM
+140 KEY 4,"LOAD" + CHR$(34) + "A" + CHR$(58) 'SETS UP LOAD FROM A:
+150 KEY 5,"LOAD" + CHR$(34) + "B" + CHR$(58) 'SETS UP LOAD FROM B:
+160 KEY 6,"CLS:LIST " 'CLEARS SCREEN AND LISTS DESIGNATED LINES
+170 KEY 7,"FILES" + CHR$(13) ' LISTS DIRECTORY OF DRIVE A:
+180 KEY 8,"FILES" + CHR$(34) + "B" + CHR$(58) + "*.*" + CHR$(13) ' DIR OF B:
+190 KEY 9,"SAVE" + CHR$(34) + "A" + CHR$(58)                    ' SAVE ON A:
+200 KEY 10,"LIST . -"  'STEP THRU A LISTING -- ENTER NEW LINE OLD WILL SHOW
+210 KEY ON
+220 CLS
+230  KEY LIST
+240 PRINT
+250  FILES
+260 END
+65000 '*********************** SAVE ROUTINE **********************************
+65100 SAVE"B:KEYSET.BAS"
+

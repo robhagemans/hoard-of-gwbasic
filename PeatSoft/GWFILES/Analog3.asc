@@ -1,0 +1,55 @@
+5 KEY(10) ON:ON KEY(10) GOSUB 600:KEY(9) ON:ON KEY(9) GOSUB 700:DIM A(18):FOR I=1 TO 18:A(I)=I:NEXT I
+10 CLS:R=0:N=0:GOSUB 59980:FOR I=1 TO 100:SWAP A(INT(RND*18+1)),A(INT(RND*18+1)):NEXT I
+20 CLS:LOCATE 1,34:COLOR 0,15:PRINT" IQ Builder ":COLOR 15,0
+30 LOCATE 2,34:PRINT"Analogies 3":COLOR 7,0
+40 XX=1:C=A(XX):R=0:N=0
+50 RESTORE:IF C>1 THEN FOR L=1 TO C-1:FOR X=1 TO 10:READ A$:NEXT X,L
+60 GOSUB 7000
+70 READ A$,B$
+80 PRINT:PRINT"Problem" C
+90 PRINT:PRINT"Complete the second analogy so that it is most like the first:"
+100 PRINT:PRINT A$ " is to " B$ " as":PRINT
+110 READ A$:PRINT A$ " is to which of these:"
+120 FOR X=1 TO 5:PRINT"(";:COLOR 15:PRINT X;:COLOR 7:PRINT")  ";:READ A$:PRINT A$:NEXT X
+130 READ K, A$
+140 BEEP:LOCATE 25,1:PRINT"Your choice is - ";:N=N+1:Z=Z+1
+150 GOSUB 59990:IF INSTR("12345",IKEY$)=0 THEN 150 ELSE A=VAL(IKEY$)
+160 IF (A<>K)*(Z>1) THEN PLAY "mbn50n25":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"No!  The answer was " K ".";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:GOTO 200
+170 IF (A=K)*(Z=1) THEN PLAY "mbc16c16c16ge8g":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"Correct!";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:R=R+1:GOTO 200
+180 IF (A=K)*(Z>1) THEN PLAY "mbc16c16c16ge8g":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"Right...";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:R=R+.7:GOTO 200
+190 PLAY "mbn50n25":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"No, but here is a hint:  " A$;:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:GOTO 140
+200 XX=XX+1:Z=0
+210 IF XX<18 THEN C=A(XX):GOTO 50
+220 GOSUB 7000:PRINT"You scored" R "right out of" N "  or" INT(100*R/N) "percent."
+230 IF R/N<.6 THEN PRINT"Why don't you look at this program again.":TIMEOUT=3:GOSUB 59950:RUN
+240 IF R/N<=.8 THEN PRINT"Good score"
+250 IF R/N<=.9000001 THEN PRINT"Excellent!"
+260 IF R/N>.9000001 THEN PRINT"100 percent!  What else can I say!!"
+270 TIMEOUT=3:GOSUB 59950:GOTO 700
+600 RUN "iqbuild"
+700 CHAIN MERGE "analog4",5
+5500 DATA cat, kitten, lion, tiger, lioness, baby, young, cub, 5, parent to offspring
+5510 DATA spice, food, wit, fame, information, conversation, fortune, intelligence, 3, adds flavor
+5520 DATA bass, soprano, low, top, voice, male, high, music, 4, opposites on scale
+5530 DATA ladder, rung, carrying case, handle, lock, cover, divider, hinge, 1,  something to hold
+5540 DATA pint, liter, yard, quart, metric, drink, colume, meter, 5, one system to another
+5550 DATA hammer, nail, bat, strike, hit, baseball, fly, swing, 3, tool hits
+5560 DATA wince, pain, blush, embarrassment, cry, anger, avoid, dislike, 1, caught with fly open
+5570 DATA concise, verbose, exact, qualify, imprecise, inferior, opulent, terse, 2, on target to off target
+5580 DATA dregs, wine, slag, iron, drink, grapes, rot, castoff, 1, left overs
+5590 DATA synthetic, natural, nylon, chemical, cloth, thread, silk, grow, 4, one is imitation
+5600 DATA leg, man, wheel, walk, bike, woman, clock, turn, 2, locomotion
+5610 DATA time, scythe, justice, liberty, scales, pedestal, clock, chains, 2, statue holds these
+5620 DATA lawyer, will, mechanic, automobile, repair, wrench, dirt, brakes, 2, what is created
+5630 DATA obituary, eulogy, libel, slander, speech, print, law, abuse, 1, written to spoken
+5640 DATA dusk, dawn, death, infancy, birth, growth, maturity, beginning, 2, opp. ends of the same line
+5650 DATA usury, interest, miserly, money, misfortune, frugality, thievery, opulence, 3, one word extreme of other
+5660 DATA positive, negative, +, x, /, -, 0, *, 3, numerical signs
+5670 DATA beetle, lobster, horse, fish, hog, whale, grass, mannal, 3, land to water mannal
+7000 FOR Y=4 TO 24:LOCATE Y,1:PRINT SPC(79);:NEXT Y:LOCATE 4,1:RETURN
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59980 RNDTIME$=TIME$:RNDVAL=VAL(LEFT$(RNDTIME$,2))*120+VAL(MID$(RNDTIME$,4,2))*60+VAL(RIGHT$(RNDTIME$,2)):RANDOMIZE RNDVAL:RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

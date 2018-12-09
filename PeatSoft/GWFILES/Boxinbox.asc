@@ -1,0 +1,119 @@
+5 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+12 '***************** FORMATTED BOXES FOR PROGRAM USE   ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ         FORMATTED BOXES WHICH CAN BE ALTERED OR MOVED BY CHANGES        บ
+20 'บ                                                                         บ
+22 'บ     This program provides four formatted "quick boxes" which may be     บ
+24 'บ  moved to any place on the screen by changing the coordinates.  They    บ
+26 'บ  may be changed in form by altering the CHR$ characters used for the    บ
+28 'บ  corners, the tops and the sides.  The appropriate CHR$ character       บ
+30 'บ  designation can be found in the table in Appendix G, IBM Basic Manual, บ
+32 'บ  pages C12 and C13.     A color monitor version using different format- บ
+33 'บ  ting is BOXINBOX.CLR (c) G I N A C O  -- 1983    Ver 5.1/160/320       บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 SCREEN 0,0,0: WIDTH 80: CLEAR: KEY OFF: COLOR 7,0:LOCATE ,,0
+110 REM ************************* SMALL CENTER BOX ***************************
+120 CLS:COLOR 7,0
+130 LOCATE 10,40
+140 PRINT CHR$(201); CHR$(205); CHR$(205); CHR$(187)
+150 LOCATE 11,40
+160 PRINT CHR$(186);"  "; CHR$(186);
+170 LOCATE 12,40
+180 PRINT CHR$(200); CHR$(205); CHR$(205); CHR$(188)
+190 
+200 :REM ********************* BOX ROW 9-13, ROW 27-57 ***********************
+210 FOR A! = 28 TO 56
+220   COLOR 7,0
+230   LOCATE 9,A!
+240   PRINT CHR$(205)
+250 NEXT
+260 LOCATE 9,57
+270 PRINT CHR$(187)
+280 FOR B! = 10 TO 12
+290   LOCATE B!,57
+300   PRINT CHR$(186)
+310 NEXT
+320 LOCATE 13,57
+330 PRINT CHR$(188)
+340 FOR C! = 56 TO 28 STEP - 1
+350   LOCATE 13,C!
+360   PRINT CHR$(205)
+370 NEXT
+380 LOCATE 13,27
+390 PRINT CHR$(200)
+400 FOR D! = 12 TO 10 STEP - 1
+410   LOCATE D!,27
+420   PRINT CHR$(186)
+430 NEXT
+440 LOCATE 9,27
+450 PRINT CHR$(201)
+460 
+470 :REM ****************  BOX ROW 7-17, COLUMN 18-66 *************************
+480 FOR A! = 18 TO 66
+490   COLOR 7,0
+500   LOCATE 6,A!
+510   PRINT CHR$(205)
+520 NEXT
+530 LOCATE 6,67
+540 PRINT CHR$(187)
+550 FOR B! = 7 TO 15
+560   LOCATE B!,67
+570   PRINT CHR$(186)
+580 NEXT
+590 LOCATE 16,67
+600 PRINT CHR$(188)
+610 FOR C! = 66 TO 18 STEP - 1
+620   LOCATE 16,C!
+630   PRINT CHR$(205)
+640 NEXT
+650 LOCATE 16,17
+660 PRINT CHR$(200)
+670 FOR D! = 15 TO 7 STEP - 1
+680   LOCATE D!,17
+690   PRINT CHR$(186)
+700 NEXT
+710 LOCATE 6,17
+720 PRINT CHR$(201)
+730 
+740 :REM ********************* LARGEST OUTSIDE BOX ***************************
+750 FOR A! = 10 TO 74
+760   COLOR 7,0
+770   LOCATE 3,A!
+780   PRINT CHR$(205)
+790 NEXT
+800 LOCATE 3,75
+810 PRINT CHR$(187)
+820 FOR B! = 4 TO 18
+830   LOCATE B!,75
+840   PRINT CHR$(186)
+850 NEXT
+860 LOCATE 19,75
+870 PRINT CHR$(188)
+880 FOR C! = 74 TO 10 STEP - 1
+890   LOCATE 19,C!
+900   PRINT CHR$(205)
+910 NEXT
+920 LOCATE 19,9
+930 PRINT CHR$(200)
+940 FOR D! = 18 TO 4 STEP - 1
+950   LOCATE D!,9
+960   PRINT CHR$(186)
+970 NEXT
+980 LOCATE 3,9
+990 PRINT CHR$(201)
+1000  COLOR 7,0
+1010 FOR I = 1 TO 100:NEXT
+1020 LOCATE 4,20:PRINT"YOU CAN EXTRACT ANY BOX CODE AND USE IT ALONE."
+1030 FOR I = 1 TO 900:NEXT
+1040 LOCATE 5,17:PRINT"THE BEGINNING COLOR STATMENTS CAN BE SET AS DESIRED."
+1050 FOR I = 1 TO 900:NEXT
+1060 LOCATE 17,18:PRINT"THE COLOR WILL BE TURNED OFF BY THE END STATEMENT."
+1070 FOR I = 1 TO 900:NEXT
+1080 LOCATE 18,17:PRINT"BY CHANGING THE COORDINATES";CHR$(44);" YOU CAN MOVE THE BOXES."
+1090 END
+65000 REM ********************** SAVE ROUTINE ********************************
+65100 SAVE"B:BOXINBOX.BAS"
+

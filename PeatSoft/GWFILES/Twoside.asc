@@ -1,0 +1,46 @@
+10 '           Basic program       TWOSIDE.BAS         3-6-82
+20 '
+30 '  This program creates the file TWOSIDE.COM which, when executed,
+40 '  makes changes to DOS that allows formatting (and addressing) the
+50 '  other side of disks "A" and "B" as "C" and "D" respectively.
+60 '  Of course, you must have two-sided drives installed such as Tandon 100-2.
+70 '
+80 '  The author has placed no restrictions upon use of this program.
+90 '
+100 '  Installation and use:
+110 '   1. Initialize BASIC
+120 '   2. Load (or create) the program file (this program) TWOSIDE.BAS
+130 '   3. Enter --> RUN           (this creates the file TWOSIDE.COM)
+140 '   4. Set system board switch #1 diskette selection positions to
+150 '      the number of physical and logical drives that you have installed.
+160 '      For example, if you have two physical drives installed and the
+170 '      TWOSIDE option will add two logical drives, set the switch selection
+180 '      positions for 4 drives (position 1, 7, & 8 off).
+190 '   5. Before addressing disks "C" or "D" -- After system initialization
+200 '      ENTER --> TWOSIDE
+210 '   6. If you wish, the AUTOEXEC.BAT file may be used to cause the TWOSIDE
+220 '      command to execute automatically when the system is brought up.
+230 '
+240 FOR I = 1 TO 151:READ N:C = C + N
+250 NEXT:READ N:IF N <> C THEN GOTO 300
+260 RESTORE 310:OPEN "r",1,"twoside.com",1
+270 FIELD 1, 1 AS N$:FOR I = 1 TO 151
+280 READ N:LSET N$ = CHR$(N):PUT 1
+290 NEXT: CLOSE: PRINT "TWOSIDE.COM FILE CREATED SUCCESSFULLY":END
+300 PRINT "** ERROR -- verify your data **":END
+310 DATA 30,51,192,142,216,187,76,0,130
+320 DATA 127,3,0,117,29,139,7,46,163,18
+330 DATA 0,199,7,56,0,140,79,2,31,190,45
+340 DATA 1,191,20,0,185,106,0,243,164
+350 DATA 139,215,205,39,31,195,0,0,161
+360 DATA 78,0,1,1,2,0,1,2,2,0,1,3,2,0,1
+370 DATA 4,2,0,1,5,2,0,1,6,2,0,1,7,2,0,1
+380 DATA 8,2,246,194,2,117,5,46,255,46
+390 DATA 18,0,82,128,226,253,182,1,130
+400 DATA 252,5,116,8,156,46,255,30,18,0
+410 DATA 235,37,83,6,30,80,38,138,7,140
+420 DATA 203,142,219,142,195,187,24,0,83
+430 DATA 136,7,131,195,4,131,251,56,117
+440 DATA 246,91,88,156,255,30,18,0,31,7
+450 DATA 91,90,202,2,0,11596
+

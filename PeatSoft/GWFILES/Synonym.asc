@@ -1,0 +1,70 @@
+5 KEY(10) ON:ON KEY(10) GOSUB 600:KEY(9) ON:ON KEY(9) GOSUB 700:DIM P(35):FOR I=1 TO 35:P(I)=I:NEXT I
+10 CLS:T=0:N=0:GOSUB 59980:FOR I=1 TO 100:SWAP P(INT(RND*35+1)),P(INT(RND*35+1)):NEXT I
+20 CLS:LOCATE 1,34:COLOR 0,15:PRINT" IQ Builder ":COLOR 15,0
+30 LOCATE 2,35:PRINT"Synonyms 1":COLOR 7,0
+40 LOCATE 4,1:PRINT"Synonyms are words of similar meaning.":PRINT
+50 PRINT"In this lesson, pick the word with a meaning most similar to the one"
+60 PRINT"in the box."
+70 XX=1:P=P(XX)
+80 IF P>1 THEN FOR J=1 TO P-1:FOR X=1 TO 7:READ A$:NEXT X,J
+90 PRINT:PRINT"Problem" P
+100 READ A$:PRINT:PRINT"Which word below is most similar to"
+110 PRINT TAB(39-INT(LEN(A$)/2)) "É" STRING$(LEN(A$),"Í") "»"
+120 PRINT TAB(39-INT(LEN(A$)/2)) "º" A$ "º"
+130 PRINT TAB(39-INT(LEN(A$)/2)) "È" STRING$(LEN(A$),"Í") "¼"
+140 FOR X=1 TO 5:READ A$:PRINT"(";:COLOR 15:PRINT X;:COLOR 7:PRINT")  " A$:NEXT X:READ R
+150 BEEP:LOCATE 25,1:PRINT "Your choice is - ";
+155 GOSUB 59990:IF INSTR("12345",IKEY$)=0 THEN 155 ELSE C=VAL(IKEY$)
+160 N=N+1:IF C=R THEN PLAY "mbc16c16c16ge8g":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"That is correct!";:T=T+1:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);
+170 IF C<>R THEN PLAY "mbn50n25":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"No!  Try again.";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:GOTO 150
+180 XX=XX+1:IF XX<36 THEN P=P(XX):GOSUB 7000:RESTORE:GOTO 80
+190 GOSUB 7000:PRINT"Your score is the total number right out of all answers given."
+200 PRINT:PRINT"You scored " T " right out of " N ", or " INT(T/N*100+.5) " percent."
+210 PRINT:IF T/N>.9000001 THEN PRINT"Excellent job!":GOTO 240
+220 IF T/N>.75 THEN PRINT"Good score!":GOTO 240
+230 PRINT"Why don't you look at this program again...":TIMEOUT=5:GOSUB 59950:RUN
+240 TIMEOUT=5:GOSUB 59950:GOTO 700
+600 RUN "iqbuild"
+700 CHAIN MERGE "synonym2",5
+5500 DATA immense, often, distant, huge, compact, endless, 3
+5510 DATA strange, odd, uneasy, sad, ugly, scare, 1
+5520 DATA kin, enemy, rinse, friend, union, relative, 5
+5530 DATA inhabitant, traveler, realtor, resident, creature, worker, 3
+5540 DATA burning, boiling, heated, breathing, ablaze, blushing, 4
+5550 DATA employ, manage, gain, meet, use, please, 4
+5560 DATA quiet, calm, sorry, common, simple, sad, 1
+5570 DATA quickly, simply, often, secretly, gaily, rapidly, 5
+5580 DATA empty, pale, stale, rare, vacant, thin, 4
+5590 DATA banish, disappear, repeat, tell, exile, attack, 4
+5600 DATA movement, action, purpose, liesure, pretense, company, 1
+5610 DATA snare, enlarge, change, trap, anger, help, 3
+5620 DATA nomad, citizen, wanderer, hermit, alien, visitor, 2
+5630 DATA live, allow, reflect, establish, offer, abide, 5
+5640 DATA quake, destroy, fix, tremble, weaken, cover, 3
+5650 DATA slender, narrow, sleek, starve, shapely, fashionable, 1
+5660 DATA nativity, homeland, birth, citizenship, frontier, movement, 2
+5670 DATA wander, consider, vary, pave, chat, roam, 5
+5680 DATA abbreviate, indicate, relate, hasten, shorten, describe, 4
+5690 DATA quarrel, mistake, harm, puzzle, desire, argument, 5
+5700 DATA abhor, hate, gather, reveal, leave, kill, 1
+5710 DATA scheme, worry, plan, please, mix, fight, 2
+5720 DATA deputy, honorary, representative, hoodlum, sheriff, manager, 2
+5730 DATA quiver, desert, shake, harden, whirl, sink, 2
+5740 DATA abet, settle, rival, assist, upgrade, reveal, 3
+5750 DATA wary, guarded, fierce, insistent, tired, huge, 1
+5760 DATA competently, successfully, artfully, ably, humanely, cautiously, 3
+5770 DATA influence, affect, gather, cure, glimpse, please, 1
+5780 DATA nucleus, neutron, atom, energy, center, union, 4
+5790 DATA elastic, moving, pleasing, flexible, swollen, intensive, 3
+5800 DATA quadruple, increase, count, divide, identical, fourfold, 5
+5810 DATA bright, sharp, radiant, ambrosial, persistent, ideal, 2
+5820 DATA spherical, circular, empty, rounded, full, inflated, 3
+5830 DATA conform, evolve, improve, mention, adapt, shape, 4
+5840 DATA ignite, destroy, hat, kindle, shine, shower, 3
+7000 FOR Y=4 TO 24:LOCATE Y,1:PRINT SPC(79);:NEXT Y:LOCATE 4,1:RETURN
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59980 RNDTIME$=TIME$:RNDVAL=VAL(LEFT$(RNDTIME$,2))*120+VAL(MID$(RNDTIME$,4,2))*60+VAL(RIGHT$(RNDTIME$,2)):RANDOMIZE RNDVAL:RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

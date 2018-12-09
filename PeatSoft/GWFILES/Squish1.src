@@ -1,0 +1,101 @@
+1 '           IBM PC BASIC
+2 '            'Squish'
+3 '  Author: Dave Archibald
+4 '  Translation: Alan J. Zett
+5 '  Copyright (c) 1982, SoftSide Publications, Inc.
+6 '  Squished some bugs 2/5/83: Herb Shear ;3/7/83 more bugs, setup for compiler     (/e/x) & removed much of the enertaining display.
+7 '
+9 REM initialize variables, DIMension arrays and select run time options.
+10 DEFINT A-Z:A=0:A!=0:A$="":C$="":D=0:DT=0:G1=0:G2=0:G3=0:G4=0:G5=0:G6=0:G7=0:G8=0:G9=0:HH=0:I$="":IP$="":J$="":LN=0:L$="":L1$="":N$="":P=0:PJ=0:PP=0:PV=0:Q$="":R=0:RD=0:RE=0:S=0:S1=0
+20 SD=0:SQ$="":SV$="":T=0:T1=0:T2=0:V$="":X=0:XC$="":XS$="":XP$="":DIM REF(400),PRO(100):SCREEN 0,0,0:WIDTH 80:KEY OFF:CLS:LINE INPUT"Enter the name of the program to be Squished: ";SQ$
+30 PRINT:LINE INPUT"Enter the name for the final Squished program: ";SV$:PRINT:PRINT "Would you like extra spaces deleted? (Y/N) ";:GOSUB 650:XS$=Q$
+40 PRINT "Would you like REM statements deleted? (Y/N) ";:GOSUB 650:IP$=Q$
+50 PRINT "Would you like to combine lines? (Y/N) ";:GOSUB 650:XC$=Q$
+60 PRINT "Would you like to protect any lines? (Y/N) ";:GOSUB 650:XP$=Q$
+69 REM Set error trap.
+70 ON ERROR GOTO 560
+79 REM If nothing is to be done, reRUN the program.
+80 IF XS$="N" AND IP$="N" AND XC$="N" AND XP$="N" THEN RUN
+89 REM Store user protected lines.
+90 IF XP$="Y" THEN INPUT"Enter line number to protect (0 to exit) ";A!:IF A!>0 THEN PRO(PV)=A!-32768!:PV=PV+1: GOTO 90
+99 REM OPEN source file for input.
+100 OPEN SQ$ FOR INPUT AS #1
+101 CLS:PRINT"Pre-scan phase in progress"
+109 REM Check for EndOfFile and PRINT error if current line does not start with         a line number.
+110 IF EOF(1) THEN 240
+120 LINE INPUT #1,A$:IF ASC(A$)>58 THEN PRINT:PRINT"**** '";SQ$;"' is not an ASCII file ****":PRINT:END
+129 REM Search for reserved words that reference other program lines.
+130 G1=1:G2=1:G3=1:G4=1:G5=1:G6=1:G7=1:G8=1:G9=1
+140 D=5:T=INSTR(G1,A$,"THEN "):IF T THEN G1=T+D:GOTO 210
+150 T=INSTR(G2,A$,"GOTO "):IF T THEN G2=T+D: GOTO 210
+160 T=INSTR(G3,A$,"ELSE "):IF T THEN G3=T+D: GOTO 210
+170 T=INSTR(G4,A$,"GOSUB "):IF T THEN D=6:G4=T+D:GOTO 210
+175 T=INSTR(G7,A$,"RETURN "):IF T THEN D=7:G7=T+D:GOTO 210
+180 T=INSTR(G5,A$,"RESUME "):IF T THEN D=7:G5=T+D:GOTO 210
+185 T=INSTR(G8,A$,"RESTORE "):IF T THEN D=8:G8=T+D:GOTO 210
+190 T=INSTR(G6,A$,"RUN "):IF T THEN D=4:G6=T+D:GOTO 210
+195 T=INSTR(G9,A$,"ERL"):L$=MID$(A$,T+3):IF T AND (L$=" " OR L$="=")THEN D=4:G9=T+D:GOTO 210
+200 GOTO 110
+209 REM Store all referenced lines into an array.
+210 L$=MID$(A$,T-1,1):IF L$=" " OR L$=":" OR L$=")" OR L$=CHR$(34) THEN ELSE 140
+220 A!=VAL(MID$(A$,T+D)):IF A! THEN A=A!-32768!:FOR HH=1 TO R:IF REF(HH)<>A THEN NEXT:R=R+1:REF(R)=A:T=T+D:D=1:T1=INSTR(T,A$,","):T2=INSTR(T,A$,":"):IF T1>0 AND (T2=0 OR T1<T2) THEN T=T1:GOTO 210
+230 GOTO 140
+239 REM Sort all referenced and protected lines in ascending order.
+240 CLOSE:FOR S=1 TO R:FOR S1=S TO R:IF REF(S)<REF(S1) THEN SWAP REF(S),REF(S1)
+250 NEXT S1,S:FOR S=0 TO PV:FOR S1=S TO PV:IF PRO(S)>PRO(S1) THEN SWAP PRO(S),PRO(S1)
+259 REM ReOPEN source file for INPUT and OPEN destination for OUTPUT.
+260 NEXT S1,S:OPEN SQ$ FOR INPUT AS #1:OPEN SV$ FOR OUTPUT AS #2:CLS:PRINT "Scanning line: ";
+269 REM Get next program line to be processed.
+270 IF EOF(1) THEN 380
+280 LINE INPUT #1,A$:FOR HH=INSTR(A$," ") TO LEN(A$)-1:IF MID$(A$,HH+1,1)=" " THEN NEXT
+289 REM Set up pointer variables and update display.
+290 PP=HH:X=PP:N$=LEFT$(A$,INSTR(A$," ")):LN=VAL(N$)-32768!:LOCATE 1,15:PRINT N$;:GOTO 410
+309 REM If combining lines is not allowed, then write new line.
+310 IF XC$<>"Y" THEN PRINT #2,A$:GOTO 270
+319 REM Set up C$ to start combining lines.
+320 IF C$="" THEN C$=A$:GOTO 270
+329 REM Checks if current line is referenced.
+330 IF R>0 THEN IF LN=REF(R) THEN R=R-1:GOTO 370 ELSE IF LN>REF(R) THEN R=R-1:GOTO 330
+339 REM Never combine lines with IF or RETURN statements.
+340 IF INSTR(C$,"IF") OR INSTR(C$,"RETURN") THEN 370
+349 REM Combine two program lines and go for more.
+350 V$=RIGHT$(A$,LEN(A$)-X):IF LEN(C$)+LEN(V$)<=240 THEN C$=C$+":"+V$:RE=RE+1 ELSE 370
+360 GOTO 270
+369 REM Not enough space in C$ to combine another line so write it out first,           then continue.
+370 PRINT #2,C$:C$=A$:GOTO 270
+379 REM Write out last program line and update display.
+380 PRINT #2,C$:CLOSE:CLS:PRINT RE;" LINES COMBINED":PRINT SD;" SPACES DELETED":PRINT RD;" REMARKS DELETED":SOUND 1000,6:SOUND 660,5:PRINT:PRINT:PRINT "Strike any key to continue":Q$=INPUT$(1):END
+390 LOCATE 1,1:PRINT SPACE$(20):LOCATE 3,1:PRINT STRING$(255,32):LOCATE 3,1:COLOR 14,0:PRINT"Press 'L' to load the Squished program":SOUND 1000,6:SOUND 660,5:COLOR 11,0
+410 N$=LEFT$(A$,PP):PP=PP+1:P=0:J$="":DT=0:FOR T=PP TO LEN(A$):L$=MID$(A$,T,1)
+419 REM Set P equal to 1 on the first quote mark in a PRINT statement, ELSE set     P equal to 0 on second.
+420 IF L$=CHR$(34) THEN IF P THEN P=0 ELSE P=1
+429 REM If the current scan position if within a set of quote marks, skip all           normal Squish processing.
+430 IF P THEN 520
+439 REM Branch to line 520 if DATA is found in the current program line.
+440 IF MID$(A$,T,4)="DATA" THEN DT=1 ELSE IF L$=":" THEN DT=0
+450 IF DT THEN 520
+459 REM Remove all spaces when safe to do so and update Spaces Deleted counter.
+460 IF L$<>" " OR XS$<>"Y" THEN 500 ELSE IF J$>"" THEN L1$=RIGHT$(J$,1):IF L1$=CHR$(34)OR L1$="^" OR (L1$>="(" AND L1$<"0") OR (L1$>"9" AND L1$<"A") THEN L$=""
+470 L1$="X":IF T<LEN(A$) THEN L1$=MID$(A$,T+1,1)
+480 IF L1$="^" OR L1$=CHR$(34) OR L1$=" " OR (L1$>="'" AND L1$<"0") OR (L1$>"9" AND L1$<"A") THEN L$=""
+490 IF L$="" THEN SD=SD+1
+499 REM Check for a user protected line.
+500 IF PV>PJ THEN IF LN=PRO(PJ) THEN PJ=PJ+1:GOTO 540 ELSE IF LN>PRO(PJ) THEN PJ=PJ+1:GOTO 500
+509 REM Search for REMarks and remove if allowed.
+510 IF MID$(A$,T,3)="REM" OR L$="'" THEN IF IP$<>"Y" THEN GOSUB 600:A$=N$+J$+MID$(A$,T):GOTO 540 ELSE RD=RD+1:WHILE LN>REF(R)AND R>0:R=R-1:WEND:IF LN=REF(R) THEN R=R-1:GOSUB 600:WHILE J$="":J$="'":WEND:A$=N$+J$:GOTO 540 ELSE IF J$="" THEN 270 ELSE 530
+519 REM Construct a new Squished version of the currect line in J$.  Also add a         trailing quote mark if none found after a PRINT statement.
+520 J$=J$+L$:NEXT:IF P THEN J$=J$+CHR$(34)
+529 REM Add the current program line number and jump to line 310.
+530 GOSUB 600:A$=N$+J$:GOTO 310
+539 REM If lines have been combined, then save them.
+540 IF C$<>"" THEN PRINT #2,C$:C$=""
+549 REM Otherwise write new program line.
+550 PRINT #2,A$:GOTO 270
+559 REM Error trapping done here.
+560 IF ERR=53 THEN PRINT:PRINT SQ$" FILE NOT FOUND":PRINT:FILES LEFT$(SQ$,INSTR(SQ$,":"))+"*.*":PRINT:LINE INPUT "Try again:";SQ$:RESUME: ELSE ON ERROR GOTO 0
+599 REM Patch to remove indentation if spaces being deleted.  Add `AND XC$="Y"  to the logic if you want to preserve indentation when not combining.
+600 IF XS$="Y"THEN X=INSTR(N$," "):N$=LEFT$(N$,X):SD=SD+PP-X-1
+610 RETURN
+650 Q$=CHR$(ASC(INPUT$(1))AND &HDF):IF Q$<>"Y" THEN Q$="N"
+655 PRINT Q$:PRINT:RETURN
+$=

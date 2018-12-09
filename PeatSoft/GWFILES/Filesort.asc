@@ -1,0 +1,177 @@
+10 REM ----------------------------------------------
+15 REM
+20 REM               FILESORT.BAS
+25 REM               Enter, sort, and print
+30 REM               a list of words using
+35 REM               the Quickersort method.
+40 REM
+45 REM -----------------------------------------------
+50 DIM STACK% ( 500 )   'pushdown stack; set for 500 items
+55 REM --------------Restart here---------------------
+56 CLS:KEY OFF
+57 PRINT TAB(30)"FILESORT PROGRAM":PRINT:PRINT
+60 PRINT"[ 1]. Enter a list of words."
+65 PRINT"[ 2]. Sort the list of words."
+70 PRINT"[ 3]. Print the list of words."
+72 PRINT"[ 4]. Add to existing list."
+75 PRINT"[ 5]. Stop."
+80 PRINT:PRINT"Select one of the above (1 to 5):";:INPUT J%:PRINT
+85 ON J% GOTO 100,300,500,700,1420
+100 REM ------------------------------------
+101 REM     Input a random file of words.
+102 REM     Wide% = max. length
+103 REM ------------------------------------
+110 CLS:LINE INPUT"Enter name of list: "; F$:PRINT
+115 LINE INPUT "Correct (y/n) ? ";Y$:PRINT
+120 IF Y$<>"y" AND Y$<>"Y" THEN 110
+125 H$=F$+".hed":F$=F$+".dat"
+126 INPUT "Enter maximum word length: ",WIDE%:PRINT
+127 LINE INPUT "Correct (y/n) ? ";Y$:PRINT
+128 IF Y$<>"y" AND Y$<>"Y" THEN 126
+129 REM -------------Open, initialize file------------
+130   OPEN "R",1,F$,WIDE%
+135   FIELD 1, WIDE% AS REC$
+140   P%=0
+141 REM ----------------------------------------------
+145  CLS:PRINT"Press ENTER key to stop":PRINT
+150  PRINT"Enter up to ";WIDE%;" characters : ":PRINT
+152 REM ----------------------------------------------
+153   LINE INPUT">";K$
+155   LSET REC$=K$
+160   IF LEN ( K$ )=0 THEN 250
+165   P%=P%+1  'DIRECT ACCESS LOCATION
+170   PUT 1, P%     'WRITE TO FILE
+175 GOTO 153        'GET ANOTHER WORD
+240 REM ---------------------------
+245 REM    Write header file
+250 REM ---------------------------
+255 PRINT"Done. Writing header file.":PRINT
+260 CLOSE 1
+265   OPEN "O",1,H$
+270   PRINT #1,P%,WIDE%  'SAVE LENGTH
+275   CLOSE 1
+280 GOTO 55              'RESTART MENU
+300 REM --------------------------
+305 REM
+310 REM       QUICKERSORT
+315 REM
+320 REM --------------------------
+325 REM
+330    LINE INPUT "Enter name of list : "; F$:PRINT
+335    LINE INPUT "Correct (y/n) ? ";Y$:PRINT
+340    IF Y$<>"y" AND Y$<>"Y" THEN 330
+345 H$=F$+".hed":F$=F$+".dat"
+350 TOS%=0
+352 REM ---------Read header file ------------
+355  OPEN "I",1,H$:INPUT #1,N%,WIDE%:CLOSE 1
+358 REM---Open word list file ---------------
+360  OPEN "R",1,F$,WIDE%
+365  FIELD 1, WIDE% AS REC$
+366 REM ------Allocate string space ---------------
+370  R$=SPACE$(WIDE%):S$=SPACE$(WIDE%)
+375  K$=SPACE$(WIDE%):MIDL$=SPACE$(WIDE%)
+378 REM
+380 REM -------Start quickersorting--------------------
+382 REM
+385 L%=1: RIGHT%=N%:GOSUB 1000   'push
+390 REM ------------Loop here----------------
+400 GOSUB 1100                   'Pop left%,right%
+405 REM-----------iNNER LOOP-----------------
+410 GOSUB 1200                   'exchange
+420 IF NEWL%<RIGHT% THEN L%=NEWL%:GOSUB 1000
+430 RIGHT%=NEWR%
+440 IF LEFT% < RIGHT% THEN 410
+442 REM -----Keep user informed -------------
+445   PRINT TOS%/2;"  lists to do.":PRINT
+447 REM
+450 IF TOS%<> 0 THEN 400         'End loop
+455 PRINT F$; " is sorted.":PRINT
+460 CLOSE 1
+470 GOTO 55                      'Restart menu
+500 REM -----------------------
+501 REM     Print list
+502 REM ------------------------
+530  LINE INPUT"Enter name of list : "; F$:PRINT
+535 LINE INPUT "Correct (y/n) ? ";Y$:PRINT
+540 IF Y$<>"y" AND Y$<>"Y" THEN 530
+545 H$=F$+".hed":F$=F$+".dat"
+547 REM -------Get file length and width-----------
+550  OPEN "I",1,H$
+555  INPUT #1,N%,WIDE%
+557 REM ---------Open direct access file--------------
+560  CLOSE 1
+565  OPEN "R",1,F$,WIDE%
+570  FIELD 1,   WIDE% AS REC$
+571 REM ---------------------------------
+575 K$=SPACE$(WIDE%)
+580 LINE INPUT"Printer ready ? ";Y$:PRINT
+585 LPRINT "List = ";F$
+590 LPRINT  :LPRINT
+592 REM -------Access, fetch, and print ---------------
+595 FOR I%=1 TO N%
+600  GET 1, I%:LSET K$=REC$
+605  LPRINT K$
+610 NEXT I%
+615 CLOSE 1
+620 LINE INPUT"Ready ?";Y$:PRINT
+625 GOTO 55                   'restart menu
+700 REM-------------------------
+710 REM     ADD TO LIST
+720 REM-------------------------
+730  CLS:LINE INPUT"Enter name of list : "; F$:PRINT
+735 LINE INPUT "Correct (y/n) ? ";Y$:PRINT
+740 IF Y$<>"y" AND Y$<>"Y" THEN 730
+745 H$=F$+".hed":F$=F$+".dat"
+746 REM -----------Get length and width of list------------
+750 OPEN "i",1,H$
+755  INPUT #1,N%,WIDE%
+760 CLOSE 1
+762 REM  ----------Prepare to append to list--------
+765  OPEN "R",1,F$,WIDE%
+770  FIELD 1,   WIDE% AS REC$
+775 P%=N%
+780 GOTO 145              'Append
+1000 REM -------------------
+1005 REM    PUSH
+1010 REM -------------------
+1020 TOS%=TOS%+2
+1025 STACK%( TOS%-1 )=L%
+1030 STACK%( TOS% )=RIGHT%
+1035 RETURN
+1100 REM--------------------
+1105 REM    pop
+1110 REM--------------------
+1115 REM
+1120 RIGHT%=STACK%(TOS%)
+1125 LEFT%=STACK%( TOS%-1 )
+1130 TOS%=TOS%-2
+1135 RETURN
+1200 REM -------------------
+1205 REM    EXCHANGE
+1210 REM------------------
+1220 NEWL%=LEFT%:NEWR%=RIGHT%
+1225 MIDL%=(LEFT%+RIGHT%)/2
+1230 GET 1, MIDL%:LSET MIDL$=REC$
+1235 REM ---------REPEAT-------------
+1240 REM ---------WHILE--------------
+1242 REM    SEARCH FOR K$>MIDL$
+1245  GET 1,NEWL%:LSET K$=REC$
+1250  IF K$<MIDL$ THEN NEWL%=NEWL%+1:GOTO 1240
+1255 LSET S$=K$    'SAVE K$ FOR LATER
+1300 REM ---------WHILE--------------
+1303 REM   SEARCH FOR K$<MIDL$
+1305 GET 1,NEWR%:LSET K$=REC$
+1310 IF K$>MIDL$ THEN NEWR%=NEWR%-1:GOTO 1300
+1315 LSET R$=K$
+1320 IF NEWL% <= NEWR% THEN 1325 ELSE 1400
+1322 REM -----EXCHANGE FILE RECORDS------------
+1325 LSET REC$=S$
+1330 PUT 1, NEWR%               'PUT LEFT IN RIGHT
+1335 LSET REC$=R$
+1340 PUT 1, NEWL%              'PUT RIGHT IN LEFT
+1345 NEWL%=NEWL%+1
+1350 NEWR%=NEWR%-1
+1400 IF NEWL% <=NEWR% THEN 1235
+1410 RETURN
+1420 END
+

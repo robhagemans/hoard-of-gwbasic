@@ -1,0 +1,434 @@
+5 'SAVE "IBMMC"
+10 '
+12 ' ISDDRIVR - ISD DEMO DRIVER
+18 ' AUTHOR - Hal W. Jennings
+20 '
+22 'DEMO DRIVER
+24 '
+35 GOSUB 2800  'INIT
+40 GOSUB 1000  'DISPLAY NEXT SCREEN
+45 IF INKEY$<>"" THEN 45  'CLEAR KEYBOARD BUFFER
+50 IF DELAY THEN GOSUB 200 ELSE GOSUB 800  'DELAY/INPUT
+55 IF TERM THEN CHAIN "MENU"
+60 IF RESTART THEN NXT$=FIRSTPROG$: NMP=0: GOTO 330
+65 GOTO 40
+200 '
+205 'DELAY LOGIC
+210 '
+215 T!=FNTM!(TIME$)+DSEC: IF T!>86400! THEN T!=DSEC
+220 K$=INKEY$: IF K$="" AND T!>FNTM!(TIME$) THEN 220
+225 IF K$=BS$ THEN 560    'F9 - BACKUP SCREEN
+230 IF K$=BM$ THEN 510    'F10- BACKUP MENU
+235 IF K$=TERM$ THEN  460 'CTRL END - TERMINATE
+240 IF K$=ID$ THEN GOSUB 940: GOTO 220    'F8 - DISPLAY ID
+245 IF K$=HELP$ THEN  GOSUB 970: GOTO 215 'F1 - HELP
+250 IF K$=" " THEN 410    'SPACE BAR - PAUSE
+255 IF K$<>"" THEN 220    'INVALID KEY - TIME NOT EXPIRED
+300 NMP=NMP+1: NM$(NMP)=CSCR$
+305 IF NMP>148 THEN I=1:FOR J=30 TO NMP:NM$(I)=NM$(J):I=I+1:NEXT J:NMP=I-1
+310 IF LEFT$(NEXTSCR$,1)<>"&" THEN RETURN
+315 NXT$=MID$(NEXTSCR$,2): IF NXT$="END" THEN TERM=TRUE: RETURN
+320 IF NXT$="RETURN" THEN NEXTSCR$=NM$(NMP-1): NMP=NMP-2: IF LEFT$(NEXTSCR$,1)="," THEN NEXTSCR$=MID$(NEXTSCR$,2): RETURN ELSE RETURN
+325 NMP=NMP+1: NM$(NMP)="&"+THISPROG$
+330 LOCATE 25,1: COLOR 15,0: PRINT SPC(38);: LOCATE 25,6: PRINT "** PROGRAM ";NXT$;" LOADING **";
+335 ON ERROR GOTO 340: CHAIN "A:"+NXT$
+340 RESUME 345
+345 ON ERROR GOTO 350: CHAIN "B:"+NXT$
+350 CLS: LOCATE 10,5: PRINT "PROGRAM ";NXT$;" NOT FOUND": LOCATE 23,5: PRINT "Press any key to end demo"
+355 IF INKEY$="" THEN 355 ELSE TERM=-1: GOTO 55
+400 '
+405 'SPACE BAR (PAUSE)
+410 IF INKEY$="" THEN 410 ELSE 300
+450 '
+455 'CTRL END KEY (EXIT)
+460 TERM=TRUE: RETURN
+500 '
+505 'BACKUP MENU
+510 BKUPM=TRUE
+515 IF INSTR(",&",LEFT$(NM$(NMP),1))=0 AND NMP>1 THEN NMP=NMP-1: GOTO 515
+550 '
+555 'BACKUP SCREEN
+560 IF NMP<=0 THEN NEXTSCR$=CSCR$ ELSE NEXTSCR$=NM$(NMP):NMP=NMP-1: BKUP=TRUE
+565 IF LEFT$(NEXTSCR$,1)="," THEN NEXTSCR$=MID$(NEXTSCR$,2): RETURN
+570 IF LEFT$(NEXTSCR$,1)="&" THEN NXT$=MID$(NEXTSCR$,2): GOTO 330
+575 RETURN
+800 '
+805 'INPUT LOGIC
+810 '
+815 T!=FNTM!(TIME$)+120: IF T!>86499! THEN T!=120
+820 K$=INKEY$: IF K$="" AND T!>FNTM!(TIME$) THEN 820
+825 IF K$=BS$ THEN 560    'F9 - BACKUP SCREEN
+830 IF K$=BM$ THEN 510    'F10- BACKUP MENU
+835 IF K$=TERM$ THEN  460 'CTRL END - TERMINATE
+840 IF K$=ID$ THEN GOSUB 940: GOTO 820    'F8 - DISPLAY ID
+845 IF K$=HELP$ THEN  GOSUB 970: GOTO 800 'F1 - HELP
+850 IF (K$=ESC$) AND TIM THEN RESTART=TRUE: RETURN  'ESC KEY WITH TIME LIMIT
+855 IF K$="" THEN GOSUB 910: GOTO 820  'TIME EXPIRED
+860 S=ASC(K$): IF S>96 AND S<123 THEN K$=CHR$(S-32)
+865 ANS=INSTR(BRANCH$,B$+K$): IF ANS=0 THEN ANS=INSTR(BRANCH$,BA$)
+870 IF ANS=0 THEN BEEP: GOTO 820
+875 I=INSTR(ANS,BRANCH$,D$): J=INSTR(I,BRANCH$,B$): NEXTSCR$=MID$(BRANCH$,I+1,J-I-1): IF INSTR(2,BRANCH$,B$)<LEN(BRANCH$) THEN CSCR$=","+CSCR$
+880 GOTO 300
+900 '
+905 'TIME EXPIRED ON INPUT SCREEN
+910 LOCATE 25,1: COLOR 15,0: PRINT" OR PRESS THE 'Esc' KEY TO START OVER ";:T!=86500!: TIM=TRUE: RETURN
+930 '
+935 'DISPLAY PROGRAM AND SCREEN NAME
+940 LOCATE 25,1: COLOR 15,0: PRINT"  PROG=";THISPROG$;"   SCREEN=";CSCR$;"  ";: RETURN
+960 '
+965 'HELP
+970 LOCATE 25,1: COLOR 15,0: PRINT" F9=BACKUP  F10=BACKUP TO PREV. MENU ";: RETURN
+1000 '
+1002 'PLACE TESTS FOR SCREEN NAMES HERE
+1004 '
+1006 CSCR$=NEXTSCR$: BKUP=FALSE: BKUPM=FALSE: TIM=FALSE
+1010 IF CSCR$="DYINT013" THEN 3000
+1020 IF CSCR$="DYINT014" THEN 3156
+1030 IF CSCR$="DYINT015" THEN 3261
+1040 IF CSCR$="DYINT016" THEN 3354
+1050 IF CSCR$="DYINT017" THEN 3432
+1060 IF CSCR$="DYINT018" THEN 3522
+1070 IF CSCR$="DYINT019" THEN 3621
+1080 IF CSCR$="DYINT020" THEN 3729
+1090 IF CSCR$="DYINT021" THEN 3840
+2700 '
+2705 'SCREEN NOT FOUND
+2710 '
+2715 CLS: LOCATE 10,5: PRINT "SCREEN ";NEXTSCR$;" NOT FOUND": LOCATE 23,5: PRINT "Press any key to end demo"
+2720 DELAY=FALSE: BRANCH$="þ*$&ENDþ": RETURN
+2800 '
+2805 'INIT (INITIALIZATION SUBROUTINE)
+2810 '
+2815 DEFINT A-Z: KEY OFF: SCREEN 0,1,0,0
+2820 K$="": B$="þ": FALSE=0: TRUE=NOT FALSE: Q$=CHR$(34): ESC$=CHR$(27): TERM=FALSE: RESTART=FALSE: BA$="þ*": D$="$"
+2825 BS$=CHR$(0)+CHR$(67): BM$=CHR$(0)+CHR$(68): HELP$=CHR$(0)+CHR$(59): TERM$=CHR$(0)+CHR$(117): ID$=CHR$(0)+CHR$(66)
+2830 DEF FNTM!(T$)=VAL(LEFT$(T$,2))*3600!+VAL(MID$(T$,4,2))*60!+VAL(RIGHT$(T$,2))
+2835 'DISABLE FUNCTION KEYS
+2840 FOR I=1 TO 10: KEY I,N$: NEXT
+2845 READ FIRSTPROG$,THISPROG$
+2850 'SCREEN STACK
+2855 COMMON NM$(),NMP,BKUP,BKUPM,IBMBW,NEXTSCR$,NXT$
+2860 IF NEXTSCR$="" THEN DIM NM$(150)
+2865 IF BKUPM THEN 510 ELSE IF BKUP THEN 560
+2870 READ NEXTSCR$  'NAME OF FIRST SCREEN
+2875 'TEST FOR IBM B&W DISPLAY
+2880 DEF SEG=0:IF (PEEK(&H410) AND &H30)=&H30 THEN IBMBW=TRUE:LOCATE ,,,12,13 ELSE IBMBW=FALSE:LOCATE ,,,6,7
+2885 RETURN
+2890 'FIRSTPROG$,THISPROG$,NEXTSCR$
+2999 DATA IBMDIY,IBMMC,DYINT013
+3000 'SAVE "B:DYINT013.ISD",A 'TITLE=MAN&COMP: MANUAL
+3003 WIDTH 80:COLOR 7,0,0:CLS
+3006 COLOR 0,7:LOCATE 1,5:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3009 COLOR 7,0:PRINT USING "&";"     ³      ";
+3012 COLOR 0,7:PRINT USING "&";"  CHECKBOOK  ";
+3015 COLOR 7,0:PRINT USING "&";"       ³    ";
+3018 COLOR 0,7:PRINT USING "&";" ³ MANUAL AND COMPUTER SYSTEM COMPARISON ³ ";
+3021 COLOR 7,0:PRINT USING "&";"     ÆÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍµ    ";
+3024 COLOR 0,7:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3027 COLOR 7,0:PRINT USING "&";"     ³";:LOCATE 3,73:PRINT USING "&";"BALANCE³  Assume you have just received some bills that     ³ 998 Water Co 20.00 136.00³     you wish to pay by check.";:LOCATE 5,53:PRINT USING "&";"³";
+3030 PRINT USING "&";" 999 Phone Co 23.00 113.00³";:LOCATE 6,53:PRINT USING "&";"³1000 Elec Co  38.00  75.00³  There is a set of steps that you follow even      ";
+3033 COLOR 0,7:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3036 COLOR 7,0:PRINT USING "&";"     though you do not realize it because the       ";
+3039 COLOR 0,7:PRINT USING "&";"³John A. Smith         1001³";
+3042 COLOR 7,0:PRINT USING "&";"     process is so familiar to you.";
+3045 COLOR 0,7:LOCATE 9,53:PRINT USING "&";"³Pay to:          DATE     ³";
+3048 LOCATE 10,53:PRINT USING "&";"³Amount:~~~~~~~     $ ~~~~~³";
+3051 COLOR 7,0:PRINT USING "&";"  1. ";
+3054 COLOR 15,0:PRINT USING "&";"Go";
+3057 COLOR 7,0:PRINT USING "&";" get checkbook and bills.";
+3060 COLOR 0,7:LOCATE 11,53:PRINT USING "&";"³Memo   ~~~~~~~      ~~~~~~³";
+3063 COLOR 7,0:PRINT USING "&";"  2. ";
+3066 COLOR 15,0:PRINT USING "&";"Look";
+3069 COLOR 7,0:PRINT USING "&";" at first (next) bill.";
+3072 COLOR 0,7:LOCATE 12,53:PRINT USING "&";"ÀÄÄÄÄÄ";
+3075 COLOR 7,0:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3078 COLOR 0,7:PRINT USING "&";"ÄÙ";
+3081 COLOR 7,0:PRINT USING "&";"  3. ";
+3084 COLOR 15,0:PRINT USING "&";"Look";
+3087 COLOR 7,0:PRINT USING "&";" at balance in checkbook.";:LOCATE 13,59:PRINT USING "&";"³      INVOICE     ³    4. ";
+3090 COLOR 15,0:PRINT USING "&";"If";
+3093 COLOR 7,0:PRINT USING "&";" you have enough money, ";
+3096 COLOR 15,0:PRINT USING "&";"then";
+3099 COLOR 7,0:PRINT USING "&";" write check        ÚÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ³          or ";
+3102 COLOR 15,0:PRINT USING "&";"else";
+3105 COLOR 7,0:PRINT USING "&";" put away checkbook.";:LOCATE 15,56:PRINT USING "&";"³ ABC Corp.   BILL  ³ ³    5. ";
+3108 COLOR 15,0:PRINT USING "&";"Fill out";
+3111 COLOR 7,0:PRINT USING "&";" all fields on check and in checkbook.    ³~~~~~~~~~~~~~~~~~~~³ ³    6. ";
+3114 COLOR 15,0:PRINT USING "&";"Subtract";
+3117 COLOR 7,0:PRINT USING "&";" amount from balance to get new balance.  ³To: John A. Smith  ³ ³    7. ";
+3120 COLOR 15,0:PRINT USING "&";"Mark";
+3123 COLOR 7,0:PRINT USING "&";" bill PAID.";:LOCATE 18,56:PRINT USING "&";"³    123 Main St.   ³ ³    8. ";
+3126 COLOR 15,0:PRINT USING "&";"If";
+3129 COLOR 7,0:PRINT USING "&";" you have more bills, ";
+3132 COLOR 15,0:PRINT USING "&";"then";
+3135 COLOR 7,0:PRINT USING "&";" go back to step 2    ³    City,State,Zip ³ ³          or ";
+3138 COLOR 15,0:PRINT USING "&";"else";
+3141 COLOR 7,0:PRINT USING "&";" put away checkbook.";:LOCATE 20,56:PRINT USING "&";"³";:LOCATE 20,76:PRINT USING "&";"³ ³";:LOCATE 21,56:PRINT USING "&";"³  Supplies $10.00  ³ ³";:LOCATE 22,56:PRINT USING "&";"³";
+3144 PRINT USING "&";"          ~~~~~~~~ ÃÄÙ";:LOCATE 23,56:PRINT USING "&";"³  Total    $10.00  ³    ";
+3147 COLOR 15,0:PRINT USING "&";"Press the Space bar";
+3150 COLOR 7,0:LOCATE 24,56:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ";
+3153 LOCATE 10,80,0:DELAY=0:BRANCH$="þ*$DYINT014þ":RETURN
+3156 'SAVE "B:DYINT014.ISD",A 'TITLE=MAN&COMP: COMPUTER
+3159 WIDTH 80:COLOR 7,0,0:CLS
+3162 COLOR 0,7:LOCATE 1,19:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3165 LOCATE 2,19:PRINT USING "&";" ³ MANUAL AND COMPUTER SYSTEM COMPARISON ³ ";
+3168 LOCATE 3,19:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3171 COLOR 7,0:LOCATE 5,19:PRINT USING "&";"The computer does the same thing as you do.";:LOCATE 7,19:PRINT USING "&";"It's set of steps is what is called a program.";:LOCATE 10,28:PRINT USING "&";"Steps i";
+3174 PRINT USING "&";"n a computer program";:LOCATE 11,28:PRINT USING "&";"~~~~~~~~~~~~~~~~~~~~~~~~~~~";:LOCATE 12,18:PRINT USING "&";"1. ";
+3177 COLOR 15,0:PRINT USING "&";"OPEN FILES";
+3180 COLOR 7,0:PRINT USING "&";" ";Q$;"checkbook";Q$;" and ";Q$;"bills";Q$;"";:LOCATE 13,18:PRINT USING "&";"2. ";
+3183 COLOR 15,0:PRINT USING "&";"READ";
+3186 COLOR 7,0:PRINT USING "&";" first (next) bill";:LOCATE 14,18:PRINT USING "&";"3. ";
+3189 COLOR 15,0:PRINT USING "&";"READ";
+3192 COLOR 7,0:PRINT USING "&";" ";Q$;"old balance";Q$;"";:LOCATE 15,18:PRINT USING "&";"4. ";
+3195 COLOR 15,0:PRINT USING "&";"IF";
+3198 COLOR 7,0:PRINT USING "&";" ";Q$;"old balance";Q$;" ";
+3201 COLOR 15,0:PRINT USING "&";"LESS THAN";
+3204 COLOR 7,0:PRINT USING "&";" ";Q$;"check amount";Q$;"";
+3207 COLOR 15,0:LOCATE 16,21:PRINT USING "&";"THEN";
+3210 COLOR 7,0:PRINT USING "&";" go to step #9";:LOCATE 17,18:PRINT USING "&";"5. ";
+3213 COLOR 15,0:PRINT USING "&";"PRINT";
+3216 COLOR 7,0:PRINT USING "&";" all fields on check and check register";:LOCATE 18,18:PRINT USING "&";"6. ";Q$;"new balance";Q$;" ";
+3219 COLOR 15,0:PRINT USING "&";"=";
+3222 COLOR 7,0:PRINT USING "&";" ";Q$;"old balance";Q$;" ";
+3225 COLOR 15,0:PRINT USING "&";"-";
+3228 COLOR 7,0:PRINT USING "&";" ";Q$;"check amount";Q$;"";:LOCATE 19,18:PRINT USING "&";"7. ";
+3231 COLOR 15,0:PRINT USING "&";"WRITE";
+3234 COLOR 7,0:PRINT USING "&";" bill paid";:LOCATE 20,18:PRINT USING "&";"8. ";
+3237 COLOR 15,0:PRINT USING "&";"IF";
+3240 COLOR 7,0:PRINT USING "&";" ";Q$;"more bills";Q$;" ";
+3243 COLOR 15,0:PRINT USING "&";"THEN";
+3246 COLOR 7,0:PRINT USING "&";" go to step #2";:LOCATE 21,18:PRINT USING "&";"9. ";
+3249 COLOR 15,0:PRINT USING "&";"CLOSE FILES";
+3252 COLOR 7,0:PRINT USING "&";" ";Q$;"checkbook";Q$;" and ";Q$;"bills";Q$;"";
+3255 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3258 LOCATE 3,1,0:DELAY=0:BRANCH$="þ*$DYINT015þ":RETURN
+3261 'SAVE "B:DYINT015.ISD",A 'TITLE=MAN&COMP: COMPARISON
+3264 WIDTH 80:COLOR 7,0,0:CLS
+3267 COLOR 0,7:LOCATE 1,19:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3270 LOCATE 2,19:PRINT USING "&";" ³ MANUAL AND COMPUTER SYSTEM COMPARISON ³ ";
+3273 LOCATE 3,19:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3276 LOCATE 6,12:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄ¿ ";
+3279 LOCATE 6,55:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄ¿ ";
+3282 LOCATE 7,12:PRINT USING "&";" ³ PERSON ³ ";
+3285 LOCATE 7,55:PRINT USING "&";" ³ COMPUTER ³ ";
+3288 LOCATE 8,12:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÙ ";
+3291 LOCATE 8,55:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÙ ";
+3294 COLOR 15,0:LOCATE 10,3:PRINT USING "&";"Reads";
+3297 COLOR 7,0:PRINT USING "&";" bills consisting of printed          ";
+3300 COLOR 15,0:PRINT USING "&";"READS";
+3303 COLOR 7,0:PRINT USING "&";" bills consisting of magnetic   characters on paper.";:LOCATE 11,46:PRINT USING "&";"characters stored on ";Q$;"diskette";Q$;".";
+3306 COLOR 15,0:LOCATE 13,3:PRINT USING "&";"Remembers";
+3309 COLOR 7,0:PRINT USING "&";" who to pay and how much.         ";
+3312 COLOR 15,0:PRINT USING "&";"STORES";
+3315 COLOR 7,0:PRINT USING "&";" in memory who to pay and";:LOCATE 14,46:PRINT USING "&";"how much.";
+3318 COLOR 15,0:LOCATE 16,3:PRINT USING "&";"Decides";
+3321 COLOR 7,0:PRINT USING "&";" whether to pay the bill.           ";
+3324 COLOR 15,0:PRINT USING "&";"CALCULATES";
+3327 COLOR 7,0:PRINT USING "&";" whether bill can be paid";
+3330 COLOR 15,0:LOCATE 18,3:PRINT USING "&";"Writes";
+3333 COLOR 7,0:PRINT USING "&";" the check and marks bill paid.      ";
+3336 COLOR 15,0:PRINT USING "&";"PRINTS";
+3339 COLOR 7,0:PRINT USING "&";" the check and ";
+3342 COLOR 15,0:PRINT USING "&";"WRITES";
+3345 COLOR 7,0:LOCATE 19,46:PRINT USING "&";"on diskette that bill is ";Q$;"paid";Q$;".";
+3348 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3351 LOCATE 5,62,0:DELAY=0:BRANCH$="þ*$DYINT016þ":RETURN
+3354 'SAVE "B:DYINT016.ISD",A 'TITLE=MAN&COMP: GRAPHIC
+3357 WIDTH 80:COLOR 7,0,0:CLS
+3360 PRINT USING "&";"   ÕÍÍÍÍÍÍÍÍÍÍ¸";
+3363 COLOR 15,0:LOCATE 1,33:PRINT USING "&";"MANUAL SYSTEM";
+3366 COLOR 7,0:LOCATE 2,4:PRINT USING "&";"³          ³";:LOCATE 3,4:PRINT USING "&";"³ ÚÄÄÄÄÄÄ¿ ³";:LOCATE 4,4:PRINT USING "&";"³ ÀÄÄÄÄÄÄÙ ³     ³--------------³";:LOCATE 4,68:PRINT USING "&";"ÚÄÄÄÄÄÄÄ¿";
+3369 PRINT USING "&";"       ³          ³     ³ STEP 1       ³            @@@@@@@@@          ³       ³       ³ÄÄÄÄÄÄÄÄÄÄ³     ³ STEP 2       ³          @@@@@@@@@@@       ÚÄÄ´_______Ã";
+3372 PRINT USING "&";"ÄÄ¿    ³          ³     ³ STEP 3       ³          ` o   o  @@       ³ ........... ³    ³ ÚÄÄÄÄÄÄ¿ ³     ³   ";Q$;"          ³          `   u    @@@      ³ :::::";
+3375 PRINT USING "&";":::::::³    ³ ÀÄÄÄÄÄÄÙ ³     ³--------------³          `  ---'   @@@     ÀÄÄÏÏÏÏÏÏÏÏÏÄÄÙ    ³          ³";:LOCATE 10,48:PRINT USING "&";"` - - -'";:LOCATE 11,4:PRINT USING "&";"Ô";
+3378 PRINT USING "&";"ÍÍÍÍÍÍÍÍÍÍ¾";:LOCATE 12,4:PRINT USING "&";"FILE CABINET       SET OF STEPS";:LOCATE 12,49:PRINT USING "&";"PERSON            TYPEWRITER    ßßßßßßßßßßßßßßßßßßßßß";
+3381 PRINT USING "&";"ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß";
+3384 COLOR 15,0:LOCATE 14,33:PRINT USING "&";"COMPUTER SYSTEM";
+3387 COLOR 7,0:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄ¿          ÚÄÄÄÄÄÄÄ¿       ÚÄÄÄÄÄÄÄÄÄ¿";:LOCATE 15,46:PRINT USING "&";"ÚÄ´ÛÛÛÛÛÛÛ ÃÄ¿        ³       ³       ÃÄÄÄÄÄÄÄÄÄ´    ³ 1. ";
+3390 COLOR 15,0:PRINT USING "&";"OPEN";
+3393 COLOR 7,0:PRINT USING "&";" file       ³     ³ ³ÛÛÛÛÛÛÛ:³ ³      ÚÂ´       ÃÂ¿     ³    o    ³    ³ 2. ";
+3396 COLOR 15,0:PRINT USING "&";"READ";
+3399 COLOR 7,0:PRINT USING "&";" bill       ³     ³ ÀÄÄÄÄÄÄÄÄÙ ³      ³ ";
+3402 COLOR 0,7:PRINT USING "&";"Æ_______µ";
+3405 COLOR 7,0:PRINT USING "&";" ÆÝ    ³    0    ³    ³ 3. ";
+3408 COLOR 15,0:PRINT USING "&";"READ";
+3411 COLOR 7,0:PRINT USING "&";" old balance³     ÃÄÄÄÄÄÄÄÄÄÄÄÄ´      ³ ÛÛÛÛÛÛÛÛÛ°³     ÀÄÄÄÄÄÄÄÄÄÙ    ³ 4. ";
+3414 COLOR 15,0:PRINT USING "&";"etc.";
+3417 COLOR 7,0:PRINT USING "&";"            ³     ³IBM ÛÛÛÛÛÛÛÛ³      ÃÄÄÄÄÄÄÄÄÄÄÄ´";:LOCATE 20,19:PRINT USING "&";"³";:LOCATE 20,40:PRINT USING "&";"³     ÀÂÄÄÄÄÄÄÄÄÄÄÂÙ      ÀÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 21,19:PRINT USING "&";"³";
+3420 PRINT USING "&";"";:LOCATE 21,40:PRINT USING "&";"³      µ°°°°°°°°°°Æ";:LOCATE 22,5:PRINT USING "&";"DISKETTE           PROGRAM";:LOCATE 22,47:PRINT USING "&";"ÀÄÄÍÍÍÍÍÄÄÄÙ          P";
+3423 PRINT USING "&";"RINTER";:LOCATE 23,49:PRINT USING "&";"COMPUTER";
+3426 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3429 LOCATE 12,15,0:DELAY=0:BRANCH$="þ*$DYINT017þ":RETURN
+3432 'SAVE "B:DYINT017.ISD",A 'TITLE=COMPUTER SOLUTION 1
+3435 WIDTH 80:COLOR 7,0,0:CLS
+3438 COLOR 0,7:LOCATE 1,27:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3441 LOCATE 2,27:PRINT USING "&";" ³ COMPUTERIZED SOLUTION ³ ";
+3444 LOCATE 3,27:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3447 COLOR 7,0:LOCATE 5,7:PRINT USING "&";"program";:LOCATE 5,47:PRINT USING "&";"Since the computer's memory is        ÚÄÄÄÄÄÄÄÄÄ¿";:LOCATE 6,47:PRINT USING "&";"empty when first turned on, it        ÃÄ";
+3450 PRINT USING "&";"ÄÄÄÄÄÄÄÄ´   ";
+3453 COLOR 15,0:PRINT USING "&";"CHECK WRITING STEPS";
+3456 COLOR 7,0:PRINT USING "&";"         must first read it's set of steps.    ³    o    ³";
+3459 COLOR 23,0:PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3462 COLOR 7,0:LOCATE 9,5:PRINT USING "&";"³    0    ³";
+3465 COLOR 23,0:LOCATE 9,40:PRINT USING "&";"8";
+3468 COLOR 7,0:LOCATE 9,65:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄ¿        ÀÄÄÄÄÄÄÄÄÄÙ         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³          ³";:LOCATE 11,25:PRINT USING "&";"³  IBM     ";
+3471 COLOR 0,7:PRINT USING "&";"        ³        ";
+3474 COLOR 7,0:PRINT USING "&";"  ³         ³          ³        ÚÄÄÄÄÄÄÄÄÄ¿         ³          ";
+3477 COLOR 0,7:PRINT USING "&";" ÄÄ";
+3480 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3483 COLOR 0,7:PRINT USING "&";"ÄÄ ³ ÄÄ";
+3486 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3489 COLOR 0,7:PRINT USING "&";"ÄÄ ";
+3492 COLOR 7,0:PRINT USING "&";"  ³       ÚÂ´          ÃÂ¿      ÃÄÄÄÄÄÄÄÄÄ´         ³ ³³³³³³³³ ";
+3495 COLOR 0,7:PRINT USING "&";"        ³        ";
+3498 COLOR 7,0:PRINT USING "&";"  ³       ³ ";
+3501 COLOR 0,7:PRINT USING "&";"Æ__________µ";
+3504 COLOR 7,0:PRINT USING "&";" ÆÝ     ³    o    ³         ÀÚÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¿Ù       ³ ÛÛÛÛÛÛÛÛÛÛÛÛ°³      ³    0    ³          µIBM";:LOCATE 15,54:PRINT USING "&";"Æ        ÃÄÄÄÄ";
+3507 PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄ´      ÀÄÄÄÄÄÄÄÄÄÙ          ³ :: :::::::::::::::::::::: ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         bills";:LOCATE 17,26:PRINT USING "&";"³ :: :::::::::::::::::";
+3510 PRINT USING "&";"::::: ³";:LOCATE 18,26:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 20,6:PRINT USING "&";"DISKETTES";:LOCATE 20,35:PRINT USING "&";"COMPUTER";:LOCATE 20,68:PRINT USING "&";"P";
+3513 PRINT USING "&";"RINTER";
+3516 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3519 LOCATE 5,56,0:DELAY=0:BRANCH$="þ*$DYINT018þ":RETURN
+3522 'SAVE "B:DYINT018.ISD",A 'TITLE=COMPUTER SOLUTION 2
+3525 WIDTH 80:COLOR 7,0,0:CLS
+3528 COLOR 0,7:LOCATE 1,27:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3531 LOCATE 2,27:PRINT USING "&";" ³ COMPUTERIZED SOLUTION ³ ";
+3534 LOCATE 3,27:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3537 COLOR 15,0:LOCATE 5,34:PRINT USING "&";"* * INPUT * *";
+3540 LOCATE 7,19:PRINT USING "&";"READ A BILL";
+3543 COLOR 23,0:LOCATE 8,10:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3546 LOCATE 9,10:PRINT USING "&";"³";
+3549 COLOR 7,0:PRINT USING "&";"      ABC Corp. $10.00       ";
+3552 COLOR 23,0:PRINT USING "&";"8";
+3555 COLOR 7,0:LOCATE 9,65:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄ¿";
+3558 COLOR 23,0:LOCATE 10,10:PRINT USING "&";"³";
+3561 COLOR 7,0:LOCATE 10,25:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³          ³";
+3564 COLOR 23,0:LOCATE 11,10:PRINT USING "&";"³";
+3567 COLOR 7,0:LOCATE 11,25:PRINT USING "&";"³  IBM     ";
+3570 COLOR 0,7:PRINT USING "&";"        ³        ";
+3573 COLOR 7,0:PRINT USING "&";"  ³         ³          ³        ÚÄÄÄÄÄÄÄÄÄ¿         ³          ";
+3576 COLOR 0,7:PRINT USING "&";" ÄÄ";
+3579 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3582 COLOR 0,7:PRINT USING "&";"ÄÄ ³ ÄÄ";
+3585 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3588 COLOR 0,7:PRINT USING "&";"ÄÄ ";
+3591 COLOR 7,0:PRINT USING "&";"  ³       ÚÂ´          ÃÂ¿      ÃÄÄÄÄÄÄÄÄÄ´         ³ ³³³³³³³³ ";
+3594 COLOR 0,7:PRINT USING "&";"        ³        ";
+3597 COLOR 7,0:PRINT USING "&";"  ³       ³ ";
+3600 COLOR 0,7:PRINT USING "&";"Æ__________µ";
+3603 COLOR 7,0:PRINT USING "&";" ÆÝ     ³    o    ³         ÀÚÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¿Ù       ³ ÛÛÛÛÛÛÛÛÛÛÛÛ°³      ³    0    ³          µIBM";:LOCATE 15,54:PRINT USING "&";"Æ        ÃÄÄÄÄ";
+3606 PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄ´      ÀÄÄÄÄÄÄÄÄÄÙ          ³ :: :::::::::::::::::::::: ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         bills";:LOCATE 17,26:PRINT USING "&";"³ :: :::::::::::::::::";
+3609 PRINT USING "&";"::::: ³";:LOCATE 18,26:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 20,6:PRINT USING "&";"DISKETTES";:LOCATE 20,35:PRINT USING "&";"COMPUTER";:LOCATE 20,68:PRINT USING "&";"P";
+3612 PRINT USING "&";"RINTER";
+3615 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3618 LOCATE 13,80,0:DELAY=0:BRANCH$="þ*$DYINT019þ":RETURN
+3621 'SAVE "B:DYINT019.ISD",A 'TITLE=COMPUTER SOLUTION 3
+3624 WIDTH 80:COLOR 7,0,0:CLS
+3627 COLOR 0,7:LOCATE 1,27:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3630 LOCATE 2,27:PRINT USING "&";" ³ COMPUTERIZED SOLUTION ³ ";
+3633 LOCATE 3,27:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3636 COLOR 15,0:LOCATE 5,31:PRINT USING "&";"* * PROCESSING * *";
+3639 LOCATE 7,30:PRINT USING "&";"CALCULATE NEW BALANCE";
+3642 COLOR 7,0:LOCATE 7,65:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄ¿";:LOCATE 8,25:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³          ³";:LOCATE 9,25:PRINT USING "&";"³  IBM     ";
+3645 COLOR 0,7:PRINT USING "&";"        ³        ";
+3648 COLOR 7,0:PRINT USING "&";"  ³         ³          ³        ÚÄÄÄÄÄÄÄÄÄ¿         ³          ";
+3651 COLOR 0,7:PRINT USING "&";" ÄÄ";
+3654 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3657 COLOR 0,7:PRINT USING "&";"ÄÄ ³ ÄÄ";
+3660 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3663 COLOR 0,7:PRINT USING "&";"ÄÄ ";
+3666 COLOR 7,0:PRINT USING "&";"  ³       ÚÂ´          ÃÂ¿      ÃÄÄÄÄÄÄÄÄÄ´         ³ ³³³³³³³³ ";
+3669 COLOR 0,7:PRINT USING "&";"        ³        ";
+3672 COLOR 7,0:PRINT USING "&";"  ³       ³ ";
+3675 COLOR 0,7:PRINT USING "&";"Æ__________µ";
+3678 COLOR 7,0:PRINT USING "&";" ÆÝ     ³    o    ³         ÀÚÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¿Ù       ³ ÛÛÛÛÛÛÛÛÛÛÛÛ°³      ³    0    ³          µIBM";:LOCATE 13,54:PRINT USING "&";"Æ        ÃÄÄÄÄ";
+3681 PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄ´      ÀÄÄÄÄÄÄÄÄÄÙ          ³ :: :::::::::::::::::::::: ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         bills";:LOCATE 15,26:PRINT USING "&";"³ :: :::::::::::::::::";
+3684 PRINT USING "&";"::::: ³";:LOCATE 16,26:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 18,6:PRINT USING "&";"DISKETTES";:LOCATE 18,35:PRINT USING "&";"COMPUTER";:LOCATE 18,68:PRINT USING "&";"P";
+3687 PRINT USING "&";"RINTER";
+3690 COLOR 23,0:LOCATE 19,29:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3693 LOCATE 20,29:PRINT USING "&";"³";
+3696 COLOR 7,0:PRINT USING "&";" Balance        75.00 ";
+3699 COLOR 23,0:PRINT USING "&";"³";
+3702 LOCATE 21,29:PRINT USING "&";"³";
+3705 COLOR 7,0:PRINT USING "&";" ABC Corp.     -10.00 ";
+3708 COLOR 23,0:PRINT USING "&";"³";
+3711 LOCATE 22,29:PRINT USING "&";"³";
+3714 COLOR 7,0:PRINT USING "&";" New Balance   =65.00 ";
+3717 COLOR 23,0:PRINT USING "&";"³";
+3720 LOCATE 23,29:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";
+3723 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3726 LOCATE 4,59,0:DELAY=0:BRANCH$="þ*$DYINT020þ":RETURN
+3729 'SAVE "B:DYINT020.ISD",A 'TITLE=COMPUTER SOLUTION 4
+3732 WIDTH 80:COLOR 7,0,0:CLS
+3735 COLOR 0,7:LOCATE 1,27:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3738 LOCATE 2,27:PRINT USING "&";" ³ COMPUTERIZED SOLUTION ³ ";
+3741 LOCATE 3,27:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3744 COLOR 15,0:LOCATE 5,33:PRINT USING "&";"* * OUTPUT * *";
+3747 LOCATE 7,17:PRINT USING "&";"MARK BILL PAID";
+3750 LOCATE 7,52:PRINT USING "&";" PRINT CHECK";
+3753 COLOR 23,0:LOCATE 8,10:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3756 LOCATE 8,44:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3759 LOCATE 9,10:PRINT USING "&";"³";
+3762 LOCATE 9,35:PRINT USING "&";"³";
+3765 LOCATE 9,44:PRINT USING "&";"³";
+3768 COLOR 7,0:LOCATE 9,65:PRINT USING "&";"ÚÄÄÄÄÄ";
+3771 COLOR 23,0:PRINT USING "&";"8";
+3774 COLOR 7,0:PRINT USING "&";"ÄÄÄÄ¿";
+3777 COLOR 23,0:LOCATE 10,10:PRINT USING "&";"³";
+3780 COLOR 7,0:LOCATE 10,25:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³ABC Corp. ³";
+3783 COLOR 23,0:LOCATE 11,10:PRINT USING "&";"8";
+3786 COLOR 7,0:LOCATE 11,25:PRINT USING "&";"³  IBM     ";
+3789 COLOR 0,7:PRINT USING "&";"        ³        ";
+3792 COLOR 7,0:PRINT USING "&";"  ³         ³    $10.00³        ÚÄÄÄÄÄÄÄÄÄ¿         ³          ";
+3795 COLOR 0,7:PRINT USING "&";" ÄÄ";
+3798 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3801 COLOR 0,7:PRINT USING "&";"ÄÄ ³ ÄÄ";
+3804 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3807 COLOR 0,7:PRINT USING "&";"ÄÄ ";
+3810 COLOR 7,0:PRINT USING "&";"  ³       ÚÂ´          ÃÂ¿      ÃÄÄÄÄÄÄÄÄÄ´         ³ ³³³³³³³³ ";
+3813 COLOR 0,7:PRINT USING "&";"        ³        ";
+3816 COLOR 7,0:PRINT USING "&";"  ³       ³ ";
+3819 COLOR 0,7:PRINT USING "&";"Æ__________µ";
+3822 COLOR 7,0:PRINT USING "&";" ÆÝ     ³    o    ³         ÀÚÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¿Ù       ³ ÛÛÛÛÛÛÛÛÛÛÛÛ°³      ³    0    ³          µIBM";:LOCATE 15,54:PRINT USING "&";"Æ        ÃÄÄÄÄ";
+3825 PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄ´      ÀÄÄÄÄÄÄÄÄÄÙ          ³ :: :::::::::::::::::::::: ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         bills";:LOCATE 17,26:PRINT USING "&";"³ :: :::::::::::::::::";
+3828 PRINT USING "&";"::::: ³";:LOCATE 18,26:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 20,6:PRINT USING "&";"DISKETTES";:LOCATE 20,35:PRINT USING "&";"COMPUTER";:LOCATE 20,68:PRINT USING "&";"P";
+3831 PRINT USING "&";"RINTER";
+3834 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3837 LOCATE 5,35,0:DELAY=0:BRANCH$="þ*$DYINT021þ":RETURN
+3840 'SAVE "B:DYINT021.ISD",A 'TITLE=COMPUTER SOLUTION 5
+3843 WIDTH 80:COLOR 7,0,0:CLS
+3846 COLOR 0,7:LOCATE 1,27:PRINT USING "&";" ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ";
+3849 LOCATE 2,27:PRINT USING "&";" ³ COMPUTERIZED SOLUTION ³ ";
+3852 LOCATE 3,27:PRINT USING "&";" ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ";
+3855 COLOR 15,0:LOCATE 5,23:PRINT USING "&";"* * INPUT - PROCESSING - OUTPUT * *";
+3858 COLOR 23,0:LOCATE 8,10:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3861 LOCATE 8,44:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿";
+3864 LOCATE 9,10:PRINT USING "&";"³";
+3867 LOCATE 9,36:PRINT USING "&";"8";
+3870 LOCATE 9,44:PRINT USING "&";"³";
+3873 COLOR 7,0:LOCATE 9,65:PRINT USING "&";"ÚÄÄÄÄÄ";
+3876 COLOR 23,0:PRINT USING "&";"8";
+3879 COLOR 7,0:PRINT USING "&";"ÄÄÄÄ¿";
+3882 COLOR 23,0:LOCATE 10,10:PRINT USING "&";"³";
+3885 COLOR 7,0:LOCATE 10,25:PRINT USING "&";"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³ABC Corp. ³";
+3888 COLOR 23,0:LOCATE 11,10:PRINT USING "&";"8";
+3891 COLOR 7,0:LOCATE 11,25:PRINT USING "&";"³  IBM     ";
+3894 COLOR 0,7:PRINT USING "&";"        ³        ";
+3897 COLOR 7,0:PRINT USING "&";"  ³         ³    $10.00³        ÚÄÄÄÄÄÄÄÄÄ¿         ³          ";
+3900 COLOR 0,7:PRINT USING "&";" ÄÄ";
+3903 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3906 COLOR 0,7:PRINT USING "&";"ÄÄ ³ ÄÄ";
+3909 COLOR 8,0:PRINT USING "&";"ÜÜ";
+3912 COLOR 0,7:PRINT USING "&";"ÄÄ ";
+3915 COLOR 7,0:PRINT USING "&";"  ³       ÚÂ´          ÃÂ¿      ÃÄÄÄÄÄÄÄÄÄ´         ³ ³³³³³³³³ ";
+3918 COLOR 0,7:PRINT USING "&";"        ³        ";
+3921 COLOR 7,0:PRINT USING "&";"  ³       ³ ";
+3924 COLOR 0,7:PRINT USING "&";"Æ__________µ";
+3927 COLOR 7,0:PRINT USING "&";" ÆÝ     ³    o    ³         ÀÚÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¿Ù       ³ ÛÛÛÛÛÛÛÛÛÛÛÛ°³      ³    0    ³          µIBM";:LOCATE 15,54:PRINT USING "&";"Æ        ÃÄÄÄÄ";
+3930 PRINT USING "&";"ÄÄÄÄÄÄÄÄÄÄ´      ÀÄÄÄÄÄÄÄÄÄÙ          ³ :: :::::::::::::::::::::: ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         bills";:LOCATE 17,26:PRINT USING "&";"³ :: :::::::::::::::::";
+3933 PRINT USING "&";"::::: ³";:LOCATE 18,26:PRINT USING "&";"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ";:LOCATE 20,6:PRINT USING "&";"DISKETTES";:LOCATE 20,35:PRINT USING "&";"COMPUTER";:LOCATE 20,68:PRINT USING "&";"P";
+3936 PRINT USING "&";"RINTER";:LOCATE 22,18:PRINT USING "&";"This completes the introduction to computers.";
+3939 COLOR 15,0:LOCATE 24,1:PRINT USING "&";"Press the Space bar";
+3942 LOCATE 24,13,0:DELAY=0:BRANCH$="þ*$&IBMDIYþ":RETURN
+

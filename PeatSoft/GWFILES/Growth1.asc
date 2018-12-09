@@ -1,0 +1,53 @@
+10 REM  this program calculates interest compounded annually
+20 REM  written by: J.M. ROBICHAUD (WTC-TORONTO)
+30 REM  course    : 5600              CLASS 67
+40  CLS
+50 PRINT
+60 PRINT "      THIS PROGRAM WILL CALCULATE THE COMPOUNDED GROWTH "
+70 PRINT "      FOR PRINCIPAL AMOUNT ENTERED ,  "
+80 PRINT "          THE NUMBER OF YEARS SPECIFIED      "
+90 PRINT "          AND INTEREST RATE SPECIFIED    "
+100 PRINT
+110 PRINT "      TO END THE PROGRAM ENTER 0 FOR ANY REQUESTED INPUT "
+120 PRINT
+130 PRINT
+140 PRINT " enter amount of money invested                     "
+150 INPUT X
+160 IF X=0 THEN 520
+170 PRINT " enter interest rate "
+180 INPUT R
+190 IF R=0 THEN 520
+200 PRINT " enter no. of years "
+210 INPUT N
+220 IF N=0 THEN 520
+230 CLS
+240 PRINT " ","  COMPOUNDED GROWTH TABLE FOR A ";R;"% ";"INTEREST RATE"
+250 PRINT "amount";TAB(10);N;" yrs";TAB(22);N+1;" yrs";
+260 PRINT TAB(34);N+2;" yrs";TAB(46);N+3;" yrs";TAB(58);N+4;" yrs"
+270 PRINT
+280 X1 = X
+290 FOR I = 1 TO 19
+300  Q1 = X1 * (1 + R/100) ^ (N)
+310 REM  round to 2 decimals for printing
+320  Q1 = INT(Q1*100 + .5)/100
+330  Q2 = X1 * (1 + R/100) ^ (N+1)
+340  Q2 = INT(Q2*100 + .5)/100
+350  Q3 = X1 * (1 + R/100) ^ (N+2)
+360  Q3 = INT(Q3*100 + .5)/100
+370  Q4 = X1 * (1 + R/100) ^ (N+3)
+380  Q4 = INT(Q4*100 + .5)/100
+390  Q5 = X1 * (1 + R/100) ^ (N+4)
+400  Q5 = INT(Q5*100 + .5)/100
+410  PRINT X1;TAB(10);Q1;TAB(22);Q2;TAB(34);Q3;TAB(46);Q4;TAB(58);Q5
+420  X1 = X1 + 100
+430 REM  increment by 1000 after the first 1000
+440  IF I > 10 THEN X1 = X1 + 900
+450 NEXT I
+460 PRINT
+470 PRINT " DO YOU HAVE MORE. ENTER Y OR N ";
+480 INPUT H$
+490 IF H$="Y" THEN 40
+500 PRINT
+510 PRINT " ........... HAVE A GOOD DAY .............."
+520 END
+

@@ -1,0 +1,72 @@
+10 REM IBM 80-CPS Printer Character Set Demonstration
+20 REM Displays all twelve character fonts
+30 REM Dick Dievendorff, 11/21/81
+40 ESC$=CHR$(27): SO$=CHR$(14)
+50 ON ERROR GOTO 690:'Trap printer error
+60 LPRINT CHR$(12):'Form feed
+70 FOR I%=0 TO 31
+80 A$=A$+CHR$(I%+&H20)
+90 B$=B$+CHR$(I%+&H40)
+100 D$=D$+CHR$(I%+&HA0)
+110 E$=E$+CHR$(I%+&HC0)
+120 NEXT I%
+130 FOR I%=96 TO 126
+140 C$=C$+CHR$(I%)
+150 NEXT I%
+160 GOSUB 610: GOSUB 630: GOSUB 660
+170 LPRINT SO$;"IBM 80-CPS PRINTER";CHR$(20)
+180 LPRINT
+190 GOSUB 620: GOSUB 640:'Normal print mode
+200 LPRINT "Normal mode                     "; : GOSUB 520
+210 GOSUB 610
+220 LPRINT "Emphasized mode                 "; : GOSUB 520
+230 GOSUB 620
+240 GOSUB 630
+250 LPRINT "Double strike mode              "; : GOSUB 520
+260 GOSUB 610
+270 LPRINT "Emphasized double strike mode   "; : GOSUB 520
+280 GOSUB 620: GOSUB 640
+290 GOSUB 650
+300 LPRINT "Compressed mode                 "; : GOSUB 520
+310 GOSUB 630
+320 LPRINT "Compressed double strike mode   "; : GOSUB 520
+330 GOSUB 660: GOSUB 640
+340 X$=SO$: 'Everything to double width mode now
+350 LPRINT SO$;"Double width mode": GOSUB 520
+360 GOSUB 610
+370 LPRINT SO$;"Double width emphasized mode" : GOSUB 520
+380 GOSUB 620
+390 GOSUB 630
+400 LPRINT SO$;"Double width double strike mode" : GOSUB 520
+410 GOSUB 640
+420 GOSUB 610: GOSUB 630
+430 LPRINT SO$;"Double width emphasized double strike" : GOSUB 520
+440 GOSUB 620: GOSUB 640
+450 GOSUB 650
+460 LPRINT SO$;"Double width compressed mode" : GOSUB 520
+470 GOSUB 630
+480 LPRINT SO$;"Double width compressed double strike" : GOSUB 520
+490 GOSUB 620: GOSUB 640: GOSUB 660
+500 LPRINT : LPRINT
+510 END
+520 IF X$ = SO$ THEN 560
+530 LPRINT A$
+540 LPRINT B$;C$
+550 GOTO 590
+560 LPRINT SO$;A$;CHR$(20)
+570 LPRINT SO$;B$;CHR$(20)
+580 LPRINT SO$;C$;CHR$(20)
+590 LPRINT
+600 RETURN
+610 LPRINT ESC$+"E"; : RETURN : 'Turns ON  EMPHASIZED mode
+620 LPRINT ESC$+"F"; : RETURN : 'Turns OFF EMPHASIZED mode
+630 LPRINT ESC$+"G"; : RETURN : 'Turns ON  DOUBLE STRIKE mode
+640 LPRINT ESC$+"H"; : RETURN : 'Turns OFF DOUBLE STRIKE mode
+650 LPRINT CHR$(15); : RETURN : 'Turns ON  COMPRESSED mode
+660 LPRINT CHR$(18); : RETURN : 'Turns OFF COMPRESSED mode
+670 REM
+680 REM Error trap routine for printer failure
+690 PRINT "Ready Line Printer"
+700 FOR I%=1 TO 1000: NEXT I%: 'Delay for a couple of seconds
+710 RESUME
+

@@ -1,0 +1,37 @@
+10 CLS:KEY OFF
+20 REM   DBMS CREATED BY T.G.Lewis (USING THE IBM PERSONAL COMPUTER)
+21 REM        DBMS contains the following files:
+22 REM             create.bas, insert.bas, lookup.bas
+23 REM             backup.bas, screen.bas, dump.bas
+24 REM       DBMS allows up to 127 fields
+30 REM-------------------------------------
+40 REM
+50 REM               DBMENU.BAS
+60 REM   Root program of the DBMS demo program
+70 REM
+80 REM-----------------------------------------
+90 REM
+100 NMAX%=7
+110 FOR I%=1 TO 25:PRINT:NEXT I%
+120 PRINT TAB(25) "DATABASE MANAGEMENT SYSTEM":PRINT:PRINT
+121 PRINT" To create a totally new database system you must first use [1], then [5], then
+122 PRINT" [2].":PRINT:PRINT
+130 PRINT"     [ 1 ]. Create a database system."
+140 PRINT"     [ 2 ]. Add new records."
+150 PRINT"     [ 3 ]. Lookup or Modify existing records."
+160 PRINT"     [ 4 ]. Backup file and index."
+170 PRINT"     [ 5 ]. Build screen form ( for input )."
+180 PRINT"     [ 6 ]. Quick dump index file."
+190 PRINT"     [ 7 ]. Stop. Exit DBMS system."
+200 PRINT:PRINT:PRINT:PRINT:PRINT"       Select one of the above: "; :INPUT N%
+210 PRINT:PRINT:PRINT
+220 IF N%>NMAX% OR N%<1 THEN 110
+230 ON N% GOTO 240,250,260,270,280,290,300
+240       RUN "CREATE"
+250       RUN "INSERT"
+260       RUN "LOOKUP"
+270       RUN "BACKUP"
+280       RUN "SCREEN"
+290       RUN "DUMP"
+300 END
+

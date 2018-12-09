@@ -1,0 +1,185 @@
+10 REM SORTS.BAS 4/24/82 TLS
+20 ' ****************
+30 '  INITIALIZATION
+40 ' ****************
+50 DIM LT(20),RT(20)
+60 DEF SEG:POKE 106,0
+70 INPUT "Sample size";R                        ' R = SAMPLE SIZE
+80 DIM Y(R),Z(R)
+90 FOR I=1 TO R                                 ' SETUP RANDOM SAMPLE
+100  Z(I)=RND
+110  NEXT I
+120 PRINT "Screen or Printer (S/P)? "
+130  I$=INPUT$(1)
+140  IF I$="S" OR I$="s" THEN OPEN "SCRN:" FOR OUTPUT AS #1:GOTO 170
+150  IF I$="P" OR I$="p" THEN OPEN "LPT1:" FOR OUTPUT AS #1:GOTO 170
+160  BEEP:GOTO 120
+170 PRINT #1, :PRINT #1,
+180 ' ****************
+190 '  MAIN PROGRAM
+200 ' ****************
+210 FOR C=1 TO 4                                 ' LOOP ON CASES
+220  FOR S=3 TO 7                                ' LOOP ON SORTS
+230   PRINT #1, "R =";STR$(R);".  ";
+240   ON C GOSUB 470,630,710,800                ' SET UP CASE
+250   T1$=TIME$
+260   ON S GOSUB 890,990,1100,1220,1350,1570,1730   ' SORT
+270   T2$=TIME$
+280   GOSUB 550                                 ' CALCULATE TIME
+290   GOSUB 380                                 ' CHECK SORT SEQUENCE
+300   NEXT S
+310  PRINT #1,
+320  NEXT C
+330 CLOSE 1
+340 END
+350 ' ***********************
+360 '  CHECK SORTED SEQUENCE
+370 ' ***********************
+380 FOR I=1 TO R-1
+390  IF Y(I+1)<Y(I) GOTO 420
+400  NEXT I
+410 RETURN
+420 PRINT #1, "Not sorted correctly."
+430 RETURN
+440 ' ******************
+450 '  REVERSE SEQUENCE
+460 ' ******************
+470 FOR I=0 TO R
+480  Y(I)=1+R-I
+490  NEXT I
+500 PRINT #1, "Worst case.  ";
+510 RETURN
+520 ' *********************************
+530 '  PRINT ELAPSED TIME (T2$-T1$)
+540 ' *********************************
+550 T=3600*(VAL(LEFT$(T2$,2))-VAL(LEFT$(T1$,2)))
+560 T=T+60*(VAL(MID$(T2$,4,2))-VAL(MID$(T1$,4,2)))
+570 T=T+(VAL(MID$(T2$,7,2))-VAL(MID$(T1$,7,2)))
+580 PRINT #1, "Elapsed time is";T;"seconds."
+590 RETURN
+600 ' *************************
+610 '  ALREADY SORTED SEQUENCE
+620 ' *************************
+630 FOR I=1 TO R
+640  Y(I)=I
+650  NEXT I
+660 PRINT #1, "Already sorted case.  ";
+670 RETURN
+680 ' *********************************
+690 '  ALMOST SORTED CASE
+700 ' *********************************
+710 FOR I=1 TO R-1
+720  Y(I)=I
+730  NEXT I
+740 Y(R)=INT(R/2)
+750 PRINT #1, "Almost sorted case.  ";
+760 RETURN
+770 ' *********************************
+780 '  RANDOM SEQUENCE
+790 ' *********************************
+800 FOR I=1 TO R
+810  Y(I)=Z(I)
+820  NEXT I
+830 PRINT #1, "Random case.  ";
+840 RETURN
+850 ' **********************
+860 '  BUBBLE SORT V.1
+870 ' **********************
+880 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+890 PRINT #1, "Bubble Sort V1.  ";
+900 FOR J=R-1 TO 1 STEP -1
+910 FOR I=1 TO J
+920 IF Y(I)>Y(I+1) THEN SWAP Y(I),Y(I+1)
+930 NEXT I,J
+940 RETURN
+950 ' **********************
+960 '  BUBBLE SORT V.2
+970 ' **********************
+980 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+990 PRINT #1, "Bubble Sort V2.  ";
+1000 FOR J=R-1 TO 1 STEP -1
+1010 F=0:FOR I=1 TO J
+1020 IF Y(I)>Y(I+1) THEN SWAP Y(I),Y(I+1):F=-1
+1030 NEXT I
+1040 IF F THEN NEXT J
+1050 RETURN
+1060 ' **********************
+1070 '  INSERT SORT
+1080 ' **********************
+1090 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+1100 PRINT #1, "Insert Sort   ";
+1110 FOR J=2 TO R
+1120 FOR I=J TO 2 STEP -1
+1130 IF Y(I)>=Y(I-1) THEN 1160
+1140 SWAP Y(I),Y(I-1)
+1150 NEXT I
+1160 NEXT J
+1170 RETURN
+1180 ' **********************
+1190 '  SHELL SORT
+1200 ' **********************
+1210 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+1220 PRINT #1, "Shell Sort.  ";
+1230 L=(2^INT(LOG(R)/LOG(2)))-1
+1240 L=INT(L/2):IF L<1 THEN RETURN
+1250 FOR J=1 TO L
+1260 FOR K=J+L TO R STEP L:I=K
+1270 IF Y(I-L)<=Y(I) THEN 1300
+1280 SWAP Y(I),Y(I-L)
+1290 I=I-L:IF I>L THEN 1270
+1300 NEXT K,J:GOTO 1240
+1310 ' **********************
+1320 '  HEAP SORT
+1330 ' **********************
+1340 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+1350 PRINT #1, "Heap Sort.  ";
+1360 M=R
+1370 FOR I=INT(R/2) TO 1 STEP -1
+1380 R0=I:GOSUB 1480
+1390 NEXT I
+1400 FOR M=R-1 TO 1 STEP -1
+1410 SWAP Y(M+1),Y(1):R0=1:GOSUB 1480
+1420 NEXT M
+1430 RETURN
+1440 ' **********************
+1450 '  HEAP SORT SUBROUTINE
+1460 ' **********************
+1470 ' CHASE AN ELEMENT TO THE BOTTOM OF THE HEAP
+1480 R1=R0+R0:IF R1>M THEN RETURN
+1490 IF R1<>M THEN IF Y(R1)<Y(R1+1) THEN R1=R1+1
+1500 IF Y(R0)<Y(R1) THEN SWAP Y(R0),Y(R1):R0=R1:GOTO 1480
+1510 RETURN
+1520 ' **********************
+1530 '  QUICKSORT V.1
+1540 ' **********************
+1550 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+1560 ' USES ARRAYS LT AND RT
+1570 PRINT #1, "Quicksort V1.  ";
+1580 S1=1:LT(1)=1:RT(1)=R
+1590 L1=LT(S1):R1=RT(S1):S1=S1-1:L2=L1:R2=R1:F=-1
+1600 IF L2>=R2 THEN 1640
+1610 IF Y(L2)>Y(R2) THEN SWAP Y(L2),Y(R2):F=-F
+1620 IF F<0 THEN R2=R2-1 ELSE L2=L2+1
+1630 IF L2<R2 THEN 1610
+1640 IF (L2-L1)>1 THEN S1=S1+1:LT(S1)=L1:RT(S1)=L2-1
+1650 IF (R1-R2)>1 THEN S1=S1+1:LT(S1)=R2+1:RT(S1)=R1
+1660 IF S1>0 THEN 1590
+1670 RETURN
+1680 ' **********************
+1690 '  QUICKSORT V.2
+1700 ' **********************
+1710 ' VECTOR TO BE SORTED IN Y(1)-Y(R)
+1720 ' USES ARRAYS LT AND RT
+1730 PRINT #1, "Quicksort V2.  ";
+1740 S1=1:LT(1)=1:RT(1)=R
+1750 L1=LT(S1):R1=RT(S1):S1=S1-1
+1760 L2=L1:R2=R1:X=Y(INT((L1+R1)/2))
+1770 IF Y(L2)<X THEN L2=L2+1:GOTO 1770
+1780 IF X<Y(R2) THEN R2=R2-1:GOTO 1780
+1790 IF L2>R2 THEN 1820
+1800 SWAP Y(L2),Y(R2):L2=L2+1:R2=R2-1
+1810 IF L2<=R2 THEN 1770
+1820 IF L2<R1 THEN S1=S1+1:LT(S1)=L2:RT(S1)=R1
+1830 R1=R2:IF L1<R1 THEN 1760 ELSE IF S1>0 THEN 1750
+1840 RETURN
+

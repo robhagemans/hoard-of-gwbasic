@@ -1,0 +1,140 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+7 '***************************************************************************
+9 '*****************  POOR MAN WORD PROCESSOR ROUTINE  ***********************
+13 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+15 'บ                EPSON/GEMINI 10/15 SIMPLE WORD PROCESSOR                 บ
+17 'บ                                                                         บ
+19 'บ    This is a simple, high-speed, no-file word-processing program with   บ
+21 'บ a six print style option. If you do not like the print styles, you      บ
+23 'บ can modify the appropriate line with the codes contained in the print   บ
+25 'บ control subroutine at line 5000.   If you do make this change, you      บ
+27 'บ may wish to change the input menu.  The DIM statement is set to give    บ
+29 'บ you a fifty line printed page. ENTER will give you a blank line feed.   บ
+31 'บ To break out of the program when done "typewriting", use Ctrl/BREAK.    บ
+32 'บ    When using print expanded print styles, remember to reduce the num-  บ
+33 'บ ber of characters entered in a line or you will get wrap-around print.  บ
+34 'บ    This program, in whole or part, may be used without license or       บ
+35 'บ attribution.  (c) G I N A C O  -  1983               Ver 5.2/320        บ
+37 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 FOR I=1 TO 10:KEY I,"":NEXT:KEY OFF
+100 CLS
+110 SCREEN 0,0,0
+120 WIDTH 80
+130 CLEAR
+140 GOSUB 5030
+150 ON ERROR GOTO 6000
+160 LPRINT CLEANUP$;
+170 CLS
+180 DIM A$(60)
+190 GOSUB 5000
+200 LOCATE 5,25
+210 PRINT "SELECT PRINT SIZE AND STYLE"
+220 LOCATE 7,20
+230 PRINT "   PRINT SIZE             SELECTION"
+240 LOCATE 8,20
+250 PRINT "   ==========             =========="
+260 LOCATE 10,20
+270 PRINT "10 PITCH ITALICS              1"
+280 LOCATE 11,20
+290 PRINT "10 PITCH EMPHASIZED           2"
+300 LOCATE 12,20
+310 PRINT "10 PITCH TINYPRINT            3"
+320 LOCATE 13,20
+330 PRINT "CONDENSED EXPANDED            4"
+340 LOCATE 14,20
+350 PRINT "ITALICS EXPANDED              5"
+360 LOCATE 15,20
+370 PRINT "EXPANDED DOUBLE-STRIKE        6"
+380 LOCATE 19,35
+390 INPUT XX!
+400 LOCATE 19,25
+410 INPUT "DESIRED MARGIN ",M!
+420 ON XX! GOSUB 440,480,520,560,600,640
+430 GOTO 670
+440 REM***************  10 PITCH ITALICS  *********************************
+450 WIDTH "LPT1:",80
+460 LPRINT CLEANUP$ + ITALIC$ + DARK$
+470 RETURN
+480 REM**************** 10 PITCH EMPHASIZED  ****************************
+490 WIDTH "LPT1:",80
+500 LPRINT CLEANUP$ + DARK$
+510 RETURN
+520 REM***************  10 PITCH TINYPRINT ROUTINE ***********************
+530 WIDTH "LPT1:",80
+540 LPRINT CLEANUP$ + TINYLINE$
+550 RETURN
+560 REM*************** CONDENSED EXPANDED ********************************
+570 WIDTH "LPT1:",80
+580 LPRINT CLEANUP$ + CHR$(27) CHR$(87) + CHR$(1) + EXPAND.SMALL$ + DARK$
+590 RETURN
+600 REM*************** ITALICS EXPANDED CONDENSED EMPHASIZED *************
+610 WIDTH "LPT1:",80
+620 LPRINT CLEANUP$ + CHR$(27) CHR$(87) + CHR$(1) + ITALIC.EXP.CON$ + DARK$
+630 RETURN
+640 REM*************** EXPANDED DSTRIKE **********************************
+650 LPRINT CLEANUP$ + CHR$(27) CHR$(87) + CHR$(1) + START.DSTRIKE$
+660 RETURN
+670 CLS
+680 KEY OFF
+690 LOCATE 25,20
+700 PRINT "TO LEAVE WHEN DONE TYPING, USE CTRL/BREAK";
+710 :REM ******* INPUT OUTPUT ROUTINE *********************************
+720 LOCATE 1,10
+730 PRINT "MAXIMUM CHARACTERS PER LINE <INCLUDING MARGIN> IS SET AT 80 ";
+740 PRINT "0--------1---------2---------3---------4---------5---------6---------7---------8";
+750 PRINT
+760 FOR I! = 1 TO 55
+770   PRINT TAB( M! - 2)I!;
+780   LINE INPUT A$(I!)
+790   LPRINT TAB( M!);A$(I!)
+800 NEXT
+810 CLS
+820 LOCATE 10,20
+830 PRINT "THAT IS THE END OF THE PAGE"
+840 FOR I! = 1 TO 6000
+850 NEXT
+860 RUN
+5000 REM**************** PRINTER INITIALIZATION ***************************
+5030 REM **** PRINTER SUBROUTINES ***
+5060 SMALL$ = CHR$(15)
+5090 UNSMALL$ = CHR$(18)
+5120 EXPAND.SMALL$ = CHR$(14) + CHR$(15)
+5150 CANX.EXP.COMP$ = CHR$(18) + CHR$(20)
+5180 EXPAND$ = CHR$(14)
+5210 EXPAND.END$ = CHR$(20)
+5240 DARK$ = CHR$(27) + CHR$(69)
+5270 ITALIC$ = CHR$(27) + CHR$(52)
+5300 ITALIC.EXP.CON$ = CHR$(14) + CHR$(15) + CHR$(27) + CHR$(52)
+5330 ITALIC.EXP$ = CHR$(27) + CHR$(52) + CHR$(14)
+5360 END.ITALIC$ = CHR$(27) + CHR$(53)
+5390 START.ULINE$ = CHR$(27) + CHR$(45) + CHR$(1)
+5420 END.ULINE$ = CHR$(27) + CHR$(45) + CHR$(0)
+5450 PERM.EXPAN$ = CHR$(27) + CHR$(87) + CHR$(1)
+5480 END.PERMEXP$ = CHR$(27) + CHR$(87) + CHR$(0)
+5510 START.DSTRIKE$ = CHR$(27) + CHR$(71)
+5540 END.DSTRIKE$ = CHR$(27) + CHR$(72)
+5570 TINYLINE$ = CHR$(27) + CHR$(83) + CHR$(0)
+5600 END.TINY$ = CHR$(27) + CHR$(84)
+5630 ESC$ = CHR$(27)
+5660 CLEANUP$ = CHR$(27) + CHR$(64)
+5690 RETURN
+6000 REM ********* PRINTER ERROR ROUTINE ***************
+6030 IF ERR = 24 THEN 6120 ELSE 6060
+6060 IF ERR = 25 THEN 6120 ELSE 6090
+6090 ON ERROR GOTO 0
+6120 KEY OFF
+6150 BEEP
+6180 BEEP
+6210 LOCATE 25,1
+6240 PRINT SPC( 79)
+6270 LOCATE 25,20
+6300 PRINT "CHECK PRINTER - PRESS ANY KEY TO CONTINUE"
+6330 IF INKEY$ = "" THEN 6330
+6360 KEY OFF
+6390 RESUME
+6420 END
+65000  '************************ SAVE ROUTINE *******************************
+65100 SAVE"B:EASYWORD.BAS
+

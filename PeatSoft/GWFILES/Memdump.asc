@@ -1,0 +1,73 @@
+1 KEY OFF
+10 REM Program to examine the contents
+20 REM of the memory. Enter the first
+30 REM and last addresses to be displayed.
+40 REM Address and memory contents are
+50 REM both displayed in hexadecimal.
+60 REM ** You can only access 64K on
+70 REM each run, and cannot read over
+80 REM the segment boundries in one
+90 REM run.
+100 REM
+110 REM Author : Eddie Jaeger
+120 REM
+130 REM Written 4/18/82
+131 '  Revising author:  Stephen Leoce
+132 '                    201 Delaware Avenue
+133 '                    Kingston, New York  12401
+134 '                    [914] 338-4593
+135 '
+136 '  Last Revision:    22-December-1983
+137 '
+140 REM
+141 CLS
+142 LOCATE 25,70 : PRINT "READING";
+143 LOCATE 1,1
+150 INPUT "START, STOP ADDRESS; (ASSUMED HEX) ===> ",F$,L$
+153 LOCATE 25,70:PRINT"WORKING";:LOCATE 1,1:PRINT STRING$(80,32)
+160 IF LEN(F$)<5 THEN Y$=F$: GOSUB 440: F$=Y$
+170 IF LEN(L$)<5 THEN Y$=L$: GOSUB 440: L$=Y$
+180 S1$ = LEFT$(F$,1)
+190 S1 = VAL("&H"+S1$)
+200 S = S1 * &H1000
+210 X$ = RIGHT$(F$,4)
+220 GOSUB 400
+230 F = X
+240 X$ = RIGHT$(L$,4)
+250 GOSUB 400
+260 L = X
+270 DEF SEG = S
+278 LINES=0
+279 LOCATE 1,1:COLOR 1:PRINT"ADDR:           ***REGISTER CONTENTS*** ":COLOR 7:PRINT:COLOR 0,7:PRINT"OFFSET    01  02  03  04  05  06  07  08":PRINT:COLOR 7,0
+280 FOR C1 = F TO L STEP 8
+290 C1$ = HEX$(C1)
+300 IF LEN(C1$) < 5 THEN Y$ = C1$: GOSUB 440
+301 GOSUB 5000
+310 A$ = S1$ + RIGHT$(Y$,4)
+320 PRINT USING "\   \"; A$;":     ";
+321 LINECOUNT = LINECOUNT + 1
+330 FOR C2 = C1 TO C1 + 7
+340 PRINT USING "\\";HEX$(PEEK(C2));"  ";
+350 NEXT C2
+360 PRINT
+370 NEXT C1
+380 DEF SEG
+388 LOCATE 25,70:PRINT "TERMINATED";
+390 END
+400 REM CONVERT STRING X$ TO DECIMAL X
+410 X1 = VAL("&H" + X$)
+420 IF X1 < 0 THEN X = 65535!+X1 ELSE X = X1
+430 RETURN
+440 REM MAKE Y$ 5 CHARACTERS LONG
+450 Y$ = "0" + Y$
+460 IF LEN(Y$) < 5 THEN GOTO 450
+470 RETURN
+5000 ' area to see if time to pause screen and change pages...
+5010 IF LINECOUNT > 15 THEN GOSUB 6000 ELSE RETURN
+5020 RETURN
+6000 LINECOUNT = 0:LOCATE 25,70 : PRINT "MORE...";
+6001 A$=INKEY$: IF LEN(A$)=0 THEN 6001
+6002 CLS:LOCATE 25,70:PRINT "WORKING";
+6003 LOCATE 1,1:COLOR 1:PRINT"ADDR:         ***REGISTER CONTENTS*** ":COLOR 7:PRINT:COLOR 0,7:PRINT"OFFSET    01  02  03  04  05  06  07  08  ":PRINT:COLOR 7,0
+6004 RETURN
+

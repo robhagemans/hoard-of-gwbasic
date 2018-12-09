@@ -1,0 +1,138 @@
+10 CLS: WIDTH 80
+20 CLS:KEY OFF
+30 PRINT "                  ЩЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЛ"
+40 PRINT "                  К MUSIC BY RICHARD JACQUES К"
+50 PRINT "                  К         FOR THE          К"
+60 PRINT "                  К           IBM            К"
+70 PRINT "                  ШЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭЭМ"
+80 PRINT
+90 PRINT "                    PRESS ANY KEY TO CONTINUE"
+100 PRINT " ___________________________________________________________________"
+110 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+120 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+130 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+140 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+150 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+160 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+170 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+180 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+190 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+191 PRINT " ___________________________________________________________________"
+200 IF INKEY$="" THEN 200
+210 CLS
+211 PRINT "                     MUSIC BY RICHARD JACQUES"
+220 PRINT " ___________________________________________________________________"
+230 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+240 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+250 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+260 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+270 PRINT " ллл   ллл   лллл лллл   ллл   ллл   ллл лллл лллл   ллл   лллл лллл"
+280 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+290 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+300 PRINT " лллл ллллл ллллл ллллл ллллл ллллл лллл лллл ллллл ллллл ллллл лллл"
+310 PRINT " лллл_ллллл_ллллл_ллллл_ллллл_ллллл_лллл_лллл_ллллл_ллллл_ллллл_лллл"
+320 LOCATE 13 ,43:PRINT "  F1 C    F2 D"
+330 LOCATE 14,43:PRINT "  F3 E    F4 F"
+340 LOCATE 15,43:PRINT "  F5 G    F6 A"
+350 LOCATE 16 ,43:PRINT "  F7 B    F8 O5C"
+360 LOCATE 15,60:PRINT "  F9 SLOW DRUMBEAT "
+370 LOCATE 16,60:PRINT "  F10 FAST DRUMBEAT"
+380 LOCATE 22,10:PRINT " THE CURSUR KEY'S CONTROL THE OCTAVES"
+390 LOCATE 23,10:PRINT "IF T IS DEPRESSED IT WILL PLAY TAKE ME OUT TO THE BALL GAME "
+400 LOCATE 15,4:PRINT "OCTAVE "
+410 LOCATE 15,11:PRINT "4"
+420 LOCATE 15,28:PRINT "DRUMBEAT "
+430 LOCATE 19,11: PRINT "NOTE"
+440 A$=CHR$(14)
+450 SOUND 37,.5:LOCATE 15,37:PRINT "SLOW"
+460 IF INKEY$="T" THEN    GOSUB 1330
+470 IF INKEY$="E" THEN GOSUB 1350
+480 ON KEY(1) GOSUB 800
+490 KEY(1) ON
+500 ON KEY(2) GOSUB 840
+510 KEY(2) ON
+520 ON KEY(3) GOSUB 880
+530 KEY(3) ON
+540 ON KEY(4) GOSUB 920
+550 KEY(4) ON
+560 ON KEY(5) GOSUB 960
+570 KEY(5) ON
+580 ON KEY(6) GOSUB 1000
+590 KEY(6) ON
+600 ON KEY(7) GOSUB 1040
+610 KEY(7) ON
+620 ON KEY(14) GOSUB 1080
+630 KEY(14) ON
+640 ON KEY(8) GOSUB 1100
+650 KEY(8) ON
+660 ON KEY(10) GOSUB 1160
+670 KEY(10) ON
+680 ON KEY(9 ) GOSUB 1170
+690 KEY(9 ) ON
+700 ON KEY(12) GOSUB 1200
+710 KEY(12) ON
+720 ON KEY(11) GOSUB 1230
+730 KEY(11) ON
+740 ON KEY(13) GOSUB 1260
+750 KEY(13)ON
+760 IF INKEY$="t" THEN GOSUB 1330
+770 IF INKEY$="e" THEN END
+780 FOR I=1 TO 300: NEXT
+790 GOTO 450
+800 PLAY"  C8 ":LOCATE  6,3:PRINT A$:LOCATE 19,16:PRINT "C"
+810 FOR I=1 TO 100: NEXT
+820 LOCATE 6,3:PRINT "л"
+830 RETURN
+840 PLAY"  D8":LOCATE  3, 6:PRINT A$:LOCATE 19,16:PRINT "D"
+850 FOR I=1 TO 100:NEXT
+860 LOCATE 3,6:PRINT " "
+870 RETURN
+880 PLAY"  E8":LOCATE 6,9:PRINT A$:LOCATE 19,16:PRINT "E"
+890 FOR I=1 TO 100:NEXT
+900 LOCATE 6,9:PRINT "л"
+910 RETURN
+920 PLAY"  F8":LOCATE 3,12:PRINT A$:LOCATE 19,16:PRINT "F"
+930 FOR I=1 TO 100:NEXT
+940 LOCATE 3,12:PRINT " "
+950 RETURN
+960 PLAY"  G8":LOCATE 6,15:PRINT A$:LOCATE 19,16:PRINT "G"
+970 FOR I=1 TO 100:NEXT
+980 LOCATE 6,15:PRINT "л"
+990 RETURN
+1000 PLAY"  A8":LOCATE 6,21:PRINT A$:LOCATE 19,16:PRINT "A"
+1010 FOR I=1 TO 100:NEXT
+1020 LOCATE 6,21:PRINT "л"
+1030 RETURN
+1040 PLAY"  B8":LOCATE 3,24:PRINT A$:LOCATE 19,16:PRINT "B"
+1050 FOR I=1 TO 100:NEXT
+1060 LOCATE 3,24:PRINT " "
+1070 RETURN
+1080 PLAY"O3  ":LOCATE 15,11: PRINT "3"
+1090 RETURN
+1100 PLAY"O5C8":LOCATE 6,27:PRINT A$:LOCATE 15,11:PRINT"5":LOCATE 19,16:PRINT "C"  
+1110 FOR I=1 TO 100:NEXT
+1120 LOCATE 6,27:PRINT "л"
+1130 RETURN
+1140 GOTO 450
+1150 GOTO 1100
+1160 GOTO 1290
+1170 GOTO 450
+1180 GOTO 1170
+1190 RETURN
+1200 PLAY"O2":LOCATE 15,11:PRINT "2"
+1210 RETURN
+1220 GOTO 450
+1230 PLAY"O1":LOCATE 15,11:PRINT "1"
+1240 RETURN
+1250 GOTO 450
+1260 PLAY"O4":LOCATE 15,11:PRINT "4"
+1270 RETURN
+1280 GOTO 450
+1290 SOUND 37,.5:LOCATE 15,37: PRINT "FAST"
+1300 FOR I=1 TO 100: NEXT
+1310 GOTO 1160
+1320 RETURN
+1330 PLAY"C8 P16O5C 8O4   A 8   G8   E8   G4P16D4P16C8O5P16 C8O4 A8G8E8G"
+1340 RETURN
+1350 END
+

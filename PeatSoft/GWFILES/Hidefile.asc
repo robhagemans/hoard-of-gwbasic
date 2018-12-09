@@ -1,0 +1,290 @@
+100 REM ********************************************************************
+110 REM *       HideFile             by            John Vandegrift         *
+280 REM *                                                                  *
+290 REM *  Limitations:  If the diskette is double-sided, then this reads  *
+300 REM *                the first 64 directory entries. The diskette in   *
+310 REM *                drive A is the diskette to be read, although      *
+320 REM *                provision is made for reading drive B if the user *
+330 REM *                wants to add the user i/o for the drive. The      *
+340 REM *                user must have 64k memory and 1 disk drive,       *
+350 REM *                minimum configuration.                            *
+360 REM ********************************************************************
+370 '    MODIFICATON BY:       Stephen Leoce
+380 '                          201 Delaware Avenue
+390 '                          Kingston, New York  12401
+400 '                          [914] 338-4593    (none collect please)
+410 '
+420 '    MODIFICATIONS PERFORMED:    28-DECEMBER-1983
+430 '
+440 CLS
+470 CLEAR ,&H4000:KEY OFF
+480 DEF SEG=0
+500 REM          Assembler Routine
+510 REM
+520 REM  This routine pokes a machine language subroutine into high memory.
+530 REM  This subroutine reads and writes the diskette directory and FAT
+540 REM  from/to the diskette to/from upper memory.
+550 REM  The diskette buffer area starts at &hcc00 and is 3072 bytes.
+560 REM  The subroutine is loaded at &hE000 and is 36 bytes.
+570 REM
+580 DATA &h55,&h06,&hb8,&h00,&h00
+590 DATA &h8e,&hc0,&h8b,&hec,&h8b
+600 DATA &h76,&h0a,&h8b,&h04,&h8a
+610 DATA &he0,&hb0,&h06,&hbb,&h00
+620 DATA &hcc,&hb9,&h02,&h00,&h8b
+630 DATA &h76,&h08,&h8b,&h14,&hcd
+640 DATA &h13,&h07,&h5d,&hca,&h04
+650 DATA &h00
+660 FOR I=1 TO 36:READ J:SUM=SUM+J:NEXT I
+670 IF SUM<>3470 THEN CLS:PRINT "Sum = ";SUM;". Data Error!":STOP
+680 RESTORE
+690 FOR I=0 TO 35:READ J:POKE &HE000+I,J:NEXT I
+700 SUBRT=&HE000
+710 REM
+720 REM         Call the routine to read FAT and Directory from diskette
+730 REM         and check for single-sided format.
+740 LOCATE 3,1:INPUT"?: SELECT WHICH DRIVE [A]:  ===>  ",DRIVE$
+750 IF DRIVE$="A" OR DRIVE$="a" THEN B%=0
+760 IF DRIVE$="C" OR DRIVE$="c" THEN LOCATE 5,1:PRINT "WARNING:  DRIVE 'C' CANNOT BE SELECTED":GOTO 740:LOCATE 3,POS(O)-1:PRINT" ";
+770 IF DRIVE$="" THEN B%=0
+780 IF DRIVE$ = "B" OR DRIVE$ ="b" THEN PRINT "DRIVE [B] CURRENTLY SELECTED";
+790 IF DRIVE$="B" OR DRIVE$="b" THEN B%=1
+800 IF DRIVE$<>"a" AND DRIVE$<>"b" THEN IF DRIVE$<>"A" AND DRIVE$<>"B" THEN PRINT "DRIVE [A] SELECTED BY DEFAULT":B%=0
+801 REM    IF YOU USE DOUBLE SIDED DISK DRIVES DO THE FOLLOWING:
+802 REM    CHANGE LINE 803 TO READ:   ' 803 NOSIDES=2 '
+803 REM    CHANGE LINE 1280 TO READ:  ' 1280 FOR I=0 TO 2016 STEP 32 '
+804 NOSIDES=1
+805 CHANGE$="NO"
+810 A%=2    '2 for read or 3 for write
+820 REM B%=0    '0 for drive A or 1 for drive B
+830 CALL SUBRT (A%, B%)
+850 REM
+860 REM         Master Menu
+870 REM
+880 REM  The user may want to follow the options in order of occurance,
+890 REM  first reading the directory, then altering it and finally
+900 REM  writing it back to the diskette.
+910 REM
+920 GOSUB 2930
+930 CLS:LOCATE 2,37:PRINT "HideFile"
+940 LOCATE 23,30:IF NOSIDES=1 THEN PRINT "Single-sided diskette":GOTO 960
+950 PRINT "Double-sided diskette"
+960 LOCATE 10,30:PRINT "1. Display Directory"
+961 LOCATE 25,1:PRINT SPACE$(75);
+970 LOCATE 11,30:PRINT "2. Modify Directory"
+980 LOCATE 12,30:PRINT "3. Update Diskette"
+990 LOCATE 13,30:PRINT "4. Help"
+1000 LOCATE 14,30:PRINT "5. Exit"
+1010 LOCATE 16,30:INPUT "?: SELECT ===>  ",IANS
+1020 ON IANS GOSUB 1170,1540,1060,3020,2770
+1030 IF IANS=5 THEN GOTO  2770
+1040 GOTO 930
+1050 REM
+1060 REM         Put Directory on diskette
+1070 REM
+1080 REM    This routine takes the diskette directory and FAT images
+1090 REM    in upper memory and writes them to the diskette.  Here
+1100 REM    drive A is assumed, just as it is when data is read from
+1110 REM    the diskette.
+1120 REM
+1121 IF CHANGE$="NO" THEN LOCATE 25,1:BEEP:PRINT "NO CHANGES -- STRIKE ANY KEY"
+1122 Q$=INKEY$:IF LEN(Q$)=0 THEN 1122 ELSE LOCATE 25,1:PRINT SPACE$(75);:RETURN
+1130 A%=3:B%=0
+1140 CALL SUBRT (A%, B%)
+1141 CHANGE$="NO"
+1150 RETURN
+1160 REM
+1170 REM         Display Files Routine
+1180 REM
+1190 REM    This is a simple directory function that reads the directory
+1200 REM    information from upper memory and displays to the user.  The
+1210 REM    user can use this to look at all of the directory entries.
+1220 REM    It will show what type of file is there, whether it has been
+1230 REM    deleted, or if the entry has never been used.
+1240 REM
+1250 CLS
+1260 LOCATE 1,12:PRINT "   LABEL   ";TAB(25);"STATUS";TAB(40);"LAST SAVE";TAB(57);"BYTES USED";:PRINT
+1270 LOCATE 3,1:
+1280 FOR I=1024 TO 2016 STEP 32
+1290 IF PEEK(I+&HD000)=&HE5 AND PEEK(I+&HD001)=246 THEN 1490
+1300 IF PEEK(I+&HD000)=&HE5 THEN DEL$="DESTROYED" ELSE DEL$=""
+1310 LOCATE ,10
+1320 FOR J=0 TO 7:PRINT CHR$(PEEK(J+I+&HD000));:NEXT J
+1330 PRINT ".";
+1340 FOR J=8 TO 10:PRINT CHR$(PEEK(J+I+&HD000));:NEXT J
+1350 A=PEEK(I+&HD00B)
+1360 IF A=0 THEN LOCATE , 25:PRINT" USER";
+1361 IF A=1 THEN LOCATE , 25:PRINT " READ ONLY";
+1370 IF A=2 THEN LOCATE , 25:PRINT" HIDDEN";
+1380 IF A=4 THEN LOCATE , 25:PRINT" SYSTEM";
+1390 IF A=6 THEN LOCATE , 25:PRINT " HIDDEN/SYS";
+1391 IF A=8 THEN LOCATE ,25:PRINT " VOL LABEL";
+1392 IF A=10 THEN LOCATE ,25:PRINT" DIRECTORY"
+1400 MONTH$ = STR$((PEEK(I+&HD019) AND 1)*8 + ((PEEK(I+&HD018) AND 224)/32))
+1410 IF LEN(MONTH$)>2 THEN MONTH$=RIGHT$(MONTH$,2)
+1420 DAY$ = STR$(PEEK(I+&HD018) AND 31):IF LEN(DAY$)>2 THEN DAY$=RIGHT$(DAY$,2)
+1430 YEAR$ = RIGHT$(STR$((INT(PEEK(I+&HD019)/2))+1980),4)
+1440 THEDATE$=MONTH$+"/"+DAY$+"/"+YEAR$
+1450 SIZE=PEEK(I+&HD01C)+(PEEK(I+&HD01D)*256)+(PEEK(I+&HD01E)*65536!)
+1460 PRINT "   ";DEL$;"  ";TAB(40);THEDATE$;TAB(57);USING"#######";SIZE
+1470 IF ((I/32)+1) MOD 20 = 0 THEN GOSUB 1490
+1480 NEXT I
+1490 LOCATE 23,28:INPUT "Press return to continue",IANS
+1500 CLS:LOCATE 1,12:PRINT "  LABEL   ";TAB(25);"ACCESS";TAB(40);"LAST SAVE";TAB(57);"BYTES USED";
+1510 LOCATE 3,1
+1520 RETURN
+1530 REM
+1540 REM         Alter Directory Entries Routine
+1541 CHANGE$="YES"
+1550 REM
+1560 REM   Allows the user to page through the entries of the diskette
+1570 REM   directory.  The user can change the file attribute from
+1580 REM   Normal, Hidden, System, or Hidden/System to any of the same.
+1590 REM   The user can also undelete deleted files.
+1600 REM   This function does not save these changes to diskette!
+1610 REM
+1620 I=1024
+1630 CLS
+1640 TITLE$=""
+1650 LOCATE 2,30:PRINT "Directory Entry ";I/32+1-32
+1660 IF I/32+1-32 <=0 THEN LOCATE 25,1:PRINT "ATTEMPTED BACKUP PAST FAT -- DENIED";:I=1024:LOCATE 24,1:PRINT "STRIKE ANY KEY. . ."; ELSE 1700
+1670 A$=INKEY$:IF LEN(A$)=0 THEN 1670
+1680 LOCATE 24,1:PRINT SPACE$(80);:LOCATE 25,1:PRINT SPACE$(80);
+1690 IF I=2016 THEN LOCATE 25,1:COLOR 15:PRINT "*EOF":COLOR 7:
+1700 LOCATE 2,30:PRINT "Directory Entry ";I/32+1-32
+1710 IF PEEK(I+&HD000)=&HE5 THEN IF PEEK(I+&HD001)=246 THEN TITLE$="<UNUSED>":DEL$="":GOTO 1750 ELSE DEL$="DESTROYED" ELSE DEL$=""
+1720 FOR J=0 TO 7:TITLE$=TITLE$+CHR$(PEEK(J+I+&HD000)):NEXT J
+1730 TITLE$=TITLE$+"."
+1740 FOR J=8 TO 10:TITLE$=TITLE$+CHR$(PEEK(J+I+&HD000)):NEXT J
+1750 LOCATE 10,20:COLOR 15:PRINT TITLE$;:COLOR 7
+1760 A=PEEK(I+&HD00B)
+1770 IF A=0 THEN PRINT "   FILE SET TO NORMAL";
+1780 IF A=2 THEN PRINT "   FILE SET TO HIDDEN";
+1790 IF A=4 THEN PRINT "   FILE SET TO SYSTEM";
+1800 IF A=6 THEN PRINT "   FILE SET TO HIDDEN/SYSTEM";
+1810 PRINT " "+DEL$
+1820 LOCATE 23,10:PRINT "(D)elete SWITCH  (F)ile SWITCH  e(X)it  ";CHR$(27);" MOVE ";CHR$(26);
+1830 A$=INKEY$:IF A$="" THEN 1830
+1840 IF A$="X" OR A$="x" THEN RETURN
+1850 IF A$="f" OR A$="F" THEN GOSUB 1910:POKE (I+&HD00B),ATTRIBUTE
+1860 IF A$="d" OR A$="D" THEN GOSUB 2060:POKE (I+&HD000),LETTER1
+1870 IF LEN(A$)=2 THEN A$=RIGHT$(A$,1)
+1880 IF A$=CHR$(75) THEN IF I>31 THEN I=I-32
+1890 IF A$=CHR$(77) THEN IF I<1985 THEN I=I+32
+1900 GOTO 1630
+1910 REM        Get New File Attribute
+1920 LOCATE 23,10:PRINT STRING$(65,32)
+1930 LOCATE 14,30:PRINT "File Attribute:"
+1940 LOCATE 16,30:PRINT "1. Normal file"
+1950 LOCATE 17,30:PRINT "2. Hidden file"
+1960 LOCATE 18,30:PRINT "3. System file"
+1970 LOCATE 19,30:PRINT "4. Hidden/System file"
+1980 LOCATE 20,30:PRINT "5. Exit"
+1990 LOCATE 22,30:INPUT "?: CHANGE  ===> ",IANS:CHANGE$="YES"
+2000 IF IANS=5 THEN ATTRIBUTE=PEEK(I+&HD00B):GOTO 2030
+2010 IF IANS<1 OR IANS>4 THEN LOCATE 20,35:PRINT STRING$(30,32):GOTO 1910
+2020 ATTRIBUTE=(IANS-1)*2
+2030 FOR K=14 TO 22:LOCATE K,30:PRINT STRING$(45,32):NEXT K
+2040 RETURN
+2050 REM
+2060 REM        Undelete File
+2070 REM
+2080 REM   This routine allows the user to undelete a deleted file.
+2090 REM   The size of the file is obtained from the directory and the
+2100 REM   necessary number of sectors are checked following the first
+2110 REM   sector of the file.  If none of the sectors following the
+2120 REM   the first sector are allocated, the program assumes those
+2130 REM   are the sectors belonging to the deleted program.  Otherwise,
+2140 REM   it will not undelete the file!
+2150 REM
+2160 LOCATE 23,10:PRINT STRING$(65,32)
+2170 LETTER1=PEEK(I+&HD000):IF LETTER1=&HE5 THEN 2200
+2180 LOCATE 15,25:INPUT "*FILE NOT DESTROYED.   Press return";IANS$
+2190 LOCATE 15,25:PRINT STRING$(53,32):RETURN
+2200 SIZE=PEEK(I+&HD01C)+(PEEK(I+&HD01D)*256)+(PEEK(I+&HD01E)*65536!)
+2210 SECTORS=INT((SIZE-1)/512)+1
+2220 LOCATE 20,21:PRINT "LOF=";SIZE;" BYTES ";SECTORS;"SECTOR(S)"
+2230 CLUSTER = PEEK(I+&HD01A)+PEEK(I+&HD01B)*256
+2240 LOCATE 21,21:PRINT "START CLUSTER=";CLUSTER
+2250 GOSUB 2400
+2260 IF FLAG$="yes" THEN 2270 ELSE PRINT "SECTOR(S) ALLOCATED AFTER CLUSTER ";CLUSTER;:COLOR 15 :PRINT "  ** LOST   Press return.";:INPUT"",IANS:COLOR 7:GOTO 2370
+2270 LOCATE 15,25:INPUT "?:  RESTORE THIS FILE   ===> ",IANS$
+2280 IF LEFT$(IANS$,1)="Y" OR  LEFT$(IANS$,1)="y" THEN 2290
+2281 IF LEFT$(IANS$,1)="N" OR LEFT$(IANS$,1)="n" THEN RETURN
+2283 LOCATE 15,54:PRINT SPACE$(10);:GOTO 2270
+2290 LOCATE 16,23:INPUT "?:  FIRST LETTER FOR LABEL  ===> ",IANS$
+2300 LETTER1=ASC(IANS$)
+2310 IF LETTER1<123 AND LETTER1>96 THEN LETTER1=LETTER1-31
+2320 IF LETTER1<65 OR LETTER1>90 THEN 2270
+2330 GOSUB 2560
+2340 LOCATE 25,1:PRINT"FILE RESTORED.  PLEASE EXAMINE FILE   -- STRIKE ANY KEY";
+2350 A$=INKEY$:IF LEN(A$)=0 THEN 2350
+2360 LOCATE 25,1:PRINT SPACE$(80);
+2370 LOCATE 15,25:PRINT STRING$(53,32)
+2380 LOCATE 16,25:PRINT STRING$(53,32):RETURN
+2390 REM
+2400 REM                Cluster's Last Stand(checks clusters)
+2410 REM
+2420 REM   This is the routine that checks the needed number of sectors
+2430 REM   immediatly following the first sector of the file being
+2440 REM   undeleted!  FLAG$ contains the indicator as to the outcome
+2450 REM   of the check.
+2460 REM
+2470 IF NOSIDES=1 THEN RANGE=SECTORS ELSE RANGE=INT((SECTORS+1)/2)
+2480 FOR INC=1 TO RANGE
+2490 TEMP=INT((CLUSTER+INC-1)*1.5)
+2500 IF CLUSTER MOD 2 = 1 THEN NEWCLUS=((PEEK(&HCC00+TEMP) AND 240)/16)+PEEK(&HCC00+TEMP+1)*256  ELSE NEWCLUS=PEEK(&HCC00+TEMP)+((PEEK(&HCC00+TEMP+1) AND 15)*256)
+2510 IF NEWCLUS<>0 THEN FLAG$="no":GOTO 2540
+2520 NEXT INC
+2530 FLAG$="yes"
+2540 RETURN
+2550 REM
+2560 REM                Cluster's Last Stand(updates clusters)
+2570 REM
+2580 REM   This routine reallocates the sectors following the first sector.
+2590 REM   Appendix C of the DOS Manual gives the technique for accessing
+2600 REM   this information.
+2610 REM
+2620 IF NOSIDES=1 THEN RANGE=SECTORS-1 ELSE RANGE=INT((SECTORS+1)/2)-1
+2630 FOR INC=1 TO RANGE
+2640 TEMP=INT((CLUSTER+INC-1)*1.5)
+2650 IF (CLUSTER+INC-1) MOD 2 = 1 THEN BYTE1=(PEEK(&HCC00+TEMP) AND 15) + (((CLUSTER + INC) AND 15)*16):BYTE2=INT((CLUSTER+INC)/16):GOTO 2670
+2660 BYTE1=(CLUSTER+INC) AND 255:BYTE2=(PEEK(&HCC00+TEMP+1) AND 240) + INT((CLUSTER+INC)/256)
+2670 POKE (&HCC00+TEMP),BYTE1:POKE (&HCE00+TEMP),BYTE1
+2680 POKE (&HCC00+TEMP+1),BYTE2:POKE (&HCE00+TEMP+1),BYTE2
+2690 NEXT INC
+2700 REM                poke end of file
+2710 TEMP=INT((CLUSTER+RANGE)*1.5)
+2720 IF (CLUSTER+RANGE) MOD 2 = 1 THEN BYTE1=(PEEK(&HCC00+TEMP) AND 15) + 240:BYTE2=255:GOTO 2740
+2730 BYTE1=255:BYTE2=(PEEK(&HCC00+TEMP+1) AND 240) + 15
+2740 POKE (&HCC00+TEMP),BYTE1:POKE (&HCE00+TEMP),BYTE1
+2750 POKE (&HCC00+TEMP+1),BYTE2:POKE (&HCE00+TEMP+1),BYTE2
+2760 RETURN
+2770 REM
+2780 REM                Ending Routine
+2790 REM
+2800 CLS
+2801 IF CHANGE$="YES" THEN LOCATE 25,1:BEEP:LINE INPUT"?:  DISK MODIFICATIONS NOT SAVED.  QUIT ANYWAY   ===> ";REPLY$
+2802 IF LEFT$(REPLY$,1)="N" OR LEFT$(REPLY$,1)="n" THEN 960
+2803 IF LEFT$(REPLY$,1)="Y" OR LEFT$(REPLY$,1)="y" THEN LOCATE 25,1:PRINT SPACE$(75);:SYSTEM ELSE GOTO 2801
+2920 RETURN
+2930 REM
+2940 REM                Move Header back to top
+2950 REM
+2960 FOR I=14 TO 13 STEP -1:LOCATE I,33:PRINT SPACE$(15);:NEXT I
+2970 A$="HideFile":FOR I=12 TO 3 STEP -1
+2980 LOCATE I-1,37:PRINT A$;
+2990 LOCATE I,37:PRINT SPACE$(8);
+3000 NEXT I
+3010 RETURN
+3020 REM
+3030 REM                Help Routine
+3040 REM
+3050 CLS:LOCATE 4,10:PRINT "(1)  File Directory lists the directory of the diskette."
+3060 LOCATE 7,10:PRINT "(2)  Alter Directory allows the user to change directory attributes."
+3070 LOCATE 10,10:PRINT "(3)  Save Changes is the only way to write changes (2) to the diskette."
+3080 LOCATE 13,10:PRINT "(4)  EXIT ALLOWS THE USER TO EXIT THE PROGRAM."
+3090 LOCATE 19,10:INPUT "Press return to continue....",IANS
+3100 RETURN
+3110 '** DONE - PRESS ENTER TO RETURN TO MENU **
+

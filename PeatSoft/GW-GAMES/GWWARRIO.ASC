@@ -1,0 +1,138 @@
+1 ' This is a text based game designed by Ryan Curtis.
+2 ' Press F2 to play.  Read the help option on the main menu on how to play this3 ' game.
+4 ' 10-10-00 - ?
+5 CLS
+10 INPUT "Are you a male or female "; GENDER$
+20 CLS
+30 PRINT "Main menu for warrior"
+40 PRINT "What would you like to do"
+50 PRINT "# 1 to Start game"
+60 PRINT "# 2 to see how to play"
+70 PRINT "# 3 to quit warrior"
+80 INPUT "What #"; NUM
+90 IF NUM=1 GOTO 165
+100 IF NUM=2 GOTO 115
+110 IF NUM=3 GOTO
+115 CLS
+120 PRINT "In this game you start in the woods.  You may use several commands."
+130 PRINT "Forward, turn, left, right, yes, no, and mabey even more."
+140 PRINT "Just try stuff out.  When you want to quit press CTRL+BREAK."
+150 INPUT "Press enter to continue..."; ENT1
+160 GOTO 20
+165 CLS
+170 PRINT "The Year is 20XX"
+180 PRINT "You are a ";GENDER$;" walking down to the bank."
+190 PRINT "When you all of a sudden feel like someone is following you."
+200 PRINT "All of a sudden you go around a corner and you get mugged by"
+210 PRINT "These huge guys.
+220 PRINT "You black out..."
+230 PRINT "When you wake up you find that you are in the woods."
+240 PRINT "You know that the woods are inhabited by very bad things"
+250 PRINT "so you need to find a weapon as soon as you can"
+260 INPUT "Press enter to continue..."; ENT2
+270 CLS
+280 PRINT "You see a stick you can use as a weapon until you find"
+290 PRINT "a better one.
+300 INPUT "Will you pick it up"; CHOICE1$
+310 IF CHOICE1$="yes" GOTO 360
+320 IF CHOICE1$="no" GOTO 330
+330 PRINT "To bad, your charecter picks it up anyway"
+335 INPUT "Press enter to continue..."; ENT4
+340 CLS
+350 GOTO 390
+360 PRINT "Good choice, now off to find your way back home or"
+370 PRINT "to find a better weapon"
+375 INPUT "Press enter to continue..."; ENT5
+380 CLS
+390 INPUT "Which way do you want to go"; DIR1$
+400 IF DIR1$="left" THEN GOTO 440
+410 IF DIR1$="right" THEN GOTO 440
+420 IF DIR1$="forward" THEN GOTO 440
+430 IF DIR1$="turn" THEN GOTO 590
+440 PRINT "It's all clear this way"
+450 PRINT "But you catch a glimps of something shiny"
+460 INPUT "Will you check it out"; CHECK1$
+470 IF CHECK1$="yes" THEN GOTO 490
+480 IF CHECK1$="no" THEN GOTO 560
+490 PRINT "You have found a shiney dagger"
+500 INPUT "Do you want it"; CHOICE2$
+510 IF CHOICE2$="yes" THEN GOTO 525
+520 IF CHOICE2$="no" THEN GOTO 560
+525 PLAY "l10 f f f e g"
+530 PRINT "You now have a shiney dagger"
+535 INPUT "Press enter to continue..."; ENT5
+540 CLS
+550 GOTO 640
+560 PRINT "To bad, your charecter picks it up anyway"
+565 INPUT "Press enter to continue"; ENT6
+570 CLS
+580 GOTO 530
+590 PRINT "You see a shack.  Maybe knock on the door"
+600 INPUT "Will you "; CHOICE3$
+610 IF CHOICE3$="yes" THEN GOTO 660
+620 IF CHOICE3$="no" THEN PRINT "You chicken!!"
+630 CLS
+640 PRINT "you are where you started now"
+650 GOTO 390
+660 PRINT "You knock on the door..."
+670 PRINT "You ask if anyone is home..."
+680 PRINT "No one answers"
+690 INPUT "Will you go in? "; CHOICE4$
+700 IF CHOICE4$="yes" THEN GOTO 750
+710 IF CHOICE4$="no" THEN GOTO 720
+720 PRINT "You chicken"
+730 PRINT "You turn around and go left"
+740 GOTO 640
+750 PRINT "You go in..."
+760 PRINT "You look around and you see an old man sleeping"
+770 INPUT "Do you want to wake him up";CHOICE5$
+780 IF CHOICE5$="no" GOTO 800
+790 IF CHOICE5$="yes" GOTO 940
+800 PRINT "Good idea, lets just steal some stuff and get outta here"
+810 PRINT "You find a Rocket Launcher with infinite ammo"
+820 PRINT "When you start to leave you hear the old man get up"
+830 INPUT "Press enter..."; ENTER12
+840 PRINT "UH OHH, Then you feel something hit your back and"
+850 PRINT "you melt to the ground in severe pain"
+860 INPUT "Press enter...";ENTER13
+870 PLAY "l10 f e d d d e d"
+880 PLAY "l3 d"
+890 PRINT "***********"
+900 PRINT "*game over*"
+910 PRINT "***********"
+920 INPUT "Press enter to go to the main menu.";ENT14
+930 GOTO 20
+940 PRINT "When you wake him up he askes for a drink"
+950 PRINT "You get him a drink and he thanks you"
+960 PRINT "He clears his throught and askes you"
+970 PRINT "how you got here.  You told him how, and he"
+980 PRINT "said that you are pretty far from civilization"
+990 PRINT "He tells you he is a hermit."
+1000 PRINT "He thanks you for talking with him and he gives"
+1010 PRINT "you a comb and says it will come in handy on"
+1020 PRINT "your journey"
+1030 PRINT "you tell him goodby and leave out the door."
+1040 INPUT "Press enter to continue..."; ENT15
+1050 CLS
+1060 PRINT "You are where you started now"
+1070 INPUT "Which way do you want to go (no turning)";DIR2$
+1080 IF DIR1$="left" THEN GOTO 1110
+1090 IF DIR1$="Right" THEN GOTO
+1100 IF DIR1$="Forward" THEN GOTO
+1110 CLS
+1120 PRINT "It's all clear this way"
+1130 PRINT "But you catch a glimps of something shiny"
+1140 INPUT "Will you check it out "; CHECK1$
+1150 IF CHECK1$="yes" THEN GOTO 1170
+1160 IF CHECK2$="no" THEN GOTO 1250
+1170 PRINT "You have found a shiney dagger"
+1180 INPUT "Do you want it"; CHOICE6$
+1190 IF CHOICE2$="yes" THEN GOTO 1210
+1200 IF CHOICE2$="no" THEN GOTO
+1210 CLS
+1220 PRINT "You now have a shiney dagger"
+1225 PLAY "l10 f f f e g"
+1230 INPUT "Press enter to continue... "; ENT17
+1240 GOTO
+1250 PRINT "To bad, Your charecter picks it up anyway."
+1260 GOTO 1210

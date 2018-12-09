@@ -1,0 +1,112 @@
+2 'WS-DOS.BAS
+4 'by Andrew Flugelman
+6 'Copyright 1983, The Headlands Press, Inc.
+8 '
+10 DEFINT A-Z:ON ERROR GOTO 9000
+15 A=0:A$="":L$="":P=0 'optimize key variables
+20 CRLF$=CHR$(13)+CHR$(10):HBLF$=CHR$(141)+CHR$(10)'hard & soft CR/LF
+25 SP$=CHR$(32):TB$=CHR$(9)'space & tab
+30 SH$=CHR$(31):PB$=CHR$(20)'soft hyphen & placebo
+35 DT=19:DIM D$(19):FOR P=1 TO DT:READ D$(P):NEXT'read dot commands
+40 EN=4:DIM EN(4),ENO$(4),ENC$(4),MRK(4)'dim & read enhancement symbols
+45 FOR P=1 TO EN:READ EN(P),ENO$(P),ENC$(P):MRK(P)=0:NEXT
+100 KEY OFF:CLS
+105 PRINT"        ==== CONVERT ===="
+110 PRINT
+115 PRINT"         1 - DOS to WS"
+120 PRINT"         2 - WS to DOS"
+900 PRINT"         x - exit"
+905 PRINT
+910 LOCATE ,10:PRINT"Choose:";
+915 Q$=INPUT$(1):IF Q$="X" OR Q$="x" THEN END
+920 ON VAL(Q$) GOTO 1000,2000
+925 BEEP:GOTO 100
+930 '
+1000 CLS
+1005 PRINT"          === DOS-to-WORDSTAR CONVERTER ==="
+1010 PRINT
+1015 PRINT"This routine will convert a standard DOS file into the format"
+1020 PRINT"  required by WordStar for paragraph reforming by converting"
+1025 PRINT"  'hard' carriage returns (ASCII 13) into 'soft' CRs (ASCII 141).
+1030 PRINT"If the file contains blank lines between paragraphs or indented"
+1035 PRINT"  paragraphs, hard returns are preserved at each paragraph end.
+1040 PRINT
+1045 GOSUB 8000:IF FL$="" THEN 100
+1050 PRINT:PRINT"Conversion in progress...";
+1055 IF EOF(1) THEN 8045 ELSE LINE INPUT #1,L$
+1060 IF EOF(1) THEN PRINT#2,L$+CRLF$;:GOTO 8045
+1065 LINE INPUT #1,A$
+1070 IF A$="" THEN 1090 'test for blank line
+1075 IF LEFT$(A$,2)=SP$+SP$ THEN 1090 'test for indent
+1080 IF LEFT$(A$,1)=TB$ THEN 1090 'also test for tab
+1085 PRINT#2,L$+HBLF$;:L$=A$:GOTO 1060 'write line with soft CR
+1090 PRINT#2,L$+CRLF$;:L$=A$:PRINT PB$;:GOTO 1060 'write line and hard CR
+1095 '
+2000 CLS
+2005 PRINT"              === WORDSTAR-to-DOS CONVERTER ==="
+2010 PRINT
+2015 PRINT"This routine converts a WordStar 'document' file"
+2020 PRINT"  into standard DOS format.  All 'high-bit' characters"
+2025 PRINT"  are converted to their 'low-bit' equivalents."
+2030 PRINT"All 'soft' hyphens are stripped, except that any hyphens"
+2035 PRINT"  at the ends of lines are retained."
+2040 PRINT
+2045 PRINT"You can either strip or retain lines that contain dot commands."
+2050 PRINT"As another option, you can either strip all print enhancements"
+2055 PRINT"  or replace certain enhancement codes as follows:"
+2060 PRINT
+2065 PRINT"    underline (^S) becomes  << ... >>"
+2070 PRINT"     boldface (^B) becomes <<< ... >>>"
+2075 PRINT"  superscript (^T) becomes  <^ ... ^>"
+2080 PRINT"    subscript (^V) becomes  <_ ... _>"
+2085 PRINT
+2090 PRINT:PRINT"Strip or Retain dot commands (s/r):":Q$=INPUT$(1)
+2095 IF Q$="S" OR Q$="s" THEN STRIPDOT=-1 ELSE STRIPDOT=0
+2100 PRINT "Strip or Replace enhancements (s/r):":Q$=INPUT$(1)
+2105 IF Q$="R" OR Q$="r" THEN ENHANCE=-1 ELSE ENHANCE=0
+2110 GOSUB 8000:IF FL$="" THEN 100
+2115 PRINT:PRINT"Conversion in progress...";
+2120 L$=""
+2125 IF EOF(1) THEN PRINT #2,L$:GOTO 8045 ELSE A$=INPUT$(1,#1):A=ASC(A$):IF A>30 AND A<128 THEN L$=L$+A$:GOTO 2125 'soft hyphen or normal ASCII, proceed
+2130 IF A>127 THEN A=A-128:A$=CHR$(A) 'convert to low bit character
+2135 IF A>31 THEN L$=L$+A$:GOTO 2125 'now if normal ASCII, proceed
+2140 IF A=13 THEN GOSUB 2170:A$=INPUT$(1,#1):GOTO 2120 'eol, process & remove LF
+2145 IF NOT ENHANCE THEN 2125
+2150 'deal with enhancements
+2155 FOR P=1 TO EN:IF A<>EN(P) THEN 2165 'find special characters
+2160 IF MRK(P) THEN L$=L$+ENC$(P):MRK(P)=0 ELSE L$=L$+ENO$(P):MRK(P)=-1'convert
+2165 NEXT: GOTO 2125
+2170 ' subroutine to strip soft hyphens and dot commands
+2175 P=INSTR(L$,SH$):IF P=0 OR P>=LEN(L$)-1 THEN 2180 ELSE L$=LEFT$(L$,P-1)+         RIGHT$(L$,LEN(L$)-P):GOTO 2175 'strip soft hyphens...
+2180 IF RIGHT$(L$,1)=SH$ THEN MID$(L$,LEN(L$),1)="-" 'except at eol
+2185 '
+2190 IF STRIPDOT AND (LEFT$(L$,1)=".") THEN 2200 'possible dot command?
+2195 PRINT #2,L$:PRINT PB$;:RETURN 'write line to disk
+2200 B$=MID$(L$,2,1):A=ASC(B$):IF A>64 AND A<91 THEN A=A+32:B$=CHR$(A)
+2205 C$=MID$(L$,3,1):A=ASC(C$):IF A>64 AND A<91 THEN A=A+32:C$=CHR$(A)
+2210 DUMP=0:FOR P=1 TO DT:IF B$+C$=D$(P) THEN DUMP=-1 'search for dot cmds.
+2215 NEXT:IF DUMP THEN RETURN ELSE GOTO 2195 'dump line if dot command
+2220 '
+8000 'File specs
+8005 INPUT"File to convert:",FL$:IF FL$="" THEN RETURN
+8010 IF LEFT$(FL$,1)="?" THEN GOSUB 8035:GOTO 8005
+8015 OPEN FL$ FOR INPUT AS #1
+8020 INPUT"Convert to file:",FL$:IF FL$="" THEN 8005
+8025 IF LEFT$(FL$,1)="?" THEN GOSUB 8035:GOTO 8020
+8030 OPEN FL$ FOR OUTPUT AS #2:RETURN
+8035 IF LEN(FL$)>1 THEN FL$=RIGHT$(FL$,LEN(FL$)-1) ELSE FL$="*.*"
+8040 PRINT:FILES FL$:PRINT:RETURN
+8045 CLOSE:BEEP:PRINT:PRINT"Done!":GOTO 105
+8050 '
+9000 ' Error trapping
+9005 IF ERL=8015 THEN CLOSE:BEEP:PRINT"===Filespec Error===":RESUME 8005
+9010 IF ERL=8030 THEN CLOSE 2:BEEP:PRINT"===Filespec Error===":RESUME 8020
+9015 IF ERL=8040 THEN CLOSE:BEEP:PRINT"===File(s) Not Found===":RESUME 8005
+9020 ON ERROR GOTO 0
+9025 '
+10000 DATA bp,uj,po,cw,ig,cp,fo,fm,he,hm,lh,mb,mt,pa,op,pn,pc,sr,pl
+10005 DATA 19,"<<",">>"
+10010 DATA 2,"<<<",">>>"
+10015 DATA 22,"<_","_>"
+10020 DATA 20,"<^","^>"
+

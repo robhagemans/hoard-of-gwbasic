@@ -1,0 +1,38 @@
+1 '                        MCNEMAR'S TEST
+2 '               Written by Tracy L. Gustafson, M.D.
+3 '              Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+22 DATA "MCNEMAR'S TEST (paired chi-square)",20,36
+30 PRINT TAB(12);:INPUT "What is the name of the FACTOR to be tested?   ",F$
+35 PRINT:PRINT "  ENTER the number of PAIRS in each category:"
+40 PRINT:PRINT TAB(36);"CONTROLS"
+45 PRINT TAB(28);"+ ";F$;TAB(42);"- ";F$
+50 PRINT TAB(24);"ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿"
+55 PRINT TAB(11);"+ ";F$;TAB(24);"³";TAB(39);"³";TAB(54);"³"
+60 PRINT " CASES";TAB(24);"ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´"
+65 PRINT TAB(11);"- ";F$;TAB(24);"³";TAB(39);"³";TAB(54);"³"
+70 PRINT TAB(24);"ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
+75 AR=12:AC=30:GOSUB 170:BA=I:AC=46:GOSUB 170:BB=I
+80 AR=14:AC=30:GOSUB 170:BC=I:AC=46:GOSUB 170:BD=I
+85 X=ABS(BB-BC)-1:N=BB+BC:X=X*X/N:PRINT:PRINT
+90 PRINT TAB(20);"CHI-SQUARE = ";X;TAB(53);"df = 1":PRINT
+95 IF X>31 THEN P=0:GOTO 115
+100 R=1.77245374942627#:S=1:I=1:K=SQR(X/2)*2/(EXP(X/2)*R):VC=3
+105 I=I*X/VC:S=S+I:VC=VC+2:IF I>9.999999E-31 THEN 105
+110 P=1-K*S
+115 PLAY "O2 MB MS T120 L16D-P8L32GL16A-P8 L3 D-":PRINT TAB(19);
+120 COLOR CLR2,CLR1:PRINT TAB(33);"p = ";:IF P<.000001 THEN PRINT "< 10 (-6)"; ELSE PRINT P;
+125 PRINT TAB(60):COLOR CLR1,CLR2:PRINT:PRINT
+130 PRINT TAB(28);"ODDS RATIO = ";:IF BC=0 THEN PRINT "not calculable" ELSE PRINT BB/BC
+135 XA=N*(N+3.842):XB=N*(2*BB+5.842):XD=N*(2*BB+1.842)
+140 PRINT TAB(15);"95% Confidence limits:  ";
+145 IF BB=0 THEN PRINT "not calculable"; ELSE PL=(XD-SQR(XD*XD-4*XA*(BB-1)*(BB-1)))/(2*XA):PRINT PL/(1-PL);
+150 PRINT "  and  ";:IF BC=0 THEN PRINT "not calculable"; ELSE PU=(XB+SQR(XB*XB-4*XA*(BB+1)*(BB+1)))/(2*XA):PRINT PU/(1-PU)
+155 LOCATE 25,13:INPUT;"Do you want to calculate another McNemar's test?  ",A$
+160 IF A$="y" OR A$="Y" THEN 20
+165 LOCATE 23,1:END
+170 LOCATE AR,AC:INPUT "",I:IF INT(I)=I THEN RETURN ELSE BEEP:LOCATE 25,15:PRINT "Please enter integers only";:LOCATE AR,AC:PRINT "      ":GOTO 170
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+

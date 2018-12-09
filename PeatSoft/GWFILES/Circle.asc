@@ -1,0 +1,43 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '*****************  BULLSEYE CIRCLE PROGRAM GRAPHIC  ***********************
+12 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+14 'บ                HYPNOTIC CIRCLE PROGRAM COLOR/GRAPHICS                   บ
+16 'บ                                                                         บ
+18 'บ    This program requires a color graphics board and color or composite  บ
+20 'บ video monitor. The program provides an interesting growing circle that  บ
+22 'บ evolves to a BULLSEYE. It would be suitable for visual relaxation and/  บ
+24 'บ or contemplation. It is also useful as an eye-catching color display.   บ
+26 'บ It will run until intentionally terminated with a REBOOT or BREAK.      บ
+28 'บ                     (c) G I N A C O   -- 1983        Ver 5.1/160        บ
+30 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+240 CLS
+250  SCREEN 0,0,0
+260   WIDTH 80
+270    CLEAR
+280     FOR I! = 1 TO 10
+290        KEY I!,""
+300       NEXT
+310 FOR J! = 0 TO 2
+320    CLS
+330     KEY OFF
+340      SCREEN 1,0
+350       COLOR 0,J!
+360        LOCATE 25,15
+370         PRINT "COLOR CIRCLES"
+380          LOCATE 1,15
+390           PRINT "PALETTE 0,";J!
+400            FOR K! = 2 TO 16
+410               FOR I! = 3 TO 100
+420                  CIRCLE (160,100),I!,I! \ 6 MOD K!
+430                 NEXT I!
+440                NEXT K!
+450               NEXT J!
+460                CLS
+470                 GOTO 310
+480 END
+65000 REM  *****************  SAVE  ROUTINE  ********************************
+65100 SAVE "B:CIRCLE.GRA"
+

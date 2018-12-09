@@ -1,0 +1,666 @@
+90 WIDTH "scrn:", 80
+95 SCREEN 0,1,0,0
+100 TITLE$ = "Family Group Sheet Program"
+105 TITLE$ = TITLE$ + " ON DISPLAY"
+110 VERSION$ = "Version 2.0"
+115 COPY1$ = "Copyright (c) 1983, 1984, by:"
+120 COPY2$ = "Melvin O. Duke"
+125 PRICE$ = "$35"
+130 ADDR1$ = "Melvin O. Duke"
+135 ADDR2$ = "P. O. Box 20836"
+140 ADDR3$ = "San Jose, CA  95160"
+145 REM Dimension Statements go here
+150 DIM PA.ID(1000), CH.ID(1000), PERS.NO(400), M.NO(400)
+160 DIM PERS(2), FORM$(49)
+170 REM Produce the first screen
+175 KEY OFF : CLS
+180 REM Draw the outer double box
+185 R1 = 1 : C1 = 1 : R2 = 24 : C2 = 79 : GOSUB 400
+190 REM Find the title location
+195 TITLE.POS = 40 - INT(LEN(TITLE$)/2)
+200 REM Draw the title box
+205 R1=3:C1=TITLE.POS-2:R2=6:C2=TITLE.POS+LEN(TITLE$)+1:GOSUB 600
+210 REM Print the title
+215 LOCATE 4,TITLE.POS : PRINT TITLE$
+220 LOCATE 5,40-INT(LEN(VERSION$)/2) :  PRINT VERSION$;
+225 REM Draw the Contribution box
+230 R1 = 8 : C1 = 19 : R2 = 17 : C2 = 62 : GOSUB 400
+235 REM Request the Contribution
+240 LOCATE 9,23 : PRINT "If you are using these programs, and"
+245 LOCATE 10,21 : PRINT "finding them of value, your contribution"
+250 LOCATE 11,23 : PRINT "("+PRICE$+" suggested) will be anticipated."
+255 REM Draw the Mailing Label
+260 R1 = 12 : C1 = 28 : R2 = 16 : C2 = 52 : GOSUB 600
+265 REM Print the Name and Address
+270 LOCATE 13,40-INT(LEN(ADDR1$)/2) :  PRINT ADDR1$;
+275 LOCATE 14,40-INT(LEN(ADDR2$)/2) :  PRINT ADDR2$;
+280 LOCATE 15,40-INT(LEN(ADDR3$)/2) :  PRINT ADDR3$;
+285 REM Draw the Copyright box
+290 R1 = 19 : C1 = 24 : R2 = 22 : C2 = 56 : GOSUB 400
+295 REM Print the Copyright
+300 LOCATE 20,40-INT(LEN(COPY1$)/2) :  PRINT COPY1$;
+305 LOCATE 21,40-INT(LEN(COPY2$)/2) :  PRINT COPY2$;
+310 GOTO 740
+400 REM subroutine to print a double box
+410 FOR I = R1 + 1 TO R2 - 1
+420  LOCATE I, C1 : PRINT CHR$(186);
+430  LOCATE I, C2 : PRINT CHR$(186);
+440 NEXT I
+450 FOR J = C1 + 1 TO C2 - 1
+460  LOCATE R1, J : PRINT CHR$(205);
+470  LOCATE R2, J : PRINT CHR$(205);
+480 NEXT J
+490  LOCATE R1, C1 : PRINT CHR$(201);
+500  LOCATE R1, C2 : PRINT CHR$(187);
+510  LOCATE R2, C1 : PRINT CHR$(200);
+520  LOCATE R2, C2 : PRINT CHR$(188);
+530 RETURN
+600 REM subroutine to print a single box
+610 FOR I = R1 + 1 TO R2 - 1
+620  LOCATE I, C1 : PRINT CHR$(179);
+630  LOCATE I, C2 : PRINT CHR$(179);
+640 NEXT I
+650 FOR J = C1 + 1 TO C2 - 1
+660  LOCATE R1, J : PRINT CHR$(196);
+670  LOCATE R2, J : PRINT CHR$(196);
+680 NEXT J
+690  LOCATE R1, C1 : PRINT CHR$(218);
+700  LOCATE R1, C2 : PRINT CHR$(191);
+710  LOCATE R2, C1 : PRINT CHR$(192);
+720  LOCATE R2, C2 : PRINT CHR$(217);
+730 RETURN
+740 REM ask user to press a key to continue
+750 LOCATE 25,1
+760 PRINT "Have Data Diskette(s) in Place, then Press any key to continue.";
+770 K$ = INKEY$ : IF K$ = "" THEN 770
+780 CLS
+840 CLS
+1000 REM Family Group Sheet Program.
+1010 REM By:  Melvin O. Duke.  Last Updated:  24 December 1983.
+1020 REM Routine to obtain Printer Information
+1030 LOCATE 21,1 : PRINT "Make sure that the Printer is On and Ready"
+1040 LOCATE 22,1 : PRINT "Make sure that the correct Diskette(s) are in place."
+1050 LOCATE 23,1 : PRINT "Then press any key"
+1060 A$ = INKEY$ : IF A$ = "" THEN 1060
+1070 CLS
+1080 REM Set for Wide Printing.
+1110 WIDTH "lpt1:",132  'For printing Genealogy Forms
+1120 REM Ask user about his Printer
+1130 LOCATE 20,1 : PRINT "How wide is the Paper";
+1140 LOCATE 21,3 : COLOR 0,7 : PRINT "1"; : COLOR 7,0
+1150 LOCATE 21,6 : PRINT "8 - 1/2 inches";
+1160 LOCATE 22,3 : COLOR 0,7 : PRINT "2"; : COLOR 7,0
+1170 LOCATE 22,6 : PRINT "14 inches";
+1180 LOCATE 23,1 : PRINT SPACE$(79);
+1190 LOCATE 23,1 : INPUT "Enter 1 or 2"; REPLY$
+1200 REM verify input
+1210 IF VAL(REPLY$) = 1 OR VAL(REPLY$) = 2 THEN 1240
+1220 LOCATE 19,1 : PRINT "Error in Previous Reply";
+1230 GOTO 1130
+1240 LOCATE 19,1 : PRINT SPACE$(79);
+1250 LOCATE 20,1 : PRINT SPACE$(79);
+1260 LOCATE 21,1 : PRINT SPACE$(79);
+1270 LOCATE 22,1 : PRINT SPACE$(79);
+1280 LOCATE 23,1 : PRINT SPACE$(79);
+1290 WIDE = VAL(REPLY$)
+1300 LOCATE 3,1
+1310 IF WIDE = 1 THEN PRINT "Using 8-1/2 inch width paper"; : GOTO 1330
+1320 PRINT "Using 14 inch width paper";
+1330 LOCATE 20,1 : PRINT "How Long is the Paper";
+1340 LOCATE 21,3 : COLOR 0,7 : PRINT "1"; : COLOR 7,0
+1350 LOCATE 21,6 : PRINT "8 - 1/2 inches";
+1360 LOCATE 22,3 : COLOR 0,7 : PRINT "2"; : COLOR 7,0
+1370 LOCATE 22,6 : PRINT "11 inches";
+1380 LOCATE 23,1 : PRINT SPACE$(79);
+1390 LOCATE 23,1 : INPUT "Enter 1 or 2"; REPLY$
+1400 REM verify input
+1410 IF VAL(REPLY$) = 1 OR VAL(REPLY$) = 2 THEN 1440
+1420 LOCATE 19,1 : PRINT "Error in Previous Reply";
+1430 GOTO 1330
+1440 LOCATE 19,1 : PRINT SPACE$(79);
+1450 LOCATE 20,1 : PRINT SPACE$(79);
+1460 LOCATE 21,1 : PRINT SPACE$(79);
+1470 LOCATE 22,1 : PRINT SPACE$(79);
+1480 LOCATE 23,1 : PRINT SPACE$(79);
+1490 LENGTH = VAL(REPLY$)
+1500 LOCATE 5,1
+1510 IF LENGTH = 1 THEN PRINT "Using 8-1/2 inch length paper"; : GOTO 1530
+1520 PRINT "Using 11 inch length paper";
+1530 LOCATE 20,1 : PRINT "Describe the Forms to be used";
+1540 LOCATE 21,3 : COLOR 0,7 : PRINT "1"; : COLOR 7,0
+1550 LOCATE 21,6 : PRINT "Continuous";
+1560 LOCATE 22,3 : COLOR 0,7 : PRINT "2"; : COLOR 7,0
+1570 LOCATE 22,6 : PRINT "Single Sheets";
+1580 LOCATE 23,1 : PRINT SPACE$(79);
+1590 LOCATE 23,1 : INPUT "Enter 1 or 2"; REPLY$
+1600 REM verify input
+1610 IF VAL(REPLY$) = 1 OR VAL(REPLY$) = 2 THEN 1640
+1620 LOCATE 19,1 : PRINT "Error in Previous Reply";
+1630 GOTO 1530
+1640 LOCATE 19,1 : PRINT SPACE$(79);
+1650 LOCATE 20,1 : PRINT SPACE$(79);
+1660 LOCATE 21,1 : PRINT SPACE$(79);
+1670 LOCATE 22,1 : PRINT SPACE$(79);
+1680 LOCATE 23,1 : PRINT SPACE$(79);
+1690 FORMS = VAL(REPLY$)
+1700 LOCATE 7,1
+1710 IF FORMS = 1 THEN PRINT "Using Continuous forms"; : GOTO 1730
+1720 PRINT "Using Single Sheets";
+1730 LOCATE 20,1 : PRINT "Is the above information correct?"
+1740 LOCATE 21,1 : INPUT "Enter 'y' or 'n' for 'yes' or 'no'"; REPLY$
+1750 IF LEFT$(REPLY$,1) = "y" OR LEFT$(REPLY$,1) = "Y" THEN 1760 ELSE 1070
+1760 CLS
+1780 REM Read the Parent/Child Index
+1790 OPEN "a:pcindex" FOR INPUT AS #1
+1800 LOCATE 4,1 : PRINT "Open the Parent/Child Index";
+1810 INPUT #1, PC.COUNT
+1820 FOR I = 1 TO PC.COUNT
+1830 LOCATE 5,1 : PRINT "Reading Index Record #:";I;
+1840  INPUT #1, PA.ID(I), CH.ID(I)
+1850 NEXT I
+1860 CLOSE #1
+1870 REM Read the Marriage Index
+1880 LOCATE 7,1 : PRINT "Open the Marriage Index";
+1890 OPEN "a:mindex" FOR INPUT AS #2
+1900 INPUT #2, M.COUNT
+1910 FOR I = 1 TO M.COUNT
+1920 LOCATE 8,1 : PRINT "Reading Marriage Index Record #:";I:
+1930  INPUT #2,PERS.NO(I), M.NO(I)
+1940 NEXT I
+1950 CLOSE #2
+1960 REM Open the Persons File
+1970 LOCATE 10,1 : PRINT "Open the Persons File"
+1980 OPEN "a:persfile" AS #1 LEN = 256
+1990 FIELD 1, 5 AS F1$, 20 AS F2$, 30 AS F3$, 2 AS F4$, 5 AS F5$, 5 AS F6$, 5 AS F7$, 11 AS F8$, 18 AS F9$, 16 AS F10$, 16 AS F11$, 11 AS F12$, 18 AS F13$, 16 AS F14$, 16 AS F15$, 11 AS F16$, 18 AS F17$, 16 AS F18$, 16 AS F19$
+2000 REM open the Marriages File
+2010 LOCATE 12,1 : PRINT "Open the Marriage File"
+2020 OPEN "a:marrfile" AS #2 LEN = 128
+2030 FIELD 2, 5 AS M1$, 5 AS M2$, 5 AS M3$, 5 AS M4$, 11 AS M5$, 18 AS M6$, 16 AS M7$, 16 AS M8$, 45 AS M9$
+2040 REM Open the Ordinance File
+2050 LOCATE 14,1 : PRINT "Open the Ordinances File";
+2060 OPEN "a:ordfile" AS #3 LEN = 256
+2070 FIELD 3,5ASO1$,11ASO2$,11ASO3$,11ASO4$,5ASO5$,5ASO6$,11ASO7$,11ASO8$,11ASO9$,11ASO10$,11ASO11$,5ASO12$,11ASO13$,11ASO14$,11ASO15$,11ASO16$,11ASO17$,11ASO18$,11ASO19$,11ASO20$,11ASO21$,11ASO22$,11ASO23$,26ASO24$
+2080 REM Obtain a Person Record from the User
+2090 CLS : LOCATE 20,1
+2100 INPUT "Enter the Record-number of a Marriage (0 to quit)";MARRIAGE
+2110 IF MARRIAGE = 0 THEN 5040
+2120 IF MARRIAGE < 1 OR MARRIAGE > 200 THEN CLS: GOTO 2080
+2130 GOSUB 2140 : GOTO 2850
+2140 REM Reset the Printer Characterisitcs for next page if required.
+2150 IF FORMS = 1 THEN 2190  'Don't stop if forms are continuous
+2160 REM Process Single Sheets
+2170 PRINT "Press any key when next form is ready"
+2180 A$ = INKEY$ : IF A$ = "" THEN 2180
+2190 REM Reset paper sensing if required
+2200 IF FORMS = 2 THEN LPRINT CHR$(27)"8";
+2210 REM Reset paper length if required
+2220 IF LENGTH = 1 THEN LPRINT CHR$(27)"C51";
+2230 REM Reset Condensed Printing if required
+2240 IF WIDE = 1 THEN LPRINT CHR$(15);
+2250 RETURN
+2260 REM Routine to do a Right-trim
+2270 FOR J = 1 TO LEN(TEMP1$)
+2280  IF RIGHT$(TEMP2$,1) = " " THEN TEMP2$ = LEFT$(TEMP2$,LEN(TEMP2$)-1) ELSE J = LEN(TEMP1$)
+2290 NEXT J
+2300 RETURN
+2310 REM Routine to Extract Personal Information
+2320 T1 = CVS(F1$)
+2330 TEMP1$ = F2$ : TEMP2$ = F2$ : GOSUB 2260
+2340 T2$ = TEMP2$
+2350 TEMP1$ = F3$ : TEMP2$ = F3$ : GOSUB 2260
+2360 T3$ = TEMP2$
+2370 IF LEFT$(F4$,1) = "M" THEN T4$ = "M"
+2380 IF LEFT$(F4$,1) = "F" THEN T4$ = "F"
+2390 T5 = CVS(F5$)
+2400 T6 = CVS(F6$)
+2410 T7 = CVS(F7$)
+2415 TEMP1$ = F8$ : TEMP2$ = F8$ : GOSUB 2260
+2420 T8$ = TEMP2$
+2430 TEMP1$ = F9$ : TEMP2$ = F9$ : GOSUB 2260
+2440 T9$ = TEMP2$
+2450 TEMP1$ = F10$ : TEMP2$ = F10$ : GOSUB 2260
+2460 T10$ = TEMP2$
+2470 TEMP1$ = F11$ : TEMP2$ = F11$ : GOSUB 2260
+2480 T11$ = TEMP2$
+2485 TEMP1$ = F12$ : TEMP2$ = F12$ : GOSUB 2260
+2490 T12$ = TEMP2$
+2500 TEMP1$ = F13$ : TEMP2$ = F13$ : GOSUB 2260
+2510 T13$ = TEMP2$
+2520 TEMP1$ = F14$ : TEMP2$ = F14$ : GOSUB 2260
+2530 T14$ = TEMP2$
+2540 TEMP1$ = F15$ : TEMP2$ = F15$ : GOSUB 2260
+2550 T15$ = TEMP2$
+2555 TEMP1$ = F16$ : TEMP2$ = F16$ : GOSUB 2260
+2560 T16$ = TEMP2$
+2570 TEMP1$ = F17$ : TEMP2$ = F17$ : GOSUB 2260
+2580 T17$ = TEMP2$
+2590 TEMP1$ = F18$ : TEMP2$ = F18$ : GOSUB 2260
+2600 T18$ = TEMP2$
+2610 TEMP1$ = F19$ : TEMP2$ = F19$ : GOSUB 2260
+2620 T19$ = TEMP2$
+2630 RETURN
+2640 REM Routine to Extract Ordinance Information
+2641 TEMP1$ = O2$ : TEMP2$ = O2$ : GOSUB 2260
+2645 U2$ = TEMP2$  'Christening Date
+2649 TEMP1$ = O4$ : TEMP2$ = O4$ : GOSUB 2260
+2650 U4$ = TEMP2$  'Sealed to Parents
+2659 TEMP1$ = O7$ : TEMP2$ = O7$ : GOSUB 2260
+2660 U7$ = TEMP2$  'Baptism
+2669 TEMP1$ = O10$ : TEMP2$ = O10$ : GOSUB 2260
+2670 U10$ = TEMP2$  'Endowment
+2679 TEMP1$ = O11$ : TEMP2$ = O11$ : GOSUB 2260
+2680 U11$ = TEMP2$  'Sealed to Spouse
+2690 TEMP1$ = O24$ : TEMP2$ = O24$ : GOSUB 2260
+2700 U24$ = TEMP2$  'Occupation
+2710 RETURN
+2720 REM Extraction of Marriage Information
+2730 TT1 = CVS(M1$)  'Rec.no
+2740 TT2 = CVS(M2$)  'Husband
+2750 TT3 = CVS(M3$)  'Wife
+2760 TT4 = CVS(M4$)  'Code
+2765 TEMP1$ = M5$ : TEMP2$ = M5$ : GOSUB 2260
+2770 TT5$ = TEMP2$  'Marriage Date
+2780 TEMP1$ = M6$ : TEMP2$ = M6$ : GOSUB 2260
+2790 TT6$ = TEMP2$   'City
+2800 TEMP1$ = M7$ : TEMP2$ = M7$ : GOSUB 2260
+2810 TT7$ = TEMP2$   'County
+2820 TEMP1$ = M8$ : TEMP2$ = M8$ : GOSUB 2260
+2830 TT8$ = TEMP2$   'State
+2840 RETURN
+2850 REM Routine to Fill with Spaces
+2860 FOR I = 1 TO 49
+2870  FORM$(I) = SPACE$(132)
+2880 NEXT I
+2885 IF WIDE = 1 THEN GOSUB 7000
+2890 REM Routine to Produce a Family Group Sheet
+2900 REM get the marriage record
+2910 GET #2, MARRIAGE
+2920 PRINT "Obtaining Marriage Record"
+2930 GOSUB 2720  'Extract Marriage Information
+2940 HUSB = TT2 : WIFE = TT3
+2950 REM Verify that record contains information
+2960 IF HUSB = 0 OR WIFE = 0 THEN CLS : GOTO 2080
+2961 REM
+2962 REM Marriage Information onto line 4
+2963 PRINT "Locate Marriage Information"
+2964 MID$(FORM$(4),7,LEN(TT5$)) = TT5$
+2965 IF TT6$ = "" AND TT7$ = "" AND TT8$ = "" THEN 2970
+2966 MID$(FORM$(4),28,LEN(TT6$+TT7$+TT8$)+4) = TT6$+", "+TT7$+", "+TT8$
+2970 REM Obtain the Husband's Information
+2980 GET #1, HUSB
+2990 PRINT "Obtaining Husband's Information"
+3000 GOSUB 2310  'Extract Persons Information
+3010 REM Now move the Husband's Information
+3020 IF T2$ = "" AND T3$ = "" THEN 3050
+3030 MID$(FORM$(1),10,LEN(T2$+T3$)+2) = T2$ + ", " + T3$
+3040 MID$(FORM$(1),84,LEN(T2$+T3$)+9) = T2$+", "+T3$+" ("+RIGHT$(T8$,4)+")"
+3050 MID$(FORM$(2),7,LEN(T8$)) = T8$
+3060 IF T9$ = "" AND T10$ = "" AND T11$ = "" THEN 3080
+3070 MID$(FORM$(2),28,LEN(T9$+T10$+T11$)+4) = T9$+", "+T10$+", "+T11$
+3080 MID$(FORM$(5),7,LEN(T12$)) = T12$
+3090 IF T13$ = "" AND T14$ = "" AND T15$ = "" THEN 3110
+3100 MID$(FORM$(5),28,LEN(T13$+T14$+T15$)+4) = T13$+", "+T14$+", "+T15$
+3110 MID$(FORM$(6),7,LEN(T16$)) = T16$
+3120 IF T17$ = "" AND T18$ = "" AND T19$ = "" THEN 3140
+3130 MID$(FORM$(6),28,LEN(T17$+T18$+T19$)+4) = T17$+", "+T18$+", "+T19$
+3140 FATHER = T6 : MOTHER = T7
+3150 IF FATHER = 0 THEN 3210
+3160 GET #1, FATHER
+3170 PRINT "Obtaining Husband's Father"
+3180 GOSUB 2310  'Extract Father's Information
+3190 IF T2$ = "" AND T3$ = "" THEN 3210
+3200 MID$(FORM$(7),12,LEN(T2$+T3$)+2) = T2$+", "+T3$
+3210 IF MOTHER = 0 THEN 3270
+3220 GET #1, MOTHER
+3230 PRINT "Obtaining Husband's Mother"
+3240 GOSUB 2310  'Extract Mother's Information
+3250 IF T2$ = "" AND T3$ = "" THEN 3270
+3260 MID$(FORM$(7),58,LEN(T2$+T3$)+2) = T2$ + ", " + T3$
+3270 REM
+3280 REM Look for Husband's Other Wives
+3290 PRINT "Look for Other Wives"
+3300 XWIFE.COL = 0
+3310 FOR W = 1 TO M.COUNT
+3320  IF HUSB > PERS.NO(W) THEN 3460  'next w
+3330  IF HUSB < PERS.NO(W) THEN W = M.COUNT : GOTO 3460
+3340  REM found a wife, skip if wife of this marriage
+3350  IF M.NO(W) = 0 THEN 3460
+3360  GET #2, M.NO(W)
+3370  GOSUB 2720  'extract marriage info
+3380  IF WIFE = TT3 THEN 3460  'skip if same
+3390  REM found another wife
+3400  IF TT3 = 0 THEN 3460
+3410  GET #1, TT3  'get wife's information
+3420  GOSUB 2310  'extract personal info.
+3430  IF T2$ = "" AND T3$ = "" THEN 3460  'skip if empty
+3440  MID$(FORM$(8),12+XWIFE.COL,LEN(T2$+T3$)+2) = T2$+", "+T3$
+3450  XWIFE.COL = XWIFE.COL + LEN(T2$+T3$)+4
+3460 NEXT W
+3470 REM Obtain the Wife's Information
+3475 GET #1, WIFE
+3480 PRINT "Obtaining Wife's Information"
+3490 GOSUB 2310  'Extract Wife's Information
+3500 REM Now move the Wife's Information
+3510 IF T2$ = "" AND T3$ = "" THEN 3540
+3520 MID$(FORM$(10),10,LEN(T2$+T3$)+2) = T2$ + ", " + T3$
+3530 MID$(FORM$(2),84,LEN(T2$+T3$)+9) = T2$+", "+T3$+" ("+RIGHT$(T8$,4)+")"
+3540 MID$(FORM$(11),7,LEN(T8$)) = T8$
+3550 IF T9$ = "" AND T10$ = "" AND T11$ = "" THEN 3570
+3560 MID$(FORM$(11),28,LEN(T9$+T10$+T11$)+4) = T9$+", "+T10$+", "+T11$
+3570 MID$(FORM$(13),7,LEN(T12$)) = T12$
+3580 IF T13$ = "" AND T14$ = "" AND T15$ = "" THEN 3600
+3590 MID$(FORM$(13),28,LEN(T13$+T14$+T15$)+4) = T13$+", "+T14$+", "+T15$
+3600 MID$(FORM$(14),7,LEN(T16$)) = T16$
+3610 IF T17$ = "" AND T18$ = "" AND T19$ = "" THEN 3630
+3620 MID$(FORM$(14),28,LEN(T17$+T18$+T19$)+4) = T17$+", "+T18$+", "+T19$
+3630 FATHER = T6 : MOTHER = T7
+3640 IF FATHER = 0 THEN 3700
+3650 GET #1, FATHER
+3660 PRINT "Obtaining Wife's Father"
+3670 GOSUB 2310  'Extract Father's Information
+3680 IF T2$ = "" AND T3$ = "" THEN 3700
+3690 MID$(FORM$(15),12,LEN(T2$+T3$)+2) = T2$+", "+T3$
+3700 IF MOTHER = 0 THEN 3760
+3710 GET #1, MOTHER
+3720 PRINT "Obtaining Wife's Mother"
+3730 GOSUB 2310  'Extract Mother's Information
+3740 IF T2$ = "" AND T3$ = "" THEN 3760
+3750 MID$(FORM$(15),58,LEN(T2$+T3$)+2) = T2$ + ", " + T3$
+3760 REM
+3820 REM
+3830 REM Look for Wife's Other Husbands
+3840 PRINT "Look for Other Husbands"
+3850 XHUSB.COL = 0
+3860 FOR H = 1 TO M.COUNT
+3870  IF WIFE > PERS.NO(H) THEN 4010  'next h
+3880  IF WIFE < PERS.NO(H) THEN H = M.COUNT : GOTO 4010
+3890  REM found a husband.  Skip if husband of this marriage
+3900  IF M.NO(H) = 0 THEN 4010
+3910  GET #2, M.NO(H)
+3920  GOSUB 2720  'extract marriage info
+3930  IF HUSB = TT2 THEN 4010  'skip if same
+3940  REM found another husband
+3950  IF TT2 = 0 THEN 4010
+3960  GET #1, TT2  'get husband's information
+3970  GOSUB 2310  'extract personal info.
+3980  IF T2$ = "" AND T3$ = "" THEN 4010  'skip if empty
+3990  MID$(FORM$(16),12+XHUSB.COL,LEN(T2$+T3$)+2) = T2$+", "+T3$
+4000  XHUSB.COL = XHUSB.COL + LEN(T2$+T3$)+4
+4010 NEXT H
+4020 REM Obtain Husband's Ordinances
+4030 PRINT "Obtaining Husband's Ordinances"
+4040 IF HUSB = 0 THEN 4130
+4050 GET #3, HUSB
+4060 GOSUB 2640  'Extract Ordinances
+4065 MID$(FORM$(3),7,LEN(U2$)) = U2$
+4068 WH1 = 100 : WH2 = 111 ' Location of Baptism & Endowment
+4069 IF WIDE = 1 THEN WH1 = 98 : WH2 = 110
+4070 MID$(FORM$(17),WH1,LEN(U7$)) = U7$
+4080 MID$(FORM$(17),WH2,LEN(U10$)) = U10$
+4090 REM get Husband's Occupation
+4100 PRINT "Obtaining Husband's Occupation"
+4110 IF U24$ = "" THEN 4150
+4120 MID$(FORM$(1),55,LEN(U24$)+2) = "("+U24$+")"
+4130 REM Obtain Wife's Ordinances
+4140 IF WIFE = 0 THEN 4250
+4150 GET #3, WIFE
+4160 PRINT "Obtaining Wife's Ordinances"
+4170 GOSUB 2640  'Extract Ordinances
+4175 MID$(FORM$(12),7,LEN(U2$)) = U2$
+4180 MID$(FORM$(19),WH1,LEN(U7$)) = U7$
+4190 MID$(FORM$(19),WH2,LEN(U10$)) = U10$
+4200 MID$(FORM$(17),122,LEN(U11$)) = U11$
+4210 REM get Wife's Occupation
+4220 PRINT "Obtaining Wife's Occupation"
+4230 IF U24$ = "" THEN 4250
+4240 MID$(FORM$(10),55,LEN(U24$)+2) = "("+U24$+")"
+4250 REM Now obtain the information about the Children
+4260 CHILD.COUNT = 0
+4300 REM Search the Parent/Child Index
+4310 PRINT "Look for Children"
+4320 XMARRCT = 0
+4330 FOR LL = 1 TO PC.COUNT
+4340  IF HUSB > PA.ID(LL) THEN 4930
+4350  IF HUSB < PA.ID(LL) THEN LL = PC.COUNT : GOTO 4930
+4360  REM found a child
+4370  IF CH.ID(LL) = 0 THEN 4910
+4380  GET #1, CH.ID(LL)
+4390  GOSUB 2310  'Extract Personal Info.
+4400  REM verify that Mother is the same
+4410  IF WIFE <> T7 THEN 4930
+4420  REM Found a valid child
+4421  CHILD.COUNT = CHILD.COUNT + 1
+4422  SHOW.COUNT = CHILD.COUNT
+4423  IF CHILD.COUNT > 11 THEN SHOW.COUNT = CHILD.COUNT - 11
+4424  IF CHILD.COUNT > 22 THEN SHOW.COUNT = CHILD.COUNT - 22
+4425  IF CHILD.COUNT > 33 THEN SHOW.COUNT = CHILD.COUNT - 33
+4426  IF CHILD.COUNT > 44 THEN SHOW.COUNT = CHILD.COUNT - 44
+4430  REM test for more than 11 children
+4431  IF CHILD.COUNT = 1 THEN 4458
+4432  IF (CHILD.COUNT-1) MOD 11 = 0 THEN 4433 ELSE 4458
+4433  GOSUB 4940 'print the current form, then blank out children
+4434  FOR II = 20 TO 49
+4435   FORM$(II) = SPACE$(132)
+4436  NEXT II
+4437  GOSUB 2140  'Next form
+4438  SHOW.COUNT = 1
+4439  XMARRCT = 0
+4440 IF WIDE <> 1 THEN 4458
+4441 REM Redraw Partial Form
+4442 FOR II = 21 TO 41 STEP 2
+4443  FORM$(II) = STRING$(132,95)
+4444 NEXT II
+4445 GOSUB 7210  'Redraw vertical separators
+4458  SEX$ = T4$
+4459  PRINT "Processing Child #";CHILD.COUNT
+4460  MID$(FORM$(19+(2*SHOW.COUNT)),2,1) = T4$
+4461  IF WIDE <> 1 THEN 4470
+4462  FORM.NO$ = STR$(CHILD.COUNT)
+4463  CH.FM = LEN(FORM.NO$)-1
+4464  FORM.NO$ = RIGHT$(FORM.NO$,CH.FM)
+4465  MID$(FORM$(18+(2*SHOW.COUNT)),3-CH.FM,CH.FM) = FORM.NO$
+4470  MID$(FORM$(18+(2*SHOW.COUNT)),4,LEN(T2$)+1) = T2$+","
+4471  MID$(FORM$(19+(2*SHOW.COUNT)),5,LEN(T3$)) = T3$
+4472  REM Position Birthdate if Drawing the Form
+4473  VV = 28
+4474  IF WIDE = 1 THEN VV = 29
+4480  MID$(FORM$(18+(2*SHOW.COUNT)),VV,LEN(T8$)) = T8$
+4490  MID$(FORM$(18+(2*SHOW.COUNT)),41,LEN(T9$)) = T9$
+4494  REM Set Width of County and State
+4495  V = 4
+4496  IF WIDE = 1 THEN V = 5
+4500  MID$(FORM$(18+(2*SHOW.COUNT)),60,V) = LEFT$(T10$,V)
+4510  MID$(FORM$(18+(2*SHOW.COUNT)),66,V) = LEFT$(T11$,V)
+4520  MID$(FORM$(18+(2*SHOW.COUNT)),85,LEN(T12$)) = T12$
+4530  REM Now get Child's Ordinances
+4540  GET #3, CH.ID(LL)
+4550  PRINT "Obtain Child's Ordinances"
+4560  GOSUB 2640  'Extract Ordinances
+4570  MID$(FORM$(18+(2*SHOW.COUNT)),WH1,LEN(U7$)) = U7$
+4580  MID$(FORM$(18+(2*SHOW.COUNT)),WH2,LEN(U10$)) = U10$
+4590  MID$(FORM$(18+(2*SHOW.COUNT)),122,LEN(U4$)) = U4$
+4600  REM Now look for Child's Marriage
+4610  PRINT "Look for Child's Marriage"
+4620  FOUND = 0
+4630  FOR L = 1 TO M.COUNT
+4640   IF CH.ID(LL) > PERS.NO(L) THEN 4920
+4650   IF CH.ID(LL) < PERS.NO(L) THEN L = M.COUNT : GOTO 4920
+4660   REM Found a Marriage
+4670   IF M.NO(L) = 0 THEN 4910
+4680   FOUND = FOUND + 1
+4690   GET #2, M.NO(L)
+4700   GOSUB 2720  'Extract Marriage Information
+4710   IF FOUND <> 1 THEN 4730
+4720   MID$(FORM$(19+(2*SHOW.COUNT)-1),72,LEN(TT5$)) = TT5$
+4730   REM get spouse
+4740   SPOUSE = 0
+4750   IF SEX$ = "M" THEN SPOUSE = TT3
+4760   IF SEX$ = "F" THEN SPOUSE = TT2
+4770   IF SPOUSE = 0 THEN 4910
+4780   GET #1, SPOUSE
+4790   GOSUB 2310  'Extract Spouse's Information
+4800   IF FOUND = 1 THEN 4890
+4810   XMARRCT = XMARRCT + 1
+4820   CH$ = SPACE$(2)
+4830   RSET CH$ = RIGHT$((STR$(CHILD.COUNT)),2)
+4840   MID$(FORM$(42+XMARRCT),60,4) = CH$+" -"
+4850   IF T2$ = " " AND T3$ = " " THEN 4880
+4860   MID$(FORM$(42+XMARRCT),77,LEN(T2$+T3$)+2) = T2$+", "+T3$
+4870   MID$(FORM$(42+XMARRCT),65,LEN(TT5$)) = TT5$
+4880   GOTO 4910
+4890   IF T2$ = " " AND T3$ = " " THEN 4910
+4900   MID$(FORM$(19+(2*SHOW.COUNT)),72,LEN(T2$+T3$)+2) = T2$+", "+T3$
+4910  REM finished with this child
+4920  NEXT L
+4930 NEXT LL
+4935 GOSUB 4940 : GOTO 5030
+4940 REM enter sources
+4950 COMM$ = "Genealogy ON DISPLAY Computerized Data Base"
+4960 MID$(FORM$(43),2,LEN(COMM$)) = COMM$
+4962 MAR.NUM$ = STR$(MARRIAGE)
+4963 MAR.NUM$ = RIGHT$(MAR.NUM$,LEN(MAR.NUM$)-1)
+4964 MAR.DATA$ = "Marriage Record: " + MAR.NUM$
+4965 MID$(FORM$(44),2,LEN(MAR.DATA$)) = MAR.DATA$
+4966 MID$(FORM$(45),2,21) = "Prepared:  " + DATE$
+4967 MID$(FORM$(46),2,19) = "At (time): " + TIME$
+4970 PRINT "Ready to Print"
+4980 REM Print the Family Group Sheet
+4990 FOR I = 1 TO 49
+4995 PRINT "Printing line: ";I
+5000  LPRINT FORM$(I);
+5010 NEXT I
+5015 CLS
+5020 LPRINT CHR$(12);
+5025 RETURN
+5030 GOTO 2080  'for Next Group Sheet
+5040 REM Wrapup
+5050 LPRINT CHR$(18);     'Normal Printing
+5060 LPRINT CHR$(27)"9";  'Paper Sensing ON
+5070 LPRINT CHR$(27)"A";  'Normal Page of 66 Lines
+5080 CLOSE #1
+5090 CLOSE #2
+5100 CLOSE #3
+5110 CLS : LOCATE 21,1
+5120 PRINT "End of Program"
+5130 LPRINT CHR$(12);     'Page Eject
+5140 LPRINT CHR$(12);     'Page Eject
+5150 RUN "a:menu"
+7000 REM Draw the Form Itself
+7010 PRINT "Preparing the Form."
+7020 REM Draw the Horizontal Lines
+7030 PRINT "Drawing the Horizontal Lines in Rows:"
+7040 FOR II = 1 TO 8
+7050  PRINT II;
+7060  FORM$(II) = STRING$(132,95)
+7070 NEXT II
+7080 PRINT
+7090 MID$(FORM$(1),83,1) = CHR$(124)
+7100 MID$(FORM$(2),83,1) = CHR$(124)
+7110 FOR II = 10 TO 16
+7120  PRINT II;
+7130  FORM$(II) = STRING$(132,95)
+7140 NEXT II
+7142 MID$(FORM$(9),98,35) = STRING$(35,95)
+7144 MID$(FORM$(16),98,35) = SPACE$(35)
+7150 PRINT
+7160 FOR II = 17 TO 41 STEP 2
+7170  PRINT II;
+7180  FORM$(II) = STRING$(132,95)
+7190 NEXT II
+7200 PRINT
+7210 REM draw the vertical lines
+7220 PRINT "Drawing the Vertical Lines in Rows:"
+7230 FOR II = 18 TO 41
+7240  PRINT II;
+7250  MID$(FORM$(II),1,1) = CHR$(124)
+7260  MID$(FORM$(II),3,1) = CHR$(124)
+7270  MID$(FORM$(II),28,1) = CHR$(124)
+7280  MID$(FORM$(II),40,1) = CHR$(124)
+7290  MID$(FORM$(II),59,1) = CHR$(124)
+7300  MID$(FORM$(II),65,1) = CHR$(124)
+7310  MID$(FORM$(II),71,1) = CHR$(124)
+7320  MID$(FORM$(II),97,1) = CHR$(124)
+7330 NEXT II
+7340 PRINT
+7350 FOR II = 42 TO 49
+7360  PRINT II;
+7370  MID$(FORM$(II),1,1) = CHR$(124)
+7380  MID$(FORM$(II),59,1) = CHR$(124)
+7390  MID$(FORM$(II),97,1) = CHR$(124)
+7400 NEXT II
+7410 PRINT
+7420 PRINT "Drawing Boxes in Rows:"
+7430 FOR II = 18 TO 40 STEP 2
+7440 PRINT II;
+7450  FOR JJ = 72 TO 96
+7460   MID$(FORM$(II),JJ,1) = CHR$(95)
+7470  NEXT JJ
+7480 NEXT II
+7490 PRINT
+7500 FOR II = 18 TO 40 STEP 2
+7510  PRINT II;
+7520  MID$(FORM$(II),84,1) = CHR$(124)
+7530 NEXT II
+7540 PRINT
+7550 REM Put the titles in place
+7560 PRINT "Preparing Titles and Numbers"
+7570 MID$(FORM$(18),11,8) = "CHILDREN"
+7580 MID$(FORM$(18),30,9) = "WHEN BORN"
+7590 MID$(FORM$(18),56,10) = "WHERE BORN"
+7600 MID$(FORM$(18),72,11) = "1st MARRIED"
+7610 MID$(FORM$(18),86,9) = "WHEN DIED"
+7620 MID$(FORM$(19),4,20) = "SURNAME, Given Names"
+7630 MID$(FORM$(19),29,11) = "DA MON YEAR"
+7640 MID$(FORM$(19),45,5) = "TOWN"
+7650 MID$(FORM$(19),60,4) = "CNTY"
+7660 MID$(FORM$(19),66,4) = "STA."
+7670 MID$(FORM$(19),72,15) = "TO WHOM MARRIED"
+7680 MID$(FORM$(42),2,22) = "SOURCES OF INFORMATION"
+7690 MID$(FORM$(42),60,15) = "OTHER MARRIAGES"
+7700 MID$(FORM$( 1),1,5) = "HUSB:"
+7710 MID$(FORM$(2), 1,5) = "Born:"
+7720 MID$(FORM$(2),20,6) = "Place:"
+7730 MID$(FORM$(3), 1,4) = "Chr:"
+7740 MID$(FORM$(3),20,6) = "Place:"
+7750 MID$(FORM$(4), 1,5) = "Marr:"
+7760 MID$(FORM$(4),20,6) = "Place:"
+7770 MID$(FORM$(5), 1,5) = "Died:"
+7780 MID$(FORM$(5),20,6) = "Place:"
+7790 MID$(FORM$(6), 1,4) = "Bur:"
+7800 MID$(FORM$(6),20,6) = "Place:"
+7810 MID$(FORM$(7), 1,7) = "Father:"
+7820 MID$(FORM$(7),49,7) = "Mother:"
+7830 MID$(FORM$(8), 1,6) = "Wives:"
+7840 MID$(FORM$(10),1,5) = "WIFE:"
+7850 MID$(FORM$(11),1,5) = "Born:"
+7860 MID$(FORM$(11),20,6) = "Place:"
+7870 MID$(FORM$(12), 1,4) = "Chr:"
+7880 MID$(FORM$(12),20,6) = "Place:"
+7890 MID$(FORM$(13), 1,5) = "Died:"
+7900 MID$(FORM$(13),20,6) = "Place:"
+7910 MID$(FORM$(14), 1,4) = "Bur:"
+7920 MID$(FORM$(14),20,6) = "Place:"
+7930 MID$(FORM$(15), 1,7) = "Father:"
+7940 MID$(FORM$(15),49,7) = "Mother:"
+7950 MID$(FORM$(16), 1,9) = "Husbands:"
+8020 FOR II = 3 TO 17
+8030  MID$(FORM$(II),97,1) = CHR$(124)
+8040 NEXT II
+8050 REM Put in the Descriptions
+8060 MID$(FORM$(42), 98,22) = "NECESSARY EXPLANATIONS"
+8070 MID$(FORM$(14),106,19) = "LDS ORDINANCE DATA"
+8071 REM Draw Ordinance Separators
+8072 FOR II = 15 TO 41
+8073  MID$(FORM$(II),109,1) = CHR$(124)
+8074  MID$(FORM$(II),121,1) = CHR$(124)
+8075 NEXT II
+8080 MID$(FORM$(15), 99,8) = "BAPTIZED"
+8090 MID$(FORM$(15),111,7) = "ENDOWED"
+8100 MID$(FORM$(15),123,6) = "SEALED"
+8110 MID$(FORM$(16),106,7) = "HUSBAND"
+8115 MID$(FORM$(16),123,10) = "WIFE/HUSB."
+8120 MID$(FORM$(18),107,4) = "WIFE"
+8130 MID$(FORM$(18),123,8) = "CHILDREN"
+8140 MID$(FORM$(19),123,6) = "SEALED"
+8150 RETURN
+

@@ -1,0 +1,523 @@
+1000 '*************************************************************************
+1010 '* PROGRAM NONLIN  version 3.0  5/1/82                                   *
+1020 '*                                                                       *
+1030 '* By:       Dave Whitman                                                *
+1040 '*                                                                       *
+1050 '*           Box 383 Baker Lab                                           *
+1060 '*           Cornell U.                                                  *
+1070 '*           Ithaca, NY  14853                                           *
+1080 '*           (607) 256-6479                                              *
+1090 '*                                                                       *
+1100 '* Performs non-linear least squares analysis to determine parameters    *
+1110 '* to fit any function to observed data.                                 *
+1120 '*                                                                       *
+1130 '* Inspired by a FORTRAN program by C.F. Wilcox, which was in turn       *
+1140 '* based on "Rigorous Least Squares Adjustment"; Wentworth, W. E.        *
+1150 '* J . Chem Ed. 42, 96 (1965).                                           *
+1160 '*                                                                       *
+1170 '*************************************************************************
+1180 '* The program requires two input files to work:                         *
+1190 '*                                                                       *
+1200 '*    The first file contains BASIC code which is specific to the        *
+1210 '*    paticular function being fit.  This code will be automatically     *
+1220 '*    merged into the program at run time.  For the merge to work        *
+1230 '*    properly, this file MUST BE SAVED IN ASCII FORMAT.  Otherwise, a   *
+1240 '*    "Bad File Mode" error occurs.                                      *
+1250 '*    To save in ascii mode, use the "a" option in your save command:    *
+1260 '*    Example:  SAVE"function",a                                         *
+1270 '*                                                                       *
+1280 '*    When nonlin prompts: FUNCTION?, input the name of this file.       *
+1290 '*                                                                       *
+1300 '*    Code required:                                                     *
+1310 '*       A line 10050 which sets the variables nvar [# of independant    *
+1320 '*       variables] and np [# of parameters]. Example:                   *
+1330 '*                                                                       *
+1340 '*   10050 nvar = 1: np = 3                                              *
+1350 '*                                                                       *
+1360 '*       A subroutine which fills the array fcalc(nobs) with values of   *
+1370 '*       the function, given observed values of the variables in array   *
+1380 '*       vobs(nobs,nvar) and current guesses at the parameters in p(np). *
+1390 '*       The subroutine should start at line 11000 and end at or before  *
+1400 '*       line 11999. Example: (fitting data to a parabola)               *
+1410 '*                                                                       *
+1420 '*   11000 FOR I = 1 to NOBS                                             *
+1430 '*   11010    fcalc(i) = p(1) * vobs(i,1)^2 + p(2) * vobs(i,1) + p(3)    *
+1440 '*   11020    NEXT I                                                     *
+1450 '*   11030 RETURN                                                        *
+1460 '*                                                                       *
+1470 '*                                                                       *
+1480 '*    Optional code:                                                     *
+1490 '*       Before stopping, nonlin makes a subroutine call to line 20000.  *
+1500 '*       Normally, this subroutine consists of a stub, containing only   *
+1510 '*       a return statement. If any final processing using the least     *
+1520 '*       squares parameter set in p(np) or the variance/covariance       *
+1530 '*       matrix in b(np,np) is desired, supply an appropriate            *
+1540 '*       subroutine starting at line 20000. The only restriction on the  *
+1550 '*       length of this subroutine is the available memory.              *
+1560 '*                                                                       *
+1570 '* The second file contains the observed data to be fit.                 *
+1580 '* When nonlin prompts: INPUT FILE?, enter the name of this file.        *
+1590 '*                                                                       *
+1600 '*    Required data:                                                     *
+1610 '*       nobs: the number of observations being fit                      *
+1620 '*       numit: the # of iterations of the fitting process to be         *
+1630 '*              performed. [ 5-10 is generally sufficient ]              *
+1640 '*       iuserwt: a flag. If iuserwt = 1, nonlin expects all observed    *
+1650 '*                function and variable values to be followed by a       *
+1660 '*                weighting factor. If iuserwt = 0, nonlin automatically *
+1670 '*                sets all initial weights to 1.                         *
+1680 '*      internalwt: a flag. If internalwt = 1, nonlin estimates          *
+1690 '*                weighting factors for each function value based on     *
+1700 '*                the slope of the function.  If internalwt = 0, no      *
+1710 '*                estimate.  Use with care, internal weighting often     *
+1720 '*                causes divergance. Start with internalwt = 0.          *
+1730 '*                                                                       *
+1740 '*      fract: The fraction of the calculated change to apply to each    *
+1750 '*             of the parameters.  Use to restrict changes when function *
+1760 '*             trys to diverge. Normally equal to 1.                     *
+1770 '*                                                                       *
+1780 '*      Repeat the following lines for each observation:                 *
+1790 '*           fobs(i): observed function value                            *
+1800 '*           if iuserwt = 1 include obswt(i): function weight, point i   *
+1810 '*           vobs(i,1): observed value, variable 1.                      *
+1820 '*           if iuserwt = 1 include varwt(i,1): variable weight          *
+1830 '*           vobs(i,2): observed value, variable 2.                      *
+1840 '*           if iuserwt = 1 include varwt(i,2): variable weight          *
+1850 '*           ...vobs(i,nvar): observed value, variable nvar              *
+1860 '*              if iuserwt = 1 include varwt(i,nvar): variable weight    *
+1870 '*                                                                       *
+1880 '*      Repeat the following lines for each parameter:                   *
+1890 '*           pname$(i): the name of the parameter (length <= 8)          *
+1900 '*           p(i): initial guess at the parameter's value                *
+1910 '*                                                                       *
+1911 '*************************************************************************
+1912 '* Note to IPCO users:                                                   *
+1913 '* Included on this disk are the following files for testing and         *
+1914 '* demonstration purposes:                                               *
+1915 '*     DATA       set of test data to be fit to the following functions: *
+1916 '*     FUNC1.BAS  gaussian function                                      *
+1917 '*     FUNC2.BAS  lorentzian function                                    *
+1920 '*************************************************************************
+1921 '*                                                                       *
+1922 '* Note: ocasionally the program diverges, i.e. the fit of the calculated*
+1923 '* function gets worse each iteration, rather than better. If this       *
+1924 '* occurs, it indicates one of two things:                               *
+1925 '*    1. Your initial guesses for the parameters were too far off.       *
+1926 '*       Make a better guess, and try again.                             *
+1927 '*    2. The function you are using really can't adequately describe     *
+1928 '*       your data.                                                      *
+1929 '*************************************************************************
+1930 '* DECLARATIONS:                                                         *
+1940 '* NOBS: INT                                      NUMBER OF OBSERVATIONS *
+1950 '* NVAR: INT                                NUMBER OF VARIABLES OBSERVED *
+1960 '* FOBS: ARRAY(1..NOBS) OF DOUBLE               OBSERVED FUNCTION VALUES *
+1970 '* FCALC:ARRAY(1..NOBS) OF DBL                CALCULATED FUNCTION VALUES *
+1980 '* FTEMP:ARRAY(1..NOBS) OF DBL            HOLDS A SET OF FUNCTION VALUES *
+1990 '*                                         DURING DERIVATIVE CALCULATION *
+2000 '* VOBS: ARRAY(1..NOBS,1..NVAR) OF DBL          OBSERVED VARIABLE VALUES *
+2010 '* NP:   INT                                        NUMBER OF PARAMETERS *
+2020 '* P:    ARRAY(1..NP) OF DBL                            PARAMETER VALUES *
+2030 '* PNAME$: ARRAY(1..NP) OF STRING                        PARAMETER NAMES *
+2040 '* DFDP:ARRAY(1..NOBS,1..NP) OF DBL   PARTIALS OF FUNC W.R.T. PARAMETERS *
+2050 '* DFDV:ARRAY(1..NOBS,1..NVAR) OF DBL     "     "   "     "   VARIABLES  *
+2060 '* OBSWT:ARRAY(1..NOBS) OF DBL             OBSERVATION WEIGHTING FACTORS *
+2070 '* VARWT:ARRAY(1..NOBS,1..NVAR) OF DBL        VARIABLE WEIGHTING FACTORS *
+2080 '* DLAMBDA:ARRAY(1..NOBS) OF DBL                  LAGRANGIAN MULTIPLIERS *
+2090 '* B:   ARRAY(1..NP,1..NP) OF DBL        COEFFICIENTS IN MATRIX EQUATION *
+2100 '* RHS: ARRAY(1..NP) OF DBL           RIGHT HAND SIDE OF MATRIX EQUATION *
+2110 '*                     NOTE: AFTER SOLUTION OF EQN, RHS HOLDS CHANGES TO *
+2120 '*                               PARAMETERS, AND B HOLDS ITS OWN INVERSE *
+2130 '* FRACT: DBL       FRACTION OF CALCULATED CHANGE TO APPLY TO PARAMETERS *
+2140 '* DEVSQ: DBL       SUM OF WEIGHTED SQUARED DEVIATIONS OF CALC. FUNCTION *
+2150 '* DEVSQ1:DBL                                DEVSQ VALUE, LAST ITERATION *
+2160 '* DEVSQ2:DBL                           DEVSQ VALUE, TWO ITERATIONS BACK *
+2170 '* IUSERWT: INT            IF IUSERWT=1, USER SUPPLIES WEIGHTING FACTORS *
+2180 '*                         IF IUSERWT=0, NONLIN ASSUMES ALL WEIGHTS = 1  *
+2190 '* INTERNALWT: INT             IF INTERNALWT=1 NONLIN CALCULATES WEIGHTS *
+2200 '*                                 IF INTERNALWT=0 NO WEIGHT CALCULATION *
+2210 '*************************************************************************
+10000 OPTION BASE 1
+10010 DEFINT I-N
+10020 DEFDBL A-H,O-Z
+10025 ON ERROR GOTO 65000
+10030 CLS: LOCATE 10,30: INPUT "FUNCTION?  ",FUNCTION$: COMMON FUNCTION$
+10040 CHAIN MERGE FUNCTION$,10050   'bring in function specific lines
+10045 ON ERROR GOTO 0
+10050 NVAR = 1: NP = 3
+10060 GOSUB 18000   'initialization routine
+10070 '
+10080 FOR IT = 1 TO NUMIT
+10090    'print progress report on screen
+10100        GOSUB 12000   'subroutine iteration report
+10110    'Test for non-convergance, exit if so
+10120        GOSUB 13000      'subroutine converge
+10130        IF NONCONVERGENCE = 1                                                              THEN PRINT"nonconvergence termination" : GOTO 10300
+10140    'Calculate lagrangian multipliers
+10150        GOSUB 13500    'subroutine lambda
+10160    'If internal weighting desired, calculate new obswts
+10170        IF INTERNALWT = 1                                                                  THEN GOSUB 14500
+10180    'Set up matrix equation to get parameter changes
+10190        GOSUB 15000  'SUBROUTINE SETUP
+10200    'Solve equation for parameter changes
+10210        GOSUB 16000  'subroutine solve
+10220    'Apply changes
+10230        GOSUB 17000  'subroutine deltap
+10240    NEXT IT
+10250 '
+10260 'print final report
+10270    GOSUB 19000      'subroutine report
+10280 'Do any final processing (user supplied)
+10290    GOSUB 20000
+10300 END
+11000 '********************************************************************
+11010 '* SUBROUTINE LORENTZIAN                                            *
+11020 '*                                                                  *
+11030 '* Fills the array fcalc(nobs) with values along a lorentzian of    *
+11040 '* the form:                                                        *
+11050 '*                                                                  *
+11060 '* lor(pos) = H / [(1/W)^2 * (pos - P)^2 + 1]                       *
+11070 '*                                                                  *
+11080 '* where H, W, and P are parameters to be fit.                      *
+11090 '* Assignments: H = p(1)  W = p(2) P = p(3)    pos = vobs(i,1)      *
+11100 '********************************************************************
+11110 '
+11130 WSQ2 = 1# / (P(2) * P(2))
+11160 FOR I = 1 TO NOBS
+11170    FCALC(I) =  P(1) / (WSQ2 * (VOBS(I,1) - P(3))^2 + 1#)
+11230    NEXT I
+11240 RETURN
+12000 '***********************************************************************
+12010 '* SUBROUTINE ITERTATION REPORT                                        *
+12020 '*                                                                     *
+12030 '* Prints out current parameters, function values, and deviation       *
+12040 '***********************************************************************
+12050 GOSUB 12200                   'print parameters
+12060 GOSUB 11000                   'get function values in fcalc
+12070 GOSUB 12500                   'print function values and deviation
+12080 RETURN
+12200 '*********************************************************************
+12210 '* SUBROUTINE PARAMREPORT( IT, NP, P)                                *
+12220 '* 2/7/82 by Dave Whitman                                            *
+12230 '* Prints out current parameter values                               *
+12240 '*********************************************************************
+12250 CLS : LOCATE 4,4 : BEEP  'Wake up,Dave!
+12260 PRINT "Parameters, Iteration";IT : PRINT
+12270 LOCATE 7,2
+12280 COLOR 1 : PRINT "  Name  ³  Value   ³ Change "; : COLOR 7 : PRINT
+12290 FOR I = 1 TO NP
+12300    LOCATE I+7,2
+12310    PRINT USING  "\      \\\####.##\ \+##.##"; PNAME$(I);"³ "; P(I);                             "  ³ ";-1 * RHS(I)
+12320    NEXT I
+12330 PRINT
+12340 RETURN
+12500 '***********************************************************************
+12510 '* SUBROUTINE FUNCTIONREPORT                                           *
+12520 '* Prints obs. and calc. function values, and deviation between them   *
+12530 '***********************************************************************
+12540 IROW = 1 : ICOL = 40 : IOFFSET = 20 : IROOM = 40 : NUMROWS = 20
+12550 LOCATE IROW,ICOL : COLOR 1
+12560 PRINT "  obs. ³ calc. "; : COLOR 7 : PRINT
+12570 IF NOBS >= NUMROWS                                                                 THEN LOCATE IROW,ICOL+IOFFSET : COLOR 1:                                             PRINT "  obs. ³ calc. "; : COLOR 7 : PRINT
+12580  DEVSQ = 0
+12590  FOR I = 1 TO NOBS
+12600     IF I > IROOM THEN 12630
+12610     IF I <= NUMROWS THEN LOCATE (IROW + I),ICOL                                                     ELSE LOCATE (IROW + I MOD NUMROWS),(ICOL + IOFFSET)
+12620     PRINT USING "###.##\ \###.##"; FOBS(I);" ³ ";FCALC(I);
+12630     DEV = FOBS(I) - FCALC(I)
+12640     DEVSQ = DEVSQ + DEV * DEV * OBSWT(I)
+12650     NEXT I
+12660 LOCATE 20,5 : PRINT USING "\         \#####.##";"ä errorý = ";DEVSQ
+12670 IF IT = 1 THEN 12690  'no change in first iteration
+12680 LOCATE 21,5: PRINT USING "\         \#####.##";"Change =   ";DEVSQ-DEVSQ1;
+12690  RETURN
+13000 '*********************************************************************
+13010 '* SUBROUTINE CONVERGE ( ERRSQ, DEVSQ, DEVSQ1, DEVSQ2, NONCONVERGE ) *
+13020 '*                                                                   *
+13030 '* Compares squared deviation of calculated function from observed   *
+13040 '* function with that obtained in the last 2 iterations. If the      *
+13050 '* deviation got worse two iterations in a row, set nonconverge flag.*
+13060 '*********************************************************************
+13070  IF (DEVSQ > DEVSQ1 AND DEVSQ1 > DEVSQ2)                                            THEN NONCONVERGE = 1
+13080  DEVSQ2 = DEVSQ1
+13090  DEVSQ1 = DEVSQ
+13100  RETURN
+13500 '********************************************************************
+13510 '* SUBROUTINE LAMBDA ( DLAMBDA, FCALC, FOBS, OBSWT)                 *
+13520 '*                                                                  *
+13530 '* Calculates lagrangian multipliers for setting up matrix equation *
+13540 '********************************************************************
+13550 FOR I = 1 TO NOBS
+13560    DLAMBDA(I) = (FCALC(I) - FOBS(I)) * OBSWT(I)
+13570    NEXT I
+13580 RETURN
+14000 '*************************************************************
+14010 '* SUBROUTINE VSLOPE( V,DFDV,NVAR )                          *
+14020 '*                                                           *
+14030 '* Calculates the partials of the function w/ r.t. each      *
+14040 '* of the variables at each of the observed points, and      *
+14050 '* stores them in dfdv.                                      *
+14060 '*************************************************************
+14070 GOSUB 11000   'call function( p, v, nobs, nvar, np, fcalc)
+14080 FOR IW = 1 TO NOBS
+14090    FTEMP(IW) = FCALC(IW)
+14100    NEXT IW
+14110 FOR IW = 1 TO NVAR
+14120    FOR JW = 1 TO NOBS
+14130       IFLAG(JW) = 0
+14140       IF ABS(VOBS(JW,IW)) < 1D-20                                                           THEN VOBS(JW,IW) = .0005# : IFLAG(JW) = 1                                       ELSE VOBS(JW,IW) = VOBS(JW,IW) * 1.0005#
+14150 PRINT "modified var:" ;VOBS(JW,IW)
+14160       NEXT JW
+14170    GOSUB 11000    'call function(fcalc)
+14180    FOR JW = 1 TO NOBS
+14190       IF IFLAG(JW) = 1                                                                   THEN DFDV(JW,IW) = (FCALC(JW) - FTEMP(JW)) / .0005# :                                VOBS(JW,IW) = VOBS(JW,IW) - .0005#
+14200       IF IFLAG(JW) <> 1                                                                  THEN DFDV(JW,IW) = (FCALC(JW)-FTEMP(JW)) / (.0005# * VOBS(JW,IW))                    : VOBS(JW,IW) = VOBS(JW,IW) / 1.0005#
+14210       PRINT"dfdv(";JW;IW;")="; DFDV(JW,IW)
+14220       NEXT JW
+14230    NEXT IW
+14240 RETURN
+14500 '********************************************************************
+14510 '* subroutine weigh[ p, nobs, nvar, v, dfdv, varwt, obswt ]         *
+14520 '*                                                                  *
+14530 '* calculates new weights for function values,                      *
+14540 '* using the follwing formula:                                      *
+14550 '* obswt(i) = 1/ ä [(dfdv)^2 * (1/varwt(v))]                        *
+14560 '* note: obswt(i) = 1/L(i) in Wentworth article                     *
+14570 '********************************************************************
+14580 IF IT = 1 THEN RETURN  'skip weighting on first iteration
+14590 GOSUB 14000 'subroutine vslope
+14600 FOR IW = 1 TO NOBS
+14610    SUM = 0#
+14620    FOR JW = 1 TO NVAR
+14630       SUM = SUM + DFDV(IW,JW)*DFDV(IW,JW)/VARWT(IW,JW)
+14640       NEXT JW
+14650    OBSWT(IW) = 1# / SUM
+14660    NEXT IW
+14670 PRINT "new function weights:"
+14680 FOR IW = 1 TO NOBS
+14690    PRINT OBSWT(IW)
+14700    NEXT IW
+14710 RETURN
+15000 '********************************************************
+15010 '* SUBROUTINE SETUP( B,RHS,dfdp)                        *
+15020 '* Sets up matrix equation to get changes to parameters *
+15030 '********************************************************
+15040 '
+15050 'Get partials of function w.r.t. parameters
+15060     GOSUB 17500     'subroutine pslope
+15070 'Now set up matrices
+15080     FOR I = 1 TO NP
+15090        'Set up right hand side element
+15100        RHS(I) = 0#
+15110        FOR J = 1 TO NOBS
+15120           RHS(I) = RHS(I) + DFDP(J,I) * DLAMBDA(J)
+15130           NEXT J
+15140        'Set up left hand side elements
+15150        FOR J = 1 TO NP
+15160           B(I,J) = 0#
+15170           FOR K = 1 TO NOBS
+15180              B(I,J) = B(I,J) + DFDP(K,I) * DFDP(K,J) * OBSWT(K)
+15190              NEXT K
+15200           NEXT J
+15210        NEXT I
+15220 RETURN
+16000 '*****************************************************
+16010 '* subroutine solve[b#(np,np), rhs(np), np]          *
+16020 '* 1/31/82 by Dave Whitman                           *
+16030 '* solves matrix equations of the form b# x = rhs#   *
+16040 '* inverts b# in place,multiplies rhs# by inverse    *
+16050 '* uses Gauss-Jordan matrix inversion                *
+16060 '* for good results b# and rhs# must be dbl precision*
+16070 '* ref: J.M. McCormick "Numerical Methods in FORTRAN"*
+16080 '*****************************************************
+16090 DETERM = 1#
+16100 FOR I = 1 TO NP
+16110    INDEX(I,3) = 0
+16120    NEXT I
+16130 FOR I = 1 TO NP  'MAIN LOOP
+16140    'search for pivot element
+16150    MAX# = 0#
+16160    FOR J = 1 TO NP
+16170       IF INDEX(J,3) = 1 THEN 16260
+16180       FOR K = 1 TO NP
+16190          IF INDEX(K,3) > 1 THEN 16700
+16200          IF INDEX(K,3) = 1 THEN 16250
+16210          IF MAX# > ABS(B(J,K)) THEN 16250
+16220          IROW = J
+16230          ICOL = K
+16240          MAX# = ABS(B(J,K))
+16250          NEXT K
+16260       NEXT J
+16270   INDEX(ICOL,3) = INDEX(ICOL,3) + 1
+16280   INDEX(I,1) = IROW
+16290   INDEX(I,2) = ICOL
+16300   'interchange rows to put pivot on diagonal
+16310   IF IROW = ICOL THEN 16380  'ALREADY THERE
+16320   DETERM = -1# * DETERM
+16330   FOR J = 1 TO NP
+16340      SWAP B(IROW,J),B(ICOL,J)
+16350      NEXT J
+16360   SWAP RHS(IROW),RHS(ICOL)
+16370   'divide pivot row by pivot element
+16380   PIVOT = B(ICOL,ICOL)
+16390   DETERM = DETERM * PIVOT
+16400   B(ICOL,ICOL) = 1#
+16410   FOR J = 1 TO NP
+16420      B(ICOL,J) = B(ICOL,J)/PIVOT
+16430      NEXT J
+16440   RHS(ICOL) = RHS(ICOL)/PIVOT
+16450   ' reduce non-pivot rows
+16460   FOR J = 1 TO NP
+16470      IF J = ICOL THEN 16540
+16480      T = B(J,ICOL)
+16490      B(J,ICOL) = 0#
+16500      FOR K = 1 TO NP
+16510         B(J,K) = B(J,K) - B(ICOL,K)*T
+16520         NEXT K
+16530      RHS(J) = RHS(J) - RHS(ICOL)*T
+16540      NEXT J
+16550   NEXT I
+16560 'interchange columns
+16570 FOR I = NP TO 1 STEP -1
+16580    IF INDEX(I,1) = INDEX(I,2) THEN 16640
+16590    IROW = INDEX(I,1)
+16600    ICOL = INDEX(I,2)
+16610    FOR J = 1 TO NP
+16620       SWAP B(J,IROW), B(J,ICOL)
+16630       NEXT J
+16640    NEXT I
+16650 'test for singularity
+16660 FOR I = 1 TO NP
+16670    IF INDEX(I,3) <> 1 THEN 16700
+16680    NEXT I
+16690 RETURN
+16700 PRINT"singular matrix error ":RETURN
+17000 '**********************************************************
+17010 '* SUBROUTINE DELTAP ( P, RHS, NP )                       *
+17020 '*                                                        *
+17030 '* Modifies parameters according to changes in rhs        *
+17040 '**********************************************************
+17050 FOR I = 1 TO NP
+17060    P(I) = P(I) - RHS(I) * FRACT
+17070    NEXT I
+17080 RETURN
+17500 '************************************************************************
+17510 '* subroutine pslope[ p, vobs, nobs, np, nvar, dfdp(nobs,np) ]          *
+17520 '* 2/1/82   by Dave Whitman                                             *
+17530 '* calculates partial of the function with                              *
+17540 '* respect to the each of the parameters at                             *
+17550 '* each of the observations, and stores them in dfdp.                   *
+17560 '************************************************************************
+17570 GOSUB 11000                   'call function( fcalc, p, v, nobs, nvar, np)
+17580 FOR IS = 1 TO NOBS
+17590    FTEMP(IS) = FCALC(IS)
+17600    NEXT IS
+17610 FOR IS = 1 TO NP
+17620    TP = P(IS)
+17630    IF TP < 1D-20                                                                      THEN P(IS) = TP + .0005#                                                        ELSE P(IS) = TP * 1.0005#
+17640    GOSUB 11000          'call function( fcalc )
+17650    FOR JS = 1 TO NOBS
+17660       IF TP < 1D-20                                                                      THEN DFDP(JS,IS) = (FCALC(JS) - FTEMP(JS)) / .0005#                             ELSE DFDP(JS,IS) = (FCALC(JS) - FTEMP(JS)) / (.0005# * TP)
+17670       NEXT JS
+17680    P(IS) = TP
+17690    NEXT IS
+17700 RETURN
+18000 '**********************************************************************
+18010 '* SUBROUTINE initialize                                              *
+18020 '*                                                                    *
+18030 '* Prompts for name of input file, then reads problem in              *
+18040 '* from input file.                                                   *
+18050 '**********************************************************************
+18060 '
+18070 KEY OFF : CLS
+18080 LOCATE 13,20 : INPUT "Name of input file?  ",IFILE$
+18090 OPEN IFILE$ FOR INPUT AS #1
+18100 INPUT#1,NOBS
+18110 DIM FOBS(NOBS),FCALC(NOBS),FTEMP(NOBS),OBSWT(NOBS)
+18120 DIM VOBS(NOBS,NVAR),V(NOBS,NVAR),VARWT(NOBS,NVAR),DFDV(NOBS,NVAR)
+18130 DIM P(NP),PNAME$(NP), DFDP(NOBS,NP)
+18140 DIM IFLAG(NOBS),DLAMBDA(NOBS)
+18150 INPUT#1,NUMIT
+18160 INPUT#1,IUSERWT,INTERNALWT
+18170 INPUT#1, FRACT    'fraction of calculated param. change to apply
+18180 FOR I = 1 TO NOBS
+18190    INPUT#1,FOBS(I)
+18200    IF IUSERWT = 1                                                                     THEN INPUT#1,OBSWT(I)                                                           ELSE OBSWT(I) = 1#
+18210    FOR J = 1 TO NVAR
+18220       INPUT#1,VOBS(I,J)
+18230       IF IUSERWT = 1                                                                     THEN INPUT#1,VARWT(I,J)                                                         ELSE VARWT(I,J) = 1#
+18240       NEXT J
+18250    NEXT I
+18260 FOR I = 1 TO NP
+18270    INPUT#1,PNAME$(I), P(I)
+18280    NEXT I
+18290 DEVSQ1 = 1D+20 : DEVSQ2 = 1D+20 'dummy devsqs for non-converge test
+18300 TIME$ = "00:00:00"
+18310 RETURN
+19000 '**********************************************************************
+19010 '* SUBROUTINE REPORT                                                  *
+19020 '*                                                                    *
+19030 '* Prints final report giving observed and calculated values of       *
+19040 '* function, and standard deviation                                   *
+19050 '* Note: assumes NEC 8023 printer. Modify to suit other printers.     *
+19060 '* On NEC, esc X turns on underlining, esc Y turns it off.            *
+19070 '* The following is a partial list of IBM screen charactors, followed *
+19080 '* by the charactor the NEC will print: – = ³ ; ¿ = ä; Ì = ý.         *
+19090 '* Thus "¿ errorÌ =" prints as "ä errorý =".                          *
+19100 '**********************************************************************
+19110 GOSUB 11000  'subroutine function
+19130 LPRINT "FINAL REPORT"
+19140 LPRINT "FUNCTION: "; FUNCTION$
+19150 LPRINT "DATA FILE:";IFILE$
+19160 LPRINT : LPRINT"   Function Values"
+19170 LPRINT CHR$(27);"X" "Observed – Calculated"; : LPRINT CHR$(27);"Y"
+19180 DEVSQ = 0#
+19190 FOR I = 1 TO NOBS
+19200     LPRINT USING"####.##\   \####.##";FOBS(I);"  –  ";FCALC(I)
+19210     DEVSQ = DEVSQ + (FOBS(I) - FCALC(I))^2 * OBSWT(I)
+19220     NEXT I
+19230 LPRINT
+19240 LPRINT USING "\        \####.##\                          \+#.##";                  "¿ errorÌ = "; DEVSQ; "   Change, last iteration = "; DEVSQ - DEVSQ1
+19250 GOSUB 19500 'subroutine covariance
+19260 LPRINT: LPRINT"FINAL PARAMETERS"
+19270 LPRINT CHR$(27);"X" " Name    –  Value  – Std.Dev."; : LPRINT CHR$(27);"Y"
+19280 FOR I = 1 TO NP
+19290   LPRINT USING  "\       \\\####.##\ \##.###"; PNAME$(I);"– "; P(I);" – ";           SQR(B(I,I))
+19300   NEXT I
+19310 LPRINT
+19320 KEY ON: RETURN
+19500 '**********************************************************************
+19510 '* SUBROUTINE COVARIANCE                                              *
+19520 '*                                                                    *
+19530 '* Calculates estimate of unit variance, then calculates              *
+19540 '* variance/covariance matrix based on inverted B matrix and the      *
+19550 '* variance estimate.                                                 *
+19560 '**********************************************************************
+19570 'estimate unit variance
+19580  IF NOBS <= NP                                                                       THEN VAR = 0#  'should never trust parameters if nobs < np anyways!             ELSE VAR = DEVSQ / (NOBS - NP)
+19590 'convert B to covariance matrix
+19600 FOR I = 1 TO NP
+19610   FOR J = 1 TO NP
+19620      B(I,J) = B(I,J) * VAR
+19630      NEXT J
+19640   NEXT I
+19650 RETURN
+20000 '**********************************************************************
+20010 '* subroutine finalproc                                               *
+20020 '*                                                                    *
+20030 '* Before nonlin stops, it makes a call to a subroutine at line 20000 *
+20040 '* The user may supply a subroutine (in the file with the function    *
+20050 '* subroutine) to do any final calculations using either the final    *
+20060 '* parameter set and/or the variance-covariance matrix.               *
+20070 '**********************************************************************
+20080 RETURN
+65000 ' Trap error of function file not in ascii mode
+65010 IF ERR <> 54 THEN 65090
+65020    CLS: BEEP : LOCATE 5,28
+65030    PRINT "Bad File Mode Error:"
+65040    LOCATE 7,21: PRINT "Function file must be saved in ASCII mode"
+65050    LOCATE 8,15
+65060    PRINT "Read lines 1200-1260 of this program for clarification."
+65070    LOCATE 15,1: LIST 1200-1260
+65080    LOCATE 23,1: STOP
+65090 RESUME
+

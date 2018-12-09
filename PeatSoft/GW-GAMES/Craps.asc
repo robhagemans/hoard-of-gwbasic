@@ -1,0 +1,118 @@
+10 REM public domain software, programmed by Roger Miller
+20 CLS
+30 DEFSTR F
+40 RANDOMIZE (VAL(MID$(TIME$,7,2)))
+50 FACE(1,1)="       "
+60 FACE(1,2)="   "+CHR$(2)+"   "
+70 FACE(1,3)="       "
+80 FACE(2,1)=" "+CHR$(2)+"     "
+90 FACE(2,2)="       "
+100 FACE(2,3)="     "+CHR$(2)+" "
+110 FACE(3,1)="     "+CHR$(2)+" "
+120 FACE(3,2)="   "+CHR$(2)+"   "
+130 FACE(3,3)=" "+CHR$(2)+"     "
+140 FACE(4,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+150 FACE(4,2)="       "
+160 FACE(4,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+170 FACE(5,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+180 FACE(5,2)="   "+CHR$(2)+"   "
+190 FACE(5,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+200 FACE(6,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+210 FACE(6,2)=" "+CHR$(2)+"   "+CHR$(2)+" "
+220 FACE(6,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+230 PRINT "Welcome to the CRAPS game table.  Do you know the rules?";
+240 K$ = INPUT$(1)
+250 PRINT " "
+300 IF K$ = "y" OR K$ = "Y" THEN 2000
+400 PRINT "This, my friends, is a little game of chance known to some"
+500 PRINT "of you as CRAPS.  Just so we don't have any arguments, "
+600 PRINT "here are the house rules."
+700 PRINT "This is a dice game, so just to keep everything honest, "
+800 PRINT "I'll roll for you.  "
+900 PRINT "If you get a 2 or 12 on the first roll, you lose."
+1000 PRINT "If you get a 7 or 11 on the first roll, you win."
+1100 PRINT "If you get any other number on the first roll, "
+1200 PRINT "that number is called your point."
+1300 PRINT "Then you roll again.  This time you are trying to roll "
+1400 PRINT "the same number as on your first roll.  That's called  "
+1500 PRINT "making your point.  If you roll your point, you win.   "
+1550 PRINT "If you roll a seven, you lose."
+1600 PRINT "If you roll any other number, you keep on rolling."
+1700 PRINT "GOOD LUCK.   ..... You'll need it! "
+2000 PRINT "How much is your bank (2-500000)";
+2100 INPUT BANK
+2150 IF BANK < 2 THEN 2000
+2170 IF BANK > 500000! THEN 2000
+2200 PRINT "How much do you want to bet on this roll ";
+2300 INPUT BET
+2400 IF BET <= BANK THEN 3000
+2500 PRINT "No credit at this casino, Bud "
+2600 GOTO 2200
+3000 IF BET >= 1! THEN 3500
+3100 PRINT "Get serious, no bets less than a buck."
+3200 GOTO 2200
+3500 I = INT(6 * RND + 1)
+3600 J = INT(6 * RND + 1)
+3700 K = I + J
+3750 GOSUB 11000
+3800 PRINT "First throw - ";I;" and ";J;" makes ";K;
+3900 IF K <> 7 THEN 4200
+4000 PRINT " Big seven."
+4100 GOTO 8000
+4200 IF K <> 2 THEN 4500
+4300 PRINT " Snake eyes."
+4400 GOTO 9000
+4500 IF K <> 12 THEN 4800
+4600 PRINT " Boxcars."
+4700 GOTO 9000
+4800 IF K <> 11 THEN 5100
+4900 PRINT " Big eleven."
+5000 GOTO 8000
+5100 PRINT " your point."
+5200 PT = K
+5300 PRINT "Roll again."
+5350 I = INT(6 * RND + 1)
+5400 J = INT(6 * RND + 1)
+5500 K = I + J
+5550 GOSUB 11000
+5600 PRINT "Next throw - ";I;" and ";J;" makes ";K;
+5700 IF K <> 7 THEN 6000
+5800 PRINT " Big seven. You crapped out."
+5900 GOTO 9000
+6000 IF K <> PT THEN 5300
+6400 PRINT " your point."
+8000 PRINT "You win."
+8100 WIN = WIN + 1
+8200 IF  WIN >= 3 THEN PRINT "When you're hot, you're hot."
+8300 IF LOSE < 3 THEN 8600
+8400 PRINT "Those drinks cost you two dollars each."
+8500 BANK = BANK - 2 * ( LOSE - 2 )
+8600 LOSE = 0
+8700 BANK = BANK + BET
+8800 GOTO 10000
+9000 PRINT "You lose."
+9100 LOSE = LOSE + 1
+9200 IF  LOSE >= 3 THEN PRINT LOSE;" times in a row ... Have a drink on us."
+9300 IF WIN >= 3 THEN PRINT "And when you're not, you're not."
+9500 WIN = 0
+9600 BANK = BANK - BET
+10000 PRINT "You now have $";BANK
+10100 IF BANK < 1000000! THEN 10400
+10200 PRINT "You broke the bank.  The men behind you will escort you out."
+10300 STOP
+10400 IF BANK >= 1 THEN 2200
+10500 PRINT "You're broke.   Goodby."
+10600 STOP
+11000 PRINT " " 'print the dice faces
+11500 FOR L = 1 TO 3
+11550 COLOR 0,7
+11600 PRINT FACE(I,L);
+11620 COLOR 7,0
+11630 PRINT "     ";
+11640 COLOR 0,7
+11650 PRINT FACE(J,L);
+11700 COLOR 7,0
+11750 PRINT "     "
+11800 NEXT L
+12000 RETURN
+

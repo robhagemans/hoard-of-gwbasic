@@ -1,0 +1,41 @@
+1 CLS : GOTO 20 'STARTER KEY REASSIGNMENT
+2 KEY ON :IF KK9=0 THEN KEY 1,CHR$(27)+"CLS"+CHR$(13)+"LIST  "+CHR$(13)                            ELSE KEY 1,CHR$(27)+"CLS"+CHR$(13)+"LIST  20-"+CHR$(13)
+3 IF KK9=0 THEN KEY 2,CHR$(27)+"RUN    "+CHR$(13)   ELSE KEY 2," FOR I=1 TO "
+4 IF KK9=0 THEN KEY 3,CHR$(27)+"LOAD"+CHR$(34)  ELSE KEY 3,":COLOR 7,0 :"
+5 IF KK9=0 THEN KEY 4,CHR$(27)+"SAVE"+CHR$(34)  ELSE KEY 4,":COLOR 0,7 :"
+6 IF KK9=0 THEN KEY 5,CHR$(27)+"TRON "+CHR$(13)  ELSE KEY 5,":COLOR 23,0 :"
+7 IF KK9=0 THEN KEY 6,CHR$(27)+"RENUM 20,20"+CHR$(13) ELSE KEY 6,":COLOR 15,0 :"
+8 IF KK9=0 THEN KEY 7,CHR$(27)+"FILES"+CHR$(34)+"*.BAS"+CHR$(13)                           ELSE KEY 7, CHR$(34)+"; CHR$(34); "+CHR$(34)
+9 IF KK9=0 THEN KEY 8,CHR$(27)+"SYSTEM"+CHR$(13)  ELSE KEY 8,"XXXXXX"
+10 IF KK9=0 THEN KEY 9,CHR$(27)+"LIST " ELSE KEY 9,CHR$(27)+"LIST "
+11 IF KK9=1 THEN KEY 10,CHR$(27)+"RUN 2 "+CHR$(13) : LOCATE 21,1 :END
+12 IF KK9=0 THEN KEY 10,CHR$(27)+"RUN 13"+CHR$(13) : LOCATE 21,1 :END
+13 KK9=1 :GOTO 2
+20 CLS ' ******************* START PROGRAM **********************
+30 KEY OFF : DEF SEG=&H40 :POKE &H17,PEEK (&H17) OR 32 ' Set NUM LOCK
+40 LOCATE 2,28 :PRINT "CHARACTER MAP"
+50 LOCATE 5,1 :PRINT "This program will display the characters from 1 to 255."
+60 PRINT "The characters which can't be displayed, CHR$(31) for example, are omitted."
+70 PRINT :PRINT "If you start with CHR$(0), the display stops at CHR$(128)."
+80 PRINT "You must start with CHR$(136) to see all characters through CHR$(255)."
+85 LOCATE 13,1 : PRINT "NOTE: I have secretly pressed the NUM LOCK so you can use the Numeric Keypad."
+90 LOCATE 15,1 : INPUT "INPUT STARTING ASCI NUMBER (999 to Exit) ";A :CLS :GOSUB 160
+100 ' ************ Display formatted on Screen ****************
+110 FOR I=1 TO 66 STEP 13
+120 FOR J=1 TO 20:LOCATE J,I :PRINT USING "###  ";A; :PRINT CHR$(A);CHR$(A);CHR$(A) : GOSUB 150 : NEXT J,I : GOTO 240
+130 DEF SEG=&H40 :POKE &H17,PEEK (&H17) AND 223 :CLS :END ' To Exit
+140 ' ************Test for Valid Parameters *******************
+150    A=A+1 : IF A=256 THEN 240
+160      IF A=999 THEN 130
+170      IF A=7 THEN A=8
+180      IF A>8 AND A<14 THEN A=14
+190      IF A>28 AND A<32 THEN A=32
+200      IF J=20 AND I=66 THEN J=88 : GOTO 240
+210      IF A>255 THEN A=1 : B=0
+220    RETURN
+230 ' ************ Display single characters ******************
+240 BEEP  :LOCATE 23,1 :PRINT SPACE$(65)
+250 LOCATE 23,1 :INPUT "Input a number to see that character. (999 to Exit) ";A                : B=A :GOSUB 160 : IF B<>A THEN LOCATE 23,66 :PRINT "I Can't"                   : GOTO 240
+260 LOCATE 23,1 :PRINT SPACE$(65) ;:PRINT USING "###  \\   ";A,CHR$(A)
+270 GOTO 250
+

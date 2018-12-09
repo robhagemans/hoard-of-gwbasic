@@ -1,0 +1,59 @@
+1 '                   CORRELATION COEFFICIENTS
+2 '               Written by Tracy L. Gustafson, M.D.
+3 '              Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+15 DIM D(1,1),CS(1,1),N$(1),X(1),X2(1),T(1),MD(1),SD(1)
+22 DATA "CORRELATION COEFFICIENTS",22,26
+30 LOCATE 6,18:PRINT "1.)  Pearson's correlation coefficient":PRINT
+35 PRINT TAB(18);"2.)  Spearman's rank correlation"
+40 LOCATE 11,23:INPUT "Enter choice:  ",ASUB:IF ABS(ASUB-1.5)>.5 THEN BEEP:GOTO 40
+45 AF=0:CLS:ON ASUB GOTO 50,195
+50 PRINT TAB(21);"PEARSON'S CORRELATION COEFFICIENT":PRINT TAB(21);STRING$(33,205):PRINT
+55 LOCATE 5,1:IF BF=1 THEN 100 ELSE PRINT "  (Enter RETURN if you wish to evaluate significance of a known R value)"
+60 LOCATE 4,1:GOSUB 4000:BF=1:GOTO 100
+65 AF=1:LOCATE 8,25:INPUT;"Enter R value:  ",SR:SR2=SR*SR
+70 IF ABS(SR)>=1 THEN BEEP:LOCATE 25,3:PRINT "Your correlation coefficient should be a decimal fraction between -1 and 1.";:LOCATE 8,41:PRINT "      ":GOTO 65
+75 LOCATE 9,25:INPUT "Number of data pairs:  ",N:GOTO 120
+80 PRINT:PRINT:PRINT "  What are the SAMPLE NUMBERS of the 2 variables you want to correlate?":PRINT:AR=CSRLIN
+85 AC=17:GOSUB 4200:NS1=NS:AC=50:GOSUB 4200:NS2=NS
+90 IF T(NS1)<>T(NS2) THEN PRINT:PRINT "These 2 samples do not have the same number of elements----":PRINT TAB(32);"a correlation coefficient cannot be calculated.":GOTO 235
+95 N=T(NS1):RETURN
+100 GOSUB 80:XC=0:FOR Z=1 TO N:XC=XC+VAL(D(NS1,Z))*VAL(D(NS2,Z)):NEXT
+105 SC=XC-X(NS1)*X(NS2)/N:SX=X2(NS1)-X(NS1)*X(NS1)/N:
+110 SY=X2(NS2)-X(NS2)*X(NS2)/N:SR2=SC*SC/(SX*SY)
+115 PRINT:PRINT TAB(20);"Correlation coefficient = ";SC/SQR(SX*SY):PRINT
+120 PRINT:V1=N-2:ST=SQR(SR2*V1/(1-SR2))
+125 PRINT "    Significance of correlation:     T = ";ST;SPC(7);"df = ";V1
+130 R=ATN(ST/SQR(V1)):RC=COS(R):R2=RC*RC:RS=SIN(R):X=1
+135 IF V1 MOD 2=0 THEN 160
+140 IF V1=1 THEN Y=R:GOTO 155
+145 Y=RC:FOR Z=3 TO (V1-2) STEP 2:X=X*R2*(Z-1)/Z:Y=Y+X*RC:NEXT
+150 Y=R+RS*Y
+155 P=1-Y*.6366197723657157#:GOTO 170
+160 Y=1:FOR Z=2 TO (V1-2) STEP 2:X=X*R2*(Z-1)/Z:Y=Y+X:NEXT
+165 P=1-Y*RS
+170 FOR Z=11 TO 41 STEP 3: PLAY "MB L32 N=Z;":NEXT Z: PLAY "MB L6 N44 P12 L16 N17 L4 N18 L3 N11"
+175 PRINT:PRINT TAB(28);"p = ";:IF P<.000001 THEN PRINT "< 10 (-6)" ELSE PRINT P
+180 PRINT:COLOR CLR2,CLR1:PRINT TAB(5);"This correlation coefficient is ";
+185 IF P>.05 THEN PRINT "NOT ";
+190 PRINT "significantly different than 0";TAB(75):COLOR CLR1,CLR2:GOTO 235
+195 PRINT TAB(23);"SPEARMAN'S RANK CORRELATION":PRINT TAB(23);STRING$(27,205)
+200 LOCATE 4,1:IF BF=0 THEN GOSUB 4000:BF=1
+205 GOSUB 80:CD=0:S2=0
+210 FOR Z=1 TO N:FOR T=1 TO N:IF CS(NS1,Z)=CS(NS2,T) THEN CD=Z-T:S2=S2+CD*CD
+215 NEXT:NEXT:SR=1-(6*S2/(N*(N*N-1)))
+220 PLAY "MB MS O3 L11 CCC O2 L2 C":PRINT:PRINT TAB(10);:COLOR CLR2,CLR1
+225 PRINT TAB(15); "Correlation coefficient = ";SR;TAB(65):COLOR CLR1,CLR2
+230 PRINT:PRINT:PRINT "The probability that a given value of Spearman's correlation coefficient is":PRINT "  significantly different than 0 can be evaluated by reference to tables.":PRINT TAB(26);"(See Colton, p. 353)"
+235 LOCATE 25,1:PRINT TAB(79):DQ="Would you like to "
+240 IF AF=1 THEN LOCATE 25,8:PRINT DQ;:INPUT;"evaluate another correlation coefficient?  ",A$:IF A$="y" OR A$="Y" THEN CLS:GOTO 65 ELSE 255
+245 LOCATE 25,1:PRINT DQ;:INPUT;"calculate another correlation using this DATAFILE?  ",A$:IF A$="y" OR A$="Y" THEN 20
+250 LOCATE 25,55:INPUT;"a different DATAFILE?  ",A$:IF A$="y" OR A$="Y" THEN BF=0:GOTO 20
+255 LOCATE 23,1:END
+4010 IF FILE$="" THEN 65
+4025 ERASE D,CS,N$,X,X2,T,MD,SD
+4030 DIM D(A,C),CS(A,C),N$(A),X(A),X2(A),T(A),MD(A),SD(A)
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+

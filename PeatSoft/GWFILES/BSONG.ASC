@@ -1,0 +1,8 @@
+5 FOR T=1 TO 100000000#
+10 PLAY "l15 bb aa dd gg ff"
+15 PLAY "l15 ff gg dd aa bb"
+20 PLAY "l15 c cd a cdcd a f g bb bdb"
+30 PLAY "l15 c a c aa c afa c affa cddc"
+40 FOR X=1 TO 5
+50 NEXT X
+60 NEXT T

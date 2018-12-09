@@ -1,0 +1,46 @@
+10 'Disk Drive Test
+15 'Modified by Jim Serwer, PO Box 555, Cupertino, CA 95015
+17 'Based on a program by Joe McDermott which was copied
+20 'from the April, 1983 issue of SVCS Newsletter.
+30 'Eliminated fname array & added auto disk/directory full:Herb Shear,6/11/83
+40 'The program creates a series of sequential files.
+50 'It writes data to these and  reads it back for verification.
+55 'Verification means displaying the first 225 characters -- all asterisks
+60 'Finally the test files are erased.
+70 'The filenames are of the form "Ann.tst" where "nn" is a sequence number
+100 ON ERROR GOTO 700           'Number of files that will be created           100
+130 INPUT "Drive to be tested: "; DD$
+140 IF RIGHT$(DD$,1) <> ":" THEN DD$=DD$ + ":"
+160 INPUT "*** Insert disk and press enter ***"; Z$
+180 ON ERROR GOTO 700
+190 FOR I = 1 TO 1000           '-------- Create Files --------
+200 GOSUB 600
+210 PRINT "Creating: "; FS$; " #"; I
+220 OPEN "O", 1, FS$            'Create directory entry
+230 FOR J = 1 TO 12
+240 PRINT #1, STRING$(250,"*")
+250 NEXT
+260 CLOSE 1
+270 NEXT I
+290 FOR K = 1 TO (NUMFILES/2+1) '-------- Read back files --------
+300 I = K
+310 GOSUB 500
+320 I = NUMFILES - K + 1
+330 GOSUB 500
+350 NEXT K
+370 PRINT "Erasing all test files"   '-------- Erase files --------
+390 KILL DD$+"A*.TST"
+400 PRINT "Test completed"
+410 END
+500 GOSUB 600:PRINT"Reading: ";FS$ '-------- Subroutine for read --------
+510 OPEN "I", 1, FS$
+520 INPUT #1, L$  :  PRINT LEFT$(L$, 75)
+530 INPUT #1, L$  :  PRINT LEFT$(L$, 75)
+535 INPUT #1, L$  :  PRINT LEFT$(L$, 75)
+540 CLOSE 1
+550 RETURN
+600 FS$ = DD$+"A" + RIGHT$(STR$(I), LEN(STR$(I))-1) + ".TST" : RETURN
+700 IF ERR = 61 OR ERR = 67 THEN NUMFILES = I - 1:RESUME 290 ELSE ON ERROR GOTO 0
+900 STOP
+1000 SAVE "c:drivetst
+

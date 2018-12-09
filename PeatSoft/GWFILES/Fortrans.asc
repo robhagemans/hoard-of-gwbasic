@@ -1,0 +1,49 @@
+1 '                        FORTRAN DATA TRANSFER
+2 '                   Written by Tracy L. Gustafson, M.D.
+3 '                  Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+15 DIM D(1,1),CS(1,1),T(1),N$(1),X(1),X2(1),MD(1),SD(1)
+22 DATA "FORTRAN DATA TRANSFER",25,23
+30 PRINT:PRINT "Do you want to:    1.)  Create a new EPISTAT datafile.":PRINT
+35 PRINT TAB(20);"2.)  Add a sample to an existing EPISTAT datafile."
+40 BF=0:LOCATE 11,27:INPUT "Enter choice:  ",ASUB:IF ABS(ASUB-1.5)>.5 THEN BEEP:GOTO 40
+45 CLS:PRINT TAB(25);DTTL:PRINT TAB(25);STRING$(21,205):PRINT
+50 IF BF=0 THEN INPUT "Enter the name of the FORTRAN file you want to retrieve data from: ",FILEF$
+55 FILE$=FILEF$:EF=1:ON ERROR GOTO 5020:OPEN FILE$ FOR INPUT AS #2
+60 PRINT:AR=CSRLIN:PRINT TAB(10);"Enter the total length of each record or card image:"
+65 PRINT "   (Include record delimiters: 1 space for comma, 2 spaces for CR+LF.)"
+70 LOCATE AR,63:INPUT "",CL
+75 PRINT:PRINT TAB(10);:INPUT "Enter the name of the variable you want to retrieve:  ",DN
+80 PRINT TAB(15);"Enter the column number in which ";DN;:INPUT " begins:  ",C1
+85 PRINT TAB(15);"Enter the number of columns (digits) in ";DN;:INPUT ":  ",CW
+90 PRINT TAB(27);:INPUT "Enter the number of decimal places:  ",CE
+95 PRINT TAB(33);:INPUT "Enter the missing value code:  ",DM
+100 IF ASUB=1 THEN ERASE D,CS:DIM D(1,2000),CS(1,2000):A=1:GOTO 130
+105 IF BF=0 THEN PRINT:INPUT "  What is the name of the EPISTAT datafile you want to ADD to?  ",FILE1$
+110 FILE$=FILE1$:EF=2:OPEN FILE$ FOR INPUT AS #1:INPUT #1,A,C
+115 ERASE D,CS,T,N$,X,X2,MD,SD:AA=A+1
+120 DIM D(AA,C),CS(AA,C),T(AA),N$(AA),X(AA),X2(AA),MD(AA),SD(AA)
+125 GOSUB 4040:A=AA
+130 PRINT:PRINT:AR=CSRLIN:COLOR 23:PRINT TAB(28);"TRANSFERRING DATA":COLOR CLR1
+135 CC=0:T(A)=0:X(A)=0:X2(A)=0:MD(A)=0:SD(A)=0:N$(A)=DN
+140 CC=CC+1:DI=INPUT$(CL,#2):DJ=MID$(DI,C1,CW):IF DJ=DM THEN D(A,CC)="":GOTO 175
+145 DK=LEFT$(DJ,CW-CE):IF CE>0 THEN DK=DK+"."+RIGHT$(DJ,CE)
+150 D(A,CC)=DK:VC=VAL(DK):T(A)=T(A)+1:X(A)=X(A)+VC:X2(A)=X2(A)+VC*VC
+155 FOR Z=1 TO T(A)-1:VX=VAL(D(A,CS(A,Z))):IF VX<=VC THEN 165
+160 FOR TZ=T(A) TO Z+1 STEP -1:CS(A,TZ)=CS(A,TZ-1):NEXT:GOTO 170
+165 NEXT Z
+170 CS(A,Z)=CC
+175 IF NOT EOF(2) THEN 140 ELSE CLOSE #2
+180 N=T(A):IF N>1 THEN IF X2(A)>X(A)*X(A)/N THEN SD(A)=SQR((X2(A)-X(A)*X(A)/N)/(N-1))
+185 IF N>0 THEN IF N MOD 2=0 THEN MD(A)=(VAL(D(A,CS(A,N/2)))+VAL(D(A,CS(A,N/2+1))))*.5 ELSE MD(A)=VAL(D(A,CS(A,N/2+.5)))
+190 IF CC>C THEN C=CC
+195 IF ASUB=2 THEN LOCATE AR,25:PRINT TAB(45):FILE$=FILE1$:GOSUB 4110:GOTO 205
+200 PRINT TAB(7);"(If you choose ";FILEF$;" you will write over your FORTRAN file.)":GOSUB 4100
+205 FILE1$=FILE$:LOCATE 25,5:PRINT "Do you want to transfer another sample from ";FILEF$;" to ";FILE1$;:INPUT;A$
+210 IF A$="y" OR A$="Y" THEN ASUB=2:BF=1:FILE$=FILEF$:GOTO 45 ELSE IF A$<>"N" AND A$<>"n" THEN BEEP:GOTO 205
+215 LOCATE 23,1:END
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+5032 IF EF=1 THEN RESUME 50 ELSE IF EF=2 THEN RESUME 105 ELSE 5010
+

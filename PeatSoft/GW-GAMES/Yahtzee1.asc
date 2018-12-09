@@ -1,0 +1,298 @@
+10 '                    YAHTZEE  J. E. STEITZ 6/27/83
+20 CLS:LOCATE 1,25:PRINT"YAHTZEE  By J. E. Steitz":LOCATE 2,34:PRINT"6/27/82"
+30 LOCATE 4,1:PRINT"This game replicates the game of YAHTZEE as published by Milton Bradley"
+40 PRINT"Company.  The rules of the game are quite simple.  If you purchase the"
+50 PRINT"copyrighted game, you may obtain the printed rules which are followed"
+60 PRINT"exactly in this demonstration of the IBM Personal Computer.
+70 PRINT:PRINT"During play, instructions are given at the very bottom of the screen to"
+80 PRINT"let you know what to do at each step.  You may use the ARROW keys or the"
+90 PRINT"SPACE BAR to move the cursor from place to place on the screen.  The cursor"
+100 PRINT"looks like this: ";:COLOR 26:PRINT CHR$(16);:COLOR 7:PRINT" and flashes so you will notice it."
+110 PRINT:PRINT"When you have decided what you want to do, you must remember to hit the"
+120 COLOR 15:PRINT"RETURN ";:COLOR 7:PRINT"("+CHR$(17)+CHR$(196)+CHR$(217)+") key to inform the computer that you have made some choice or"
+130 PRINT"taken some action."
+140 PRINT:PRINT"Hit the ";:COLOR 15:PRINT"RETURN";:COLOR 7:PRINT" KEY TO CONTINUE."
+150 A$=INKEY$:IF A$="" THEN 150
+160 IF ASC(A$)<>13 THEN 150
+170 DEFINT I-O
+180 DEFSTR A-H
+190 OPTION BASE 1
+200 DIM DIE(5),J1(5,2),ANAME(2,2),OSCORE(2,2)
+210 ANAME(1,1)="test":CRS=CHR$(16)
+220 DEF FNUP$(A$)=CHR$(ASC(LEFT$(A$,1)) AND 223)
+230 A = TIME$
+240 A = RIGHT$(A,2)+MID$(A,3,2)+LEFT$(A,2)
+250 RANDOMIZE VAL(A)
+260 OCOL=70:KEY OFF
+270 FACE(1,1)="       "
+280 FACE(1,2)="   "+CHR$(2)+"   "
+290 FACE(1,3)="       "
+300 FACE(2,1)=" "+CHR$(2)+"     "
+310 FACE(2,2)="       "
+320 FACE(2,3)="     "+CHR$(2)+" "
+330 FACE(3,1)="     "+CHR$(2)+" "
+340 FACE(3,2)="   "+CHR$(2)+"   "
+350 FACE(3,3)=" "+CHR$(2)+"     "
+360 FACE(4,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+370 FACE(4,2)="       "
+380 FACE(4,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+390 FACE(5,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+400 FACE(5,2)="   "+CHR$(2)+"   "
+410 FACE(5,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+420 FACE(6,1)=" "+CHR$(2)+"   "+CHR$(2)+" "
+430 FACE(6,2)=" "+CHR$(2)+"   "+CHR$(2)+" "
+440 FACE(6,3)=" "+CHR$(2)+"   "+CHR$(2)+" "
+450 CLS
+460 INPUT"How many players (1-6)";NP
+470 IF NP=>1 AND NP<=6 THEN 500
+480 PRINT "The number of players may only be 1 to 6. Try again"
+490 GOTO 460
+500 ERASE OSCORE,ANAME
+510 DIM ANAME(NP),OSCORE(NP,14)
+520 FOR I=1 TO NP
+530 PRINT"Enter the name for player number ";I
+540 INPUT ANAME(I)
+550 ANAME(I)=LEFT$(ANAME(I),6)
+560 ANAME(I)=FNUP$(ANAME(I))+MID$(ANAME(I),2)
+570 FOR J=1 TO 13
+580 OSCORE(I,J)=-1
+590 NEXT J
+600 OSCORE(I,14)=0
+610 NEXT I
+620 '              DISPLAY THE SCORING TABLE
+630 CLS
+640 PRINT "               ีออออออัออออออัออออออัออออออัออออออัออออออธ"
+650 PRINT " ACES..........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+660 PRINT " TWOS..........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+670 PRINT " THREES........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+680 PRINT " FOURS.........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+690 PRINT " FIVES.........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+700 PRINT " SIXES.........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+710 PRINT "               ฦออออออุออออออุออออออุออออออุออออออุออออออต"
+720 PRINT " TOTAL UPPER...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+730 PRINT " BONUS FOR 63..ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+740 PRINT "               ฦออออออุออออออุออออออุออออออุออออออุออออออต"
+750 PRINT " 3 OF A KIND...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+760 PRINT " 4 OF A KIND...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+770 PRINT " FULL HOUSE....ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+780 PRINT " SM. STRAIGHT..ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+790 PRINT " LG. STRAIGHT..ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+800 PRINT " YAHTZEE.......ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+810 PRINT " CHANCE........ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+820 PRINT " YAHTZEE BONUS.ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+830 PRINT "               ฦออออออุออออออุออออออุออออออุออออออุออออออต"
+840 PRINT " TOTAL LOWER...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+850 PRINT " TOTAL UPPER...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+860 PRINT " GRAND TOTAL...ณ......ณ......ณ......ณ......ณ......ณ......ณ"
+870 PRINT "               ิออออออฯออออออฯออออออฯออออออฯออออออฯออออออพ";
+880 FOR NROUND=1 TO 13
+890 FOR NPLAYER = 1 TO NP
+900 FOR I=1 TO NP
+910 IF I=NPLAYER THEN COLOR 26
+920 LOCATE 1,17+(I-1)*7:PRINT USING"&";ANAME(I);
+930 COLOR 7
+940 NEXT I
+950 FOR NROLL=1 TO 2
+960 GOSUB 2850      'Roll and Display the Dice
+970 '                 DICE SELECTION ROUTINE
+980 OPOS = 1
+990 CCRS=CRS
+1000 LOCATE 25,1:PRINT"                                 Type an X next to each die you want to keep.";
+1010 LOCATE 5+4*(OPOS-1),OCOL-2:COLOR 26:PRINT CCRS ;:COLOR 7
+1020 A=INKEY$:IF A="" THEN 1020
+1030 IF A = CHR$(13) THEN 1290          'accept input
+1040 IF A = " " THEN 1270               'Space bar
+1050 IF FNUP$(A)="X" THEN 1250          'die selected
+1060 IF ASC(LEFT$(A,1))<> 0 THEN 1020
+1070 INKY=ASC(RIGHT$(A,1))
+1080 IF INKY=72 THEN 1220               'cursor up
+1090 IF INKY<>80 THEN 1020
+1100 OPOS = OPOS + 1                   'cursor down
+1110 IF OPOS>5 THEN OPOS=1
+1120 CCRS=CRS
+1130 LOCATE 5,OCOL-2
+1140 FOR I=1 TO 5
+1150 APRT=" "
+1160 IF J1(I,1)=0 THEN 1190
+1170 APRT="X"
+1180 IF I=OPOS THEN CCRS="X"
+1190 LOCATE 5+4*(I-1),OCOL-2:PRINT APRT;
+1200 NEXT I
+1210 GOTO 1010
+1220 OPOS=OPOS-1   ' cursor up
+1230 IF OPOS<1 THEN OPOS=5
+1240 GOTO 1120
+1250 J1(OPOS,1)=1   '   select the die
+1260 GOTO 1100   'move to next position
+1270 J1(OPOS,1)=0  'unselect the die (Space bar was hit)
+1280 GOTO 1100
+1290 FOR I=1 TO 5
+1300 LOCATE 5+4*(I-1),OCOL-2:PRINT" ";
+1310 NEXT I
+1320 NSAVE=J1(1,1)
+1330 FOR I=2 TO 5
+1340 NSAVE=NSAVE+J1(I,1)
+1350 NEXT I
+1360 IF NSAVE=5 THEN 1390
+1370 NEXT NROLL
+1380 GOSUB 2850 'Roll and display the dice for the third time
+1390 '                  SELECT SCORING ROUTINE
+1400 FOR K=1 TO 5:J1(K,1)=0:NEXT K
+1410 LOCATE 25,1:PRINT"Move cursor to the item you want to score and hit the return key             ";
+1420 FOR I=1 TO 13
+1430 IF OSCORE(NPLAYER,I)=-1 THEN 1460
+1440 NEXT I
+1450 PRINT"game over?"
+1460 IF I<7 THEN ILINE=I+1 ELSE ILINE=I+5
+1470 LOCATE ILINE,1:COLOR 26:PRINT CRS;:COLOR 7
+1480 A=INKEY$:IF A="" THEN 1480
+1490 IF A=" " THEN 1550
+1500 IF A=CHR$(13) THEN 1670
+1510 IF ASC(LEFT$(A,1))<>0 THEN 1480
+1520 INKY=ASC(RIGHT$(A,1))
+1530 IF INKY=72 THEN 1610
+1540 IF INKY <> 80 THEN 1480
+1550 LOCATE ILINE,1:PRINT" "; '      Cursor down
+1560 ILINE=ILINE+1
+1570 IF ILINE=8 THEN ILINE=12:GOTO 1590
+1580 IF ILINE=19 THEN ILINE = 2
+1590 IF ILINE<8 THEN I=ILINE-1 ELSE I=ILINE-5
+1600 IF OSCORE(NPLAYER,I)=-1 THEN 1470 ELSE 1560
+1610 LOCATE ILINE,1:PRINT" ";
+1620 ILINE=ILINE-1
+1630 IF ILINE=11 THEN ILINE=7:GOTO 1650
+1640 IF ILINE=1 THEN ILINE=18
+1650 IF ILINE<8 THEN I=ILINE-1 ELSE I=ILINE-5
+1660 IF OSCORE(NPLAYER,I)=-1 THEN 1470 ELSE 1620
+1670 ALL5="NO"   'Assume no yahtzee
+1680 FOR L=2 TO 5
+1690 IF J1(L,2)<>J1(1,2) THEN 1720
+1700 NEXT L
+1710 ALL5="YES"
+1720 IF I>6 THEN 1840
+1730 NTOT=0
+1740 FOR ND=1 TO 5
+1750 IF J1(ND,2)=I THEN NTOT=NTOT+I
+1760 J1(ND,1)=0
+1770 NEXT ND
+1780 NTOP=NTOT
+1790 FOR L=1 TO 6
+1800 IF OSCORE(NPLAYER,L)<>-1 THEN NTOP=NTOP+OSCORE(NPLAYER,L)
+1810 NEXT L
+1820 LOCATE 9,17+(NPLAYER-1)*7:PRINT USING "######";NTOP;
+1830 GOTO 2410
+1840 '                 VALIDATE AND SCORE LOWER HALF
+1850 NDTOT=J1(1,2) 'Get the total of all dice
+1860 FOR L=2 TO 5
+1870 NDTOT=NDTOT+J1(L,2)
+1880 NEXT L
+1890 IF I=13 THEN NTOT=NDTOT:GOTO 2410 'Go score chance line
+1900 IF I<> 12 THEN 1930                  'Not Yahtzee
+1910 IF ALL5="YES" THEN NTOT=50 ELSE NTOT=0
+1920 GOTO 2420     'Go score the YAHTZEE line
+1930 '           Distribute pips for analysis
+1940 FOR L=1 TO 6:NPIP(L)=0:NEXT L
+1950 FOR L=1 TO 5
+1960 NPIP(J1(L,2))=NPIP(J1(L,2))+1
+1970 NEXT L
+1980 IF I<>7 THEN 2050  'Not 3 of a kind
+1990 NTOT=NDTOT
+2000 FOR L=1 TO 6
+2010 IF NPIP(L)=>3 THEN 2410    'Qualifies for 3 of a kind
+2020 NEXT L
+2030 NTOT=0
+2040 GOTO 2410
+2050 IF I<>8 THEN 2120  'Not 4 of a kind
+2060 NTOT=NDTOT
+2070 FOR L=1 TO 6
+2080 IF NPIP(L)=>4 THEN 2410    'Qualifies for 4 of a kind
+2090 NEXT L
+2100 NTOT=0
+2110 GOTO 2410
+2120 '               May only be full house, sm or lg straight
+2130 IF ALL5="YES" AND OSCORE(NPLAYER,J1(1,2))<>-1 THEN JOKER$="yes" ELSE JOKER$="NO"
+2140 IF I<>9 THEN 2210
+2150 NTOT=25         'Assume a good full house
+2160 IF JOKER$="YES" THEN 2410
+2170 FOR K=1 TO 6
+2180 IF NPIP(K)=1 OR NPIP(K)>3 THEN NTOT=0
+2190 NEXT K
+2200 GOTO 2410
+2210 '              Only the sm and lg straights are left
+2220 IF I<>10 THEN 2320
+2230 NTOT=30      'Assume a good small straight
+2240 IF JOKER$="YES" THEN 2410
+2250 OBIT=0
+2260 FOR K=1 TO 6
+2270 IF NPIP(K)=0 THEN OBIT=0 ELSE OBIT=OBIT+1
+2280 IF OBIT=4 THEN 2410   'qualifies as a small straight
+2290 NEXT K
+2300 NTOT=0                ' fails as a small straight
+2310 GOTO 2410
+2320 NTOT=40   'Must be trying for a large straight
+2330 IF JOKER$="YES" THEN 2410
+2340 OBIT=0
+2350 FOR K=1 TO 6
+2360 IF NPIP(K)=0 THEN OBIT=0 ELSE OBIT=OBIT+1
+2370 IF OBIT=5 THEN 2410
+2380 NEXT K
+2390 NTOT=0
+2400 '                    ADD 100 IF THIS IS SECOND OR LATER YAHTZEE
+2410 IF ALL5="YES" AND OSCORE(NPLAYER,12)>0 THEN OSCORE(NPLAYER,14)=OSCORE(NPLAYER,14)+100 'Score 100 point bonus for extra yahtzees
+2420 OSCORE(NPLAYER,I)= NTOT
+2430 LOCATE ILINE,1:PRINT" ";
+2440 LOCATE ILINE,17+(NPLAYER-1)*7:PRINT USING "######";NTOT;
+2450 NEXT NPLAYER
+2460 NEXT NROUND
+2470 LOCATE 25,1:PRINT SPC(77);
+2480 '                  PRINT FINAL TOTALS
+2490 LSCORE=0
+2500 FOR N=1 TO NP
+2510 NTOP=OSCORE(N,1)
+2520 FOR M=2 TO 6
+2530 NTOP=NTOP+OSCORE(N,M)
+2540 NEXT M
+2550 IF NTOP =>63 THEN NB63=35 ELSE NB63=0
+2560 LOCATE 10,17+(N-1)*7:PRINT USING "######";NB63;
+2570 NTUPPER=NTOP+NB63
+2580 LOCATE 19,17+(N-1)*7:PRINT USING "######";OSCORE(N,14)
+2590 NBOT=OSCORE(N,7)
+2600 FOR M=8 TO 14
+2610 NBOT=NBOT+OSCORE(N,M)
+2620 NEXT M
+2630 LOCATE 21,17+(N-1)*7:PRINT USING "######";NBOT;
+2640 LOCATE 22,17+(N-1)*7:PRINT USING "######";NTUPPER;
+2650 LOCATE 23,17+(N-1)*7:PRINT USING "######";NTUPPER+NBOT;
+2660 IF NTUPPER+NBOT>LSCORE THEN LSCORE=NTUPPER+NBOT:NNNAME=N
+2670 NEXT N
+2680 LOCATE 24,17+(NNNAME-1)*7:COLOR 26:PRINT"WINNER";:COLOR 7
+2690 LOCATE 25,1:INPUT"Do you want to play another (Y,N)";A
+2700 IF A="" THEN 2690
+2710 IF FNUP$(A)="N" THEN END
+2720 IF FNUP$(A)<>"Y" THEN 2690
+2730 LOCATE 25,1:PRINT SPC(77);
+2740 LOCATE 25,1:INPUT"Same players (Y,N)";A
+2750 IF A="" THEN 2730
+2760 IF FNUP$(A)="N" THEN 450
+2770 IF FNUP$(A)<>"Y" THEN 2730
+2780 FOR I=1 TO NP
+2790 FOR J=1 TO 13
+2800 OSCORE(I,J)=-1
+2810 NEXT J
+2820 OSCORE(I,14)=0
+2830 NEXT I
+2840 GOTO 630
+2850 '                  ROUTINE TO ROLL  AND DISPLAY UP TO FIVE DICE
+2860 FOR I=1 TO 5
+2870 IF J1(I,1)=0 THEN J1(I,2)=INT(RND(1)*6) + 1 ' Roll only unlocked dice
+2880 J1(I,1)=0 ' Reset dice locking flag
+2890 NEXT I
+2900 COLOR 0,7
+2910 FOR I=1 TO 5
+2920 FOR J=1 TO 3
+2930 LOCATE 2+4*(I-1)+J,OCOL:PRINT FACE(J1(I,2),J)
+2940 NEXT J
+2950 NEXT I
+2960 COLOR 7,0
+2970 RETURN
+

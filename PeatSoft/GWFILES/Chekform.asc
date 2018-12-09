@@ -1,0 +1,40 @@
+5 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '***************** CHECK RECORD AND RECONCILING SHEET  *********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ           CHECK LEDGER AND STATMENT RECONCILIATION SHEET                บ
+20 'บ                                                                         บ
+22 'บ   This program will print a check-ledger and reconciliation sheet       บ
+24 'บ which can be used in a three-ring notebook or clipboard. The program    บ
+26 'บ will open with a "How many Copies? " query.  Make certain printhead is  บ
+28 'บ at perforation and printer in on-line before responding. The form can   บ
+30 'บ be modified for several uses by changing headings and adjusting the     บ
+32 'บ print spaces in the appropriate form-generating lines.                  บ
+34 'บ                                                                         บ
+36 'บ                       (c) G I N A C O  - 1983         Ver 5.2/160/320   บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 KEY OFF:COLOR 7,0:LOCATE ,,1,0,7
+110 CLS:LOCATE 10,25:INPUT"How many copies ";N
+120 WIDTH "LPT1:",80
+130 LPRINT CHR$(27);CHR$(69);
+140 LPRINT CHR$(27);CHR$(85) + CHR$(1)
+150 LPRINT CHR$(27);CHR$(69);
+160 FOR NUMBER = 1 TO N
+170 LPRINT STRING$(4,10);
+180 LPRINT TAB(15)"MONTH____________ YEAR 198______  CHECK WORK SHEET & RECORD"
+190 LPRINT
+200 LPRINT STRING$(78,"=");
+210 LPRINT"| DATE   CHECK #  ITEM DESCRIPTION    AMOUNT $    DEPOSIT $   BALANCE $  CLR |"
+220 LPRINT"|------|--------|-------------------|-----------|----------|-----------|-----|";
+230 FOR I = 1 TO 26
+240 LPRINT"|      |        |                   |           |          |           |     |";
+250 LPRINT"|------|--------|-------------------|-----------|----------|-----------|-----|";
+260 NEXT
+270 LPRINT CHR$(12)
+280 NEXT NUMBER
+290 END
+65000 '************************* SAVE ROUTINE ********************************
+65100 SAVE"B:CHEKFORM.BAS"
+

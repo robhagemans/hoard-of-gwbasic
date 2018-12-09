@@ -1,0 +1,47 @@
+10  REM ... TRS-80 Model 100 to IBM/PC data transfer program
+20  REM ... by Ken Cooper, Ph.D.
+30  REM ... takes word wrapped text file with double spacing between
+40  REM ... paragraphs and transfers it to IBM/PC in VisiWord-readable format
+50 DIM A$(250), P$(12) :REM ... input array and print buffer
+60 XF$ = CHR$(19): XN$ = CHR$(17): TR = 0: L = 0
+70 FOR I = 1 TO 250: A$(I) = "": NEXT: REM ... blank input array
+80 FOR I = 1 TO 12: P$(I) = "": NEXT: REM ... blank print buffer
+90 I = 1: L1 = -1: L2 = -2: PE$ = CHR$(13) + CHR$(13)
+100 OPEN "COM1:300,E,7,1" AS #1: REM ... input file from Model 100
+110 PRINT#1, XN$: REM ... enable Model 100
+120 CLS: PRINT "Hit return on TRS-80 Model 100"
+130 L = L + 1
+140  REM ... empty buffer and reinitialize timeout loop
+150 IF LOC(1) > 120 THEN: A$(I) = INPUT$ (LOC(1),#1): I = I + 1: L = 0: GOTO 130
+160  REM ... check timeout for last block of data
+170 IF L = 300 THEN L1 = LOC(1)
+180 IF L = 500 THEN L2 = LOC (1)
+190 IF L1 = L2 THEN A$(I) = INPUT$ (LOC(1),#1): GOTO 210
+200 GOTO 130
+210 CLOSE: PRINT: PRINT "TRANSFER COMPLETE - now storing data on diskette"
+220 PRINT:PRINT:INPUT "Filename for storage - "; FI$
+230 OPEN FI$ FOR OUTPUT AS #2: REM ... disk file for VisiWord
+240  REM ... storage section
+250 I1 = 1: P1 = 1
+260  REM ... paragraph buffer loop
+270 IF A$(I1) = "" GOTO 450: REM ... check for last record
+280  REM ... take out single transmission c/r
+290 CR = INSTR (A$(I1),CHR$(13))
+300 IF CR <> 0 AND MID$ (A$(I1),CR+1,1) <> CHR$(13) THEN A$(I1) = LEFT$ (A$(I1),CR-1) + RIGHT$ (A$(I1),LEN(A$(I1))-CR): GOTO 290
+310 REM ... search for paragraph end (double c/r)
+320 PR = INSTR (A$(I1),PE$)
+330 IF PR = 0 GOTO 420
+340  REM ... print paragraph block (maximum size about one doublespaced
+350  REM ... typed page)
+360 PRINT#2, P$(1); P$(2); P$(3); P$(4); P$(5); P$(6); P$(7); P$(8); P$(9); P$(10); P$(11); P$(12); LEFT$ (A$(I1),PR-1)
+370 FOR N = 1 TO 12: P$(N) = "": NEXT: REM ... blank out print buffer
+380 P1 = 1
+390 A$(I1) = RIGHT$ (A$(I1),LEN(A$(I1)) - (PR+1)): REM .. save remaining string
+400 GOTO 270
+410  REM ... no c/r found
+420 IF (LEN (P$(P1)) + LEN (A$(I1))) < 256 THEN P$(P1) = P$(P1) + A$(I1) ELSE P1 = P1 + 1: P$(P1) = A$(I1): REM ... add string to print buffer array (allowing for 256        character maximum string length in BASIC)
+430 I1 = I1 + 1
+440 GOTO 270
+450 PRINT: PRINT "Transfer and storage completed to file ";FI$
+460 CLOSE: END
+

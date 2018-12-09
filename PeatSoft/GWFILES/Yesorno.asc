@@ -1,0 +1,60 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '***********************   YES/NO <Y/N> SUBROUTINE   ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ            YES/NO SUBROUTINE USING INKEY$ & QUALIFIERS                  บ
+20 'บ                                                                         บ
+22 'บ     This program will assign a value of Q=1 or Q=2 to the response      บ
+24 'บ (Y or y) or (N or n). The value is returned to the main program and     บ
+26 'บ may be used as the condition for a subsequent command or function.      บ
+27 'บ                                                                         บ
+28 'บ     Lines 5020 and 5030 demonstrate the optional method of testing the  บ
+30 'บ response by "CHR$(xx)" or by the literal string (Y,y,N,or n). Either    บ
+32 'บ conditional qualifier may be used effectively. Take your choice. Use    บ
+34 'บ GOSUB from your main program and assign program tasks using the value   บ
+38 'บ of "Q" returned.         (c) G I N A C O              Ver 5.2/160/320   บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS
+100 CLS
+110 SCREEN 0,0,0
+120 WIDTH 80
+130 CLEAR
+140 COLOR 7,0
+150 KEY OFF
+160 '************   GOSUB FROM MAIN PROGRAM TO Y/N SUBROUTINE  ****************
+170 GOSUB 5000
+180 CLS
+190 IF Q! = 1 THEN LOCATE 10,30 : PRINT "RESPONSE WAS " CHR$(34)"Y or y" CHR$(34) ;: LOCATE 12,30 : PRINT "PRESS <F2> TO RUN AGAIN";: END
+200 CLS
+210 IF Q! = 2 THEN LOCATE 10,30 : PRINT "RESPONSE WAS " CHR$(34)"N or n" CHR$(34);: LOCATE 12,30 : PRINT "PRESS <F2> TO RUN AGAIN";: END
+5000 REM  **************   YES/NO ROUTINE FOR MERGE  ********************
+5010 COLOR 7,0
+5020 KEY OFF
+5030 LOCATE 25,32
+5040 PRINT " YES OR NO <Y/N>  ";A$
+5050 COLOR 7,0
+5060 
+5070 A$ = INKEY$
+5080 IF A$ = "" THEN 5070
+5090 REM  ********** QUALIFYING RESPONSE AS CHR$ OR STRING **************
+5100 IF ( LEFT$(A$,1) = CHR$(89) OR LEFT$(A$,1) = CHR$(121)) THEN Q! = 1 : GOTO 5250
+5110 IF ( LEFT$(A$,1) = "n" OR LEFT$(A$,1) = "N") THEN Q! = 2 : GOTO 5250
+5120 SOUND 500,4
+5130 REM  *********** CLEARING LINE 25 AND REVERSING FIELD **************
+5140 LOCATE 25,15
+5150 PRINT SPC( 79)
+5160 LOCATE 25,35
+5170 COLOR 0,7
+5180 PRINT SPC( 12);
+5190 LOCATE 25,36
+5200 PRINT " TRY AGAIN. ";
+5210 COLOR 7,0
+5220 FOR I! = 1 TO 1000
+5230 NEXT
+5240 GOTO 5000
+5250 RETURN
+5260 END
+65000 REM   ******************* SAVE ROUTINE ****************************
+65100 SAVE "B:YESORNO.BAS"
+

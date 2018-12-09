@@ -1,0 +1,288 @@
+0GOTO 65005 :'B-SIMPLE has not yet been initialized
+2 '  **************************************************************************
+3 '  *     Basic Structured IMPLEmentation (B-SIMPLE PROGRAMMERS AID)         *
+4 '  *   B-SIMPLE  VERSION  1.0     2/28/82  Ira Glickstein  8-622-4202       *
+5 '  *   (modification of MPAK 1.1 1/30/82 by Kurt Carpenter 8-272-5229)      *
+6 '  **************************************************************************
+7 '
+8 '
+9 '
+10 GOTO 20010:' to initialization of program
+11 '
+12 '
+13 '
+14 '  ***********************************************************************
+15 '  *    When B-SIMPLE is initialized, your program name, version, date,  *
+16 '  *       your name, address, phone, etc. will appear here              *
+17 '  ***********************************************************************
+18 '
+19 '
+20001 'INITIALIZATION                    Init #200
+20010 '     (start code here)
+20099 '                              end Init #200
+20100 '
+20101 '                                  Init #201
+20200 '                                  Init #202
+20300 '                                  Init #203
+20400 '                                  Init #204
+20500 '                                  Init #205
+20600 '                                  Init #206
+20700 '                                  Init #207
+20800 '                                  Init #208
+20900 '                                  Init #209
+20999 '  end of INIT
+21000 '
+21001 'MAIN LINE PROGRAM                 Main #210
+21010 '     (start code here)
+21099 '                              end Main #210
+21100 '
+21101 '                                  Main #211
+21200 '                                  Main #212
+21300 '                                  Main #213
+21400 '                                  Main #214
+21500 '                                  Main #215
+21600 '                                  Main #216
+21700 '                                  Main #217
+21800 '                                  Main #218
+21900 '                                  Main #219
+21999  END: 'end of MAIN LINE PROGRAM
+22000 '
+40000 ' ********************************************************************            *        MODULE # | NAME OF MODULE            * B-SIMPLE DIRECTORY *            ********************************************************************
+40001 ' *          1-199  | SUBROUTINES           <START HERE              *
+40010 ' *                 |                                                *
+40100 ' *                 |                                                *
+40199 ' ********************************************************************
+40200 ' *        200-209  | INITIALIZATION        <STARTS HERE             *
+40210 ' *        210-219  | MAIN LINE PROGRAM     <STARTS HERE             *
+40220 ' ********************************************************************
+41200 COLOR 0,7:PRINT " INITIALIZATION        ": COLOR 7,0 : LIST 20000-20100
+41201 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20100-20200
+41202 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20200-20300
+41203 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20300-20400
+41204 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20400-20500
+41205 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20500-20600
+41206 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20600-20700
+41207 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20700-20800
+41208 COLOR 0,7:PRINT " INITIALIZATION cont'd ": COLOR 7,0 : LIST 20800-20900
+41209 COLOR 0,7:PRINT " INITIALIZATION done   ": COLOR 7,0 : LIST 20900-21000
+41210 COLOR 0,7:PRINT " MAIN LINE PROGRAM     ": COLOR 7,0 : LIST 21000-21100
+41211 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21100-21200
+41212 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21200-21300
+41213 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21300-21400
+41214 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21400-21500
+41215 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21500-21600
+41216 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21600-21700
+41217 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21700-21800
+41218 COLOR 0,7:PRINT " MAIN LINE PROGRAM  ctd": COLOR 7,0 : LIST 21800-21900
+41219 COLOR 0,7:PRINT " MAIN LINE PROGRAM: END": COLOR 7,0 : LIST 21900-22000
+50000 '
+50001 ' instructions
+50010 CLS:KEY OFF
+50020 MS$=" B-SIMPLE = Basic Structured IMPLEmentation (PROGRAMMER'S AID)  ":GOSUB 61110:PRINT
+50030 COLOR 15,0:PRINT "  B-SIMPLE";:COLOR 7,0:PRINT" helps you write good top-down, modular programs in Basic. You don't":PRINT"have to be a programmer to use it.  Your programs should";
+50033 COLOR 15,0:PRINT " be simple ";:COLOR 7,0:PRINT"to write,";:COLOR 15,0:PRINT"be simple ";:COLOR 7,0:PRINT"to debug, and";:COLOR 15,0:PRINT" be simple ";:COLOR 7,0:PRINT"to change later."
+50035 PRINT:PRINT "  The Pet User Club of Berkley put an earlier version, MPAK, into the public    domain. Kurt Carpenter, IBM Westlake, 8-272-5229, modified it for the IBM PC.   This version is by Ira Glickstein, IBM Owego, 8-662-4202."
+50040 PRINT:MS$="  HOW TO USE IT: RUN "+CHR$(34)+"B-SIMPLE  ":GOSUB 61110:PRINT
+50050 PRINT "  B-SIMPLE is menu driven.  When RUN, it establishes a skeleton for your        program, using Blocks of 100 line numbers.  You can have up to 199 modules for  SUBROUTINES, plus ten for INITIALIZATION, and ten for MAIN LINE PROGRAM.":PRINT
+50060 PRINT "  B-SIMPLE helps you add, list, renumber, or delete modules. It keeps a         directory and puts in module names, etc. to make your listing easier to         understand. When you are done, you can delete B-SIMPLE (quite simply)."
+50090 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50110 CLS
+50120 MS$="  A BLOCK IS 100 LINE NUMBERS  ":GOSUB 61110:PRINT
+50130 PRINT "  Each module has a reserved block of 100 line numbers. Up to 22 lines may be   used for the module (a screen's worth). B-SIMPLE uses four of those lines for   module name, RETURN, etc. You can use up to 18 lines.":PRINT
+50135 PRINT "  Keeping modules short is good programming!":PRINT
+50140 PRINT "  SUBROUTINES are put from line #100 to line #20000. From the menu you can:":PRINT:PRINT  "1 or A=ADD a new module (and enter code using AUTO)":PRINT "2 or L=LIST an old module (and edit if desired)"
+50143 PRINT"3 or R=RENUMBER & LIST an old module (and edit if desired)"
+50145 PRINT "4=DELETE an old module, or":PRINT"5=DIRECTORY (display a list of all modules)":PRINT
+50150 PRINT "  INITIALIZATION and the MAIN LINE PROGRAM are between lines #20000 and #22000. From the menu you can:":PRINT:PRINT"6=LIST Blocks of INITIALIZATION or MAIN LINE PROGRAM, or"
+50153 PRINT"7=REINITIALIZE Your Program Information"
+50190 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50210 CLS
+50220 MS$="  Menu -- 1 or A=ADD a new module  ":GOSUB 61110:PRINT
+50230 PRINT "  B-SIMPLE asks for module number, MN (1 thru 199), and name (up to 20          characters.) It then prints out 7 lines of information, and asks you to HIT     RETURN 7 TIMES.":PRINT
+50240 PRINT "  This puts your module's name in the directory, and in a remark on line MN01 ofthe block. RETURN is put on line MN99. A blank remark is placed above your      module (on line MN00) and below your module, to make the listing look good.":PRINT
+50260 PRINT "  AUTO line numbering starts at line MN10 of your block, with steps of 5 lines. Your code can go from line MN10 (always the first line of code) thru line MN95. RETURN is always line MN99 of the block.":PRINT
+50265 PRINT "  You can stop AUTO line numbering with CTRL-BREAK. Type RUN (or hit F2) to get back to the B-SIMPLE menu.":PRINT
+50270 PRINT "  You call this subroutine, from another subroutine, or the MAIN LINE PROGRAM,  with a line that says: GOSUB MN00 (or GOSUB MN10 if speed is critical)."
+50290 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50310 CLS
+50320 MS$="  Menu -- 2 or L=LIST a module (and edit if desired)  ":GOSUB 61110:PRINT
+50330 PRINT "  B-SIMPLE asks for module number, MN (1 thru 199), and lists the module.":PRINT
+50340 PRINT "  You can add lines, change lines, etc., using normal BASIC editing.":PRINT
+50350 PRINT "  You can get back to the B-SIMPLE menu by typing RUN (or hitting F2). If you   have inserted code on lines that don't end in 0 or 5, you should go back to the B-SIMPLE menu and select 3 -- RENUMBER.":PRINT
+50390 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50410 CLS
+50420 MS$="  Menu -- 3 or R=RENUMBER & LIST (and edit if desired)  ":GOSUB 61110:PRINT
+50430 PRINT "  B-SIMPLE asks for module number, MN (1 thru 199), renumbers, and then lists   the module.":PRINT
+50440 PRINT "  You can add lines, change lines, etc., using normal BASIC editing.":PRINT
+50450 PRINT "  You can get back to the B-SIMPLE menu by typing RUN (or hitting F2). If you   have inserted code on lines that don't end in 0 or 5, you should go back to the B-SIMPLE menu and select 3 -- RENUMBER.":PRINT
+50490 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50510 CLS
+50520 MS$="  Menu -- 4=DELETE an old module  ":GOSUB 61110:PRINT
+50530 PRINT "  B-SIMPLE asks for module number, MN (1 thru 199), and prints out the line     numbers it uses. It asks you to HIT RETURN a sufficient number of times to      delete the lines.":PRINT
+50540 PRINT "  This removes the subroutine and it's entry in the B-SIMPLE directory.":PRINT
+50550 PRINT "  You can get back to the B-SIMPLE menu by typing RUN (or hitting F2).":PRINT
+50560 PRINT "  (By the way, if you try to DELETE a non-existent module, or one that has no   code on line MN10, you'll get an error  message, but no harm will be done.)":PRINT
+50590 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50610 CLS
+50620 MS$="  Menu -- 5=DIRECTORY of modules  ":GOSUB 61110:PRINT
+50630 PRINT "  B-SIMPLE lists the directory.  If there are over 20 entries, CTRL-NUM LOCK    will make the listing pause.":PRINT
+50650 PRINT "  You can get back to the B-SIMPLE menu by typing RUN (or hitting F2).":PRINT
+50690 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50710 CLS
+50720 MS$="  Menu -- 6=LIST INITIALIZATION or MAIN LINE PROGRAM blocks  ":GOSUB 61110:PRINT
+50730 PRINT "  B-SIMPLE tells you where they are and asks for a block number. It then lists  the block you want.":PRINT
+50740 PRINT "  You can add lines, change lines, etc., using normal BASIC editing.":PRINT
+50750 PRINT "  You can get back to the B-SIMPLE menu by typing RUN (or hitting F2).":PRINT
+50790 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50810 CLS
+50820 MS$="  Menu -- 7=REINITIALIZE Your Program Information":GOSUB 61110:PRINT
+50830 PRINT "  B-SIMPLE allows you to change the way your name, address, program name,       version number, date, etc. appear in title block":PRINT
+50840 PRINT "  You'll be prompted to enter your name, address, phone, program name, version, date, etc. B-SIMPLE will then print several lines of information, and ask you toHIT RETURN 4 TIMES.":PRINT
+50850 PRINT "  This will update the title block, and send you back to the B-SIMPLE menu.":PRINT
+50890 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50910 CLS
+50920 MS$="  TO RUN YOUR PROGRAM ":GOSUB 61110:PRINT
+50930 PRINT "  Any time you see Ok and a flashing cursor, you can type RUN 10 (or hit F10)   and YOUR program will run.":PRINT:PRINT:PRINT
+50960 MS$="  TO DELETE B-SIMPLE (quite simply)  ":GOSUB 61110:PRINT
+50970 PRINT "  When your program is done, and you don't need B-SIMPLE anymore, just:":PRINT:PRINT"DELETE 0-9":PRINT"DELETE 41000-65100  (if you want to keep the B-SIMPLE directory), or":PRINT"DELETE 40000-65100  (if you don't want the directory)."
+50980 PRINT:PRINT"  Then you can run YOUR program by simply typing RUN.":PRINT
+50990 LOCATE 25,20:PRINT "Hit RETURN";:LOCATE 25,10:INPUT "Ready";X$
+50999 RETURN:'from instructions
+60000 '
+60001 'SIMPLE goes from here to line 65100
+61100 '
+61101 'message sr
+61110 COLOR 0,7 : PRINT " "MS$" ": COLOR 7,0
+61199 RETURN:'from message sr
+61200 '
+61201 'compute c sr
+61210 C = L + 4
+61215 F = 1 : P = PEEK (C) : IF ( P = 137 OR P = 141 OR P = 205 OR P=140 OR P=142 OR P=161 OR P=168 ) AND PEEK (C+1) = 32 THEN C = C + 2  ELSE GOTO  61295
+61220 IF P = 141 THEN F = 0
+61225 GOSUB 61310 : IF C > N - 1 THEN 61299
+61230 IF P = 137 OR P = 141 THEN 61215
+61235 IF P = 13 OR P = 14 GOTO 61240 ELSE GOTO 61295
+61240 IF P = 13 GOTO 61260
+61245 C = C + 1 : FOR E = 1 TO A : IF FNR (C) = L (E) THEN 61255
+61250 NEXT E : IF F = 1 THEN MS$ = "WARNING MODULE JUMPS TO ANOTHER MODULE " : GOSUB 61110 : GOTO 61260 ELSE GOTO 61260
+61255 POKE C+1 , FNM (E) : POKE C , FNL (E) - ( FNM (E) * 256 )
+61260 C = C + 2 : GOSUB 61310 : IF C > N-1 THEN 61299
+61265 IF PEEK (C) = 44 THEN C = C + 1 : GOTO 61225 ELSE GOTO 61295
+61295 C = C + 1 : IF C < = N - 1 THEN 61215
+61299 RETURN:'from compute c sr
+61300 '
+61301 'figure c sr
+61310 FOR I = C TO N- 1 : IF PEEK (I) = 32 THEN C = C + 1 ELSE I = N
+61320 NEXT I : P = PEEK (C)
+61399 RETURN :'from figure c sr
+61400 '
+61401 'mess sr (add, list, renumber, delete)
+61410 ON C GOSUB 61435,64610,61425,61415:GOTO 61490
+61415 GOSUB 61510: CLS : LOCATE 3,1,0 : PRINT 41000!+M:PRINT 40000!+M:PRINT 100*M+1
+61420 FOR I = 1 TO A : PRINT L(I) : NEXT I :PRINT M*100+99: LOCATE 1,1:MS$="HIT ENTER KEY "+STR$(4+A)+" TIMES":GOSUB 61110:RETURN:'within module
+61425 GOSUB 61510 : IF FNL (A) >= R THEN MS$ = "CAN'T RESEQUENCE - TOO MANY LINES IN MODULE." : GOSUB 61110 :C=9: RETURN:'within module                             61430 N = LO : FOR B = 1 TO A : GOSUB 61610 : GOSUB 61210 : NEXT B : return:'within module
+61430 N = LO : FOR B = 1 TO A : GOSUB 61610 : GOSUB 61210 : NEXT B : GOTO 61490
+61435 PRINT:INPUT "MODULE NAME (UP TO 20 CHAR) "; N$ : IF LEN(N$) > 20 THEN MS$ = "MODULE NAME TOO LONG" : GOSUB 61110 : GOTO 61435
+61440 CLS : LOCATE 3,1,0
+61445 PRINT 41000!+M TAB(8);"color 0,7:PRINT "; CHR$(34)"                      " CHR$(34)": color 7,0 : LIST "; Q-10 ; -R-5
+61450 LOCATE 3,26,0:PRINT N$
+61455 PRINT 40000!+M;"' *"SPC(13+(M>9)+(M>99));M;" | ";N$;:LOCATE 4,77:PRINT"*"
+61460 PRINT Q-10;"'":PRINT Q-9;"'   "N$:PRINT Q+89;" RETURN : 'from "N$:PRINT Q+90;"'"
+61470 PRINT "MS$="+CHR$(34)+"CTRL-BREAK ends AUTO entry"+CHR$(34)+":GOSUB 61110 :AUTO"Q","S
+61475 LOCATE 1,1 : MS$ = "HIT ENTER KEY 7 TIMES"  : GOSUB 61110 : RETURN :'within module
+61490 IF K=3 THEN C=2:GOTO 61410
+61499 END :'from mess sr
+61500 '
+61501 'def sr
+61510 DEF FNR (X) = PEEK (X) + 256 * PEEK (X+1) : DEF FNL (X) = S * (X-1) + T : N = FNR (48) : DEF FNM (X) = INT( FNL (X) / 256 )
+61520 L = N : N = FNR (L) : X = FNR (L+2) : LO = L : IF X < Q THEN 61520
+61530 A = A + 1 : L(A) = X : L = N : N = FNR (L) : X = FNR (L+2) : IF X < = R THEN 61530
+61540 IF L(1) > R AND  C = 3 THEN MS$ = "CAN'T RENUMBER A NULL MODULE" : GOSUB 61110 : GOTO 61599
+61550 N=LO:GOTO 61599
+61599 RETURN :'from def sr
+61601 'l n sr
+61610 L = N : N = FNR (L) : POKE L + 3 , FNM (B) : POKE  L+2  , FNL (B) - 256 * FNM (B)
+61699 RETURN :'from l n sr
+61700 '
+64100 '
+64101 'your choice sr
+64110 L=-200:SOUND 370,1
+64120 COLOR 18+16*(L<0),7:LOCATE Y,2:PRINT " YOUR CHOICE - "+F$+" - ? ";:COLOR 0,7
+64130 X$=INKEY$:DEF SEG:POKE 106,0:IF X$<>"" THEN 64150
+64132 L=L+1:IF L<1 THEN 64120
+64140 SOUND L*37,1:SOUND 32767,14:GOTO 64120
+64150 LOCATE Y,2:FOR L=1 TO LEN(F$)+20:PRINT " ";:NEXT:'x$ contains key hit
+64180 COLOR 7,0
+64199 RETURN :'from your choice sr
+64200 '
+64201 'quick menu
+64210 KEY OFF:COLOR 15,4:CLS:LOCATE 1,2:PRINT "       SELECT BY NUMBER          B-SIMPLE (Basic Structured IMPLEmentation)              (OR LETTER)             Version 1.0 2-82 Ira Glickstein 8-662-4202"
+64221 LOCATE 5,2:PRINT"1 or A -- ADD a module and enter code"
+64222 LOCATE 7,2:PRINT"2 or L -- LIST a module (and edit if desired)"
+64223 LOCATE 9,2:PRINT"3 or R -- RENUMBER a module, then list it"
+64224 LOCATE 11,2:PRINT"4 -- DELETE a module"
+64225 LOCATE 13,2:PRINT"5 -- DIRECTORY display of modules"
+64226 LOCATE 15,2:PRINT"6 -- List/Edit INITIALIZATION or MAIN LINE PROGRAM Blocks"
+64227 LOCATE 17,2:PRINT "7 -- REINITIALIZE your program information"
+64228 LOCATE 19,2:PRINT"8 -- INSTRUCTIONS"
+64229 LOCATE 21,2:PRINT"9 -- QUIT and exit program"
+64230 LOCATE 24,34:PRINT G$;:LOCATE 25,34:PRINT P$;
+64250 Y=23:GOSUB 64110 CHOICE:K=ASC(X$):K=-1*(49*(K=65 OR K=97)+50*(K=76 OR K=108)+51*(K=82 OR K=114)+K*(K>47 AND K<58))-48:PRINT K:IF K>0 AND K<10 THEN 64290 ELSE 64250
+64290 KEY ON
+64299 RETURN :'from menu sr
+64500 '
+64501 'directory sr
+64510 CLS
+64520 LIST 40000-40399
+64599    RETURN : 'from directory sr
+64600 '
+64601 'LIST SR
+64610 CLS :ON ERROR GOTO 64680
+64615 ON M GOSUB 41001,41002,41003,41004,41005,41006,41007,41008,41009
+64620 ON M-9 GOSUB 41010,41011,41012,41013,41014,41015,41016,41017,41018,41019,41020,41021,41022,41023,41024,41025,41026,41027,41028,41029,41030,41031,41032,41033,41034,41035,41036,41037,41038,41039,41040,41041,41042,41043,41044,41045,41046,41047,41048
+64630 ON M-48 GOSUB 41049,41050,41051,41052,41053,41054,41055,41056,41057,41058,41059,41060,41061,41062,41063,41064,41065,41066,41067,41068,41069,41070,41071,41072,41073,41074,41075,41076,41077,41078,41079,41080,41081,41082,41083,41084,41085,41086,41087
+64640 ON M-87 GOSUB 41088,41089,41090,41091,41092,41093,41094,41095,41096,41097,41098,41099,41100
+64650 ON M-100 GOSUB 41101,41102,41103,41104,41105,41106,41107,41108,41109
+64660 ON M-109 GOSUB 41110,41111,41112,41113,41114,41115,41116,41117,41118,41119,41120,41121,41122,41123,41124,41125,41126,41127,41128,41129,41130,41131,41132,41133,41134,41135,41136,41137,41138,41139,41140,41141,41142,41143,41144,41145,41146,41147,41148
+64670 ON M-148 GOSUB 41149,41150,41151,41152,41153,41154,41155,41156,41157,41158,41159,41160,41161,41162,41163,41164,41165,41166,41167,41168,41169,41170,41171,41172,41173,41174,41175,41176,41177,41178,41179,41180,41181,41182,41183,41184,41185,41186,41187
+64675 ON M-187 GOSUB 41188,41189,41190,41191,41192,41193,41194,41195,41196,41197,41198,41199
+64677 ON M-199 GOSUB 41200,41201,41202,41203,41204,41205,41206,41207,41208,41209,41210,41211,41212,41213,41214,41215,41216,41217,41218,41219
+64680 IF ERR=8 THEN PRINT "NO SUCH MODULE"
+64690 ON ERROR GOTO 0
+64699    RETURN : 'from LIST SR
+64700 '
+64701 'list init & main sr
+64710 CLS:PRINT "INITIALIZATION utilizes blocks #200 thru 209":PRINT
+64720 PRINT"MAIN LINE PROGRAM utilizes blocks #210 thru 219":PRINT
+64730 INPUT "ENTER BLOCK NUMBER (200 - 219): ",M:IF M<200 OR M>219 THEN 64710
+64740 GOSUB 64610
+64799  RETURN :'from list init & main sr
+64800 '
+64900 '
+64910 CLS:PRINT"B-SIMPLE Version 1.0 2-82 Ira Glickstein 8-662-4202"
+64920 PRINT:PRINT:PRINT"TO GET STARTED I'LL NEED A BIT OF PERSONAL INFORMATION"
+64930 LOCATE 10,1:PRINT "Please enter your name, address, phone, etc. (up to 40 characters)                                         <-------------------------------------->              PROGRAMMERS IDENTITY:     ";P$
+64935 LOCATE 12,1:INPUT " PROGRAMMERS IDENTITY:   ";P$:P$=LEFT$(P$,40)
+64940 LOCATE 14,1:PRINT "Please enter your program's name, version, date, etc. (up to 40 characters)                                <-------------------------------------->              PROGRAM IDENTIFICATION:   ";G$
+64945 LOCATE 16,1:INPUT " PROGRAM IDENTIFICATION: ";G$:G$=LEFT$(G$,40)
+64950 CLS:LOCATE 3,1:PRINT"0 GOTO 65010 :'To delete B-SIMPLE, just DELETE 0-9, DELETE 41000-65100":LOCATE 4,1:PRINT"15 '  * "G$;:LOCATE 5,1:PRINT"16 '  * "P$;:LOCATE 4,50:PRINT"* I used B-SIMPLE 1.0 2-82 *";:LOCATE 5,50:PRINT"* by Glickstein 8-662-4202 *
+64955 LOCATE 6,1:PRINT"65015 G$="+CHR$(34)+G$+CHR$(34) : PRINT "65016 P$="+CHR$(34)+P$+CHR$(34) :PRINT"RUN"
+64960 LOCATE 1,1:MS$=" HIT ENTER KEY 6 TIMES ":GOSUB 61110:END
+64999  RETURN :'from initializaton sr
+65000 '
+65001 'main line program -- simple
+65005 GOSUB 64910 : 'initialization of B-SIMPLE
+65010 CLEAR:CLS:POKE 106,0:KEY 10,"run 10"+CHR$(13)
+65020 GOSUB 64210 :'menu sr (K is choice: 1=add, 2=list, 3=renumber, 4=delete, 5=directory, 6=list init,main,data, 7=reinit your info, 8=instructions, 9=quit)
+65030 IF K=5 OR K=6 OR K=7 OR K=8 THEN 65070
+65033 IF K=5 THEN 65060
+65035 IF K=9 THEN 65099
+65040 IF K=5 THEN 65070
+65050 IF K=9 THEN 65099
+65060 CLS:PRINT:INPUT "MODULE NUMBER (1-199) "; M : Q = M * 100+10 : R = Q + 85 : S = 5: T = Q: U = 700 + M - 100 * (M>39) - 100 * (M>69) : IF M < 1 OR M > 199 THEN 65010 ELSE DIM L (40)
+65070 CLS:PRINT"I'm working on it!":C=K:ON K GOSUB 61410,64610,61410,61410,64510,64710,64910,50010
+65080 IF K=3 AND C<>9 THEN GOSUB 64610
+65090 GOTO 65010
+65099 END :'of simple
+65100 '
+

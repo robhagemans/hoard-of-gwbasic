@@ -1,0 +1,300 @@
+1 ' This is a text based game designed by Ryan Curtis.
+2 ' Press F2 to play.  Read the help option on the main menu on how to play this3 ' game.
+4 ' 10-10-00 - ?
+5 ' 11/6-7/01, lines 1045 added by Angelo Lanham
+6 RANDOMIZE VAL(MID$(TIME$,7,2)) :KEY OFF
+8 CLS
+9 RANDOMIZE VAL(MID$(TIME$,7,2)) :KEY OFF
+10 INPUT "Are you a male or female "; GENDER$
+11 DIM N(20)
+12 DIM S(20)
+13 DIM W(20)
+14 DIM E(20)
+20 CLS
+25 HP = 50 : EX = 0
+26 COMB = 0
+30 PRINT "Main menu for warrior"
+40 PRINT "What would you like to do"
+50 PRINT "# 1 to Start game"
+60 PRINT "# 2 to see how to play"
+70 PRINT "# 3 to quit warrior"
+80 INPUT "What #"; NUM
+90 IF NUM=1 GOTO 165
+100 IF NUM=2 GOTO 115
+110 IF NUM=3 THEN SYSTEM
+115 CLS
+120 PRINT "In this game you start in the woods.  You may use several commands."
+130 PRINT "Forward, turn, left, right, yes, no, and mabey even more."
+140 PRINT "Just try stuff out.  When you want to quit press CTRL+BREAK."
+150 INPUT "Press enter to continue..."; ENT1
+160 GOTO 20
+165 CLS
+170 PRINT "The Year is 20XX"
+180 PRINT "You are a ";GENDER$;" walking down to the bank."
+190 PRINT "When you all of a sudden feel like someone is following you."
+200 PRINT "All of a sudden you go around a corner and you get mugged by"
+210 PRINT "These huge guys.
+220 PRINT "You black out..."
+230 PRINT "When you wake up you find that you are in the woods."
+240 PRINT "You know that the woods are inhabited by very bad things"
+250 PRINT "so you need to find a weapon as soon as you can"
+260 INPUT "Press enter to continue..."; ENT2
+270 CLS
+280 PRINT "You see a stick you can use as a weapon until you find"
+290 PRINT "a better one.
+300 INPUT "Will you pick it up"; CHOICE1$
+310 IF CHOICE1$="yes" GOTO 360
+320 IF CHOICE1$="no" GOTO 330
+330 PRINT "Too bad, your charecter picks it up anyway"
+335 INPUT "Press enter to continue..."; ENT4
+340 CLS
+350 GOTO 380
+360 PRINT "Good choice, now off to find your way back home or"
+370 PRINT "to find a better weapon"
+375 INPUT "Press enter to continue..."; ENT5
+380 CLS
+383 DM = 5 'damage that stick does
+384 GOSUB 15536 :CLS
+385 PRINT "Well, hack up three monsters and see if something cool happens..."
+390 INPUT "Which way do you want to go"; DIR1$
+395 IF EX >= 3 THEN 1120
+400 IF DIR1$="left" THEN GOTO 440
+410 IF DIR1$="right" THEN GOTO 440
+420 IF DIR1$="forward" THEN GOTO 440
+430 IF DIR1$="turn" THEN GOTO 590
+440 IF INT(RND(1)*3) = 1 THEN GOSUB 15536
+445 PRINT "It's all clear this way"
+446 IF DM >= 10 THEN PRINT: GOTO 390
+450 PRINT "But you catch a glimps of something shiny"
+460 INPUT "Will you check it out"; CHECK1$
+470 IF CHECK1$="yes" THEN GOTO 490
+480 IF CHECK1$="no" THEN GOTO 390
+490 PRINT "You have found a shiney dagger"
+500 INPUT "Do you want it"; CHOICE2$
+510 IF CHOICE2$="yes" THEN GOTO 525
+520 IF CHOICE2$="no" THEN GOTO 560
+525 PLAY "l10 f f f e g"
+530 PRINT "You now have a shiney dagger"
+533 DM = 10
+535 INPUT "Press enter to continue..."; ENT5
+540 CLS
+550 GOTO 640
+560 PRINT "Too bad, your charecter picks it up anyway"
+565 INPUT "Press enter to continue"; ENT6
+570 CLS
+580 GOTO 530
+590 PRINT "You see a shack.  Maybe knock on the door"
+600 INPUT "Will you "; CHOICE3$
+610 IF CHOICE3$="yes" THEN GOTO 660
+620 IF CHOICE3$="no" THEN PRINT "You chicken!!"
+630 CLS
+640 PRINT "you are where you started now"
+650 GOTO 390
+660 PRINT "You knock on the door..."
+670 PRINT "You ask if anyone is home..."
+680 PRINT "No one answers"
+690 INPUT "Will you go in? "; CHOICE4$
+700 IF CHOICE4$="yes" THEN GOTO 750
+710 IF CHOICE4$="no" THEN GOTO 720
+720 PRINT "You chicken"
+730 PRINT "You turn around and go left"
+740 GOTO 640
+750 PRINT "You go in..."
+760 PRINT "You look around and you see an old man sleeping"
+770 INPUT "Do you want to wake him up";CHOICE5$
+780 IF CHOICE5$="no" GOTO 800
+790 IF CHOICE5$="yes" GOTO 940
+800 PRINT "Good idea, lets just steal some stuff and get outta here"
+810 PRINT "You find a Rocket Launcher with infinite ammo"
+820 PRINT "When you start to leave you hear the old man get up"
+830 INPUT "Press enter..."; ENTER12
+840 PRINT "UH OHH, Then you feel something hit your back and"
+850 PRINT "you melt to the ground in severe pain"
+860 INPUT "Press enter...";ENTER13
+870 PLAY "l10 f e d d d e d"
+880 PLAY "l3 d"
+890 PRINT "***********"
+900 PRINT "*game over*"
+910 PRINT "***********"
+920 INPUT "Press enter to go to the main menu.";ENT14
+930 GOTO 20
+940 PRINT "When you wake him up he askes for a drink"
+950 PRINT "You get him a drink and he thanks you"
+960 PRINT "He clears his throught and askes you"
+970 PRINT "how you got here.  You told him how, and he"
+980 PRINT "said that you are pretty far from civilization"
+990 PRINT "He tells you he is a hermit."
+1000 PRINT "He thanks you for talking with him and he gives"
+1010 PRINT "you a comb and says it will come in handy on"
+1020 PRINT "your journey"
+1030 PRINT "you tell him goodbye and leave out the door."
+1040 INPUT "Press enter to continue..."; ENT15
+1045 COMB = 1029
+1050 CLS
+1115 CLS
+1120 PRINT "You take but two steps out and find a king, whose worried expression
+1130 PRINT "touches you.  'You must help me, sir! My daughter is trapped in an
+1140 PRINT "evil space wizzard's castle against her will!"
+1150 PRINT
+1160 PRINT "'Ah,' you say, 'you wish me to slay the dragon, and daringly rescue..."
+1170 PRINT
+1180 PRINT "'No, no,' the king says, 'the dragon died years ago of natural causes.'
+1190 PRINT "'she just can't find her way out.  It's a damn maze! I just got out,
+1200 PRINT "and I went in searcing ten years ago.  Will you rescue my daughter?'"
+1210 INPUT "(Y/N)";CHOICE5$
+1220 IF CHOICE5$ = "N" OR CHOICE5$ = "n" THEN PRINT "Okay, but the game really can't continue until you say 'yes.'":GOTO 1210
+1230 CLS
+1240 PRINT "you bravely head into the castle." :GOSUB 30000
+1250 PRINT "The king thanks you profusely.";
+1260 IF COMB <> 1029 THEN 1400
+1270 PRINT "The King comments on your being prepared enough to have a comb."
+1280 GOTO 1420
+1400 PRINT "The King notes that you, being an ill prepared fool without comb,"
+1410 PRINT "are not worthy of his daughter, but thanks for saving her."
+1420 PRINT "You go on your way."
+1425 GOSUB 25536
+1430 CLS
+1440 PRINT "You go on your way, thinking my, what an odd day this has been."
+1450 PRINT "First, a bunch of dudes mug you for no apparent reason, then"
+1460 PRINT "you end up in some castle saving some princess.  An odd day,"
+1470 PRINT "indeed.  You're just thinking how your day couldn't possibly get"
+1480 PRINT "any weirder when a guy with two heads and purple skin comes by and"
+1490 PRINT "hits you on the head with a baseball stuffed in a tube sock."
+1500 PRINT:PRINT "You black out...":PRINT
+1510 PRINT "...and wake up outside the old man's house."
+1520 IF COMB <> 1029 THEN PRINT "He says 'you shoulda taken the turn in the road and stopped by earlier.  I'da   given you a comb.'"
+1530 IF COMB =1029 THEN PRINT "He says 'how'd that comb work out for ya?'"
+1540 PRINT "He then notes that you look like a mess, and invites you in."
+1550 GOSUB 25536
+1555 CLS:PRINT
+1560 PRINT "He begins to speak:"
+1570 PRINT
+1580 PRINT "As I said (or would've said), you're quite a ways from town."
+1590 PRINT "I'm quite the hermit.  I don't like people, and they don't like"
+1600 PRINT "me.  You seem okay.  Anyhoo, there's only one way out of town."
+1610 PRINT "Go down to the end of that path, and there will be two blue pads"
+1620 PRINT "on the ground. They are teleporters.  One will teleport you back"
+1630 PRINT "to from where you came.  The other....well, that'll fry your brain."
+1640 PRINT
+1650 PRINT "Yeah.  I don't go outta town terribly often.  Y'see, I used to know"
+1660 PRINT "which did which, but then I turned 203, and after that 203rd"
+1670 PRINT "birthday, your memory starts to slip a little.  I don't know quite"
+1680 PRINT "how those punks got you here."
+1690 PRINT :GOSUB 25536
+1700 CLS
+1710 PRINT "You wander on your way, mumbling something about the stupid old"
+1720 PRINT "man, picked a helluva time to turn 203. But hey, we all forget."
+1800 PRINT "You eventually reach the end of the path."
+1810 PRINT "As promised, there are two pads.  One'll transport ya home."
+1820 PRINT "The other will fry your brains to applesauce."
+1830 INPUT "Which do you choose (1 or 2)" ;CHOICE6
+1840 IF CHOICE6 <> 1 AND CHOICE6 <> 2 THEN 1830
+1850 RNM = INT(RND(1)*2)+1
+1870 PRINT "You choose pad #";CHOICE6;"."
+1880 PRINT "As you step onto it, electricity begins to buzz, and you feel fuzzy."
+1890 PRINT "the particles lift you and....
+1900 GOSUB 25536
+1910 IF CHOICE6 = RNM THEN 1930
+1920 PRINT "frys you brains to cream of mushroom soup.  Sorry, dude.": GOTO 870
+1930 PRINT "Zaps you....you feel funny...."
+1940 GOSUB 25536
+1950 CLS
+1960 PRINT "When you awaken, you're back at home.  Then, suddenly, a bunch of huge"
+1970 PRINT "guys mug you again. (your luck bites.)"
+1981 PRINT:PRINT "* You've destroyed ";EX;" goobers. "
+1990 PRINT "* You've run for your life ";RN;" times."
+1995 GOSUB 25536
+1999 HP = 50
+2000 GOTO 220
+9999 END
+30000  REM * MAZE
+30005  CLS: R = 1 ' "R" represents the room you're in.
+30010  FOR T = 1 TO 20
+30020  READ N(T), S(T), W(T), E(T)
+30030  NEXT T
+30040  PRINT:PRINT "You're in a dilaphidated castle.  Could be worse."
+30050  PRINT "Exits are to the:";
+30060  IF N(R) <> 0 THEN PRINT "N,";
+30070  IF S(R) <> 0 THEN PRINT "S,";
+30080  IF W(R) <> 0 THEN PRINT "W,";
+30090  IF E(R) <> 0 THEN PRINT "E,";
+30100  PRINT " and that about does it."
+30110  INPUT "direction (N, S, E, W)"; D$
+30120  IF D$ = "N" OR D$ = "n" AND N(R) <> 0 THEN R = N(R)
+30130  IF D$ = "S" OR D$ = "s" AND S(R) <> 0 THEN R = S(R)
+30140  IF D$ = "W" OR D$ = "w" AND W(R) <> 0 THEN R = W(R)
+30150  IF D$ = "E" OR D$ = "e" AND E(R) <> 0 THEN R = E(R)
+30160  ATTACK = INT(RND(1)*4)+1
+30170  IF ATTACK = 1 THEN PRINT "Appears you're not alone.":GOSUB 15536
+30180  IF HP <= 0 THEN PRINT "You have died.": GOTO 870
+30185  IF RTRIP <> 0 THEN 30195
+30190  IF R <> 20 THEN GOTO 30040
+30193  GOTO 30200
+30195  IF R <> 1 THEN GOTO 30040 :ELSE GOTO 30365
+30200  CLS:PRINT "You have reached the end of the Maze of a castle!"
+30205 IF GENDER$ = "female" THEN GOTO 30245
+30210  PRINT "You breathe a sigh of relief, as you take a look at the"
+30220  PRINT "princess that stands before you.  She is beauty itself."
+30230  PRINT "You attempt to speak, but cannot.  What does one say to a"
+30240  PRINT "goddess?  To your relief, she begins to speak..."
+30244 GOTO 30250
+30245 PRINT "The princess stands before you.  She looks like she dots her i's"
+30246 PRINT "with little hearts."
+30250  PRINT
+30260  PRINT "''Like, do you have, like, a comb or something? My hair is like, totally the    frizzville!''"
+30270  IF COMB = 1029 THEN 30330
+30280  PRINT "Cursing yourself for your poor hygine, you shake your head."
+30290  PRINT " 'Dork, ' she chirps annoyingly.  'I'll just wait for a real hero   instead of  your lame butt.'"
+30300  PRINT
+30310  PRINT "Princess squirming against you, you toss her over your shoulder and struggle    through the castle,"
+30315 IF GENDER$ = "female" THEN GOTO 30360
+30320  PRINT "Heading back for the entrance, as she whines that she like, totally can't fall for a muntant like you.  No one said your job would be easy, warrior.
+30325  GOTO 30360
+30330 PRINT "You proudly display the comb the old man gave you."
+30335 IF GENDER$ = "male" THEN 30340 :ELSE GOTO 30350
+30340 PRINT "'Oh, I just love a man with a comb,' the princess squeels.":GOTO 30360
+30350 PRINT "'How very prepared.' she says, and dutifully brushes her hair."
+30360 RTRIP = 333: HP = 50:GOSUB 25536:R = 20:CLS:GOTO 30040
+30365 CLS:PRINT:PRINT "Ahh......FREEDOM!!":RETURN
+30370 DATA 3,0,0,0
+30380 DATA 6,0,0,3
+30390 DATA 7,1,2,4
+30400 DATA 0,0,3,5
+30410 DATA 0,0,4,0
+30420 DATA 0,2,0,7
+30430 DATA 8,3,6,0
+30440 DATA 9,7,0,0
+30450 DATA 0,8,0,10
+30460 DATA 12,0,9,11
+30470 DATA 13,0,10,0
+30480 DATA 15,10,0,0
+30490 DATA 16,11,0,0
+30500 DATA 18,0,0,0
+30510 DATA 0,12,0,0
+30520 DATA 0,13,0,17
+30530 DATA 0,0,16,18
+30540 DATA 20,14,17,19
+30550 DATA 0,0,18,0
+30560 DATA 0,18,0,0
+40000 INPUT "Press <ENTER> to continue...";ENT$ :RETURN
+50000  REM * FIGHT SEQUENCE
+50005  EHP = 10
+50010  CLS:PRINT:PRINT "A Goober blocks your path."
+50015  PRINT "YOU:";HP; "    BAD GUY:";EHP   'Display.
+50020  INPUT "(A)ttack or (R)un"; AR$
+50025  IF AR$ = "A" OR AR$ = "a" THEN 15481
+50030  IF AR$ = "R" OR AR$ = "r" AND INT(RND(1)*5)+1 = 1 THEN 15486
+50040  PRINT "No can do.": GOTO 15456
+50050  PRINT "Got away safely!": GOSUB 25536: RETURN
+50055  PRINT "You swing...";
+50060  HM = INT(RND(1)*2)+1 'Random chance, whether or not ya hit.
+50070  IF HM = 1 THEN EHP = EHP - INT(RND(1)*DM)+1: PRINT "WHACK! You smack that Goober!": GOTO 15456
+50075  PRINT "and miss!"
+50076  IF EHP <= 0 THEN 15436
+50080  PRINT "The Goober Attacks.": BM = INT(RND(1)*4)+1 'Random chance that baddie hits ya
+50090  IF BM = 1 THEN PRINT "You're Hit!": HP = HP - INT(RND(1)*10)+1
+50095  GOSUB 25536
+50100  IF HP > 0 AND EHP > 0 THEN 15526
+50110  IF HP <= 0 THEN GOTO 870 'Goto GAME OVER
+50120  PRINT "You have vanquished the beast!":EX = EX + 1
+50130  RETURN

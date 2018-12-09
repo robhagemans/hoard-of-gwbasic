@@ -1,0 +1,168 @@
+90 WIDTH "scrn:", 80
+95 SCREEN 0,1,0,0
+100 TITLE$ = "Print the Marriages File Program"
+105 TITLE$ = TITLE$ + " ON DISPLAY"
+110 VERSION$ = "Version 2.0"
+115 COPY1$ = "Copyright (c) 1983, 1984, by:"
+120 COPY2$ = "Melvin O. Duke"
+125 PRICE$ = "$35"
+130 ADDR1$ = "Melvin O. Duke"
+135 ADDR2$ = "P. O. Box 20836"
+140 ADDR3$ = "San Jose, CA  95160"
+145 REM Dimension Statements go here
+170 REM Produce the first screen
+175 KEY OFF : CLS
+180 REM Draw the outer double box
+185 R1 = 1 : C1 = 1 : R2 = 24 : C2 = 79 : GOSUB 400
+190 REM Find the title location
+195 TITLE.POS = 40 - INT(LEN(TITLE$)/2)
+200 REM Draw the title box
+205 R1=3:C1=TITLE.POS-2:R2=6:C2=TITLE.POS+LEN(TITLE$)+1:GOSUB 600
+210 REM Print the title
+215 LOCATE 4,TITLE.POS : PRINT TITLE$
+220 LOCATE 5,40-INT(LEN(VERSION$)/2) :  PRINT VERSION$;
+225 REM Draw the Contribution box
+230 R1 = 8 : C1 = 19 : R2 = 17 : C2 = 62 : GOSUB 400
+235 REM Request the Contribution
+240 LOCATE 9,23 : PRINT "If you are using these programs, and"
+245 LOCATE 10,21 : PRINT "finding them of value, your contribution"
+250 LOCATE 11,23 : PRINT "("+PRICE$+" suggested) will be anticipated."
+255 REM Draw the Mailing Label
+260 R1 = 12 : C1 = 28 : R2 = 16 : C2 = 52 : GOSUB 600
+265 REM Print the Name and Address
+270 LOCATE 13,40-INT(LEN(ADDR1$)/2) :  PRINT ADDR1$;
+275 LOCATE 14,40-INT(LEN(ADDR2$)/2) :  PRINT ADDR2$;
+280 LOCATE 15,40-INT(LEN(ADDR3$)/2) :  PRINT ADDR3$;
+285 REM Draw the Copyright box
+290 R1 = 19 : C1 = 24 : R2 = 22 : C2 = 56 : GOSUB 400
+295 REM Print the Copyright
+300 LOCATE 20,40-INT(LEN(COPY1$)/2) :  PRINT COPY1$;
+305 LOCATE 21,40-INT(LEN(COPY2$)/2) :  PRINT COPY2$;
+310 GOTO 740
+400 REM subroutine to print a double box
+410 FOR I = R1 + 1 TO R2 - 1
+420  LOCATE I, C1 : PRINT CHR$(186);
+430  LOCATE I, C2 : PRINT CHR$(186);
+440 NEXT I
+450 FOR J = C1 + 1 TO C2 - 1
+460  LOCATE R1, J : PRINT CHR$(205);
+470  LOCATE R2, J : PRINT CHR$(205);
+480 NEXT J
+490  LOCATE R1, C1 : PRINT CHR$(201);
+500  LOCATE R1, C2 : PRINT CHR$(187);
+510  LOCATE R2, C1 : PRINT CHR$(200);
+520  LOCATE R2, C2 : PRINT CHR$(188);
+530 RETURN
+600 REM subroutine to print a single box
+610 FOR I = R1 + 1 TO R2 - 1
+620  LOCATE I, C1 : PRINT CHR$(179);
+630  LOCATE I, C2 : PRINT CHR$(179);
+640 NEXT I
+650 FOR J = C1 + 1 TO C2 - 1
+660  LOCATE R1, J : PRINT CHR$(196);
+670  LOCATE R2, J : PRINT CHR$(196);
+680 NEXT J
+690  LOCATE R1, C1 : PRINT CHR$(218);
+700  LOCATE R1, C2 : PRINT CHR$(191);
+710  LOCATE R2, C1 : PRINT CHR$(192);
+720  LOCATE R2, C2 : PRINT CHR$(217);
+730 RETURN
+740 REM ask user to press a key to continue
+750 LOCATE 25,1
+760 PRINT "Have Data Diskette(s) in Place, then Press any key to continue.";
+770 K$ = INKEY$ : IF K$ = "" THEN 770
+780 CLS
+1000 REM Print the Marriages File Program.
+1010 REM By:  Melvin O. Duke.  Last Updated:  02 December 1983.
+1020 OPEN "a:persfile" AS #1 LEN = 256
+1030 FIELD 1, 5 AS F1$, 20 AS F2$, 30 AS F3$, 2 AS F4$, 5 AS F5$, 5 AS F6$, 5 AS F7$, 11 AS F8$, 18 AS F9$, 16 AS F10$, 16 AS F11$, 11 AS F12$, 18 AS F13$, 16 AS F14$, 16 AS F15$, 11 AS F16$, 18 AS F17$, 16 AS F18$, 16 AS F19$
+1040 OPEN "a:marrfile" AS #2 LEN = 128
+1050 FIELD 2, 5 AS M1$, 5 AS M2$, 5 AS M3$, 5 AS M4$, 11 AS M5$, 18 AS M6$, 16 AS M7$, 16 AS M8$, 45 AS M9$
+1060 REM Determine User Wants
+1070 CLS : LOCATE 21,1
+1080 INPUT "Enter the Marriage Number to be Printed (0 to quit), or 'all'"; REPLY$
+1090 IF REPLY$ = "0" THEN 1880
+1100 K = 0
+1110 GOTO 1160
+1120 LPRINT TAB(10);"Print-out of Contents of the Marriages File"
+1130 LPRINT TAB(10);DATE$,TIME$
+1140 LPRINT
+1150 RETURN
+1160 IF REPLY$ = "all" THEN 1230
+1170 K = 4
+1180 I = VAL(REPLY$)
+1190 IF I = 0 THEN 1880
+1200 IF I < 1 OR I > 200 THEN 1060
+1210 GOSUB 1120
+1220 GOSUB 1270 : GOTO 1070
+1230 REM Read all records, and print the actual ones
+1240 FOR I = 1 TO 200
+1250 GOSUB 1270
+1260 GOTO 1810
+1270 GET #2, I
+1280 REM Extract information from the file for use
+1290 T1 = CVS(M1$)
+1300 IF T1 < 1 THEN 1800
+1310 K = K + 1
+1320 IF K MOD 5 = 1 THEN GOSUB 1120
+1330 T2 = CVS(M2$)
+1340 T3 = CVS(M3$)
+1350 T4 = CVS(M4$)
+1360 T5$ = M5$
+1370 T6$ = M6$
+1380 T7$ = M7$
+1390 T8$ = M8$
+1400 T9$ = M9$
+1410 REM obtain the name of the husband
+1420 GET #1, T2
+1430 REM obtain the last and given names
+1440 TEMP$ = F2$ 'Husband`s last name
+1450 TMP$ = F2$
+1460 GOSUB 1830
+1470 TT2$ = TMP$
+1480 TEMP$ = F3$ 'Husband's given names
+1490 TMP$ = F3$
+1500 GOSUB 1830
+1510 TT3$ = TMP$
+1520 REM obtain the name of the wife
+1530 GET #1, T3
+1540 REM obtain the last and given names
+1550 TEMP$ = F2$ 'Wife`s last name
+1560 TMP$ = F2$
+1570 GOSUB 1830
+1580 TT4$ = TMP$
+1590 TEMP$ = F3$ 'Wife's given names
+1600 TMP$ = F3$
+1610 GOSUB 1830
+1620 TT5$ = TMP$
+1630 REM Now Print the Information
+1640 LPRINT TAB(10);"Marriage Record-number : ";
+1650 LPRINT USING "###"; T1
+1660 LPRINT TAB(10);"Husband's Record Number: ";
+1670 LPRINT USING "###"; T2;
+1680 LPRINT TAB(42); TT2$+", "+TT3$
+1690 LPRINT TAB(10);"Wife`s Record Number   : ";
+1700 LPRINT USING "###"; T3;
+1710 LPRINT TAB(42); TT4$+", "+TT5$
+1720 LPRINT TAB(10);"Marriage-date          : ";T5$
+1730 LPRINT TAB(10);"Marriage-city          : ";T6$
+1740 LPRINT TAB(10);"Marriage-county        : ";T7$
+1750 LPRINT TAB(10);"Marriage-state         : ";T8$
+1760 LPRINT TAB(10);"Comments: ";T9$
+1770 LPRINT
+1780 LPRINT : LPRINT
+1790 IF K MOD 5 = 0 THEN LPRINT CHR$(12);
+1800 RETURN
+1810 NEXT I
+1820 GOTO 1880
+1830 REM rtrim$ subroutine
+1840 FOR J = 1 TO LEN(TEMP$)-1
+1850  IF RIGHT$(TMP$,1)=" " THEN TMP$ = LEFT$(TMP$,LEN(TMP$)-1) ELSE J = LEN(TEMP$)-1
+1860 NEXT J
+1870 RETURN
+1880 CLOSE #1
+1890 CLS : LOCATE 21,1
+1900 PRINT "End of Program"
+1910 LPRINT CHR$(12);
+1920 RUN "a:menu"
+

@@ -1,0 +1,19 @@
+1000 NM$="P E E K"' A program to peek at a location in memory
+1010 REV$="Rev: 830120"'By Robert Hamilton
+1020 SCREEN 0,0,0:WIDTH 80:COLOR 2,0,0:KEY OFF:CLS:UP$=STRING$(1,30)
+1030 LOCATE ,,1,12,13:DEF SEG=0:IF PEEK (&H410)= 109 THEN LOCATE ,,,6,7
+1040 DEF SEG=64:POKE 23,128:DEF SEG:CL$=STRING$(79,0):Q$=CHR$(34)
+1050 LOCATE 5,33:PRINT NM$;CHR$(10);TAB(31);REV$
+1060 COLOR 6,0:LOCATE 15,5:PRINT "This Program will peek at an input starting segment and offset location.";CHR$(10)
+1070 COLOR 6,0:PRINT TAB(5);"Memory Address may be Decimal, Hexidecimal or Octal.":LOCATE 20,1
+1080 COLOR 10,0:INPUT"Enter Starting Segment       (-9 to Quit) ===> ",S
+1090 IF S<0 THEN 1170
+1100 DEF SEG=S
+1110 COLOR 10,0:INPUT"Enter Memory Address to PEEK (-9 to Quit) ===> ",H
+1120 IF H<0 THEN 1170
+1130 X=PEEK(H)
+1140 COLOR 4,0:PRINT " SEG"," OFFSET"," DEC","HEX"
+1150 COLOR 6,0:PRINT S,H,X,HEX$(X);CHR$(10)
+1160 GOTO 1110
+1170 DEF SEG=64:POKE 23,0:SOUND 500,5:COLOR 6,0:END
+

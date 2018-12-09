@@ -1,0 +1,326 @@
+1000 REM  WOMBATS - a word problem generating program
+1010 REM  by Michail Potts    Printed in Creative Computing 10-81
+1020 REM  PO Box 88 Caspar Ca 95420 (707) 964 0375
+1030 REM  ADAPTED TO CCII BY PATRICK LEABO
+1040 REM ADAPTED TO IBM PC BY PATRICK LEABO
+1050 POKE 106,0:SCREEN O,O:KEY OFF:WIDTH 80:COLOR 7,0:CLS
+1055 DEFINT A-Z:COMMON MENU
+1060 DIM T$(47),M(42,8),O(14),XP(15),YP(15)
+1070 RANDOMIZE VAL(RIGHT$(TIME$,2))
+1080 SP$= "                    "
+1090 SS$= "                                       "
+1100 GOTO 1120
+1110 PRINT :CLS:PRINT TAB( 20)"*** WOMBATS *** ":RETURN
+1120 GOSUB 1110:PRINT TAB( 12)"A word-problem generating game":PRINT :PRINT  
+1130 PRINT "  Problems will randomly choose operations up to the maximum."
+1140 RANDOMIZE VAL(RIGHT$(TIME$,2))
+1150 PRINT TAB( 6)"0=DEFAULT  1=ADD  2=SUBTRACT  3=MULTIPLY  4=DIVIDE":PRINT 
+1160 PRINT TAB( 18);:PRINT "PRESS YOUR CHOICE! ";:WHILE I$="":I$=INKEY$:WEND:NL= VAL (I$):PRINT NL:PRINT :PRINT
+1170 IF NL= 0 THEN 1260
+1180 IF NL> 4 THEN NL= 4
+1190 PRINT TAB( 10);:INPUT "Largest number in any problem";NMX
+1200 IF NMX> 443 THEN PRINT "443 IS THE MAXIMUM. TRY AGAIN!":GOTO 1190
+1210 IF NMX< 1 THEN PRINT "Greater than zero please. TRY AGAIN!":GOTO 1190
+1220 PRINT :PRINT TAB( 15)"I need 5 random objects:":PRINT :FOR N= 1 TO 5
+1230 PRINT TAB( 20)N;":";:GOSUB 2560:RO$(N)= T$
+1240 IF NF= 2 THEN 1230
+1250 NEXT :GOTO 1280
+1260 NL= 4:RO$(1)= "snail":RO$(2)= "bookend":RO$(3)= "wood stove":RO$(4)= "rocking chair"
+1270 RO$(5)= "tractor":NMX= 9
+1280 P1$= "Sienna":PS$= "her ":SX$= "she"
+1290 AR= 0:WA= 0:NR= 0:GOSUB 1110:PRINT "  This program makes up word problems ...with your help. The"
+1300 PRINT "screen will ask for names of people and things for the ":PRINT "problems it's inventing."
+1310 PRINT :PRINT "  The computer will reject any answers with more than":PRINT "16 characters, OR that it thinks ";
+1320 PRINT "are nonsense.":PRINT :PRINT "   Have a good time. Press ENTER when you're ready to go."
+1330 I$= INKEY$:IF I$="" THEN 1330
+1340 IF ASC (I$)< > 13 THEN 1330
+1350 GOSUB 1110
+1360 PRINT "What do I call you?  ";:GOSUB 2560:IF NF= 0 THEN 1380
+1370 GOTO 1310
+1380 A$= T$:GOSUB 2880:IF CF= 1 THEN 1410
+1390 PRINT :PRINT "Whatever you want me to call you, you're a person, and the":PRINT "names of persons begin with a ";
+1400 PRINT "CAPITAL letterl Remember the":PRINT "SHIFT key, and please tell me again:5":PRINT :GOTO 1360
+1410 FP= 0:GOSUB 1490:N= INT (RND (1)* 3)+ 1:ON  N GOTO 1420,1440,1440:REM  FLOW CONTROL - GET OPER TYPE
+1420 GOSUB 3010:IF NF= 0 THEN 1440:REM  GET NAME(S)
+1430 PRINT "I detect nonsense! Please try again.":PRINT :GOTO 1420
+1440 GOSUB 1530:REM  GET NUMBERS
+1450 GOSUB 3130:REM  GET OBJECT NAME, PRINT FIRST PARA
+1460 IF NQ< > CA THEN 1680
+1470 K9= 0:PRINT :PRINT "That's RIGHT, ";A$;".":GOTO 2230:REM  RECORD KEEPING
+1480 GOTO 1410
+1490 REM  SETS OPERATION TYPE5
+1500 NO= INT (NL* RND (1)+ 1):REM  1=+ 2=- 3=* 4=/
+1510 RETURN 
+1520 ON  NO GOTO 1530,1530,1540,1540:REM  NUMBER CRUNCHING
+1530 N1= INT (NMX* RND (1)+ 1):ON  NO GOTO 1570,1580,1520,1520
+1540 N1= INT (NMX/ 2* RND (1)):N2= INT (NMX/ 3* RND (1)):IF N2= 0 THEN N2= 1
+1550 ON  NO GOTO  1520,1520,1600,1560
+1560 N1= N1* N2:GOTO 1600
+1570 N2= INT (NMX* RND (1)):GOTO 1600
+1580 N2= INT (N1* RND (1)):IF N2> 1 THEN 1600
+1590 N2= INT (N2+ .5):GOTO 1600
+1600 RETURN 
+1610 PRINT "I need the name of an object.";:GOSUB 2560
+1620 IF NF= 0 THEN 1650
+1630 ON NF GOTO  1640,1610
+1640 PRINT :PRINT "I never heard of ";CHR$ (34);T$;CHR$ (34);"-Sorry.":PRINT "Try something else, please...":GOTO 1610
+1650 XN= INT (3* RND (1)+ 1):ON  NX GOTO 1660,1670,1660
+1660 OB$= T$
+1670 N= INT (5* RND (1)):RO$(N)= T$:RETURN 
+1680 WA= WA+ 1:PRINT :PRINT TAB( 10)" -<WRONG ANSWER>- DO YOU WANT HELP ? ";
+1690 I$= INKEY$:IF I$="" THEN 1690
+1700 PRINT I$;:IF I$< > "N"THEN 1730
+1710 K9= K9+ 1:IF K9= 3 THEN PRINT :PRINT "SORRY, You only get three unassisted trys.":GOTO 1740
+1720 WA= WA- 1:PRINT :PRINT "********************************************":GOSUB 3680:GOTO 1460
+1730 PRINT "  ...OKay:"
+1740 PRINT "   What number do you start with";:INPUT NQ:IF NQ= N1 THEN 1760
+1750 FP= FP+ 1:PRINT "No. Read tie first part again carefully:":PRINT "   ";SQ$:GOTO 1740
+1760 PRINT "   What is the second number";:INPUT NQ:IF NQ= N2 THEN 1780
+1770 FP= FP+ 10:PRINT "No. Read the second part again carefully:":PRINT "    ";S2$:GOTO 1760
+1780 PRINT "   What do you do with the numbers, add";:IF NL= 1 THEN 1820
+1790 PRINT ", subtract";:IF NL= 2 THEN 1820
+1800 PRINT ",":PRINT "      multiply";:IF NL= 3 THEN 1820
+1810 PRINT ",or divide";
+1820 PRINT "?"
+1830 I$= INKEY$:IF I$="" THEN 1830
+1840 IF (NO= 1)* (I$= "Y")THEN PRINT "A";:GOTO 1900
+1850 PRINT I$;:IF I$= "A"THEN 1900
+1860 IF I$= "S"THEN 1910
+1870 IF I$= "M"THEN 1920
+1880 IF I$= "D"THEN 1930
+1890 PRINT CHR$ (8);:GOTO 1830
+1900 PRINT "dd":NQ= 1:GOTO 1940
+1910 PRINT "ubtract":NQ= 2:GOTO 1940
+1920 PRINT "ultiply":NQ= 3:GOTO 1940
+1930 PRINT "ivide":NQ= 4
+1940 IF NQ= NO THEN 2030
+1950 FP= FP+ (NQ* 100):PRINT "No. To do this problem, you need to ";:ON NO GOTO 1960,1970,1980,2000
+1960 PRINT " add.":PRINT "The clue: ";V$;" more.":PRINT "Don't you add";:GOTO 2010
+1970 PRINT " subtract.":PRINT "The key words: ";V$:PRINT "So you subtract, right?":GOTO 2010
+1980 PRINT " multiply.":PRINT "The words ";CHR$ (34);V$;CHR$ (34);" are the key.":PRINT "If you see equal groups, "
+1990 PRINT "and you need to know how many they":PRINT "total, isn't it easier to multiply";:GOTO 2010
+2000 PRINT "divide.":PRINT "You need to know how many ";V$;",":PRINT "so you divide";N1;" into";N2;" groups ..Right";
+2010 INPUT Q$:IF  LEFT$ (Q$,1)= "Y"THEN 2030
+2020 PRINT "Well, ";A$;", I think the answer is YES."
+2030 PRINT "  So do this problem:";"  ";N1;" ";:ON  NO GOTO 2040,2050,2060,2070
+2040 CA= N1+ N2:PRINT "+ ";:GOTO 2080
+2050 CA= N1- N2:PRINT "- ";:GOTO 2080
+2060 CA= N1* N2:PRINT "* ";:GOTO 2080
+2070 CA= N1/ N2:PRINT "/ ";
+2080 PRINT N2;" = ?";
+2090 MF= 0:GOSUB 2930
+2100 PRINT I$;:T$= I$:GOSUB 2930
+2110 IF MF= 1 THEN 2130
+2120 T$= T$+ I$:PRINT I$;:GOSUB 2930:GOTO 2110
+2130 NQ= VAL (T$):IF NQ= CA THEN 2190
+2140 PRINT :PRINT :PRINT "   You need to work on your ";:ON NO GOTO 2150,2160,2170,2180 REM 5
+2150 PRINT "addition ";:FP= FP+ 1000:GOTO 2200
+2160 PRINT "subtraction ";:FP= FP+ 2000:GOTO 2200
+2170 PRINT "multiplication ";:FP= FP+ 3000:GOTO 2200
+2180 PRINT "division ";:FP= FP+ 4000:GOTO 2200
+2190 PRINT :PRINT "yes. You got it now!!";:GOTO 2220
+2200 PRINT " FACTS. "
+2210 PRINT "The correct answer is";CA;""
+2220 FOR N= 0 TO 2000:NEXT :NH= NH+ 1:GOTO 2290
+2230 AR= AR+ 1:PRINT AR;" right answer";:IF AR= 1 THEN 2250
+2240 PRINT "s";
+2250 I= 0:PRINT " so far.":PRINT 
+2260 POKE 106,0:PRINT "--------- PRESS RETURN TO  CONTINUE -------- ";
+2270 PRINT"--------- any other key to quit --------"
+2280 I$=INKEY$:IF I$ = "" THEN 2280 ELSE IF I$< > CHR$ (13)THEN 2550
+2290 ON  NO GOTO 2300,2310,2320,2330
+2300 OP$= "+":GOTO 2340
+2310 OP$= "-":GOTO 2340
+2320 OP$= "*":GOTO 2340
+2330 OP$= "/"
+2340 NN=LEN(OB$):NN=20-NN:R$(NR)=OB$+"s :"+LEFT$(SP$,NN)+STR$(N1)+OP$+STR$(N2)+" ="+STR$(CA)
+2350 IF FP= 0 THEN 2370
+2360 R$(NR)= R$(NR)+ "       <"+ STR$ (FP)
+2370 IF NR= 9 THEN 2390
+2380 NR= NR+ 1:PRINT "==============================================================":GOTO 1410
+2390 NT= 9
+2400 CLS:PRINT :PRINT "Inventory comming!":PRINT
+2410 T$= "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%":GOSUB 2990
+2420 FOR NR= 0 TO  NT:T$= R$(NR):GOSUB 2990:NEXT 
+2430 T$= "":GOSUB 2990
+2440 T$= A$+ " has gotten"+ STR$ (AR)+ " right,"+ STR$ (WA)+ " wrong.":GOSUB 2990
+2450 IC= INT (100* (AR/ (AR+ WA))):T$= "   for a score of"+ STR$ (IC)+ "%   ":IF IC< 95 THEN 2470
+2460 T$= T$+ "very "
+2470 IF IC< 90 THEN 2490
+2480 T$= T$+ "WELL DONE, "+ A$
+2490 GOSUB 2990:T$= "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%":GOSUB 2990
+2500 PRINT :PRINT"press ENTER for more":PRINT "or Q to quit."
+2510 I$=INKEY$:IF I$="" THEN 2510 ELSE IF I$< > "Q" AND  I$ <> "q" THEN 2540
+2520 PRINT "   It's been a pleasure doing business with you, ";A$
+2530 PRINT "Please come again.":FOR N= 1 TO 1000:NEXT :CHAIN "MENU",1000
+2540 CLS:FOR NR= 0 TO 9:R$(NR)= "":NEXT :NR= 0:GOTO 1410
+2550 PRINT :PRINT "Quitting time, you say. Good.":NT= NR- 1:GOTO 2400
+2560 REM 
+2570 REM 2 KEYBOARD5
+2580 REM 
+2590 NN= LEN (OB$):NN= 20- NN:R$(NR)= OB$+ "s :"+ LEFT$ (SP$,NN)+ STR$ (N1)+ OP$+ STR$ (N2)+ " ="+ STR$ (CA)
+2600 T$= "":PRINT ">";
+2610 I$= INKEY$:IF I$=""THEN 2610
+2620 I= ASC (I$):IF (I> 31)* (I< 65)THEN 2670
+2630 IF I> 96 THEN 2660
+2640 IF I< 32 THEN 2690
+2650 I= I+ 32:GOTO 2670
+2660 I= I- 32
+2670 PRINT CHR$ (I);
+2680 T$= T$+ CHR$ (I):GOTO 2610
+2690 IF I= 8 THEN 2720
+2700 IF I= 13 THEN 2750
+2710 GOTO 2610
+2720 PRINT CHR$ (I);:BS= LEN (T$)- 1:IF BS< 1 THEN 2740
+2730 T$= LEFT$ (T$,BS):GOTO 2610
+2740 T$= "":GOTO 2610
+2750 NF= 0:LT= LEN (T$):IF LT< 17 THEN 2770
+2760 PRINT :PRINT "That's too long for my menory.  Please try again.":NF= 2:GOTO 2870
+2770 V$(1)= "a":V$(2)= "e":V$(3)= "i":V$(4)= "o":V$(5)= "u"
+2780 FOR K= 1 TO LT:FOR J= 1 TO 5:Q$= MID$ (T$,K,1):IF Q$= V$(J)THEN 2810
+2790 NEXT J,K
+2800 GOTO 2820
+2810 NF= NF+ 1:GOTO 2790
+2820 IF LT< 5 THEN 2840
+2830 IF NF< INT (LT/ 4)THEN  NF= 1:GOTO 2870
+2840 IF NF> 0 THEN 2860
+2850 NF= 1:GOTO 2870
+2860 NF= 0
+2870 PRINT :RETURN 
+2880 REM 2CHECKS FOR CAPITALS5
+2890 T$= LEFT$ (T$,1):IF  ASC (T$)< 90 THEN 2910
+2900 CF= 0:GOTO 2920
+2910 CF= 1
+2920 RETURN 
+2930 I$= INKEY$:IF I$="" THEN 2930
+2940 I= ASC (I$):IF (I> 47)* (I< 58)THEN 2980
+2950 IF I= 13 THEN 2970
+2960 GOTO 2930
+2970 MF= 1
+2980 RETURN 
+2990 PRINT T$:RETURN 
+3000 REM  STORY GENERATION
+3010 PRINT "I need the name of a person.  ";:GOSUB 2560
+3020 IF NF= 0 THEN 3050
+3030 ON NF GOTO 3040,3010
+3040 PRINT "I detect nonsense. I don't think ";CHR$ (34);T$;CHR$ (34);" is really":PRINT "someone's name. Please try again.":GOTO 3010
+3050 P1$= T$:GOSUB 2880:IF CF= 1 THEN 3070
+3060 PRINT "The names of persons begin with a capital letter.":PRINT "Remember the SHIFT key. Please try again.":GOTO 3010
+3070 PRINT "Is ";P1$+ " a he or a she?   ";:GOSUB 2560:SX$= T$:IF SX$= "he" THEN 3110
+3080 IF SX$= "she"THEN 3100
+3090 PRINT "I detect nonsense. I don't know any questions about ":PRINT SX$;",s anyway. Please try again.":GOTO 3070
+3100 PS$= "her ":GOTO 3120
+3110 PS$= "his "
+3120 RETURN 
+3130 N= INT (1+ 20* RND (1))
+3140 ON N GOTO 3260,3160,3270,3170,3260,3180,3270,3190,3260,3200,3270,3210,3260,3220,3270,3230
+3150 ON N GOTO 3260,3240,3260,3250
+3160 OB$= "apple":GOTO 3280
+3170 OB$= "peanut":GOTO 3280
+3180 OB$= "wing nut":GOTO 3280
+3190 OB$= "ballet slipper":GOTO 3280
+3200 OB$= "sharp pencil":GOTO 3280
+3210 OB$= "red flower":GOTO 3280
+3220 OB$= "wombat":GOTO 3280
+3230 OB$= "sea urchin":GOTO 3280
+3240 OB$= "door knob":GOTO 3280
+3250 OB$= "doll shoe":GOTO 3280
+3260 GOSUB 1610:IF OB$< > ""THEN 3280
+3270 N= 1+ INT (5* RND (1)):OB$= RO$(N)
+3280 GOSUB 1110:PRINT "-------------------------";"(";AR+ WA+ 1;" )";
+3290 PRINT "---------------------------":PRINT :ON  NO GOTO 3300,3490,3690,3980
+3300 CA= N1+ N2:N= INT (1+ 5* RND (1)):ON N GOTO 3310,3350,3380,3420,3450
+3310 QU$= "does "+ P1$:V$= SX$+ " takes"+ STR$ (N1)+ ", then finds"+ STR$ (N2):S1$= P1$+ " needs something "
+3320 S1$= S1$+ "special at school today,"+CHR$(13)+"so "+ SX$+ " takes along"+ STR$ (N1)+ " "+ OB$:IF N1< > 1 THEN GOSUB 3530
+3330 S1$= S1$+ ".":S2$= "On the way to school, "+ SX$+ " sees a hat by the"+CHR$(13)+"road; under it "+ SX$+ " finds"
+3340 S2$= S2$+ STR$ (N2)+ " more.":GOTO 3660
+3350 QU$= "do you":V$= "you own"+ STR$ (N1)+ ", then you're sold"+ STR$ (N2):S1$= "You look in your "+ OB$
+3360 S1$= S1$+ " collection and see that you own"+ STR$ (N1)+ " "+ OB$:IF N1< > 1 THEN S1$= S1$+ "s"
+3370 S1$= S1$+ ".":S2$= "Your friend, "+ P1$+ ", sells you"+ STR$ (N2)+ " more.":GOTO 3660
+3380 QU$= "does "+ SX$:V$= SX$+ " made"+ STR$ (N1)+ ", then makes"+ STR$ (N2):S1$= "Last Monday, "+ P1$
+3390 S1$= S1$+ " invented a machine that makes "+ OB$+ "s."+CHR$(13)+"That Monday, "+ SX$+ " made"+ STR$ (N1)+ " "+ OB$
+3400 IF N1< > 1 THEN S1$= S1$+ "s"
+3410 S1$= S1$+ ".":S2$= "The next day, "+ SX$+ " made"+ STR$ (N2)+ " more.":GOTO 3660
+3420 QU$= "does "+ P1$:V$= SX$+ " bought"+ STR$ (N1)+ ", then buys"+ STR$ (N2):S1$= "Yesterday,"+ P1$
+3430 S1$= S1$+ " bought"+ STR$ (N1)+ " "+ OB$:IF N1< > 1 THEN S1$= S1$+ "s"
+3440 S1$= S1$+ ".":S2$= "Today, "+ SX$+ " goes to the store and buys"+ STR$ (N2)+ " more.":GOTO 3660
+3450 QU$= "does "+ SX$:V$= P1$+ " found"+ STR$ (N1)+ ", then won"+ STR$ (N2):S1$= "This morning,"+ P1$
+3460 S1$= S1$+ " looked in "+ PS$+ " pocket and found"+ STR$ (N1)+ " "+ OB$
+3470 IF N1< > 1 THEN S1$= S1$+ "s"
+3480 S1$= S1$+ ".":S2$= "Later, "+ SX$+ " won"+ STR$ (N2)+ " more in a bet with "+ A$+ ". (That's you.)":GOTO 3660
+3490 CA= N1- N2:N= 5* RND (1)+ 1:ON N GOTO 3500,3540,3570,3600,3630
+3500 S1$= "Last week, "+ P1$+ " got"+ STR$ (N1)+ " "+ OB$:IF N1< > 1 THEN GOSUB 3530
+3510 S1$= S1$+ " for "+ PS$+ "birthday.":S2$= "On Saturday, "+ SX$+ " lost"+ STR$ (N2)+ " of them."
+3520 QU$= "does "+ SX$:V$= P1$+ " got"+ STR$ (N1)+ ", then"+ STR$ (N2)+ " are lost":GOTO 3660
+3530 S1$= S1$+ "s":RETURN 
+3540 S1$="In your class at school, you made "+STR$(N1)+" "+CHR$(13)+OB$:IF N1=1 THEN 3560
+3550 S1$=S1$+"s"
+3560 S1$=S1$+", which you brought home.":S2$="On your way, you gave "+STR$(N2)+" of them to "+P1$+".":QU$="do you":V$="you make"+STR$(N1)+", then give away"+STR$(N2):GOTO 3660
+3570 S1$=P1$+" was carrying "+STR$(N1)+" "+OB$:IF N1=1 THEN 3590
+3580 S1$=S1$+"s"
+3590 S1$=S1$+" in a box.":S2$="Coming down the hill, "+SX$+" fell, and"+STR$(N2)+" of them"+CHR$(13)+"rolled away.":QU$="does "+SX$:V$=SX$+" had"+STR$(N2)+" roll away.":GOTO 3660
+3600 S1$=P1$+" found "+STR$(N1)+" "+OB$:IF N1=1 THEN 3620
+3610 S1$=S1$+"s"
+3620 S1$=S1$+" under "+PS$+" bed.":S2$="Bill, "+PS$+" big brother, took "+STR$(N2)+" of them away.":QU$="does "+P1$:V$=P1$+" found"+STR$(N1)+" but Bill took"+STR$(N2):GOTO 3660
+3630 S1$=P1$+" gave you "+STR$(N1)+" "+OB$:IF N1=1 THEN 3650
+3640 S1$=S1$+"s"
+3650 S1$=S1$+" because "+SX$+" had too many.":S2$="Later, "+SX$+" lost all of them, and you generously"+CHR$(13)+"gave "+STR$(N2)+" back.":QU$="do you":V$=P1$+" gave you"+STR$(N1)+", you gave back"+STR$(N2)
+3660 QU$= "How many "+ OB$+ "s "+ QU$+ " have now"
+3670 PRINT S1$:PRINT :PRINT S2$
+3680 PRINT :PRINT "    ";QU$;:INPUT "";NQ:PRINT "";:RETURN
+3690 CA= N1* N2:N= 5* RND (1)+ 1:ON  N GOTO 3700,3750,3800,3860,3920
+3700 S1$= "You get a surprise! "+ P1$+ " sends you"+ STR$ (N1)+ " box":V$= STR$ (N1)+ " box"
+3710 IF N1< > 1 THEN S1$= S1$+ "es":S2$= S2$+ "es"
+3720 S1$= S1$+ " in the mail.":V$= V$+ " ..."+ STR$ (N2)+ " in each box":S2$= "Each box has"+ STR$ (N2)+ "  "+ OB$
+3730 IF N2< > 1 THEN S2$= S2$+ "s"
+3740 S2$= S2$+ " in it!":QU$= "do you":GOTO 3660
+3750 S1$=P1$+" won"+STR$(N1)+" ticket":V$=STR$(N1)+"ticket":IF N1=1 THEN 3770
+3760 S1$=S1$+"s":V$=V$+"s"
+3770 S1$=S1$+".":S2$="When "+SX$+" traded them in, "+SX$+" got"+STR$(N2)+" "+OB$:IF N2=1 THEN 3790
+3780 S2$=S2$+"s"
+3790 S2$=S2$+" for each ticket.":V$=V$+" ..."+STR$(N2)+" for each ticket":QU$="does "+SX$:GOTO 3660
+3800 S1$="A flying soucer deposits"+STR$(N1)+" metal sphere":V$=STR$(N1)+" sphere":IF N1=1 THEN 3820
+3810 S1$=S1$+"s":V1$=V1$+"s"
+3820 S1$=S1$+" in your kitchen"+CHR$(13)+"sink.":S2$="When "+P1$+" opens them,"+STR$(N2)+" "+OB$:IF N2=1 THEN 3840
+3830 S2$=S2$+"s pop":GOTO 3850
+3840 S2$=S2$+" pops"
+3850 S2$=S2$+" out of every one.":V$=V$+" ..."+STR$(N2)+" in every one.":QU$="do you":GOTO 3660
+3860 S1$="Your friend, "+P1$+", dug up"+STR$(N1)+" can":V$=STR$(N1)+" can":IF N1=1 THEN 3880
+3870 S1$=S1$+"s":V1$=V1$+"s"
+3880 S1$=S1$+" full of "+OB$+"s.":S2$="There ":IF N2=1 THEN 3900
+3890 S2$=S2$+"were "+STR$(N2)+" "+OB$+"s":GOTO 3910
+3900 S2$=S2$+"was 1   "+OB$
+3910 S2$=S2$+" in each can.":V$=V$+" ..."+STR$(N2)+" in each can":QU$="does "+SX$:GOTO 3660
+3920 S1$=P1$+" found"+STR$(N1)+" hole":V$=STR$(N1)+" hole":IF N1=1 THEN 3940
+3930 S1$=S1$+"s":V$=V$+"s"
+3940 S1$=S1$+" dug in "+PS$+" yard.":S2$="In each hole there ":IF N2=1 THEN 3960
+3950 S2$=S2$+"were "+STR$(N2)+" "+OB$+"s.":GOTO 3970
+3960 S2$=S2$+"was 1 "+OB$+"."
+3970 V$=V$+" ..."+STR$(N2)+" in each hole":QU$="does "+P1$:GOTO 3660
+3980 QU$= "does each one":CA= N1/ N2:N= 5* RND (1)+ 1:ON N GOTO 3990,4060,4090,4140,4170
+3990 N1= N1+ CA:CA= N1/ (N2+ 1):S1$= P1$+ " found a bag with"+ STR$ (N1)+ "  "+ OB$
+4000 IF N1< > 1 THEN S1$= S1$+ "s"
+4010 S1$= S1$+ " in it.":S2$= "After school, "+ SX$+ " shared them with "+ PS$+ STR$ (N2)+ " sister"
+4020 IF N2< > 1 THEN S2$= S2$+ "s"
+4030 V$= "each person gets":S2$= S2$+ ".":N2= N2+ 1:GOTO 3660
+4040 S2$=S2$+ "nobody, but ate them all. Greedy child!"
+4050 QU=" does each one":GOTO 3660
+4060 N1=N1+CA:CA=N1/(N2+1)
+4070 S1$=P1$+"'s rich uncle gives you a rosewood box with"+STR$(N1)+CHR$(13)+OB$+"s in it.":S2$="You share them with"+STR$(N2)+" friends who come "+CHR$(13)+"to a tea party."
+4080 V$="each friend gets":QU$="does each or you":N2=N2+1:GOTO 3660
+4090 OB$="seeds":S1$="A seed packet has "+STR$(N1)+" seed":IF N1=1 THEN 4110
+4100 S1$=S1$+"s"
+4110 S1$=S1$+" in it":S2$=P1$+" plants"+STR$(N2)+" seed":IF N2=1 THEN 4130
+4120 S2$=S2$+"s"
+4130 S2$=S2$+" in each hole.":V$="holes "+P1$+" needs":QU$="holes does "+P1$+" need":GOTO 4220
+4140 S1$=P1$+" worked for"+STR$(N1)+ " day":IF N1=1 THEN 4160
+4150 S1$=S1$+"s"
+4160 S1$=S1$+" building "+OB$+"s.":S2$="When "+SX$+" finished, "+SX$+" had made only"+STR$(N2)+"."+".":V$="days to make each":QU$=" days does it take "+P1$+" to make 1 "+OB$:GOTO 4220
+4170 S1$="You and "+P1$+" catch"+STR$(N1)+" "+OB$:IF N1=1 THEN 4190
+4180 S1$=S1$+"s"
+4190 S1$=S1$+" in "+OB$+" traps in the forest.":S2$="You dug"+STR$(N2)+" trap":IF N2=1 THEN 4210
+4200 S2$=S2$+"s"
+4210 S2$=S2$+".":V$="each trap caught (as an average)":QU$="(on the average) did each trap catch"
+4220 QU$=" How many "+QU$:GOTO 3670
+4230 LOCATE PY,PX:PY= PY+ 1:RETURN
+

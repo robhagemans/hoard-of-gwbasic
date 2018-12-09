@@ -1,0 +1,24 @@
+10 REM prog.
+20 REM Ryan Curtis
+30 REM Fortune teller
+40 INPUT "What is your name"; NAM$
+50 PRINT "Hello "; NAM$
+60 PRINT "Welcome to your fake fortune teller."
+70 INPUT "What is your favorite number"; NU$
+80 INPUT "What is the first girl you think of (press enter if you girl)"; GIR$
+90 INPUT "What is the first boy you think of (press enter if you boy)"; BO$
+100 INPUT"What is your favorite subject"; SUB$
+101 INPUT"What is your favorite state"; STAT$
+102 INPUT"What is your favorite color"; CO$
+103 INPUT"What is your favorite resonable priced car"; CA$
+110 PRINT"OK "; NAM$
+120 PRINT"Lets get on with your fake fortune."
+130 PRINT"You like "; GIR$; BO$
+140 PRINT"You will talk to them within "; NU$ " days."
+150 PRINT"You will have a job that has to do with "; SUB$
+151 PRINT"You will live in "; STAT$
+152 PRINT"You will have a "; CO$ " vehicle"
+153 PRINT"Your vehicle will be a "; CA$
+160 PRINT"Thank you for using this fake fortune teller"
+170 PRINT"Play again!"
+180 END

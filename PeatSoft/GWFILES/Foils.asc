@@ -1,0 +1,98 @@
+10 REM FOILS
+20 REM save "foils
+30 '*************** initialization  ***********************
+40 KEY 10,"EDIT "
+50 KEY 9,"renum"+CHR$(13)
+60 FPAGE = 1 : LPAGE = 999:  PNUM=1 'initialize page numbers
+70 EM=1 : DS =1 'initialize emphasized and double strike
+80 FILE$="$$$"
+90 RNUM=0 : LNUM=0 : PRINTSW = 0
+100 '***************terminal I/O *************************
+110 CLS : PRINT "Foil printing program" : PRINT : PRINT
+120 PNUM=1
+130 PRINT "Current filespec is: ";FILE$
+140 INPUT "Enter filespec of file to be printed. 'Enter' = same. $$$ = quit. ",NEWF$
+150 IF LEN(NEWF$)>0   THEN FILE$=NEWF$
+160 IF FILE$="$$$" THEN DS=1 : EM =1 : GOSUB 940 : SYSTEM
+170  ON ERROR GOTO 690
+180  OPEN  FILE$ FOR INPUT AS #1
+190 PRINT "Author now is: ";AUTH$
+200 INPUT "Press enter to keep. Otherwise, key  new author's name. ",NEWAUTH$
+210 IF NEWAUTH$<>"" THEN AUTH$=NEWAUTH$
+220 PRINT "First page is: ";FPAGE
+230 INPUT "Press enter to keep. Otherwise, key  new page number. ",NEWPAGE
+240 IF NEWPAGE>0  THEN FPAGE=NEWPAGE
+250 PRINT "Last page is: ";LPAGE
+260 INPUT "Press enter to keep. Otherwise, key  new page number. ",NEWPAGE
+270 IF NEWPAGE>0  THEN LPAGE=NEWPAGE
+280 PRINT "Double strike is ";DS
+290 INPUT "Double strike? Blank = don't change  1 = no  2 = yes ",S
+300 IF S=1 THEN DS=1
+310 IF S=2 THEN DS=2
+320 PRINT "Emphasized is ";EM
+330 INPUT "Emphasized? Blank = don't change  1 = no  2= yes ",S
+340 IF S=1 THEN EM=1
+350 IF S=2 THEN EM=2
+360 GOSUB 940 'Set print switch
+370 IF PRINTSW=1 THEN GOSUB 880 'Set print modes if print switch is on
+380 PRINT "Align paper and press any key."
+390 POKE 0,60 :K$=INKEY$ : IF K$="" THEN GOTO 390 'Wait for key
+400 '*************** FILE I/O ****************************
+410 IF EOF(1) THEN GOSUB 730 : CLOSE 1 : GOTO 110 'Last eject and get out
+420 LINE INPUT#1,REC$ 'read a record
+430 PRINT REC$
+440 RNUM = RNUM + 1 'count records
+450 '****************** Center .CE records ************************
+460 IF LEFT$(REC$,3)<>".ce" AND LEFT$(REC$,3)<>".CE" THEN GOTO 580
+470 IF PRINTSW = 0 THEN GOTO 550 'not supposed to print
+480 REC$=MID$(REC$,4,(LEN(REC$)-3))
+490 IF REC$="" GOTO 550
+500 WHILE LEFT$(REC$,1) = " "
+510 REC$=MID$(REC$,2,(LEN(REC$)-1))
+520 WEND
+530 PAD = (40 - LEN(REC$))/2 'find length for centering
+540 REC$=STRING$(PAD," ") + REC$ 'pad record to center it
+550 IF PRINTSW=1 THEN LPRINT CHR$(14);LEFT$(REC$,40) : LPRINT
+560 LNUM= LNUM +1
+570 GOTO 410
+580 '****************** Handle .PA records ********************
+590 IF LEFT$(REC$,3)<>".pa" AND LEFT$(REC$,3)<>".PA" THEN GOTO 610
+600 GOSUB 730 : GOTO 410
+610 IF PRINTSW = 1 THEN LPRINT CHR$(14);LEFT$(REC$,40) : LPRINT
+620 LNUM=LNUM +1
+630 GOTO 410
+640 IF PRINTSW=1 THEN LPRINT REC$ : LPRINT
+650 LNUM=LNUM + 1
+660 GOTO 410
+670 GOSUB 730 'final eject
+680 GOTO 110
+690 IF ERR = 53 THEN PRINT "File "+FILE$+" not found." : GOTO 130
+700 IF ERR = 24 THEN RESUME
+710 ON ERROR GOTO 0
+720 '******************* subroutine for footings and new page ***********
+730 REM 'Print footing and eject to next page
+740 IF PRINTSW=0 THEN GOTO 840 'not supposed to print, just increment counters
+750 IF LNUM > 29 THEN GOTO 790 'page is full
+760 FOR LNUM = LNUM TO 30 'find end of page
+770  LPRINT : LPRINT
+780 NEXT LNUM
+790 LPRINT CHR$(20)+CHR$(27)+"H"; 'drop expanded mode
+800 LPRINT CHR$(15);AUTH$,DATE$,TIME$,"Page ";PNUM; 'footing, compressed
+810 LPRINT CHR$(18); 'Drop compressed mode
+820 LPRINT CHR$(12) 'eject to next page
+830 GOSUB 880  'reset print modes
+840 PNUM=PNUM+1
+850 LNUM=0
+860 GOSUB 940 'Reset print switch
+870 RETURN
+880 '*********  subroutine to set print modes **************************
+890 IF DS=1 THEN LPRINT CHR$(27)+"H";
+900 IF DS=2 THEN LPRINT CHR$(27)+"G";
+910 IF EM=1 THEN LPRINT CHR$(27)+"F";
+920 IF EM=2 THEN LPRINT CHR$(27)+"E";
+930 RETURN
+940 '******* SUBROUTINE TO RESET PRINT SWITCH
+950 IF PNUM>=FPAGE AND PNUM <=LPAGE THEN PRINTSW=1 ELSE PRINTSW = 0
+960 IF PRINTSW=1 THEN GOSUB 880 'set printing modes
+970 RETURN
+

@@ -1,0 +1,22 @@
+10 ' qprint.bas
+20 ' The program demonstrates the use of the QPRINT.BIN direct screen writing
+30 ' routine described in Byte, July 1983, pg 408.
+40 DIM BB$(255)
+50 DEF SEG=&H1700:QPRINT.ADDR=0
+60 BLOAD "qprint.bin",QPRINT.ADDR
+70 CLS:KEY OFF:WIDTH 80
+80 '---Print a border with PRINT
+90 LOCATE 1,10:PRINT"É"STRING$(60,205)"»":FOR K=1 TO 10:PRINT TAB(10)"º"TAB(71)"º":NEXT:PRINT TAB(10)"È"STRING$(60,205)"¼"
+100 LOCATE 2,12:PRINT"This area was printed using a normal print statement."
+110 FOR K%=1 TO 8:LOCATE ,12:PRINT STRING$(58,"*"):NEXT
+120 LOCATE ,12:PRINT"You probable noted that it was not particularily rapid."
+130 '---Now print a border with QPRINT
+140 ROW%=13:CLM%=10:P$="É"+STRING$(60,205)+"»":GOSUB 210  'print top line
+150                 P$="º"+SPACE$ (60)    +"º":FOR ROW%=14 TO 23:GOSUB 210:NEXT
+160                 P$="È"+STRING$(60,205)+"¼":GOSUB 210
+170 ROW%=14:CLM%=12:P$="-----------This area was printed using QPRINT ---------"
+180 GOSUB 210 :     P$=STRING$(58,1) : FOR ROW%=15 TO 22:GOSUB 210:NEXT
+190 P$="------------ A performance worthy of a smile! ------------":GOSUB 210
+200 END
+210 CALL QPRINT (P$,ROW%,CLM%): RETURN
+

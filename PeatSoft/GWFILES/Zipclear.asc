@@ -1,0 +1,127 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '******************** ZIPCLEAR OF FORMATTED SCREEN ************************
+15 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+17 'บ                IMMEDIATE CLEAR OF DESIGNATED SCREEN AREA                บ
+19 'บ                                                                         บ
+21 'บ    This simple program is a modification of a program contained in the  บ
+23 'บ Letters to the Editor, PC Magazine. It may not work consistently in a   บ
+25 'บ memory size of 64K or less. It will work in 128K. The program will      บ
+27 'บ demonstate a "slow screen wash" and then ask for coordinate inputs to   บ
+29 'บ clear the screen rapidly.  You can extract the routine and use in your  บ
+31 'บ programs. It is very  effective.  Instead of putting in the corners of  บ
+33 'บ the clear area with an prompt input statement, you can pre-program the  บ
+35 'บ area you want cleared before you go to the ZIPCLEAR subroutine.         บ
+37 'บ See LABELPRO.BAS and BLUEBERY.BAS for examples of routine in use.       บ
+39 'บ    This program may be used without license or attribution.             บ
+41 'บ                     (c) G I N A C O   - 1983           Ver 5.2/320/160  บ
+43 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS
+100 CLS
+110 CLEAR
+120 SCREEN 0,0,0
+130 WIDTH 80
+140 LOCATE 1,4
+150 PRINT "ษ"
+160 LOCATE 1,5
+170 PRINT STRING$(72,"อ")
+180 LOCATE 1,77
+190 PRINT "ป";
+200 FOR I! = 2 TO 22
+210   LOCATE I!,4
+220   PRINT "บ"
+230   LOCATE I!,77
+240   PRINT "บ";
+250 NEXT
+260 LOCATE 23,4
+270 PRINT "ศ"
+280 LOCATE 23,5
+290 PRINT STRING$(72,"อ")
+300 LOCATE 23,77
+310 PRINT "ผ";
+320 KEY OFF
+330 GOSUB 550
+340 GOSUB 610
+350 LOCATE 12,25
+360 PRINT "THAT WAS AN EXAMPLE OF "; CHR$(34);"SLOW"; CHR$(34);" CLEAR"
+370 FOR I! = 1 TO 3000
+380 NEXT
+390 LOCATE 12,12
+400 PRINT SPC( 60)
+410 LOCATE 6,20
+420 PRINT "INDICATE CLEAR SPACE FOUR CORNER COORDINATES?"
+430 LOCATE 7,23
+440 PRINT "(ENTERED IN ROW,COLUMN FORMAT AS SHOWN)"
+450 LOCATE 9,28
+460 INPUT "UPPER LEFT ROW <i.e.; 6> ",UP.LEFT.ROW%
+470 LOCATE 11,28
+480 INPUT "UPPER LEFT COLUMN <i.e.; 10> ",UP.LEFT.COL%
+490 LOCATE 13,28
+500 INPUT "LOWER LEFT ROW <i.e.; 18> ",LOW.LEFT.ROW%
+510 LOCATE 15,28
+520 INPUT "RIGHT COLUMN <i.e.; 70> ",RIGHT.COL%
+530 GOSUB 550
+540 GOSUB 670
+550 REM ***************** FILL SCREEN ROUTINE *******************************
+560 FOR I! = 2 TO 22
+570   LOCATE I!,6
+580   PRINT STRING$(71,3);
+590 NEXT
+600 RETURN
+610 REM ***************** SLOW CLEAR ROUTINE *******************************
+620 FOR I! = 5 TO 19
+630   LOCATE I!,11
+640   PRINT SPC( 61);
+650 NEXT
+660 RETURN
+670 REM ************* ZIPCLEAR INPUT PARAMETERS ***************************
+680 DIM A%(22)
+690 FOR I! = 0 TO 21
+700   READ A%(I!)
+710 NEXT
+720 DATA&h8B55
+730 DATA&hB8EC
+740 DATA&H0600
+750 DATA&H07B7
+760 DATA&H768B
+770 DATA&H8A0C
+780 DATA&H8B2C
+790 DATA&HA76
+800 DATA&HC8A
+810 DATA&H768B
+820 DATA&H8A08
+830 DATA&H8B34
+840 DATA&H676
+850 DATA&H148A
+860 DATA&HCDFE
+870 DATA&HC9FE
+880 DATA&HCEFE
+890 DATA&HCAFE
+900 DATA&H10CD
+910 DATA&HCA5D
+920 DATA&H8
+930 DATA&H0
+940 R1% = UP.LEFT.ROW%
+950 C1% = UP.LEFT.COL%
+960 R2% = LOW.LEFT.ROW%
+970 C2% = RIGHT.COL%
+980 GOSUB 1010
+990 GOTO 1060
+1000 END
+1010 REM **********  THE ACTUAL ZIPCLEAR SUBROUTINE IS HERE ******************
+1020 DEF SEG
+1030 SUBRT% = VARPTR(A%(0))
+1040 CALL SUBRT%(R1%,C1%,R2%,C2%)
+1050 RETURN
+1060 LOCATE 12,25
+1070 PRINT "THAT WAS AN EXAMPLE OF "; CHR$(34);"ZIPCLEAR"; CHR$(34)
+1080 LOCATE 16,30
+1090 PRINT "PRESS ANY KEY TO RERUN"
+1100 A$ = INKEY$
+1110 IF A$ = "" THEN 1080  ELSE 1120
+1120 GOTO 100
+1130 END
+65000 ' ************************  SAVE ROUTINE  *******************************
+65100 SAVE "B:ZIPCLEAR.BAS"
+

@@ -1,0 +1,55 @@
+10 'COM2ASM.BAS Ver 1.1, by Richard Winkel
+20 'For free distribution only; not for sale
+30 DEFINT A-Z:DIM LIN$(999),JMP$(25) 'referenced addresses, jump instructions
+40 GOSUB 530
+50 INPUT "Enter name of input file: ", INFILE$
+60 INPUT "Enter name of output file: ", OUTFILE$
+70 OPEN INFILE$ FOR INPUT AS #1
+80 OPEN OUTFILE$ FOR OUTPUT AS #2: PRINT #2,".RADIX 16"
+90 IF EOF(1) THEN 160
+100 LINE INPUT #1,A$: IF LEN(A$)<28 THEN 90 ELSE J$=MID$(A$,25,4)
+110 FOR I=1 TO JMPNUM: IF J$<>JMP$(I) THEN NEXT: GOTO 90
+120 IF MID$(A$,33,1)="[" THEN 90 'if indirect addressing, skip it
+130 IF MID$(A$,33,3)="FAR" THEN 90
+140 IF MID$(A$,37,1)=":" THEN 90 'if inter-segment jump, skip
+150 LIN=LIN+1:LIN$(LIN)=MID$(A$,33,4): GOTO 90 'otherwise, save the reference
+160 CLOSE #1: OPEN INFILE$ FOR INPUT AS #1 're-position read pointer
+170 PRINT "Sorting..." 'super shell sort (Byte, May '83)
+180 D=2^INT(LOG(LIN)/LOG(2))-1 'sort referenced addresses
+190 FOR I=1 TO LIN-D
+200 IF LIN$(I)<=LIN$(I+D) THEN 260 ELSE T$=LIN$(I+D): LIN$(I+D)=LIN$(I)
+210 IF I<=D THEN LIN$(I)=T$: GOTO 260
+220 FOR J=I-D TO 1 STEP -D
+230 IF T$>=LIN$(J) THEN 250 ELSE LIN$(J+D)=LIN$(J)
+240 NEXT J
+250 LIN$(J+D)=T$
+260 NEXT I
+270 D=INT(D/2): IF D>0 THEN 190 ELSE I=1
+280 IF I=LIN THEN 310 'array is sorted, now get rid of duplicates
+290 IF LIN$(I)=LIN$(I+1) THEN FOR J=I TO LIN: LIN$(J)=LIN$(J+1):NEXT:LIN=LIN-1 ELSE I=I+1
+300 GOTO 280
+310 L=1 'now go back thru file and plug in labels for addresses
+320 IF NOT EOF(1) THEN 360 ELSE IF L>LIN THEN 350 'else premature EOF
+330 PRINT "Error: Referenced code at ";LIN$(L);"was not found."
+350 CLOSE:END
+360 LINE INPUT #1,A$:IF LEN(A$)<28 THEN 320
+370 IF MID$(A$,6,4)<LIN$(L) THEN MID$(A$,6,4)=" ":GOTO 420 'not referenced
+380 IF MID$(A$,6,4)=LIN$(L) THEN 400 'plug in label
+390 IF L>LIN THEN MID$(A$,6,4)=" ":GOTO 420 ELSE 330 'err: skipped over code
+400 L$=STR$(L):L$="L"+RIGHT$(L$,LEN(L$)-1)
+410 L$=L$+":"+STRING$(4-LEN(L$)," "):MID$(A$,6,5)=L$:L=L+1
+420 J$=MID$(A$,25,4):FOR I=1 TO JMPNUM:IF J$<>JMP$(I) THEN NEXT:GOTO 490
+430 IF MID$(A$,33,1)="[" THEN 490
+440 IF MID$(A$,33,3)="FAR" THEN 490
+450 IF MID$(A$,37,1)=":" THEN 490
+460 REF$=MID$(A$,33,4):FOR I=1 TO LIN:IF REF$<>LIN$(I) THEN NEXT
+470 L$=STR$(I):L$="L"+RIGHT$(L$,LEN(L$)-1) 'replace destination addr with label
+480 MID$(A$,33,4)=L$+STRING$(4-LEN(L$)," ")
+490 A$=MID$(A$,6,5)+" "+RIGHT$(A$,LEN(A$)-23) 'get rid of set & opcode
+500 FOR I=LEN(A$) TO 2 STEP -1:IF MID$(A$,I,1)=" " THEN NEXT
+510 A$=LEFT$(A$,I) 'chop of trailing blanks
+520 PRINT A$:PRINT #2,A$:GOTO 320
+530 JMPNUM=20:FOR I=1 TO JMPNUM:READ JMP$(I):NEXT:RETURN
+540 DATA "JMP ","JZ  ","JNZ ","LOOP","CALL","JCXZ","JB  ","JBE ","JNB ","JA  "
+550 DATA "JG  ","JGE ","JL  ","JLE ","JNO ","JPO ","JNS ","JO  ","JPE ","JS  "
+

@@ -1,0 +1,259 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 ' *************** EPSON/GEMINI MULITI-LABEL PROGRAM ************************
+12 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+14 'บ           MULTI-LABEL PROGRAM FOR EPSON/GEMINI - (NON FILE)             บ
+16 'บ                                                                         บ
+18 'บ       This program is designed to use the IBM/EPSON dot matrix printer. บ
+20 'บ  Codes may be modified to use other printers.  Print statements are     บ
+22 'บ  directed to LPT1:. If you are using LPT2, change the LPTn: reference   บ
+24 'บ  in line 420.  A NEC 8023A version is included elsewhere on this disk.  บ
+26 'บ  The error routine at 6000 will function for a printer 'off' or 'off    บ
+28 'บ  line' status. Other errors are processed by the BASIC error routine.   บ
+30 'บ       A more complex file and label program is on the disk as BLUE-     บ
+32 'บ  BERY.BAS and/or LABELPRO.BAS. It has a full file and revision capa-    บ
+34 'บ  bility.  The 320K disk contains both BLUEBERY.BAS and LABELPRO.BAS     บ
+36 'บ       All or part of this program may be used by purchaser without      บ
+38 'บ  license or attribution.  (c) G I N A C O  -- 1983   Ver 5.1/160/320    บ
+40 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 REM
+300 FOR I! = 1 TO 10
+310    KEY I!,""
+320   NEXT
+330 CLS
+340  SCREEN 0,0,0
+350   WIDTH 80
+360    CLEAR
+370     GOSUB 5000
+380      ON ERROR GOTO 6000
+390 LPRINT CLEANUP$;
+400  CLOSE
+410   GOSUB 5000
+420    OPEN "LPT1:" FOR OUTPUT AS #2
+430     CLS
+440      LOCATE 6,16
+450       PRINT "THIS WILL PRINT LABELS ON STANDARD LABEL STOCK."
+460        PRINT TAB( 10)"YOU MAY PRINT AT 7,10,OR 17 CPI BASED ON YOUR SELECTION."
+470         PRINT
+480          PRINT
+490 PRINT TAB( 22)"SELECT PITCH AND <ENTER> CHOICE"
+500  PRINT
+510   PRINT TAB( 22)"PICA -- 10 CPS................1"
+520    PRINT TAB( 22)"ITALICS -- 10 CPS.............2"
+530     PRINT TAB( 22)"CONDENSED --- 17.0 CPS........3"
+540      PRINT TAB( 22)"FIRST LINE ONLY EXPANDED......4"
+550 PRINT TAB( 22)"ALL LINES EXPANDED............5"
+560  PRINT TAB( 22)"END PROGRAM...................6"
+570   PRINT
+580    PRINT
+590     PRINT TAB( 22)"CHOOSE........";
+600      INPUT X!
+610       ON X! GOTO 620,640,660,1470,1870,2310
+620 PRINT #2,DARK$;
+630  GOTO 680
+640 PRINT #2,ITALIC$ + DARK$;
+650  GOTO 680
+660 PRINT #2,EXPAND.SMALL$;
+670  GOTO 680
+680 CLS
+690  LOCATE 10,10
+700   PRINT "WAS THAT PITCH SETTING OK "
+710    GOSUB 1310
+720     IF Q! = 1 THEN 740
+730 IF Q! = 2 THEN 390
+740 CLS
+750  LOCATE 8,10
+760   LINE INPUT "LINE 1:> ";L1$
+770    LOCATE 9,10
+780     LINE INPUT "LINE 2:> ";L2$
+790      LOCATE 10,10
+800       LINE INPUT "LINE 3:> ";L3$
+810        LOCATE 11,10
+820         LINE INPUT "LINE 4:> ";L4$
+830          LOCATE 12,10
+840           LINE INPUT "LINE 5:> ";L5$
+850            PRINT
+860             PRINT TAB( 10)"IS INPUT CORRECT ? "
+870              GOSUB 1310
+880 IF Q! = 1 THEN 900
+890 IF Q! = 2 THEN 740
+900 REM *************** LABEL PRINT ROUTINE ******************************
+910 CLS
+920  LOCATE 11,10
+930   INPUT "HOW MANY LABELS ";X!
+940    LOCATE 13,10
+950     INPUT "LEFT PRINT MARGIN ";Z!
+960      LOCATE 15,10
+970       PRINT "ARE THESE SETTINGS CORRECT? "
+980        GOSUB 1310
+990         IF Q! = 1 THEN 1010
+1000 IF Q! = 2 THEN 900
+1010 REM
+1020 CLS
+1030  LOCATE 10,10
+1040   INPUT "PRESS ENTER WHEN PRINTER READY. ";R!
+1050    ON R! GOTO 1060
+1060 FOR NL! = 1 TO X!
+1070    PRINT #2, CHR$(13);
+1080     PRINT #2, TAB( Z!);L1$
+1090      PRINT #2, TAB( Z!);L2$
+1100       PRINT #2, TAB( Z!);L3$
+1110        PRINT #2, TAB( Z!);L4$
+1120         PRINT #2, TAB( Z!);L5$; CHR$(13);
+1130        NEXT NL!
+1140 :REM PRINT #2, CHR$(27); CHR$(76);"000";
+1150 CLS
+1160 :REM *********************  TERMINATION ROUTE  ********************
+1170 LOCATE 10,10
+1180  PRINT "REPRINT THIS LABEL "
+1190   GOSUB 1310
+1200    IF Q! = 1 THEN 1220
+1210 IF Q! = 2 THEN 1250
+1220 X! = 0
+1230  Z! = 0
+1240   GOTO 910
+1250 CLS
+1260  LOCATE 12,10
+1270   PRINT "ENTER ANOTHER LABEL "
+1280    GOSUB 1310
+1290     IF Q! = 1 THEN 390
+1300 IF Q! = 2 THEN 1440
+1310 COLOR 0,7
+1320  LOCATE 20,10
+1330   PRINT " YES OR NO <Y/N> ? "
+1340    COLOR 7,0
+1350     A$=INKEY$:IF A$="" THEN 1350
+1360 IF (LEFT$(A$,1)=CHR$(89) OR LEFT$(A$,1)=CHR$(121)) THEN Q! = 1 : RETURN
+1370 IF (LEFT$(A$,1)=CHR$(78) OR LEFT$(A$,1)=CHR$(110)) THEN Q! = 2 : RETURN
+1375 SOUND 400,4:GOTO 1350
+1440 CLOSE
+1450  CLS
+1460   END
+1470 REM PRINT #2, CLEANUP$;
+1480 CLS
+1490  LOCATE 9,20
+1500   COLOR 7,0
+1510    PRINT "CHECK LABEL POSITION IN PRINTER"
+1520     COLOR 7,0
+1530      FOR I! = 1 TO 2000
+1540       NEXT
+1550 CLS
+1560  LOCATE 8,20
+1570   PRINT "THIS WILL PRINT FIRST LINE ONLY IN EXPANDED PRINT"
+1580    LOCATE 11,20
+1590     LINE INPUT "LINE ONE    ";A$(1)
+1600      LOCATE 12,20
+1610       LINE INPUT "LINE TWO    ";A$(2)
+1620        LOCATE 13,20
+1630         LINE INPUT "LINE THREE  ";A$(3)
+1640          LOCATE 14,20
+1650           LINE INPUT "LINE FOUR   ";A$(4)
+1660 LOCATE 15,20
+1670  LINE INPUT "LINE FIVE   ";A$(5)
+1680   PRINT
+1690 LOCATE 17,20
+1700  PRINT "ENTER <1> IF OK <2> TO REDO ";
+1710   INPUT X!
+1720    ON X! GOTO 1730,1550
+1730 CLS
+1740 LOCATE 19,20
+1750  INPUT "HOW MANY LABELS ";PN!
+1760   FOR K! = 1 TO PN!
+1770      PRINT #2,EXPAND$ + DARK$;A$(1);EXPAND.END$
+1780       FOR I! = 2 TO 5
+1790          PRINT #2,A$(I!)
+1800         NEXT
+1810          PRINT #2, CHR$(13);
+1820         NEXT K!
+1830          LOCATE 19,20
+1840           PRINT "TO REPRINT ENTER <1> FOR NEW <2> ";
+1850            INPUT X!
+1860             ON X! GOTO 1690,2290
+1870 REM
+1880 CLS
+1890  LOCATE 9,20
+1900   COLOR 7,0
+1910    PRINT "CHECK LABEL POSITION IN PRINTER"
+1920     COLOR 7,0
+1930      FOR I! = 1 TO 2000
+1940       NEXT
+1950        CLS
+1960         LOCATE 8,20
+1970          PRINT "THIS WILL PRINT ALL LINES IN EXPANDED PRINT."
+1980           LOCATE 12,20
+1990            LINE INPUT "LINE ONE    ";A$(1)
+2000             LOCATE 13,20
+2010 LINE INPUT "LINE TWO    ";A$(2)
+2020  LOCATE 14,20
+2030   LINE INPUT "LINE THREE  ";A$(3)
+2040    LOCATE 15,20
+2050     LINE INPUT "LINE FOUR   ";A$(4)
+2060      LOCATE 16,20
+2070       LINE INPUT "LINE FIVE   ";A$(5)
+2080        PRINT
+2090 LOCATE 18,20
+2100  PRINT "ENTER <1> IF OK <2> TO REDO ";
+2110   INPUT X!
+2120    ON X! GOTO 2130,1880
+2130 LOCATE 20,20
+2140  INPUT "HOW MANY LABELS ";PN!
+2150   FOR K! = 1 TO PN!
+2160      PRINT #2,EXPAND$ + DARK$;A$(1)
+2170       PRINT #2,EXPAND$;A$(2)
+2180        PRINT #2,EXPAND$;A$(3)
+2190         PRINT #2,EXPAND$;A$(4)
+2200          PRINT #2,EXPAND$;A$(5)
+2210           PRINT #2," "
+2220            PRINT #2,EXPAND.END$;
+2230           NEXT K!
+2240            LOCATE 22,20
+2250 PRINT "TO REPRINT ENTER <1> FOR NEW <2> ";
+2260  INPUT X!
+2270   CLS
+2280    ON X! GOTO 2090,2290
+2290 PRINT #2,CLEANUP$;
+2300  GOTO 390
+2310 CLOSE
+2320  END
+5000 REM **** PRINTER SUBROUTINES ***
+5030 SMALL$ = CHR$(15)
+5060  UNSMALL$ = CHR$(18)
+5090   EXPAND.SMALL$ = CHR$(14) + CHR$(15)
+5120    CANX.EXP.COMP$ = CHR$(18) + CHR$(20)
+5150     EXPAND$ = CHR$(14)
+5180      EXPAND.END$ = CHR$(20)
+5210       DARK$ = CHR$(27) + CHR$(69)
+5240        ITALIC$ = CHR$(27) + CHR$(52)
+5270         ITALIC.EXP.CON$ = CHR$(14) + CHR$(15) + CHR$(27) + CHR$(52)
+5300 ITALIC.EXP$ = CHR$(27) + CHR$(52) + CHR$(14)
+5330  END.ITALIC$ = CHR$(27) + CHR$(53)
+5360   START.ULINE$ = CHR$(27) + CHR$(45) + CHR$(1)
+5390    END.ULINE$ = CHR$(27) + CHR$(45) + CHR$(0)
+5420     PERM.EXPAN$ = CHR$(27) + CHR$(87) + CHR$(1)
+5450      END.PERMEXP$ = CHR$(27) + CHR$(87) + CHR$(0)
+5480 START.DSTRIKE$ = CHR$(27) + CHR$(71)
+5510  END.DSTRIKE$ = CHR$(27) + CHR$(72)
+5540   TINYLINE$ = CHR$(27) + CHR$(83) + CHR$(0)
+5570    END.TINY$ = CHR$(27) + CHR$(84)
+5600     ESC$ = CHR$(27)
+5630      CLEANUP$ = CHR$(27) + CHR$(64)
+5660       RETURN
+6000 REM ********* PRINTER ERROR ROUTINE ***************
+6030 IF ERR = 24 THEN 6120 ELSE 6060
+6060 IF ERR = 25 THEN 6120 ELSE 6090
+6090 ON ERROR GOTO 0
+6120 KEY OFF
+6150  BEEP
+6180   BEEP
+6210    LOCATE 25,1
+6240     PRINT SPC( 79)
+6270      LOCATE 25,20
+6300       PRINT "CHECK PRINTER - PRESS ANY KEY TO CONTINUE"
+6330 IF INKEY$ = "" THEN 6330
+6360 KEY OFF
+6390  RESUME
+6420   END
+65000 REM********************** SAVE ROUTINE *********************************
+65100 SAVE "B:IBMLABEL.BAS"
+

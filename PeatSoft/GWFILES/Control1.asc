@@ -1,0 +1,2 @@
+10 RUN"basmenu
+

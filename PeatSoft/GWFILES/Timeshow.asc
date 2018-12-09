@@ -1,0 +1,41 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '*****************  ELAPSED TIME DISPLAY ROUTINE  **************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                ELAPSED TIME DISPLAY SUBROUTINE FOR MERGE                บ
+20 'บ                                                                         บ
+22 'บ    Frequently, we wish to know how long we have been working on a par-  บ
+24 'บ ticular operation in a program (Data entry, etc). This is calculated    บ
+26 'บ and displayed with the following subroutine. You can "GOTO 10000" at    บ
+28 'บ any functional break (enter data , etc) in your program and the total   บ
+30 'บ elapsed time since program start will display in line 25. Make certain  บ
+31 'บ you put the BB$=TIME$ (line 130) in the beginning of your program so    บ
+32 'บ that the start time is recorded.  You may decrease or eliminate the     บ
+33 'บ delay loop in line 10090 as desired.  This program may be used without  บ
+34 'บ license or attribution (c) G I N A C O    -- 1983  Ver 5.2/160/320      บ
+38 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 KEY OFF:COLOR 7,0
+130 BB$=TIME$
+140 GOSUB 10000
+145 LOCATE 15,20: PRINT"PRESS ANY KEY TO SEE AGAIN == PLUS INCREASED TIME"
+150 A$ = INKEY$: IF A$ = "" THEN 150 ELSE 160
+160 LOCATE 15,1:PRINT SPC(70):GOTO 140
+10000 REM ********* ELAPSED TIME PRINTOUT SUBROUTINE *****************
+10010 N$=TIME$
+10020 DEF FNH(H$)=VAL(LEFT$(H$,2))
+10030 DEF FNM(M$)=VAL(MID$(M$,4,2))
+10040 DEF FNS(S$)=VAL(RIGHT$(S$,2))
+10050 TMH=(FNH(N$))-FNH(BB$):TMM=(FNM(N$)-FNM(BB$)):TMS=(FNS(N$)-FNS(BB$))
+10060 KEY ON:KEY OFF: LOCATE 25,3:PRINT "START TIME ";BB$;
+10070 LOCATE 25,30:PRINT"END TIME ";N$;
+10080 LOCATE 25,55:PRINT "ELAPSED TIME ";TMH;":";ABS(TMM);":";ABS(TMS);
+10090 FOR I= 1 TO 5000:NEXT
+10100 LOCATE 25,50:PRINT SPC(30);
+10110 LOCATE 25,52:PRINT TMH;":";ABS(TMM);":";ABS(TMS);:COLOR 3,0:PRINT " (AT LAST CHECK)";:COLOR 7,0
+10120 RETURN
+10130 REM **** REMOVE LINES 140-150 TO INSTALL IN YOUR PROGRAM ***************
+65000 REM ****************** SAVE ROUTINE ************************************
+65100 SAVE"B:TIMESHOW.BAS"
+

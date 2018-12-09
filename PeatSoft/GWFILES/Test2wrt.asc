@@ -1,0 +1,361 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '******************* EDUCATOR'S TOOLBOX SPECIAL ****************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ         TEACHER'S / EDUCATOR'S TESTWRITER & GRADE SHEET PROGRAM         บ
+20 'บ                                                                         บ
+22 'บ     This program was written and developed over a period of several     บ
+24 'บ years by Bill Alton, 4201 W Carol Avenue. Phoenix, AZ  85021.  It is    บ
+26 'บ a superbly crafted and implemented program with application far be-     บ
+28 'บ ond test writing and grading. The program is expanded on the 360K disc. บ
+30 'บ Big Blueberry Pie purchasers may examine the programming techniques in- บ
+31 'บ volved.  Please call up the TESTWRIT.DOC program with a "type" command  บ
+32 'บ in DOS.  Load the SAMPLE.TWD program when running this program for an   บ
+33 'บ example of the TESTWRITERS capability. Bill Alton will welcome letters  บ
+34 'บ with comments and applications of this program from educators or other  บ
+35 'บ users. The program has been modified to work on Drive A. To use the     บ
+36 'บ program for production, change Drive A references in Lines 1840, 2410,  บ
+37 'บ and 3200 to Drive B. DO NOT OVERWRITE THE DRIVE A DISK. USE WRITE TAB!  บ
+38 'บ NOTE:!  If you distribute this program, please leave Bill Alton's name  บ
+39 'บ in the lead-in REMARKS as shown. This is the expanded version TEST2WRT. บ
+40 'บ     An expanded version is on the 320K disk as TEST2WRT.BAS             บ
+41 'บ                       (c) G I N A C O -- 1983       Ver 5.3/320         บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+100 COLOR 7,0
+110 '***    T E S T W R I T E R    ***
+120 '***      BILL ALTON        ***
+130 '***    VERSION 1.0  05/15/83    ***
+140 '*** FOR EPSON FX-80 PRINTER ***
+150 CLEAR 1000
+160 DIM Q$(100),Q1$(100),Q2$(100),A$(100,4),B$(100,4)
+170 UU$ = "##."
+180 CLS
+190 GOSUB 3190
+200 LOCATE 12,26
+210 PRINT "*** TESTWRITER ***"
+220 FOR X! = 1 TO 500
+230 NEXT X!
+240 PG! = 2
+250 GOTO 2260
+260 ' *** WRITE TEST ***
+270 CLS
+280 LOCATE 8,15
+290 LINE INPUT "SUBJECT ";TT$
+300 IF TT$ = "" THEN TT$ = "U. S. HISTORY" : CLS
+310 CLS
+320 LOCATE 10,1
+330 PRINT "INPUT A REFERENCE CODE (EG. CHAPTER 12 SECTON 1 --> ";
+340 COLOR 1
+350 PRINT "C12S1";
+360 COLOR 7
+370 PRINT " ) ";
+380 LINE INPUT ;S$
+390 N! = 100
+400 M! = 1
+410 FOR A! = M! TO N!
+420   CLS
+430   LOCATE 8,15
+440   PRINT "(TYPE 'END' IF LAST QUESTION)"
+450   PRINT "***  TYPE OUT QUESTION # ";A!;"  ***"
+460   PRINT STRING$(80,196)
+470   LOCATE 11,10
+480   COLOR 0,7
+490   PRINT SPACE$(62)
+500   COLOR 7,0
+510   LOCATE 11,10
+520   LINE INPUT Q$(A!)
+530   IF Q$(A!) = "END" THEN N! = A! - 1 : GOTO 2260
+540   LOCATE 12,10
+550   COLOR 0,7
+560   PRINT SPACE$(62)
+570   COLOR 7,0
+580   LOCATE 12,10
+590   LINE INPUT Q1$(A!)
+600   IF Q1$(A!) = "" THEN Q1$(A!) = "XX"
+610   IF Q$(A!) = "X" THEN A! = (A! - 1) : Q$(A!) = "  " : CLS  : GOTO 420
+620   IF Q1$(A!) = "XX" THEN Q2$(A!) = "XX" ELSE LOCATE 13,10 : COLOR 0,7 : PRINT SPACE$(62) : COLOR 7,0 : LOCATE 13,10 : LINE INPUT Q2$(A!)
+630   IF Q2$(A!) = "" THEN Q2$(A!) = "XX"
+640   IF Q1$(A!) = "X" THEN PRINT "RETYPING LAST QUESTION ";A! : Q1$(A!) = "  " : CLS  : GOTO 420
+650   IF Q2$(A!) = "X" THEN Q2$(A!) = "  " : GOTO 420
+660   FOR B! = 1 TO 4
+670     CLS
+680     PRINT "QUESTION #";A!
+690     PRINT STRING$(80,223)
+700     PRINT Q$(A!)
+710     IF Q1$(A!) < > "XX" THEN PRINT Q1$(A!)
+720     IF Q2$(A!) < > "XX" THEN PRINT Q2$(A!)
+730     PRINT STRING$(80,177)
+740     PRINT "ANSWER # ";B!;
+750     IF B! = 1 THEN COLOR 17 : PRINT "   *** ENTER CORRECT ANSWER *** " : COLOR 7,0
+760     PRINT
+770     PRINT "TYPE 'X' TO REDO ANSWERS"
+780     LOCATE 14,15
+790     COLOR 0,7
+800     PRINT SPACE$(12)
+810     COLOR 7,0
+820     LOCATE 14,15
+830     LINE INPUT A$(A!,B!)
+840     IF A$(A!,B!) = "X" THEN B! = 1 : CLS  : GOTO 670
+850     IF B! = 1 THEN A$(A!,1) = "*" + A$(A!,1)
+860     CLS
+870 NEXT B!,A!
+880 GOTO 2260
+890 ' *** START OF PRINT ROUTINE ***
+900 CLS
+910 X$ = ""
+920 INPUT "HIT ENTER TO PRINT -- 'R' TO RETURN TO MENU";X$
+930 IF X$ = "R" OR X$ = "r" THEN 2260
+940 PRINT
+950 PRINT
+960 PRINT
+970 INPUT "DO YOU WANT TO RANDOMIZE THE ANSWERS ";X$
+980 IF LEFT$(X$,1) = "Y" OR LEFT$(X$,1) = "y" THEN V! = 1 ELSE V! = 0
+990 PRINT
+1000 INPUT "INPUT 'CODE' SYMBOL TO SEPERATE TEST VERSIONS (EG. #,*,@)";KK$
+1010 CLS
+1020 :REM *** START PRINTING TO PRINTER ***
+1030 PRINT "PRINTING"
+1040 LPRINT DATE$ ; TAB( 57)"Name "; STRING$(16,95)
+1050 LPRINT S$;KK$;
+1060 LPRINT TAB( 57)"Date/Rm _________ (   )"
+1070 LPRINT STRING$(79,61)
+1080 Y! = 40 - ( LEN(TT$) / 2)
+1090 LPRINT TAB( Y!)TT$
+1100 LPRINT STRING$(79, CHR$(42))
+1110 LPRINT SU$;"INSTRUCTIONS:";EU$;SI$;" Choose the best answer and fill in the letter of the answer in"
+1120 LPRINT TAB( 15)"the blank to the left of the question.";EI$
+1130 LPRINT " "
+1140 LC! = 8
+1150 FOR A! = 1 TO N!
+1160   CLS
+1170   IF Q$(A!) = "" THEN 1340
+1180   PRINT "WORKING ON QUESTION ";A!; TAB( 65)"LINECOUNT = ";LC!
+1190   LPRINT STRING$(5,95);
+1200   LPRINT TAB( 7) USING UU$;A!;
+1210   LPRINT TAB( 11)Q$(A!)
+1220   LC! = LC! + 1
+1230   IF Q1$(A!) < > "XX" THEN LPRINT TAB( 11)Q1$(A!) : LC! = LC! + 1
+1240   IF Q2$(A!) < > "XX" THEN LPRINT TAB( 11)Q2$(A!) : LC! = LC! + 1
+1250   IF V! = 1 THEN GOSUB 2490
+1260   CLS
+1270   IF LEFT$(A$(A!,1),1) = "*" THEN LPRINT TAB( 9);"A) "; RIGHT$(A$(A!,1), ( LEN(A$(A!,1)) - 1)); ELSE LPRINT TAB( 9)"A) ";A$(A!,1);
+1280   IF LEFT$(A$(A!,2),1) = "*" THEN LPRINT TAB( 45);"B) "; RIGHT$(A$(A!,2), ( LEN(A$(A!,2)) - 1)) ELSE LPRINT TAB( 45)"B) ";A$(A!,2)
+1290   IF LEFT$(A$(A!,3),1) = "*" THEN LPRINT TAB( 9);"C) "; RIGHT$(A$(A!,3), ( LEN(A$(A!,3)) - 1)); ELSE LPRINT TAB( 9)"C) ";A$(A!,3);
+1300   IF LEFT$(A$(A!,4),1) = "*" THEN LPRINT TAB( 45);"D) "; RIGHT$(A$(A!,4), ( LEN(A$(A!,4)) - 1)) ELSE LPRINT TAB( 45)"D) ";A$(A!,4)
+1310   LPRINT " "
+1320   LC! = LC! + 4
+1330   IF LC! > 62 THEN GOSUB 3060
+1340 NEXT A!
+1350 LPRINT CHR$(12)
+1360 CLS
+1370 PG! = 2
+1380 PRINT "DO YOU WANT AN ANSWER KEY "
+1390 X$ = INPUT$(1)
+1400 IF LEFT$(X$,1) = "N" OR LEFT$(X$,1) = "n" THEN 2260
+1410 CLS
+1420 PRINT CHR$(23)
+1430 PRINT "PRINTING ANSWER KEY"
+1440 LPRINT DATE$ ; TAB( 45)SEC$"* T E A C H E R'S  C O P Y *";EEC$
+1450 LPRINT S$;
+1460 IF V! = 1 THEN LPRINT KK$;
+1470 LPRINT TAB( 50)SEX$;"---> K E Y <---";EEX$
+1480 LPRINT STRING$(79,"*")
+1490 Y! = 40 - ( LEN(TT$) / 2)
+1500 LPRINT TAB( Y!)TT$
+1510 LPRINT STRING$(79,"*")
+1520 LPRINT " "
+1530 LPRINT " "
+1540 LPRINT " "
+1550 LC! = 10
+1560 FOR A! = 1 TO N!
+1570   IF Q$(A!) = "" THEN 2260
+1580   PRINT "WORKING ON QUESTION ";A!
+1590   IF LEFT$(A$(A!,1),1) = "*" THEN LPRINT TAB( 3);"A <--"; : GOTO 1640
+1600   IF LEFT$(A$(A!,2),1) = "*" THEN LPRINT TAB( 3);"B <--"; : GOTO 1640
+1610   IF LEFT$(A$(A!,3),1) = "*" THEN LPRINT TAB( 3);"C <--"; : GOTO 1640
+1620   IF LEFT$(A$(A!,4),1) = "*" THEN LPRINT TAB( 3);"D <--"; : GOTO 1640
+1630   LPRINT TAB( 3)"- <--";
+1640   LPRINT A!;". ";
+1650   LPRINT Q$(A!)
+1660   LC! = LC! + 1
+1670   IF Q1$(A!) < > "XX" THEN LPRINT TAB( 15)Q1$(A!) : LC! = LC! + 1
+1680   IF Q2$(A!) < > "XX" THEN LPRINT TAB( 15)Q2$(A!) : LC! = LC! + 1
+1690   LPRINT TAB( 9)"A) ";A$(A!,1); TAB( 45)"B) ";A$(A!,2)
+1700   LPRINT TAB( 9)"C) ";A$(A!,3); TAB( 45)"D) ";A$(A!,4)
+1710   LPRINT " "
+1720   LC! = LC! + 4
+1730   IF LC! > 60 THEN GOSUB 3060
+1740 NEXT A!
+1750 LPRINT " "
+1760 LPRINT TAB( 40)"EACH QUESTION IS WORTH ";100 / N!;" POINTS"
+1770 LPRINT CHR$(12)
+1780 GOTO 2260
+1790 ' *** INPUT SAVED TEST ***
+1800 CLS
+1810 ON ERROR GOTO 3360
+1820 FILES "A:*.TWD"
+1830 LINE INPUT "INPUT FILE NAME  (NO .TWD)";DF$
+1840 IF DF$ = "" THEN 2260
+1850 DF$ = DF$ + ".TWD"
+1860 OPEN"I",1, DF$
+1870 INPUT #1,N!
+1880 LINE INPUT #1,TT$
+1890 LINE INPUT #1,S$
+1900 LOCATE 1,10
+1910 PRINT TT$,S$
+1920 FOR A! = 1 TO N!
+1930   INPUT #1,Q$(A!),Q1$(A!),Q2$(A!),A$(A!,1),A$(A!,2),A$(A!,3),A$(A!,4)
+1940   LOCATE 24,5
+1950   PRINT Q$(A!)
+1960 NEXT A!
+1970 CLOSE
+1980 INPUT "DO YOU WANT TO ADD ON TO THIS TEST ";X$
+1990 IF LEFT$(X$,1) < > "Y" THEN 900
+2000 M! = N!
+2010 M! = M! + 1
+2020 CLS
+2030 PRINT "GET READY TO ADD TO TEST"
+2040 FOR X! = 1 TO 300
+2050 NEXT X!
+2060 N! = 100
+2070 GOTO 410
+2080 ' *** SAVE PROGRAM ***
+2090 CLS
+2100 LINE INPUT "OUTPUT FILE NAME # ";DF$
+2110 DF$ = DF$ + ".TWD"
+2120 OPEN"O",1, DF$
+2130 PRINT #1,N!
+2140 PRINT #1,TT$
+2150 PRINT #1,S$
+2160 FOR A! = 1 TO N!
+2170   PRINT #1, CHR$(34);Q$(A!); CHR$(34); CHR$(34);Q1$(A!); CHR$(34); CHR$(34);Q2$(A!); CHR$(34); CHR$(34);A$(A!,1); CHR$(34); CHR$(34);A$(A!,2); CHR$(34); CHR$(34);A$(A!,3); CHR$(34); CHR$(34);A$(A!,4) CHR$(34)
+2180   PRINT TT$,Q$(A!)
+2190 NEXT A!
+2200 CLOSE
+2210 CLS
+2220 PRINT "THE TEST HAS BEEN SAVED"
+2230 FOR X! = 1 TO 300
+2240 NEXT X!
+2250 :REM *** MENU ***
+2260 CLS
+2270 PRINT TAB( 60)N!" QUESTIONS READY"
+2280 PRINT STRING$(80,205)
+2290 PRINT
+2300 PRINT TAB( 23);
+2310 COLOR 0,7
+2320 PRINT " M A K E  A  S E L E C T I O N "
+2330 COLOR 7,0
+2340 PRINT
+2350 PRINT
+2360 PRINT TAB( 25)"1  -  WRITE TEST"
+2370 PRINT TAB( 25)"2  -  INPUT SAVED TEST"
+2380 PRINT TAB( 25)"3  -  SAVE PROGRAM"
+2390 PRINT TAB( 25)"4  -  PRINT TEST"
+2400 PRINT TAB( 25)"5  -  RECALL TEST QUESTION"
+2410 PRINT TAB( 25)"6  -  READ DIRECTORY ON DISK A"
+2420 W$ = INKEY$
+2430 IF W$ = "" GOTO 2420
+2440 W! = VAL(W$)
+2450 IF W! < 1 OR W! > 6 THEN 2420
+2460 ON W! GOTO 270,1800,2090,900,2760,3160
+2470 '*** RANDOMIZE ANSWERS ROUTINE ***
+2480 X! = VAL( RIGHT$( TIME$ ,2)) + VAL( MID$( TIME$ ,4,2))
+2490 RANDOMIZE X!
+2500 X! = INT( RND * (5))
+2510 IF X! = 0 THEN 2500
+2520 N!(1) = X!
+2530 X! = INT( RND * (5))
+2540 IF X! = 0 THEN 2530
+2550 N!(2) = X!
+2560 IF N!(2) = N!(1) THEN 2530
+2570 X! = INT( RND * (5))
+2580 IF X! = 0 THEN 2570
+2590 N!(3) = X!
+2600 IF N!(3) = N!(2) OR N!(3) = N!(1) THEN 2570
+2610 X! = INT( RND * (5))
+2620 IF X! = 0 THEN 2610
+2630 N!(4) = X!
+2640 IF N!(4) = N!(3) OR N!(4) = N!(2) OR N!(4) = N!(1) THEN 2610
+2650 PRINT N!(1),N!(2),N!(3),N!(4)
+2660 B$(A!,N!(1)) = A$(A!,1)
+2670 B$(A!,N!(2)) = A$(A!,2)
+2680 B$(A!,N!(3)) = A$(A!,3)
+2690 B$(A!,N!(4)) = A$(A!,4)
+2700 A$(A!,1) = B$(A!,1)
+2710 A$(A!,2) = B$(A!,2)
+2720 A$(A!,3) = B$(A!,3)
+2730 A$(A!,4) = B$(A!,4)
+2740 RETURN
+2750 ' *** RECALL TEST QUESTION ***
+2760 PRINT "INPUT QUESTION # ..."
+2770 INPUT ;V!
+2780 LOCATE 5,30
+2790 PRINT "QUESTION #";V!
+2800 PRINT STRING$(80,177)
+2810 CLS
+2820 PRINT Q$(V!)
+2830 PRINT Q1$(V!)
+2840 PRINT Q2$(V!)
+2850 PRINT STRING$(80,205)
+2860 PRINT TAB( 15)A$(V!,1); TAB( 40)A$(V!,2)
+2870 PRINT TAB( 15)A$(V!,3); TAB( 40)A$(V!,4)
+2880 PRINT "NEW QUESTION # ";V!
+2890 PRINT
+2900 PRINT
+2910 INPUT "--> ";QQ$(V!)
+2920 IF QQ$(V!) = "" THEN 2280
+2930 Q$(V!) = QQ$(V!)
+2940 INPUT Q1$(V!)
+2950 IF Q1$(V!) = "" THEN Q1$(V!) = "XX"
+2960 IF Q1$(V!) = "XX" THEN Q2$(V!) = "XX" ELSE INPUT Q2$(V!)
+2970 IF Q2$(V!) = "" THEN Q2$(V!) = "XX"
+2980 FOR B! = 1 TO 4
+2990   CLS
+3000   PRINT "ANSWER #  ";B!
+3010   PRINT STRING$(12,140)
+3020   INPUT A$(V!,B!)
+3030   IF A$(V!,B!) = "X" THEN B! = 1 : CLS  : GOTO 2980
+3040 NEXT B!
+3050 GOTO 2280
+3060 LPRINT CHR$(12)
+3070 LPRINT STRING$(79,"=")
+3080 LPRINT TT$; TAB( 70)"PAGE ";PG!
+3090 LPRINT STRING$(79,"*")
+3100 LPRINT
+3110 LPRINT
+3120 PG! = PG! + 1
+3130 LC! = 8
+3140 RETURN
+3150 ' *** READ DIR FOR DISK A ***
+3160 FILES "A:*.*"
+3170 GOTO 2270
+3180 REM **** PRINTER SUBROUTINES ***
+3190 SC$ = CHR$(15)
+3200 EC$ = CHR$(18)
+3210 SEC$ = CHR$(14) + CHR$(15)
+3220 EEC$ = CHR$(18) + CHR$(20)
+3230 SE$ = CHR$(14)
+3240 EE$ = CHR$(20)
+3250 SLG$ = CHR$(27) + CHR$(32)
+3260 SI$ = CHR$(27) + CHR$(52)
+3270 EI$ = CHR$(27) + CHR$(53)
+3280 SU$ = CHR$(27) + CHR$(45) + CHR$(1)
+3290 EU$ = CHR$(27) + CHR$(45) + CHR$(0)
+3300 SEX$ = CHR$(27) + CHR$(87) + CHR$(1)
+3310 EEX$ = CHR$(27) + CHR$(87) + CHR$(0)
+3320 SD$ = CHR$(27) + CHR$(71)
+3330 ED$ = CHR$(27) + CHR$(72)
+3340 RETURN
+3350 ' *** ERROR RECOVERY FROM NULL FILES ***
+3360 LOCATE 12,30
+3370 COLOR 26
+3380 PRINT "NO TESTWRITER FILES ON DISK A"
+3390 FOR X! = 1 TO 1400
+3400 NEXT X!
+3410 COLOR 7
+3420 GOTO 2260
+65000 '*********************** SAVE ROUTINE **********************************
+65100 SAVE "B:TEST2WRT.BAS"
+

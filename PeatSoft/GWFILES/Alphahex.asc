@@ -1,0 +1,169 @@
+5 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '***************** ALPHANUMERIC HEX$ WORKSHEET PLAN ************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ             ALPHANUMERIC TO HEXADECIMAL WORKSHEET UTILITY               บ
+20 'บ                                                                         บ
+22 'บ    This program will printout, on the screen in color or monochrome, a  บ
+24 'บ full easy-reference worksheet showing the hexadecimal conversions from  บ
+26 'บ zero (0) to lowercase "z".  This is useful when using a debug or other  บ
+28 'บ program in which you are inspecting or changing hexadecimal values on   บ
+30 'บ disk sectors.  You can convert from ASCII directly to HEX.              บ
+32 'บ                                                                         บ
+34 'บ    The display is printed out in contrasting color columns. This is     บ
+36 'บ controlled by line 670-90. If you wish to eliminate the color and use   บ
+38 'บ BLACK/WHITE MONOCHROME, SIMPLY REM line 690  and remove the REM from    บ
+40 'บ line 670.    The print out will be in emphasized print and the chart    บ
+42 'บ is suitable for wall display or notebook use.                           บ
+44 'บ                                                                         บ
+46 'บ    This program may be used in whole or in part without license or      บ
+48 'บ attribution.  (c)   G I N A C O  --  1983           Ver 5.1/160         บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ****** To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 *******
+60 KEY OFF
+100 CLS
+110  SCREEN 0,0,0
+120   WIDTH 80
+130    CLEAR
+140     FOR I! = 1 TO 10
+150        KEY I!,""
+160       NEXT
+170 CLS
+180  CLEAR 100
+190   DIM A$(200)
+200    CLEANUP$ = CHR$(27) + CHR$(64)
+210     DARK$ = CHR$(27) + CHR$(69)
+220      LOCATE 12,10
+230       PRINT "THIS WILL PRINT OUT ALPHA/HEX CONVERSIONS FROM 0 TO LOWER CASE Z"
+240        X! = 48
+250         Y! = 126
+260          FOR I! = X! TO Y!
+270             A$(I!) = HEX$(I!)
+280            NEXT
+290 PRINT TAB( 4)"CHR"; TAB( 10)"อ>"; TAB( 14)"HEX"; TAB( 24)"CHR"; TAB( 30)"อ>"; TAB( 34)"HEX"; TAB( 44)"CHR"; TAB( 50)"อ>"; TAB( 54)"HEX"; TAB( 64)"CHR"; TAB( 70)"อ>"; TAB( 74)"HEX"
+300 PRINT TAB( 4)"อออออ"; TAB( 14)"ออออ"; TAB( 24)"อออออ"; TAB( 34)"ออออ"; TAB( 44)"อออออ"; TAB( 54)"ออออ"; TAB( 64)"อออออ"; TAB( 74)"ออออ"
+310  I! = X!
+320   GOSUB 750
+330    I! = X! + 4
+340     GOSUB 750
+350      I! = X! + 8
+360       GOSUB 750
+370        I! = X! + 12
+380         GOSUB 750
+390          I! = X! + 16
+400           GOSUB 750
+410            I! = X! + 20
+420             GOSUB 750
+430              I! = X! + 24
+440               GOSUB 750
+450                I! = X! + 28
+460 GOSUB 750
+470  I! = X! + 32
+480   GOSUB 750
+490    I! = X! + 36
+500     GOSUB 750
+510      I! = X! + 40
+520       GOSUB 750
+530        I! = X! + 44
+540         GOSUB 750
+550          I! = X! + 48
+560           GOSUB 750
+570            I! = X! + 52
+580             GOSUB 750
+590              I! = X! + 56
+600               GOSUB 750
+610                I! = X! + 60
+620                 GOSUB 750
+630                  I! = X! + 64
+640                   GOSUB 750
+650                    I! = X! + 60
+660                     GOSUB 750
+670                      I! = X! + 64
+680                       GOSUB 750
+690                        I! = X! + 68
+700                         GOSUB 750
+710                          I! = X! + 72
+720                           GOSUB 750
+730                            GOTO 960
+740 REM ************** NEXT IS A MONOCHROME PRINTOUT LINE  ********************
+750 REM PRINT TAB(6)CHR$(I);TAB(15)A$(I);TAB(26)CHR$(I+1);TAB(35)A$(I+1);TAB(46)CHR$(I+2);TAB(55)A$(I+2);TAB(66)CHR$(I+3);TAB(75)A$(I+3)
+760 REM ************** NEXT IS THE COLOR PRINTOUT LINE ************************
+770 COLOR 3,0
+780  PRINT TAB( 6) CHR$(I!);
+790   COLOR 6
+800    PRINT TAB( 15)A$(I!);
+810     COLOR 3
+820      PRINT TAB( 26) CHR$(I! + 1);
+830       COLOR 6
+840        PRINT TAB( 35)A$(I! + 1);
+850         COLOR 3
+860          PRINT TAB( 46) CHR$(I! + 2);
+870           COLOR 6
+880            PRINT TAB( 55)A$(I! + 2);
+890             COLOR 3
+900              PRINT TAB( 66) CHR$(I! + 3);
+910               COLOR 6
+920                PRINT TAB( 75)A$(I! + 3)
+930 COLOR 7,0
+940  RETURN
+950 END
+960 COLOR 7,0
+970  LOCATE 25,3
+980   PRINT "TO RERUN  <ENTER 1>    TO PRINT  <ENTER 2>     TO LEAVE  PROGRAM   <ENTER 3>"
+990    GOSUB 1010
+1000     ON VAL(GO$) GOTO 60,1040,1510
+1010 GO$ = INKEY$
+1020  IF GO$ = "" THEN 1010
+1030 IF (GO$ < "1" OR GO$ > "3") THEN 960 ELSE RETURN
+1040 LPRINT CLEANUP$;DARK$;
+1050  LPRINT "THIS WILL PRINT OUT ALPHA/HEX CONVERSIONS FROM 0 TO LOWER CASE Z"
+1060 LPRINT TAB( 4)"CHR"; TAB( 10)"->"; TAB( 14)"HEX"; TAB( 24)"CHR"; TAB( 30)"->"; TAB( 34)"HEX"; TAB( 44)"CHR"; TAB( 50)"->"; TAB( 54)"HEX"; TAB( 64)"CHR"; TAB( 70)"->"; TAB( 74)"HEX"
+1070 LPRINT TAB( 4)"====="; TAB( 14)"===="; TAB( 24)"====="; TAB( 34)"===="; TAB( 44)"====="; TAB( 54)"===="; TAB( 64)"====="; TAB( 74)"===="
+1080  I! = X!
+1090   GOSUB 1480
+1100    I! = X! + 4
+1110     GOSUB 1480
+1120      I! = X! + 8
+1130       GOSUB 1480
+1140        I! = X! + 12
+1150         GOSUB 1480
+1160          I! = X! + 16
+1170           GOSUB 1480
+1180            I! = X! + 20
+1190             GOSUB 1480
+1200              I! = X! + 24
+1210               GOSUB 1480
+1220 I! = X! + 28
+1230  GOSUB 1480
+1240   I! = X! + 32
+1250    GOSUB 1480
+1260     I! = X! + 36
+1270      GOSUB 1480
+1280       I! = X! + 40
+1290        GOSUB 1480
+1300         I! = X! + 44
+1310          GOSUB 1480
+1320           I! = X! + 48
+1330            GOSUB 1480
+1340             I! = X! + 52
+1350              GOSUB 1480
+1360               I! = X! + 56
+1370                GOSUB 1480
+1380                 I! = X! + 60
+1390                  GOSUB 1480
+1400                   I! = X! + 64
+1410                    GOSUB 1480
+1420                     I! = X! + 68
+1430                      GOSUB 1480
+1440                       I! = X! + 72
+1450                        GOSUB 1480
+1460                         LPRINT CLEANUP$;
+1470                          GOTO 960
+1480 LPRINT TAB( 6) CHR$(I!); TAB( 15)A$(I!); TAB( 26) CHR$(I! + 1); TAB( 35)A$(I! + 1); TAB( 46) CHR$(I! + 2); TAB( 55)A$(I! + 2); TAB( 66) CHR$(I! + 3); TAB( 75)A$(I! + 3)
+1490  RETURN
+1500 END
+1510 CLS
+1520 END
+65000 REM **********************  SAVE ROUTINE  ******************************
+65100 SAVE "B:ALPHAHEX.BAS"
+

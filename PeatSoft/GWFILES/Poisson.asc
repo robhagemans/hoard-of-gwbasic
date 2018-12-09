@@ -1,0 +1,28 @@
+1 '                POISSON DISTRIBUTION (one-tailed)
+2 '               Written by Tracy L. Gustafson, M.D.
+3 '              Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+22 DATA "POISSON PROBABILITY DISTRIBUTION",22,34
+30 PRINT " The Poisson distribution is a one-tailed exact test that applies specifically ":PRINT " when the number of SUCCESSES can be counted but the number of FAILURES cannot."
+35 PRINT TAB(8);"It can also be used to approximate the binomial distribution":PRINT TAB(4);"when the number of trials is > 100 and the the population rate is < 5% ."
+40 LOCATE 11,22:PRINT "Enter the number of cases OBSERVED:"
+45 LOCATE 11,60:INPUT "",I:IF INT(I)=I THEN XO=I ELSE BEEP:LOCATE 25,21:PRINT "Observed number must be an integer.";:LOCATE 11,60:PRINT "     ":GOTO 45
+50 LOCATE 13,22:PRINT "Enter the number of cases EXPECTED:"
+55 PRINT TAB(29);"(may be a fraction)":PRINT TAB(20);"(e.g. population rate * time interval)":LOCATE 13,60:INPUT"",E
+60 COLOR 23:LOCATE 17,28:PRINT "CALCULATING PROBABILITY"
+65 AF=0:YO=XO:CE=0:IF E<YO THEN YO=YO-1:AF=1
+70 IF YO=0 THEN SF=1 ELSE SF=E+1
+75 F=E:FOR Z=2 TO YO:F=F*E/Z:IF F>1E+22 THEN F=F*1.928752165273146D-22:SF=SF* 1.928752165273146D-22:CE=CE+1
+80 IF F>=1E-31 THEN SF=SF+F:NEXT Z
+85 SL=LOG(SF)-E+CE*50:IF SL>80 THEN P=0 ELSE P=EXP(SL)
+90 IF AF=1 THEN P=1-P
+95 PLAY "MB O3 T120 L16 MS CCGE L6 C"
+100 COLOR CLR2,CLR1:LOCATE 17,1:PRINT TAB(8);"The probability of observing ";XO;" or ";
+105 IF AF=1 THEN PRINT "more cases "; ELSE PRINT "fewer cases ";
+110 IF P<.000001 THEN PRINT "< 10 (-6)"; ELSE IF P>.95 THEN PRINT "> .95"; ELSE PRINT "= ";P;
+115 PRINT TAB(80):COLOR CLR1,CLR2:LOCATE 25,4:INPUT;"Do you want to perform another Poisson distribution calculation?  ",A$:IF A$="y" OR A$="Y" THEN 20
+120 LOCATE 23,1:END
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+

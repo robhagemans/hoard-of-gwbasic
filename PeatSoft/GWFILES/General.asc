@@ -1,0 +1,532 @@
+10 REM Documentation for the Genealogy ON DISPLAY Programs
+20 REM All data is in the form of DATA statements.
+30 REM By:  Melvin O. Duke.  Updated February 1984.
+40 DATA Genealogy
+50 DATA User's Manual
+60 DATA -5
+70 DATA 1
+80 INDENT = 0
+90 DASHES$ = "+"+STRING$(54,45)+"+"
+100 TRIM.LINE$ = "(Trim-line)"
+110 REM Program begins here
+120 READ TITLE$, DOC.NAME$, PAGE.NO, LINE.NO
+130 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+140 GOSUB 500  'For trim line and heading space
+150 FOR I = 1 TO 6 : LPRINT : NEXT I
+160 LPRINT CHR$(14);  'Set Expanded Print
+170 LPRINT TAB(TAB.POS-2);TITLE$
+180 LPRINT CHR$(18);  'Return to normal
+190 FOR I = 1 TO 3 : LPRINT : NEXT I
+200 LPRINT CHR$(27); "E"; 'Set Emphasized mode
+210 LPRINT TAB(TAB.POS+12);"ON DISPLAY"
+220 LPRINT CHR$(27); "F"; 'Return to normal
+222 LPRINT : LPRINT : LPRINT
+224 LPRINT TAB(TAB.POS+11);"Version 2.0"
+230 FOR I = 1 TO 11 : LPRINT : NEXT I
+240 LPRINT TAB(TAB.POS+10); DOC.NAME$
+250 LINE.NO = LINE.NO + 27
+260 '
+270 READ REPLY$
+280 IF LEFT$(REPLY$,1) = "." THEN GOSUB 850: GOTO 270
+290 IF LINE.NO > 44 THEN GOSUB 610
+300 REM Print the line if not a command
+303 REM First, change tildes to quotes
+304 FOR Q = 1 TO LEN(REPLY$)
+305  IF MID$(REPLY$,Q,1)="~"THEN MID$(REPLY$,Q,1)=CHR$(34)
+306 NEXT Q
+310 LPRINT TAB(TAB.POS);REPLY$
+320 LINE.NO = LINE.NO + 1
+330 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+340 GOTO 270
+350 REM Data for the Copyright Page
+354 DATA ".pa"
+358 DATA "Anyone may request a copy of these"
+362 DATA "programs by sending a blank, double-"
+366 DATA "sided, double-density diskette to the"
+370 DATA "author of the programs."
+378 DATA ".sp"
+382 DATA "An addressed, postage-paid return"
+386 DATA "mailer must accompany the diskette (no"
+390 DATA "exceptions, please).
+394 DATA ".sp"
+398 DATA "A copy of the programs with documenta-"
+402 DATA "tion will be sent by return mail."
+410 DATA ".vt 2"
+415 DATA "Users are encouraged to copy and share"
+420 DATA "the programs with others."
+430 DATA ".vt 6"
+434 DATA "If you are using these programs, and"
+438 DATA "finding them of value, your contribution"
+442 DATA "($35 suggested) will be anticipated."
+446 DATA ".sp"
+450 DATA "Melvin O. Duke"
+454 DATA "P. O. Box 20836"
+458 DATA "San Jose, CA  95160"
+462 DATA ".vt 4"
+466 DATA "Copyright (c) 1983, 1984, by:"
+470 DATA "Melvin O. Duke."
+474 DATA ".sp"
+478 DATA "All rights reserved."
+482 '
+500 REM Top of each page routine
+510 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+520 LPRINT
+530 LPRINT TAB(30); TRIM.LINE$
+540 LPRINT DASHES$ 'Dashes
+550 FOR I = 1 TO 6
+560  LPRINT
+570 NEXT I
+580 LINE.NO = LINE.NO + 6
+590 RETURN
+600 '
+610 REM Bottom of each page Routine
+620 IF PAGE.NO < 1 THEN LPRINT : LPRINT : LPRINT : GOTO 740
+630 LPRINT TAB(TAB.POS); STRING$(40,45)  'on line 46
+640 LPRINT TAB(TAB.POS+3); TITLE$+" ON DISPLAY.  Version 2.0" 'on line 47
+650 IF PAGE.NO MOD 2 = 1 THEN 690
+660 LPRINT TAB(TAB.POS);"Page";PAGE.NO;
+670 LPRINT TAB(TAB.POS+27);"User's Manual"
+680 GOTO 740
+690 LPRINT TAB(TAB.POS); "User's Manual";
+700 IF PAGE.NO < 10 THEN DELTA = 34
+710 IF PAGE.NO >  9 THEN DELTA = 33
+720 IF PAGE.NO > 99 THEN DELTA = 32
+730 LPRINT TAB(TAB.POS+DELTA); "Page"; PAGE.NO  'on line 48
+740 LPRINT : LPRINT : LPRINT
+750 LPRINT DASHES$ 'dashes after 51
+760 LPRINT TAB(30); TRIM.LINE$
+770 LPRINT CHR$(12);
+780 PAGE.NO = PAGE.NO + 1
+790 LINE.NO = 1
+800 IF REPLY$ = ".eof" THEN 820  'Bypass after last page
+810 GOSUB 500  'For top of next page
+820 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+830 RETURN
+840 '
+850 REM Command Processor
+860 IF LEFT$(REPLY$,3) = ".h1" THEN 960
+870 IF LEFT$(REPLY$,3) = ".h2" THEN 1100
+880 IF LEFT$(REPLY$,3) = ".h3" THEN 1210
+890 IF LEFT$(REPLY$,3) = ".sp" THEN 1320
+900 IF LEFT$(REPLY$,4) = ".eof" THEN 1370
+910 IF LEFT$(REPLY$,3) = ".pa" THEN 1410
+915 IF LEFT$(REPLY$,3) = ".pn" THEN PAGE.NO = VAL(RIGHT$(REPLY$,LEN(REPLY$)-3)) : RETURN
+920 IF LEFT$(REPLY$,3) = ".vt" THEN 1480
+930 IF LEFT$(REPLY$,3) = ".pk" THEN 1590
+940 IF LEFT$(REPLY$,3) = ".in" THEN 1720
+950 STOP
+960 REM Head 1 Processor
+970 FOR I = LINE.NO TO 44
+980  LPRINT
+990 NEXT I
+1000 GOSUB 610  'Bottom of page Routine
+1010 IF PAGE.NO MOD 2 = 0 THEN GOSUB 1410  'For h1 on Odd pages
+1020 LPRINT CHR$(14);  'Set expanded print
+1030 IF PAGE.NO MOD 2 = 0 THEN ADJUST = -4 ELSE ADJUST = -7
+1040 LPRINT TAB(TAB.POS+ADJUST); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1050 LPRINT CHR$(18);  'Return to normal
+1060 LINE.NO = LINE.NO+1
+1070 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1080 RETURN
+1090 '
+1100 REM Head 2 Processor
+1110 IF LINE.NO = 7 THEN 1130 'skip spacing if at top of page
+1120 IF LINE.NO > 43 THEN GOSUB 1410 ELSE LPRINT:LPRINT:LINE.NO = LINE.NO+2
+1130 LPRINT CHR$(27); "E"; 'Set emphasized print
+1140 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1150 LPRINT CHR$(27); "F"; 'Return to normal
+1160 LPRINT
+1170 LINE.NO = LINE.NO + 2
+1180 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1190 RETURN
+1200 '
+1210 REM Head 3 Processor
+1220 IF LINE.NO = 7 THEN 1240 'skip spacing if at top of page
+1230 IF LINE.NO > 43 THEN GOSUB 1410 ELSE LPRINT:LPRINT:LINE.NO = LINE.NO+2
+1240 LPRINT CHR$(27); "E"; 'Set emphasized print
+1250 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1260 LPRINT CHR$(27); "F"; 'Return to normal
+1270 LPRINT
+1280 LINE.NO = LINE.NO + 2
+1290 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1300 RETURN
+1310 '
+1320 REM Single Space Processor
+1330 IF LINE.NO = 7 THEN 1350
+1340 IF LINE.NO > 44 THEN GOSUB 1410 ELSE LPRINT : LINE.NO = LINE.NO + 1
+1350 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1360 RETURN
+1370 REM End of File Processor
+1380 GOSUB 1410 'Bottom of Page
+1390 LPRINT CHR$(12);
+1400 GOTO 5340
+1410 REM Page Eject Processor
+1420 FOR I = LINE.NO TO 44
+1430  LPRINT
+1440  LINE.NO = LINE.NO + 1
+1450 NEXT I
+1460 GOSUB 610  'Bottom of Page Processing
+1470 RETURN
+1480 REM Vertical Tab Processor
+1490 IF LINE.NO = 7 THEN 1580
+1500 IF LINE.NO > 44 THEN GOSUB 610  'End of page
+1510 QTY = VAL(RIGHT$(REPLY$,LEN(REPLY$)-3))
+1520 FOR I = 1 TO QTY
+1530  LPRINT
+1540  LINE.NO = LINE.NO + 1
+1550  IF LINE.NO > 44 THEN I = QTY
+1560 NEXT I
+1570 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1580 RETURN
+1590 REM Pack Processor
+1600 IF LINE.NO > 44 THEN GOSUB 610
+1610 IF TAB.POS = 8 THEN ADJUST = 4
+1620 IF TAB.POS = 13 THEN ADJUST = 7
+1630 TAB.POS = TAB.POS + ADJUST + INDENT
+1640 LPRINT CHR$(15); 'Packed printing
+1650 WIDTH "lpt1:", 132 'set condensed width
+1660 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-3)
+1670 LPRINT CHR$(18); 'Return to normal
+1680 WIDTH "lpt1:", 80  'return to normal
+1690 LINE.NO = LINE.NO + 1
+1700 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1710 RETURN
+1720 REM Indent Processor
+1730 INDENT = VAL(RIGHT$(REPLY$,LEN(REPLY$)-3))
+1740 RETURN
+2000 DATA ".h1 GENERAL INFORMATION"
+2010 DATA ".pn 9"
+2020 DATA ".h2 DESCRIPTION OF FUNCTIONS"
+2030 DATA ".h3 File Creation."
+2040 DATA "Programs are provided to permit the user"
+2050 DATA "to create one data file which contains"
+2060 DATA "information about persons, another data"
+2070 DATA "file which contains information about"
+2080 DATA "marriages, and a third data file which"
+2090 DATA "contains information about ordinances."
+2100 DATA ".h3 File Maintenance."
+2110 DATA "Programs are provided for the maintenance"
+2120 DATA "of the three data files.  The user is free"
+2130 DATA "to change any information, or to add new"
+2140 DATA "information at any time."
+2150 DATA ".h3 File Indexes."
+2160 DATA "Programs are provided for the creation"
+2170 DATA "of two indexes, one of which relates"
+2180 DATA "parents and their children, and the other"
+2190 DATA "which relates persons by marriage."
+2200 DATA ".pa"
+2210 DATA ".h3 Summary Lists."
+2220 DATA "Programs are provided which will produce"
+2230 DATA "summary lists of the records in the file"
+2240 DATA "which contain the personal information,"
+2250 DATA "or of the records in the file which con-"
+2260 DATA "tain the marriages information."
+2270 DATA ".h3 Detailed Data."
+2280 DATA "One program is provided which will print"
+2290 DATA "either individual records or the entire"
+2300 DATA "contents of the Persons File, together"
+2310 DATA "with the Ordinances File.  A second"
+2320 DATA "program is provided which will print"
+2330 DATA "either individual records or the entire"
+2340 DATA "contents of the Marriages File."
+2350 DATA ".h3 Displaying the Genealogy"
+2360 DATA "Once the data files are as complete as"
+2370 DATA "possible, and the indexes have been"
+2380 DATA "created, then the 'Display the Genealogy'"
+2390 DATA "program 'display' can be used to display"
+2400 DATA "the information about a person (including"
+2410 DATA "personal information and church-related"
+2420 DATA "information), an ancestral pedigree, or"
+2430 DATA "the information about a family."
+2440 DATA ".pa
+2450 DATA ".h3 Printing Pedigree Charts"
+2460 DATA "Once the data files are as complete as"
+2470 DATA "possible, and the indexes have been"
+2480 DATA "created, then the Pedigree Program"
+2490 DATA "'pedigree' can be used to print the"
+2500 DATA "pedigree chart for any person who is"
+2510 DATA "identified by the user."
+2520 DATA ".h3 Printing Family Group Sheets"
+2530 DATA "Once the data files are as complete as"
+2540 DATA "possible, and the indexes have been"
+2550 DATA "created, then the Family Group Program"
+2560 DATA "'family' can be used to print the"
+2570 DATA "family group sheet for any marriage"
+2580 DATA "which is identified by the user."
+2590 DATA ".pa"
+2600 DATA ".h2 DEFINITION OF TERMS"
+2610 DATA ".h3 Personal Information."
+2620 DATA "Personal information is that information"
+2630 DATA "that is unique to a person.  It includes"
+2640 DATA "the persons name, his date of birth, the"
+2650 DATA "location of his birth, and his parents."
+2660 DATA "It also contains (if appropriate) the"
+2670 DATA "same type of information about a person's"
+2680 DATA "death and burial."
+2690 DATA ".h3 Pedigree Information."
+2700 DATA "Pedigree information is that information"
+2710 DATA "which shows the parents, grandparents,"
+2720 DATA "etc., about a person.  It includes the"
+2730 DATA "direct ancestry of the person."
+2740 DATA ".h3 Family Group Information."
+2750 DATA "Family group information is that informa-"
+2760 DATA "mation about a marriage, and the children"
+2770 DATA "of the marriage.  It includes the location"
+2780 DATA "and date of the marriage, as well as"
+2790 DATA "birth-dates, birth-places, and other in-"
+2800 DATA "formation about the children, such as"
+2810 DATA "marriage dates, and names of the spouse"
+2820 DATA "of each child."
+2830 DATA ".pa"
+2840 DATA ".h2 Ordinance Information."
+2850 DATA "Ordinance information is information"
+2860 DATA "about (LDS) church-related events in a"
+2870 DATA "person's life."
+2880 DATA ".pa"
+2890 DATA ".h2 EXPLANATION OF GENERAL CONCEPTS"
+2900 DATA "Genealogy is concerned with information"
+2910 DATA "about any number of direct ancestors,"
+2920 DATA "reaching backward as many generations"
+2930 DATA "as possible.  It is also concerned with"
+2940 DATA "family groups, with spouses, and with"
+2950 DATA "children within the family groups."
+2960 DATA ".sp"
+2970 DATA "Keeping track of the broad and varied"
+2980 DATA "relationships is a tedious manual task."
+2990 DATA ".sp"
+3000 DATA "Genealogy ON DISPLAY provides the basis"
+3010 DATA "for recording and relating these varied"
+3020 DATA "relationships by utilizing two data"
+3030 DATA "files and two indexes.  The first data"
+3040 DATA "file contains information about persons."
+3050 DATA "The second data file contains informa-"
+3060 DATA "tion about marriages.  The first index"
+3070 DATA "relates parents and their children."
+3080 DATA "The second index relates people with"
+3090 DATA "marriages."
+3100 DATA ".sp"
+3110 DATA "With these two files, and two indexes,"
+3120 DATA "Genealogy ON DISPLAY is able to"
+3130 DATA "associate every person with every other"
+3140 DATA "person, both with parent/child rela-"
+3150 DATA "tionships, and with husband/wife"
+3160 DATA "relationships."
+3170 DATA ".sp"
+3180 DATA "A third data file contains additional"
+3190 DATA "personal information which is church-"
+3200 DATA "related.  It contains all of the LDS"
+3210 DATA "ordinance information about a person."
+3220 DATA ".pa"
+3230 DATA ".h3 persfile"
+3240 DATA "The first data file, named 'persfile',"
+3250 DATA "contains all of the personal information"
+3260 DATA "about an individual.  It also contains a"
+3270 DATA "reference to that person's father and"
+3280 DATA "mother.  Its format and content are:"
+3290 DATA ".sp"
+3300 DATA "Size  Content"
+3310 DATA "----  --------------------------"
+3320 DATA "  5   Record Number for a Person"
+3330 DATA " 20   Surname of person"
+3340 DATA " 30   Given names of person"
+3350 DATA "  2   Sex"
+3360 DATA "  5   Code"
+3370 DATA "  5   Father's Record Number"
+3380 DATA "  5   Mother's Record Number"
+3390 DATA " 11   Birth-date of person"
+3400 DATA " 18   Birth-city"
+3410 DATA " 16   Birth-county"
+3420 DATA " 16   Birth-state or country"
+3430 DATA " 11   Death-date"
+3440 DATA " 18   Death-city"
+3450 DATA " 16   Death-county"
+3460 DATA " 16   Death-state or country"
+3470 DATA " 11   Burial-date"
+3480 DATA " 18   Burial-city"
+3490 DATA " 16   Burial-county"
+3500 DATA " 16   Burial-state or country"
+3510 DATA ".sp"
+3520 DATA "Note: Code is available to the user"
+3530 DATA "for any special user identification,"
+3540 DATA "such as differentiating between"
+3550 DATA "natural parents and adoptive parents."
+3560 DATA "It is unused by the programs."
+3570 DATA ".pa"
+3580 DATA ".h3 marrfile"
+3590 DATA "The second data file, named 'marrfile',"
+3600 DATA "contains all of the records of marriages."
+3610 DATA "Its contents are as follows:"
+3620 DATA ".sp"
+3630 DATA "Size  Content"
+3640 DATA "----  --------------------------"
+3650 DATA "  5   Record Number of the Marriage"
+3660 DATA "  5   Husband's Record-number"
+3670 DATA "  5   Wife's Record-number"
+3680 DATA "  5   Code"
+3690 DATA " 11   Marriage-date"
+3700 DATA " 18   Marriage-city"
+3710 DATA " 16   Marriage-county"
+3720 DATA " 16   Marriage-state or country"
+3730 DATA " 45   Comments"
+3740 DATA ".sp"
+3750 DATA "Note: Code is available to the user"
+3760 DATA "for any special user identification,"
+3770 DATA "such as differentiating between"
+3780 DATA "first and second marriage of spouses."
+3790 DATA "It is unused by the programs."
+3800 DATA ".pa
+3810 DATA ".h3 pcindex"
+3820 DATA "The first index, named 'pcindex',"
+3830 DATA "provides the relationships between"
+3840 DATA "parents and children.  It contains:"
+3850 DATA ".sp"
+3860 DATA "The Number of Records in the Index."
+3870 DATA ".sp"
+3880 DATA "For each index record:"
+3890 DATA "Parent's Record-number, and Child's"
+3900 DATA "Record-number."
+3910 DATA ".sp"
+3920 DATA "Note:  Index records are in sequence"
+3930 DATA "by Child's Birthdate within Parent's"
+3940 DATA "Record-number."
+3950 DATA ".h3 mindex"
+3960 DATA "The second index, named 'mindex',"
+3970 DATA "provides the relationships between"
+3980 DATA "husbands and wives.  It contains:"
+3990 DATA ".sp"
+4000 DATA "The Number of Records in the Index."
+4010 DATA ".sp"
+4020 DATA "For each index record:"
+4030 DATA "Person's Record-number in the Person's"
+4040 DATA "File, followed by the Marriage-number"
+4050 DATA "within the Marriage-file."
+4060 DATA ".sp"
+4070 DATA "Note:  Index records are in sequence"
+4080 DATA "by Marriage-date within the Person's"
+4090 DATA "Record-number."
+4100 DATA ".pa"
+4110 DATA ".h3 ordfile"
+4120 DATA "The third data file, named 'ordfile'"
+4130 DATA "contains all (LDS) church-related"
+4140 DATA "information about an individual,"
+4150 DATA "including all of the ordinance infor-"
+4160 DATA "mation.  Its contents are as follows:"
+4170 DATA "Size  Content"
+4180 DATA "----  --------------------------"
+4190 DATA "  5   Record Number for a Person"
+4200 DATA " 11   Christening Date"
+4210 DATA " 11   Blessing Date"
+4220 DATA " 11   Sealed to Parents Date"
+4230 DATA "  5   Father's Record Number"
+4240 DATA "  5   Mother's Record Number"
+4250 DATA " 11   Baptism Date"
+4260 DATA " 11   Confirmation Date"
+4270 DATA " 11   Patriarchical Blessing Date"
+4280 DATA " 11   Endowment Date"
+4290 DATA " 11   Sealed to Spouse Date"
+4300 DATA "  5   Spouse's Record Number"
+4310 DATA " 11   Aaronic Priesthood Date"
+4320 DATA " 11   Deacon Date"
+4330 DATA " 11   Teacher Date"
+4340 DATA " 11   Priest Date"
+4350 DATA " 11   Melchizedek Priesthood Date"
+4360 DATA " 11   Elder Date"
+4370 DATA " 11   Seventy Date"
+4380 DATA " 11   High Priest Date"
+4390 DATA " 11   Bishop Date"
+4400 DATA " 11   Patriarch Date"
+4410 DATA " 11   Apostle Date"
+4420 DATA " 26   Occupation"
+4430 DATA ".pa"
+4440 DATA ".h3 Relationships."
+4450 DATA "Because of the relationships carried"
+4460 DATA "within the Persons File, pedigree"
+4470 DATA "information may be associated backward"
+4480 DATA "for any number of generations.  There"
+4490 DATA "is no specific limit to the number of"
+4500 DATA "generations that the Genealogy ON"
+4510 DATA "DISPLAY programs will handle."
+4520 DATA ".sp"
+4530 DATA "Because of the indexes, which relate"
+4540 DATA "parents with their children, coupled"
+4550 DATA "with the information in the Marriages"
+4560 DATA "File, and the index to that file, it"
+4570 DATA "is possible to relate any number of"
+4580 DATA "persons together in families, showing"
+4590 DATA "them in accordance with their date of"
+4600 DATA "birth."
+4610 DATA ".sp"
+4620 DATA "(Note: there is no specific limit to"
+4630 DATA "the number of families that the"
+4640 DATA "Genealogy ON DISPLAY programs will"
+4650 DATA "handle, other than the total number"
+4660 DATA "of marriages defined.)
+4670 DATA ".pa"
+4680 DATA ".h2 BEFORE YOU START"
+4690 DATA ".h3 List of Persons"
+4700 DATA "Begin by making a numbered list, which"
+4710 DATA "contains the people who will be in your"
+4720 DATA "Persons File."
+4730 DATA ".sp"
+4740 DATA "This may look somewhat like:"
+4750 DATA ".sp"
+4760 DATA "No.  Surname      Given-Names"
+4770 DATA "---  -----------  -----------"
+4780 DATA "  1  ABLE         Melvin Otto"
+4790 DATA "  2  LOVELY       Helen Lillian"
+4800 DATA "  3  ABLE         Melvin Kent"
+4810 DATA "  4  ABLE         Ronald Robert"
+4820 DATA "  5  ABLE         Carolyn Elizabeth"
+4830 DATA "  6  ABLE         Linda Ann"
+4840 DATA "  7  ABLE         Otto"
+4850 DATA "  8  BAKER        Beatrice"
+4860 DATA "etc.  etc.         etc."
+4870 DATA ".pa"
+4880 DATA "Now go back and add the number which you"
+4890 DATA "have assigned, which represents each"
+4900 DATA "person's father and mother, such as:"
+4910 DATA ".sp"
+4920 DATA ".pk No.  Surname      Given-Names        Father  Mother"
+4930 DATA ".pk ---  -----------  -----------        ------  ------"
+4940 DATA ".pk   1  ABLE         Melvin Otto           7       8"
+4950 DATA ".pk   2  LOVELY       Helen Lillian"
+4960 DATA ".pk   3  ABLE         Melvin Kent           1       2"
+4970 DATA ".pk   4  ABLE         Ronald Robert         1       2"
+4980 DATA ".pk   5  ABLE         Carolyn Elizabeth     1       2"
+4990 DATA ".pk   6  ABLE         Linda Ann             1       2"
+5000 DATA ".pk   7  ABLE         Otto"
+5010 DATA ".pk   8  BAKER        Beatrice"
+5020 DATA ".pk etc.  etc.         etc.                etc.    etc."
+5030 DATA ".sp"
+5040 DATA "Note:  This is your master list of"
+5050 DATA "persons. It will continue to grow as you"
+5060 DATA "add more and more names.  After you have"
+5070 DATA "updated the Persons File with these"
+5080 DATA "people, you can produce the list by"
+5090 DATA "selecting the 'listper' program to"
+5100 DATA "be run."
+5110 DATA ".pa"
+5120 DATA ".h3 List of Marriages"
+5130 DATA "Now make a second numbered list.  Enter"
+5140 DATA "the record-numbers of the persons who"
+5150 DATA "are married.  This may appear as:"
+5160 DATA ".sp"
+5170 DATA "Marriage     Husband's   Wife's"
+5180 DATA "Number       Record-no.  Record-no."
+5190 DATA "--------     ----------  ----------"
+5200 DATA "  1            1           2"
+5210 DATA "  2            7           8"
+5220 DATA " etc.         etc.        etc."
+5230 DATA ".sp"
+5240 DATA "If you find it convenient, you may also"
+5250 DATA "want to include names in this list."
+5260 DATA ".sp"
+5270 DATA "Note:  This is your master list of"
+5280 DATA "marriages. It will continue to grow as"
+5290 DATA "you add more and more marriages.  After"
+5300 DATA "you have updated the Marriages File,"
+5310 DATA "you can produce the list by selecting"
+5320 DATA "the 'listmar' program to be run."
+5330 DATA ".eof"
+5340 END
+

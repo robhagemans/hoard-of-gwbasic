@@ -1,0 +1,40 @@
+0' ====> A0.bas
+1 OPEN"i",#1,"data.dat":INPUT#1,MONO,LSN$,PAGE:CLOSE
+2 IF MONO THEN C1=7:C2=0:C3=8:C4=2 ELSE C1=(VAL(RIGHT$(TIME$,2)) MOD 6)+2:C2=0:C4=0:C3=(C1+2)+(6*(C1>5))
+3 KEY 1,"RUN"+CHR$(34)+"BACKUP"+CHR$(34)+CHR$(13)
+4 KEY 2,"RUN"+CHR$(34)+"FORWARD"+CHR$(34)+CHR$(13)
+5 KEY 3,"RUN"+CHR$(34)+"REPEAT"+CHR$(34)+CHR$(13)
+6 FOR I=4 TO 7:KEY I,"":NEXT I
+7 KEY 8,"RUN"+CHR$(34)+"a0"+CHR$(34)+CHR$(13)
+8 KEY 9,"RUN"+CHR$(34)+"CONTENTS"+CHR$(34)+CHR$(13)
+9 KEY 10,"RUN"+CHR$(34)+"INDEX"+CHR$(34)+CHR$(13)
+10 SCREEN 0,0,0:WIDTH 80:KEY OFF:COLOR C2,C1:CLS
+11 TEMP$=CHR$(31)+CHR$(29)+CHR$(178)
+12 TASSLE$=CHR$(218)+CHR$(31)+CHR$(29)+CHR$(179)+CHR$(31)+CHR$(29)+CHR$(234)+TEMP$+TEMP$+TEMP$+TEMP$+TEMP$+TEMP$+TEMP$+TEMP$+TEMP$
+13 LOCATE 2,24,0:PRINT "The BASIC Prof. -- Beginning BASIC"
+14 LOCATE 4,20:PRINT TASSLE$:LOCATE 4,21:PRINT STRING$(19,196);STRING$(2,219)
+15 LOCATE 5,21:PRINT STRING$(40,219):LOCATE 6,26:PRINT STRING$(30,219)
+16 LOCATE 8,38:PRINT "Press:"
+17 LOCATE 10,24:COLOR C1,C2:PRINT " K ";:COLOR C2,C1:PRINT "for the keyboard introduction,"
+18 LOCATE 11,24:COLOR C1,C2:PRINT " 1 ";:COLOR C2,C1:PRINT "to begin lesson number one,"
+19 LOCATE 12,24:COLOR C1,C2:PRINT " 2 ";:COLOR C2,C1:PRINT "to begin lesson number two,"
+20 LOCATE 13,24:COLOR C1,C2:PRINT " 3 ";:COLOR C2,C1:PRINT "to begin lesson number three,"
+21 LOCATE 14,24:COLOR C1,C2:PRINT " 4 ";:COLOR C2,C1:PRINT "to begin lesson number four,"
+22 LOCATE 15,24:COLOR C1,C2:PRINT " I ";:COLOR C2,C1:PRINT "to see the index,"
+23 LOCATE 16,24:COLOR C1,C2:PRINT " T ";:COLOR C2,C1:PRINT "to see the table of contents, or"
+24 LOCATE 17,24:COLOR C1,C2:PRINT " X ";:COLOR C2,C1:PRINT "to exit the BASIC Prof program."
+25 LOCATE 21,34:PRINT"The PC-Prof.":LOCATE 22,34:PRINT"P.O. Box 26":LOCATE 23,34:PRINT "Salina, Kansas":LOCATE 24,34:PRINT "67402-0026";
+26 IF INKEY$<>"" THEN 26
+27 LSN$=INKEY$:IF LSN$="" THEN 27
+28 IF LSN$="K" OR LSN$="k" THEN RUN"k0"
+29 IF LSN$>="1" AND LSN$<="4" THEN OPEN"o",#1,"data.dat":WRITE#1,MONO,LSN$,1:CLOSE:CHAIN "a"+LSN$,,ALL
+30 IF LSN$="I" OR LSN$="i" THEN RUN"INDEX"
+31 IF LSN$="T" OR LSN$="t" THEN RUN"CONTENTS"
+32 IF LSN$<>"X" AND LSN$<>"x" THEN LOCATE 19,25:BEEP:PRINT "Press";:COLOR C1,C2:PRINT " K 1 2 3 4 I T ";:COLOR C2,C1:PRINT "or";:COLOR C1,C2:PRINT " X ";:COLOR C2,C1:PRINT "please.":GOTO 26
+33 COLOR C1,C2:CLS:PRINT TAB(9);"You are about to exit the BASIC Prof program.  You will be returned to";"the Disk Operating System (DOS).  To get back into BASIC, type BASICA and"
+34 PRINT "press the return key.  To get back to the BASIC Prof just turn the computer off";"for a few seconds, then turn it back on again."
+35 LOCATE 6,1:PRINT "Press the ";:COLOR C2,C1:PRINT "space bar";:COLOR C1,C2:PRINT " to exit the program, or any other key to return to the menu."
+36 IF INKEY$<>"" THEN 36
+37 IF INPUT$(1)<>" " THEN 10
+38 SYSTEM
+

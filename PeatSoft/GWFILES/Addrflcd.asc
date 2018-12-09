@@ -1,0 +1,58 @@
+10 KEY OFF:CLS
+20 '                PC^3 Software Library Program  ADDRFLCD
+30 '                    Michael Csontos  7-30-82
+40 PRINT " This program generates form filecards (3x5 index cards) for the collection and"
+50 PRINT " filing of club membership or other name and address information.  They look"
+60 PRINT " something like the following.":PRINT
+70 PRINT
+80 PRINT "              Name:______________________________________________
+90 PRINT "               as you want it on address labels
+100 PRINT "             Street Address______________________________________
+110 PRINT "               for mailing purposes
+120 PRINT "             City___________________________State________ZIP_____
+130 PRINT
+140 PRINT "             Company_______________________Mail Code_____________
+150 PRINT "               may help in distributing meeting notices
+160 PRINT "             Phone:Home___________________Work___________________
+170 PRINT
+180 PRINT "             Club Office_________________________________________
+190 PRINT "               office or duties assumed during the current year
+200 PRINT
+210 PRINT " The program is set up for an Epson MX-80 with Graphtrack. Other printers may
+220 PRINT " require modification of the printer commands.  The output is intended for
+230 PRINT "continuous sprocket feed form index cards (one across) such as are available
+240 PRINT "from Misco Inc., Box 399, Holmdel, NJ 07733, 800/631-2227 (Cat. # 8871)
+250 PRINT
+260 INPUT "How many cards do you want in this run"; NUMBER
+270 IF NUMBER<1 OR INT(NUMBER)<>NUMBER THEN PRINT "Please enter an integer number from 1 to the number of blank cards you have":GOTO 260
+280 INPUT "Is the printer ready to print the cards";Q$
+290 IF Q$="y" OR Q$="Y" THEN GOTO 320
+300 IF Q$="n" OR Q$="N" THEN GOTO 280
+310 PRINT "Please enter Y, y, N, or n":GOTO 280
+320 PRINTED=NUMBER
+330 LPRINT CHR$(27)CHR$(64);'                           reset printer
+340 LPRINT CHR$(27)CHR$(67)CHR$(0)CHR$(3);'             3 inch form
+350 LPRINT CHR$(15)CHR$(27)CHR$(65)CHR$(10);'           10/72 inch lines
+360 IF NUMBER>0 THEN GOSUB 390  ELSE GOTO 550
+370 NUMBER=NUMBER-1
+380 GOTO 360
+390 LPRINT CHR$(27)CHR$(69) "Name:" CHR$(27)CHR$(45)CHR$(1) STRING$(40,"_") CHR$(27)CHR$(45)CHR$(0)'
+400 LPRINT CHR$(27)CHR$(70)CHR$(27)CHR$(83)CHR$(0) "    AS YOU WANT IT ON ADDRESS LABLES" CHR$(27)CHR$(72)
+410 LPRINT
+420 LPRINT CHR$(27)CHR$(69) "Street Address:" CHR$(27)CHR$(45)CHR$(1) STRING$(30,"_") CHR$(27)CHR$(45)CHR$(0)
+430 LPRINT CHR$(27)CHR$(70)CHR$(27)CHR$(83)CHR$(0) "    FOR MAILING PURPOSES" CHR$(27)CHR$(72)
+440 LPRINT
+450 LPRINT CHR$(27)CHR$(69) "City:" CHR$(27)CHR$(45)CHR$(1) STRING$(17,"_") CHR$(27)CHR$(45)CHR$(0) "State:" CHR$(27)CHR$(45)CHR$(1) STRING$(5,"_") CHR$(27)CHR$(45)CHR$(0) "ZIP:" CHR$(27)CHR$(45)CHR$(1) STRING$(8,"_") CHR$(27)CHR$(45)CHR$(0)
+460 LPRINT :LPRINT
+470 LPRINT CHR$(27)CHR$(69) "Company:" CHR$(27)CHR$(45)CHR$(1) STRING$(13,"_") CHR$(27)CHR$(45)CHR$(0) "Mail Code:" CHR$(27)CHR$(45)CHR$(1) STRING$(14,"_") CHR$(27)CHR$(45)CHR$(0)
+480 LPRINT CHR$(27)CHR$(70)CHR$(27)CHR$(83)CHR$(0) "    MAY HELP IN DISTRIBUTING MEETING NOTICES" CHR$(27)CHR$(72)
+490 LPRINT
+500 LPRINT CHR$(27)CHR$(69) "Phone:Home:" CHR$(27)CHR$(45)CHR$(1) STRING$(14,"_") CHR$(27)CHR$(45)CHR$(0) "Work:" CHR$(27)CHR$(45)CHR$(1) STRING$(15,"_") CHR$(27)CHR$(45)CHR$(0)
+510 LPRINT :LPRINT
+520 LPRINT "Club Office:" CHR$(27)CHR$(45)CHR$(1) STRING$(33,"_") CHR$(27)CHR$(45)CHR$(0)'
+530 LPRINT CHR$(27)CHR$(70)CHR$(27)CHR$(83)CHR$(0) "    OFFICE OR DUTIES ASSUMED BY YOU DURING THE CURRENT YEAR" CHR$(27)CHR$(72)
+540 LPRINT CHR$(140);:RETURN
+550 PRINT PRINTED " cards completed.":PRINT:PRINT:KEY ON
+560 END
+570 ' SAVE"addrflcd
+

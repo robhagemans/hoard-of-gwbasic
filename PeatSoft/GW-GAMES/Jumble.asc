@@ -1,0 +1,27 @@
+100 'jumble - solves jumbles
+120 'This is 10 lines in PASCAL but the EXE file is huge!
+130 'There's got to be a better way in BASIC to do recursion
+140 '   or some other permutation algorithm
+145 '--Oh well, it works as fast as it can be read.
+147 '
+148 ' Hal Sampson (408) 866-7840
+149 '
+150 DEFINT A-Z
+200 INPUT "Jumbled word to permute";A$(0)
+300 I=0:L=LEN(A$(0))
+350 FOR J=1 TO 16:IF 80\(L+J)=80/(L+J) THEN 375 ELSE NEXT J
+375 B$=STRING$(J,32)
+400 GOSUB 1000
+600 PRINT
+700 GOTO 200
+1000 IF A$(I)="" THEN FOR K=0 TO I-1:PRINT O$(K);:NEXT K:PRINT B$;:RETURN
+1050 J(I)=0
+1100 IF J(I)=LEN(A$(I)) THEN RETURN ELSE J(I)=J(I)+1
+1200 O$(I)=LEFT$(A$(I),1)
+1300 A$(I+1)=MID$(A$(I),2)
+1400 I=I+1
+1500 GOSUB 1000
+1600 I=I-1
+1700 A$(I)=MID$(A$(I),2)+LEFT$(A$(I),1)
+1800 GOTO 1100
+

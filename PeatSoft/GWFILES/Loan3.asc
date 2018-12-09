@@ -1,0 +1,228 @@
+10 CLS: KEY OFF: LOCATE 3,30: PRINT "LOAN.BAS"
+20 LOCATE 9,25: PRINT "Edward Weissberger"
+21 LOCATE 10,6: PRINT "While every effort has been made to insure calculation accuracy,"
+22 PRINT "the author accepts no responsibility for consequences of using of LOAN.BAS"
+30 LOCATE 7,14:PRINT "A PROGRAM TO CALCULATE LOAN PARAMETERS"
+40 LOCATE 4,26: PRINT "version 02-01-83"
+45 LOCATE 20,50: PRINT "Type any key to continue"
+46 A$ = INKEY$: IF A$ = "" THEN 46
+50 DEF SEG: POKE 106,0
+60 KEY 1,"Rate"+CHR$(13)
+70 KEY 2,"Paymnt"+CHR$(13)
+80 KEY 3,"Value"+CHR$(13)
+90 KEY 4,"Time"+CHR$(13)
+100 KEY 5,"Paid"+CHR$(13)
+110 KEY 6,"Amort"+CHR$(13)
+120 KEY 8,"Quit"+CHR$(13)
+130 KEY 7,"Table"+CHR$(13)
+140 KEY 9,""
+150 KEY 10,""
+160 KEY ON
+170 CLS
+180 'Explain program
+190 LOCATE 1,15: COLOR 0,7,0: PRINT " MEANING OF THE SOFT KEY CALCULATION OPTIONS ": COLOR 7,0,0: PRINT
+200 PRINT "KEY 1: Calculate INTEREST RATE from loan amount, years, monthly payments.": PRINT
+210 PRINT "KEY 2: Calculate MONTHLY PAYMENTS from loan amount, years, rate.": PRINT
+220 PRINT "KEY 3: Calculate the PRINCIPLE VALUE (amount) remaining at any given time.": PRINT
+230 PRINT "KEY 4: Calculate the TIME remaining on the loan."
+240 PRINT "       Use this after a ballon principle payment or to determine"
+250 PRINT "       the time needed to pay a loan with given payments.": PRINT
+260 PRINT "KEY 5: Calculate AMOUNTS PAID to principle and interest at any time."
+270 PRINT "       USE ONLY WITH SCHEDUAL VALUES FOR DURATION OF LOAN AND PMTS."
+280 PRINT "       If using extra payments, use soft KEY 6, Amort.": PRINT
+290 PRINT "KEY 6: Calculates an AMORTIZATION SCHEDULE of interest paid and"
+300 PRINT "       the principle remaining in any given time period of the loan.": PRINT
+310 PRINT "KEY 7: Prints an amortization schedule TABLE.": PRINT
+320 PRINT "KEY 8: Terminates LOAN.BAS and assigns the SOFT KEYS to a useful set."
+330 'Select an option for calculation.
+340 LOCATE 24,15: COLOR 0,7,0
+350 PRINT " Select an option for calculation. ";: COLOR 7,0,0
+360 LINE INPUT; C$
+370 CLS
+380 IF C$="Rate" THEN 470 ELSE IF C$="Paymnt" THEN 640 ELSE IF C$="Value" THEN 760 ELSE IF C$="Time" THEN 1060 ELSE IF C$="Quit" THEN 420 ELSE IF C$="Paid" THEN 1230 ELSE IF C$="Amort" THEN 1480 ELSE IF C$="Table" THEN 1720
+390 LOCATE 21,1: PRINT "Try again, please.": GOTO 340
+400 LINE INPUT; ITEM$
+410 'Terminate with re-assignment of the soft keys.
+420 CLS: LOCATE 20,15: PRINT "Are you sure you want to Quit? (Y/N)"
+430 A$ = INKEY$: IF A$ = "" THEN 430
+440 IF A$ = "y" OR A$ = "Y" THEN 450 ELSE 170
+450 GOTO 2200
+460 'Iteratively calculate the interest rate.
+470 CC = 1
+480 ITER = 1
+490 GOSUB 900
+500 GOSUB 930
+510 GOSUB 920
+520 GOSUB 1440
+530 I = 1.1: REF = 200: REFI = 2
+540 PRINT: PRINT "Please wait during calculation."
+550 GOSUB 980
+560 GOSUB 830
+570 IF I < 0 THEN I = ABS(I): GOTO 550
+580 WHILE FIX((OPV-PVF)*100)
+590 IF (OPV-PVF) < REF THEN I = I + REFI: GOTO 550
+600 I = I - REFI: REF = REF/2: REFI = REFI/2: GOTO 550
+610 WEND
+620 CLS: PRINT USING "The interest rate is ##.## ";I
+630 ITER = 0: GOTO 340
+640 'Calculate the needed monthly payment.
+650 GOSUB 890
+660 GOSUB 900
+670 GOSUB 930
+680 GOSUB 1440
+690 GOSUB 980
+700 GOTO 710
+710 PMT = OPV*FACT3
+720 CLS: PRINT USING "The monthly payment required is #####.## ";PMT
+730 PMTYR = PMT*12
+740 PRINT USING "The yearly  payment required is #####.## ";PMTYR
+750 GOTO 340
+760 'Calculate the unpaid principle.
+770 GOSUB 890
+780 GOSUB 900
+790 GOSUB 920
+800 GOSUB 950
+810 GOSUB 1440
+820 GOSUB 980
+830 PVF = PMT/FACT3
+840 IF ITER = 1 THEN RETURN
+850 IF PAID = 1 THEN RETURN
+860 CLS: PRINT USING "The unpaid principle is ######.## ";PVF
+870 GOTO 340
+880 'The data request statements.
+890 INPUT "Type the interest rate: ",I: RETURN
+900 INPUT "Type the initial loan value: ",OPV: RETURN
+910 INPUT "Type the present loan value: ",PV: RETURN
+920 INPUT "Type the monthly payment: ",PMT: RETURN
+930 INPUT "Type the loan duration in years: ",YR
+940 MON = YR*12: RETURN
+950 INPUT "Type the number of months remaining: ",MON: RETURN
+960 INPUT "Type the number of months already paid: ",MONP: RETURN
+970 'The common arithmetic factors.
+980 INTR = I/1200
+990 IF VALP = 1 THEN RETURN
+1000 FACT = (1 + INTR)^(-MON)
+1010 IF AMTR = 1 THEN RETURN ELSE IF TABLE = 1 THEN RETURN
+1020 FACT2 = 1 - FACT
+1030 FACT3 = INTR/FACT2
+1040 RETURN
+1050 'Calculate the time remaining on the loan.
+1060 VALP = 1
+1070 GOSUB 890
+1080 GOSUB 910
+1090 GOSUB 920
+1100 GOSUB 1440
+1110 GOSUB 980
+1120 FACT4 = PV*INTR/PMT
+1130 IF FACT4 >= 1 THEN COLOR 0,7,0: PRINT " Sorry, you MUST pay more per month. ": COLOR 7,0,0: GOTO 340
+1140 FACT5 = -FACT4 + 1
+1150 MON = -(LOG(FACT5)/LOG(1 + INTR))
+1160 CLS
+1170 PRINT USING "There are ###.## months remaining. ";MON: PRINT
+1180 YR = MON/12
+1190 PRINT USING "There are  ##.### years remaining. ";YR
+1200 VALP = 0
+1210 GOTO 340
+1220 'Calculate the principle and interest paid since the loan's beginning.
+1230 PAID = 1
+1240 GOSUB 890
+1250 GOSUB 900
+1260 GOSUB 930
+1270 GOSUB 960
+1280 GOSUB 920
+1290 GOSUB 1440
+1300 MON = MON - MONP
+1310 GOSUB 980
+1320 GOSUB 830
+1330 PVP = OPV - PVF
+1340 PD = PMT*MONP
+1350 INTP = PD - PVP
+1360 CLS
+1370 PRINT USING "The principle paid is ######.## ";PVP
+1380 PRINT USING "The interest  paid is ######.## ";INTP
+1390 TOT = PVP + INTP
+1400 PRINT USING "The total     paid is ######.## ";TOT
+1410 PRINT: PRINT USING "The principle remaining is ######.## ";PVF
+1420 PAID = 0
+1430 GOTO 340
+1440 PRINT: PRINT "Are these values correct? (Y/N) "
+1450 A$ = INKEY$: IF A$ = "" THEN 1450
+1460 IF A$ = "n" OR A$ = "N" THEN: CLS: LOCATE 15,5: GOTO 370 ELSE IF A$ = "y" OR A$ = "Y" THEN RETURN ELSE LOCATE 15,5: PRINT "Answer again, please.": GOTO 1440
+1470 'Calculate amortization schedule
+1480 AMTR = 1
+1490 GOSUB 890
+1500 GOSUB 900
+1510 GOSUB 920
+1520 INPUT "Type the first payment number for the period of concern: ",JJ
+1530 INPUT "Type the final payment number for the period of concern: ",KK
+1540 GOSUB 1440
+1550 IF TABLE = 1 THEN 1780
+1560 MON = KK
+1570 GOSUB 980
+1580 BAL(1) = (1/FACT)*(PMT*(FACT-1)/INTR + OPV)
+1590 MON = JJ - 1
+1600 GOSUB 1000
+1610 BAL(2) = (1/FACT)*(PMT*(FACT-1)/INTR + OPV)
+1620 INTRNG = BAL(1)- BAL(2)+ (KK - JJ + 1)*PMT
+1630 TOTPAD = PMT*(KK-JJ+1)
+1640 CLS: PRINT USING "In the payment period range #### to #### ";JJ,KK: PRINT
+1650 PRINT USING "The interest paid:       ######.## ";INTRNG
+1660 PRINT USING "The principle remaining: ######.## ";BAL(1)
+1670 PRINT: PRINT USING "The total paid:   ######.## ";TOTPAD
+1680 PRINT: PRINT "Will you run again with the same loan with changed periods? (Y/N)"
+1690 A$ = INKEY$: IF A$ = "" THEN 1690
+1700 IF A$ = "n" OR A$ = "N" THEN CLS: AMTR = 0: TABLE = 0: GOTO 340 ELSE IF A$ = "Y" OR A$ = "y" THEN CLS: GOTO 1520 ELSE CLS: PRINT "Answer again, please": GOTO 1680
+1710 'Print amoritzation table with line printer
+1720 TABLE = 1
+1730 CLS: LOCATE 10,5: COLOR 0,7,0: PRINT " Turn printer on and on line. "
+1740 COLOR 7,0,0
+1750 PRINT: LOCATE 12,15: PRINT "Type any key to continue."
+1760 A$ = INKEY$: IF A$ = "" THEN 1760
+1770 CLS: GOSUB 1490
+1780 TPMT = 0: INPA = 0: DUR = KK - JJ + 1
+1790 LPRINT: LPRINT
+1800 LPRINT CHR$(14); "       LOAN  AMORTIZATION  TABLE";CHR$(20)
+1810 LPRINT
+1820 LPRINT USING "           LOAN VALUE: $######.##     MONTHLY PAYMENT: $######.##";OPV,PMT
+1830 LPRINT USING "                     ANNUAL PERCENTAGE RATE:     ##.##%";I
+1840 LPRINT
+1850 LPRINT USING "                   FIRST INSTALLMENT OF CALCULATION: ###";JJ
+1860 LPRINT USING "                   LAST  INSTALLMENT OF CALCULATION: ###";KK
+1870 LPRINT USING "                                 NUMBER OF PAYMENTS: ###";DUR
+1880 LPRINT: LPRINT: LPRINT:
+1890 LPRINT "    PAYMENT          REMAINING            PRINCIPLE        INTEREST"
+1900 LPRINT "    NUMBER           PRINCIPLE             PAYMENT          PAYMENT"
+1910 LPRINT
+1920 F$ =   "    ###.##           ######.##          ######.##        ######.##"
+1930 FOR LNS = JJ TO CINT(KK)
+1940 IF LNS = CINT(KK) THEN LNS = KK
+1950 FOR JJJ = 1 TO 2
+1960 MON = LNS + 1 - JJJ
+1970 GOSUB 980
+1980 IF FIX(KK) = KK OR LNS < KK THEN GOTO 2010
+1990 BAL(2) = BAL(1): BAL(1) = 0
+2000 INTPD = BAL(2)*INTR*(KK - FIX(KK)): F = 1: JJJ = 2: GOTO 2020
+2010 BAL(JJJ) = (1/FACT)*(PMT*(FACT-1)/INTR + OPV)
+2020 NEXT JJJ
+2030 PRNPD = BAL(2) - BAL(1): IF F = 1 GOTO 2050
+2040 INTPD = PMT - PRNPD
+2050 LPRINT USING F$; LNS, BAL(1), PRNPD, INTPD
+2060 TPMT = TPMT + PRNPD: INPA = INPA + INTPD: TOTPAD = TPMT + INPA
+2070 NEXT LNS
+2080 F = 0
+2090 LPRINT
+2100 LPRINT USING "   PRIN. PAID $######.##  INTER. PAID $######.##  TOT PAID $######.##";TPMT,INPA,TOTPAD
+2110 GOTO 1680
+2200 KEY 1,"LIST "
+2210 KEY 2,"RUN"+CHR$(13)
+2220 KEY 3,"LOAD"+CHR$(34)
+2230 KEY 4,"SAVE"+CHR$(34)
+2240 KEY 5,"B:"
+2250 KEY 6,CHR$(44)+CHR$(34)+"LPT1:"+CHR$(34)+CHR$(13)
+2260 KEY 7,CHR$(34)+",A"+CHR$(13)
+2270 KEY 8,"SYSTEM"+CHR$(13)
+2280 KEY 9,"FILES"+CHR$(13)
+2290 KEY 10,"FILES"+CHR$(34)+"B:*.*"+CHR$(13)
+2300 DEF SEG: POKE 106,0
+2310 KEY ON: CLS: NEW: END
+

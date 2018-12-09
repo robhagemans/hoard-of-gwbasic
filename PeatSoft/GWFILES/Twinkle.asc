@@ -1,0 +1,49 @@
+10 ' Program: TWINKLE.BAS (an IBM program (Interesting, But Meaningless))
+20 ' Contributed to PC-SIG on 5 November, 1983
+30 ' Written by John Walkenbach
+40 '            1425 NW Highland
+50 '            Corvallis, OR 97330
+60 '
+70 DIM C(20)
+80 FOR I=1 TO 20:READ C(I):NEXT
+90 KEY (9) ON:ON KEY (9) GOSUB 470
+100 KEY (10) ON:ON KEY (10) GOSUB 460
+110 CLS
+120 KEY OFF
+130 LOCATE 1,30:PRINT"T W I N K L E":PRINT
+140 PRINT"This program displays a selected character at random positions on the
+150 PRINT"screen. If the selected position is already lit, it disappears.
+160 PRINT"The display in the lower left corner gives the percent of the character
+170 PRINT"positions lit. It should hit 50% eventually. The pitch of the sound is
+180 PRINT"correlated with the screen position, and only occurs when a character
+190 PRINT"appears (not disappears). Function Key 9 toggles the sound on & off.
+200 PRINT"Function Key 10 stops the program.
+210 PRINT:PRINT"(The display is best with the lights out.)
+220 PRINT:PRINT"You can specify any ASCII character code, but these work well...":PRINT:PRINT
+230 N=1
+240 FOR I=1 TO 4
+250 FOR J=1 TO 5
+260 PRINT USING "###";C(N);
+270 PRINT":  ";CHR$(C(N));"        ";
+280 N=N+1
+290 NEXT J
+300 PRINT
+310 NEXT I
+320 LOCATE 24,1:INPUT;"Enter the number of your choice: ",CCC
+330 IF CCC<1 OR CCC>255 THEN BEEP:LOCATE 24,33:PRINT SPC(7);: GOTO 320
+340 I=0:LIT=0:DARK=0
+350 CLS
+360 LOCATE 25,1:PRINT"Percent on: ";
+370 RANDOMIZE VAL(RIGHT$(TIME$,2))
+380 DEF SEG=&HB000
+390 X=INT(RND*1840)*2
+400 LOCATE 25,67:I=I+1:PRINT "Loop: ";I;
+410 Y=PEEK(X)
+420 IF Y=32 THEN POKE X, CCC:SOUND X+100,.52-SND:LIT=LIT+1:LOCATE 25,13:PRINT USING "###.#";LIT/19.2;:GOTO 390
+430 IF Y<>32 THEN POKE X,32:SOUND X+100,0:LIT=LIT-1:LOCATE 25,13:PRINT USING "###.#";LIT/19.2;:GOTO 390
+440 GOTO 390
+450 DATA 1,2,3,4,5,6,14,15,18,22,42,43,46,176,179,206,219,248,249,254
+460 CLS:END
+470 IF SND= 0 THEN SND=.52:RETURN
+480 SND=0:RETURN
+

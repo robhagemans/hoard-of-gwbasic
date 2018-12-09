@@ -1,0 +1,33 @@
+310 LOCATE 2,34:PRINT"Analogies 2":COLOR 7,0
+700 RUN "analog3"
+5500 DATA pencil, lead,3,12,13,14,1,5
+5510 DATA dictator, powerful,2,1,9,12,23,1
+5520 DATA dial, picture tube,11,21,22,7,3,5
+5530 DATA frequency, radio waves,5,3,7,10,12,1
+5540 DATA pound, force,5,9,4,10,21,3
+5550 DATA bird, sparrow,21,22,23,6,7,4
+5560 DATA army, soldier,7,11,8,10,19,1
+5570 DATA TV, radio,15,2,11,8,13,4
+5580 DATA act, play,2,7,9,1,11,4
+5590 DATA miles, light years,10,21,22,23,6,1
+5600 DATA boss, worker,13,16,11,14,19,3
+5610 DATA poison, death,14,16,12,20,23,3
+5620 DATA herb, flavor,16,19,1,3,13,5
+5630 DATA mop, floor,15,19,21,14,22,4
+5640 DATA mold, figure,13,14,15,8,1,3
+5650 DATA war, battles,20,16,11,14,7,2
+5660 DATA programmer, program,20,14,18,21,17,5
+5670 DATA architect, blueprint,18,15,13,14,7,1
+5680 DATA diver,depths,12,11,19,20,23,3
+5690 DATA diver, bends,12,11,19,20,23,4
+5700 DATA stingy, tight,22,21,3,2,1,2
+5710 DATA health, clean air,19,2,3,23,16,4
+5720 DATA horse, saddle,23,22,12,11,6,2
+5730 DATA mutton, sheep,13,1,12,21,10,2
+5740 DATA prophet, revelation,18,15,17,20,21,3
+5750 DATA seek, escrew,19,3,1,21,5,4
+5760 DATA cistern, water,19,22,3,15,16,2
+5770 DATA crutch, locomotion, 21,11,15,11,6,3
+5780 DATA ascetic, philanderer,22,21,7,6,2,2
+5790 DATA entrepreneur, profits,19,2,4,16,20,1
+

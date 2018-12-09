@@ -1,0 +1,253 @@
+90 WIDTH "scrn:", 80
+95 SCREEN 0,1,0,0
+100 TITLE$ = "Print the Persons and Ordinances File Program"
+105 TITLE$ = TITLE$ + " ON DISPLAY"
+110 VERSION$ = "Version 2.0"
+115 COPY1$ = "Copyright (c) 1983, 1984, by:"
+120 COPY2$ = "Melvin O. Duke"
+125 PRICE$ = "$35"
+130 ADDR1$ = "Melvin O. Duke"
+135 ADDR2$ = "P. O. Box 20836"
+140 ADDR3$ = "San Jose, CA  95160"
+145 REM Dimension Statements go here
+170 REM Produce the first screen
+175 KEY OFF : CLS
+180 REM Draw the outer double box
+185 R1 = 1 : C1 = 1 : R2 = 24 : C2 = 79 : GOSUB 400
+190 REM Find the title location
+195 TITLE.POS = 40 - INT(LEN(TITLE$)/2)
+200 REM Draw the title box
+205 R1=3:C1=TITLE.POS-2:R2=6:C2=TITLE.POS+LEN(TITLE$)+1:GOSUB 600
+210 REM Print the title
+215 LOCATE 4,TITLE.POS : PRINT TITLE$
+220 LOCATE 5,40-INT(LEN(VERSION$)/2) :  PRINT VERSION$;
+225 REM Draw the Contribution box
+230 R1 = 8 : C1 = 19 : R2 = 17 : C2 = 62 : GOSUB 400
+235 REM Request the Contribution
+240 LOCATE 9,23 : PRINT "If you are using these programs, and"
+245 LOCATE 10,21 : PRINT "finding them of value, your contribution"
+250 LOCATE 11,23 : PRINT "("+PRICE$+" suggested) will be anticipated."
+255 REM Draw the Mailing Label
+260 R1 = 12 : C1 = 28 : R2 = 16 : C2 = 52 : GOSUB 600
+265 REM Print the Name and Address
+270 LOCATE 13,40-INT(LEN(ADDR1$)/2) :  PRINT ADDR1$;
+275 LOCATE 14,40-INT(LEN(ADDR2$)/2) :  PRINT ADDR2$;
+280 LOCATE 15,40-INT(LEN(ADDR3$)/2) :  PRINT ADDR3$;
+285 REM Draw the Copyright box
+290 R1 = 19 : C1 = 24 : R2 = 22 : C2 = 56 : GOSUB 400
+295 REM Print the Copyright
+300 LOCATE 20,40-INT(LEN(COPY1$)/2) :  PRINT COPY1$;
+305 LOCATE 21,40-INT(LEN(COPY2$)/2) :  PRINT COPY2$;
+310 GOTO 740
+400 REM subroutine to print a double box
+410 FOR I = R1 + 1 TO R2 - 1
+420  LOCATE I, C1 : PRINT CHR$(186);
+430  LOCATE I, C2 : PRINT CHR$(186);
+440 NEXT I
+450 FOR J = C1 + 1 TO C2 - 1
+460  LOCATE R1, J : PRINT CHR$(205);
+470  LOCATE R2, J : PRINT CHR$(205);
+480 NEXT J
+490  LOCATE R1, C1 : PRINT CHR$(201);
+500  LOCATE R1, C2 : PRINT CHR$(187);
+510  LOCATE R2, C1 : PRINT CHR$(200);
+520  LOCATE R2, C2 : PRINT CHR$(188);
+530 RETURN
+600 REM subroutine to print a single box
+610 FOR I = R1 + 1 TO R2 - 1
+620  LOCATE I, C1 : PRINT CHR$(179);
+630  LOCATE I, C2 : PRINT CHR$(179);
+640 NEXT I
+650 FOR J = C1 + 1 TO C2 - 1
+660  LOCATE R1, J : PRINT CHR$(196);
+670  LOCATE R2, J : PRINT CHR$(196);
+680 NEXT J
+690  LOCATE R1, C1 : PRINT CHR$(218);
+700  LOCATE R1, C2 : PRINT CHR$(191);
+710  LOCATE R2, C1 : PRINT CHR$(192);
+720  LOCATE R2, C2 : PRINT CHR$(217);
+730 RETURN
+740 REM ask user to press a key to continue
+750 LOCATE 25,1
+760 PRINT "Have Data Diskette(s) in Place, then Press any key to continue.";
+770 K$ = INKEY$ : IF K$ = "" THEN 770
+780 CLS
+1000 REM Print the Persons and Ordinances File Program.
+1010 REM By:  Melvin O. Duke.  Last Updated:  02 December 1983.
+1020 OPEN "a:ordfile" AS #2 LEN = 256
+1030 FIELD 2,5ASO1$,11ASO2$,11ASO3$,11ASO4$,5ASO5$,5ASO6$,11ASO7$,11ASO8$,11ASO9$,11ASO10$,11ASO11$,5ASO12$,11ASO13$,11ASO14$,11ASO15$,11ASO16$,11ASO17$,11ASO18$,11ASO19$,11ASO20$,11ASO21$,11ASO22$,11ASO23$,26ASO24$
+1040 REM
+1050 OPEN "a:persfile" AS #1 LEN = 256
+1060 FIELD 1, 5 AS F1$, 20 AS F2$, 30 AS F3$, 2 AS F4$, 5 AS F5$, 5 AS F6$, 5 AS F7$, 11 AS F8$, 18 AS F9$, 16 AS F10$, 16 AS F11$, 11 AS F12$, 18 AS F13$, 16 AS F14$, 16 AS F15$, 11 AS F16$, 18 AS F17$, 16 AS F18$, 16 AS F19$
+1070 REM Read all records, and print the actual ones
+1080 CLS
+1090 LOCATE 23,1
+1100 INPUT "Enter the Record Number to be Printed (0 to quit) or 'all'";REPLY$
+1110 IF REPLY$ = "all" THEN 1160
+1120 I = VAL(REPLY$)
+1130 IF I = 0 THEN 2360
+1140 GOSUB 1190  'to print
+1150 GOTO 1080
+1160 FOR I = 1 TO 500
+1170 GOSUB 1190
+1180 GOTO 2350
+1190 GET #1, I
+1200 CLS
+1210 LOCATE 23,1 : PRINT "Processing Record #";I
+1260 REM Extract information from the file for use
+1270 T1 = CVS(F1$)
+1280 IF T1 < 1 THEN 2340  'return
+1281 REM Print a Title on Each Page
+1282 LPRINT ,"Content of the Persons and Ordinances Files"
+1283 LPRINT ,DATE$, TIME$
+1284 LPRINT
+1290 T2$ = F2$
+1300 T3$ = F3$
+1310 FOR J = 1 TO LEN(F3$)-1
+1320  IF RIGHT$(T3$,1)=" "THEN T3$ = LEFT$(T3$,LEN(T3$)-1) ELSE J = LEN(F3$)-1
+1330 NEXT J
+1340 T4$ = F4$
+1350 IF LEFT$(T4$,1) = "M" THEN T4$ = "Male"
+1360 IF LEFT$(T4$,1) = "F" THEN T4$ = "Female"
+1370 T5 = CVS(F5$)
+1380 T6 = CVS(F6$)
+1390 T7 = CVS(F7$)
+1400 T8$ = F8$
+1410 T9$ = F9$
+1420 T10$ = F10$
+1430 T11$ = F11$
+1440 T12$ = F12$
+1450 T13$ = F13$
+1460 T14$ = F14$
+1470 T15$ = F15$
+1480 T16$ = F16$
+1490 T17$ = F17$
+1500 T18$ = F18$
+1510 T19$ = F19$
+1520 REM Extract Ordinance Information
+1530 GET #2, I
+1540 U1 = CVS(O1$)
+1550 U2$ = O2$
+1560 U3$ = O3$
+1570 U4$ = O4$
+1580 U5 = CVS(O5$)
+1590 U6 = CVS(O6$)
+1600 U7$ = O7$
+1610 U8$ = O8$
+1620 U9$ = O9$
+1630 U10$ = O10$
+1640 U11$ = O11$
+1650 U12 = CVS(O12$)
+1660 U13$ = O13$
+1670 U14$ = O14$
+1680 U15$ = O15$
+1690 U16$ = O16$
+1700 U17$ = O17$
+1710 U18$ = O18$
+1720 U19$ = O19$
+1730 U20$ = O20$
+1740 U21$ = O21$
+1750 U22$ = O22$
+1760 U23$ = O23$
+1770 U24$ = O24$
+1780 REM Print out of Personal Information
+1790 LPRINT CHR$(27);"E";
+1800 LPRINT ,"Personal Information"
+1810 LPRINT CHR$(27);"F";
+1820 LPRINT
+1830 LPRINT ,"Record-Number:",T1
+1840 LPRINT ,"Surname:",,T2$
+1850 LPRINT ,"Given-names:",,T3$
+1860 LPRINT ,"Sex:",,T4$
+1870 LPRINT ,"Code:",,T5
+1880 LPRINT ,"Father's Record-number:",T6
+1881 LPRINT ,"Father's Name: ",
+1882 IF T6 = 0 THEN LPRINT : GOTO 1890
+1883 GET #1, T6
+1884 TMP$ = F2$ : GOSUB 2420 : TT2$ = TMP$
+1885 TMP$ = F3$ : GOSUB 2420 : TT3$ = TMP$
+1886 LPRINT TT3$ + " " + TT2$
+1890 LPRINT ,"Mother's Record-number:",T7
+1891 LPRINT ,"Mother's Name: ",
+1892 IF T7 = 0 THEN LPRINT : GOTO 1900
+1893 GET #1, T7
+1894 TMP$ = F2$ : GOSUB 2420 : TT2$ = TMP$
+1895 TMP$ = F3$ : GOSUB 2420 : TT3$ = TMP$
+1896 LPRINT TT3$ + " " + TT2$
+1900 LPRINT ,"Birth-date:",,T8$
+1910 LPRINT ,"Birth-city:",,T9$
+1920 LPRINT ,"Birth-county:",,T10$
+1930 LPRINT ,"Birth-state:",,T11$
+1940 LPRINT ,"Death-date:",,T12$
+1950 LPRINT ,"Death-city:",,T13$
+1960 LPRINT ,"Death-county:",,T14$
+1970 LPRINT ,"Death-state:",,T15$
+1980 LPRINT ,"Burial-date:",,T16$
+1990 LPRINT ,"Burial-city:",,T17$
+2000 LPRINT ,"Burial-county:",T18$
+2010 LPRINT ,"Burial-state:",,T19$
+2020 LPRINT : LPRINT : LPRINT
+2030 LPRINT CHR$(27);"E";
+2040 LPRINT ,"Ordinance Information"
+2050 LPRINT CHR$(27);"F";
+2060 LPRINT
+2070 REM Print the Ordinance Information
+2080 LPRINT ,"Christening Date:",U2$
+2090 LPRINT ,"Blessing Date:",U3$
+2100 LPRINT ,"Sealed to Parents:",U4$
+2110 LPRINT ,"Father's Record-Number:",U5
+2111 LPRINT ,"Father's Name: ",
+2112 IF U5 = 0 THEN LPRINT : GOTO 2120
+2113 GET #1, U5
+2114 TMP$ = F2$ : GOSUB 2420 : TT2$ = TMP$
+2115 TMP$ = F3$ : GOSUB 2420 : TT3$ = TMP$
+2116 LPRINT TT3$ + " " + TT2$
+2120 LPRINT ,"Mother's Record-Number:",U6
+2121 LPRINT ,"Mother's Name: ",
+2122 IF U6 = 0 THEN LPRINT : GOTO 2130
+2123 GET #1, U6
+2124 TMP$ = F2$ : GOSUB 2420 : TT2$ = TMP$
+2125 TMP$ = F3$ : GOSUB 2420 : TT3$ = TMP$
+2126 LPRINT TT3$ + " " + TT2$
+2130 LPRINT ,"Baptism Date:",,U7$
+2140 LPRINT ,"Confirmation Date:",U8$
+2150 LPRINT ,"Patriarchical Blessing:",U9$
+2160 LPRINT ,"Endowment Date:",U10$
+2170 IF LEFT$(T4$,1) = "M" THEN 2200
+2180 LPRINT ,"Sealed to Husband Date:",U11$
+2190 LPRINT ,"Husband's Record-Number:",U12
+2191 LPRINT ,"Husband's Name: ",
+2192 IF U12 = 0 THEN LPRINT : GOTO 2200
+2193 GET #1, U12
+2194 TMP$ = F2$ : GOSUB 2420 : TT2$ = TMP$
+2195 TMP$ = F3$ : GOSUB 2420 : TT3$ = TMP$
+2196 LPRINT TT3$ + " " + TT2$
+2200 IF LEFT$(T4$,1) <> "M" THEN 2320
+2210 LPRINT ,"Aaronic Priesthood Date:",U13$
+2220 LPRINT ,"Deacon Date:",,U14$
+2230 LPRINT ,"Teacher Date:",,U15$
+2240 LPRINT ,"Priest Date:",,U16$
+2250 LPRINT ,"Melchizedek Priesthood:",U17$
+2260 LPRINT ,"Elder Date:",,U18$
+2270 LPRINT ,"Seventy Date:",,U19$
+2280 LPRINT ,"High Priest Date:",U20$
+2290 LPRINT ,"Bishop Date:",,U21$
+2300 LPRINT ,"Patriarch Date:",U22$
+2310 LPRINT ,"Apostle Date:",,U23$
+2320 LPRINT ,"Occupation:",,U24$
+2330 LPRINT CHR$(12);
+2340 RETURN
+2350 NEXT I
+2360 CLOSE #1
+2370 CLOSE #2
+2380 CLS : LOCATE 21,1
+2390 PRINT "End of Program"
+2400 LPRINT CHR$(12);
+2410 RUN "a:menu"
+2420 REM Right-trim routine
+2425 TMP2$ = TMP$
+2430 FOR TRM = 1 TO LEN(TMP$)-1
+2440  IF RIGHT$(TMP$,1) = " " THEN TMP$ = LEFT$(TMP$,LEN(TMP$)-1) ELSE TRM = LEN(TMP2$)-1
+2450 NEXT TRM
+2460 RETURN
+

@@ -1,0 +1,953 @@
+2  '
+4  '
+6  'PC-TALK  (ver. 2.00)
+8  '
+10 'by Andrew Fluegelman
+12 'The Headlands Press, Inc.
+14 'P.O. Box 862
+16 'Tiburon, CA 94920
+18 '
+20 'CompuServe 71435,1235
+22 'Source TCP204
+24 '
+26 '
+28 '
+30 '***************************  NOTICE  ***************************
+31 '*  A limited license is granted to all users of this program,  *
+32 '*  to make copies of this program and distribute them to other *
+33 '*  users, on the following conditions:                         *
+34 '*     1. The notices contained in lines 2 through 100 of the   *
+35 '*        program are not to be altered or removed.             *
+36 '*     2. The program is not to be distributed to others in     *
+37 '*        modified form.                                        *
+38 '*     3. No fee is to be charged for copying or distributing   *
+39 '*        the program without an express written agreement with *
+40 '*        The Headlands Press, Inc., Box 862, Tiburon, CA 94920 *
+41 '*                                                              *
+42 '*                 Copyright (c) 1982 The Headlands Press, Inc. *
+43 '****************************************************************
+44 '
+45 '
+46 '
+47 '
+48 '
+49 '
+50 SCREEN 0,0,0:WIDTH 80:CLS:KEY OFF
+52 PRINT"                                                           tm
+54 PRINT"               MMMMMMMMMMMMMMM F R E E W A R E MMMMMMMMMMMMMM
+56 PRINT
+58 PRINT"                           User-Supported Software
+60 PRINT
+62 PRINT"      VDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD7
+64 PRINT"      :     If you have used this program and found it of value,     :
+66 PRINT"      :    your contribution ($25 suggested) will be appreciated.    :
+68 PRINT"      :                                                              :
+70 PRINT"      :                        MM Freeware MM                        :
+72 PRINT"      :                   The Headlands Press, Inc.                  :
+74 PRINT"      :                      Post Office Box 862                     :
+76 PRINT"      :                       Tiburon, CA 94920                      :
+78 PRINT"      :                                                              :
+80 PRINT"      :       Regardless of whether you make a contribution,         :
+82 PRINT"      :     you are encouraged to copy and share this program.       :
+84 PRINT"      :                                                              :
+86 PRINT"      SDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD=
+88 PRINT"                          Copyright (c) 1982 The Headlands Press, Inc.
+90 LOCATE 25,1
+92 PRINT "Write for the latest FREEWARE Catalog.     Hit any key to continue ...";
+94 Q$=INKEY$:IF Q$="" THEN 94
+96 '
+98 '
+100 'Initialization of Variables
+101 '
+102 '
+103 ' ****NOTE**** For better performance, load BASIC with the
+104 ' '/C:1024' option   (See IBM BASIC manual, p.2-4)
+105 '
+110 LOCATE ,,1
+115 CLOSE
+120 DEFINT A-Z
+125 FALSE=0: TRUE=NOT FALSE
+130 FOR I=1 TO 10:KEY I, "":NEXT I
+135 FOR I=1 TO 10:F$(I)=SPACE$(15):NEXT I
+140 RECV$="":TRAN$="":DIAL$="":TIME$="00:00:00"
+145 PAUSE=FALSE:PRNT=FALSE:FUNC=FALSE:RECV=FALSE:TRAN=FALSE:SERVICE=FALSE
+150 '*******************user-definable defaults******************************
+155 XOFF$=CHR$(19): XON$=CHR$(17)
+160 BAU$="300":PAR$="E":DTA$="7":STP$="1"
+165 ECHO=FALSE:MESG=FALSE:MENU=TRUE
+166 S1$=CHR$(10):S2$=CHR$(127):S3$=CHR$(0)'*** characters to strip from display
+170 DRIVE$="b:":BREAK$=CHR$(3) '***overriden by Alt-L and Alt-B commands
+175 MODEM$="AT D":SERVICE$=""  '***(overridden by Dialing Directory values
+180 '        see lines 335-340 below)***
+185 SCREEN 0,1                 '***permits screen display in color***
+190 FG=7:BG=0:HI=15            '***defines color values for foreground,
+192 '     background, & high intensity ***
+195 '************************************************************************
+200 '
+205 ' Start-up Screen Display
+210 '
+215 COLOR FG,BG:CLS
+220 LOCATE 1,44:COLOR HI,BG:PRINT"MAKE SURE THAT YOUR MODEM IS ON";:COLOR FG,BG
+225 '
+230 LOCATE 3,1
+235 PRINT TAB(39) "UMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM8
+240 PRINT TAB(39) "3      =====     PC-TALK     =====     3
+245 PRINT TAB(39) "3                                      3
+246 PRINT TAB(39) "3     a communications program for     3
+247 PRINT TAB(39) "3       The IBM Personal Computer      3
+250 PRINT TAB(39) "3                          (ver. 2.00) 3
+255 PRINT TAB(39) "@MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMY
+260 PRINT TAB(39) "   Press <Home> for command summary.
+265 PRINT TAB(39) "   Press <Ctrl> + <Home> to print
+270 PRINT TAB(39) "         complete program documentation.
+275 LOCATE 22,39: PRINT "  (Press <Alt> + 'E' if you can't see
+280 LOCATE 23,39: PRINT "                 your keyboard input.)
+285 ROW=1:COL=1:GOSUB 4521
+300 '
+305 ' Open Communications Files
+310 '
+315 ON ERROR GOTO 9000
+320 OPEN"PC-TALK.DIR"AS #2 '***load MODEM$ & SERVICE$ from dialing directory***
+325 FIELD #2, 24 AS N$,36 AS R$,4 AS B$,1 AS P$,1 AS D$,1 AS S$,1 AS E$,1 AS M$
+330 GET #2,1:IF LEFT$(N$,11)<>"INITIALIZED" THEN 345
+335 GET #2,2:MODEM$=LEFT$(N$,10)
+340 GET #2,3:SERVICE$=N$
+345 CLOSE #2
+350 OPEN"PC-TALK.KEY"AS #2 '***load Alt-key codes and strings***
+351 FIELD #2, 126 AS K$,2 AS L$
+352 GET #2,1:IF LEFT$(K$,11)<> "INITIALIZED" THEN 360
+353 FOR I=1 TO 10
+354 GET #2,I+1
+355 LNGTH = CVI(L$):IF LNGTH=0 THEN 357
+356 K$(I)=LEFT$(K$,LNGTH)
+357 NEXT I
+358 GET #2,12:LNGTH=CVI(L$):COMPU$=LEFT$(K$,LNGTH)
+359 GET #2,13:LNGTH=CVI(L$):SOURCE$=LEFT$(K$,LNGTH)
+360 CLOSE #2
+362 COMM$="COM1:"+BAU$+","+PAR$+","+DTA$+","+STP$
+363 OPEN COMM$ AS #1 '***open #1 as communications file***
+364 LOCATE 1,1:PRINT "=== Proceed ..."
+365 '
+370 '
+395 '
+396 '
+397 ' Main Input/Output Routine
+398 '
+399 ' (keyboard input)
+400 IF TRAN THEN 485
+402 B$=INKEY$:IF B$="" THEN 500
+405 IF LEN(B$)>1 THEN 810
+410 IF B$<>CHR$(8) THEN 420
+415 IF ECHO THEN IF POS(0)>1 THEN LOCATE ,POS(0)-1:PRINT " ";:LOCATE ,POS(0)-1:GOTO 425
+420 IF ECHO THEN PRINT B$;
+425 PRINT #1, B$;
+430 IF EOF(1) THEN 400 ELSE 500
+445 ' (transmit)
+450     IF FILNGTH=1 THEN 4200 ELSE T=FILNGTH-1:T1=0
+451 U$=INPUT$(128,#3):IF FAST THEN PRINT #1,U$;:PRINT U$;:GOTO 476
+452   FOR I=1 TO LEN(U$)
+455 V$=MID$(U$,I,1)
+456 IF EOF(1) THEN 458 ELSE A$=INPUT$(1,#1)
+457 IF A$<>XON$ AND A$<>XOFF$ THEN 456 ELSE IF A$=XON$ THEN HALT=FALSE:GOTO 456 ELSE HALT=TRUE:GOTO 456
+458 IF HALT THEN COLOR HI,BG:PRINT"<<XOFF>>";:COLOR FG,BG:Q$=INKEY$:IF Q$<>"" AND ASC(MID$(Q$,2,1))=24 THEN HALT=FALSE:GOTO 456 ELSE GOTO 456
+460 PRINT #1,V$;
+465 IF V$=CHR$(10) THEN 475
+470 PRINT V$;
+475   NEXT I
+476 IF FAST THEN W$=INPUT$(LOC(1),#1)'dumps comm buffer
+480 B$=INKEY$:IF B$="" THEN 485
+482 IF LEN(B$)>1 THEN 800
+485     T1=T1+1:IF T1<T THEN 451
+490 GOTO 4200
+495 ' (comm port input and display/print/receive)
+500 IF LOF(1)<128 THEN PAUSE=TRUE:PRINT #1,XOFF$;
+505 IF EOF(1) THEN 565
+510 A$=INPUT$(LOC(1),#1)
+515 IF RECV THEN PRINT #2,A$;
+516 IF FAST THEN PRINT A$;:GOTO 560
+520   FOR I=1 TO LEN(A$)
+525 D$=MID$(A$,I,1)
+530 IF D$=S1$ OR D$=S2$ OR D$=S3$ THEN 550
+535 IF PRNT THEN LPRINT D$;
+540 IF D$<>CHR$(8) THEN PRINT D$;:GOTO 550
+545 IF POS(0)>1 THEN LOCATE ,POS(0)-1:PRINT " ";:LOCATE ,POS(0)-1
+550   NEXT I
+555 ' (check status)
+560 IF FUNC THEN 570
+565 B$=INKEY$:IF B$<>"" THEN 405
+570 IF LOC(1)>0 THEN 500
+575 IF PAUSE THEN PAUSE=FALSE:PRINT #1,XON$;
+580 IF FUNC THEN ROW=CSRLIN:COL=POS(0):GOTO 610
+585 GOTO 400
+590 '
+595 '
+600 ' Input for Keys F 1-10
+605 '
+610 LOCATE 25,LEN(F$)+11:C$=INKEY$:IF C$="" THEN IF EOF(1) THEN 610 ELSE LOCATE ROW,COL:GOTO 500
+615 IF LEN(F$)>=15 THEN LOCATE 25,28:PRINT "(max 15 chrs.)";:GOTO 635
+620 LOCATE 25,LEN(F$)+11
+625 IF C$=CHR$(8) THEN IF F$="" GOTO 610 ELSE LOCATE ,POS(0)-1:PRINT " ";:          LOCATE ,POS(0)-1:F$=LEFT$(F$,LEN(F$)-1):GOTO 610
+630 IF C$<>CHR$(13) THEN PRINT C$;
+635 IF C$=CHR$(13) THEN 710
+640 PRINT "  ";CHR$(181);
+645 F$=F$+C$:LOCATE 25,LEN(F$)+11
+650 IF EOF(1) THEN 610 ELSE LOCATE ROW,COL:GOTO 500
+655 '
+660 '
+700 ' Screen Display for Keys F 1-10
+705 '
+710 KEY FX, LEFT$(F$,15)
+715 F$(FX)=F$
+720 LOCATE 25,1
+725 FOR I=1 TO 9
+730 PRINT USING "#";I;:COLOR BG,FG:PRINT LEFT$(F$(I),7);
+735 IF LEN(F$(I))<7 THEN PRINT SPACE$(7-LEN(F$(I)));
+740 COLOR FG,BG
+745 NEXT I
+750 PRINT "0";:COLOR BG,FG:PRINT LEFT$(F$(10),6);
+755 IF LEN(F$(10))<6 THEN PRINT SPACE$(6-LEN(F$(I)));
+760 COLOR FG,BG
+765 FUNC=FALSE:F$=""
+770 FOR I=1 TO 10
+775 IF F$(I)<>SPACE$(15) THEN EXIT=TRUE
+780 NEXT I
+782 IF EXIT THEN EXIT=FALSE:LOCATE ROW,COL:GOTO 500
+785 GOSUB 4521:GOTO 400
+790 '
+795 '
+800 ' Inkey$ Extended Codes
+805 '
+810 CODE=ASC(MID$(B$,2,1)):ROW=CSRLIN:COL=POS(0)
+815 IF CODE=71 THEN 2000 ' print command summary
+820 IF CODE=19 THEN 3000 ' file receiving routine
+822 IF CODE=47 THEN 3500 ' file viewing routine
+825 IF CODE=20 THEN 4000 ' file transmitting routine
+830 IF CODE=25 THEN 5000 ' change communications parameters
+835 IF CODE=32 THEN 6000 ' dialing directory
+836 IF CODE=37 THEN 7000 ' Alt-key directory
+837 IF CODE=119 THEN 8000 ' Print documentation
+840 '- program END key for Compu and Source -
+842  IF COMPU AND CODE=79 THEN PRINT #1, CHR$(3);:GOTO 400 'END key = ^C
+844  IF SOURCE AND CODE=79 THEN PRINT #1, CHR$(16);:GOTO 400 ' END key = ^P
+846 ' - program INS and DEL keys for Compu and Source -
+848 IF COMPU AND CODE=82 THEN PRINT #1, CHR$(22);:GOTO 400 'INS key = ^V
+850 'IF SOURCE AND CODE=82 THEN ***(remove apostrophe and insert command?)****
+855 IF COMPU AND CODE=83 THEN PRINT #1, CHR$(21);:GOTO 400 ' DEL key = ^U
+860 'IF SOURCE AND CODE=83 THEN ***(remove apostrophe and insert command?)****
+865 ' - clear special function keys -
+870 IF CODE>103 AND CODE<114 THEN FX=CODE-103:KEY FX, "":F$(FX)=SPACE$(15):BEEP     :GOTO 720
+875 ' - set special function keys -
+880 IF CODE<59 OR CODE>68 THEN 900
+885 FUNC=TRUE:FX=CODE-58:BEEP:LOCATE 25,1:PRINT STRING$(3,CHR$(16));"F";FX          ;CHR$(198);"    ";CHR$(181);
+890 GOTO 610
+895 ' - echo function -
+900 IF CODE<>18 THEN 920
+905 IF ECHO=FALSE THEN ECHO=TRUE:BEEP:PRINT"=== ECHO ON ===":GOTO 400
+910 ECHO=FALSE:BEEP:PRINT"=== ECHO OFF ===":GOTO 400
+915 ' - simultaneous printout function -
+920 IF CODE<>114 THEN 940
+925 IF PRNT=FALSE THEN PRNT=TRUE:BEEP:PRINT"=== PRINTOUT ON ===":GOTO 400
+930 PRNT=FALSE:BEEP:PRINT"=== PRINTOUT OFF ===":GOTO 400
+935 ' - Compuserve access -
+940 IF CODE<>46 THEN 990
+945 IF COMPU=TRUE THEN COMPU=FALSE:BEEP:PRINT"=== COMPUSERVE COMMANDS OFF ==="        :GOTO 400
+950 SOURCE=FALSE:COMPU=TRUE:PRINT "=== COMPUSERVE ACCESS ==="
+951 PRINT" <End> = Interrupt (^C)
+952 PRINT" <Ins> = Repeat input (^V)
+953 PRINT" <Del> = Delete input (^U)
+954 PRINT"========================="
+955 CLOSE #1:BAU$="300":PAR$="E":DTA$="7":STP$="1":ECHO=FALSE:MESG=FALSE
+960 COMM$="COM1:"+BAU$+","+PAR$+","+DTA$+","+STP$:OPEN COMM$ AS #1
+961 TIME$="00:00:00"
+965 IF COMPU$<>"" THEN PRINT #1, MODEM$+COMPU$:GOTO 400
+985 ' - Source access -
+990 IF CODE<>31 THEN 1040
+995 IF SOURCE=TRUE THEN SOURCE=FALSE:BEEP:PRINT"=== SOURCE COMMANDS OFF ==="          :GOTO 400
+1000 COMPU=FALSE:SOURCE=TRUE:PRINT "=== SOURCE ACCESS ==="
+1001 PRINT" <End> = Break (^P)
+1002 PRINT"====================="
+1005 CLOSE #1:BAU$="300":PAR$="M":DTA$="7":STP$="1":ECHO=FALSE:MESG=FALSE
+1010 COMM$="COM1:"+BAU$+","+PAR$+","+DTA$+","+STP$:OPEN COMM$ AS #1
+1011 TIME$="00:00:00"
+1015 IF SOURCE$<>"" THEN PRINT #1, MODEM$+SOURCE$:GOTO 400
+1035 ' - message function -
+1040 IF CODE<>50 THEN 1060
+1045 IF MESG=TRUE THEN MESG=FALSE:BEEP:PRINT"=== CANCEL TRANSMIT/RECEIVE MESSAGES ===":GOTO 400
+1050 MESG=TRUE:BEEP:PRINT"=== SEND TRANSMIT/RECEIVE MESSAGES ===":GOTO 400
+1055 ' - modem dialing command -
+1060 IF CODE <> 131 THEN 1080
+1062 LINE INPUT"=== Dial phone #: ";R$
+1064 IF R$="" THEN PRINT "(cancelled)":PRINT"=== Proceed ...":LOCATE,,1:GOTO 400
+1066 IF LEFT$(R$,1)="+" THEN DIAL$=MODEM$+SERVICE$+RIGHT$(R$,LEN(R$)-1)              :GOTO 1068
+1067 DIAL$=MODEM$+R$
+1068 PRINT #1, DIAL$:TIME$="00:00:00":LOCATE,,1:GOTO 400
+1070 '
+1075 ' - redial last # -
+1080 IF CODE=16 AND DIAL$="" THEN BEEP:GOTO 400
+1085 IF CODE=16 THEN PRINT "=== Redialing ...":PRINT #1, DIAL$:TIME$="00:00:00":GOTO 400
+1090 '
+1095 ' - exit to DOS -
+1100 IF CODE<>45 THEN 1130
+1105 BEEP:PRINT"=== EXIT FROM PROGRAM ===
+1110 BEEP:PRINT:PRINT"WARNING!  If you proceed you will terminate the program and return to DOS.
+1115 BEEP:PRINT"          Do you want to do this (y/n)? ";
+1120 Q$=INKEY$:IF Q$=""THEN 1120
+1125 IF Q$<>"Y" AND Q$<>"y" THEN PRINT:GOTO 370 ELSE PRINT:SYSTEM
+1130 '
+1135 '- Alt-key specification -
+1140 IF CODE >=120 AND CODE <=129 THEN PRINT #1, K$(CODE - 119);:IF ECHO THEN PRINT K$(CODE-119);:GOTO 400 ELSE GOTO 400
+1145 '
+1150 '- Fast Transmit/Receive specification -
+1155 IF CODE<>33 THEN 1170
+1160 IF FAST THEN FAST=FALSE:BEEP:PRINT:PRINT"=== FAST TRANS/RECV OFF ===" ELSE FAST=TRUE:BEEP:PRINT:PRINT"=== FAST TRANS/RECV ON ==="
+1165 IF TRAN THEN 485 ELSE 400
+1170 '
+1175 '- Elapsed Time Display -
+1180 IF CODE<>44 THEN 1200
+1185 LOCATE  1,39:PRINT"UMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM8
+1190 LOCATE  2,39:PRINT"3   Elapsed time this call: ";:COLOR HI,BG:PRINT TIME$;:COLOR FG,BG:PRINT"   3
+1195 LOCATE  3,39:PRINT"@MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMY";
+1196 LOCATE ROW,COL:GOTO 400
+1197 '
+1200 '- Change Default Drive for File Specs -
+1205 IF CODE=38 THEN 4150
+1210 '
+1215 '- Menu on/off -
+1220 IF CODE<>22 THEN 1235
+1225 IF MENU THEN MENU=FALSE:GOSUB 4500:GOTO 400
+1230 MENU=TRUE:GOSUB 4500:GOTO 400
+1235 '
+1240 '
+1245 '
+1250 ' - Send Break Signal -
+1255 IF CODE<>117 THEN 1265 ' specify break signal with Ctrl-End
+1260 PRINT" <<< BREAK >>> ";:OLDVAL=INP(&H3FB):BRKVAL=OLDVAL OR 64:OUT &H3FB,BRKVAL:SOUND 32760,3:SOUND 32760,1:OUT &H3FB,OLDVAL:GOTO 400
+1265 '
+1300 '
+1400 '
+1500 '*************************************************************************
+1505 ' more Extended Code combinations can go here (see p.G-6 IBM Basic manual)
+1510 '
+1515 ' use either: IF CODE=[n] THEN PRINT #1, [string]:GOTO 400
+1520 ' or: IF CODE=[n] THEN PRINT #1, [string];:GOTO 400
+1525 '
+1530 ' The first example will send the string directly to the comm port,
+1535 ' followed by an automatic carriage return.
+1540 '
+1545 ' The second example (with semicolon following string) will not include
+1550 ' an automatic carriage return.
+1555 '
+1560 '
+1565 '
+1570 '
+1575 '
+1580 '
+1585 '
+1590 GOTO 400  ' DON'T remove this line! (failsafe to return to command mode)
+1595 '*************************************************************************
+1600 '
+1700 '
+1800 '
+2000 ' Print Command Summary
+2005 '
+2010 LOCATE  1,39:PRINT"UMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM8
+2025 LOCATE  2,39:PRINT"3 ";CHR$(24);"PrtSc =  print screen contents      3
+2030 LOCATE  3,39:PRINT"3 ^PrtSc =  contin. printout on/off    3
+2035 LOCATE  4,39:PRINT"3  Alt-T =  Transmit a file            3
+2040 LOCATE  5,39:PRINT"3  Alt-R =  Receive a file             3
+2045 LOCATE  6,39:PRINT"3  Alt-V =  View a file                3
+2050 LOCATE  7,39:PRINT"3  Alt-D =  Dialing directory          3
+2055 LOCATE  8,39:PRINT"3 Alt-'='=  dial from main program     3
+2060 LOCATE  9,39:PRINT"3  Alt-Q =  redail last number         3
+2065 LOCATE 10,39:PRINT"3  Alt-E =  (Echo to screen on/off)    3
+2067 LOCATE 11,39:PRINT"3  Alt-M =  (tran/recv Messages on/off)3
+2070 LOCATE 12,39:PRINT"3  Alt-P =  (specify comm. Paramtrs)   3
+2075 LOCATE 13,39:PRINT"3  Alt-F =  (Fast trans/recv on/off)   3
+2080 LOCATE 14,39:PRINT"3  Alt-K =  specify more alt-Keys      3
+2085 LOCATE 15,39:PRINT"3    F1~10 =  set programmable keys    3
+2090 LOCATE 16,39:PRINT"3Alt-F1~10 =  clear programbl' keys    3
+2095 LOCATE 17,39:PRINT"3  Alt-C =  CompuServe access          3
+2100 LOCATE 18,39:PRINT"3  Alt-S =  Source access              3
+2110 LOCATE 19,39:PRINT"3  Alt-Z =  elapsed time/current call  3
+2111 LOCATE 20,39:PRINT"3  Alt-X =  eXit to DOS                3
+2112 LOCATE 21,39:PRINT"3Ctrl-<End> send sustained Break signal3
+2115 LOCATE 22,39:PRINT"3DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD3
+2120 LOCATE 23,39:PRINT"3Ctrl-<Home> prints full documentation 3
+2125 LOCATE 24,39:PRINT"@MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMY";
+2130 LOCATE ROW,COL:GOTO 400
+2135 '
+2140 '
+3000 'File Receiving Specifications
+3005 '
+3010 IF RECV THEN RECV=FALSE:FAST=FALSE:BEEP:PRINT:PRINT"=== RECEIPT OF FILE '";RECV$;"' TERMINATED ===":PRINT:CLOSE #2:GOSUB 4500:GOTO 400
+3015 BEEP:PRINT:PRINT"=== FILE RECEIVING ROUTINE ==="
+3017 IF RECV$="" THEN 3040
+3020 PRINT"Hit <space> to RESUME RECEIPT of file '";RECV$;"'"
+3025 PRINT"     -- or SPECIFY ANOTHER file: ";
+3030 Q$=INKEY$:IF Q$="" THEN 3030
+3035 IF Q$=CHR$(32) THEN PRINT:GOTO 3060
+3036 IF Q$=CHR$(13) THEN BEEP:PRINT:PRINT"=== CANCEL RECEIVING ROUTINE ===":GOTO     400
+3037 PRINT Q$;
+3038 INPUT "",FILE$:FILE$=Q$+FILE$:LOCATE,,1:GOTO 4120 'process file request
+3040 PRINT"Receive file as"
+3045 GOTO 4100 ' get file spec (can't use gosub and preserve error traps)
+3050 RECV$=FILE$
+3055 IF RECV$="" THEN BEEP:PRINT"=== CANCEL RECEIVING ROUTINE ===":GOTO 400
+3060 CLOSE #2:OPEN RECV$ FOR APPEND AS #2: RECV=TRUE '*** see error trap
+3062 PRINT"=============================="
+3063 ROW=CSRLIN:COL=POS(0)
+3065 LOCATE 25,1:COLOR BG,FG:PRINT " RECEIPT OF FILE ";RECV$;" NOW PROCEEDING   (type ALT-R to terminate.)";SPACE$(18-LEN(RECV$));:COLOR FG,BG:LOCATE ROW,COL
+3070 IF MESG THEN PRINT #1, CHR$(7);CHR$(13);"===REMOTE COMPUTER READY TO RECEIVE FILE===";CHR$(13)
+3072 IF VAL(BAU$)>300 THEN FAST=TRUE '***sets flag for highspeed receive mode
+3075 GOTO 500
+3080 '
+3085 '
+3500 'File Viewing Specifications and Routine
+3505 '
+3510 BEEP:PRINT:PRINT"=== FILE VIEWING ROUTINE ==="
+3515 PRINT"File to view"
+3520 GOTO 4100
+3525 VIEW$=FILE$
+3527 IF VIEW$="" THEN BEEP:PRINT"=== CANCEL VIEWING ROUTINE ===":GOTO 400
+3530 CLOSE #2: OPEN VIEW$ FOR INPUT AS #2
+3532 PRINT"=============================="
+3533 ROW=CSRLIN:COL=POS(0)
+3535 COLOR BG,FG:LOCATE 25,1:PRINT" Viewing file '";VIEW$;"'.  Hit <space> to continue; 'Alt-V' to terminate."+SPACE$(14-LEN(VIEW$));:COLOR FG,BG:LOCATE ROW,COL
+3540 PRINT:PRINT:PRINT
+3545 FOR I=1 TO 20
+3550 LINE INPUT #2, V$
+3555 PRINT V$:IF LEN(V$)>80 THEN I=I+FIX(LEN(V$)/80)
+3560 NEXT I
+3565 Q$=INKEY$:IF Q$="" THEN 3565
+3570 IF Q$=" " THEN 3545
+3575 IF Q$=CHR$(0)+CHR$(47) THEN 3590
+3580 BEEP:GOTO 3565
+3585 BEEP:PRINT:PRINT"=== END OF FILE ";VIEW$;" ===":GOTO 3592
+3590 BEEP:PRINT:PRINT"=== VIEWING OF FILE ";VIEW$;" TERMINATED ===
+3592 CLOSE #2:IF RECV THEN OPEN RECV$ FOR APPEND AS #2
+3595 GOSUB 4500:GOTO 400
+3600 '
+4000 'File Transmitting Specifications
+4005 '
+4010 IF TRAN AND MESG THEN PRINT #1,CHR$(7);CHR$(13);"=== TRANSMISSION OF FILE TERMINATED ===";CHR$(13)
+4015 IF TRAN THEN TRAN=FALSE:FAST=FALSE:BEEP:CLOSE #3:PRINT:PRINT "=== TRANSMISSION OF FILE ";TRAN$;" TERMINATED ===":GOSUB 4500:GOTO 400
+4020 IF TRAN AND MESG THEN PRINT #1,CHR$(7);CHR$(13);"=== END OF FILE ===";CHR$(13)
+4025 IF TRAN THEN TRAN=FALSE:FAST=FALSE:BEEP:CLOSE #3:PRINT:PRINT "=== END OF FILE ";TRAN$;" ===":GOSUB 4500:GOTO 400
+4030 BEEP:PRINT:PRINT"=== FILE TRANSMITTING ROUTINE ==="
+4035 PRINT"File to transmit"
+4040 GOTO 4100 ' get file spec (can't use gosub and preserve error traps)
+4045 TRAN$=FILE$
+4050 IF TRAN$="" THEN BEEP:PRINT"=== CANCEL TRANSMITTING ROUTINE ===":GOTO 400
+4055 CLOSE #3:OPEN TRAN$ FOR INPUT AS #3: TRAN=TRUE '*** see error trap
+4057 PRINT"================================="
+4058 ROW=CSRLIN:COL=POS(0)
+4060 LOCATE 25,1:COLOR BG,FG:PRINT " TRANSMISSION OF FILE ";TRAN$;" PROCEEDING  (type ALT-T to Terminate.)";SPACE$(18-LEN(TRAN$));:COLOR FG,BG:LOCATE ROW,COL
+4065 IF MESG THEN PRINT #1,CHR$(7);CHR$(13);"=== TRANSMISSION OF FILE NOW PROCEEDING ===";CHR$(13)
+4066 IF VAL(BAU$)>300 THEN FAST=TRUE '***sets flag for hispeed transmit  mode
+4067 FILNGTH=LOF(3)/128
+4070 GOTO 450
+4075 '
+4080 '
+4100 'Subroutine for Receive/Transmit/View File Specifications
+4105 '
+4110 INPUT "  (specification): ",FILE$:LOCATE,,1
+4120 IF FILE$="" THEN 4140
+4125 IF FILE$="?" THEN PRINT:PRINT"FILES ON ";DRIVE$;" DRIVE ARE --":FILES DRIVE$+"*.*":PRINT:PRINT:GOTO 4110
+4130 IF LEFT$(FILE$,1)="?" THEN PRINT:PRINT"FILES ON ";MID$(FILE$,2,1);": DRIVE ARE --":FILES MID$(FILE$,2,1)+":*.*":PRINT:PRINT:GOTO 4110 '***see error trap
+4135 IF MID$(FILE$,2,1)<>":" THEN FILE$=DRIVE$+FILE$
+4140 IF CODE=19 THEN 3050
+4142 IF CODE=20 THEN 4045
+4144 IF CODE=47 THEN 3525
+4145 '
+4150 '- specify default drive for file specs -
+4155 BEEP:PRINT"   === SPECIFY LOGGED DRIVE ===
+4160 PRINT"Drive ";DRIVE$;" is now the default drive for
+4162 PRINT"Receiving, Transmitting, and Viewing
+4164 PRINT"  files (if no drive is specified).
+4166 PRINT"Do you wish to change this (y/n)? ";
+4170 Q$=INKEY$:IF Q$="" THEN 4170
+4172 IF Q$<>"Y" AND Q$<>"y" THEN PRINT:PRINT "=== Proceed ...":GOTO 400
+4174 PRINT:PRINT"Which drive: ";
+4176 Q$=INKEY$:IF Q$="" THEN 4176
+4178 DRIVE$=Q$+":":PRINT DRIVE$
+4180 OPEN DRIVE$+"x" FOR OUTPUT AS #2 ' dummy file trap for invalid drive
+4185 CLOSE #2:PRINT "Drive ";DRIVE$;" is now the logged drive."
+4190 PRINT"=================================":GOTO 400
+4200 'transmit last block of file
+4205 '
+4210 V$=INPUT$(1,#3)
+4211 IF EOF(1) THEN 4213 ELSE A$=INPUT$(1,#1)
+4212 IF A$<>XON$ AND A$<>XOFF$ THEN 4211 ELSE IF A$=XON$ THEN HALT=FALSE:GOTO 4211 ELSE HALT=TRUE:GOTO 4211
+4213 IF HALT THEN COLOR HI,BG:PRINT"<<XOFF>>";:COLOR FG,BG:Q$=INKEY$:IF Q$<>"" AND ASC(MID$(Q$,2,1))=24 THEN HALT=FALSE:GOTO 4211 ELSE GOTO 4211
+4215 PRINT #1,V$;
+4220 W$=INPUT$(LOC(1),#1)' dumps comm. buffer at end of transmission
+4225 IF V$=CHR$(10) THEN 4235
+4230 PRINT V$;
+4235 GOTO 4210
+4240 '*** this routine exits via the error trap at line 9007
+4500 'Clear Status/Menu Line
+4505 '
+4506 ROW=CSRLIN:COL=POS(0)
+4510 FOR I=1 TO 10
+4515 IF F$(I)<>SPACE$(15) THEN EXIT=TRUE
+4516 NEXT I
+4520 IF EXIT THEN EXIT=FALSE:LOCATE ,,1:GOTO 720
+4521 IF MENU=FALSE THEN 4525
+4522 LOCATE 25,1:COLOR BG,FG
+4523 PRINT"^PrtSc=prnt  Alt+ T=tran R=recv V=view D=dial E=echo M=mesg Z=time <Home>=Help ";:COLOR FG,BG:LOCATE ROW,COL:RETURN
+4525 LOCATE 25,1:PRINT SPACE$(79);:LOCATE ROW,COL:RETURN
+4530 '
+4535 '
+5000 'Communications Parameters
+5005 '
+5010 BEEP:PRINT:PRINT"=== COMMUNICATIONS PARAMETERS ===
+5015 PRINT
+5020 PRINT"Current parameters are:
+5025 PRINT"Baud rate: ";BAU$
+5030 PRINT"   Parity:  ";PAR$
+5035 PRINT"Data bits:  ";DTA$
+5040 PRINT"Stop bits:  ";STP$
+5045 PRINT:PRINT"Options:
+5050 PRINT"   1 - 300,E,7,1  (text)
+5055 PRINT"   2 - 300,N,8,1  (binary)
+5060 PRINT"   3 - specify other parameters
+5065 PRINT"   x - exit to command state
+5070 PRINT
+5075 PRINT"WARNING!  Choosing new parameters will break contact
+5080 PRINT"                    if communications are in progress.
+5085 PRINT"Choose: ";
+5090 Q$=INKEY$:IF Q$="" THEN 5090
+5095 IF Q$="X" OR Q$="x" THEN PRINT Q$:PRINT"(Present parameters still in effect)":PRINT"=== Proceed ...":GOTO 400
+5100 IF VAL(Q$)<1 OR VAL(Q$)>3 THEN BEEP:GOTO 5090
+5105 PRINT VAL(Q$)
+5110 ' - choose options 1 or 2 -
+5115 IF VAL(Q$)=1 THEN BAU$="300":PAR$="E":DTA$="7":STP$="1":GOTO 5170
+5120 IF VAL(Q$)=2 THEN BAU$="300":PAR$="N":DTA$="8":STP$="1":GOTO 5170
+5125 ' - specify new parameters -
+5130 PRINT:PRINT"Specify:
+5135 INPUT"Baud rate: ",BAU$
+5140 INPUT"   Parity: ",PAR$
+5145 IF PAR$="" THEN 5155
+5150 IF ASC(PAR$)>100 AND ASC(PAR$)<116 THEN PAR$=CHR$(ASC(PAR$)-32)
+5155 INPUT"Data bits: ",DTA$
+5160 INPUT"Stop bits: ",STP$
+5161 INPUT"Are these parameters ok (y/n)? ",Q$
+5162 IF Q$<>"Y" AND Q$ <> "y" THEN BEEP:PRINT:PRINT"Re-specify:":GOTO 5135
+5165 ' - open new communications file -
+5170 LOCATE ,,1
+5175 COMM$="COM1:"+BAU$+","+PAR$+","+DTA$+","+STP$
+5176 IF ACCESS THEN 8900
+5180 CLOSE #1:OPEN COMM$ AS #1
+5182 IF VAL(BAU$)>300 THEN FAST=TRUE ELSE FAST=FALSE
+5185 PRINT"(New parameters now in effect)":PRINT"=== PROCEED ...":GOTO 400
+5190 '
+5195 '
+6000 'Dialing Directory
+6005 '
+6010 '(check if file 'PC-TALK.DIR' exists & if not, initialize)
+6015 CLOSE #2:OPEN "pc-talk.dir" AS #2
+6020 FIELD #2, 24 AS N$,36 AS R$,4 AS B$,1 AS P$,1 AS D$,1 AS S$,1 AS E$,1 AS M$     'N$=name R$=number B$=baud P$=parity D$=data S$=stop E$=echo M$=message
+6025 GET #2,1
+6030 IF LEFT$(N$,11)<>"INITIALIZED" THEN 6875
+6050 '(print directory from file 'PC-TALK.DIR')
+6055 CLS:LOCATE 1,1
+6060 PRINT"=== DIALING DIRECTORY ==="
+6062 GET #2,2:MODEM$=LEFT$(N$,10):LOCATE 1,30:PRINT" modem dialing command = ";MODEM$;
+6064 GET #2,3:SERVICE$=N$:LOCATE 2,28:PRINT" long distance service # = ";SERVICE$;
+6065 LOCATE 4,1:COLOR BG,FG
+6070 PRINT"     Name                           Phone #           Comm. Param. Echo  Messg."
+6075 COLOR FG,BG
+6080 FOR I=1 TO 9
+6085 GET #2,I+3
+6090 PRINT " ";LOC(2)-3;"-";N$;" ";RIGHT$(R$,13);"           ";B$;"-";P$;"-";D$;"-";S$;"     ";E$;"     ";M$
+6095 NEXT I
+6100 FOR I=10 TO 15
+6105 GET #2,I+3
+6110 PRINT LOC(2)-3;"-";N$;" ";RIGHT$(R$,13);"           ";B$;"-";P$;"-";D$;"-";S$;"     ";E$;"     ";M$
+6115 NEXT I
+6200 '(ask for dialing instructions)
+6205 LOCATE 21,1
+6210 PRINT"Dial entry #:             | or...";
+6215 LOCATE 21,39:PRINT"Input 'r' to add to or revise directory."
+6220 LOCATE 22,39:PRINT"   -- 'x' to exit from directory."
+6225 LOCATE 24,27:PRINT"| For long distance service, precede entry # with '+'";
+6230 LOCATE 21,14:INPUT "",Q$
+6235 IF LEFT$(Q$,1)="+" THEN SERVICE=TRUE:Q$=RIGHT$(Q$,LEN(Q$)-1)
+6240 IF Q$="R" OR Q$="r" THEN 6400
+6245 IF Q$="X" OR Q$="x" THEN CLOSE #2:GOSUB 6980:GOSUB 4500:LOCATE ,,1:PRINT"=== Proceed ..."         :GOTO 400
+6250 IF VAL(Q$)<1 OR VAL(Q$)>15 THEN BEEP:LOCATE 21,14:PRINT SPACE$(LEN(Q$))         :GOTO 6230
+6255 '(dial requested entry #)
+6260 GET #2,VAL(Q$)+3
+6265 BAU$=B$:PAR$=P$:DTA$=D$:STP$=S$
+6270 COMM$="COM1:"+BAU$+","+PAR$+","+DTA$+","+STP$
+6275 CLOSE #1:OPEN COMM$ AS #1
+6280 IF E$="Y" THEN ECHO=TRUE ELSE ECHO=FALSE
+6285 IF M$="Y" THEN MESG=TRUE ELSE MESG=FALSE
+6290 GOSUB 6940
+6295 LOCATE 21,1:PRINT"Dialing ";N$;
+6300 LOCATE 22,1
+6305 IF SERVICE THEN DIAL$=MODEM$+SERVICE$+R$:GOTO 6312
+6310 DIAL$=MODEM$+R$
+6312 PRINT #1, DIAL$:TIME$="00:00:00"
+6315 CLOSE #2:GOSUB 6980:SERVICE=FALSE:LOCATE ,,1:GOSUB 4500:GOTO 400
+6400 '(revise directory)
+6405 GOSUB 6940
+6410 LOCATE 21,1
+6415 PRINT"Add/revise entry #:       | or...";
+6420 LOCATE 21,39:PRINT"Input '=' to change modem command.
+6425 LOCATE 22,39:PRINT"   -- '+' to change long distance #.
+6430 LOCATE 23,39:PRINT"   -- 'z' to clear entire directory.
+6435 LOCATE 24,39:PRINT"   -- 'x' to exit to dialing directory.";
+6440 LOCATE 21,20:INPUT "",Q$
+6445 IF Q$="=" THEN 6775
+6450 IF Q$="+" THEN 6810
+6455 IF Q$="Z" OR Q$="z" THEN 6845
+6460 IF Q$="X" OR Q$="x" THEN 6055
+6465 IF VAL(Q$)<1 OR VAL(Q$)>15 THEN BEEP:LOCATE 21,14:PRINT SPACE$(LEN(Q$))         :GOTO 6440
+6470 GET #2,VAL(Q$)+3
+6475 '- revise name and number -
+6480 GOSUB 6940
+6485 LOCATE 22,1
+6490 PRINT"Name: ";:LINE INPUT; NI$
+6495 IF NI$="" THEN NI$=N$
+6500 IF LEN(NI$)>24 THEN NI$=LEFT$(NI$,24)
+6505 LOCATE VAL(Q$)+4,6:PRINT NI$;SPACE$(25-LEN(NI$));
+6510 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6515 PRINT"Phone number: ";:LINE INPUT; RI$
+6520 IF RI$="" THEN RI$=R$
+6525 IF LEN(RI$)>36 THEN RI$=LEFT$(RI$,36)
+6530 LOCATE VAL(Q$)+4,31:IF LEN(RI$)>12 THEN PRINT RIGHT$(RI$,13) ELSE PRINT SPACE$(13-LEN(RI$))+RI$
+6535 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6540 '- revise comm.parameters -
+6545 PRINT"Are the communications parameters ok (y/n)? ";
+6550 INPUT"",Q1$
+6555 IF Q1$="Y" OR Q1$="y" OR Q1$="" THEN BI$=B$:PI$=P$:DI$=D$:SI$=S$:GOTO 6655
+6560 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6565 PRINT"baud rate: ";:INPUT"",BI$
+6570 IF BI$="" THEN BI$=B$
+6575 LOCATE VAL(Q$)+4,55:PRINT SPACE$(4-LEN(BI$));BI$;
+6580 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6585 PRINT"parity: ";:INPUT"",PI$
+6590 IF PI$="" THEN PI$=P$
+6595 IF ASC(PI$)>100 AND ASC(PI$)<116 THEN PI$=CHR$(ASC(PI$)-32)
+6600 LOCATE VAL(Q$)+4,61-LEN(PI$):PRINT PI$;
+6605 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6610 PRINT"# data bits: ";:INPUT"",DI$
+6615 IF DI$="" THEN DI$=D$
+6620 LOCATE VAL(Q$)+4,63-LEN(DI$):PRINT DI$;
+6625 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6630 PRINT"# stop bits: ";:INPUT"",SI$
+6635 IF SI$="" THEN SI$=S$
+6640 LOCATE VAL(Q$)+4,65-LEN(SI$):PRINT SI$;
+6645 COMM$="COM1:"+BI$+","+PI$+","+DI$+","+SI$
+6650 'test for invalid parameters when dialing
+6655 LOCATE 22,1:PRINT SPACE$(79);
+6660 LOCATE 23,1:PRINT SPACE$(79);
+6665 LOCATE 22,1
+6670 '- revise echo & messages -
+6675 PRINT"echo on (y/n)? ";
+6680 INPUT"",Q1$
+6685 IF Q1$="" THEN EI$=E$:GOTO 6695
+6690 IF Q1$="Y" OR Q1$="y" THEN EI$="Y" ELSE EI$="N"
+6695 LOCATE VAL(Q$)+4,71-LEN(EI$):PRINT EI$;
+6700 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6705 PRINT"messages on (y/n)? ";
+6710 INPUT"",Q1$
+6715 IF Q1$="" THEN MI$=M$:GOTO 6725
+6720 IF Q1$="Y" OR Q1$="y" THEN MI$="Y" ELSE MI$="N"
+6725 LOCATE VAL(Q$)+4,77-LEN(MI$):PRINT MI$;
+6730 LOCATE 22,1:PRINT SPACE$(79);:LOCATE 22,1
+6735 '- write new info' to directory -
+6740 LSET N$=NI$:RSET R$=RI$
+6745 RSET B$=BI$:LSET P$=PI$:LSET D$=DI$:LSET S$=SI$:LSET E$=EI$:LSET M$=MI$
+6750 PRINT "Is entry #";Q$;" ok (y/n)? ";
+6755 INPUT"",Q1$
+6760 IF Q1$<>"Y" AND Q1$<>"y" AND Q1$<>"" THEN LOCATE 22,1:PRINT SPACE$(35);         :GOTO 6475
+6765 PUT #2,VAL(Q$)+3
+6770 GOTO 6055
+6775 '- revise modem dialing command -
+6780 GOSUB 6940
+6785 LOCATE 21,1:PRINT"Modem dialing command:";SPACE$(57)
+6790 LOCATE 21,23:LINE INPUT;NI$
+6795 LSET N$=NI$
+6800 PUT #2,2
+6805 GOTO 6055
+6810 '- revise long distance # -
+6815 GOSUB 6940
+6820 LOCATE 21,1:PRINT"Long distance #:";SPACE$(63)
+6825 LOCATE 21,17:LINE INPUT;NI$
+6830 LSET N$=NI$
+6835 PUT #2,3
+6840 GOTO 6055
+6845 '- clear entire directory -
+6850 GOSUB 6940
+6855 LOCATE 21,1
+6860 BEEP:PRINT"*** If you proceed you will erase the entire contents of the directory. ***    "
+6865 LOCATE ,,1:PRINT "Do you wish to do this (y/n)? ";
+6866 Q$=INKEY$:IF Q$="" THEN 6866
+6870 IF Q$<>"Y" AND Q$<>"y" THEN 6055
+6875 LSET N$="INITIALIZED"
+6880 PUT #2,1
+6885 LSET N$="AT D":LSET R$=""
+6890 LSET B$="":LSET P$="":LSET D$="":LSET S$="":LSET E$="":LSET M$=""
+6895 PUT #2,2
+6900 LSET N$=""
+6905 PUT #2,3
+6910 LSET N$="------------------------":RSET R$=" --- --- ----"
+6915 RSET B$="300":LSET P$="E":LSET D$="7":LSET S$="1":LSET E$="N":LSET M$="N"
+6920 FOR I=1 TO 15
+6925 PUT #2,I+3
+6930 NEXT I
+6935 GOTO 6055
+6940 '- clear message area -
+6945 LOCATE 21,27:PRINT SPACE$(52);
+6950 LOCATE 22,1:PRINT SPACE$(79);
+6955 LOCATE 23,1:PRINT SPACE$(79);
+6960 LOCATE 24,1:PRINT SPACE$(79);
+6965 RETURN
+6970 '
+6975 '
+6980 ' - reopen receive file if necessary -
+6982 IF RECV THEN OPEN RECV$ FOR APPEND AS #2
+6984 RETURN
+6985 '
+6990 '
+6995 '
+7000 'Alt-key Specification
+7005 '
+7010 '(check if file 'PC-TALK.key' exists & if not, initialize)
+7015 CLOSE #2:OPEN "pc-talk.key" AS #2
+7020 FIELD #2, 126 AS K$,2 AS L$
+7025 GET #2,1
+7030 IF LEFT$(N$,11)<>"INITIALIZED" THEN 7495
+7035 '(print directory from file 'PC-TALK.KEY')
+7036 PRINT
+7040 LOCATE 1,39:PRINT"UMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM8
+7045 LOCATE 2,39:PRINT"3      === ALT-KEY DIRECTORY ===       3
+7050 LOCATE 3,39:PRINT"3                                      3
+7055 LOCATE 4,39:PRINT"3";:COLOR UL,BG:PRINT"key     Input string                  ";:COLOR FG,BG:PRINT"3"
+7060 FOR I=1 TO 10
+7065 GET #2,I+1:LNGTH=CVI(L$):KP$=LEFT$(K$,30):IF LNGTH>30 THEN LNGTH=30
+7066 FOR J=1 TO LNGTH
+7067 IF MID$(KP$,J,1)=CHR$(13) THEN KP$ = LEFT$(KP$,J-1) + "\" + RIGHT$(KP$,30-J)     '***substitutes '\' for carriage return in string***
+7068 NEXT J
+7069 IF I=10 THEN LOCATE 14,39:PRINT"3Alt-0 = ";LEFT$(KP$,LNGTH);SPACE$(30-LNGTH);"3":GOTO 7075
+7070 LOCATE I+4,39:PRINT"3Alt-";:PRINT USING "#";I;:PRINT" = ";LEFT$(KP$,LNGTH);SPACE$(30-LNGTH);"3
+7075 NEXT I
+7080 LOCATE 15,39:PRINT"3                                      3
+7095 GET #2,12
+7100 LNGTH=CVI(L$):COMPU$=LEFT$(K$,LNGTH)
+7105 LOCATE 16,39:PRINT"3Alt-C = CompuServe access #: ";COMPU$;SPACE$(9-LNGTH);"3
+7110 GET #2,13
+7115 LNGTH=CVI(L$):SOURCE$=LEFT$(K$,LNGTH)
+7120 LOCATE 17,39:PRINT"3Alt-S =     Source access #: ";SOURCE$;SPACE$(9-LNGTH);"3
+7125 LOCATE 18,39:PRINT"TMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM>
+7130 GOSUB 7530
+7135 '          (revise key assignments?)
+7140 LOCATE 20,39,1
+7145 PRINT"Press <space> to proceed or ...
+7150 LOCATE 21,39
+7155 PRINT"       'r' to revise key assignments:";
+7160 LOCATE 21,76
+7165 Q$=INKEY$:IF Q$="" THEN 7165
+7170 IF Q$="R" OR Q$="r" THEN 7185
+7175 IF Q$=CHR$(32) THEN CLOSE #2:GOSUB 6980:GOSUB 7530:LOCATE 21,39:PRINT"=== Proceed ...";:LOCATE ROW,COL:GOTO 400
+7180 BEEP:LOCATE 21,76:PRINT SPACE$(LEN(Q$)):GOTO 7160
+7185 '          (revise key assignments)
+7190 GOSUB 7530
+7195 LOCATE 20,39
+7200 PRINT"Revise Alt + #:            | or...";
+7205 LOCATE 21,39:PRINT"Press 'c' to change CompuServe access #.
+7210 LOCATE 22,39:PRINT"   -- 's' to change Source access #.
+7215 LOCATE 23,39:PRINT"   -- 'z' to clear entire directory.
+7220 LOCATE 24,39:PRINT"   -- 'x' to exit to main program.";
+7225 LOCATE 20,54:Q$=INKEY$:IF Q$="" THEN 7225
+7230 IF Q$="C" OR Q$= "c" THEN 7350
+7235 IF Q$="S" OR Q$= "s" THEN 7400
+7240 IF Q$="Z" OR Q$= "z" THEN 7450
+7245 IF Q$="X" OR Q$= "x" THEN CLOSE #2:GOSUB 6980:GOSUB 7530:LOCATE 21,39:PRINT"=== Proceed ...";:LOCATE ROW,COL:GOTO 400
+7250 IF Q$="0" THEN GET #2,11: GOTO 7265
+7255 IF VAL(Q$)<1 OR VAL(Q$)>9 THEN BEEP:LOCATE 20,54:PRINT SPACE$(LEN(Q$))          :GOTO 7225
+7260 GET #2,VAL(Q$)+1
+7265 '          - revise input string -
+7270 GOSUB 7530
+7275 LOCATE 20,39:PRINT"New input string for Alt-";Q$;"  (+ <ENTER>)
+7277 LOCATE 22,39:PRINT"(Type '\' to specify carriage returns.)";
+7280 LOCATE 23,39:PRINT"(Input <space> + <ENTER> to clear key.)";
+7285 LOCATE 21,39
+7290 PRINT CHR$(16);:KI$="" ' key input string
+7291 CI$=INKEY$:IF CI$="" THEN 7291 ' character input string
+7292 IF CI$=CHR$(13) THEN 7297
+7293 IF CI$=CHR$(8) THEN LOCATE ,POS(O)-1:PRINT CHR$(32);:LOCATE ,POS(0)-1           :KI$=LEFT$(KI$,LEN(KI$)-1):GOTO 7291
+7294 PRINT CI$;:KI$=KI$+CI$
+7295 GOTO 7291
+7297 IF KI$=CHR$(32) THEN KI$="":GOTO 7300
+7298 IF KI$="" THEN KI$=K$
+7300 IF LEN(KI$)>126 THEN KI$=LEFT$(KI$,126)
+7301 FOR I=1 TO LEN(KI$)
+7302 IF MID$(KI$,I,1)="\" THEN KI$ = LEFT$(KI$,I-1) + CHR$(13) + RIGHT$(KI$,LEN(KI$)-I)' ***permits input of '\' to represent a carriage return in string***
+7303 NEXT I
+7305 LI=LEN(KI$)
+7310 '          - write new info' to directory -
+7315 LSET K$=KI$:LSET L$=MKI$(LI)
+7320 IF Q$="0" THEN PUT #2,11:GOTO 7330
+7325 PUT #2,VAL(Q$)+1
+7330 IF Q$="0" THEN K$(10)=KI$:GOTO 7345
+7335 K$(VAL(Q$))=KI$
+7340 GOSUB 7530
+7345 GOTO 7040
+7350 '          - revise CompuServe access # -
+7355 GOSUB 7530
+7360 LOCATE 21,39:PRINT"CompuServe access #:";
+7365 LOCATE 21,59:LINE INPUT;KI$
+7370 LI=LEN(KI$)
+7375 IF LEN(KI$)>30 THEN KI$=LEFT$(KI$,30)
+7380 LSET K$=KI$:LSET L$=MKI$(LI)
+7385 PUT #2,12
+7390 GOSUB 7530
+7395 GOTO 7040
+7400 '          - revise Source access # -
+7405 GOSUB 7530
+7410 LOCATE 21,39:PRINT"Source access #:";
+7415 LOCATE 21,55:LINE INPUT;KI$
+7420 IF LEN(KI$)>30 THEN KI$=LEFT$(KI$,30)
+7425 LI=LEN(KI$)
+7430 LSET K$=KI$:LSET L$=MKI$(LI)
+7435 PUT #2,13
+7440 GOSUB 7530
+7445 GOTO 7040
+7450 '          - clear entire directory -
+7455 GOSUB 7530
+7460 LOCATE 21,39
+7465 BEEP:PRINT"*** If you proceed you will erase
+7470 LOCATE 22,39
+7475 PRINT"  the entire contents of the directory."
+7480 LOCATE 23,39
+7485 PRINT "Do you wish to do this (y/n)? ";
+7486 Q$=INKEY$:IF Q$="" THEN 7486
+7490 IF Q$<>"Y" AND Q$<>"y" THEN 7040
+7495 LSET K$="INITIALIZED":LSET L$=""
+7500 PUT #2,1
+7505 LSET K$="":LSET L$=MKI$(0)
+7510 FOR I=2 TO 13
+7515 PUT #2,I
+7520 NEXT I
+7525 GOTO 7040
+7530 '          - clear message area -
+7535 FOR I=19 TO 24
+7540 LOCATE I,35:PRINT SPACE$(44);
+7545 NEXT I
+7550 RETURN
+7555 '
+7560 '
+8000 '     Print Documentation
+8005 '
+8010 BEEP: PRINT:PRINT"=== PRINT DOCUMENTATION ===
+8015 FOR I=1 TO 8:PRINT SPACE$(38):NEXT I
+8020 CLOSE #2: OPEN "PC-TALK.DOC" FOR INPUT AS #2
+8025 PRINT:PRINT"Make sure that your printer is on and loaded with continuous form paper.
+8030 PRINT"Align the print head with the top of the form and
+8035 PRINT"             set the printer to print 66 lines per page.
+8040 PRINT"The printing routine will take about ten minutes at 80 cps.
+8045 PRINT"Do you wish to proceed with printing now (y/n)? ";
+8050 Q$=INKEY$:IF Q$="" THEN 8050
+8055 IF Q$<>"Y" AND Q$<>"y" THEN PRINT:PRINT:PRINT"(print routine cancelled)":PRINT"=== Proceed ...":GOTO 400
+8060 LPRINT " "; '*** tests for whether printer is on
+8065 LOCATE 25,1:COLOR BG,FG:PRINT"=== PRINTING DOCUMENTATION === (Hit CTRL+<Home> to terminate.)";SPACE$(16);:COLOR FG,BG:LOCATE 24,1
+8070 '    - printing routine -
+8075 INDENT=8:HEADER$="[Freeware, P.O. Box 862, Tiburon, CA 94920]           PC-TALK page"
+8080 '
+8084 P=0 'page counter
+8085 P=P+1
+8086 LPRINT:LPRINT:LPRINT:LPRINT:LPRINT:LPRINT
+8090 LPRINT SPACE$(INDENT);HEADER$;P:LPRINT:LPRINT
+8095   L=1 ' line counter
+8100 LINE INPUT #2,P$
+8102 PRINT P$
+8105 IF LEFT$(P$,1)="\" THEN IF L=1 THEN 8095 ELSE 8140
+8110 LPRINT SPACE$(INDENT);:LPRINT P$
+8115 Q$=INKEY$:IF Q$<>"" THEN IF ASC(RIGHT$(Q$,1))=119 THEN 8155
+8120 IF EOF(2) THEN CLOSE #2:GOTO 8160
+8125   IF L<52 THEN L=L+1:GOTO 8100
+8130 LPRINT:LPRINT:LPRINT:LPRINT:LPRINT
+8135     GOTO 8085
+8140 FOR K=L TO 52:LPRINT:NEXT K
+8145 GOTO 8130
+8150 '     - terminate printing -
+8155 BEEP:PRINT:PRINT"=== PRINTING TERMINATED ===":GOTO 8165
+8160 BEEP:PRINT"=== END OF DOCUMENTATION ==="
+8165 GOSUB 4500
+8170 IF DUMMYDOC THEN PRINT"(returning to DOS)":FOR I=1 TO 3000:NEXT I:SYSTEM
+8175 PRINT"You are now back in the main program.
+8180 PRINT"=== Proceed ..."
+8185 CLOSE #2:GOTO 400
+8190 '     - message if documentation file not found -
+8195 PRINT:PRINT:PRINT:PRINT:PRINT"Sorry, but the documentation file 'PC-TALK.DOC' is not on your program disk.
+8200 PRINT:PRINT "Alternatives:
+8205 PRINT"   1. See the person from whom you got a copy of the program.
+8220 PRINT"   2. Send a postage-paid return-addressed manila envelope to FREEWARE
+8225 PRINT"        along with a BLANK DISK and request a new copy of the entire program.
+8230 PRINT SPACE$(79):PRINT SPACE$(25);" ===F R E E W A R E=== ";SPACE$(31)
+8235 PRINT SPACE$(25);"User-Supported Software";SPACE$(31)
+8240 PRINT SPACE$(25);"  Post Office Box 862  ";SPACE$(31)
+8245 PRINT SPACE$(25);"   Tiburon, CA 94920   ";SPACE$(31)
+8250 PRINT:PRINT:PRINT:PRINT
+8255 PRINT"Meanwhile, please try using the on-screen command summary.
+8260 PRINT"(Hit any key to proceed)
+8265 Q$=INKEY$:IF Q$="" THEN 8265
+8270 CLS:GOTO 2000
+8275 '
+8280 '
+8300 '         - print documentation even if no asynch card -
+8305 '
+8310 PRINT:PRINT"This program requires the Asynchronous Communications card to operate."
+8315 PRINT"Do you want to print the program documentation (y/n)? ";
+8320 Q$=INKEY$:IF Q$="" THEN 8320
+8325 IF Q$="Y" OR Q$="y" THEN DUMMYDOC=TRUE:GOTO 8000
+8330 PRINT:PRINT:PRINT"(returning to DOS)":FOR I=1 TO 3000:NEXT I:SYSTEM
+8900 '     pause to access communications port
+8905 '
+8910 BEEP:PRINT"=== ESTABLISH MODEM CONNECTION ===
+8915 PRINT"Then hit <space> to continue.
+8920 PRINT"(You may use Alt- commands without
+8925 PRINT"   establishing connection.)
+8926 ACCESS=TRUE
+8930 B$=INKEY$:IF B$="" THEN 8930
+8935 IF B$=" " THEN ACCESS=FALSE:CLS:GOTO 363
+8940 IF LEN(B$)>1 THEN 800
+8945 BEEP:GOTO 8930
+9000 '          Error Trapping
+9005 '
+9006 IF ERL=451 AND ERR=62 THEN RESUME 4200' transmit last block
+9007 IF ERL=4210 AND ERR=62 THEN RESUME 4020 'terminates transmit at end
+9008 IF ERL=3550 AND ERR=62 THEN RESUME 3585 'terminates viewing at end
+9009 IF ERL=8100 AND ERR=62 THEN RESUME 8160 'end of file for documentation
+9010 IF ERR=27 AND ERL=535 THEN BEEP:PRINT"===== CHECK PRINTER =====":PRNT=FALSE     :RESUME ' continues program if printer off during input
+9015 IF ERR=27 AND ERL=8060 THEN BEEP:PRINT:PRINT:PRINT"=== CHECK PRINTER ==="       :RESUME 8025 ' printer check for documentation
+9020 IF ERR=27 THEN RESUME 8155 ' another printer check
+9022 IF ERL=5180 THEN BEEP:PRINT:PRINT"*** Invalid specifications. Try again."       :RESUME 5135 ' tests for valid communications parameters
+9025 IF ERL=6275 AND ERR=64 THEN BEEP:LOCATE 20,1:PRINT"*** Invalid parameters for entry #";Q$:RESUME 6400
+9028 IF ACCESS AND (ERR=24 OR ERR=52 OR ERR=57) THEN RESUME 8900
+9029 IF ERL=363 THEN RESUME 8900
+9030 IF ERR=24 OR ERR=57 THEN ROW=CSRLIN:COL=POS(0):LOCATE 1,39:COLOR HI,BG:PRINT "  === CHECK YOUR MODEM OR PRINTER ===   ":COLOR FG,BG:LOCATE ROW,COL:RESUME 'device timeout/unavailable
+9035 IF ERR=69 THEN ROW=CSRLIN:COL=POS(0):LOCATE 1, 39:COLOR HI,BG:PRINT"      === BUFFER OVERFLOW ===           ";:COLOR FG,BG:LOCATE ROW,COL:RESUME ' communications buffer overflow
+9045 IF ERL=8020 THEN RESUME 8195 'checks whether documentation file is on disk
+9050 IF ERR=53 AND ERL=3530 OR ERL=4055 THEN BEEP:PRINT"*** File not found. Try again.":RESUME 4110
+9052 IF ERR=53 AND ERL=4125 OR ERL=4130 THEN BEEP:PRINT"*** No files on drive. Try again.":RESUME 4110
+9055 IF ERR=61 THEN BEEP:PRINT:PRINT"=== DISK IS FULL ===":RESUME 3010
+9060 IF ERL=4180 AND ERR=67 THEN BEEP:PRINT"*** Invalid drive. Try again.";          :RESUME 4174 ' a brute force way of testing for valid default drive
+9062 IF ERL=4180 THEN RESUME NEXT ' if no disk in specified default drive
+9065 IF ERR=67 THEN PRINT"*** Either too many files, or"
+9070 IF CODE=19 OR CODE=20 OR CODE=47 THEN IF ERR=52 OR ERR=64 OR ERR=67 THEN BEEP:PRINT"*** Not a valid file name. Try again. ":RESUME 4110
+9075 IF ERR=70 THEN BEEP:PRINT"*** Disk is write protected. Try again. ":RESUME 4110
+9080 IF ERR=71 THEN BEEP:PRINT"*** Check disk drive.":RESUME 4110
+9082 IF ERR=72 THEN BEEP:PRINT"*** Disk media error. Try again. ":RESUME 4110
+9084 IF ERR=5 THEN RESUME NEXT 'attempts to recover from illegal function call
+9085 IF ERR=10 THEN RESUME NEXT 'attempts to recover from duplicate definit.
+9090 IF ERR=68 THEN BEEP:PRINT"=== DEVICE UNAVAILABLE ===":GOTO 8300 'no async
+9900 '          (display error if not trapped)
+9905 CLOSE
+9910 BEEP:LOCATE 25,1:COLOR BG,FG:PRINT" === Sorry, NON-RECOVERABLE ERROR. Type 'run' + <ENTER> ===";SPACE$(20);:COLOR FG,BG:LOCATE 24,1
+9915 ON ERROR GOTO 0
+9999 ' End of program/726
+

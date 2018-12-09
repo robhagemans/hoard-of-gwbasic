@@ -1,0 +1,6 @@
+5 FOR T=1 TO 100000000#
+10 PLAY "l16 Bdf bdf bdf bdf bdf bdf"
+15 PLAY "l8 bdf bdf bdf bdf bdf"
+20 FOR X=1 TO 5
+30 NEXT X
+40 NEXT T

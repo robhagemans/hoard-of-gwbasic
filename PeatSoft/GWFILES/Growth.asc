@@ -1,0 +1,85 @@
+5 'THIS PROGRAM REQUIRES BASICA AND A COLOR MONITOR
+10 KEY OFF
+20 CLS
+30 WIDTH 40
+40 DIM F(24)
+50 PRINT "      Growth Rate and Projections"
+60 PRINT
+70 PRINT
+80 PRINT "   This program analyzes sales or other figures from past months,computes an"
+82 PRINT "average growth rate, and projects futurefigures."
+84 PRINT "   You specify the number of past and   future months."
+86 PRINT "   The total number of months cannot    exceed 24."
+90 PRINT
+100 PRINT
+200 INPUT "How many past months ";M
+210 INPUT "How many months to project ";P
+220 IF M+P>24 THEN PRINT :PRINT "ONLY 24 MONTHS TOTAL, PLEASE!":GOTO 100
+230 PRINT
+240 PRINT "Now enter amounts for past months:"
+250 PRINT
+260 FOR J=1 TO M
+270 PRINT "month";J;
+280 INPUT F(J)
+290 NEXT J
+300 T=LOG(F(1))
+310 V=0
+320 FOR J=2 TO M
+330 L=LOG(F(J))
+340 T=T+L
+350 V=V+(J-1)*L
+360 NEXT J
+370 A=6*(2*V/(M-1)-T)/M/(M+1)
+380 A=EXP(A)-1
+390 AGF=EXP(T/M-A*(M-1)/2)
+400 FOR J=M+1 TO M+P
+410 F(J)=INT(AGF*(1+A)^(J-1)+.5)
+420 NEXT J
+430 MIN=F(1)
+440 MAX=F(1)
+450 FOR J=1 TO M+P
+460 IF F(J)>MAX THEN MAX=F(J)
+470 IF F(J)<MIN THEN MIN=F(J)
+480 NEXT J
+490 S=168/(MAX+MIN)
+1000 CLS
+1010 FOR J=1 TO M+P
+1020 IF J>M+P THEN J=24:GOTO 1050
+1030 PRINT
+1040 PRINT "Month";J;TAB(10);F(J);
+1050 NEXT J
+1060 PRINT TAB(18);"Growth Rate:";INT(A*10000+.5)/100;"%";
+1100 GOSUB 2000
+1110 FOR J=1 TO M+P
+1120 IF J>M THEN C=1
+1130 PSET (J*11+45,200-INT(S*F(J))),C
+1140 NEXT J
+1200 GOSUB 2000
+1210 PSET (56,200-INT(S*F(1))),C
+1220 FOR J=2 TO M+P
+1230 IF J>M THEN C=1
+1240 LINE -(J*11+45,200-INT(S*F(J))),C
+1250 NEXT J
+1300 GOSUB 2000
+1310 FOR J=1 TO M+P
+1320 IF J>M THEN C=1
+1330 LINE (J*11+45,200)-(J*11+54,200-INT(S*F(J))),C,BF
+1340 NEXT J
+1400 A$=INPUT$(1)
+1410 SCREEN 0,0,0
+1420 RUN
+2000  A$=INPUT$(1)
+2010 CLS
+2020 SCREEN 1,0
+2030 COLOR 0,0
+2040 C=2
+2050 PRINT "        Average Growth Rate Is ";INT(A*10000+.5)/100;"%"
+2060 PRINT "Amount"
+2070 PRINT "  ||   <------------ Month ------------>";
+2080 PRINT "  \/   1   3   6   9  12  15  18  21  24";
+2090 FOR J=5 TO 25 STEP 5
+2100 LOCATE J,1
+2110 PRINT INT((168-(J/5-1)*40)/S+.5);
+2120 NEXT J
+2130 RETURN
+

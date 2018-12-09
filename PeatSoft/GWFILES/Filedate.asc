@@ -1,0 +1,48 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+13 '***************** FILE DATE AND TIME STAMP PROGRAM  ***********************
+17 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+19 'บ           PROGRAM TO CHANGE DATE AND HOUR OF DISK FILES                 บ
+21 'บ                                                                         บ
+23 'บ     This great basic program was written by Clay Jones of Tolleson, AZ. บ
+25 'บ You may have noticed that all of the files on the DOS Disk show the     บ
+27 'บ same date and hour. It might seem as if the internal clock had failed   บ
+29 'บ or there were some mighty fast and prolific programmers. This program   บ
+31 'บ permits you to put a new "time/date stamp" on PC disk files. It is an   บ
+33 'บ easy program to use. It is self-documenting.  The DIM statement has     บ
+35 'บ been set at 20. It is recommended that you limit the update to only     บ
+37 'บ 10 files in one "run" of the program. This will keep your input list    บ
+39 'บ at a reasonable level.  This program will work on .COM files also.      บ
+41 'บ                                                                         บ
+43 'บ     This program may be used in whole or in part without license or     บ
+45 'บ attribution.         (c) G I N A C O  -- 1983      Ver 5.1 160/320      บ
+47 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 FOR I=1 TO 10:KEY I,"":NEXT
+100 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR
+110 ON ERROR GOTO 580
+150 PRINT"FILEDATE.BAS    a program to change the date and time of disk files":DIM FILE$(20)
+170 LOCATE 5,1:INPUT"What date do you want on the files (MM/DD/YY)";IDATE$
+190 DATE$=IDATE$:LOCATE 5,1:PRINT SPC(70)
+220 LOCATE 5,1:INPUT"What time do you want on the files (HH:MM)";ITIME$
+240 TIME$=ITIME$:LOCATE 5,1:PRINT SPC(70):LOCATE 5,1,0:PRINT"Which disk drive are the files on";:COLOR 23:PRINT"?":COLOR 7
+320 DRIVE$=INKEY$:IF DRIVE$=""THEN 320
+340 IF LEN(DRIVE$)>1 THEN DRIVE$="
+350 IF(ASC(DRIVE$)<65 OR ASC(DRIVE$)>90)AND(ASC(DRIVE$)<97 OR ASC(DRIVE$)>122)THEN DRIVE$=""ELSE DRIVE$=DRIVE$+":
+360 LOCATE 5,1:PRINT SPC(70):LOCATE 3,1:IF DRIVE$=""THEN PRINT"Printing files on default drive"ELSE PRINT"Printing files on drive "DRIVE$
+400 LOCATE 5,1:IF DRIVE$<>""THEN FILES DRIVE$+"*.*"ELSE FILES
+420 I=0:PRINT
+440 INPUT"Filename";FILENAME$:IF FILENAME$<>""THEN I=I+1:FILE$(I)=FILENAME$:GOTO 440
+460 FOR L=1 TO I:OPEN DRIVE$+FILE$(L) AS 1 LEN=1:DATE$=IDATE$:TIME$=ITIME$:GET#1,1:PUT#1,1:CLOSE:NEXT L:CLS:LOCATE 5,1:PRINT"Your date and time are now set to ";IDATE$;" and ";ITIME$:END
+580 IF ERR<>5 OR ERL<>190 THEN 630
+590 LOCATE 6,1:PRINT"Not a valid date":GOSUB 690:RESUME 170
+630 IF ERR<>5 OR ERL<>240 THEN 680
+640 LOCATE 6,1:PRINT"Not a valid time":GOSUB 690:RESUME 220
+680 ON ERROR GOTO 0
+690 LOCATE 25,10:PRINT"Press space to continue";
+710 IF INKEY$<>" "THEN 710
+720 LOCATE 5,1:PRINT SPC(70):LOCATE 6,1:PRINT SPC(70):LOCATE 25,1:PRINT SPC(70);:RETURN
+730 END
+65000 REM ******************* SAVE ROUTINE ***********************************
+65100 SAVE"B:FILEDATE.BAS
+

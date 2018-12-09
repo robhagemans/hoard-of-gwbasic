@@ -1,0 +1,33 @@
+30 LOCATE 2,35:PRINT"Synonyms 2":COLOR 7,0
+700 RUN "iqbuild"
+5500 DATA illustrious, momentous, painted, menial, grotesque, celebrated, 5
+5510 DATA quizzical, alert, questionable, abrupt, puzzled, flustered, 4
+5520 DATA aberration, abnormality, secret, enormity, homily, homage, 1
+5530 DATA servile, toxic, pleasant, commonplace, hidden, slavish, 5
+5540 DATA voluble, gaseous, lofty, mercenary, talkative, corrosive, 4
+5550 DATA exemplary, studious, reflective, commendable, presumptuous, cosmic, 3
+5560 DATA cartel, beacon, authority, monopoly, legation, complex, 3
+5570 DATA malady, repast, loss, medicine, affliction, incision, 4
+5580 DATA imprudent, nasty, insane, injudicious, hesitant, selective, 3
+5590 DATA conjecture, signal, deportment, advantage, perfection, ponder, 5
+5600 DATA fervid, zealous, chilly, fertile, worried, flowery, 1
+5610 DATA genre, vantage, pledge, sort, analogy, portal, 3
+5620 DATA waggish, doglike, demented, roguish, venomous, twisting, 3
+5630 DATA aesthete, majesty, connoisseur, mystic, excess, idyll, 2
+5640 DATA lampoon, obscure, refinery, remorse, satire, corrode, 4
+5650 DATA tepid, diffuse, faulty, genial, illusive, lukewarm, 5
+5660 DATA recoup, consign, delineate, enlist, recover, intensify, 4
+5670 DATA sagacious, strange, mercenary, wise, intimate, destructive, 3
+5680 DATA viscous, spirited, pitiless, sticky, reluctant, resonant, 3
+5690 DATA fiat, treasure, yearning, aversion, decree, nuisance, 4
+5700 DATA refurbish, ordain, corroborate, renovate, substitute, resuscitate, 3
+5710 DATA ricochet, oscillate, covet, augment, rebound, crisscross, 4
+5720 DATA submit, arrange, acquiesce, contrast, caress, conserve, 2
+5730 DATA gesticulation, vendetta, procedure, indemnity, experience, gesture, 5
+5740 DATA peruse, implore, correct, read, compensate, muzzle, 3
+5750 DATA flagellate, denounce, whip, sacrifice, bewitch, cleanse, 2
+5760 DATA literate, officiate, authentic, educated, cathartic, written, 3
+5770 DATA  oration, veneer, anecdote, meeting, discourse, following, 4
+5780 DATA traverse, circle, guard, cross, incriminate, transfer, 3
+5790 DATA unanimity, sterility, distribution, correlation, unity, animated, 4
+

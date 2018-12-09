@@ -1,0 +1,98 @@
+5 KEY(10) ON:ON KEY(10) GOSUB 600:KEY(9) ON:ON KEY(9) GOSUB 700:DIM A(30):FOR I=1 TO 30:A(I)=I:NEXT I
+10 CLS:R=0:N=0:GOSUB 59980:FOR I=1 TO 100:SWAP A(INT(RND*30+1)),A(INT(RND*30+1)):NEXT I:GOTO 300
+20 PRINT"part to whole":RETURN
+30 PRINT"type to one of its characteristics":RETURN
+40 PRINT"things that are part of the same thing":RETURN
+50 PRINT"measurement to what is measured":RETURN
+60 PRINT"measurement to object measured":RETURN
+70 PRINT"class to species":RETURN
+80 PRINT"group to member":RETURN
+90 PRINT"members of the same class":RETURN
+100 PRINT"things with a feature in common":RETURN
+110 PRINT"equivalent measures":RETURN
+120 PRINT"parts of a hierarchy":RETURN
+130 PRINT"cause and effect":RETURN
+140 PRINT"things to what they do":RETURN
+150 PRINT"tools to what they work on":RETURN
+160 PRINT"tools to what they create":RETURN
+170 PRINT"condition to what happens in that condition":RETURN
+180 PRINT"worker to object created":RETURN
+190 PRINT"worker to tool":RETURN
+200 PRINT"person to his goal":RETURN
+210 PRINT"person to something he avoids":RETURN
+220 PRINT"synonyms and antonyms":RETURN
+230 PRINT"things that go together":RETURN
+240 PRINT"thing dependent on another":RETURN
+300 CLS:LOCATE 1,34:COLOR 0,15:PRINT" IQ Builder ":COLOR 15,0
+310 LOCATE 2,34:PRINT"Analogies 1":COLOR 7,0
+320 XX=1:C=A(XX):R=0:N=0
+330 RESTORE:IF C>1 THEN FOR L=1 TO C-1:READ A$,B$:FOR X=1 TO 6:READ A1(X):NEXT X,L
+340 GOSUB 7000
+350 READ A$,B$
+360 PRINT:PRINT"Problem" C
+370 PRINT:PRINT"This is what kind of analogy?"
+380 PRINT:PRINT A$ " is to " B$:PRINT
+390 FOR X=1 TO 5:PRINT"(";:COLOR 15:PRINT X;:COLOR 7:PRINT")  ";:READ A1(X):
+400 ON A1(X) GOSUB 20,30,40,50,60,70,80,90,100,110,120,130,140,150,160,170,180,190,200,210,220,230,240
+410 NEXT X:READ K
+420 BEEP:LOCATE 25,1:PRINT"Your choice is - ";
+430 GOSUB 59990:IF INSTR("12345",IKEY$)=0 THEN 430
+440 N=N+1:IF VAL(IKEY$)=K THEN PLAY "mbc16c16c16ge8g":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"Correct!";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:R=R+1:GOTO 460
+450 PLAY "mbn50n25":LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"No!  The answer was " K ".";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);
+460 XX=XX+1
+470 IF XX<30 THEN C=A(XX):GOTO 330
+480 GOSUB 7000:PRINT"You scored" R "right out of" N "  or" INT(100*R/N) "percent."
+490 IF R/N<.6 THEN PRINT"Why don't you look at this program again.":TIMEOUT=3:GOSUB 59950:RUN
+500 IF R/N<=.9000001 THEN PRINT"Very good!"
+510 IF R/N>.9000001 THEN PRINT"100 percent!  What else can I say!!"
+520 TIMEOUT=3:GOSUB 59950:GOTO 700
+600 RUN "iqbuild"
+700 CHAIN MERGE "analog2",5
+1000 PLAY "mbn50n25":LOCATE 25,1:PRINT"No!  Hint:";:TIMEOUT=3:GOSUB 59950
+1010 LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:BEEP
+1020 IF K=1 THEN PRINT"The numbers change by thr rule " A$;
+1030 IF K=2 THEN PRINT"Look for more than one rule.  One rule is " A$;
+1040 IF K=3 THEN PRINT"The amount of change gets " A$ " each time.";
+1050 IF K=4 THEN PRINT"Alternating series.  One rule is " A$;
+1060 IF K=5 THEN PRINT"Look for groups of " A$ " numbers.";
+1070 TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:LOCATE Y1-1,X1:RETURN
+3100 PRINT:PRINT TAB(10) "É" STRING$(35,"Í") "»"
+3110 PRINT TAB(10) "º";:COLOR 15:PRINT A B C D E F G H;:COLOR 7:PRINT TAB(46) "º"
+3120 PRINT TAB(10) "È" STRING$(35,"Í") "¼":PRINT:RETURN
+5500 DATA mouth, head,2,8,9,1,7,4
+5510 DATA fast, slow,19,22,7,21,2,4
+5520 DATA pint, milk,5,13,11,8,3,1
+5530 DATA dog, cat,2,3,6,8,11,4
+5540 DATA captain, sergeant,9,11,10,16,12,2
+5550 DATA cup, saucer,21,23,22,5,1,3
+5560 DATA coal, black,3,9,2,16,23,3
+5570 DATA year, time,1,4,3,6,2,2
+5580 DATA careless, accident,12,13,8,20,8,1
+5590 DATA cushion, legs,8,7,6,13,3,5
+5600 DATA vocal cords, talk,19,21,10,8,13,5
+5610 DATA dig, hole,17,15,10,21,12,5
+5620 DATA child, dark,20,19,13,12,3,1
+5630 DATA scissors, paper,16,14,15,12,5,2
+5640 DATA pen, ink,23,21,15,12,9,1
+5650 DATA bread, butter,23,21,22,13,9,3
+5660 DATA thunder, rain,20,16,10,11,6,2
+5670 DATA def. lineman, tackle runner,20,12,16,17,19,5
+5680 DATA run, flee,13,21,1,3,20,2
+5690 DATA pack, wolf,7,10,12,16,23,1
+5700 DATA chef, egg beater,19,20,21,1,18,5
+5710 DATA fire, sum,9,6,5,3,21,1
+5720 DATA cement mixer, cement,1,7,6,10,14,5
+5730 DATA bricklayer, wall,8,9,10,14,17,5
+5740 DATA fly, fly,13,23,22,12,16,1
+5750 DATA oven, pie,15,6,3,21,18,1
+5760 DATA sedated, sleep,21,12,19,23,1,2
+5770 DATA gram, once,16,23,10,11,13,3
+5780 DATA vehicle, bike,6,8,10,23,21,1
+5790 DATA argument, fight,13,11,14,19,16,5
+7000 FOR Y=4 TO 24:LOCATE Y,1:PRINT SPC(79);:NEXT Y:LOCATE 4,1:RETURN
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59980 RNDTIME$=TIME$:RNDVAL=VAL(LEFT$(RNDTIME$,2))*120+VAL(MID$(RNDTIME$,4,2))*60+VAL(RIGHT$(RNDTIME$,2)):RANDOMIZE RNDVAL:RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

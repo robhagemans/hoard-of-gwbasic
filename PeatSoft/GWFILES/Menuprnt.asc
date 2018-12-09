@@ -1,0 +1,125 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '***************** GRAPHICS PRINT ROUTINE -- BASIC *************************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                      80 COLUMN GRAPHICS PRINTOUT                        บ
+20 'บ                                                                         บ
+22 'บ     This program will make a graphics printout of screen to a EPSON     บ
+24 'บ GRAFTRAK or GEMINI 10/15 printer. The quality and detail of the print   บ
+26 'บ are excellent.  Simply insert desired printout text in between lines    บ
+28 'บ 510  and  830.  You may add or subtract lines as desired.  To get an    บ
+30 'บ idea of the amount of text you can put in the designated program area,  บ
+31 'บ run this program. It prints out the 160k Blueberry Pie a la Mode disk   บ
+32 'บ menu.  You can input any data you want into the appropriate lines.      บ
+34 'บ     Before you run the program, ascertain that your printer is on-line  บ
+35 'บ and the paper is about five spaces below the perforation. PC-ADD.BAS    บ
+36 'บ is similar, allowing EITHER a 40 or 80 column display. When building    บ
+37 'บ up the menu or test, remove the REM marks from lines 505 and 830. This  บ
+38 'บ will permit you to run the program for test without a printout.         บ
+39 'บ     This program, in whole or in part, may be used without license or   บ
+40 'บ attribution.   G I N A C O    -  1983.                  REV 5.2/320     บ
+41 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 FOR I=1 TO 10:KEY I,"":NEXT
+110 CLS
+120 SCREEN 0,0,0
+130 WIDTH 80
+140 CLEAR
+150 KEY OFF
+160 DEFINT A,Q,F,I,E,H,K,W
+170 DIM E%(200)
+180 Q% = 0
+190 F% = 0
+200 E% = 0
+210 I% = 0
+220 W% = 0
+230 H% = 0
+240 K% = 0
+250 A$ = ""
+280 SCREEN 1
+290 WIDTH 80
+300 ' ******* THE MESSAGE TO PRINT STARTS HERE ** ADD LINES AS NEEDED *******
+310 ' ******* PRINT YOUR BORDER AND THEN PUT IN TEST WITH LOCATE " " ********
+320 LOCATE 2,2
+330 FOR I% = 1 TO 38
+340   PRINT CHR$(17)CHR$(16);
+350 NEXT
+360 FOR I% = 2 TO 23
+370   LOCATE I%,2
+380   PRINT CHR$(17)CHR$(16)
+390   LOCATE I%,78
+400   PRINT CHR$(17)CHR$(16)
+410 NEXT
+420 LOCATE 23,2
+430 FOR I% = 1 TO 38
+440   PRINT CHR$(17)CHR$(16);
+450 NEXT
+460 LOCATE 4,10
+470 PRINT CHR$(3)
+480 LOCATE 4,70
+490 PRINT CHR$(4)
+500 LOCATE 4,31
+505 'GOTO 505
+510 PRINT CHR$(34)"BIG BLUE" CHR$(34)" berry Pie"
+520 LOCATE 5,27
+530 PRINT "          a la Mode"
+540 LOCATE 7,28
+550 PRINT "BASIC UTILITIES & PROGRAMS"
+560 LOCATE 8,5
+570 LOCATE 9,5
+580 PRINT "AlphaHex.Bas  1   Bluebery.Bas  2   BlueMenu.Bas   3   BoxInBox.Bas   4"
+590 LOCATE 10,5
+600 PRINT "BoxInBox.Clr  5   Calulate.Bas  6   ChekForm.Bas   7   Circle  .Gra   8"
+610 LOCATE 11,5
+620 PRINT "Compound.Bas  9   D&CForm .Bas  10  EasyWord.Bas   11  Epsonset.Bas  12"
+630 LOCATE 12,5
+640 PRINT "EscKey  .Bas  13  FileDate.Bas  14  GasForm .Bas   15  HeadCln .Bas  16"
+650 LOCATE 13,5
+660 PRINT "HexPrint.Bas  17  HexSay  .Bas  18  IBMLabel.Bas   19  KeySet  .Bas  20"
+670 LOCATE 14,5
+680 PRINT "Lpt12Set.Bas  21  NecLabel.Bas  22  NiceList.Bas   23  PC-Add  .Gra  24"
+690 LOCATE 15,5
+700 PRINT "PeekPrnt.Bas  25  PrntCall.Bas  26  ProgHead.Bas   27  QuickBox.Bas  28"
+710 LOCATE 16,5
+720 PRINT "RandSeed.Bas  29  ShowBox .Bas  30  Startup .Bas   31  Startkup.Clr  32"
+730 LOCATE 17,5
+740 PRINT "TestWrit.Bas  33  TimeShow.Bas  34  WorkFile.Bas   35  YesOrNo .Bas  36"
+750 LOCATE 18,5
+760 PRINT "ZipClear.Bas  37  Chr$Prnt.Bas  38  Bluebery.Doc   39  BlueBry2.Doc  40"
+770 LOCATE 19,5
+780 PRINT "TestWrit.Doc  41  WorkFile.Dat  42  Sample  .Twd   43  MenuPrnt.Bas  44"
+790 LOCATE 21,10:PRINT CHR$(5)
+800 LOCATE 21,34:PRINT"MAKE SELECTION"
+810 LOCATE 21,70
+820 PRINT CHR$(6)
+830 'GOTO 830
+840 ' ****** END OF THE TEXT/GRAPHIC INPUT AREA ** ADD LINES AS NEEDED *****
+850 ' ****************  GRAPHICS SCREEN/PRINT ROUTINE **********************
+860 ' ********* WILL PRINT WITH EPSON GRAFTEX OR GEMENI STAR ***************
+870 LPRINT START.DSTRIKE$;
+880 WIDTH "LPT1:",255
+890 DEF SEG = - 18432
+900 LPRINT CHR$(13); CHR$(10); CHR$(27); CHR$(65); CHR$(8); CHR$(10);
+910 FOR I% = 0 TO 79
+920 ' ********************* SET BI-IMAGE-COLUMN-SCAN MODE ********************
+930   LPRINT CHR$(10); CHR$(27); CHR$(76); CHR$(32); CHR$(3);
+940   FOR K% = 0 TO 99
+950     H% = I% + (80 * K%)
+960     F% = PEEK(H%)
+970     Q% = PEEK(8192 + H%)
+980     IF F% = 13 THEN F% = 9
+990     IF Q% = 13 THEN Q% = 9
+1000     E%(K%) = F%
+1010     E%(K% + 100) = Q%
+1020   NEXT
+1030   FOR K% = 99 TO 0 STEP - 1
+1040     LPRINT STRING$(4,E%(K% + 100)); STRING$(4,E%(K%));
+1050   NEXT
+1060 NEXT
+1070 LPRINT CHR$(27); CHR$(64)
+1080 SCREEN 0,0,0
+1090 WIDTH 80
+1100 END
+65000 '  ************************* SAVE ROUTINE ****************************
+65100 SAVE"B:MENUPRNT.BAS"
+

@@ -1,0 +1,19 @@
+10 CLEAR ,27848
+20 CLS:BSR%=0:THREE%=3:Z%=1:KEY OFF
+30 LOCATE 25,1:PRINT "Frame Unit Command Steps Time  Wait - (Com 1=on,2=off,3=clr,4=all,5=br,6=dim)"
+40 LOCATE 6,12:PRINT "AudioKrafters IBM PC/BSR interface"
+50 DEF SEG=&HFF2
+60 BLOAD "bsrcode.bin",0
+70 OPEN "bsr.dat" FOR INPUT AS #1:TIME$="00:00:00"
+80 FOR I=0 TO 10:INPUT#1,D%(I),F%(I),G%(I),T$(I),W%(I):NEXT I
+90 FOR I=0 TO 10:IF F%(I)=-1 THEN CLOSE:END
+100 E%(I)=F%(I)+16:C%(I)=G%(I)*2+1:IF E%(I)<21 THEN C%(I)=3
+110 D%=D%(I):E%=E%(I):C%=C%(I):T$=T$(I)
+120 TIM$=RIGHT$(TIME$,5):IF T$>TIM$ THEN GOTO 120
+130 CALL BSR%(Z%,D%,THREE%)
+140 CALL BSR%(Z%,E%,C%)
+150 K=K+1:PRINT K TAB(8) D%(I) TAB(14) F%(I) TAB(21) G%(I) TAB(26) T$(I) TAB(33) W%(I) TAB(50) TIME$
+160 FOR J=1 TO W%(I):NEXT J
+170 NEXT I
+180 GOTO 80
+

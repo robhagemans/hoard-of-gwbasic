@@ -1,0 +1,140 @@
+1000 MD(1)=1 :X(1)=320:Y(1)=200:C(1)=4 :A(1)=4 :AR(1)=0:MN(1)=0
+1010 MD(2)=2 :X(2)=640:Y(2)=200:C(2)=4 :A(2)=2 :AR(2)=2:MN(2)=0
+1020 MD(3)=7 :X(3)=320:Y(3)=200:C(3)=16:A(3)=16:AR(3)=0:MN(3)=0
+1030 MD(4)=8 :X(4)=640:Y(4)=200:C(4)=16:A(4)=16:AR(4)=2:MN(4)=0
+1040 MD(5)=9 :X(5)=640:Y(5)=350:C(5)=4 :A(5)=4 :AR(5)=0:MN(5)=0
+1050 MD(6)=10:X(6)=640:Y(6)=350:C(6)=4 :A(6)=4 :AR(6)=0:MN(6)=1
+1060 N=6
+1070 COMMON MD(),X(),Y(),C(),A(),AR(),MN(),T(),N,TN
+1080 SCREEN 0
+1090 DEF SEG = &H40
+1100 MODE = PEEK(&H49)
+1110 IF MODE = 7 OR MODE = 8 THEN TEXTMODE = 3 ELSE TEXTMODE = 4
+1120 KEY OFF
+1130 ON ERROR GOTO 1620
+1140 SCREEN 9:COLOR 5   :' this should not cause an error if EGA > 64k
+1150 C(5)=16:A(5)=16
+1160 ON ERROR GOTO 1630
+1170 SCREEN 2:DEF SEG = &H40:MODE = PEEK(&H49)
+1180 IF MODE = 8 THEN X(2)=720:Y(2)=348:AR(2)=2/3:MN(2)=1
+1190 ON ERROR GOTO 0
+1200 GOSUB 1500:'check for available hardware
+1210 REM PRODUCES ERROR SCREEN TEXTMODE
+1220 PRINT"  Zenith Data Systems BASICA Demo"
+1230 IF CN=0 AND MN=0 THEN 2340
+1240 IF CN=0 THEN 1300
+1250 PRINT "Graphic Modes Available on Color Display":PRINT
+1260 FOR I=1 TO CN
+1270     PRINT "SCREEN";MD(CV(I))
+1280 NEXT I
+1290 PRINT
+1300 IF MN=0 THEN 1350
+1310 PRINT "Graphic Modes Available on Monochrome Display":PRINT
+1320 FOR I=1 TO MN
+1330     PRINT "SCREEN";MD(MV(I))
+1340 NEXT I
+1350 IF MN=0 OR CN=0 THEN S=3:GOTO 1440
+1360 PRINT
+1370 PRINT "Which display would you like to run the demo on?"
+1380 PRINT
+1390 PRINT "    1 - Color Display"
+1400 PRINT "    2 - Monochrome Display"
+1410 PRINT "    3 - Both Displays"
+1420 PRINT
+1430 INPUT "Enter selection:";S
+1440 IF S<0 OR S>3 THEN 1430
+1450 IF S=1 OR S=3 THEN FOR I=1 TO CN:T(CV(I))=1:NEXT
+1460 IF S=2 OR S=3 THEN FOR I=1 TO MN:T(MV(I))=1:NEXT
+1470 PRINT:INPUT "How many times do you want to run the demo";T
+1480 CLS
+1490 GOTO 1640:'run demo
+1500 '-----------------------------------------
+1510 '   check for available hardware
+1520 '-----------------------------------------
+1530 ON ERROR GOTO 1610
+1540 FOR I=1 TO N
+1550    SCREEN MD(I)
+1560    IF MN(I)=0 THEN CN = CN + 1:CV(CN)=I
+1570    IF MN(I)=1 THEN MN = MN + 1:MV(MN)=I
+1580 NEXT I
+1590 ON ERROR GOTO 0
+1600 RETURN
+1610 RESUME 1580
+1620 RESUME 1160
+1630 RESUME 1190
+1640 '----------------------------------------------
+1650 '  main demo loop
+1660 '----------------------------------------------
+1670 FOR NT=1 TO T
+1680   FOR I = 1 TO N
+1690     IF T(I)=1 THEN GOSUB 1730
+1700   NEXT I
+1710 NEXT NT
+1720 GOTO 2300
+1730 '-------------------------------------------
+1740 '  do the graphics for this mode
+1750 '-------------------------------------------
+1760 SCREEN MD(I):LOCATE ,,0: KEY OFF:CLS
+1770 C=1: FOR START=0 TO A(I)-2
+1780 GOSUB 1840
+1790 NEXT
+1800 C=0: FOR START=(A(I)-2) TO 0 STEP -1
+1810 GOSUB 1840
+1820 NEXT
+1830 GOTO 1880
+1840 FOR X=START TO X(I)-1 STEP 3
+1850 LINE (X,0)-(X(I)/2,Y(I)-1),C+START
+1860 NEXT
+1870 RETURN
+1880 '------- part 2 ------------
+1890 CLS
+1900 PI=3.141593: START=4: STP=0
+1910 FOR RADIUS=3 TO Y(I)/2-2
+1920 CIRCLE (X(I)/2,Y(I)/2),RADIUS,1,STP*PI/8,START*PI/8
+1930 START=START+1: IF START>16 THEN START=0
+1940 STP=STP+1: IF STP>16 THEN STP=0
+1950 NEXT RADIUS
+1960 CIRCLE(X(I)/2,Y(I)/2),Y(I)/2-1,1
+1970 C=3: C2=2: C3=1: GOSUB 2010
+1980 C=0: C2=3: C3=2: GOSUB 2010
+1990 C=0: C2=0: C3=3: GOSUB 2010
+2000 GOTO 2070
+2010 PAINT(X(I)/2+2,Y(I)/2+1),C,C3
+2020 CIRCLE(X(I)/2,Y(I)/2),Y(I)/2,C
+2030 PAINT(X(I)/2-2,Y(I)/2-2),C2,C
+2040 CIRCLE(X(I)/2,Y(I)/2),Y(I)/2,C2
+2050 RETURN
+2060 FOR II=1 TO 1000: NEXT
+2070 X=0: Y=0: XMAX=X(I)-1: YMAX=Y(I)-1:CLS
+2080 C = 0
+2090 FOR Y=0 TO 160 STEP 2
+2100 LINE (X,Y)-(XMAX,YMAX),C,BF
+2110 C = C + 1 : IF C > A(I)-1 THEN C = 0
+2120 LINE(X+1,Y+1)-(XMAX-1,YMAX-1),C,BF
+2130 C = C + 1 : IF C > A(I)-1 THEN C = 0
+2140 X=X+4: XMAX=XMAX-4: YMAX=YMAX-2
+2150 NEXT Y
+2160 FOR II=1 TO 1000: NEXT
+2170 CLS
+2180 BASE$="BM"+STR$(X(I)/2)+","+STR$(Y(I)/2)+"U11F5"
+2190 FOR SCALE=10 TO Y(I)/6 STEP 5
+2200 SCALE$="S"+STR$(SCALE)
+2210 C=(C MOD (A(I)-1))+1
+2220 COL$="C"+STR$(C)
+2230 FOR ANGLE=1 TO 350 STEP 30
+2240 TURN$="TA"+STR$(ANGLE)
+2250 WHOLE$=SCALE$+TURN$+COL$+BASE$
+2260 DRAW WHOLE$
+2270 NEXT ANGLE
+2280 NEXT SCALE
+2290 RETURN
+2300 '-------------------------
+2310 ' return to system
+2320 '-------------------------
+2330 SYSTEM
+2340 '-------------------------
+2350 ' complain about card
+2360 '-------------------------
+2370 PRINT " You must have a graphics card to run this program. "
+2380 GOTO 2300
+

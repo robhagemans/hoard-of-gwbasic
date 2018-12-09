@@ -1,0 +1,20 @@
+100 'WordStar conversion routine to ASCII text (WS-ASCII.BAS)
+110 DEFINT A: CLS: KEY OFF
+120 LOCATE 13,25: INPUT "WordStar filename - ";IFN$
+130 LOCATE 14,25: INPUT "Converted filename - ";OFN$
+140 OPEN IFN$ FOR INPUT AS #1: OPEN OFN$ FOR OUTPUT AS #2
+150 CLS: LOCATE 13,25: PRINT "Working on character - ";
+160 WHILE NOT EOF(1)
+170     A1=ASC(INPUT$(1,1))
+180     IF A1>127 THEN A1=A1-128
+190     A$=CHR$(A1): PRINT #2,A$;: LOCATE 13,48: PRINT A$
+200     IF A1=26 THEN 220
+210     WEND
+220 CLOSE: CLS:  KEY ON: LOCATE 13,30: PRINT "Done ... ": BEEP
+230 'NOTE: Place this file, together with any text file from WordStar, onto
+240 '      same disk; enter Basic; summon WS-ASCII.BAS and RUN it; enter WS
+250 '      filename when prompted, and, when prompted for conversion title,
+260 '      simply change extension to ".ALT" for the dump; hit <ENTER>; now
+270 '      await the BEEP for completion. (Volkswriter 1.2 also reads file)
+280 '[from PC Age (Jan 83) p63 þ Phillip Jacka  AIA]
+

@@ -1,0 +1,53 @@
+1000 PROG1$="  K E Y S M P  "
+1010 REV$ = "  Rev: 830120  "'By Robert Hamilton
+1020 NOTE$="This program prints Special Function Key Template for Multiplan from (LPT1:)"
+1030 SCREEN 0,0,0:WIDTH 80:COLOR 6,0,0:KEY OFF:CLS:UP$=STRING$(1,30)
+1040 LOCATE ,,1,12,13:DEF SEG=0:IF PEEK (&H410)= 109 THEN LOCATE ,,,6,7
+1050 DEF SEG=64:POKE 23,128:DEF SEG:CL$=STRING$(79,0):Q$=CHR$(34)
+1060 ON ERROR GOTO 1170
+1070     REM: ¯¯ PRINT TEMPLATE
+1080 CLS:LOCATE 5,30:PRINT PROG1$:LOCATE 7,30:PRINT REV$
+1090 LOCATE 20,1:PRINT NOTE$
+1100 LOCATE 25,1:COLOR 0,7:PRINT " SPACE ";:COLOR 5,0:PRINT " To Quit  ";
+1110 COLOR 0,7:PRINT " P ";:COLOR 5,0:PRINT " To Print Template  ";:COLOR 6,0
+1120 K$=INKEY$: IF MID$(K$,1,1)=CHR$(13) OR MID$(K$,1,1)=" " THEN 1160
+1130 IF MID$(K$,1,1)="P" OR MID$(K$,1,1)="p" THEN 1150
+1140 GOTO 1120
+1150 GOSUB 1190
+1160 CLS:LOCATE 20,1:BEEP:COLOR 6,0:PRINT "DONE";CHR$(10):KEY ON:END
+1170 CLS:LOCATE 20,1:BEEP:COLOR 6,0:KEY ON:ON ERROR GOTO 0:END
+1180     REM: ¯¯ FUNCTION KEY TEMPLATE
+1190 CLS:LOCATE 23,1:COLOR 6,0:PRINT"WAIT - Printing";
+1200 LPRINT CHR$(15);CHR$(27)+CHR$(71)
+1210 LPRINT SPC(18);PROG1$;CHR$(10);SPC(18);REV$
+1220 LPRINT " ______________________________________________ "
+1230 LPRINT "|                  MULTIPLAN   KEYS            |"
+1240 LPRINT "|              .----------------------.        |"
+1250 LPRINT "|              |                      |        |  TRIM INSIDE"
+1260 LPRINT "|   NEXT       |                      | NEXT   |  BORDER LINE"
+1270 LPRINT "|   WINDOW     |                      | CELL   |"
+1280 LPRINT "|              |                      |        |"
+1290 LPRINT "|              |         CUT          |        |"
+1300 LPRINT "|   ABSOLUTE   |                      | RECALC |"
+1310 LPRINT "|   REFERENCE  |         OUT          |        |"
+1320 LPRINT "|              |                      |        |"
+1330 LPRINT "|              |         THIS         |        |"
+1340 LPRINT "|              |                      |        |"
+1350 LPRINT "|              |         AREA         |        |"
+1360 LPRINT "|              |                      |        |"
+1370 LPRINT "|              |                      |        |"
+1380 LPRINT "|              |                      |        |"
+1390 LPRINT "|   (Word      |                      | (Word  |"
+1400 LPRINT "|    Left)     |                      |  Right)|"
+1410 LPRINT "|              |                      |        |"
+1420 LPRINT "|              |                      |        |"
+1430 LPRINT "|              |                      |        |"
+1440 LPRINT "|   PREVIOUS   |                      | NEXT   |"
+1450 LPRINT "|   COMMAND    |                      | COMMAND|"
+1460 LPRINT "|   (Ch Left)  |______________________|(Ch Rht)|"
+1470 LPRINT "|                                              |"
+1480 LPRINT "|  Esc = Abort    Alt H = Help    TAB = Choice |"
+1490 LPRINT "|______________________________________________|"
+1500 PR$=STRING$(33,10):LPRINT PR$:LPRINT CHR$(18);CHR$(27)+CHR$(72):RETURN
+1510 END
+

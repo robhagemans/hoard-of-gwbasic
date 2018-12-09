@@ -1,0 +1,51 @@
+1000 PROG1$="A U T O I N S T"
+1010 REV$ = "  Rev: 830122  "'By Robert Hamilton
+1020 NOTE$="This program will print a copy of the AUTOST Instructions on (LPT1:)"
+1030 SCREEN 0,0,0:WIDTH 80:CLS:COLOR 6,0,0
+1040 LOCATE ,,1,12,13:DEF SEG=0:IF PEEK(&H410)=109 THEN LOCATE ,,,6,7
+1050 DEF SEG=64:POKE 23,128:DEF SEG:ON ERROR GOTO 1160:KEY OFF
+1060     REM: ¯¯ START
+1070 CLS:LOCATE 5,30:PRINT PROG1$:LOCATE 7,30:PRINT REV$
+1080 LOCATE 20,1:PRINT NOTE$
+1090 LOCATE 25,1:COLOR 0,7:PRINT " SPACE ";:COLOR 6,0:PRINT " To Quit  ";
+1100 COLOR 0,7:PRINT " P ";:COLOR 6,0:PRINT " To Print Instructions";
+1110 K$=INKEY$: IF MID$(K$,1,1)=CHR$(13) OR MID$(K$,1,1)=" " THEN 1150
+1120 IF MID$(K$,1,1)="P" OR MID$(K$,1,1)="p" THEN 1140
+1130 GOTO 1110
+1140 GOSUB 1180
+1150 CLS:LOCATE 20,1:BEEP:PRINT "DONE";CHR$(10):KEY ON:END
+1160 CLS:LOCATE 20,1:BEEP:KEY ON:ON ERROR GOTO 0:END
+1170     REM: ¯¯ PRINT INSTRUCTIONS
+1180 CLS:LOCATE 23,1:PRINT"WAIT - Printing";
+1190 LPRINT CHR$(27)+CHR$(69)
+1200 LPRINT "           AUTOSTART  PROGRAM  OPTIONS";CHR$(27)+CHR$(70)
+1210 LPRINT ""
+1220 LPRINT "1.    To run a program, type in a File Name shown"
+1230 LPRINT "in the Directory and ENTER."
+1240 LPRINT ""
+1250 LPRINT "2.    To Quit the Autostart program and go to to"
+1260 LPRINT "the DOS (Disk Operating System), PRESS Q and ENTER"
+1270 LPRINT ""
+1280 LPRINT "3.    To get a directory of Drive A,  ENTER."
+1290 LPRINT "To get a directory of Drive B, PRESS ?B and ENTER."
+1300 LPRINT ""
+1310 LPRINT "4.    To go to the Command Mode in Basica (To"
+1320 LPRINT "write your own program), PRESS ! and ENTER"
+1330 LPRINT ""
+1340 LPRINT "5.    To change the magnetic DISK ID label (Disk"
+1350 LPRINT "Identification), PRESS | and ENTER"
+1360 LPRINT ""
+1370 LPRINT CHR$(27)+CHR$(69);
+1380 LPRINT "      RETURNING TO AUTOSTART FROM A PROGRAM";CHR$(27)+CHR$(70)
+1390 LPRINT ""
+1400 LPRINT "1.    To STOP or BREAK a program in Basic, PRESS"
+1410 LPRINT "CTRL and SCROLL LOCK (BREAK) together.  The"
+1420 LPRINT "screen will prompt `Break in Line XXXX', OK."
+1430 LPRINT "The OK is the prompt for the Command Mode in Basic."
+1440 LPRINT ""
+1450 LPRINT "      To return to Autostart from Basic, PRESS the"
+1460 LPRINT "(F10) Key and ENTER or type RUN ";CHR$(34);"AUTOST";CHR$(34);" and ENTER.";CHR$(10);CHR$(10)
+1470 LPRINT "NOTE: To place instructions in diskette jackette, cut to 5.25 wide x 4.50 high"
+1480 PR$=STRING$(35,10):LPRINT PR$:RETURN
+1490 END
+

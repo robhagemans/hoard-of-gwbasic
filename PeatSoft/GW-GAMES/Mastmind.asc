@@ -1,0 +1,117 @@
+5 REM public domain software, programmed by Roger MIller
+10 DEFINT A-Z
+20 DIM SOLUTION(10), G$(10), GS(10), COMP(10)
+50 CLS ' clear the screen
+60 RANDOMIZE (VAL(MID$(TIME$,7,2)))
+65 REM set initial values for parameters
+70 DIGITS = 5 ' number of digits in the numbers
+80 DIGMAX = 9 ' maximum value for each digit
+90 TRIES  = 12 ' number of tries allowed
+100 PRINT "This is a guessing game called MASTERMIND."
+150 PRINT "You won't need the ENTER key (RETURN) in this game."
+200 PRINT "Do you know how to play? (y/n/s/?)"
+300 A$ = INPUT$(1)
+400 IF A$ = "y" OR A$ = "Y" THEN 3000
+500 IF A$ = "s" OR A$ = "S" THEN 700
+520 IF A$ = "n" OR A$ = "N" THEN 2100
+540 PRINT "y for Yes, you know how to play."
+550 PRINT "n for No, you don't know the game."
+560 PRINT "s for Set the parameters."
+570 PRINT "? to explain y/n/s/? (this list)"
+600 GOTO 200
+700 PRINT "How many digits in the number (1-9)"
+800 A$ = INPUT$(1)
+900 IF A$ < "1" OR A$ > "9" THEN 700
+1000 DIGITS = ASC(A$) - ASC("0")
+1100 PRINT "What is the range for each digit? (2-9)"
+1200 A$ = INPUT$(1)
+1300 IF A$ < "2" OR A$ > "9" THEN 1100
+1400 DIGMAX = ASC(A$) - ASC("0")
+1500 PRINT "How many tries do you want? (01-99)"
+1600 A$ = INPUT$(1)
+1700 B$ = INPUT$(1)
+1800 IF A$ < "0" OR A$ > "9" THEN 1500
+1900 IF B$ < "0" OR B$ > "9" THEN 1500
+2000 TRIES = (ASC(A$)-ASC("0"))*10+ASC(B$)-ASC("0")
+2100 PRINT "I will think of a number with ";DIGITS;" digits."
+2200 PRINT "Each digit will be from 1 to ";DIGMAX"."
+2300 PRINT "Then you get to try to guess my number."
+2400 PRINT "After each guess, I will tell you how many"
+2500 PRINT "digits are correct and how many are correct"
+2600 PRINT "and in the correct position."
+2700 PRINT "You get ";TRIES;" tries to guess the number."
+2800 COLOR 0,7
+2820 PRINT  "Press any key to continue."
+2840 COLOR 7,0
+2900 A$ = INPUT$(1)
+3000 REM   now set up the number
+3200 FOR I = 1 TO DIGITS
+3300 SOLUTION(I) = INT(RND * DIGMAX  + 1 )
+3400 NEXT I
+3500 GUESS = 0 ' set for the first guess
+3600 CLS
+3800 PRINT "Enter your guess.(";DIGITS;" digits from 1-";DIGMAX;")"
+3900 PRINT "COUNT         GUESS       CORRECT   CORRECT, IN PLACE"
+4000 REM get a guess
+4050 GUESS = GUESS + 1 ' add one valid guess
+4080 PRINT GUESS,
+4090 LOCATE ,15,1
+4100 I = 1
+4150 IF I > DIGITS THEN 6000
+4200   G$(I) = INPUT$(1)
+4210   IF ASC(G$(I)) <> 8 AND ASC(G$(I)) <> 0 THEN 4250
+4220     PRINT CHR$(29);" ";CHR$(29);
+4225     I = I - 1
+4230     IF I < 1 THEN I = 1
+4240     GOTO 4200
+4250   PRINT G$(I);
+4300   IF G$(I) < "1" OR G$(I) > CHR$(DIGMAX+ASC("0")) THEN 5000
+4400   GS(I) = ASC(G$(I)) - ASC("0")
+4500   I = I + 1
+4700   GOTO 4150
+5000 PRINT " "
+5020 PRINT "Your guess was not a proper digit."
+5050 PRINT "Do you want to quit? (y/n)"
+5100 A$ = INPUT$(1)
+5200 IF A$ = "y" OR A$ = "Y" THEN STOP
+5300 IF A$ = "n" OR A$ = "N" THEN 4080
+5400 GOTO 5050
+6000 REM see how the guess compares to the solution
+6100 INPLACE = 0 ' counter for correct guesses
+6200 NUMOK   = 0 ' counter for correct, not in place
+6300 FOR I = 1 TO DIGITS
+6310 IF DEBUG = 1 THEN PRINT "d6310" SOLUTION(I);GS(I);INPLACE;
+6350   COMP(I) = SOLUTION(I)
+6400   IF COMP(I) <> GS(I) THEN 6800
+6500   INPLACE = INPLACE + 1
+6600   COMP(I) = 0  ' avoid double counting
+6700  GS(I) = -1 ' avoid double counting
+6800 NEXT I
+6900 IF INPLACE < DIGITS THEN 7500
+6950 PRINT " "
+7000 PRINT "Congratulations.  You won in ";GUESS;" tries."
+7100 PRINT "Do you want to try again? (y/n)"
+7200 A$ = INPUT$(1)
+7300 IF A$ = "y" OR A$ = "Y" THEN 3000
+7400 IF A$ = "n" OR A$ = "N" THEN STOP ELSE 7100
+7500 FOR I = 1 TO DIGITS
+7550   IF COMP(I) = 0 THEN 8100
+7600   FOR J = 1 TO DIGITS
+7610 IF DEBUG = 1 THEN PRINT" d7610 ";COMP(I); GS(J);NUMOK;
+7700     IF COMP(I) <> GS(J) THEN 8000
+7800     NUMOK = NUMOK + 1
+7900     COMP(I) = 0  ' avoid double counting
+7920     GS(J) = -1 ' avoid double counting
+7950     GOTO 8100
+8000   NEXT J
+8100 NEXT I
+8350 PRINT "  ",NUMOK+INPLACE;"     ";INPLACE
+8400 IF GUESS < TRIES THEN 4000
+8500 PRINT "Sorry, but your number of tries is up."
+8600 PRINT "The answer is ";
+8700 FOR I = 1 TO DIGITS
+8800   PRINT SOLUTION(I);
+8900 NEXT I
+9000 PRINT " "
+9100 GOTO 7100
+

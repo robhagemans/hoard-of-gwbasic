@@ -1,0 +1,73 @@
+5 DEFINT A-Z:KEY(10) ON:ON KEY(10) GOSUB 500:KEY(9) ON:ON KEY(9) GOSUB 600
+10 CLS:LOCATE 1,34:COLOR 0,15:PRINT" IQ Builder ":COLOR 15,0
+20 LOCATE 2,32:PRINT"Number Series 1":COLOR 7,0
+30 LOCATE 4,5:PRINT"A number series is a list of numbers that are connected to each other by"
+40 LOCATE 5,1:PRINT"a rule.  For example, look at this simple number series:"
+50 GOSUB 3000:GOSUB 3100:GOSUB 4000
+60 GOSUB 6500:PRINT TAB(10) "(";:COLOR 15:PRINT"1";:COLOR 7:PRINT")  add 3 to each number to get the next."
+70 PRINT TAB(10) "(";:COLOR 15:PRINT"2";:COLOR 7:PRINT")  add 2 to each number to get the next.":N=2:GOSUB 6000
+80 IF Z>0 THEN LOCATE 11,1:GOTO 60
+90 GOSUB 7000:PRINT"Rules for number series can involve addition, subtraction, multiplication,
+100 PRINT"and division.":PRINT
+110 PRINT"The rule tells you how to change each number in the series into the next number"
+120 PRINT"in the series.":PRINT
+130 GOSUB 4000:GOSUB 3000
+140 GOSUB 6500:GOSUB 3100:PRINT TAB(10) "(";:COLOR 15:PRINT"1";:COLOR 7:PRINT") add 2   (";:COLOR 15:PRINT"2";:COLOR 7:PRINT") subtract 2   (";:COLOR 15:PRINT"3";:COLOR 7:PRINT") multiply by 2"
+150 N=3:GOSUB 6000:IF Z>0 THEN 150
+160 GOSUB 7000:PRINT"In a number series, the numbers can change by following more than one rule."
+170 GOSUB 2000:GOSUB 3100
+180 PRINT"Here you add 1, then add 3, then add 1 again, etc.:"
+190 PRINT TAB(10) "2 (+1) 3 (+3) 6 (+1) 7 ...":GOSUB 4000
+200 GOSUB 3100:GOSUB 5000
+205 IF Z>0 THEN 200
+210 GOSUB 7000:PRINT"There's one more thing you should know before you try solving some number"
+220 PRINT"series.";:GOSUB 4000
+230 PRINT"Sometimes a number series actually contains more than one series."
+240 PRINT:PRINT"Here's one series:  1  3  5  7"
+250 PRINT:PRINT"Here's another:  21  19  17  15"
+260 PRINT:PRINT"Here's one series that combines them both:"
+270 GOSUB 3000:GOSUB 3100:GOSUB 4000
+280 PRINT"We call a series that combines two or more series an `alternating series'"
+290 PRINT"because it alternates back and forth between the two series."
+300 GOSUB 4000:GOSUB 7000
+310 PRINT"The way to solve an alternating series is to find the rule for each series and"
+320 PRINT"solve one series at a time.  Then put the answers together.":GOSUB 3100:GOSUB 5000
+330 IF Z>0 THEN 310
+340 GOSUB 7000:PRINT"Remember, the numbers can change by one or more rules.  You can also have an"
+350 PRINT"alternating series with two or more series combined into one series.":PRINT
+370 GOSUB 4000:GOTO 600
+500 RUN "iqbuild"
+600 RUN "num2"
+2000 PRINT:PRINT"Look at this number series."
+3000 READ A,B,C,D,E,F,G,H,I,J:RETURN
+3100 PRINT:PRINT TAB(10) "É" STRING$(35,"Í") "»"
+3110 PRINT TAB(10) "º";:COLOR 15:PRINT A B C D E F G H;:COLOR 7:PRINT TAB(46) "º"
+3120 PRINT TAB(10) "È" STRING$(35,"Í") "¼":PRINT:RETURN
+4000 Y1=CSRLIN:X1=POS(0)
+4010 LOCATE 25,1:PRINT"Press any key to continue";:BEEP:GOSUB 59990:LOCATE 25,1:PRINT SPC(79);
+4020 LOCATE Y1,X1:RETURN
+5000 PRINT"Type in the next two (2) numbers in this series."
+5010 BEEP:INPUT "Put a comma between them - ",X,Y
+5015 Y1=CSRLIN:X1=POS(0)
+5020 IF (X=I)*(Y=J) THEN 6100
+5030 Z=Z+1:IF Z=3 THEN LOCATE 25,1:PRINT SPC(79);:PLAY "n50n25":LOCATE 25,1:PRINT"The answer is:  " I "," J;:Z=0:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:LOCATE Y1,X1:RETURN
+5040 LOCATE 25,1:PRINT SPC(79);:PLAY "mbn50n25":LOCATE 25,1:PRINT"No!  Try again.";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:LOCATE Y1-2,X1:GOTO 5000
+5500 DATA 2,4,6,8,10,12,14,16,18,20
+5510 DATA 1,2,4,8,16,32,64,128,0,0
+5520 DATA 2,3,6,7,10,11,14,15,18,19
+5530 DATA 10,12,11,13,12,14,13,15,14,16
+5540 DATA 1,21,3,19,5,17,7,15,9,13
+6000 Y1=CSRLIN:X1=POS(0):Z=0
+6010 LOCATE 25,1:PRINT "Enter the number of your answer";
+6020 BEEP:GOSUB 59990:IF INSTR("123456789",IKEY$)=0 THEN 6020
+6030 IF VAL(IKEY$)=N THEN 6100
+6040 Z=Z+1:IF Z=3 THEN LOCATE 25,1:PRINT SPC(79);:PLAY "n50n25":LOCATE 25,1:PRINT"The answer is" N;:Z=0:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:LOCATE Y1,X1:RETURN
+6050 LOCATE 25,1:PRINT SPC(79);:PLAY "mbn50n25":LOCATE 25,1:PRINT"No!  Try again.";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:GOTO 6010
+6100 LOCATE 25,1:PRINT SPC(79);:PLAY "mbc16c16c16ge8g":LOCATE 25,1:PRINT"Right!";:TIMEOUT=3:GOSUB 59950:LOCATE 25,1:PRINT SPC(79);:LOCATE Y1,X1:Z=0:RETURN
+6500 PRINT"What's the rule for this series?":RETURN
+7000 FOR Y=4 TO 24:LOCATE Y,1:PRINT SPC(79);:NEXT Y:LOCATE 4,1:RETURN
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

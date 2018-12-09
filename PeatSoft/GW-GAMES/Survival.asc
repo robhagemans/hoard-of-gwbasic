@@ -1,0 +1,613 @@
+10 '---------------------------------------------------------------
+12 '
+14 ' Survival: by Stewart F. Rush (Enhancements by G. M. Bright)
+16 '
+18 ' variable definitions: P  = current position
+20 '                       T1 = current elapsed time
+22 '                       T2 = oxygen remaining
+24 '                       C  = no. of items carried
+28 '                       F1 = flag: shed open
+30 '                       F2 = flag: meteor shower occurred
+32 '                       F3 = flag: laser beam deflected
+34 '                       F4 = flag: ventillator shaft illuminated
+36 '                       F5 = flag: deactivator exposed
+38 '                       F7 = flag: spacecraft repair status
+40 '                       F9 = flag: power in use
+42 '                       P1 = power unit power remaining
+44 '                       P2 = power pack power remaining
+45 '                       V  = number of reads of computer message
+46 '
+60 '---------------------------------------------------------------
+100 SCREEN 0: WIDTH 80
+170 CLEAR: DIM T$(64): DIM M(43,8): DIM O(15)
+176 '***************************************
+178 '** initialize text and move matrices **
+180 '***************************************
+182 CLS: COLOR 16,7: PRINT "SURVIVAL";: COLOR 7,0
+184 DEF SEG=0:X=PEEK(&H417) AND &H40:IF X=64 THEN POKE &H417,PEEK(&H417) AND &H0:'   toggle lowercase
+186 PRINT ": Would you like instructions (y/n)?"
+220 D$=INKEY$:IF D$="" THEN 220 ELSE IF D$="y" THEN GOSUB 5040
+221 PRINT: PRINT "initialization in process - please wait"
+222 FOR I=1 TO 15
+224   READ O(I)
+226 NEXT I
+230 FOR I= 1 TO 64
+240   READ T$(I)
+250 NEXT I
+260 FOR I= 1 TO 43
+270   FOR J = 1 TO 8
+280     READ M(I,J)
+290   NEXT J
+300 NEXT I
+305 RESTORE
+320 P=1: C=2: T1=0: T2=185: P1=230: P2=50: V=0
+390 F1=0: F2=0: F3=0: F4=0: F5=0: F7=0: F9=0
+400 M(2,8)=6
+410 M(14,8)=30
+620 REM *****************************************************
+630 REM ** display current status and location information **
+640 REM *****************************************************
+650 CLS
+653 COLOR 0,7:PRINT "*****************************************":COLOR 7,0
+654 COLOR 0,7:PRINT "* CURRENT STATUS & LOCATION INFORMATION *":COLOR 7,0
+655 COLOR 0,7:PRINT "*****************************************":COLOR 7,0
+690 IF O(11)=99 AND P1>0 THEN P1=P1-5
+700 IF O(14)=99 AND P2>0 THEN P2=P2-5
+710 IF O(3)=99 AND T2>0 THEN T2=T2-5
+720 IF (P>21) AND (F9=0) THEN 760
+730 IF (O(11)<>99) AND (O(14)<>99) THEN 2870
+740 IF (O(11)=99) AND (P1=0) THEN 2870
+750 IF (O(14)=99) AND (P2=0) THEN 2870
+760 IF (P>17) AND (P<22) THEN 790
+770 IF (P>21) AND (P<>38) AND (F9=0) THEN 790
+775 IF (P=38) AND (R=39) AND (F9=0) THEN 790
+780 IF (O(3)<>99) OR (T2=0) THEN 2900
+790 PRINT: PRINT "ELAPSED TIME: ";T1;" MINUTES"
+800 IF O(11)=99 THEN PRINT "POWER UNIT: ";P1;" UNITS"
+810 IF O(14)=99 THEN PRINT "POWER PACK: ";P2;" UNITS"
+820 IF O(3)=99 THEN PRINT "OXYGEN REMAINING: ";T2;" MINUTES"
+830 IF T1>400 THEN 2960
+840 IF T1>350 THEN 3840
+850 IF T1>200 THEN 3740
+855 T1=T1+5
+860 PRINT: PRINT "LOCATION: You are ";
+870 FOR I=M(P,7) TO M(P,8)
+880 PRINT T$(I)
+890 NEXT I
+900 PRINT "##"
+910 REM *********************************
+920 REM ** display any objects present **
+930 REM *********************************
+940 IF P=14 THEN 1920
+950 FOR I = 1 TO 15
+960 IF O(I)<>P THEN 990
+970 GOSUB 4410
+980 PRINT "There is ";B$;" here."
+990 NEXT I
+1000 GOTO 2000
+1010 REM ****************************************
+1020 REM ** read and process keyboard response **
+1030 REM ****************************************
+1040 INPUT B$: IF LEN(B$)<>1 GOTO 1320
+1050 I=INSTR(1,"nsewudq",B$)
+1060 IF I=0 GOTO 1570 ELSE IF I=7 GOTO 9999
+1150 IF M(P,I)=0 THEN PRINT "You cannot go in that direction!": GOTO 1040
+1160 IF M(P,I)=99 THEN 2940
+1170 Q=M(P,I)
+1180 IF P=12 THEN 3060
+1190 IF P=13 THEN 3180
+1200 IF P=22 THEN 3310
+1210 IF P=23 THEN 3420
+1220 IF P=29 THEN 3470
+1230 R=P
+1240 P=Q
+1260 GOTO 650
+1290 REM ********************************************
+1300 REM ** process two or more character commands **
+1310 REM ********************************************
+1320 C$=LEFT$(B$,3)
+1330 IF C$="loo" THEN 650
+1340 IF C$="des" THEN 650
+1345 IF C$="sta" THEN 650
+1350 IF C$="get" THEN 2190
+1360 IF C$="tak" THEN 2190
+1370 IF C$="kee" THEN 2190
+1380 IF C$="dro" THEN 2580
+1390 IF C$="lea" THEN 2580
+1400 IF C$="put" THEN 2580
+1410 IF C$="inv" THEN 2780
+1420 IF C$="qui" THEN 9999
+1430 IF C$="end" THEN 9999
+1440 IF C$="tra" THEN 1750
+1450 IF C$="dig" THEN 1860
+1470 IF C$="fue" THEN 4030
+1480 IF C$="rea" THEN 4250
+1490 IF C$="dea" THEN 3890
+1500 IF C$="bla" THEN 4110
+1505 IF C$="fir" THEN 4110
+1510 IF C$="up" THEN 1640
+1520 IF C$="dow" THEN 1640
+1530 IF C$="nor" THEN 1640
+1540 IF C$="sou" THEN 1640
+1550 IF C$="eas" THEN 1640
+1560 IF C$="wes" THEN 1640
+1562 IF C$="hel" THEN 1581
+1564 IF C$="wha" THEN 1581
+1566 IF C$="deb" THEN 1610
+1567 IF C$="ent" THEN 1670
+1570 PRINT "Invalid Command"
+1575 IF IC<5 THEN PRINT "You may enter `help' for some suggestions."
+1580 GOTO 1040
+1581 PRINT "Valid direction commands are: North, South, East, West, Up & Down."
+1582 PRINT "You can also just enter the first letter, i.e. n,s,w,e,u,d."
+1583 PRINT "Other commands include: INVentory, FUEL, DIG, TRAnsport, etc."
+1584 PRINT "The latter can be abbreviated by using only 3 letters. The"
+1585 PRINT "commands TRY or USE are useful only when you confront a situation."
+1586 PRINT "Commands other than directives may require an object. Good luck!"
+1587 GOTO 1040
+1590 PRINT "I cannot process your request!"
+1600 GOTO 1040
+1610 PRINT "enter location"
+1620 INPUT P
+1630 GOTO 650
+1640 D$=LEFT$(B$,1)
+1650 B$=D$
+1660 GOTO 1050
+1670 '
+1672 ' PROCESS SHED AND SPACE CRAFT ENTRY
+1674 '
+1680 IF P<>13 AND P<>15 THEN 1590
+1690 IF P=13 THEN I=4: GOTO 3180
+1700 I=2: GOTO 1170
+1720 REM *******************************
+1730 REM ** process transport command **
+1740 REM *******************************
+1750 IF P<>36 THEN 1800
+1760 IF O(8)=99 THEN 1590
+1770 P=O(8)
+1780 PRINT "Beaming in process "
+1782 FOR I = 1 TO 60: PRINT "~";: SOUND 300,1: NEXT
+1790 GOTO 650
+1800 IF P<>O(8) THEN 1590 ELSE P=36: GOTO 1780
+1830 REM *************************
+1840 REM ** process dig command **
+1850 REM *************************
+1860 IF O(15)<>99 THEN GOTO 3940
+1865 IF P<>10 THEN PRINT "The ground is too hard here.": GOTO 1040
+1870 O(9)=10
+1880 GOTO 940
+1890 REM *************************************
+1900 REM ** drop illuminator if at overlook **
+1910 REM *************************************
+1920 IF O(4)<>99 THEN 950
+1930 O(4)=100
+1940 PRINT "You dropped your illuminator!!!  You cannot retrieve it."
+1950 GOTO 950
+1970 REM *******************
+1980 REM ** process robot **
+1990 REM *******************
+2000 IF O(5)=28 THEN O(5)=35
+2010 IF O(5)=42 THEN O(5)=28
+2020 IF O(5)=41 THEN O(5)=42
+2030 IF O(5)=27 THEN O(5)=41
+2040 IF O(5)=25 THEN O(5)=27
+2050 IF O(5)<>35 THEN 2090
+2060 IF P<>28 THEN 1010
+2070 M(28,1)=35
+2080 GOTO 1010
+2090 IF O(5)<>32 THEN 1010
+2100 IF P<>32 THEN 1010
+2110 O(5)=25
+2120 IF O(13)=99 THEN 1010
+2130 PRINT "Robot fails to recognize you.  It fires a phasor weapon at you!!!"
+2135 FOR I=1 TO 1800:  NEXT
+2140 FOR I=1 TO 3: FOR IS=1 TO 12: IT=(25*IS): SOUND 2600-IT,1: NEXT: NEXT
+2145 FOR I=1 TO 1800:  NEXT
+2150 GOTO 2980
+2160 REM *********************************
+2170 REM ** process get or take command **
+2180 REM *********************************
+2190 GOSUB 4590
+2200 IF I>0 THEN 2260
+2210 IF I<0 THEN 2240
+2220 PRINT "I don't recognize ";RIGHT$(B$,LEN(B$)-J);"."
+2230 GOTO 1040
+2240 PRINT "What item?"
+2250 GOTO 1040
+2260 IF O(I)<>P THEN 2370
+2270 IF C>3 THEN PRINT "You can't carry anymore!": GOTO 1040
+2280 IF I=5 THEN PRINT "You can't carry a Robot!": GOTO 1040
+2285 IF I=7 THEN PRINT "The bomb is way too heavy!": GOTO 1040
+2290 IF I=10 THEN 2430
+2300 IF I=11 THEN 2460
+2310 IF I=14 THEN 2490
+2320 C=C+1
+2330 O(I)=99
+2340 IF I=3 THEN F0=1
+2350 PRINT "Okay"
+2360 GOTO 1040
+2370 IF O(I)=99 THEN 2542
+2375 PRINT "There is no ";RIGHT$(B$,LEN(B$)-J);" here!!!"
+2380 GOTO 1040
+2430 PRINT "You can't get the message.  It's on the terminal screen."
+2450 GOTO 1040
+2460 IF O(14)=99 THEN 2520
+2470 O(11)=99
+2480 GOTO 2320
+2490 IF O(11)=99 THEN 2520
+2500 O(14)=99
+2510 GOTO 2320
+2520 PRINT "You can't have more than one power device at a time!"
+2540 GOTO 1040
+2542 PRINT "You already have ";RIGHT$(B$,LEN(B$)-J);"!"
+2544 GOTO 1040
+2550 REM ***********************************
+2560 REM ** process drop or leave command **
+2570 REM ***********************************
+2580 GOSUB 4590
+2590 IF I>0 THEN 2620
+2600 IF I<0 THEN 2240
+2610 GOTO 2220
+2620 IF O(I)<>99 THEN 2690
+2630 C=C-1
+2640 O(I)=P
+2680 GOTO 2350
+2690 PRINT "You don't have "RIGHT$(B$,LEN(B$)-J);"!"
+2700 GOTO 1040
+2750 REM *******************************
+2760 REM ** process inventory command **
+2770 REM *******************************
+2780 FOR I=1 TO 15
+2790 IF O(I)<>99 THEN 2820
+2800 GOSUB 4410
+2810 PRINT "You have ";B$;"."
+2820 NEXT I
+2830 GOTO 1040
+2840 REM ************************************
+2850 REM ** program termination processing **
+2860 REM ************************************
+2870 PRINT "You have no power left, or you have no power source."
+2880 PRINT "You have frozen to death."
+2890 GOTO 2980
+2900 PRINT "Oxygen required here, none available."
+2910 GOTO 2980
+2920 PRINT "A nuclear detonation has just occurred."
+2930 GOTO 2980
+2940 PRINT "You have fallen to your death."
+2950 GOTO 2980
+2952 PRINT "You have been zapped by the laser."
+2954 GOTO 2980
+2960 PRINT "The moon base has just been destroyed by a large asteroid."
+2980 PRINT "You have failed to survive."
+2990 INPUT "Do you wish to try again";D$
+3010 IF LEFT$(D$,1)="y" THEN 221
+3020 GOTO 9999
+3030 REM ***************************
+3040 REM ** process meteor shower **
+3050 REM ***************************
+3060 IF M(P,I)<>13 THEN 1230
+3070 IF F2=1 THEN 1230
+3080 PRINT "There is a meteor shower.  Your space suit has developed a leak!!"
+3100 GOSUB 4890
+3110 IF I<>2 THEN 2980
+3120 PRINT "Proceeding to seal suit.......":FOR CX=1 TO 1500: NEXT CX
+3130 F2=1
+3140 GOTO 1230
+3150 REM *************************
+3160 REM ** process locked shed **
+3170 REM *************************
+3180 IF M(P,I)<>22 THEN 1230
+3190 IF F1=1 THEN 1230
+3200 PRINT "The shed is locked"
+3210 GOSUB 4890
+3220 IF I<>1 THEN 3260
+3230 PRINT "Proceeding to try key.......":FOR CX=1 TO 1500: NEXT CX
+3240 F1=1
+3250 GOTO 1230
+3260 PRINT "Your attempt fails."
+3270 GOTO 1040
+3280 REM ***********************************
+3290 REM ** process dark ventilator shaft **
+3300 REM ***********************************
+3310 IF M(P,I)<>23 THEN 1230
+3320 IF F4=1 THEN 1230
+3330 PRINT "It is dangerous to proceed in the dark!"
+3340 GOSUB 4890
+3350 IF I<>4 THEN 2940
+3360 PRINT "The shaft is now illuminated.  You may proceed.......":FOR CX=1 TO 2500: NEXT CX
+3370 F4=1
+3380 GOTO 1230
+3390 REM ************************************
+3400 REM ** process shaft with no illuminator
+3410 REM ***************************************
+3420 IF O(4)<>99 THEN IF O(4)<>23 THEN 2940
+3430 GOTO 1230
+3440 REM ************************
+3450 REM ** process laser beam **
+3460 REM ************************
+3470 IF M(P,I)<>37 THEN 1230
+3480 IF F3=1 THEN 1230
+3490 PRINT "There is a laser beam here. Passage not possible with beam present."
+3510 GOSUB 4890
+3520 IF I<>12 THEN 2952
+3530 PRINT "Proceeding to deflect beam.......":FOR CX=1 TO 2500: NEXT CX
+3540 F3=1
+3550 GOTO 1230
+3560 REM *****************************************
+3570 REM ** process blown seal in space station **
+3580 REM *****************************************
+3590 IF R<>29 THEN 850
+3600 IF F9=1 THEN 850
+3610 F9=1
+3620 PRINT "You have just blown the air seal in space station."
+3640 GOTO 850
+3710 REM ************************
+3720 REM ** expose deactivator **
+3730 REM ************************
+3740 IF F5=1 THEN 855
+3750 O(6)=14
+3760 M(2,8)=5
+3770 M(14,8)=29
+3780 M(14,4)=2
+3790 F5=1
+3800 GOTO 855
+3810 REM *******************
+3820 REM ** detonate bomb **
+3830 REM *******************
+3840 IF F7=0 THEN 2920
+3850 GOTO 850
+3860 REM *********************
+3870 REM ** deactivate bomb **
+3880 REM *********************
+3890 IF O(6)<>99 THEN 3940
+3900 IF P<>38 THEN 3980
+3910 F7=1
+3915 T$(31)="at crash site of a space craft.  Repairs are now complete."
+3920 PRINT "Bomb is now deactivated."
+3930 GOTO 1040
+3940 PRINT "You have nothing to do it with!"
+3950 GOTO 1040
+3960 PRINT "There is nothing to do it to!"
+3970 GOTO 1040
+3980 PRINT "You can't do it from here!"
+3990 GOTO 1040
+4000 REM *****************
+4010 REM ** fuel rocket **
+4020 REM *****************
+4030 IF P<>19 THEN 3980
+4040 IF O(9)<>99 THEN 3940
+4050 O(9)=98
+4060 PRINT "Fuel is now loaded."
+4070 GOTO 1040
+4080 REM *************************
+4090 REM ** blastoff processing **
+4100 REM *************************
+4110 IF P<>21 THEN 3980
+4120 IF O(9)<>98 THEN 4200
+4130 IF F7=1 THEN 4160
+4140 PRINT "Repairs not yet complete."
+4150 GOTO 1040
+4160 FOR IS=1 TO 150: IJ=IS*10: SOUND IJ+1000,1: NEXT IS
+4165 PRINT "Congratulations, you have just blasted off and are on your way to               earth.  Your escape time was ";T1;" minutes."
+4190 GOTO 2990
+4200 PRINT "Your space craft has no fuel!!"
+4210 GOTO 1040
+4220 REM *********************************
+4230 REM ** computer readout processing **
+4240 REM *********************************
+4250 IF P<>35 THEN 3980
+4260 GOSUB 4590
+4270 IF I<>10 THEN 3960
+4280 IF V<>0 THEN 4320
+4290 PRINT "Bomb de-activator located somewhere east of Mare Serenitatis on moon's surface."
+4310 GOTO 4360
+4320 IF V<>1 THEN 4350
+4330 PRINT "Local fuel source: Dilithium Crystal."
+4340 GOTO 4360
+4350 PRINT "Dilithium found in soft surfaces."
+4360 IF F7=1 THEN PRINT "Spacecraft repairs complete."
+4365 V=V+1
+4370 GOTO 1040
+4380 REM **********************************************
+4390 REM ** subroutine to describe items at location **
+4400 REM **********************************************
+4410 IF I=1 THEN B$="an ELECTRONIC KEY"
+4420 IF I=2 THEN B$="SEALANT"
+4430 IF I=3 THEN B$="an OXYGEN MODULE"
+4440 IF I=4 THEN B$="an ILLUMINATOR"
+4450 IF I=5 THEN B$="a ROBOT"
+4460 IF I=6 THEN B$="a DEACTIVATOR"
+4470 IF I=7 THEN B$="a NUCLEAR BOMB"
+4480 IF I=8 THEN B$="a TRANSPORTER UNIT"
+4490 IF I=9 THEN B$="DILITHIUM CRYSTALS"
+4500 IF I=10 THEN B$="a COMPUTER MESSAGE"
+4510 IF I=11 THEN B$="a POWER UNIT"
+4520 IF I=12 THEN B$="a MIRROR"
+4530 IF I=13 THEN B$="a CODED BADGE"
+4540 IF I=14 THEN B$="a POWER PACK"
+4545 IF I=15 THEN B$="a SHOVEL"
+4550 RETURN
+4560 REM ***********************************************
+4570 REM ** subroutine to convert an item to a number **
+4580 REM ***********************************************
+4590 FOR J=1 TO LEN(B$)
+4600 IF MID$(B$,J,1)=" " THEN 4640
+4610 NEXT J
+4620 I=-1
+4630 RETURN
+4640 C$=MID$(B$,J+1,3)
+4650 I=0
+4660 IF C$="ele" THEN I=1
+4670 IF C$="key" THEN I=1
+4680 IF C$="sea" THEN I=2
+4690 IF C$="oxy" THEN I=3
+4700 IF C$="mod" THEN I=3
+4710 IF C$="ill" THEN I=4
+4720 IF C$="rob" THEN I=5
+4730 IF C$="dea" THEN I=6
+4740 IF C$="nuc" THEN I=7
+4750 IF C$="bom" THEN I=7
+4760 IF C$="tra" THEN I=8
+4770 IF C$="dil" THEN I=9
+4780 IF C$="cry" THEN I=9
+4790 IF C$="com" THEN I=10
+4800 IF C$="mes" THEN I=10
+4810 IF C$="uni" THEN I=11
+4820 IF C$="mir" THEN I=12
+4830 IF C$="bad" THEN I=13
+4840 IF C$="pac" THEN I=14
+4845 IF C$="sho" THEN I=15
+4850 RETURN
+4860 REM ***************************************
+4870 REM ** subroutine to process try command **
+4880 REM ***************************************
+4890 INPUT B$
+4900 C$=LEFT$(B$,3)
+4910 IF C$="try" THEN 4950
+4920 IF C$="use" THEN 4950
+4930 I=-1
+4940 RETURN
+4950 GOSUB 4590
+4960 IF I<1 THEN 5012
+4970 IF O(I)=99 THEN RETURN
+4980 PRINT"You don't have ";RIGHT$(B$,LEN(B$)-J);"!"
+4990 GOTO 4930
+5000 PRINT "Your attempt fails!"
+5010 GOTO 4930
+5012 PRINT "With what?": GOTO 4930
+5020 REM ************************
+5030 REM ** print instructions **
+5040 REM ************************
+5045 CLS
+5050 PRINT "You have crash landed on the earth's moon.  You have limited supplies and time  in which to survive.  You will encounter various items and situations during    your travels."
+5055 PRINT
+5060 PRINT "To travel, you may enter directions such as north or n, as well as s, e, w, and u or d (up or down)."
+5065 PRINT
+5090 PRINT "To communicate, enter commands (verbs), followed by object names, if applicable.For example: get xxx, leave xxx, use xxx, etc."
+5110 PRINT "Unless instructed otherwise, be sure to press the ENTER key after each input.   The enter key is on the right of the keyboard and has this symbol on it: "+CHR$( 17)+CHR$(196)+CHR$(217)
+5115 PRINT
+5120 PRINT "Once you have survived, the object then is to achieve the optimum survival time.May the force be with you!!!"
+5122 PRINT
+5124 COLOR 16,7:PRINT"Press any key to continue":COLOR 7,0
+5126 A$=INKEY$: IF A$="" THEN 5126
+5130 RETURN
+6000 '****************************************
+6001 '** object locations                   **
+6002 '****************************************
+6010 DATA 21,19,99,06,32,00,38
+6020 DATA 35,00,35,99,33,34,37,43
+7500 '********************************
+7501 '** text location descriptions **
+7502 '********************************
+8001 DATA "at Mare Serenitatis. Long eerie"
+8002 DATA "shadows from distant mountains and craters cast"
+8003 DATA "themselves across the barren landscape."
+8004 DATA "on a promontary point on the rim of the"
+8005 DATA "crater Posidonius, only half visible when seen from below."
+8006 DATA "There is total darkness to the East."
+8007 DATA "between the craters of Dawes and Plinius."
+8008 DATA "at a narrow pass in the mountains of Haemus."
+8009 DATA "at a steep base of the crater of Manilus."
+8010 DATA "at Mare Vaporum. The Apennines Mountains"
+8011 DATA "rise ominously to the North and West."
+8012 DATA "at the base of the awesome Mt. Eudoxus."
+8013 DATA "inside the crater of Aristoteles. The"
+8014 DATA "crater floor is littered with rocks."
+8015 DATA "in Lacus Somnorium, North of Posidonius"
+8016 DATA "and North East of Mare Serenitatus."
+8017 DATA "at the base of the Burg crater in Lacus"
+8018 DATA "Mortis. The surface is very soft here."
+8019 DATA "at the East side of the vast Mare of"
+8020 DATA "Imbrium. To the North the low angle of"
+8021 DATA "the sun casts eerie shadows on the soft lunar surface"
+8022 DATA "and the distant mountains to the East. To the West, the"
+8023 DATA "Mare stretches out of sight to the horizon. To the South"
+8024 DATA "the Apennine Mountains seem to rise out of nowhere."
+8025 DATA "at the base of the crater of Plato. A"
+8026 DATA "shiney object is seen to the West."
+8027 DATA "standing before a small metal shed. A"
+8028 DATA "sign reads ventillator shaft number 2."
+8029 DATA "somewhere East of Mare Serenitatus."
+8030 DATA "There is total darkness."
+8031 DATA "at the crash site of a space craft."
+8032 DATA "The entrance to the space craft is before you."
+8033 DATA "at the center of vast Mare of Imbrium."
+8034 DATA "in the air lock chamber of the space craft."
+8035 DATA "in the aft cargo and fuel storage compartment."
+8036 DATA "in the engine room of the space craft."
+8037 DATA "in the control room, the ships console"
+8038 DATA "is before you."
+8039 DATA "inside a dark shed. A ladder leads down"
+8040 DATA "into a large metal shaft below."
+8041 DATA "in a ventillator passage."
+8042 DATA "at a ventillator opening. Through the"
+8043 DATA "opening a lit passageway can be seen."
+8044 DATA "in a lighted space station corridor."
+8045 DATA "in the space station infirmary."
+8046 DATA "in the recreation room and library."
+8047 DATA "in the mess hall. Abandoned food trays"
+8048 DATA "are still on the tables."
+8049 DATA "in the storage room and supply area."
+8050 DATA "in the sleeping quarters of the space station."
+8051 DATA "in an elevator at the subsurface level."
+8052 DATA "in an elevator at the surface level."
+8053 DATA "in the space station's control center."
+8054 DATA "in the transporter room."
+8055 DATA "in the space station research laboratory."
+8056 DATA "in the hangar area. The launch area"
+8057 DATA "is located to the South of here."
+8058 DATA "in an air lock chamber between the space suit"
+8059 DATA "changing area and the hangar."
+8060 DATA "in a space suit changing area."
+8061 DATA "at the top of a rocky arete on Burg crater. To"
+8062 DATA "the North the center of the crater is thousands of feet below you."
+8063 DATA "To the West, the huge crater of Eudoxus can be seen between crags"
+8064 DATA "on a ridge bordering Lacus Mortis."
+8500 REM **************************************
+8501 REM ** movement and text pointer matrix **
+8502 REM **************************************
+9001 DATA 07,04,02,15,00,00,01,03
+9002 DATA 09,03,14,01,00,00,04,06
+9003 DATA 02,05,14,04,00,00,07,07
+9004 DATA 01,05,03,00,00,00,08,08
+9005 DATA 04,00,03,06,00,00,09,09
+9006 DATA 00,00,05,00,00,00,10,11
+9007 DATA 08,01,09,11,00,00,12,12
+9008 DATA 00,07,10,00,00,00,13,14
+9009 DATA 10,02,14,07,00,00,15,16
+9010 DATA 00,09,14,08,43,00,17,18
+9011 DATA 12,15,07,16,00,00,19,24
+9012 DATA 00,11,00,13,00,00,25,26
+9013 DATA 00,16,12,22,00,00,27,28
+9014 DATA 99,99,99,99,00,00,29,30
+9015 DATA 11,18,01,00,00,00,31,32
+9016 DATA 17,16,17,16,00,00,33,33
+9017 DATA 16,17,11,17,00,00,33,33
+9018 DATA 15,19,00,00,00,00,34,34
+9019 DATA 18,00,20,00,00,00,35,35
+9020 DATA 00,00,00,19,21,00,36,36
+9021 DATA 00,00,00,00,00,20,37,38
+9022 DATA 00,00,13,00,00,23,39,40
+9023 DATA 24,00,00,00,22,00,41,41
+9024 DATA 25,23,00,00,00,00,42,43
+9025 DATA 27,26,33,32,24,00,44,44
+9026 DATA 25,00,30,31,00,00,44,44
+9027 DATA 34,25,41,00,00,00,44,44
+9028 DATA 00,29,42,36,00,00,44,44
+9029 DATA 28,38,40,37,00,00,44,44
+9030 DATA 00,00,00,26,00,00,45,45
+9031 DATA 00,00,26,00,00,00,46,46
+9032 DATA 00,00,25,00,00,00,47,48
+9033 DATA 00,00,00,25,00,00,50,50
+9034 DATA 00,27,00,00,00,00,49,49
+9035 DATA 00,28,00,00,24,00,53,53
+9036 DATA 00,00,28,00,00,00,54,54
+9037 DATA 00,00,29,00,00,00,55,55
+9038 DATA 29,00,39,00,00,00,56,57
+9039 DATA 40,00,00,38,00,00,58,59
+9040 DATA 00,39,00,29,00,00,60,60
+9041 DATA 00,00,00,27,42,00,51,51
+9042 DATA 00,00,00,28,00,41,52,52
+9043 DATA 00,00,00,00,00,10,61,64
+9999 END
+

@@ -1,0 +1,3 @@
+1000 '"MENU"
+1010 RUN"AUTOST"
+

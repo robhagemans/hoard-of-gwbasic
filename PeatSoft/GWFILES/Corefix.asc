@@ -1,0 +1,46 @@
+7999 GOSUB 8000: END
+8000 DEF SEG: BCOLS%=PEEK(&H29): D$="     ": F$="|"
+8010 IF BCOLS%=80 THEN DCOL1%=1:DLEN%=67:P$=" " ELSE DCOL1%=8:DLEN%=39:P$=""
+8020 HD$="  dec  hex "+P$+" 0 1 2 3  4 5 6 7  8 9 A B  C D E F   0123456789ABCDEF"
+8030 I%=0: INPUT "What segment address (&Hnnnn or -1 for Basic)";B
+8040 IF B=-1 THEN DEF SEG: ELSE DEF SEG=B
+8045 CLS: PRINT SPC((DLEN%-12)/2);
+8050 IF B=-1 THEN PRINT "Basic Segment"; ELSE PRINT "Segment ";RIGHT$("0000"+HEX$(B),4);
+8060 PRINT:PRINT:PRINT MID$(HD$,DCOL1%,DLEN%);: IF DLEN%<BCOLS% THEN PRINT
+8065 PRINT STRING$(DLEN%,"-");: IF DLEN%<BCOLS% THEN PRINT
+8070 FOR I%=I% TO I%+15:II%=16*I%
+8080 RSET D$=STR$(II%):H$=D$:RSET D$=HEX$(II%):H$=H$+D$+P$:A$="  "+F$
+8090 FOR J%=0 TO 15
+8100 IF J% AND 3 THEN ELSE H$=H$+" "
+8110 C%=PEEK(II%+J%): IF C%<16 THEN H$=H$+"0"
+8120 H$=H$+HEX$(C%)
+8130 IF (C%>31) AND (C%<126) THEN A$=A$+CHR$(C%):ELSE A$=A$+"."
+8140 NEXT J%
+8150 PRINT MID$(H$+A$+F$,DCOL1%,DLEN%);: IF DLEN%<BCOLS% THEN PRINT
+8160 NEXT I%
+8170 PRINT "Use q to quit, r to restart, = to redisplay, null for next page:"
+8172 PRINT "Edit the hex display and `enter' each line to modify storage."
+8175 LOCATE 12,30,1
+8180 B$=INKEY$:IF B$="" THEN 8180
+8182 IF ASC(B$)>0 THEN GOTO 8190  'Not a cursor key, so no patching to do.
+8184 CO%=CSRLIN: LINE INPUT B$: C%=CSRLIN
+8185 'Due to LINE INPUT features we must play games to get the whole line the user modified if he modifies the line the cursor starts on.
+8186 IF CO%=C%-1 THEN DEF SEG=&H40: POKE &H1E,0:POKE &H1F,72:POKE &H20,13:POKE &H21,0:POKE &H1A,&H1E:POKE &H1C,&H22: DEF SEG=B: GOTO 8184
+8187 LOCATE C%-1,30,1  'To put the cursor in a more convenient place.
+8188 IF C%>21 OR C%<4 THEN B$=LEFT$(B$,1): GOTO 8195 ELSE GOSUB 8300: GOTO 8180
+8190 DEF SEG=&H40: POKE &H1A,PEEK(&H1C)
+8195 IF B$="q" OR B$="/" THEN LOCATE 23,1:DEF SEG:RETURN
+8197 IF B$="=" THEN I%=I%-16: GOTO 8040
+8198 IF B$=CHR$(13) THEN GOTO 8040
+8200 IF B$="r" THEN LOCATE 23,1: GOTO 8030 ELSE PRINT CHR$(7);: GOTO 8180
+8299 REM -----------Subroutine to do the core patching -------------
+8300 IF BCOLS%=80 THEN B$=MID$(B$,8,40)
+8310 AT$=LEFT$(B$,3):IF ASC(AT$)=32 THEN AT$=RIGHT$(AT$,2)
+8315 IF AT$=" 0" THEN AT$="0"
+8320 OFFSET%=VAL("&H"+AT$): IF BCOLS%=80 THEN B$=MID$(B$,6) ELSE B$=MID$(B$,5)
+8340 FOR II%=0 TO 15: POKE OFFSET%+II%,VAL("&H"+LEFT$(B$,2)): B$=MID$(B$,3)
+8345 IF LEN(B$)<2 THEN RETURN
+8350 IF ASC(B$)=32 THEN B$=MID$(B$,2)
+8360 NEXT II%
+8370 RETURN
+

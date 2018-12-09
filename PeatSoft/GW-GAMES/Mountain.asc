@@ -1,0 +1,119 @@
+10 REM program: over the mountain by David Chance:"Computer Graphics",TAB 1981
+15 REM adopted to the IBM PC by Anonymous (I don't want credit for this mess!)
+20 COLOR 6,1: CLS:PRINT:KEY OFF: WIDTH 80
+30 PRINT "                  OVER THE MOUNTAIN"
+40 PRINT
+50 PRINT "Your mission will be to pick up a parcel while you are going over the mountian."
+60 PRINT "This mountain will have three peaks. The first peak (left side of screen) will  have the parcel you are to pick up."
+70 PRINT "At the second and third peak are laser cannons,  which will begin firing when   you reach a random point.
+80 PRINT "Your ship will be moved up by entering thrusts form 1 through 6, entering a "; CHR$(26);"will move you horizontally."
+90 PRINT "To descend, enter a "+ CHR$(25)+", then a number between 1 and 6. Your parcel must hit      exactly at the bottom of your ship, or you will crash."
+100 PRINT "After you successfully pick up the parcel and go over all three peaks, you must slowly descend and hit the safety zone.
+110 PRINT "Anywhere else will induce an error and you will have to start over. Also keep   an eye on your fuel level. To run out will be certain death!!"
+114 PRINT " ***Hit any key to continue."
+116 A$=INKEY$: IF A$="" THEN 116
+120 T$=TIME$ :RANDOMIZE VAL(RIGHT$(T$,2))
+140 REM set moutain
+150 REM keep height of mountain between 23 and 06
+160 REM peak mountain at 3
+170 REM input all moves at 0
+180 Y=23:X=7:P=3:I=1:CLS:R=0:U=0:COLOR 6
+185 FL=INT(RND(1)*350*2):IF FL<300 THEN 185
+190 DEF SEG: POKE 106,0
+200 H=INT(RND(3)*17):IF H<10 THEN 200
+210 LOCATE Y,X: PRINT CHR$(221)
+220 Y=Y-1:X=X+1
+230 IF R=1 THEN 300 ELSE IF R=3 THEN 340
+240 IF Y<>H THEN 210 ELSE X(I)=X:Y(I)=Y
+250 LOCATE Y,X: PRINT CHR$(221)
+260 X=X+1:Y=Y+1
+270 IF R=2 THEN 320 ELSE IF R=4 THEN 360
+280 IF Y<>H+6 THEN 250
+290 H=H-6:R=1:I=I+1: GOTO 210
+300 IF Y<>H THEN 210 ELSE X(I)=X:Y(I)=Y
+310 H=H+5:R=2:I=I+1: GOTO 250
+320 IF Y<>H THEN 250
+330 R=3: GOTO 210
+340 IF Y>=5 THEN 210 ELSE X(I)=X:Y(I)=Y
+350 R=4: GOTO 250
+360 IF Y<> 23 THEN 250
+370 IF Y(2)<=Y(3) THEN R=0:GOTO 180 ELSE X(8)=X(3): X(7)=X(2): Y(5)=Y(2): X(9)=X(1): Y(6)=Y(1) : FOR Q=X(3)+16 TO 80: LOCATE Y(3)+15 ,Q : PRINT "*":NEXT: LOCATE Y(3)+16,X(3)+18: PRINT"safety zone"
+380 X=4:Y=23:J=0
+390 LOCATE Y,X: PRINT CHR$(2);: BEEP
+400 LOCATE 1,10: PRINT"enter thrust ("; CHR$(25); " first to descend)";
+405 LOCATE 24,15: PRINT "fuel left:";FL;"tons.             ";
+410 IF X>X(8) AND U<>3 THEN LOCATE 24,15,0: PRINT "missed parcel pickup!     ";: GOTO 500 ELSE IF X>=X(8) THEN GOTO 500
+420 IF X>X(1)-5 AND U<>1 AND U<>3 THEN GOSUB 960
+430 IF J=1 THEN X(3)=X(3)-1: IF X(3)<=X(9)-2 THEN LOCATE Y(3),X(3)+1: PRINT " ";:X(3)=X(8): ELSE LOCATE Y(3),X(3): PRINT CHR$(27);" ";:LOCATE 24,15:PRINT" laser attack!                                    ";
+440 IF Y(2)<=2 THEN LOCATE Y(2),X(2): PRINT " ";:X(2)=X(7) : Y(2)=Y(5)
+450 IF X>=X(7)+1 THEN X(2)=X(2)+1:Y(2)=Y(2)-1: LOCATE Y(2),X(2): PRINT CHR$(47);:LOCATE Y(2)+1,X(2)-1: PRINT " ";
+461 GOSUB 570:K=INT(RND*4)
+470 IF U=3 THEN 500 ELSE IF X>X(9)-1 AND X<=X(8) THEN LOCATE 24,15:PRINT "launching parcel....";:LOCATE Y(1),X(1): PRINT " ";:X(1)=X(1)+1:Y(1)=Y(1)-1: IF Y(1)<=2 THEN Y(1)=Y(6): X(1)=X(9) ELSE LOCATE Y(1),X(1) : PRINT CHR$(127);
+480 POS1=SCREEN(Y+1,X): POS2=SCREEN(Y,X+1): POS3=SCREEN(Y,X-1): IF X>X(9)-1 AND X<X(8) AND POS1=127 THEN GOSUB 990: GOTO 400
+490 IF POS2=127 OR POS3=127  THEN 860
+500 A$=INKEY$:IF A$="" THEN 410 ELSE IF A$=CHR$(0)+CHR$(80) THEN GOSUB 640: GOTO 400
+510 IF A$=CHR$(0)+CHR$(77) THEN A$="0"
+520 C=VAL(A$): IF C>6 THEN C=6
+526 IF Y<=2 THEN GOSUB 640: GOTO 400
+530 GOSUB 570
+540 K=INT(RND*3): LOCATE Y,X: PRINT " ";:FL=FL-ABS(C-Y): IF FL<=0 THEN FL=0 ELSE IF U=3 AND P=1 THEN LOCATE Y+1,X: PRINT " ";
+550 LOCATE 24,15: PRINT "fuel left:";FL;"tons.             ";: IF FL<=0 THEN GOSUB 570: GOTO 840
+560 IF Y<=2 THEN GOSUB 640: GOTO 400 ELSE IF X>=80 THEN GOTO 380 ELSE Y=Y-C: IF C=0 THEN GOSUB 1030: GOSUB 570: GOTO 610 ELSE X=X+K-2: GOSUB 570: GOTO 610
+570 COLOR 30: IF Y<=2 THEN Y=2
+575 IF Y>=24 THEN Y=24
+580 IF X<=2 THEN X=2
+585 IF X>=79 THEN X=79
+590 LOCATE Y,X: PRINT CHR$(2);: COLOR 4: IF U=3 AND P=1 THEN LOCATE Y+1,X:PRINT CHR$(127);
+595 POS1=SCREEN(Y,X+1):POS2=SCREEN(Y,X-1):IF POS1<>32  OR POS2<>32  THEN GOTO 780
+600 RETURN
+610 IF Y>=2 AND Y<=6 THEN GOSUB 740
+620 FOR L=1 TO 55:NEXT: IF K<>2 GOTO 520 ELSE IF Y<=2 THEN GOSUB 640: GOTO 400 ELSE 400
+630 END
+640 GOSUB 570
+650 LOCATE 1,10: PRINT "enter descend thrust                                  ";
+660 A$=INKEY$: IF A$="" THEN 660
+680 LOCATE 24,15: PRINT "fuel left: ";FL;" tons                      ";:C=VAL(A$):IF C>6 THEN C=6
+690 LOCATE Y,X: PRINT " ";: FL=FL-ABS(1+K): IF FL<0 THEN FL=0: GOTO 840 ELSE IF U=3 AND P=1 THEN LOCATE Y+1,X: PRINT " ";
+700 IF X>=80 OR Y>=24 THEN GOTO 380: ELSE Y=Y+C+K: IF C=0 THEN GOTO 710 ELSE X=X+K-2 :IF X<=1 THEN X=1
+710 GOSUB 570
+720 IF X>X(3) AND Y>=Y(3)+15 THEN GOTO 1040 ELSE
+730 A$="": RETURN
+740 REM laser attack
+750 LOCATE Y(5),X(7): PRINT CHR$(15);
+760 LOCATE Y(3),X(8): PRINT CHR$(15);
+770 J=1:RETURN
+780 LOCATE 1,10: PRINT "direct hit!!!                                 ";
+785 BEEP
+800 LOCATE 24,15: PRINT " You have to start over !                           ";
+830 R=0: U=1: GOTO 860
+840 LOCATE 1,10: PRINT " You are out of fuel!!                      ";
+842 BEEP
+845 FOR LL=1 TO 5000: NEXT
+850 FL=0
+860 FOR Q=25+(15*Y) TO 120*Y STEP 2*Y: PLAY"mb" :SOUND Q,.5: NEXT
+865 FOR LL=1 TO 100 : NEXT
+868 LOCATE Y-1,X: PRINT " ";
+870 LOCATE Y,X: PRINT CHR$(2);
+880 IF Y>=23 THEN Y=24 ELSE Y=Y+1
+890 IF Y<>24 THEN GOTO 868
+893 FOR LL=1 TO 800: NEXT
+900 CLS:PRINT " C-R-A-S-H ";:SOUND 100,15
+910 PRINT:PRINT "Are you ready to try again?"
+920 INPUT A$
+930 IF A$="Y" OR A$="y" THEN 180
+940 PRINT "May be some other mountain"
+950 CHAIN"menu
+960 LOCATE Y(1),X(1): PRINT CHR$(127);
+970 U=1
+980 RETURN
+990 LOCATE 1,10: PRINT"You have made the pickup!                              ";
+995 BEEP
+1000 FOR LL=1 TO 2000: NEXT
+1010 LOCATE 1,10: PRINT"                                           ";
+1020 U=3:P=1: RETURN
+1030 X=X+1:RETURN
+1040 IF U<>3 AND P<>1 THEN LOCATE 1,10:PRINT "Try again with remaining fuel.                      ";: FOR L=1 TO 10000:NEXT:LOCATE Y,X:PRINT " ": R=0:U=1:GOTO 380
+1050 PLAY "mb l2 t100 o3 acegbde": LOCATE 1,10: PRINT"CONGRADULATIONS!!! You completed the mission.";
+1060 FOR L=1 TO 10000: NEXT
+1070 GOTO 910
+

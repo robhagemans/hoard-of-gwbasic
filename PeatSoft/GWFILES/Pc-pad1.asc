@@ -1,0 +1,337 @@
+10      'PC\PAD: an MS-BASIC editor/spreadsheet/printing routine; 4/07/83
+20       SCREEN 0,0,0:WIDTH 80:CLS:KEY OFF:LOCATE 5,1:Q$=SPACE$(20)
+30  PRINT Q$;"          PC\PAD  (ver. 1.3)"
+40  PRINT Q$;"an editor/spreadsheet/printing program"
+50  PRINT: PRINT
+60  PRINT Q$;"     If you are using this program"
+70  PRINT Q$;"         and find it of value,"
+80  PRINT Q$;"   a $20 contribution is suggested."
+90  PRINT
+100 PRINT Q$;"               (c) 1983"
+110 PRINT Q$;"             P. Fraundorf"
+120 PRINT Q$;"            P.O. Box 11394"
+130 PRINT Q$;"          St. Louis MO 63105"
+140 PRINT
+150 PRINT Q$;"    You are encouraged to copy and"
+160 PRINT Q$;"    share this program with others."
+170      LOCATE 24,1: PRINT "any key to continue...";
+180      Q$=INKEY$: IF Q$="" THEN 180
+190      DEFINT I-N: LMX=400: HCW=8: CC$="\" 'set max lines,col width, & cc$
+200      DIM A$(LMX+1),M$(50),CSUM(16),RSUM(25): IMX=LMX-22: JMX=IMX-20
+210      LCW=2*HCW: LCM=LCW-1: DEF FNV(I,J)=VAL(MID$(A$(I),LCW*J+1,LCW))
+220     DEF SEG=0: IF (PEEK(1040) AND 48)=48 THEN LD=13 ELSE LD=7 'mono/color
+230     '-----------------------initialize function keys--------------------
+240     KEY ON
+250     KEY 1,CC$+"view  "+CHR$(13)   'relist
+260     KEY 2,CC$+"compute"+CHR$(13)  'update computed entries
+270     KEY 3,CC$+"up    "+CHR$(13)   'look up
+280     KEY 4,CC$+"down  "+CHR$(13)   'look down
+290     KEY 5,CC$+"left  "+CHR$(13)   'look left
+300     KEY 6,CC$+"right "+CHR$(13)   'look right
+310     KEY 7,CC$+"yank  "+CHR$(13)   'yank line to memory
+320     KEY 8,CC$+"put   "+CHR$(13)   'put line in text
+330     KEY 9,CC$+"justify"+CHR$(13)  'right justify line
+340     KEY 10,CC$+"save  "+CHR$(13)  'save + offer restart
+350     '---------------------------open source file-----------------------
+360     FOR I=0 TO LMX: A$(I)="": NEXT: CLS: ON ERROR GOTO 5000
+370     PRINT "disk files:": FILES: PRINT
+380     INPUT "disk file name (rtn=none)";F$
+390     IF F$<>"" THEN GOSUB 1260 ELSE NLINE=0
+400     '------------------------set up editing session--------------------
+410     INPUT "working file name (rtn=disk file name)";G$
+420     IF G$="" THEN G$=F$ 'if no working name, use disk file name
+430     IF G$="" THEN END 'if still no working name, then exit program
+440     IP=1: JP=0: IX=1: JY=1 'zero pointers
+450     '-------------------------primary operating loop--------------------
+460     J0=JP: J1=JP+22: GOSUB 890: LOCATE JY,1          'list lines jp,jp+22
+470     COLOR 13,0: LINE INPUT "",X$ 'give control to BASIC screen editor
+480     COLOR 10,0: JY=CSRLIN-1
+490     XX=INSTR(X$,CC$): IF XX=0 THEN 770               'store new line
+500     '-----------------------menu of command primitives------------------
+510     Y$=MID$(X$,XX+1,1)
+520     IF Y$="v" THEN 460                            'view window
+530     IF Y$="c" THEN 9990                          'update computed entries
+540     IF Y$="u" THEN IF JP>0 THEN JP=JP-1:GOTO 460 ELSE 460         'up 1
+550     IF Y$="d" THEN IF JP<IMX THEN JP=JP+1:GOTO 460 ELSE 460       'down 1
+560     IF Y$="l" THEN IF IP>HCW THEN IP=IP-HCW:GOTO 460 ELSE 460     'left 1
+570     IF Y$="r" THEN IF IP<178-HCW THEN IP=IP+HCW:GOTO 460 ELSE 460 'right 1
+580     IF Y$="y" THEN GOSUB 1382:GOTO 460           'yank line to memory
+590     IF Y$="p" THEN GOSUB 1420:GOTO 460           'put line in text
+600     IF Y$="j" THEN GOSUB 2060: GOTO 460          'justify line
+610     IF Y$="s" THEN GOSUB 1340: GOTO 460          'save working file
+620     IF Y$=CC$ THEN Y$=MID$(X$,XX+2,1) ELSE 770
+630    '-------------------------- 2-key functions ----------------------
+640     IF Y$="v" THEN GOSUB 980: GOTO 460           'help file
+650     IF Y$="c" THEN GOSUB 1190: GOTO 460          'reset filenames
+660     IF Y$="u" THEN IF JP>19  THEN JP=JP-20:GOTO 460 ELSE JP=0  :GOTO 460
+670     IF Y$="d" THEN IF JP<JMX THEN JP=JP+20:GOTO 460 ELSE JP=IMX:GOTO 460
+680     IF Y$="l" THEN IF IP>64  THEN IP=IP-64:GOTO 460 ELSE IP=1  :GOTO 460
+690     IF Y$="r" THEN IF IP<113 THEN IP=IP+64:GOTO 460 ELSE IP=177:GOTO 460
+700     IF Y$="y" THEN GOSUB 1382:GOSUB 1410:GOTO 460 'remove line
+710     IF Y$="p" THEN 1450                           'goto insert loop
+720     IF Y$="j" THEN GOSUB 2010: GOTO 460          'reset linewidth
+730     IF Y$="s" THEN GOSUB 1570: GOTO 460          'print file
+740     IF Y$="q" THEN GOTO 360                      'quit/new file prompt
+750    '-----------------------store previous screen line------------------
+760    'it would be nice to use L$=X$, but alas X$ reflects complex i/o logic
+770     L$="": II=0
+780     JX=JP+JY-1: Y$=A$(JX): LA=LEN(Y$): IF LA>IP+79 THEN II=1
+790     FOR I=79 TO 1 STEP -1
+800             X$=CHR$(SCREEN(JY,I))
+810             IF II=1 THEN L$=X$+L$ ELSE IF X$<>" " THEN II=1: GOTO 810
+820             NEXT
+830     LX=IP-1: LL=LEN(L$): IF JX+1>NLINE THEN NLINE=JX+1
+840     IF LX>LA THEN A$(JX)=A$(JX)+STRING$(LX-LA," ")+L$: GOTO 870
+850     IF LX>LA-79 THEN A$(JX)=LEFT$(A$(JX),LX)+L$: GOTO 870
+860     A$(JX)=LEFT$(A$(JX),LX)+L$+STRING$(79-LL," ")+RIGHT$(A$(JX),LA-LX-79)
+870     IF JY<23 THEN 470 ELSE IF JP<IMX THEN JP=JP+1:GOTO 460 ELSE 460
+880    '-----------------------print lines from j0 to j1-------------------
+890     CLS: LOCATE 24,1
+900     COLOR 0,7:PRINT "^ ";G$;":";TAB(17);"^line";J0;"-";J1;TAB(33);"^col.";IP\LCW;"-";(IP+78)\LCW;TAB(49);"^for HELP:\[F1] ^keylist below:";
+910     LOCATE 1,1,1,LD-1,LD
+920     COLOR 6,0
+930     FOR I=J0 TO J1
+940            PRINT MID$(A$(I),IP,79)
+950            NEXT
+960     RETURN
+970    '============================print help file===========================
+980     CLS:Q$=SPACE$(6):LOCATE 4,1
+990  PRINT Q$;"                 ***  available functions  ***": PRINT
+1000  PRINT Q$;"[F1]  view file window           \[F1]  print help file"
+1010 PRINT Q$;"     -------------spreadsheet computation key--------------"
+1020 PRINT Q$;"[F2]  update computations        \[F2]  reset filenames"
+1030 PRINT Q$;"     -----------------window movement keys-----------------"
+1040 PRINT Q$;"[F3]  move up 1 line             \[F3]  move up 20 lines"
+1050 PRINT Q$;"[F4]  move down 1 line           \[F4]  move down 20 lines"
+1060 PRINT Q$;"[F5]  move left 1/2 column       \[F5]  move left 4 columns"
+1070 PRINT Q$;"[F6]  move right 1/2 column      \[F6]  move right 4 columns"
+1080 PRINT Q$;"     -----------------text processing keys-----------------"
+1090 PRINT Q$;"[F7]  yank line into memory      \[F7]  yank and delete line"
+1100 PRINT Q$;"[F8]  put yanked line in text    \[F8]  sequential line insert"
+1110 PRINT Q$;"[F9]  right justify line         \[F9]  reset j-options"
+1120 PRINT Q$;"     -------------------file output key--------------------"
+1130 PRINT Q$;"[F10] save file to disk          \[F10] print file":PRINT
+1140 PRINT Q$;"                        \\q  quit file
+1150 LOCATE 24,1: PRINT "except for F# keys, any key to continue...";
+1160 Q$=INKEY$: IF Q$="" THEN 1160
+1170 RETURN
+1180    '============================reset filenames==========================
+1190    CLS
+1200    PRINT "working filename (rtn=";G$;:INPUT")";X$:IF X$<>"" THEN G$=X$
+1210    PRINT "instruction filename (rtn=";H$;:INPUT")";X$:IF X$<>"" THEN H$=X$
+1220    INPUT "switch displays (rtn=no)";I$
+1230    IF I$="" THEN RETURN
+1240 IF LD=13 THEN DEF SEG=0:POKE &H410,(PEEK(&H410) AND &HCF) OR &H10:SCREEN 1,0,0,0:SCREEN 0:WIDTH 40:WIDTH 80:LOCATE ,,1,6,7:LD=7 ELSE IF LD=7 THEN DEF SEG=0:POKE &H410,(PEEK(&H410) OR &H30):SCREEN 0:WIDTH 40:WIDTH 80:LOCATE ,,1,12,13:LD=13
+1250    RETURN
+1260    '=============================load disk file===========================
+1270    OPEN F$ FOR INPUT AS #1
+1280    FOR NLINE=0 TO LMX
+1290            LINE INPUT #1,A$(NLINE)
+1300            IF EOF(1) THEN CLOSE #1: RETURN
+1310            NEXT
+1320    CLOSE #1: RETURN
+1330   '=============================save file on disk=========================
+1340    OPEN G$ FOR OUTPUT AS #1
+1350    FOR I=0 TO NLINE
+1360            PRINT #1,A$(I)
+1370            NEXT
+1380    CLOSE #1: RETURN
+1381   '================================yank===================================
+1382    LOCATE 24,1:INPUT;"# of lines (rtn=1) ";NM:IF NM<1 THEN NM=1
+1383    IX=JP+JY-1
+1384    FOR I=0 TO NM-1
+1385            M$(I)=A$(IX+I)
+1386            NEXT
+1387    RETURN
+1390   '===============================delete==================================
+1400    IF NLINE>NM THEN NLINE=NLINE-NM ELSE NLINE=0
+1410    FOR I=IX TO NLINE
+1411            A$(I)=A$(I+NM)
+1412            NEXT
+1413    FOR I=NLINE+1 TO NLINE+NM+1
+1414            A$(I)=""
+1415            NEXT
+1416    RETURN
+1419   '=================================put===================================
+1420    IX=JP+JY
+1430    FOR J=NM-1 TO 0 STEP -1
+1440            X$=M$(J):GOSUB 1520
+1445            NEXT
+1446    RETURN
+1450   '============================insertion loop=============================
+1460    CLS:J0=JP:J1=JP+JY-1:GOSUB 920:J0=J1+1:J1=JP+21:LOCATE JY+2,1:GOSUB 920
+1470    COLOR 11,0: LOCATE JY+1,1,1,LD,0  'display split cursor
+1480    LINE INPUT "",X$: X$=STRING$(IP-1," ")+X$: XX=INSTR(X$,CC$)
+1490    IF XX<>0 THEN 460 ELSE IF CSRLIN<>JY+2 THEN BEEP: GOTO 1460
+1500    IX=JP+JY:GOSUB 1520:JP=JP+1:GOTO 1460
+1510   '--------------------------insert x$ at line ix------------------------
+1520    FOR I=IX TO NLINE
+1530            SWAP X$,A$(I)
+1540            NEXT
+1550    NLINE=NLINE+1: IF NLINE>LMX THEN NLINE=LMX: BEEP: RETURN
+1560    A$(NLINE)=X$: RETURN
+1570   '========================file printing routine==========================
+1580   '------------------------set new printer options------------------------
+1590    CLS: GOSUB 1940: LW=80: W$=""   'reset printer and initialize
+1600    INPUT "top/bottom margins, in inches (rtn=0)";TBM
+1610    INPUT "linespacing (d=double; t=triple; h=1/2; s=1/3; rtn=normal)";D$
+1620    IF D$="" THEN LX=6 ELSE IF D$="d" THEN LX=3 ELSE IF D$="t" THEN LX=2
+1630    IF D$="h" THEN LX=12 ELSE IF D$="s" THEN LX=18
+1640    LM=TBM*LX: LPRINT CHR$(27);"A";CHR$(72/LX);CHR$(27);"2";'set linespace
+1650    INPUT "characters/inch (s=16.5; m=8.25; l=5; rtn=10) ",C$
+1660    IF C$="s" OR C$="m" THEN LPRINT CHR$(15);: LW=132 'set compressed width
+1670    IF C$="l" OR C$="m" THEN W$=CHR$(14): LW=LW/2 'set double-width flag
+1680    WIDTH "lpt1:",LW
+1690    INPUT "intensity (d=double, e=emphasized, b=both, rtn=light) ",I$
+1700    IF I$="d" OR I$="b" THEN LPRINT CHR$(27)+"G";'set doublestrike mode
+1710    IF I$="e" OR I$="b" THEN LPRINT CHR$(27)+"E";'set emphasized intensity
+1720    LPRINT CHR$(27);"D"; 'lines 100-120 set horiz. tabs (10,8,8,8...)
+1730    FOR I=18 TO 74 STEP 8: LPRINT CHR$(I);: NEXT
+1740    LPRINT CHR$(0);
+1750    INPUT;"from row: ",I0
+1760    INPUT;" to: ",I1:IF I1=0 THEN I1=NLINE:PRINT I1 ELSE PRINT
+1770    INPUT;"from column: ",J0
+1780    INPUT;" to: ",J1:IF J1=0 THEN J1=J0+7:PRINT J1 ELSE PRINT
+1790    INPUT "indentation (rtn=0 spaces) ";INDENT
+1800    IX=I0:J1=(J1-J0+1)*LCW:J0=J0*LCW+1:IF J1+INDENT>=LW THEN J1=LW-INDENT-1
+1810  ' -------------------------------print file------------------------------
+1820    FOR I=1 TO LM                             'begin page
+1830            LPRINT
+1840            NEXT
+1850    FOR I=1 TO 11*LX-2*LM
+1860            LPRINT SPC(INDENT);W$+MID$(A$(IX),J0,J1)
+1870            IF IX<I1 THEN IX=IX+1 ELSE GOSUB 1940: RETURN
+1880            NEXT
+1890    FOR I=1 TO LM
+1900            LPRINT
+1910            NEXT
+1920    GOTO 1820
+1930   ' -----------------------------reset printer----------------------------
+1940    LPRINT CHR$(27);"A";CHR$(12);'set default line-spacing to 12/72=1/6"
+1950    LPRINT CHR$(27);"2";         'invoke default line-spacing
+1960    LPRINT CHR$(18);             'compressed width off
+1970    LPRINT CHR$(20);             'double-width off (optional)
+1980    LPRINT CHR$(27)+"F";         'emphasized intensity off
+1990    LPRINT CHR$(27)+"H";         'double-strike intensity off
+2000    WIDTH "lpt1:",80: RETURN
+2010   '=====================set linewidth for justification==================
+2020    LOCATE 24,1: INPUT;"line width (rtn=60)";LWIDTH
+2030    IF LWIDTH=0 THEN LWIDTH=60
+2040    INPUT;"  how many lines at once (rtn=1)";JL: IF JL=0 THEN JL=1
+2050    RETURN
+2060   '---------------------------Justify Function--------------------------
+2070    IF LWIDTH=0 THEN GOSUB 2020 'reset linewidth
+2080    J0=JY+JP-1: J1=J0+JL-1: IF J1>NLINE THEN J1=NLINE
+2090    FOR IX=J0 TO J1
+2100            GOSUB 2140
+2110            NEXT
+2120    RETURN
+2130   '----------------------------justify line------------------------------
+2140    Y$=A$(IX)
+2150   '-------------------------remove rightmost spaces----------------------
+2160    YL=LEN(Y$):IF RIGHT$(Y$,1)=" " THEN Y$=LEFT$(Y$,YL-1):GOTO 2160
+2170   '----------------------replace indentations with nulls-----------------
+2180    IF LEFT$(Y$,1)=CHR$(9) THEN Y$="        "+RIGHT$(Y$,YL-1): YL=YL+7
+2190    IF YL=0 OR YL=LWIDTH THEN RETURN
+2200    Z$="": M=1
+2210    WHILE LEFT$(Y$,1)=" ":Z$=Z$+CHR$(0):Y$=RIGHT$(Y$,YL-M):M=M+1:WEND
+2220    Y$=Z$+Y$
+2230   '------------------------optimize content of line----------------------
+2240    IF YL<LWIDTH THEN GOSUB 2420 ELSE GOSUB 2590
+2250   '---------------------right justify line if appropriate----------------
+2260    YL=LEN(Y$): NEEDED=LWIDTH-YL
+2270    IF INSTR(Y$," ")=0 THEN NEEDED=0
+2280    C$=LEFT$(A$(IX+1),1)
+2290    IF C$="" OR C$=" " OR C$=CHR$(0) OR C$=CHR$(9) THEN NEEDED=0
+2300    Z$=""
+2310    FOR I=1 TO NEEDED
+2320            M=INSTR(Y$," ")
+2330            IF M=0 THEN Y$=Z$+Y$: YL=LEN(Y$): Z$="": GOTO 2320
+2340            IF M=1 THEN Z$=Z$+" ": Y$=RIGHT$(Y$,YL-1): YL=YL-1: GOTO 2320
+2350            Z$=Z$+LEFT$(Y$,M)+" ": Y$=RIGHT$(Y$,YL-M): YL=YL-M
+2360            NEXT
+2370    Y$=Z$+Y$: YL=LEN(Y$)
+2380   '---------------------replace initial nulls with spaces----------------
+2390    Z$="": M=1
+2400    WHILE LEFT$(Y$,1)=CHR$(0):Z$=Z$+" ":Y$=RIGHT$(Y$,YL-M):M=M+1:WEND
+2410    A$(IX)=Z$+Y$: RETURN
+2420   '---------------------line is too short..can we add some?--------------
+2430    J=IX+1
+2440    WHILE NLINE>=J
+2450            C$=LEFT$(A$(J),1)
+2460            IF C$="" OR C$=" " OR C$=CHR$(9) OR C$=CHR$(0) THEN RETURN
+2470            WHILE A$(J)<>""
+2480                    ZL=LEN(A$(J))
+2490                    M=INSTR(A$(J)," "): IF M=0 THEN ZL=ZL+1: M=ZL
+2500                    IF YL+M>LWIDTH THEN RETURN
+2510                    YL=YL+M: Y$=Y$+" ": IF M>1 THEN Y$=Y$+LEFT$(A$(J),M-1)
+2520                    A$(J)=RIGHT$(A$(J),ZL-M)
+2530                    WEND
+2540            Z$=""
+2550            FOR I=NLINE TO J STEP -1: SWAP Z$,A$(I): NEXT
+2560            NLINE=NLINE-1
+2570            WEND
+2580    RETURN
+2590   '---------------------line is too long..take something off------------
+2600    Z$=RIGHT$(Y$,YL-LWIDTH): YL=LWIDTH: Y$=LEFT$(Y$,LWIDTH)
+2610    C$=RIGHT$(Y$,1): YL=YL-1: Y$=LEFT$(Y$,YL)
+2620    IF C$<>" " THEN Z$=C$+Z$: GOTO 2610
+2630    FOR I=IX+1 TO NLINE: SWAP Z$,A$(I): NEXT
+2640    NLINE=NLINE+1: IF NLINE>LMX THEN NLINE=LMX: BEEP: RETURN
+2650    A$(NLINE)=Z$: RETURN
+5000   '======================error trapping (line 5000)==================
+5010    Q$="        ...File not found...  "
+5020    IF ERR=53 AND ERL=1270 THEN PRINT Q$: RESUME 370
+5030    IF ERR=53 AND ERL=9990 THEN PRINT Q$;: H$="": RESUME 9990
+5040    IF ERR=61 AND ERL=1360 THEN PRINT "Disk Full:make room before saving"
+5050    IF ERR=25 AND ERL=1940 THEN PRINT "Printer not On-line"
+5060    IF ERR=27 THEN PRINT "Out of Paper or Printer Off"
+5070    PRINT: PRINT "error #";ERR;" at line ";ERL;"; type CONT to resume..."
+5080    STOP: RESUME 460
+9610    '===============spread sheet subroutines (line 9610)==============
+9620    '---------------------------form column sums-------------------------
+9630    IF NROW<2 THEN GOTO 9770
+9640    FOR J=0 TO NCOL-1
+9650            CSUM(J)=0
+9660            FOR I=0 TO NROW-1
+9670                    CSUM(J)=CSUM(J)+FNV(I+NROW0,J+NCOL0)
+9680                    NEXT
+9690            NEXT
+9700    I=NROW0+NROW: TSUM=0
+9710    FOR J=NCOL0 TO NCOL0+NCOL-1
+9720            X=CSUM(J-NCOL0): GOSUB 9900
+9730            TSUM=TSUM+CSUM(J-NCOL0)
+9740            NEXT
+9750    J=NCOL0+NCOL: X=TSUM: GOSUB 9900
+9760    '---------------------------form row sums----------------------------
+9770    IF NCOL<2 THEN RETURN
+9780    FOR I=0 TO NROW-1
+9790            RSUM(I)=0
+9800            FOR J=0 TO NCOL-1
+9810                    RSUM(I)=RSUM(I)+FNV(I+NROW0,J+NCOL0)
+9820                    NEXT
+9830            NEXT
+9840    J=NCOL0+NCOL
+9850    FOR I=NROW0 TO NROW0+NROW-1
+9860            X=RSUM(I-NROW0): GOSUB 9900
+9870            NEXT
+9880    RETURN
+9890   '-----------------replace row i, column j entry with x---------------
+9900    X$=STR$(X)
+9910   '-----------------replace row i, column j entry with x$--------------
+9920    LX=LEN(X$)
+9930    IF LX<LCM THEN X$=STRING$(LCM-LX," ")+X$ ELSE X$=LEFT$(X$,LCM)
+9940    LA=LEN(A$(I)): LX=LCW*J
+9950    IF LX>LA THEN A$(I)=A$(I)+STRING$(LX-LA," ")+X$: RETURN
+9960    IF LX>LA-LCM THEN A$(I)=LEFT$(A$(I),LX)+X$: RETURN
+9970    A$(I)=LEFT$(A$(I),LX)+X$+RIGHT$(A$(I),LA-LX-LCM): RETURN
+9980   '----------------------update computed quantities--------------------
+9990    IF H$="" THEN LOCATE 24,1: INPUT;"instruction filename";H$:                      IF H$="" THEN 460 ELSE CHAIN MERGE H$,10000,ALL
+10000   '----------ROWCOL.BAS - sample row-column sum instructions-----------
+10010   ON ERROR GOTO 5000 'this prevents disabling of error trapping
+10020   NROW0=FNV(2,6):NCOL0=FNV(3,6):NROW=FNV(4,6):NCOL=FNV(5,6)  'read table
+10030   GOSUB 9630                                                 'form sums
+10040   I=NROW0+NROW: J=NCOL0-1: X$="Column Totals"   : GOSUB 9920 'label row
+10050   I=NROW0-2: J=NCOL0+NCOL: X$="Row Totals"      : GOSUB 9920 'label col
+10060   GOTO 460           'this exits to the View Function
+

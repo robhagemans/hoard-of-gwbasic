@@ -1,0 +1,11 @@
+5 FOR X%=1 TO 15:Y$=INKEY$:NEXT X%
+6 IF INKEY$="" THEN 6
+10 PLAY "t120 l4 mfmn"
+20 PLAY "o4 c8 c8 d c f e2"
+30 PLAY "   c8 c8 d c g f2"
+40 PLAY "   c8 c8 o5 c o4 a f e d2"
+50 PLAY "t90 b-8 b-8 a f g f2"
+58 FOR X%=1 TO 15:Y$=INKEY$:NEXT X%
+59 IF INKEY$="" THEN 59
+60 CHAIN "A:PLOTTER
+

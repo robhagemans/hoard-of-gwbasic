@@ -1,0 +1,38 @@
+1  '               BINOMIAL DISTRIBUTION (one-tailed)
+2  '               Written by Tracy L. Gustafson, M.D.
+3  '              Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+22 DATA "BINOMIAL PROBABILITY DISTRIBUTION",18,35
+30 PRINT TAB(8);"The binomial distribution provides a one-tailed exact test":PRINT "applicable when a dichotomous variable has an equal probability of occurring":PRINT TAB(27);"in each of N trials.":PRINT:AR=9:AC=56
+35 PRINT TAB(27);"Enter the number of trials:"
+40 LOCATE 9,56:INPUT "",XN:IF INT(XN)=XN THEN NT=XN ELSE GOSUB 165:GOTO 40
+45 PRINT:PRINT TAB(11);"Enter probability of success on each trial:"
+50 LOCATE 11,56:INPUT "",PS:IF ABS(PS-.5)>.5 THEN LOCATE 25,10:PRINT "Probability should be fraction between 0 and 1";:AR=11:GOSUB 170:GOTO 50
+55 PRINT:PRINT TAB(15);"Enter the number of successes observed:"
+60 LOCATE 13,56:INPUT "",XN:IF INT(XN)=XN THEN NO=XN ELSE AR=13:GOSUB 165:GOTO 60
+65 COLOR 23:LOCATE 17,25:PRINT "CALCULATING PROBABILITY"
+70 IF NO>INT(PS*NT) THEN AF=1:PS=1-PS:CO=NT-NO ELSE AF=0:CO=NO
+75 QS=1-PS:F=1:LQ=LOG(QS):LP=LOG(PS):P=EXP(NT*LQ)
+80 FOR T=1 TO CO:FZ=NT-T:S=T*LP+FZ*LQ
+85 IF F>1E+35 OR S<-80 THEN F=LOG(F):GOTO 95
+90 F=F*(FZ+1)/T:P=P+F*EXP(S):NEXT T:GOTO 110
+95 FOR Z=T TO CO:FZ=(NT-Z):S=Z*LP+FZ*LQ:F=F+LOG((FZ+1)/Z)
+100 IF F+S>-86 THEN P=P+EXP(F+S)
+105 NEXT Z
+110 FOR Z=4 TO 1 STEP -1:PLAY "MB ML O=Z; L32 B-GE-":NEXT:PLAY "L6 O1 E-"
+115 LOCATE 17,1:COLOR CLR2,CLR1:PRINT TAB(8);"The probability of observing ";NO;" or ";:IF AF=1 THEN PRINT "more"; ELSE PRINT "fewer";
+120 PRINT " cases ";:GOSUB 155:PRINT TAB(79):COLOR CLR1,CLR2
+125 IF PS=.5 THEN P=P*2:PRINT TAB(20);"Two-tailed probability ";:GOSUB 155
+130 IF NT*PS<10 OR NT*QS<10 OR P>.05 THEN 145 ELSE P$=".#####"
+135 PRINT:PRINT:PRINT TAB(15);"The observed proportion of successes is  ";:PRINT USING P$;NO/NT
+140 PRINT TAB(8);"Confidence limits can be calculated as:  ";:PRINT USING P$;NO/NT;:PRINT " +/- Z * ";:PRINT USING P$;SQR(PS*QS/NT)
+145 LOCATE 25,10:INPUT;"Do you want to perform another binomial calculation?    ",A$:IF A$="y" OR A$="Y" THEN 20
+150 LOCATE 23,1:END
+155 IF P<.000001 THEN PRINT "< 10 (-6)"; ELSE IF P>.95 THEN PRINT "> .95"; ELSE PRINT "= ";P;
+160 RETURN
+165 LOCATE 25,24:PRINT "Please enter integers only.";
+170 BEEP:LOCATE AR,AC:PRINT "     ":RETURN
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+

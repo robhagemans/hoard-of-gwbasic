@@ -1,0 +1,12 @@
+1440 T$ = STRING$(4,157)+CHR$(152) : M$(1)=CHR$(134)+T$+T$+T$+T$+T$+T$+STRING$(4,157)+CHR$(149)
+1450 T$ = "    "+CHR$(156) : M$(2)=CHR$(156)+T$+T$+T$+T$+T$+T$+"    "+CHR$(156):M$(3)=M$(2)
+1480 T$ = STRING$(4,157)+CHR$(159) : M$(4)=CHR$(150)+T$+T$+T$+T$+T$+T$+STRING$(4,157)+CHR$(151)
+1490 T$ = STRING$(4,157)+CHR$(158) : M$(19)=CHR$(153)+T$+T$+T$+T$+T$+T$+STRING$(4,157)+CHR$(154)
+1500 FOR I = 5 TO 18:M$(I) = M$(I-3):NEXT I
+1740 IF YR = 4 THEN DAYS(2)=29
+1750 IF YR = 8 THEN DAYS(2)=29
+65000 '         SAVE"calepson",a
+O 18:M$(I) = M$(I-3):NEXT I
+1740 IF YR = 4 THEN DAYS(2)=29
+1750 IF YR = 8 THEN DAYS(2)=29
+65000 '         SA

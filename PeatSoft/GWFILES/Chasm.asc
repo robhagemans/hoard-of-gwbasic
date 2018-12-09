@@ -1,0 +1,1182 @@
+10000 '***********************************
+10010 '* PROGRAM CHASM    Version 2.01   *
+10020 '*                                 *
+10030 '* CHeap ASseMbler for the IBM PC. *
+10040 '*                                 *
+10050 '* Begun 6/15/82 by Dave Whitman   *
+10060 '***********************************
+10070 '
+10080 'main program
+10090    GOSUB 50000   'initialize
+10100   'wipe out transient code
+10110   CHAIN MERGE "chasm.ovl",10120,ALL,DELETE 50000-51570
+10120   GOSUB 19950   'set up sym table
+10130   GOSUB 10170   'pass 1: build sym table
+10140   GOSUB 10380   'pass 2: generate obj code & listing
+10150   GOSUB 19490   'clean up
+10160 SYSTEM
+10170 '*******************************************
+10180 '* SUBROUTINE PASSONE                      *
+10190 '* Adds user-defined symbols to sym table. *
+10200 '*******************************************
+10210 '
+10220 PASS = 1
+10230 LOCTR = 256   '0-255 reserved for p.s. prefix
+10240 LINENUM = 0
+10250 WHILE NOT EOF(1)
+10260  'get source line, initialize
+10270    GOSUB 10620   'getline
+10280  'parse it
+10290    GOSUB 10730  'parse
+10300  'if label, enter in sym table
+10310    IF LABEL$ <> "" THEN GOSUB 11640  'newentry
+10320  'if op, decode, & update loctr
+10330    IF OP$ <> "" THEN GOSUB 12480   'update_loctr
+10340  'progress report
+10350    GOSUB 19850
+10360  WEND
+10370 RETURN
+10380 '*********************************
+10390 '* SUBROUTINE PASSTWO            *
+10400 '* Generates obj code & listing. *
+10410 '*********************************
+10420 '
+10430 GOSUB 19370  'pass2_init
+10440 '
+10450 WHILE NOT EOF(1)
+10460  'get source line, initialize
+10470    GOSUB 10620   'getline
+10480  'parse line
+10490    GOSUB 10730   'parse
+10500  'phase error?
+10510    IF LABEL$ <> "" THEN GOSUB 11910  'check_phase
+10520  'if op, update loctr, generate obj. code
+10530    IF OP$ <> "" THEN GOSUB 12480   'update_loctr
+10540  'output obj. code & listing line
+10550    GOSUB 19020  'output
+10560  'progess report
+10570    GOSUB 19850
+10580  WEND
+10590 'wipe out msg
+10600   X = POS(0): Y = CSRLIN: LOCATE 25,1: PRINT TAB(79): LOCATE Y,X
+10610 RETURN
+10620 '********************************************
+10630 '* SUBROUTINE GETLINE                       *
+10640 '* Gets line of source code for processing. *
+10650 '* and initializes for new iteration.       *
+10660 '********************************************
+10670 '
+10680 LINE INPUT#1, INPLINE$
+10690 LINENUM = LINENUM + 1
+10700 NEEDOFFSET = NONE: DSFLAG = FALSE
+10710 OBJLEN = 0
+10720 RETURN
+10730 '*****************************************************
+10740 '* SUBROUTINE PARSE                                  *
+10750 '* Parses input line for any label, op, or operands. *
+10760 '*****************************************************
+10770 '
+10780 LINEPTR = 1: LINEPTR2 = 1
+10790 LABEL$ = "": OP$ = "": SOURCE$ = "": DEST$ = ""
+10800 '
+10810 'set endptr to end of code
+10820   ENDPTR = INSTR(INPLINE$,";") - 1            'just before comment
+10830   IF ENDPTR = -1 THEN ENDPTR = LEN(INPLINE$)  'no comment, set to eol
+10840 '
+10850 'no code? (return)
+10860   IF ENDPTR = 0 THEN 11120
+10870 '
+10880 'convert to all caps
+10890   GOSUB 11140
+10900 '
+10910 'label (if any)
+10920   IF INSTR(DELIM$,LEFT$(INPLINE$,1))  THEN 10960
+10930     GOSUB 11280  'getfield
+10940     LABEL$ = FLD$
+10950 '
+10960 'op-code
+10970   GOSUB 11280  'getfield
+10980   IF NOT FOUND THEN 11120
+10990     OP$ = FLD$
+11000 'save ptr to start of operands
+11010   OPDPTR = LINEPTR
+11020 '
+11030 'destination operand (if any)
+11040   GOSUB 11280  'getfield
+11050   IF NOT FOUND THEN 11120
+11060   DEST$ = FLD$
+11070 '
+11080 'source operand (if any)
+11090   GOSUB 11280  'getfield
+11100   IF NOT FOUND THEN 11120
+11110   SOURCE$ = FLD$
+11120 RETURN
+11130 '
+11140 'internal subroutine caps
+11150 'Scans inpline$ up to comment field,
+11160 'converting l.c. chars. to u.c.. Skips over strings.
+11170 FOR I = 1 TO ENDPTR
+11180   C$ = MID$(INPLINE$,I,1)
+11190   'skip strings
+11200     IF C$ <> "'" THEN 11240
+11210       STRGEND = INSTR(I+1,INPLINE$,C$)
+11220       IF STRGEND > 0 THEN I = STRGEND: GOTO 11250
+11230   'convert
+11240     IF ASC(C$) => 97 AND ASC(C$) <= 122 THEN C$ = CHR$(ASC(C$) - 32):                  MID$(INPLINE$,I,1) = C$
+11250   NEXT I
+11260 RETURN
+11270 '***********************************************************
+11280 '* SUBROUTINE GETFIELD                                     *
+11290 '* Starting at lineptr, trys to return next field in FLD$. *
+11300 '* Sets found if sucessful. Moves lineptr past field.      *
+11310 '***********************************************************
+11320 '
+11330 'find next non-delimiter or run off end
+11340  WHILE LINEPTR <= ENDPTR
+11350    IF INSTR(DELIM$,MID$(INPLINE$,LINEPTR,1)) = 0 THEN 11380
+11360    LINEPTR = LINEPTR + 1
+11370    WEND
+11380 'if past end, not found
+11390  IF LINEPTR <= ENDPTR  THEN 11420
+11400    FOUND = FALSE
+11410    RETURN
+11420 '
+11430 'strings terminated by '
+11440  IF MID$(INPLINE$,LINEPTR,1) <> "'" THEN 11500
+11450    STRGEND = INSTR(LINEPTR+1,INPLINE$,"'")
+11460    IF STRGEND = 0 THEN 11500
+11470      LINEPTR2 = STRGEND + 1
+11480      GOTO 11570
+11490 '
+11500 'otherwise, find next delimter or go 1 past end
+11510  LINEPTR2 = LINEPTR
+11520  WHILE LINEPTR2 <= ENDPTR
+11530    IF INSTR(DELIM$,MID$(INPLINE$,LINEPTR2,1)) > 0 THEN 11570
+11540    LINEPTR2 = LINEPTR2 + 1
+11550    WEND
+11560 '
+11570 'copy field
+11580  FLD$ = MID$(INPLINE$,LINEPTR,LINEPTR2-LINEPTR)
+11590 '
+11600 'move lineptr past field, set found & return
+11610  LINEPTR = LINEPTR2
+11620  FOUND = TRUE
+11630  RETURN
+11640 '**********************************************
+11650 '* SUBROUTINE NEWENTRY                        *
+11660 '* Adds new symbol to sym table with default  *
+11670 '* attributes. (may be changed by pseudo-ops) *
+11680 '**********************************************
+11690 '
+11700 'already in table? (error)
+11710   TARGET$ = LABEL$
+11720  GOSUB 12030     'operand_lookup
+11730  IF NOT FOUND THEN 11780
+11740    ERRS = ERRS + 1
+11750    PRINT#2,"****Error: Duplicate definition of ";LABEL$;" in ";LINENUM
+11760    RETURN
+11770 '
+11780 'table full? (error)
+11790  IF NUMSYM < MAXSYM THEN 11840
+11800    ERRS = ERRS + 1
+11810    PRINT#2, "****Error: Too many user symbols in "; LINENUM
+11820    RETURN
+11830 '
+11840 'else make new entry
+11850  NUMSYM = NUMSYM + 1
+11860  SYM$(NUMSYM) = LABEL$
+11870  VAL1(NUMSYM) = LOCTR
+11880  SYMTYPE(NUMSYM) = NEAR
+11890 '
+11900 RETURN
+11910 '*********************************
+11920 '* SUBROUTINE CHECK_PHASE        *
+11930 '* Label value same both passes? *
+11940 '*********************************
+11950 IF OP$ = "EQU" THEN 12020
+11960 TARGET$ = LABEL$
+11970 GOSUB 12030  'operand_lookup
+11980 '
+11990 IF (SYMTYPE(TABLEPTR) AND (NEAR OR MEM)) = FALSE THEN 12020
+12000   IF VAL1(TABLEPTR) = LOCTR THEN 12020
+12010     ERRS = ERRS + 1: PRINT#2, "****Phase Error"
+12020 RETURN
+12030 '*************************************************
+12040 '* SUBROUTINE OPERAND_LOOKUP                     *
+12050 '* Trys to find TARGET$ in sym table.  If there, *
+12060 '* sets FOUND true, & TABLEPTR to its'position.  *
+12070 '*************************************************
+12080 'scan table for symbol
+12090   FOR TABLEPTR = 1 TO NUMSYM
+12100     IF SYM$(TABLEPTR) = TARGET$ THEN 12160 'found
+12110     NEXT TABLEPTR
+12120 '
+12130 'failure exit point
+12140   FOUND = FALSE
+12150   RETURN
+12160 'sucess exit point
+12170   FOUND = TRUE
+12180   RETURN
+12190 '*********************************************************
+12200 '* SUBROUTINE LOOKUP_OP                                  *
+12210 '* Given op-code in op$, & operand types in dtype &      *
+12220 '* stype, trys to find op in opcode table. If sucessful, *
+12230 '* sets found true, & opptr to its' position.            *
+12240 '*********************************************************
+12250 'binary search for good starting pt.
+12260  MOVE = NUMOP: ST = MOVE/2
+12270  WHILE MOVE >= 2
+12280    MOVE = MOVE/2
+12290    IF OP$ > OPCODE$(ST) THEN ST = ST + MOVE ELSE ST = ST - MOVE
+12300    IF ST < 1 THEN ST = 1
+12310    IF ST > NUMOP THEN ST = NUMOP
+12320    WEND
+12330 '
+12340 'scan for entry matching all 3 fields
+12350  FOR OPPTR = ST TO NUMOP
+12360    IF OPCODE$(OPPTR) > OP$ THEN 12420   'failed
+12370    IF OPCODE$(OPPTR) <> OP$ THEN 12410
+12380    IF (SRCTYPE(OPPTR) AND STYPE) = FALSE THEN 12410
+12390    IF (DSTTYPE(OPPTR) AND DTYPE) = FALSE THEN 12410
+12400    GOTO 12450 'found!
+12410    NEXT OPPTR
+12420 'failure exit
+12430  FOUND = FALSE
+12440  RETURN
+12450 'successful exit
+12460  FOUND = TRUE
+12470  RETURN
+12480 '***************************************
+12490 '* SUBROUTINE UPDATE_LOCTR             *
+12500 '* Decodes operation & advances loctr. *
+12510 '* On pass 2, generates obj. code.     *
+12520 '***************************************
+12530 '
+12540 'set operand types & values
+12550   'destination operand
+12560    TARGET$ = DEST$: GOSUB 12860   'type_operand
+12570    DTYPE = TARGTYPE
+12580    DVAL1 = TARGVAL1
+12590    DVAL2 = TARGVAL2
+12600   'source operand
+12610     'special case: RET op
+12620      IF OP$ = "RET" THEN STYPE = PROCTYPE(STKTOP): GOTO 12690
+12630     'normal source
+12640      TARGET$ = SOURCE$: GOSUB 12860   'type_operand
+12650      STYPE = TARGTYPE
+12660      SVAL1 = TARGVAL1
+12670      SVAL2 = TARGVAL2
+12680 '
+12690 'find op in op table (not there: error)
+12700  TARGET$ = OP$
+12710  GOSUB 12190   'lookup_op
+12720  IF FOUND THEN 12810
+12730    IF PASS = 1 THEN RETURN
+12740    ERRS = ERRS + 1: PRINT#2,"****Syntax Error: ";OP$;DTYPE;STYPE
+12750    IF ((ACUM8 OR ACUM16 OR REG8 OR REG16 OR SEG OR CS)                                AND (DTYPE OR STYPE)) THEN 12800
+12760      IF (STYPE AND (NONE OR IMMED8 OR IMMED16)) = FALSE THEN 12800
+12770        IF INSTR("BW",RIGHT$(OP$,1)) <> 0 THEN 12800
+12780          DIAG = DIAG + 1
+12790          PRINT#2,"****Diagnostic: Specify word or byte operation"
+12800    RETURN
+12810  FLAG = OFLAG(OPPTR)
+12820 '
+12830 'branch for mach ops & pseudo-ops to update loctr
+12840  IF FLAG AND MACHOP THEN GOSUB 15160 ELSE GOSUB 15970
+12850 RETURN
+12860 '*********************************************************
+12870 '* SUBROUTINE TYPE_OPERAND                               *
+12880 '* Sets TARGTYPE to reflect TARGET$'s type.  Sets        *
+12890 '* TARGVAL1 to its' value. If the operand is a register, *
+12900 '* sets TARVAL2 to its' val2. If an offset appears,      *
+12910 '* NEEDOFFSET gets the its' type, and OFFSET its' value. *
+12920 '*********************************************************
+12930 '
+12940 'any operand?
+12950  IF LEN(TARGET$) > 0 THEN 12980
+12960    TARGTYPE = NONE
+12970    RETURN
+12980 'in sym table?
+12990  GOSUB 12030   'operand_lookup
+13000  IF NOT FOUND THEN 13050
+13010    TARGTYPE = SYMTYPE(TABLEPTR)
+13020    TARGVAL1 = VAL1(TABLEPTR)
+13030    IF TABLEPTR <= PREDEF THEN TARGVAL2 = VAL2(TABLEPTR)
+13040    RETURN
+13050 'number?
+13060  GOSUB 13440   'test_number
+13070  IF NOT FOUND THEN 13110
+13080    TARGTYPE = NUMTYPE
+13090    TARGVAL1 = NUMVAL
+13100    RETURN
+13110 'direct mem. ref.?
+13120  GOSUB 13820   'memref
+13130  IF NOT FOUND THEN 13170
+13140    TARGTYPE = MEM
+13150    TARGVAL1 = MEMADDR
+13160    RETURN
+13170 'offset off register?
+13180  GOSUB 14180   'parse_disp_off_reg
+13190  IF NOT FOUND THEN 13240
+13200    TARGTYPE = MEMREG
+13210    TARGVAL1 = REGVAL
+13220    RETURN
+13230 'offset?
+13240  GOSUB 14750 'offset
+13250  IF NOT FOUND THEN 13290
+13260    TARGTYPE = OFFSETYPE
+13270    TARGVAL1 = OFFSETVAL
+13280    RETURN
+13290 'charactor?
+13300  GOSUB 15050
+13310  IF NOT FOUND THEN 13350
+13320     TARGTYPE = IMMED8 OR IMMED16
+13330     TARGVAL1 = CHARVAL
+13340     RETURN
+13350 'string?
+13360  IF LEFT$(TARGET$,1) <> "'" THEN 13400
+13370    TARGTYPE = STRING
+13380    RETURN
+13390 '
+13400 'not found? assume near label or mem ref. (error on pass 2)
+13410  IF PASS = 2 THEN PRINT#2,"****Error: Undefined symbol ";TARGET$:                  ERRS = ERRS + 1
+13420  TARGTYPE = NEAR OR MEM
+13430 RETURN
+13440 '*******************************************
+13450 '* SUBROUTINE TEST_NUMBER                  *
+13460 '* Trys to interpret TARGET$ as a number.  *
+13470 '* If sucessful, sets FOUND true, NUMVAL   *
+13480 '* to its' value and NUMTYPE to its' type. *
+13490 '*******************************************
+13500 '
+13510 FOUND = FALSE
+13520 TN$ = TARGET$  'working copy
+13530 '
+13540 'hex number?
+13550  IF RIGHT$(TN$,1) <> "H" THEN 13690
+13560   'lop off H
+13570    TN$ = LEFT$(TN$,LEN(TN$)-1)
+13580   'scan for non-hex digits (exit)
+13590    I = 1
+13600    FOR I = 1 TO LEN(TN$)
+13610      C$ = MID$(TN$,I,1)
+13620      IF INSTR("0123456789ABCDEF",C$) = 0 THEN RETURN
+13630      NEXT I
+13640   'get value
+13650    NUMVAL = VAL("&H" + TN$)
+13660   'set type, return
+13670    GOTO 13780
+13680 '
+13690 'decimal number?
+13700   'scan for non-dec digits (exit)
+13710    FOR I = 1 TO LEN(TN$)
+13720      C$ = MID$(TN$,I,1)
+13730      IF INSTR("0123456789-+",C$) = 0 THEN RETURN
+13740      NEXT I
+13750   'get value
+13760    NUMVAL = VAL(TN$)
+13770 '
+13780 'sucess exit
+13790  FOUND = TRUE
+13800  IF LEN(HEX$(NUMVAL)) < 3  THEN NUMTYPE = IMMED16 OR IMMED8                        ELSE NUMTYPE = IMMED16
+13810 RETURN
+13820 '********************************************
+13830 '* SUBROUTINE MEMREF                        *
+13840 '* Trys to interpret target$ as a direct    *
+13850 '* mem ref.  If sucessful, sets FOUND true, *
+13860 '* & MEMADDR to the address referanced.     *
+13870 '********************************************
+13880 '
+13890 MR$ = TARGET$  'save copy
+13900 '
+13910 'brackets?
+13920  IF LEFT$(MR$,1) <> "[" OR RIGHT$(MR$,1) <> "]" THEN RETURN
+13930 '
+13940 'strip off brackets
+13950  TARGET$ = MID$(MR$,2,LEN(MR$)-2)
+13960 'try to interpret as addr.
+13970   'might be number
+13980    GOSUB 13440   'test_number
+13990    IF NOT FOUND THEN 14030
+14000      MEMADDR = NUMVAL
+14010      GOTO 14150 'exit
+14020 '
+14030   'or might be symbol
+14040    GOSUB 12030  'operand_lookup
+14050    IF NOT FOUND THEN 14100
+14060      IF (SYMTYPE(TABLEPTR) AND IMMED16) = FALSE THEN 14100
+14070        MEMADDR = VAL1(TABLEPTR)
+14080        GOTO 14150 'exit
+14090 '
+14100 'failure exit
+14110  FOUND = FALSE
+14120  TARGET$ = MR$
+14130  RETURN
+14140 '
+14150 'sucessful exit
+14160  TARGET$ = MR$
+14170  RETURN
+14180 '*****************************************************
+14190 '* SUBROUTINE PARSE_DISP_OFF_REG                     *
+14200 '* Trys to parse TARGET$ as an offset off a register *
+14210 '* If sucessful, sets FOUND true, sets NEEDOFFSET    *
+14220 '* to the offset's type, and OFFSET to it's value .  *
+14230 '*****************************************************
+14240 '
+14250 PDOR$ = TARGET$  'save copy
+14260 '
+14270 'special case
+14280  IF TARGET$ = "[BP]" THEN REGVAL = 6: NEEDOFFSET = IMMED8: OFFSET = 0:              GOTO 14670
+14290 '
+14300 'parse reg spec.
+14310  'set ptr to candidate
+14320   PTR = INSTR(TARGET$,"[")
+14330   IF PTR <= 1 THEN 14710  'no disp, exit
+14340  'isolate candidate
+14350   REG$ = RIGHT$(PDOR$,LEN(PDOR$)-PTR+1)
+14360  'valid reg. spec?
+14370   IF REG$ = "[BP]" THEN REGVAL = 6: GOTO 14440
+14380   TARGET$ = REG$
+14390   GOSUB 12030  'operand_lookup
+14400   IF NOT FOUND OR SYMTYPE(TABLEPTR) <> MEMREG THEN 14710
+14410    'save reg value
+14420     REGVAL = VAL1(TABLEPTR)
+14430 '
+14440 'now parse disp.
+14450  'isolate candidate
+14460   DISP$ = LEFT$(PDOR$,PTR-1)
+14470  'valid disp?
+14480   TARGET$ = DISP$
+14490    'might be symbol
+14500     GOSUB 12030   'operand_lookup
+14510     IF NOT FOUND THEN 14560   'not sym
+14520     IF (SYMTYPE(TABLEPTR) AND (IMMED16 OR IMMED8)) = FALSE THEN 14560
+14530       NEEDOFFSET = SYMTYPE(TABLEPTR)
+14540       OFFSET = VAL1(TABLEPTR)
+14550       GOTO 14670
+14560    'or number
+14570     GOSUB 13440   'test_number
+14580     IF NOT FOUND THEN 14620
+14590       NEEDOFFSET = NUMTYPE
+14600       OFFSET = NUMVAL
+14610           GOTO 14670
+14620    'or offset
+14630     GOSUB 14750 'offset
+14640     IF NOT FOUND THEN 14710
+14650       NEEDOFFSET = OFFSETYPE
+14660       OFFSET = OFFSETVAL
+14670 'sucess exit
+14680  TARGET$ = PDOR$
+14690  FOUND = TRUE
+14700  RETURN
+14710 'failure exit
+14720  TARGET$ = PDOR$
+14730  FOUND = FALSE
+14740  RETURN
+14750 '***************************************************
+14760 '* SUBROUTINE OFFSET                               *
+14770 '* Trys to interpret TARGET$ as an offset operand. *
+14780 '* If sucessful, set FOUND, set OFFSETYPE          *
+14790 '* immed16, and TARGVAL1 to the label's offset.    *
+14800 '***************************************************
+14810 '
+14820 OS$ = TARGET$
+14830 '
+14840 IF LEFT$(OS$,7) <> "OFFSET(" THEN FOUND = FALSE: RETURN
+14850 IF PASS = 1 THEN 15010
+14860 '
+14870 'isolate label
+14880   TARGET$ = MID$(TARGET$,8,LEN(TARGET$)-8)
+14890 '
+14900 'look it up
+14910   GOSUB 12030 'operand_lookup
+14920 '
+14930 IF FOUND AND (SYMTYPE(TABLEPTR) AND (MEM OR NEAR)) THEN 14990
+14940   ERRS = ERRS + 1
+14950   PRINT#2, "****Error: Illegal or undefined argument for Offset"
+14960   OFFSETVAL = 0
+14970   GOTO 15010
+14980 '
+14990 OFFSETVAL = VAL1(TABLEPTR)
+15000 '
+15010 FOUND = TRUE
+15020 OFFSETYPE = IMMED16
+15030 TARGET$ = OS$
+15040 RETURN
+15050 '***************************************
+15060 '* SUBROUTINE CHAR                     *
+15070 '* Trys to interpret TARGET$ as a char *
+15080 '***************************************
+15090 FOUND = FALSE
+15100 IF LEN(TARGET$) <> 3 THEN RETURN
+15110 IF LEFT$(TARGET$,1) <> "'" THEN RETURN
+15120 IF RIGHT$(TARGET$,1) <> "'" THEN RETURN
+15130    FOUND = TRUE
+15140    CHARVAL = ASC(MID$(TARGET$,2,1))
+15150 RETURN
+15160 '*************************************
+15170 '* SUBROUTINE MACHOP                 *
+15180 '* Updates loctr based on op length. *
+15190 '* On pass 2, generates obj. code.   *
+15200 '*************************************
+15210 '
+15220 GOSUB 15800  'op_type
+15230 '
+15240 'opcode
+15250  LOCTR = LOCTR + 1
+15260  IF PASS = 2 THEN GOSUB 16060  'build_opcode
+15270 '
+15280 '2nd op byte?
+15290  IF (OPVAL(OPPTR) <> &HD5) AND (OPVAL(OPPTR) <> &HD4) THEN 15330
+15300    LOCTR = LOCTR + 1
+15310    IF PASS = 2 THEN OBJLEN = OBJLEN + 1: OBJ(OBJLEN) = &HA
+15320 '
+15330 'room for m. byte disp. (must go here, modebyte modifys offset)
+15340  IF NEEDOFFSET = NONE THEN 15370
+15350    IF (NEEDOFFSET AND IMMED8) THEN LOCTR = LOCTR + 1                                  ELSE LOCTR = LOCTR + 2
+15360 '
+15370 'if direct addr. mode byte, leave room for address
+15380  IF (FLAG AND (NEEDMODEBYTE OR NEEDEXT)) = FALSE THEN 15410
+15390    IF (DTYPE OR STYPE) AND MEM THEN LOCTR = LOCTR + 2
+15400 '
+15410 'extension byte?
+15420  IF (FLAG AND NEEDEXT) = FALSE THEN 15460
+15430    LOCTR = LOCTR + 1
+15440    IF PASS = 2 THEN GOSUB 16320   'build_ext
+15450 '
+15460 'mode byte?
+15470  IF (FLAG AND NEEDMODEBYTE) = FALSE THEN 15510
+15480    LOCTR = LOCTR + 1
+15490    IF PASS = 2 THEN GOSUB 16460  'build_modebyte
+15500 '
+15510 '8 bit disp.?
+15520  IF (FLAG AND NEEDISP8) = FALSE THEN 15560
+15530    LOCTR = LOCTR + 1
+15540    IF PASS = 2 THEN GOSUB 16990  'build_disp8
+15550 '
+15560 '16 bit disp.?
+15570  IF (FLAG AND NEEDISP16) = FALSE THEN 15610
+15580    LOCTR = LOCTR + 2
+15590    IF PASS = 2 THEN GOSUB 17210 'build_disp16
+15600 '
+15610 'immediate byte?
+15620  IF (FLAG AND NEEDIMMED8) = FALSE THEN 15650
+15630    LOCTR = LOCTR + 1
+15640    IF PASS = 2 THEN GOSUB 17570
+15650  IF WORD OR ((FLAG AND NEEDIMMED) = FALSE) THEN 15690
+15660    LOCTR = LOCTR + 1
+15670    IF PASS = 2 THEN GOSUB 17570   'build_immed8
+15680 '
+15690 'immediate word(s)?
+15700  IF NOT(WORD) OR ((FLAG AND NEEDIMMED) = FALSE) THEN 15740
+15710    IF DTYPE = IMMED16 THEN LOCTR = LOCTR + 4 ELSE LOCTR = LOCTR + 2
+15720    IF PASS = 2 THEN GOSUB 17430  'build_immed16
+15730 '
+15740 'mem. addr.?
+15750  IF (FLAG AND NEEDMEM) = FALSE THEN 15790
+15760    LOCTR = LOCTR + 2
+15770    IF PASS = 2 THEN GOSUB 17730  'mem_addr
+15780 '
+15790 RETURN
+15800 '************************************
+15810 '* SUBROUTINE OP_TYPE               *
+15820 '* Decides between word & byte ops. *
+15830 '************************************
+15840 '
+15850 IF (DTYPE OR STYPE) AND (REG16 OR ACUM16 OR SEG OR CS) THEN 15900
+15860 IF (DTYPE OR STYPE) AND (REG8 OR ACUM8) THEN 15940
+15870 '
+15880 IF RIGHT$(OP$,1) = "B" THEN 15940
+15890 '
+15900 'word
+15910  WORD = TRUE
+15920  RETURN
+15930 '
+15940 'byte
+15950  WORD = FALSE
+15960  RETURN
+15970 '**********************************************
+15980 '* SUBROUTINE PSEUDO-OP                       *
+15990 '* Branches to routines to handle each pseudo *
+16000 '* op using the value field as an index.      *
+16010 '**********************************************
+16020 '
+16030 ON OPVAL(OPPTR) GOSUB 17860, 18050, 18130, 18510, 18740, 18890
+16040 '                      EQU    ORG    DB     DS     PROC   ENDP
+16050 RETURN
+16060 '**********************************************************
+16070 '* SUBROUTINE BUILD_OPCODE                                *
+16080 '* Builds opcode, stores it in obj. Increments objlength. *
+16090 '**********************************************************
+16100 '
+16110 OBJLEN = OBJLEN + 1
+16120 OBJ(OBJLEN) = OPVAL(OPPTR)
+16130 '
+16140 'add reg. field if requested
+16150  IF (FLAG AND ADDREG) = FALSE THEN 16230
+16160    'segment reg.
+16170     IF DTYPE AND (SEG OR CS) THEN R = DVAL2: GOTO 16210
+16180    'normal reg.
+16190     IF (FLAG AND DIRECTION) THEN R = SVAL2/8 ELSE R = DVAL2/8
+16200 '
+16210    OBJ(OBJLEN) = OBJ(OBJLEN) + R
+16220 '
+16230 'auto word bit?
+16240  IF (FLAG AND AUTOW) = FALSE THEN 16270
+16250    IF WORD THEN OBJ(OBJLEN) = OBJ(OBJLEN) + 1
+16260 '
+16270 'auto count bit?
+16280  IF (FLAG AND AUTOC) = FALSE THEN 16310
+16290    IF STYPE AND CL THEN OBJ(OBJLEN) = OBJ(OBJLEN) + 2
+16300 '
+16310 RETURN
+16320 '**************************************************
+16330 '* SUBROUTINE BUILD_EXTENSION_BYTE                *
+16340 '* Builds an opcode extension byte.  The ext. val *
+16350 '* is extracted from bits 3-5 of the flag word.   *
+16360 '**************************************************
+16370 '
+16380 'get ext.
+16390  MASK = &H38
+16400  EXT = FLAG AND MASK
+16410 '
+16420 'define proper operand as ext. & build mode byte
+16430   IF FLAG AND DIRECTION THEN DVAL2 = EXT ELSE SVAL2 = EXT
+16440   GOSUB 16460  'build_modebyte
+16450 RETURN
+16460 '***************************************************************
+16470 '* SUBROUTINE BUILD_MODE_BYTE                                  *
+16480 '* Given direction flag, memreg values in dval1 and sval1 and  *
+16490 '* reg values in dval2 and sval2, builds an addressing mode    *
+16500 '* byte.  If necessary, also builds displacement byte(s).      *
+16510 '***************************************************************
+16520 '
+16530 OBJLEN = OBJLEN + 1
+16540 '
+16550 'special case: direct mem. addressing?
+16560  IF ((DTYPE OR STYPE) AND MEM) = FALSE THEN 16630
+16570    IF DTYPE = MEM THEN  M = SVAL2 ELSE M = DVAL2
+16580      OBJ(OBJLEN) = 6 + M
+16590      GOSUB 17730  'build_mem_addr
+16600      RETURN
+16610 '
+16620 'normal mode byte
+16630  'operands in normal or reverse order?
+16640   IF FLAG AND DIRECTION THEN M = SVAL1 + DVAL2 ELSE M = DVAL1 + SVAL2
+16650 '
+16660  OBJ(OBJLEN) = M
+16670 '
+16680 'offset byte(s)?
+16690 '
+16700 IF NEEDOFFSET = NONE THEN 16880
+16710 '
+16720 '8 bit disp.
+16730 IF OFFSET > 127 OR OFFSET < -128 THEN 16810
+16740   OBJ(OBJLEN) = OBJ(OBJLEN) + 64  'set mod field
+16750   'crunch neg. offset to 8 bits
+16760     IF OFFSET < 0 THEN OFFSET = OFFSET AND &HFF
+16770   OBJLEN = OBJLEN + 1
+16780   OBJ(OBJLEN) = OFFSET
+16790   RETURN
+16800 '
+16810 '16 bit disp.
+16820  OBJ(OBJLEN) = OBJ(OBJLEN) + 128  'set mod field
+16830  OBJLEN = OBJLEN + 2
+16840  'convert to hi/low form
+16850     NUMLOW = OFFSET: GOSUB 16890  'hi/low
+16860  OBJ(OBJLEN-1) = NUMLOW
+16870  OBJ(OBJLEN) = NUMHIGH
+16880 RETURN
+16890 '************************************************
+16900 '* SUBROUTINE HI/LOW                            *
+16910 '* Splits 16 bit number in numlow, into two     *
+16920 '* byte-sized componants in numhigh and numlow. *
+16930 '************************************************
+16940 H$ = HEX$(NUMLOW)
+16950 H$ = STRING$(4-LEN(H$),"0") + H$
+16960 NUMLOW =  VAL("&H" + RIGHT$(H$,2))
+16970 NUMHIGH = VAL("&H" + LEFT$(H$,2))
+16980 RETURN
+16990 '*********************************************
+17000 '* SUBROUTINE BUILD_DISP8                    *
+17010 '* Calculates the disp. from the present     *
+17020 '* loc to the loc given as an operand.       *
+17030 '* Prints error message if disp. exceeds 127.*
+17040 '*********************************************
+17050 '
+17060 'calculate disp.
+17070  D = DVAL1 - LOCTR
+17080 '
+17090 'check size
+17100  IF ABS(D) < 128 THEN 17140
+17110    D = 0
+17120    IF PASS = 2 THEN PRINT#2,"****Error: Too far for short jump":                     ERRS = ERRS + 1
+17130 '
+17140 'if neg. crunch to 8 bits
+17150  IF D < 0 THEN D = D AND &HFF
+17160 '
+17170 'build obj. code
+17180  OBJLEN = OBJLEN + 1
+17190  OBJ(OBJLEN) = D
+17200 RETURN
+17210 '********************************************
+17220 '* SUBROUTINE BUILD_DISP16                  *
+17230 '* Builds 16 bit displacement. Prints error *
+17240 '* msg. for negative disps not on CALL ops. *
+17250 '********************************************
+17260 '
+17270 'calculate disp.
+17280  D = DVAL1 - LOCTR
+17290 '
+17300 IF OP$ = "JMP" AND D<=128 THEN PRINT#2, "****Diagnostic: Could use JMPS" :        DIAG = DIAG + 1
+17310 '
+17320 'legal?
+17330  IF D >= 0 OR OP$ = "CALL" THEN 17370
+17340    D = 0
+17350    IF PASS = 2 THEN PRINT#2,"****Error: Illegal reverse long jump":                  ERRS = ERRS + 1
+17360 '
+17370 'build obj. code
+17380  NUMLOW = D: GOSUB 16890  'hi/low
+17390  OBJLEN = OBJLEN + 2
+17400  OBJ(OBJLEN-1) = NUMLOW
+17410  OBJ(OBJLEN) = NUMHIGH
+17420 RETURN
+17430 '************************************
+17440 '* SUBROUTINE BUILD_IMMED16         *
+17450 '* Builds word(s) of immediate data *
+17460 '************************************
+17470 '
+17480 IF DTYPE AND IMMED16 THEN IVAL = DVAL1: GOSUB 17510
+17490 IF STYPE AND IMMED16 THEN IVAL = SVAL1: GOSUB 17510
+17500 RETURN
+17510 'internal subroutine immed16
+17520 NUMLOW = IVAL: GOSUB 16890   'hi/low
+17530 OBJLEN = OBJLEN + 2
+17540 OBJ(OBJLEN-1) = NUMLOW
+17550 OBJ(OBJLEN) = NUMHIGH
+17560 RETURN
+17570 '**********************************
+17580 '* SUBROUTINE BUILD_IMMED8        *
+17590 '* Builds byte of immediate data. *
+17600 '**********************************
+17610 '
+17620 IF DTYPE AND IMMED8 THEN IVAL = DVAL1: GOSUB 17650
+17630 IF STYPE AND IMMED8 THEN IVAL = SVAL1: GOSUB 17650
+17640 RETURN
+17650 'int. sub. immed8
+17660 IF IVAL <= 255 AND IVAL >= 0 THEN 17700
+17670   IVAL = 0
+17680   IF PASS = 2 THEN ERRS = ERRS + 1: PRINT#2,"****Error: Data too long"
+17690 '
+17700 OBJLEN = OBJLEN + 1
+17710 OBJ(OBJLEN) = IVAL
+17720 RETURN
+17730 '*********************************
+17740 '* SUBROUTINE MEMREF             *
+17750 '* Builds a memory address word. *
+17760 '*********************************
+17770 '
+17780 'get addr. in hi/low form
+17790  IF DTYPE = MEM THEN NUMLOW = DVAL1 ELSE NUMLOW = SVAL1
+17800  GOSUB 16890
+17810 'build word
+17820  OBJLEN = OBJLEN + 2
+17830  OBJ(OBJLEN-1) = NUMLOW
+17840  OBJ(OBJLEN) = NUMHIGH
+17850 RETURN
+17860 '***************************
+17870 '* SUBROUTINE EQU          *
+17880 '* Handles equ pseudo-op.  *
+17890 '***************************
+17900 '
+17910 IF (LABEL$ <> "")  THEN 17950
+17920   IF PASS = 2 THEN ERRS = ERRS+1: PRINT#2,"****Error: EQU without symbol"
+17930   RETURN
+17940 '
+17950 IF PASS = 2 THEN 18040
+17960 '
+17970 IF DTYPE <> (NEAR OR MEM) THEN 18020   'pass 1 default if not found
+17980   ERRS = ERRS + 1
+17990   PRINT#2, "****Error: EQU with forward referance in ";LINENUM
+18000   RETURN
+18010 '
+18020 VAL1(NUMSYM) = DVAL1
+18030 SYMTYPE(NUMSYM) = DTYPE
+18040 RETURN
+18050 '**************************
+18060 '* SUBROUTINE ORG         *
+18070 '* Handles org pseudo-op. *
+18080 '**************************
+18090 '
+18100 'set loctr to new value
+18110  LOCTR = DVAL1
+18120 RETURN
+18130 '*************************
+18140 '* SUBROUTINE DB         *
+18150 '* Handles db pseudo-op. *
+18160 '*************************
+18170 '
+18175 IF PASS = 2 THEN 18210
+18180 'label? set type to mem
+18190  IF LABEL$ <> "" THEN SYMTYPE(NUMSYM) = MEM
+18200 '
+18210 'scan operand area, building obj. code
+18220  LINEPTR = OPDPTR: LINEPTR2 = OPDPTR
+18230  WHILE LINEPTR < ENDPTR
+18240   'get operand
+18250    GOSUB 11270  'get_field
+18260    IF NOT FOUND THEN 18380  'exit
+18270   'branch for byte value or string
+18280    TARGET$ = FLD$: GOSUB 13440 'test_number
+18290    IF NOT FOUND OR (NUMTYPE AND IMMED8) = FALSE THEN 18320
+18300      GOSUB 18400  'build_byte
+18310      GOTO 18370
+18320    IF LEFT$(FLD$,1) <> "'" THEN 18350
+18330      GOSUB 18440  'build_stg
+18340      GOTO 18370
+18350   'if not byte or string, error on pass 2
+18360    IF PASS = 2 THEN PRINT#2,"****Error: unrecognized operand ";FLD$:                 ERRS = ERRS + 1
+18370   WEND
+18380 LOCTR = LOCTR + OBJLEN
+18390 RETURN
+18400 'subroutine build_byte
+18410 OBJLEN = OBJLEN + 1
+18420 OBJ(OBJLEN) = NUMVAL
+18430 RETURN
+18440 'subroutine build_stg
+18450 FLD$ = MID$(FLD$,2,LEN(FLD$)-2) 'strip off 's
+18460 FOR I = 1 TO LEN(FLD$)
+18470   OBJLEN = OBJLEN + 1
+18480   OBJ(OBJLEN) = ASC(MID$(FLD$,I,1))
+18490   NEXT I
+18500 RETURN
+18510 '*************************
+18520 '* SUBROUTINE DS         *
+18530 '* Handles ds pseudo-op. *
+18540 '*************************
+18550 '
+18560 DSFLAG = TRUE  'signal this is a ds
+18565 IF PASS = 2 THEN 18610 'skip type setting second time
+18570 '
+18580 'label? set type to mem
+18590  IF LABEL$ <> "" THEN SYMTYPE(NUMSYM) = MEM
+18600 '
+18610 'set output code
+18620  IF STYPE AND IMMED8 THEN DSVAL = SVAL1 ELSE DSVAL = 0
+18630 '
+18640 'on pass 2, generate obj. code directly
+18650  IF PASS = 1 THEN 18700
+18660    FOR I = 1 TO DVAL1
+18670      LSET BYTE$ = CHR$(DSVAL): PUT #3
+18680      NEXT I
+18690 '
+18700 'advance loctr, update bytesgen
+18710  LOCTR = LOCTR + DVAL1: BYTESGEN = BYTESGEN + DVAL1
+18720 '
+18730 RETURN
+18740 '***************************
+18750 '* SUBROUTINE PROC         *
+18760 '* Handles proc pseudo-op. *
+18770 '***************************
+18780 '
+18790 IF STKTOP < MAXSTK THEN 18850
+18800   IF PASS = 1 THEN 18830
+18810     ERRS = ERRS + 1
+18820     PRINT#2, "****Error: Procedures nested too deeply"
+18830   RETURN
+18840 '
+18850 'push new proc type for returns
+18860  STKTOP = STKTOP + 1
+18870  PROCTYPE(STKTOP) = DTYPE
+18880 RETURN
+18890 '********************
+18900 '* SUBROUTINE ENDP  *
+18910 '* Pops proc stack. *
+18920 '********************
+18930 '
+18940 IF STKTOP > 0 THEN 19000
+18950   IF PASS = 1 THEN 18980
+18960     ERRS = ERRS + 1
+18970     PRINT#2, "****Error: ENDP without PROC"
+18980   RETURN
+18990 '
+19000 STKTOP = STKTOP - 1
+19010 RETURN
+19020 '************************************
+19030 '* SUBROUTINE OUTPUT                *
+19040 '* Outputs obj code & listing line, *
+19050 '* given code in obj(objlength).    *
+19060 '************************************
+19070 '
+19075 'update number of bytes generated
+19076  BYTESGEN = BYTESGEN + OBJLEN
+19080 IF DSFLAG THEN H$ = HEX$(LOCTR-DVAL1) ELSE H$ = HEX$(LOCTR-OBJLEN)
+19090 H$ = STRING$(4-LEN(H$),"0") + H$
+19100 PRINT#2, TAB(1) H$;
+19110 'first 6 bytes
+19120  I = 1
+19130  PRINT#2, TAB(6)
+19140  WHILE I <= 6
+19150    IF I > OBJLEN THEN 19220
+19160    LSET BYTE$ = CHR$(OBJ(I)): PUT #3
+19170    H$ = HEX$(OBJ(I)): IF LEN(H$) = 1 THEN H$ = "0" + H$
+19180    PRINT#2, H$;
+19190    I = I + 1
+19200    WEND
+19210 '
+19220 'source (truncate if necessary)
+19230  PRINT#2, TAB(19)
+19240  PRINT#2, USING "####"; LINENUM;
+19250  PRINT#2, SPACE$(2) LEFT$(INPLINE$, LWIDTH-26)
+19260 '
+19270 'rest of obj. code
+19280  WHILE I <= OBJLEN
+19290    IF I MOD 6 = 1 THEN PRINT#2, TAB(6)
+19300    LSET BYTE$ = CHR$(OBJ(I)): PUT #3
+19310    H$ = HEX$(OBJ(I)): IF LEN(H$) = 1 THEN H$ = "0" + H$
+19320    PRINT#2, H$;
+19330    I = I + 1
+19340    WEND
+19350 IF OBJLEN > 6 THEN PRINT#2,
+19360 RETURN
+19370 '***************************
+19380 '* SUBROUTINE PASSTWO_INIT *
+19390 '***************************
+19400 '
+19410 'reset input file
+19420  CLOSE #1: OPEN SC$ FOR INPUT AS #1
+19430 '
+19440 PASS = 2
+19450 LOCTR = 256
+19460 LINENUM = 0
+19465 BYTESGEN = 0
+19470 '
+19480 RETURN
+19490 '************************
+19500 '* SUBROUTINE FINALPROC *
+19510 '* Cleanup              *
+19520 '************************
+19530 '
+19540 IF STKTOP > 0 THEN ERRS = ERRS + 1: PRINT#2,"****Error: missing ENDP"
+19550 '
+19560 PRINT#2,: PRINT#2,: PRINT#2, ERRS; "Error(s) detected"
+19570 PRINT#2, DIAG; "Diagnostic(s) offered"
+19575 PRINT#2,: PRINT#2, BYTESGEN; "Bytes of object code generated"
+19580 'dump sym table
+19590  GOSUB 19690
+19600 'return printer to normal
+19610  IF L$ = "lpt1:" THEN PRINT#2, PMODEOFF$
+19620 'hang onto screen listing
+19630  IF L$ <> "scrn:" THEN 19680
+19640    PRINT: BEEP: COLOR 0,7
+19650    PRINT TAB(30) "Hit any key to exit" TAB(79);
+19660    C$ = INKEY$: IF C$ = "" THEN 19660
+19670    COLOR 7,0
+19680 RETURN
+19690 '*****************************
+19700 '* SUBROUTINE DUMP_SYM_TABLE *
+19710 '*****************************
+19720 '
+19730 PRINT#2,: PRINT#2, "SYMBOL TABLE DUMP:"
+19740 I = PREDEF + 1
+19750 F$ =  "\        \!\  \\  \"  'format
+19760 PERLINE = LWIDTH \ LEN(F$)
+19770 WHILE I <= NUMSYM
+19780   H$ = HEX$(VAL1(I)): H$ = STRING$(4-LEN(H$),"0") + H$
+19790   PRINT#2, USING F$; SYM$(I); " ";  H$; "    ";
+19800   I = I + 1
+19810   IF (I-PREDEF) MOD PERLINE = 1 THEN PRINT#2,
+19820   WEND
+19830 PRINT#2,
+19840 RETURN
+19850 '*************************************
+19860 '* SUBROUTINE PROGESS REPORT         *
+19870 '* Maintains reassuring msg. on scrn *
+19880 '*************************************
+19890 '
+19900 X = POS(0): Y = CSRLIN: LOCATE 25,1: COLOR 0,7: PRINT TAB(20);
+19910 IF PASS = 1 THEN PRINT "First"; ELSE PRINT "Second";
+19920 PRINT " pass in progress. Lines processed = "; LINENUM;
+19930 PRINT TAB(79);: COLOR 7,0: LOCATE Y,X
+19940 RETURN
+19950 '****************************************
+19960 '* SUBROUTINE SET_UP_SYMBOL_TABLE       *
+19970 '* Sets up sym table, & opens obj. file *
+19980 '****************************************
+19990 '
+20000 INPUT#3, PREDEF, MAXSYM: LINE INPUT#3, C$: LINE INPUT#3, C$
+20010 DIM SYM$(MAXSYM), VAL1(MAXSYM), VAL2(PREDEF), SYMTYPE(MAXSYM)
+20020 '
+20030 FOR I = 1 TO PREDEF  '# of pre-defined syms
+20040   INPUT#3, SYM$(I), VAL1(I), VAL2(I), SYMTYPE(I)
+20050   NEXT I
+20060 NUMSYM = PREDEF
+20070 '
+20080 CLOSE #3
+20090 OPEN O$ AS #3 LEN=1: FIELD #3,1 AS BYTE$
+20100 RETURN
+50000 '**********************************
+50010 '* SUBROUTINE INIT                *
+50020 '* Initializes all but sym table. *
+50030 '**********************************
+50040 '
+50050 DEFINT A-Z
+50060 ERRS = 0: DIAG = 0
+50070 '
+50080 'title page
+50090  GOSUB 50190
+50100 'define constants
+50110  GOSUB 50450
+50120 'open files
+50130  GOSUB 50660
+50140 'op table
+50150  GOSUB 51190
+50160 'listing header
+50170  GOSUB 51350
+50180 RETURN
+50190 '*************************************************
+50200 '* SUBROUTINE TITLE                              *
+50210 '* Prints title page, & waits for user response. *
+50220 '*************************************************
+50230 '
+50240 SCREEN 0,0,0: WIDTH 80: KEY OFF: CLS: LOCATE 24,1,0
+50250 PRINT TAB(12)"É";STRING$(56,"Í");"»
+50260 PRINT TAB(12)"º"TAB(69)"º
+50270 PRINT TAB(12)"º"TAB(32)"CHASM  version 2.01"TAB(69)"º
+50280 PRINT TAB(12)"º"TAB(69)"º
+50290 PRINT TAB(12)"º"TAB(25)"Cheap Assembler for the IBM PC"TAB(69)"º
+50300 PRINT TAB(12)"º"TAB(69)"º
+50310 PRINT TAB(12)"º      If you have used this program and found it of     º
+50320 PRINT TAB(12)"º   value, your $20 contribution will be appreciated.    º
+50330 PRINT TAB(12)"º"TAB(69)"º
+50340 PRINT TAB(12)"º"TAB(29)"David Whitman"TAB(69)"º
+50350 PRINT TAB(12)"º"TAB(29)"2 North Park Street"TAB(69)"º
+50360 PRINT TAB(12)"º"TAB(29)"Apartment L"TAB(69)"º
+50370 PRINT TAB(12)"º"TAB(29)"Hanover, NH  03755"TAB(69)"º
+50380 PRINT TAB(12)"º"TAB(69)"º
+50390 PRINT TAB(12)"º   You are encouraged to copy and share this program.   º
+50400 PRINT TAB(12)"º"TAB(69)"º
+50410 PRINT TAB(12) "È";STRING$(56,"Í");"¼":PRINT
+50420 PRINT TAB(27) "Hit any key to continue...":PRINT:PRINT
+50430 I$ = INKEY$: IF I$ = "" THEN 50430
+50440 CLS: RETURN
+50450 '****************************
+50460 '* SUBROUTINE SET_CONSTANTS *
+50470 '****************************
+50480 'general
+50490  TRUE = -1: FALSE = 0: DELIM$ = " ," + CHR$(9)
+50500 '
+50510 'flag values
+50520 'bits 3-5 reserved for ext. values
+50530  MACHOP = 1: AUTOW = 4: ADDREG = 64: NEEDEXT = 128
+50540  NEEDISP8 = 256: NEEDISP16 = 512: NEEDMODEBYTE = 1024: NEEDIMMED8 = 2048
+50550  NEEDIMMED = 4096: DIRECTION = 8192: NEEDMEM = 16384: AUTOC = &H8000
+50560 '
+50570 'operand types
+50580  ACUM8 = 1: ACUM16 = 2: REG8 = 4: REG16 = 8: MEMREG = 16: CS = 32
+50590  SEG = 64: MEM = 128: IMMED8 = 256: IMMED16 = 512: NONE = 1024
+50600  STRING = 2048: NEAR = 4096: FAR = 8192: CL = 16384
+50610 '
+50620 'arrays
+50630 MAXOBJ = 50: DIM OBJ(MAXOBJ)
+50640 MAXSTK = 10: DIM PROCTYPE(MAXSTK): STKTOP = 0
+50650 RETURN
+50660 '*****************************************************
+50670 '* SUBROUTINE OPEN_FILES                             *
+50680 '* Prompts user for i/o filenames, then opens files. *
+50690 '*****************************************************
+50700 '
+50710 ON ERROR GOTO 51000
+50720 '
+50730 'input file
+50740  LOCATE 1,1: INPUT"Source code file name? [.asm] ", S$
+50750  IF S$ = "" THEN BEEP: GOTO 50740
+50760  'if no extension, add default
+50770     IF INSTR(S$,".") = 0                                                              THEN SC$ = S$ + ".asm"                                                          ELSE SC$ = S$: S$ = LEFT$(S$,INSTR(S$,".")-1)
+50780    OPEN SC$ FOR INPUT AS #1
+50790  LOCATE 3,1
+50800  INPUT"Direct listing to Printer (P), Screen (S), or Disk (D)?",L$
+50810  IF L$ = "" THEN BEEP: GOTO 50790
+50820    IF INSTR("PpSsDd",L$) = 0 THEN BEEP: GOTO 50790  'invalid response
+50830    IF L$ = "P" OR L$ = "p" THEN L$ = "lpt1:" : GOTO 50890  'printer?
+50840    IF L$ = "S" OR L$ = "s" THEN L$ = "scrn:" : GOTO 50890  'screen?
+50850      LOCATE 3,1: PRINT SPACE$(79);: LOCATE 3,1
+50860      PRINT"Name for listing file? [";S$;".lst] ";
+50870      INPUT "",L$
+50880      IF L$ = "" THEN L$ = S$ + ".lst"  'default to source name
+50890    OPEN L$ FOR OUTPUT AS #2
+50900 PRINT#2, 'test listing device
+50910 'object file
+50920  LOCATE 5,1: PRINT "Name for object file?  [";S$;".com] ";
+50930  INPUT "",O$
+50940  'default to source file name.com
+50950    IF O$ = "" THEN O$ = S$ + ".com"
+50960  'will open after symtable setup
+50970 ON ERROR GOTO 0 'kill error trapping
+50980  PRINT: PRINT: PRINT
+50990 RETURN
+51000 '****************
+51010 '*Error Handler *
+51020 '****************
+51030 '
+51040 IF ERR = 53 THEN 51050
+51045 IF NOT((ERR = 52) AND (ERL = 50780)) THEN 51120
+51050   COLOR 0,7: BEEP
+51060   PRINT SC$; " not found.  Press Esc to exit, anything else to continue.";
+51070   SC$ = INKEY$: IF SC$ = "" THEN 51070
+51080   IF SC$ = CHR$(27) THEN SYSTEM
+51090   LOCATE ,1: COLOR 7,0: PRINT SPACE$(80);
+51100   LOCATE 1,31: PRINT SPACE$(48); : LOCATE ,1: RESUME 50740
+51110 '
+51120 IF ERR <> 27 THEN 51180
+51130    CLOSE #2: COLOR 0,7: BEEP
+51140    PRINT"Printer not available.  Press any key to continue.";
+51150    L$ = INKEY$ : IF L$ = "" THEN 51150
+51160    LOCATE ,1: COLOR 7,0: PRINT SPACE$(79);
+51170    LOCATE 3,56: PRINT SPACE$(23);: LOCATE ,1: RESUME 50800
+51180 ON ERROR GOTO 0
+51190 '***********************
+51200 '* SUBROUTINE OP_TABLE *
+51210 '***********************
+51220 '
+51221 'put reassuring message on screen
+51222  X = POS(0): Y = CSRLIN: LOCATE 25,1: COLOR 16,7
+51223  PRINT TAB(30) "*Set-up in progress*" TAB(79);
+51224  COLOR 7,0: LOCATE Y,X
+51225 '
+51230 OPEN "chasm.dat" FOR INPUT AS #3
+51240 'note: c$ used to skip data comments
+51250 '
+51260 INPUT#3, NUMOP: LINE INPUT#3,C$: LINE INPUT#3, C$
+51270 DIM OPCODE$(NUMOP), OPVAL(NUMOP), SRCTYPE(NUMOP)
+51280 DIM DSTTYPE(NUMOP), OFLAG(NUMOP)
+51290 '
+51300 FOR I = 1 TO NUMOP
+51310   INPUT#3, OPCODE$(I),OPVAL(I),DSTTYPE(I),SRCTYPE(I),OFLAG(I)
+51320   LINE INPUT#3, C$
+51330   NEXT I
+51340 RETURN
+51350 '*************************
+51360 '* SUBROUTINE HEADER     *
+51370 '* Prints listing header.*
+51380 '*************************
+51390 '
+51400 LWIDTH = 79  'default width
+51410 '
+51420 'title & date
+51430  D$ = LEFT$(DATE$,2) + "/" + MID$(DATE$,4,2) + "/" +  RIGHT$(DATE$,2)
+51440  PRINT#2, SC$ TAB(LWIDTH-LEN(D$)) D$:PRINT#2,:PRINT#2,
+51450 '
+51460 'printer set up?
+51470  IF L$ <> "lpt1:" THEN 51540
+51480    'for NEC 8023 printer, remove quotes for auto condensed mode
+51490    'similar code may be substituted for other printers.
+51500   LWIDTH = 131: WIDTH #2, LWIDTH + 1
+51510   PRINT#2, CHR$(27) + "Q" 'pmodeon
+51520   PMODEOFF$ = CHR$(27) + "N"
+51530 '
+51540 'column headings
+51550  PRINT#2,"LOC"TAB(6)"OBJ"TAB(19)"LINE"TAB(25)"SOURCE":PRINT#2,
+51560 '
+51570 RETURN
+

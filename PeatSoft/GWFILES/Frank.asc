@@ -1,0 +1,124 @@
+10 KEY OFF:WIDTH 80:CLS:DEFINT A-Z:CU$="     "
+70 Z=0:GOSUB 3000:FOR X=13 TO 15:LOCATE X,1:PRINT STRING$(80,"Û");:NEXT X
+74 CHAIN MERGE "b:words", 75, ALL
+75 GOSUB 1000:DIM H$(NW), H(NW), A$(90), A(90), W$(90), W(90), U$(50), U(50):T$=TIME$:XX=VAL(LEFT$(T$,2))*120+VAL(MID$(T$,4,2))*60+VAL(RIGHT$(T$,2)):RANDOMIZE XX
+77 RESTORE:FOR I=1 TO NW:READ H$(I):NEXT I
+80 FOR X=1 TO NW:IF H(X)=0 THEN 100 ELSE NEXT X
+90 FOR X=1 TO NW:H(X)=0:NEXT X:H=INT(RND*NW):GOTO 110
+100 FOR T=1 TO 5:H=INT(RND*NW):IF H(H)=0 THEN 110 ELSE NEXT T:H=X
+110 H$=H$(H):H(H)=1
+120 L=LEN(H$):FOR X=1 TO L:W$(X)=MID$(H$,X,1):W(X)=0:NEXT X
+140 LOCATE 14,39-L/2:PRINT STRING$(L+2," ");:LOCATE 14,40-L/2:COLOR 15:PRINT STRING$(L,"-");:COLOR 7
+150 FOR X=65 TO 90:A$(X)=CHR$(X):NEXT X
+160 LOCATE 16,1:PRINT SPACE$(70):LOCATE 16,1:PRINT"What's your letter?";
+170 LOCATE 18,5:PRINT STRING$(70,"Ü");
+180 LOCATE 20,14:FOR X=65 TO 90:PRINT A$(X)" ";:NEXT X
+190 CU=22:LOCATE 21,30:PRINT"('/' to guess word)";
+200 IKEY$="":LOCATE 16,CU:PRINT CU$;
+210 GOSUB 59990:BEEP
+220 IF IKEY$="*" THEN CLS:LOCATE 12,10:PRINT"The word was "H$(H)"!";:TIMEOUT=5:GOSUB 59950:RUN "b:ekg001"
+230 IF IKEY$="/" THEN 2000
+240 A=ASC(IKEY$):IF A>90 THEN A=A-32
+250 IF INSTR("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",IKEY$)=0 THEN 200
+260 LOCATE 16,CU:PRINT IKEY$;
+270 IF A$(A)=" " THEN LOCATE 17,1:PRINT"You've already used "IKEY$"!";:TIMEOUT=2:GOSUB 59950:LOCATE 17,1:PRINT SPACE$(50);:GOTO 200
+280 S=0:NC=0:FOR X=1 TO L
+290 IF W$(X)=IKEY$ THEN W(X)=1:S=S+1
+300 IF W(X)=1 THEN NC=NC+1
+310 NEXT X
+320 IF NC=L THEN 340
+330 IF S<>0 THEN 340 ELSE IF Z>=7 THEN 3800 ELSE LOCATE 17,1:PRINT"The monster gets ";:GOSUB 3000:TIMEOUT=2:GOSUB 59950:LOCATE 17,1:PRINT SPACE$(50);:A$(A)=" ":GOTO 180
+340 LOCATE 14,40-L/2:COLOR 15
+350 FOR X=1 TO L:IF W(X)=1 THEN PRINT W$(X); ELSE PRINT"-";
+360 NEXT X:COLOR 7:A$(A)=" ":IF NC=L THEN 4000
+370 TIMEOUT=2:GOSUB 59950:GOTO 180
+1000 ON ERROR GOTO 1050
+1010 RESTORE:NW=0
+1020 READ X$:NW=NW+1:GOTO 1020
+1050 RETURN
+2000 LOCATE 16,1:PRINT"What is your guess for the word? ";:INPUT W$:IF W$="*" THEN CLS:LOCATE 12,10:PRINT"The word was "H$(H)"!";:TIMEOUT=5:GOSUB 59950:RUN "b:???0??"
+2010 IF W$=H$ THEN 4000
+2020 LOCATE 16,1:PRINT SPACE$(70);:LOCATE 16,1:PRINT"Wrong!  There goes ";:GOSUB 3000:TIMEOUT=2:GOSUB 59950:GOTO 160
+3000 Z=Z+1:ON Z GOTO 3100, 3200,3300,3400,3500,3600,3700,3800
+3010 STOP
+3100 LOCATE 1,1:PRINT STRING$(80,"ß");:LOCATE 12,1:PRINT STRING$(80,"Ü");:FOR X=1 TO 12:LOCATE X,1:PRINT"Û";:LOCATE X,80:PRINT"Û";:NEXT X:LOCATE 2,28:COLOR 15:PRINT"F R A N K E N S T E I N";:COLOR 7
+3110 FOR X=6 TO 12:LOCATE X,10:PRINT STRING$(8,"Û");:LOCATE X,62:PRINT STRING$(8,"Û");:NEXT X:LOCATE 5,13:PRINT"ÛÛ";:LOCATE 5,65:PRINT"ÛÛ";
+3120 RETURN
+3200 PRINT"his body!";
+3210 COLOR 15:LOCATE 6,37:PRINT STRING$(7,"Û") CHR$(31) STRING$(6,29) STRING$(5,"Û") CHR$(31) STRING$(4,29) STRING$(3,"Û") CHR$(31) STRING$(2,29) "Û";:COLOR 7
+3220 RETURN
+3300 PRINT"his arm!";
+3310 COLOR 15:LOCATE 6,35:PRINT"ÜÜ" CHR$(31) STRING$(2,29) "Û" CHR$(31) CHR$(29) "Û";:COLOR 7
+3320 RETURN
+3400 PRINT"his other arm!";
+3410 COLOR 15:LOCATE 6,44:PRINT"ÜÜ" CHR$(31) CHR$(29) "Û" CHR$(31) CHR$(29) "Û";:COLOR 7
+3420 RETURN
+3500 PRINT"his leg!";
+3510 COLOR 15:LOCATE 9,39:PRINT"Ü" CHR$(31) CHR$(29) "Û" CHR$(31) STRING$(2,29) "ÜÛ";:COLOR 7
+3520 RETURN
+3600 PRINT"his other leg!";
+3610 COLOR 15:LOCATE 9,41:PRINT"Ü" CHR$(31) CHR$(29) "Û" CHR$(31) CHR$(29) "ÛÜ";:COLOR 7
+3620 RETURN
+3700 PRINT"his head!";
+3710 COLOR 15:LOCATE 3,39:PRINT"ÛÛÛ" CHR$(31) STRING$(3,29) "ÝÛÞ" CHR$(31) STRING$(3,29) "ÛßÛ";:COLOR 7
+3720 RETURN
+3800 LOCATE 16,1:PRINT"     The word was   " H$ ".";:TIMEOUT=2:GOSUB 59950:PRINT"   The MONSTER lives!!!";:TIMEOUT=2:GOSUB 59950
+3810 FOR X=1 TO 10
+3820 LOCATE 6,35:PRINT"  " CHR$(31) STRING$(2,29) " " CHR$(31) CHR$(29) " ";
+3830 LOCATE 6,44:PRINT"  " CHR$(31) CHR$(29) " " CHR$(31) CHR$(29) " ";
+3840 COLOR 15:LOCATE 6,35:PRINT"ßß" CHR$(30) STRING$(2,29) "Û" CHR$(30) CHR$(29) "Û";
+3850 LOCATE 6,44:PRINT"ßß" CHR$(30) CHR$(29) "Û" CHR$(30) CHR$(29) "Û";
+3860 FOR X1=1 TO 50:NEXT X1
+3870 LOCATE 6,35:PRINT"  " CHR$(30) STRING$(2,29) " " CHR$(30) CHR$(29) " ";
+3880 LOCATE 6,44:PRINT"  " CHR$(30) CHR$(29) " " CHR$(30) CHR$(29) " ";
+3890 COLOR 15:LOCATE 6,35:PRINT"ÜÜ" CHR$(31) STRING$(2,29) "Û" CHR$(31) CHR$(29) "Û";:COLOR 7
+3900 COLOR 15:LOCATE 6,44:PRINT"ÜÜ" CHR$(31) CHR$(29) "Û" CHR$(31) CHR$(29) "Û";:COLOR 7
+3905 NEXT X
+3910 LOCATE 16,1:PRINT SPACE$(70):LOCATE 16,1:PRINT"              Would you like to play again (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")?";
+3920 GOTO 4010
+4000 LOCATE 16,1:PRINT"Correct!!     Would you like to play again (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")?";
+4010 GOSUB 59990:IF INSTR("ynYN",IKEY$)=0 THEN 4010
+4020 BEEP:IF IKEY$="y" OR IKEY$="Y" THEN CLS:Z=0:GOSUB 3000:FOR X=13 TO 15:LOCATE X,1:PRINT STRING$(80,"Û");:NEXT X:GOTO 80
+4030 RUN "menu"
+5000 RUN "b:???0??"
+10000 DATA fat,cat,act,can,fast,hat,hand,last,man,ran,have
+10010 DATA red,hen,let,get,help,next,pet,men,went,bed,said
+10020 DATA big,pig,fir,did,swim,six,dig,win,sit,hit,been
+10030 DATA rug,bug,jump,hunt,fun,must,cup,bus,cut,run,of,from
+10040 DATA hot,pond,got,hop,not,dog,log,lost,soft,on,was,want
+10050 DATA glass,grass,bell,dress,will,still,off,cross,fuss,stuff,roll
+10060 DATA milk,truck,ask,back,mask,neck,desk,sick,silk,rock
+10070 DATA fish,dish,brush,splash,wish,ship,shop,shed,shut,shelf,wash
+10080 DATA rich,witch,lunch,catch,ranch,pitch,such,match,much,stretch,watch
+10090 DATA that,this,them,than,then,thin,bath,thick,with,cloth,both
+10100 DATA pink,thank,bank,think,trunk,string,sang,long,bring,hung,young
+10110 DATA play,day,may,say,stay,train,rain,wait,paint,mail,they
+10120 DATA bake,safe,chase,came,cake,gave,late,game,name,made,break
+10130 DATA see,need,keep,sleep,me,she,clean,read,teach,piece
+10140 DATA try,dry,by,cry,fly,pie,tie,lie,cried,tried,eye
+10150 DATA side,line,five,time,like,fine,ride,hide,kite,mine,give
+10160 DATA find,kind,mind,hind,blind,right,night,light,fight,might,wind
+10170 DATA go,no,slow,show,own,low,boat,road,goat,coat,to,do
+10180 DATA cold,nose,old,those,hold,close,told,hope,gold,home,one
+10190 DATA new,chew,few,blue,threw,true,grew,suit,flew,fruit,build
+10200 DATA use,mule,cute,goose,loose,choose,food,soon,zoo,room,you,school
+10210 DATA some,friend,done,does,come,shoe,move,guess,live,head
+10220 DATA put,pull,push,full,bush,foot,look,good,book,took,could,should,would
+10230 DATA why,wheel,when,whip,which,who,white,whose,while,what
+10240 DATA all,draw,ball,crawl,call,fault,fall,caught,saw,taught,shall,gone
+10250 DATA brown,house,cow,found,down,sound,how,our,now,out,your,four
+10260 DATA toy,noise,joy,point,boy,soil,join,boil,oil,spoil
+10270 DATA hear,year,ear,rear,dear,cheer,clear,deer,near,steer,here
+10280 DATA hair,care,air,scare,pair,bare,chair,square,fair,share,bear,where
+10290 DATA fork,or,for,short,horse,floor,store,tore,shore,more,wore,door
+10300 DATA barn,yard,car,arm,farm,are,hard,dark,far,march,part
+10310 DATA her,jerk,serve,girl,bird,first,third,curl,turn,hurt,word,work,were
+10320 DATA better,never,after,under,coller,color,other,mother,water father
+10330 DATA funny,happy,story,hurry,party,any,many,very,ready,pretty
+10340 DATA write,knew,know,wrote,lamb,talk,walk,laugh,climb,eight
+10350 DATA one,two,three,four,five,six,seven,eight,nine,ten
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

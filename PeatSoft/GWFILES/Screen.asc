@@ -1,0 +1,67 @@
+10 CLS
+20 CLS:KEY OFF
+30 REM----------------------------------------------
+40 REM                SCREEN.BAS
+50 REM    BUILD A SCREEN FORMAT FOR DATA ENTRY
+60 REM----------------------------------------------
+70 REM
+80 OPEN "I",2, "HEADER.DAT"
+90  INPUT #2,FSCREEN$,ROOT%,LNG%,LNF%,AN%,LINS%,N%,SIZE%,INDEX$,MAST$
+100 CLOSE 2
+110 FOR I%=1 TO 10:PRINT:NEXT I%
+120 PRINT" Enter a Screen Form one line at a time."
+130 PRINT
+131 PRINT"EXAMPLE:   1 LAST NAME *----------------
+132 PRINT"           2 FIRST :---------------
+133 PRINT"           3 STREET:---------------
+134 PRINT"           4 CITY  :----------------------
+135 PRINT"           5 STATE :----      ZIP:----------
+136 PRINT"           6 PHONE :---------------
+140 PRINT:PRINT:PRINT" Remember these codes:
+150 PRINT
+160 PRINT"                * = keyed (indexed) value"
+170 PRINT"                : = begins a field
+180 PRINT"                - = field designation"
+190 FOR I%=1 TO  3:PRINT:NEXT I%
+200 DIM RW$(LINS%)
+210 FOR L%=1 TO LINS%
+220  PRINT USING "## ";L%;
+230  LINE INPUT RW$(L%)
+240 NEXT L%
+250 REM--------------------------------
+260 REM      edit it
+270 REM--------------------------------
+280 PRINT
+290 INPUT "Enter 0 to stop, or line number to change: ";L%
+300 IF L%<= 0 OR L%>LINS% THEN 390
+310  PRINT USING "## ";L%;
+320  PRINT RW$(L%)
+330  PRINT USING "## ";L%;
+340  LINE INPUT RW$(L%)
+350 GOTO 280
+360 REM-----------------------------------------
+370 REM     file it in fscreen$
+380 REM-----------------------------------------
+390 REM
+400 PRINT:LINE INPUT "Do you want hard copy ?";Y$
+410 IF Y$<>"y" AND Y$<>"Y" THEN 440
+420 GOSUB 540:GOTO 400
+430 REM------------------------------------
+440 OPEN "o",1, FSCREEN$
+450  FOR L%=1 TO LINS%
+460      PRINT #1,RW$(L%)
+470  NEXT L%
+480 CLOSE 1
+490 PRINT:PRINT"Form saved in ";FSCREEN$
+500 RUN "dbmenu"
+510 REM-----------------------------------
+520 REM        hard copy
+530 REM-----------------------------------
+540 LPRINT:LPRINT "                    Screen Form ";FSCREEN$
+550 LPRINT:LPRINT
+560 FOR L%=1 TO LINS%
+570  LPRINT USING "## ";L%:LPRINT RW$(L%)
+580 NEXT L%
+590 LPRINT:LPRINT:LPRINT
+600 RETURN
+

@@ -1,0 +1,397 @@
+10 REM=======================================================================
+20 REM============================ BLACKJACK ================================
+30 REM This program plays Blackjack with either one or two players.  The   ==
+40 REM computer always plays the role of dealer and the players betting    ==
+50 REM on the results of each play.                                        ==
+70 REM=======================================================================
+80 REM $s2
+100 REM======================================================================
+110 REM=========================== MAIN ROUTINE =============================
+120 REM This routine contains the main logic for the program.  It makes    ==
+130 REM extensive use of subroutines which are described later.            ==
+140 REM======================================================================
+150 REM $s2
+160 GOSUB 500 'INITIALIZATION
+170 GOSUB 1000 'PLAY BLACKJACK
+180 GOTO 170
+490 REM $s2
+500 REM======================================================================
+510 REM========================== INITIALIZATION ============================
+520 REM This routine turns off the function keys, sets the display to      ==
+530 REM 80-character mode, and displays the opening screens.               ==
+550 REM======================================================================
+560 REM $s2
+570 KEY OFF:KEY(10) ON:ON KEY(10) GOSUB 10000:DEFINT A-Z
+580 WIDTH 80:B=0:O=0
+590 CLS:HEART=3:DIAMOND=4:CLUB=5:SPADE=6
+591 FOR I=1 TO 12
+600 Y=5:X=30:CARD=I:SUIT=HEART:GOSUB 20000
+601 Y=5:X=41:CARD=I+1:SUIT=SPADE:GOSUB 20000
+602 NEXT I
+603 Y=5:X=30:CARD=11:SUIT=HEART:GOSUB 20000
+604 Y=5:X=41:CARD=1:SUIT=SPADE:GOSUB 20000
+610 LOCATE 14,35:PRINT "BLACKJACK"
+620 LOCATE 16,39:PRINT "by"
+621 LOCATE 17,30:PRINT "Hughes J. Glantzberg"
+622 LOCATE 18,30:PRINT "1602 Elizabeth Drive"
+623 LOCATE 19,30:PRINT "Carrollton, TX 75007"
+630 ON ERROR GOTO 3000
+635 TIMEOUT=5:GOSUB 59950
+640 RETURN
+990 REM $pa
+1000 REM=====================================================================
+1010 REM======================== PLAY BLACKJACK =============================
+1080 REM=====================================================================
+1085 REM $s2
+1100 CLS
+1110 LOCATE 12,10:PRINT"Will there be 1 or 2 players?  ";
+1120 GOSUB 59990:PLAYERS=VAL(IKEY$):IF PLAYERS<>1 AND PLAYERS<>2 THEN 1120
+1130 PRINT PLAYERS
+1140 FOR I=1 TO PLAYERS
+1150 PRINT TAB(10) "Enter the name of player " I "  ";:INPUT "",NAM$(I)
+1160 NEXT I
+1170 GOSUB 59980:Z=50:DIM A(64)
+1180 FOR X=1 TO 52:A(X)=X:NEXT X
+1190 CLS:GOSUB 1200:CLS:GOTO 2000
+1195 REM $s2
+1200 REM=====================================================================
+1210 REM========================== SHUFFLING ================================
+1220 REM=====================================================================
+1230 REM $s2
+1240 LOCATE 12,35:PRINT"Shuffling"
+1250 FOR L=1 TO 156:X=INT(RND*52)+1:Y=INT(RND*52)+1
+1260 SWAP A(X),A(Y):NEXT L:J=1
+1270 LOCATE 12,35:PRINT SPC(9):RETURN
+1295 REM $s2
+1300 REM=====================================================================
+1310 REM======================== SELECT THE CARD ============================
+1320 REM=====================================================================
+1330 REM $s2
+1340 SUIT=INT((A(J)-1)/13)
+1350 CARD=A(J)-SUIT*13
+1352 IF SUIT=3 THEN SUIT=CLUB
+1354 IF SUIT=2 THEN SUIT=SPADE
+1356 IF SUIT=1 THEN SUIT=DIAMOND
+1358 IF SUIT=0 THEN SUIT=HEART
+1360 RETURN
+1395 REM $s2
+1400 REM=====================================================================
+1410 REM======================== SET UP THE CARD ============================
+1420 REM=====================================================================
+1430 REM $s2
+1440 X=(N-1)*11+1
+1450 Y=(M-1)*8+1
+1460 GOSUB 20000
+1470 RETURN
+1990 REM $s2
+2000 REM=====================================================================
+2010 REM========================= BEGIN THE GAME ============================
+2050 REM=====================================================================
+2060 REM $s2
+2070 LOCATE 25,10
+2080 PRINT"Press `E' to quit playing";
+2100 FOR X=1 TO PLAYERS
+2105 LOCATE 11+X,10
+2110 PRINT NAM$(X) ", what is your bet?  $";:INPUT "",IN$
+2120 IF IN$="E" OR IN$="e" THEN RUN "b:???0??" ELSE BET(X)=VAL(IN$)
+2130 NEXT X
+2140 GOSUB 4000
+2150 X1=0:X2=0:IF R=1001 THEN 2170
+2160 IF A(59)=1011 THEN 2300 ELSE 2500
+2170 FOR X=1 TO PLAYERS:LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT NAM$(X) ", insurance (y or n)? ";
+2180 GOSUB 59990:IF INSTR("YNyn",IKEY$)=0 THEN 2180
+2190 IF X=1 AND (IKEY$="y" OR IKEY$="Y") THEN X1=1
+2200 IF X=2 AND (IKEY$="y" OR IKEY$="Y") THEN X2=1
+2210 NEXT X
+2220 IF A(59)<>1011 THEN 2900
+2300 H=J:J=0:N=1:M=3:GOSUB 1300:GOSUB 1400:LOCATE 18,65:PRINT"BLACKJACK";
+2310 J=H
+2320 GOTO 5050
+2500 FOR M=1 TO 2 STEP 3-PLAYERS
+2510 N=3
+2520 LOCATE 5,65:PRINT NAM$(1);
+2530 LOCATE 18,65:PRINT"Dealer";
+2540 LOCATE 25,1:PRINT SPC(70):IF M=1 THEN LOCATE 25,1:PRINT NAM$(1);:L=2 ELSE LOCATE 11,65:PRINT NAM$(2);:LOCATE 25,1:PRINT NAM$(2);:L=3
+2550 PRINT"'s turn - 1=HIT, 2=STAND, 3=DOUBLE, 4=REVIEW CARDS";
+2560 GOSUB 59990:IF INSTR("1234",IKEY$)=0 THEN 2560 ELSE X=VAL(IKEY$)
+2570 Q=56+M:ON X GOTO 2600,2660,2800,6000:GOTO 2540
+2580 NEXT M:GOTO 5000
+2600 GOSUB 1300:GOSUB 1400:J=J+1:IF CARD>9 THEN R=10 ELSE R=CARD
+2601 IF CARD=1 THEN R=1001
+2602 A(Q)=A(Q)+R
+2610 IF A(Q)<1000 AND A(Q)>21 THEN 2650
+2620 IF A(Q)-(INT(A(Q)/1000)*1000)>21 THEN 2650
+2630 N=N+1:IF O=99 THEN O=0:GOTO 2660 ELSE 2540
+2650 LOCATE 25,1:PRINT SPC(79):LOCATE 25,1:PRINT"BUST!";:B=B+1
+2660 IF N=3 AND A(Q)=1011 THEN A(Q)=9000
+2670 T=J:GOTO 2580
+2800 IF N<>3 THEN 2540 ELSE O=99:T(L)=T(L)*2:GOTO 2600
+2900 LOCATE 25,1:PRINT SPC(79);:LOCATE 25,1:PRINT"No Blackjack!";
+2910 TIMEOUT=5:GOSUB 59950
+2920 IF X1=1 THEN BET(1)=BET(1)*.5
+2930 IF X2=1 THEN BET(2)=BET(2)*.5
+2940 GOTO 2500
+2990 REM $s2
+3000 REM=====================================================================
+3010 REM======================== ERROR ROUTINE ==============================
+3060 REM=====================================================================
+3070 REM $s2
+3080 IF ERR=4 THEN RESTORE:RESUME
+3085 IF ERR=71 AND ERL=2090 THEN RUN
+3090 PRINT"error " ERR " occurred in line " ERL
+3100 STOP
+3990 REM $s2
+4000 REM=====================================================================
+4010 REM======================= DISPLAY THE CARDS ===========================
+4020 REM=====================================================================
+4030 REM $s2
+4040 CLS
+4050 FOR N=1 TO 2
+4060 FOR M=1 TO 3 STEP 3-PLAYERS
+4070 IF M=3 AND N=1 THEN GOSUB 4500 ELSE GOSUB 4200
+4071 NEXT M,N:RETURN
+4200 GOSUB 1300:GOSUB 1400:J=J+1
+4205 IF CARD>9 THEN R=10 ELSE R=CARD
+4207 IF CARD=1 THEN R=1001
+4210 A(56+M)=A(56+M)+R
+4220 RETURN
+4500 K=J:GOSUB 1300:A(0)=A(J):J=J+1:IF CARD>9 THEN R=10 ELSE R=CARD
+4505 CARD=0:IF R=1 THEN R=1001
+4510 GOSUB 1400
+4520 A(59)=R
+4530 RETURN
+4990 REM $s2
+5000 REM=====================================================================
+5010 REM======================= PLAY THE DEALER =============================
+5020 REM=====================================================================
+5030 REM $s2
+5035 LOCATE 25,1:PRINT SPC(79);
+5040 N=1:M=3:W=J:J=0:GOSUB 1300:GOSUB 1400:J=W
+5050 V=A(59):N=3:IF B=PLAYERS THEN 5500
+5060 W=V/1000:V=V-W*1000:X=0:IF W>0 THEN X=1
+5070 IF V>16 THEN 5500
+5080 IF X>0 AND V+10>16 AND V+10<22 THEN V=V+10:GOTO 5500
+5090 GOSUB 1300:GOSUB 1400:J=J+1:IF CARD>9 THEN R=10 ELSE R=CARD
+5100 V=V+R+W*1000:N=N+1:GOTO 5060
+5500 FOR X=1 TO PLAYERS:U=A(56+X):Y=U/1000:U=U-Y*1000
+5510 IF Y>0 AND U+10<22 THEN U=U+10 ELSE IF U>21 THEN U=0
+5520 IF V>21 THEN V=1
+5530 Y=(X-1)*6+5
+5535 IF A(56+X)=9000 THEN LOCATE Y,65:PRINT"BLACKJACK";:WINNING(X)=WINNING(X)+BET(X)*2:GOTO 5550
+5540 IF V=U THEN LOCATE Y,65:PRINT"PUSH      "; ELSE IF V>U THEN LOCATE Y,65:PRINT"LOSE      ";:WINNING(X)=WINNING(X)-BET(X) ELSE LOCATE Y,65:PRINT"WIN       ";:WINNING(X)=WINNING(X)+BET(X)
+5550 NEXT X
+5560 FOR X=55 TO 59:A(X)=0:NEXT X:B=0
+5570 TIMEOUT=5:GOSUB 59950
+5580 CLS:LOCATE 3,37:PRINT"SO FAR":X=0
+5590 LOCATE 5,30:PRINT NAM$(1) USING " has $#,###,###.##"; WINNING(1)
+5600 IF PLAYERS=1 THEN 5620
+5610 LOCATE 6,30:PRINT NAM$(2) USING " has $#,###,###.##"; WINNING(2)
+5620 TIMEOUT=5:GOSUB 59950
+5630 IF J>42 THEN GOSUB 1200
+5640 GOTO 2000
+5990 REM $s2
+6000 REM=====================================================================
+6010 REM======================= DISPLAY CARDS USED =========================
+6020 REM=====================================================================
+6030 REM $s2
+6040 FOR X=57 TO 59:A(X)=0:NEXT X
+6050 CLS:W=J:J=0:LOCATE 1,10:PRINT"HEARTS" TAB(30) "DIAMONDS" TAB(50) "CLUBS" TAB(70) "SPADES"
+6060 LOCATE 3,1:PRINT"ACE"
+6070 FOR Y=4 TO 12:LOCATE Y,1:PRINT Y-2:NEXT Y
+6080 LOCATE 13,1:PRINT"JACK":LOCATE 14,1:PRINT"QUEEN":LOCATE 15,1:PRINT"KING"
+6090 FOR J=1 TO K-PLAYERS:GOSUB 1300:E=(SUIT-3)*20+15:F=CARD+2
+6100 LOCATE F,E:PRINT "Ü";:NEXT J
+6110 TIMEOUT=5:GOSUB 59950
+6120 CLS:J=K-PLAYERS:GOSUB 4000:M=1:N=3
+6130 IF J=T THEN M=2:N=3
+6140 IF J=W THEN 2520
+6150 GOSUB 1300:GOSUB 1400:IF CARD>9 THEN R=10 ELSE R=CARD
+6160 A(56+M)=A(56+M)+R:N=N+1:GOTO 6130
+9990 REM $pa
+10000 RUN "menu"
+19990 REM $s2
+20000 REM====================================================================
+20010 REM======================== DISPLAY A CARD ============================
+20020 REM This routine displays a card at coordinates (y,x) on the         ==
+20030 REM screen.  CARD must be set to the card number (1-13) and SUIT     ==
+20040 REM must be set to the value of the suit of the card.                ==
+20050 REM====================================================================
+20060 REM $s2
+20070 LOCATE Y,X:PRINT CHR$(201) + STRING$(7,205) + CHR$(187);
+20080 ON CARD+1 GOSUB 20500,30000,30120,30203,30263,30323,30383,30443,30493,30553,30613,30673,30733,30793
+20090 LOCATE Y+7,X:PRINT CHR$(200) + STRING$(7,205) + CHR$(188);
+20100 RETURN
+20495 REM $s2
+20500 REM====================================================================
+20510 REM========================= DISPLAY A    =============================
+20520 REM====================================================================
+20530 REM $s2
+20550 LOCATE Y+1,X:PRINT CHR$(186) "       " CHR$(186);
+20560 LOCATE Y+2,X:PRINT CHR$(186) "       " CHR$(186);
+20570 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+20580 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+20590 LOCATE Y+5,X:PRINT CHR$(186) "       " CHR$(186);
+20600 LOCATE Y+6,X:PRINT CHR$(186) "       " CHR$(186);
+20610 RETURN
+29990 REM $s2
+30000 REM====================================================================
+30010 REM========================= DISPLAY AN A =============================
+30020 REM====================================================================
+30030 REM $s2
+30050 LOCATE Y+1,X:PRINT CHR$(186) "A      " CHR$(186);
+30060 LOCATE Y+2,X:PRINT CHR$(186) "       " CHR$(186);
+30070 LOCATE Y+3,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30080 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30090 LOCATE Y+5,X:PRINT CHR$(186) "       " CHR$(186);
+30100 LOCATE Y+6,X:PRINT CHR$(186) "      A" CHR$(186);
+30110 RETURN
+30119 REM $pa
+30120 REM====================================================================
+30130 REM========================= DISPLAY A  2 =============================
+30140 REM====================================================================
+30145 REM $s2
+30150 LOCATE Y+1,X:PRINT CHR$(186) "2      " CHR$(186);
+30160 LOCATE Y+2,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30170 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+30180 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30190 LOCATE Y+5,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30200 LOCATE Y+6,X:PRINT CHR$(186) "      2" CHR$(186);
+30201 RETURN
+30202 REM $s2
+30203 REM====================================================================
+30204 REM========================= DISPLAY A  3 =============================
+30205 REM====================================================================
+30206 REM $s2
+30210 LOCATE Y+1,X:PRINT CHR$(186) "3      " CHR$(186);
+30220 LOCATE Y+2,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30230 LOCATE Y+3,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30240 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30250 LOCATE Y+5,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30260 LOCATE Y+6,X:PRINT CHR$(186) "      3" CHR$(186);
+30261 RETURN
+30262 REM $s2
+30263 REM====================================================================
+30264 REM========================= DISPLAY A  4 =============================
+30265 REM====================================================================
+30266 REM $s2
+30270 LOCATE Y+1,X:PRINT CHR$(186) "4      " CHR$(186);
+30280 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30290 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+30300 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30310 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30320 LOCATE Y+6,X:PRINT CHR$(186) "      4" CHR$(186);
+30321 RETURN
+30322 REM $pa
+30323 REM====================================================================
+30324 REM========================= DISPLAY A  5 =============================
+30325 REM====================================================================
+30326 REM $s2
+30330 LOCATE Y+1,X:PRINT CHR$(186) "5      " CHR$(186);
+30340 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30350 LOCATE Y+3,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30360 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30370 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30380 LOCATE Y+6,X:PRINT CHR$(186) "      5" CHR$(186);
+30381 RETURN
+30382 REM $pa
+30383 REM====================================================================
+30384 REM========================= DISPLAY A  6 =============================
+30385 REM====================================================================
+30386 REM $s2
+30390 LOCATE Y+1,X:PRINT CHR$(186) "6      " CHR$(186);
+30400 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30410 LOCATE Y+3,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30420 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30430 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30440 LOCATE Y+6,X:PRINT CHR$(186) "      6" CHR$(186);
+30441 RETURN
+30442 REM $s2
+30443 REM====================================================================
+30444 REM========================= DISPLAY A  7 =============================
+30445 REM====================================================================
+30446 REM $s2
+30450 LOCATE Y+1,X:PRINT CHR$(186) "7      " CHR$(186);
+30460 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30470 LOCATE Y+3,X:PRINT CHR$(186) "   " CHR$(SUIT) "   " CHR$(186);
+30475 LOCATE Y+4,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30480 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30490 LOCATE Y+6,X:PRINT CHR$(186) "      7" CHR$(186);
+30491 RETURN
+30492 REM $pa
+30493 REM====================================================================
+30494 REM========================= DISPLAY A  8 =============================
+30495 REM====================================================================
+30496 REM $s2
+30500 LOCATE Y+1,X:PRINT CHR$(186) "8      " CHR$(186);
+30510 LOCATE Y+2,X:PRINT CHR$(186) "  " STRING$(3,SUIT) "  " CHR$(186);
+30520 LOCATE Y+3,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30530 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30540 LOCATE Y+5,X:PRINT CHR$(186) "  " STRING$(3,SUIT) "  " CHR$(186);
+30550 LOCATE Y+6,X:PRINT CHR$(186) "      8" CHR$(186);
+30551 RETURN
+30552 REM $pa
+30553 REM====================================================================
+30554 REM========================= DISPLAY A  9 =============================
+30555 REM====================================================================
+30556 REM $s2
+30560 LOCATE Y+1,X:PRINT CHR$(186) "9      " CHR$(186);
+30570 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30580 LOCATE Y+3,X:PRINT CHR$(186) "  " STRING$(3,SUIT) "  " CHR$(186);
+30590 LOCATE Y+4,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30600 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30610 LOCATE Y+6,X:PRINT CHR$(186) "      9" CHR$(186)
+30611 RETURN
+30612 REM $s2
+30613 REM====================================================================
+30614 REM========================= DISPLAY A 10 =============================
+30615 REM====================================================================
+30616 REM $s2
+30620 LOCATE Y+1,X:PRINT CHR$(186) "10     " CHR$(186);
+30630 LOCATE Y+2,X:PRINT CHR$(186) "  " STRING$(3,SUIT) "  " CHR$(186);
+30640 LOCATE Y+3,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30650 LOCATE Y+4,X:PRINT CHR$(186) "  " CHR$(SUIT) " " CHR$(SUIT) "  " CHR$(186);
+30660 LOCATE Y+5,X:PRINT CHR$(186) "  " STRING$(3,SUIT) "  " CHR$(186);
+30670 LOCATE Y+6,X:PRINT CHR$(186) "     10" CHR$(186);
+30671 RETURN
+30672 REM $pa
+30673 REM====================================================================
+30674 REM========================= DISPLAY A  J =============================
+30675 REM====================================================================
+30676 REM $s2
+30680 LOCATE Y+1,X:PRINT CHR$(186) "J      " CHR$(186);
+30690 LOCATE Y+2,X:PRINT CHR$(186) "    " CHR$(SUIT) "  " CHR$(186);
+30700 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+30710 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30720 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) "    " CHR$(186);
+30730 LOCATE Y+6,X:PRINT CHR$(186) "      J" CHR$(186);
+30731 RETURN
+30732 REM $pa
+30733 REM====================================================================
+30734 REM========================= DISPLAY A  Q =============================
+30735 REM====================================================================
+30736 REM $s2
+30740 LOCATE Y+1,X:PRINT CHR$(186) "Q      " CHR$(186);
+30750 LOCATE Y+2,X:PRINT CHR$(186) "    " CHR$(SUIT) "  " CHR$(186);
+30760 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+30770 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30780 LOCATE Y+5,X:PRINT CHR$(186) "  " CHR$(SUIT) "    " CHR$(186);
+30790 LOCATE Y+6,X:PRINT CHR$(186) "      Q" CHR$(186);
+30791 RETURN
+30792 REM $s2
+30793 REM====================================================================
+30794 REM========================= DISPLAY A  K =============================
+30795 REM====================================================================
+30796 REM $s2
+30800 LOCATE Y+1,X:PRINT CHR$(186) "K      " CHR$(186);
+30810 LOCATE Y+2,X:PRINT CHR$(186) "  " CHR$(SUIT) "    " CHR$(186);
+30820 LOCATE Y+3,X:PRINT CHR$(186) "       " CHR$(186);
+30830 LOCATE Y+4,X:PRINT CHR$(186) "       " CHR$(186);
+30840 LOCATE Y+5,X:PRINT CHR$(186) "    " CHR$(SUIT) "  " CHR$(186);
+30850 LOCATE Y+6,X:PRINT CHR$(186) "      K" CHR$(186);
+30860 RETURN
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59980 RNDTIME$=TIME$:RNDVAL=VAL(LEFT$(RNDTIME$,2))*120+VAL(MID$(RNDTIME$,4,2))*60+VAL(RIGHT$(RNDTIME$,2)):RANDOMIZE RNDVAL:RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

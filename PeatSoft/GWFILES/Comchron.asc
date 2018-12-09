@@ -1,0 +1,39 @@
+1 REM ********************************************************************
+2 REM *       Program to read time from Hayes Stack Chronograph          *
+3 REM *        T.R.Trilling - Doylestown,Pa.18901 - 23 June 1982         *
+4 REM ********************************************************************
+10 GOSUB 1000 'INITILIZE PROGRAM
+20 OST$="ATVT:": GOSUB 2000 'SET TIME SEPARATOR
+30 OST$="ATVD-":GOSUB 2000 'SET DATE SEPARATOR
+40 OST$="ATRT":GOSUB 2000:TIM$=IST$ 'READ TIME
+45 TIME$=IST$
+50 OST$="ATRD":GOSUB 2000:DTE$=IST$ 'READ DATE
+60 OST$="ATRW":GOSUB 2000:W=VAL(IST$) 'READ WEEKDAY
+70 GOSUB 3000 'CONVERT CODE TO CHARACTERS
+90 MM$=MID$(DTE$,4,2)           '********************************************
+100 DD$=RIGHT$(DTE$,2)          '*    Convert date formate to date$ format  *
+110 YY$=LEFT$(DTE$,2)           '*    of IBM PC.                            *
+120 DATE$=MM$+"-"+DD$+"-"+YY$   '********************************************
+130 GOSUB 4000 'OUTPUT TIME,WEEKDAY, AND DATE ON SCREEN
+135 KEY ON
+140 END
+1000 ' Open communications to file number 1
+1030 OPEN "COM1:1200,E,7,1" AS #1
+1040 RETURN
+2000 FOR I=1 TO LEN(OST$) 'Length of comm. word
+2010 PRINT#1,OST$; 'OUTPUT CLOCK COMMAND
+2020 NEXT I
+2025 PRINT#1,CHR$(13) 'Carriage return
+2030 IST$="" 'CLEAR INPUT STRING
+2035 INPUT#1,IST$ 'GET INPUT FROM CLOCK
+2040 RETURN
+2110 INPUT#1,IST$; 'GET INPUT FROM CLOCK
+3000 FOR L=0 TO W 'WEEDKDAY CONVERSION SUBROUTINE
+3010 READ DAY$
+3020 NEXT L
+3030 RETURN
+3040 DATA MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY
+4000 CLS:LOCATE 8,25:PRINT "TIME IS ";TIM$+" - LOCAL TIME" 'DISPLAY DATA SUBROUTINE
+4010 LOCATE 9,25:PRINT  "TODAY IS "DATE$+" - "+DAY$
+4020 RETURN
+

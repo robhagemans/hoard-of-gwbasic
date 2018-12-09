@@ -1,0 +1,124 @@
+10 '********************************************************
+20 '*****                  GREATRHM                    *****
+30 '*****               E. WEISSBERGER                 *****
+40 '*****              version 06-09-82                *****
+50 '********************************************************
+60 CLS: KEY OFF
+70 LOCATE 1,5
+80 PRINT "GREAT CIRCLE PLOTTING FOLLOWED BY RHUMBLINE NAVIGATION"
+90 LOCATE 2,20: PRINT "E. WEISSBERGER"
+100 COLOR 0,7,0
+110 PRINT " No guarantee is given for the accuracy of the values returned by "
+120 PRINT "    this program.  Use of these values is at the user's risk.     "
+130 COLOR 7,0,0
+140 PRINT: PRINT "This program calculates GREAT CIRCLE crossing latitudes"
+150 PRINT "            for given intercept longitudes"
+160 PRINT "The program does not operate along lines of equal longitude"
+170 PRINT "coordinates will be entered as DEGREE.MIN"
+180 PRINT "SECONDS should be converted to decimal MIN and concatinated with MIN"
+190 LOCATE 13,5: COLOR 16,1,0
+200 PRINT "for SOUTH longitude or EAST latitude use NEGATIVE values"
+210 COLOR 7
+220 LOCATE 20,20
+230 PRINT "type any key to continue"
+240 A$ = INKEY$: IF A$ = "" THEN 240
+250 B$(1) = "LATITUDE": B$(2) = "LONGITUDE"
+260 PI = 3.1415926#: CONVER = 180#/PI                 '***** degrees per radian
+270 CLS
+280 PRINT "How many interceptions will you use?";
+290 A$ = INKEY$: IF A$ = "" THEN 290 ELSE IN = VAL(A$): PRINT IN
+300 FOR I = 1 TO (IN + 2) STEP (IN + 1)
+310 IF I = 1 THEN 320 ELSE 330
+320 PRINT "The COORDINATES of the INITIAL point are ": GOTO 340
+330 PRINT "The COORDINATES of the FINAL point are "
+340 FOR J = 1 TO 2
+350 PRINT B$(J)
+360 GOSUB 400
+370 NEXT J
+380 NEXT I
+390 GOTO 480
+400 INPUT "     DEGREES.MIN ",D(I,J)
+410 D1(I,J) = INT(ABS(D(I,J)))
+420 IF D(I,J) < 0 THEN GOTO 430 ELSE GOTO 440
+430 D1(I,J) = -D1(I,J)
+440 M1(I,J) = (D(I,J) - D1(I,J))*100
+450 DMIN1(I,J) = M1(I,J)/60#
+460 L(I,J) = (D1(I,J) + DMIN1(I,J))/CONVER
+470 RETURN
+480 FOR I = 2 TO (IN + 1)
+490 PRINT USING "The crossing LONGITUDE of the number # intercept is ###.#";(I-1)
+500 J = 2: GOSUB 400
+510 NEXT I
+520 CLS
+530 SILONG12 = SIN(L((IN+2),2) - L(1,2))
+540 TA2 = TAN(L((IN+2),1)): TA1 = TAN(L(1,1))
+550 FOR I = 2 TO (IN + 1)
+560 SILONG1(I) = SIN(L(I,2) - L(1,2))
+570 SILONG2(I) = SIN(L(I,2) - L((IN+2),2))
+580 FL = TA2*SILONG1(I): FR = TA1*SILONG2(I)
+590 L(I,1) = ATN((FL - FR)/SILONG12)
+600 PRINT USING "The intercept coordinates of intercept number # are: ";(I-1)
+610 PRINT
+620 PRINT USING "LATITUDE  ####.## DEC. DEG ";L(I,1)*CONVER
+630 PRINT USING "LONGITUDE ####.## DEC. DEG ";L(I,2)*CONVER
+640 PRINT
+650 NEXT I
+660 PRINT "Will you continue to the RHUMBLINE calculation (Y/N)"
+670 A$ = INKEY$: IF A$ = "" THEN 670 ELSE IF A$ = "Y" OR A$ = "y" THEN GOTO 680 ELSE KEY ON: END
+680 CLS: LOCATE 1,17
+690 PRINT "THE FOLLOWING RESTRICTIONS APPLY:"
+700 PRINT "    1. No course may pass through the north or south pole"
+710 PRINT "    2. The course may not go due east or due west across the"
+720 PRINT "       180 degree meridian (International Date Line)
+730 PRINT "    3. Distance errors occur as the course approaches 90 or 270 degrees"
+740 PRINT "    4. Accuracy deteriorates for very short distances"
+750 PRINT: PRINT "The average variation between initial and final points is used."
+760 PRINT "   This is not strictly accurate for large variation changes."
+770 LOCATE 13,20
+780 PRINT "type any key to continue"
+790 A$ = INKEY$: IF A$ = "" THEN 790
+800 CLS
+810 FOR J = 1 TO (IN + 1)
+820 LONGDIF = L(J,2) - L((J+1),2)
+830 FACTL2 = LOG(TAN(PI/4# + L((J+1),1)/2#))
+840 FACTL1 = LOG(TAN(PI/4# + L(J,1)/2#))
+850 ALPHA = LONGDIF/2#
+860 SIALPHA = SIN(ALPHA)
+870 NORMALPHA = ATN(SIALPHA/SQR(1-SIALPHA*SIALPHA))
+880 Y = 2#*NORMALPHA
+890 X = FACTL2 - FACTL1
+900 C = ATN(Y/X)
+910 IF X > 0 THEN 940 ELSE
+920 IF X < 0 THEN 930 ELSE
+930 C = PI - ABS(C): GOTO 950
+940 C = ABS(C)
+950 C1 = C*CONVER
+960 NORM = SIN(LONGDIF)
+970 NORMLONG = ATN(NORM/SQR(1-NORM*NORM))
+980 IF NORMLONG < 0# THEN GOTO 990 ELSE GOTO 1000
+990 C1 = 360# - C1
+1000 BEEP: BEEP: PRINT
+1010 PRINT: PRINT USING "Determine the magnetic course of leg # based on average variation (Y/N)? ";J
+1020 A$ = INKEY$: IF A$ = "" THEN 1020 ELSE IF A$ = "Y" OR A$ = "y" THEN 1030 ELSE 1080
+1030 PRINT: PRINT "Use a negative value for EAST variation "
+1040 INPUT "What is the LEG initial point variation? ",VI
+1050 INPUT "What is the LEG final   point variation? ",VF
+1060 VAVER = (VI + VF)/2
+1070 CM = C1 + VAVER
+1080 PRINT: PRINT USING "The true course for leg # is ###.# degrees";J,C1
+1090 COC = COS(C)
+1100 IF COC = 0# THEN GOTO 1110 ELSE GOTO 1140
+1110 FACTLONG1 = 60#*LONGDIF*CONVER
+1120 DIST = ABS(COS(L((J+1),1))*FACTLONG1)
+1130 GOTO 1170
+1140 DISTFACT = 60#/COC
+1150 LATDIF = L((J+1),1) - L(J,1)
+1160 DIST = ABS(LATDIF*DISTFACT*CONVER)
+1170 PRINT USING "The distance for leg # is #####.# nautical miles";J,DIST
+1180 IF A$ = "Y" OR A$ = "y" THEN GOTO 1190 ELSE GOTO 1220
+1190 COLOR 0,7,0
+1200 PRINT USING " The magnetic course for leg # is ###.# degrees ";J,CM;
+1210 COLOR 7,0,0
+1220 NEXT J
+1230 KEY ON: END
+

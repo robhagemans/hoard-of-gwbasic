@@ -1,0 +1,241 @@
+10 REM Game of NIM. Author: J. E. Steitz 2-14-82
+20 OPTION BASE 1
+30 DEFINT P,I-N
+40 DIM PILE(13)
+50 CLS:LOCATE 5,1
+60 PRINT"*******************************************************************************"
+70 PRINT"*******************************************************************************"
+80 PRINT"**                                                                           **"
+90 PRINT"**                                                                           **"
+100 PRINT"**                                                                           **"
+110 PRINT"**                                                                           **"
+120 PRINT"**            If you ";:COLOR 0,7:PRINT"DO";:COLOR 7,0
+130 PRINT" want instructions, just hit RETURN (";CHR$(17);CHR$(196);CHR$(217);") key.        **"
+140 PRINT"*******************************************************************************"
+150 PRINT"*******************************************************************************"
+160 LOCATE 8,27
+170 PRINT"Welcome to the game of NIM."
+180 LOCATE 10,15
+190 INPUT"If you do NOT want instructions, type N or NO: ",A$
+200 IF A$ = "N" OR A$ = "n" OR A$="NO" OR A$="no" THEN 350
+210 CLS:PRINT"                 The Game of NIM -- By J. E. Steitz 2-16-82"
+220 PRINT:PRINT"The game of NIM is an ancient game of skill and strategy.  The game is played"
+230 PRINT"with any number of piles of objects.  The two players take turns removing any"
+240 PRINT"number of objects from one of the piles.  You can take one object or the whole"
+250 PRINT"pile, but you can't take objects from two piles."
+260 PRINT:PRINT"As agreed upon before the start of the game, the winner is the one who"
+270 PRINT"takes (or doesn't take) the last object from the last pile.":PRINT
+280 PRINT"In this version of the game, you can elect to have up to 12 piles of objects,"
+290 PRINT"with up to 15 objects in each pile.":PRINT
+300 PRINT"From here on out, just respond to the questions as they come up.":PRINT
+310 PRINT"Oh, by the way, if you want to concede a game, just enter 0,0 when it's your"
+320 PRINT"move.  Your IBM Personal Computer gladly accepts forfeits."
+330 PRINT:PRINT:PRINT"                           GOOD LUCK!":BEEP:BEEP:PRINT
+340 INPUT"When you have finished reading this, just press the return key. ",A$
+350 CLS:PRINT:INPUT"How many piles (1-12)";NPILES
+360 IF NPILES => 1 AND NPILES =< 12 THEN 380
+370 BEEP:PRINT"Come, now - enter a number between 1 and 12":GOTO 350
+380 PRINT:PRINT"you may have from 1 to 15 items in each pile."
+390 FOR PCT = 1 TO NPILES
+400 PRINT USING"How many in pile ##";PCT;
+410 INPUT PILE(PCT)
+420 IF PILE(PCT) >= 1 AND PILE(PCT)<= 15 THEN 440
+430 BEEP:PRINT"You must enter a number between 1 and 15":GOTO 400
+440 NEXT PCT
+450 PRINT:INPUT"Does taking the last item Win (W) or Lose (L) the game";A$
+460 IF A$ = "L" OR A$ = "l" OR A$ = "w" OR A$ = "W" THEN 480
+470 BEEP:PRINT"PLEASE answer with W or L.  Now try again":GOTO 450
+480 WOPT$="take"
+490 IF A$ = "L" OR A$ = "l" THEN WOPT$ = "notake"
+500 PRINT:INPUT"Do you want to move first (Y,N)";A$
+510 IF A$ = "y" OR A$ = "Y" OR A$ = "n" OR A$ = "N" THEN 530
+520 BEEP:PRINT"You MUST answer Y for yes, or N for no.  Try again.":GOTO 500
+530 FIRST$="IBMPC"
+540 IF A$ = "Y" OR A$ = "y" THEN FIRST$ = "player"
+550 WIN$ = "no"
+560 GOSUB 1240
+570 IF FIRST$ = "IBMPC" THEN 610
+580 GOSUB 1100
+590 IF WIN$="no" THEN GOSUB 710
+600 GOTO 630
+610 GOSUB 710
+620 IF WIN$="no" THEN GOSUB 1100
+630 IF WIN$="no" THEN 570
+640 IF WIN$="player" THEN GOSUB 2090
+650 IF WIN$="IBMPC" THEN PRINT:GOSUB 1520:PRINT"Ho, hum --- I win again...":PRINT
+660 INPUT"Want to play another";A$
+670 IF A$ = "y" OR A$ = "Y" OR A$ = "n" OR A$="N" THEN 690
+680 GOSUB 1420:PRINT"Please, just a simple Y or N.  Try again.":GOTO 660
+690 IF A$ = "Y" OR A$ = "y" THEN 350
+700 END
+710 REM IBMPC MOVE
+720 PCTW=0
+730 FOR PCT=1 TO NPILES
+740 IF PILE(PCT)>0 THEN 790
+750 NEXT PCT
+760 WIN$="IBMPC"
+770 IF WOPT$ = "take" THEN WIN$="player"
+780 GOTO 1040
+790 GOSUB 1690
+800 PILEW=PILE(PFIRST)
+810 PCTW=PFIRST
+820 IF PNZ<>1 THEN 910
+830 IF PILE(PFIRST)<> 1 THEN 880
+840 PILE(PFIRST)=0
+850 WIN$="player"
+860 IF WOPT$="take" THEN WIN$="IBMPC"
+870 GOTO 1040
+880 IF WOPT$="take" THEN PILE(PFIRST)=0:WIN$="IBMPC":GOTO 1040
+890 PILE(PFIRST)=1
+900 GOTO 1040
+910 IF PALLONE THEN PILE(PFIRST)=0:GOTO 1040
+920 GOSUB 1830
+930 IF PCTW<>0 THEN 1010
+940 PCTW=RND*NPILES
+950 IF PCTW=0 THEN 940
+960 IF PILE(PCTW)=0 THEN 940
+970 PILEW=PILE(PCTW)
+980 TPILE!=RND*PILEW
+990 PILE(PCTW)=FIX(TPILE!)
+1000 GOTO 1040
+1010 GOSUB 1560
+1020 GOSUB 1690
+1030 IF PALLONE THEN IF WOPT$<>"take" THEN PILE(PCTW)=0
+1040 FOR I=1 TO 1000:NEXT I
+1050 GOSUB 1240
+1060 IF PCTW=0 THEN RETURN
+1070 PRINT USING"I took ## from pile ";PILEW-PILE(PCTW);
+1080 PRINT PCTW
+1090 RETURN
+1100 REM Player's move
+1110 PRINT"Enter pile number and the number you want to remove, separated by a comma."
+1120 PRINT"Enter 0,0 if you want to concede the game."
+1130 INPUT"For example: 2,7 ==> ",PPN,PREM
+1140 IF PPN+PREM=0 THEN 1220
+1150 IF PPN>0 AND PPN<=NPILES THEN 1170
+1160 BEEP:PRINT"That pile number doesn't exist. Try one we are playing with.":GOTO 1110
+1170 IF PREM>0 AND PREM<=PILE(PPN) THEN 1190
+1180 GOSUB 1420:BEEP:PRINT"You can't take zero items and you can't take more than the pile contains.":GOTO 1110
+1190 PILE(PPN)=PILE(PPN)-PREM
+1200 GOSUB 1240
+1210 RETURN
+1220 WIN$="IBMPC"
+1230 GOSUB 1420:RETURN
+1240 REM DISPLAY PILES ROUTINE
+1250 CLS
+1260 FOR PHT = 15 TO 1 STEP -1
+1270 FOR PCT = 1 TO NPILES
+1280 IF PILE(PCT)< PHT THEN PRINT "      ";
+1290 IF PILE(PCT) >= PHT THEN PRINT "O-O   ";
+1300 NEXT PCT
+1310 PRINT
+1320 NEXT PHT
+1330 FOR PCT = 1 TO NPILES
+1340 PRINT USING "##    ";PCT;
+1350 NEXT PCT
+1360 PRINT:PRINT
+1370 FOR PCT = 1 TO NPILES
+1380 PRINT USING "(##)  ";PILE(PCT);
+1390 NEXT PCT
+1400 PRINT
+1410 RETURN
+1420 REM RAZZBERRY ROUTINE
+1430 SOUND 400,7
+1440 FOR I = 1 TO 15
+1450 SOUND 90,20
+1460 FOR J=1 TO 15: NEXT J
+1470 SOUND 40,0
+1480 FOR J=1 TO 15: NEXT J
+1490 NEXT I
+1500 SOUND 40,0
+1510 RETURN
+1520 REM                          FANFARE ROUTINE
+1530 PLAY"t140mbo2c8f8a8o3c8c16c16c8o2a8a16a16a8f8a8f8c"
+1540 PLAY"mbo2c8f8a8o3c4o2a8o3c.."
+1550 RETURN
+1560 REM                    MAKE ALL BIT COLUMNS EVEN ROUTINE
+1570 REM REQUIRES PCTW - THE 'WORKING' PILE NUMBER AND NPILES - PILE COUNT
+1580 PILE(PCTW)=0
+1590 MASK=8
+1600 FOR I=1 TO 4
+1610 PBC=0
+1620 FOR PCT=1 TO NPILES
+1630 IF PILE(PCT) AND MASK THEN PBC=PBC+1
+1640 NEXT PCT
+1650 IF PBC AND 1 THEN PILE(PCTW)=PILE(PCTW) OR MASK
+1660 MASK=MASK/2
+1670 NEXT I
+1680 RETURN
+1690 REM                          CHECK PILE STATUS ROUTINE
+1700 REM If all piles contain one, sets pallone = 1
+1710 REM If all piles are empty, pnz is set to zero, else it counts non-empties
+1720 REM PFIRST is set to the pile number of the first non-empty pile.
+1730 PNSAVE=0
+1740 PNZ=0
+1750 PALLONE=1
+1760 FOR PCT=1 TO NPILES
+1770 IF PILE(PCT)>1 THEN PALLONE=0
+1780 IF PILE(PCT)<>0 AND PNSAVE=0 THEN PNSAVE=PCT
+1790 IF PILE(PCT)<>0 THEN PNZ=PNZ+1
+1800 NEXT PCT
+1810 PFIRST=PNSAVE
+1820 RETURN
+1830 REM                             ANALYZE BIT COLUMNS ROUTINE
+1840 REM IF any bit column is odd, sets PCTW to the pile number of the biggest
+1850 REM pile having a bit in the odd column and sets PILEW to
+1860 REM the number of items in that pile.
+1870 REM IF ALL BIT COLUMNS ARE EVEN, SETS BOTH THE ABOVE VALUES TO ZERO.
+1880 MASK = 8
+1890 FOR I= 1 TO 4
+1900 PBC=0
+1910 PNSAVE=0
+1920 PILESAVE=0
+1930 FOR PCT=1 TO NPILES
+1940 M= PILE(PCT) AND MASK
+1950 IF M=0 THEN 1980
+1960 PBC=PBC+1
+1970 IF PILE(PCT) > PILESAVE THEN PILESAVE=PILE(PCT):PNSAVE=PCT
+1980 NEXT PCT
+1990 M=PBC AND 1
+2000 IF M THEN 2060
+2010 MASK=MASK/2
+2020 NEXT I
+2030 PILEW=0
+2040 PCTW=0
+2050 RETURN
+2060 PILEW=PILESAVE
+2070 PCTW=PNSAVE
+2080 RETURN
+2090 REM                       PLAYER WINS DISPLAY ROUTINE
+2100 PLAY"mbt162o2c4e4e4g4g4o3c4c4e4e4c4c4o2g4g4e4e4"
+2110 FOR I=1 TO 4
+2120 COLOR 7,0
+2130 CLS
+2140 IF I AND 1 THEN COLOR 0,7
+2150 IF I = 3 THEN PLAY"mbt162o3e8e-8d4o2b4b4g4g4f4f4o3d8e8c4c4c4c4c4."
+2160 PRINT"*******************************************************************************"
+2170 PRINT"*******************************************************************************"
+2180 PRINT"********   *********   *******        *********   ********   ******************"
+2190 PRINT"**********   *****   *******   ******   *******   ********   ******************"
+2200 PRINT"************   *   *******   **********   *****   ********   ******************"
+2210 PRINT"**************   *********   **********   *****   ********   ******************"
+2220 PRINT"**************   *********   **********   *****   ********   ******************"
+2230 PRINT"**************   ***********   ******   ********   ******   *******************"
+2240 PRINT"**************   *************        ************        *********************"
+2250 PRINT"*******************************************************************************"
+2260 IF I=4 THEN COLOR 31,0
+2270 PRINT"**********************************************************************   ******"
+2280 PRINT"*********   ***************   ***     *****   *********   ***********   *******"
+2290 PRINT"**********   *************   *****   ******     *******   **********   ********"
+2300 PRINT"***********   ***********   ******   ******   *   *****   *********   *********"
+2310 PRINT"************   ***   ***   *******   ******   ***   ***   ********   **********"
+2320 PRINT"*************   *     *   ********   ******   *****   *   *******   ***********"
+2330 PRINT"**************     *     *********   ******   *******     *********************"
+2340 PRINT"***************   ***   *********     *****   *********   *****   *************"
+2350 PRINT"*******************************************************************************"
+2360 PRINT"*******************************************************************************"
+2370 NEXT I
+2380 COLOR 7,0
+2390 PRINT
+2400 RETURN
+

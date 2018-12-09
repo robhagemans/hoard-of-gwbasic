@@ -1,0 +1,72 @@
+1 KEY OFF:CLS
+10 ' The program "schwabcm.bas" to calculate the stock commissions charged by
+20 ' Charles Schwab & Co., Inc. based on their rate card of February 1982.
+30 '
+40 ' The rates are:    Transaction               Rate
+50 '                    $0 - 3000               $18+1.2%
+60 '                 $3001 - 7000               $36+0.8%
+70 '                $7001 - 56000               $57+0.3%
+80 '
+90 ' Minimum:  $0.08 per share for 1st 600 shares
+100 '           $0.04 per share for each share thereafter.
+110 '
+120 ' Maximum:  $0.45 per share for orders of 100 or more shares.
+130 '
+140 FIRSTBREAK=3000
+150 SECONDBREAK=7000
+160 THIRDBREAK=56000!
+170 FIRSTFIXED=18
+180 SECONDFIXED=36
+190 THIRDFIXED=57
+200 FIRSTRATE=.012
+210 SECONDRATE=8.000001E-03
+220 THIRDRATE=.003
+230 MINBREAK=600
+240 FIRSTMINCHARGE=8.000001E-03
+250 SECONDMINCHARGE=.004
+260 MAXBREAK=100
+270 MAXCHARGE=.45
+280 '-----------------data input------------------------------------
+290 PRINT " If you tell this program the number of shares of stock you want to
+300 PRINT " buy and the price of the stock, it will give you the commission
+310 PRINT " charged by Charles Schwab & Co., Inc.
+315 PRINT
+320 INPUT " Number of shares";NUMBEROFSHARES
+325 IF NUMBEROFSHARES<>INT(NUMBEROFSHARES) THEN PRINT "Number of shares must be an integer.":GOTO 315
+330 PRINT "
+335 ON ERROR GOTO 370
+340 INPUT " Price of the stock";PRICE
+345 ON ERROR GOTO 0
+350 TRANSACTION=NUMBEROFSHARES*PRICE
+360 IF TRANSACTION>FIRSTBREAK THEN 500 ELSE 400
+370 PRINT "Price must be entered as pp.ppp instead of as a fraction and without a $ sign.":RESUME 330
+400 BASECOMMISSION=FIRSTFIXED+FIRSTRATE*TRANSACTION
+450 GOTO 1000
+500 IF TRANSACTION>SECONDBREAK THEN 700 ELSE 600
+600 BASECOMMISSION=SECONDFIXED+SECONDRATE*TRANSACTION
+650 GOTO 1000
+700 IF TRANSACTION>THIRDBREAK THEN 900 ELSE 800
+800 BASECOMMISSION=THIRDFIXED+THIRDRATE*TRANSACTION
+850 GOTO 1000
+900 PRINT:PRINT " The transaction cost is $"TRANSACTION". Over $56,000 principal amount the
+910 PRINT "commission charge is 72% below fixed rates in effect prior to 5/1/75 but not
+920 PRINT "less than $225.
+930 GOTO 10000
+1000 IF NUMBEROFSHARES>MINBREAK THEN 1200 ELSE 1100
+1100 MINCOMMISSION=NUMBEROFSHARES*FIRSTMINCHARGE
+1110 GOTO 2000
+1200 MINCOMMISSION=MINBREAK*FIRSTMINCHARGE+(NUMBEROFSHARES-MINBREAK)*SECONDMINCHARGE
+2000 IF NUMBEROFSHARES>=MAXBREAK THEN MAXCOMMISSION=NUMBEROFSHARES*MAXCHARGE ELSE MAXCOMMISSION=65000!
+3000 IF BASECOMMISSION>MINCOMMISSION THEN COMMISSION=BASECOMMISSION ELSE COMMISSION=MINCOMMISSION:PRINT:PRINT "This is based on the minimum commission rate."
+3010 IF BASECOMMISSION>MAXCOMMISSION THEN COMMISSION=MAXCOMMISSION:PRINT:PRINT "This is based on the maximum commission rate."
+4000 PRINT:PRINT "The principal amount is $"TRANSACTION".
+4010 PRINT " The commission is $"COMMISSION".
+4020 PRINT " The total amount is $"TRANSACTION+COMMISSION".
+4025 PRINT " The commission is "COMMISSION/TRANSACTION*100"% of the principal amount.
+4027 PRINT " The commission is $"COMMISSION/NUMBEROFSHARES" per share.
+4030 GOTO 10000
+10000 PRINT:PRINT:PRINT "Press any key to enter new data except <Esc> which will end the program.
+10010 X$=INKEY$:IF X$="" THEN 10010 ELSE IF X$=CHR$(27) THEN 20000 ELSE CLS:GOTO 315
+20000 CLS:KEY ON:END
+65000 '         SAVE"schwabcm"
+

@@ -1,0 +1,84 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '*****************  Pretty listing Program  BASIC **************************
+12 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+14 'บ               FORMATTED PROGRAM LISTING PROGRAM        Ver 5.1/160      บ
+16 'บ                                                                         บ
+18 'บ   This program, or versions of it, has been around for many years. It   บ
+20 'บ will send a formatted listing to the EPSON/GEMINI printer. It provides  บ
+22 'บ 55 lines per page with a heading, date, and name at the top of each     บ
+24 'บ page.  This program, in whole or part, may be used without license or   บ
+26 'บ attribution.  Listed program must be  saved with "A" option.            บ
+28 'บ     IF YOU HAVE A CLOCK BOARD INSTALLED, REMOVE REM ' FROM LINE 360.    บ
+29 'บ                   (c)  G I N A C O  -- 1983        Ver 5.3/160/320      บ
+30 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 REM
+100 FOR I! = 1 TO 10
+110   KEY I!,""
+120 NEXT
+130 CLS
+140 KEY OFF
+150 SCREEN 0,0,0
+160 WIDTH 80
+170 CLEAR
+180 PAGE! = 0
+190 LENGTH! = 0
+200 LINECOUNT! = 0
+210 K! = 0
+220 LOCATE 8,25
+230 PRINT "POSITION PAPER 1 SPACE BELOW PERFORATION"
+240 LOCATE 10,19
+250 PRINT "NOTE: The Program to be listed must already be saved"
+260 LOCATE 11,34
+270 PRINT "with "; CHR$(34); CHR$(65); CHR$(34);" OPTION (ASCII)"
+280 LOCATE 13,35
+290 PRINT "ENTER DATE (MM-DD-YY)"
+300 LOCATE 13,60
+310 LINE INPUT D$
+320 LOCATE 14,35
+330 PRINT "ENTER TIME (HH:MM)"
+340 LOCATE 14,60
+350 LINE INPUT T$
+360 REM D$=DATE$:T$=TIME$:REM ***** REMOVE "REM" IF YOU HAVE CLOCK BOARD ****
+370 LOCATE 16,35
+380 PRINT "FILESPEC OF PROGRAM "
+390 LOCATE 16,55
+400 LINE INPUT ;FILESPEC$
+410 FILESPEC$ = FILESPEC$
+420 OPEN FILESPEC$ FOR INPUT AS 1
+430 PAGE! = PAGE! + 1
+440 WIDTH "LPT1:",132
+450 LPRINT CHR$(15);
+460 LPRINT STRING$(3,10)
+470 LPRINT TAB( 15)"* FORMATTED LISTING OF ";
+480 LPRINT TAB( 45);FILESPEC$;"       ";D$;"     ";T$;"    ";"PAGE ";PAGE!
+490 LPRINT
+500 LINECOUNT! = LINECOUNT! + 5
+510 DEL$ = INPUT$(1,1)
+520 IF EOF(1) THEN K! = 1 : GOTO 690
+530 LN$ = LN$ + DEL$
+540 IF DEL$ < > ":" AND DEL$ < > CHR$(10) THEN 510
+550 IF DEL$ = CHR$(10) THEN LN$ = LEFT$(LN$, LEN(LN$) - 2)
+560 IF VAL( LEFT$(LN$,1)) > 0 THEN 570 ELSE 590
+570 LPRINT TAB( 7);LN$;
+580 GOTO 610
+590 LPRINT TAB( 15);LN$;
+600 GOTO 610
+610 LN$ = ""
+620 LINECOUNT! = LINECOUNT! + 1
+630 IF LINECOUNT! = > 60 THEN 650
+640 GOTO 510
+650 LPRINT CHR$(12)
+660 PAGE! = PAGE! + 1
+670 LINECOUNT! = O!
+680 GOTO 460
+690 IF K! = 1 THEN 710
+700 GOTO 560
+710 CLOSE
+720 LPRINT CHR$(12)
+730 LPRINT CHR$(27); CHR$(64);
+740 END
+65000 REM ********************** SAVE ROUTINE *****
+65100 SAVE"B:NICELIST.BAS"
+

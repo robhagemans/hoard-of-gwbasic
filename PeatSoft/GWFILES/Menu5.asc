@@ -1,0 +1,87 @@
+10 REM ============================ MENUBWL =================================
+20 REM This program presents a menu of the programs available on this     ===
+30 REM diskette and allows the user to select a program by moving the     ===
+40 REM cursor to the desired program and pressing ENTER.                  ===
+50 REM ======================================================================
+60 REM  Turn off KEY display, set display width, clear the screen and set ===
+70 REM KEY(10) to reload this menu program when pressed in command mode. ===
+80 REM =====================================================================
+90 KEY OFF:WIDTH 80:CLS:KEY 10,"run "+CHR$(34)+"a:menu"+CHR$(13)
+100 REM =====================================================================
+110 REM Display the menu of the programs available on this diskette.      ===
+120 REM =====================================================================
+130 LOCATE 1,25,0:COLOR 0,7:PRINT " League Secretary's System ";
+140 LOCATE 3,10:COLOR 7,0:PRINT "The following programs are available on this diskette:";
+150 LOCATE 4,30:PRINT "       WEEKLY PROCESSING PROGRAMS"
+160 LOCATE 5,30:PRINT "SCORES     Enter Scores"
+170 LOCATE 6,30:PRINT "RECAP      Print Summary Sheet"
+180 LOCATE 7,30:PRINT " "
+190 LOCATE 8,30:PRINT "       MAINTENANCE PROGRAMS"
+200 LOCATE 9,30:PRINT "CREATE     Initialize League Master Files"
+210 LOCATE 10,30:PRINT "SCHEDULE   Create Master Schedule File"
+220 LOCATE 11,30:PRINT "CHANGE     Update Bowler & Team Headers Records"
+230 LOCATE 12,30:PRINT "PRINT      Print Utility - Tm/Bowler Headers"
+240 LOCATE 13,30:PRINT "DETAIL     Print Utility - Tm/Bowler Detail Rec"
+250 LOCATE 14,30:PRINT "SORTFILE   Sort and Print in Alphabetic Sequence"
+260 LOCATE 15,30:PRINT "RECORDD    Display Record Sheets"
+270 LOCATE 16,30:PRINT "RECORDP    Print Record Sheets"
+280 LOCATE 17,30:PRINT "FINAL      Print Final Standings and Averages"
+290 LOCATE 20,1:PRINT"Use the ";:COLOR 15:PRINT"UP ("CHR$(24)")";:COLOR 7:PRINT" and ";:COLOR 15:PRINT"DOWN ("CHR$(25)")";:COLOR 7:PRINT" arrows to position the cursor to the function"
+300 LOCATE 21,1:PRINT"desired and then press the ";:COLOR 15:PRINT"ENTER ("CHR$(17)CHR$(196)CHR$(217)")";:COLOR 7:PRINT" key."
+310 REM =====================================================================
+320 REM Set up the initial coordinates for the selection arrow.           ===
+330 REM =====================================================================
+340 X=25:Y=5
+350 REM =====================================================================
+360 REM Set up UP and DOWN arrows for moving selection arrow.             ===
+370 REM =====================================================================
+380 KEY(11) ON:KEY(14) ON:ON KEY(11) GOSUB 600:ON KEY(14) GOSUB 650
+390 REM =====================================================================
+400 REM Set up KEY(10) to return to MENU program on A-disk.               ===
+410 REM =====================================================================
+420 KEY(10) ON:ON KEY(10) GOSUB 860
+430 REM =====================================================================
+440 REM Display highlighted selection arrow at Y,X.                       ===
+450 REM =====================================================================
+460 COLOR 31:LOCATE Y,X:PRINT "==>";
+470 POKE 106,0'clear kybd buffer
+480 REM =====================================================================
+490 REM If ENTER is pressed, go to program run routine.                   ===
+500 REM =====================================================================
+510 IF INKEY$ = CHR$(13) THEN BEEP:COLOR 7:CLS:GOTO 700
+520 REM =====================================================================
+530 REM Display the date and time at the bottom of the display.           ===
+540 REM =====================================================================
+550 COLOR 7:LOCATE 25,25:PRINT DATE$,TIME$;
+560 GOTO 460
+570 REM =====================================================================
+580 REM Move the selection arrow up if it isn't at the top of the menu.   ===
+590 REM =====================================================================
+600 BEEP:Y1=CSRLIN:X1=POS(0):LOCATE Y,X:PRINT "   ";:LOCATE Y1,X1:IF Y>5 THEN Y=Y-1
+610 RETURN 460
+620 REM =====================================================================
+630 REM Move the selection arrow down if it isn't at the top of the menu. ===
+640 REM =====================================================================
+650 BEEP:Y1=CSRLIN:X1=POS(0):LOCATE Y,X:PRINT "   ";:LOCATE Y1,X1:IF Y<17 THEN Y=Y+1
+660 RETURN 460
+670 REM =====================================================================
+680 REM Run the selected program. If selection is invalid, return to menu.===
+690 REM =====================================================================
+700 IF Y=5 THEN RUN "A:SCORES"
+710 IF Y=6 THEN RUN "A:RECAP"
+720 IF Y=9 THEN RUN "A:CREATE"
+730 IF Y=10 THEN RUN "A:SCHEDULE"
+740 IF Y=11 THEN RUN "A:CHANGE"
+750 IF Y=12 THEN RUN "A:PRINT"
+760 IF Y=13 THEN RUN "A:DETAIL"
+770 IF Y=14 THEN RUN "A:SORTFILE"
+780 IF Y=15 THEN RUN "A:RECORDD"
+790 IF Y=16 THEN RUN "A:RECORDP"
+800 IF Y=17 THEN RUN "A:FINAL"
+810 BEEP:LOCATE 2,1:PRINT "Please make another selection."
+820 FOR I=1 TO 1000:NEXT I:RUN
+830 REM =====================================================================
+840 REM Return to MENU program on the A-disk.                             ===
+850 REM =====================================================================
+860 COLOR 7,0:RUN "MENU"
+

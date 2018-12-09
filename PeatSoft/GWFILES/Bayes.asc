@@ -1,0 +1,48 @@
+1 '                         BAYES' THEOREM
+2 '               Written by Tracy L. Gustafson, M.D.
+3 '              Round Rock, Texas. Version 3.0, 1984
+4 ON ERROR GOTO 5000:CHAIN MERGE "EPIMRG",5
+15 DIM D(1),PT(1),PD(1)
+22 DATA "BAYES' THEOREM",28,16
+30 PRINT"  This theorem is especially valuable in evaluating the prior probability":PRINT "    of disease given a certain symptom, sign or laboratory result."
+35 PRINT:PRINT:PRINT "Do you want to evaluate the: ":PRINT
+40 PRINT TAB(8);"1.)  Probabilities of False Positive and False Negative tests":PRINT
+45 PRINT TAB(8);"2.)  Probability of Disease given a Positive test":PRINT:PRINT
+50 PRINT TAB(20);:INPUT "Enter choice:   ",ASUB:IF ABS(1.5-ASUB)>.5 THEN BEEP:GOTO 50
+55 CLS:ON ASUB GOTO 60,115
+60 PRINT TAB(10);"PROBABILITIES OF FALSE POSITIVE AND FALSE NEGATIVE TESTS":PRINT TAB(10);STRING$(56,205):PRINT
+65 INPUT "What is the NAME of the disease or condition being tested for?  ",D(1)
+70 DQ="What is the probability of a POSITIVE test":PRINT TAB(5);DQ:PRINT TAB(33);:PRINT "when a person has ";D(1);:INPUT PT:IF ABS(PT-.5)>=.5 THEN GOSUB 215:GOTO 70
+75 PRINT TAB(27);"TEST SENSITIVITY = ";PT*100;"%":PRINT:PRINT
+80 PRINT TAB(5);DQ:PRINT TAB(25);:PRINT "when a person does not have ";D(1);:INPUT PF:IF ABS(PF-.5)>=.5 THEN GOSUB 215:GOTO 80
+85 PRINT TAB(27);"TEST SPECIFICITY = ";(1-PF)*100;"%":PRINT:PRINT
+90 PRINT TAB(8);"Enter estimated incidence of ";D(1):PRINT TAB(10);:INPUT "in the population in which the test is used (PER/10,000) = ",PD:IF PD>10000 THEN BEEP:GOTO 90
+95 PD=PD*.0001:PP=(PF*(1-PD))/(PF+PD*(PT-PF)):PN=((1-PT)*PD)/(1-PF-PD*(PT-PF))
+100 GOSUB 210:PRINT:PRINT:COLOR CLR2,CLR1
+105 PRINT TAB(10);"The probability of a FALSE POSITIVE result is  ";PP;TAB(79):PRINT:PRINT
+110 PRINT TAB(10);"The probability of a FALSE NEGATIVE result is  ";PN;TAB(79):COLOR CLR1,CLR2:GOTO 195
+115 PRINT TAB(15);"PROBABILITIES OF DISEASE GIVEN A POSITIVE TEST":PRINT TAB(15);STRING$(46,205):PRINT
+120 PRINT TAB(5); "What is the name of the SYMPTOM COMPLEX, PHYSICAL FINDING,": PRINT TAB(25);:INPUT "or LABORATORY TEST under consideration?   ",T$
+125 PRINT TAB(5);"In the tested population, HOW MANY DISEASES exist ":PRINT TAB(29);:INPUT "in which this test can be positive?     ",N:PRINT
+130 ERASE PT,PD,D:DIM PT(N),PD(N),D(N):TF=0
+135 PRINT TAB(15);"  PERCENT of people      PROBABILITY of a "
+140 PRINT TAB(15);" in tested population    + test in people"
+145 PRINT TAB(15);"who have this disease:    known to have"
+150 PRINT TAB(3);"DISEASE      (SUM must = 100%)        this disease:": PRINT
+155 FOR Z=1 TO N:PRINT Z;:IF TF=1 THEN PRINT D(Z); ELSE INPUT;"",D(Z)
+160 PRINT TAB(24);:INPUT;"",P:PD(Z)=P*.01:PRINT TAB(46);:INPUT "",PT(Z):NEXT Z
+165 SP=0:FOR Z=1 TO N:SP=SP+PD(Z)*PT(Z):NEXT
+170 LOCATE 9,60:COLOR CLR2,CLR1:PRINT "  PROBABILITY of ":LOCATE 10,60:PRINT " this disease in ":LOCATE 11,60:PRINT " a person with a ":LOCATE 12,60:PRINT "  positive test: ":GOSUB 210
+175 FOR Z=1 TO N:LOCATE 13+Z,66:PRINT USING ".######";PD(Z)*PT(Z)/SP:NEXT
+180 COLOR CLR1,CLR2:LOCATE 24,1:PRINT "Would you like to modify these calculations in relation to";
+185 LOCATE 25,30:INPUT;"the SAME TEST and the SAME DISEASES?   ",A$
+190 IF A$="y" OR A$="Y" THEN TF=1:CLS:LOCATE 4,30:PRINT "TEST = ";T$:LOCATE 9,1:GOTO 135
+195 LOCATE 24,1:PRINT TAB(80):LOCATE 25,1:PRINT TAB(79):LOCATE 25,9:INPUT;"Do you want another calculation using Bayes' Theorem?   ",A$
+200 IF A$="Y" OR A$="y" THEN 20
+205 LOCATE 23,1:END
+210 PLAY "MB MS O2 T200 L32 DF#AF#DF#AF#DF# L2 D":RETURN
+215 BEEP:AR=CSRLIN:LOCATE 25,15:PRINT "Probability should be a fraction between 0 and 1.";:LOCATE AR,1:RETURN
+5000 BEEP:IF ERR<>53 AND ERR<>71 THEN 5010 ELSE LOCATE 10,10:PRINT "Please place EPISTAT in drive A: (or other default).":PRINT TAB(25);"Press any key to continue:"
+5005 A$=INKEY$:IF A$="" THEN 5005 ELSE RESUME
+5010 ON ERROR GOTO 0:END
+

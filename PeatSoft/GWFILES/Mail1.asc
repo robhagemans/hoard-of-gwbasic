@@ -1,0 +1,547 @@
+5 '
+10 '   ******************************************
+20 '   ***     MAILING LIST PROGRAM   v.1.0   ***
+30 '   ******************************************
+40 '
+50 '   by Joe Long                       for IBM PC
+60 '   Rt. 1 Box 100                     up to 1,000 records
+70 '   Madison, AL  35758
+75 '
+80 '               ***    Copyright 1983 by Joe Long   ***
+85 '   ** Permission to copy for private use and FREE distribution granted   **
+90 '
+100 DEFINT A-Z : DIM SORT$(1000), SORT(1000), FILL$(50), FRERECNUM$(50)
+110 ON ERROR GOTO 9900
+120 FG=7 : BG=0 : BD=0 : HI = 15  '   Color variables
+130 COLOR FG,BG,BD : KEY OFF : CLS
+140 ON KEY(1) GOSUB 2000: ON KEY(2) GOSUB 3000: ON KEY(3) GOSUB 4000: ON KEY(4) GOSUB 5000: ON KEY(5) GOSUB 4200: ON KEY(6) GOSUB 4400: ON KEY(7) GOSUB 4600: ON KEY(8) GOSUB 4800: ON KEY(9) GOSUB 500: ON KEY(10) GOSUB 400
+150 KEY(1) ON: KEY(2) ON: KEY(3) ON: KEY(4) ON: KEY(5) ON: KEY(6) ON: KEY(7) ON: KEY(8) ON: KEY(9) ON: KEY(10) ON
+160 OPEN "R",1,"b:MAILLIST.TXT"
+170 FIELD 1, 20 AS SCRDATA$(1), 1 AS SCRDATA$(2), 16 AS SCRDATA$(3), 34 AS SCRDATA$(4), 18 AS SCRDATA$(5), 2 AS SCRDATA$(6), 5 AS SCRDATA$(7), 16 AS SCRDATA$(8), 8 AS SCRDATA$(9), 8 AS SCRDATA$(10)
+175 FIELD 1, 20 AS FILL$, 1 AS SORTFLAG$, 107 AS FILLER$
+176 FOR I = 1 TO 50
+177   FIELD 1, 19 + 2*I AS FILL$(I), 2 AS FRERECNUM$(I)
+178 NEXT I
+180 OPEN "R",2,"b:NAMEINDX.TXT",18
+190 FIELD 2, 16 AS NAMEINDEX$, 2 AS NAMERECORD$
+200 OPEN "R",3,"b:ZIPINDEX.TXT",7
+210 FIELD 3, 5 AS ZIPINDEX$, 2 AS ZIPRECORD$
+220 OPEN "R",4,"b:CITYINDX.TXT",20
+230 FIELD 4, 18 AS CITYINDEX$, 2 AS CITYRECORD$
+240 OPEN "R",5,"b:STATEIDX.TXT",4
+250 FIELD 5, 2 AS STATEINDEX$, 2 AS STATERECORD$
+260 GET 1,1
+270 IF FILL$ = "                    " THEN 300
+280 LSET FILL$ = "" : LSET SORTFLAG$ = "" : LSET FILLER$ = ""
+290 PUT 1,1
+300 IF ASC(SORTFLAG$) = 2 THEN 350
+310 PRINT : PRINT "The file has been modified since last sorted."
+320 PRINT : PRINT "Do you want to sort the index files? ";
+330 GOSUB 9100
+340 IF YES = 1 THEN GOSUB 3000
+350 GOTO 1000
+390 '
+400 '   ***   Ending Routine   ***
+410 '
+420 LOCATE 22,10 : COLOR FG,BG : PRINT "Do you really want to end the program? ";
+430 GOSUB 9100
+440 IF YES = 0 THEN MENU = 0 : LOCATE 22,10 : PRINT STRING$(70," ") : RETURN
+450 CLS : PRINT : PRINT TAB(36) "End of program." : PRINT
+460 END
+500 '   ***   Restart routine   ***
+510 '
+520 CLOSE : RUN
+980 '
+990 '    ******************************
+1000 '   ***   MAIN MENU ROUTINES   ***
+1010 '   ******************************
+1015 '
+1020 CLS : PRINT : PRINT TAB(30) "MAILLIST Main Menu"
+1030 PRINT : PRINT TAB(10) "Key" : PRINT TAB(54) "Function"
+1040 PRINT TAB(10)"---" : PRINT TAB(50) "----------------"
+1050 PRINT : PRINT TAB(10)"F1"; : PRINT TAB(50) "Add name to list"
+1070 PRINT : PRINT TAB(10)"F2"; : PRINT TAB(50) "Sort list"
+1080 PRINT : PRINT TAB(10)"F3"; : PRINT TAB(50) "Search/edit record"
+1090 PRINT : PRINT TAB(10)"F4"; : PRINT TAB(50) "Print labels"
+1100 PRINT : PRINT TAB(10)"F10"; : PRINT TAB(50) "Exit program"
+1110 MENU=1
+1120 IF MENU=1 THEN GOTO 1120 ELSE GOTO 1000
+1480 '
+1490 '   **************************************************************
+1500 '   ***   Maintain list of free (deleted) records for re-use   ***
+1510 '   **************************************************************
+1590 '
+1600 '   ***   Find free record   ***
+1610 '
+1620 GET 1,1
+1630 FOR I = 50 TO 1 STEP -1
+1640   IF FRERECNUM$(I) <> "  " THEN 1690
+1650 NEXT I
+1660 RECORD = LOF(1)/128 + 1 : TRIAL = RECORD
+1670 RETURN
+1690 RECORD = CVI(FRERECNUM$(I))
+1700 TRIAL = LOF(1)/128 : GET 2, TRIAL      '   Find free index record
+1710 WHILE NAMEINDEX$ = "________________"
+1720 TRIAL = TRIAL - 1
+1730 GET 2, TRIAL
+1740   WEND
+1750 LSET FRERECNUM$(I) = "" : PUT 1,1   '  delete stored record #
+1760 RETURN
+1790 '
+1800 '   ***   Store deleted record number   ***
+1810 '
+1820 GET 1,1
+1830 FOR I = 1 TO 50
+1840   IF FRERECNUM$(I) = "  " THEN 1870
+1850 NEXT I
+1860 RETURN   '   discard if 50 free records stored
+1870 LSET FRERECNUM$(I) = MKI$(RECORD)
+1880 PUT 1,1
+1890 RETURN
+1980 '
+1990 '   *****************************
+2000 '   ***   Add names to list   ***
+2010 '   *****************************
+2020 '
+2030 MENU=0
+2040 GOSUB 1500     '   get next record #
+2050 GOSUB 8100     '   Print blank form on screen
+2060 RESTORE : READ DUMMY, DUMMY, DUMMY   '   set data for cursor advance
+2070 ROW=4 : COL=13      '   set initial cursor location
+2080 GOSUB 8500
+2090 RESTORE : GOSUB 8800
+2110 GOSUB 6100                '   Save to disc
+2120 RETURN
+2980 '
+2990 '   ************************
+3000 '   ***   Sort Indexes   ***
+3010 '   ************************
+3015 '
+3020 MENU = 0
+3030 LASTRECORD = LOF(1)/128
+3040 CLS : PRINT "Reading last name index file."
+3090 '
+3100 '   ***   Sort Name Index    ***
+3110 '
+3120 FOR I = 1 TO LASTRECORD
+3130   GET 2,I : SORT$(I) = NAMEINDEX$ : SORT(I) = CVI(NAMERECORD$)
+3140 NEXT I
+3150 PRINT "Last name index read ... now sorting last name index."
+3160 GOSUB 9400
+3170 PRINT "Sorting complete ... now writing sorted last name index."
+3180 FOR I = 1 TO LASTRECORD
+3190   LSET NAMEINDEX$ = SORT$(I) : LSET NAMERECORD$ = MKI$(SORT(I))
+3200   PUT 2,I
+3210 NEXT I
+3220 PRINT "Last name index file written ... now reading zip code index file."
+3290 '
+3300 '   ***   Sort zip code index   ***
+3310 '
+3320 FOR I = 1 TO LASTRECORD
+3330   GET 3,I : SORT$(I) = ZIPINDEX$ : SORT(I) = CVI(ZIPRECORD$)
+3340 NEXT I
+3350 PRINT "Zip code index file read ... now sorting zip code index."
+3360 GOSUB 9400
+3370 PRINT "Sorting complete ... now writing sorted zip code index file."
+3380 FOR I = 1 TO LASTRECORD
+3390   LSET ZIPINDEX$ = SORT$(I) : LSET ZIPRECORD$ = MKI$(SORT(I))
+3400   PUT 3,I
+3410 NEXT I
+3420 PRINT "Zip code index file written ... reading City index file."
+3490 '
+3500 '   ***   Sort City Index   ***
+3510 '
+3520 FOR I = 1 TO LASTRECORD
+3530   GET 4,I : SORT$(I) = CITYINDEX$ : SORT(I) = CVI(CITYRECORD$)
+3540 NEXT I
+3550 PRINT "City index file read ... now sorting City index."
+3560 GOSUB 9400
+3570 PRINT "Sorting complete ... now writing sorted City index file."
+3580 FOR I = 1 TO LASTRECORD
+3590   LSET CITYINDEX$ = SORT$(I) : LSET CITYRECORD$ = MKI$(SORT(I))
+3600   PUT 4,I
+3610 NEXT I
+3620 PRINT "City index file written ... reading State index file."
+3690 '
+3700 '   ***   Sort State index   ***
+3710 '
+3720 FOR I = 1 TO LASTRECORD
+3730   GET 5,I : SORT$(I) = STATEINDEX$ : SORT(I) = CVI(STATERECORD$)
+3740 NEXT I
+3750 PRINT "State index file read ... now sorting State index file."
+3760 GOSUB 9400
+3770 PRINT "Sorting complete ... now writing sorted State index file."
+3780 FOR I = 1 TO LASTRECORD
+3790   LSET STATEINDEX$ = SORT$(I) : LSET STATERECORD$ = MKI$(SORT(I))
+3800   PUT 5,I
+3810 NEXT I
+3820 BEEP : PRINT "State index file written ... all sorting completed."
+3830 LSET FILL1$ = "" : LSET SORTFLAG$ = CHR$(2) : LSET FILL2$ = ""
+3840 PUT 1,1
+3850 FOR I = 1 TO 1000 : NEXT I
+3860 RETURN
+3980 '
+3990 '   ***********************************
+4000 '   ***   Search and Edit Records   ***
+4010 '   ***********************************
+4020 '
+4030 LASTRECORD = LOF(1)/128
+4090 '
+4100 '   ***   Search Menu   ***
+4110 '
+4120 CLS : MENU = 1 : PRINT : PRINT TAB(10) "Key";: PRINT TAB(50) "Type of Search"
+4130 PRINT TAB(10) "___";: PRINT TAB(50) "______________"
+4140 PRINT : PRINT TAB(11) "F5";: PRINT TAB(50) "Last Name"
+4150 PRINT : PRINT TAB(11) "F6";: PRINT TAB(50) "Zip Code"
+4160 PRINT : PRINT TAB(11) "F7";: PRINT TAB(50) "City"
+4170 PRINT : PRINT TAB(11) "F8";: PRINT TAB(50) "State"
+4180 PRINT : PRINT TAB(11) "F9";: PRINT TAB(50) "Return to Main Menu"
+4190 IF MENU = 1 THEN GOTO 4190 ELSE MENU = 1 : GOTO 4120
+4195 '
+4200 '   ***   Search by last name   ***
+4210 '
+4220 CLS : MENU = 0 : LASTRECORD = LOF(1)/128
+4240 PRINT : INPUT "Last name for search"; LASTNAME$
+4250 NAMELENGTH = LEN(LASTNAME$)
+4260 LOWLIMIT = 0 : HIGHLIMIT = LASTRECORD
+4270 TRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4280 GET 2, TRIAL : RECORD = CVI(NAMERECORD$)
+4290 IF LEFT$(NAMEINDEX$,NAMELENGTH) = LASTNAME$ THEN GOSUB 9700 : GOTO 4340
+4300 IF NAMEINDEX$ < LASTNAME$ THEN LOWLIMIT = TRIAL
+4310 IF NAMEINDEX$ > LASTNAME$ THEN HIGHLIMIT = TRIAL
+4320 NEWTRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4330 IF TRIAL = NEWTRIAL THEN BEEP : PRINT "None found." : FOR I = 1 TO 500 : NEXT I : RETURN ELSE TRIAL = NEWTRIAL : GOTO 4280
+4340 MATCH = TRIAL
+4350 TRIAL = TRIAL - 1 : GET 2, TRIAL : RECORD = CVI(NAMERECORD$) : IF LEFT$(NAMEINDEX$,NAMELENGTH) = LASTNAME$ THEN GOSUB 9700 : GOTO 4350
+4360 TRIAL = MATCH
+4370 TRIAL = TRIAL + 1 : GET 2, TRIAL : RECORD = CVI(NAMERECORD$) : IF LEFT$(NAMEINDEX$,NAMELENGTH) = LASTNAME$ THEN GOSUB 9700 : GOTO 4370
+4380 BEEP : PRINT "No more entries by that name." : FOR I = 1 TO 500 : NEXT I : RETURN
+4390 '
+4400 '   ***   Search by zip code   ***
+4410 '
+4420 CLS : MENU = 0 : LASTRECORD = LOF(1)/128
+4440 PRINT : INPUT "Zip code for search"; ZIPCODE$
+4460 LOWLIMIT = 0 : HIGHLIMIT = LASTRECORD
+4470 TRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4480 GET 3, TRIAL : RECORD = CVI(ZIPRECORD$)
+4490 IF ZIPINDEX$ = ZIPCODE$ THEN GOSUB 9700 : GOTO 4540
+4500 IF ZIPINDEX$ < ZIPCODE$ THEN LOWLIMIT = TRIAL
+4510 IF ZIPINDEX$ > ZIPCODE$ THEN HIGHLIMIT = TRIAL
+4520 NEWTRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4530 IF TRIAL = NEWTRIAL THEN BEEP : PRINT "None found." : FOR I = 1 TO 500 : NEXT I : RETURN ELSE TRIAL = NEWTRIAL : GOTO 4480
+4540 MATCH = TRIAL
+4550 TRIAL = TRIAL - 1 : GET 3, TRIAL : RECORD = CVI(ZIPRECORD$) : IF ZIPINDEX$ = ZIPCODE$ THEN GOSUB 9700 : GOTO 4550
+4560 TRIAL = MATCH
+4570 TRIAL = TRIAL + 1 : GET 3, TRIAL : RECORD = CVI(ZIPRECORD$) : IF ZIPINDEX$ = ZIPCODE$ THEN GOSUB 9700 : GOTO 4570
+4580 BEEP : PRINT "No more entries with that number." : FOR I = 1 TO 500 : NEXT I : RETURN
+4590 '
+4600 '   ***   Search by City   ***
+4610 '
+4620 CLS : MENU = 0 : LASTRECORD = LOF(1)/128
+4640 PRINT : INPUT "City for search"; CITY$
+4650 CITYLENGTH = LEN(CITY$)
+4660 LOWLIMIT = 0 : HIGHLIMIT = LASTRECORD
+4670 TRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4680 GET 4, TRIAL : RECORD = CVI(CITYRECORD$)
+4690 IF LEFT$(CITYINDEX$,CITYLENGTH) = CITY$ THEN GOSUB 9700 : GOTO 4740
+4700 IF CITYINDEX$ < CITY$ THEN LOWLIMIT = TRIAL
+4710 IF CITYINDEX$ > CITY$ THEN HIGHLIMIT = TRIAL
+4720 NEWTRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4730 IF TRIAL = NEWTRIAL THEN BEEP : PRINT "None found." : FOR I = 1 TO 500 : NEXT I : RETURN ELSE TRIAL = NEWTRIAL : GOTO 4680
+4740 MATCH = TRIAL
+4750 TRIAL = TRIAL - 1 : GET 4, TRIAL : RECORD = CVI(CITYRECORD$) : IF LEFT$(CITYINDEX$,CITYLENGTH) = CITY$ THEN GOSUB 9700 : GOTO 4750
+4760 TRIAL = MATCH
+4770 TRIAL = TRIAL + 1 : GET 4, TRIAL : RECORD = CVI(CITYRECORD$) : IF LEFT$(CITYINDEX$,CITYLENGTH) = CITY$ THEN GOSUB 9700 : GOTO 4770
+4780 BEEP : PRINT "No more entries with that city." : FOR I = 1 TO 500 : NEXT I : RETURN
+4790 '
+4800 '   ***   Search by State   ***
+4810 '
+4820 CLS : MENU = 0 : LASTRECORD = LOF(1)/128
+4840 PRINT : INPUT "State for search"; STATE$
+4860 LOWLIMIT = 0 : HIGHLIMIT = LASTRECORD
+4870 TRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4880 GET 5, TRIAL : RECORD = CVI(STATERECORD$)
+4890 IF STATEINDEX$ = STATE$ THEN GOSUB 9700 : GOTO 4940
+4900 IF STATEINDEX$ < STATE$ THEN LOWLIMIT = TRIAL
+4910 IF STATEINDEX$ > STATE$ THEN HIGHLIMIT = TRIAL
+4920 NEWTRIAL = INT((LOWLIMIT + HIGHLIMIT)/2+.5)
+4930 IF TRIAL = NEWTRIAL THEN BEEP : PRINT "None found." : FOR I = 1 TO 500 : NEXT I : RETURN ELSE TRIAL = NEWTRIAL : GOTO 4880
+4940 MATCH = TRIAL
+4950 TRIAL = TRIAL - 1 : GET 5, TRIAL : RECORD = CVI(STATERECORD$) : IF STATEINDEX$ = STATE$ THEN GOSUB 9700 : GOTO 4950
+4960 TRIAL = MATCH
+4970 TRIAL = TRIAL + 1 : GET 5, TRIAL : RECORD = CVI(STATERECORD$) : IF STATEINDEX$ = STATE$ THEN GOSUB 9700 : GOTO 4970
+4980 BEEP : PRINT "No more entries with that state." : FOR I = 1 TO 500 : NEXT I : RETURN
+4985 '
+4990 '   ************************
+5000 '   ***   Print Labels   ***
+5010 '   ************************
+5020 '
+5030 MENU = 0 : CLS
+5040 PRINT : INPUT "One or two across"; LABELNUMBER
+5050 IF LABELNUMBER < 1 OR LABELNUMBER > 2 THEN PRINT : PRINT "This program only prints one or two 3 1/2"; CHR$(34); "labels per row, choose (1) or (2) please." : GOTO 5040
+5060 GOSUB 9200     '   Select key field
+5070 PRINT : PRINTKEY$ = "" : INPUT "Key to print (or <enter> to print all)"; PRINTKEY$ : IF PRINTKEY$ = "" THEN PRINTKEY$ = "*"
+5075 PRINT : PRINT "Print phone numbers? "; : GOSUB 9100
+5078 IF YES = 1 THEN PHONEFLAG = 1 ELSE PHONEFLAG = 0
+5080 IF LABELNUMBER = 2 THEN GOTO 5400
+5090 '
+5100 '   ***   Print one across labels   ***
+5110 '
+5120 LASTRECORD = LOF(1)/128
+5130 RECORD = 0
+5140 IF RECORD = LASTRECORD THEN RETURN ELSE RECORD = RECORD + 1 : GOSUB 6300    '   get next record
+5150 IF KEYFIELD < 9 THEN GOTO 5240
+5160 FOR I = 1 TO 8
+5170   FOR J = 1 TO LEN(PRINTKEY$)
+5180     IF MID$(SCREENDATA$(KEYFIELD),I,1) = MID$(PRINTKEY$,J,1) THEN GOTO 5300
+5190   NEXT J
+5200 NEXT I
+5220 GOTO 5140
+5240 IF PRINTKEY$ = "*" THEN 5300
+5250  FIELDDATA$(KEYFIELD) = LEFT$(SCREENDATA$(KEYFIELD),LEN(PRINTKEY$))
+5260 IF FIELDDATA$(KEYFIELD) <> PRINTKEY$ THEN GOTO 5140
+5300 LPRINT : LPRINT SCREENDATA$(1);" ";
+5310 IF SCREENDATA$(2) <> "" THEN LPRINT SCREENDATA$(2);". ";
+5320 LPRINT SCREENDATA$(3)
+5330 LPRINT SCREENDATA$(4)
+5340 LPRINT SCREENDATA$(5); ", "; SCREENDATA$(6); : LPRINT TAB(25); SCREENDATA$(7)
+5350 IF PHONEFLAG = 1 THEN LPRINT SCREENDATA$(8) ELSE LPRINT
+5360 LPRINT
+5370 GOTO 5140
+5390 '
+5400 '   ***   Print two across labels   ***
+5410 '
+5420 LASTRECORD = LOF(1)/128 : RECORD = 0 : LEFTLABEL = 1
+5430 IF RECORD >= LASTRECORD THEN 5800
+5440 RECORD = RECORD + 1 : GOSUB 6300   '   get next record
+5450 IF KEYFIELD < 9 THEN GOTO 5540
+5460 FOR I = 1 TO 8
+5470   FOR J = 1 TO LEN(PRINTKEY$)
+5480     IF MID$(SCREENDATA$(KEYFIELD),I,1) = MID$(PRINTKEY$,J,1) THEN GOTO 5600
+5490   NEXT J
+5500 NEXT I
+5520 GOTO 5430
+5540 IF PRINTKEY$ = "*" THEN 5600
+5550  FIELDDATA$(KEYFIELD) = LEFT$(SCREENDATA$(KEYFIELD),LEN(PRINTKEY$))
+5560 IF FIELDDATA$(KEYFIELD) <> PRINTKEY$ THEN GOTO 5440
+5600 IF LEFTLABEL = 0 THEN 5700
+5610 FOR I = 1 TO 8
+5620   LABELDATA$(I) = SCREENDATA$(I)
+5630 NEXT I
+5640 LEFTLABEL = 0
+5650 GOTO 5430
+5700 LPRINT : LPRINT LABELDATA$(1); " "; : IF LABELDATA$(2) <> "" THEN LPRINT LABELDATA$(2); ". ";
+5710 LPRINT LABELDATA$(3);
+5720 LPRINT TAB(37) SCREENDATA$(1); " "; : IF SCREENDATA$(2) <> "" THEN LPRINT SCREENDATA$(2); ". ";
+5730 LPRINT SCREENDATA$(3)
+5740 LPRINT LABELDATA$(4); : LPRINT TAB(37) SCREENDATA$(4)
+5750 LPRINT LABELDATA$(5); ", "; LABELDATA$(6); : LPRINT TAB(25) LABELDATA$(7);
+5760 LPRINT TAB(37) SCREENDATA$(5); ", "; SCREENDATA$(6); : LPRINT TAB(62) SCREENDATA$(7)
+5770 IF PHONEFLAG = 1 THEN LPRINT LABELDATA$(8); : LPRINT TAB(37) SCREENDATA$(8) ELSE LPRINT
+5780 LPRINT : LEFTLABEL = 1 : GOTO 5430
+5790 '
+5800 '   ***   Print odd remaining label   ***
+5810 '
+5820 IF LEFTLABEL = 1 THEN RETURN
+5830 LPRINT : LPRINT LABELDATA$(1); " "; : IF LABELDATA$(2) <> "" THEN LPRINT LABELDATA$(2); ". ";
+5840 LPRINT LABELDATA$(3)
+5850 LPRINT LABELDATA$(4)
+5860 LPRINT LABELDATA$(5); ", "; LABELDATA$(6); : LPRINT TAB(25) LABELDATA$(7)
+5870 IF PHONEFLAG = 1 THEN LPRINT LABELDATA$(8) : LPRINT ELSE LPRINT : LPRINT
+5890 RETURN
+5980 '
+5990 '   *****************************
+6000 '   ***   MAIN I/O ROUTINES   ***
+6010 '   *****************************
+6090 '
+6100 '   ***   Write Record to File   ***
+6110 '
+6140 FOR I=1 TO 10
+6150   LSET SCRDATA$(I) = SCREENDATA$(I)
+6160 NEXT I
+6170 PUT 1, RECORD
+6180 LSET NAMEINDEX$ = SCREENDATA$(3) : LSET NAMERECORD$ = MKI$(RECORD)
+6190 PUT 2, TRIAL
+6200 LSET ZIPINDEX$ = SCREENDATA$(7) : LSET ZIPRECORD$ = MKI$(RECORD)
+6210 PUT 3, TRIAL
+6220 LSET CITYINDEX$ = SCREENDATA$(5) : LSET CITYRECORD$ = MKI$(RECORD)
+6230 PUT 4, TRIAL
+6240 LSET STATEINDEX$ = SCREENDATA$(6) : LSET STATERECORD$ = MKI$(RECORD)
+6250 PUT 5, TRIAL
+6260 GET 1,1
+6270 LSET FILL$ = "" : LSET SORTFLAG$ = ""
+6280 PUT 1,1 : RETURN
+6290 '
+6300 '   ***   Read Record from File   ***
+6310 '
+6330 GET 1, RECORD
+6340 FOR I = 1 TO 10
+6350   SCREENDATA$(I) = SCRDATA$(I)
+6360   FOR J = LEN(SCREENDATA$(I)) TO 1 STEP -1
+6370     IF MID$(SCREENDATA$(I),J,1) <> "_" THEN 6400
+6380   NEXT J
+6390   SCREENDATA$(I) = ""   '   change blank string to null string
+6400   SCREENDATA$(I) = LEFT$(SCREENDATA$(I),J)
+6410 NEXT I
+6420 RETURN
+7980 '
+7990 '   ***********************************
+8000 '   ***   Display I/O Subroutines   ***
+8010 '   ***********************************
+8090 '
+8100 '   ***   Print Form on Screen   ***
+8110 '
+8120 CLS : PRINT : PRINT TAB(20) "Record Number"; RECORD
+8130 PRINT : PRINT "First Name: ";STRING$(20,"_"); "     M.I.: __     Last Name: ";STRING$(16,"_")
+8140 PRINT : PRINT "Address: "; STRING$(34,"_")
+8150 PRINT : PRINT "City: "; STRING$(18,"_"); "     State: __     Zip: "; STRING$(5,"_")
+8160 PRINT : PRINT "Phone: ";STRING$(16,"_")
+8170 PRINT : PRINT "Activity Key: "; STRING$(8,"_")
+8180 PRINT : PRINT "Membership Key: ";STRING$(8,"_")
+8190 PRINT : PRINT : PRINT TAB(22) "(Press <Esc> to delete record)"
+8200 PRINT : PRINT TAB(12) "(Forward tab to next item, <Enter> to exit form)"
+8210 RETURN
+8390 '
+8400 '   ***   Print Data on Screen   ***
+8410 '
+8420 COLOR HI, BG
+8430 FOR I = 1 TO 10
+8440   READ ROWDATA, COLDATA, LENDATA
+8450   LOCATE ROWDATA,COLDATA : PRINT SCREENDATA$(I);
+8460 NEXT I
+8470 RETURN
+8490 '
+8500 '   ***   Process Keyboard Inputs to Screen  ***
+8510 '
+8520 COLORVAL = SCREEN(ROW,COL,1) : COLORFORE = (COLORVAL MOD 16) : CHARACTER = SCREEN(ROW,COL)
+8530 LOCATE ROW,COL : COLOR BG,COLORFORE : PRINT CHR$(CHARACTER);
+8540 FOR I = 1 TO 30
+8550   DATUM$ = INKEY$ : IF DATUM$ <> "" THEN GOTO 8620
+8560 NEXT I
+8570 LOCATE ROW,COL : COLOR COLORFORE,BG : PRINT CHR$(SCREEN(ROW,COL));
+8580 FOR I = 1 TO 30
+8590   DATUM$ = INKEY$ : IF DATUM$ <> "" THEN GOTO 8620
+8600 NEXT I
+8610 GOTO 8530
+8620 LOCATE ROW,COL : COLOR COLORFORE,BG : PRINT CHR$(SCREEN(ROW,COL));
+8625 IF ASC(DATUM$) = 27 THEN 9600     '   delete entry
+8630 IF LEN(DATUM$) = 1 THEN GOTO 8700
+8640 CURMOVE = ASC(RIGHT$(DATUM$,1))
+8650 IF CURMOVE = 77 THEN COL = COL + 1 : IF COL > 80 THEN COL = 1 : ROW = ROW + 1 : IF ROW = 24 THEN ROW = 23 : COL = 80
+8660 IF CURMOVE = 75 THEN COL = COL - 1 : IF COL < 1 THEN COL = 80 : ROW = ROW - 1 : IF ROW = 0 THEN ROW = 1 : COL = 1
+8670 IF CURMOVE = 80 THEN ROW = ROW + 1 : IF ROW = 24 THEN ROW = 23
+8680 IF CURMOVE = 72 THEN ROW = ROW - 1 : IF ROW = 0 THEN ROW = 1
+8685 IF CURMOVE = 83 THEN LOCATE ROW,COL : IF COLORFORE = 15 THEN COLOR FG,BG : PRINT "_";
+8690 GOTO 8520
+8700 VALDATUM = ASC(DATUM$)
+8710 IF VALDATUM = 9 THEN COLOR COLORFORE,BG : LOCATE ROW,COL : PRINT CHR$(CHARACTER) : READ ROW,COL,LENDATA : IF ROW = 1 THEN RETURN ELSE GOTO 8500
+8720 IF VALDATUM = 13 THEN RETURN
+8730 IF VALDATUM < 31 OR VALDATUM > 127 THEN GOTO 8760
+8740 LOCATE ROW,COL : COLOR HI,BG : PRINT DATUM$;
+8750 COL = COL + 1 : IF COL > 80 THEN COL = 1 : ROW = ROW + 1 : IF ROW = 24 THEN ROW = 23 : COL = 80
+8760 IF VALDATUM = 8 THEN LOCATE ROW,COL : COLOR FG,BG : PRINT "_"; : COL = COL - 1 : IF COL < 1 THEN COL = 80 : ROW = ROW - 1 : IF ROW = 0 THEN ROW = 1 : COL = 1
+8770 GOTO 8520
+8790 '
+8800 '   ***   Read data from screen   ***
+8810 '
+8820 FOR I = 1 TO 10
+8830   SCREENDATA$(I) = "" : READ ROWDATA, COLDATA, LENDATA
+8840   FOR J = 0 TO LENDATA -1
+8850     SCREENDATA$(I) = SCREENDATA$(I) + CHR$(SCREEN(ROWDATA,COLDATA+J))
+8860   NEXT J
+8870 NEXT I
+8880 RETURN
+8890 '
+8900 '   ***   Data statements for form data locations   ***
+8910 '
+8920 DATA 4,13,20,4,44,1,4,62,16,6,10,34,8,7,18,8,37,2,8,49,5
+8930 DATA 10,8,16,12,15,8,14,17,8,1,1,1
+8980 '
+8990 '   *************************************
+9000 '   ***   Miscellaneous Subroutines   ***
+9010 '   *************************************
+9090 '
+9100 '   ***   Process Yes/No Inputs   ***
+9110 '
+9115 ENTRY$ = INKEY$
+9120 ENTRY$ = INKEY$ : IF ENTRY$ = "" THEN 9120
+9130 IF ENTRY$ = "Y" OR ENTRY$ = "y" THEN YES = 1 ELSE YES = 0
+9140 IF YES = 1 THEN PRINT "Yes" ELSE PRINT "No"
+9150 RETURN
+9190 '
+9200 '   ***   Select keyfield for printing labels   ***
+9210 '
+9220 CLS : PRINT : PRINT "     You may print labels selectively, based on the ten data fields stored in"
+9230 PRINT "each record.  Select your key field, then specify the key.  For example, if"
+9240 PRINT "you select a keyfield of `City' and a key of `Detroit', then only people"
+9250 PRINT "living in Detroit will have their labels printed."
+9260 PRINT "     The last two fields, activity and membership, are intended so that you can"
+9270 PRINT "mail to only people with a specific interest or members of a specific club."
+9280 PRINT "A good system is to assign a single letter of the alphabet as the key for each"
+9290 PRINT "interest or organization on your list, allowing up to eight keys per name."
+9300 PRINT : PRINT TAB(20) "Key fields are: ";CHR$(13);"     1.  First name";CHR$(13);"     2.  Middle Initial";CHR$(13);"     3.  Last Name"
+9310 PRINT "     4.  Address";CHR$(13);"     5.  City";CHR$(13);"     6.  State";CHR$(13);"     7.  Zip code"
+9320 PRINT "     8.  Phone #";CHR$(13);"     9.  Activity Key";CHR$(13);"    10.  Membership key"
+9330 PRINT : INPUT "Input number of keyfield"; KEYFIELD
+9340 KEYFIELD = INT(KEYFIELD) : IF KEYFIELD < 1 OR KEYFIELD > 10 THEN PRINT "Only use keyfield between 1 and 10, please." : GOTO 9310
+9350 RETURN
+9390 '
+9400 '   ***   Sort Subroutine   ***
+9410 '
+9420 FOR I = 2 TO LASTRECORD
+9430   IF SORT$(I) > SORT$(I-1) THEN 9560       '   skip if already in order
+9450     FOR J = I-1 TO 0 STEP -1               '   find place to insert
+9460     IF SORT$(I) > SORT$(J) THEN 9500
+9470     NEXT J
+9480   GOTO 9560
+9500   TEMP$ = SORT$(I) : TEMP = SORT(I)        '   hold item to insert
+9510   FOR K = I TO J+2 STEP -1                 '   bump others up
+9520     SORT$(K) = SORT$(K-1) : SORT(K) = SORT(K-1)
+9530   NEXT K
+9540   SORT$(J+1) = TEMP$ : SORT(J+1) = TEMP    '   Insert index item
+9560 NEXT I
+9570 RETURN
+9590 '
+9600 '   ***   Delete index & record of deleted item   ***
+9610 '
+9620 COLOR FG, BG : GOSUB 8100   '   write blank form
+9630 LOCATE 15,1 : PRINT SPACE$(80) : LOCATE 17,1 : PRINT SPACE$(80) : PRINT TAB(20) "DELETE RECORD . . .  Are you sure (y/n)? ";
+9640 GOSUB 9100
+9650 IF YES = 0 THEN RETURN 9810
+9660 RESTORE : GOSUB 8800 : GOSUB 6100   '   Write blanks to disc
+9670 GOSUB 1800     '   Add record # to free record list
+9680 RETURN 9810
+9690 '
+9700 '   ***   Edit record   ***
+9710 '
+9730 CLS : MENU = 0
+9740 GOSUB 6300
+9750 GOSUB 8100
+9760 RESTORE : GOSUB 8400
+9770 RESTORE : READ DUMMY, DUMMY, DUMMY : ROW = 4 : COL = 13
+9780 GOSUB 8500
+9790 LOCATE 22,20 : COLOR FG,BG : PRINT "Store updated data on disc (yes/no)? "; : GOSUB 9100
+9800 IF YES = 1 THEN RESTORE : GOSUB 8800 : GOSUB 6100
+9810 LOCATE 22,10 : COLOR FG,BG : PRINT "(Strike any key to find next record or return to menu)"
+9820 DUMMY$ = INKEY$ : IF DUMMY$ = "" THEN GOTO 9820
+9830 MENU = 0 : RETURN
+9890 '
+9900 '   ***   Error Traps   ***
+9910 '
+9920 IF ERR = 57 THEN 9960
+9925 IF ERR = 61 THEN 9965
+9930 IF ERR = 68 THEN 9970
+9935 IF ERR = 70 THEN 9975
+9940 IF ERR = 71 THEN 9980
+9945 IF ERR = 72 THEN 9985
+9950 ON ERROR GOTO 0
+9960 PRINT : PRINT "Disc I/O error.  No I/O took place.  Try another disc." : GOTO 9990
+9965 PRINT : PRINT "Disc full.  Your last entry was not saved." : GOTO 9990
+9970 PRINT : PRINT "Device unavailable.  Check installation." : GOTO 9990
+9975 PRINT : PRINT "The disc is write protected.  Your entry was not saved."
+9980 PRINT : PRINT "The disc was not ready.  No I/O took place." : GOTO 9990
+9985 PRINT : PRINT "Media error.  Check for bad disc.  No I/O took place." : GOTO 9990
+9990 PRINT : PRINT "Press any key to restart program. "
+9995 Z$ = INKEY$ : IF Z$ = "" THEN 9995 ELSE CLOSE : RUN
+9999 END
+

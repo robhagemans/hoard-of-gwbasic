@@ -1,0 +1,132 @@
+10 KEY OFF:CLS
+20 DIM G(5),D(5),B$(8),A$(9),T$(5)
+30 FOR J=1 TO 5
+40 READ G(J),D(J)
+50 NEXT J
+60 DATA 9.8,1.2756E+07,1.67,3.477E+06,3.92,6.86E+06,8.82,1.262E+07,26.46,1.436E+08
+70 FOR J=1 TO 5
+80 READ B$(J)
+90 NEXT J
+100 DATA Earth,The Moon,Mars,Venus,Jupiter
+110 PRINT"Do you wish to land on..."
+120 PRINT"                             <1> Earth"
+130 PRINT"                             <2> The Moon"
+140 PRINT"                             <3> Mars"
+150 PRINT"                             <4> Venus"
+160 PRINT"                             <5> Jupiter"
+170 B$=INPUT$(1)
+180 B=VAL(B$)
+190 IF B<1 OR B>5 THEN SOUND 37,2:GOTO 170
+200 B$=B$(B)
+210 G=G(B)
+220 D=D(B)
+230 PRINT"Do you need an explanation?"
+240 A$=INPUT$(1)
+250 IF A$="n" OR A$="N" GOTO 360
+260 PRINT"You are attemping a soft landing on "B$" by firing your"
+270 PRINT"rockets or retro-rockets in 1 second blasts to thrust towards"
+280 PRINT B$" or away from "B$", or by letting your spacecraft"
+290 PRINT"drift for one second intervals.  Your aim is to land with a zero"
+300 PRINT"impact velocity in the shortest possible time.  You may choose"
+310 PRINT"(A) the constant thrust per kilogram of your Lander, Your initial"
+320 PRINT"position (S) meters from "B$", and your initial"
+330 PRINT"velocity (V) meters/second according to restrictions which are "
+340 PRINT"stated below.  (Note that a positive velocity leads away from "
+350 PRINT B$" and that a negative velocity leads towards "B$".)"
+360 PRINT:PRINT "Input Thrust/Weight Ratio - (Must be between"G"and "10*INT(G+1)")";,
+370 INPUT A
+380 IF A<=G THEN 360
+390 IF A<=10*INT(G+1) THEN 420
+400 PRINT"Do you want to land or smash your way through "B$"?"
+410 GOTO 360
+420 PRINT"Input initial height - (Must be between"A*34"and 0 ) ",;
+430 INPUT S
+440 B=S/19
+450 IF S<=0 OR S>34*A THEN 420
+460 PRINT"Input initial velocity - (Must be greater than"(-1*SQR(2*S*(A-G)))") ",
+470 INPUT V
+480 Y=SQR(2*A*(A-G)*(V*V+2*A*S+2*G*S))
+490 M=(V+Y/(2*A))/(A+G)
+500 F=2*INT(M+Y/(2*A*(A-G)))+2
+510 PRINT"The Federal Energy Administrator allows you"F"seconds worth of fuel."
+520 PRINT"Upon the command 'Fire !!', fire your rockets (Print '+') or your retro-"
+530 PRINT"rockets (Print '-'), or neither (Print '=').  After each blast, the"
+540 PRINT"computer will print out the flight data and plot your position."
+550 PRINT:PRINT:PRINT TAB(27)"Hit any key to continue"
+560 N=0
+570 P=0
+580 A$="<={<={}=>"
+590 X=S/B
+600 IF X>36 THEN 1190
+610 PRINT TAB(37) CHR$(221) TAB(38+X);MID$(A$,4+3*SGN(V),6+3*SGN(V)) CHR$(13);
+620 PRINT USING "Dist=####.#  Speed=####.#  Fuel=### &";S;V;F-N;CHR$(221)
+630 IF N=F THEN 1040
+640 C$=INPUT$(1)
+650 IF C$="+" THEN J=1:GOTO 700
+660 IF C$="=" THEN J=2:GOTO 700
+670 IF C$="-" THEN J=3:GOTO 700
+680 SOUND 37,2
+690 GOTO 640
+700 U=(J-2)*A
+710 IF J=3 THEN 740
+720 Z=(V+SQR(V*V-2*S*(U-G)))/(G-U)
+730 GOTO 760
+740 IF V<0 AND V*V>=2*S*(U-G) THEN 720
+750 Z=1000
+760 IF Z<=1 THEN 820
+770 S=.5*(U-G)+V+S
+780 V=U-G+V
+790 N=N+ABS(J-2)
+800 P=P+1
+810 GOTO 590
+820 W=ABS(V+(U-G)*Z)
+830 T=P+Z
+840 IF W<.01 THEN 970
+850 CLS:ON INT(W/10)+1 GOTO 880,900,900,930
+860 PRINT"Is there life after death?  You crashed with an impact velocity of"
+870 GOTO 950
+880 PRINT" Bumpy landing!  You hit the ground with an impact velocity of "
+890 GOTO 950
+900 PRINT"Blue Cross-Blue Shield will pay 80% towards your X-Ray "
+910 PRINT"expenses.  You crashed with an impact velocity of "
+920 GOTO 950
+930 PRINT"You should have not have sat backwards in your rocket!  Your teeth"
+940 PRINT"just left throuhg the back of your skull with a velocity of "
+950 PRINT W"meters per second after having maneuvered for"T"seconds."
+960 GOTO 1140
+970 IF ABS(M+Y/(2*A*(A-G))-T)<.01 THEN 1010
+980 PRINT"You did manage to land softly after maneuvering for"T"seconds, but"
+990 PRINT"not in the minimum time!"
+1000 GOTO 1140
+1010 PRINT"You have landed softly in the shortest possible time of "
+1020 PRINT M+Y/(2*A*(A-G))"seconds.  Congratulations!!"
+1030 GOTO 1310
+1040 PRINT TAB(35) CHR$(221) " You are out of fuel!!"
+1050 T=V/G+SQR(V*V+2*G*S)/G
+1060 W=SQR(V*V+2*G*S)
+1070 IF V<SQR(D*G) THEN 1100
+1080 PRINT"When you pass Neptune, send me a card!"
+1090 GOTO 1220
+1100 PRINT"Brace yourself!  You are going to crash with an impact velocity"
+1110 PRINT"of"W"meters per second in"T"seconds from now."
+1120 IF W<40 THEN 1140
+1130 PRINT"You don't have a ghost of a chance for survival!"
+1140 PRINT"The optimal strategy would have been to start with a rocket"
+1150 PRINT"blast (+) and switch after"M"seconds to retro-rockets (-)."
+1160 PRINT"The shortest possible time in which a soft landing could have"
+1170 PRINT"been accomplished is"M+Y/(2*A*(A-G))"seconds."
+1180 GOTO 1220
+1190 IF N=F THEN 1040
+1200 PRINTTAB(37) CHR$(221) " You aer out of range!"
+1210 GOTO 620
+1220 PRINT"Do you want to try again?"
+1230 A$=INPUT$(1)
+1240 IF A$="n" OR A$="N" THEN 1300
+1250 PRINT"Same place?"
+1260 A$=INPUT$(1)
+1270 IF A$="y" OR A$="Y" GOTO 360
+1280 PRINT"Where else?"
+1290 GOTO 110
+1300 CLS:KEY ON
+1310 PRINT"Just as well!"
+

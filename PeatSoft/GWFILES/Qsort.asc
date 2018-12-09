@@ -1,0 +1,37 @@
+50000 REM QUICKER SORT 03/11/82 VER: 1
+50020 REM by W. Pickett
+50040 REM Internal sort for array - string or numeric
+50060 REM This example sorts "ARRAY$" in ascending order
+50080 REM Variables used and maybe needing renaming are:
+50100 REM  S.AL%  S.I1%  S.I2%  S.IS%  S.LL%  S.LS%  S.SL%  S.SP%  S.UL%  S.US%
+50120 REM Uses stack - "S.SP%" - which requires space and is dim in subroutine
+50140 CLS: T1$ = TIME$: F! = FRE(0)
+50160 TEST% = 50 ' Set length of test array$ for example of QSORT ****
+50180 GOSUB 50700 ' Initialize test array - "ARRAY$"
+50200 T3$ = TIME$:F2! = FRE(0)
+50220 IF S.AL% < 100 THEN FOR I = 1 TO S.AL%:PRINT ARRAY$(I) "  ";:NEXT I:PRINT
+50240 GOSUB 50380 ' Call to sort subroutine
+50260 IF S.AL% < 100 THEN FOR I = 1 TO S.AL%:PRINT ARRAY$(I) "  ";:NEXT I:PRINT
+50280 PRINT "SORT COMPLETE" : PRINT T1$ " " T3$ " " TIME$ " " F! " " F2! " " FRE(0) " " FRE("") TIME$:
+50300 END
+50320 REM *******************************************
+50340 REM ********* QUICKER SORT SUBROUTINE *********
+50360 REM *********                         *********
+50380 S.AL% = TEST% ' Limit of array to be sorted **** REQUIRED FOR SORT ****
+50400 DIM S.SP%(CINT(LOG(S.AL%)/.346574),2) ' If sort is to be called more than once, `DIM' the stack `S.SP%' for the largest size of the array outside the sort
+50420 S.IS% = 0: S.LL% = 1: S.UL% = S.AL%: GOTO 50540
+50440 SWAP ARRAY$(S.SL%),ARRAY$(S.LL%):IF S.SL% > S.UL%-2 THEN S.UL% = S.SL%-1 ELSE IF S.SL% < S.LL%+2 THEN S.LL% = S.LL%+1 ELSE S.IS% = S.IS%+1: S.SP%(S.IS%,1)=S.LL%: S.SP%(S.IS%,2) = S.SL%-1: S.LL%=S.SL%+1
+50460 GOTO 50540
+50480 FOR S.I1% = S.LL% + 1 TO S.UL%: FOR S.I2% = S.LL% TO S.I1%: IF ARRAY$(S.I1%) < ARRAY$(S.I2%) THEN SWAP ARRAY$(S.I1%),ARRAY$(S.I2%)
+50500 NEXT S.I2%: NEXT S.I1%
+50520 IF S.IS% = 0 THEN RETURN ELSE S.LL% = S.SP%(S.IS%,1): S.UL%=S.SP%(S.IS%,2): S.IS% = S.IS%-1
+50540 IF S.UL% - S.LL% <= 9 THEN 50480 ELSE S.LS% = S.LL%: S.US% = S.UL% + 1: SWAP ARRAY$(S.LL%),ARRAY$(INT((S.US%-S.LS%)/2)+S.LL%)
+50560 IF S.US% = S.LS%+1 THEN S.SL% = S.LS%: GOTO 50440 ELSE S.LS% = S.LS% + 1: IF ARRAY$(S.LS%) <= ARRAY$(S.LL%) THEN 50600
+50580 IF S.US% = S.LS% + 1 THEN S.SL% = S.LS%-1: GOTO 50440 ELSE S.US% = S.US% - 1: IF ARRAY$(S.US%) >= ARRAY$(S.LL%) THEN 50580 ELSE SWAP ARRAY$(S.LS%),ARRAY$(S.US%): GOTO 50560
+50600 IF S.US% = S.LS% + 1 THEN S.SL% = S.LS%: GOTO 50440 ELSE S.US% = S.US% - 1: IF ARRAY$(S.US%) >= ARRAY$(S.LL%) THEN 50560
+50620 IF S.US% = S.LS% + 1 THEN S.SL% = S.US%: GOTO 50440 ELSE S.LS% = S.LS% + 1: IF ARRAY$(S.LS%) <= ARRAY$(S.LL%) THEN 50620 ELSE SWAP ARRAY$(S.LS%),ARRAY$(S.US%): GOTO 50600
+50640 END '******** End of quicker sort subroutine **
+50660 REM *******************************************
+50680 REM Initialize array for test of sort
+50700 DIM ARRAY$(TEST%):FOR I = 1 TO TEST%:ARRAY$(I)="A"+STR$(TEST%-I): NEXT I: RETURN
+

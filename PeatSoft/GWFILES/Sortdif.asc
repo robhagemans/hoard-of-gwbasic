@@ -1,0 +1,227 @@
+10 REM SORTDIF.BAS 4/1/82   REV 7/24/82 (NEW SORT)
+30 REM FOR SORTING DIF FILES
+40 '
+50  ' **********************
+60  ' *   INITIALIZATION   *
+70  ' **********************
+80  '
+90 DEFINT A-M,O-V
+100 NUL$=CHR$(34)+CHR$(34)
+110 CLOSE
+120 CLS
+130 PRINT TAB(15) "SORTDIF -- Sort DIF File by Rows or Columns"
+140 PRINT
+150  PRINT "If the DIF file was saved with option R (or just ENTER), the rows will be"
+160 PRINT "reordered based on the contents of the column(s) you specify. If the file"
+170 PRINT "was saved with option C, the columns will be sorted on the elements in the"
+180 PRINT "row(s) specified.":PRINT:PRINT
+190 '
+200 '
+210 ' **********************
+220 ' *    MAIN ROUTINE    *
+230 ' **********************
+240 '
+250 GOSUB 400 '                     OPEN INPUT FILE
+260 GOSUB 630 '                     READ HEADER
+270 GOSUB 830 '                     READ DATA RECORDS
+280 GOSUB 1050 '                    SELECT SORT FIELDS
+290 GOSUB 1370 '                    SORT THE RECORDS
+300 GOSUB 1640 '                    GET OUTPUT FILE NAME
+310 GOSUB 1840 '                    WRITE THE SORTED RECORDS
+320 PRINT:PRINT "***************DONE******************"
+330 END
+340 '
+350 '
+360 ' ********************
+370 ' * OPEN INPUT FILE  *
+380 ' ********************
+390 '
+400 ON ERROR GOTO 0
+410 INPUT "Input file name [.DIF] or C/R to quit: ",FILENAME$
+420 IF FILENAME$="" THEN END
+430 IF RIGHT$(FILENAME$,4)<>".DIF" THEN FILENAME$=FILENAME$+".DIF"
+440 ON ERROR GOTO 490
+450 OPEN FILENAME$ FOR INPUT AS #1
+460 ON ERROR GOTO 0
+470 RETURN
+480 ' INPUT FILE ERROR
+490 BEEP:PRINT
+500 IF ERR = 53 THEN PRINT "File not found.":PRINT :RESUME 400
+510 IF ERR = 71 THEN PRINT "Disk not ready." ELSE PRINT "Error on OPEN: ";ERR
+520 PRINT:INPUT "Retry (R), New name (N), or Quit (Q)";A$
+530 IF A$="R" OR A$="r" THEN RESUME 450
+540 IF A$="N" OR A$="n" THEN RESUME 400
+550 IF A$="Q" OR A$="q" THEN RESUME 560 ELSE 520
+560 ON ERROR GOTO 0:END
+570 '
+580 '
+590 ' **********************
+600 ' *    READ HEADER     *
+610 ' **********************
+620 '
+630 PRINT:COLOR 23:PRINT "**** Loading file ****";:COLOR 7
+640 ON ERROR GOTO 2230
+650 INPUT #1, TITLE$
+660 INPUT #1, TYPE, NUMBER
+670 INPUT #1, STRNG$
+680 IF TITLE$="TUPLES" THEN TUPLES=NUMBER
+690 IF TITLE$="VECTORS" THEN VECTORS = NUMBER
+700 IF TITLE$="DATA" THEN 720
+710 GOTO 650
+720 ON ERROR GOTO 0
+730 DIM TYPES(VECTORS,TUPLES),SV(VECTORS)
+740 ' W IS NUM PART OF WORKSHEET; W$ IS CHAR PART
+750 DIM W$(VECTORS,TUPLES),W(VECTORS,TUPLES),SC(TUPLES),SEQ(TUPLES)
+760 RETURN
+770 '
+780 '
+790 ' **********************
+800 ' * READ DATA RECORDS  *
+810 ' **********************
+820 '
+830 ON ERROR GOTO 2230
+840 FOR COL = 1 TO TUPLES
+850  INPUT #1,TYPE,NUMBER
+860  INPUT #1, STRNG$
+870  IF TYPE <> -1 OR STRNG$ <> "BOT" THEN GOTO 2170
+880  FOR ROW=1 TO VECTORS
+890   INPUT #1, TYPE, NUMBER
+900   INPUT #1, STRNG$
+910   IF TYPE <> 0 AND TYPE <> 1 THEN GOTO 2170
+920   IF TYPE = 0 THEN W(ROW,COL)=NUMBER ELSE W$(ROW,COL)=STRNG$:TYPES(ROW,COL)=1
+930   NEXT ROW
+940  NEXT COL
+950 CLOSE 1
+960 LOCATE ,1:PRINT "  Loading complete     ":PRINT
+970 ON ERROR GOTO 0
+980 RETURN
+990 '
+1000 '
+1010 ' **********************
+1020 ' * SELECT SORT FIELDS *
+1030 ' **********************
+1040 '
+1050 PRINT:IF TUPLES=1 THEN 1240
+1060 PRINT "You may sort on multiple rows/columns by entering a string of row/column"
+1070 PRINT "numbers in the desired high-to-low sort sequence. Be sure to separate"
+1080 PRINT "the numbers with commas(,) if you enter multiple row/column numbers.":PRINT
+1090 PRINT "The default on each row/column is ascending sort sequence.  However,"
+1100 PRINT "you can get descending sequence for any (or all) row/column by putting"
+1110 PRINT "a minus sign(-) in front of the row/column number."
+1120 PRINT:PRINT "There are";TUPLES;"rows/columns ( 1 -";TUPLES;").":PRINT
+1130 LINE INPUT "Enter the row/column number(s): ",SC$
+1140 SCI=0
+1150 IF SC$="" THEN IF SCI=0 THEN BEEP:GOTO 1130 ELSE RETURN
+1160 IF LEFT$(SC$,1)=" " THEN SC$=MID$(SC$,2):GOTO 1150
+1170 A=INSTR(SC$,",")
+1180 IF A=0 THEN SCI$=SC$:SC$="" ELSE SCI$=LEFT$(SC$,A-1):SC$=MID$(SC$,A+1)
+1190 SCI=SCI+1:SC(SCI)=VAL(SCI$)
+1200 IF SC(SCI)<0 THEN SEQ(SCI)=2:SC(SCI)=ABS(SC(SCI)) ELSE SEQ(SCI)=0
+1210 IF SC(SCI)<1 OR SC(SCI)>TUPLES THEN BEEP:PRINT "Invalid entry. Enter number(s) from 1 to";TUPLES:GOTO 1130
+1220 IF TYPES(1,SC(SCI)) THEN SEQ(SCI)=SEQ(SCI)+1
+1230 GOTO 1150
+1240 PRINT "There is only one row/column.":SCI=1:SC(1)=1
+1250 PRINT "Press A for ascending sort, D for descending: ";
+1260 SC$=INPUT$(1):PRINT SC$
+1270 IF SC$="A" OR SC$="a" THEN IF TYPES(1,1) THEN SEQ(1)=1:RETURN ELSE SEQ(1)=0:RETURN
+1280 IF SC$="D" OR SC$="d" THEN IF TYPES(1,1) THEN SEQ(1)=3:RETURN ELSE SEQ(1)=2:RETURN
+1290 BEEP:GOTO 1250
+1300 '
+1310 '
+1320 ' **********************
+1330 ' *  SORT THE RECORDS  *
+1340 ' **********************
+1350 '
+1360 ' SEQ: 0-ASC,NUM; 1-ASC,CHAR; 2-DESC,NUM; 3-DESC,CHAR
+1370 FOR I=1 TO VECTORS:SV(I)=I:NEXT I     ' SET UP SORT INDEX VECTOR
+1380 PRINT:COLOR 23:PRINT "**** Sorting ****";:COLOR 7
+1390 L=(2^INT(LOG(VECTORS)/LOG(2)))-1
+1400 L=INT(L/2):IF L<1 THEN 1560
+1410 FOR J=1 TO L
+1420 FOR K=J+L TO VECTORS STEP L:I=K:M=1
+1430 ON SEQ(M) GOTO 1460,1480,1500
+1440 IF W(SV(I-L),SC(M))<W(SV(I),SC(M)) THEN 1540
+1450 IF W(SV(I-L),SC(M))=W(SV(I),SC(M)) THEN 1550 ELSE 1520
+1460 IF W$(SV(I-L),SC(M))<W$(SV(I),SC(M)) THEN 1540
+1470 IF W$(SV(I-L),SC(M))=W$(SV(I),SC(M)) THEN 1550 ELSE 1520
+1480 IF W(SV(I-L),SC(M))>W(SV(I),SC(M)) THEN 1540
+1490 IF W(SV(I-L),SC(M))=W(SV(I),SC(M)) THEN 1550 ELSE 1520
+1500 IF W$(SV(I-L),SC(M))>W$(SV(I),SC(M)) THEN 1540
+1510 IF W$(SV(I-L),SC(M))=W$(SV(I),SC(M)) THEN 1550 ELSE 1520
+1520 SWAP SV(I),SV(I-L)
+1530 I=I-L:IF I>L THEN M=1:GOTO 1430
+1540 NEXT K,J:GOTO 1400
+1550 IF M<SCI THEN M=M+1:GOTO 1430 ELSE 1540    ' EQUAL CONDITION
+1560 LOCATE ,1:PRINT "  Sorting complete     ":PRINT
+1570 RETURN
+1580 '
+1590 '
+1600 ' **************************
+1610 ' * GET OUTPUT FILE NAME *
+1620 ' ************************
+1630 '
+1640 ON ERROR GOTO 0
+1650 PRINT:INPUT "Enter the output file name [.DIF] or C/R if same as input file: ",OFILENAME$
+1660 IF OFILENAME$="" THEN OFILENAME$=FILENAME$
+1670 IF RIGHT$(OFILENAME$,4)<>".DIF" THEN OFILENAME$=OFILENAME$+".DIF"
+1680 ON ERROR GOTO 1720
+1690 OPEN OFILENAME$ FOR OUTPUT AS #1
+1700 ON ERROR GOTO 0
+1710 RETURN
+1720 BEEP:PRINT
+1730 IF ERR = 71 THEN PRINT "Disk not ready." ELSE PRINT "Error on OPEN: ";ERR
+1740 PRINT:INPUT "Retry (R), New name (N), or Quit (Q)";A$
+1750 IF A$="R" OR A$="r" THEN RESUME 1690
+1760 IF A$="N" OR A$="n" THEN RESUME 1640
+1770 IF A$="Q" OR A$="q" THEN RESUME 560 ELSE 1740
+1780 '
+1790 '
+1800 ' **********************
+1810 ' * WRITE THE RECORDS  *
+1820 ' **********************
+1830 '
+1840 ON ERROR GOTO 2260
+1850 PRINT:COLOR 23:PRINT "**** Writing file ****";:COLOR 7
+1860 PRINT #1, "TABLE"
+1870 PRINT #1, "0,1"
+1880 PRINT #1, NUL$
+1890 PRINT #1, "TUPLES"
+1900 PRINT #1, "0,";TUPLES
+1910 PRINT #1, NUL$
+1920 PRINT #1, "VECTORS"
+1930 PRINT #1, "0,";VECTORS
+1940 PRINT #1, NUL$
+1950 PRINT #1, "DATA"
+1960 PRINT #1, "0,0"
+1970 PRINT #1, NUL$
+1980 FOR COL = 1 TO TUPLES
+1990  PRINT #1, "-1,0"
+2000  PRINT #1, "BOT"
+2010  FOR I = 1 TO VECTORS:ROW=SV(I)
+2020   IF TYPES(ROW,COL) THEN PRINT #1, "1,0":PRINT #1, CHR$(34);W$(ROW,COL);CHR$(34) ELSE PRINT #1, 0;",";W(ROW,COL): PRINT #1, "V"
+2030   NEXT I
+2040  NEXT COL
+2050 PRINT #1, -1;",";0
+2060 PRINT #1, "EOD"
+2070 CLOSE 1
+2080 ON ERROR GOTO 0
+2090 LOCATE ,1:PRINT "  Writing complete     ":PRINT
+2100 RETURN
+2110 '
+2120 '
+2130 ' **********************
+2140 ' *   ERROR IN FILE    *
+2150 ' **********************
+2160 '
+2170 '
+2180 BEEP:LOCATE ,1:PRINT "Irrecoverable error in DIF file . . ."
+2190 PRINT TAB(5); "Type ="; TYPE
+2200 PRINT TAB(5); "Number =";NUMBER
+2210 PRINT TAB(5); "String = ";STRNG$
+2220 END
+2230 BEEP:LOCATE ,1:PRINT "Error";ERR;"reading input file. Rerun from start."
+2240 IF ERR=62 THEN PRINT "DIF file is defective.":END
+2250 PRINT:ON ERROR GOTO 0
+2260 BEEP:LOCATE ,1:PRINT "Error";ERR;"writing output file. Rerun from start."
+2270 PRINT:ON ERROR GOTO 0
+

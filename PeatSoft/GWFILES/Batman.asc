@@ -1,0 +1,69 @@
+10 'BATMAN.BAS -- Copyright M-SQUARED SYSTEMS, Inc. -1982
+20 '
+30 'This routine illustrates a method of adding MENU processing to DOS.
+40 '
+50 'Any user is hereby granted a free, non-exclusive license to use this
+60 'program and to copy, modify or distribute it, so long as no charge is
+70 'made for such copies, and the original author is acknowledged.
+80 '
+90 'W.B. Malthouse, V.P. - 5918 Veranda Dr.,Springfield, Va. 22152
+100 '(703) 451-2934
+110 '
+120 'NOTE: Replace all references to "SHELL.BAT" by any desired file name,
+130 'or obtain the calling file name from the command line image.
+140 '
+150 CLEAR: CLOSE:DEFINT A-Z:KEY OFF:SCREEN 0,0,0:WIDTH 80:COLOR 7:CLS
+160 ON ERROR GOTO 640
+170 DIM L$(22)
+180 COLOR 15
+190 PRINT"Please select the desired function:":COLOR 7
+200 OPEN "SHELL.BAT" FOR INPUT AS #1
+210 NL=0
+220 LINE INPUT #1,BATPROGRAM$
+230 LINE INPUT #1,DOIT$
+240 LINE INPUT #1,PAUSE$
+250 LINE INPUT #1,RESTART$
+260 PRINT
+270 FOR I=1 TO 22
+280 LINE INPUT#1,L$(I)
+290 IJ=INSTR(L$(I),"-")
+300 IF IJ=0 THEN T$="*NO EXPLANATION PROVIDED*" ELSE T$=MID$(L$(I),IJ+1)
+310 IF IJ=0 THEN IJ=LEN(L$(I))-4 ELSE IJ=IJ-5
+320 COLOR 15: PRINT MID$(L$(I),1,3);: COLOR 7: PRINT TAB(4) MID$(L$(I),4,IJ) TAB(21) T$
+330 IF EOF(1) THEN GOTO 350
+340 NEXT
+350 'we now have the whole menu in core
+360 NL=I+1
+370 L$(NL)=STR$(NL)+" GOTO End - Exit to Batch Monitor":L$(NL)=MID$(L$(NL),2)
+380 COLOR 15: PRINT MID$(L$(NL),1,3);: COLOR 7:PRINT TAB(4);MID$(L$(NL),9,4);
+390 PRINT TAB(21) MID$(L$(NL),INSTR(L$(NL),"-")+1);
+400 NL=NL-1
+410 CLOSE #1
+420 LOCATE 23,1,1,0,13:INPUT"===>";N
+425 IF(N < 1) OR (N > NL+1) THEN LOCATE 23,7:PRINT SPACE$(2);:GOTO 420
+440 'here we go
+450 DOITX$=MID$(L$(N),4)
+460 I=INSTR(DOITX$,"-")
+470 IF I<>0 THEN DOITX$=MID$(DOITX$,1,I-1)
+480 DOIT$=DOITX$
+490 LOCATE 25,1,0:COLOR 31:PRINT"Selection:  ";
+500 PRINT DOIT$;:LOCATE 25,79,0
+510 ON ERROR GOTO 0:LOCATE 25,1,0:PRINT SPACE$(79);:LOCATE 25,1,0:COLOR 15
+520 PRINT"REWRITING ";RESTART$;"          ";
+530 OPEN "SHELL.BAT" FOR OUTPUT AS #1
+540 ON ERROR GOTO 0
+550 PRINT #1,BATPROGRAM$
+560 PRINT #1,DOIT$
+570 PRINT #1,PAUSE$
+580 PRINT #1,RESTART$
+590 FOR I=1 TO NL
+600 PRINT #1,L$(I)
+610 NEXT I
+620 CLOSE #1
+630 SYSTEM
+640 'ERROR HANDLING SECTION
+650 LOCATE 22,1:PRINT"Basic Error Code:" ERR " in line:" ERL;
+660 SOUND 40,18: SOUND 40,18: SOUND 40,18: SOUND 40,2
+670 IF ERL<>280 THEN ON ERROR GOTO 0: STOP
+680 RESUME 280
+

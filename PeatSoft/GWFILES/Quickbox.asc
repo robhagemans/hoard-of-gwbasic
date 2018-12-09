@@ -1,0 +1,116 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+12 '***************** THIS IS A MULTI-COLOR BOX DISPLAY ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                   QUICKBOX TECHNIQUES FOR SHOWBOX                       บ
+20 'บ                                                                         บ
+22 'บ    This is simply a program showing the techniques for programming a    บ
+24 'บ series of screen boxes.  You may use any of the subroutines alone to    บ
+26 'บ develop a box of the desired size. The starting & ending columns and    บ
+28 'บ rows determine the actual size and location on the screen. If you have  บ
+30 'บ a monochrome monitor, some of the color statements and combinations may บ
+32 'บ cause continuous underlining on your screen. To avoid this, remove the  บ
+34 'บ offending color statement(s) at the beginning of the program. The box   บ
+36 'บ progamming techniques are not affected.  This program may be used in    บ
+38 'บ whole or part without attribution or license.                           บ
+40 'บ         ** (c) G I N A C O   1983 **          Ver 5.2/160/320           บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:KEY OFF
+300  SCREEN 0,0,0
+310   WIDTH 80
+320    CLEAR
+330     FOR I! = 1 TO 10
+340        KEY I!,""
+350       NEXT
+360 CLS
+370  FOR J! = 1 TO 16
+380     FOR K! = 1 TO 16
+390        FOR L! = 1 TO 16
+400       LOCATE 2,5
+410        COLOR J!,0
+420         PRINT CHR$(218);
+430          FOR I! = 1 TO 70
+440             PRINT CHR$(196);
+450            NEXT
+460             PRINT CHR$(191);
+470       FOR I! = 3 TO 22
+480          LOCATE I!,76
+490           PRINT CHR$(179)
+500          NEXT
+510           LOCATE 23,76
+520            PRINT CHR$(217)
+530       LOCATE 2,5
+540        COLOR L!,0
+550         PRINT CHR$(219);
+560          FOR I! = 1 TO 70
+570             PRINT CHR$(223);
+580            NEXT
+590             PRINT CHR$(219);
+600       FOR I! = 3 TO 22
+610          LOCATE I!,76
+620           PRINT CHR$(219)
+630          NEXT
+640           LOCATE 23,76
+650            PRINT CHR$(219)
+660       FOR I! = 3 TO 22
+670          LOCATE I!,5
+680           PRINT CHR$(219);
+690          NEXT
+700           LOCATE 23,5
+710            PRINT CHR$(219)
+720       LOCATE 23,5
+730        PRINT CHR$(219);
+740         FOR I! = 1 TO 70
+750            PRINT CHR$(220);
+760           NEXT
+770       LOCATE 10,30
+780        PRINT "PLACE YOUR MESSAGE HERE!"
+790         LOCATE 12,29
+800          PRINT "AND WATCH THE COLOR CHANGE"
+810           LOCATE 14,32
+820            PRINT "ALONG WITH THE BOXES"
+830       LOCATE 6,14
+840        COLOR J!,0
+850         PRINT CHR$(218);
+860          FOR I! = 1 TO 52
+870             PRINT CHR$(196);
+880            NEXT
+890             PRINT CHR$(191);
+900       FOR I! = 7 TO 18
+910          LOCATE I!,67
+920           PRINT CHR$(179)
+930          NEXT
+940           LOCATE 19,67
+950            PRINT CHR$(217)
+960       LOCATE 6,14
+970        COLOR L!,0
+980         PRINT CHR$(219);
+990          FOR I! = 1 TO 52
+1000             PRINT CHR$(223);
+1010            NEXT
+1020             PRINT CHR$(219);
+1030       FOR I! = 6 TO 19
+1040          LOCATE I!,67
+1050           PRINT CHR$(219);
+1060          NEXT
+1070           LOCATE 19,67
+1080            PRINT CHR$(219)
+1090       FOR I! = 6 TO 19
+1100          LOCATE I!,14
+1110           PRINT CHR$(219);
+1120          NEXT
+1130           LOCATE 19,14
+1140            PRINT CHR$(219)
+1150       LOCATE 19,14
+1160        PRINT CHR$(219);
+1170         FOR I! = 1 TO 52
+1180            PRINT CHR$(220);
+1190           NEXT
+1200     NEXT
+1210    NEXT
+1220   NEXT
+1230 END
+65000 ' ************************* SAVE ROUTINE *******************************
+65100 SAVE "B:QUICKBOX.CLR"
+

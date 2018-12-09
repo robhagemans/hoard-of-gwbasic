@@ -1,0 +1,121 @@
+50000 REM ===============================================================
+50100 REM =========   Instructions on how to play startrek  =============
+50200 REM ===============================================================
+50300 GOTO 51300
+50400 REM ---------------->>> Simulate sound of t.v. computer
+50500 IF NOISE=0 THEN 51200
+50600 FOR I = 1 TO 50
+50700    J=RND(I)*10000
+50800    IF J<37 THEN 51100
+50900    PLAY "mb"
+51000    SOUND J,.5
+51100 NEXT I
+51200 RETURN
+51300 PRINT "  The galaxy is divided into 64 quadrants with"
+51400 PRINT "  the following coordinates:"
+51500 PRINT "  #   1    2    3    4    5    6    7    8    #"
+51600 FOR I = 1 TO 8
+51700 PRINT "  # |    |    |    |    |    |    |    |    | #";I
+51800 NEXT I
+51900 PRINT : PRINT " Each quadrant is similarly divided into 64 sectors"
+52000 GOSUB 60500
+52100 PRINT "==================>>  DEVICES  <<====================="
+52200 PRINT : PRINT "Warp Engines"
+52300 PRINT "  Course = a real number from 1 to 8.99999.  The course number"
+52400 PRINT "           indicates direction, starting at the right and going"
+52500 PRINT "           counter-clockwise, as depicted below:"
+52600 PRINT
+52700 PRINT "                              3"
+52800 PRINT "                           4  |  2"
+52900 PRINT "                            \ | /"
+53000 PRINT "                         5--- * ---1"
+53100 PRINT "                            / | \"
+53200 PRINT "                          6   |   8"
+53300 PRINT "                              7"
+53400 GOSUB 60500
+53500 PRINT " Warp Factor " : PRINT
+53600 PRINT " Warp Factor = a real number from 0 to 8.  The distance"
+53700 PRINT "               traveled is equal to integer(warp factor)"
+53800 PRINT "               quadrants:"
+53900 PRINT "                 Warp  .2 =  travel 1 sector"
+54000 PRINT "                 Warp  .5 =  travel 4 sectors"
+54100 PRINT "                 Warp  1  =  travel 1 quadrant"
+54200 PRINT "                 Warp  2  =  travel 2 quadrants"
+54300 PRINT "               For example, if you travel from quadrant 1-1"
+54400 PRINT "               sector 1-1, in direction 1 at Warp 2, you would"
+54500 PRINT "               stop at quadrant 1-3,sector 1-1 in the next"
+54600 PRINT "               stardate.
+54700 PRINT "  REMEMBER:    Every use of the warp takes one stardate."
+54800 PRINT "               If the Enterprise is blocked by something during"
+54900 PRINT "               intra-quadrant travel, it will stop in front of "
+55000 PRINT "               blocking object (and waste a stardate) ***"
+55100 PRINT
+55200 GOSUB 60500
+55300 PRINT "===============>>  Short Range Sensors  <<======================"
+55400 PRINT
+55500 PRINT "  The Short Range Sensors of the Enterprise display a detailed "
+55600 PRINT "  view of the quadrant it is currently in.  The Enterprise will "
+55700 PRINT "  be depicted by an -E- at its sector location within the quadrant"
+55800 PRINT "  Klingon battle cruisers are depicted by a -K-"
+55900 PRINT "  Starbases are depicted by a -B-"
+56000 PRINT "  Stars are depicted by a -*-"
+56100 GOSUB 60500
+56200 PRINT "================>>  Long Range Sensors   <<======================"
+56300 PRINT " "
+56400 PRINT "  The Long Range Sensors of the Enterprise are used to display the"
+56500 PRINT "  maps of objects in the nine (9) closest quadrants.  This allows"
+56600 PRINT "  you to see potential Klingon fighter groups and to locate your"
+56700 PRINT "  starbases.   The numbers shown for each quadrant in the long"
+56800 PRINT "  range scan have the following meaning:"
+56900 PRINT " "
+57000 PRINT "     The ones digit indicates the number of stars"
+57100 PRINT "     The tens digit indicates the number of starbases"
+57200 PRINT "     the hundreds digit indicates the number of klingons"
+57300 PRINT
+57400 PRINT "     For example:"
+57500 PRINT
+57600 PRINT "         319 means 3 Klingons, 1 Starbase, and 9 stars"
+57700 PRINT "         206 means 2 Klingons, 0 Starbases, and 6 stars"
+57800 PRINT "           7 means 0 Klingons, 0 Starbases, and 7 stars"
+57900 GOSUB 60500
+58000 PRINT "=====================>>   Phasers   <<==========================="
+58100 PRINT
+58200 PRINT "  Any portion of your available energy can be fired through the "
+58300 PRINT "  phasers.  The battle computer divides the amount of energy you "
+58400 PRINT "  specify amoung the Klingon cruisers in the quadrant and determines"
+58500 PRINT "  the various directions of fire.  The effectiveness of a hit"
+58600 PRINT "  depends mostly on the distance to the target.  A Klingon battle"
+58700 PRINT "  cruiser starts with ";S9;" units of energy.  It can fire an "
+58800 PRINT "  amount equal to whatever energy it has left"
+58900 PRINT
+59000 PRINT "===================>>   Photon  Torpedoes   <<===================="
+59100 PRINT
+59200 PRINT "  Initially the Enterprise has ";P0;" Photon Torpedoes.   One"
+59300 PRINT "  torpedo destroys whatever it hits.  The range of photon torpedoes"
+59400 PRINT "  (like phasers) is limited to the current quadrant.  The course"
+59500 PRINT "  of a photon torpedo is set the same way as that of the Enterprise"
+59600 GOSUB 60500
+59700 PRINT "==================>>  Damage Control Report  <<===================="
+59800 PRINT "  The Damage Control report lists the main devices of the Enterprise"
+59900 PRINT "and their current state of repair.  A negative state of repair"
+60000 PRINT "indicates a disabled device.  Devices can be damaged or repaired"
+60100 PRINT "by a space storm or landing at a starbase.  Also damaged devices"
+60200 PRINT "are repaired 1 unit every stardate."
+60300 GOSUB 60500
+60400 RETURN
+60500 REM =================>> Subroutine to wait for player to hit any key
+60600 LOCATE 1,15
+60700 COLOR 0,7
+60800 PRINT "        Hit any key to continue       "
+60900 COLOR 7,0
+61000 A$=INKEY$: IF A$="" THEN 61000
+61100 X6 = INT(RND*100)+1
+61200 REM =================>> Subroutine to clear screen
+61300 CLS
+61400 LOCATE 5,10
+61500 GOSUB 50400
+61600 RETURN
+0)+1
+61200 REM =================>> Subroutine to clear screen
+61300 CLS
+61400 LOC

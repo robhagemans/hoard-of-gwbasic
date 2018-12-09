@@ -1,0 +1,101 @@
+40   '***    FIXTEXT.BAS (version 2.1), by Phil Johnson                  ***
+50   '***                                  5700 Etiwanda #105            ***
+60   '***                                  Tarzana, CA  91356            ***
+70   '***                                  (213) 881 8492                ***
+80   '***                                                                ***
+90   '***              Copyright 1983, by Phillip R. Johnson             ***
+100  '***                                                                ***
+110  '***       This program is not to be distributed in revised form.   ***
+120  '***    It may be otherwise be distributed freely, but may not be   ***
+130  '***    sold or incorporated into other programs without permission ***
+140  '***    in writing from the author.                                 ***
+150  '***                                                                ***
+160  '***       Lines 40-200 are not to be removed from this program     ***
+170  '***    under any circumstances without permission in writing from  ***
+180  '***    the author. All other remarks may be removed from the       ***
+190  '***    program before running.                                     ***
+200  '***                                                                ***
+690 COLOR 0,7:CLS:KEY OFF:LOCATE 10,8:PRINT "Do you wish to see the revised file displayed on the screen?":PRINT:PRINT
+700 JO$=INKEY$:IF JO$="" THEN 700
+710 PRINT "                 Which disk has the unrevised file?"
+720 D$=INKEY$:IF D$="" THEN 720
+730 GOSUB 1550
+740 ON ERROR GOTO 1630
+750 PRINT:PRINT TAB(25);:COLOR 7,0:PRINT "Directory of disk ";:PRINT D$;CHR$(58):COLOR 0,7:PRINT:FILES MID$(D$,1)+CHR$(58)+"*.*":PRINT:PRINT:INPUT "                    Name of file to revise";A$
+760 IF A$="" THEN INPUT A$:GOTO 760
+770 PRINT:PRINT TAB(26);:COLOR 7,0:PRINT "Revising file ";:COLOR 0,7:PRINT MID$(D$,1);CHR$(58);:FILES MID$(D$,1)+CHR$(58)+A$
+780 OPEN "R",#1,MID$(D$,1)+CHR$(58)+A$,128
+790 PRINT:PRINT "                Which disk does the revised fil(D$,1);ÿ–(58);:þ ÿƒ(D$,1)éÿ–(58)éA$
+780 OPEN "R",#1,MID$(D$,1)+CHR$(58)+A$,128
+790 PRINT:PRINT "                Which disk does the revised file go on?"
+800 D$=INKEY$:IF D$="" THEN 800
+810 GOSUB 1550:PRINT:PRINT TAB(30);:COLOR 7,0:PRINT " Writing to ";D$;CHR$(58);:COLOR 0,7:PRINT:PRINT
+820 ON ERROR GOTO 1640
+830 PRINT:PRINT:INPUT "                        Name of new file";B$
+840 IF B$="" THEN INPUT B$:GOTO 840
+850 PRINT:PRINT TAB(33):FILES MID$(D$,1)+CHR$(58)+B$:PRINT TAB(21); "exists. Do you want to destroy it?":BEEP
+860 ON ERROR GOTO 0
+870 DE$=INKEY$:IF DE$="" THEN 860
+880 IF DE$="Y" OR DE$="y" THEN 910
+900 CLS:LOCATE 10,12:GOTO 790
+910 CLS:LOCATE 10,12:COLOR 7,0:PRINT "Opening ";CHR$(34);D$;CHR$(58);B$;CHR$(34);:COLOR 0,7:OPEN "R",#2,MID$(D$,1)+CHR$(58)+B$,128:GOSUB 1660:LOCATE 12,18:PRINT "working....";:L=1
+920 FIELD #1,128 AS C$
+930 FIELD #2,128 AS PN$
+950 GET #1
+960 FOR BC=1 TO LEN(C$)
+970 PJ$=MID$(C$,BC,1):GOSUB 1080
+980 GOSUB 1180
+990 GOSUB 1480
+1000 NEXT
+1010 GOTO 950
+1020 GOSUB 1100:GOSUB 1230
+1040 CLOSE:PRINT:PRINT:PRINT "               Hit any key to return to DOS"
+1050 BEEP:IF INKEY$=""THEN 1050
+1060 SYSTEM
+1080 IF LEN(PJ$)=1 AND ASC(PJ$)>128 THEN PJ$=CHR$(ASC(PJ$)-128):
+1090 IF PJ$=CHR$(0) THEN PJ$=CHR$(26):RETURN
+1100 IF PJ$=CHR$(12) THEN PJ$="":RETURN
+1110 IF PJ$=" " AND LEN(PP$)>1 THEN PJ$="":RETURN
+1120 IF PJ$=" " AND PP$=" " THEN PJ$="":RETURN
+1130 IF PJ$=" " AND PP$=CHR$(&HA) THEN PJ$="":RETURN
+1140 IF PJ$=CHR$(&HA) THEN PJ$="":RETURN
+1150 IF PJ$=CHR$(&HD) OR PJ$=CHR$(&H8D) THEN GOSUB 1330
+1160 RETURN
+1180 IF PJ$=""THEN RETURN
+1190 N$=N$+PJ$:PP$=PJ$:PJ$="":CR=CR+1
+1200 RETURN
+1230 IF LEN(N$)>128 THEN NN$=RIGHT$(N$,(LEN(N$)-128)) ELSE NN$=""
+1250 IF JO$="Y" OR JO$="y" AND INKEY$="" THEN GOSUB 1380:GOTO 1280
+1270 IF JO$<>"Y" AND JO$<>"y" AND INKEY$<>"" THEN GOSUB 1380 ELSE GOSUB 1520
+1280 L=L+1
+1290 LSET PN$=N$:N$=NN$
+1300 PUT #2
+1310 RETURN
+1330 IF LEN(PP$)>1 THEN PJ$="":RETURN
+1340 IF PP$="." OR PP$="?" OR PP$=")" OR PP$="!" OR CR<45 THEN PJ$=CHR$(&HD)+CHR$(&HA)+CHR$(&HD)+CHR$(&HA):CR=0:RETURN
+1360 PJ$=CHR$(&H8D)+CHR$(&HA):CR=0:RETURN
+1380 SP$=N$
+1390 FOR Z=1 TO LEN(SP$)
+1400 L$=MID$(SP$,Z,1):GOSUB 1430
+1410 PRINT L$;:NEXT Z:RETURN
+1430 IF L$=CHR$(&HA) THEN L$="":RETURN
+1440 IF L$=CHR$(&H8D) THEN L$=CHR$(13):RETURN
+1450 IF L$=CHR$(&HD) THEN RETURN
+1460 RETURN
+1480 IF LEN(N$)=>128 THEN GOSUB 1230
+1490 IF PP$=CHR$(26) THEN GOTO 1020
+1500 RETURN
+1520 PRINT CHR$(13):PRINT TAB(15):COLOR 7,0:PRINT " Writing block ";L;" of file ";CHR$(34);D$;CHR$(58);B$;CHR$(34);" to disk.";:COLOR 0,7:PRINT CHR$(13)
+1530 RETURN
+1550 IF ASC(D$)>73 THEN D$=CHR$(ASC(D$)-32)
+1560 IF ASC(D$)<65 OR ASC(D$)>74 THEN GOTO 1580
+1570 RETURN
+1580 CLS:LOCATE 10,20:COLOR 7,0:PRINT "Illegal drive name. Try again.":COLOR 0,7
+1590 LOCATE 12,30:PRINT "What drive?"
+1600 D$=INKEY$:IF D$="" THEN 1600
+1620 GOTO 1550
+1630 IF (ERR=53) THEN CLS:LOCATE 10,1:PRINT "                    ";MID$(D$,1)+CHR$(58)+A$;" Does not exist.":PRINT:PRINT:PRINT:RESUME 710:ELSE PRINT ERR; ERL
+1640 IF (ERR=53) THEN RESUME 910 ELSE PRINT ERR; ERL:END
+1660 LOCATE 25,22:COLOR 7,0:IF JO$="Y" OR JO$="y" THEN PRINT " PUSH SPACE BAR TO SEE RECORD NUMBER ";ELSE PRINT " PUSH SPACE BAR TO SEE TEXT ";
+1670 COLOR 0,7:PRINT:RETURN
+

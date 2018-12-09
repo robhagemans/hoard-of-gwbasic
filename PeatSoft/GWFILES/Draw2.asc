@@ -1,0 +1,289 @@
+100 REM Program: DRAW by David Morrill
+200 REM 	      enhanced by David T. Wang 	10/25/82
+300 CLEAR,,10240:DEF SEG=0
+400 POKE &H410, (PEEK(&H410) OR &H30) 'switch to monochrome
+410 DEF SEG:LOCATE ,,1,12,13
+420 SCREEN 0: WIDTH 80: LOCATE 1,1: CLS: KEY OFF
+440 COLOR 15,0: PRINT " F1";: COLOR 7,0: PRINT"-Draw point and save"
+450 COLOR 15,0: PRINT " F2";: COLOR 7,0: PRINT"-Draw circle around saved point"
+460 COLOR 15,0: PRINT " F3";: COLOR 7,0: PRINT"-Draw continue line and save point"
+470 COLOR 15,0: PRINT " F4";: COLOR 7,0: PRINT"-Draw line from saved point"
+480 COLOR 15,0: PRINT " F5";: COLOR 7,0: PRINT"-Paint area that cursor stays in"
+490 COLOR 15,0: PRINT " F6";: COLOR 7,0: PRINT"-Draw box spanned with saved point"
+500 COLOR 15,0: PRINT " F7";: COLOR 7,0: PRINT"-Set paint color with space bar"
+510 COLOR 15,0: PRINT " F8";: COLOR 7,0: PRINT"-Set draw color with space bar"
+520 COLOR 15,0: PRINT " F9";: COLOR 7,0: PRINT"-PUT object to cursor's low right"
+530 COLOR 15,0: PRINT "F10";: COLOR 7,0: PRINT"-GET object in current spanned box"
+540 COLOR 15,0: PRINT "Sft-F1";: COLOR 7,0: PRINT"-Sketch point as cursor moves"
+550 COLOR 15,0: PRINT "Sft-F2";: COLOR 7,0: PRINT"-Sketch circle as cursor moves"
+560 COLOR 15,0: PRINT "Sft-F3";: COLOR 7,0: PRINT"-Sketch continue line (pen down)"
+570 COLOR 15,0: PRINT "Sft-F4";: COLOR 7,0: PRINT"-Sketch line from saved point"
+580 COLOR 15,0: PRINT "Sft-F5";: COLOR 7,0: PRINT"-Sketch paint bounded area "
+590 COLOR 15,0: PRINT "Sft-F6";: COLOR 7,0: PRINT"-Sketch box "
+600 COLOR 15,0: PRINT "Sft-F7";: COLOR 7,0: PRINT"-use stick *red key=pen up/down"
+610 COLOR 15,0: PRINT "Sft-F8";: COLOR 7,0: PRINT"-off stick *black key=paint area"
+620 COLOR 15,0: PRINT "Sft-F9";: COLOR 7,0: PRINT"-Sketch PUT object "
+630 COLOR 15,0: PRINT "SftF10";: COLOR 7,0: PRINT"-Sketch off (pen up)"
+640 LOCATE 1,40:COLOR 15,0: PRINT "Ctl-F1";: COLOR 7,0: PRINT"-Erase point         * to color of "
+650 LOCATE 2,40:COLOR 15,0: PRINT "Ctl-F2";: COLOR 7,0: PRINT"-Erase circle        * last cursor "
+660 LOCATE 3,40:COLOR 15,0: PRINT "Ctl-F3";: COLOR 7,0: PRINT"-Erase continue line * position    "
+670 LOCATE 4,40:COLOR 15,0: PRINT "Ctl-F4";: COLOR 7,0: PRINT"-Erase line          * * * * * * * "
+680 LOCATE 5,40:COLOR 15,0: PRINT "Ctl-F5";: COLOR 7,0: PRINT"-Put help screen on color tube"
+690 LOCATE 6,40:COLOR 15,0: PRINT "Ctl-F6";: COLOR 7,0: PRINT"-Erase box to last cursor color"
+700 LOCATE 7,40:COLOR 15,0: PRINT "Ctl-F7";: COLOR 7,0: PRINT"-Make cursor invisible on next move"
+710 LOCATE 8,40:COLOR 15,0: PRINT "Ctl-F8";: COLOR 7,0: PRINT"-Clear spanned box to draw color"
+720 LOCATE 9,40:COLOR 15,0: PRINT "Ctl-F9";: COLOR 7,0: PRINT"-Make cursor visible on next move"
+730 LOCATE 10,40:COLOR 15,0: PRINT "CtlF10";: COLOR 7,0: PRINT"-Clear screen to background color"
+740 LOCATE 11,40:COLOR 15,0: PRINT "Alt-F1";: COLOR 7,0: PRINT"-Save picture to disc"
+750 LOCATE 12,40:COLOR 15,0: PRINT "Alt-F2";: COLOR 7,0: PRINT"-Load picture from disc"
+760 LOCATE 13,40:COLOR 15,0: PRINT "Alt-F3";: COLOR 7,0: PRINT"-End program"
+770 LOCATE 14,40:COLOR 15,0: PRINT "Alt-F4";: COLOR 7,0: PRINT"-List pictures saved on disc"
+780 LOCATE 15,40:COLOR 15,0: PRINT "Alt-F5";: COLOR 7,0: PRINT"-Print picture to graphic printer"
+790 LOCATE 16,40:COLOR 15,0: PRINT "Alt-F6";: COLOR 7,0: PRINT"-Print help screen to printer"
+800 LOCATE 17,40:COLOR 15,0: PRINT "Alt-F7";: COLOR 7,0: PRINT"-Set background color w/ space bar"
+810 LOCATE 18,40:COLOR 15,0: PRINT "Alt-F8";: COLOR 7,0: PRINT"-Set palette color with space bar"
+820 LOCATE 19,40:COLOR 15,0: PRINT "Alt-F9";: COLOR 7,0: PRINT"-Set PUT option with space bar"
+830 LOCATE 20,40:COLOR 15,0: PRINT "AltF10";: COLOR 7,0: PRINT"-Type text (Enter-back to graphic)"
+840 LOCATE 21,1:COLOR 15,0: PRINT CHR$(24);: COLOR 7,0: PRINT"-Move cursor up"
+850 LOCATE 21,21:COLOR 15,0: PRINT CHR$(27);: COLOR 7,0: PRINT"-Move cursor left";
+860 LOCATE 22,1:COLOR 15,0: PRINT CHR$(26);: COLOR 7,0: PRINT"-Move cursor right";
+870 LOCATE 22,21:COLOR 15,0: PRINT CHR$(25);: COLOR 7,0: PRINT"-Move cursor down";
+880 LOCATE 21,40:COLOR 15,0: PRINT "7-Home";: COLOR 7,0: PRINT"-Move cursor up to the left";
+890 LOCATE 22,40:COLOR 15,0: PRINT "9-PgUp";: COLOR 7,0: PRINT"-Move cursor up to the right";
+900 LOCATE 23,1:COLOR 15,0: PRINT " 1-End";: COLOR 7,0: PRINT"-Move cursor down to the left";
+910 LOCATE 23,40:COLOR 15,0: PRINT "3-PgDn";: COLOR 7,0: PRINT"-Move cursor down to the right";
+920 LOCATE 24,1:COLOR 15,0: PRINT "Hit any to end SET command. Number keys control the space of cursor movement.";
+925 LOCATE 25,1:COLOR 15,0: PRINT "After GET command, the 0 key sets cursor movement space to the object box size.";
+930 REM switch to color display
+940 DEF SEG=0
+950 POKE &H410,(PEEK(&H410) AND &HCF) OR &H20
+960 DEF SEG: LOCATE ,,1,6,7: SCREEN 1,0
+1000 GOTO 5000
+1010 C$=INKEY$: IF C$="" GOTO 1010
+1020 IF LEN(C$)=1 THEN C=ASC(C$) ELSE C=ASC(MID$(C$,2))
+1030 RETURN
+1040 GET (CX-10,CY-8)-(CX+10,CY+8),UCUR
+1045 IF CURSOR=1 THEN PUT (CX-10,CY-8),CUR,XOR
+1048 RETURN
+1050 PUT (CX-10,CY-8),UCUR,PSET: ECOL=POINT(CX,CY): RETURN
+1060 GOSUB 1050: T=C-71
+1070 CX=CX+RX*DX(T)
+1080 IF CX<10 THEN CX=10: BEEP ELSE IF CX>299 THEN CX=299: BEEP
+1090 CY=CY+RY*DY(T)
+1100 IF CY<8 THEN CY=8: BEEP ELSE IF CY>183 THEN CY=183: BEEP
+1110 ON SKETCH GOTO 1345,1390,1355,1365,1415,1375,1040,1040,1480,1040
+1120 T=C-48: IF T=0 THEN RX=PIC(0)/2: RY=PIC(1): RETURN
+1130 RX=(8*(T)-4)/3: RY=2*(T)-1: RETURN
+1140 COLOR BACK: GOSUB 1010: IF C<>32 THEN RETURN 5020
+1150 BACK=BACK+1: IF BACK>15 THEN BACK=0
+1160 GOTO 1140
+1170 GET (124,90)-(195,107),HOLD
+1180 COLOR ,PAL
+1190 LINE (124,90)-(147,107),1,BF:LINE(148,90)-(171,107),2,BF: LINE (172,90)-(195,107),3,BF
+1200 GOSUB 1010: IF C<>32 THEN PUT (124,90),HOLD,PSET: RETURN 5020
+1210 PAL=1-PAL: GOTO 1180
+1220 GET (124,90)-(195,107),HOLD
+1230 LINE (124,90)-(195,107),COL,BF
+1240 GOSUB 1010: IF C<>32 THEN PUT (124,90),HOLD,PSET: RETURN 5020
+1250 COL=COL+1: IF COL>3 THEN COL=0
+1260 GOTO 1230
+1270 GET (124,90)-(195,107),PIC
+1280 LINE (124,90)-(195,107),BND,BF
+1290 GOSUB 1010: IF C<>32 THEN PUT (124,90),PIC,PSET: RETURN 5020
+1300 BND=BND+1: IF BND>3 THEN BND=0
+1310 GOTO 1280
+1320 COL=BND: RETURN
+1330 ON C-58 GOTO 1340,1380,1350,1362,1410,1370,1220,1270,1470,1560
+1340 GOSUB 1050
+1345 LX=CX: LY=CY: PSET (CX,CY),BND: GOSUB 1040: RETURN
+1350 GOSUB 1050
+1355 LINE (LX,LY)-(CX,CY),BND: GOSUB 1040
+1360 OX=LX: OY=LY: LX=CX: LY=CY: RETURN
+1362 GOSUB 1050
+1365 LINE(LX,LY)-(CX,CY),BND: GOTO 1040
+1370 GOSUB 1050
+1375 LINE (LX,LY)-(CX,CY),BND,B: GOSUB 1040: RETURN
+1380 GOSUB 1050
+1390 TX=ABS(CX-LX): TY=6*ABS(CY-LY)/5: CIRCLE (LX,LY),SQR(TX*TX+TY*TY),BND: GOTO 1040
+1410 GOSUB 1050
+1415 PAINT (CX,CY),COL,BND: GOSUB 1040: RETURN
+1430 ON C-103 GOTO 1670,1630,8000,1820,7000,4000,1140,1170,1570,1850
+1440 BEEP: RETURN
+1470 GOSUB 1050
+1480 IF CX+PIC(0)/2>320 THEN BEEP: GOTO 1040
+1490 TY=PIC(1): IF CY+PIC(1)>200 THEN PIC(1)=200-CY
+1500 ON PMODE GOSUB 1520,1530,1540,1550
+1510 PIC(1)=TY: GOTO 1040
+1520 PUT (CX,CY),PIC,PSET: RETURN
+1530 PUT (CX,CY),PIC,XOR: RETURN
+1540 PUT (CX,CY),PIC,OR: RETURN
+1550 PUT (CX,CY),PIC,AND: RETURN
+1560 GOSUB 1050: GET (LX,LY)-(CX,CY),PIC: GOSUB 1040: RETURN
+1570 GET (124,90)-(195,107),HOLD
+1580 T$="PSETXOR  OR AND "
+1590 LOCATE 13,19: PRINT " ";MID$(T$,4*PMODE-3,4);" ";
+1600 GOSUB 1010: IF C<>32 THEN PUT (124,90),HOLD,PSET: RETURN 5020
+1610 PMODE=PMODE+1: IF PMODE>4 THEN PMODE=1
+1620 GOTO 1590
+1621 ON C-83 GOTO 1628,1628,1628,1628,1628,1628,8300,8500,1628,1628
+1628 SKETCH=C-83: RETURN
+1630 TYPE$="loaded": GOSUB 1710
+1640 ON ERROR GOTO 1835
+1645 IF NAMEF$="" THEN RETURN
+1650 DEF SEG=&HB800
+1653 BLOAD DRIVE$+":"+NAMEF$+".pic",0
+1660 GOTO 1040
+1670 TYPE$="saved": GOSUB 1710
+1680 ON ERROR GOTO 1700
+1681 IF NAMEF$="" THEN RETURN
+1690 GOSUB 1050
+1691 GOSUB 1050: DEF SEG=&HB800: BSAVE DRIVE$+":"+NAMEF$+".pic",0,&H4000: GOTO 1040
+1694 DEF SEG=&HB800: BSAVE DRIVE$+":"+NAMEF$+".pic",0,&H4000:GOTO 1040
+1700 LOCATE 1,1: PRINT "Unable to save picture ";: GOSUB 1010: PUT (0,0),HOLD,PSET: GOSUB 1040: RESUME 5020
+1710 GET (0,0)-(319,7),HOLD
+1720 LOCATE 1,1: PRINT SPACE$(39);: LOCATE 1,1
+1730 PRINT"Name of picture to be ";TYPE$;
+1740 LINE INPUT ": ";NAMEF$
+1750 IF NAMEF$="" GOTO 1810
+1760 NAMEF$=LEFT$(NAMEF$,8)
+1770 LOCATE 1,1: PRINT SPACE$(39);: LOCATE 1,1
+1780 LINE INPUT;" Drive picture is on (default=A): ";DRIVE$
+1790 IF DRIVE$="" THEN DRIVE$="A"
+1800 IF DRIVE$="a" OR DRIVE$="A" OR DRIVE$="b" OR DRIVE$="B" GOTO 1810 ELSE GOTO 1770
+1810 PUT (0,0),HOLD,PSET: RETURN
+1820 GET (0,0)-(319,31),HOLD: GOSUB 1770
+1825 ON ERROR GOTO 1835
+1830 LOCATE 1,1: FILES DRIVE$+":*.PIC"
+1832 C$=INKEY$: IF C$="" GOTO 1832 ELSE GOTO 1810
+1835 LOCATE 1,1: PRINT "Picture not found ";
+1840 GOSUB 1010: PUT (0,0),HOLD,PSET: RESUME 5020
+1850 GOSUB 1050: LOCATE (CY+4)/8,(CX+4)/8: LINE INPUT "";T$: GOTO 1040
+2000  ON C-93 GOTO 2100,2200,2300,2400,3000,2500,2800,2600,2900,2700
+2100 T=BND: BND=ECOL: GOSUB 1340: BND=T: RETURN
+2200 T=BND: BND=ECOL: GOSUB 1380: BND=T: RETURN
+2300 T=BND: BND=ECOL: LX=OX: LY=OY: GOSUB 1362: BND=T: RETURN
+2400 T=BND: BND=ECOL: GOSUB 1362: BND=T: RETURN
+2500 T=BND: BND=ECOL: GOSUB 1370: BND=T: RETURN
+2600 GOSUB 1050: LINE (LX,LY)-(CX,CY),COL,BF: GOSUB 1040: RETURN
+2700 CLS: GOSUB 1040: RETURN
+2800 CURSOR=0: RETURN 'Turn off cursor
+2900 CURSOR=1: RETURN 'Turn on cursor
+3000 DRIVE$="b":NAMEF$="savepic":GOSUB 1690
+3100 GOSUB 9000:GOSUB 1010
+3200 NAMEF$="savepic":GOSUB 1650:GOTO 5010
+3500 IF TYPE$="loaded" GOTO 1835
+3600 GOTO 1700
+4000 ON ERROR GOTO 4500
+4010 LPRINT CHR$(14) "    DRAW PROGRAM FUNCTION KEYS"
+4020 LPRINT CHR$(27) "________________________________________________________________________________"
+4030 LPRINT "    FUNCTION         ALONE           WITH            WITH            WITH"
+4040 LPRINT "      KEY                           SHIFT            CTL             ALT"
+4050 LPRINT "********************************************************************************"
+4060 LPRINT "      F1      *      DRAW           SKETCH           ERASE            SAVE"
+4070 LPRINT "              *      POINT          POINT            POINT          PICTURE"
+4080 LPRINT "--------------*-----------------------------------------------------------------"
+4090 LPRINT "      F2      *      DRAW           SKETCH           ERASE            LOAD"
+4100 LPRINT "              *     CIRCLE          CIRCLE           CIRCLE         PICTURE"
+4110 LPRINT "--------------*-----------------------------------------------------------------"
+4120 LPRINT "      F3      *   DRAW CONTIN     SKETCH CONT     ERASE CONTIN       END"
+4130 LPRINT "              *      LINE            LINE            LINE          PROGRAM"
+4140 LPRINT "--------------*-----------------------------------------------------------------"
+4150 LPRINT "      F4      *      DRAW           SKETCH           ERASE           LIST"
+4160 LPRINT "              *      LINE            LINE            LINE          PICTURES"
+4170 LPRINT "--------------*-----------------------------------------------------------------"
+4180 LPRINT "      F5      *      PAINT          SKETCH           HELP           PRINT"
+4190 LPRINT "              *                     PAINT           (SCREEN)"      SCREEN"
+4200 LPRINT "--------------*-----------------------------------------------------------------"
+4210 LPRINT "      F6      *      DRAW           SKETCH           ERASE          HELP"
+4220 LPRINT "              *      BOX             BOX              BOX          (PRINTER)"
+4230 LPRINT "--------------*-----------------------------------------------------------------"
+4240 LPRINT "      F7      *   SET COLOR:         USE             ERASE         SET COLOR:"
+4250 LPRINT "              *    PAINT           JOYSTICK          CURSOR        BACKGROUND"
+4260 LPRINT "--------------*-----------------------------------------------------------------"
+4270 LPRINT "      F8      *   SET COLOR:         OFF             CLEAR         SET COLOR:"
+4280 LPRINT "              *     DRAW           JOYSTICK           BOX           PALETTE"
+4290 LPRINT "--------------*-----------------------------------------------------------------"
+4300 LPRINT "      F9      *      PUT            SKETCH            SHOW         SET MODE:"
+4310 LPRINT "              *     OBJECT        PUT OBJECT         CURSOR        PUT OBJECT"
+4320 LPRINT "--------------*-----------------------------------------------------------------"
+4330 LPRINT "      F10     *      GET            SKETCH           CLEAR            TYPE"
+4340 LPRINT "              *     OBJECT           OFF             SCREEN           TEXT"
+4350 LPRINT "--------------------------------------------------------------------------------"
+4450 GOSUB 1010
+4460 RETURN 5020
+4500 GET (0,0)-(319,0),HOLD
+4510 LOCATE 1,1
+4515 X=ERR:Y=ERL
+4520 PRINT "Printer not ready";
+4525 PRINT X "ERROR NO   " Y "LINE"
+4530 GOSUB 1010
+4540 RESUME 5020
+5000 GOSUB 5070
+5010 ON ERROR GOTO 3500
+5011 ON STIK GOTO 5019, 5015
+5015 GOSUB 8100
+5017 C$=INKEY$: IF C$="" THEN GOTO 5010
+5018 GOSUB 1020: GOTO 5020
+5019 GOSUB 1010
+5020 IF C>=48 AND C<=57 THEN GOSUB 1120
+5030 IF C>=59 AND C<=68 THEN GOSUB 1330
+5040 IF C>=71 AND C<=81 THEN GOSUB 1060
+5045 IF C>=84 AND C<=93 THEN GOSUB 1621
+5047 IF C>=94 AND C<=103 THEN GOSUB 2000
+5050 IF C>=104 AND C<=113 THEN GOSUB 1430
+5060 GOTO 5010
+5070 DEFINT A-Z :STIK=1: STRIG(0) OFF: STRIG(4) OFF
+5080 DIM PIC(8001),CUR(52),UCUR(52),DX(10),DY(10),HOLD(1281)
+5100 BACK=1: PAL=0: COL=2: BND=1: PMODE=2: SKETCH=10: CURSOR=1
+5110 KEY OFF: SCREEN 1,0: COLOR BACK,PAL
+5130 CLS: GET (0,0)-(0,0),PIC
+5140 LINE (0,8)-(6,8): LINE (14,8)-(20,8)
+5150 LINE (10,0)-(10,4): LINE (10,12)-(10,16)
+5160 GET (0,0)-(20,16),CUR
+5180 CLS: CX=159: CY=99: GOSUB 1040: GOSUB 1340: C=57: GOSUB 1120
+5190 DATA -1,-1,0,-1,1,-1,0,0,-1,0,0,0,1,0,0,0,-1,1,0,1,1,1
+5200 FOR I=0 TO 10: READ DX(I),DY(I): NEXT
+5210 FOR I=1 TO 10: KEY I,"": NEXT
+5220 RETURN
+7000 REM routine to print the color screen image on the graphtrax printer
+7010 WIDTH "lpt1:",255
+7020 DEF SEG = &HB800
+7030 FOR J = 0 TO 79
+7040 LPRINT CHR$(&H1B);"L";CHR$(&H20);CHR$(&H3);
+7050 FOR K = 99 TO 0 STEP -1
+7060 X=J+(80*K):C% = PEEK(X):B% = PEEK(8192+X)
+7070 IF C%=13 THEN C%=9
+7080 IF B%=13 THEN B%=9
+7090 LPRINT CHR$(B%);CHR$(B%);CHR$(B%);CHR$(B%);CHR$(C%);CHR$(C%);CHR$(C%);CHR$(C%);
+7100 NEXT K
+7110 K=0:LPRINT CHR$(&H1B);"A";CHR$(8);CHR$(10);
+7120 NEXT J
+7130 RETURN
+8000 CLS: CHAIN"MENU": RETURN
+8100 DELX=STICK(0): DELY=STICK(1)
+8110 GOSUB 1050
+8120 CX=CX+INT((DELX-60)/10):IF CX<10 THEN CX=10: BEEP ELSE IF CX>299 THEN CX=299: BEEP
+8130 CY=CY+INT((DELY-60)/10):IF CY<8 THEN CY=8:   BEEP ELSE IF CY>183 THEN CY=183: BEEP
+8140 ON REDBUT GOSUB 1040, 1355
+8150 A1BUT=STRIG(1): IF A1BUT=-1 THEN GOSUB 8200: FOR I=1 TO 1000 : NEXT
+8160 A2BUT=STRIG(5): IF A2BUT=-1 THEN GOSUB 1410: FOR I=1 TO 1000 : NEXT
+8170 RETURN
+8200 IF REDBUT=1 THEN REDBUT=2: LX=CX: LY=CY: ELSE IF REDBUT=2 THEN REDBUT=1
+8210 RETURN
+8300 REDBUT=1 'RESET SKETCH OFF
+8310 STRIG ON: CURSOR=1
+8320 STIK=2: RETURN ' TURN ON STICK MODE
+8500 STRIG OFF
+8510 STIK=1: RETURN 'TURN OFF STICK MODE
+9000 CLS: PRINT "    HELP instruction for DRAW "
+9001 PRINT " Use the command list on the monochrome.";
+9010 PRINT " F1 through F6 is the basic command set.";
+9020 PRINT " Always remember where the saved point  position is. Many draw comments need it.";
+9030 PRINT " The PUT and GET command works on a box image only. The Alt-F9 command sets the PUT option: XOR,OR,AND,PSET,PRSET."
+9040 PRINT " When the set commands are used, a colorbar will appear in the middle of screen to show the current setting. It will    disappear when you exit the set mode."
+9050 PRINT " Sketch will draw the graphic feature asthe cursor moves about on the screen."
+9060 PRINT " Erasing a graphic feature is done by   redrawing it with the background color. Make sure the cursor is last on a spot  of the desired color to erase to.
+9070 PRINT " When printing the screen on the printer(with graftrax), it helps to erase the  cursor first so that it will not show."
+9080 PRINT " In joystick mode, use the red button totoggle between pen up and pen down mode,use the black button to paint area.    ";
+9090 RETURN
+

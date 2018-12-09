@@ -1,0 +1,42 @@
+10 CLS :KEY OFF: LOCATE 1,32 :PRINT "QuickSort"
+20 N=100 : R=VAL(RIGHT$(TIME$,2)) :RANDOMIZE R
+30 PRINT :PRINT "   Generating array of";N;"random numbers to be sorted : RANDOMIZE (";R;")
+40 C1 = 0 : S1 = 0
+50 DIM X(500),S9(20,2)
+60 FOR K=1 TO N
+70 LET X(K) = INT(22*RND)
+80 NEXT K
+90 PRINT
+100 GOSUB 330
+102 PRINT :PRINT "   Now sorting the array " : ROW=CSRLIN-1
+105 DEF FNT(D)=VAL(MID$(TIME$,7,2))+VAL(MID$(TIME$,4,2))*60 +VAL(MID$(TIME$,1,2))*3600
+107 TM1=FNT(D) ' ********** Start Timer ************
+110 I1=1 : J1 = N
+120 I=I1 :  J = J1 : S = -1
+130 C1=C1 + 1
+140 IF X(I)<=X(J) THEN 180
+150 S1 = S1 + 1
+160 T=X(I) : X(I)=X(J) : X(J)=T
+170 S=SGN(-S)
+180 IF S=1 THEN I=I+1 ELSE J=J-1
+190 IF I<J THEN 130
+200 IF I+1 >= J1 THEN 220
+210 P=P+1 : S9(P,1)= I + 1: S9(P,2)= J1
+220 J1 = I - 1
+230 IF I1<J1 THEN 120
+240 IF P=0 THEN 280
+250 I1=S9(P,1) : J1=S9(P,2) : P=P-1
+260 GOTO 120
+280 TM2=FNT(D) ' *********** Stop Timer ************
+285 ' *** Print Sorted Array
+290 LOCATE 25,4 : PRINT N; "Random Numbers    ";C1;"Comparisons    ";S1;"Swaps    ";TM2-TM1;"Seconds"
+300 LOCATE ROW-1,1 :GOSUB 330
+320 LOCATE 1 :END
+330 FOR K=1 TO N '****** PRINT ARRAY SUBROUTINE *********
+340 LET Z=K-10*INT((K-1)/10)
+350 PRINT TAB(8*(Z-1));X(K);
+360 IF Z>=10 THEN PRINT
+370 NEXT K
+380 RETURN
+390 END
+

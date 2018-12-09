@@ -1,0 +1,325 @@
+10 REM Documentation for the Genealogy ON DISPLAY Programs
+20 REM All data is in the form of DATA statements.
+30 REM By:  Melvin O. Duke.  Updated December 1983.
+40 DATA Genealogy
+50 DATA User's Manual
+60 DATA -5
+70 DATA 1
+80 INDENT = 0
+90 DASHES$ = "+"+STRING$(54,45)+"+"
+100 TRIM.LINE$ = "(Trim-line)"
+110 REM Program begins here
+120 READ TITLE$, DOC.NAME$, PAGE.NO, LINE.NO
+130 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+140 GOSUB 500  'For trim line and heading space
+150 FOR I = 1 TO 6 : LPRINT : NEXT I
+160 LPRINT CHR$(14);  'Set Expanded Print
+170 LPRINT TAB(TAB.POS-2);TITLE$
+180 LPRINT CHR$(18);  'Return to normal
+190 FOR I = 1 TO 3 : LPRINT : NEXT I
+200 LPRINT CHR$(27); "E"; 'Set Emphasized mode
+210 LPRINT TAB(TAB.POS+12);"ON DISPLAY"
+220 LPRINT CHR$(27); "F"; 'Return to normal
+222 LPRINT : LPRINT : LPRINT
+224 LPRINT TAB(TAB.POS+11);"Version 2.0"
+230 FOR I = 1 TO 11 : LPRINT : NEXT I
+240 LPRINT TAB(TAB.POS+10); DOC.NAME$
+250 LINE.NO = LINE.NO + 27
+260 '
+270 READ REPLY$
+280 IF LEFT$(REPLY$,1) = "." THEN GOSUB 850: GOTO 270
+290 IF LINE.NO > 44 THEN GOSUB 610
+300 REM Print the line if not a command
+303 REM First, change tildes to quotes
+304 FOR Q = 1 TO LEN(REPLY$)
+305  IF MID$(REPLY$,Q,1)="~"THEN MID$(REPLY$,Q,1)=CHR$(34)
+306 NEXT Q
+310 LPRINT TAB(TAB.POS);REPLY$
+320 LINE.NO = LINE.NO + 1
+330 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+340 GOTO 270
+350 REM Data for the Copyright Page
+354 DATA ".pa"
+358 DATA "Anyone may request a copy of these"
+362 DATA "programs by sending a blank, double-"
+366 DATA "sided, double-density diskette to the"
+370 DATA "author of the programs."
+378 DATA ".sp"
+382 DATA "An addressed, postage-paid return"
+386 DATA "mailer must accompany the diskette (no"
+390 DATA "exceptions, please).
+394 DATA ".sp"
+398 DATA "A copy of the programs with documenta-"
+402 DATA "tion will be sent by return mail."
+410 DATA ".vt 2"
+415 DATA "Users are encouraged to copy and share"
+420 DATA "the programs with others."
+430 DATA ".vt 6"
+434 DATA "If you are using these programs, and"
+438 DATA "finding them of value, your contribution"
+442 DATA "($35 suggested) will be anticipated."
+446 DATA ".sp"
+450 DATA "Melvin O. Duke"
+454 DATA "P. O. Box 20836"
+458 DATA "San Jose, CA  95160"
+462 DATA ".vt 4"
+466 DATA "Copyright (c) 1983, 1984, by:"
+470 DATA "Melvin O. Duke."
+474 DATA ".sp"
+478 DATA "All rights reserved."
+482 '
+500 REM Top of each page routine
+510 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+520 LPRINT
+530 LPRINT TAB(30); TRIM.LINE$
+540 LPRINT DASHES$ 'Dashes
+550 FOR I = 1 TO 6
+560  LPRINT
+570 NEXT I
+580 LINE.NO = LINE.NO + 6
+590 RETURN
+600 '
+610 REM Bottom of each page Routine
+620 IF PAGE.NO < 1 THEN LPRINT : LPRINT : LPRINT : GOTO 740
+630 LPRINT TAB(TAB.POS); STRING$(40,45)  'on line 46
+640 LPRINT TAB(TAB.POS+3); TITLE$+" ON DISPLAY.  Version 1.3" 'on line 47
+650 IF PAGE.NO MOD 2 = 1 THEN 690
+660 LPRINT TAB(TAB.POS);"Page";PAGE.NO;
+670 LPRINT TAB(TAB.POS+27);"User's Manual"
+680 GOTO 740
+690 LPRINT TAB(TAB.POS); "User's Manual";
+700 IF PAGE.NO < 10 THEN DELTA = 34
+710 IF PAGE.NO >  9 THEN DELTA = 33
+720 IF PAGE.NO > 99 THEN DELTA = 32
+730 LPRINT TAB(TAB.POS+DELTA); "Page"; PAGE.NO  'on line 48
+740 LPRINT : LPRINT : LPRINT
+750 LPRINT DASHES$ 'dashes after 51
+760 LPRINT TAB(30); TRIM.LINE$
+770 LPRINT CHR$(12);
+780 PAGE.NO = PAGE.NO + 1
+790 LINE.NO = 1
+800 IF REPLY$ = ".eof" THEN 820  'Bypass after last page
+810 GOSUB 500  'For top of next page
+820 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+830 RETURN
+840 '
+850 REM Command Processor
+860 IF LEFT$(REPLY$,3) = ".h1" THEN 960
+870 IF LEFT$(REPLY$,3) = ".h2" THEN 1100
+880 IF LEFT$(REPLY$,3) = ".h3" THEN 1210
+890 IF LEFT$(REPLY$,3) = ".sp" THEN 1320
+900 IF LEFT$(REPLY$,4) = ".eof" THEN 1370
+910 IF LEFT$(REPLY$,3) = ".pa" THEN 1410
+920 IF LEFT$(REPLY$,3) = ".vt" THEN 1480
+930 IF LEFT$(REPLY$,3) = ".pk" THEN 1590
+940 IF LEFT$(REPLY$,3) = ".in" THEN 1720
+950 STOP
+960 REM Head 1 Processor
+970 FOR I = LINE.NO TO 44
+980  LPRINT
+990 NEXT I
+1000 GOSUB 610  'Bottom of page Routine
+1010 IF PAGE.NO MOD 2 = 0 THEN GOSUB 1410  'For h1 on Odd pages
+1020 LPRINT CHR$(14);  'Set expanded print
+1030 IF PAGE.NO MOD 2 = 0 THEN ADJUST = -4 ELSE ADJUST = -7
+1040 LPRINT TAB(TAB.POS+ADJUST); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1050 LPRINT CHR$(18);  'Return to normal
+1060 LINE.NO = LINE.NO+1
+1070 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1080 RETURN
+1090 '
+1100 REM Head 2 Processor
+1110 IF LINE.NO = 7 THEN 1130 'skip spacing if at top of page
+1120 IF LINE.NO > 43 THEN GOSUB 1410 ELSE LPRINT:LPRINT:LINE.NO = LINE.NO+2
+1130 LPRINT CHR$(27); "E"; 'Set emphasized print
+1140 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1150 LPRINT CHR$(27); "F"; 'Return to normal
+1160 LPRINT
+1170 LINE.NO = LINE.NO + 2
+1180 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1190 RETURN
+1200 '
+1210 REM Head 3 Processor
+1220 IF LINE.NO = 7 THEN 1240 'skip spacing if at top of page
+1230 IF LINE.NO > 43 THEN GOSUB 1410 ELSE LPRINT:LPRINT:LINE.NO = LINE.NO+2
+1240 LPRINT CHR$(27); "E"; 'Set emphasized print
+1250 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-4)
+1260 LPRINT CHR$(27); "F"; 'Return to normal
+1270 LPRINT
+1280 LINE.NO = LINE.NO + 2
+1290 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1300 RETURN
+1310 '
+1320 REM Single Space Processor
+1330 IF LINE.NO = 7 THEN 1350
+1340 IF LINE.NO > 44 THEN GOSUB 1410 ELSE LPRINT : LINE.NO = LINE.NO + 1
+1350 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1360 RETURN
+1370 REM End of File Processor
+1380 GOSUB 1410 'Bottom of Page
+1390 LPRINT CHR$(12);
+1400 GOTO 3280
+1410 REM Page Eject Processor
+1420 FOR I = LINE.NO TO 44
+1430  LPRINT
+1440  LINE.NO = LINE.NO + 1
+1450 NEXT I
+1460 GOSUB 610  'Bottom of Page Processing
+1470 RETURN
+1480 REM Vertical Tab Processor
+1490 IF LINE.NO = 7 THEN 1580
+1500 IF LINE.NO > 44 THEN GOSUB 610  'End of page
+1510 QTY = VAL(RIGHT$(REPLY$,LEN(REPLY$)-3))
+1520 FOR I = 1 TO QTY
+1530  LPRINT
+1540  LINE.NO = LINE.NO + 1
+1550  IF LINE.NO > 44 THEN I = QTY
+1560 NEXT I
+1570 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1580 RETURN
+1590 REM Pack Processor
+1600 IF LINE.NO > 44 THEN GOSUB 610
+1610 IF TAB.POS = 8 THEN ADJUST = 4
+1620 IF TAB.POS = 13 THEN ADJUST = 7
+1630 TAB.POS = TAB.POS + ADJUST + INDENT
+1640 LPRINT CHR$(15); 'Packed printing
+1650 WIDTH "lpt1:", 132 'set condensed width
+1660 LPRINT TAB(TAB.POS); RIGHT$(REPLY$,LEN(REPLY$)-3)
+1670 LPRINT CHR$(18); 'Return to normal
+1680 WIDTH "lpt1:", 80  'return to normal
+1690 LINE.NO = LINE.NO + 1
+1700 IF PAGE.NO MOD 2 = 0 THEN TAB.POS = 8 ELSE TAB.POS = 13
+1710 RETURN
+1720 REM Indent Processor
+1730 INDENT = VAL(RIGHT$(REPLY$,LEN(REPLY$)-3))
+1740 RETURN
+2000 DATA ".h1 TABLE OF CONTENTS"
+2010 DATA ".sp"
+2020 DATA "INTRODUCTION - - - - - - - - - - - -   1"
+2030 DATA "  OVERVIEW - - - - - - - - - - - - -   1"
+2040 DATA "  CAPABILITIES - - - - - - - - - - -   1"
+2050 DATA "    Display the Genealogy  - - - - -   2"
+2060 DATA "    Print Pedigree Charts (Family       "
+2070 DATA "      Trees) - - - - - - - - - - - -   2"
+2080 DATA "    Print Family Group Sheets  - - -   3"
+2090 DATA "    Create the Data Files  - - - - -   3"
+2100 DATA "    Update the Data Files  - - - - -   3"
+2110 DATA "    Create the Indices - - - - - - -   4"
+2120 DATA "    List the Records in the File - -   4"
+2130 DATA "    Printing the Contents of the"
+2140 DATA "      files  - - - - - - - - - - - -   4"
+2150 DATA "    Alphabetical Lists - - - - - - -   5"
+2160 DATA "    Parent/Child Index List  - - - -   5"
+2170 DATA "  BENEFITS/ADVANTAGES  - - - - - - -   6"
+2180 DATA "  RESULTS  - - - - - - - - - - - - -   6"
+2190 DATA "  REQUIREMENTS - - - - - - - - - - -   7"
+2200 DATA "    Hardware Requirements  - - - - -   7"
+2210 DATA "    Software Requirements  - - - - -   8"
+2220 DATA ".sp"
+2230 DATA "GENERAL INFORMATION  - - - - - - - -   9"
+2240 DATA "  DESCRIPTION OF FUNCTIONS - - - - -   9"
+2250 DATA "    File Creation  - - - - - - - - -   9"
+2260 DATA "    File Maintenance - - - - - - - -   9"
+2270 DATA "    File Indexes - - - - - - - - - -   9"
+2280 DATA "    Summary Lists  - - - - - - - - -  10"
+2290 DATA "    Detailed Data  - - - - - - - - -  10"
+2300 DATA "    Displaying the Genealogy - - - -  10"
+2310 DATA "    Printing Pedigree Charts - - - -  11"
+2320 DATA "    Printing Family Group Sheets - -  11"
+2330 DATA ".pa"
+2340 DATA "  DEFINITION OF TERMS  - - - - - - -  12"
+2350 DATA "    Personal Information - - - - - -  12"
+2360 DATA "    Pedigree Information - - - - - -  12"
+2370 DATA "    Family Group Information - - - -  12"
+2380 DATA "    Ordinance Information  - - - - -  13"
+2390 DATA "  EXPLANATION OF GENERAL CONCEPTS  -  14"
+2400 DATA "    Persfile - - - - - - - - - - - -  15"
+2410 DATA "    Marrfile - - - - - - - - - - - -  16"
+2420 DATA "    Pcindex  - - - - - - - - - - - -  17"
+2430 DATA "    Mindex - - - - - - - - - - - - -  17"
+2440 DATA "    Ordfile  - - - - - - - - - - - -  18"
+2450 DATA "    Relationships  - - - - - - - - -  19"
+2460 DATA "  BEFORE YOU START - - - - - - - - -  20"
+2470 DATA "    List of Persons  - - - - - - - -  20"
+2480 DATA "    List of Marriages  - - - - - - -  22"
+2490 DATA ".sp"
+2500 DATA "USING THE PROGRAMS - - - - - - - - -  23"
+2510 DATA "  GETTING STARTED  - - - - - - - - -  23"
+2520 DATA "  FIRST TIME USAGE - - - - - - - - -  25"
+2530 DATA "    Backing up the Distribution         "
+2540 DATA "      Diskette - - - - - - - - - - -  25"
+2550 DATA "    Preparing a new Data Diskette  -  25"
+2560 DATA "    Copying the Menu Program - - - -  27"
+2570 DATA "    Creating the Data Files  - - - -  27"
+2580 DATA "    Caution  - - - - - - - - - - - -  28"
+2590 DATA "  HOW TO OPERATE - - - - - - - - - -  29"
+2600 DATA "    Selecting an individual program   29"
+2610 DATA "    Operating the updatper program -  29"
+2620 DATA "    Operating the updatmar program -  31"
+2630 DATA "    Operating the updatord program -  32"
+2640 DATA "    Operating the indexpc program  -  33"
+2650 DATA "    Operating the indexmar program -  34"
+2660 DATA "    Operating the display program  -  35"
+2670 DATA "    Operating the pedigree program -  38"
+2680 DATA "    Operating the family program - -  39"
+2690 DATA "    Operating the other programs - -  40"
+2700 DATA ".pa"
+2710 DATA "  HOW TO STOP  - - - - - - - - - - -  41"
+2720 DATA "    Stopping the update programs - -  41"
+2730 DATA "    Stopping the display program - -  41"
+2740 DATA "    Stopping the pedigree program  -  41"
+2750 DATA "    Stopping the family program  - -  41"
+2760 DATA "    Stopping the other programs  - -  42"
+2770 DATA ".sp"
+2780 DATA "REFERENCE MATERIAL - - - - - - - - -  43"
+2790 DATA "  SAMPLE SCREENS AND PROMPTING"
+2800 DATA "      MESSAGES - - - - - - - - - - -  43"
+2810 DATA "    Menu Logo  - - - - - - - - - - -  44"
+2820 DATA "    Menu of Programs - - - - - - - -  45"
+2830 DATA "    Display Logo - - - - - - - - - -  46"
+2840 DATA "    Personal Information - - - - - -  48"
+2850 DATA "    Pedigree Information - - - - - -  49"
+2860 DATA "    Family Group Information - - - -  50"
+2870 DATA "    Ordinance Information  - - - - -  51"
+2880 DATA "  COMMANDS USED  - - - - - - - - - -  53"
+2890 DATA "    Basic Command  - - - - - - - - -  53"
+2900 DATA "    Load Command - - - - - - - - - -  53"
+2910 DATA "    Save Command - - - - - - - - - -  53"
+2920 DATA "    Run Command  - - - - - - - - - -  54"
+2930 DATA ".sp"
+2940 DATA "APPENDIX A.  MESSAGES  - - - - - - -  55"
+2950 DATA "  Start-up Messages  - - - - - - - -  55"
+2960 DATA "  Error Messages - - - - - - - - - -  56"
+2970 DATA ".sp"
+2980 DATA "APPENDIX B. SUMMARY  - - - - - - - -  57"
+2990 DATA "  General Programs - - - - - - - - -  57"
+3000 DATA "  Documentation  - - - - - - - - - -  58"
+3010 DATA ".sp"
+3020 DATA "APPENDIX C. HINTS  - - - - - - - - -  59"
+3030 DATA "  Names  - - - - - - - - - - - - - -  59"
+3040 DATA "  Dates  - - - - - - - - - - - - - -  59"
+3050 DATA "  Commas - - - - - - - - - - - - - -  59"
+3060 DATA "  Replacing with Blanks  - - - - - -  60"
+3070 DATA "  Removing a Record  - - - - - - - -  60"
+3080 DATA ".pa"
+3090 DATA "APPENDIX D.  MODIFICATIONS - - - - -  61"
+3100 DATA "  Changing the Number of Persons - -  61"
+3110 DATA "  Changing the Number of Marriages -  65"
+3120 DATA "  Repositioning the Data Files - - -  68"
+3130 DATA "    Persons File - - - - - - - - - -  68"
+3140 DATA "    Marriages File - - - - - - - - -  69"
+3150 DATA "    Ordinances File  - - - - - - - -  70"
+3160 DATA "    Parent/Child Index - - - - - - -  71"
+3170 DATA "    Marriages Index  - - - - - - - -  72"
+3180 DATA "  Removing the Ordinances File - - -  73"
+3190 DATA "  Changing the Ordinances File - - -  74"
+3200 DATA "  Repositioning the Programs - - - -  75"
+3210 DATA "  Utilizing Other Printers - - - - -  77"
+3220 DATA ".sp"
+3230 DATA "APPENDIX E.  TERMS & CONDITIONS  - -  81"
+3240 DATA "  Terms  - - - - - - - - - - - - - -  81"
+3250 DATA "  Conditions - - - - - - - - - - - -  82"
+3260 DATA "  Disclaimer - - - - - - - - - - - -  82"
+3270 DATA ".eof"
+3280 END
+

@@ -1,0 +1,183 @@
+1  REM-------------------------------------------------------
+2 REM
+3 REM                    LOOKUP.BAS
+4 REM      RETRIEVE/CHANGE INFORMATION IN DATABASE
+5 REM
+6 REM--------------------------------------------------------
+7 CLS:KEY OFF
+10 GOTO 1100
+20 REM ----------------SUROUTINES---------------------
+30 REM
+100 REM--------------------------------------------------
+105 REM
+110 REM                    READ.BAS
+115 REM    INPUT A B-TREE NODE FROM DISK FILE #1
+120 REM---------------------------------------------------
+130 GET 1,P%:LSET REC$=R$
+131 FOR INDEX%=1 TO N%
+132    CH%=SIZE% *(INDEX%-1)
+133    FLAG$=MID$(REC$,CH%+1,1)
+134    IF FLAG$="E" THEN FLAG%(INDEX%)=0
+135    IF FLAG$="F" THEN FLAG%(INDEX%)=1
+136    IF FLAG$="D" THEN FLAG%(INDEX%)=2
+137    KEYS$(INDEX%)=MID$(REC$,CH%+2,SIZE%-3)
+138    ARC%(INDEX%)=CVI(MID$(REC$,CH%+SIZE%-1,2))
+139  NEXT INDEX%
+140 ARC%(N%+1)=CVI(MID$(REC$,126,2))
+145 RETURN
+150 REM-----------------------------------------------------
+155 REM
+160 REM                     WRITE.BAS
+165 REM     OUTPUT A B-TREE NODE TO FILE #1
+170 REM
+175 REM-----------------------------------------------------
+177 REC$=STRING$( 127, " " )
+180 FOR INDEX%=1 TO N%
+181   CH%=SIZE% *(INDEX%-1)
+182   ON FLAG%(INDEX%)+1 GOTO 183,184,185
+183    FLAG$="E":GOTO 186
+184    FLAG$="F":GOTO 186
+185    FLAG$="D"
+186   MID$(REC$,CH%+1,1)=FLAG$
+187   MID$(REC$,CH%+2,SIZE%-3)=KEYS$(INDEX%)
+188   MID$(REC$,CH%+SIZE%-1,2)=MKI$(ARC%(INDEX%))
+189 NEXT INDEX%
+190 MID$(REC$,126,2)=MKI$(ARC%(N%+1))
+195 LSET R$=REC$:PUT 1,P%
+199 RETURN
+500 REM----------------------------------------
+501 REM   SEARCH FOR K$ IN B-TREE
+502 REM----------------------------------------
+505 REM
+515 P%=ROOT%:D$=""
+520 REM -------------------REPEAT UNTIL FOUND OR NOT IN FILE-------------------
+525    I%=1
+530    GOSUB 100         'READ NODE
+535    IF KEYS$(I%)=ZERO$ THEN 545
+540    IF KEYS$(I%)<K$ THEN 542 ELSE 545
+542      I%=I%+1:GOTO 535
+545    A%=P%
+550    ITEM%=I%
+552    P%=ARC%(I%)
+555 IF P%<=0 THEN 560 ELSE 520
+560 IF KEYS$(ITEM%)<>K$ THEN 565
+561 IF FLAG%(ITEM%)<>2 THEN 563
+562   PRINT"Key deleted...cannot retrieve it.":GOTO 567
+563 P%=A%:RETURN
+565   PRINT"Key not found...cannot retrieve it."
+567 D$="Not found"
+570 RETURN
+800 REM----------------------------------------------------
+801 REM   get and unpack data file
+802 REM------------------------------------------------------
+805 REM
+810 GET 2, -ARC%(ITEM%)
+840 LSET TR$=MR$:I1%=1
+850 FOR I%=1 TO AN%
+855     I2%=INSTR(TR$, ":")
+860     AN$(I%)=SPACE$(I2%-I1%)
+870     LSET AN$(I%)=MID$(TR$,I1%,I2%-1)
+880     MID$(TR$,I1%,I2%)=STRING$(I2%-I1%+1," ")
+890     I1%=I2%+1
+895 NEXT I%
+899 RETURN
+900 REM-----------------------------------------------------------
+901 REM
+902 REM          pack and re-write data file record
+903 REM------------------------------------------------------------
+920 TR$=STRING$( 127,":"):I1%=1
+925  FOR I%=1 TO AN%
+930    I2%=I1%+LEN(AN$(I%))-1
+935    MID$(TR$,I1%,I2%)=AN$(I%)
+940    I1%=I2%+2
+945 NEXT I%
+950 LSET MR$=TR$
+955 PUT 2, -ARC%(ITEM%)
+960 RETURN
+1000 REM-------------------------
+1001 REM      finish
+1002 REM-------------------------
+1010 CLOSE 1,2
+1015 OPEN "O",2, "HEADER.DAT"
+1020  PRINT #2,FSCREEN$;",";ROOT%;LNG%;LNF%;AN%;LINS%;N%;SIZE%;INDEX$;",";MAST$
+1025 CLOSE 2
+1030 RUN "DBMENU"              'BAIL OUT
+1100 REM----------------------------------------------------
+1101 REM        RETRIEVE DATA USING SCREEN FORM
+1102 REM-----------------------------------------------------
+1105 FOR I%=1 TO 10:PRINT:NEXT I%
+1110 OPEN "I",2, "HEADER.DAT"
+1115   INPUT #2,FSCREEN$,ROOT%,LNG%,LNF%,AN%,LINS%,N%,SIZE%,INDEX$,MAST$
+1120 CLOSE 2
+1125 N0%=N%+1:DIM FLAG%(N0%),KEYS$(N0%),ARC%(N0%)
+1130          DIM SFLAG%(N0%),SKEYS$(N0%),SARC%(N0%)
+1135 DIM AN$(AN%)
+1137 OPEN "I",2,FSCREEN$
+1140   FOR L%=1 TO LINS%:INPUT #2, RW$(L%):NEXT L%
+1145 CLOSE 2
+1150 OPEN "R", 1, INDEX$
+1155 FIELD 1,127 AS R$
+1160 REC$=SPACE$(127):ZERO$=SPACE$(SIZE%-3):LSET ZERO$="0"
+1165 K$=SPACE$(SIZE%-3):TR$=SPACE$(128)
+1170 OPEN "R",2,MAST$
+1175  FIELD  2, 127 AS MR$
+1180 PRINT:LINE INPUT "Enter search key value : ";KINP$:LSET K$=KINP$
+1185 LINE INPUT "         Correct (Y/N) ? ";Y$
+1190 IF Y$="y" OR Y$="Y" THEN 1192 ELSE 1180
+1192 IF LEN(KINP$)=0 THEN 1000
+1195 GOSUB 500
+1196 IF D$<>"" THEN 1180
+1197 GOSUB 800
+1199 REM---------------------forms display---------------------------
+1200 REM
+1210 K%=0
+1220 FOR I%=1 TO LINS%
+1225  SRW$=RW$(I%)
+1230  PRINT USING "##";I%;:PRINT ".";
+1235  IF INSTR(LEFT$(RW$(I%),1),"-")=1 THEN 1237
+1236  IF INSTR(LEFT$(RW$(I%),1)," ")=0 THEN 1240
+1237   RW$(I%)=RIGHT$(RW$(I%),LEN(RW$(I%))-1)
+1238    PRINT " ";:GOTO 1235
+1240  J%=INSTR(RW$(I%),":")
+1242  JSTAR%=INSTR(RW$(I%), "*")
+1243   IF JSTAR%=0 THEN 1250
+1245   IF JSTAR%<J% THEN 1300
+1250  IF J%=0 THEN 1300
+1260    PRINT LEFT$(RW$(I%),J%);
+1270    K%=K%+1:RW$(I%)=MID$(RW$(I%),J%+LEN(AN$(K%))+1)
+1280    PRINT AN$(K%);
+1290    GOTO 1235
+1300  J%=INSTR(RW$(I%),"*")
+1310  IF J%=0 THEN 1340
+1311  K%=K%+1:PRINT LEFT$(RW$(I%),J%);
+1312  RW$(I%)=MID$(RW$(I%),J%+LEN(AN$(K%))+1)
+1313   PRINT AN$(K%);
+1338  GOTO 1235
+1340  PRINT:RW$(I%)=SRW$
+1345 NEXT I%
+1400 REM--------------MODIFY, DELETE OR WHAT----------------------
+1405 PRINT:PRINT
+1410 PRINT:LINE INPUT"Enter  (M)=modify,  (L)=lookup,  (D)=delete, (E)=exit:";C$
+1420 IF C$="E" OR C$="e" THEN 1000
+1430 IF C$="D" OR C$="d" THEN 1450
+1440 IF C$="M" OR C$="m" THEN 1500
+1445 GOTO 1180
+1450 REM------------------DELETE DATA-------------------
+1455 LINE INPUT "Are you sure you want to delete this information ?";Y$
+1460 IF Y$<>"Y" AND Y$<>"y" THEN 1410
+1465 FLAG%(ITEM%)=2
+1470 GOSUB 150         're-write b-tree node
+1475 GOTO 1410
+1500 REM-------------change an$------------------------
+1505 Y$="N"
+1510 PRINT:PRINT"Enter   (0)=quit, or the # of the field to change: ";:INPUT L%
+1515 IF L%<= 0 OR L%>AN% THEN 1545
+1520 PRINT:PRINT "Change ";AN$(L%); " to ";:INPUT C$
+1525 LINE INPUT "Are you sure ?";Y$
+1530 IF Y$<>"Y" AND Y$<>"y" THEN 1510
+1535 AN$(L%)=C$
+1540 GOTO 1510
+1545 IF Y$="N" THEN 1410
+1550 GOSUB 900:GOTO 1410      're-write data
+1599 END
+

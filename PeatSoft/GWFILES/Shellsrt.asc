@@ -1,0 +1,17 @@
+5 REM * PUBLIC DOMAIN SOFTWARE *
+10 DEFINT I-N: DIM D$(532): FOR J = 1 TO 19: RESTORE
+20 FOR I = 1 TO 28: N = N + 1: READ D$(N): NEXT I, J
+30 STOP: TIME$ = "0"
+35 GOSUB 1000: T$ = TIME$: FOR I = 1 TO N
+40 PRINT D$(I); : NEXT: PRINT N, T$: END
+50 DATA ccccc,aaaaa,ggggg,bbbbb,ooooo,hhhhh,ddddd
+60 DATA mmmmm,kkkkk,eeeee,fffff,iiiii,nnnnn,jjjjj
+70 DATA lllll,zzzzz,yyyyy,xxxxx,wwwww,vvvvv,uuuuu
+80 DATA ttttt,sssss,sssss,rrrrr,qqqqq,ppppp,ddddd
+1000 'shell-metzner sort. n is count. d$ IS DATA.
+1010 'ASSUMES I,J,K ARE INTEGERS AND USES THEM.
+1020 K = N: WHILE K > 1: K = K / 2
+1030 FOR J = 1 TO N - K: FOR I = J TO 1 STEP -K
+1040 IF D$(I) > D$(I + K) THEN SWAP D$(I), D$(I + K): NEXT
+1050 NEXT J: WEND: RETURN
+

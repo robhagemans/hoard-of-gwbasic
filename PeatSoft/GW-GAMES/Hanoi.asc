@@ -1,0 +1,82 @@
+1  '
+2  '***********************************
+3  '*                                 *
+4  '*   TOWERS OF HANOI (Recursive)   *
+5  '*       @                         *
+6  '*      @@@                        *
+7  '*     @@@@@                       *
+8  '*    @@@@@@@                      *
+9  '*   @@@@@@@@@     |        |      *
+10 '*  Modified for IBM PC by         *
+11 '*  Marty Smith  SOURCE ST2259     *
+12 '*  HOU.,TEX COMPUSERVE 72155,1214 *
+13 '***********************************
+14 REM BASIC recursive routine from COMPUTE, July 1982, p. 58.                         Article by Earl Wuchter.
+15 REM This program is best displayed on an 80-col RGB color monitor, although     it will also work on the Monochrome Display. I have both boards and this        program first shifts to Color and defines KEY 7 as a toggle between boards.
+16 REM The program first asks which board to use. If you are using one board in    your system, you might want to delete line 31, which controls this function.
+17 REM I am using a SONY Profeel monitor in RGB mode, which displays 8 colors.     --Lines 76 and 1010 draw disks in 7 colors. For 15 change MOD 7 to MOD 14.      --Line 33 shifts display to the right. OUT 980,2:OUT 981,90 is standard.
+18 REM Line 40 defines the character to draw disks, which is CHR$(1). Try other    values for different effects.
+19 REM If you use the color board with an RF modulator or a composite monitor,     you may get no color on your display. This is due to the 80-col mode, which     is very demanding of TV's. Stick with the monochrome display or--
+20 REM   you might try using mode COLOR 1,0 and using LINE ,BF or DRAW type        statements for the disks, but this would mean a lot of work.
+21 REM Remove the ' in lines 130 and 250 to display the depth of recursion         during the routine.
+22 REM Integers are used for speed. This limits the routine to 15 disks, or        32767 moves. Using single precision you could solve for 21 disks in 7 days,     or 2,097,151 moves! Here disks are limited to 13 to fit the 80-col. display.
+23 REM I have coded this routine into MMS FORTH, which has just been released     for IBM PC. I had to put a delay routine in because the display was TOO rapid!
+30 DEFINT A-Z
+31 KEY 7,"GOSUB 65000"+CHR$(13):INPUT "Use Color or Monochrome board (C / M)";C$:IF LEFT$(C$,1)="c" OR LEFT$(C$,1)="C" THEN TOG=2:GOSUB 65010 ELSE IF LEFT$(C$,1)="m" OR LEFT$(C$,1)="M" THEN TOG=1:GOSUB 65010 ELSE GOTO 31
+33 OUT 980,2:OUT 981,87: ' 87 is for shifting horizontal screen position
+36 COLOR 7,0,0
+40 Y$=STRING$(30,1):EZ$=SPACE$(26): ' 1 is character used to make disks
+45 DIM N(22),F(22),T(22),D$(21),HERE(13,1),HEIGHT(3)
+50 T$=STRING$(4,254)+CHR$(219):P$=T$+T$+T$+T$+T$
+60 Z=0:CLS:COLOR 4,7:LOCATE 1,26:PRINT "TOWERS OF HANOI":COLOR 6,0:PRINT :INPUT "Number of Disks (1 TO 13) ";N(1)
+70 IF N(1) < 1 OR N(1) > 13 THEN 60
+71 PRINTER$="":PRINT "Print results on Printer? (Y to Print) ";
+72 PRINTER$=INKEY$:IF PRINTER$="Y" OR PRINTER$="y" THEN LPRINT TAB(19)"TOWERS OF HANOI FOR"N(1)"DISKS"
+73 IF PRINTER$="" THEN 72
+74 COLOR 7,0:C=CSRLIN:LOCATE 1,1:PRINT SPACE$(25):FOR X=2 TO C:PRINT SPACE$(80);:NEXT
+75 FOR X=1 TO N(1):D$(X)=STRING$(26,32):MID$(D$(X),14-X,X*2-1)=Y$:NEXT:IF TOG=1 THEN GOTO 77
+76 TOP=20-N(1):FOR X=1 TO N(1):HERE(X,0)=TOP+X:HERE(X,1)=1:LOCATE TOP+X,1:COLOR X MOD 7 + 1,0:PRINT D$(X);:NEXT:LOCATE 1,26:COLOR 4,7:PRINT "TOWERS OF HANOI FOR"N(1)"DISKS":LOCATE 21,1:COLOR 1,0:PRINT STRING$(80,176);:COLOR 7,0:GOTO 79
+77 TOP=20-N(1):FOR X=1 TO N(1):HERE(X,0)=TOP+X:HERE(X,1)=1:LOCATE TOP+X,1:PRINT D$(X);:NEXT:LOCATE 1,26:COLOR 4,7:PRINT "TOWERS OF HANOI FOR"N(1)"DISKS":LOCATE 21,1:COLOR 1,0:PRINT STRING$(80,176);:COLOR 7,0
+79 HEIGHT(1)=TOP:HEIGHT(2)=20:HEIGHT(3)=20
+80 F(1)=1
+90 T(1)=3
+100 GOSUB 120
+110 LOCATE 21,1:PRINT "DONE IN"Z"MOVES"
+115 PRINT "DO AGAIN? ( Y/N )";
+116 AGAIN$=INKEY$:IF AGAIN$="y" OR AGAIN$="Y" THEN 60 ELSE IF AGAIN$="n" OR AGAIN$="N" THEN END
+117 GOTO 116
+120 G=G+1
+125 REM Remove ' in Line 130 and 250 to show depth of recursion
+130 'LOCATE 3,26+G:PRINT SPACE$(22):LOCATE 3,26:COLOR 1,0:PRINT LEFT$(P$,G):COLOR 7,0
+140 IF N(G)=0 THEN 240
+150 N(G+1)=N(G)-1
+160 F(G+1)=F(G)
+170 T(G+1)=6-F(G)-T(G)
+180 GOSUB 120
+190 Z=Z+1:IF PRINTER$="y" OR P$="Y" THEN LPRINT TAB(19);USING"##   DISK No. # FROM # TO #";Z,N(G),F(G),T(G)
+195 GOSUB 1000
+200 N(G+1)=N(G)-1
+210 F(G+1)=6-F(G)-T(G)
+220 T(G+1)=T(G)
+230 GOSUB 120
+240 G=G-1
+250 'LOCATE 3,26+G:PRINT SPACE$(22):LOCATE 3,26:COLOR 1,0:PRINT LEFT$(P$,G):COLOR 7,0
+260 RETURN
+1000 IF T(G)=1 THEN COL=1 ELSE IF T(G)=2 THEN COL=27 ELSE IF T(G)=3 THEN COL=54
+1005 IF TOG=1 THEN GOTO 1015
+1010 LOCATE HERE(N(G),0),HERE(N(G),1):COLOR 7,0:PRINT EZ$;:HEIGHT(F(G))=HEIGHT(F(G))+1:LOCATE HEIGHT(T(G)),COL:COLOR N(G) MOD 7 + 1,0:PRINT D$(N(G));:COLOR 7,0:GOTO 1020
+1015 LOCATE HERE(N(G),0),HERE(N(G),1):PRINT EZ$;:HEIGHT(F(G))=HEIGHT(F(G))+1:LOCATE HEIGHT(T(G)),COL:PRINT D$(N(G));
+1020 HERE(N(G),0)=HEIGHT(T(G)):HERE(N(G),1)=COL:HEIGHT(T(G))=HEIGHT(T(G))-1
+1100 RETURN
+65000 IF TOG=1 THEN TOG=2 ELSE TOG=1
+65010 ON TOG GOSUB 65080, 65030
+65020 RETURN
+65030 REM toggle color graphics
+65050 WIDTH 80: DEF SEG=0: A=PEEK(&H410): POKE &H410,(A AND &HCF) OR &H20
+65060 SCREEN 1: SCREEN 0:LOCATE ,,1,6,7: SCREEN 0,1,0,0:WIDTH 80
+65070 RETURN
+65080 REM toggle monochrome display
+65100 DEF SEG=0: A=PEEK(&H410): POKE &H410,A OR &H30
+65110 WIDTH 80: LOCATE ,,1,12,13:SCREEN 0,0,0
+65120 RETURN
+

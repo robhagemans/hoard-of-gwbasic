@@ -1,0 +1,386 @@
+5 REM This program is Trucker
+10 KEY OFF:WIDTH 80:CLS:DEFINT C-S
+20 LOCATE 5,3:PRINT"ษออออออออป";:LOCATE 6,3:PRINT"ศอออปษอออผ";:LOCATE 7,7:FOR X=1 TO 7:PRINT"บบ" CHR$(31) STRING$(2,29);:NEXT X:PRINT"ศผ";
+30 LOCATE 5,14:PRINT"ษออออออออป";:LOCATE 6,14:PRINT"บษออออออปบ";:LOCATE 7,14:PRINT"บบ      บบ";:LOCATE 8,14:PRINT"บบ      บบ";:LOCATE 9,14:PRINT"บศออออออผบ";:LOCATE 10,14:PRINT"บษออป ษออผ";
+40 LOCATE 11,14:PRINT"บบ  ศปศป";:LOCATE 12,14:PRINT"บบ   ศปศป";:LOCATE 13,14:PRINT"บบ    ศปศป";:LOCATE 14,14:PRINT"ศผ     ศอผ";
+50 LOCATE 5,25:PRINT"ษป      ษป";:FOR X=6 TO 12:LOCATE X,25:PRINT"บบ      บบ";:NEXT X:LOCATE 13,25:PRINT"บศออออออผบ";:LOCATE 14,25:PRINT"ศออออออออผ";
+60 LOCATE 5,36:PRINT"ษออออออออป";:LOCATE 6,36:PRINT"บษออออออปบ";:LOCATE 7,36:PRINT"บบ      ศผ";:FOR X=8 TO 11:LOCATE X,36:PRINT"บบ";:NEXT X:LOCATE 12,36:PRINT"บบ      ษป";:LOCATE 13,36:PRINT"บศออออออผบ";:LOCATE 14,36:PRINT"ศออออออออผ";
+70 LOCATE 5,47:PRINT"ษป   ษอป";:LOCATE 6,47:PRINT"บบ  ษผษผ";:LOCATE 7,47:PRINT"บบ ษผษผ";:LOCATE 8,47:PRINT"บบษผษผ";:LOCATE 9,47:PRINT"บศผษผ";:LOCATE 10,47:PRINT"บษปศป";:LOCATE 11,47:PRINT"บบศปศป";:LOCATE 12,47:PRINT"บบ ศปศป";
+80 LOCATE 13,47:PRINT"บบ  ศปศป";:LOCATE 14,47:PRINT"ศผ   ศอผ";
+90 LOCATE 5,58:PRINT"ษออออออออป";:LOCATE 6,58:PRINT"บษอออออออผ";:LOCATE 7,58:PRINT"บบ";:LOCATE 8,58:PRINT"บบ";:LOCATE 9,58:PRINT"บศอออป";:LOCATE 10,58:PRINT"บษอออผ";:LOCATE 11,58:PRINT"บบ";
+100 LOCATE 12,58:PRINT"บบ";:LOCATE 13,58:PRINT"บศอออออออป";:LOCATE 14,58:PRINT"ศออออออออผ";
+110 LOCATE 5,69:PRINT"ษออออออออป";:LOCATE 6,69:PRINT"บษออออออปบ";:LOCATE 7,69:PRINT"บบ      บบ";:LOCATE 8,69:PRINT"บบ      บบ";:LOCATE 9,69:PRINT"บศออออออผบ";:LOCATE 10,69:PRINT"บษออป ษออผ";
+120 LOCATE 11,69:PRINT"บบ  ศปศป";:LOCATE 12,69:PRINT"บบ   ศปศป";:LOCATE 13,69:PRINT"บบ    ศปศป";:LOCATE 14,69:PRINT"ศผ     ศอผ";
+130 LOCATE 4,1:PRINT"ษ" STRING$(78,"อ") "ป";:FOR X=5 TO 14:LOCATE X,1:PRINT"บ";:LOCATE X,80:PRINT"บ";:NEXT X
+135 LOCATE 15,1:PRINT"ศ" STRING$(37,"อ") "ป  ษ" STRING$(37,"อ") "ผ";
+140 LOCATE 16,31:PRINT"ษอออออออผbyศอออออออป";:LOCATE 17,31:PRINT"บHughes  Glantzbergบ";:LOCATE 18,29:PRINT"ษอผ1602 Elizabeth Dr.ศอป";:LOCATE 19,29:PRINT"บCarrollton,  TX  75007บ";
+150 LOCATE 20,29:PRINT"ศ" STRING$(22,"อ") "ผ";
+155 TIMEOUT=4:GOSUB 59950
+160 T$=TIME$:XX=VAL(LEFT$(T$,2))*120+VAL(MID$(T$,4,2))*60+VAL(RIGHT$(T$,2)):RANDOMIZE XX
+170 DIM MT(2), MP(2,25), MP$(2,25), MR$(2,25), ZM(2,25), DS$(6), NT$(4)
+180 DD$="$#,###":DC$="$#,###.##"
+190 NT$(1)="first":NT$(2)="second":NT$(3)="third":NT$(4)="fourth"
+200 DS$(0)="Monday":DS$(1)="Tuesday":DS$(2)="Wednesday":DS$(3)="Thursday":DS$(4)="Friday":DS$(5)="Saturday":DS$(6)="Sunday"
+1000 CLS:XC=190:MF=0:HL=3:HS=7:HR=0:GOSUB 2100
+1020 LOCATE 3,1:PRINT"You are at the Los Angeles trucking terminal."
+1030 PRINT"Three types of cargo are available:"
+1040 COLOR 15:PRINT:PRINT TAB(5)"1";:COLOR 7:PRINT"--oranges  (highest profit if they don't spoil)"
+1050 COLOR 15:PRINT TAB(5)"2";:COLOR 7:PRINT"--freight forwarding  (penalty for late delivery)"
+1060 COLOR 15:PRINT TAB(5)"3";:COLOR 7:PRINT"--U.S. Mail  (lowest rate, but no hurry to arrive)"
+1070 PRINT:PRINT"The cargo is due in New York by 4 PM on Thursday."
+1080 PRINT:PRINT"Which type of cargo do you want (";:COLOR 15:PRINT"1";:COLOR 7:PRINT", ";:COLOR 15:PRINT"2";:COLOR 7:PRINT", or ";:COLOR 15:PRINT"3";:COLOR 7:PRINT")?";
+1090 GOSUB 59990:IF INSTR("123",IKEY$)=0 THEN 1090 ELSE CT=VAL(IKEY$):PRINT CT
+1100 INPUT "How many pounds will you carry (40,000 is the legal limit)";WL
+1110 IF WL<25000 THEN PRINT"You can't make a living on half a load.":GOTO 1100
+1120 PRINT:PRINT TAB(5) "They are loading your truck now."
+1130 RESTORE
+1150 FOR RT=0 TO 2:READ NP, MT(RT):FOR I=1 TO NP
+1170 READ MP(RT,I), MP$(RT,I), MR$(RT,I), ZM(RT,I):NEXT I,RT
+1190 TC=10:WF=190:NP=1:TS=1:SL=55:XN=XN+1
+1200 IF WL>50000! THEN WL=50000!:PRINT"50,000 pounds of cargo has filled your trailer!":TIMEOUT=2:GOSUB 59950
+1220 HR=HR+1:CLS:GOSUB 2100:LOCATE 3,1
+1225 PRINT"You paid ";:COLOR 15:PRINT"$190.00";:COLOR 7:PRINT" for a nearly full tank of diesel fuel.":PRINT
+1230 PRINT"Two of your tires are worn.  Do you want replacements (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")?";
+1235 GOSUB 59990:IF INSTR("ynYN",IKEY$)=0 THEN 1235
+1240 IF IKEY$="n" OR IKEY$="N" THEN 1350
+1245 PRINT"A new tire costs $200.00.  A retread costs $100.00."
+1260 INPUT "     Which type do you want";Z$:Z$=LEFT$(Z$,1)
+1270 INPUT "     How many";T
+1280 IF T=3 THEN IF Z$="n" OR Z$="N" THEN TS=2:T=2:XC=XC+200
+1290 IF T<0 OR T>2 THEN 1330
+1300 IF T=0 THEN 1350
+1310 IF Z$="r" OR Z$="R" THEN TC=TC-3*T:XC=XC+100*T:GOTO 1350
+1315 IF Z$="n" OR Z$="N" THEN TC=TC-4*T:XC=XC+200*T:GOTO 1350
+1330 PRINT"I did not understand your answers.":PRINT"Let's try again!":GOTO 1230
+1350 PRINT:PRINT"You may choose the ";:COLOR 15:PRINT"n";:COLOR 7:PRINT"orthern, ";:COLOR 15:PRINT"m";:COLOR 7:PRINT"iddle or ";:COLOR 15:PRINT"s";:COLOR 7:PRINT"outhern route."
+1360 PRINT"     Which route do you choose (";:COLOR 15:PRINT"n";:COLOR 7:PRINT", ";:COLOR 15:PRINT"m";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"s";:COLOR 7:PRINT")? ";
+1362 GOSUB 59990:IF INSTR("nmsNMS",IKEY$)=0 THEN 1362
+1363 PRINT IKEY$:PRINT:PRINT
+1365 IF IKEY$="n" OR IKEY$="N" THEN RT=1:RH=4:GOTO 1600
+1370 IF IKEY$="m" OR IKEY$="M" THEN RT=0:RH=2:GOTO 1600
+1375 RT=2:RH=1:GOTO 1600
+1400 AF=SP^2*CD*CR
+1420 IF AF>RND*1E+07 THEN GOTO 4000
+1430 AF=SQR(MF+100)*TC
+1440 IF AF>RH*25000*RND THEN GOSUB 2600
+1450 IF SP>SL-RH+10 THEN GOSUB 2300
+1460 HR=HR+1:HL=HL+1
+1470 IF SL<40 THEN SL=55
+1480 T=ABS(55-SP):IF T>12 THEN T=12.5
+1490 T1=SP/(4.5-.2*T)
+1500 WF=WF-T1:IF WF<0 THEN GOSUB 2500
+1510 MF=MF+SP
+1520 IF MF>MT(RT) THEN 5000
+1530 TIMEOUT=2:GOSUB 59950
+1550 CLS:GOSUB 2100
+1560 LOCATE 2,1:PRINT"Approximate fuel:";:COLOR 15:PRINT INT(WF-4+RND*10);:COLOR 7:PRINT TAB(36) "Speed: ";:COLOR 15:PRINT SP:COLOR 7
+1570 PRINT"        Odometer: ";:COLOR 15:PRINT MF;:COLOR 7:PRINT TAB(30) "Miles to go: ";:COLOR 15:PRINT MT(RT)-MF:COLOR 7
+1580 PRINT
+1600 IF MP(RT,NP)<=MF THEN GOTO 3100 ELSE PRINT"Cruising on " MR$(RT,NP)
+1610 GOSUB 3000:PRINT"You are feeling " CD$
+1620 GOSUB 2800:PRINT"Current weather: " CR$
+1630 NS=NS+1:IF NS>3 THEN GOSUB 1700
+1640 INPUT "How fast do you wish to go (20-100)";SP
+1650 IF SP<20 THEN PRINT"Your have to go at least 20 --";:GOTO 1640
+1660 IF SP>INT(1.5*SL) THEN  SP=INT(1.5*SL):PRINT"You can only get the old rig to go" SP "MPH on this road."
+1670 GOTO 1400
+1700 REM
+1710 PRINT"Truck stop ahead.  Do you want to stop (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")? ";
+1715 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 1715 ELSE PRINT IKEY$
+1720 IF IKEY$="n" OR IKEY$="N" THEN S=1:HL=HL+1:RETURN
+1740 T=85+INT(35*RND)
+1750 PRINT USING"Diesel fuel costs $#.## per gallon.";T/100
+1760 INPUT "     How many gallons do you want";T1
+1770 IF T1>0 THEN PRINT USING"Pay $###.##";T*T1/100:XC=XC+T*T1/100:WF=WF+T1
+1780 PRINT"So far, you have spent " USING DC$;XC
+1790 IF WF>201 THEN PRINT"Your tank only holds 200 gallons --" INT(WF-200)" gallons spilled !!":WF=200
+1800 IF TS>0 THEN 1900
+1810 T=200+INT(50*RND):T1=100+INT(70*RND)
+1820 PRINT USING "A new tire costs $###.##.     A retread costs $###.##.";T,T1
+1830 PRINT "     Do you want to buy a tire (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")?";
+1835 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 1835
+1840 IF IKEY$="n" OR IKEY$="N" THEN 1900
+1850 STOP
+1900 HR=HR+1:NS=0
+1910 PRINT"Do you want to get some sleep (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")? ";
+1915 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 1915 ELSE PRINT IKEY$
+1920 IF IKEY$="n" OR IKEY$="N" THEN CLS:GOSUB 2100:LOCATE 5,1:RETURN
+1930 INPUT "     How many hours of rest";T
+1940 IF T<1 THEN RETURN
+1950 DH=HR-24*INT(HR/24)
+1960 HR=HR+T:TIMEOUT=4:GOSUB 59950:IF CT=1 THEN WF=WF-7*T:IF WF<0 THEN WF=0:GOSUB 2570
+1970 IF DH>21 OR DH<12 THEN T=INT(T/2+.6):PRINT"Thanks to the daytime noise, you got only"T"hours real sleep."
+1980 HS=HS+T
+1990 IF T>3 THEN HL=0 ELSE HL=HL/2
+2000 PLAY "mbn50n0n50n0n50n0n50n0n50n0n50n0n50n0n50n0n50n0n50"
+2010 CLS:GOSUB 2100:LOCATE 5,1:PRINT"Time to hit the road again."
+2015 IF CT=1 THEN PRINT"You now have" INT(WF) "gallons of fuel.":PRINT"Do you want to buy more (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")? "; ELSE RETURN
+2017 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 2017 ELSE PRINT IKEY$
+2020 IF IKEY$="n" OR IKEY$="N" THEN RETURN ELSE 1740
+2100 DH=HR+8:DT=INT(DH/24):DH=DH-24*DT
+2130 IF DT>6 THEN DT=DT-7:GOTO 2130
+2140 DM$="AM":IF DH=12 THEN  DM$="Noon":GOTO 2200
+2160 IF DH>12 THEN DH=DH-12:DM$="PM"
+2170 IF DH=0 THEN DH=12:DH$="Midnight"
+2200 REM
+2210 LOCATE 1,13:PRINT"Day: ";:COLOR 15:PRINT DS$(DT);:COLOR 7:PRINT TAB(37) "Time: ";:COLOR 15:PRINT DH DM$ "       ":COLOR 7
+2220 RETURN
+2300 REM
+2310 IF (SP-SL+2*RH-5)^2<900*RND THEN RETURN
+2320 PRINT"Smokey is behind you with his lights on.  Pull over!"
+2340 TIMEOUT=2:GOSUB 59950
+2350 NT=NT+1:PRINT"See the justice of the peace for your " NT$(NT) " offense."
+2360 PRINT"     Wait" NT "hours for your hearing."
+2370 HR=HR+NT:HL=HL+NT
+2380 IF NT>3 THEN 2430
+2390 T=INT(NT*(RND*5)):T1=INT(5*(RT+NT*(RND*4)))
+2400 PRINT USING"     The fine is $###.## plus $##.## for each MPH over the limit.";T1,T
+2410 PRINT"     Pay ";:COLOR 15:PRINT USING DD$;T1+T*(SP-SL):COLOR 7:XC=XC+T1+T*(SP-SL)
+2420 TIMEOUT=8:GOSUB 59950:RETURN
+2430 PRINT"  You are sentenced to 30 days in jail for reckless driving."
+2440 TIMEOUT=2:GOSUB 59950
+2450 PRINT"Your I.C.C. driver's license is revoked !"
+2460 GOTO 5500
+2500 T1=T1+WF:WF=0:SP=0
+2510 T=(4.5-.2*T)*T1:MF=MF+T
+2520 PRINT"After"T"more miles, you ran out of fuel  (";:COLOR 15:PRINT"DUMMY !!";:COLOR 7:PRINT")"
+2540 PRINT"     It cost $200 to get a barrel of diesel delivered."
+2550 WF=55:T1=INT(RND*5):HR=HR+T1:ZC=ZC+200:HL=HL+T1
+2560 PRINT"          You also wasted"T1"hours by your carelessness."
+2570 IF CT=1 THEN CX=CX+INT(RND*3):PRINT"     Sitting with the refer unit off is damaging the oranges."
+2580 TIMEOUT=1:GOSUB 59950
+2590 RETURN
+2600 FOR I=80 TO 1 STEP -5:PLAY "n"+STR$(I):NEXT I
+2620 PRINT"Your just blew a tire !!"
+2630 IF TS=0 THEN 2710
+2640 TC=TC-2*TS:TS=0
+2650 T=INT(RND*2)+1:IF T=1 THEN T$="outside" ELSE T$="inside"
+2660 PRINT"     It took"T"hours to change the " T$ " tire.":HR=HR+T:HL=HR+T+1
+2670 TIMEOUT=2:GOSUB 59950:RETURN
+2710 PRINT"Since your spare has already been used, you have to call a tow truck":PRINT"from town to deliver a new tire for you."
+2720 PRINT"     This service cost $400.00 and took 4 hours."
+2730 HR=HR+4:HL=HL+4:XC=XC+400
+2740 TIMEPUT=2:GOSUB59950:RETURN
+2800 REM
+2810 AF=(3000+MF)*RND:ON RT+1 GOTO 2870,2820,2910
+2820 IF AF<3300 AND CR<>50 THEN 2960
+2830 IF AF>4800 THEN 2965
+2840 IF AF>4600 THEN 2970
+2850 IF AF>3800 THEN 2975
+2860 GOTO 2985
+2870 IF AF<3400 AND CR<>50 THEN 2960
+2880 IF AF>4900 THEN 2965
+2890 IF AF>4700 THEN 2970
+2900 IF AF>4200 THEN IF INT(RND*3)+1=1 THEN 2975 ELSE 2980
+2905 GOTO 2985
+2910 IF AF<4000 AND CR<>50 THEN 2960
+2920 IF AF>5700 THEN 2965
+2930 IF AF>5500 THEN 2970
+2940 IF AF>4400 THEN 2980
+2950 GOTO 2985
+2960 CR=1:CR$="clear & dry":RETURN
+2965 CR=50:CR$="B-L-I-Z-Z-A-R-D  !!":RETURN
+2970 CR=10:CR$="fog -- limited visibility":RETURN
+2975 CR=5:CR$="light snow":RETURN
+2980 CR=5:CR$="rain":RETURN
+2985 CR=3:CR$="clear, but roadway is wet":RETURN
+3000 REM
+3010 IF HL>19 OR HR/HS>4 THEN CD=100:CD$="..E.X.H.A.U.S.T.E.D..":RETURN
+3020 IF HL<4 AND COS(HR/HS)<2.3 THEN CD=1:CD$="rested & rearing to go.":RETURN
+3030 IF HL<8 AND COS(HR/HS)<2.5 THEN CD=2:CD$="fine":RETURN
+3040 IF HL<12 AND HR/HS<=3 THEN CD=4:CD$="  b o r e d":RETURN
+3050 IF HL<16 AND HR/HS<=3 THEN CD=8:CD$="  t i r e d  !!":RETURN
+3060 CD=25:CD$="fatigued...you're getting sleepy":RETURN
+3100 REM
+3110 PRINT"You have just passed " MP$(RT,NP)
+3120 ZH=ZM(RT,NP):SL=55
+3130 ON INT(ZH) GOSUB 3210, 3310, 3360, 3410, 3500, 3710, 3860
+3140 NP=NP+1:IF INT(ZH)=8 THEN 5000 ELSE TIMEOUT=5:GOSUB 59950:FOR I=5 TO 11:LOCATE I,1:PRINT SPACE$(70):NEXT I:LOCATE 5,1:GOTO 1600
+3210 PRINT"Time zone changes -- set clock ahead one hour."
+3220 HR=HR+1:GOSUB 2100
+3230 RETURN
+3310 T=100*(ZH-INT(ZH))
+3320 PRINT"STOP!   Pay toll of " USING"$##.##";T
+3330 XC=XC+T
+3340 RETURN
+3360 IF RND<ZH-INT(ZH) THEN RETURN
+3370 PRINT"Construction ahead !!":TIMEOUT=2:GOSUB 59950
+3380 PRINT"Slow down -- speed limit 35 MPH":SL=35
+3390 RETURN
+3410 IF RND<ZH-INT(ZH) THEN RETURN
+3420 T=SP+RND*5-2
+3430 PRINT"You were just clocked by radar at" T "MPH."
+3440 IF T>SL+3 THEN GOSUB 2320 ELSE PRINT"     No ticket this time."
+3450 RETURN
+3500 IF ZH=INT(ZH) THEN IF RND<.5 THEN 3520 ELSE RETURN
+3510 IF RND<ZH-INT(ZH) THEN RETURN
+3520 PRINT"Weighing station open -- trucks must stop.":TIMEOUT=2:GOSUB 59950
+3530 PRINT"Scale weighs truck with cargo, fuel & driver: ";
+3540 T=19000+WL+7*WF+25*(INT(RND*10))
+3550 PRINT USING"##,### pounds.";T
+3560 T=INT(T-60000!)
+3570 IF T<1 THEN PRINT"     You're O.K.":RETURN
+3580 IF ZH=5 THEN 3630
+3590 T1=INT(RND*4)+2:PRINT"     Overweight fine is $200.00 plus" T1 "cents/pound."
+3600 XC=XC+200+(T*T1)/100
+3610 PRINT"Pay fine of ";:COLOR 15:PRINT USING DC$;200+(T*T1)/100:COLOR 7
+3620 RETURN
+3630 REM
+3640 PRINT"You are not allowed to enter Louisiana with that load."
+3650 PRINT"     Take a 200 mile detour through Arkansas with 45 MPH limit."
+3660 SL=45:MR$(RT,NP)="Arkansas county roads"
+3670 FOR I=12 TO 25:MP(RT,I)=MP(RT,I)+200:NEXT I
+3680 MT(RT)=MT(RT)+200
+3690 RETURN
+3710 IF RND<ZH-INT(ZH) THEN RETURN
+3720 T=INT(RND*6)
+3730 PRINT"A rock slide has blocked the Alleghany Tunnel entrance."
+3740 PRINT "     THE HIGHWAY DEPARTMENT WILL HAVE IT CLEARED IN"T"HOURS."
+3750 HR=HR+T:TIMEOUT=2:GOSUB 59950:IF CT=1 THEN WF=WF-7*T:IF WF<=1 THEN GOSUB 3820
+3760 IF T>1 THEN T1=INT(T/2+.5) ELSE T1=0
+3770 IF T1>3 THEN HL=0 ELSE IF T1>0 THEN HL=HL/2
+3780 HS=HS+T1
+3790 PRINT"     While waiting, you got"T1"hours of sleep"
+3800 GOSUB 2100:RETURN
+3820 PRINT"     You ran out of gas while waiting":T=0:GOSUB 2540
+3830 RETURN
+3860 IF CT>1 THEN RETURN
+3870 IF RND<ZH-INT(ZH) THEN RETURN
+3880 PRINT"The trailer refrigeration unit has failed endangering the cargo."
+3890 PRINT"     Repairs take 2 hours and cost $100.00."
+3900 CX=CX+INT(RND*5):HR=HR+2:HL=HL+2:XC=XC+100
+3910 GOSUB 2100:TIMEOUT=2:GOSUB 59950
+3920 RETURN
+4000 FOR I=80 TO 1 STEP -5:PLAY "n"+STR$(I):NEXT I
+4020 FOR I=1 TO 6
+4030 CLS:FOR J=1 TO 100:NEXT J
+4040 LOCATE 12,34:PRINT"C R A S H !!"
+4050 FOR J=1 TO 100:NEXT J,I
+4060 PRINT
+4070 IF CD=100 OR (CD=25 AND SP<65) THEN PRINT"You fell asleep at the wheel.":GOTO 4130
+4080 IF CR=50 THEN PRINT"You drove off the road into a snow filled ditch.":GOTO 4130
+4090 IF CR=10 THEN PRINT"You rear-ended a pick-up with no tail lights.":GOTO 4130
+4100 IF SP>65 THEN PRINT"        Speed kills !":GOTO 4130
+4110 IF CR>2 THEN PRINT"You hit a slick spot":PRINT"  and skidded off the road.":GOTO 4130
+4120 PRINT"A drunk driver rammed your rig.":PRINT"        Tough luck !"
+4130 PRINT:TIMEOUT=2:GOSUB 59950
+4140 PRINT"You lose your truck & profits.":PRINT
+4150 PRINT:PRINT"Do you want to start over (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")?";
+4155 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 4155
+4160 IF IKEY$="n" OR IKEY$="N" THEN RUN "b:???0??"
+4170 XP=0:NT=0:CLS:GOTO 1000
+5000 FOR I=1 TO 5
+5020 CLS:FOR J=1 TO 60:NEXT J
+5030 LOCATE 12,37:PRINT"WELCOME":LOCATE 13,40:PRINT"TO":LOCATE 14,36:PRINT"NEW YORK"
+5040 FOR J=1 TO 60:NEXT J,I
+5050 TIMEOUT=1:GOSUB 59950:CLS
+5100 GOSUB 2100:LOCATE 5,1
+5110 T=HR-INT(HR/24):IF T<10 OR T>21 THEN 5140
+5120 PRINT"The warehouse is closed for the night.  Come back tomorrow."
+5130 T=24-T:HR=HR+T:TIMEOUT=2:GOSUB 59950:GOSUB 2100
+5140 PRINT:T=INT(HR/24):T1=HR-24*T
+5150 PRINT"You completed the trip in"T"days";
+5160 IF T1>1 THEN PRINT" &"T1"hours." ELSE PRINT"."
+5170 PRINT USING"     Trip expenses totaled $#,###.##";XC
+5180 T1=85*T+85:PRINT USING"     Truck payment, insurance and taxes cost $#,###";T1
+5190 XC=XC+T1:PRINT
+5200 ON CT GOTO 5220, 5310, 5360
+5220 T1=(T-4)*INT(RND*3):IF T1>0 THEN CX=CX+T1
+5230 IF CX>6 THEN PRINT"Your oranges have spoiled.  Haul them to the dump!":XT=-50:GOTO 5400
+5240 PRINT"Collect six-and-a-half cents per pound for good oranges."
+5250 XT=6.500001E-02*WL:PRINT USING"     Total for the load: $#,###.##";XT
+5260 IF CX<1 THEN 5400
+5270 PRINT USING"     Part of the load is damaged.  Subtract ##%.";5*CX
+5280 XT=XT-XT*CX/20:PRINT USING"     Net payment is $#,###.##.";XT
+5290 GOTO 5400
+5310 XT=.05*WL:PRINT"Collect five cents a pound for freight."
+5320 PRINT USING"     Total for load = $#,###.##";XT
+5330 IF HR<95 THEN 5400
+5340 CX=2:PRINT"     You're late!!  Subtract ten percent penalty.":GOTO 5400
+5360 PRINT"Postmaster pays 4.75 cents per pound on delivery.":XT=.0475*WL:CX=0:GOTO 5400
+5400 PRINT:XT=XT-XC:XP=XP+XT:IF XT<0 THEN 5470
+5410 PRINT USING"Your net profit this trip was $#,###.##";XT
+5420 IF XT>100 THEN PRINT"     G O O D   W O R K  !!"
+5430 IF XN>1 THEN PRINT USING"     Your average profit has been $#,###.##";XP/XN
+5440 IF XT<200 OR XP/XN<250 THEN PRINT"     You'd make more money washing dishes !"
+5450 PRINT:PRINT:PRINT"Do you want to make another trip (";:COLOR 15:PRINT"Y";:COLOR 7:PRINT" or ";:COLOR 15:PRINT"N";:COLOR 7:PRINT")? ";
+5455 GOSUB 59990:IF INSTR("nyNY",IKEY$)=0 THEN 5455 ELSE PRINT IKEY$
+5460 IF IKEY$="n" OR IKEY$="N" THEN CLS:RUN "b:???0??" ELSE 1000
+5470 PRINT USING"Bad trip. . . You lost $#,###.##";ABS(XT)
+5480 IF XP>=0 THEN GOTO 5430
+5490 PRINT"     You are bankrupt !!!"
+5500 TIMEOUT=4:GOSUB 59950
+5520 PRINT:PRINT"Your rig has been repossessed."
+5530 PRINT:TIMEOUT=5:GOSUB 59950:RUN "menu"
+9030 DATA 21,2850
+9040 DATA 90,Barstow,I-15 in California,7.80
+9050 DATA 225,Needles,I-40 in California,1
+9060 DATA 440,Flagstaff,I-40 in California,3.65
+9070 DATA 620,Gallup,I-40 in Arizona,5.5
+9080 DATA 760,Albuquerque,I-40 in New Mexico,3.35
+9090 DATA 930,Tucumcari,I-40 in New Mexico,1
+9100 DATA 1040,Amarillo,I-40 in Texas,7.8
+9110 DATA 1155,Oklahoma border,I-40 in Texas,5.5
+9120 DATA 1305,Oklahoma City,I-40 in Oklahoma,2.65
+9130 DATA 1530,Missouri border,Oklahoma Turnpike,2.40
+9140 DATA 1815,St. Louis,I-44 in Missouri,0
+9150 DATA 1980,Terre Haute,I-70 in Illinois,5.5
+9160 DATA 2050,Indianapolis,I-70 in Indianna,0
+9170 DATA 2115,Ohio border,I-70 in Indianna,1
+9180 DATA 2220,Columbus,I-70 in Ohio,5.5
+9190 DATA 2350,Wheeling West Virginia,I-70 in Ohio,4.25
+9200 DATA 2410,New Stanton,I-70 in Pennsylvania,6.75
+9210 DATA 2570,Harrisburg,Pennsylvania Turnpike,3.75
+9220 DATA 2760,New Jersey border,Pennsylvania Turnpike,2.95
+9230 DATA 2840,Holland Tunnel,I-70 in New Jersey,2.4
+9240 DATA 9999,New York,New York streets,0
+9250 DATA 18,2710
+9260 DATA 90,Barstow,I-15 in California,7.8
+9270 DATA 245,Las Vegas,I-15 in California,1
+9280 DATA 365,Utah border,I-15 in Arizona,0
+9290 DATA 500,End of Interstate,I-15 in Utah,3.2
+9300 DATA 555,Salina,US-89 in Utah,4.5
+9310 DATA 760,Grand Junction,I-70 in Utah,5.4
+9320 DATA 1010,Denver,I-70 in Colorado,3.75
+9330 DATA 1190,Nebraska border,I-76 in Colorado,1
+9340 DATA 1450,Omaha,I-80 in Nebraska,5.5
+9350 DATA 1590,Demoines,I-80 in Iowa,4.75
+9360 DATA 1750,Illinois border,I-80 in Iowa,5.6
+9370 DATA 1910,Gary,I-80 in Illinois,2.5
+9380 DATA 2050,Ohio border,Indianna Turnpike,2.45
+9390 DATA 2215,Cleveland,Ohio Turnpike,2.8
+9400 DATA 2280,Pennsylvania border,I-80 in Ohio,4.16
+9410 DATA 2615,East Stroudsberg,I-80 in Pennsylvania,3.33
+9420 DATA 2675,Washington Bridge,I-80 in New Jersey,2.2
+9430 DATA 9999,New York,city streets,0
+9450 DATA 25,3120
+9460 DATA 75,Palm Springs,I-10 in California,0
+9470 DATA 225,Blythe,I-10 in California,1
+9480 DATA 375,Phoenix,I-10 in Arizona,0
+9490 DATA 495,Tucson,I-10 in Arizona,7.9
+9500 DATA 650,Lordsburg,I-10 in Arizona,5.75
+9510 DATA 795,El Paso,I-10 in New Mexico,0
+9520 DATA 965,Pecos,I-10 in Texas,1
+9530 DATA 1080,Odessa,I-20 in Texas,0
+9540 DATA 1250,Abilene,I-20 in Texas,3.8
+9550 DATA 1439,Dallas,I-20 in Texas,0
+9560 DATA 1610,Louisiana border,I-20 in Texas,5
+9570 DATA 1785,Vicksburg,I-20 in Louisiana,0
+9580 DATA 1965,Alabama border,I-20 in Mississippi,1
+9590 DATA 2100,Birmingham,I-20 in Alabama,4.25
+9600 DATA 2200,Georgia border,I-20 in Alabama,0
+9610 DATA 2255,Atlanta,I-20 in Georgia,0
+9620 DATA 2320,Carolina border,I-85 in Georgia,5.75
+9630 DATA 2565,Greensboro,I-85 in Carolina,3.8
+9640 DATA 2680,Virginia border,I-85 in North Carolina,7.85
+9650 DATA 2775,Richmond,I-85 in Virginia,0
+9660 DATA 2880,Washington D.C.,I-95 in Virginia,0
+9670 DATA 2920,Baltimore,I-95 in Maryland,2.3
+9680 DATA 2990,New Lersey border,I-95 in Delaware,2.25
+9690 DATA 3110,Holland Tunnel,New Jersey Turnpike,2.4
+9700 DATA 9999,New York,city streets,0
+59950 TIMEOUT$=TIME$:TIME2=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59960 TIMEOUT$=TIME$:TIME3=VAL(LEFT$(TIMEOUT$,2))*120+VAL(MID$(TIMEOUT$,4,2))*60+VAL(RIGHT$(TIMEOUT$,2))
+59970 IF TIMEOUT > TIME3 - TIME2 THEN 59960 ELSE RETURN
+59990 IKEY$=INKEY$:IF IKEY$="" THEN 59990 ELSE RETURN
+

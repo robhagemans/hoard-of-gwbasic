@@ -1,0 +1,208 @@
+10 REM ********************************************************************
+20 REM *       DiskMod              by            John Vandegrift         *
+30 REM *                                                                  *
+40 REM *  This program allows the user to modify diskette sectors in the  *
+50 REM *  following way.  The user specifies the sector that he wants to  *
+60 REM *  review.  This sector is loaded into memory.  It is key that the *
+70 REM *  user realize that only one sector is in memory at any one time. *
+80 REM *  The user can then review and modify this sector using option 2  *
+90 REM *  on the master menu.  In the review/alter section, the cursor    *
+100 REM *  move the inverse video cursor.  The top of the screen will show *
+110 REM *  what sector is being worked on and the bottom of the screen has *
+120 REM *  the commands.  On the 24th line, the user is shown the new value*
+130 REM *  and the current value for the location where the cursor is      *
+140 REM *  located, in base ten.  The new value is entered by entering the *
+150 REM *  number followed by a carriage return.  The sector is displayed  *
+160 REM *  in two sections, the hex values on the left part of the screen  *
+170 REM *  and the character equivalents on the right part of the screen.  *
+180 REM *  X exits this section and takes the user back to the menu.       *
+190 REM *       Option 3 of the menu is the inly way to actually save data *
+200 REM *  to the diskette.  When option 3 is selected, the current con-   *
+210 REM *  tents of the sector buffer are dumped to the last sector        *
+220 REM *  loaded in option 1 of the menu.  Note: Option 2 just changes    *
+230 REM *  the sector buffer in memory, not the contents of the diskette.  *
+240 REM *  Option 3 changes the contents of the diskette.                  *
+250 REM *       User must have 64k memory and 1 disk drive, minimum        *
+260 REM *  configuration.                                                  *
+270 REM ********************************************************************
+280 CLEAR ,&H4000:KEY OFF
+290 DEF SEG=0
+300 GOSUB 1730
+310 REM          Assembler Routine
+320 REM
+330 REM  This routine pokes a machine language subroutine into high memory.
+340 REM  This subroutine reads and writes the diskette sector
+350 REM  from/to the diskette to/from upper memory.
+360 REM  The diskette buffer area starts at &hcc00 and is 512 bytes.
+370 REM  The subroutine is loaded at &hE000 and is 38 bytes.
+380 REM
+390 DATA &h55,&h06,&hb8,&h00,&h00
+400 DATA &h8e,&hc0,&h8b,&hec,&h8b
+410 DATA &h76,&h0c,&h8b,&h04,&h8a
+420 DATA &he0,&hb0,&h01,&hbb,&h00
+430 DATA &hcc,&h8b,&h76,&h08,&h8b
+440 DATA &h0c,&h8b,&h76,&h0a,&h8b
+450 DATA &h14,&hcd,&h13,&h07,&h5d
+460 DATA &hca,&h06,&h00
+470 FOR I=1 TO 38:READ J:SUM=SUM+J:NEXT I
+480 IF SUM<>3700 THEN CLS:PRINT "Sum = ";SUM;". Data Error!":STOP
+490 RESTORE
+500 FOR I=0 TO 37:READ J:POKE &HE000+I,J:NEXT I
+510 SUBRT=&HE000
+520 REM
+530 REM         Set up variable to indicate whether diskette has been
+540 REM         read yet.
+550 REM
+560 NOTREAD=1
+570 REM
+580 REM         Master Menu
+590 REM
+600 REM  The user may want to follow the options in order of occurance,
+610 REM  first declaring the sector, altering it and finally
+620 REM  writing it back to the diskette.
+630 REM
+640 GOSUB 1890
+650 CLS:LOCATE 2,37:PRINT "DiskMod "
+660 IF NOTREAD THEN LOCATE 23,30:PRINT "Sector not declared!!":GOTO 690
+670 LOCATE 23,30:IF NOSIDES=1 THEN PRINT "Single-sided diskette":GOTO 690
+680 PRINT "Double-sided diskette"
+690 LOCATE 10,30:PRINT "1. Select Diskette Sector"
+700 LOCATE 11,30:PRINT "2. Review/Alter Sector"
+710 LOCATE 12,30:PRINT "3. Update Diskette"
+720 LOCATE 13,30:PRINT "4. Help"
+730 LOCATE 14,30:PRINT "5. Exit"
+740 LOCATE 16,30:INPUT "Choice";IANS
+750 ON IANS GOSUB 910,1210,790,1980,1730
+760 IF IANS=5 THEN KEY ON:END
+770 GOTO 650
+780 REM
+790 REM         Put Sector on diskette
+800 REM
+810 REM    This routine takes the diskette sector image in upper memory
+820 REM    and writes it to the diskette.  The sector parameters previously
+830 REM    selected are used.  The user could allow modification of the
+840 REM    track and sector numbers to put the sector image in another place.
+850 REM
+860 IF NOTREAD THEN RETURN
+870 A%=3
+880 CALL SUBRT (A%, B%, C%)
+890 RETURN
+900 REM
+910 REM         Select Sector to be Displayed
+920 REM
+930 REM    Allows the user to select the drive and side (if double sided)
+940 REM    as well as track and sector.  Also loads this sector into memory.
+950 REM
+960 CLS
+970 LOCATE 10,10:INPUT "Select drive (A-B)";DRIVE$
+980 IF DRIVE$="a" OR DRIVE$="A" THEN DRIVE=0:GOTO 1010
+990 IF DRIVE$="b" OR DRIVE$="B" THEN DRIVE=1:GOTO 1010
+1000 GOTO 970
+1010 A%=2:B%=DRIVE:C%=2
+1020 CALL SUBRT (A%, B%, C%)   'check for single/double sided
+1030 NOTREAD=1
+1040 IF PEEK(&HCC00)=&HFF THEN NOSIDES=2:NOTREAD=0:GOTO 1080
+1050 IF PEEK(&HCC00)=&HFE THEN NOSIDES=1:NOTREAD=0:GOTO 1080
+1060 LOCATE 15,10:INPUT "Diskette not correctly formatted. C/R to go on.";IANS
+1070 GOTO 1190
+1080 LOCATE 11,10:INPUT "Select track (0-39)";TRACK
+1090 IF TRACK<0 OR TRACK>39 THEN 1080
+1100 LOCATE 12,10:INPUT "Select sector (1-8)";SECTOR
+1110 IF SECTOR<1 OR SECTOR>8 THEN 1100
+1120 HEAD=0:IF NOSIDES=1 THEN 1150
+1130 LOCATE 13,10:INPUT "Select side (0-1)";HEAD
+1140 IF HEAD<0 OR HEAD>1 THEN 1130
+1150 LOCATE 20,10:INPUT "Inputs satisfactory";IANS$
+1160 IF LEFT$(IANS$,1)<>"Y" AND LEFT$(IANS$,1)<>"y" THEN 960
+1170 B%=(HEAD*256)+DRIVE:C%=(TRACK*256)+SECTOR
+1180 CALL SUBRT (A%, B%, C%)
+1190 RETURN
+1200 REM
+1210 REM         Review/Alter Sector Buffer
+1220 REM
+1230 REM   Allows the user to alter sector buffer contents.  Cursor
+1240 REM   arrows move cursor.  Enter number and press return to enter
+1250 REM   new number.  X exits system.
+1260 REM   This function does not save these changes to diskette!
+1270 REM
+1280 IF NOTREAD THEN RETURN
+1290 CLS
+1300 LOCATE 1,1:PRINT "Track ";TRACK;"  Sector ";SECTOR;"  Side ";HEAD;
+1310 PRINT "Drive ";DRIVE$
+1320 GOSUB 1630
+1330 I=0:J=0:GOSUB 1620
+1340 LOCATE 24,1:PRINT "New Value";
+1350 COLOR 0,7:LOCATE 25,1:FOR II=24 TO 27:PRINT CHR$(II);:NEXT
+1360 PRINT " - Cursor    No.+C/R - new no.    X - eXit";
+1370 COLOR 0,7:GOSUB 1570:GOSUB 1610
+1380 A$=INKEY$:IF A$="" THEN 1380
+1390 IF A$=CHR$(13) THEN CHAR=Z:Z=0:GOSUB 1560:GOSUB 1520:GOTO 1370
+1400 GOSUB 1560
+1410 IF A$="X" OR A$="x" THEN RETURN
+1420 IF LEN(A$)=1 THEN 1470 ELSE A$=RIGHT$(A$,1)
+1430 IF A$=CHR$(75) THEN IF J>0 THEN J=J-1
+1440 IF A$=CHR$(77) THEN IF J<23 THEN J=J+1
+1450 IF A$=CHR$(72) THEN IF I>0 THEN I=I-1
+1460 IF A$=CHR$(80) THEN IF I<21 THEN I=I+1
+1470 GOSUB 1620
+1480 IF A$<"/" OR A$>":" THEN 1370
+1490 Z=Z*10+VAL(A$)
+1500 IF Z>255 THEN Z=0
+1510 GOSUB 1610:GOTO 1370
+1520 POKE (&HCC00+J+(I*24)),CHAR
+1530 IF J<23 THEN J=J+1 ELSE IF I<21 THEN I=I+1:J=0 ELSE I=0:J=0
+1540 GOSUB 1620
+1550 RETURN
+1560 COLOR 7,0
+1570 Z$=HEX$(CHAR):IF LEN(Z$)=1 THEN Z$="0"+Z$
+1580 LOCATE I+2,J*2+1:PRINT Z$;:LOCATE ,J+51
+1590 IF CHAR>13 THEN PRINT CHR$(CHAR); ELSE PRINT " ";
+1600 RETURN
+1610 LOCATE 24,12:PRINT Z;:RETURN
+1620 CHAR=PEEK(&HCC00+J+(I*24)):LOCATE 24,30:PRINT "Value";CHAR;:RETURN
+1630 FOR II=0 TO 20:FOR JJ=0 TO 23
+1640 GOSUB 1680
+1650 NEXT JJ:NEXT II
+1660 II=21:FOR JJ=0 TO 7:GOSUB 1680:NEXT JJ
+1670 RETURN
+1680 DAT=PEEK(&HCC00+JJ+(II*24))
+1690 Z$=HEX$(DAT):IF LEN(Z$)=1 THEN Z$="0"+Z$
+1700 LOCATE II+2,JJ*2+1:PRINT Z$;:LOCATE ,JJ+51
+1710 IF DAT>13 THEN PRINT CHR$(DAT); ELSE PRINT " ";
+1720 RETURN
+1730 REM
+1740 REM                Ending Routine
+1750 REM
+1760 CLS
+1770 A$="DiskMod ":B$="b":C$="y":D$="John Vandegrift":COUNT=10
+1780 GOSUB 1820
+1790 A$="        ":B$=" ":C$=" ":D$="               ":COUNT=9
+1800 GOSUB 1820
+1810 LOCATE 23,1:RETURN
+1820 FOR I=1 TO COUNT
+1830 LOCATE I,37:PRINT A$;
+1840 LOCATE 12,4*I:PRINT B$;
+1850 LOCATE 12,81-(4*I):PRINT C$;
+1860 LOCATE 24-I,33:PRINT D$;
+1870 NEXT I
+1880 RETURN
+1890 REM
+1900 REM                Move Header back to top
+1910 REM
+1920 FOR I=14 TO 13 STEP -1:LOCATE I,33:PRINT SPACE$(15);:NEXT I
+1930 A$="DiskMod ":FOR I=12 TO 3 STEP -1
+1940 LOCATE I-1,37:PRINT A$;
+1950 LOCATE I,37:PRINT SPACE$(8);
+1960 NEXT I
+1970 RETURN
+1980 REM
+1990 REM                Help Routine
+2000 REM
+2010 CLS:LOCATE 4,5:PRINT "(1)  Select Diskette Sector allows specification of sector for display."
+2020 LOCATE 7,5:PRINT "(2)  Review/Alter Sector allows the user to review/change sector contents."
+2030 LOCATE 10,5:PRINT "(3)  Update Diskette is the only way to keep changes (2) on the diskette."
+2040 LOCATE 13,5:PRINT "(4)  EXIT ALLOWS THE USER TO EXIT THE PROGRAM."
+2050 LOCATE 16,5:PRINT "(5)  Help is this screen."
+2060 LOCATE 19,5:INPUT "Press return to continue....",IANS
+2070 RETURN
+

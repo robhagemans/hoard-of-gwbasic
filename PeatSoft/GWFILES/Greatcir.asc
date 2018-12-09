@@ -1,0 +1,63 @@
+10 '********************************************************
+20 '*****            GREAT CIRCLE PLOTTING             *****
+30 '*****               E. WEISSBERGER                 *****
+40 '*****              version 06-08-82                *****
+50 '********************************************************
+60 CLS: KEY OFF
+70 LOCATE 1,22
+80 PRINT "GREAT CIRCLE PLOTTING"
+90 LOCATE 2,26: PRINT "E. WEISSBERGER"
+100 COLOR 0,7,0
+110 PRINT " No guarantee is given for the accuracy of values returned by this "
+120 PRINT "       program.  Use of these values is at the user's risk.        "
+130 COLOR 7,0,0
+140 PRINT: PRINT "This program calculates GREAT CIRCLE circle crossing"
+150 PRINT "  latitudes for given intercept longitudes"
+160 PRINT: PRINT "The program does not operate along lines of equal longitude"
+170 PRINT "coordinates will be entered as DEGREE.MIN"
+180 PRINT "SECONDS should be converted to decimal MIN and concatinated with MIN"
+190 LOCATE 13,5: COLOR 16,1,0
+200 PRINT "for SOUTH longitude or EAST latitude use NEGATIVE values"
+210 COLOR 7,0,0
+220 LOCATE 20,20
+230 PRINT "type any key to continue"
+240 A$ = INKEY$: IF A$ = "" THEN 240
+250 B$(1) = "LATITUDE": B$(2) = "LONGITUDE"
+260 C$(1) = "INITIAL": C$(2) = "FINAL": C$(3) = "CROSSING LONGITUDE"
+270 PI = 3.1415926#: CONVER = 180#/PI                 '***** degrees per radian
+280 CLS
+290 R = 1
+300 FOR X = R TO 3
+310 PRINT "The COORDINATES of the "C$(X)" point are "
+320 FOR Y = 1 TO 2
+330 IF X = 3 THEN Y = 2
+340 PRINT B$(Y)
+350 INPUT "     DEGREES.MIN ",D(X,Y)
+360 D1(X,Y) = INT(ABS(D(X,Y)))
+370 IF D(X,Y) < 0 THEN GOTO 380 ELSE GOTO 390
+380 D1(X,Y) = -D1(X,Y)
+390 M1(X,Y) = (D(X,Y) - D1(X,Y))*100
+400 DMIN1(X,Y) = M1(X,Y)/60#
+410 L(X,Y) = (D1(X,Y) + DMIN1(X,Y))/CONVER
+420 PRINT
+430 NEXT Y
+440 NEXT X
+450 SILONG1 = SIN(L(3,2) - L(1,2))
+460 SILONG2 = SIN(L(3,2) - L(2,2))
+470 SILONG12 = SIN(L(2,2) - L(1,2))
+480 TA2 = TAN(L(2,1)): TA1 = TAN(L(1,1))
+490 FL = TA2*SILONG1: FR = TA1*SILONG2
+500 LAT = ATN((FL - FR)/SILONG12)
+510 LAT = LAT*CONVER
+520 LATD = INT(ABS(LAT))
+530 LATM = (ABS(LAT) - LATD)*60/100
+540 LATA = LATD + LATM
+550 CLS:PRINT "The intercept coordinates are:"
+560 PRINT
+570 PRINT USING "LATITUDE  ####.## DEG.MIN ";LATA
+580 PRINT USING "LONGITUDE ####.## DEG.MIN ";D(3,2)
+590 PRINT
+600 PRINT "Will you run again (Y/N)? "
+610 A$ = INKEY$: IF A$ = "" THEN 610 ELSE IF A$ = "Y" OR A$ = "y" THEN R = 3: GOTO 300
+620 KEY ON: END
+

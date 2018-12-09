@@ -1,0 +1,70 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+12 'บ                EPSON/GEMINI CHR$/DECIMAL/HEX$ CHART                     บ
+14 'บ Formatted printout of EPSON FX-80 (GRAFTRAX) Chr$ codes with decimal &  บ
+16 'บ hexadecimal equivalents.  Set printer 1 space below perforation.        บ
+17 'บ                                                                         บ
+18 'บ During printout, the line spacing is set purposely at less than 8 lines บ
+19 'บ per inch so the chart will fit on a single sheet of paper. You may make บ
+20 'บ an adjustment in Line CCCC to set the spacing you want.                 บ
+21 'บ                       G I N A C O -- 1968             Ver 5.2/160/320   บ
+22 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:FOR I=1 TO 10:KEY I,"":NEXT
+210  SCREEN 0,0,0
+220   WIDTH 80
+230    CLEAR
+240     FOR I! = 1 TO 10
+250        KEY I!,""
+260       NEXT
+270 KEY OFF
+280  COLOR 7,0
+290 CLS
+300  FOR I! = 1 TO 6
+310     PRINT "("I!")"; CHR$(I!),
+320    NEXT
+330     FOR I! = 14 TO 27
+340        PRINT "("I!")"; CHR$(I!),
+350       NEXT
+360        FOR I! = 32 TO 143
+370           PRINT "("I!")"; CHR$(I!),
+380          NEXT
+390           GOSUB 650
+400            CLS
+410             FOR I! = 144 TO 255
+420                PRINT "("I!")"; CHR$(I!),
+430               NEXT
+440                GOSUB 650
+450                 CLS
+460                  GOTO 470
+470 LPRINT CHR$(27) CHR$(64); CHR$(27) CHR$(69); CHR$(27); CHR$(48)
+480  LPRINT TAB( 15)"ASCII PRINTING CODES - DEC > CHR$ > HEX$ - EPSON/GEMINI"
+490   LPRINT TAB( 5) STRING$(74,"=")
+500 LPRINT TAB( 6)"DEC  >  CHR$ > HEX$       DEC  >   CHR$ > HEX$       DEC  >  CHR$ >  HEX$"
+510  LPRINT TAB( 5) STRING$(74,"=")
+520   DIM A$(300)
+530    FOR I! = 30 TO 255
+540       A$(I!) = HEX$(I!)
+550      NEXT
+560 LPRINT
+570  FOR I! = 31 TO 126 STEP 3
+580     LPRINT TAB( 4)"(";I!;")"; TAB( 15); CHR$(I!); TAB( 22);A$(I!); TAB( 31)"(";I! + 1")"; TAB( 42); CHR$(I! + 1); TAB( 49);A$(I! + 1); TAB( 58)"("I! + 2")"; TAB( 69) CHR$(I! + 2); TAB( 76);A$(I! + 2)
+590    NEXT
+600 FOR I! = 160 TO 255 STEP 3
+610    LPRINT TAB( 4)"(";I!;")"; TAB( 15); CHR$(I!); TAB( 22);A$(I!); TAB( 31)"(";I! + 1")"; TAB( 42); CHR$(I! + 1); TAB( 49);A$(I! + 1); TAB( 58)"("I! + 2")"; TAB( 69) CHR$(I! + 2); TAB( 76);A$(I! + 2)
+620   NEXT
+630    LPRINT
+640     END
+650 KEY OFF
+660  LOCATE 25,1
+670   PRINT SPACE$(79);
+680    LOCATE 25,12
+690     PRINT "  Press ENTER to continue OR PRINT. Press ESC key to Quit ";
+700      ANS$ = INPUT$(1)
+710       IF ASC(ANS$) = 13 THEN RETURN  ELSE 720
+720 IF ASC(ANS$) = 27 THEN 730  ELSE 650
+730 END
+65000 REM ===== SAVE ROUTINE =====
+65100 SAVE"B:CHR$PRNT.BAS"
+

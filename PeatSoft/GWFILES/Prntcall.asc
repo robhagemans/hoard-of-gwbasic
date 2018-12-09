@@ -1,0 +1,71 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '*****************  PRINTER CONTROL SUB-ROUTINE IBM  ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ                EPSON/GEMINI 10/15 PRINT CONTROL ROUTINE                 บ
+20 'บ                                                                         บ
+22 'บ    Delete lines 110-200 and save the remaining program with the ASCII   บ
+24 'บ option 'A ' so it can be merged into your program. GOSUB 5000 to set    บ
+26 'บ up printer control in your program. If you are proficient in the use    บ
+28 'บ of printer codes, you may wish to make the title shorter. If you only   บ
+30 'บ use codes occasionally, you may appreciate the more descriptive name.   บ
+31 'บ                                                                         บ
+32 'บ    The error routine will take care of printer off or 'off line'. It    บ
+33 'บ will go to Basic error handling for paper out or other.  This program   บ
+34 'บ or any part thereof may be used without license or attribution.         บ
+36 'บ                   (c) G I N A C O    1983              Ver 5.1/160/320  บ
+38 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 REM
+100 GOSUB 5030
+110  CLS
+120   LOCATE 10,23
+130    PRINT "YOUR PRINTER HAS BEEN INITIALIZED"
+140     LOCATE 12,20
+150      PRINT "FOR A SAMPLE PRINTOUT RUN EPSONSET.BAS"
+160       FOR I! = 1 TO 3000
+170        NEXT
+180         PRINT
+190          LIST 5000 - 5480
+200           END
+5000 '********************** PRINTER CONTROL SUBROUTINE ************************
+5030 SMALL$ = CHR$(15)
+5060  UNSMALL$ = CHR$(18)
+5090   EXPAND.SMALL$ = CHR$(14) + CHR$(15)
+5120    CANX.EXP.COMP$ = CHR$(18) + CHR$(20)
+5150     EXPAND$ = CHR$(14)
+5180      EXPAND.END$ = CHR$(20)
+5210       DARK$ = CHR$(27) + CHR$(69)
+5240        ITALIC$ = CHR$(27) + CHR$(52)
+5270         ITALIC.EXP.CON$ = CHR$(14) + CHR$(15) + CHR$(27) + CHR$(52)
+5300 ITALIC.EXP$ = CHR$(27) + CHR$(52) + CHR$(14)
+5330  END.ITALIC$ = CHR$(27) + CHR$(53)
+5360   START.ULINE$ = CHR$(27) + CHR$(45) + CHR$(1)
+5390    END.ULINE$ = CHR$(27) + CHR$(45) + CHR$(0)
+5420     PERM.EXPAN$ = CHR$(27) + CHR$(87) + CHR$(1)
+5450      END.PERMEXP$ = CHR$(27) + CHR$(87) + CHR$(0)
+5480 START.DSTRIKE$ = CHR$(27) + CHR$(71)
+5510  END.DSTRIKE$ = CHR$(27) + CHR$(72)
+5540   TINYLINE$ = CHR$(27) + CHR$(83) + CHR$(0)
+5570    END.TINY$ = CHR$(27) + CHR$(84)
+5600     ESC$ = CHR$(27)
+5630      CLEANUP$ = CHR$(27) + CHR$(64)
+5660       RETURN
+6000 REM ********* PRINTER ERROR ROUTINE ***************
+6030 IF ERR = 24 THEN 6120 ELSE 6060
+6060 IF ERR = 25 THEN 6120 ELSE 6090
+6090 ON ERROR GOTO 0
+6120 KEY OFF
+6150  BEEP
+6180   BEEP
+6210    LOCATE 25,1
+6240     PRINT SPC( 79)
+6270      LOCATE 25,20
+6300       PRINT "CHECK PRINTER - PRESS ANY KEY TO CONTINUE"
+6330 IF INKEY$ = "" THEN 6330
+6360 KEY OFF
+6390  RESUME
+6420   END
+65000 '************************ SAVE ROUTINE *********************************
+65100 SAVE "B:PRNTCALL.BAS"
+

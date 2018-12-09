@@ -1,0 +1,98 @@
+1 CLS
+10 REM operation "OS"
+20 REM Ryan Curtis
+30 REM OS for basic progs.
+40 PRINT "Welcome"
+50 INPUT "What is your name"; NAM$
+60 PRINT "Welcome "; NAM$"
+70 INPUT "Enter the access code"; COD
+80 IF COD=1234 GOTO 100
+90 PRINT "Access code denied"
+95 GOTO 880
+100 PRINT "Acess code accepted"
+105 CLS
+110 PRINT"Where would you like to go"
+120 PRINT"# 1 for conversation"
+130 PRINT"# 2 for fortune"
+140 PRINT"# 3 for vote"
+150 PRINT"# 4 for re-enter access code"
+160 PRINT"# 5 for log off"
+170 INPUT"What #"; NUM
+180 IF NUM=1 GOTO 225
+190 IF NUM=2 GOTO 450
+200 IF NUM=3 GOTO 690
+210 IF NUM=4 GOTO 70
+220 IF NUM=5 GOTO 880
+225 CLS
+230 REM prog.
+240 REM Ryan Curtis
+250 REM conversation with the computer
+260 INPUT "What is you name"; NAM$
+270 PRINT "Hello "; NAM$ " nice to meet you!"
+280 INPUT "How old are you"; A
+290 IF A >= 20 GOTO 110
+300 PRINT "You look very mature for your age"
+310 GOTO 330
+320 PRINT"You look younger than your age"
+330 INPUT"What city do you live in"; CIT$
+340 PRINT"I think ";CIT$" is a nice place"
+350 INPUT"Do you have any friends #1=yes #2=no"; FED
+360 IF FED = 1 GOTO 370 :ELSE 400
+370 PRINT"That's good but I'll be your friend too!"
+380 GOTO 420
+390 IF FED$ = 2 GOTO 400
+400 PRINT"That's too bad-hey I'll be your friend!"
+410 GOTO 420
+420 PRINT"Well see ya later!"
+430 PRINT "your computer"
+435 INPUT"Press enter to continue."; NUDERED
+440 GOTO 105
+445 CLS
+450 REM Prog.
+460 REM Ryan Curtis
+470 REM Fortune Teller
+475 CLS
+480 INPUT "What is your name"; NAM$
+490 PRINT "Hello "; NAM$
+500 PRINT "Welcome to your fake fortune teller."
+510 INPUT "What is your favorite number"; NU$
+520 INPUT "What is the first girl you think of (press enter if you girl)"; GIR$
+530 INPUT "What is the first boy you think of (press enter if you boy)"; BO$
+540 INPUT"What is your favorite subject"; SUB$
+550 INPUT"What is your favorite state"; STAT$
+560 INPUT"What is your favorite color"; CO$
+570 INPUT"What is your favorite resonable priced car"; CA$
+575 CLS
+580 PRINT"OK "; NAM$
+590 PRINT"Lets get on with your fake fortune."
+600 PRINT"You like "; GIR$; BO$
+610 PRINT"You will talk to them within "; NU$ " days."
+620 PRINT"You will have a job that has to do with "; SUB$
+630 PRINT"You will live in "; STAT$
+640 PRINT"You will have a "; CO$ " vehicle"
+650 PRINT"Your vehicle will be a "; CA$
+660 PRINT"Thank you for using this fake fortune teller"
+670 PRINT"Play again!"
+675 INPUT"press enter to continue"; NUD
+680 GOTO 105
+690 CLS
+700 PRINT "HELLO!"
+710 PRINT
+720 PRINT "PLEASE TYPE YOUR NAME AND PRESS THE"
+730 PRINT "RETURN KEY."
+740 PRINT
+750 PRINT "WHAT IS YOUR NAME"
+760 INPUT N$
+770 PRINT
+780 PRINT "HI ";N$;", IT'S GOOD TO SEE YOU!"
+790 PRINT
+800 PRINT "HOW MANY YEARS OLD ARE YOU ";N$;
+810 INPUT NUMD
+820 IF NUMD >= 18 THEN 850
+830 PRINT "YOU CAN'T VOTE"
+840 GOTO 870
+850 PRINT "YOU CAN VOTE"
+860 IF NUMD >= 65 THEN PRINT "YOU CAN DRAW SOCIAL SECURITY TOO."
+865 INPUT"Press enter to continue." NUDER
+870 GOTO 105
+880 END

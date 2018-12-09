@@ -1,0 +1,48 @@
+10 ' labels.bas
+20 '
+30 ' Program to print labels until "x" number have been printed
+40 '
+50 ' ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+60 ' Copyright(C) - 1982 - PERSONNA Computer Association, Inc.
+70 ' ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+80 '
+90 ' turn off function keys
+100 KEY OFF
+110 '
+120 ' set color to B&W, width to 40 colums
+130 SCREEN 0,0,0:WIDTH 40
+140 '
+150 ' set printer width to 132 positions
+160 WIDTH "lpt1:",132
+170 '
+180 DIM A$(6)
+190 '
+200 '
+210 CLS:LOCATE 7,2:PRINT "enter up to 5 lines, 27 characters each"
+220 LOCATE  9,5:PRINT "<                           >"
+230 LOCATE 10,5:PRINT "<                           >"
+240 LOCATE 11,5:PRINT "<                           >"
+250 LOCATE 12,5:PRINT "<                           >"
+260 LOCATE 13,5:PRINT "<                           >"
+270 LOCATE  9,6:LINE INPUT A$(1)
+280 LOCATE 10,6:LINE INPUT A$(2)
+290 LOCATE 11,6:LINE INPUT A$(3)
+300 LOCATE 12,6:LINE INPUT A$(4)
+310 LOCATE 13,6:LINE INPUT A$(5)
+320 '
+330 LOCATE 16,1:INPUT "# of labels ACROSS,0 = end session";A1
+340 IF A1 = 0 THEN END ELSE 350
+350 LOCATE 18,1:INPUT "# of labels to PRINT, 0 = end session";A0
+360 IF A0 = 0 THEN END ELSE 380
+370 '
+380 FORMAT$ ="\                          \"
+390 FOR X6 = 1 TO A0/A1
+400 FOR X5 = 1 TO 6
+410 FOR X4 = 1 TO A1
+420 LPRINT USING FORMAT$;A$(X5);
+430 NEXT X4
+440 LPRINT
+450 NEXT X5
+460 NEXT X6
+470 STOP
+

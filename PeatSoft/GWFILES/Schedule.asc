@@ -1,0 +1,81 @@
+10 REM LOAD WEEKLY SCHEDULE       (SCHEDULE)
+12 REM Developed by William W. Klaproth,  Moraga Ca.  94556    September 1982
+20 OPEN "B:SCHEDULE.DET" AS #1 LEN = 75
+30 FIELD #1, 1 AS STATUS$, 2 AS WEEK$, 2 AS SMO$, 2 AS SDY$, 68 AS PRLINE$
+40 CLS
+50 INPUT "Enter number of teams in league:",TM%
+60 PRINT " "
+70 PRINT "Load Weekly Schedule for ";
+80 PRINT USING "##";TM%;
+90 PRINT " Teams"
+100 LN% = TM% / 2
+110 PRINT "Enter lane pairs on which league will bowl.   Use mask below to align data.  Use the colon (:) to separate the lane numbers.  This line will be printed as the   header line."
+120 PRINT "         ";
+130 FOR I% = 1 TO LN%
+140 PRINT "  ..:..";
+150 NEXT I%
+160 PRINT " "
+170 LINE INPUT "           ",HDATA$
+180 PRINT "      LANE ";HDATA$
+190 PRINT "Please verify data and alignment - is it correct? Y/N"
+200 INK$ = INKEY$:IF INK$ = "" THEN 200
+210 IF INK$="Y" OR INK$="y" THEN 220 ELSE IF INK$="N" OR INK$="n" THEN 60 ELSE 200
+220 LPRINT SPC(10);
+230 LPRINT USING "##";TM%;
+240 LPRINT " TEAM SCHEDULE   - ENTERED: ";DATE$
+250 LPRINT " "
+260 LPRINT "DATE\ LANE ";HDATA$
+270 LPRINT "-----    ";
+280 FOR I% = 1 TO LN%
+290 LPRINT "  -----";
+300 NEXT I%
+310 LPRINT " "
+320 RSET SMO$=MKI$(0): RSET SDY$=MKI$(99)
+330 LSET PRLINE$ = HDATA$
+340 PUT #1,1   'Write header data
+350 REC% = 2   'Set begining of data
+360 WEEK% = 1
+370 CLS
+380 PRINT "Enter month and day separated by a comma.  If end of file, enter '99,0'"
+390 PRINT "Enter date (MM,DD) for week number ";
+400 PRINT USING "##";WEEK%;
+410 INPUT ": ",SMO%,SDY%
+420 IF SMO% = 99 GOTO 750
+430 PRINT "Enter bowling schedule for date indicated.  Use a hyphen (-) to separate teams."
+440 PRINT "           ";HDATA$
+450 PRINT USING "##";SMO%;
+460 PRINT USING "/##";SDY%;
+470 LINE INPUT "      ", LDATA$
+480 PRINT " "
+490 PRINT "DATE\ LANE ";HDATA$
+500 PRINT "-----    ";
+510 FOR I% = 1 TO LN%
+520 PRINT "  -----";
+530 NEXT I%
+540 PRINT " "
+550 PRINT USING "##";SMO%;
+560 PRINT USING "/##";SDY%;
+570 PRINT SPC(6);
+580 PRINT LDATA$
+590 PRINT " "
+600 PRINT "Verify data and alignment.  Is it correct? Y/N"
+610 INK$ = INKEY$:IF INK$ = "" THEN 610
+620 IF INK$="Y" OR INK$="y" THEN 630 ELSE IF INK$="N" OR INK$="n" THEN 370 ELSE 610
+630 LPRINT USING "##";SMO%;
+640 LPRINT USING "/##";SDY%;
+650 LPRINT SPC(6);
+660 LPRINT LDATA$
+670 LSET STATUS$ = "A"
+680 RSET WEEK$ = MKI$(WEEK%)
+690 RSET SMO$ = MKI$(SMO%): RSET SDY$ = MKI$(SDY%)
+700 LSET PRLINE$ = LDATA$
+710 PUT #1, REC%
+720 REC% = REC% + 1
+730 WEEK% = WEEK% + 1
+740 GOTO 370
+750 RSET SMO$ = MKI$(99)
+760 PUT #1, REC%
+770 PRINT "Schedule Creation Completed - Returning to MENU"
+780 CLOSE
+790 RUN "A:MENU"
+

@@ -1,0 +1,37 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '************   SET PRINTER FOR PERF SKIP - 10 PITCH  ****************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ               STANDARD PROGRAM LISTING WITH SKIP SET                    บ
+20 'บ                                                                         บ
+22 'บ     This is an often overlooked sub-routine which will provide a work-  บ
+24 'บ ing listing with a five line skip either side of the perforation when   บ
+26 'บ you are using standard 11 inch fanfold paper. For this type of Printer  บ
+28 'บ control two versions are used.  One provides for 10 pitch (emphasised   บ
+30 'บ optional) print. The  other is for compressed 17 pitch print. Note a    บ
+32 'บ REM mark (') at LINES 100 and 110. These are optional statements. Not   บ
+33 'บ all EPSON or IBM-compatible printers accept a left margin command {See  บ
+34 'บ LINE 110 }. Removing the REM mark from LINE 100 will result in empha-   บ
+35 'บ sized print.  Position the print head about 5 lines down from the top   บ
+36 'บ the perforation after Top Of Form has been set or the Printer just      บ
+37 'บ turned on.   (c) G I N A C O -- 1983                  Ver 5.2/160/320   บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT
+70 REM ===== PRINTER LISTING PROGRAM - 10 PITCH MARGIN,2 SKIP 10  =====
+80 LPRINT CHR$(27)CHR$(64);             '=== CLEARS PRINTER CONTROL REGISTER
+90 LPRINT CHR$(27)CHR$(78)+CHR$(10);    '=== SETS 10 SPACE SKIP AT PERFORMATION
+95 WIDTH "LPT1:",80                     '=== SETS PRINT WIDTH MAX 80 CHARS
+100 ' LPRINT CHR$(27)CHR$(69);          '=== SETS EMPHASIZED PRINT (OPTIONAL)
+110 ' LPRINT CHR$(27)CHR$(77)+CHR$(2);  '=== LEFT MARGIN AT 2 (SOME PRINTERS)
+200 CLS:LOCATE 5,10:PRINT"(1) Printer will skip 10 lines at the perforation"
+210 LOCATE 7,10:PRINT"(2) Left margin at 2 spaces if Printer accepts command"
+220 LOCATE 9,10:PRINT"(3) Emphasized print set if REM remove from LINE 100"
+230 LOCATE 11,10:PRINT"(4) Set Print head 5 lines from TOF. Initialize printer"
+240 LOCATE 13,10:PRINT"(5) Load program to be listed. "
+250 LOCATE 15,10:PRINT"(6) <ENTER> LLIST XXX-YYY (Line range to Print)
+260 LOCATE 17,23:PRINT"PRINTER HAS BEEN PRESET at 10P"
+270 END
+65000 REM  *************** SAVE ROUTINE **************************************
+65100 SAVE"B:LISTSKIP.10P"
+

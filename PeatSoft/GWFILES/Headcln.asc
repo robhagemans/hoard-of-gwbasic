@@ -1,0 +1,35 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+13 '*****************  DISK HEAD CLEANING PROGRAM *****************************
+17 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+19 'บ              DISK HEAD CLEAN PROGRAM WITH DRIVE SELECTION               บ
+21 'บ                                                                         บ
+23 'บ     This simple program is a modification of a long-standing public     บ
+25 'บ domain program. The modification allows selection of different disk     บ
+27 'บ drives.  When you finish cleaning the second drive, you will receive    บ
+29 'บ an error message.  The work will already be done at that time.          บ
+31 'บ                                                                         บ
+33 'บ     There is some concern that "over cleaning" of the double-sided      บ
+35 'บ drives can cause premature failure of the upper head. This head is      บ
+37 'บ a "floater", unlike the lower head which is usually pedestal-mounted.   บ
+39 'บ Undue friction loads & flexing of the upper head might cause premature  บ
+41 'บ failure of the small ribbon cable connecting the upper head. Repair     บ
+43 'บ involves a difficult and precise soldering job. Clean the heads when    บ
+45 'บ necessary, and not just because you have a cleaning disk available.     บ
+47 'บ Some individuals prefer careful use of a Q-tip cleaner.  USE CARE!      บ
+49 'บ                  (c)  G I N A C O    --  1983         Ver 5.2/160/320   บ
+51 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+54 '************ PROGRAM ALLOWS USER TO SELECT DRIVE FOR CLEANING *************
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 FOR I=1 TO 10:KEY I,"":NEXT
+100 CLS:SCREEN 0,0,0:WIDTH 80:CLEAR:LOCATE 10,10:PRINT"INSERT HEAD CLEANING DISK IN DESIRED DRIVE":PRINT TAB(10)"<ENTER> A FOR DRIVE A":PRINT TAB(10)"<ENTER> B FOR DRIVE B":PRINT:PRINT TAB(10)"";:INPUT A$:IF ASC(A$)=65 OR ASC(A$)=97 THEN X=1
+210 IF ASC(A$)=66 OR ASC(A$)=98 THEN X=2
+220 ON X GOTO 230,270
+230 FOR Z=1 TO 80:FILES:ON ERROR GOTO 330
+260 NEXT Z
+270 RESTORE:FOR Z=1 TO 80:FILES"B:*.*":ON ERROR GOTO 330
+310 NEXT Z:RESTORE
+330 GOTO 100
+65000 REM ********************** SAVE ROUTINE *********************************
+65100 SAVE"B:HEADCLN.BAS"
+

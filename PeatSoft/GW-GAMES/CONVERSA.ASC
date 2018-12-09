@@ -1,0 +1,25 @@
+1 CLS
+10 REM prog.
+20 REM Ryan Curtis
+30 REM conversation with the computer
+40 INPUT "What is you name"; NAM$
+50 PRINT "Hello "; NAM$ " nice to meet you!"
+60 INPUT "How old are you"; A
+70 IF A >= 20 GOTO 110
+80 PRINT "You look very mature for your age"
+90 GOTO 120
+91 GOTO 120
+100 GOTO 120
+110 PRINT"You look younger than your age"
+120 INPUT"What city do you live in"; CIT$
+130 PRINT"I think ";CIT$" is a nice place"
+140 INPUT"Do you have any friends #1=yes #2=no"; B
+150 IF B = 1 GOTO 155 :ELSE 165
+155 PRINT"That's good but I'll be your friend too!"
+156 GOTO 170
+160 IF B = 2 GOTO 165
+165 PRINT"That's too bad-hey I'll be your friend!"
+166 GOTO 170
+170 PRINT"Well see ya later!"
+180 PRINT "your computer"
+190 END

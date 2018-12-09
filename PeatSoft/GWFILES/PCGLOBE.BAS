@@ -1,0 +1,122 @@
+10 SCREEN 1                           'PC WORLD
+20 CLS:KEY  OFF                       'Karl Koessel
+30 PRINT "                            Perspective Image of Rotated Globe"
+40 DEFINT L,R,X-Z
+50 CX=CY:CZ=SX:SY=SZ:I=J:R=A:B=C:A1=B2:C1=C2     'Order variables to optimize
+60 A3=B3:X=Y:XC=YC:LX=LY:B$=C$:RC=PI:LZ=ZS:Q=DR  'speed,about 3% faster
+70 DIM RC(11)
+80 FOR X=1 TO 11                             'Prepare an array holding the
+90     RC(X)=(X-1) MOD 3 +1                  'colors of parallels; pattern
+100    IF X>6 THEN RC(X)=(5-RC(X))MOD 3 +1   'reverses after equator which
+110 NEXT                                     'is brown or white(palette 0 or 1)
+120 PI=3.14159265#
+130 CF=PI/180#
+140 PRINT
+150 INPUT "Want to see a sample run (y/n)";S$
+160 S$=LEFT$(S$,1)
+170 IF S$="y" OR S$="Y" THEN GOSUB 880:GOTO 380
+180 PRINT
+190 PRINT "enter screen location of center of globe";
+200 INPUT "(e.g. 160,100)              ";XC,YC
+210 PRINT
+220 PRINT "Enter relative coordinates of observer:";
+230 PRINT "points left(-)/right(+) of x, below(-)/";
+240 PRINT "above(+)y, and distance from the screen ";
+250 INPUT "(e.g.-9,0,456)        ";XOBS,YOBS,ZOBS
+260 PRINT
+270 PRINT "Enter parallel, meridian,& images's tilt";
+280 INPUT "(e.g. 37,-123,23) ";XROT,YROT,ZROT
+290 PRINT
+300 PRINT "Enter sphere's radius"
+310 INPUT "(e.g.100)                    ";R
+320 PRINT
+330 PRINT "Enter background color and palette"
+340 INPUT "(e.g.1,1)                    ";BCK,PAL
+350 PRINT
+360 PRINT "Enter this screen's aspect ratio"
+370 INPUT "(e.g.1.21875)                ";ASP
+380 CX=COS(CF*XROT+ATN(YOBS/ZOBS)):SX=SIN(CF*XROT+ATN(YOBS/ZOBS))
+390 CY=COS(CF*YROT+ATN(XOBS/ZOBS)):SY=SIN(CF*YROT+ATN(XOBS/ZOBS))
+400 CZ=COS(CF*ZROT):SZ=SIN(CF*ZROT)
+410 ZOBS=SQR(XOBS^2+ZOBS^2)        'Observer's distance from the globe's center
+420 ZS=R^2/ZOBS                    'Can't see if point's Z coordinate < ZS
+430 CLS:COLOR BCK,PAL
+440 FOR I=0 TO 3 STEP PI/12         '24 lines of longitude around the poles
+450      RC=(I*12/PI+2) MOD 3+1     'Prime meridian color=equator color
+460      C$=STR$(RC)
+470      FOR  J=0 TO 2.0001*PI STEP PI/24   'Step along the meridian circle
+480             A=R*SIN(I)*SIN(J)
+490             B=R*COS(J)
+500             C=R*COS(I)*SIN(J)
+510             GOSUB 710
+520             GOSUB 810
+530      NEXT
+540 NEXT
+550 FOR  I=PI/12 TO 11*PI/12 STEP PI/12     '11 lines of latitude between poles
+560      RC=RC(I*12/PI)
+570      C$=STR$(RC)
+580      FOR  J=0 TO 2.0001*PI STEP PI/24    'Step along the parallel circle
+590             A=R*SIN(I)*SIN(J)
+600             B=R*COS(I)
+610             C=R*SIN(I)*COS(J)
+620             GOSUB 710
+630             GOSUB 810
+640      NEXT
+650 NEXT
+660 LOCATE 1,1:PRINT "PC WORLD"
+670 LINE (32,1)-(38,1),0:LINE(32,2)-(38,2),3
+680 LINE (32,3)-(38,3),0:LINE (32,4)-(38,4),3
+690 LINE (32,5)-(38,5),0
+700 GOSUB 1160:GOTO 1190
+710 A1=A*CY-C*SY                'Turn requested meridian to observer at 0,0,0
+720 C1=A*SY+C*CY                '(B1=B, so B is used below for B1)
+730 B2=B*CX-C1*SX               'Turn requested parllel to observer at 0,0,0
+740 C2=B*SX+C1*CX               '(A2=A1, so A1 is used below for A2
+750 A3=A1*CZ-B2*SZ              'Turn image on axis perpendicular to screen
+760 B3=A1*SZ+B2*CZ              '(C3=C2, so C2 is used below for C3)
+770 DR=C2/(ZOBS-C2)+1           'Distance ratio for computing perspective
+780 X=INT(A3*DR*ASP+XC)         'Screeen's x (with perspective & aspect ratios)
+790 Y=INT(B3*-DR+YC)            'Screen's y (with perpspective, direction ratio)
+800 RETURN                      '(z=c3=c2, so c2 is used below for z)
+810 IF C2<ZS OR LZ<ZS THEN  B$="bc":GOTO  840  'insert ' before IF to draw back
+820 Q=(X<0)+(X>319)+(Y<0)+(Y>199)+(LX<0)+(LX>319)                                     +(LY<0)+(LY>199)                      'Off screen?
+830 IF Q+(J=0) THEN B$="bc" ELSE B$="c"     'Draw clear if Q or J=0 (new circle
+840 'LX=X:LY=Y                               'lx,ly,lz are x,y,z of last reference point
+850 LZ=C2
+860 DRAW B$ + C$ + "M" + STR$(X) + "," + STR$(Y)
+870 RETURN
+880 XC=160:YC=100                          'Data for sample run
+890 XOBS=-9:YOBS=0:ZOBS=456
+900 XROT=37:YROT=-123:ZROT=23
+910 R=100
+920 BCK=0:PAL=1
+930 ASP=1.21875
+940 LOCATE 5,1                                      'Screen for sample run
+950 PRINT"Enter screen location of center of globe";
+960 PRINT "(e.g. 160,100)                  ?";XC","YC
+970 PRINT
+980 PRINT "Enter relative coordinates of observer:";
+990 PRINT "points left(-)/right(+)of x, below(-)/"
+1000 PRINT "above(+)y, and distance from the screen";
+1010 PRINT "(e.g. -9,0,456)          ?";XOBS","YOBS","ZOBS
+1020 PRINT
+1030 PRINT "ENter parallel, meridian,& image's tilt";
+1040 PRINT "(e.g.37,-123,23)         ?";XROT","YROT","ZROT
+1050 PRINT
+1060 PRINT "Enter sphere's radius"
+1070 PRINT "(e.g. 100)               ?";R
+1080 PRINT
+1090 PRINT "Enter background color and palette"
+1100 PRINT "(e.g.1,1)                ?";BCK","PAL
+1110 PRINT
+1120 PRINT "Enter this screen's aspect ratio"
+1130 PRINT "(e.g.1.21875)            ?";ASP
+1140 LOCATE 25,1
+1150 PRINT "hit any key to continue";
+1160 IF INKEY$>""THEN 1160
+1170 IF INKEY$=""THEN 1170
+1180 RETURN
+1190 SCREEN 0,0,0,0:KEY  ON
+1200 END
+key to continue";
+1160 IF INKEY$>""THEN 1160

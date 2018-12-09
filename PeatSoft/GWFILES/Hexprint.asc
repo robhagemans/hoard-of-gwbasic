@@ -1,0 +1,143 @@
+5 CLS:KEY OFF:SCREEN 0,0,0:WIDTH 80:CLEAR:FOR I=1 TO 10:KEY I,"":NEXT:KEY 2,"GOTO 60"+CHR$(13):KEY 10,"RUN"+CHR$(34)+"BLUEMENU"+CHR$(34)+CHR$(13):LIST 10-57
+10 '***************** PROGRAMMERS TABULAR HEX PRINTOUT  ***********************
+16 'ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+18 'บ             TABLUAR HEX$ DECIMAL PRINTOUT FOR REFERENCE                 บ
+20 'บ                                                                         บ
+22 'บ     This program will provide an orderly, paged screen or hard copy     บ
+24 'บ printout of HEX$/DEC conversions. It displays the conversions in color  บ
+26 'บ on a color monitor and white on a monochrome. The printout is suitable  บ
+28 'บ for wall display or a note book.  It will provide progammers or others  บ
+30 'บ a ready hex/dec reference when reading many of the advanced articles    บ
+32 'บ in the Computer Magazines.  A companion program is ALPHAHEX.BAS.        บ
+34 'บ                                                                         บ
+35 'บ     This program, in whole or in part, may be used without license or   บ
+36 'บ attribution.   (c)  G I N A C O   --  1983             Ver 5.1/160/320  บ
+50 'ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+55 '        *****  < F2 > to RUN  *******  < F10 > For BLUEMENU  *****
+57 ' ====== To avoid DOCUMENTATION BOX each time, REM or DELETE  line 5 ======
+60 CLS:FOR I=1 TO 10:KEY I,"":NEXT
+70 CLEANUP$ = CHR$(27) + CHR$(64)
+80 LOCATE 10,8
+90 PRINT "INDICATE START NUMBER FOR PRINTOUT (DECIMAL) ";
+100 INPUT X!
+110 LOCATE 12,10
+120 PRINT "THIS WILL PRINT OUT DECIMAL/HEX CONVERSIONS FROM ";X!;" TO ";X! + 75
+130 FOR I! = X! TO X! + 80
+140   A$(I!) = HEX$(I!)
+150 NEXT
+160 PRINT TAB( 4)"DEC"; TAB( 10)"อ>"; TAB( 14)"HEX"; TAB( 24)"DEC"; TAB( 30)"อ>"; TAB( 34)"HEX"; TAB( 44)"DEC"; TAB( 50)"อ>"; TAB( 54)"HEX"; TAB( 64)"DEC"; TAB( 70)"อ>"; TAB( 74)"HEX"
+170 PRINT TAB( 4)"อออออ"; TAB( 14)"ออออ"; TAB( 24)"อออออ"; TAB( 34)"ออออ"; TAB( 44)"อออออ"; TAB( 54)"ออออ"; TAB( 64)"อออออ"; TAB( 74)"ออออ"
+180 I! = X!
+190 GOSUB 570
+200 I! = X! + 4
+210 GOSUB 570
+220 I! = X! + 8
+230 GOSUB 570
+240 I! = X! + 12
+250 GOSUB 570
+260 I! = X! + 16
+270 GOSUB 570
+280 I! = X! + 20
+290 GOSUB 570
+300 I! = X! + 24
+310 GOSUB 570
+320 I! = X! + 28
+330 GOSUB 570
+340 I! = X! + 32
+350 GOSUB 570
+360 I! = X! + 36
+370 GOSUB 570
+380 I! = X! + 40
+390 GOSUB 570
+400 I! = X! + 44
+410 GOSUB 570
+420 I! = X! + 48
+430 GOSUB 570
+440 I! = X! + 52
+450 GOSUB 570
+460 I! = X! + 56
+470 GOSUB 570
+480 I! = X! + 60
+490 GOSUB 570
+500 I! = X! + 64
+510 GOSUB 570
+520 I! = X! + 68
+530 GOSUB 570
+540 I! = X! + 72
+550 GOSUB 570
+560 GOTO 750
+570 COLOR 3,0
+580 PRINT TAB( 4)I!;
+590 COLOR 6,0
+600 PRINT TAB( 15)A$(I!);
+610 COLOR 3,0
+620 PRINT TAB( 24)I! + 1;
+630 COLOR 6,0
+640 PRINT TAB( 35)A$(I! + 1);
+650 COLOR 3,0
+660 PRINT TAB( 44)I! + 2;
+670 COLOR 6,0
+680 PRINT TAB( 55)A$(I! + 2);
+690 COLOR 3,0
+700 PRINT TAB( 64)I! + 3;
+710 COLOR 6,0
+720 PRINT TAB( 75)A$(I! + 3)
+730 RETURN
+740 END
+750 COLOR 7,0
+760 LOCATE 25,1
+770 PRINT "TO RERUN <ENTER 1>   TO PRINT OUT <ENTER 2>   TO LEAVE PROGRAM   <ENTER 3>";
+780 IN$=INKEY$:IF IN$="" THEN 780
+790 IF (ASC(IN$)<49 OR ASC(IN$)>51) THEN SOUND 400,4:GOTO 780
+800 ON VAL(IN$) GOTO 10,80,1270
+810 LPRINT CLEANUP$;DARK$;
+820 LPRINT "THIS WILL PRINT OUT DECIMAL/HEX CONVERSIONS FROM ";X!;" TO ";X! + 75
+830 LPRINT
+840 LPRINT TAB( 4)"DEC"; TAB( 10)"->"; TAB( 14)"HEX"; TAB( 24)"DEC"; TAB( 30)"->"; TAB( 34)"HEX"; TAB( 44)"DEC"; TAB( 50)"->"; TAB( 54)"HEX"; TAB( 64)"DEC"; TAB( 70)"->"; TAB( 74)"HEX"
+850 LPRINT TAB( 4)"====="; TAB( 14)"===="; TAB( 24)"====="; TAB( 34)"===="; TAB( 44)"====="; TAB( 54)"===="; TAB( 64)"====="; TAB( 74)"===="
+860 I! = X!
+870 GOSUB 1250
+880 I! = X! + 4
+890 GOSUB 1250
+900 I! = X! + 8
+910 GOSUB 1250
+920 I! = X! + 12
+930 GOSUB 1250
+940 I! = X! + 16
+950 GOSUB 1250
+960 I! = X! + 20
+970 GOSUB 1250
+980 I! = X! + 24
+990 GOSUB 1250
+1000 I! = X! + 28
+1010 GOSUB 1250
+1020 I! = X! + 32
+1030 GOSUB 1250
+1040 I! = X! + 36
+1050 GOSUB 1250
+1060 I! = X! + 40
+1070 GOSUB 1250
+1080 I! = X! + 44
+1090 GOSUB 1250
+1100 I! = X! + 48
+1110 GOSUB 1250
+1120 I! = X! + 52
+1130 GOSUB 1250
+1140 I! = X! + 56
+1150 GOSUB 1250
+1160 I! = X! + 60
+1170 GOSUB 1250
+1180 I! = X! + 64
+1190 GOSUB 1250
+1200 I! = X! + 68
+1210 GOSUB 1250
+1220 I! = X! + 72
+1230 GOSUB 1250
+1240 GOTO 750
+1250 LPRINT TAB( 4)I!; TAB( 15)A$(I!); TAB( 24)I! + 1; TAB( 35)A$(I! + 1); TAB( 44)I! + 2; TAB( 55)A$(I! + 2); TAB( 64)I! + 3; TAB( 75)A$(I! + 3)
+1260 RETURN
+1270 CLS
+1280 END
+65000 REM  ********************  SAVE  ROUTINE  *****************************
+65100 SAVE "B:HEXPRINT.BAS"
+
