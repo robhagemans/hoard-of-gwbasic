@@ -1,0 +1,17 @@
+PUSH ES     ; WhizBall 10-15-93
+PUSH DI     ; Block-Move Plane 0
+PUSH SI     ; EGA SCREEN 9
+MOV AX,A000 ; video RAM base
+MOV ES,AX   ; set index
+MOV DI,0000 ; X,Y offset ¿ patch
+MOV SI,0000 ; CM varptr  ¿ patch
+CLD         ; forwards
+MOV CX,12   ; 19 words
+MOVSW       ;#NextRow
+MOVSW       ; 4 bytes per
+ADD DI,4C   ; down 1 row
+LOOP 0000   ;-NextRow
+POP SI      ; restore
+POP DI      ; restore
+POP ES      ; restore
+RETF        ; fini

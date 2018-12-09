@@ -108,3 +108,31 @@ ABC 2001
 | `Connect4.bas` | Connect 4 in a row            | Richard Kelly      | 2001-07-14
 | `Encode.bas`   | Encode Text                   | Richard Kelly      | 2001-06-15
 | `chaos.bas`    | Chaos in Space                | Richard Kelly      | 2001-06-29
+
+
+ABC 2002
+--------
+
+| File           | Description                   | Author             | Date
+|----------------|-------------------------------|--------------------|--------------
+| `chaos02.bas`  | Chaos in Space                | Richard Kelly      | 2002-03-15
+| `align.bas`    | Align text                    | Richard Kelly      | 2002-03-15
+| `gargoyle.bas` | Gargoyle Castle               | Richard Kelly      | 2002-12-11
+| `DATAWHIZ/`    | GW Basic Data Base            | Tom McIntire       | 2002-12-22
+| `EDBLOAD/`     | Edit BLOAD files              | Tom McIntire       | 2002-12-22
+| `GEEWHIZX/`    | GWBASIC Help File	         | Tom McIntire       | 2002-12-22
+| `POFSALE/`     | Point Of Sale	             | Tom McIntire       | 2002-12-22
+| `GWSCAN.BAS`   | Directory List	             | Tom McIntire       | 2002-12-22
+| `LOANWHIZ.BAS` | Amortization Schedule	     | Tom McIntire       | 2002-12-22
+| `PATCHER/`     | Function Key Definition		 | Tom McIntire       | 2002-12-22
+| `POPOFF/`      | Break-out Type Game	         | Tom McIntire       | 2002-12-22
+| `SIMON#/`      | Matching Game	             | Tom McIntire       | 2002-12-22
+| `SOLIDOS/`     | Solitaire	                 | Tom McIntire       | 2002-12-22
+| `TRICKS/`      | Tips and Tricks in GWB	     | Tom McIntire       | 2002-12-22
+| `WHIZBASM/`    | GWBasic to ASM	             | Tom McIntire       | 2002-12-22
+| `WHIZBLUE/`    | Additional GWB Help		     | Tom McIntire       | 2002-12-22
+| `WHIZDRAW/`    | Drawing Program		         | Tom McIntire       | 2002-12-22
+| `WHIZFONT/`    | Font Creation		         | Tom McIntire       | 2002-12-22
+| `WHIZHELP/`    | Help File Creation		     | Tom McIntire       | 2002-12-22
+| `WHIZKIDS/`    | Connect the Dots for Kids	 | Tom McIntire       | 2002-12-22
+| `WHIZTOOL/`    | GWB Tools	                 | Tom McIntire       | 2002-12-22

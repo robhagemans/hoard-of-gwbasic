@@ -1,0 +1,23 @@
+4000 MID$(MC,1)=CHR$(&H6)      'PUSH ES     ; WhizBall 10-15-93
+4010 MID$(MC,2)=CHR$(&H57)     'PUSH DI     ; Block-Move Plane 0
+4020 MID$(MC,3)=CHR$(&H56)     'PUSH SI     ; EGA SCREEN 9
+4030 MID$(MC,4)=CHR$(&HB8)     'MOV AX,A000 ; video RAM base
+4040 MID$(MC,5)=MKI$(&HA000)
+4050 MID$(MC,7)=MKI$(&HC08E)   'MOV ES,AX   ; set index
+4060 MID$(MC,9)=CHR$(&HBF)     'MOV DI,0000 ; X,Y offset ¿ patch
+4070 MID$(MC,10)=MKI$(&H0)
+4080 MID$(MC,12)=CHR$(&HBE)    'MOV SI,0000 ; CM varptr  ¿ patch
+4090 MID$(MC,13)=MKI$(&H0)
+4100 MID$(MC,15)=CHR$(&HFC)    'CLD         ; forwards
+4110 MID$(MC,16)=CHR$(&HB9)    'MOV CX,12   ; 19 words
+4120 MID$(MC,17)=MKI$(&H12)
+4130 MID$(MC,19)=CHR$(&HA5)    'MOVSW       ;#NextRow
+4140 MID$(MC,20)=CHR$(&HA5)    'MOVSW       ; 4 bytes per
+4150 MID$(MC,21)=CHR$(&H83)    'ADD DI,4C   ; down 1 row
+4160 MID$(MC,22)=MKI$(&H4CC7)
+4170 MID$(MC,24)=MKI$(&HF9E2)  'LOOP 0012   ;-NextRow
+4180 MID$(MC,26)=CHR$(&H5E)    'POP SI      ; restore
+4190 MID$(MC,27)=CHR$(&H5F)    'POP DI      ; restore
+4200 MID$(MC,28)=CHR$(&H7)     'POP ES      ; restore
+4210 MID$(MC,29)=CHR$(&HCB)    'RETF        ; fini
+

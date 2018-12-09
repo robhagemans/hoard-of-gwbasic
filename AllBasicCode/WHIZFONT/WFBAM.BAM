@@ -1,0 +1,52 @@
+PUSH ES     ; WhizFont 07-02-93
+PUSH DS     ; Fast Char Output
+PUSH DI     ;  1-5 Font sizes
+PUSH SI     ;   EGA SCREEN 9
+CLD         ; ÄÄÄÄÄÄÄÄÄÄ¿ init
+MOV DI,0040 ; FromXY    ³FXY
+MOV AX,A000 ; video DS  ³
+MOV ES,AX   ; set index ³
+XOR BX,BX   ; X & Y cnts³
+MOV AX,8000 ; VarSeg    ³VS
+MOV DS,AX   ; font DS   ³
+MOV SI,0000 ; VarPtr    ³VP
+MOV DX,03C4 ; set       ³
+MOV AL,02   ;   write   ³
+OUT DX,AL   ;      mode ³
+INC DX      ; ÄÄÄÄÄÄÄÄÄÄÙ
+LODSB       ;#DoLoop   Ä¿ main
+MOV CL,AL   ; font byte ³ loop
+MOV CH,AL   ;  actual   ³
+XOR CH,FF   ;  reversed ³
+MOV AH,1    ; plane #   ³
+XOR AL,AL   ;#OutLoop  ¿³
+TEST AH,02  ; TestScr  ³³CS
+JZ 0000     ;+TestPix  ³³
+MOV AL,CH   ; Scr=Yes  ³³
+TEST AH,04  ;#TestPix  ³³CP
+JZ 0000     ;+OutAH    ³³
+OR AL,CL    ; Pix=Yes  ³³
+XCHG AL,AH  ;#OutAH    ³³
+OUT DX,AL   ; plane #  ³³
+XCHG AL,AH  ; 1 byte   ³³
+STOSB       ; at DI    ³³
+DEC DI      ; same pos ³³
+SHL AH,1    ; 4 planes ³³
+CMP AH,08   ; 1,2,4,8  ³³
+JLE 0000    ;-OutLoop  Ù³
+INC DI      ; mem pos   ³
+INC BL      ; col count ³
+CMP BL,05   ; LenX bytes³LX
+JL  0000    ;-DoLoop  ÄÄÙ
+XOR BL,BL   ; reset LX  ³
+ADD DI,004F ; 79-LX byt ³LX
+INC BH      ; next LY   ³
+CMP BH,30   ; LenY pix's³LY
+JL  0000    ;-DoLoop  ÄÄÙ 
+MOV AL,15   ; ÄÄÄÄÄÄÄÄÄÄ¿ end
+OUT DX,AL   ; rset adapt³ of
+POP SI      ; restore   ³ job
+POP DI      ;  registers³
+POP DS      ;  for      ³
+POP ES      ;  caller   ³
+RETF        ; ÄÄÄÄÄÄÄÄÄÄÙ

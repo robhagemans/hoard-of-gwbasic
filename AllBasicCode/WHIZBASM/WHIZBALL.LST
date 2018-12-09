@@ -1,0 +1,18 @@
+6000:0000 06         PUSH ES     ; WhizBall 10-15-93
+6000:0001 57         PUSH DI     ; Block-Move Plane 0
+6000:0002 56         PUSH SI     ; EGA SCREEN 9
+6000:0003 B800A0     MOV AX,A000 ; video RAM base
+6000:0006 8EC0       MOV ES,AX   ; set index
+6000:0008 BF0000     MOV DI,0000 ; X,Y offset ¿ patch
+6000:000B BE0000     MOV SI,0000 ; CM varptr  ¿ patch
+6000:000E FC         CLD         ; forwards
+6000:000F B91200     MOV CX,12   ; 19 words
+6000:0012 A5         MOVSW       ;#NextRow
+6000:0013 A5         MOVSW       ; 4 bytes per
+6000:0014 83C74C     ADD DI,4C   ; down 1 row
+6000:0017 E2F9       LOOP 0012   ;-NextRow
+6000:0019 5E         POP SI      ; restore
+6000:001A 5F         POP DI      ; restore
+6000:001B 07         POP ES      ; restore
+6000:001C CB         RETF        ; fini
+

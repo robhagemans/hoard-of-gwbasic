@@ -1,0 +1,1199 @@
+
+
+       ùPOSwhiz  (C) Copyright ùWhizWare 1997   Vers 4.3   07-03-97
+
+                             ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ùSupport              ³ This file contains details about   ³
+                             ³ POSwhiz, the collective name for   ³
+                             ³ all of the files in this set.      ³
+       ùInstallation         ³                                    ³
+                             ³ Use the menu at the left to go to  ³
+                             ³ the relevant topics in this file.  ³
+       ùBack Office          ³                                    ³
+                             ³ Hit <Esc> to exit from ùPOShelp    ³
+                             ³                                    ³
+       ùSupervisor           ³ <PgDn> and <PgUp> moves forward or ³
+                             ³ backward one page at a time.       ³
+                             ³                                    ³
+       ùCashier              ³ <Home> will return to this page.   ³
+                             ³ <End> goes to the last page.       ³
+                             ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|POShelp
+
+  POShelp.COM is the name of the program now running.  Its sole purpose
+  is to display POShelp.DAT, the file you are now reading.  Information
+  contained in this file can easily be changed or updated by use of a
+  text editor.  See ùWhizHelp for more about that.
+
+  While running the POS program, this help file can be gotten to at any
+  time by hitting the supervisor's key <*> followed by <H> for help. 
+
+    Note:  Any transaction in progress at that point will be abandoned.
+    Because POS is so simple to use, only a little practice is needed to
+    be able to do routine check outs.  Normally, finding out how to deal
+    with unusual situations can be done between sales.
+
+  Although POShelp was designed to be accessed from the POS program, this
+  program can also be run stand-alone (executed as a DOS command.)
+|Cashier
+
+ ùKeyboard usage              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+ ùPracticing                  ³ Use the menu at left for direct   ³
+ ùTax-free sales              ³ access to those subjects.         ³
+ ùCash sales                  ³                                   ³
+ ùCheck sales                 ³ <PgDn> or <PgUp> to the next page ³
+ ùNew layaways                ³ <Home> for page 1   <Esc> to exit ³
+ ùLayaway payments            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ ùGift certificates
+ ùDiscounts
+ ùError corrections
+
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+  Daily startup steps
+
+        1.  Turn computer on.
+        2.  Confirm that date and time are correct; adjust if necessary.
+        3.  Enter opening cashier's ùInitials (two letters.)
+        4.  Enter password = 5679  
+        5.  Check printer:  on, on-line, paper and ribbon Ok.
+|Keyboard
+
+  Only certain keys are usable while the program is in "cashier's mode".
+  Keys other than those expected are simply ignored.
+
+  The active keys are:
+
+    <0-9> All number keys, both those on the typewriter and on the key pad.
+    <?> will display the ùDepartment codes--any key will return to here.
+    <><> Arrow keys and backspace move the cursor as indicated.
+    <Del> will completely erase a partially entered line.
+    <Esc> will completely erase a partially entered transaction.
+    <-> Either minus key may be used to denote a negative amount.
+    <.> Either decimal (period) may be used to separate dollars and cents.
+    </> Either slash may be used to auto-calculate a line-item ùDiscount 
+    <Enter> ends a line entry (and will also "dupe" what is already shown.)
+    <End> ends line item entries and goes to "amount tendered".
+    <F1> Toggles data capture On/Off--use for ùPracticing or just "adding".
+    <F5> Toggles automatic sales ùTax No/Yes for total of purchases.
+    <F9> Toggles between ùCash and ùCheck sales.
+    <*> Transfers control to the ùSupervisor menu.
+|Practicing
+
+  <F1> Toggles data capture mode.  When off, any transaction data that is
+  entered does NOT affect anything.  This mode is useful for practicing how
+  to do different types of transactions, but it can also be used when a
+  customer wants you to just "add up" how much a few things will cost.
+
+  Caution:  <F1> automatically reverts to On after each transaction is
+  completed (or after <Esc> is used to clear a transaction.)
+|Tax-free
+
+  <F5> Toggles the "auto sales tax" switch.  Yes means that at the end of
+  a sale, a fixed percentage rate will be used to calculate an amount to
+  be added to the sales total.  For customers who are permitted by law to
+  be exempted from paying sales tax, hit <F5> any time before <End> is hit
+  and no tax will be added to their transaction.
+
+  There is no provision in this program for taxing only some line items and
+  not others.  One way to handle this problem, of course, is to split a
+  customer's purchases into two groups, then ring up one group as taxable,
+  the other group as non-taxable.
+
+  Caution:  <F5> automatically reverts to Tax = Yes after each transaction
+  is completed (or after <Esc> is used to clear a transaction.)
+|Cash
+
+  This program was designed with the assumption that most customers will
+  pay for their purchases with cash.  At any time BEFORE a payment amount
+  is entered, however, <F9> will toggle the program to ask for a ùCheck #
+  in the block where you normally enter the amount tendered.
+                    
+  Caution:  <F9> automatically reverts to Cash after each transaction is
+  completed (or after <Esc> is used to clear a transaction.)
+|Check
+
+  <F9> can be hit anytime during a transaction to signal the program that
+  a customer intends to pay for their purchases with a check.  When this
+  switch is set to Check, enter the customer's check number INSTEAD OF
+  the amount of the payment.  (The program supposes that the check will
+  be written for exactly the total amount of the purchases, including the
+  tax, if any.)
+
+      Note:  One way to take care of part-cash/part-check purchases is
+      to handle it as two separate transactions.
+
+      Note:  One way to take care of cash-back situations is to ring up
+      the sale as if the check was for the sales total, then post a
+      dummy sale of $0.00, but enter the "cash back" amount as a negative
+      payment for that amount.
+
+      Note:  A number of ways can be devised to take care these and other
+      "weird" situations.  See your supervisor for more "how to" help.
+
+  Caution:  <F9> automatically reverts to Cash after each transaction is
+  completed (or after <Esc> is used to clear a transaction.)
+|New
+
+  As far as POSwhiz is concerned, initiating a new layaway account is
+  done no differently than for regular sales.  At the <End>, however, the
+  amount tendered is not going to be sufficient to cover the sales total.
+  (Otherwise, why is this a layaway?)
+
+  Anytime you enter an amount tendered that is LESS than the sales total,
+  a "balance due" is generated, and printed on the customer's receipt.
+  (Notice that this will happen for any sale--the program has no way of
+  knowing what are layaways, and what may just be typing mistakes.)
+
+      Note:  See your supervisor about what other (off-line) things must
+      be done when initiating new layaway accounts.
+
+      Note:  One thing that is commonly needed is a duplicate receipt to
+      attach to the layaway forms.  See ùDuplicate for how to do that.
+
+      Note:  One way to correct a "balance due" mistake is to delete the
+      bad transaction and re-enter it.  See ùErase for how to do that.
+
+      Note:  This program presumes layaways will be started with a cash
+      down payment.  See your supervisor about how to do it with a check.
+|Layaway
+
+  Layaway payments need to be posted with this program, of course.  They
+  should be posted like a "sale" of an item logged to a special ùDepartment 
+  number reserved for that purpose.
+
+  Because a customer has already been charged sales tax on items placed on
+  layaway, when posting payments to layaways, those transactions should be
+  treated as ùTax-free sales (q.v.)
+
+      Note:  One thing that is commonly needed is a duplicate receipt to
+      put in the layaway folder.  See ùDuplicate for how to do that.
+
+  Also, other "off line" steps may be necessary.  The customer's receipt
+  for this transaction will only show how much they paid, for example.
+  You may be advised to write on that receipt manually what their new
+  balance on this account is.  See your supervisor for more advice.
+|Gift
+
+  Gift certificates are a neat gimmic to some, although one not easily
+  understood by everybody.  When you sell someone a gift certificate,
+  what you really do is just give them a piece of paper and take their
+  money.  If, some day somebody walks in with that piece of paper, you
+  can reverse the trick: take the paper and give them that same amount
+  of money.
+
+  To sell a gift certificate with this program, ring up a line item for
+  the amount of the certificate and charge it to a unique department
+  allocated for this.  Because you are not really selling them anything
+  tangible, this transaction should probably also be done as ùTax-free 
+  so hit <F5> before you hit <End>.
+
+  To redeem a gift certificate, do a reverse transaction: post another
+ ùTax-free sale to the "gift" department, but enter the amount with the
+  minus key.  Then you can ring up a regular sale for whatever the
+  customer wants in the normal manner.
+
+  The design of the gift certificate itself, and other safeguards that may
+  be needed to preclude phony redemptions is beyond the scope of this
+  program.  See your supervisor for further advice about that.
+|Discounts
+
+  There are basically two kinds of discounts: line item discounts, and an
+  amount "off" of the total for a list of items.  This program makes it
+  easy to do either or both.
+
+  Total sale discount:
+    1.  Ring up sale in normal manner.
+    2.  Just before hitting <End>, post the discount.
+        a.  Enter the "discount department" number.
+        b.  Enter the amount off with the minus key.
+
+  Line item discount, manually calculated:
+    1.  Enter the department code.
+    2.  Enter an amount less than the sticker price.
+
+  Line item discount, automatically calculated:
+    1.  Enter the department code.
+    2.  Type the sticker price, but hit </> rather than <Enter> 
+
+  Note:  <?> displays departments, and the current auto-discount rate.
+         See ùFix on the ùSupervisor menu for how to change this rate.
+|Error
+
+  Everybody makes mistakes.  Here are several ways to correct some of the
+  more common ones.
+
+    <Del> works like a "clear key" during entry of a field.  Once <Enter>
+    has been hit, other steps will be necessary to correct a mistake.
+
+    The fastest way if only a few line items have been entered is to just
+    hit <Esc> to clear the screen and start all over.  This works right up
+    until the very end, until just before hitting <Enter> for the amount
+    tendered.  After that, it is too late for a "simple" fix.  Read on.
+
+    If the price for a line item is entered incorrectly way down in a long
+    list of items, the best fix is to "reverse" that line by re-entering
+    it with a minus price, then entering it again correctly.  The same
+    thing can be done if a line item is charged to the wrong department.
+    (Do a reversal of the amount to the wrong department then re-post it
+    to the correct department.)
+
+    More complicated errors require more draconian measures.  Rather than
+    holding everybody up, simply tear off the bad receipt and start all
+    over from the beginning.  Then later, do <*> then ùErase the bad
+    transaction (which is why you want to save the bad receipt, PS.)
+|Supervisor
+
+  ùAbort this program          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ùBackup to floppy            ³ Hit <*> anytime for this menu.    ³
+  ùClock and Calendar          ³ Use the menu at left for direct   ³
+  ùDuplicate receipt           ³ access to help on those subjects. ³
+  ùErase a receipt             ³ <PgDn> or <PgUp> to the next page ³
+  ùFix store variables         ³ <Home> for page 1   <Esc> to exit ³
+  ùGames menu                  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+  ùHelp or How-to info
+  ùInitials of user
+  ùLink to reports
+  ùMonth totals
+  ùToday totals
+  ùYear totals
+  <?> ÄÄÄÄÄÄÄÄ On the program menu, hit the desired initial <letter> key.
+               If you got here by mistake, just hit <Esc>.
+|Abort
+
+  Abort is the only correct way to end the POS program and return control
+  to the operating system.  If this is the only program normally run on this
+  computer, an Abort is NOT necessary at the end of the day: just turn the
+  machine off and go home.
+
+  If an abort is a good idea, a second step is necessary to ensure that
+  your decision is a valid one and not simply a keying mistake.
+
+  A number (a single digit) will be shown in angle brackets, like <3> for
+  example, right after A-to-abort is selected.  The number shown is picked
+  at random.  If you hit that same number, the abort is immediate.  If any
+  key other than the number shown is hit, the program responds the same as
+  if <Esc> had been hit.
+|Backup
+
+  As a matter of habit, backup copies of computer files ought to be made to
+  safeguard against the loss of important information.  How often backups
+  should be done is a management decision.  This program simply provides an
+  easy way to do it.
+
+        1.  Insert a floppy in the appropriate drive.
+        2.  Hit <*> to get to the ùSupervisor menu, then hit <B>.
+        3.  Remove the floppy from the computer when copying is done.
+|Clock
+
+  In the event the time or the date being shown is incorrect, hit <*> to
+  get to the ùSupervisor menu, then hit <C> to get to the "clock program".
+
+    Note:  To be able to run some reports requires that the system date be
+    changed in some cases.  Afterwards, remember to always reset the date
+    so that it is correct before resuming normal check out operations.
+|Duplicate
+
+  Duplicate sales receipts are often needed for a variety of reasons.
+  For a duplicate of one in the current month, hit <*> then <D>, then 
+  enter the receipt number of the one you want to print.  If you got here
+  by mistake, simply hit <Esc>.
+
+    Before a receipt is actually printed you will be prompted for a
+    <Y> or <N> decision.  Thus, if unsure about the exact number of a
+    receipt, you may look at several before finally saying <Y>.
+
+  For a duplicate receipt of a transaction that occurred in a prior month
+  it will first be necessary to change the system date.  The actual day
+  you choose is not important, but the month number is.
+
+        Caution:  If you must change the system date, BE SURE
+        to change it back to today's date after you are finished.
+|Erase
+
+  The procedure for erasing a receipt is identical to that for printing
+  a ùDuplicate receipt.  In fact, it is highly recommended that a duplicate
+  be printed BEFORE an erase is done.  Just in case.  Once erased, it's
+  gone.  (Actually, on the disk, the receipt is still on file, but all of
+  its amount fields are set to zero.)
+
+  To erase a transaction in the current month, hit <*> then <E>, then 
+  enter the receipt number of the one you want to erase.  If you got here
+  by mistake, simply hit <Esc>.
+
+    Before a receipt is actually zeroed-out you will be prompted for a
+    <Y> or <N> decision.  Thus, if unsure about the exact number of a
+    receipt, you may look at several before finally saying <Y>.
+
+  To erase a receipt for a transaction that occurred in a prior month
+  it will first be necessary to change the system date.  The actual day
+  you choose is not important, but the month number is.
+
+        Caution:  If you must change the system date, BE SURE
+        to change it back to today's date after you are finished.
+|Fix
+
+  There are four things about POSwhiz that can be "reprogrammed":
+
+        1.  The sales tax rate.
+        2.  The store ID that prints on receipts and reports.
+        3.  The percentage rate to be used for automatic ùDiscounts 
+        4.  The "names" of department codes.
+
+  To be able to change any of these, select ùFix on the ùSupervisor menu.
+  Use <Tab> to get from field to field, arrows to change lines.  Change
+  what needs to be, but be careful to not change the wrong thing.
+
+        1.  Sales tax rate can range from 0.0 to 9.9 (only).
+        2.  Store ID is always two lines, 18 characters per line max.
+        3.  Discount percentage can range from 0.0 to 99.99% (off).
+        4.  Department names can be up to 8 characters long.
+
+        Note:  During posting, department codes having no name are
+        considered "invalid" (will cause a BEEP.)
+
+        Note:  Department names are printed on some reports.  If a name
+        is erased on this list, future reports will still show a total
+        for this department, but what department that was is forgotten.
+|Games
+
+  Games or whatever.  Selecting <G> on the ùSupervisor menu will transfer
+  control to a batch file called GAMES.BAT--whether in fact that file
+  contains the names of game programs or some other type of programs is
+  a management decision.  The purpose of this menu selection in this
+  program is to provide a means for running other programs with automatic
+  recovery back to POSwhiz afterwards.
+|Help
+
+  Selecting <H> for Help on the ùSupervisor menu transfers control to this
+  program, the one that is displaying information now being shown.  <Esc>
+  will terminate Help and control will return to POS check out mode.
+|Initials
+
+  The last line on each receipt reflects the initials of the cashier that
+  posted that transaction.  This presumes of course, that each oncoming
+  cashier hits <*>, then <I> to record their initials.
+
+        Note:  This mechanism can be very useful when a customer comes in
+        days later with a "problem".  Knowing who the cashier was at that
+        time might be very important.  If the customer does not have their
+        receipt, knowing what day and about what time it was will be a big
+        help.  Use <D> for ùDuplicate receipt to beginning probing for a
+        possible match: Look at the date and time stamp to know whether to
+        "jump" ahead or back in the file until you narrow in on it.
+
+  Another important use of the cashier's initials can be for auditing.
+  As a matter of practice, the cash drawer should be counted and balanced
+  with the totals shown on the ùToday report.
+ |Link
+
+  A separate POSwhiz program is used to print sales reports for selected
+  periods.  Select <L> on the ùSupervisor menu to Link to POShist, then
+  set the inclusive beginning and ending dates desired, then <D> or <H> or
+  <M> for the respective report for Daily, Hourly or Monthly sales activity.
+
+        Note:  POShist reports are useful for studying trends, but are
+        not particularly useful for accounting purposes.  Conversely, the
+        "down totals" reports accessed by <M>, <T>, or <Y> while on the
+       ùSupervisor menu are "accounting" reports, but only marginally
+        useful for analyzing sales trends, etc.
+|Month
+
+  Month totals:
+
+  <*> then <M> will print "down totals" of all transactions from the first
+  of the CURRENT MONTH, through and including "today's" date.
+
+        Note:  It is possible to "fool" this program by changing the system
+        date by first selecting <C> for Clock.
+
+        Caution:  If you change the system date for any reason, BE SURE to
+        reset it correctly before resuming check out activity.
+|Today
+
+  Today totals:
+
+  <*> then <T> will print "down totals" of all transactions for TODAY thus
+  far, from the first one this morning, through and including the last one.
+
+        Note:  It is possible to "fool" this program by changing the system
+        date by first selecting <C> for Clock.
+
+        Caution:  If you change the system date for any reason, BE SURE to
+        reset it correctly before resuming check out activity.
+|Year
+
+  Year totals:
+
+  <*> then <Y> will print "down totals" of all transactions from the first
+  of this year, through and including "today's" date.
+
+        Note:  It is possible to "fool" this program by changing the system
+        date by first selecting <C> for Clock.
+
+        Caution:  If you change the system date for any reason, BE SURE to
+        reset it correctly before resuming check out activity.
+|Back
+
+  Back office and bookkeeping tips: Use of many of the features of POSwhiz
+  will only make sense if done so in concert with management and accounting's
+  ideas about how things ought to be done.  POSwhiz was designed with a
+  number of assumptions, most of which are covered by one of the following
+  topics.
+
+  POSwhiz was also designed to make it possible to modify this help file
+  itself, so this is the appropriate point to offer the first tip:  As
+  your experience develops, methods of dealing with specific issues ought to
+  be documented in this file rather than depending on "memorized rules" and
+  notes taped to the wall.  See ùWhizHelp for more about fixing "help".
+
+ ùDepartment code schemes
+ ùEditing POS files
+ ùCancelling layaways
+ ùBad check reversals
+ ùSales tax reporting
+
+|Department
+
+  The department code scheme built into POSwhiz provides a way to keep track
+  of sales by CATEGORIES.  Whenever a line item is posted to code 04, for
+  example, 1 is added to the "units" counter for Department 04, and the
+  price entered on that same line is added to the "dollar totals" counter
+  for Department 04.
+
+  On reports, the name that prints for Department 04, for example, is for
+  eyeball assistance only, and has nothing to do with how the program works.
+  If a department name is changed from Apples to Oranges in mid-year, for
+  example, whenever you see a total for Oranges, you have to know that some
+  of them could have been for Apples.  How many of either is anybody's guess
+  in this case.  Moral: don't change department names on a whim.
+
+  Reversing transactions: whether a units count for a department is increased
+  or decreased is done on the basis of the sign of the price posted on a
+  given line.  This is logical save for one small exception.  If you post
+ ùDiscounts as negative amounts, the units down count for that department
+  will accumulate as a negative total.  Which also means that most of the
+  reports will also reflect a slightly incorrect "grand total" of all units
+  sold.  (This author's attitude is, ho hum and gee whiz.)
+|Editing
+
+  It is possible to "edit" POS data files.  Although there are less risky
+  ways built into POSwhiz for fixing mistakes, in a panic, do not discount
+  this method of cooking the books to force them to reflect history as you
+  prefer it.  (But reconsider ùErase and re-enter before going on.)
+
+  Before attempting this type of legerdemain, several things must be
+  known to be able to pull it off.  And before pondering that, bear in
+  mind this most important tip of all: DO A BACKUP FIRST!  Always.
+
+  POS data files are technically classified as ASCII sequential files with
+  one added characteristic: all lines are exactly the same length, i.e.,
+  each line contains 21 "characters", plus an unseen two bytes that denote
+  the end of each line.  The arrangement and presentation format of the
+  lines in these files is an exact image of what gets printed on receipts.
+
+  So, editing of POS data files can be done with nearly any text editor
+  or word processing program that promises it can generate "text" files.
+  The onus is on the typist, however, to ensure that the CONTENT and FORMAT
+  of modified lines does not contradict what POSwhiz would normally output.
+
+  One other tidbit needs to be known to lessen the fear factor of modifying
+  these files: complete receipts can easily be deleted with no ill effects.
+|Cancelling
+
+  Once in a while somebody will start a layaway but never finish paying it
+  off.  What to do with the merchandise and how to account for the money
+  that has already been paid is a management decision.  But know this:  A
+  "sale" of several items has already been made, and the sales totals shown
+  on all reports will reflect that fact.
+
+  If unclaimed layaway merchandise is placed back in stock, then eventually
+  sold again, sales totals are thus artificially inflated.  Only slightly,
+  perhaps, but it is true.  One way to correct this is to "reverse post" an
+  offsetting transaction.
+
+  The question then arises about the money.  It is income, but it can no
+  longer be attributed to a regular department.  And unearned sales tax is
+  another picky matter: tax was charged, even though no merchandise changed
+  hands.  Meanwhile, several months have gone by, and the tax money may have
+  already been sent to the governor.
+
+  Again, the issues raised here must be addressed by management, but the
+  IQ of POSwhiz is too low for it to care.  Just be aware that unless some
+  action is taken, report totals printed by this program may not agree at
+  some point with other accounting reports.  Caveat.
+|Bad
+
+  Trying to account for bad checks can lead to some of the same pratfalls
+  as can be caused by unclaimed layaways.  Sales totals will reflect some
+  income that was never in fact received.  Similarly, having to send the
+  government its revenue before some folks' checks have cleared puts you
+  in a precarious position.  If your accountant fiddles with this problem,
+  bear in mind that at some point, totals printed by this program may
+  disagree slightly with those other "true figures".  Meaning: this program
+  can add correctly, so look for other reasons why things don't seem quite
+  right sometimes.
+|Sales
+
+  POSwhiz automatically computes the amount of sales tax printed on each
+  receipt (if any).  The down total shown on the ùToday report is the sum
+  of the tax amounts shown on each receipt, i.e., it is a true figure,
+  not a percentage calculation.  See this example of a Today's report done
+  after a single $10.00 sale:
+
+  Tax     1    0.70 ÄÄÄ this is the amount of tax on $10 at 7%
+  Checks  0    0.00 ÄÄÄ this is actual check income
+  Cash    1   10.70 ÄÄÄ this is actual cash income
+  Total   1   10.70 ÄÄÄ this total REVENUE, and NOT "taxable sales"
+
+  So, when preparing sales tax reports, the amount of TAXABLE SALES is the
+  Total shown above, LESS the amount of Tax shown on the top line.  (If you
+  report the bottom figure as taxable sales you will wind up paying tax on
+  the tax.)
+
+  All POSwhiz reports produce totals in the same way, i.e., sales totals
+  are the sum of the "total" lines on receipts.  Which is also one of the
+  reasons if you add up the totals by departments, that sum may or may not
+  resemble the total cash flow for that day.
+
+  Now see the next page for, "What is this month's taxable sales?"
+| 
+
+  If you print a ùToday total every day at quitting time, and save those
+  reports, it only takes a few minutes at the end of the month to add up
+  the tax total off of each one.  Then, by subtracting that figure from
+  the ùMonth total, you will have a pretty accurate "taxable sales" figure
+  to report.
+
+    Note:  It matters not a whit to the government whether you actually
+    collected the correct amount of taxes across the counter, only that
+    you remit the prescribed percentage based on your cash flow.
+
+  Meanwhile, if you do not have daily totals, you can print a Monthly
+  report, then add up the totals for each department to arrive at a
+  similar figure.
+
+  One final suggestion is appropriate here (again):  These help pages
+  can easily be modified to reflect exact procedures to be followed for
+  various situations.  This author's purpose has been to identify what
+  some of those situations might be, and how POSwhiz works.  Like the
+  caveman who invented the hammer said, "if you hit your finger don't
+  blame me."
+                 See ùWhizHelp for help about fixing help.
+|Installation
+
+  POSwhiz requires a small amount of preparation to ready it for use.
+  First, a (Windows) folder or a (DOS) path needs to be created for
+  storing this software in.  "POSwhiz" is one suggestion.  Perhaps a better
+  one would be simply "POS".
+
+  Next, copy into that path all of the programs that come with POSwhiz.
+  At that point, POS.EXE (or POS.BAS) should run, but a number of other
+  things need to be taken care of before you are ready to open the door.
+  In fact, each of the following topics need to be reviewed before anything
+  else is done at all.
+
+        ùSoftware set up
+        ùPOS program variables
+        ùPrinter suggestions
+        ùHardware requirements
+|Software
+
+  POSwhiz will work quite well with DOS 3.0 or any later version, or
+  with Windows 3.0, 3.1, 95, 98, or 98 SE.
+
+  For most end-use installations, the two dot-BAS files in this set
+  do not have to be installed on the target machine.  Here is why:
+
+  POS.BAS is the parent of POS.EXE.  To be able to run POS.BAS, the
+  GW-BASIC interpreter, GWBASIC.EXE is required.  POS.EXE is the primary
+  program, but to modify it supposes that QuickBASIC compiler 2.0 will be
+  used, and POS.BAS will be the source file input to the compiler.
+
+  POShist.BAS and POShist.EXE are similar in same way that the BAS and
+  EXE versions of POS are alike.  Although POS.BAS can invoke POShist.EXE,
+  it cannot invoke POShist.BAS because one GW-BASIC program cannot "shell"
+  to another GW-BASIC program.
+
+  POS.EXE expects POShelp.COM and POShelp.DAT to be stored in its same
+  path, also.  If not found, POS will run OK, but requests for help will
+  be ignored.
+
+  Three BAT files are also expected to be in the same path as POS.EXE.
+  The nature of each is described on the next page.
+| 
+
+  POSCOPY.BAT ÄÄ as included originally, it contains one line:
+
+    COPY C:POS??02.DAT A:*.*
+
+      Note:  Any text editor be used to modify the above BAT file so
+      that backups can be done automatically from the ùSupervisor menu.
+
+  GAMES.BAT ÄÄ this file is delivered empty, but it could look like this:
+
+    CD\GAMES ; Change Directory
+    KLONDIKE ; run this program
+    CD\POS   ; Change Directory
+
+  CLOCK.BAT ÄÄ this file is precoded to call POSCLOCK.COM
+
+    POSCLOCK
+
+        Note:  POSCLOCK.COM may be discarded, but some means needs to be
+        supplied via this BAT file to change the system date for some
+        reports.
+|POS
+
+  POSDEPT.MSK is a critical file.  It must be stored in the same path as
+  the primary program (POS.EXE).
+
+  As supplied, the "parameters" reflected in this file are from an actual
+  user's store.  Obviously, all of these names will need to be changed to
+  suit your environment.  See ùFix on the ùSupervisor menu about how to do
+  this.
+
+  It is strongly suggested that a ùBackup be done soon after the necessary
+  changes are made to POSDEPT.MSK--in fact, it is always a good idea to
+  back up this file any time it is modified.
+|Printer
+  Almost any (old) dot matrix printer that has a pressure-roll platen
+  can be used with this program.  Said another way, modern cut-sheet
+  printers ARE NOT the way to go.  Here are some other tips:
+
+    + "draft" mode is faster than LQ or NLQ (or whatever)
+    + use 2.25" wide rolls of cash register (adding machine) paper
+    + POSwhiz does not care if the printer is off, off line, or AWOL
+
+  Most printers have V-dip or two somewhere behind the platen.  Lay
+  the roll of paper in that V so that it feeds from the bottom toward the
+  print head.  Align the left edge of the paper with what the printer
+  considers "column 1" for printing.
+
+  In the Wonderful World of Windows, getting this program to print may
+  require more than a few Tylenol.  Those problems can be too numerous to
+  try to solve here.  Consult Windows Help, if you can make sense of it.
+
+  Tear-bar:  We have been rather successful in modifying several different
+  kinds of old printers to make them more useful in this environment.  A
+  basic trick is to fasten a hacksaw blade to the plastic shield or cover
+  just above the print head to make it easy to tear off receipts.  After
+  breaking a couple, we learned to drill small holes slowly and carefully,
+  and then use tiny bolts and nuts to secure the blade to the guide.
+|Hardware
+
+  POSwhiz was deliberately designed to be usable on old computers.  That
+  it can also run on modern, ultra high speed PCs with a bunch of gadgets
+  attached is a tribute to the industry's enthusiasm for that old cliche,
+  "PC compatible".
+
+  Here is the minimum known to be usable:
+
+    PC XT or AT (an 8086 or 286, 386, 486, etc.)
+    512kb memory (most XT's have 640, AT's even more)
+    Color monitor (CGA, EGA, VGA, whatever), any size
+    Any keyboard that is compatible with PC and OS being used
+    1 disk drive of some kind (a hard disk, plus one floppy is best)
+
+  POSwhiz has no need of a mouse.  POShelp.COM does have mouse support
+  built in, but it too works just fine without a mouse.
+|POSwhiz
+
+  POSwhiz is the collective name of this software package that imparts
+  a simplified approach to doing Point Of Sale tasks on inexpensive,
+  bare-bones configurations of PC hardware.  Nearly any so-called
+  PC compatible computer can be used that has a color monitor, one
+  disk drive, and a keyboard.  POSwhiz expects some type of printer to
+  be attached, but will also work quite well without any printer at all.
+  POSwhiz works with any version of DOS, and most versions of Windows
+  up through Windows 98 Second Edition.
+
+  POS.BAS is the primary program in this set.  It was written in GW-BASIC
+  and tested with GWBASIC.EXE 3.23, then compiled using QB 2.0 to produce
+  POS.EXE, the run-time program.  POShist.BAS is the reports program which
+  was developed in the same way, and POShist.EXE is the one linked to from
+  POS.EXE by selecting ùLink on the ùSupervisor menu.
+
+  The essence of POSwhiz is its ability to capture sales transaction on
+  disk.  That data is recorded in files, one file for each calendar month.
+  See ùLink for how files are named.  See ùEditing for what they contain.
+
+  Other programs useful to this system are accessed by POS.EXE via "batch
+  files".  See ùSoftware setup for more about those.
+|Support
+
+  POSwhiz has now been released as freeware, meaning you get the whole
+  bag, including the source program files.  The advantage to you is that
+  you can customize the program in any way you see fit.  The disadvantage
+  is, the author cannot guarantee that what he provided is bug free because
+  whatever it is you are now working with may or may not be different than
+  his current version.  One the other hand, Tom is not a mean man.  See the
+  next page for his e-mail address.  He will try to help you if he can.
+|WhizWare
+
+  WhizWare is a computer software Research and Development firm.
+
+  We call all of our products WhizWare--many of our software packages
+  begin or end with the word Whiz.
+
+  The analyst that designs our stuff is Thomas C. McIntire.  Write to
+  Tom if you have any problems or wish to comment on our software.  He
+  will appreciate the input.  E-mail him at whizware@bellsouth.net
+|WhizHelp
+
+       ùWhizHelp  (C) Copyright ùWhizWare, 1996  Vers 4.0  06-06-96
+            ÀÄÄÄ a component of the Whiz Programming system
+
+                      Specific info about your ÄÄÄÄÄ¿
+                       ³ ùPOShelp.COM  ùPOShelp.DAT ³
+                       ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+      Quick reference about ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³ ùCursor keys ùPage keys ùHome ùEscape ùMouse ùIndex words     ³
+       ³ ùCOLOR ùVideo modes ùSHELL ùPCOPY ùCharacters ùLimits ùErrors ³
+       ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|POShelp.COM
+
+  POShelp.COM is the program that displays ùPOShelp.DAT information.
+  The rules about what that file should look like begin on the next page.
+|POShelp.DAT
+
+    POShelp.DAT is contains then information that ùPOShelp.COM can show.
+    To an extent, this file is what DOS manuals call ASCII text files,
+    but there are some exceptions...  
+
+    No line should contain more than 79 characters.  Blank lines are Ok.
+    A given "page" cannot have more than 24 lines nor less than one.  Each
+    page must begin with an Index line, like this:  <Alt><124>Word<CR>
+    (this "page header" is not displayed; it is not one of the 24-limit).
+
+    <Alt><124> is the vertical-bar character on most keyboards; it must 
+    start in column 1; the key word itself follows immediately; it contains
+    no spaces nor ASCII codes below 32; it is immediately followed by a
+    Carriage Return code (usually generated by use of the Enter key).
+
+    Inside a text page itself, "cross reference ùIndex words" are denoted
+    by a matching spelling of one at the top of a page.  Like:  ùIndex 
+
+    Note the "dot" in front of "subject" words; it is an ASCII code 249--
+    again, no embedded spaces, but the word itself must be followed by at
+    least one space.
+
+                                                      More ÄÄÄÄÄ¿
+                                                                ³
+| 
+
+    Continuation pages are possible for a subject.  They should follow
+    one after another.  The start of each continuation page is denoted by
+    a "bar" in column 1, followed by 1 space, then a Carriage Return code.
+
+    This scheme works such that a "pick" of an ùIndex word will find the
+    first page for that subject and <PgDn> will move forward from there.
+
+    Note the way ùPage keys work:  They scroll through the file, forwards
+    or backwards.  Some thought may need to be given to how text pages are
+    organized in the file.  At times, sometimes, your user may want to
+    "walk" through the file; the presentation sequence ought to lend
+    itself to such use, so that there is an orderly progression from one
+    subject to another.
+
+    The first text page in the file has no preceding "bar", no ùIndex 
+    word.  This page ought to normally work as a subject index; each of the
+    index words that have corresponding subject pages ought to be listed so
+    the user can get rapidly to where they want to be.  This is the page
+    that ù<Home> will always find:  The beginning of the file.
+|Cursor
+
+    When ùPOShelp.COM first starts it checks to see if a Mouse is active.
+    With or without a rodent, the keyboard works the same.  The only
+    visible difference is the shape of the on-screen cursor.
+
+    In text mode-- see ùVideo --the no-Mouse cursor is a blinking box; 8
+    dots wide and 14 high (EGA/VGA and mono), 8 by 8 for CGA; its ùCOLOR is
+    "reversed", i.e., the opposite of the screen vs. text color, depending
+    on its current location on the screen.  If Mickey is alive, the cursor
+    is supplied by the ùMouse driver, a similar non-blinking shape.
+
+    The keyboard cursor arrow keys:  Up is up and Down is down, etc.  This
+    works such that positioning is automatic and the cursor always aligns
+    directly over "subject dots", the ASCII 249-character preceding ùIndex 
+    words.
+|Page
+
+    The page keys--<PgUp> and <PgDn>--work as intuitively expected:
+
+    Up or down one full text screen, based on the physical arrangement of
+    those pages within your ùPOShelp.DAT file.
+
+    Notice the legends at the bottom of the screen.  Those keys work as
+    labeled; they can be picked by Mickey as well, by pointing to them
+    and clicking the ùMouse Enter-button.
+
+    If <PgUp> is hit and the first page in the file is already on-screen it
+    is simply re-displayed.  If the last page is visible and <PgDn> is hit
+    the first page will be displayed, same as if ùHome had been hit.
+|Home
+
+    The <Home> key is always active and causes an immediate display of the
+    first page in your ùPOShelp.DAT file --usually your "index screen".
+
+    Notice the legends at the bottom of the screen.  Those keys work as
+    labeled.  They can be picked by Mickey as well, by pointing to them
+    and clicking the Mouse Enter-button.
+|Escape
+
+    The <Esc> key has but one use:  To get out of Dodge in a hurry,
+    the only correct way to exit ùPOShelp.COM ... return is to whence:
+
+      If the help program is started from DOS command mode, return is
+      back to the command line prompt.
+
+      If started by a batch file, return is to the next line in that file.
+
+      If called by a program via ùSHELL return is to the next command in
+      that program.
+
+    Note:  See ùPCOPY for some ideas about how to save and restore screen
+    images before and after the operator opts to get help.
+
+    Notice the legends at the bottom of the screen.  Those keys work as
+    labeled.  They can be picked by Mickey as well, by pointing to them
+    and clicking the ùMouse Enter-button.  Also:  Mickey's Escape button
+    works just like the <Esc> key, no matter where the cursor is.
+|Mouse
+
+    When ùPOShelp.COM first starts it checks to see if a rodent is active.
+    With or without a ùMouse the keyboard works the same.  The only
+    visible difference is that there are two cursors, Mickey's and the
+    normal one for keyboard operations.
+
+    Our help program only uses four Mouse driver functions:  Reset (0),
+    Show and Hide cursor (codes 1 and 2), Get Button Status (3) and Set
+    Position (4).
+
+    The driver is left in situ on exit; no "sensitivity adjustments"
+    are made.
+
+    Design assumptions:  MOUSE.COM or MOUSE.SYS has already been loaded.
+    If not or Mickey is not responding, the help program simply reverts
+    to no-Mouse mode.
+
+    Buttons:  Only two are monitored, the right one for Escape, and the
+    left one for Enter. 
+|Index
+
+    A fundamental concept of ùWhizHelp is that the user can get quickly
+    to any subject of their choice, to a specific "page" in your
+   ùPOShelp.DAT file.
+
+    Presumably ùHome will show your subjects index, i.e., the first page
+    in your help file.  The layout and organization of that page is
+    entirely up to you.  The key is, Index words are denoted as such
+    by a "dot" in front of each, an ASCII code-249 character.
+
+    This dot can be implanted with most editing programs by holding down
+    either <Alt> key and indexing 249 on the numeric key pad.  When <Alt>
+    is released the dot-character will be shown.
+
+    Note:  Some word processors obviate normal DOS conventions; if the
+    <Alt> trick doesn't work, see your user's manual; they probably have
+    some alternative scheme for deriving characters not shown on key caps.
+
+    Cross-references:  An Index word can appear anywhere on any screen.
+    So that, rather than saying "also see so and so", simply use an
+    Index word in context; if the user wants to go there they merely "pick"
+    that word for an immediate page change.  But read the next page...
+| 
+
+    The key to ùPOShelp indexing is that each page in the ùPOShelp.DAT 
+    file begins with an (unseen) ùIndex word.  The logic of ùPOShelp.COM 
+    works like this:
+
+    When <Enter> is hit the character at the cursor's current position is
+    examined.  If it is a dot--an ASCII code 249--characters are lifted
+    from the screen, moving to the right, until a space is encountered.
+
+    Now a search is made, from the beginning of the file, looking for a
+    matching word that is preceded by a bar-character:  an ASCII code 124.
+    That word must be an exact case-sensitive match; it must be the only
+    word on that line and fully left justified.  That line must be followed
+    by at least one more line:  Presumably a line of text.
+
+    PS:  If no match is found--probably because of a typing error in your
+   ù<help>.DAT file, the search terminates when the bottom of the file
+    is encountered and ùHome is done, as a default solution.  See ùErrors 
+    for more about situations similar to this.
+|COLOR
+
+    On a mono-machine no problem.  Two choices, basically:  White on black
+    or vice versa.  (Or amber, or green, or whatever...)  In the event you
+    coded ù<help>.COM to use some other colors, but it detects it is
+    running in a mono-environment, it will react accordingly.
+
+    In the wonderful world of color we have many choices:  Screen color--
+    called background in some manuals--is denoted by code numbers.  So is
+    the foreground, the color of "characters" to be shown.  The codes are:
+       ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³ 0 - Black     8 - Gray       ³
+       ³ 1 - Blue      9 - Hi Blue    ³  Hi:  High Intensity (bright)
+       ³ 2 - Green     A - Hi Green   ³
+       ³ 3 - Cyan      B - Hi Cyan    ³  Cyan:  Akin to Marine Blue
+       ³ 4 - Red       C - Hi Red     ³
+       ³ 5 - Magenta   D - Hi Magenta ³  Magenta:  Sort'a Purple or Pink
+       ³ 6 - Brown     E - Yellow     ³  Brown:  Or a shade of Red
+       ³ 7 - White     F - Hi White   ³
+       ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+    Screen color can only be a code in the range 0-7.  Text can be any
+    in the range 1-9 or A-F but the same code cannot be specified for both.
+
+
+    More ought to be known about making these selections ÄÄÄÄÄÄÄ¿
+| 
+
+    When ùPOShelp.COM begins it uses the ùCOLOR scheme chosen for lines 1
+    through 24.  The bottom line on the screen--our "instructions" line
+    is always black-on-white. 
+
+    This is not done with a "color command", it is done by punching color
+    bytes directly into video RAM.  (Thus video adapter settings are not
+    altered.  But see ùVideo modes for other considerations.)
+
+    Some color schemes are not aesthetically pleasing; some may be on some
+    monitors but not on others.  Here are some we have found consistently
+    viable on a wide range of machines:
+
+      White (7) or Hi White (F) or Yellow (E) on a Blue (1) background
+      Either type of White (7 or F) or Yellow (E) on Black (0)
+
+    Also:  The color of the ùCursor "character" is in reversed video if
+    running without a ùMouse but if Mickey is involved that driver has its
+    own trick for establishing its cursor's color.  In text mode, with a
+    Mouse, some color combinations are not good, but they might otherwise
+    be with our no-Mouse scheme of reverse video.  Those suggested above
+    produce acceptable results on most systems, with or without a rodent.
+
+    Color choices can be set dynamically too.       ÄÄÄÄÄÄÄÄÄÄÄÄ¿
+| 
+
+    Some application writers like to let their users pick color choices.
+
+    The settings specified when ùPOShelp.COM is run can be altered by
+    including ùCOLOR codes on the command line or in the ùSHELL string
+    that invokes your ù<help>.COM program.
+
+    Like this:   HELP.COM /F1       or       SHELL "HELP.COM /F1"
+
+    In this example, HELP is the name of your program; 1 is the code for a
+    Blue screen; F is the code for High Intensity White characters.  Notice
+    the slash and TWO codes (no spaces); this is required syntax.
+
+    Also:  If one color is specified, they both must be.  If not, or they
+    are illogical, contradictory, or invalid they will simply be ignored.
+|Video
+
+   ùPOShelp.COM runs in text mode.  Help is always done on page zero; no
+    other pages in video RAM are addressed for any reason.  It is up to
+    YOU to save whatever is on screen (and restore it, as before) if you
+   ùSHELL to ùPOShelp.COM -- ùPCOPY tricks work well for text programs;
+    graphics programs may have to use more sophisticated techniques.
+
+    Calling programs must also restore their own cursor arguments.  The
+    help program likes a "big block" cursor.  On exit a BIOS service call
+    is done to clear the screen and reset the cursor to POST attributes.
+|SHELL
+
+    Our use of SHELL is in the same context that manuals for GWBASIC.EXE
+    and QuickBASIC.EXE, meaning, to "call" another program.  When it ends,
+    return is to the caller and execution proceeds with the next command
+    in that program.
+
+    Those manuals define the syntax rules for SHELL something like this:
+
+      SHELL "HELP" where the name of the program being called is either a
+      quoted string, or a named string variable that has been assigned that
+      program's name.
+
+    Note:  Name searches are done by DOS.  If no extension is specified
+    dot-BAT is looked for first, then dot-EXE, then dot-COM.  If a dot-name
+    is included it is looked for specifically.  Also:  Only dot-BAT, EXE, or
+    COM can be explicitly named; a "Bad command" message occurs otherwise.
+
+    Other considerations:  The ùMouse driver will be re-set on return to
+    the calling program; it may be necessary to re-establish its values
+    in sophisticated environments.  Recall that the cursor's size is
+    modified by the help program, so, this may also need to be reset
+    after a SHELL is done.  (See ùPCOPY for more, too.)
+|PCOPY
+
+    Our use of PCOPY is in the same context as in manuals for GWBASIC.EXE
+    and QuickBASIC.EXE, meaning, monitor adapters (other than monochrome
+    ones) have multiple blocks of bytes (pages); PCOPY literally copies
+    one block of bytes to another.  Thus:  PCOPY 0,1 would copy page zero
+    to page one.
+
+    Assuming page zero is the one currently visible and PCOPY 0,1 is done
+    just before a ùSHELL to ùPOShelp.COM then, on return, PCOPY 1,0 will
+    restore what was being displayed before.  But ...
+
+    The help program alters the state of the ùCursor and does a reset of
+   ùMouse parameters.  Your calling program may thus have to remember and
+    re-establish these values whenever your user opts to "get help".  Also,
+    "palette values" are reset to their defaults when a ùSHELL is done; in
+    fancy graphics cases--especially VGA--the calling program will have
+    to reset ùCOLOR parameters if other than default values are being used.
+|Characters
+
+    Most all of the standard PC character set can be used in ù<help>.DAT 
+    pages.  Here are the only exceptions, reflected as ASCII code values:
+
+    Dec  Hex  Meaning
+     10   0A  Line Feed -- move down one line
+     13   0D  Carriage Return -- move to beginning of line
+     36   24  Dollar sign ($) -- See ùMulti-volume about this exception
+    124   7C  Vertical Bar  ÄÄ¿
+    249   F9  Large "dot"   ÄÄÁÄÄ See ùIndex for how we use these
+
+    Normally, in conventional DOS environments, so called ASCII files have
+    variable length records (lines).  Each line is terminated by a CR/LF
+    pair.  In that order, code 13, then 10.  Usually shown in hex as 0D0A.
+
+    Consideration ought to be given to some others, also.  If a user opts
+    to hit <Print Screen> to get a hard copy of ùPOShelp.DAT screens, a
+    number of "codes" can cause weird results when they hit a printer.
+    Avoid code 27 (Escape) especially; see your printer manuals for more.
+|Limits
+
+                                ùPOShelp Limits
+      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+      ³                                                                 ³
+      ³  Text lines cannot be longer than 79 characters.                ³
+      ³                                                                 ³
+      ³  Blank lines are Ok, i.e., Carriage Return codes, but no text.  ³
+      ³                                                                 ³
+      ³  A given text page cannot be longer than 24 lines.              ³
+      ³                                                                 ³
+      ³  An ùIndex word cannot be longer than 32 characters.            ³
+      ³                                                                 ³
+      ³  A ùPOShelp.DAT file cannot contain more than 62000 bytes.      ³
+      ³                                                                 ³
+      ³  Valid Screen (background) ùCOLOR codes are 0-7.                ³
+      ³                                                                 ³
+      ³  Valid Text (foreground) ùCOLOR codes are 1-9 and A-F.          ³
+      ³                                                                 ³
+      ³  See also ùCharacters -- about those not usable in text pages.  ³
+      ³                                                                 ³
+      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|Errors
+
+    Yep, we all make errors.  Here are the ones that can cause ùPOShelp.COM 
+    to screw up.
+
+    A page is more than 24 lines long:  If this admonishment is ignored
+   ùPOShelp.COM will survive, but as the page is displayed, when the cursor
+    reaches line 25 screen output ceases, thus the rest of the page may
+    never be seen.  AND:  Page Down scrolling logic will be confounded;
+    what happens next is highly unpredictable.
+
+    A page could be headed by a "bar-word" that has no "dot-word" reference
+    anywhere.  Such pages will simply work like continuation pages.  Either
+    an ùIndex reference was omitted or there is a "spelling" difference in
+    the two words.
+
+    Conversely, an Index reference might occur somewhere for which there
+    is no corresponding text page.  Again, this can be simply because of a
+    mere typing error, but it could also be because that page was never
+    written.  In either event the help program will run Ok but unsuccessful
+    "pick" searches cause the equivalent of what happens when ùHome is hit.
+
+    Now, for some really "advanced" techniques, see the next topic:
+
+      ùMulti-volume help file systems ÄÄÄÄÄ¿
+                                           ÀÄÄ pick page down ÄÄ¿
+                                                                ³
+|Multi-volume
+
+    Suppose you find our 62000 file size limitation a problem:  Split your
+    help-text into two or more files, none of which are individually larger
+    than 60k bytes...
+
+    Now, consider these additional tidbits:
+
+    The last page in each file--with the singular exception of the last
+    page in the last file of the set--needs to begin with a unique bar
+    line: <Alt><124>$.  This pair of bytes makes it possible for a user
+    to "page up" from one file into the "last page" of a preceding file.
+
+    The first page of all files in a multi-volume set cannot begin with a
+    bar-line of any kind.  (Which is the "normal" case for single-file
+    help schemes.)
+
+    The way "pick this subject" works in this world...
+
+    In the case, for example, a page from the second file of a set contains
+    a dot-word that references a help page contained in the first file:
+
+       No problem.  The first file will be re-loaded and a "jump start" is
+       made to the desired page.
+| 
+
+    In the case, for example, a page from the second file of a set contains
+    a dot-word that references a help page located later in this same file:
+
+       No problem.  Searching is done for any page, from the top down, in
+       the realm of the currently loaded file, first.  If a corresponding
+       page is found within that file it will be displayed.  If not found,
+       and more files are available, they are each searched, until a match
+       is found.
+
+    Meanwhile, there can be a problem, of course:  If no page can be found,
+    at all, in any of the help files that constitute a ùMulti-volume set,
+    you will be caught up in a forever running loop.
+
+        Caveat:  This is a "fatal error".  If it hurts, don't do it.
+
+    Now, how does ùPOShelp know when you have a ùMulti-volume help system?
+
+    Read on ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                                                                ³
+| 
+
+    If a reader is perusing the last page of a file and they hit <PgDn>
+    (or they pick a dot-word on that page) before ùPOShelp.COM decides to
+    go ùHome it checks to see if another file can be loaded.  Like this:
+
+    Suppose my first file is called MYHELP.HP0.  Notice the last character
+    in the name is an ASCII zero.  And the decimal equivalent of "0" is 48,
+    so, 1 is added to that, and decimal 49 is an ASCII "1".  Now a file
+    having a name of MYHELP.HP1 is looked for.  If found, that file is
+    loaded and all continues.  If not found it is time to go home.
+
+    Note:  Home in this context means load and commence with the file name
+    that is hard-coded into the dot-COM program file, the name of your
+    "primary" dot-DAT file.
+
+
+    PS:  The above is similar for ùPage Up.  An attempt is made to find
+    a file with a name whose last character is "one less" than the one
+    already loaded.  If found, no problem, it is loaded; if not, we simply
+    go home, i.e., to the beginning of the "primary name file".
+
+    By the way, the above example used .HP0 and .HP1 but it does not
+    really matter to us what you prefer.  Something like .DAT and .DAU
+    and .DAV works the same way, naturally.
+| 
+
+    "Happy trails to you, until we meet again..."
+
+    If you can hum this tune and remember who made it popular, maybe
+    we went to school together.
+
+    In any event, I sincerely hope you find our tools to your liking.
+
+    I like them, of course (I designed them), but I will welcome your
+    critique; user input can help us make our products even better.
+
+    Drop us a line at ùWhizWare ...
+
+    TM
+|
+

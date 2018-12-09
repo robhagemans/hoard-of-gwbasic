@@ -1,0 +1,1 @@
+COPY POS??02.DAT A:*.*
