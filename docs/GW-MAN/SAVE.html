@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SAVE Command</h1>
+<h4>Purpose:</h4>
+<p>To save a program file on diskette.</p>
+<h4>Syntax:</h4>
+<pre><b>SAVE</b> <i>filename</i>,[,<b>a</b>]
+<b>SAVE</b> <i>filename</i>,[,<b>p</b>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> is a quoted string that follows the normal MS-DOS naming conventions. If <span class="code"><i>filename</i></span> already exists, the file will be written over. If the extension is omitted, <i>.bas</i> will be used.</p>
+<p>The <span class="code"><b>a</b></span><b> </b>option saves the file in ASCII format. Otherwise, GW-BASIC saves the file in a compressed binary format. ASCII format takes more space on the diskette, but some diskette access commands (for example, the <span class="code">MERGE</span> command and some MS-DOS commands, such as TYPE) may require an ASCII format file.</p>
+<p>The <span class="code"><b>p</b></span><b> </b>option protects the file by saving it in an encoded binary format. When a protected file is later run or loaded, any attempt to list or edit it fails. When the <span class="code"><b>p</b></span><b> </b>option is used, make an additional copy under another name or diskette to facilitate future program maintenance.</p>
+<h4>Examples:</h4>
+<p>The following command saves the file <i>com2.bas </i>in the ASCII format:</p>
+<pre>SAVE &quot;COM2&quot;, A</pre>
+<p>The following command saves the file <i>prog.bas</i> in binary format, and protects access:</p>
+<pre>SAVE &quot;PROG&quot;, P</pre>
+
+</body>
+</html>

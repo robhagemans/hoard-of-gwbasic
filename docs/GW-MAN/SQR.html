@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SQR Function</h1>
+<h4>Purpose:</h4>
+<p>Returns the square root of <span class="code"><i>x</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>SQR</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span> must be greater than or equal to 0.</p>
+<p><span class="code">SQR(<i>x</i>)</span> is computed in single-precision unless the <span class="code">/<b>d</b></span> switch is used when GW-BASIC is executed.</p>
+<h4>Examples:</h4>
+<pre>10 FOR X=10 TO 25 STEP 5
+20 PRINT X; SQR(X)
+30 NEXT
+RUN
+ 10 3.162278
+ 15 3.872984
+ 20 4.472136
+ 25 5</pre>
+
+</body>
+</html>

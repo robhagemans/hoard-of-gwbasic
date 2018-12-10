@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WINDOW Statement</h1>
+<h4>Purpose:</h4>
+<p>To draw lines, graphics, and objects in space not bounded by the physical  limits of the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>WINDOW</b>[[<b>SCREEN</b>](<i>x1</i>,<i>y1</i>)-(<i>x2</i>,<i>y2</i>)]</pre>
+<h4>Comments:</h4>
+<p><span class="code">(<i>x1</i>,<i>y1</i>)</span>, <span class="code">(<i>x2</i>,<i>y2</i>)</span> are the coordinates defined by the user. These coordinates, called the world coordinates, may be any single-precision, floating-point number. They define the world coordinate space that graphics statements map into the physical coordinate space, as defined by the <span class="code">VIEW</span> statement.</p>
+<p><span class="code">WINDOW</span> is the rectangular region in the world coordinate space. It allows zoom and pan. It allows the user to draw lines, graphics, and objects in space not bounded by the physical limits of the screen. To do this the user specifies the world coordinate pairs <span class="code">(<i>x1</i>,<i>y1</i>)</span> and <span class="code">(<i>x2</i>,<i>y2</i>.)</span> GW-BASIC then converts the world coordinate pairs into the appropriate physical coordinate pairs for subsequent display within screen space.</p>
+<p>Window inverts, with the screen attribute omitted, the y coordinate on subsequent graphics statements. This places the <span class="code">(<i>x1</i>,<i>y1</i>)</span> coordinate in the lower-left and the <span class="code">(<i>x2</i>,<i>y2</i>)</span> coordinate in the upper-right of the screen. This allows the screen to be viewed in true Cartesian coordinates.</p>
+<p>The coordinates are not inverted when the <span class="code">SCREEN</span> attribute is included. This places the <span class="code">(<i>x1</i>,<i>y1</i>)</span> coordinate in the upper-left and the <span class="code">(<i>x2</i>,<i>y2</i>)</span> coordinate in the lower-right corner of the screen.</p>
+<p>The <span class="code">WINDOW</span> statement sorts the <span class="code"><i>x</i></span> and <span class="code"><i>y</i></span> argument pairs into ascending order. For example:</p>
+<pre>WINDOW (50, 50)-(10, 10)</pre>
+becomes
+<pre>WINDOW (10, 10)-(50, 50)</pre>
+<p>Or</p>
+<pre>WINDOW (-2, 2)-(2, -2)</pre>
+becomes
+<pre>WINDOW (-2, -2)-(2, 2)</pre>
+<p>All coordinate pairs of <span class="code"><i>x</i></span> and <span class="code"><i>y</i></span> are valid, except that <span class="code"><i>x1</i></span> cannot equal <span class="code"><i>x2</i></span> and <span class="code"><i>y1</i></span> cannot equal <span class="code"><i>y2</i></span>.</p>
+<p><span class="code">WINDOW</span> with no arguments disables previous window statements.</p>
+<h4>Example 1:</h4>
+<p>If you type: </p>
+<pre>NEW: SCREEN 2 </pre>
+<p>the screen uses the standard coordinate attributes: </p>
+<pre>(0, 0)           (320, 0)         (639, 0)
+  &darr; y increases
+                (320, 100)
+
+(0, 199)        (320, 199)      (639, 199)</pre>
+<h4>Example 2:</h4>
+<p>If you type: </p>
+<pre>WINDOW (-1, -1)-(1, 1)</pre>
+<p>the screen uses the Cartesian coordinates:</p>
+<pre>(-1, 1)           (0, 1)            (1, 1)
+  &uarr; y increases
+                  (0, 0)
+  &darr; y decreases
+(-1, -1)          (0, -1)           (1, -1)</pre>
+<h4>Example 3:</h4>
+<p>If you type:</p>
+<pre>WINDOW SCREEN (-1, -1)-(1, 1)</pre>
+<p>the screen uses the non-inverted coordinate:</p>
+<pre>(-1, -1)          (0, -1)           (1, -1)
+ &uarr; y decreases
+                  (0, 0)
+ &darr; y increases
+(-1, 1)           (0, 1)            (1, 1)</pre>
+<p><span class="code">RUN</span>, <span class="code">SCREEN</span>, and <span class="code">WINDOW</span> with no attributes disable any <span class="code">WINDOW</span> definitions and return the screen to its normal physical coordinates.</p>
+
+</body>
+</html>

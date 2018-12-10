@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>OUT Statement</h1>
+<h4>Purpose:</h4>
+<p>To send a byte to a machine output port.</p>
+<h4>Syntax:</h4>
+<pre><b>OUT</b> <i>h,j</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>h</i></span> and <span class="code"><i>j</i></span> are integer expressions. <span class="code"><i>h</i></span> may be within the range of 0 to 65535. <span class="code"><i>j</i></span> may be within the range of 0 to 255. <span class="code"><i>h</i></span> is a machine port number, and <span class="code"><i>j</i></span> is the data to be transmitted.</p>
+<p><span class="code">OUT</span> is the complementary statement to the <span class="code">INP</span> function.</p>
+<h4>Examples:</h4>
+<pre>100 OUT 12345,225</pre>
+<p>Outputs the decimal value 225 to port number 12345. In assembly language, this is equivalent to the following:</p>
+<pre>MOV DX,12345
+MOV AL,255
+OUT DX,AL</pre>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>OPTION BASE Statement</h1>
+<h4>Purpose:</h4>
+<p>To declare the minimum value for array subscripts.</p>
+<h4>Syntax:</h4>
+<pre><b>OPTION BASE</b> <i>n</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is 1 or 0. The default base is 0.</p>
+<p>If the statement <span class="code">OPTION BASE 1</span> is executed, the lowest value an array subscript can have is 1.</p>
+<p>An array subscript may never have a negative value.</p>
+<p><span class="code">OPTION BASE</span> gives an error only if you change the base value. This allows chained programs to have <span class="code">OPTION BASE</span> statements as long as the value is not changed from the initial setting.</p>
+<hr>
+	<i><b><p>Note</p>
+	</b></i><p>You must code the <span class="code">OPTION BASE</span> statement before you can define or use any arrays. If an attempt is made to change the option base value after  any arrays are in use, an error results.</p>
+<hr>
+
+</body>
+</html>

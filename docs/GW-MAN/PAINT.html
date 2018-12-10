@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PAINT Statement</h1>
+<h4>Purpose:</h4>
+<p>To fill in a graphics figure with the selected attribute.</p>
+<h4>Syntax:</h4>
+<pre><b>PAINT</b> (<i>x start</i>,<i>y start</i>)[,<i>paint attribute</i>[,<i>border attribute</i>][,<i>bckgrnd attribute</i>]]</pre>
+<h4>Comments:</h4>
+<p>The <span class="code">PAINT</span> statement fills in an arbitrary graphics figure of the specified border attribute with the specified paint attribute. If <span class="code"><i>paint attribute</i></span> is not given, it will default to the foreground attribute (3 or 1). <span class="code"><i>border attribute</i></span> defaults to <span class="code"><i>paint attribute</i></span>. See the <a href="COLOR.html">COLOR</a> and <a href="PALETTE.html">PALETTE</a> statements for more information.</p>
+<p><span class="code">PAINT</span> must start on a non-border point, otherwise, <span class="code">PAINT</span> will have no effect.</p>
+<p><span class="code">PAINT</span> can fill any figure, but painting jagged edges or very complex figures may result in an &quot;<span class="code">Out of memory</span>&quot; error. The <span class="code">CLEAR</span> statement may be used to increase the amount of stack space available.</p>
+<p>Points that are specified outside the limits of the screen will not be plotted and no error will occur.</p>
+<p>See the <a href="SCREENS.html">SCREEN</a> statement for a description of the different screen modes.</p>
+<h4>Paint Tiling</h4>
+<p><span class="code">PAINT</span> tiling is similar to <span class="code">LINE</span> styling. Like <span class="code">LINE</span>, <span class="code">PAINT</span> looks at a tiling mask each time a point is put down on the screen.</p>
+<p>If <span class="code"><i>paint attribute</i></span> is omitted, the standard foreground attribute is used.</p>
+<p>If <span class="code"><i>paint attribute</i></span> is a numeric formula, then the number must be a valid color, and it is used to paint the area as before.</p>
+<p>If <span class="code"><i>paint attribute</i></span> is a string formula, then tiling is performed as follows:</p>
+<p>The tile mask is always eight bits wide and may be from 1 to 64 bytes long.</p>
+<p>Each byte in the tile string masks eight bits along the x axis when putting down points. Each byte of the tile string is rotated as required to align along the y axis, such that:</p>
+<pre><i>tile_byte_mask</i>=<i>y </i>MOD<i> tile_length</i></pre>
+<p>where <span class="code"><i>y</i></span> is the position of the graphics cursor on the y-axis.</p>
+<p><span class="code"><i>tile_length</i></span> is the length in bytes of the tile string defined by the user (1 to 64 bytes).</p>
+<p>This is done so that the tile pattern is replicated uniformly over the entire screen (as if a <span class="code">PAINT (0,0)..</span> were used).</p>
+<pre>x Increases --&gt;        Bit of Tile Byte
+x,y  8 7 6 5 4 3 2 1
+0,0 |x|x|x|x|x|x|x|x|  Tile byte 1
+0,1 |x|x|x|x|x|x|x|x|  Tile byte 2
+0,2 |x|x|x|x|x|x|x|x|  Tile byte 3
+.
+.
+.
+0,63 |x|x|x|x|x|x|x|x| Tile byte 64
+                       (maximum allowed)</pre>
+<p>In high-resolution mode (<span class="code">SCREEN 2</span>), the screen can be painted with Xs by the following statement:</p>
+<pre>PAINT (320,100),CHR$(&amp;H81)+CHR$(&amp;H42)+CHR$(&amp;H24)+CHR$(&amp;H18)+CHR$(&amp;H18)+CHR$(&amp;H24)+CHR$(&amp;H81)</pre>
+<p>This appears on the screen as follows:</p>
+<pre>x increases --&gt;
+0,0 |x| | | | | | |x|  CHR$(&amp;H81)  Tile byte 1
+0,1 | |x| | | | |x| |  CHR$(&amp;H42)  Tile byte 2
+0,2 | | |x| | |x| | |  CHR$(&amp;H24)  Tile byte 3
+0,3 | | | |x|x| | | |  CHR$(&amp;H18)  Tile byte 4
+0,4 | | | |x|x| | | |  CHR$(&amp;H18)  Tile byte 5
+0,5 | | |x| | |x| | |  CHR$(&amp;H24)  Tile byte 6
+0,6 | |x| | | | |x| |  CHR$(&amp;H42)  Tile byte 7
+0,7 |x| | | | | | |x|  CHR$(&amp;H81)  Tile byte 8</pre>
+<p>Since there are two bits per pixel in medium-resolution mode (<span class="code">SCREEN 1</span>), each byte of the tile pattern only describes four pixels. In this case, every two bits of the tile byte describes one of the four possible colors associated with each of the four pixels to be put down. </p>
+<p><span class="code"><i>bckgrnd attribute</i></span> specifies the background tile pattern or color byte to skip when checking for boundary termination. <span class="code"><i>bckgrnd attribute</i></span> is a string formula returning one character. When omitted, the default is <span class="code">CHR$(0)</span>.</p>
+<p>Occasionally, you may want to paint tile over an already painted area that is the same color as two consecutive lines in the tile pattern. <span class="code">PAINT</span> quits when it encounters two consecutive lines of the same color as the point being set (the point is surrounded). It is not possible to draw alternating blue and red lines on a red background without <span class="code"><i>bckgrnd attribute</i></span>. <span class="code">PAINT</span> stops as soon as the first red pixel is drawn. By specifying red (<span class="code">CHR$(&amp;HAA)</span>) as the background attribute, the red line is drawn over the red background.</p>
+<p>You cannot specify more than two consecutive bytes in the tile string that match the background attribute. Specifying more than two results in an &quot;<span class="code">Illegal function call</span>&quot; error.</p>
+<h4>Examples:</h4>
+<pre>10 CLS
+20 SCREEN 1
+30 LINE (0, 0)-(100, 150), 2, B
+40 PAINT (50, 50), 1, 2
+50 LOCATE 20, 1</pre>
+<p>The <span class="code">PAINT</span> statement in line 40 fills in the box drawn in line 30 with  color 1.</p>
+
+</body>
+</html>

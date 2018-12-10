@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>EXP Function</h1>
+<h4>Purpose:</h4>
+<p>To return <i>e</i> (the base of natural logarithms) to the power of <span class="code"><i>x</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>EXP</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><i>x</i> must be less than 88.02969.</p>
+<p>If <span class="code">EXP</span> overflows, the &quot;<span class="code">Overflow</span>&quot; error message appears; machine infinity with the appropriate sign is supplied as the result, and execution continues.</p>
+<p><span class="code">EXP(<i>x</i>)</span> is calculated in single precision, unless the <span class="code">/<b>d</b></span> switch is used when GW-BASIC is executed.</p>
+<h4>Examples:</h4>
+<pre>10 X = 5 
+20 PRINT EXP(X-1) 
+RUN 
+ 54.59815</pre>
+<p>Prints the value of <i>e </i>to the 4th power.</p>
+</body>
+</html>

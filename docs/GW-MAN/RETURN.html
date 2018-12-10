@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RETURN Statement</h1>
+<h4>Purpose:</h4>
+<p>To return from a subroutine.</p>
+<h4>Syntax:</h4>
+<pre><b>RETURN</b> [<i>line number</i>]</pre>
+<h4>Comments:</h4>
+<p>The <span class="code">RETURN</span> statement causes GW-BASIC to branch back to the statement following the most recent <span class="code">GOSUB</span> statement. A subroutine may contain more than one <span class="code">RETURN</span> statement to return from different points in the subroutine. Subroutines may appear anywhere in the program.</p>
+<p><span class="code">RETURN <i>line number</i></span><i> </i>is primarily intended for use with event trapping. It sends the event-trapping routine back into the GW-BASIC program at a fixed line number while still eliminating the <span class="code">GOSUB</span> entry that the trap created.</p>
+<p>When a trap is made for a particular event, the trap automatically causes a <span class="code">STOP</span> on that event so that recursive traps can never take place. The <span class="code">RETURN</span> from the trap routine automatically does an <span class="code">ON</span> unless an explicit <span class="code">OFF</span> has been performed inside the trap routine.</p>
+<p>The non-local <span class="code">RETURN</span> must be used with care. Any <span class="code">GOSUB</span>, <span class="code">WHILE</span>, or <span class="code">FOR</span> statement active at the time of the trap remains active.</p>
+
+</body>
+</html>

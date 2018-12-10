@@ -1,0 +1,49 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ERROR Statement</h1>
+<h4>Purpose:</h4>
+<p>To simulate the occurrence of an error, or to allow the user to define error codes.</p>
+<h4>Syntax:</h4>
+<pre><b>ERROR </b><i>integer expression</i></pre>
+<h4>Comments:</h4>
+<p>The value of <span class="code"><i>integer expression</i></span> must be greater than 0 and less than 255.</p>
+<p>If the value of <span class="code"><i>integer expression</i></span> equals an error code already in use by GW-BASIC, the <span class="code">ERROR</span> statement simulates the occurrence of that error, and the corresponding error message is printed.</p>
+<p>A user-defined error code must use a value greater than any used by the GW- BASIC error codes. There are 76 GW-BASIC error codes at present. It is preferable to use a code number high enough to remain valid when more error codes are added to GW-BASIC.</p>
+<p>User-defined error codes may be used in an error-trapping routine.</p>
+<p>If an <span class="code">ERROR</span> statement specifies a code for which no error message has been defined, GW-BASIC responds with the message &quot;<span class="code">Unprintable Error</span>&quot;.</p>
+<p>Execution of an <span class="code">ERROR</span> statement for which there is no error-trapping routine causes an error message to be printed and execution to halt.</p>
+<p>For a complete list of the error codes and messages already defined in GW-BASIC, refer to <a href="Appendix A.html">Appendix A in the GW-BASIC User's Guide</a>.</p>
+<h4>Examples:</h4>
+<p>The following examples simulate error 15 (the code for &quot;<span class="code">String too long</span>&quot;):</p>
+<pre>10 S=10
+20 T=5
+30 ERROR S+T
+40 END
+RUN
+ String too long in 30</pre>
+<p>Or, in direct mode:</p>
+<pre>ERROR 15          (you type this line)
+ String too long  (GW-BASIC types this line)</pre>
+<p>The following example includes a user-defined error code message.</p>
+<pre>.
+.
+.
+110 ON ERROR GOTO 400
+120 INPUT &quot;WHAT IS YOUR BET&quot;;B
+130 IF B&gt;5000 THEN ERROR 210
+.
+.
+.
+400 IF ERR=210 THEN PRINT &quot;HOUSE LIMIT IS $5000&quot;
+410 IF ERL=130 THEN RESUME 120
+.
+.
+.</pre>
+</body>
+</html>

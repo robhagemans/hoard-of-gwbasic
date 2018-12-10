@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>INPUT# Statement</h1>
+<h4>Purpose:</h4>
+<p>To read data items from a sequential file and assign them to program variables.</p>
+<h4>Syntax:</h4>
+<pre><b>INPUT#</b> <i>file number</i>, <i>variable list</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the number used when the file was opened for input.</p>
+<p><span class="code"><i>variable list</i></span> contains the variable names to be assigned to the items in the file.</p>
+<p>The data items in the file appear just as they would if data were being typed on the keyboard in response to an <span class="code">INPUT</span> statement.</p>
+<p>The variable type must match the type specified by the variable name.</p>
+<p>With <span class="code">INPUT#</span>, no question mark is printed, as it is with <span class="code">INPUT</span>.</p>
+<h4>Numeric Values</h4>
+<p>For numeric values, leading spaces and line feeds are ignored. The first character encountered (not a space or line feed) is assumed to be the start of a number. The number terminates on a space, carriage return, line feed, or comma.</p>
+<h4>Strings</h4>
+<p>If GW-BASIC is scanning the sequential data file for a string, leading spaces and line feeds are ignored.</p>
+<p>If the first character is a double quotation mark (<span class="code">&quot;</span>), the string will consist of all characters read between the first double quotation mark and the second. A quoted string may not contain a double quotation mark as a character. The second double quotation mark always terminates the string.</p>
+<p>If the first character of the string is not a double quotation mark, the string terminates on a comma, carriage return, line feed, or after 255 characters have been read.</p>
+<p>If end of the file is reached when a numeric or string item is being <span class="code">INPUT</span>, the item is terminated.</p>
+<p><span class="code">INPUT#</span> can also be used with random files.</p>
+</body>
+</html>

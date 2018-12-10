@@ -1,0 +1,199 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter One: Blast Off!</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter One: Blast Off!</H2>
+<BR>
+</center>
+
+<P>
+In science fiction movie thrillers, the characters talk with their computers.  Instead of keyboards and television screens, these fictional computers have microphone "ears" that understand spoken English, and electronic voices that sound perfectly natural.  Put one of these computers on wheels, or give it legs, and you have the perfect electronic companion: a robot that is easy to use and travels with you to the ends of the universe.  You are not likely to find one of these on the shelves of your local electronics store.  Not yet, anyway.
+</P>
+<P>
+The real computers of today are increasingly powerful.  While they have not yet caught up with the movies, they are making great progress in voice recognition, vision, and speech.  Every few months a new machine or a new program appears that can do things never done before.  We now have encyclopedias on personal computers.  When you look up a subject you can see a short video and listen to an explanation.  Other computers create an electronic world that you see through special video glasses and touch with an electronic glove.  Coming soon will be tiny machines that use light beams instead of electricity and perform tens of thousands of functions at the same instant.  Even with these exciting prospects, we are not anywhere close to the limit of what can be done.
+</P>
+<P>
+The future of computing can be stated in three words: smaller, faster, and cheaper.
+</P>
+<P>
+With computers popping up all over, you might as well learn how they work; and since you cannot yet just talk it over with your machine, you will have to begin at a keyboard.  Fortunately, computers are not magic.  They <B>DO</B> have a language of their own, but it can be learned step-by-step.  You do not have to be a super brain.  In the next few chapters you will not only learn how to use your personal computer to play games or run store-bought packages, you will learn how to make it do what you want it to.
+</P>
+
+<H3>PROGRAMMING</H3>
+<P>
+A computer language is a set of commands or statements that make sense both to a computer and a human.  The BASIC computer language is one of many languages for getting a computer to do what we want.  BASIC is a great language for beginners.  Its simplicity makes it easy to remember.  It is also powerful, which means that it can make the computer do a great variety of tasks.  Don't be scared by the word <I>language</I>.  Learning the BASIC language is a lot simpler than learning Spanish, French, or Chinese.  Remember our definition of a computer language.  It is supposed to make sense to the human, too.
+</P>
+<P>
+Suppose you want to make some words appear on your computer screen.  First you do your thinking like an ordinary person.  You must decide what you want to say and where the words are to be placed.  Then, using BASIC, you type in the PRINT command.  The computer does not really <I>understand</I> the word PRINT.  Before your words can appear on the screen, the computer translates PRINT into a collection of ones and zeros.  Your idea, which you typed in as PRINT ends up as something like 1101 0010.  Writing programs in the ones and zeros of the computer's native language is possible.  However, languages like BASIC make the whole process much easier.
+</P>
+<P>
+A numbering system using only ones and zeros is called a <B>binary</B> system.  We are more accustomed to decimal or base ten numbering.  This preference for ten probably comes from our having ten fingers.  Counting by tens seems simple and easy because that is how we first learned to count. The decimal system is not more correct than any other system.    Indeed, any number, which you can write in ordinary numerals, can also be written in binary.  Expressing numbers with ones and zeros may seem unnatural to us, but it works perfectly for computers.  Thank goodness for BASIC.  We can use words like PRINT and we do not have to completely change the way we think.
+</P>
+<P>
+The idea of <I><B>programming</B></I> a computer is one that can be scary for beginners.  Even people who regularly use computers or play video games sometimes think that writing the programs takes special skills.  Actually, it only requires clear thinking.  A computer program is nothing more than a list of commands or statements.  Each statement tells the computer to do something.  We have already been introduced to one such statement in BASIC.  That was the PRINT command.  Let's explore this some more.
+</P>
+<P>
+In BASIC, each line of a program has a line number.  For example, using PRINT, we can ask the computer to make something appear on the screen: 
+</P>
+<P>
+<PRE>
+60 PRINT "Blast Off With BASIC !"
+</PRE>
+</P>
+<P>
+Our line number is 60.  The number 60 is not really important in itself.  It acts more as a label for the line.  The words <B>Blast Off With BASIC !</B> are enclosed in quotation marks.  The quotation marks tell BASIC to put the letters on the screen exactly as they are written.  The PRINT statement is also capitalized.  However, this is not a requirement of BASIC.  It is simply for clarity in this book.  We now have a complete computer program.  True, it may be short, but it is a real program.  We didn't even need any magic.
+</P>
+<P>
+The next step is to have the computer process our program.  We will enter the statement and then instruct the computer to <I>run</I> or <I>execute</I> this PRINT statement.  To do this, you must enter some keyboard commands that make BASIC available.  How you do this depends on how your personal computer has been set up and on additional programs and features you might have purchased.  On IBM personal computers, BASIC is supplied with the Disk Operating System (DOS).  To reach BASIC, start up your machine and then enter the command:
+<BR><P></P><PRE>
+BASICA
+</PRE><P></P>
+You should see something close to this appear at the top of your screen:
+<P></P>
+<PRE>
+The IBM Personal Computer Basic
+Version A3.30 Copyright IBM Corp. 1984, 1985, 1986, 1987
+60225 Bytes free
+
+0k
+</PRE>
+<P></P>
+If, instead of the above messages, you saw:
+<BR><P></P><PRE>
+Bad command or file name
+</PRE><P></P>
+then you will need to ask for help or check the manuals that came with your personal computer.  Look in the index for BASIC or BASICA.  Many IBM <I>compatible</I> personal computers are not supplied with BASIC as standard equipment.  In these cases, the BASIC programming language may have to be purchased separately.
+</P>
+<P>
+One of the most popular versions of the BASIC language created for IBM compatible personal computers is GW-BASIC from Microsoft Corporation. GW-BASIC is started with the same BASICA command as IBM BASIC.  All programs in this book have been successfully used with GW-BASIC.
+</P>
+<P>
+If you have a problem getting into BASIC on your personal computer then now is the time to stop and get the problem solved.  The rest of this book depends on you being able to try out commands and programs at your computer.  You cannot learn how to a write program by reading about it.  You must do it.
+</P>
+<P>
+Now that your computer is ready to accept BASIC commands, enter our program exactly as it is written here.  Be sure to press the ENTER key at the end of the line.
+<P></P><PRE>
+60 PRINT "Blast Off With BASIC !"
+</PRE><P></P>
+Now for the moment of truth.  Type in the word RUN and press the ENTER key.  The words
+<BR><P></P><PRE>
+Blast Off With BASIC !
+</PRE><P></P>
+will be displayed on your screen.  Notice that the quotation marks do not appear.  The quotation marks are part of the BASIC PRINT statement.  They are not part of what will be PRINTed.
+</P>
+<P>
+Now that we have a real computer program, let's see if we can make it do more.  First, the screen is awfully cluttered.  Perhaps we can clear away the existing words before we print our line.  To do this, add a BASIC statement that will clear the screen before executing the PRINT statement.  Enter the line:
+<BR><P></P><PRE>
+10 CLS
+</PRE><P></P>
+and press the ENTER key again.  Incidentally, every time you enter a line of your program you must press the ENTER key.  Whenever you are asked to enter a line or statement, be sure to press ENTER.  As you progress through these examples you are not going to be told exactly which key to press every time.  Do not be afraid of doing something wrong or of breaking your computer.  Making mistakes is a normal part of programming.  If you enter something that BASIC does not understand, it will give you an error message.  As for breaking, it would be difficult to really hurt your personal computer with commands entered under BASIC.
+</P>
+<P>
+Now type RUN.  This is a little more exciting.  Let's do some more.  Enter these lines:
+<BR><P></P><PRE>
+20 PRINT "Please type your name and press the ENTER key"
+30 INPUT WHO$
+40 CLS
+50 PRINT WHO$ "is going to"
+</PRE><P></P>
+Again, type RUN and then respond to the question.  My screen looks like this:
+<BR><P></P><PRE>
+Brian is going to
+Blast Off With BASIC !
+</PRE><P></P>
+We have added several new statements to our BASIC program.  To understand what the program is doing, let's discuss each line.  Here is the complete program:
+<BR><P></P><PRE>
+10 CLS
+20 PRINT "Please type your name and press the ENTER key"
+30 INPUT WHO$
+40 CLS
+50 PRINT WHO$ "is going to"
+60 PRINT "Blast Off With BASIC !"
+</PRE><P></P>
+Line 10 is the command telling BASIC to clear the screen.  Line 20 is a PRINT command that asks you to enter your name from the keyboard.  The words after the PRINT statement are enclosed in quotation marks, so BASIC understands to place them on the screen exactly as they are written.  At this point, your computer does not know that you have asked a person to type on the keyboard.  The words in the quotation marks do not mean anything to the computer.  They could as easily be "Mutant Hamsters."
+</P>
+<P>
+Line 30 introduces a new BASIC statement.  INPUT tells the computer to stop executing instructions and wait for someone to enter something from the keyboard.  Notice the line numbers.  The first BASIC statement, the CLS or clear screen command is on line 10.  The final statement, number 60, was the first instruction we entered.  The instructions are listed in numerical order.  It does not matter that we entered line 60 first.  When BASIC runs our program, it will start with the lowest numbered line.  Therefore, as our program began running, BASIC cleared the screen, printed our question on the screen, and then at the INPUT on line 30, BASIC stopped and waited for input from the keyboard.
+</P>
+<P>
+You probably noticed there is more on line 30 than INPUT.  The full statement that we entered was:
+<P></P><PRE>
+30 INPUT WHO$
+</PRE><P></P>
+The WHO$ is not part of the BASIC command.  Instead, it represents one of the most important concepts in all computer programming.  It is a <B>variable name</B>.  When line 30 of our program is executed, BASIC stops and waits for you to enter something.  Whatever you enter, your name for instance, will be placed in a variable named WHO$.  Think of a variable as a mailbox.  In this case, we have a mailbox by the name of WHO$.  Inside that mailbox is whatever you entered.  When I run this program, the WHO$ mailbox contains the word "Brian."  It could just as easily hold the words "Captain Courageous."  This one mailbox, or variable name could hold anyone's name.  Later in our program we may need to use the letters stored inside the mailbox.  When this happens, we just use WHO$.  Our program does not need to know that the word "Brian" is important, it just needs to know that it can find a word in a place called WHO$.  On line 50 we will see exactly how this is done.
+</P>
+<P>
+The word WHO$ is a label.  Instead of WHO$, we could have tried USER$ or STUDENT$.  An important part of programming will be creating variable names and filling these mailboxes with the right contents.  As we write a program, we must remember exactly how we have named each variable.
+</P>
+<P>
+The variable that we filled on line 40 gets used on line 50.
+<BR><P></P><PRE>
+50 PRINT WHO$ "is going to"
+</PRE><P></P>
+Here is our old familiar PRINT statement again.  However, it is slightly different than when we last saw it.  Notice that the variable name WHO$ is NOT included within the quotation marks!  What is BASIC going to do?  Instead of placing the word WHO$ on the screen, BASIC will PRINT the <i>contents</i> of WHO$.  In other words, if you put your name into the WHO$ mailbox, BASIC will print your name on the screen when it executes line 50.
+</P>
+<P>
+After it is done printing your name it will then display the letters contained within the quotation marks.
+</P>
+<P>
+I could have written:
+<BR><P></P><PRE>
+50 PRINT "Brian is going to"
+</PRE><P></P>
+but, unless your name is Brian, you probably would not like this little program.  Variables help us write BASIC programs that can be used for different people on different days.
+</P>
+<P>
+If you have any confusion about how the variable name works outside of the quotation marks, try entering line 50 like this:
+<BR><P></P><PRE>
+50 PRINT "WHO$ is going to"
+</PRE><P></P>
+Once the WHO$ is placed inside the quotation marks, BASIC cannot tell that it is a variable name.  This is a common mistake.
+</P>
+<P>
+Variables are called variables because what they hold can <i>vary</i>, or change, each time the program is executed.  Indeed, the same variable name can hold several different items during one run of a program.  Of course, it can hold only one item at a time.  Each time we execute an INPUT WHO$ statement we would lose whatever had been held in the mailbox.  Fortunately, the same idea does not apply to using the variable in a PRINT statement.  We could PRINT WHO$ as many times as we like.  The name in WHO$ is going to stay there until we change it.
+</P>
+<P>
+Most programs that you write will have many variables.  Try creating some INPUT statements that ask for your first name, last name, and age.  Then, modify line 50 to look something like this:
+<BR><P></P><PRE>
+50 PRINT FIRSTNAME$ LASTNAME$ "who is "AGE$ "is going to"
+</PRE><P></P>
+You will have to construct separate PRINT and INPUT statements to ask each question and store each response in the right variable name.  Also, remember that BASIC executes the lines in numerical order.  You cannot have more than one line with the same number.  Above all, don't get discouraged if your PRINT and INPUT statements do not work exactly right the first time.  As you type in your program, you can use the BASIC command LIST to display it on your screen.  This will allow you to see all of the statements in order and let you type in new or different lines.
+</P>
+<P>
+This chapter introduced programming.  We created a six-line program that asks a question, remembers the answer, and prints our own words on the screen.  More importantly, we learned that computer programs are built line-by-line out of BASIC statements.  Specifically, we learned that CLS clears the screen, PRINT displays information on the screen, and the INPUT statement accepts input from the keyboard.  In the rest of this book, we will learn a few more commands plus how to make BASIC skip around and execute only certain lines within a program.  We will also learn about the different kinds of variable names.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+</BODY>
+</HTML>

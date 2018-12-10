@@ -1,0 +1,582 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Ten: It All Adds Up</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Ten: It All Adds Up</H2>
+<BR>
+</center>
+
+<P>
+  Just  as programs are written one statement at a time, knowledge of programming grows command by command.    Each  time
+  you  learn a new statement, you can instantly change the way
+  you write programs.  You may even go back  and  change  your
+  earlier  programs,  taking  advantage  of the power of newly
+  learned statements to either simplify a program  or  to  add
+  new functions.
+</P>
+<P>
+  Although  learning the language of BASIC is important, it is
+  equally important to pay attention to how programs  are  put
+  together.    Programming  has two parts: the statements, and
+  the technique or logic.  Technique is the <i>know how </i> of programming.  Good technique means that a program is well writ-
+  ten:  the  structure  is  clear,  the  routines  make sense,
+  program flow is easy to see, and variables have  descriptive
+  names.    A  poorly written program is bad news even when it
+  uses fancy BASIC commands.
+</P>
+<P>
+
+  Good technique results from clear thinking  and  good  planning.   In chapter three, your BASIC vocabulary consisted of
+  only six words: PRINT, CLS, INPUT, GOTO, IF-THEN,  and  END.
+  Yet,  even these six statements can be used to write useful,
+  user friendly programs.  What counts is not which statements
+  are used but how they are arranged.
+</P>
+<P>
+
+  In this chapter, we will write a program that creates three-digit addition problems for you to answer.  The program will
+  keep track of your score.  Nearly all of the  commands  used
+  in  this  program have already been introduced.  Now we will
+  concentrate on program organization.  Let's jump  right  in.
+  Here is the mainline routine:
+</P>
+<P>
+
+<PRE>
+10  REM *********************************************************
+20  REM *  PLUS1                                                *
+30  REM *  Math drill: make up three-digit addition problems.   *
+40  REM *********************************************************
+50  CLS
+60  NUMWRONG% = 0           'SET NUMBER WRONG TO ZERO
+70  GOSUB 330               'DISPLAY INSTRUCTIONS
+80  FOR NUMPROB% = 0 TO 9
+90    RANDOMIZE TIMER
+100   A% = INT(100 + RND * 899)
+110   B% = INT(100 + RND * 899)
+120   SUM% = A% + B%
+130   PRINT
+140   PRINT
+150   PRINT " "A%
+160   PRINT "+"B%
+170   PRINT "_______"
+180   INPUT ANSWER%
+190 IF ANSWER% = SUM% THEN NEXT NUMPROB% ELSE GOSUB 410:GOTO 180
+200 GOSUB 230               'DO THE SCORING
+210 GOSUB 270               'DISPLAY THE SCORE
+220 END
+</PRE>
+</P>
+<P>
+
+  The  program  uses  four  subroutines.   These are called by
+  GOSUB statements on lines 70, 190, 200, and 210.  Except for
+  the GOSUB on line 190, each has a comment to the  right  explaining the job of the subroutine.
+</P>
+<P>
+
+  Line  60  assigns  a  value  of  zero to an integer variable
+  called NUMWRONG%.  The program uses this  variable  to  keep
+  track  of the number of wrong answers.  This line also has a
+  comment to the right.  It is a good idea to add comments  to
+  every line that creates a variable.
+</P>
+<P>
+
+  Line  80  begins  a FOR-NEXT loop.   Where is the end of the
+  loop?  The NEXT statement is part of the IF-THEN command  on
+  line 190.  We will explain line 190 in great detail shortly.
+  As the FOR-NEXT loop begins, the variable NUMPROB% is set to
+  zero.    NUMPROB%  stands for <i>number of problems</i>.  A loop of
+zero through nine displays ten addition problems.
+</P>
+<P>
+
+  The three digit numbers used in  the  addition  problem  are
+  created  by  the next three lines.  Line 90 seeds the random
+  number generator with the number in TIMER.   As you  recall,
+  TIMER  holds the number of seconds, and hundredths of a second, since midnight.   With the generator  seeded,  the  RND
+  function  can be used in the next two lines to supply random
+  numbers.  The two random number formulas on  lines  100  and
+  110  are  a  bit  different than those we studied in chapter
+  five.  Let's explore what happens.  We know that RND  delivers  a  number  in  the  range of .0000001 through .9999999.
+  Look how RND is used in the formula.   My  Dear  Aunt  Sally
+  tells  us  to  do  the  multiplication  first.   So multiply
+  .0000001 by 899.  This gives us .0000899.  Then add  100  to
+  produce  100.0000899.    The INT function does not round, so
+  drop everything to the right of  the  decimal  point.    The
+  final  result is 100.  The number 100 is the lowest possible
+  random number which can be produced by our formula.  Now try
+  the other extreme.   Multiply .9999999  by  899  to  produce
+  898.9999.  Add 100 to get 998.9999.  Let INT drop everything
+  to  the right of the decimal point.  998 is the highest number which can be produced by our formula.
+</P>
+<P>
+
+  To check our results, enter this little program:
+</P>
+<P>
+
+<PRE>
+10 PRINT INT(100 + .0000001 * 899)
+20 PRINT INT(100 + .9999999 * 899)
+</PRE>
+</P>
+<P>
+
+  This random number formula produces numbers in the range 100
+  through  998.   Therefore, we know that the program will always have two numbers, each of three digits, to  display  on
+  the  screen.   One random number is assigned to the variable
+  A% and another is assigned to B%.
+</P>
+<P>
+
+  Line 120 finds the answer to the addition problem.    It  is
+  stored  in  an integer variable called SUM% and will be used
+  to see if you have guessed correctly.  Notice that  SUM%  is
+  never  PRINTed.   Lines 130 through 170 display the problem.
+  The first two PRINT statements just provide some blank space
+  on the screen.   Otherwise, the disply would  be  too  cluttered.    Then,  line 150 PRINTs one blank space followed by
+  the integer variable A%.  The next line displays a plus sign
+  (+) followed by B%.  Since the plus sign takes up the  space
+  of one character on the screen, the blank space in the PRINT
+  on  line 150 is needed so the two numbers line up correctly.
+  Finally, line 170 draws a line under the  addition  problem.
+  The next move is up to you.
+</P>
+<P>
+
+  An  INPUT  statement on line 180 accepts the answer from the
+  player.  Their guess is stored in an integer variable called
+  ANSWER%.  Now we arrive at a complicated IF-THEN statement.
+</P>
+<P>
+
+  Line 190 closes the FOR-NEXT loop only if the  human  player
+  answers  correctly.    Alternative  one  of the IF-THEN-ELSE
+  statement is NEXT NUMPROB%.  When a correct answer is given,
+  the NEXT is executed and another trip through the  loop  begins:  NUMPROB%  is  increased  by one.   If NUMPROB% is not
+  greater than nine, then another two random numbers are  generated  and  displayed on the screen.  On the other hand, if
+  the human player answers incorrectly, then the ELSE part  of
+  the  IF-THEN  statement  is executed.   First, the GOSUB 410
+  branches to a subroutine which simply  keeps  track  of  the
+  number  of  wrong  answers.   In this routine, which we will
+  study later, NUMWRONG% is increased by one.   Then  a  short
+  message is printed, telling the player to try again.  At the
+  end  of  the subroutine, execution return back to the middle
+  of the IF-THEN statement.  The colon (:) adds  another  command  which  is  part of the ELSE:  GOTO 180.  This branches
+  back to the INPUT command so the player  can  enter  another
+  answer.
+</P>
+<P>
+
+  The  FOR-NEXT loop can only start over when a correct answer
+  is given to the addition problem.  The NEXT NUMPROB%  statement  is  only  executed  when ANSWER% is equal to SUM%.  No
+  matter how many tries it takes, the player must finally  get
+the right answer before the program will move on and present
+  another  addition problem.  And each wrong answer is counted
+  by the subroutine at line 410.
+</P>
+<P>
+
+  Since  the  FOR-NEXT loop runs from zero to nine, a total of
+  ten addition problems are created.   All  must  be  answered
+  correctly  before  execution continues with line 200.  BASIC
+  does not stop the FOR-NEXT loop until  NUMPROB%  is  <i>greater
+than </i>9.  NUMPROB% will be equal to ten by the time line 200
+is executed.   Therefore, NUMPROB% tells us how  many  addition  problems  we  solved.    This will be important when a
+  score is calculated.
+</P>
+<P>
+
+  Two GOSUBs and an END statement wrap up the  program.    The
+  first  GOSUB  calculates the score.  The second displays the
+  results.  Now let us look at the subroutines.
+</P>
+
+<H3>SUBROUTINES</H3>
+
+<P>
+
+
+  The  first  subroutine  to  be  executed  displays  the  instructions and performs one small trick.
+</P>
+<P>
+
+<PRE>
+330 REM *****  DISPLAY INSTRUCTIONS  *****
+340 PRINT "**********************************************************"
+350 PRINT "*  You will be given ten addition problems.  I will keep *"
+360 PRINT "*  track of your score.                                  *"
+370 PRINT "*  Press ENTER when you are ready to begin.              *"
+380 PRINT "**********************************************************"
+390 INPUT GARBAGE$
+400 RETURN
+</PRE>
+</P>
+<P>
+
+  Notice line 390.  The program stops after displaying the directions.    The  INPUT on line 390 waits for input from the
+  keyboard.   The reply, which should  be  nothing  more  than
+  pressing the enter key, is stored in a string variable named
+  GARBAGE$.    This  name is really descriptive.  It is called
+  GARBAGE$ because its contents are thrown away.   Nothing  is
+  ever done with GARBAGE$.  This variable is a garbage can instead of a mailbox.  Its only purpose is to stop the program
+  until the person using the computer reads the directions and
+  is ready to begin.
+</P>
+<P>
+
+  The  next  subroutine  is  called  whenever someone enters a
+  wrong answer:
+</P>
+<P>
+
+<PRE>
+410 REM *****  WRONG ANSWER  *****
+420 NUMWRONG% = NUMWRONG% + 1
+430 PRINT "Try Again"
+440 RETURN
+</PRE>
+</P>
+<P>
+
+  This  is  the  subroutine which is called from inside of the
+  ELSE portion of the  IF-THEN-ELSE  statement  on  line  190.
+  NUMWRONG%,  which had been set to zero on line 60 at the beginning of the program, is increased by one.   A short  message  is displayed on the screen, and then execution returns
+  for the rest of line 190.
+</P>
+<P>
+
+  Once ten addition problems have been answered it is time  to
+  calculate a score.  This is an interesting algorithm.
+</P>
+<P>
+
+<PRE>
+230 REM *****  DO THE SCORING  *****
+240 HUNDREDTHS! = NUMPROB% / (NUMPROB% + NUMWRONG%)
+250 PERCENT% = HUNDREDTHS! * 100
+260 RETURN
+</PRE>
+</P>
+<P>
+
+  Our FOR-NEXT loop demands that you keep trying a problem until  you  get it right.   This is different from most tests.
+  Usually you get one try at a problem and if you  are  wrong,
+  the  question  is  marked incorrect and you lose points.  In
+  this program, you also lose points,  but  you  have  to  try
+  again  on  the problem.  Because of this, each answer counts
+  as a separate problem.  Therefore, the total number of problems is equal to the ten which must be answered correctly to
+  complete the FOR-NEXT loop <i>plus </i>the number of wrong answers.
+This is not your ordinary test.
+</P>
+<P>
+
+  Check out line 240.   Now we can see  why  NUMPROB%  runs  a
+  FOR-NEXT loop from zero to nine.  The loop does not stop until NUMPROB% is equal to ten.  Ten is the number of addition
+problems  which  were answered correctly.  It is no accident
+  that the loop uses zero through nine.  This program can display any number of addition problems.  Only the upper  limit
+  on  the FOR-NEXT loop needs to be changed!  The scoring subroutine knows, by looking at  NUMPROB%,  how  many  problems
+  were answered correctly.  This is good planning.
+</P>
+<P>
+  Line  240 produces a score in hundredths.  It is stored in a
+  single precision variable.  To convert from hundredths  into
+  a  more  familiar percentage value, line 250 multiplies HUNDREDTHS! by 100.  This is the overall score.
+</P>
+<P>
+  This scoring subroutine is not the only one possible.    For
+  example,  if  only  ten  addition problems are created, then
+  each wrong answer could count ten points.  Multiply the number of wrong answers by ten and subtract that sum  from  100
+  percent to find the score.  This plan has a problem if someone  takes  more  than ten incorrect guesses to complete the
+  test.  They would end up with a score  below  zero!    Since
+scoring  happens  in a subroutine, you might wish to try out
+  this or another algorithm.
+</P>
+
+<H3>RACE AGAINST THE CLOCK</H3>
+<P>
+
+  Scoring 100 percent on addition problems is easy if you have
+  plenty  of time.   To make the test a little tougher, let us
+  see how quickly a person can solve the ten  problems.    Add
+  these  lines and then LIST the entire program to see how the
+  structure is changed.
+</P>
+<P>
+
+<PRE>
+20  REM *  PLUS2                                                *
+75  BEGTIME! = TIMER        'STORE BEGINNING TIME
+195 ENDTIME! = TIMER        'STORE ENDING TIME
+205 GOSUB 450               'CALCULATE THE TIME
+305 PRINT "Your time was"MINUTES%"minutes,"SEC%"seconds."
+365 PRINT "*  You will be timed.                               *"
+450 REM ***** CALCULATE THE TIME  *****
+460 ELAPSED% = ENDTIME! - BEGTIME!
+470 SEC% = ELAPSED% MOD 60
+480 ELAPSED% = ELAPSED% - SEC%
+490 MINUTES% = ELAPSED% \ 60
+500 RETURN
+</PRE>
+</P>
+<P>
+
+  First, notice that we are using the  TIMER  function  again.
+  This  time  we  are using it not merely to have some strange
+  numbers to seed the random number generator.   We are  using
+  it  as  a  real stopwatch timer.   Line 75 stores TIMER in a
+  single precision variable called BEGTIME!.  The position  of
+  this  statement  is important.   Recall that the <I>display instructions</I> subroutine beginning on line 330 asks the  player
+  to Press ENTER when you are ready to begin.  As soon a someone presses the enter key, line 75 is executed and the value
+  in  TIMER  is  stored in the BEGTIME! variable.  At that moment, the clock starts ticking.
+</P>
+<P>
+
+  After all problems in the FOR-NEXT loop have  been  answered
+  correctly,  BASIC  continues  execution of the program.  The
+  first instruction after the loop is line 195.   This  stores
+  TIMER  in another single precision variable called ENDTIME!.
+  Using BEGTIME! and ENDTIME! we can count the number of  seconds  used  to  solve the ten addition problems.  To do this
+  calculation, line 205 adds a GOSUB to run the subroutine beginning at line 450.
+</P>
+<P>
+
+  The input to the subroutine consists of the two  time  variables,  BEGTIME!  and ENDTIME!.   The output will be another
+  two variables, one with the number of  minutes  and  another
+with  the  number of seconds.  Four statements are needed to
+  turn the input into output.
+</P>
+<P>
+
+  Since  TIMER  holds  the number of seconds since midnight we
+  must do some subtraction to find out the number  of  seconds
+  which  have elapsed while the program was running.  Line 460
+subtracts BEGTIME! from ENDTIME! and stores  the  difference
+  in an integer variable called ELAPSED%.  Putting the elapsed
+  time  into  an  integer  variable  causes BASIC to round any
+  fractional seconds, like hundredths, into  a  whole  number.
+  ELAPSED%  is the number of seconds used to solve the ten addition problems.
+</P>
+<P>
+
+  The number in ELAPSED% certainly tells us how long a  person
+  took  to  answer the questions, but this time is in seconds.
+  We need to convert this number  into  ordinary  minutes  and
+  seconds,  like 2:30 to show two minutes, thirty seconds.  To
+  do this, the subroutine uses a new BASIC operator.  When  we
+  divide ELAPSED% by 60 the result is the number of whole minutes plus a remainder in seconds.  If we used ordinary division, dividing 150 seconds by 60 would result in 2.5.  While
+  2.5  minutes  is,  indeed, the same as 2:30, it does not yet
+  look like an ordinary time.  What we need is a way  to  find
+  the  remainder  when  dividing 150 by 60.   The MOD operator
+provides this ability.
+</P>
+<P>
+
+  Look at line 470.   Suppose ELAPSED% held  the  number  150.
+  The statement:
+</P>
+<P>
+
+<PRE>
+       470 SEC% = ELAPSED% MOD 60
+</PRE>
+</P>
+<P>
+
+  makes SEC% equal to the remainder which is left after 150 is
+divided  by 60.  MOD does not tell us how many times 60 went
+  into 150.  It simple stores the  remainder.    For  example,
+  these three statement all produce the same number:
+</P>
+<P>
+
+<PRE>
+10 PRINT  90 MOD 60
+20 PRINT 150 MOD 60
+30 PRINT 210 MOD 60
+</PRE>
+</P>
+<P>
+
+  MOD is an operator just like add (+), subtract (-), and multiply  (*).   It means give me the remainder.  MOD is not an
+operator that you will use often.  However, it is handy when
+  calculating times.
+</P>
+<P>
+
+  Now that we have the number of seconds safely stored in  the
+  integer  variable  SEC%,  we need to find the number of minutes.    First,  let's  remove  these  extra  seconds   from
+  ELAPSED%.   Line 480 subtracts SEC% from ELAPSED%.  Finally,
+  line 490 divides ELAPSED% by 60 to  produce  the  number  of
+  minutes.    We  know  that the division will produce a whole
+number because line 480 subtracted out the  remainder.    To
+  check our work, multiply the number of minutes by sixty, add
+  the number contained in SEC%, and make sure this matches the
+  number of seconds held in ELAPSED%.
+</P>
+<P>
+
+  The  two variables MINUTES% and SEC% are used as part of the
+  output display at the end of the program.  Line 305 is added
+  to PRINT the time following the score.
+</P>
+
+<H3>CHALLENGES</H3>
+<P>
+  Once you have become a wizard at adding three digit  numbers
+  in  your head, try using PLUS2 as a model for creating other
+  arithmetic programs.  Here are some ideas:
+</P>
+<P>
+
+<B>SUBTRACTION</B>
+</P>
+<P>
+
+  A subtraction program could  be  easily  created  by  making
+  slight changes.
+<OL>
+<LI>To  avoid  having a negative number as an answer, change
+      line 110 to a random number formula that  produces  only
+      two digit numbers.  Refer to "Random Number Formulas" on
+      page 56 to review.
+
+<LI>Change  line  120  from addition to subtraction.  Also,
+      change the name of the variable  from  SUM% to DIFFERENCE%.
+
+<LI>The plus sign (+) on line 160 must be changed and an extra space should be added so that the two numbers in the
+      subtraction problem line up correctly.
+
+<LI>Finally, change the directions on line 350.
+</OL>
+</P>
+<P>
+
+<B>MULTIPLICATION</B>
+</P>
+<P>
+
+  Multiplication of two three-digit numbers in your head without using scratch paper might be a little tough.
+</P>
+<P>
+<OL>
+<LI>Change both random number formulas on lines 100 and 110.
+Perhaps  A%  should  be a one or two digit number and B%
+      should only be a single digit.  Again, refer to  "Random
+      Number Formulas" on page 56 for help with new formulas.
+
+<LI>Change SUM% to PRODUCT% everywhere it is used.
+
+<LI>Change the addition symbol to an asterisk (*).
+
+<LI>Enter new directions.
+</OL>
+</P>
+<P>
+
+<B>DIVISION</B>
+</P>
+<P>
+
+  A  division  program  is more difficult.   Two solutions are
+  possible.  The first solution could demand the player  enter
+  a quotient and a remainder:
+</P>
+<P>
+<OL>
+
+<LI>Change  the  random  number formulas so that a two digit
+      number is divided by a one digit number.
+
+<LI>Use the MOD operator to find the remainder.
+
+<LI>Use integer division to find the quotient.
+
+<LI>Change the statements around line 180 to  ask  for  both
+      parts of the answer.
+
+<LI>Construct  IF-THEN  statements to check if both the quotient and the remainder are correct.
+
+<LI>Change the directions.
+</OL>
+</P>
+<P>
+
+  Another solution avoids the problem with remainders.
+</P>
+<P>
+<OL>
+<LI>Change the random number formulas so they  both  produce
+      single digit numbers (greater than zero).
+
+<LI>Multiply these together.
+
+<LI>Use the product and one of the random numbers as a division  problem  to display on the screen.  The answer, of
+      course, is the other random number.  Here is an example:
+<PRE>
+      Let A% equal 4.
+
+      Let B% equal 6.
+
+      Multiply the two and store the result in PRODUCT%.
+
+      Display the problem:
+
+      PRINT PRODUCT% "divided by"A%"="
+
+      which would appear as:
+
+      24 divided by 4 =
+
+      INPUT ANSWER% and check to see if it is equal to B%.
+</PRE>
+</OL>
+</P>
+<P>
+<B>MENU</B>
+</P>
+<P>
+  Once programs for addition, subtraction, multiplication, and
+  division  are  ready,  write  a  menu program to RUN each of
+  these others.  Replace the END statement on line 220 to  return control back to the menu.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>

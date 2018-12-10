@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>BLOAD Command</h1>
+<h4>Purpose:</h4>
+<p>To load an image file anywhere in user memory.</p>
+<h4>Syntax:</h4>
+<pre><b>BLOAD</b> <i>filename</i>[,<i>offset</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> is a valid string expression containing the device and filename.</p>
+<p><span class="code"><i>offset</i></span> is a valid numeric expression within the range of 0 to 65535. This is the offset into the segment, declared by the last <span class="code">DEF SEG</span> statement, where loading is to start.</p>
+<p>If offset is omitted, the offset specified at <span class="code">BSAVE</span> is assumed; that is, the file is loaded into the same location it was saved from.</p>
+<hr>
+  <p><b><i>Note</i></b></p>
+  <p><span class="code">BLOAD</span> does not perform an address range check. It is possible to <span class="code">BLOAD</span> anywhere in memory. You must not <span class="code">BLOAD</span> over the GW-BASIC stack space, a GW-BASIC program, or the GW-BASIC variable area.</p>
+<hr>
+<p>While <span class="code">BLOAD</span> and <span class="code">BSAVE</span> are useful for loading and saving machine language programs, they are not restricted to them. The <span class="code">DEF SEG</span> statement lets you specify any segment as the source or target for <span class="code">BLOAD</span> and <span class="code">BSAVE</span>. For example, this allows the video screen buffer to be read from or written to the diskette. <span class="code">BLOAD</span> and <span class="code">BSAVE</span> are useful in saving and displaying graphic images.</p>
+<h4>Examples:</h4>
+<pre>10 DEF SEG=&amp;HB800
+20 BLOAD&quot;PICTURE&quot;, 0</pre>
+<p>The <span class="code">DEF SEG</span> statement in line 10 points the segment at the screen buffer.</p>
+<p>The <span class="code">DEF SEG</span> statement in line 10 and the offset of 0 in line 20 guarantee that the correct address is used.</p>
+<p>The <span class="code">BLOAD</span> command in line 20 loads the file named <i>picture</i> into the screen buffer.</p>
+<hr>
+  <p><b><i>Note</i></b></p>
+  <p>The <a href="BSAVE.html">BSAVE</a> example in the next section illustrates how the file named picture is saved.</p>
+<hr>
+</body>
+</html>

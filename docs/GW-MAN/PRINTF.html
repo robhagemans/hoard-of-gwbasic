@@ -1,0 +1,58 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PRINT# and PRINT# USING Statements</h1>
+<h4>Purpose:</h4>
+<p>To write data to a sequential disk file.</p>
+<h4>Syntax:</h4>
+<pre><b>PRINT#</b><i>file number</i>,[<b>USING</b><i>string expressions</i>;]<i>list of expressions</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the number used when the file was opened for output.</p>
+<p><span class="code"><i>string expressions</i></span> consists of the formatting characters described in the <span class="code">PRINT USING</span> statement.</p>
+<p><span class="code"><i>list of expressions</i></span><i> </i>consists of the numeric and/or string expressions to be written to the file.</p>
+<p>Double quotation marks are used as delimiters for numeric and/or string expressions. The first double quotation mark opens the line for input; the second double quotation mark closes it.</p>
+<p>If numeric or string expressions are to be printed as they are input, they must be surrounded by double quotation marks. If the double quotation marks are omitted, the value assigned to the numeric or string expression is printed. If no value has been assigned, 0 is assumed. The double quotation marks do not appear on the screen. For example:</p>
+<pre>10 PRINT#1, A
+ 0
+</pre>
+<pre>10 A=26
+20 PRINT#1, A
+ 26</pre>
+<pre>10 A=26
+20 PRINT#1, &quot;A&quot;
+ A</pre>
+<p>If double quotation marks are required within a string, use <span class="code">CHR$(34)</span>(the ASCII character for double quotation marks). For example:</p>
+<pre>100 PRINT#1,&quot;He said,&quot;Hello&quot;, I think&quot;
+ He said, 0, I think</pre>
+because the machine assigns the value 0 the variable &quot;Hello.&quot;
+<pre>100 PRINT#1, &quot;He said, &quot;CHR$(34) &quot;Hello,&quot;CHR$(34) &quot; I think.&quot;
+ He said, &quot;Hello,&quot; I think</pre>
+<p>If the strings contain commas, semicolons, or significant leading blanks, surround them with double quotation marks. The following example will input &quot;CAMERA&quot; to A$, and &quot;AUTOMATIC 93604-1&quot; to B$:</p>
+<pre>10 A$=&quot;CAMERA, AUTOMATIC&quot;: B$=&quot;93604-1&quot;
+20 PRINT#1, A$; B$
+30 INPUT#1, A$, B$</pre>
+<p>To separate these strings properly, write successive double quotation marks using CHR$(34). For example:</p>
+<pre>40 PRINT#1,CHR$(34); A$; CHR$(34); CHR$(34); B$; CHR$(34) &quot;CAMERA,AUTOMATIC&quot;&quot;93604-1&quot;</pre>
+<p>The <span class="code">PRINT#</span> statement may also be used with the <span class="code">USING</span> option to control the format of the disk file. For example:</p>
+<pre>PRINT#1, USING&quot;$$###.##.&quot;; J; K; L</pre>
+<p><span class="code">PRINT#</span> does not compress data on the diskette. An image of the data is written to the diskette, just as it would be displayed on the terminal screen with a <span class="code">PRINT</span> statement. For this reason, be sure to delimit the data on the diskette so that it is input correctly from the diskette.</p>
+<p>In <span class="code"><i>list of expressions</i></span>, numeric expressions must be delimited by semicolons. For example:</p>
+<pre>PRINT#1, A; B; C; X; Y; Z</pre>
+<p>If commas are used as delimiters, the extra blanks inserted between print fields will also be written to the diskette. Commas have no effect, however, if used with the exponential format.</p>
+<p>String expressions must be separated by semicolons in the list. To format the string expressions correctly on the diskette, use explicit delimiters in <span class="code"><i>list of expressions</i></span>. For example, the following:</p>
+<pre>10 A$=&quot;CAMERA&quot;: B$=&quot;93604-1&quot;
+20 PRINT#1, A$, B$</pre>
+<p>gives a diskette image of:</p>
+<pre>CAMERA93604-1</pre>
+<p>Because there are no delimiters, this would not be input as two separate strings. To correct the problem, insert explicit delimiters into the <span class="code">PRINT#</span> statement as follows:</p>
+<pre>30 PRINT#1, A$; &quot;,&quot;; B$</pre>
+<p>This gives the following diskette image, which can be read back into two string variables:</p>
+<pre>CAMERA, 93604-1</pre>
+
+</body>
+</html>

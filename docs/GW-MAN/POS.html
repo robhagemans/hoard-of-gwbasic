@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>POS Function</h1>
+<h4>Purpose:</h4>
+<p>To return the current cursor position.</p>
+<h4>Syntax:</h4>
+<pre><b>POS</b>(<i>c</i>)</pre>
+<h4>Comments:</h4>
+<p>The leftmost position is 1.</p>
+<p><i><span class="code">c</span></i> is a dummy argument.</p>
+<h4>Examples:</h4>
+<pre>10 CLS
+20 WIDTH 80
+30 A$=INKEY$:IF A$=&quot;&quot;THEN GOTO 30 ELSE PRINT A$;
+40 IF POS(X)&gt;10 THEN PRINT CHR$(13);
+50 GOTO 30</pre>
+<p>Causes a carriage return after the 10th character is printed on each line of the screen.</p>
+
+</body>
+</html>

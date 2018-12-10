@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SGN Function</h1>
+<h4>Purpose:</h4>
+<p>To return the sign of <span class="code"><i>x</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>SGN</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span> is any numeric expression.</p>
+<p>If <span class="code"><i>x</i></span> is positive, <span class="code">SGN(<i>x</i>)</span> returns 1.</p>
+<p>If <span class="code"><i>x</i></span> is 0, <span class="code">SGN(<i>x</i>)</span> returns 0.</p>
+<p>If <i>x</i> is negative, <span class="code">SGN(<i>x</i>)</span> returns -1.</p>
+<p>This statement is similar to, but not the same as <span class="code">SIN(<i>x</i>)</span>, which returns a trigonometric function in radians, rather than in ones and zeros.</p>
+<h4>Examples:</h4>
+<pre>10 INPUT &quot;Enter value&quot;, x
+20 ON SGN(X)+2 GOTO 100, 200, 300</pre>
+<p>GW-BASIC branches to 100 if X is negative, 200 if X is 0, and 300 if X is positive.</p>
+
+</body>
+</html>

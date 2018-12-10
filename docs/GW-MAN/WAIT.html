@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WAIT Statement</h1>
+<h4>Purpose:</h4>
+<p>To suspend program execution while monitoring the status of a machine input port.</p>
+<h4>Syntax:</h4>
+<pre><b>WAIT </b><i>port number</i>, <i>n</i>[,<i>j</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>port number</i></span><i> </i>represents a valid machine port number within the range of 0 to 65535.</p>
+<p><span class="code"><i>n</i></span><i> </i>and <span class="code"><i>j</i></span><i> </i>are integer expressions in the range of 0 to 255.</p>
+<p>The <span class="code">WAIT</span> statement causes execution to be suspended until a specified machine input port develops a specified bit pattern.</p>
+<p>The data read at the port is <span class="code">XOR</span>ed with the integer expression <span class="code"><i>j</i></span>, and then <span class="code">AND</span>ed with <span class="code"><i>n</i></span>.</p>
+<p>If the result is zero, GW-BASIC loops back and reads the data at the port again.</p>
+<p>If the result is nonzero, execution continues with the next statement.</p>
+<p>When executed, the <span class="code">WAIT</span> statement tests the byte <span class="code"><i>n</i></span> for set bits. If any of the bits is set, then the program continues with the next statement in the program. <span class="code">WAIT</span> does not wait for an entire pattern of bits to appear, but only for one of them to occur.</p>
+<p>It is possible to enter an infinite loop with the <span class="code">WAIT</span> statement. You can exit the loop by pressing <span class="smallcaps">CTRL-BREAK</span>, or by resetting the system.</p>
+<p>If <span class="code"><i>j</i></span><i> </i>is omitted, zero is assumed.</p>
+<h4>Examples:</h4>
+<pre>100 WAIT 32,2</pre>
+<p>Suspends machine operation until port 32 receives 2 as input.</p>
+
+</body>
+</html>

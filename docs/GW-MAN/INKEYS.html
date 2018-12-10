@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>INKEY$ Variable</h1>
+<h4>Purpose:</h4>
+<p>To return one character read from the keyboard.</p>
+<h4>Syntax:</h4>
+<pre><i>v$</i>=<b>INKEY$</b></pre>
+<h4>Comments:</h4>
+<p>If no character is pending in the keyboard buffer, a null string (length zero) is returned.</p>
+<p>If several characters are pending, only the first is returned. The string will be one or two characters in length.</p>
+<p>Two character strings are used to return the extended codes described in <a href="Appendix C.html">Appendix C of the GW-BASIC User's Guide</a>. The first character of a two character code is zero.</p>
+<p>No characters are displayed on the screen, and all characters except the following are passed to the program:</p>
+<p><span class="smallcaps">CTRL-BREAK</span><br>
+<span class="smallcaps">CTRL-NUM LOCK</span><br>
+<span class="smallcaps">CTRL-ALT-DEL</span><br>
+<span class="smallcaps">CTRL-PRTSCR</span><br>
+<span class="smallcaps">PRTSCR</span></p>
+<h4>Examples:</h4>
+<pre>10 CLS: PRINT&quot;PRESS RETURN
+20 TIMELIMIT% = 1000
+30 GOSUB 1010
+40 IF TIMEOUT% THEN PRINT &quot;TOO LONG&quot; ELSE PRINT &quot;GOOD SHOW&quot;
+50 PRINT RESPONSE$
+60 END
+.
+.
+.
+1000 REM TIMED INPUT SUBROUTINE
+1010 RESPONSE$=&quot;&quot;
+1020 FOR N%=1 TO TIMELIMIT%
+1030 A$=INKEY$:IF LEN(A$)=0 THEN 1060
+1040 IF ASC(A$)=13 THEN TIMEOUT%=0: RETURN
+1050 RESPONSE$=RESPONSE$+A$
+1060 NEXT N%
+1070 TIMEOUT%=1: RETURN</pre>
+<p>When this program is executed, and if the <span class="smallcaps">RETURN</span> key is pressed before 1000 loops are completed, then &quot;<span class="code">GOOD SHOW</span>&quot; is printed on the screen. Otherwise, &quot;<span class="code">TOO LONG</span>&quot; is printed.</p>
+<p>Since an <span class="code">INKEY$</span> statement scans the keyboard only once, place <span class="code">INKEY$</span> statements within loops to provide adequate response times for the operator.</p>
+</body>
+</html>

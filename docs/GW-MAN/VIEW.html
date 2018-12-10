@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>VIEW Statement</h1>
+<h4>Purpose:</h4>
+<p>To define a physical viewport limit from <span class="code"><i>x1</i>,<i>y1</i></span> (upper-left x,y coordinates) to <span class="code"><i>x2</i>,<i>y2</i></span> (lower-right x,y coordinates).</p>
+<h4>Syntax:</h4>
+<pre><b>VIEW</b> [[<b>SCREEN</b>][(<i>x1</i>,<i>y1</i>)-(<i>x2</i>,<i>y2</i>) [,[<i>fill</i>][,[<i>border</i>]]]]</pre>
+<h4>Comments:</h4>
+<p><span class="code">RUN</span> or <span class="code">VIEW</span> with no arguments define the entire screen as the viewport.</p>
+<p><span class="code">(<i>x1</i>,<i>y1</i>)</span> are the upper-left coordinates.</p>
+<p><span class="code">(<i>x2</i>,<i>y2</i>)</span> are the lower-right coordinates.</p>
+<p>The <span class="code"><i>fill</i></span> attribute lets you fill the view area with color.</p>
+<p>The <span class="code"><i>border</i></span> attribute lets you draw a line surrounding the viewport if space for a border is available. If <span class="code"><i>border</i></span> is omitted, no border is drawn.</p>
+<p>The <span class="code"><i>x</i></span><i> </i>and <span class="code"><i>y</i></span><i> </i>coordinates must be within the physical bounds of the screen and define the rectangle within the screen that graphics map into. The <span class="code"><i>x</i></span><i> </i>and <span class="code"><i>y</i></span><i> </i>coordinate pairs will be sorted, with the smallest values placed first.</p>
+<p>Points are plotted relative to the viewpoint if the screen argument is omitted; that is, <span class="code"><i>x1</i></span><i> </i>and <span class="code"><i>y1</i></span><i> </i>are added to the <span class="code"><i>x</i></span><i> </i>and <span class="code"><i>y</i></span><i> </i>coordinates before the point is plotted.</p>
+<p>It is possible to have a varied number of pairs of <span class="code"><i>x</i></span><i> </i>and <span class="code"><i>y</i></span>. The only restriction is that <span class="code"><i>x1</i></span><i> </i>cannot equal <span class="code"><i>x2</i></span>, and <span class="code"><i>y1</i></span><i> </i>cannot equal <span class="code"><i>y2</i></span>.</p>
+<p>Points are plotted absolutely if the <span class="code">SCREEN</span> argument is present. Only points within the current viewpoint will be plotted.</p>
+<p>When using <span class="code">VIEW</span>, the <span class="code">CLS</span> statement clears only the current viewport. To clear the entire screen, you must use <span class="code">VIEW</span> to disable the viewports. Then use <span class="code">CLS</span> to clear the screen. <span class="code">CLS</span> does not move the cursor to home. Press <span class="smallcaps">CTRL-HOME</span> to send the cursor home, and clear the screen.</p>
+<h4>Examples:</h4>
+<p>The following defines a viewport such that the statement <span class="code">PSET(0,0),3</span> would set down a point at the physical screen location 10,10.</p>
+<pre>VIEW (10, 10)-(200, 100)</pre>
+<p>The following defines a viewport such that the point designated by the statement <span class="code">PSET(0,0),3</span> would not appear because 0,0 is outside of the viewport. <span class="code">PSET(10,10),3</span> would be within the viewport.</p>
+<pre>VIEW SCREEN (10, 10)-(200, 100)</pre>
+
+</body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>FRE Function</h1>
+<h4>Purpose:</h4>
+<p>To return the number of available bytes in allocated string memory.</p>
+<h4>Syntax:</h4>
+<pre><b>FRE</b>(<i>x$</i>)
+<b>FRE</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p>Arguments (<span class="code"><i>x$</i></span>) and (<span class="code"><i>x</i></span>) are dummy arguments.</p>
+<p>Before <span class="code">FRE (<i>x$</i>)</span> returns the amount of space available in allocated string memory, GW-BASIC initiates a &quot;garbage collection&quot; activity. Data in string memory space is collected and reorganized, and unused portions of fragmented strings are discarded to make room for new input.</p>
+<p>If <span class="code">FRE</span> is not used, GW-BASIC initiates an automatic garbage collection activity when all string memory space is used up. GW-BASIC will not initiate garbage collection until all free memory has been used. Garbage collection may take 1 to 1.5 minutes.</p>
+<p><span class="code">FRE(&quot;&quot;)</span> or any string forces a garbage collection before returning the number of free bytes. Therefore, using <span class="code">FRE(&quot;&quot;)</span> periodically will result in shorter delays for each garbage collection.</p>
+<p>It should be noted that the <span class="smallcaps" style='text-transform:
+uppercase'>ctrl-break </span>function cannot be used during this housecleaning process.</p>
+<h4>Examples:</h4>
+<pre>PRINT FRE(0)
+ 14542</pre>
+<p>Your computer may return a different value.</p>
+</body>
+</html>

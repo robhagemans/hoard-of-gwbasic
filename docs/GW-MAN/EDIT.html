@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>EDIT Command</h1>
+<h4>Purpose:</h4>
+<p>To display a specified line, and to position the cursor under the first digit of the line number, so that the line may be edited.</p>
+<h4>Syntax:</h4>
+<pre><b>EDIT</b> <i>line number</i>
+<b>EDIT</b> .</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>line number</i></span> is the number of a line existing in the program.</p>
+<p>A period (<span class="code">.</span>) refers to the current line. The following command enters <span class="code">EDIT</span> at the current line:</p>
+<pre>EDIT .</pre>
+<p>When a line is entered, it becomes the current line.</p>
+<p>The current line is always the last line referenced by an <span class="code">EDIT</span> statement, <span class="code">LIST</span> command, or error message.</p>
+<p>If <span class="code"><i>line number</i></span><i> </i>refers to a line which does not exist in the program, an &quot;<span class="code">Undefined Line Number</span>&quot; error occurs.</p>
+<h4>Examples:</h4>
+<pre>EDIT 150</pre>
+<p>Displays program line number 150 for editing.</p>
+</body>
+</html>

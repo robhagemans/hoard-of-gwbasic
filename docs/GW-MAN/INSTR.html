@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>INSTR Function</h1>
+<h4>Purpose:</h4>
+<p>To search for the first occurrence of string y$ in x$, and return the position at which the string is found.</p>
+<h4>Syntax:</h4>
+<pre><b>INSTR</b>([<i>n</i>,]<i>x$</i>,<i>y$</i>)</pre>
+<h4>Comments:</h4>
+<p>Optional offset <span class="code"><i>n</i></span> sets the position for starting the search. The default value for <span class="code"><i>n</i></span> is 1. If <span class="code"><i>n</i></span> equals zero, the error message &quot;<span class="code">Illegal argument in line number</span>&quot; is returned. <span class="code"><i>n</i></span> must be within the range of 1 to 255. If n is out of this range, an &quot;<span class="code">Illegal Function Call</span>&quot; error is returned.</p>
+<p><span class="code">INSTR</span> returns 0 if:</p>
+<ul>
+  <li><span class="code"><i>n</i></span> &gt; LEN(<span class="code"><i>x$</i></span>)</li>
+  <li><span class="code"><i>x$</i></span><i> </i>is null</li>
+  <li><span class="code"><i>y$</i></span><i> </i>cannot be found</li>
+</ul>
+<p>If <span class="code"><i>y$</i></span><i> </i>is null, <span class="code">INSTR</span> returns <span class="code"><i>n</i></span>.</p>
+<p><span class="code"><i>x$</i></span><i> </i>and <span class="code"><i>y$</i></span><i> </i>may be string variables, string expressions, or string literals.</p>
+<h4>Examples:</h4>
+<pre>10 X$=&quot;ABCDEBXYZ&quot;
+20 Y$=&quot;B&quot;
+30 PRINT INSTR(X$, Y$); INSTR(4, X$, Y$)
+RUN
+ 2 6</pre>
+<p>The interpreter searches the string &quot;ABCDFBXYZ&quot; and finds the first occurrence of the character B at position 2 in the string. It then starts another search at position 4 (D) and finds the second match at position 6 (B). The last three characters are ignored, since all conditions set out in line 30 were satisfied.</p>
+
+</body>
+</html>

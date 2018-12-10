@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>COS Function</h1>
+<h4>Purpose:</h4>
+<p>To return the cosine of the range of x.</p>
+<h4>Syntax:</h4>
+<pre><b>COS</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span> must be the radians. <span class="code">COS</span> is the trigonometric cosine function. To convert from degrees to radians, multiply by &#960;/180.</p>
+<p><span class="code">COS(<i>x</i>)</span> is calculated in single precision unless the <span class="code">/d</span> switch is used when GW-BASIC is executed.</p>
+<p><b>Example 1:</b></p>
+<pre>10 X=2*COS(.4)
+20 PRINT X
+RUN
+ 1.842122</pre>
+<p>Example 2:</p>
+<pre>10 PI=3.141593
+20 PRINT COS(PI)
+30 DEGREES=180
+40 RADIANS=DEGREES*PI/180
+50 PRINT COS(RADIANS)
+RUN
+ -1
+ -1</pre>
+</body>
+</html>

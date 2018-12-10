@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SPC Function</h1>
+<h4>Purpose:</h4>
+<p>To skip a specified number of spaces in a <span class="code">PRINT</span> or an <span class="code">LPRINT</span> statement.</p>
+<h4>Syntax:</h4>
+<pre><b>SPC</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> must be within the range of 0 to 255.</p>
+<p>If <span class="code"><i>n</i></span> is greater than the defined width of the printer or the screen, the value used will be n <span class="code">MOD</span> width.</p>
+<p>A semicolon is assumed to follow the <span class="code">SPC(<i>n</i>)</span> command.</p>
+<p><span class="code">SPC</span> may only be used with <span class="code">PRINT</span>, <span class="code">LPRINT</span> and <span class="code">PRINT#</span> statements (see the <a href="SPACES.html">SPACE$</a> function).</p>
+<h4>Examples:</h4>
+<pre>PRINT &quot;OVER&quot; SPC(15) &quot;THERE&quot;
+ OVER               THERE</pre>
+
+</body>
+</html>

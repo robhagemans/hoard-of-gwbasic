@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PALETTE, PALETTE USING Statements</h1>
+<h4>Purpose:</h4>
+<p>Changes one or more of the colors in the palette</p>
+<h4>Syntax:</h4>
+<pre><b>PALETTE</b> [<i>attribute</i>,<i>color</i>]
+<b>PALETTE USING</b> <i>integer-array-name</i> (<i>arrayindex</i>)</pre>
+<h4>Comments:</h4>
+<p>The <span class="code">PALETTE</span> statement works only for systems equipped with the IBM® Enhanced Graphics Adapter (EGA). A GW-BASIC palette contains a set of colors, with each color specified by an <span class="code"><i>attribute</i></span>. Each <span class="code"><i>attribute</i></span> is paired with an actual display <span class="code"><i>color</i></span>. This <span class="code"><i>color</i></span> determines the actual visual color on the screen, and is dependent on the setting of your screen mode and your actual physical hardware display.</p>
+<p><span class="code">PALETTE</span> with no arguments sets the palette to a known initial setting. This setting is the same as the setting when colors are first initialized.</p>
+<p>If arguments are specified, <span class="code"><i>color</i></span> will be displayed whenever <span class="code"><i>attribute</i></span> is specified in any statement that specifies a color. Any color changes on the screen occur immediately. Note that when graphics statements use color arguments, they are actually referring to attributes and not actual colors. <span class="code">PALETTE</span> pairs attributes with actual colors.</p>
+<p>For example, assume that the current palette consists of <span class="code"><i>colors</i> 0, 1, 2,</span> and <span class="code">3</span>. The following <span class="code">DRAW</span> statement:</p>
+<pre>DRAW &quot;C3L100&quot;</pre>
+<p>selects attribute 3, and draws a line of 100 pixels using the color associated with the attribute 3, in this case, also 3. If the statement:</p>
+<pre>PALETTE 3,2</pre>
+<p>is executed, then the color associated with attribute 3 is changed to color 2. All text or graphics currently displayed on the screen using attribute 3 are instantaneously changed to color 2. All text or graphics subsequently displayed with attribute 3 will also be displayed in color 2. The new palette of <span class="code"><i>colors</i></span> will contain 0, 1, 2, and 2.</p>
+<p>With the <span class="code">USING</span> option, all entries in the palette can be modified in one <span class="code">PALETTE</span> statement. The <span class="code"><i>integer-array-name</i></span> argument is the name of an integer array, and the <span class="code"><i>arrayindex</i></span> specifies the index of the first array element in the <span class="code"><i>integer-array-name</i></span> to use in setting your palette. Each attribute in the palette is assigned a corresponding color from this integer array. The array must be dimensioned large enough to set all the palette entries after <span class="code"><i>arrayindex</i></span>. For example, if you are assigning colors to all 16 attributes, and the index of the first array element given in your <span class="code">PALETTE USING</span> statement is 5, then the array must be dimensioned to hold at least 20 elements (since the number of elements from 5-20, inclusive, is 16):</p>
+<pre>DIM PAL%(20)
+.
+.
+.
+PALETTE USING PAL%(5)</pre>
+<p>If the <span class="code"><i>color</i></span> argument in an array entry is -1, then the mapping for the associated <span class="code"><i>attribute</i></span> is not changed. All other negative numbers are illegal values for <span class="code"><i>color</i></span>.</p>
+<p>You can use the color argument in the <span class="code">COLOR</span> statement to set the default text color. (Remember that color arguments in other BASIC statements are actually what are called <span class="code"><i>attributes</i></span> in this discussion.) This color argument specifies the way that text characters appear on the display screen. Under a common initial palette setting, points colored with the <span class="code"><i>attribute</i> 0</span> appear as black on the display screen. Using the <span class="code">PALETTE</span> statement, you could, for example, change the mapping of <span class="code"><i>attribute</i> 0</span> from black to white.</p>
+<p>Remember that a <span class="code">PALETTE</span> statement executed without any parameters assigns all <span class="code"><i>attributes</i></span> their default <span class="code"><i>colors</i></span>.</p>
+<p>The following table lists <span class="code"><i>attribute</i></span> and <span class="code"><i>color</i></span> ranges for various monitor types and screen modes:</p>
+<h4>Table 1</h4>
+<p><b>SCREEN Color and Attribute Ranges</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=96><b>SCREEN Mode</b></td><td width=144 valign="bottom"><b>Monitor Attached</b></td><td width=72 valign=bottom><b>Adapter</b></td><td width=96><b>Attribute Range</b></td><td width=60><b>Color Range</b></td></tr>
+	<tr><td rowspan="4" valign=top>0</td><td>Monochrome</td><td>MDPA</td><td>NA</td><td>NA</td></tr>
+	<tr><td>Monochrome</td><td>EGA</td><td>0-15</td><td>0-2</td></tr>
+	<tr><td>Color</td><td>CGA</td><td>NA</td><td>0-31<sup>a</sup></td></tr>
+	<tr><td>Color/Enhanced<sup>d</sup></td><td>EGA</td><td>0-31<sup>a</sup></td><td>0-15</td></tr>
+	<tr><td rowspan="2" valign=top>1 </td><td>Color</td><td>CGA</td><td>NA</td><td>0-3</td></tr>
+	<tr><td>Color/Enhanced<sup>d</sup></td><td>EGA</td><td>0-3</td><td>0-15</td></tr>
+	<tr><td rowspan="2" valign=top>2 </td><td>Color</td><td>CGA</td><td>NA</td><td>0-1</td></tr>
+	<tr><td>Color/Enhanced<sup>d</sup></td><td>EGA</td><td>0-1</td><td>0-15</td></tr>
+	<tr><td>7</td><td>Color/Enhanced<sup>d</sup></td><td>EGA</td><td>0-15</td><td>0-15</td></tr>
+	<tr><td>8</td><td>Color/Enhanced<sup>d</sup></td><td>EGA</td><td>0-15</td><td>0-15</td></tr>
+	<tr><td rowspan="2" valign=top>9 </td><td>Enhanced<sup>d</sup></td><td>EGA<sup>b</sup></td><td>0-3</td><td>0-15</td></tr>
+	<tr><td>Enhanced<sup>d</sup></td><td>EGA<sup>c</sup></td><td>0-15</td><td>0-63</td></tr>
+	<tr><td>10</td><td>Monochrome</td><td>EGA</td><td>0-3</td><td>0-8</td></tr>
+</table>
+<p><sup>a</sup> Attributes 16-31 refer to blinking versions of colors 0-15<br>
+<sup>b</sup> With 64K of EGA memory<br>
+<sup>c</sup> With greater than 64K of EGA memory<br>
+<sup>d</sup> IBM Enhanced Color Display<br>
+NA = Not Applicable<br>
+CGA = IBM Color Graphics Adapter<br>
+EGA = IBM Enhanced Graphics Adapter<br>
+MDPA = IBM Monochrome Display and Printer Adapter</p>
+<p>See the <a href="SCREENS.html">SCREEN</a> statement reference page for the list of colors available for various <span class="code">SCREEN</span> mode, monitor, and graphics adapter combinations.</p>
+<h4>Examples:</h4>
+<pre>PALETTE 0, 2         'Changes all points colored with attribute 0 
+                     'to color 2</pre>
+<pre>PALETTE 0,-1         'Does not modify the palette</pre>
+<pre>PALETTE USING A%(0)  'Changes each palette entry. Since the 
+                     'array is initialized to zero when it 
+                     'is first declared, all attributes are 
+                     'now mapped to display color zero. The 
+                     'screen will now appear as one single 
+                     'color. However, it will still be
+                     'possible to execute BASIC statements.</pre>
+<pre>PALETTE              'Sets each palette entry to its appropriate 
+                     'initial display color. Actual initial colors 
+                     'depend on your screen hardware configuration.</pre>
+
+</body>
+</html>

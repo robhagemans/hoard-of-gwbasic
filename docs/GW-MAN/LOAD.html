@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LOAD Command</h1>
+<h4>Purpose:</h4>
+<p>To load a file from diskette into memory.</p>
+<h4>Syntax:</h4>
+<pre><b>LOAD</b> <i>filename</i>[,<b>r</b>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> is the filename used when the file was saved. If the extension was omitted, .BAS will be used.</p>
+<p><span class="code">LOAD</span> closes all open files and deletes all variables and program lines currently residing in memory before it loads the designated program.</p>
+<p>If the <span class="code"><b>r</b></span> option is used with <span class="code">LOAD</span>, the program runs after it is loaded, and all open data files are kept open.</p>
+<p><span class="code">LOAD</span> with the <span class="code"><b>r</b></span><b> </b>option lets you chain several programs (or segments of the same program). Information can be passed between the programs using the disk data files.</p>
+<h4>Examples:</h4>
+<pre>LOAD &quot;STRTRK&quot;,R</pre>
+<p>Loads the file <i>strtrk.bas</i> and runs it, retaining all open files and variables from a previous program intact.</p>
+
+</body>
+</html>

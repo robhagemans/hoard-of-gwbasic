@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>OCT$ Function</h1>
+<h4>Purpose:</h4>
+<p>To convert a decimal value to an octal value.</p>
+<h4>Syntax:</h4>
+<pre><b>OCT$</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span><i> </i>is rounded to an integer before <span class="code">OCT$(<i>x</i>)</span> is evaluated.</p>
+<p>This statement converts a decimal value within the range of -32768 to +65535 to an octal string expression.</p>
+<p>Octal numbers are numbers to the base 8 rather than base 10 (decimal numbers).</p>
+<p>See the <a href="HEXS.html">HEX$</a> function for hexadecimal conversion.</p>
+<h4>Examples:</h4>
+<pre>10 PRINT OCT$(18)
+RUN
+ 22</pre>
+<p>Decimal 18 equals octal 22.</p>
+
+</body>
+</html>

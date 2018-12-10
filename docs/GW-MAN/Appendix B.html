@@ -1,0 +1,55 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Appendix B<br>Mathematical Functions</h1>
+<p>Mathematical functions not intrinsic to GW-BASIC can be calculated as follows:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+<tr><td width=204><b>Function </b></td><td><b>GW-BASIC Equivalent</b></td></tr>
+<tr><td>Secant </td><td class="code">SEC(X)=1/COS(X)</td>
+</tr>
+<tr><td>Cosecant</td><td class="code">CSC(X)=1/SIN(X)</td>
+</tr>
+<tr><td>Cotangent</td><td class="code">COT(X)=1/TAN(X)</td>
+</tr>
+<tr><td>Inverse Sine</td><td class="code">ARCSIN(X)=ATN(X/SQR(-X*X+1))</td>
+</tr>
+<tr><td>Inverse Cosine</td><td class="code">ARCCOS(X)=ATN (X/SQR(-X*X+1))+ PI/2</td>
+</tr>
+<tr><td>Inverse Secant</td><td class="code">ARCSEC(X)=ATN(X/SQR(X*X-1))+SGN(SGN(X)-1)* PI/2</td>
+</tr>
+<tr><td>Inverse Cosecant</td><td class="code">ARCCSC(X)=ATN(X/SQR(X*X-1))+SGN(X)-1)* PI/2</td>
+</tr>
+<tr><td>Inverse Cotangent</td><td class="code">ARCCOT(X)=ATN(X)+ PI/2</td>
+</tr>
+<tr><td>Hyperbolic Sine</td><td class="code">SINH(X)=(EXP(X)-EXP(-X))/2</td>
+</tr>
+<tr><td>Hyperbolic Cosine</td><td class="code">COSH(X)=(EXP(X)+EXP(-X))/2</td>
+</tr>
+<tr><td>Hyperbolic Tangent</td><td class="code">TANH(X)=EXP(X)-EXP(-X))/+(EXP(X)+EXP(-X))</td>
+</tr>
+<tr><td>Hyperbolic Secant</td><td class="code">SECH(X)=2/(EXP(X)+EXP(-X))</td>
+</tr>
+<tr><td>Hyperbolic Cosecant</td><td class="code">CSCH(X)=2/(EXP(X)-EXP(-X))</td>
+</tr>
+<tr><td>Hyperbolic Cotangent</td><td class="code">COTH(X)=EXP(-X)/(EXP(X)-EXP(-X))*2+1</td>
+</tr>
+<tr><td>Inverse Hyperbolic Sine</td><td class="code">ARCSINH(X)=LOG(X/SQR(X*X+1))</td>
+</tr>
+<tr><td>Inverse Hyperbolic Cosine</td><td class="code">ARCCOSH(X)=LOG(X+SQR(X*X-1))</td>
+</tr>
+<tr><td>Inverse Hyperbolic Tangent</td><td class="code">ARCTANH(X)=LOG((1+X)/(1-X))/2</td>
+</tr>
+<tr><td>Inverse Hyperbolic Cosecant</td><td class="code">ARCCSCH(X)=LOG(SGN(X)*SQR(X*X+1)+1)/X</td>
+</tr>
+<tr><td>Inverse Hyperbolic Secant</td><td class="code">ARCSECH(X)=LOG(SQR(-X*X+1)+1)/X</td>
+</tr>
+<tr><td>Inverse Hyperbolic Cotangent</td><td class="code">ARCCOTH(X)=LOG((X+1)/(X-1))/2</td>
+</tr>
+</table>
+</body>
+</html>

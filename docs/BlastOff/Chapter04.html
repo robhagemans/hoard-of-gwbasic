@@ -1,0 +1,571 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Four: Sounds So Good</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Four: Sounds So Good</H2>
+<BR>
+</center>
+<P>
+One hundred feet from my office is a computer room filled with IBM computers worth some fifty million dollars.  Yet, despite their cost, complexity, and power, your personal computer can do something these machines cannot.  Your personal computer can make music.
+</P>
+<P>
+BASIC includes the SOUND statement which allows your program to produce sounds as output!  In this chapter we will explore SOUND, making fun noises as well as real music.  Along the way, we will learn some new ways to control the running of programs.
+
+Using the SOUND command is simple.  Just specify the frequency, or pitch, of the tone along with how long it should last.  The frequency is specified in Hertz (Hz) or cycles per second.  The lowest tone BASIC can sound is 37 Hz.  This is a very low tone.  The highest frequency you can specify is well above human hearing.  Under the best conditions, the highest value a human can hear is around 18,000 Hz.  Since the little speaker inside your personal computer is not a terribly high quality device, the practical upper limit is about 16,000 Hz.
+</P>
+<P>
+How long the sound plays is called the duration.  This is specified in personal computer <i>clock ticks </i>rather than some ordinary unit like seconds.  There are 18 clock ticks each second.  Therefore, if you want a sound to last one second, specify a duration of 18.  If you want a one-half second sound, divide 18 by two.  Here is how the command is written in a BASIC program:
+<P><PRE>
+10 SOUND 1000,18
+</PRE></P>
+Try this.  In this case, a 1,000 Hz tone will play for one second.  Experiment with other frequencies and durations.
+</P>
+<P>
+Here is a short program that plays a do-re-mi scale:
+<P><PRE>
+10  REM *********************************************************
+20  REM *  DOREMI                                               *
+30  REM *  Plays a do-re-mi scale.                              *
+40  REM *********************************************************
+50  SOUND 65.4,9
+60  SOUND 73.41,9
+70  SOUND 82.41,9
+80  SOUND 87,9
+90  SOUND 98,9
+100 SOUND 110,9
+110 SOUND 123.47,9
+120 SOUND 130.81,9
+130 END
+</PRE></P>
+Each note is sounded for one-half second.
+</P>
+
+<H3>FOR-NEXT LOOPS</H3>
+<P>
+If you entered the DOREMI program you can probably see that writing individual SOUND statements is time consuming.  This is where variables come to our rescue.  We can replace the frequency and duration numbers with variable names!  Then using the BASIC FOR-NEXT statement we can let our program change the contents of the variables.  Enter this program and we will see how FOR-NEXT works.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  HEAR                                                  *
+30 REM *  Play tones from 100 Hz to 3000 Hz in steps of 10 Hz.  *
+40 REM **********************************************************
+50 FOR FREQ% = 100 TO 3000 STEP 10
+60   SOUND FREQ%,.5
+70 NEXT FREQ%
+80 END
+</PRE></P>
+<P>
+First look at line 60.  This is the SOUND statement.  It has a variable in the frequency field and a duration of .5 clock ticks.  Since the computer counts 18 clock ticks every second, a duration of 1 would be 1/18 of a second.  Half of that would be 1/36 of a second.  The .5 duration is  a  very short time.
+</P>
+<P>
+Now look at the statements on either side of the SOUND.  FOR-NEXT is used to create a loop.  When we last discussed loops, they were viewed as problems.  However, loops can be very useful.  They are only problems if they are never-ending loops.  The FOR-NEXT statement allows us to create a loop that accomplishes a lot of  work and has an ending.  Here is how FOR-NEXT works.
+</P>
+<P>
+When BASIC encounters a FOR-NEXT loop, it executes all of the statements <i>between </i>the FOR and the NEXT.  How many times BASIC loops through these statements is controlled by the FOR command.  Examine the syntax of the command:
+</P>
+<P>
+FOR <I>variable</I> = <I>X</I> TO <I>Y</I> STEP <I>Z</I>
+</P>
+<P>
+Note the three values <i>x, y, and z.</i>  After BASIC executes all of the statements in the loop, it adds <i>z </i>to <i>x </i>and then checks to see if this sum is greater than <i>y</i>.  If the sum is not greater than y then BASIC executes the statements in the loop again.
+</P>
+<P>
+On line 50 this means that FREQ% starts out at 100 and BASIC adds 10 each time through the loop until it reaches 3000.  Thus, the loop will be performed 291 times.  Since SOUND is the only instruction inside of the loop, it will be executed 291 times.  Please note that the loop is performed when FREQ% is equal to 3000.  As soon as it is <i>greater than </i> 3000, BASIC stops the loop and goes on.
+</P>
+<P>
+Notice that we are using FREQ% not only as a counter to control the loop but also as the frequency in the SOUND statement!  Each time through the loop, the frequency, which starts at 100 Hz, is increased by 10 Hz.
+</P>
+<P>
+The NEXT marks the end of the loop for BASIC.  When FREQ% becomes greater than 3000, BASIC continues execution with the statement immediately after the NEXT.  In our case, this is line 80, which ends the program.
+</P>
+<P>
+Spend some time getting to know the FOR-NEXT loop.  This statement will be used in many programs.  To see exactly what is happening, add this line to the program:
+</P>
+<P><PRE>
+65   PRINT FREQ%
+</PRE></P>
+<P>
+Compare the HEAR program with DOREMI.  In the earlier program we had a SOUND statement for each of the eight tones.  With this program, we make 2,900 tones with only three BASIC commands!  As you change the values in the loop, be sure to experiment with the amount of the STEP.  If you omit the STEP 10, BASIC adds 1 each time through the loop.
+</P>
+<P>
+Finally, you are probably wondering why the SOUND statement on line 60 is shifted right two spaces.  BASIC does not require this.  In long programs that have many statements inside of FOR-NEXT loops, it is helpful to indent these commands.  Then you can see at a glance exactly which statements are in the loop.  This helps the human.  It is a good habit to develop.
+</P>
+<P>
+Let's explore some more sounds.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  LIFTOFF                                               *
+30 REM *  Sound to go with a rocket blastoff.                   *
+40 REM **********************************************************
+50 FOR FREQ% = 50 TO 1150 STEP 50
+60   SOUND FREQ%,.5
+70 NEXT FREQ%
+80 END
+</PRE></P>
+<P>
+This program is very similar to the last.  Look at the FOR-NEXT loop.  We begin with a value of 50, and add 50 to it each time through the loop until we exceed 1150.  How many times will line 60 be executed?  Feel free to add PRINT statements to find the answer.
+</P>
+<P>
+The next program has an interesting STEP value.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  ARCADE                                                *
+30 REM *  Generic video game sound.                             *
+40 REM **********************************************************
+50 FOR FREQ% = 1000 TO 300 STEP -100
+60   SOUND FREQ%,.5
+70 NEXT FREQ%
+80 END
+</PRE></P>
+<P>
+In this case, the variable FREQ% starts out at 1000.  Each time through the loop, BASIC <i>subtracts </i>100 from it.  When FREQ% is less than 300, the loop stops.  FOR-NEXT loops can be used to count down as well as up.  If the STEP value is negative,  BASIC knows to count down and stop the loop when the variable is less than the <i>y </i>limit.
+</P>
+<P>
+The following program includes two commands inside of the loop.  One command is a special form of SOUND.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  LANDING                                               *
+30 REM *  Sounds like a flying saucer coming in for a landing.  *
+40 REM **********************************************************
+50 FOR FREQ% = 600 TO 50 STEP -25
+60   SOUND FREQ%,2
+70   SOUND 32767,.5
+80 NEXT FREQ%
+90 END
+</PRE></P>
+Like the last program, LANDING is counting down, this time from 600 Hz to 50 Hz in steps of 25.  In line 60, it sounds the  FREQ% for a period of two clock ticks.  Then, in line 70, we sound what looks like a frequency of 32767.  This number, 32767, is special.  This is the code for silence.  Line 70 causes BASIC to be quiet for one half of a clock tick.
+</P>
+<P>
+The next program combines everything we have learned about SOUND and FOR-NEXT loops.  See if you can understand what is happening before reading the explanation.  You can get clues from the indentation of the FOR-NEXT loops.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  SIREN                                                 *
+30 REM *                                                        *
+40 REM **********************************************************
+50 FOR X% = 1 TO 5
+60   FOR FREQ% = 900 TO 970 STEP 10
+70     SOUND FREQ%,.5
+80   NEXT FREQ%
+90   FOR FREQ% = 970 TO 900 STEP -10
+100     SOUND FREQ%,.5
+110   NEXT FREQ%
+120 NEXT X%
+130 END
+</PRE></P>
+<P>
+This program uses <i>nested </i>FOR-NEXT loops.  Nested means that one FOR-NEXT loop includes another FOR-NEXT loop.  Each FOR statement matches one NEXT statement.  In this program, the FOR on line 50 matches the NEXT on line 120.  Note that the variable name in each FOR statement appears on its matching NEXT statement.  That tells us that lines 60 and 80 are a set, and 90 and 100 are a set.
+</P>
+<P>
+Here is how BASIC runs SIREN.  Test your ability to think like a computer.  At line 50, BASIC sets X% equal to 1.  Note that X% is just a counter.  It is not used anywhere else.  Then, BASIC runs line 60.  On line 60, it sets FREQ% equal to 900, and checks to see if 900 is greater than 970.  Since 900 is less than 970, BASIC moves on to line 70.  A frequency of 900 Hz is sounded for one half of a clock tick.  On line 80, BASIC encounters a NEXT statement closing the loop begun on line 60.  So FREQ% is increased by 10.  910 is still less than 970, so line 70 is executed again.  The FOR-NEXT loop of lines 60 through 80 is executed until FREQ% is greater than 970. Then BASIC moves on to line 90 which happens to be another FOR statement. Line 90 sets FREQ% equal to 970 and performs the loop through lines 90 to 110 until FREQ% is less than 900.  Only then is the NEXT in line 120 executed.  X% is increase by 1, tested to see if this is greater than 5, and the whole process is started again.
+</P>
+<P>
+Pay attention to the SOUND statements.  SOUND on line 70 is executed eight times, each time with a higher pitch.  Then, SOUND on line 100 is executed another eight times, each time with a lower pitch.  This pattern of a rising pitch followed by a dropping pitch is repeated five times.
+</P>
+<P>
+Hopefully the indentation helps you understand this process.  Everything between lines 50 and 120 is repeated five times.  The fact that some of these lines are FOR-NEXT loops does not matter.  BASIC just attacks one line at a time.
+</P>
+<P>
+Note that we have used the variable FREQ% in both of the little FOR-NEXT loops.  This is just for convenience.  There is nothing special about FREQ%.  We could just as easily have used different variable names for the two loops.  However, by the time line 90 is executed, we are completely finished with FREQ% from the earlier loop.  Therefore, it just seemed like a nice idea to reuse the variable.  Neatness counts.
+</P>
+<P>
+The final fun sound program is not as difficult to understand as SIREN.  In this one we use a simple FOR-NEXT loop, but we add some arithmetic to the SOUND statement.
+</P>
+<P><PRE>
+10 REM **********************************************************
+20 REM *  RAYGUN                                                *
+30 REM *  Blow 'em away with this sound effect                  *
+40 REM **********************************************************
+50 FOR X% = 0 TO 80  STEP 10
+60   SOUND (600 - X%),.5
+70   SOUND (600 + X%),.5
+80 NEXT X%
+90 END
+</PRE></P>
+<P>
+The FOR-NEXT loop is simple enough.  X% begins at 0 and is increased by 10 each time through the loop.  Then, X% is used in each SOUND statement.  Look at the frequency of the SOUND statement on line 60.  Instead of a number or a variable name, we have some arithmetic inside of parentheses.  In this case, the frequency is 600 minus X%.  The first time through the loop, X% is zero.  Therefore the frequency is 600.  Next time through the loop, X% is 10, and the frequency is 590.
+</P>
+<P>
+The SOUND statement on line 70 is similar.  The value of X% is added to 600.  Line 70 is executed nine times.  The tone increases from 600 to 680.
+</P>
+<P>
+Since both SOUND statements are executed each time through the loop, we see that their tones start out the same (600 Hz) and go in opposite directions.  To clearly see what happens, add these lines to the program:
+</P>
+<P><PRE>
+45 PRINT ," X","600 - X","600 + X"
+75   PRINT ,X%,600-X%,600+X%
+</PRE></P>
+<P>
+This will print a little table on the screen.  It lists the value of X% each time through the loop, along with the frequencies of the two SOUND statements.
+</P>
+<P>
+One note about the PRINT statements: commas that are NOT included within quotation marks cause BASIC to print the information in columns that are 14 spaces wide.  This helps make your table more readable.  We will study this more, later.
+</P>
+<P>
+We have now created five sound effects programs.  Your experimentation will probably lead to many more.  Now is a good time to write a program that could offer a menu of sound effects.  Here is an example.  You might need to add the programs that you create to the menu.
+</P>
+<P><PRE>
+10  REM *************************************************************
+20  REM *  EFFECTS                                                  *
+30  REM *  A menu of sound effects.                                 *
+40  REM *************************************************************
+50  CLS
+60  PRINT "*********************************************************"
+70  PRINT "*                                                       *"
+80  PRINT "*       To play a sound effect, select a number from    *"
+90  PRINT "*       the list and press ENTER.                       *"
+100 PRINT "*                                                       *"
+110 PRINT "*       1. Siren                                        *"
+120 PRINT "*                                                       *"
+130 PRINT "*       2. Generic video game sound                     *"
+140 PRINT "*                                                       *"
+150 PRINT "*       3. Rocket liftoff                               *"
+160 PRINT "*                                                       *"
+170 PRINT "*       4. Flying saucer landing                        *"
+180 PRINT "*                                                       *"
+190 PRINT "*       5. Ray Gun                                      *"
+200 PRINT "*                                                       *"
+210 PRINT "*********************************************************"
+220 INPUT CHOICE%
+230 IF CHOICE% = 1 THEN RUN "C:\PGMS\SIREN"
+240 IF CHOICE% = 2 THEN RUN "C:\PGMS\ARCADE"
+250 IF CHOICE% = 3 THEN RUN "C:\PGMS\LIFTOFF"
+260 IF CHOICE% = 4 THEN RUN "C:\PGMS\LANDING"
+270 IF CHOICE% = 5 THEN RUN "C:\PGMS\RAYGUN"
+280 END
+</PRE></P>
+<P>
+The operation of this program should be fairly clear.  EFFECTS first clears the screen, presents a menu of choices, and waits for input from the keyboard.  If a number between 1 and 5 is entered, then a BASIC RUN command is executed.  You may need to change the files named in the RUN commands.  In this case, the programs all have <i>bas </i>as the file name extension and are stored in a directory called PGMS.  This subdirectory was created from the root directory on drive C.  Check "Files" on page 12 if you need to review file names.
+</P>
+<P>
+If any number less than 1 or greater than 5 is entered, then line 280 is executed.  This ends the menu.  To make a really nice system, change each of the sound programs to call the menu as they finish.  To do this, just replace the END command in each program with a RUN statement.  Of course, the line number may be different for the different programs.
+</P>
+<P><PRE>
+80 RUN "C:\PGMS\EFFECTS"
+</PRE></P>
+
+<H4>MUSIC</H4>
+<P>
+So far we have made only weird sounds with our BASIC programs.  By choosing the right frequencies, we can also SOUND most of the notes on a piano and make real music.  If you are musically inclined, you can write BASIC programs by looking at the notes on a page of music.  If you are not musically inclined, stay tuned.  We'll create some programs that sound great, and we'll learn more BASIC programming tricks.
+</P>
+<P>
+A piano has 88 keys.  The key on the far left is the lowest note.  In musical terms this is an A, and it has a frequency of 27.5 Hz.  The highest note, on the far right, is a C, with a frequency of 4184 Hz.  The 88 keys are arranged in <i>octaves </i>of eight notes.  The piano has seven full octaves plus the first four keys of the next highest octave.  Unfortunately, since BASIC cannot sound a frequency lower than 37 Hz, we cannot play half of the first octave.  However, the first octave is so low that few musical tunes need those keys.
+</P>
+<P>
+Each octave repeats the same musical notes A through G.  And each note of an octave is twice the frequency of the same note in the next lower octave.  This is very helpful.  All we need to do is define the frequencies for the lowest full octave that your computer can play.  Then, to reach a note in the second octave, just multiply the note by two.  For example, our lowest A has a frequency of 55 Hz.  The next A has a frequency of 110 Hz; the next, 220 Hz.  Each A is double the previous.
+</P>
+<P>
+Here is a table of the lowest full piano octave that can be played on your personal computer.
+</P>
+<P>
+<PRE>
+    Note              Frequency     
+                         (Hz)              
+   A                      55               
+   A sharp/B flat         58.37            
+   B                      61.74            
+   C                      65.4             
+   C sharp/D flat         69.4             
+   D                      74.41            
+   D sharp/E flat         77.9             
+   E                      82.41            
+   E sharp/F              87               
+   F sharp/G flat         92.5             
+   G                      98               
+   G sharp/A flat         104              
+</PRE>
+</P>
+<P>
+These are the frequencies of the keys in the lowest octave that BASIC can play.  To get to the notes in the higher octaves, multiply these frequencies by 2, 4, 8, 16, 32, and 64.  Fortunately, computers are very good at mathematics.  We don't have to do the multiplication ourselves.  We can let our program do it.  All we have to do is assign each of the frequencies in the above table to variables.  Then, when we need one of the higher octaves, we can just ask BASIC to multiply the variable.  An example will make this clear.  Let's sound the seven C notes:
+</P>
+<P><PRE>
+10 C! = 65.4
+20 SOUND C!,9
+30 SOUND (2 * C!),9
+40 SOUND (4 * C!),9
+50 SOUND (8 * C!),9
+60 SOUND (16 * C!),9
+70 SOUND (32 * C!),9
+80 SOUND (64 * C!),9
+</PRE></P>
+<P>
+Line 20 is the plain variable C! SOUNDed for one half second.  The next line multiplies the variable C! by two.  The asterisk is the BASIC symbol for multiplication (an asterisk is called a <i>splat </i>in computer slang).  Middle C on the piano is 4 * C!.
+</P>
+<P>
+Now that we know how to play any note on a piano, let's try creating some music.  The next program plays the opening of <i>The Little  Fugue in G Minor </i>by Johann Sebastian Bach.  Pay attention to the assignment of variables.  Match each one to the table of notes.  Also, see how they are multiplied in the SOUND statements.
+</P>
+<P><PRE>
+10  REM *********************************************************
+20  REM * GMINOR                                                *
+30  REM * Play Bach's Little Fugue in G minor.                  *
+40  REM *********************************************************
+50  REM **  DEFINE THE NOTES OF THE SECOND OCTAVE ON A PIANO  ***
+60  A! = 55
+70  AS! = 58.37
+80  BF! = AS!
+90  B! = 61.74
+100 C! = 65.4
+110 CS! = 69.4
+120 DF! = CS!
+130 D! = 73.41
+140 DS! = 77.9
+150 EF! = DS!
+160 E! = 82.41
+170 ES! = 87
+180 F! = ES!
+190 FS! = 92.5
+200 GF! = FS!
+210 G! = 98
+220 GS! = 104
+230 AF! = GS!
+240 PAUSE% = 32767
+250 GOSUB 270           'PLAY THE FUGUE IN G MINOR
+260 END
+270 REM *****  The Little Fugue in G minor  *****
+280 SOUND (4 * G!),8
+290 SOUND PAUSE%,2
+300 SOUND (8 * D!),8
+310 SOUND PAUSE%,2
+320 SOUND (8 * AS!),8
+330 SOUND PAUSE%,5
+340 SOUND (8 * A!),5
+350 SOUND (4 * G!),5
+360 SOUND (8 * AS!),5
+370 SOUND (8 * A!),5
+380 SOUND (4 * G!),5
+390 SOUND (4 * FS!),5
+400 SOUND (8 * A!),5
+410 SOUND (4 * D!),6
+420 RETURN
+</PRE></P>
+<P>
+Let's look at this program more closely.  We will learn some new BASIC statements as we learn to program music.
+</P>
+<P>
+Lines 60 through 230 assign frequencies to variables.  If the variable name ends with S, then it is a sharp.  If it ends with F, then it is a flat.  Since B flat is the same key as A sharp, we have one variable being set equal to another.  See lines 80, 120, 150, 180, 200, and 230.  This allows us to use either the sharp or flat name for the key.
+</P>
+<P>
+Line 240 assigns 32767 to a variable named PAUSE%.  Recall that 32767 is the code for silence.  See how this variable is used in line 290.
+</P>
+<P>
+Then, on line 250 we have a new BASIC statement.  The GOSUB on 250 is paired with the RETURN on line 420.  GOSUB-RETURN are very useful statements.  They allow us to divide our programs into pieces called ROUTINES.  Each routine accomplishes its own little task.  A routine that is called by your program is called a SUBROUTINE.  GOSUB  means GOSUBroutine.
+</P>
+<P>
+When BASIC executes line 250 it discovers the GOSUB 270.  Then, like the GOTO statement, it branches to line 270.  However, BASIC <i>remembers </i>where it came from, and when it gets to the RETURN on line 420, BASIC branches back to the statement following 250.  The GOSUB on line 250 acts like you have somehow taken lines 280 through 410 and placed them all on line 250.
+</P>
+<P>
+Incidentally, the GOSUB 270 on line 250 is followed by an apostrophe and the words, PLAY THE FUGUE IN G MINOR.  These words are comments.  The apostrophe works exactly like a REM statement.  This helps us know at a glance what the subroutine is doing. Placing a comment on the GOSUB makes your program more readable.  The purpose of the GOSUB becomes clear.
+</P>
+<P>
+GOSUB allows us to write programs with building blocks.  We can create a routine to do a job -- like play <i>The Little Fugue in G Minor</i>, and then temporarily branch there.  This is much neater than using GOTO statements.  Remember, too many GOTOs lead to spaghetti code because you cannot keep track of your program logic.  With GOSUBs, we can write a MAINLINE ROUTINE which simply calls building block subroutines to accomplish tasks such as presenting a menu or reading the keyboard input.
+</P>
+<P>
+The next program plays <i>The Toccata and Fugue in D Minor</i>, also by Bach.  This is a spooky tune.
+</P>
+<P><PRE>
+10  REM *********************************************************
+20  REM * DMINOR                                                *
+30  REM * Play Bach's toccata and fugue in D minor.             *
+40  REM *********************************************************
+50  REM **  DEFINE THE NOTES OF THE SECOND OCTAVE ON A PIANO  ***
+60  A! = 55
+70  AS! = 58.37
+80  BF! = AS!
+90  B! = 61.74
+100 C! = 65.4
+110 CS! = 69.4
+120 DF! = CS!
+130 D! = 73.41
+140 DS! = 77.9
+150 EF! = DS!
+160 E! = 82.41
+170 ES! = 87
+180 F! = ES!
+190 FS! = 92.5
+200 GF! = FS!
+210 G! = 98
+220 GS! = 104
+230 AF! = GS!
+240 PAUSE% = 32767
+250 GOSUB 270           'PLAY THE TOCCATA IN D MINOR
+260 END
+270 REM *****  THE TOCCATA IN D MINOR  *****
+280 SOUND (8 * A!),2
+300 SOUND (4 * G!),2
+320 SOUND (8 * A!),6
+330 SOUND PAUSE%,4
+340 SOUND (4 * G!),2
+350 SOUND (4 * F!),2
+360 SOUND (4 * E!),2
+370 SOUND (4 * D!),2
+380 SOUND (4 * CS!),6
+390 SOUND (4 * D!),8
+400 RETURN
+</PRE></P>
+<P>
+The first thing to notice is that this program is very much like the GMINOR program.  So much so, that you can save typing by modifying the GMINOR program.  First, be sure to SAVE the GMINOR program as a disk file.  Then, LIST and change lines 20 and 30, so they describe the new program.  Next, change the comment on line 250.  The GOSUB remains the same.  Now, LIST and modify lines 270 through 400.  Finally, DELETE lines 410 and 420.
+</P>
+<P>
+When your editing is done, LIST the whole program and double check your work.  Run the program.  Hopefully, it works right the first time.  If so, you have created a new program by using part of an old.  This trick is one to remember, unless you just like to type!  Since the next several programs are all alike, only the changed lines will be given.  You can practice modifying and saving the new programs.
+</P>
+<P>
+This next program plays the theme from the science fiction movie <i>Close  Encounters of the Third Kind</i>.  Remember, these are only the lines you need to change.
+</P>
+<P><PRE>
+20 REM * ALIENS                                                *
+30 REM * "Close Encounters theme.                              *
+250 GOSUB 270           'CLOSE ENCOUNTERS
+270 REM *****  CLOSE ENCOUNTERS  *****
+280 SOUND (8 * D!),8
+300 SOUND (16 * A!),8
+320 SOUND (16 * B!),8
+330 SOUND (8 * G!),8
+340 SOUND PAUSE%,5
+350 SOUND (8 * E!),6
+360 SOUND (8 * G!),6
+370 SOUND (16 * A!),6
+380 SOUND (8 * F!),6
+390 RETURN
+</PRE></P>
+<P>
+These tunes will prove useful when you write other programs, particularly games.  If the computer wins, it can play Bach's <i>Fugue in D Minor</i>.  If you win, play Aaron Copland's <i>Fanfare for the Common Man</i>.
+</P>
+<P><PRE>
+20 REM * FANFARE                                                *
+30 REM * Play Aaron Copland's Fanfare for the Common Man.       *
+250 GOSUB 270           'PLAY FANFARE
+270 REM *****  FANFARE FOR THE COMMON MAN  *****
+280 SOUND (4 * C!),8
+290 SOUND (4 * F!),8
+300 SOUND (8 * C!),10
+310 SOUND PAUSE%,4
+320 SOUND (4 * F!),8
+330 SOUND (8 * C!),8
+340 SOUND (8 * BF!),10
+350 SOUND PAUSE%,4
+360 SOUND (8 * D!),12
+370 SOUND (8 * BF!),14
+380 SOUND (4 * C!),14
+390 RETURN
+</PRE></P>
+<P>
+The last tune plays the theme from the old television show, <i>Twilight Zone</i>.  Let's look at the SOUND statements.  Don't enter these yet.
+</P>
+<P><PRE>
+270 REM *****  TWILIGHT ZONE  *****
+280 SOUND (4 * GS!),4
+290 SOUND (8 * A!),4
+300 SOUND (4 * GS!),4
+310 SOUND (4 * F!),4
+320 SOUND (4 * GS!),4
+330 SOUND (8 * A!),4
+340 SOUND (4 * GS!),4
+350 SOUND (4 * F!),4
+360 SOUND (4 * GS!),4
+370 SOUND (8 * A!),4
+380 SOUND (4 * GS!),4
+390 SOUND (4 * F!),4
+</PRE></P>
+<P>
+This theme plays the same four notes over and over.  In this case we do it three times.  Since the SOUND statements are identical, we could save some typing and have a better program by placing the four notes inside a FOR-NEXT loop.
+</P>
+<P><PRE>
+20 REM * ZONE                                                  *
+30 REM * Theme from "The Twilight Zone."                       *
+245 FOR X% = 1 TO 3
+250   GOSUB 270           'PLAY TWILIGHT ZONE
+255 NEXT X%
+260 END
+270 REM *****  TWILIGHT ZONE  *****
+280 SOUND (4 * GS!),4
+290 SOUND (8 * A!),4
+300 SOUND (4 * GS!),4
+310 SOUND (4 * F!),4
+320 RETURN
+</PRE></P>
+<P>
+Look carefully at lines 245 through 255.  Instead of placing all of the notes within the FOR-NEXT loop, we have simply placed the GOSUB statement inside the loop.  The variable X% is used as a counter. It runs GOSUB 270 until X% is greater than 3.  Each time GOSUB executes, it branches to line 270, plays each SOUND statement and ends at the RETURN on line 320.  Execution immediately returns to line 255.
+</P>
+<P>
+Using the FOR-NEXT loop saves typing.  It also makes it easier to change the program.  For instance, you may want to hear the theme six times instead of three.  If so, you need only LIST and change line 245.  If you want the tune to run forever, add STEP 0 to the FOR statement on line 245.  Of course, you must press CTRL-Break to stop the program.
+</P>
+<P>
+We now have five tunes: The <i>Little Fugue in G Minor</i>, The <i>Toccata and Fugue in D Minor</i>, <i>Fanfare for the Common Man</i>, the theme from <i>Close Encounters of the Third Kind</i>, and the theme from <i>Twilight Zone</i>.  It is time for a menu!  We can create a menu for tunes just as we did for the sound effects.  Indeed, we only need to change the EFFECTS program slightly to run a different set of five programs.
+</P>
+<P>
+LOAD the EFFECTS program and then LIST and change lines 10 through 210 so they look something like this:
+</P>
+<P><PRE>
+10  REM *************************************************************
+20  REM *  MUSIC                                                    *
+30  REM *  A menu to select musical tunes.                          *
+40  REM *************************************************************
+50  CLS
+60  PRINT "*********************************************************"
+70  PRINT "*                                                       *"
+80  PRINT "*       To play a musical tune, select a number from    *"
+90  PRINT "*       the list and press ENTER.                       *"
+100 PRINT "*                                                       *"
+110 PRINT "*       1. Bach's Little Fugue in G minor.              *"
+120 PRINT "*                                                       *"
+130 PRINT "*       2. Bach's Fugue in D minor.                     *"
+140 PRINT "*                                                       *"
+150 PRINT "*       3. Aaron Copland's Fanfare for the Common Man   *"
+160 PRINT "*                                                       *"
+170 PRINT "*       4. Close Encounters of the Third Kind           *"
+180 PRINT "*                                                       *"
+190 PRINT "*       5. Twilight Zone                                *"
+200 PRINT "*                                                       *"
+210 PRINT "*********************************************************"
+</PRE></P>
+<P>
+To complete the change, replace the file names in the RUN commands with the new program names.  Also, replace the END command in each tune with a RUN statement for the MUSIC menu program.
+</P>
+<P>
+The RUN command allows us to create one kind of menu.  The GOSUB statement can also be used.  Instead of many separate programs, we could have placed all of the musical subroutines in one large program.  The menu would then execute a GOSUB instead of a RUN.  Remember this technique for your own programs.
+</P>
+<P>
+In this chapter we have learned not only the SOUND command but two of the most useful statements in BASIC: FOR-NEXT and GOSUB-RETURN.  In later programs we will have the chance to add some sound effects.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>
+

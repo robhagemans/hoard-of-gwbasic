@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LSET and RSET Statements</h1>
+<h4>Purpose:</h4>
+<p>To move data from memory to a random-file buffer and left- or right-justify it in preparation for a <span class="code">PUT</span> statement.</p>
+<h4>Syntax:</h4>
+<pre><b>LSET </b><i>string variable</i>=<i>string expression</i>
+<b>RSET </b><i>string variable</i>=<i>string expression</i></pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>string expression</i></span> requires fewer bytes than were fielded to <span class="code"><i>string variable</i></span>, <span class="code">LSET</span> left-justifies the string in the field, and <span class="code">RSET</span> right-justifies the string (spaces are used to pad the extra positions).</p>
+<p>If the string is too long for the field, characters are dropped from the right.</p>
+<p>To convert numeric values to strings before the <span class="code">LSET</span> or <span class="code">RSET</span> statement is used, see the <a href="MKIS.html">MKI$</a>, <a href="MKIS.html">MKS$</a>, and <a href="MKIS.html">MKD$</a> functions.</p>
+<p><span class="code">LSET</span> or <span class="code">RSET</span> may also be used with a nonfielded string variable to left-justify or right-justify a string in a given field.</p>
+<h4>Examples:</h4>
+<pre>110 A$=SPACE$(20)
+120 RSET A$=N$</pre>
+<p>These two statements right-justify the string N$ in a 20-character field. This can be valuable for formatting printed output.</p>
+
+</body>
+</html>

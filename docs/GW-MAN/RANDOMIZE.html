@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RANDOMIZE Statement</h1>
+<h4>Purpose:</h4>
+<p>To reseed the random number generator.</p>
+<h4>Syntax:</h4>
+<pre><b>RANDOMIZE</b> [<i>expression</i>]
+<b>RANDOMIZE TIMER</b></pre>
+<h4>Comments:</h4>
+<p>If expression is omitted, GW-BASIC suspends program execution and asks for a value by displaying the following line:</p>
+<pre>Random number seed (-32768 to 32767)?</pre>
+<p>If the random number generator is not reseeded, the <span class="code">RND</span> function returns the same sequence of random numbers each time the program is run. </p>
+<p>To change the sequence of random numbers every time the program is run, place a <span class="code">RANDOMIZE</span> statement at the beginning of the program, and change the argument with each run (see <a href="RND.html">RND</a> function).</p>
+<p><span class="code">RANDOMIZE</span> with no arguments will prompt you for a new seed. <span class="code">RANDOMIZE [<i>expression</i>]</span> will not force floating-point values to integer. <span class="code"><i>expression</i></span><i> </i>may be any numeric formula.</p>
+<p>To get a new random seed without prompting, use the new numeric <span class="code">TIMER</span> function as follows:</p>
+<pre>RANDOMIZE TIMER </pre>
+<h4>Example 1:</h4>
+<p>The internal clock can be set at intervals.</p>
+<pre>10 RANDOMIZE TIMER
+20 FOR I=1 to 5
+30 PRINT RND;
+40 NEXT I
+RUN
+ .88598 .484668 .586328 .119426 .709225
+RUN
+ .803506 .162462 .929364 .292443 .322921</pre>
+<h4>Example 2:</h4>
+<p>The internal clock can be used for random number seed.</p>
+<pre>5 N=VAL(MID$(TIME$, 7, 2)) 'get seconds for seed
+10 RANDOMIZE N             'install number
+20 PRINT N                 'print seconds
+30 PRINT RND               'print random number generated
+RUN
+ 36
+ .2466638
+RUN
+ 37
+ .6530511
+RUN
+ 38
+ 5.943847E+02
+RUN
+ 40
+ .8722131</pre>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>STRIG Statement and Function</h1>
+<h4>Purpose:</h4>
+<p>To return the status of the joystick triggers.</p>
+<h4>Syntax:</h4>
+<p>As a statement:</p>
+<pre><b>STRIG ON</b>
+<b>STRIG OFF</b></pre>
+<p>As a function:</p>
+<pre><i>x</i>=<b>STRIG</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">STRIG ON</span> must be executed before any <span class="code">STRIG(<i>n</i>)</span> function calls may be made. Once <span class="code">STRIG ON</span> is executed, GW-BASIC will check to see if a button has been pressed before every statement is executed. <span class="code">STRIG OFF</span> disables the checking.</p>
+<p><span class="code"><i>x</i></span> is a numeric variable for storing the result.</p>
+<p><span class="code"><i>n</i></span> is a numeric expression within the range of 0 to 7 that returns the following values:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=80><b>Value of <span class="code"><i>n</i></span></b></td>
+  <td><b>Returns</b></td></tr>
+  <tr><td>0</td><td>-1 if trigger A1 was pressed since the last <span class="code">STRIG(0)</span> statement; returns 0, if not.</td>
+  </tr>
+  <tr><td>1</td><td>-1 if trigger A1 is currently pressed; returns 0, if not.</td></tr>
+  <tr><td>2</td><td>-1 if trigger B1 was pressed since the last <span class="code">STRIG(2)</span> statement; returns 0, if not.</td>
+  </tr>
+  <tr><td>3</td><td>-1 if trigger B1 is currently pressed; returns 0, if not.</td></tr>
+  <tr><td>4</td><td>-1 if trigger A2 was pressed since the last <span class="code">STRIG(4)</span> statement; returns 0 if not.</td>
+  </tr>
+  <tr><td>5</td><td>-1 if trigger A2 is currently pressed; returns 0, if not.</td></tr>
+</table>
+
+</body>
+</html>

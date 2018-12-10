@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LEN FUNCTION</h1>
+<h4>Purpose:</h4>
+<p>To return the number of characters in <span class="code"><i>x$</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>LEN</b>(<i>x$</i>)</pre>
+<h4>Comments:</h4>
+<p>Nonprinting characters and blanks are counted.</p>
+<h4>Example:</h4>
+<p><span class="code"><i>x$</i></span> is any string expression.</p>
+<pre>10 X$=&quot;PORTLAND, OREGON&quot;
+20 PRINT LEN(X$)
+RUN
+ 16</pre>
+<p>Note that the comma and space are included in the character count of 16.</p>
+
+</body>
+</html>

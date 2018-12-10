@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>AUTO Command</h1>
+<h4>Purpose:</h4>
+<p>To generate and increment line numbers automatically each time you press the <span class="smallcaps">RETURN</span> key.</p>
+<h4>Syntax:</h4>
+<pre><b>AUTO</b> [<i>line number</i>][,[<i>increment</i>]]
+<b>AUTO</b> .[,[<i>increment</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code">AUTO</span> is useful for program entry because it makes typing line numbers unnecessary.</p>
+<p><span class="code">AUTO</span> begins numbering at <span class="code"><i>line number</i></span> and increments each subsequent line number by <span class="code"><i>increment</i></span>. The default for both values is 10.</p>
+<p>The period (<span class="code">.</span>) can be used as a substitute for <span class="code"><i>line number</i></span> to indicate the current line.</p>
+<p>If <span class="code"><i>line number</i></span> is followed by a comma, and <span class="code"><i>increment</i></span> is not specified, the last increment specified in an <span class="code">AUTO</span> command is assumed.</p>
+<p>If <span class="code">AUTO</span> generates a <span class="code"><i>line number</i></span> that is already being used, an asterisk appears after the number to warn that any input will replace the existing line. However, pressing <span class="smallcaps" style='text-transform:uppercase'>return</span> immediately after the asterisk saves the line and generates the next line number.</p>
+<p><span class="code">AUTO</span> is terminated by entering <span class="smallcaps">CTRL-BREAK</span> or <span class="smallcaps">CTRL-C</span>. GW-BASIC will then return to command level.</p>
+<hr>
+  <p><b><i>Note</i></b></p>
+  <p>The line in which <span class="smallcaps">CTRL-BREAK</span> or <span class="smallcaps">CTRL-C</span> is entered is not saved. To be sure that you save all desired text, use <span class="smallcaps">CTRL-BREAK</span> and <span class="smallcaps">CTRL-C</span> only on lines by themselves.</p>
+<hr>
+<h4>Examples:</h4>
+<pre>AUTO 100, 50</pre>
+<p>Generates line numbers 100, 150, 200, and so on.</p>
+<pre>AUTO</pre>
+<p>Generates line numbers 10, 20, 30, 40, and so on.</p>
+</body>
+</html>

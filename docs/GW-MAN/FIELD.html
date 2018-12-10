@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>FIELD Statement</h1>
+<h4>Purpose:</h4>
+<p>To allocate space for variables in a random file buffer.</p>
+<h4>Syntax:</h4>
+<pre><b>FIELD</b> [<b>#</b>] <i>filenum</i>, <i>width</i> <b>AS</b> <i>stringvar</i> [,<i>width</i> <b>AS</b> <i>stringvar</i>]...</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filenum</i></span> is the number under which the file was opened.</p>
+<p><span class="code"><i>width</i></span> is the number of characters to be allocated to the string variable.</p>
+<p><span class="code"><i>string variable</i></span> is a string variable which will be used for random file access.</p>
+<p>A <span class="code">FIELD</span> statement must have been executed before you can</p>
+<ul>
+	<li>Get data out of a random buffer after a <span class="code">GET</span> statement</li>
+	<li>Enter data before a <span class="code">PUT</span> statement</li>
+</ul>
+<p>For example, the following line allocates the first 20 positions (bytes) in the random file buffer to the string variable N$, the next 10 positions to ID$, and the next 40 positions to ADD$:</p>
+<pre>FIELD 1, 20 AS N$, 10 AS ID$, 40 AS ADD$ </pre>
+<p><span class="code">FIELD</span> only allocates space; it does not place any data in the random file buffer.</p>
+<p>The total number of bytes allocated in a <span class="code">FIELD</span> statement must not exceed the record length specified when the file was opened. Otherwise, a &quot;<span class="code">Field overflow</span>&quot; error occurs (the default record length is 128).</p>
+<p>Any number of <span class="code">FIELD</span> statements may be executed for the same file, and all <span class="code">FIELD</span> statements executed are in effect at the same time.</p>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p>Do not use a fielded variable name in an <span class="code">INPUT</span> or <span class="code">LET</span> statement. Once a variable name is fielded, it points to the correct place in the random file buffer. If a subsequent <span class="code">INPUT</span> or <span class="code">LET</span> statement with that variable name is executed, the variable's pointer is moved to string space (see <a href="LSET.html">LSET/RSET </a>and <a href="GETF.html">GET</a> statements).</p>
+<hr>
+</body>
+</html>

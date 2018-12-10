@@ -1,0 +1,613 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0032)http://basicusers.net/GWBWin.htm -->
+<HTML><HEAD><TITLE>GW-BASIC and Windows Marriages</TITLE>
+<META http-equiv=Content-Type content="text/html; charset=windows-1252">
+<META content="MSHTML 5.50.4522.1800" name=GENERATOR></HEAD>
+<BODY vLink=#800080 link=#0000ff>
+
+<center>
+<table width=600 border=0><tr><td>
+
+<P><A name=BM_Top></A></P>
+
+<center>
+<h1>Running GW-BASIC under Windows</h1>
+<h2>"GW-BASIC and Windows Marriages"</h2>
+
+
+<I>
+By Thomas C. McIntire
+</I>
+</center>
+
+
+<PRE>
+<FONT face="Times New Roman" size=+1>
+<A href="#BM_A"><B>Introduction</B></A> - Purpose of this essay
+<A href="#BM_B"><B>Background</B></A> - What GW-BASIC is, and is not
+<A href="#BM_C"><B>Interpreter</B></A> - GWBASIC.EXE versions
+<A href="#BM_D"><B>Sourcing</B></A> - Finding a copy of GWBASIC.EXE
+<A href="#BM_E"><B>Installing</B></A> - Setting up GWBASIC.EXE
+<A href="#BM_F"><B>Shortcuts</B></A> - Best Windows properties options
+<A href="#BM_G"><B>Switches</B></A> -  Preinitializing the interpreter   
+<A href="#BM_H"><B>Screens</B></A> - Display management and mismanagement
+<A href="#BM_I"><B>Mouse</B></A> - Programming tricks for Mickey and friends
+<A href="#BM_J"><B>Sound</B></A> - Playing music and making noise
+<A href="#BM_K"><B>Keyboard</B></A> - Some keys work and some cannot
+<A href="#BM_L"><B>Listing</B></A> - Tricks for looking at your programs
+<A href="#BM_M"><B>Printing</B></A> - Coping with LPRINT and LLIST problems
+<A href="#BM_N"><B>File names</B></A> - Dos and don'ts and gotchas
+<A href="#BM_O"><B>Disk files</B></A> - Migration alternatives for old methods
+<A href="#BM_P"><B>Directory vs. Folder</B></A> - Exiting back to Windows
+</font>
+</PRE>
+
+</DIR></DIR>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_A></A></P>
+
+<B><P>Introduction</P></B></font>
+<P>GW-BASIC is the granddaddy of all modern BASIC languages. It is also the 
+oldest surviving programming language still usable on today's machines. Most 
+programs written in GW-BASIC twenty-five years ago will run as is on modern 
+computers. Equally significant, new programs can be written in GW-BASIC using 
+many of the same design techniques that we used back in the seventies, eighties, 
+and nineties. On the other hand, whether old or new, compromises are often 
+necessary to achieve happy marriages with Windows. Documented here are my 
+favorite compromises for achieving a degree of marital bliss with this 
+mismatched pair.</P>
+<P>By the way, just for the record, Windows and GW-BASIC are registered 
+trademarks owned by Microsoft Corporation. In the latter, the hyphen after GW is 
+part of the name, and the whole thing is supposed to be printed with all capital 
+letters.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_B></A></P><B>
+<P>Background</P></B></FONT>
+<P>Definition of the GW-BASIC language is a function of one program: 
+GWBASIC.EXE. That program is properly called an interpreter. GW-BASIC programs 
+can only be run by this interpreter, and this interpreter can only translate 
+programs constructed in accordance with the only language it knows. No other 
+interpreter, compiler, or translator will execute GW-BASIC programs in exactly 
+the same way that GWBASIC.EXE will do it.</P>
+<P>Clarification: GW-BASIC was marketed under many names for many years. One of 
+the most popular versions was IBM BASIC. It was also known as BASIC and BASICA, 
+and a number of other aliases. The interpreter program was also sold as three 
+different architectures. Some were EXE programs, some were COM programs. 
+Further, the bulk of the interpreter was often stored in ROM and only a small 
+portion of it was stored on disk as a COM program. Because all of these 
+derivatives were in fact an offshoot of Microsoft's GWBASIC.EXE program, from 
+here on I will no longer harp on this...literally and conversationally, there is 
+only one GW-BASIC language.</P>
+<P>One other aspect of GWBASIC.EXE needs to be mentioned here: It is an assembly 
+language program written for an 8086 microcomputer running the DOS operating 
+system on a PC. No, it does not depend on an 8087 math co-processor. It has no 
+idea what a co-processor is, or whether one is even present--it does its own 
+math, the old-fashioned way. In fact, its method of storing floating point 
+numbers is unique unto itself. QuickBASIC--a compiler from Microsoft--was the 
+only other language that tried to emulate that methodology. (It also may 
+oftentimes produce different arithmetic results. Caveat.)</P>
+<P>Because the GW-BASIC interpreter was engineered for DOS and BIOS services 
+common to early PC's, much of what it can or cannot do is defined by that world. 
+Said a different way, DOS is different (older than) Windows. Windows cannot do 
+several things that DOS can do. Conversely, Windows can do many things that DOS 
+cannot do. Thus, GW-BASIC programs on a Windows machine are constrained to the 
+same extent that any other DOS program is in that environment. Nearly all of 
+what follows applies equally to any DOS program regardless of what language it 
+is written in. (In that sense, GWBASIC.EXE is simply an old DOS program, and 
+GW-BASIC is merely one of many languages common to that world.)</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_C></A></P><B>
+<P>Interpreter</P></B></FONT>
+<P>During its marketing life, there were quite a number of successive versions 
+of GW-BASIC. Some, especially in the beginning tended to be vendor-specific. The 
+LOCATE command could not address line 25 on machines that had 24-line monitors, 
+for example. Likewise, those unfamiliar with the multiple alphabets of Kanji 
+have probably never seen those specialized versions of GW-BASIC that could cope 
+with 2-byte-wide character codes. Beyond that, like most all commercial 
+software, successive versions came along for two reasons: 1) To add features 
+needed to keep pace with newer hardware technology, and 2) To fix bugs in 
+previous releases. Thankfully, in a way, the bug fixing ceased with Version 3.23 
+which is the last, most recent, most modern, most complete GWBASIC.EXE product 
+obtainable.</P>
+<P>Although still bug-infested at that point, most of those bugs are not 
+difficult to live with. That point, however, was 1988. Because the language 
+never grew beyond that, what can or cannot be done in GW-BASIC is limited to 
+computer features that existed before Windows was even invented. Most of the 
+individual functional differences are enumerated under separate headings below. 
+First, we need to look at how to get the interpreter up and running in a Windows 
+world.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_D></A></P><B>
+<P>Sourcing</P></B></FONT>
+<P>GWBASIC.EXE is copyrighted software. The copyright is owned by Microsoft 
+Corp. When sold as a component program of MS-DOS, only Microsoft's copyright 
+notice is shown on the GW-BASIC start-up screen. When licensed to other vendors 
+by Microsoft, their own copyright notice may also be visible on the start-up 
+screen. Regardless, the interpreter is a copyrighted product and in my opinion, 
+it is not legal to sell or give copies of it away. Even if I am wrong--a 
+distinct possibility--I do not wish to be accused of abetting the Cyber Mafia or 
+anybody else. Go find your own copy of GWBASIC.EXE. Google knows how to do it, 
+by the way. A number of programming forum sites will point you to a free 
+download source as well.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_E></A></P><B>
+<P>Installing</P></B></FONT>
+<P>GWBASIC.EXE is not a very big program by today's standards. Physically on 
+disk it is only 79 Kb, so multiple copies are cheap, and a pretty good idea. 
+Because I am apt to use mine in some pretty bizarre circumstances, I have a copy 
+in my root directory, one in my primary Windows folder, and another in my GWB 
+folder where I do all of my GW-BASIC programming. Additionally, on my older 
+Windows machines that have a DOS folder, I keep a copy of GWBASIC.EXE there as 
+well. Because of this redundancy, no matter where I am when I command GWBASIC, 
+it will launch without me having to first specify where the interpreter is.</P>
+<P>Unlike most modern software, no "install" is necessary to make use of 
+GWBASIC.EXE--simply put a copy of it anywhere on your disk--any disk--and click 
+on it. Similarly, like most such programs, it can also be launched as a Run 
+command from the Windows Start Menu, and like other EXE programs, "GWBASIC" can 
+be used as a command in a BAT file. </P>
+<P>A really nice feature of Windows is being able to simply click on a file and 
+have it blast off immediately. This concept can be extended to include BAS 
+files. If all of the BAS files stored on your computer are GW-BASIC programs, it 
+is quite handy to be able to start them with a single click of Mickey's paw. For 
+this to work, tell Windows it should launch GWBASIC.EXE anytime you click on a 
+BAS file. (Then the interpreter will, in turn, load your program and begin 
+executing it.) If need be, see your Windows Help system for how to associate BAS 
+file extensions with your GWBASIC.EXE program.</P>
+<P>Caution: If you have other BASIC languages in use on your computer that also 
+like the dot-BAS convention for program files you may well want to forego the 
+above trick. GWBASIC.EXE can only run its own BAS programs and other BASIC 
+translators will likely choke on GW-BASIC programs.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_F></A></P><B>
+<P>Shortcuts</P></B></FONT>
+<P>If you simply click on GWBASIC.EXE it will come up running in a small Windows 
+window, the usual kind, with a border all around, the blue ribbon across the 
+top, and even the X-to-exit in the upper right corner. Yes, you can "expand" 
+this window, but you will still wind up with a "mixed-mode" screen. Moreover, 
+when you issue a SYSTEM command to get out of Dodge, Windows bugs you with an 
+irritating "are you sure" box. These and several other aggravations can be 
+totally obviated by correctly setting the properties in a Windows "shortcut" 
+that points to the GW-BASIC interpreter.</P>
+<P>The goal: When running GW-BASIC programs we want the screen to appear as it 
+would fifteen or twenty years ago. That was before SVGA, by the way. GW-BASIC 
+can only do graphics up to a maximum screen resolution of 640 by 350, i.e., that 
+possible with EGA/VGA video adapters. In text mode, this translates to 25 lines 
+of 80 characters each, and a fixed-width font set of 256 characters, each 8 
+pixels wide by 14 pixels high. </P>
+<P>The few things needed to be done are relatively easy. Create a Windows 
+shortcut: Right-click on GWBASIC.EXE, then select "Create a shortcut", or "Send 
+to desktop." I always rename the shortcut at that point to "GW-BASIC" since that 
+is the proper name of the language. Anyway, right-click on the shortcut 
+regardless of what you call it to access its properties tabs.</P><PRE><FONT face="Times New Roman" size=3>
+Shortcut Properties:
+
+  Program tab
+    Run: maximized (window)
+    [x] Close on exit
+
+  Screen tab
+    [x] Full screen
+    Initial size: Default
+    Window...
+    [  ] Display toolbar (off)
+
+  Misc. tab
+    [x] Fast pasting
+    [x] PrtScr
+    [x] Alt+PrtScr
+         ALL other options OFF
+</PRE>
+<P>Note above, especially, "Permit screen saver" should also be off. Whenever 
+GW-BASIC programs are reduced to a "minimum screen", when you restore your 
+screen some things may be messed up. In any program that manages the mouse while 
+in graphics modes, for example, the mouse cursor will likely be in the wrong 
+place, and sometimes you will see a blank square on the screen where the cursor 
+used to be. Depending on the program then running, this whole in the fabric of 
+the display may cause fatal errors.</P>
+<P>Lastly, for best results, set the Font type to "bit map," and the "Size" to 
+auto. (Oddly enough, the size list does not list 8x14, the correct size for 
+EGA/VGA.) As for Mouse sensitivity and memory management options, best leave 
+those alone and let Windows make its own default assumptions.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_G></A></P><B>
+<P>Switches</P></B></FONT>
+<P>Some GW-BASIC programs may need to pre-condition the interpreter before it is 
+loaded. This is done with what old programming manuals call "command line 
+switches." A very commonly needed one, for example, is /S: for enabling sector 
+(record buffer) sizes of greater than 128 bytes. When needed, all switches must 
+be set on the command line that launches GWBASIC.EXE. The easiest way to 
+automate that is by including them in a one-line BAT file. For example, in a 
+text file called MYPROG.BAT the following line will launch the interpreter and 
+load MYPROG.BAS with the default for maximum record sizes set to 512 bytes.</P>
+<P>GWBASIC MYPROG /S:512</P>
+<P>Once a BAT file such as the above has been created, a Windows shortcut can be 
+generated to point to it, then its properties can be set appropriately. See <A 
+href="#BM_F">Shortcuts</A> herein for more about 
+that.</P>
+<P>One final note: General purpose BAT files are handy for launching the 
+interpreter with certain switches set on, but without causing a specific BAS 
+program to be loaded at that point. Such a BAT file might look like the one 
+described above with the "MYPROG" program name simply omitted.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_H></A></P><B>
+<P>Screens</P></B></FONT>
+<P>Ideally, GW-BASIC programs will appear the same as they would on a PC XT 
+equipped with an EGA/VGA monitor. Because the video BIOS routines in even the 
+newest machines today are supposed be able to mimic MDA and CGA as well as 
+EGA/VGA electronics, all GW-BASIC screen modes and character related functions 
+should work as they always have. This inbred migration capability is in fact 
+what makes it possible to run twenty-five-year old programs on modern 
+computers.</P>
+<P>See <A href="#BM_F">Shortcuts</A> herein for 
+how to ensure that GW-BASIC comes up running in what Windows wags call "console" 
+mode, or as we DOS dogs think of it, "text" mode.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_I></A></P><B>
+<P>Mouse</P></B></FONT>
+<P>Which came first, the chicken or the mouse? GW-BASIC has no intrinsic 
+capability for managing a mouse, yet mouse technology is actually older than 
+GW-BASIC. There is one fundamental reason why GW-BASIC contains no mouse 
+commands or functions: They would have made the interpreter too big for the 
+box.</P>
+<P>Many versions of DOS "device drivers" for a mouse are actually bigger than 
+the GW-BASIC language interpreter. Likewise, comprehensive programs that can do 
+cute things with a mouse can be extremely complicated. Microsoft's "Mouse 
+Programmer's Reference" printed in 1989 has 325 pages. Their "GW-BASIC User's 
+Guide and User's Reference" has only 274 pages. (See what I mean? The mouse 
+manual is bigger than the GW-BASIC manual, gee whiz.)</P>
+<P>Mouse programming in GW-BASIC is certainly possible, nonetheless. Making such 
+programs work well on a Windows machine requires a little patience, and a 
+rudimentary understanding of the underlying software architecture.</P>
+<P>Many of my freeware game programs contain mouse interfacing logic written in 
+GW-BASIC. They are all based on the use of CALL to invoke a small assembly 
+language routine that depends on interrupt (INT 33) services. Windows, in its 
+infamous wisdom, still supports INT 33 calls. Although at that point there are 
+really two different programs in memory that think they are Mickey's boss, most 
+bickering can be kept to a minimum if we take steps to ensure that the Windows 
+mouse cursor cannot be seen while a GW-BASIC program is running. See <A 
+href="#BM_F">Shortcuts</A> herein for how best 
+to do this.</P>
+<P>One other nuisance can occur when running old mouse-based programs on new 
+machines: Because the underlying electronics technology is now considerably 
+different, and new micros are so much faster than the old ones were, mouse speed 
+adjustments may be necessary. Typically, in days of yore, I left the mouse 
+"sensitivity parameters" alone. On today's machines, it is sometimes necessary 
+to override the traditional default settings. There are two fundamental ways of 
+doing this: Either, or neither, or both may work for you depending on which 
+version of Windows, what kind of machine you are running on, and how you launch 
+your GW-BASIC programs.</P>
+<P>MOUSE.SYS and MOUSE.COM are device drivers, programs commonly found on DOS 
+machines. The SYS file can be started on power up by being declared in the 
+system CONFIG.SYS file. The COM version of the driver can be invoked as a 
+console command, or more typically, by being declared in an AUTOEXEC.BAT. In 
+either case, certain switches can also be appended to the command line that 
+launches the driver. What those switches are, and what they are useful for is a 
+function of who wrote the driver, of course. For those that accommodate "speed 
+settings", this is one possible opportunity for solving jerky Mickey problems. 
+More commonly, neither of the old mouse drivers are needed when running GW-BASIC 
+programs with Windows if you do things my way.</P>
+<P>Usually, the optimal method of adjusting Mickey's "sensitivity parameters" is 
+by passing specific arguments to the driver from within your GW-BASIC program 
+via a CALL to INT 33. Again, the degree to which this works varies according to 
+hardware, operating system, and driver versions. If your need to tinker is 
+paramount, research may be necessary first. It would be impossible to provide 
+here a condensation of the wisdom contained in dozens of textbooks on this 
+subject. Meanwhile, as a basis for experimenting, one of my games such as Arrows 
+or Troika might be useful. Most likely, a little trial and error will produce 
+acceptable results quickly and cheaply.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_J></A></P><B>
+<P>Sound</P></B></FONT>
+<P>The GW-BASIC programming language contains three commands for making noise. 
+Of these, BEEP is certainly the simplest. SOUND is a little more sophisticated, 
+and PLAY is a script language unto itself. None of these, however, can play WAV, 
+MP3, MIDI or anything else via a sound card.</P>
+<P>GWBASIC.EXE contains its own driver logic to emit burps, squeaks and squeals 
+via a PC's "internal" speaker. There have been, so I am told, a few modern 
+machines that actually route signals intended for the internal speaker directly 
+to the on-board sound card logic. Although I have never owned such a machine, in 
+my mind it is easy to see how that might be possible. Regardless of which 
+speaker the sound comes out of, GW-BASIC programs can only generate midi-like 
+sounds at best. That which has always worked still does, but sound card 
+technology came along long after GW-BASIC was cast in stone.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_K></A></P><B>
+<P>Keyboard</P></B></FONT>
+<P>The original IBM PC had but 88 keys. Basically, that is what GW-BASIC still 
+thinks we have. Modern keyboards have 105 or more keys--physical key caps, that 
+is--and the permutations of codes possible by using combinations of Alt, Ctrl 
+and Shift are so unreal, any list of them all would be problematical at best. 
+The pragmatic choice then is, disable Windows hot keys when running GW-BASIC 
+programs so as to minimize confusion about who is in charge. See <A 
+href="#BM_F">Shortcuts</A> herein for more about 
+temporarily disabling Windows hot keys.</P>
+<P>Another thing that happens on modern machines is, some things do not happen 
+anymore at all. ON KEY trapping is a case in point--some do, and some do not. A 
+little understanding can go a long way to making it obvious why compromise may 
+be necessary.</P>
+<P>There are at least four levels of interpretation going on about which keys 
+are which. At the lowest level, each key electronically generates a unique code. 
+That code is then translated to another code by the keyboard driver routine in 
+the BIOS. That code is then translated to another code by the operating system. 
+(Windows and DOS use different translation tables, naturally.) And in the end, 
+GWBASIC.EXE has its own idea about what code represents which key. So, no matter 
+what manual you consult, do not be surprised if ON KEY does not work as expected 
+for some keys because underlying drivers may "filter out" some codes. Ctrl-Break 
+is a prime example. </P>
+<P>Regardless of whatever ON KEY trick worked in the past for trapping 
+Ctrl-Break (or Ctrl-C), forget it. Short of writing your own assembly language 
+extension to the BIOS routines, there is no practical way anymore to prevent an 
+operator from aborting your program in midstream. GW-BASIC programs can no 
+longer detect use of such key combinations. Old programs will likely still work, 
+but you can no longer be responsible for operators who accidentally shoot 
+themselves in the foot.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_L></A></P><B>
+<P>Listing</P></B></FONT>
+<P>A frequently asked question today is, "How do you scroll your program listing 
+on the screen?" Although I am tempted to say, "Like we always did," this retort 
+is not funny to some. LIST does in fact work as it always has. However, today's 
+machines are so fast you have to be nimble indeed to hit "Pause" quick enough to 
+halt a listing before all but the last few lines disappear into oblivion. So 
+depending on your motor skills, or whatever, here is the whole list of LIST 
+options:</P>
+<P>LIST and hit Enter.</P>
+<P>LIST, but before tapping Enter with your thumb, put your index finger on 
+Pause, hold your breath, stare at the screen, then do it.</P>
+<P>LIST-3000 will auto-stop the output so that the last line shown will be 
+number 3000.</P>
+<P>LIST 4000- will start at 4000, but the output will not stop until the end of 
+the program is reached.</P>
+<P>LIST 2000-2120 will list the inclusive lines.</P>
+<P>One more trick: LIST done in graphics modes is much slower than when done in 
+text mode. On most machines, LIST while in SCREEN 0 mode is about ten times 
+faster than when in SCREEN 9 mode. By doing SCREEN 9 first, LIST may run slow 
+enough for you to pause where you want to.</P><PRE><FONT face="Times New Roman" size=3>
+Lastly, here is an outhouse alternative:
+
+     LIST ,"listing"
+         or
+     LIST ,"listing.TXT"
+</PRE>
+<P>Now, on disk in the same folder that GW-BASIC is running from, there will be 
+a text file called LISTING.BAS (or LISTING.TXT) which can be opened by any 
+Windows word processing or text editing program.</P>
+<P>At the risk of overstating the obvious, see how the above can also be an 
+effective alternative to LLIST, the command we used to use to generate paper 
+listings of our programs.</P>
+<P>Sidebar: The above trick of naming a file after LIST can also be done for a 
+block of lines, naturally. Like, "LIST 3000-3500,"module". This too is a mighty 
+handy trick. In this case, a file called MODULE.BAS would be generated that 
+contains only the lines specified. Moreover, because it is actually an ASCII 
+text file, it can be merged into another GW-BASIC program with the MERGE 
+command.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_M></A></P><B>
+<P>Printing</P></B></FONT>
+<P>One of the most frequently asked questions about running GW-BASIC programs on 
+Windows machines is why LLIST and LPRINT no longer work like they used to. In 
+December of 2003, I wrote an article on this very subject: "Why LLIST and LPRINT 
+No Longer Work". Below is a condensed version of that answer and some further 
+insight.</P>
+<P>This problem is not unique to Windows or GW-BASIC. We used to have 
+"intelligent" printers. That is where font tables were stored, for example. Now, 
+font tables are on disk, and they are accessed by printer drivers built into the 
+operating system or different Windows application programs. If a GW-BASIC 
+program says LPRINT CHR$(9);"Hello", chances are, nobody will intervene to 
+convert the control code to a tab, nor will it likely ever even get to the 
+printer as such. A lot of maybes come into play in such situations. Below are 
+some of them.</P>
+<P>If you have an old dot-matrix printer hooked to your computer's parallel port 
+via a Centronics cable, and if your Windows Printer Properties are set up 
+accordingly, you probably do not have a major problem. Maybe. If any of the 
+preceding assumptions are not true, all bets are off.</P>
+<P>The most frequent problem encountered by nearly all modern color-ink-jet 
+users is the time lag that is necessary when a printer is first provoked. (This 
+delay is deliberate, needed to ensure that the print heads are warm enough for 
+the ink to flow.) Such time lags were never expected in days of yore.</P>
+<P>When we programmers say LLIST, we suppose there is a printer out there 
+somewhere ready to go to work. If the printer does not quickly return a signal 
+that it did it, GWBASIC.EXE presumes the printer died and it returns an error 
+condition: "Printer not ready". At that point, if you hustle, and send the same 
+command to the printer again, it might work. On one of my machines with a 
+Lexmark Z12 attached to it, this sometimes works. But only sometimes.</P>
+<P>Even with machine configurations where tricks such as the above work, we have 
+no choice but to put up with what happens on our monitor. Here is what is going 
+on: The GW-BASIC interpreter sends a string of bytes to the printer (so it 
+thinks). That string is intercepted by the operating system. Windows slam-dunks 
+your program out of sight because it has to switch the screen from "console 
+mode" so that it can show you the dialog box associated with your printer. 
+Afterwards, after whatever happens (or doesn't happen), there you sit with a 
+blank look on your face: It is up to you restore your console-mode screen by 
+clicking on your GW-BASIC job down in the "system tray" at the bottom of the 
+screen.</P>
+<P>To a certain extent, the above may be a tolerable scheme when doing LLIST of 
+many lines of a program. Maybe. For doing LPRINT of a few characters at a time, 
+forget it: This scheme is worthless. So is using PRINT #1 after having done an 
+OPEN "LPT1" FOR OUTPUT AS 1 because that is effectively how LPRINT works anyway. 
+The second case, however, presents a relatively easy opportunity. By changing 
+the OPEN statement to something like OPEN "printjob.txt" FOR OUTPUT AS 1, all 
+PRINT #1 statements will send strings to a disk file that can later be printed 
+en mass by a Windows program such as Notepad. Maybe, that is, assuming that all 
+output is in fact text-type data.</P>
+<P>Another consideration is whether an application treats printed output as a 
+batch or it spits out little chunks on an interactive basis. Report writing 
+programs typically generate their output as a steady stream from start to 
+finish. Interactive programs are like those for POS jobs that print lines one at 
+a time as a cashier enters each item. Programs that are batch oriented can 
+usually be made to work on Windows machines. Those that do stop-and-go printing 
+will most likely be intolerable in a Windows environment.</P>
+<P>The above point needs to be reiterated: If an application wants to print 
+lines one at a time, do not blame Windows or GW-BASIC if you are trying to do it 
+on the wrong kind of printer. This sort of problem is not necessarily a fault of 
+GW-BASIC. In fact, the same problem can occur in other languages. Modern ink jet 
+printers are page printers, not line printers. By remembering that LPRINT means 
+Line Print, we are not so apt to attempt something that maybe our hardware 
+simply cannot do.</P>
+<P>Another critical aspect can be whether a program outputs "control codes." In 
+days of yore, we made our printers do what we wanted by use of special codes. To 
+switch from normal to italics, for example, on an Epson LX 810, LPRINT 
+CHR$(27);CHR$(52) made sense. For a different kind of printer, it is nearly 
+impossible to predict what will happen if you send it codes like this. That has 
+always been true, by the way. (Most control codes are make and model specific; 
+rarely do the same codes produce similar results on different printers.) On a 
+Windows machine with a modern printer, code sequences such as the above may 
+produce some really funny results. Caveat, and remember that such problems might 
+be your fault because you are sending geek to a device that doesn't speak 
+geek.</P>
+<P>Attitude is the key to printing with GW-BASIC on Windows machines. Send all 
+desired output to a disk file, then later, open that file with Notepad or a 
+similar program to send it to a printer. An advantage to this modus operandi is 
+in being able to do fancy formatting on the screen before committing it to 
+paper. The tradeoff is, of course, we can no longer write GW-BASIC programs that 
+do elaborate print formatting. Even columns of figures and such will not often 
+come out aligned as desired. In some cases, it may help to condition a word 
+processing program to use "Terminal" font. Like I said, attitude is one key to 
+solving these problems. Valium and Tylenol may help too, gee whiz.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_N></A></P><B>
+<P>File names</P></B></FONT>
+<P>DOS rules apply here, not Windows. Thus, file names cannot be more than eight 
+characters, followed by a dot (period), followed by not more than three 
+characters. Legal characters are A-Z, 0-9, plus any of ^$~!#%&amp;-{}()@`' and 
+underscore (_). No name may contain any spaces anywhere.</P>
+<P>Although it is also possible to include characters from the "upper 128" of 
+the old "Standard PC Character" set, those for drawing boxes, for example, will 
+NOT look the same in Windows displays of folders and files. Moreover, other 
+weird things can happen to uninformed users.</P>
+<P>In GW-BASIC it is possible to create a file with a name like "DUH"+CHR$(246) 
+and one called "DUH"+CHR$(251). From within GW-BASIC, or while doing a SHELL, 
+these two will appear as DUH with an appended division sign or a square root 
+sign. In the wacky world of Windows, however, both of these names would be 
+displayed as DUH_.BAS because any code from the 128-255 set will be shown as an 
+underscore. Not only is this mind-boggling, such names would also look like one 
+that really does have an underscore character in the same position. Now, since 
+we all know you cannot have two names exactly alike in any one folder, this sort 
+of nonsense can really blow your mind.</P>
+<P>Another one is the oddity that may seem craziest of all: Files with names 
+containing "invisible characters" from the 128-255 set CANNOT be deleted by 
+Windows programs regardless of their attribute settings. If you get a Windows 
+error 1026, suppose immediately that this is why. The easiest way to get rid of 
+such junk is via DEL in DOS command mode or KILL from within GW-BASIC. If you do 
+not know the exact character code in the offending position, simply substitute a 
+question mark in the corresponding position during DEL or KILL. (Caveat: Use of 
+wild cards will affect ALL files having similar names.)</P>
+<P>As has always been true, upper and lower case letters in file names may or 
+may not be significant. In DOS--thus also in GW-BASIC--lower case letters are 
+treated as if they were in fact upper case. In fact, DOS always displays all 
+letters as upper case, even if some are lower case in the disk directory itself. 
+Windows, on the other hand, will normally display the truth, so to speak. Even 
+so, even when it displays mixed upper and lower case letters as such it is 
+fibbing just a little. Like DOS, Windows also treats all letters as upper case 
+for all file-referencing purposes.</P>
+<P>Suggestions: GW-BASIC programmers ought to use file names that only contain 
+the characters A-Z or 0-9 and forego the weird ones. Additionally, always be 
+alert to the fact that GW-BASIC will automatically append dot-BAS to any file 
+name that does not specify an extension. This can be an especially mean stunt 
+when you are inclined to use the same name for both a program and a data file. 
+To keep me from hurting myself, my habit is to always specify extensions on data 
+file names (such as dot-DAT, for example).</P>
+<P>Lastly, remember that a GW-BASIC SAVE will save a program in its "tokenized" 
+form. Although the option of adding a comma-A after a SAVE command will cause 
+the same program to be written to disk as a text file, it too will have a 
+dot-BAS extension unless you specify otherwise. Either can be re-loaded and run 
+as a GW-BASIC program, of course, but Windows programs will be thoroughly 
+confused by a file that was not saved as ASCII text. In the event you load a 
+GW-BASIC program into a text editor such as Notepad and all you see is 
+gibberish, chances are, you forgot do an ASCII save like, SAVE "myprog",A. Also, 
+see <A href="#BM_L">Listing</A>, and see that 
+LIST ,"myprog" will automatically make the file an ASCII text file.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_O></A></P><B>
+<P>Disk files</P></B></FONT>
+<P>By and large, disk file processing in GW-BASIC on modern computers is much 
+easier than it used to be. Today's computers are so fast we no longer have to 
+worry so much about how long it will take to do something. Interpret my meaning 
+as, less brain strain is needed to ensure our coding is as optimum as possible. 
+An article that I wrote last April (2003) covers this notion in depth: "Low-Tech 
+Data Processing".</P>
+<P>Not covered there, however, are two problems that can arise in the Wonderful 
+World of Windows that we never had to worry about on old DOS machines. One of 
+them has to do with shared files. Or rather, NOT shared files would be a more 
+apt expression. This symptom most often presents itself in GW-BASIC as an Error 
+70, "Permission denied." The solution is simple, by the way. In fact, according 
+to this sage, if you practice one of my favorite tenets, this error will never 
+occur: Never start a second copy of GWBASIC.EXE running. To do so is really 
+living on the edge--the dangerous edge, that is.</P>
+<P>DOS is a single-thread operating system. GW-BASIC was designed to run in that 
+environment. Although OPEN for SHARE is possible, seldom is it ever a good idea. 
+It was originally meant for "local area networks," i.e., two different operators 
+on two different computers could perhaps share access to a common file. What 
+that concept did not envision was, two different GW-BASIC programs running on 
+the same computer, taking turns whacking at a common file. So, do not do it and 
+life will be a lot simpler, and your system will be a lot safer.</P>
+<P>By the way, another funny error that may crop up if you choose to ignore my 
+advice is an Error 189, "Unprintable error." In a way, "unprintable" is amusing 
+because it did just print it. As for the code 189, that is not documented 
+anywhere that I know of. If you are feeling foolhardy you can probably provoke 
+it in a second GW-BASIC program that tries to open a file already opened by 
+another similar program using the same name and file number. Meanwhile, if you 
+clobber your disk directories, don't call me names.</P>
+<P>Other file processing anomalies can occur for no obvious reason because 
+Windows is smarter than DOS. Routinely, when we PUT a record to disk it actually 
+only goes to a buffer in memory. When all of the operating system's buffers are 
+full, it will then write out the contents of old buffers to disk. Finally, when 
+a CLOSE is done, any unwritten records are copied to disk, then disk directories 
+and FAT sectors are updated. That is how DOS does it (sort of, anyway). Windows, 
+on the other hand, may not update disk directories just because a GW-BASIC 
+program said CLOSE. Rather than staying up half the night trying to figure out 
+why file sizes are not right on successive opens of a given file, make it a 
+habit to always do a RESET after a CLOSE. As has always been the case, RESET 
+forces the operating system to purge all disk buffers and physically update the 
+disk.</P>
+<P>&nbsp;</P><FONT size=4>
+<P><A name=BM_P></A></P><B>
+<P>Directory vs. Folder</P></B></FONT>
+<P>DOS calls them "directories", Windows calls them "folders". These two words 
+are synonymous, really, when referring to directories, paths and trees. Any 
+directory or folder may contain files. Under the <A 
+href="#BM_N">File names</A> heading herein are 
+rules specific to naming files in a DOS or GW-BASIC environment. Those rules are 
+essentially the same for naming directories or folders. (Only 8-character names 
+are allowed, for example, with no spaces, only a limited number of special 
+characters, and no dot-extensions.) Besides this "small folder names" problem, 
+GW-BASIC users need to be cognizant of some specific aspects of running under 
+Windows.</P>
+<P>The "default" folder or path when running a GW-BASIC program is the one you 
+were in when you launched GWBASIC.EXE. If you started the interpreter by itself, 
+directly, the default location at that point is the same as the one where 
+GWBASIC.EXE is stored.</P>
+<P>If you started GWBASIC.EXE via a Windows shortcut, the default folder or path 
+will be as specified in the properties for that shortcut.</P>
+<P>If you start a GW-BASIC program by clicking on its BAS name, the default 
+location at that point is the same as where the BAS file is stored. (Where the 
+interpreter is stored matters not a whit in this case.)</P>
+<P>The constant repetition above about "default location" may be critical to 
+some applications. The GW-BASIC language includes commands like CHDIR, MKDIR, 
+and RMDIR. Respectively, these work the same as the DOS equivalents, CD, MD and 
+RD. Similarly, the GW-BASIC commands FILE, NAME, and KILL are counterparts to 
+the DOS commands DIR, REN, and DEL. Most of the time most any GW-BASIC program 
+will work correctly in a Windows world regarding all of this. For those who 
+enjoy skating on the edge, however, maintain an awareness that GW-BASIC programs 
+have the potential of doing some serious harm to files and folders. While you 
+are thus engaged, Windows is fundamentally oblivious of what a GW-BASIC program 
+is doing. </P>
+<P>One other final warning is appropriate: When you finally exit GWBASIC.EXE 
+(via the GW-BASIC command, SYSTEM) you ultimately return to the location you 
+were at when you launched GW-BASIC operations. A (possible) difference that we 
+are used to under DOS is, we exit into whatever directory a CHDIR might have 
+sent us to. Because under Windows, when done with GW-BASIC operations you will 
+always be back where you were before you went on vacation, old schemes that 
+depended on BAT files for run-to-run linking may or may not work as they do 
+under DOS. Ho hum, maybe, but a real migraine can ensue if you do run into this 
+can of worms.</P>
+
+
+</table></td></tr>
+
+<P>&nbsp;</P>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</BODY></HTML>

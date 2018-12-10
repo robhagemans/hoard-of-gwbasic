@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PLAY Statement</h1>
+<h4>Purpose:</h4>
+<p>To play music by embedding a music macro language into the string data type.</p>
+<h4>Syntax:</h4>
+<pre><b>PLAY</b> <i>string expression</i></pre>
+<h4>Comments:</h4>
+<p>The single-character commands in <span class="code">PLAY</span> are as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=100 valign=top class="code">A-G [#,+,-]</td>
+		<td>
+			<p><span class="code">A-G</span> are notes. <span class="code">#</span> or <span class="code">+</span> following a note produces a sharp; <span class="code">-</span> produces a flat.</p>
+			<p>Any note followed by <span class="code">#,+,</span>or <span class="code">-</span> must refer to a black key on a piano.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">L(<i>n</i>)</td>
+		<td>
+			<p>Sets the length of each note. L4 is a quarter note, L1 is a whole note, and so on. n may be from 1 to 64.</p>
+			<p>Length may also follow the note to change the length for that note only. A16 is equivalent to L16A.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">MF</td>
+		<td>Music foreground. <span class="code">PLAY</span> and <span class="code">SOUND</span> statements are to run in foreground. That is, each subsequent note or sound is not started until the previous note or sound is finished. This is the initial default.</td>
+	</tr>
+	<tr><td valign=top class="code">MB</td><td>Music background. <span class="code">PLAY</span> and <span class="code">SOUND</span> statements are to run in background. That is, each note or sound is placed in a buffer allowing the BASIC program to continue execution while music plays in the background. As many as 32 notes (or rests) can be played in background at one time.</td></tr>
+	<tr><td valign=top class="code">MN</td><td>Music normal. Each note plays seven-eighths of the time determined by L (length).</td></tr>
+	<tr><td valign=top class="code">ML</td><td>Music legato. Each note plays the full period set by L.</td></tr>
+	<tr><td valign=top class="code">MS</td><td>Music staccato. Each note plays three-quarters of the time determined by L.</td></tr>
+	<tr><td valign=top class="code">N(<i>n</i>)</td><td>Play note n. n may range from 0 to 84. In the 7 possible octaves, there are 84 notes. n set to 0 indicates a rest.</td></tr>
+	<tr><td valign=top class="code">O(<i>n</i>)</td><td>Octave 0 sets the current octave. There are 7 octaves (0 through 6). Default is 4. Middle C is at the beginning of octave 3.</td></tr>
+	<tr><td valign=top class="code">P(<i>n</i>)</td><td>Pause. <span class="code">P</span> may range from 1-64.</td></tr>
+	<tr><td valign=top class="code">T(<i>n</i>)</td><td>Tempo. <span class="code">T</span> sets the number of L4s in a minute. n may range from 32-255. Default is 120. </td></tr>
+	<tr><td valign=top><span class="code">.</span> (period)</td>
+		<td>
+			<p>A period after a note increases the playing time of the note by 3/2 times the period determined by L (length of note) times T (tempo). Multiple periods can appear after  a note, and the playing time is scaled accordingly. For example, A. will cause the note A to play one and half times the playing time determined by L (length of the note) times T (the tempo); two periods placed after A (A..) will cause the note to be played at 9/4 times its ascribed value; an A with three periods (A...) at 27/8, etc.</p>
+			<p>Periods may also appear after a P (pause), and increase the pause length as described above. </p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">X<i>string</i>;</td>
+		<td>
+			<p>Executes a substring, where string is a variable assigned to a string of <span class="code">PLAY</span> commands.</p>
+			<p>Because of the slow clock interrupt rate, some notes do not play at higher tempos; for example, 1.64 at T255. These note/tempo combinations must be determined through experimentation.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">&gt;<i>n</i></td><td>A greater-than symbol preceding the note n plays the note in the next higher octave.</td></tr>
+	<tr><td valign=top class="code">&lt;<i>n</i></td><td>A less-than symbol preceding the note n plays the note in the next lower octave.</td></tr>
+</table><br>
+<hr>
+	<p><i><b>Note</b></i></p>
+	<p>Numeric arguments follow the same syntax described under the <span class="code">DRAW</span>  statement.</p>
+<hr>
+<p><span class="code"><i>n</i></span> as an argument can be a constant, or it can be a variable with <span class="code">=</span> in front of it (<span class="code">= <i>variable</i></span>). A semicolon is required after the variable and also after the variable in <span class="code">X<i>string</i></span>.</p>
+
+</body>
+</html>

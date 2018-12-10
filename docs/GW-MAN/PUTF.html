@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PUT Statement (Files)</h1>
+<h4>Purpose:</h4>
+<p>To write a record from a random buffer to a random disk file.</p>
+<h4>Syntax:</h4>
+<pre><b>PUT</b>[<b>#</b>]<i>file number</i>[,<i>record number</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the number under which the file was opened.</p>
+<p><span class="code"><i>record number</i></span> is the number of the record. If it is omitted, the record has the next available record number (after the last <span class="code">PUT</span>).</p>
+<p>The largest possible record number is 2<sup>32</sup> -1. This will allow you to have large files with short record lengths. The smallest possible record number is 1.</p>
+<p>The <span class="code">PRINT#</span>, <span class="code">PRINT# USING</span>, <span class="code">LSET</span>, <span class="code">RSET</span>, or <span class="code">WRITE#</span> statements may be used to put characters in the random file buffer before a <span class="code">PUT</span> statement.</p>
+<p>In the case of <span class="code">WRITE#</span>, GW-BASIC pads the buffer with spaces up to an enter.</p>
+<p>Any attempt to read or write past the end of the buffer causes a &quot;<span class="code">Field overflow</span>&quot; error.</p>
+<p><span class="code">PUT</span> can be used for communications files. Here record number is the number of bytes written to the file. Record number must be less than or equal to the length of the buffer set in the <span class="code">OPEN &quot;COM(<i>n</i>)</span> statement.</p>
+
+</body>
+</html>

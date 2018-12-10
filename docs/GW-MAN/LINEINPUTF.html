@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LINE INPUT# Statement</h1>
+<h4>Purpose:</h4>
+<p>To read an entire line (up to 255 characters), without delimiters, from a sequential disk file to a string variable.</p>
+<h4>Syntax:</h4>
+<pre><b>LINE INPUT# </b><i>file number</i>, <i>string variable</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span><i> </i>is the number under which the file was opened.</p>
+<p><i>string variable </i>is the variable name to which the line will be assigned.</p>
+<p><span class="code">LINE INPUT#</span> reads all characters in the sequential file up to a carriage return. If a line feed/carriage return sequence (this order only) is encountered, it is input.</p>
+<p><span class="code">LINE INPUT#</span> is especially useful if each line of a data file has been broken into fields, or if a BASIC program saved in ASCII mode is being read as data by another program.</p>
+<h4>Examples:</h4>
+<pre>10 OPEN &quot;O&quot;, 1, &quot;INFO&quot;
+20 LINE INPUT &quot;CUSTOMER INFORMATION?&quot;; C$
+30 PRINT#1, C$
+40 CLOSE 1
+50 OPEN &quot;I&quot;, 1, &quot;INFO&quot;
+60 LINE INPUT#1, C$
+70 PRINT C$
+80 CLOSE 1
+RUN
+ CUSTOMER INFORMATION?</pre>
+<p>If the operator enters</p>
+<pre> LINDA JONES 234, 4 MEMPHIS</pre>
+<p>then the program continues with the following:</p>
+<pre> LINDA JONES 234, 4 MEMPHIS</pre>
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SCREEN Function</h1>
+<h4>Purpose:</h4>
+<p>To return the ASCII code (0-255) for the character at the specified row (line) and column on the screen.</p>
+<h4>Syntax:</h4>
+<pre><i>x</i>=<b>SCREEN</b>(<i>row</i>,<i>col</i>[,<i>z</i>])</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span> is a numeric variable receiving the ASCII code returned.</p>
+<p><span class="code"><i>row</i></span><i> </i>is a valid numeric expression within the range 1 to 25.</p>
+<p><span class="code"><i>col</i></span><i> </i>is a valid numeric expression 1 to 40, or 1 to 80, depending upon screen width setting. See the <a href="WIDTH.html">WIDTH</a> statement.</p>
+<p><span class="code"><i>z</i></span> is a valid numeric expression with a true or false value. It may be used only in alpha mode.</p>
+<p>The ordinal of the character at the specified coordinates is stored in the numeric variable. In alpha mode, if the optional parameter <span class="code"><i>z</i></span><i> </i>is given and is true (nonzero), the color attribute for the character is returned instead of the ASCII code for the character (see the <a href="COLOR.html">COLOR</a> statement).</p>
+<p>Any values entered outside of the range indicated result in an &quot;<span class="code">Illegal function call</span>&quot; error. Row 25 may be referenced only if the function key is off.</p>
+<h4>Examples:</h4>
+<pre>100 X=SCREEN (10, 10)</pre>
+<p>If the character at 10,10 is A, then X is 65.</p>
+<pre>110 X=SCREEN (1, 1, 1)</pre>
+<p>Returns the color attribute of the character in the upper-left corner of the screen.</p>
+
+</body>
+</html>

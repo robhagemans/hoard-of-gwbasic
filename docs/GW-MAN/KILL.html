@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>KILL Command</h1>
+<h4>Purpose:</h4>
+<p>To delete a file from a disk.</p>
+<h4>Syntax:</h4>
+<pre><b>KILL</b> <i>filename</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> can be a program file, sequential file, or random-access data file.</p>
+<p><span class="code">KILL</span> is used for all types of disk files, including program, random data, and sequential data files.</p>
+<hr>
+<p><b><i>Note</i></b></p>
+<p>You must specify the filename's extension when using the <span class="code">KILL</span> command. Remember that files saved in GW-BASIC are given the default extension <i>.BAS</i>.</p>
+<hr>
+<p>If a <span class="code">KILL</span> command is given for a file that is currently open, a &quot;<span class="code">File already open</span>&quot; error occurs.</p>
+<h4>Examples:</h4>
+<p>The following command deletes the GW-BASIC file <i>DATA1</i>, and makes the space available for reallocation to another file:</p>
+<pre>200 KILL &quot;DATA1.BAS&quot;</pre>
+<p>The following command deletes the GW-BASIC file <i>RAINING</i> from the subdirectory <i>dogs</i>:</p>
+<pre>KILL &quot;CATS\DOGS\RAINING.BAS&quot;</pre>
+
+</body>
+</html>

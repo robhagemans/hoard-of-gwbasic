@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>CHR$ Function</h1>
+<h4>Purpose:</h4>
+<p>To convert an ASCII code to its equivalent character.</p>
+<h4>Syntax:</h4>
+<pre><b>CHR$</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is a value from 0 to 255.</p>
+<p><span class="code">CHR$</span> is commonly used to send a special character to the terminal or printer. For example, you could send <span class="code">CHR$(7)</span> to sound a beep through the speaker as a preface to an error message, or you could send a form feed, <span class="code">CHR$(12)</span>, to the printer.</p>
+<p>See the <a href="ASC.html">ASC</a> function for ASCII-to-numeric conversion.</p>
+<p>ASCII Codes are listed in <a href="Appendix C.html">Appendix C of the GW-BASIC User's Guide</a>.</p>
+<h4>Examples:</h4>
+<pre>PRINT CHR$(66);
+ B</pre>
+<p>This prints the ASCII character code 66, which is the uppercase letter B.</p>
+<pre>PRINT CHR$(13);</pre>
+<p>This command prints a carriage return.</p>
+</body>
+</html>

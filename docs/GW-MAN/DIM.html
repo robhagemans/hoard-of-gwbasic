@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DIM Statement</h1>
+<h4>Purpose:</h4>
+<p>To specify the maximum values for array variable subscripts and allocate storage accordingly.</p>
+<h4>Syntax:</h4>
+<pre><b>DIM </b><i>variable</i>(<i>subscripts</i>)[,<i>variable</i>(<i>subscripts</i>)]...</pre>
+<h4>Comments:</h4>
+<p>If an array variable name is used without a <span class="code">DIM</span> statement, the maximum value of its subscript(s) is assumed to be 10. If a subscript greater than the maximum specified is used, a &quot;<span class="code">Subscript out of range</span>&quot; error occurs.</p>
+<p>The maximum number of dimensions for an array is 255.</p>
+<p>The minimum value for a subscript is always 0, unless otherwise specified with the <span class="code">OPTION BASE</span> statement.</p>
+<p>An array, once dimensioned, cannot be re-dimensioned within the program without first executing a <span class="code">CLEAR</span> or <span class="code">ERASE</span> statement.</p>
+<p>The <span class="code">DIM</span> statement sets all the elements of the specified arrays to an initial value of zero.</p>
+<h4>Examples:</h4>
+<pre>10 DIM A(20)
+20 FOR I=0 TO 20
+30 READ A(I)
+40 NEXT I</pre>
+<p>This example reads 21 <span class="code">DATA</span> statements elsewhere in the program and assigns their values to A(0) through A(20), sequentially and inclusively. If the A array is single precision (default accuracy) then line 10 will allocate 84 bytes of memory to this array (4 bytes times 21 elements).</p>
+</body>
+</html>

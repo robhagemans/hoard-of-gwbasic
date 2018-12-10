@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RENUM Command</h1>
+<h4>Purpose:</h4>
+<p>To renumber program lines.</p>
+<h4>Syntax:</h4>
+<pre><b>RENUM</b>[<i>new number</i>],[<i>old number</i>][,<i>incrementR</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>new number</i></span> is the first line number to be used in the new sequence. The default is 10.</p>
+<p><span class="code"><i>old number</i></span><i> </i>is the line in the current program where renumbering is to begin. The default is the first line of the program.</p>
+<p><span class="code"><i>increment</i></span><i> </i>is the increment to be used in the new sequence. The default is 10.</p>
+<p><span class="code">RENUM</span> also changes all line number references following <span class="code">ELSE</span>, <span class="code">GOTO</span>, <span class="code">GOSUB</span>, <span class="code">THEN</span>, <span class="code">ON...GOTO</span>, <span class="code">ON...GOSUB</span>, <span class="code">RESTORE</span>, <span class="code">RESUME</span>, and <span class="code">ERL</span> statements to reflect the new line numbers. If a nonexistent line number appears after one of these statements, the error message, &quot;<span class="code">Undefined line <i>x </i>in <i>y</i></span>&quot; appears. The incorrect line number reference <span class="code"><i>x</i></span><i> </i>is not changed by <span class="code">RENUM</span>, but line number <span class="code"><i>y</i></span><i> </i>may be changed.</p>
+<p><span class="code">RENUM</span> cannot be used to change the order of program lines (for example, <span class="code">RENUM 15,30</span> when the program has three lines numbered 10, 20 and 30) or to create line numbers greater than 65529. An &quot;<span class="code">Illegal function call</span>&quot; error results.</p>
+<h4>Examples:</h4>
+<pre>RENUM</pre>
+<p>Renumbers the entire program. The first new line number will be 10. Lines increment by 10.</p>
+<pre>RENUM 300,,50</pre>
+<p>Renumbers the entire program. The first new line number will be 300. Lines increment by 50.</p>
+<pre>RENUM 1000,900,20</pre>
+<p>Renumbers the lines from 900 up so they start with line number 1000 and are incremented by 20.</p>
+
+</body>
+</html>

@@ -1,0 +1,67 @@
+********************************************************************************
+*
+*   \         (c) Thomas Antoni, 9.11.2004 - 12.11.2004
+*    \ /\           Mailto:thomas@antonis.de
+*    ( )            Downloaded from www.antonis.de --- www.qbasic.de   
+*  .( o ).
+*                        ----==== Hottest QBasic Stuff on Earth !!! ====----
+*
+********************************************************************************
+
+********************************************************************************
+*
+* .----------------.
+* | ENGLISH  INFO  |  (Deutsche Info: Siehe unten)
+* '----------------'
+*
+* Download File  : BlastOff - a GW-Basic-Tutorial in HTML format
+*                  ====================================================
+* Prog. Language : GW_BASIC, BASICA
+* Author         : Brian R. Page (Appendix E by Thomas C. McIntire)
+*   - E-Mail     : bpage@randomc.com 
+*   - Website    : www.nbank.net/~bpage/  ("Colloquia")
+*
+********************************************************************************
+
+Short Description
+-----------------
+"Blast Off With BASIC" is a GW-BASIC tutorial for young programmers and newbies. 
+The tutorial has approx. 120 pages and comes with many source code examples. 
+More demanding topics like acessing files and the serial port are not covered.
+
+
+
+*** Rating
+++    (in a range of + to +++)
+
+
+********************************************************************************
+*
+* .---------------.
+* | DEUTSCHE INFO |
+* '---------------'
+*
+* Download-Datei: BlastOff - ein GW-Basic-Tutorial im HTML Format
+*                 ====================================================
+* Progr.sprache : GW_BASIC, BASICA
+* Autor         : Brian R. Page  (Appendix E von Thomas C. McIntire)
+*   - E-Mail    : bpage@randomc.com 
+*   - Webseite  : www.nbank.net/~bpage/  ("Colloquia")
+*
+********************************************************************************
+
+*** Kurzbeschreibung
+"Blast off with GW-BASIC" von Brian R. Page ist ein ausführliches, ca. 120 
+Seiten umfassendes Einsteigertutorial für GW-BASIC. Es behandelt die GW-BASIC-
+Entwicklungsumgebung und die wichtigsten Befehle. Das Tutorial ist sehr 
+anschaulich in einem leicht verständlichen Englisch geschrieben und mit vielen 
+Programmbeispielen "gewürzt". Fortgeschritte Themen wie die Dateibearbeitung und 
+das Ansteuern der seriellen Schnittstelle werden nicht behandelt. 
+
+
+*** Bewertung
+++   (in einer Skala von + bis +++)
+
+
+
+

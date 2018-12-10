@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SOUND Statement</h1>
+<h4>Purpose:</h4>
+<p>To generate sound through the speaker.</p>
+<h4>Syntax:</h4>
+<pre><b>SOUND</b> <i>freq</i>,<i>duration</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>freq</i></span><i> </i>is the desired frequency in Hertz (cycles per second). <span class="code"><i>freq</i></span><i> </i>is a numeric expression within the range of 37 to 32767.</p>
+<p><span class="code"><i>duration</i></span><i> </i>is the desired duration in clock ticks. Clock ticks occur 18.2 times per second. <span class="code"><i>duration</i></span><i> </i>must be a numeric expression within the range of 0 to 65535.</p>
+<p>Values below .022 produce an infinite sound until the next <span class="code">SOUND</span> or <span class="code">PLAY</span> statement is executed.</p>
+<p>If <span class="code"><i>duration</i></span><i> </i>is zero, any active <span class="code">SOUND</span> statement is turned off. If no <span class="code">SOUND</span> statement is running, a duration of zero has no effect.</p>
+<p>The sound is executed in foreground or background depending on the <span class="code">PLAY</span> statement.</p>
+<h4>Examples:</h4>
+<p>The following example creates random sounds of short duration:</p>
+<pre>2500 SOUND RND*1000+37, 2
+2600 GOTO 2500</pre>
+<p>The following table shows the relationship of notes and their frequencies in the two octaves adjacent to middle C.</p>
+<h4>Table 5</h4>
+<p><b>Relationships of Notes and Frequencies</b></p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+	<tr>
+		<td width=40><b>Note</b></td>
+		<td width=80><b>Frequency</b></td>
+		<td width=24>&nbsp;</td>
+		<td width=40><b>Note</b></td>
+		<td width=80><b>Frequency</b></td>
+	</tr>
+  <tr><td>C</td><td>130.810</td><td>&nbsp;</td><td>C*</td><td>523.250</td></tr>
+  <tr><td>D</td><td>146.830</td><td>&nbsp;</td><td>D</td><td>587.330</td></tr>
+  <tr><td>E</td><td>164.810</td><td>&nbsp;</td><td>E</td><td>659.260</td></tr>
+  <tr><td>F</td><td>174.610</td><td>&nbsp;</td><td>F</td><td>698.460</td></tr>
+  <tr><td>G</td><td>196.000</td><td>&nbsp;</td><td>G</td><td>783.990</td></tr>
+  <tr><td>A</td><td>220.000</td><td>&nbsp;</td><td>A</td><td>880.000</td></tr>
+  <tr><td>B</td><td>246.940</td><td>&nbsp;</td><td>B</td><td>987.770</td></tr>
+  <tr><td>C</td><td>261.630</td><td>&nbsp;</td><td>C</td><td>1046.500</td></tr>
+  <tr><td>D</td><td>293.660</td><td>&nbsp;</td><td>D</td><td>1174.700</td></tr>
+  <tr><td>E</td><td>329.630</td><td>&nbsp;</td><td>E</td><td>1318.500</td></tr>
+  <tr><td>F</td><td>349.230</td><td>&nbsp;</td><td>F</td><td>1396.900</td></tr>
+  <tr><td>G</td><td>392.000</td><td>&nbsp;</td><td>G</td><td>1568.000</td></tr>
+  <tr><td>A</td><td>440.000</td><td>&nbsp;</td><td>A</td><td>1760.000</td></tr>
+  <tr><td>B</td><td>493.880</td><td>&nbsp;</td><td>B</td><td>1975.500</td></tr>
+</table>
+<p>*Middle C.</p>
+<p>By doubling or halving the frequency, the coinciding note values can be estimated for the preceding and following octaves.</p>
+<p>To produce periods of silence, use the following statement:</p>
+<pre>SOUND 32767, duration</pre>
+<p>To calculate the duration of one beat, divide beats per minute into the number of clock ticks in a minute (1092).</p>
+<p>The following table illustrates tempos requested by clock ticks:</p>
+<h4>Table 6</h4>
+<p><b>Tempos Requested by Clock Ticks</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr valign="bottom">
+	<td width=80><b>Tempo</b></td>
+		<td width=88><b>Notation</b></td>
+		<td width=72><b>Beats/ Minute</b></td>
+		<td width=88><b>Ticks/Beat</b></td>
+  </tr>
+  <tr><td rowspan=6>very slow</td><td>Larghissimo</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Largo</td><td>40-66</td><td>27.3-18.2</td></tr>
+  <tr><td>Larghetto</td><td>60-66</td><td>18.2-16.55</td></tr>
+  <tr><td>Grave</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Lento</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Adagio</td><td>66-76</td><td>16.55-14.37</td></tr>
+  <tr><td rowspan=2>slow</td><td>Adagietto</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Andante</td><td>76-108</td><td>14.37-10.11</td></tr>
+  <tr><td rowspan=2>medium</td><td>Andantino</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Moderato</td><td>108-120</td><td>10.11-9.1</td></tr>
+  <tr><td rowspan=5>fast</td><td>Allegretto</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Allegro</td><td>120-168</td><td>9.1-6.5</td></tr>
+  <tr><td>Vivace</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Veloce</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+  <tr><td>Presto</td><td>168-208</td><td>6.5-5.25</td></tr>
+  <tr><td>very fast</td><td>Prestissimo</td><td>&nbsp; </td><td>&nbsp; </td></tr>
+</table>
+
+</body>
+</html>

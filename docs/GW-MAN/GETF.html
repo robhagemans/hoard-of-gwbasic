@@ -1,0 +1,32 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>GET Statement (Files)</h1>
+<h4>Purpose:</h4>
+<p>To read a record from a random disk file into a random buffer.</p>
+<h4>Syntax:</h4>
+<pre><b>GET</b> [<b>#</b>]<i>file number</i>[,<i>record number</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the number under which the file was opened.</p>
+<p><span class="code"><i>record number</i></span> is the number of the record, within the range of 1 to 16,777,215.</p>
+<p>If <span class="code"><i>record number</i></span> is omitted, the next record (after the last <span class="code">GET</span>) is read into the buffer.</p>
+<p>After a <span class="code">GET</span> statement, <span class="code">INPUT#</span> and <span class="code">LINE INPUT#</span> may be used to read characters from the random file buffer.</p>
+<p><span class="code">GET</span> may also be used for communications files. <span class="code"><i>record number</i></span> is the number of bytes to be read from the communications buffer. <span class="code"><i>record number</i></span> cannot exceed the buffer length set in the <span class="code">OPEN COM(n)</span> statement.</p>
+<h4>Examples:</h4>
+<p>The following example opens the vendor file for random access, defines the fields, reads a record, then displays it:</p>
+<pre>10 OPEN &quot;R&quot;, 1, &quot;A:VENDOR.FIL&quot;
+20 FIELD 1, 30 AS VENDNAMES$, 20 AS ADDR$, 15 AS CITY$
+30 GET 1
+40 PRINT VENDNAMES$, ADDR$, CITY$
+50 CLOSE 1</pre>
+<p>This example opens the file <i>vendor.fil</i> for random access, with fields defined in line 20. </p>
+<p>In line 30, the <span class="code">GET</span> statement reads a record into the file buffer. </p>
+<p>Line 40 displays the information from the record just read. </p>
+<p>Line 50 closes the file.</p>
+</body>
+</html>

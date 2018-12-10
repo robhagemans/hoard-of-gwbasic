@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Appendix E<br>Converting BASIC Programs to GW-BASIC</h1>
+<p>Programs written in a BASIC language other than GW-BASIC may require some minor adjustments before they can be run. The following sections describe these adjustments.</p>
+
+<h2>E.1 String Dimensions</h2>
+<p>Delete all statements used to declare the length of strings. A statement such as the following:</p>
+<pre>DIM A$(I,J)</pre>
+<p>which dimensions a string array for J elements of length I, should be converted to the following statement:</p>
+<pre>DIM A$(J)</pre>
+<p>Some GW-BASIC languages use a comma or ampersand (<span class="code">&amp;</span>) for string concatenation. Each of these must be changed to a plus sign (<span class="code">+</span>), which is the operator for GW-BASIC string concatenation.</p>
+<p>In GW-BASIC, the <span class="code">MID$</span>, <span class="code">RIGHT$</span>, and <span class="code">LEFT$</span> functions are used to take substrings of strings. Forms such as A$(I) to access the Ith character in A$, or A$(I,J) to take a substring of A$ from position I to position J, must be changed as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td><b>Other BASIC</b></td><td><b>GW-BASIC</b></td></tr>
+	<tr class="code"><td>X$=A$(I)</td><td>X$=MID$(A$,I,1)</td></tr>
+	<tr class="code"><td>X$=A$(I,J)</td><td>X$=MID$(A$,I,J-I+1)</td></tr>
+</table>
+<p>If the substring reference is on the left side of an assignment, and X$ is used to replace characters in A$, convert as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td><b>Other BASIC</b></td><td><b>GW-BASIC</b></td></tr>
+	<tr class="code"><td>A$(I)=X$</td><td>MID$(A$,I,1)=X$</td></tr>
+	<tr class="code"><td>A$(I,J)=X$</td><td>MID$(A$,I,J-I+1)=X$</td></tr>
+</table>
+<br>
+
+<h2>E.2 Multiple Assignments</h2>
+<p>Some GW-BASIC languages allow statements of the following form to set B and C equal to zero:</p>
+<pre>10 LET B=C=0</pre>
+<p>GW-BASIC would interpret the second equal sign as a logical operator and set B equal to -1 if C equaled 0. Convert this statement to two assignment statements:</p>
+<pre>10 C=0: B=0</pre>
+
+<h2>E.3 Multiple Statements</h2>
+<p>Some GW-BASIC languages use a backslash (<span class="code">\</span>) to separate multiple statements on a line. With GW-BASIC, be sure all elements on a line are separated by a colon (<span class="code">:</span>).</p>
+
+<h2>E.4 MAT Functions</h2>
+<p>Programs using the <span class="code">MAT</span> functions available in some GW-BASIC languages must be rewritten using <span class="code">FOR-NEXT</span> loops to execute properly.</p>
+
+<h2>E.5 FOR-NEXT Loops</h2>
+<p>Some GW-BASIC languages will always execute a <span class="code">FOR-NEXT</span> loop once, regardless of the limits. GW-BASIC checks the limits first and does not execute the loop if past limits.</p>
+</body>
+</html>

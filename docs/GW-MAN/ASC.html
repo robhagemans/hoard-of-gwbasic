@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ASC Function</h1>
+<h4>Purpose:</h4>
+<p>To return a numeric value that is the ASCII code for the first character of the string <span class="code"><i>x$</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>ASC</b>(<i>x$</i>)</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>x$</i></span> is null, an &quot;Illegal Function Call&quot; error is returned.</p>
+<p>If <span class="code"><i>x$</i></span> begins with an uppercase letter, the value returned will be within the range of 65 to 90.</p>
+<p>If <span class="code"><i>x$</i></span> begins with a lowercase letter, the range is 97 to 122.</p>
+<p>Numbers 0 to 9 return 48 to 57, sequentially.</p>
+<p>See the <a href="CHRS.html">CHR$</a> function for ASCII-to-string conversion.</p>
+<p>See <a href="Appendix C.html">Appendix C in the GW-BASIC User's Guide</a> for ASCII codes.</p>
+<h4>Examples:</h4>
+<pre>10 X$=&quot;TEN&quot;
+20 PRINT ASC(X$)
+RUN
+ 84</pre>
+<p>84 is the ASCII code for the letter T.</p>
+</body>
+</html>

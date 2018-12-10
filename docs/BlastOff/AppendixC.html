@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Appendix C: Computer Speed</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Appendix C: Computer Speed</H2>
+<BR>
+</center>
+
+<P>
+
+       This  program measures the speed of a personal computer
+       running the BASIC interpreter.  The output of the  program  is  a number which may be used in a FOR-NEXT loop
+       to keep the machine busy for exactly one second.    Often, such a loop is useful when the execution of a program  must  be  delayed  for  a certain amount of time.
+       This technique was used in the ROCKET3 program to  display the countdown for a rocket launch.
+</P><P>
+       The duration is accurate only when the FOR statement is
+       immediately followed by the NEXT statement.  Obviously,
+       if any additional statements are added to the loop, the
+       amount of time will be increased.
+<PRE>
+10  REM *************************************************************
+11  REM *  IPS                                                      *
+20  REM *  This program will calculate a FOR-NEXT loop that takes   *
+30  REM *  one second to run.                                       *
+40  REM *************************************************************
+50  BEGTIME!  = TIMER
+60  FOR X% = 1 TO 29999
+70  NEXT X%
+80  ENDTIME!  = TIMER
+90  ELAPSED% = ENDTIME! - BEGTIME!
+100 PRINT "Elapsed time is " ELAPSED%
+110 IPS% = X% \ ELAPSED%
+120 PRINT "Number of times through the loop =" X%
+130 PRINT "Instructions per second =" IPS%
+140 END
+</PRE>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+</center>
+</BODY>
+</HTML>

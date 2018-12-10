@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LINE Statement</h1>
+<h4>Purpose:</h4>
+<p>To draw lines and boxes on the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>LINE</b> [(<i>x1</i>,<i>y1</i>)]-(<i>x2</i>,<i>y2</i>) [,[<i>attribute</i>][,<b>B</b>[<b>F</b>]][,<i>style</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x1</i>,<i>y1</i></span> and <span class="code"><i>x2</i>,<i>y2</i></span> specify the end points of a line.</p>
+<p>Resolution mode is determined by the <span class="code">SCREEN</span> statement.</p>
+<p><span class="code"><i>attribute</i></span> specifies color or intensity of the displayed pixel (see the <a href="COLOR.html">COLOR</a> and <a href="PALETTE.html">PALETTE</a> statements).</p>
+<p><span class="code"><b>B</b></span> (box) draws a box with the points (<span class="code"><i>x1</i>,<i>y1</i></span>) and (<span class="code"><i>x2</i>,<i>y2</i></span>) at opposite corners.</p>
+<p><span class="code"><b>BF</b></span> (filled box) draws a box (as ,<span class="code"><b>B</b></span>) and fills in the interior with points.</p>
+<hr>
+<i><b><p>Note</p></b></i>
+<p>If <span class="code"><i>attribute</i></span> is not specified, two commas must be used before <span class="code">B</span> or <span class="code">BF</span>.</p>
+<hr>
+<p><span class="code">LINE</span> supports the additional argument <span class="code"><i>style</i></span>. <span class="code"><i>style</i></span> is a 16-bit integer mask used when putting down pixels on the screen. This is called <i>line-styling</i>.</p>
+<p>Each time <span class="code">LINE</span> stores a point on the screen, it uses the current circulating bit in style. If that bit is 0, no store will be done. If the bit is a 1, then a normal store is done. After each point, the next bit position in <span class="code"><i>style</i></span> is selected.</p>
+<p>Since a 0 bit in <span class="code"><i>style</i></span><i> </i>does not clear out the old contents, you may wish to draw a background line before a styled line, in order to force a known background.</p>
+<p><span class="code"><i>style</i></span><i> </i>is used for normal lines and boxes, but is illegal for filled boxes.</p>
+<p>If the <span class="code"><b>BF</b></span><b> </b>parameter is used with the <span class="code"><i>style</i></span><i> </i>parameter, a &quot;<span class="code">Syntax</span>&quot; error will occur.</p>
+<p>When out-of-range values are given in the <span class="code">LINE</span> statement, the coordinates that are out of range are not visible on the screen. This is called <i>line-clipping</i>.</p>
+<p>In the syntax shown here, the coordinate form <span class="code">STEP (<i>x offset</i>, <i>y offset</i>)</span> is not shown. However, this form can be used wherever a coordinate is used.</p>
+<p>In a <span class="code">LINE</span> statement, if the relative form is used on the second coordinate, it is relative to the first coordinate.</p>
+<p>After a <span class="code">LINE</span> statement, the last referenced point is <span class="code"><i>x2, y2</i></span>.</p>
+<p>The simplest form of <span class="code">LINE</span> is the following:</p>
+<pre><b>LINE</b> -(<i>xz</i>,<i>yz</i>)</pre>
+<p>This draws a line from the last point referenced to the point (<span class="code"><i>x2</i>,<i>y2</i></span>) in the foreground color.</p>
+<h4>Examples:</h4>
+<pre>LINE (0,100)-(639,100)</pre>
+<p>Draws a horizontal line which divides the screen in half from top to bottom in <span class="code">SCREEN 2</span>.</p>
+<pre>LINE (160,0)-(160,199)</pre>
+<p>Draws a vertical line which divides the screen in half from left to right in <span class="code">SCREEN 1</span>; makes a one-quarter/three-quarter division in <span class="code">SCREEN 2</span>.</p>
+<pre>LINE (0,0)-(319,199)</pre>
+<p>Draws a diagonal line from the top left to lower right corner of the screen in <span class="code">SCREEN 1</span>, and from the upper left corner to the center bottom of the screen in <span class="code">SCREEN 2</span>.</p>
+<pre>LINE (10,10)-(20,20),2</pre>
+<p>Draws a line in color 2 if <span class="code">SCREEN 1</span> is previously specified (see the <a href="COLOR.html">COLOR</a> statement).</p>
+<pre>10 CLS
+20 LINE -(RND*319,RND*199),RND*4
+30 GOTO 20</pre>
+<p>Draw lines forever using random attributes.</p>
+<pre>10 FOR X=0 TO 319
+20 LINE (X,0)-(X,199),X AND 1
+30 NEXT</pre>
+<p>Draws an alternating pattern: line on, line off.</p>
+<pre>10 CLS
+20 LINE -(RND*639,RND*199),RND*2,BF
+30 GOTO 20</pre>
+<p>Draws lines all over the screen.</p>
+<pre>LINE (0,0)-(100,175),,B</pre>
+<p>Draws a square box in the upper left corner of the screen.</p>
+<pre>LINE (0,0)-(100,175),,BF</pre>
+<p>Draws the same box and fills it in.</p>
+<pre>LINE (0,0)-(100,175),2,BF</pre>
+<p>Draws the same filled box in magenta in <span class="code">SCREEN 1</span>.</p>
+<pre>LINE (0,0)-(100,350),,B</pre>
+<p>Draws the same box if <span class="code">SCREEN 2</span> is specified.</p>
+<pre>400 SCREEN 1
+410 LINE(160,100)-(160,199),,,&amp;HCCCC</pre>
+<p>Draws a vertical dotted line down the center of the screen in <span class="code">SCREEN 1</span>.</p>
+<pre>220 SCREEN 2
+230 LINE(300,100)-(400,50),,B,&amp;HAAAA</pre>
+<p>Draws a rectangle with a dotted line in <span class="code">SCREEN 2</span>.</p>
+<pre>LINE (0,0)-(160,100),3,,&amp;HFF00</pre>
+<p>Draws a dotted line from the upper left corner to the screen center.</p>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>MID$ Statement</h1>
+<h4>Purpose:</h4>
+<p>To replace a portion of one string with another string.</p>
+<h4>Syntax:</h4>
+<pre><b>MID$</b>(<i>stringexp1</i>,<i>n</i>[,<i>m</i>])=<i>stringexp2</i></pre>
+<h4>Comments:</h4>
+<p>Both <span class="code"><i>n</i></span> and <span class="code"><i>m</i></span> are integer expressions.</p>
+<p><span class="code"><i>stringexp1</i></span> and <span class="code"><i>stringexp2</i></span> are string expressions.</p>
+<p>The characters in <span class="code"><i>stringexp1</i></span>, beginning at position <span class="code"><i>n</i></span>, are replaced by the characters in <span class="code"><i>stringexp2</i></span>.</p>
+<p>The optional <span class="code"><i>m</i></span><i> </i>refers to the number of characters from <span class="code"><i>stringexp2</i></span><i> </i>that are used in the replacement. If <span class="code"><i>m</i></span><i> </i>is omitted, all of <span class="code"><i>stringexp2</i></span><i> </i>is used.</p>
+<p>Whether <span class="code"><i>m</i></span><i> </i>is omitted or included, the replacement of characters never goes beyond the original length of <span class="code"><i>stringexp1</i></span>.</p>
+<h4>Examples:</h4>
+<pre>10 A$=&quot;KANSAS CITY, MO&quot;
+20 MID$(A$, 14)=&quot;KS&quot;
+30 PRINT A$
+RUN
+ KANSAS CITY, KS</pre>
+<p>Line 20 overwrites &quot;MO&quot; in the A$ string with &quot;KS&quot;.</p>
+
+</body>
+</html>

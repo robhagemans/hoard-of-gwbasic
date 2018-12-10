@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>CHAIN Statement</h1>
+<h4>Purpose:</h4>
+<p>To transfer control to the specified program and pass (chain) variables to it from the current program.</p>
+<h4>Syntax:</h4>
+<pre><b>CHAIN</b>[<b>MERGE</b>] <i>filename</i>[,[<i>line</i>][,[<b>ALL</b>][,<b>DELETE</b> <i>range</i>]]]</pre>
+<h4>Comments:</h4>
+<p><span class="code">MERGE</span> overlays the current program with the called program.</p>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p>The called program must be an ASCII file (previously saved with the a option) if it is to be merged (see the <a href="MERGE.html">MERGE</a> command).</p>
+<hr>
+<p><span class="code"><i>filename</i></span> is the name of the program that is called to be chained to. The .BAS extension is assumed unless another is specified.</p>
+<p><span class="code"><i>line</i></span> is a line number or an expression that corresponds to a line number in the called program. It is the starting point for execution of the called program. For example the following begins execution of <i>PROG1.BAS</i> at line 1000:</p>
+<pre>10 CHAIN &quot;PROG1&quot;, 1000</pre>
+<p>If <span class="code"><i>line</i></span> is omitted, execution begins at the first line.</p>
+<p><span class="code"><i>line</i></span> is not affected by a <span class="code">RENUM</span> command. However, the line numbers in the specified range are affected by a <span class="code">RENUM</span> command.</p>
+<p><span class="code">ALL</span> specifies that every variable in the current program is chained to the called program. For example:</p>
+<pre>20 CHAIN &quot;PROG1&quot;, 1000, ALL</pre>
+<p>If the <span class="code">ALL</span> option is omitted, the current program must contain a <span class="code">COMMON</span> statement to list the variables that are passed.</p>
+<p><span class="code">CHAIN</span> executes a <span class="code">RESTORE</span> before it runs the program that it is to be chained to. The <span class="code">READ</span> statement then gets the first item in the <span class="code">DATA</span> statement. Reading will not resume where it left off in the program that is being chained.</p>
+<p>After an overlay is executed and used for a specific purpose, it is usually desirable to delete it so that a new overlay may be brought in. To do this, use the <span class="code">DELETE</span> command.</p>
+<p>The <span class="code">CHAIN</span> statement with the <span class="code">MERGE</span> command leaves the files open and preserves the current option base setting.</p>
+<p>If the <span class="code">MERGE</span> command is omitted, the <span class="code">OPTION BASE</span> setting is preserved, and <span class="code">CHAIN</span> preserves no variable types or user-defined functions for use by the chained program. That is, any <span class="code">DEFINT</span>, <span class="code">DEFSNG</span>, <span class="code">DEFDBL</span>, <span class="code">DEFSTR</span>, or <span class="code">DEF FN</span> statement containing shared variables must be restated in the chained program.</p>
+<p>When using the merge command, place user-defined functions before any <span class="code">CHAIN MERGE</span> statements in the program. Otherwise, they will be undefined after the merge is complete.</p>
+</body>
+</html>

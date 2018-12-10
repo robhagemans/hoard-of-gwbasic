@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DEF USR Statement</h1>
+<h4>Purpose:</h4>
+<p>To specify the starting address of an assembly language subroutine to be called from memory by the <span class="code">USR</span> function.</p>
+<h4>Syntax:</h4>
+<pre><b>DEF USR</b>[<i>n</i>]=<i>integer</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> may be any digit from 0 to 9. The digit corresponds to the <span class="code">USR</span> routine address being specified. If <span class="code"><i>n</i></span> is omitted, <span class="code">DEF USR0</span> is assumed.</p>
+<p><span class="code"><i>integer</i></span> is the offset address of the <span class="code">USR</span> routine. If more than 10 <span class="code">USR</span> routines are required, <span class="code">DEF USR[<i>n</i>]</span> may appear in the program as many times as necessary to redefine the <span class="code">USR[<i>n</i>]</span> starting address.</p>
+<p>Add the current segment value to the integer to get the starting address of the user routine.</p>
+<p>When an Assembly Language Subroutine is called, the GW-BASIC program execution is paused, and control is transferred to the Assembly Language program. When that program is executed, control is returned to the GW-BASIC program at the point of interruption.</p>
+<h4>Examples:</h4>
+<pre>.
+.
+.
+190 DEF SEG=0
+200 DEF USR0=24000
+210 X=USR0(Y^2/2.82)
+.
+.
+.</pre>
+<p>Lines 190 and 200 set the absolute address.</p>
+<p>Line 210 calls the <span class="code">USR</span> routine located at that address, and passes the integer value of the expression contained within the parentheses to the user program (see <a href="USR.html">USR</a>).</p>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p>This statement is given here primarily to provide compatibility with other GW-BASIC implementations. The more versatile <span class="code">CALL</span> statement should be used if this downward compatibility is unimportant.</p>
+<hr>
+</body>
+</html>

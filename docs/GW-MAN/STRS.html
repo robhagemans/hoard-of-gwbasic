@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>STR$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a string representation of the value of <span class="code"><i>x</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>STR$</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">STR$(<i>x</i>)</span> is the complementary function to <span class="code">VAL(<i>x$</i>)</span> (see the <a href="VAL.html">VAL</a> function).</p>
+<h4>Examples:</h4>
+<pre>5 REM ARITHMETIC FOR KIDS
+10 INPUT &quot;TYPE A NUMBER&quot;; N
+20 ON LEN(STR$(N)) GOSUB 30, 40, 50
+.
+.
+.</pre>
+<p>This program branches to various subroutines, depending on the number of characters typed before the <span class="smallcaps">RETURN</span> key is pressed.</p>
+
+</body>
+</html>

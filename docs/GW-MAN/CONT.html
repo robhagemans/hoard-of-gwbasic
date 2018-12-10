@@ -1,0 +1,17 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CONT Command</h1>
+<h4>Purpose:</h4>
+<p>To continue program execution after a break.</p>
+<h4>Syntax:</h4>
+<pre><b>CONT</b></pre>
+<h4>Comments:</h4>
+<p>Resumes program execution after <span class="smallcaps">CTRL-BREAK</span>, <span class="code">STOP</span>, or <span class="code">END</span> halts a program. Execution continues at the point where the break happened. If the break took place during an <span class="code">INPUT</span> statement, execution continues after reprinting the prompt.</p>
+<p><span class="code">CONT</span> is useful in debugging, in that it lets you set break points with the <span class="code">STOP</span> statement, modify variables using direct statements, continue program execution, or use <span class="code">GOTO</span> to resume execution at a particular line number. If a program line is modified, <span class="code">CONT</span> will be invalid.</p>
+</body>
+</html>

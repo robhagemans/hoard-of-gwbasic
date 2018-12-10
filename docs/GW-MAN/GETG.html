@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>GET Statement (Graphics)</h1>
+<h4>Purpose:</h4>
+<p>To transfer graphics images from the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>GET</b> (<i>x1</i>,<i>y1</i>)-(<i>x2</i>,<i>y2</i>),<i>array name</i></pre>
+<h4>Comments:</h4>
+<p>The <span class="code">PUT</span> and <span class="code">GET</span> statements are used to transfer graphics images to and from the screen. <span class="code">PUT</span> and <span class="code">GET</span> make animation and high-speed object motion possible in either graphics mode.</p>
+<p>The <span class="code">GET</span> statement transfers the screen image bounded by the rectangle described by the specified points into the array. The rectangle is defined the same way as the rectangle drawn by the <span class="code">LINE</span> statement using the <span class="code">,<b>B</b></span> option.</p>
+<p>The array is used simply as a place to hold the image, and can be of any type except string. It must be dimensioned large enough to hold the entire image. The contents of the array after a <span class="code">GET</span> will be meaningless when interpreted directly (unless the array is of the type integer, as shown below).</p>
+<p>The storage format in the array is as follows:</p>
+<ul>
+	<li>2 bytes given x dimension in bits</li>
+	<li>2 bytes given y dimension in bits</li>
+	<li>the array data itself</li>
+</ul>
+<p>The data for each row of pixels is left-justified on a byte boundary. If less than a multiple of eight bits is stored, the rest of the byte will be filled out with zeros. The required array size in bytes is as follows:</p>
+<pre>4+INT((x*bitsperpixel+7)/8)*y</pre>
+<p>See the <a href="SCREENS.html">SCREEN</a> statement for bits-per-pixel values for different screen modes.</p>
+<p>The bytes-per-element of an array are as follows:</p>
+<ul>
+	<li>2 for integer</li>
+	<li>4 for single-precision</li>
+	<li>8 for double-precision</li>
+</ul>
+<p>The number of bytes required to get a 10 by 12 image into an integer array is <span class="code">4+INT((10*2+7)/8)*12</span>, or 40 bytes. An integer array with at least 20 elements is necessary.</p>
+<p>If <span class="code">OPTION BASE</span> equals zero, an integer array can be used to examine the x and y dimensions and the data. The x dimension is in element 0 of the array, and the y dimension is in element 1. Integers are stored low byte first, then high byte, but data is transferred high byte first (left-most), then low byte.</p>
+<p>It is possible to get an image in one mode and put it in another, although the effect may be quite strange because of the way points are represented in each mode.</p>
+<h4>Examples:</h4>
+<pre>10 CLS: SCREEN 1
+20 PSET(130, 120)
+30 DRAW &quot;U25; E7; R20; D32; L6; U12; L14&quot;
+40 DRAW &quot;D12;L6&quot;:PSET(137,102)
+50 DRAW &quot;U4; E4; R8; D8; L12&quot;
+60 PSET(137, 88)
+70 DRAW &quot;E4; R20; D32; G4&quot;: PAINT(139, 87)
+80 DIM A(500)
+90 GET (125, 130)-(170, 80),A
+100 FOR I=1 TO 1000: NEXT I
+110 PUT (20,20), A, PSET
+120 FOR I=1 TO 1000: NEXT I
+130 GET (125,130)-(170, 80),A
+140 FOR I=1 TO 1000: NEXT I
+150 PUT (220,130), A, PRESET</pre>
+</body>
+</html>

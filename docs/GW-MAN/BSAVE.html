@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>BSAVE Command</h1>
+<h4>Purpose:</h4>
+<p>To save portions of user memory on the specified device.</p>
+<h4>Syntax:</h4>
+<pre><b>BSAVE</b> <i>filename</i>,<i>offset</i>,<i>length</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> is a valid string expression containing the filename.</p>
+<p><span class="code"><i>offset</i></span> is a valid numeric expression within the range of 0 to 65535. This is the offset into the segment, declared by the last <span class="code">DEF SEG</span>, where saving is to start.</p>
+<p><span class="code"><i>length</i></span><i> </i>is a valid numeric expression within the range of 0 to 65535, specifying the length of the memory image to be saved.</p>
+<p>If <span class="code"><i>filename</i></span> is less than one character, a &quot;<span class="code">Bad File Number</span>&quot; error is issued and the load is aborted.</p>
+<p>Execute a <span class="code">DEF SEG</span> statement before the <span class="code">BSAVE</span>. The last known <span class="code">DEF SEG</span> address is always used for the save.</p>
+<p>The <span class="code">DEF SEG</span> statement must be used to set up the segment address to the start of the screen buffer. An offset of 0 and a length of 16384 specify that the entire 16K screen buffer is to be saved.</p>
+<h4>Examples:</h4>
+<pre>10 DEF SEG=&amp;HB800
+20 BSAVE&quot;PICTURE&quot;, 0, 16384</pre>
+<p>The <span class="code">DEF SEG</span> statement in line 10 points the segment at the screen buffer.</p>
+<p>The <span class="code">BSAVE</span> command in line 20 saves the screen buffer in the file named <i>picture</i>.</p>
+</body>
+</html>

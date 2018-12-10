@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>INPUT Statement</h1>
+<h4>Purpose:</h4>
+<p>To prepare the program for input from the terminal during program execution.</p>
+<h4>Syntax:</h4>
+<pre><b>INPUT</b>[;][<i>prompt string</i>;] <i>list of variables</i>
+ <b>INPUT</b>[;][<i>prompt string</i>,] <i>list of variables</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>prompt string</i></span> is a request for data to be supplied during program execution.</p>
+<p><span class="code"><i>list of variables</i></span><i> </i>contains the variable(s) that stores the data in the prompt string.</p>
+<p>Each data item in the prompt string must be surrounded by double quotation marks, followed by a semicolon or comma and the name of the variable to which it will be assigned. If more than one <span class="code"><i>variable</i></span> is given, data items must be separated by commas.</p>
+<p>The data entered is assigned to the variable list. The number of data items supplied must be the same as the number of variables in the list.</p>
+<p>The variable names in the list may be numeric or string variable names (including subscripted variables). The type of each data item input must agree with the type specified by the variable name.</p>
+<p>Too many or too few data items, or the wrong type of values (for example, numeric instead of string), causes the message &quot;<span class="code">?Redo from start</span>&quot; to be printed. No assignment of input values is made until an acceptable response is given.</p>
+<p>A comma may be used instead of a semicolon after prompt string to suppress the question mark. For example, the following line prints the prompt with no question mark:</p>
+<pre>INPUT &quot;ENTER BIRTHDATE&quot;,B$</pre>
+<p>If the prompt string is preceded by a semicolon, the <span class="smallcaps">RETURN</span> key pressed by the operator is suppressed. During program execution, data on that line is displayed, and data from the next <span class="code">PRINT</span> statement is added to the line.</p>
+<p>When an <span class="code">INPUT</span> statement is encountered during program execution, the program halts, the prompt string is displayed, and the operator types in the requested data. Strings that input to an <span class="code">INPUT</span> statement need not be surrounded by quotation marks unless they contain commas or leading or trailing blanks.</p>
+<p>When the operator presses the <span class="smallcaps">RETURN</span> key, program execution continues.</p>
+<p><span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements have built-in <span class="code">PRINT</span> statements. When an <span class="code">INPUT</span> statement with a quoted string is encountered during program execution, the quoted string is printed automatically (see the <a href="PRINT.html">PRINT</a> statement).</p>
+<p>The principal difference between the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements is that <span class="code">LINE INPUT</span> accepts special characters (such as commas) within a string, without requiring double quotation marks, while the <span class="code">INPUT</span> statement requires double quotation marks.</p>
+<h4>Example 1:</h4>
+<p>To find the square of a number:</p>
+<pre>10 INPUT X
+20 PRINT X &quot;SQUARED IS&quot; X^2
+30 END
+RUN
+ ?</pre>
+<p>The operator types a number (5) in response to the question mark.</p>
+<pre> 5 SQUARED IS 25</pre>
+<h4>Example 2:</h4>
+<p>To find the area of a circle when the radius is known:</p>
+<pre>10 PI=3.14
+20 INPUT &quot;WHAT IS THE RADIUS&quot;; R
+30 A=PI*R^2
+40 PRINT &quot;THE AREA OF THE CIRCLE IS&quot;; A
+50 PRINT
+60 GOTO 20
+RUN
+ WHAT IS THE RADIUS? 7.4
+ THE AREA OF THE CIRCLE IS 171.9464</pre>
+<p>Note that line 20 in the above example makes use of the built-in <span class="code">PRINT</span> statement contained within <span class="code">INPUT</span>.</p>
+</body>
+</html>

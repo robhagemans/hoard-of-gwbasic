@@ -1,0 +1,71 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>CALL Statement</h1>
+<h4>Purpose:</h4>
+<p>To call an assembly (or machine) language subroutine.</p>
+<h4>Syntax:</h4>
+<pre><b>CALL</b> <i>numvar</i>[(<i>variables</i>)]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>numvar</i></span> is the starting point in memory of the subroutine being called as an offset into the current segment.</p>
+<p><span class="code"><i>variables</i></span> are the variables or constants, separated by commas and enclosed in parentheses, that are to be passed to the routine.</p>
+<p>The <span class="code">CALL</span> statement is recommended for interfacing assembly language programs with GW-BASIC. Although the <span class="code">USR</span> function may also be used, <span class="code">CALL</span> is compatible with more languages, produces a more readable source code, and can pass multiple arguments.</p>
+<p>Invocation of the <span class="code">CALL</span> statement causes the following to occur:</p>
+<ul><li>Each parameter location in the variable is pushed onto the stack. The parameter location is a 2-byte offset into GW-BASIC's data segment.</li>
+	<li>The return address code segment (CS) and the offset are pushed onto the stack.</li>
+	<li>Control is transferred to the user routine by the segment address given in the last <span class="code">DEF SEG</span> statement and the offset given in the variable name.</li>
+	<li>The user routine now has control. Parameters may be referenced by moving the stack pointer (SP) to the base pointer (BP) and adding a positive offset to BP.</li>
+	<li>The called routine may destroy the contents of any registers.</li>
+	<li>The called program must know how many parameters were passed. Parameters are referenced by adding a positive offset to BP, assuming the called routine moved the current stack pointer into BP (that is, <span class="code">MOV BP,SP</span>).</li>
+	<li>The called program must know the variable type for numeric parameters passed.</li>
+	<li>The called routine must do a <span class="code">RET <i>n</i></span>, where n is the number of parameters in the variable times 2. This is necessary in order to adjust the stack to the point at the start of the calling sequence.</li>
+	<li>Values are returned to GW-BASIC by including in the argument list the name of the variable that is to receive the result.</li>
+	<li>If the argument is a string, the parameter offset points to three bytes called the string descriptor. Byte 0 of the string descriptor contains the length of the string (0 to 255). Bytes 1 and 2, respectively, are the lower- and upper-eight bits of the string starting address in the string space.</li>
+	<li><p>If the argument is a string literal in the program, the string descriptor points to program text. Be careful not to alter or destroy a program this way. To avoid unpredictable results, add +&quot;&quot; to the string literal in the program, as in the following: </p>
+    <pre>20 A$=&quot;BASIC&quot;+&quot;&quot;</pre>
+    This forces the string literal to be copied into the string space. Now the string may be modified without affecting the program.</li>
+</ul>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p>Strings may be altered by user routines, but their length must not be changed. GW-BASIC cannot correctly erase strings if their lengths are modified by external routines.</p>
+<hr>
+<p>For more information on the <span class="code">CALL</span> statement and <span class="code">USR</span> function, see <a href="Appendix D.html">Appendix D in the GW-BASIC User's Guide</a>.</p>
+<h4>Example 1:</h4>
+<pre>100 DEF SEG=&amp;H2000
+110 ARK=0
+120 CALL ARK(A, B$, C)
+.
+.
+.</pre>
+<p>Line 100 sets the segment to hex 2000. ARK is set to zero so that the call to ARK executes the subroutine at location 2000:0.</p>
+<h4>Example 2:</h4>
+<p>The following sequence of 8086 Assembly Language demonstrates access of the parameters passed and stored in variable C:</p>
+<pre>PUSH BP
+MOV BP, SP      ; Gets current stack position in BP.
+MOV BX, 8[BP]   ; Gets address of B$ descriptor.
+MOV CL, [BX]    ; Gets length of B$ in CL.
+MOV DX, 1[BX]   ; Gets address of B$ text in DX.
+.
+.
+.
+MOV SI, 10[BP] ; Gets address of A in SI.
+MOV DI, 6[BP]   ; Gets pointer to C in DI.
+MOVSW           ; Stores variable A in C.
+RET 6           ; Restores stack and returns.</pre>
+<p><span class="code">MOVSW</span> copies only two bytes. This is sufficient if variables A and C are integer. Four bytes must be copied if they are single precision; eight bytes, if they are double precision.</p>
+<h4></h4>
+<h4>Example 3:</h4>
+<pre>100 DEF SEG=&amp;H2000
+110 ACC=&amp;H7FA
+120 CALL ACC(A, B$, C)
+.
+.
+.</pre>
+<p>Line 100 sets the segment to hex 2000. The value of variable ACC is added into the address as the low word after the <span class="code">DEF SEG</span> value is shifted four bits to the left (this is a function of the microprocessor, not of GW-BASIC). Here, ACC is set to &amp;H7FA, so that the call to ACC executes the subroutine at the location hex 2000:7FA (absolute address hex 207FA).</p>
+</body>
+</html>

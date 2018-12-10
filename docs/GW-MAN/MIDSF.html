@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>MID$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a string of <span class="code"><i>m</i></span> characters from <span class="code"><i>x$</i></span> beginning with the <span class="code"><i>nth</i></span> character.</p>
+<h4>Syntax:</h4>
+<pre><b>MID$</b>(<i>x$</i>,<i>n</i>[,<i>m</i>])</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span><i> </i>must be within the range of 1 to 255.</p>
+<p><span class="code"><i>m</i></span><i> </i>must be within the range of 0 to 255.</p>
+<p>If <span class="code"><i>m</i></span><i> </i>is omitted, or if there are fewer than <span class="code"><i>m</i></span><i> </i>characters to the right of <span class="code"><i>n</i></span>, all rightmost characters beginning with <span class="code"><i>n</i></span> are returned.</p>
+<p>If <span class="code"><i>n</i></span> &gt; <span class="code">LEN(<i>x$</i>)</span>, <span class="code">MID$</span> function returns a null string.</p>
+<p>If <span class="code"><i>m</i></span><i> </i>equals 0, the <span class="code">MID$</span> function returns a null string.</p>
+<p>If either <span class="code"><i>n</i></span><i> </i>or <span class="code"><i>m</i></span><i> </i>is out of range, an &quot;<span class="code">Illegal function call error</span>&quot; is returned.</p>
+<p>For more information and examples, see the <a href="LEFTS.html">LEFT$</a> and <a href="RIGHTS.html">RIGHT$</a> functions.</p>
+<h4>Examples:</h4>
+<pre>10 A$=&quot;GOOD&quot;
+20 B$=&quot;MORNING EVENING AFTERNOON&quot;
+30 PRINT A$; MID$(B$, 8, 8)
+RUN
+ GOOD EVENING</pre>
+<p>Line 30 concatenates (joins) the A$ string to another string with a length of eight characters, beginning at position 8 within the B$ string.</p>
+
+</body>
+</html>

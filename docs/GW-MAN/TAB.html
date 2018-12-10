@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>TAB Function</h1>
+<h4>Purpose:</h4>
+<p>Spaces to position <span class="code"><i>n</i></span> on the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>TAB</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p>If the current print position is already beyond space <span class="code"><i>n</i></span>, <span class="code">TAB</span> goes to that position on the next line.</p>
+<p>Space 1 is the leftmost position. The rightmost position is the screen width.</p>
+<p><span class="code"><i>n</i></span><i> </i>must be within the range of 1 to 255.</p>
+<p>If the <span class="code">TAB</span> function is at the end of a list of data items, GW-BASIC will not return the cursor to the next line. It is as though the <span class="code">TAB</span> function has an implied semicolon after it.</p>
+<p><span class="code">TAB</span> may be used only in <span class="code">PRINT</span>, <span class="code">LPRINT</span>, or <span class="code">PRINT#</span> statements (see the <a href="SPC.html">SPC</a> function).</p>
+<h4>Examples:</h4>
+<pre>10 PRINT &quot;NAME&quot; TAB(25) &quot;AMOUNT&quot;: PRINT
+20 READ A$,B$
+30 PRINT A$ TAB(25) B$
+40 DATA &quot;G. T. JONES&quot;,&quot;$25.00&quot;
+RUN
+ NAME           AMOUNT
+ G. T. JONES    $25.00</pre>
+
+</body>
+</html>

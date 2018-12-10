@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ERR and ERL Variables</h1>
+<h4>Purpose:</h4>
+<p>To return the error code (<span class="code">ERR</span>) and line number (<span class="code">ERL</span>) associated with an error.</p>
+<h4>Syntax:</h4>
+<pre><i>v</i>=<b>ERR</b>
+<i>v</i>=<b>ERL</b></pre>
+<h4>Comments:</h4>
+<p>The variable <span class="code">ERR</span> contains the error code for the last occurrence of an error. All the error codes and their definitions are listed in <a href="Appendix A.html">Appendix A of the GW-BASIC User's Guide</a>.</p>
+<p>The variable <span class="code">ERL</span> contains the line number of the line in which the error was detected.</p>
+<p>The <span class="code">ERR</span> and <span class="code">ERL</span> variables are usually used in <span class="code">IF-THEN</span>, or <span class="code">ON ERROR...GOTO</span>, or <span class="code">GOSUB</span> statements to direct program flow in error trapping.</p>
+<p>If the statement that caused the error was a direct mode statement, <span class="code">ERL</span> will contain 65535. To test if an error occurred in a direct mode statement, use a line of the following form:</p>
+<pre>IF 65535=ERL THEN ...</pre>
+<p>Otherwise, use the following:</p>
+<pre>10 IF ERR=error code THEN...GOSUB 4000
+20 IF ERL=line number THEN...GOSUB 4010</pre>
+<hr>
+<p><b><i>Note</i></b></p>
+<p>If the line number is not on the right side of the relational operator, it cannot be renumbered by <span class="code">RENUM</span>.</p>
+<hr>
+<p>Because <span class="code">ERL</span> and <span class="code">ERR</span> are reserved variables, neither may appear to the left of the equal sign in a <span class="code">LET</span> (assignment) statement.</p>
+</body>
+</html>

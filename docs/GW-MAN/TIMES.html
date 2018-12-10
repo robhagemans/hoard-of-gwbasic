@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>TIME$ Statement and Variable</h1>
+<h4>Purpose:</h4>
+<p>To set or retrieve the current time.</p>
+<h4>Syntax:</h4>
+<p>As a statement:</p>
+<pre><b>TIME$</b> = <i>string exp</i></pre>
+<p>As a variable:</p>
+<pre><i>string exp</i>=<b>TIME$</b></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>string exp</i></span> is a valid string literal or variable that lets you set hours (<span class="code"><i>hh</i></span>), hours and minutes (<span class="code"><i>hh:mm</i></span>), or hours, minutes, and seconds (<span class="code"><i>hh:mm:ss</i></span>).</p>
+<p><span class="code"><i>hh</i></span><i> </i>sets the hour (0-23). Minutes and seconds default to 00.</p>
+<p><span class="code"><i>hh:mm</i></span> sets the hour and minutes (0-59). Seconds default to 00.</p>
+<p><span class="code"><i>hh:mm:ss</i></span> sets the hour, minutes, and seconds (0-59).</p>
+<p>If <span class="code"><i>string exp</i></span> is not a valid string, a &quot;<span class="code">Type mismatch</span>&quot; error results.</p>
+<p>As you enter any of the above values, you may omit the leading zero, if any. You must, however, enter at least one digit. If you wanted to set the time as a half hour after midnight, you could enter <span class="code">TIME$= &quot;0:30&quot;</span>, but not <span class="code">TIME$= &quot;:30&quot;</span>.</p>
+<p>If any of the values are out of range, an &quot;<span class="code">Illegal function call</span>&quot; error is issued. The previous time is retained.</p>
+<p>The current time is stored if <span class="code">TIME$</span> is the target of a string assignment.</p>
+<p>The current time is fetched and assigned to the string variable if <span class="code">TIME$</span> is the expression in a <span class="code">LET</span> or <span class="code">PRINT</span> statement.</p>
+<p>If <span class="code"><i>string exp</i> = TIME$</span>, <span class="code">TIME$</span> returns an 8-character string in the form <span class="code"><i>hh:mm:ss</i></span>.</p>
+<h4>Examples:</h4>
+<p>The following example sets the time at 8:00 A.M.:</p>
+<pre>TIME$ = &quot;08:00&quot;
+PRINT TIME$
+ 08:00:05</pre>
+<p>The following program displays the current date and time on the 25th line of the screen and will sound on the minute and half minute.</p>
+<pre>10 KEY OFF: SCREEN 0: WIDTH 80: CLS
+20 LOCATE 25, 5
+30 PRINT DATE$, TIME$;
+40 SEC=VAL(MID$(TIME$, 7, 2))
+50 IF SEC=SSEC THEN 20 ELSE SSEC=SEC
+60 IF SEC=0 THEN 1010
+70 IF SEC=30 THEN 1020
+80 IF SEC&lt;57 THEN 20
+1000 SOUND 1000, 2: GOTO 20
+1010 SOUND 2000, 8: GOTO 20
+1020 SOUND 400, 4: GOTO 20</pre>
+
+</body>
+</html>

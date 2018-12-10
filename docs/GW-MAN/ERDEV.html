@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ERDEV and ERDEV$ Variables</h1>
+<h4>Purpose:</h4>
+<p>To return the actual value (<span class="code">ERDEV</span>) of a device error, and the name of the device (<span class="code">ERDEV$</span>) causing the error.</p>
+<h4>Syntax:</h4>
+<pre><b>ERDEV</b>
+<b>ERDEV$</b></pre>
+<h4>Comments:</h4>
+<p><span class="code">ERDEV</span> will contain the error code from interrupt 24H in the lower 8 bits. Bits 8 to 15 from the attribute word in the Device Header Block are mapped directly into the upper 8 bits.</p>
+<p><span class="code">ERDEV$</span> will contain the 8-byte character device name if the error was on a character device. It will contain the 2 byte block device name (A:, B:, etc.) if the device was not a character device.</p>
+<h4>Examples:</h4>
+<p>Installed device driver lpt2: caused a &quot;<span class="code">Printer out of paper</span>&quot; error via INT 24H.</p>
+<p><span class="code">ERDEV</span> contains the error number 9 in the lower 8 bits, while the upper 8 bits contain the upper byte of the Device Header word attributes.</p>
+<pre>ERDEV$ contains &quot;LPT2: &quot;.</pre>
+</body>
+</html>

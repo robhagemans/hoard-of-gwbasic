@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>IOCTL Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow GW-BASIC to send a &quot;control data&quot; string to a character device driver anytime after the driver has been opened.</p>
+<h4>Syntax:</h4>
+<pre><b>IOCTL</b>[<b>#</b>]<i>file number</i>,<i>string</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span><i> </i>is the file number open to the device driver.</p>
+<p><span class="code"><i>string</i></span><i> </i>is a valid string expression containing characters that control the device.</p>
+<p><span class="code">IOCTL</span> commands are generally 2 to 3 characters followed by an optional alphanumeric argument. An <span class="code">IOCTL</span> string may be up to 255 bytes long, with commands within the string separated by semicolons.</p>
+<h4>Examples:</h4>
+<p>If a user had installed a driver to replace lpt1, and that driver was able to set page length (the number of lines to print on a page before issuing a form feed), then the following lines would open the new lpt1 driver and set the page length to 66 lines:</p>
+<pre>OPEN &quot;LPT1:&quot; FOR OUTPUT AS #1
+IOCTL #1, &quot;PL66&quot;</pre>
+<p>The following statements open lpt1 with an initial page length of 56 lines:</p>
+<pre>OPEN &quot;\DEV\LPT1&quot; FOR OUTPUT AS #1
+IOCTL #1, &quot;PL56&quot;</pre>
+
+</body>
+</html>

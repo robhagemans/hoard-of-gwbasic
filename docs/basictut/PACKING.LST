@@ -1,0 +1,31 @@
+
+PKZIP (R)   FAST!   Create/Update Utility   Version 1.1   03-15-90
+Copr. 1989-1990 PKWARE Inc.  All Rights Reserved.  PKZIP/h for help
+PKZIP Reg. U.S. Pat. and Tm. Off.
+
+Searching ZIP: BTX.ZIP
+
+ Length  Method   Size  Ratio   Date    Time   CRC-32  Attr  Name
+ ------  ------   ----- -----   ----    ----   ------  ----  ----
+    772  Implode    423  46%  10-06-92  13:13  f17084b5 --w  HELPME.BAT
+    979  Implode    556  44%  10-05-92  23:35  5ff041af --w  CHECKBK.BAS
+    510  Implode    334  35%  09-29-87  16:07  de1c13bf --w  PLAYARRY.BAS
+    849  Implode    483  44%  09-29-87  17:23  cf4b4d3c --w  DRAWBOX1.BAS
+    623  Implode    394  37%  01-17-88  18:19  40d5463b --w  SCR.BAS
+    871  Implode    509  42%  01-20-88  10:58  398c0cac --w  COLORS.BAS
+   1116  Implode    372  67%  10-05-92  23:54  90e0dd6b --w  TOTALS.BAS
+    576  Implode    233  60%  10-05-92  23:47  eafa5672 --w  DICE.BAS
+  61318  Implode  26095  58%  02-12-93  11:58  515b3a3f --w  BT1.COM
+  64299  Implode  25946  60%  02-12-93  11:59  cb3894fb --w  BT2.COM
+    537  Implode    379  30%  10-06-92  12:46  678d97e9 --w  RANDFILE.BAS
+   1036  Implode    351  67%  10-06-92  12:47  0c9ffe7d --w  SEQFILE.BAS
+   1433  Implode    414  72%  10-06-92  12:40  26a1f95a --w  JULIAN.BAS
+    376  Implode    330  13%  02-12-93  12:06  e49790cc --w  DESCRIBE
+    409  Implode    354  14%  02-12-93  12:05  74e748ec --w  FILE_ID.DIZ
+  15803  Implode   6803  57%  02-06-93  11:26  8da6d49f --w  README.LST
+  12864  Implode   4613  65%  12-21-92  11:44  2dfacad1 --w  VENDOR.DOC
+   6005  Implode   2269  63%  12-21-92  11:47  d706dfa0 --w  LICENSE.DOC
+  10419  Implode   4327  59%  02-12-93  11:59  6278c95a --w  REGISTER.COM
+   1936  Implode   1076  45%  12-21-92  15:06  a5c08bcc --w  PACKING.LST
+ ------          ------  ---                                 -------
+ 182731           76261  59%                                      20

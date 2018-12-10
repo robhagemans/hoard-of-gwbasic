@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RND Function</h1>
+<h4>Purpose:</h4>
+<p>To return a random number between 0 and 1.</p>
+<h4>Syntax:</h4>
+<pre><b>RND</b>[(<i>x</i>)]</pre>
+<h4>Comments:</h4>
+<p>The same sequence of random numbers is generated each time the program is run unless the random number generator is reseeded (see <a href="RANDOMIZE.html">RANDOMIZE</a> statement). If <span class="code"><i>x</i></span> is equal to zero, then the last number is repeated.</p>
+<p>If <span class="code"><i>x</i></span> is greater than 0, or if <span class="code"><i>x</i></span> is omitted, the next random number in the sequence is generated.</p>
+<p>To get a random number within the range of zero through <span class="code"><i>n</i></span>, use the following formula:</p>
+<pre><b>INT(RND*(n+1))</b></pre>
+<p>The random number generator may be seeded by using a negative value for <span class="code"><i>x</i></span>.</p>
+<h4>Examples:</h4>
+<pre>10 FOR I=1 TO 5
+20 PRINT INT(RND*101);
+30 NEXT
+RUN
+ 53 30 31 51 5</pre>
+<p>Generates five pseudo-random numbers within the range of 0-100.</p>
+
+</body>
+</html>

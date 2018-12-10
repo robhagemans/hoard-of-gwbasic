@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DATE$ Statement and Variable</h1>
+<h4>Purpose:</h4>
+<p>To set or retrieve the current date.</p>
+<h4>Syntax:</h4>
+<p>As a statement:</p>
+<pre><b>DATE$</b>=<i>v$</i></pre>
+<p>As a variable:</p>
+<pre><i>v$</i>=<b>DATE$</b></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>v$</i></span> is a valid string literal or variable.</p>
+<p><span class="code"><i>v$</i></span> can be any of the following formats when assigning the date:</p>
+<pre><i>mm-dd-yy
+mm/dd/yy
+mm-dd-yyyy
+mm/dd/yyyy</i></pre>
+<p>If <span class="code"><i>v$</i></span> is not a valid string, a &quot;<span class="code">Type Mismatch</span>&quot; error results. Previous values are retained.</p>
+<p>If any of the values are out of range or missing, an &quot;<span class="code">Illegal Function Call</span>&quot; error is issued. Any previous date is retained.</p>
+<p>The current date (as assigned when the operating system was initialized) is fetched and assigned to the string variable if <span class="code">DATE$</span> is the expression in a <span class="code">LET</span> or <span class="code">PRINT</span> statement.</p>
+<p>The current date is stored if <span class="code">DATE$</span> is the target of a string assignment.</p>
+<p>With <span class="code"><i>v$</i>=DATE$</span>, <span class="code">DATE$</span> returns a 10-character string in the form <span class="code"><i>mm-dd-yyyy</i></span>. <span class="code"><i>mm</i></span> is the month (01 to 12), <span class="code"><i>dd</i></span> is the day (01 to 31), and <span class="code"><i>yyyy</i></span> is the year (1980 to 2099).</p>
+<h4>Examples:</h4>
+<pre>v$=DATE$
+PRINT V$
+ 01-01-1985</pre>
+</body>
+</html>

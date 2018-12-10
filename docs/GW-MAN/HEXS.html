@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>HEX$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a string which represents the hexadecimal value of the numeric argument.</p>
+<h4>Syntax:</h4>
+<pre><i>v$</i>=<b>HEX$</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">HEX$</span> converts decimal values within the range of -32768 to +65535 into a hexadecimal string expression within the range of 0 to FFFF.</p>
+<p>Hexadecimal numbers are numbers to the base 16, rather than base 10 (decimal numbers). <a href="Appendix%20C.html">Appendix C</a> and <a href="Appendix%20G.html">Appendix G</a> in the G<i>W-BASIC User's Guide</i> contain more information on hexadecimals and their equivalents.</p>
+<p><span class="code"><i>x</i></span><i> </i>is rounded to an integer before <span class="code">HEX$(<i>x</i>)</span> is evaluated. See the <a href="OCTS.html">OCT$</a> function for octal conversions.</p>
+<p>If <span class="code"><i>x</i></span> is negative, 2's (binary) complement form is used.</p>
+<h4>Examples:</h4>
+<pre>10 CLS: INPUT &quot;INPUT DECIMAL NUMBER&quot;;X
+20 A$=HEX$(X)
+30 PRINT X &quot;DECIMAL IS &quot;A$&quot; HEXADECIMAL&quot;
+RUN
+ INPUT DECIMAL NUMBER? 32
+ 32 DECIMAL IS 20 HEXADECIMAL</pre>
+</body>
+</html>

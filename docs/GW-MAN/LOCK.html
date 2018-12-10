@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LOCK Statement</h1>
+<h4>Purpose:</h4>
+<p>To restrict the access to all or part of a file that has been opened by another process. This is used in a multi-device environment, often referred to as a network or network environment.</p>
+<h4>Syntax:</h4>
+<pre><b>LOCK </b>[<b>#</b>]<i>n </i>[,[<i>record number</i>] [<b>TO </b><i>record number</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span><i> </i>is the number that was assigned to the file as it was originally numbered in the program.</p>
+<p><span class="code"><i>record number</i></span><i> </i>is the number of the individual record that is to be locked. Or, if a range of records are to be locked, <span class="code"><i>record number</i></span><i> </i>designates the beginning and ending record of the specified range.</p>
+<p>The range of legal record numbers is 1 to 2<sup>32</sup> -1. The limit on record size is 32767 bytes.</p>
+<p>The record range specified must be from lower to (the same or) higher record numbers.</p>
+<p>If a starting record number is not specified, the record number 1 is assumed.</p>
+<p>If an ending record number is not specified, then only the specified record is locked.</p>
+<p>The following are examples of legal <span class="code">LOCK</span> statements:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td class="code">LOCK #<i>n</i></td>
+  <td>locks the entire file <span class="code"><i>n</i></span></td>
+  </tr>
+  <tr><td class="code">LOCK #<i>n</i>, <i>X</i></td>
+  <td>locks record <span class="code"><i>X</i></span> only</td>
+  </tr>
+  <tr><td class="code">LOCK #<i>n</i> TO <i>Y</i></td>
+  <td>locks records 1 through <span class="code"><i>Y</i></span></td>
+  </tr>
+  <tr><td class="code">LOCK #<i>n</i>, <i>X</i> TO <i>Y</i></td>
+  <td>locks records <span class="code"><i>X</i></span> through <span class="code"><i>Y</i></span></td>
+  </tr>
+</table>
+<p>With a random-access file, the entire opened file, or a range of records within an opened file, may be locked, thus denying access to those records to any other process which has also opened the file.</p>
+<p>With a sequential access file that has been opened for input or output, the entire file is locked, regardless of any record range specified. This is not considered an error. The specification of a range in the <span class="code">LOCK</span> statement regarding the sequential file will simply be disregarded.</p>
+<p>The <span class="code">LOCK</span> statement should be executed on a file or record range within a file before attempting to read or write to that file.</p>
+<p>The locked file or record range should be unlocked before the file is closed. Failure to execute the <span class="code">UNLOCK</span> statement can jeopardize future access to that file in a network environment.</p>
+<p>It is expected that the time in which files or regions within files are locked will be short, and thus the suggested usage of the <span class="code">LOCK</span> statement is within short-term paired <span class="code">LOCK</span>/<span class="code">UNLOCK</span> statements.</p>
+<h4>Examples:</h4>
+<p>The following sequence demonstrates how the <span class="code">LOCK</span>/<span class="code">UNLOCK</span> statements should be used:</p>
+<pre>LOCK #1, 1 TO 4
+LOCK #1, 5 TO 8
+UNLOCK #1, 1 TO 4
+UNLOCK #1, 5 TO 8</pre>
+<p>The following example is illegal:</p>
+<pre>LOCK #1, 1 TO 4
+LOCK #1, 5 TO 8
+UNLOCK #1, 1 TO 8</pre>
+
+</body>
+</html>

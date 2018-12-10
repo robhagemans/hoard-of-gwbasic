@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>COM(n) Statement</h1>
+<h4>Purpose:</h4>
+<p>To enable or disable trapping of communications activity to the specified communications adapter.</p>
+<h4>Syntax:</h4>
+<pre><b>COM</b>(<i>n</i>) <b>ON</b>
+<b>COM</b>(<i>n</i>) <b>OFF</b>
+<b>COM</b>(<i>n</i>) <b>STOP</b></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is the number of the communications adapter 1 or 2.</p>
+<p>Execute a <span class="code">COM(<i>n</i>) ON</span> statement before <span class="code">ON COM(<i>n</i>)</span> statement to allow trapping. After <span class="code">COM(<i>n</i>) ON</span>, if a nonzero number is specified in the <span class="code">ON COM(<i>n</i>)</span> statement, BASIC checks every new statement to see if any characters have come in the communication adapter.</p>
+<p>With <span class="code">COM(<i>n</i>) OFF</span>, no trapping takes place, and all communications activity will be lost.</p>
+<p>With <span class="code">COM(<i>n</i>) STOP</span>, no trapping takes place. However, any communication that takes place will be remembered so that immediate trapping will occur when <span class="code">COM(<i>n</i>) ON</span> is executed.</p>
+</body>
+</html>

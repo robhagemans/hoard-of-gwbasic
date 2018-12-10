@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>NEW Command</h1>
+<h4>Purpose:</h4>
+<p>To delete the program currently in memory and clear all variables.</p>
+<h4>Syntax:</h4>
+<pre><b>NEW</b></pre>
+<h4>Comments:</h4>
+<p><span class="code">NEW</span> is entered at command level to clear memory before entering a new program. GW-BASIC always returns to command level after a <span class="code">NEW</span> is executed.</p>
+<h4>Examples:</h4>
+<pre>NEW</pre>
+<p>or</p>
+<pre>980 PRINT &quot;Do You Wish To Quit (Y/N)
+990 ANS$=INKEY$: IF ANS$=&quot;&quot;THEN 990
+1000 IF ANS$=&quot;Y&quot; THEN NEW
+1010 IF ANS$=&quot;N&quot; THEN 980
+1020 GOTO 990</pre>
+
+</body>
+</html>

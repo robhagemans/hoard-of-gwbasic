@@ -1,0 +1,101 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>KEY Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow rapid entry of as many as 15 characters into a program with one keystroke by redefining GW-BASIC special function keys.</p>
+<h4>Syntax:</h4>
+<pre><b>KEY <i>key number</i>,<i>string expression</i></b><b>
+KEY <i>n</i>,CHR$(<i>hex code</i>)+CHR$(<i>scan code</i>)</b><b>
+KEY ON</b><b>
+KEY OFF</b><b>
+KEY LIST</b> </pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>key number</i></span> is the number of the key to be redefined. key number may range from 1-20.</p>
+<p><span class="code"><i>string expression</i></span><i> </i>is the key assignment. Any valid string of 1 to 15 characters may be used. If a string is longer than 15 characters, only the first 15 will be assigned. Constants must be enclosed in double quotation marks.</p>
+<p><span class="code"><i>scan code</i></span><i> </i>is the variable defining the key you want to trap. <a href="Appendix H.html">Appendix H in the GW-BASIC User's Guide</a> lists the scan codes for the keyboard keys.</p>
+<p><span class="code"><i>hex code</i></span><i> </i>is the hexadecimal code assigned to the key shown below:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+  <tr><td><b>Key</b></td>
+  <td><b>Hex code</b></td>
+  </tr>
+	<tr><td class="smallcaps">EXTENDED</td>
+	<td>&amp;H80</td></tr>
+  <tr><td class="smallcaps">CAPS LOCK</td>
+  <td>&amp;H40</td></tr>
+  <tr><td class="smallcaps">NUM LOCK</td>
+  <td>&amp;H20</td></tr>
+  <tr><td class="smallcaps">ALT</td>
+  <td>&amp;H08</td></tr>
+	<tr><td class="smallcaps">CTRL</td>
+	<td>&amp;H04</td></tr>
+  <tr><td class="smallcaps">SHIFT</td>
+  <td>&amp;H01, &amp;H02, &amp;H03</td></tr>
+</table>
+<p>Hex codes may be added together, such as &amp;H03, which is both shift keys.</p>
+<p>Initially, the function keys are assigned the following special functions:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+  <tr>
+	<td class="smallcaps">F1</td><td class="code">LIST</td>
+		<td width=32>&nbsp;</td>
+		<td class="smallcaps">F2</td><td class="code">RUN<span style='font-family:Symbol'>¿</span></td>
+  </tr>
+  <tr>
+	<td class="smallcaps">F3</td><td class="code">LOAD&quot;</td>
+		<td>&nbsp;</td>
+		<td class="smallcaps">F4</td><td class="code">SAVE&quot;</td>
+  </tr>
+  <tr>
+	<td class="smallcaps">F5</td><td class="code">CONT<span style='font-family:Symbol'>¿</span></td>
+		<td>&nbsp;</td>
+		<td class="smallcaps">F6</td><td class="code">,&quot;LPT1:&quot; <span style='font-family:Symbol'>¿</span></td>
+  </tr>
+  <tr>
+	<td class="smallcaps">F7</td><td class="code">TRON<span style='font-family:Symbol'>¿</span></td>
+		<td>&nbsp;</td>
+		<td class="smallcaps">F8</td><td class="code">TROFF<span style='font-family:Symbol'>¿</span></td>
+  </tr>
+  <tr>
+	<td class="smallcaps">F9</td><td class="code">KEY</td>
+		<td>&nbsp;</td>
+		<td class="smallcaps">F10</td><td class="code">SCREEN 000<span style='font-family:Symbol'>¿</span></td>
+  </tr>
+</table>
+<br>
+<hr>
+<p><i><b>Note</b></i></p>
+<p><span class="code" style='font-family:Symbol'>¿</span> (arrow) means that you do not have to press <span class="smallcaps">RETURN</span> after each of these keys has been pressed.</p>
+<hr>
+<p>Any one or all of the 10 keys may be redefined. When the key is pressed, the data assigned to it will be input to the program.</p>
+<pre>KEY <i>key number</i>, &quot;<i>string expression</i>&quot;</pre>
+<p>Assigns the string expression to the specified key.</p>
+<pre>KEY LIST</pre>
+<p>List all 10 key values on the screen. All 15 characters of each value are displayed.</p>
+<pre>KEY ON</pre>
+<p>Displays the first six characters of the key values on the 25th line of the screen. When the display width is set at 40, five of the 10 keys are displayed. When the width is set at 80, all 10 are displayed.</p>
+<pre>KEY OFF</pre>
+<p>Erases the key display from the 25th line, making that line available for program use. <span class="code">KEY OFF</span> does not disable the function keys.</p>
+<p>If the value for <span class="code"><i>key number</i></span> is not within the range of 1 to 10, or 15 to 20, an &quot;<span class="code">Illegal function call</span>&quot; error occurs. The previous <span class="code">KEY</span> assignment is retained.</p>
+<p>Assigning a null string (length 0) disables the key as a function key.</p>
+<p>When a function key is redefined, the <span class="code">INKEY$</span> function returns one character of the assigned string per invocation. If the function key is disabled, <span class="code">INKEY$</span> returns a string of two characters: the first is binary zero; the second is the key scan code.</p>
+<h4>Examples:</h4>
+<pre>10 KEY 1, &quot;MENU&quot;+CHR$(13)</pre>
+<p>Displays a menu selected by the operator each time key 1 is pressed.</p>
+<pre>1 KEY OFF </pre>
+<p>Turns off the key display.</p>
+<pre>10 DATA KEY1, KEY2, KEY3, KEY4, KEY5
+20 FOR N=1 TO 5: READ SOFTKEYS$(n)
+30 KEY N, SOFTKEYS$(I)
+40 NEXT N
+50 KEY ON</pre>
+<p>Displays new function keys on line 25 of the screen.</p>
+<pre>20 KEY 1, &quot;&quot;</pre>
+<p>Disables function key 1.</p>
+
+</body>
+</html>

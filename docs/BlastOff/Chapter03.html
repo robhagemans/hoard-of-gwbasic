@@ -1,0 +1,475 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Three: Back to BASIC</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Three: Back to BASIC</H2>
+<BR>
+</center>
+<P>
+Have you ever read one of those "create your own ending" story books?  In these books, you read a few paragraphs and then make a decision for the main character.  You then turn ahead to some place else in the book and begin reading again.  Thus, you actually choose the adventures your character struggles through.  These kinds of books are fun.  What's even more fun is writing your own BASIC program to do the same thing.
+<P>
+</P>
+The program we will tackle in this chapter presents a screen full of story and then asks you to make a decision.  Your decision will then cause another screen of the story to be displayed.  Along the way, we will learn some more BASIC statements.  You will see how decisions are made in a computer program and how execution can skip around within a program.
+<P>
+</P>
+To get started, enter these first twenty-eight lines of the program exactly as they are written.  Be sure to press ENTER after each line.  One hint: after you type in line 70 and press ENTER, you can move the cursor back up to the line number, change it to 80, and press ENTER again.  This saves lots of typing.  Use LIST often to check your progress.
+<P><PRE>
+10  REM *************************************************************
+20  REM *  STORY                                                    *
+30  REM *  "Create your own ending" - a branching story             *
+40  REM *************************************************************
+50  CLS
+60  PRINT "**********************************************************"
+70  PRINT "*                                                        *"
+80  PRINT "*                                                        *"
+90  PRINT "*                                                        *"
+100 PRINT "*        Here is the first screen of your story          *"
+110 PRINT "*                                                        *"
+120 PRINT "*                                                        *"
+130 PRINT "*                                                        *"
+140 PRINT "*                                                        *"
+150 PRINT "*                                                        *"
+160 PRINT "*                                                        *"
+170 PRINT "*                                                        *"
+180 PRINT "*       Choose one:                                      *"
+190 PRINT "*                                                        *"
+200 PRINT "*         1 - if you want to go down one path            *"
+210 PRINT "*         2 - if you want to go another way              *"
+220 PRINT "*                                                        *"
+230 PRINT "*                                                        *"
+240 PRINT "*                                                        *"
+250 PRINT "*                                                        *"
+260 PRINT "**********************************************************"
+270 INPUT CHOICE%
+280 IF CHOICE% = 2 THEN GOTO 600 ELSE GOTO 300
+</PRE></P>
+
+<H4>REMARKS</H4>
+<P>
+Notice lines 10 through 40.  REM is a BASIC statement which does nothing.  It stands for <i>remark</i>.  The purpose of REM is to add comments to a program.  These comments help the programmer understand how the program works.  The words following REM do not print out on the screen when the program executes.  They may only be seen by listing the program.
+<P>
+</P>
+Remarks are important.  When you have just finished a program you will probably understand everything about it.  However, wait a few weeks and then look at it again.  At that time it is much harder to understand the program.  The remarks help.  Use REM generously.
+<P>
+</P>
+The first four lines of all programs in this book will be the same.  The little rectangle made of asterisks is called a flower box.  The flower box contains the program name, in this case, STORY, along with a short description of the program.  When necessary, the flower box can be larger.  Indeed, some programs have more remarks describing the program than they have lines of executable BASIC statements.  Asterisks are not special to BASIC.  Any character may be used.  The purpose is solely to provide a good-looking eye catcher for information.
+</P>
+
+<H3>VARIABLES</H3>
+<P>
+Line 270 is an INPUT statement.  We learned in the first program that INPUT stops the program and waits for input from the keyboard.  The entry from the keyboard, in line 270, is stored in a variable named CHOICE%.  Since variables play such an important role in programming, we need to examine them in detail.
+</P>
+
+<H4>VARIABLE NAMES</H4>
+<P>
+Variable names must be created according to certain rules in BASIC.  For example, the name must begin with a letter of the alphabet and cannot be more than forty characters long.  The name may include numerals.  These are the rules of BASIC, and they are not very strict.  But it is just as important to make up variable names that are meaningful to humans!  After all, BASIC works just as well with a variable named TKBRYIOPESFG% as it would with one named CHOICE%.  But which one is easier for you to understand?
+<P>
+</P>
+The choice of variable names is important since a program can have many variables. If the names are confusing you might accidentally use one variable in place of another.  Also, resist the temptation to make up cute and clever variable names.  Names like MEATHEAD$ and DOGBREATH$ are fun to dream up but hard to work with.  A good program is easy to understand and uses names which are obvious.  FIRSTNAME$ may not be glamorous, but at least you know what it holds.
+<P>
+</P>
+Certain words <i>cannot </i>be used as variable names.  These are called RESERVED WORDS and they include all names that are special to BASIC.  For example, we know that PRINT and CLS are BASIC statements.  Therefore, they cannot also be used as variable names.  The list of reserved words is quite lengthy.  A complete list can be found in "Appendix D. Reserved Words in BASIC" on page 178.  Reserved words include such words as NAME and PRINT.  While you cannot <i>exactly </i>duplicate these words as variable names, you can use names that include the reserved word.  NAMES and PRINTER are perfectly fine.
+<P>
+</P>
+Even though BASIC has a long list of reserved words, only a few are likely to be bothersome.  Most are rather strange statements that would not be very useful as variable names.  Be sure to review the appendix.  When a reserved word is used as a variable name, BASIC will issue a <i>syntax </i>error message.  Often, these kinds of errors are puzzling.  The line of BASIC appears correct in every respect.  BASIC does not even hint that you have used a reserved word.  BASIC only knows that your program has used a BASIC command incorrectly.  Try a program with the statement INPUT DATE$ to see what this error looks like.
+<P>
+</P>
+Here is a list of the rules for naming variables:
+</P>
+<UL>
+<LI>Use no more than 40 character.
+<LI>The variable name must start with a letter of the alphabet.
+<LI>The name may contain both letters and numbers.
+<LI>A variable name may not contain blank spaces.
+<LI>The name cannot be a reserved word.
+</UL>
+<P>
+</P>
+<H4>VARIABLE TYPES</H4>
+<P>
+Compare the INPUT statement on line 270 with the INPUT statement from chapter one.  Notice the variable names used in each program.  In the first program we used the name WHO$.  On line 270 we have CHOICE%.  Both of these names are variables.  However, they are different.  WHO$ and  CHOICE% are examples of two of the different TYPES of variables used in BASIC.
+<P>
+</P>
+Earlier we defined a variable name as a mailbox.  We have several kinds of mailboxes.  Two hold numbers.  The other holds characters and numerals.  Thus, when a variable is defined, you must decide which kind of mailbox it will be.  The variable type is determined by the last character of the variable name.  This explains the difference between WHO$ and CHOICE%.
+<P>
+</P>
+A variable name which ends with a percent sign (%) is called an INTEGER variable.  This type of variable may <i>only </i>hold whole numbers.  This means that CHOICE% may only contain numbers such as 2, 45, 611, or 10451.  It cannot hold fractional numbers such as 2.5 or 25.75.  Thus, when you write INPUT CHOICE%, the person using the program should only enter a whole number.  If letters are entered, BASIC will issue the message:
+<P><PRE>
+?Redo from start
+</PRE></P>
+and the program will not continue until they enter numbers.  On the other hand, if a person enters a number, but the number is <i>not </i>a whole number, BASIC will round it to the nearest whole number.  For example, if 23.6 is entered for INPUT CHOICE%, BASIC will put 24 into the variable.  No error message is issued.  Integer variables may hold numbers no larger than 32,767, and no smaller than -32,768.  To explore how BASIC handles integer variables, try replying with several numbers, whole and fractional, as well as letters in response to this simple program:
+<P><PRE>
+10 PRINT "Enter something"
+20 INPUT CHOICE%
+30 PRINT CHOICE%
+</PRE></P>
+A variable name which ends with an exclamation point (!) can hold fractional numbers such as 35.9 or 3.14159, as well as whole numbers.  This type of variable is called a SINGLE PRECISION variable.  It can hold most any value that we will need in our programs.  Since a single precision variable may contain whole numbers the same way as integer variables, you might wonder why integer variables would be useful.  There are two reasons.  First, programs written using integer variables run somewhat faster than those using single precision variables.  Secondly, and more importantly, it is easier to write a program that uses only whole numbers.  This will become apparent as we learn more about programming.
+<P>
+</P>
+Here is a good rule of thumb: use integer variables whenever possible.
+<P>
+</P>
+The final type of variable that we will explore is the STRING variable.  A string variable name ends with a dollar sign ($).  WHO$ is a string variable.  String variables hold characters rather than numbers.  A single string variable can hold up to 255 characters.  These characters can be anything on your keyboard, including spaces and numerals.  Here is a chance for confusion.
+<P>
+</P>
+Numerals, not numbers, may be characters.  Consider the difference between numerals and numbers.  The Roman numeral V, the word five, and the numeral 5, all represent the same number.  Each is just a different way of writing.  Whenever a numeral is stored in a string variable, it is just a <i>NAME </i>for a number.  This becomes important when we learn how to do arithmetic with variables.  We may take two integer variables, for example, and add them together.  If we try this with string variables, BASIC issues an error message.  BASIC cannot do arithmetic with <i>string </i>variables even if these variables hold numerals that look like numbers.
+<P>
+</P>
+This sounds more complicated than it is.  Just remember, if you need a variable to hold characters, use a string variable.  If, instead, you need to perform a calculation, use either an integer or a single precision variable.
+</P>
+
+<H4>EXAMPLES OF VARIABLES</H4>
+<P>
+</P>
+<P>
+Study these example of variables to check your understanding.
+</P>
+
+<TABLE>
+<TR>
+<TD>Name</TD>
+<TD>Contents</TD>
+<TD>Description</TD>
+</TR>
+
+<TR>
+<TD>TEAM1$</TD>
+<TD>Hokies</TD>
+<TD>Correct.</TD>
+</TR>
+
+<TR>
+<TD>DATE$</TD>
+<TD> </TD>
+<TD>Incorrect.  DATE$ is a reserved word.</TD>
+</TR>
+
+<TR>
+<TD>NUMBER%</TD>
+<TD>123</TD>
+<TD>Correct.</TD>
+</TR>
+
+<TR>
+<TD>STREET%</TD>
+<TD>10 Downing</TD>
+<TD>Incorrect.  Integer variables can only contain a number.</TD>
+</TR>
+
+<TR>
+<TD>STREET$</TD>
+<TD>10 Downing</TD>
+<TD>Correct</TD>
+</TR>
+
+<TR>
+<TD>1STPLACE$</TD>
+<TD> </TD>
+<TD>Incorrect.  Variable names must begin with a letter.</TD>
+</TR>
+
+<TR>
+<TD>COUNT%</TD>
+<TD>45321</TD>
+<TD>Incorrect.  Numbers larger than 32,767 cannot be held in an integer variable.</TD>
+</TR>
+
+<TR>
+<TD>GASLEFT!</TD>
+<TD>855.66</TD>
+<TD>Correct.</TD>
+</TR>
+
+<TR>
+<TD>TONE%</TD>
+<TD>600.8</TD>
+<TD>BASIC will round TONE% to 601.</TD>
+</TR>
+
+<TR>
+<TD>WHO$</TD>
+<TD>Elmer P. Fudd</TD>
+<TD>Correct.</TD>
+</TR>
+</TABLE>
+
+
+<H3>IF - THEN - ELSE</H3>
+<P>
+At line 280 we finally arrive at the real power of programming: the ability to make decisions.  BASIC uses the IF-THEN-ELSE statement to make choices, and even change the way the program runs depending on certain conditions.  Since the result depends on conditions, the IF statement is called a <i>conditional </i>instruction.  Contrast line 280 with all the lines that are listed before it.  In every case, BASIC will carry out whatever the instruction asks.  But at line 280, BASIC is testing our integer variable CHOICE% to see if it holds the number two.  If it does, one result happens.  If it does not, another action is taken.
+</P>
+<P>
+The IF statement has three parts:
+</P>
+<P>
+IF <i>condition </i>THEN <i>alternative </i>1 ELSE <i>alternative </i>2
+</P>
+<P>
+The three parts are the <i>condition</i>, <i>alternative 1</i>, and <i>alternative 2</i>.  The <i>condition </i>is some relationship that BASIC tests to see if it is true.  On line 280, the conditional test is whether CHOICE% equals 2.  Alternative 1 and alternative 2 are the two choices BASIC can make.  If the condition is true, then alternative 1 is executed.  If the condition is not true, then alternative 2 is executed.  In other words, if the person running our STORY program enters a 2 in response to line 270, then the condition is true, and GOTO 600 is executed (Don't worry about what GOTO means, we'll cover it soon).  If the person enters anything other than a 2, GOTO 300 is executed.
+</P>
+<P>
+The two alternatives listed inside of the IF statement can be any ordinary BASIC commands.  In this case, both are GOTO statements.  They could just as readily be PRINT or CLS commands.  For example:
+<P><PRE>
+280 IF CHOICE% = 2 THEN CLS ELSE PRINT "Hey Cool"
+</PRE></P>
+<P>
+In our example, CHOICE% is a integer variable.  Other variable types may also be used.  We could change CHOICE% to CHOICE! and still see if it equalled 2.  String variables can likewise be tested.
+<P><PRE>
+280 IF WHO$ = "Brian" THEN PRINT "Hi" ELSE PRINT "Who are you?"
+</PRE></P>
+Notice that the character string <i>Brian </i>is enclosed in quotation marks.  Remember our discussion of the PRINT statement from chapter one.  Quotation marks tell BASIC to use the characters exactly as we have written them.  If <i>Brian </i>were not in quotation marks, BASIC would try to use it as a variable name.  When the program runs, the person at the keyboard does not have to enter quotation marks.
+</P>
+<P>
+One further note about testing string variables: computers are dumb.  They only do <i>exactly </i>what you tell them to do.  If you ran the above line of BASIC and entered <i>brian </i>or <i>BRIAN</i>, the program would print
+<P><PRE>
+Who are you?
+</PRE></P>
+<P>
+BRIAN is not the same as Brian.  A character string inside of quotation marks must <i>EXACTLY </i>match the contents of the variable.  The letters, capitalization, even the number of blank spaces, if any, must exactly match.  This can be very challenging to a programmer.
+</P>
+<P>
+The last part of the IF-THEN-ELSE statement is not always required.  The ELSE may be omitted along with the second alternative.  This would leave us with an IF-THEN command.  We could write line 280 as:
+<P><PRE>
+280 IF CHOICE% = 2 THEN GOTO 600
+</PRE></P>
+<P>
+If CHOICE% does not equal two, then the first alternative would not be executed.  Instead, BASIC would continue with the next line after 280.  If that line happened to be line 300 the two IF statements would produce the same result!  Thus, every IF statement has an ELSE even if the ELSE is not written as part of the instruction.
+</P>
+<P>
+In all of our examples so far, we have tested to see if a variable is <i>equal </i>to some value.  Other tests can be used.  We can use all of the ordinary arithmetic comparisons such as greater than, less than, or not equal.  Here is how these OPERATORS, as they are called, are written:
+</P>
+<P>
+<PRE>
+=	equal to
+
+<	less than
+
+>	greater than
+
+<=	less than or equal to
+
+=>	greater than or equal to
+
+<>	not equal to
+</PRE>
+<P>
+With the exception of the last, these operators should be familiar.  When used in a BASIC program, the operators that have more than one character, such as =>, are written without a space between the two characters.  Here are some sample IF-THEN statements.Review each one to check your understanding.
+
+<P><PRE>
+280 IF CHOICE% = 2 THEN GOTO 600 ELSE GOTO 300
+290 IF CHOICE% <> 2 THEN GOTO 300 ELSE GOTO 600
+300 IF GUESS% = NUMBER% THEN GOTO 140
+310 IF GUESS% > NUMBER% THEN PRINT "Too High"
+320 IF GUESS% < NUMBER% THEN PRINT "Too Low"
+330 IF SUB! <= 0 THEN GOTO 500
+340 IF SUB! => 4 THEN GOTO 500
+350 IF ANSWER$ = "y" THEN ANSWER$ = "Y"
+360 IF QUANTITY% - SUB% < 1 THEN GOTO 600
+370 IF X% = 2 THEN TWOS% = TWOS% + 1
+</PRE></P>
+<P>
+These statements are not a real program.  Don't bother to enter them on your computer.  They are for examples, only.  Let's discuss some.  Line 290 above is a different way of writing line 280 in our STORY program.  Note that it has exactly the same effect.  Compare the two lines.
+</P>
+<P>
+In line 300, we compare two variables!  Also, note that line 300 does not use an ELSE command.  Line 300, and the rest of the examples, are simple IF-THEN statements.  Line 310 asks if the number contained in GUESS% is greater than the number contained in NUMBER%.  Line 320 tests if GUESS% is less than NUMBER%.
+</P>
+<P>
+Lines 330 and 340 use <i>less than or equal to and greater than or equal to. </i>
+</P>
+<P>
+Line 350 is interesting.  This checks what is held inside string variable ANSWER$.  If it is a lower case "y" then the program changes it to an upper case "Y" inside the variable.  Remember that the condition is tested first, and then, only if  true, will alternative 1 be executed.  This is why the same variable name, ANSWER$, can be used in the conditional test and then changed in the alternative.
+</P>
+<P>
+Line 360 is an advanced example.  BASIC subtracts SUB% from QUANTITY% and then checks to see if this number is less than one.  We will explore arithmetic more later.  Just consider this example as one of the more powerful uses of the IF-THEN statement.
+</P>
+<H4>GOTO</H4>
+<P>
+When we first looked at the IF-THEN-ELSE statement in line 280 of our STORY program, we saw that both alternative 1 and alternative 2 used GOTO statements.  Now it is time to discuss GOTO.
+</P>
+<P>
+Fortunately, GOTO is much simpler than IF-THEN-ELSE.  When running a program, the BASIC interpreter usually executes statements in line number order.  However, when a GOTO is discovered, execution BRANCHES to whatever line number is written as part of the GOTO statement.  Line 280 contains two GOTO commands.
+<P><PRE>
+280 IF CHOICE% = 2 THEN GOTO 600 ELSE GOTO 300
+</PRE></P>
+If CHOICE% is 2 then the next line to execute is line 600.  If CHOICE% is not 2, then the next line to execute is line 300.
+</P>
+<P>
+The GOTO command is useful inside of an IF-THEN statement.  It can also be used by itself.  To fully understand how this statement works, experiment with the following program:
+<P><PRE>
+10 PRINT "This is line 10"
+20 GOTO 50
+30 PRINT "This is line 30"
+40 GOTO 70
+50 PRINT "This is line 50"
+60 GOTO 30
+70 END
+</PRE></P>
+GOTO provides the ability to skip around in a program.  When our little program runs, it will execute the lines in this order:
+<P><PRE>
+10 PRINT "This is line 10"
+20 GOTO 50
+50 PRINT "This is line 50"
+60 GOTO 30
+30 PRINT "This is line 30"
+40 GOTO 70
+70 END
+</PRE></P>
+<P>
+If you made a mistake in entering this program, you may have discovered something called a LOOP.  A loop occurs when  the program does not end.  Examine this program:
+<P><PRE>
+10 PRINT "This is line 10"
+20 GOTO 10
+</PRE></P>
+<P>
+Line 10 will be executed over and over.  Indeed, you must press the CTRL-Break key to end the program.  In this example, the cause of the loop is clear.  Line 20 asks BASIC to execute line 10.  Then BASIC executes line 20 again.  BASIC does not know that it already executed line 20.  Remember, your computer will only do exactly what you tell it to do.
+</P>
+<P>
+Unfortunately, the cause of loops is not always as clear as in this last example.  In long programs, many GOTO statements might be used and it is difficult to see exactly how a loop was created.  For this reason, try to avoid using GOTO.  Think carefully about your program and plan it so that a GOTO is used only when necessary.  A program using many GOTOs is called SPAGHETTI CODE.  Understanding spaghetti code is like following a noodle in a plate of spaghetti.
+</P>
+
+<H3>PROGRAM LOGIC</H3>
+<P>
+With the IF-THEN and GOTO statements, we introduced the ability to make decisions and change direction.  These are powerful capabilities.  We know that, although the computer is going to run one line after another, these statements may not necessarily run in line number order.  Because of this we must spend some effort thinking about the LOGIC of our programs.  This is the part where clear thinking is needed.
+</P>
+<P>
+Consider line 280 once again:
+<P><PRE>
+280 IF CHOICE% = 2 THEN GOTO 600 ELSE GOTO 300
+</PRE></P>
+In our PRINT statements in lines 200 and 210, we asked the person running STORY to enter a 1 or a 2.  But in line 280 we only check to see if they entered a 2.  Why?
+</P>
+<P>
+The reason: you cannot trust humans!  Just because we asked for a 1 or 2 does not mean people will enter a 1 or 2.  What if they enter zero or three?  We are protected, however, because we built our program to handle any reply.  In this case, choice 1 is the <i>default </i>choice.  If they just press ENTER, or enter any number other than 2, they will GOTO 300.  A default is what happens when someone does not make a decision.
+</P>
+<P>
+When you write your IF-THEN and GOTO statements, always plan for <i>any </i>input.  Don't trust humans.  If you ask for a 1, 2, or 3, you can be sure that someone will try a 4.  If you do not want to plan for a default choice, you might write an IF-THEN statement that traps the bad choices and simply asks the question again.  We could, for example, write:
+<P><PRE>
+280 IF CHOICE% = 2 THEN GOTO 600
+281 IF CHOICE% = 1 THEN GOTO 300
+282 IF CHOICE% < 1 THEN GOTO 50
+283 IF CHOICE% > 2 THEN GOTO 50
+</PRE></P>
+There is nothing wrong with using these lines in our STORY program.  It is a matter of taste.  The original line 280 handles all possible replies in only one line of BASIC code.  The above solution uses four lines and the purpose is not as clear.  Nevertheless, do what you think is best.  Keep in mind our goal of writing understandable programs.
+</P>
+<P>
+When planning programs you not only have to watch out for humans, you must also think like a computer.  Just as we saw in the loop, your computer is going to do what you tell it to do.  This may not be what you want it to do!  As a human, it is easy to see that "Leonardo" is practically the same as "leonardo."  But the computer is not practical.  Consider this example:
+<P><PRE>
+280 IF CHOICE% < 1 THEN GOTO 500
+290 IF CHOICE% > 1 THEN GOTO 700
+</PRE></P>
+<P>
+We might believe we are checking to see if someone is cheating on an INPUT statement.  But what happens if someone enters a 1?  Is the computer doing what we asked?  Certainly.  Is it doing what we want?  That depends.  Whenever your program misbehaves, it might help to carefully review each statement IN ORDER OF EXECUTION.  On a note pad, write down the names of the variables and keep track of what they should hold as you run the program step-by-step in your imagination.
+</P>
+
+<H3>THE REST OF THE PROGRAM</H3>
+<P>
+This chapter began with the promise of a program that would tell a story and allow you to create your own ending.  Now that we have explored the new BASIC commands used in the first twenty eight lines, it is time to enter the rest of the program.
+</P>
+<P>
+As you enter this program, try to type as little as possible.  Notice that many lines are either identical or very much alike.  For example, lines 60, 260, 320, and 520 are the same.  After you press ENTER for line 60, just move the cursor up, change the line number, and press ENTER again.  Use LIST to check your progress.
+</P>
+<P><PRE>
+300 REM *****  SCREEN 1A  *****
+310 CLS
+320 PRINT "**********************************************************"
+330 PRINT "*                                                        *"
+340 PRINT "*                                                        *"
+350 PRINT "*                                                        *"
+360 PRINT "*             Here is screen 1A of your story            *"
+370 PRINT "*                                                        *"
+380 PRINT "*                                                        *"
+390 PRINT "*                                                        *"
+400 PRINT "*                                                        *"
+410 PRINT "*                                                        *"
+420 PRINT "*                                                        *"
+430 PRINT "*                                                        *"
+440 PRINT "*       Choose one:                                      *"
+450 PRINT "*                                                        *"
+460 PRINT "*         1 - if you want to go down one path            *"
+470 PRINT "*         2 - if you want to go another way              *"
+480 PRINT "*                                                        *"
+490 PRINT "*                                                        *"
+500 PRINT "*                                                        *"
+510 PRINT "*                                                        *"
+520 PRINT "**********************************************************"
+530 INPUT CHOICE%
+540 IF CHOICE% = 2 THEN GOTO 900 ELSE GOTO 1200
+600 REM *****  SCREEN 1B  *****
+610 CLS
+620 PRINT "**********************************************************"
+630 PRINT "*                                                        *"
+640 PRINT "*                                                        *"
+650 PRINT "*                                                        *"
+660 PRINT "*             Here is screen 1B of your story            *"
+670 PRINT "*                                                        *"
+680 PRINT "*                                                        *"
+690 PRINT "*                                                        *"
+700 PRINT "*                                                        *"
+710 PRINT "*                                                        *"
+720 PRINT "*                                                        *"
+730 PRINT "*                                                        *"
+740 PRINT "*       Choose one:                                      *"
+750 PRINT "*                                                        *"
+760 PRINT "*         1 - if you want to go down one path            *"
+770 PRINT "*         2 - if you want to go another way              *"
+780 PRINT "*                                                        *"
+790 PRINT "*                                                        *"
+800 PRINT "*                                                        *"
+810 PRINT "*                                                        *"
+820 PRINT "**********************************************************"
+830 INPUT CHOICE%
+840 IF CHOICE% = 2 THEN GOTO 1500 ELSE GOTO 1800
+900 END
+1200 END
+1500 END
+1800 END
+</PRE></P>
+<P>
+At long last, we get to see where the GOTO 300 and GOTO 600 statements will take us.  Check each IF-THEN and GOTO to insure you understand how the program works.  A diagram of the branches might be useful.  Note that the last four lines of the program introduce a new BASIC statement.  That is END.  Its purpose is obvious.  Whenever BASIC discovers an END statement, it stops running the program.  This happens even if the END is found in the middle of a program.
+</P>
+<P>
+This program displays one screen that starts the story and has two others as choices.  From these others you could branch to another four.  However, instead of listing a program with many empty boxes, I will let you finish it.  Create additional story boxes that begin at lines 900, 1200, 1500, and 1800.  Use as many as you need.  Feel free to fill in a real story in the boxes.  Just list each flower box (LIST 320 - 520, for example) and type in a story.  Remember to press ENTER after each line.
+</P>
+<P>
+Finally, since this program represents a lot of hard work, be sure to SAVE it in a disk file before you enter SYSTEM.  Also, if you have a printer, you may want to use the LLIST command to print out a copy on paper.
+</P>
+<P>
+In this chapter we learned about variables and the BASIC REM, IF-THEN-ELSE, GOTO, and END statements.  With these commands, we discovered how to make choices in programs and how to move execution around inside of a program.  We also had some spaghetti (code, that is).  The next chapter is just plain fun; it will be a reward for this effort.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>

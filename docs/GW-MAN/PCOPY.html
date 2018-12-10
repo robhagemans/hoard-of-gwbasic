@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PCOPY Command</h1>
+<h4>Purpose:</h4>
+<p>To copy one screen page to another in all screen modes.</p>
+<h4>Syntax:</h4>
+<pre><b>PCOPY</b> <i>sourcepage</i>, <i>destinationpage</i></pre>
+<h4>Comments:</h4>
+<p>The <span class="code"><i>sourcepage</i></span> is an integer expression in the range 0 to <span class="code"><i>n</i></span>, where <span class="code"><i>n</i></span> is determined by the current video-memory size and the size per page for the current screen mode.</p>
+<p>The <span class="code"><i>destinationpage</i></span><i> </i>has the same requirements as the <span class="code"><i>sourcepage</i></span>.</p>
+<p>For more information, see <a href="CLEAR.html">CLEAR</a> and <a href="SCREENS.html">SCREEN</a>.</p>
+<h4>Examples:</h4>
+<p>This copies the contents of page 1 to page 2:</p>
+<pre>PCOPY 1,2</pre>
+
+</body>
+</html>

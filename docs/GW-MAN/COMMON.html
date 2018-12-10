@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>COMMON Statement</h1>
+<h4>Purpose:</h4>
+<p>To pass variables to a chained program.</p>
+<h4>Syntax:</h4>
+<pre><b>COMMON</b> <i>variables</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>variables</i></span> are one or more variables, separated by commas, that you want to pass to the chained program.</p>
+<p>The <span class="code">COMMON</span> statement is used in conjunction with the <span class="code">CHAIN</span> statement.</p>
+<p><span class="code">COMMON</span> statements may appear anywhere in a program, although it is recommended that they appear at the beginning.</p>
+<p>Any number of <span class="code">COMMON</span> statements may appear in a program, but the same variable cannot appear in more than one <span class="code">COMMON</span> statement. To pass all variables using the <span class="code">CHAIN</span> statement, use the all option, and omit the <span class="code">COMMON</span> statement.</p>
+<p>Place parentheses after the variable name to indicate array variables.</p>
+<h4>Examples:</h4>
+<pre>100 COMMON A, B, C, D(),G$
+110 CHAIN &quot;A:PROG3&quot;</pre>
+<p>This example chains to program <i>PROG3.BAS</i> on disk drive A:, and passes the array D along with the variables A, B, C, and string G$.</p>
+</body>
+</html>

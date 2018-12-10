@@ -1,0 +1,26 @@
+/* tag styles */
+h1          {font-family: Times New Roman; font-size: 16pt; font-weight: bold;   color: black; margin: 12pt 0 6pt 0}
+h2          {font-family: Times New Roman; font-size: 14pt; font-weight: bold;   color: black; margin: 16pt 0 6pt 0}
+h3          {font-family: Times New Roman; font-size: 12pt; font-weight: bold;   color: black; margin: 16pt 0 6pt 0}
+h4          {font-family: Times New Roman; font-size: 11pt; font-weight: bold;   color: black; margin: 12pt 0 6pt 0}
+body        {font-family: Times New Roman; font-size: 12pt; font-weight: normal; color: black;}
+p           {margin: 0 0 6pt 0}
+pre         {font-family: courier New;     font-size: 11pt; font-weight: normal; color: green; margin: 0 0 6pt 12pt}
+pre i       {                                                                    color: green; }
+
+sup         {                              font-size:  9pt; }
+
+li          {margin: 0 0 6pt 0}
+dt          {font-weight: bold}
+dd          {margin: 0 0 12pt 0}
+
+table       {margin: 0 0 0 12pt}
+tr          {padding: 0 12pt 6pt 0}
+
+/* classes */
+.smallcaps  {font-family: Times New Roman; font-size:  9pt; font-weight: normal; color: black; text-transform: capitalize; font-variant: small-caps}
+.code       {font-family: courier New;     font-size: 11pt; font-weight: normal; color: green; }
+.code i     {font-family: courier New;     font-size: 11pt; font-weight: normal; color: green; }
+
+/* ID's */
+#Description          {}

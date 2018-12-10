@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>USR Function</h1>
+<h4>Purpose:</h4>
+<p>To call an assembly language subroutine.</p>
+<h4>Syntax:</h4>
+<pre><i>v</i>=<b>USR</b>[<i>n</i>](<i>argument</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> specifies which <span class="code">USR</span> routine is being called.</p>
+<p><span class="code"><i>argument</i></span> can be any numeric or string expression.</p>
+<p>Although the <span class="code">CALL</span> statement is recommended for calling assembly language subroutines, the <span class="code">USR</span> function call may also be used. See <a href="Appendix D.html">Appendix D in the GW-BASIC User's Guide</a> for a comparison of <span class="code">CALL</span> and <span class="code">USR</span> and for a detailed discussion of calling assembly language subroutines.</p>
+<p>Only values 0-9 are valid for <span class="code"><i>n</i>.</span> If <span class="code"><i>n</i></span><i> </i>is omitted, <span class="code">USR0</span> is assumed (see <a href="DEFUSR.html">DEF USR</a> for the rules governing <span class="code"><i>n</i></span>).</p>
+<p>If a segment other than the default segment (GW-BASIC data segment, DS) is used, a <span class="code">DEF SEG</span> statement must be executed prior to a <span class="code">USR</span> call. This ensures that the code segment points to the subroutine being called.</p>
+<p>The segment address given in the <span class="code">DEF SEG</span> statement determines the starting segment of the subroutine.</p>
+<p>For each <span class="code">USR</span> function, a corresponding <span class="code">DEF USR</span> statement must have been executed to define the <span class="code">USR</span> call offset. This offset and the currently active <span class="code">DEF SEG</span> segment address determine the starting address of the subroutine.</p>
+<p>If more than 10 user routines are required, the value(s) of <span class="code">DEF USR</span> may be redefined for the other starting addresses as many times as needed.</p>
+<p>The type (numeric or string) of the variable receiving the function call must be consistent with the argument passed. If no argument is required by the assembly language routine, then a dummy argument must be supplied.</p>
+
+</body>
+</html>

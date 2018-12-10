@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CLEAR Command</h1>
+<h4>Purpose:</h4>
+<p>To set all numeric variables to zero, all string variables to null, and to close all open files. Options set the end of memory and reserve the amount of string and stack space available for use by GW-BASIC.</p>
+<h4>Syntax:</h4>
+<pre><b>CLEAR</b>[,[<i>expression1</i>][,<i>expression2</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>expression1</i></span> is a memory location that, if specified, sets the maximum number of bytes available for use by GW-BASIC.</p>
+<p><span class="code"><i>expression2</i></span> sets aside stack space for GW-BASIC. The default is the previous stack space size. When GW-BASIC is first executed, the stack space is set to 512 bytes, or one-eighth of the available memory, whichever is smaller. GW-BASIC allocates string space dynamically. An &quot;<span class="code">Out of String Space</span>&quot; error occurs only if there is no free memory left for GW-BASIC to use.</p>
+<p>The CLEAR command:</p>
+<ul>
+	<li><span dir=LTR>Closes all files</span></li>
+	<li>Clears all <span class="code">COMMON</span> and user variables</li>
+	<li><span dir=LTR>Resets the stack and string space</span></li>
+	<li><span dir=LTR>Releases all disk buffers</span></li>
+	<li><span dir=LTR>Turns off any sound</span></li>
+	<li><span dir=LTR>Resets sound to music foreground</span></li>
+	<li>Resets <span class="code">PEN</span> to <span class="code"><i>off</i></span></li>
+	<li>Resets <span class="code">STRIG</span> to <span class="code"><i>off</i></span></li>
+	<li>Disables <span class="code">ON ERROR</span> trapping</li>
+</ul>
+<h4>Examples:</h4>
+<pre>CLEAR</pre>
+<p>Zeroes variables and nulls all strings.</p>
+<pre>CLEAR 32768</pre>
+<p>Zeroes variables, nulls strings, protects memory above 32768, does not change the stack space.</p>
+<pre>CLEAR ,,2000</pre>
+<p>Zeroes variables, nulls strings, allocates 2000 bytes for stack space, and uses all available memory in the segment.</p>
+<pre>CLEAR ,32768,2000</pre>
+<p>Zeroes variables, nulls strings, protects memory above 32768, and allocates 2000 bytes for stack space.</p>
+</body>
+</html>

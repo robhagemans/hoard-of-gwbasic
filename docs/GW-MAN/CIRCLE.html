@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>CIRCLE Statement</h1>
+<h4>Purpose:</h4>
+<p>To draw a circle, ellipse, and angles on the screen during use of the Graphics mode.</p>
+<h4>Syntax:</h4>
+<pre><b>CIRCLE</b>(<i>xcenter</i>, <i>ycenter</i>), <i>radius</i>[,[<i>color</i>][,[<i>start</i>],[<i>end</i>][,<i>aspect</i>]]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>xcenter</i></span> and <span class="code"><i>ycenter</i></span> are the x- and y- coordinates of the center of the ellipse, and <span class="code"><i>radius</i></span> is the radius (measured along the major axis) of the ellipse. The quantities <span class="code"><i>xcenter</i></span> and <span class="code"><i>ycenter</i></span> can be expressions. The center attributes can use either absolute or relative coordinates.</p>
+<p><span class="code"><i>color</i></span> specifies the color of the ellipse. Its value depends on the current screen mode. See the <a href="COLOR.html">COLOR</a> and <a href="SCREENS.html">SCREEN</a> statements for more information on using colors in different screen modes. In the high-resolution mode, 0 indicates black and 1 indicates white. The default for the high resolution mode is 1.</p>
+<p>The <span class="code"><i>start</i></span> and <span class="code"><i>end</i></span> angle parameters are radian arguments between -2&#960; and 2&#960; which specify where the drawing of the ellipse is to begin and end. If <span class="code"><i>start</i></span> or <span class="code"><i>end</i></span> is negative, the ellipse is connected to the center point with a line, and the angles are treated as if they are positive (note that this is different from adding 2&#960;).</p>
+<p><span class="code"><i>aspect</i></span> describes the ratio of the x radius to the y radius (x:y). The default aspect ratio depends on the screen mode, but gives a visual circle in either graphics mode, assuming a standard monitor screen aspect ratio of 4:3. If the aspect ratio is less than 1, then the radius is given in x-pixels. If it is greater than 1, the radius is given in y-pixels. In many cases, an aspect ratio of 1 gives better ellipses in the medium-resolution mode. This also causes the ellipse to be drawn faster. The start angle may be less than the end angle.</p>
+<h4>Example 1:</h4>
+<pre>10 SCREEN1: CIRCLE(100,100), 50</pre>
+<p>Draws a circle of radius 50, centered at graphics points 100x and 100y.</p>
+<h4>Example 2:</h4>
+<pre>1 ' This will draw 17 ellipses
+10 CLS
+20 SCREEN 1
+30 FOR R=160 TO 0 STEP-10
+40 CIRCLE (160,100),R,,,,5/18
+50 NEXT</pre>
+<h4>Example 3:</h4>
+<pre>10 'This will draw 5 spheres
+20 GOTO 160
+50 IF VERT GOTO 100
+60 CIRCLE (X,Y),R,C,,,.07
+70 FOR I = 1 TO 5
+80 CIRCLE (X,Y),R,C,,,I*.2:NEXT I
+90 IF VERT THEN RETURN
+100 CIRCLE (X,Y),R,C,,,1.3
+110 CIRCLE (X,Y),R,C,,,1.9
+120 CIRCLE (X,Y),R,C,,,3.6
+130 CIRCLE (X,Y),R,C,,,9.8
+140 IF VERT GOTO 60
+150 RETURN
+160 CLS: SCREEN 1: COLOR 0,1: KEY OFF: VERT=0
+170 X=160: Y=100: C=1: R=50: GOSUB 50
+180 X=30: Y=30: C=2: R=30: GOSUB 50
+190 X=30: Y=169: GOSUB 50
+200 X=289: Y=30: GOSUB 50
+210 X=289: Y=169: GOSUB 50
+220 LINE (30,30)-(289,169),1
+230 LINE (30,169)-(289,30),1
+240 LINE (30,169)-(289,30),1,B
+250 Z$=INKEY$: IF Z$=&quot;&quot; THEN 250</pre>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>OPEN &quot;COM(n) Statement</h1>
+<h4>Purpose:</h4>
+<p>To allocate a buffer to support RS-232 asynchronous communications with other computers and peripheral devices in the same manner as <span class="code">OPEN</span> for disk files.</p>
+<h4>Syntax:</h4>
+<pre><b>OPEN &quot;COM</b>[<i>n</i>]:[<i>speed</i>][,<i>parity</i>][,<i>data</i>] [,<i>stop</i>][,<i>RS</i>][,<i>CS</i>[<i>n</i>]][,<i>DS</i>[<i>n</i>]][,<i>CD</i>[<i>n</i>]][,<i>LF</i>] [,<i>PE</i>]<b>&quot; AS</b> [<b>#</b>]<i>filenum</i> [<b>LEN</b>=<i>number</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code">COM[<i>n</i>]</span> is a valid communications device: com1: or com2:.</p>
+<p><span class="code"><i>speed</i></span><i> </i>is a literal integer specifying the transmit/receive baud rate. Valid speeds are as follows: 75, 110, 150, 300, 600, 1200, 1800, 2400, 4800, and 9600. The default is 300 bps.</p>
+<p><span class="code"><i>parity</i></span><i> </i>is a one-character literal specifying the parity for transmitting and receiving. Valid characters specifying parity are as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=34 class="code">S</td>
+  <td width=74>SPACE</td><td>Parity bit always transmitted and received as space (0 bit).</td></tr>
+  <tr><td class="code">M</td>
+  <td>MARK</td><td>Parity bit always transmitted and received as mark (1 bit).</td></tr>
+  <tr><td class="code">O</td>
+  <td>ODD</td><td>Odd transmit parity; odd receive parity checking. Default is even.</td></tr>
+  <tr><td class="code">E</td>
+  <td>EVEN</td><td>Even transmit parity; even receive parity checking. Even is default.</td></tr>
+  <tr><td class="code">N</td>
+  <td>NONE</td><td>No transmit parity. No receive parity checking.</td></tr>
+</table>
+<p><span class="code"><i>data</i></span><i> </i>is a literal integer indicating number of transmit/receive data bits. Valid values for the number of data bits are 4, 5, 6, 7, or 8, the default is 7 bits.</p>
+<hr>
+	<i><b><p>Note</p></b></i>
+	<p>Four data bits with no parity is illegal; eight data bits with any parity is illegal.</p>
+<hr>
+<p><span class="code"><i>stop</i></span><i> </i>is a literal integer expression returning a valid file number. Valid values for number of stop bits are 1 and 2. If omitted, 75 and 110 bps transmit two stop bits. All others transmit one stop bit.</p>
+<p><span class="code"><i>filenum</i></span><i> </i>is a number between 1 and the maximum number of files allowed. A communications device may be opened to only one file number at a time. The <span class="code"><i>filenum</i></span><i> </i>is associated with the file for as long as the file is open, and is used to refer other COM I/O statements to the file. Any coding errors within the filename string result in &quot;<span class="code">Bad file name</span>&quot; errors. An indication as to which parameters are in error is not given.</p>
+<p><span class="code"><i>number</i></span><i> </i>is the maximum number of bytes which can be read from the communications buffer when using <span class="code">GET</span> or <span class="code">PUT</span> default of 128 bytes.</p>
+<p>A &quot;<span class="code">Device timeout</span>&quot; error occurs if &quot;data set ready&quot; (DSR) is not detected.</p>
+<p>The <span class="code"><i>RS</i></span>, <span class="code"><i>CS</i></span>, <span class="code"><i>DS</i></span>, <span class="code"><i>DC</i></span>, <span class="code"><i>LF</i></span>, and <span class="code"><i>PE</i></span> options affect the line signals as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=96><b>Option</b></td><td><b>Function</b></td></tr>
+	<tr><td class="code">RS</td>
+	<td>suppresses RTS (request to send)</td></tr>
+  <tr><td class="code">CS[<i>n</i>]</td>
+  <td>controls CTS (clear to send)</td></tr>
+  <tr><td class="code">DS[<i>n</i>]</td>
+  <td>controls DSR (data set ready)</td></tr>
+  <tr><td class="code">CD[<i>n</i>]</td>
+  <td>controls CD (carrier detect)</td></tr>
+  <tr><td class="code">LF</td>
+  <td>sends a line feed at each return</td></tr>
+  <tr><td class="code">PE</td>
+  <td>enables parity checking</td></tr>
+</table>
+<p><span class="code"><i>n</i></span> is the number of milliseconds to wait (0-65535) for that signal before a device timeout error occurs. Defaults are: CS1000, DS1000, and CD0. If <span class="code"><i>RS</i></span> was specified then CS0 is the default. If <span class="code"><i>n</i></span> is omitted, then timeout is set to 0.</p>
+<p>See <a href="Appendix F.html">Appendix F in the GW-BASIC User's Guide</a> for more information about communications.</p>
+<h4>Examples:</h4>
+<p>In the following, File 1 is opened for communications with all defaults: speed at 300 bps, even parity, seven data bits, and one stop bit.</p>
+<pre>10 OPEN &quot;COM1:&quot; AS 1</pre>
+<p>In the following, File 2 is opened for communications at 2400 bps. Parity and number of data bits are defaulted.</p>
+<pre>20 OPEN &quot;COM1:2400&quot; AS #2</pre>
+<p>In the following, File 1 is opened for asynchronous I/O at 1200 bits/second. No parity is to be produced or checked.</p>
+<pre>10 OPEN &quot;COM1:1200,N,8&quot; AS #1</pre>
+
+</body>
+</html>

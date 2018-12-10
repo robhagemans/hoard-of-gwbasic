@@ -1,0 +1,36 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SHELL Statement</h1>
+<h4>Purpose:</h4>
+<p>To load and execute another program or batch file. When the program finishes, control returns to the GW-BASIC program at the statement following the <span class="code">SHELL</span> statement. A program executed under control of GW-BASIC is referred to as a child process.</p>
+<h4>Syntax:</h4>
+<pre><b>SHELL </b>[<i>string</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>string</i></span><i> </i>is a valid string expression containing the name of a program to run and (optionally) command arguments.</p>
+<p>The program name in <i>string </i>may have any extension that MS-DOS COMMAND.COM supports. If no extension is supplied, COMMAND will look for a .COM file, then an .EXE file, and finally, a .BAT file. If none is found, <span class="code">SHELL</span> will issue a &quot;<span class="code">File not found</span>&quot; error.</p>
+<p>Any text separated from the program name by at least one blank space will be processed by COMMAND as program parameters.</p>
+<p>GW-BASIC remains in memory while the child process is running. When the child process finishes, GW-BASIC continues at the statement following the SHELL statement.</p>
+<p><span class="code">SHELL</span> with no string will go to MS-DOS. You may now do anything that COMMAND allows. When ready to return to GW-BASIC, type the MS-DOS command EXIT.</p>
+<h4>Examples:</h4>
+<pre>SHELL
+A&gt;DIR
+A&gt;EXIT</pre>
+<p>Write some data to be sorted, use <span class="code">SHELL</span> SORT to sort it, then read the sorted data to write a report.</p>
+<pre>10 OPEN &quot;SORTIN.DAT&quot; FOR OUTPUT AS #1
+20 'write data to be sorted
+.
+.
+.
+1000 CLOSE 1
+1010 SHELL &quot;SORT &lt;SORTIN.DAT &gt;SORTOUT.DAT&quot;
+1020 OPEN &quot;SORTOUT.DAT&quot; FOR INPUT AS #1
+1030 'Process the sorted data</pre>
+
+</body>
+</html>

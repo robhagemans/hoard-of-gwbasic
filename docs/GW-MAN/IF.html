@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>IF ... THEN ... ELSE Statement</h1>
+<h4>Purpose:</h4>
+<p>To make a decision regarding program flow based on the result returned by an expression.</p>
+<h4>Syntax:</h4>
+<pre><b>IF </b><i>expression</i>[,] <b>THEN</b> <i>statement(s)</i>[,][<b>ELSE</b> <i>statement(s)</i>]
+ <b>IF</b> <i>expression</i>[,] <b>GOTO</b> <i>line number</i>[[,] <b>ELSE</b> <i>statement(s)</i>]</pre>
+<h4>Comments:</h4>
+<p>If the result of <span class="code"><i>expression</i></span> is nonzero (logical true), the <span class="code">THEN</span> or <span class="code">GOTO</span> line number is executed.</p>
+<p>If the result of <span class="code"><i>expression</i></span> is zero (false), the <span class="code">THEN</span> or <span class="code">GOTO</span> line number is ignored and the <span class="code">ELSE</span> line number, if present, is executed. Otherwise, execution continues with the next executable statement. A comma is allowed before <span class="code">THEN</span> and <span class="code">ELSE</span>.</p>
+<p><span class="code">THEN</span> and <span class="code">ELSE</span> may be followed by either a line number for branching, or one or more statements to be executed.</p>
+<p><span class="code">GOTO</span> is always followed by a line number.</p>
+<p>If the statement does not contain the same number of <span class="code">ELSE</span>'s and <span class="code">THEN</span>'s line number, each <span class="code">ELSE</span> is matched with the closest unmatched <span class="code">THEN</span>. For example:</p>
+<pre>IF A=B THEN IF B=C THEN PRINT &quot;A=C&quot; ELSE PRINT &quot;A &lt; &gt; C&quot;</pre>
+<p>will not print &quot;<span class="code">A &lt; &gt; C</span>&quot; when A &lt; &gt; B.</p>
+<p>If an <span class="code">IF...THEN</span> statement is followed by a line number in the direct mode, an &quot;<span class="code">Undefined line number</span>&quot; error results, unless a statement with the specified line number was previously entered in the indirect mode.</p>
+<p>Because <span class="code">IF ..THEN...ELSE</span> is all one statement, the <span class="code">ELSE</span> clause cannot be on a separate line. It must be all on one line.</p>
+<h4>Nesting of IF Statements</h4>
+<p><span class="code">IF...THEN...ELSE</span> statements may be nested. Nesting is limited only by the length of the line. For example, the following is a legal statement:</p>
+<pre>100 IF X &gt; Y THEN PRINT &quot;GREATER&quot; ELSE IF Y &gt; X THEN&amp; 
+110 PRINT &quot;LESS THAN&quot;
+200 ELSE PRINT &quot;EQUAL&quot;</pre>
+<h4>Testing Equality</h4>
+<p>When using <span class="code">IF</span> to test equality for a value that is the result of a floating-point computation, remember that the internal representation of the value may not be exact. Therefore, test against the range over which the accuracy of the value may vary.</p>
+<p>For example, to test a computed variable A against the value 1.0, use the following statement:</p>
+<pre>IF ABS (A-1.0)&lt;1.0E-6 THEN ...</pre>
+<p>This test returns true if the value of A is 1.0 with a relative error of less than 1.0E-6.</p>
+<h4>Examples:</h4>
+<p>The following statement gets record number N, if N is not zero.</p>
+<pre>200 IF N THEN GET#1, N</pre>
+<p>In the following example, a test determines if N is greater than 10 and less than 20. If N is within this range, DB is calculated and execution branches to line 300. If N is not within this range, execution continues with line 110.</p>
+<pre>100 IF(N&lt;20) and (N&gt;10) THEN DB=1979-1: GOTO 300
+110 PRINT &quot;OUT OF RANGE&quot;</pre>
+<p>The next statement causes printed output to go either to the terminal or the line printer, depending on the value of a variable (IOFLAG). If IOFLAG is zero, output goes to the line printer; otherwise, output goes to the terminal.</p>
+<pre>210 IF IOFLAG THEN PRINT A$ ELSE LPRINT A$</pre>
+</body>
+</html>

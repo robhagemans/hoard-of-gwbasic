@@ -1,0 +1,168 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ON COM(n), ON KEY(n), ON PEN, ON PLAY(n), ON STRIG(n), and ON TIMER(n) Statements</h1>
+<h4>Purpose:</h4>
+<p>To create an event trap line number for a specified event (such as communications, pressing function or cursor control keys, using the light pen, or using joysticks).</p>
+<h4>Syntax:</h4>
+<pre><b>ON </b><i>event specifier </i><b>GOSUB </b><i>line number</i></pre>
+<h4>Comments:</h4>
+<p>The syntax shown sets up an event trap line number for the specified event. A <span class="code"><i>line number</i></span><i> </i>of 0 disables trapping for this event.</p>
+<p>Once trap line numbers have been set, event trapping itself can be controlled with the following syntax lines:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr>
+	<td width=168 valign=top class="code"><i>event specifier</i> <b>ON</b></td>
+		<td>When an event is <span class="code">ON</span>, and a nonzero line number is specified for the trap, then every time BASIC starts a new statement, it checks to see if the specified event has occurred. If it has, BASIC performs a <span class="code">GOSUB</span> to the line specified in the <span class="code">ON</span> statement.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code"><i>event specifier</i> <b>OFF</b></td>
+		<td>When an event is <span class="code">OFF</span>, no trapping occurs and the event is not remembered, even if it occurs.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code"><i>event specifier</i> <b>STOP</b></td>
+		<td>When an event is stopped, no trapping can occur, but if the event happens, it is remembered so an immediate trap occurs when an event specifier <span class="code">ON</span> is executed.</td>
+  </tr>
+</table>
+<p>When a trap is made for a particular event, the trap automatically causes a stop on that event, so recursive traps can never take place.</p>
+<p>The return from the trap routine automatically does an <span class="code">ON</span> unless an explicit <span class="code">OFF</span> has been performed inside the trap routine.</p>
+<p>When an error trap takes place, this automatically disables all trapping.</p>
+<p>Trapping will never take place when BASIC is not executing a program.</p>
+<p>The following are valid values for <span class="code"><i>event specifier</i></span>:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr>
+	<td width=168 valign=top class="code">COM(<i>n</i>)</td>
+		<td><span class="code"><i>n</i></span> is the number of the COM channel (1 or 2).</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">KEY(<i>n</i>)</td>
+		<td><p><span class="code"><i>n</i></span> is a function key number 1-20. 1 through 10 are the function keys <span class="smallcaps">F1</span> through <span class="smallcaps">F10</span>. 11 through 14 are the cursor control keys as follows:</p>
+		<p>11= <span class="smallcaps">CURSOR UP</span>       13= <span class="smallcaps">CURSOR RIGHT</span><br>
+		12= <span class="smallcaps">CURSOR LEFT</span>  14= <span class="smallcaps">CURSOR DOWN</span></p>
+	<p>15-20 are user-defined keys.</p></td>
+  </tr>
+  <tr>
+	<td valign=top class="code">PEN</td>
+		<td>Since there is only one pen, no number is given.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">PLAY(<i>n</i>)</td>
+		<td><span class="code"><i>n</i></span> is an integer expression in the range of 1-32. Values outside this range result in &quot;<span class="code">Illegal function call</span>&quot; errors.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">STRIG(<i>n</i>)</td>
+		<td><span class="code"><i>n</i></span> is 0, 2, 4 or 6. (0=trigger A1; 4=trigger A2; 2=trigger B1; 6=trigger B2).</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">TIMER(<i>n</i>)</td>
+		<td><span class="code"><i>n</i></span> is a numeric expression within the range of 1 to 86,400. A value outside of this range results in an &quot;<span class="code">Illegal function call</span>&quot; error.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">RETURN <i>line number</i></td>
+		<td><p>This optional form of <span class="code">RETURN</span> is primarily intended for use with event trapping. The event-trapping routine may want to go back into the GW-BASIC program at a fixed line number while still eliminating the <span class="code">GOSUB</span> entry that the trap created.</p>
+		<p>Use of the nonlocal <span class="code">RETURN</span> must be done with care. Any other <span class="code">GOSUB</span>, <span class="code">WHILE</span>, or <span class="code">FOR</span> that was active at the time of the trap remains active.</p>
+		<p>If the trap comes out of a subroutine, any attempt to continue loops outside the subroutine results in a &quot;<span class="code">NEXT without FOR</span>&quot; error.</p></td>
+  </tr>
+</table>
+<h4>Special Notes about Each Type of Trap</h4>
+<h4>COM Trapping</h4>
+<p>Typically, the COM trap routine will read an entire message from the COM port before returning.</p>
+<p>It is recommended that you not use the COM trap for single character messages, since at high baud rates the overhead of trapping and reading for each individual character may allow the interrupt buffer for COM to overflow.</p>
+<h4>KEY Trapping</h4>
+<p>Trappable keys 15 to 20 are defined by the following statement:</p>
+<pre><b>KEY</b>(<i>n</i>),<b>CHR$</b>[<i>hex code</i>]+<b>CHR$</b>[<i>scan code</i>]</pre>
+<p><span class="code"><i>n</i></span> is an integer expression within the range of 15 to 20 defining the key to be trapped.</p>
+<p><span class="code"><i>hex code</i></span><i> </i>is the mask for the latched key: (<span class="smallcaps">CAPS LOCK</span>, <span class="smallcaps">NUM LOCK</span>, <span class="smallcaps">ALT</span>, <span class="smallcaps">CTRL</span>, <span class="smallcaps">LEFT SHIFT</span>, <span class="smallcaps">RIGHT SHIFT</span>) </p>
+<p><span class="code"><i>scan code</i></span><i> </i>is the number identifying one of the 83 keys to trap. Refer to <a href="Appendix H.html">Appendix H in the GW-BASIC User's Guide</a> for key scan codes.</p>
+<p>The appropriate bit in <span class="code"><i>hex code</i></span> must be set in order to trap a key that is shifted, control-shifted, or alt-shifted. <span class="code"><i>hex code</i></span> values are as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=120>  <b>Mask</b></td>
+  <td width=72>  <b>Hex code</b></td>
+  <td>  <b>Indicates that</b></td></tr>
+  <tr><td class="smallcaps">EXTENDED</td>  
+  <td>&amp;H80</td><td>Key is extended</td></tr>
+  <tr><td class="smallcaps">CAPS LOCK</td>
+  <td>&amp;H40</td><td><span class="smallcaps">CAPS LOCK</span> is active </td>
+  </tr>
+  <tr><td class="smallcaps">NUM LOCK</td>
+  <td>&amp;H20</td><td><span class="smallcaps">NUM LOCK</span>  is active </td>
+  </tr>
+  <tr><td class="smallcaps">ALT</td>
+  <td>&amp;H08</td><td>The <span class="smallcaps">ALT</span> key is pressed </td>
+  </tr>
+  <tr><td class="smallcaps">CTRL</td>
+  <td>&amp;H04</td><td>The <span class="smallcaps">CTRL</span> key is pressed </td>
+  </tr>
+  <tr><td class="smallcaps">LEFT SHIFT</td>
+  <td>&amp;H02</td><td>The left <span class="smallcaps">SHIFT</span> key is pressed </td>
+  </tr>
+  <tr><td class="smallcaps">RIGHT SHIFT</td>
+  <td>&amp;H01</td><td>The right <span class="smallcaps">SHIFT</span> key is pressed </td>
+  </tr>
+</table>
+<p>For trapping shifted keys, you may use the value &amp;H01, &amp;H02, or &amp;H03. The left and right <span class="smallcaps">SHIFT</span> keys are coupled when &amp;H03 is used.</p>
+<p>Refer to the <a href="KEYN.html">KEY(n)</a> statement for more information.</p>
+<p>No type of trapping is activated when GW-BASIC is in direct mode. Function keys resume their standard expansion meaning during input.</p>
+<p>A key that causes a trap is not available for examination with the <span class="code">INPUT</span> or <span class="code">INKEY$</span> statement, so the trap routine for each key must be different if a different function is desired.</p>
+<p>If <span class="smallcaps">CTL-PRTSCR</span> is trapped, the line printer echo toggle is processed first. Defining <span class="smallcaps">CTL-PRTSCR</span> as a key trap does not prevent characters from being echoed to the printer if <span class="smallcaps">CTL-PRTSCR</span> is pressed.</p>
+<p>Function keys 1 through 14 are predefined. Therefore, setting scan codes 59-68, 72, 75, 77, or 80 has no effect.</p>
+<h4>PLAY Trapping</h4>
+<p>A <span class="code">PLAY</span> event trap is issued only when playing background music (<span class="code">PLAY&quot;MB..</span>). <span class="code">PLAY</span> event music traps are not issued when running in <span class="code">MUSIC</span> foreground (default case, or <span class="code">PLAY&quot;MF..</span>).</p>
+<p>Choose conservative values for <span class="code"><i>n</i></span>. An <span class="code">ON PLAY(32)..</span> statement will cause event traps so often that there will be little time to execute the rest of your program.</p>
+<p>The <span class="code">ON PLAY(<i>n</i>)</span> statement causes an event trap when the background music queue goes from <span class="code"><i>n</i></span> to <span class="code"><i>n</i>-1</span> notes.</p>
+<h4>STRIG Trapping</h4>
+<p>Using <span class="code">STRIG(<i>n</i>) ON</span> activates the interrupt routine that checks the trigger status. Down-strokes that cause trapping will not set <span class="code">STRIG(0)</span>, <span class="code">STRIG(2)</span>, <span class="code">STRIG(4)</span>, or <span class="code">STRIG(6)</span> functions.</p>
+<h4>TIMER Trapping</h4>
+<p>An <span class="code">ON TIMER(<i>n</i>)</span> event trapping statement is used with applications needing an internal timer. The trap occurs when n seconds have elapsed since the <span class="code">TIMER ON</span> statement.</p>
+<h4>Example 1:</h4>
+<p>This is a very simple terminal program.</p>
+<pre>10 REM &quot;ON COM(n)&quot; EXAMPLE
+20 OPEN &quot;COM1:9600, O, 7&quot; AS #1
+30 ON COM(1) GOSUB 80
+40 COM(1) ON
+50 REM TRANSMIT CHARACTERS FROM KEYBOARD
+60 A$=INKEY$: IF A$=&quot;&quot;THEN 50
+70 PRINT #1, A$;: GOTO 50
+80 REM DISPLAY RECEIVE CHARACTERS
+90 ALL=LOC(1): IF ALL&lt;1 THEN RETURN
+100 B$=INPUT$(ALL, #1): PRINT B$;:RETURN</pre>
+<h4>Example 2:</h4>
+<p>Prevents a <span class="smallcaps">CTRL-BREAK</span> or system reset during a program.</p>
+<pre>10 KEY 15, CHR$(4)+CHR$(70) REM Trap ^BREAK
+20 KEY 16, CHR$(12)+CHR$(83) REM Trap system reset
+30 ON KEY(15) GOSUB 1000
+40 ON KEY(16) GOSUB 2000
+50 KEY(15) ON
+60 KEY(16) ON
+.
+.
+.
+1000 PRINT &quot;I'm sorry, I can't let you do that&quot;
+1010 RETURN
+2000 ATTEMPS=ATTEMPS+1
+2010 ON ATTEMPS GOTO 2100, 2200, 2300, 2400, 2500
+2100 PRINT &quot;Mary had a little lamb&quot;: RETURN
+2200 PRINT &quot;Its fleece was white as snow&quot;: RETURN
+2300 PRINT &quot;And everywhere that Mary went&quot;: RETURN
+2400 PRINT &quot;The lamb was sure to go&quot;: RETURN
+2500 KEY(16) OFF REM If they hit us once more...
+2510 RETURN REM then BASIC dies...</pre>
+<h4>Example 3:</h4>
+<p>Displays the time of day on line 1 every minute.</p>
+<pre>10 ON TIMER(60) GOSUB 10000
+20 TIMER ON
+.
+.
+.
+10000 OLDROW=CSRLIN REM Saves the current row
+10010 OLDCOL=POS(0) REM Saves the current column
+10020 LOCATE 1, 1: PRINT TIME$
+10030 LOCATE OLDROW, OLDCOL REM Restores row and column
+10040 RETURN</pre>
+
+</body>
+</html>

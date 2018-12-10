@@ -1,0 +1,112 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DRAW Statement</h1>
+<h4>Purpose:</h4>
+<p>To draw a figure.</p>
+<h4>Syntax:</h4>
+<pre><b>DRAW</b> <i>string expression</i></pre>
+<h4>Comments:</h4>
+<p>The <span class="code">DRAW</span> statement combines most of the capabilities of the other graphics statements into an object definition language called Graphics Macro Language (GML). A GML command is a single character within a string, optionally followed by one or more arguments.</p>
+<p>The <span class="code">DRAW</span> statement is valid only in graphics mode.</p>
+<p>Movement Commands: </p>
+<p>Each of the following movement commands begins movement from the current graphics position. This is usually the coordinate of the last graphics point plotted with another GML command, <span class="code">LINE</span>, or <span class="code">PSET</span>. The current position defaults to the center of the screen (160,100 in medium resolution; 320,100 in high resolution) when a program is run. Movement commands move for a distance of scale factor *<span class="code"><i>n</i></span>, where the default for <span class="code"><i>n</i></span><i> </i>is 1; thus, they move one point if <i>n </i>is omitted and the default scale factor is used.</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=96><b>Command</b></td><td><b>Moves</b></td></tr>
+	<tr><td class="code">U<i>n</i></td>
+	<td>up</td></tr>
+	<tr><td class="code">D<i>n</i></td>
+	<td>down</td></tr>
+	<tr><td class="code">L<i>n</i></td>
+	<td>left</td></tr>
+	<tr><td class="code">R<i>n</i></td>
+	<td>right</td></tr>
+	<tr><td class="code">E<i>n</i></td>
+	<td>diagonally up and right</td></tr>
+	<tr><td class="code">F<i>n</i></td>
+	<td>diagonally down and right</td></tr>
+	<tr><td class="code">G<i>n</i></td>
+	<td>diagonally down and left</td></tr>
+	<tr><td class="code">H<i>n</i></td>
+	<td>diagonally up and left</td></tr>
+</table>
+<p>This command moves as specified by the following argument:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+    <tr>
+      <td width=96 valign=top class="code">M<i>x</i>, <i>y</i></td>
+      <td>Move absolute or relative. If <span class="code"><i>x</i></span> is preceded by a <span class="code">+</span> or <span class="code">-</span>, <span class="code"><i>x</i></span> and <span class="code"><i>y</i></span> are added to the current graphics position, and connected to the current position by a line. Otherwise, a line is drawn to point <span class="code"><i>x, y</i></span> from the current position.</td>
+    </tr>
+</table>
+<p>The following prefix commands may precede any of the above movement commands:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+    <tr><td width=96 class="code">B</td>
+    <td>Move, but plot no points.</td></tr>
+    <tr><td class="code">N</td>
+    <td>Move, but return to original position when done.</td></tr>
+</table>
+<p>The following commands are also available:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+    <tr>
+      <td width=96 valign=top class="code">A<i>n</i></td>
+      <td>Set angle <span class="code"><i>n</i></span>. <span class="code"><i>n</i></span><i> </i>may range from 0 to 3, where 0 is 0°, 1 is 90°, 2 is 180°, and 3 is 270°. Figures rotated 90° or 270° are scaled so that they will appear the same size as with 0° or 180° on a monitor screen with the standard aspect ratio of 4:3.</td>
+    </tr>
+    <tr>
+      <td valign=top class="code">TA<i>n</i></td>
+      <td>Turn angle <span class="code"><i>n</i></span>. <span class="code"><i>n</i></span><i> </i>can be any value from negative 360 to positive 360. If the value specified by <span class="code"><i>n</i></span><i> </i>is positive, it turns the angle counter-clockwise. If the value specified by <span class="code"><i>n</i></span><i> </i>is negative, it turns clockwise.</td>
+    </tr>
+    <tr>
+      <td valign=top class="code">C<i>n</i></td>
+      <td>Set color <span class="code"><i>n</i></span>. See the <a href="COLOR.html">COLOR</a>, <a href="PALETTE.html">PALETTE</a>, and <a href="SCREENS.html">SCREEN </a>statements for discussions of valid colors, numbers and attributes.</td>
+    </tr>
+    <tr>
+      <td valign=top class="code">S<i>n</i></td>
+      <td>Set scale factor. <span class="code"><i>n</i></span><i> </i>may range from 1 to 255. <span class="code"><i>n</i></span><i> </i>is divided by 4 to derive the scale factor. The scale factor is multiplied by the distances given with <span class="code">U</span>, <span class="code">D</span>, <span class="code">L</span>, <span class="code">R</span>, <span class="code">E</span>, <span class="code">F</span>, <span class="code">G</span>, <span class="code">H</span>, or relative <span class="code">M</span> commands to get the actual distance traveled. The default for <span class="code">S</span> is 4.</td>
+    </tr>
+    <tr>
+      <td valign=top class="code">x<i>string</i>; <i>variable</i></td>
+      <td><p>Execute substring. This command executes a second substring from a string, much like <span class="code">GOSUB</span>. One string executes another, which executes a third, and so on.</p>
+        <p><span class="code"><i>string</i></span><i> </i>is a variable assigned to a string of movement commands.</p>
+      </td>
+    </tr>
+    <tr>
+      <td valign=top class="code">P<i>paint</i>, <i>boundary</i></td>
+      <td><p>Specifies the colors for a graphics figure and creates a filled-in figure.</p>
+        <p><span class="code"><i>paint</i></span><i> </i>specifies what color you want the figure filled in with.</p>
+        <p><span class="code"><i>boundary</i></span><i> </i>specifies the border color (outline).</p>
+        <p>See the <a href="COLOR.html">COLOR</a>, <a href="PALETTE.html">PALETTE</a>, and <a href="SCREENS.html">SCREEN </a> statements for discussions of valid colors, numbers and attributes.</p>
+        <p>You must specify values for both <span class="code"><i>paint</i></span> and <span class="code"><i>boundary</i></span><i> </i>when used.</p>
+        <p>This command (<span class="code">P<i>paint</i>,<i>boundary</i></span>) does not paint color tiling.</p>
+      </td>
+    </tr>
+</table>
+<h4>Numeric Arguments: </h4>
+<p>Numeric arguments can be constants like &quot;<span class="code">123</span>&quot; or &quot;<span class="code">=<i>variable</i>;</span>&quot;, where <span class="code"><i>variable</i></span><i> </i>is the name of a variable.</p>
+<p>When you use the second syntax, &quot;<span class="code">=<i>variable</i>;</span>&quot;, the semicolon must be used. Otherwise, the semicolon is optional between commands.</p>
+<p>You can also specify variables using <span class="code">VARPTR$(<i>variable</i>)</span>.</p>
+<h4>Example 1:</h4>
+<p>To draw a box in medium resolution:</p>
+<pre>10 SCREEN 1
+20 A=20
+30 DRAW &quot;U=A; R=A; D=A; L=A;&quot;</pre>
+<h4>Example 2:</h4>
+<p>The aspect ratio to draw a square on a standard screen is 4:3, as shown below:</p>
+<p>To draw a 96 pixel-wide square on a 640 × 200 pixel screen (<span class="code">SCREEN 2</span>), do the following calculations:</p>
+<pre>Horizontal value = 96
+Vertical value = 96*(200/640)*(4/3)</pre>
+<p>or</p>
+<pre>Vertical value = 40
+Horizontal value = 40*(640/200)*(3/4)</pre>
+<p>The horizontal values equals 4/3 of the vertical values.</p>
+<h4>Example 3:</h4>
+<p>To draw a triangle in medium resolution:</p>
+<pre>10 CLS
+20 SCREEN 1
+30 PSET (60, 125)
+40 DRAW &quot;E100; F100; L199&quot;</pre>
+</body>
+</html>

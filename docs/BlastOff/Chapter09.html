@@ -1,0 +1,527 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Nine: Next Stop -- Mars!</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Nine: Next Stop -- Mars!</H2>
+<BR>
+</center>
+
+<P>
+  Imagine  bouncing around on the Moon weighing only one-sixth
+  of what you weigh here on Earth.  Does this sound like  fun?
+  Think  of  the  high  jumps and the baseball games!  How far
+  could you smack a ball?  Imagine the ballet  leaps  possible
+  on  a lunar stage!  Someday we may tune our televisions to a
+  live performance of the Ballet Company of Tranquillity Base.
+</P>
+<P>
+  Why stop with the Moon?  Even on Mars you  weigh  only  one-third  of  your  ordinary body weight.  Traveling around the
+  solar system is going to be fun.  While we are  waiting  for
+  our  rockets,  we  can  write a BASIC program that shows our
+  weight on the nine planets.   Along the way,  we  can  learn
+  some new BASIC commands.
+</P>
+<P>
+  Our  program  begins  by  asking a person's weight.  Then it
+  multiplies their weight by a factor for each  planet.    For
+  example,  on  the  Moon,  multiply  the Earth weight by .17.
+  Take a 100 pound person.  Multiply 100 by .17.  Their  lunar
+  weight is only 17 pounds!  Finally, the program displays the
+  result for each planet.  The program has four steps:
+</P>
+<P>
+<OL>
+<LI>Input Earth weight
+
+<LI>Prepare the output screen
+
+<LI>Multiply the weight by the factor for each planet
+
+<LI>Print the results
+</OL>
+<P>
+  Since  the last two steps are repeated for each planet, perhaps a processing loop could be used.  This would help  keep
+  the  program  simple.    The same algorithm is used for each
+  planet.  Only the factor needs to change.   A FOR-NEXT  loop
+  could handle this nicely.
+</P>
+<P>
+  Before  tackling the weight calculation routine, let us prepare the screen for output.  Here is the subroutine:
+</P>
+<P>
+<PRE>
+600 REM *****  PREPARE THE SCREEN  *****
+610 CLS
+620 PRINT
+630 PRINT "  Here is how much you will weigh on various planets"
+640 PRINT "  as you travel around the solar system."
+650 PRINT
+660 PRINT ,"Planet",,"Weight"
+670 PRINT
+680 RETURN
+</PRE>
+</P>
+<P>
+  Notice  on  line 660 that we are using commas again with the
+  PRINT statement.  This trick was introduced in chapter four.
+  Now it is time to explore this more.
+</P>
+<P>
+
+  BASIC divides the display screen into zones that  are  fourteen  characters  wide.    When  a  comma is used in a PRINT
+  statement, and that comma is not contained within  quotation
+  marks,  BASIC  shifts  the text over to the beginning of the
+  next zone.  This gets complicated when  the  text  is  wider
+  than  fourteen spaces.   Some examples will help.  Make sure
+  the commas are not within the quotation marks.
+</P>
+<P>
+<PRE>
+10 PRINT "1","2","3","4","5"
+20 PRINT "1","Here is some long text","2"
+</PRE>
+</P>
+<P>
+
+  Line 10 prints a number in the first position of each  zone.
+  The  next  line  puts  the numeral 1 in the first zone, then
+  uses a comma to shift the text into the second zone.    However, since the text has 22 characters, it takes up the sec-
+  ond  and  third zones.   The comma following the text causes
+  the numeral 2 to be placed in zone four.  Your screen should
+  look like this:
+</P>
+<P>
+
+<PRE>
+1              2              3              4              5
+1              Here is some long text        2
+</PRE>
+</P>
+<P>
+
+  As you can see, using commas with PRINT statements is a good
+  way to create columns of output.   That is exactly  what  we
+  will do with our program to calculate outer space weights.
+</P>
+<P>
+
+  Look  again  at  line 660.   The first comma causes BASIC to
+  skip the first zone.  Then it prints the word Planet.  Next,
+two commas cause BASIC to skip to zone  three  and  then  to
+  zone  four.   The word <i>Weight </i>is placed in zone four.  Since
+<i>Planet </i>did not completely fill up zone two, the first of the
+two commas following it only cause PRINT to skip to the  beginning of the next zone.  Compare line 20 of the little example  program  with line 660.  Each print something in zone
+  four but they use a different number of commas to get there.
+  Experiment with commas and different lengths of text.
+</P>
+
+
+<H3>READ-DATA</H3>
+<P>
+
+
+  We already found that our program will use a simple  formula
+  to  calculate  weights  on other planets.   It will multiply
+weight on Earth by a factor for each planet.  The same  formula  can  be  used  each  time.    Only the factor needs to
+  change.  For example, the factor for the Moon is .17.    For
+  Mars  it  is .36.  To keep the FOR-NEXT processing loop simple, we must supply the formula with a different factor each
+  time through the loop.  The BASIC READ-DATA commands provide
+  a good solution.
+</P>
+<P>
+  The READ statement works much like INPUT.   Both match  some
+  input  to  a  variable.   INPUT accepts typed input from the
+  keyboard and assigns it to either a  string,  single  precision,  or  integer variable.  READ does the same, except the
+  input does <i>not </i>come from the keyboard.  READ works  together
+with  a DATA statement.  The DATA statement supplies the input which READ assigns to variable.
+
+  A program may contain many DATA statements.   Each  DATA  is
+  followed  on  the same line by some text or numbers.  When a
+  READ is executed, the information following the  first  DATA
+  is  assigned  to a variable.  When another READ is executed,
+  the second DATA is used.  The next READ uses the third DATA.
+  Experiment with this example:
+</P>
+<P>
+
+<PRE>
+10  READ MESSAGE$
+20  PRINT MESSAGE$
+30  READ MESSAGE$
+40  PRINT MESSAGE$
+50  READ MESSAGE$
+60  PRINT MESSAGE$
+70  READ MESSAGE$
+80  PRINT MESSAGE$
+90  READ MESSAGE$
+100 PRINT MESSAGE$
+110 END
+120 DATA First DATA statement
+130 DATA Second DATA statement
+140 DATA "This one, has a comma in the middle"
+150 DATA "That's why it needs quotation marks"
+160 DATA Here is the last DATA statement
+</PRE>
+</P>
+<P>
+  The READ on line 10 places the text on  line  120  into  the
+  string  variable MESSAGE$.   The PRINT moves MESSAGE$ to the
+  screen.  Then, another READ on line 30 gets the  next  DATA,
+  this  time  on line 130, and places it in the same variable.
+  In this example, five READ commands are used with five PRINT
+  statements to process all of the DATA statements.  We  could
+  write a smaller program using a FOR-NEXT loop.
+</P>
+<P>
+
+<PRE>
+10  FOR X% = 1 TO 5
+20    READ MESSAGE$
+30    PRINT MESSAGE$
+40  NEXT X%
+50  END
+120 DATA First DATA statement
+130 DATA Second DATA statement
+140 DATA "This one, has a comma in the middle"
+150 DATA That's why it needs quotation marks
+160 DATA Here is the last DATA statement
+</PRE>
+</P>
+<P>
+
+  Each  time  the  READ  executes within the FOR-NEXT loop, it
+  picks up the next DATA statement.  Only one set of READ  and
+  PRINT commands are used to process all five DATA statements.
+</P>
+<P>
+
+  The  DATA  statements can also supply more that one variable
+  with each READ.  To do this, separate each piece of data  by
+  a  comma.    The  READ  must then use more than one variable
+  name.  Try this program:
+</P>
+<P>
+
+<PRE>
+10 FOR X% = 1 TO 3
+20   READ FIRST$,SECOND$,THIRD%
+30   PRINT FIRST$ SECOND$ THIRD%
+40 NEXT X%
+50 END
+60 DATA Call,me,1
+70 DATA Call,me,2
+80 DATA Call,me,3
+</PRE>
+</P>
+<P>
+
+  Each piece of data in a DATA statement is  called  a  FIELD.
+  The fields are separated by commas.  When they are read, the
+  first field is placed in the first variable name of the READ
+  statement.    The second field is placed in the second variable, and so on.  The variable type must match the  type  of
+  data.   For example, the integer variable THIRD% in the READ
+  on line 20 can only be used to hold whole numbers.  An error
+  message is issued if you try to place letters into an  integer variable.  This works just like INPUT.
+</P>
+<P>
+
+  If  a  field in a DATA statement contains commas, semicolons
+  (;), or many blank spaces, that field must  be  enclosed  in
+  quotation marks.
+</P>
+<P>
+
+  Each  time a READ statement is executed it gathers the input
+  from the next DATA statement.  Therefore, one DATA statement
+  must exist for each time READ executes.  If a READ  is  executed  after  all DATA statements have been processed, BASIC
+  issues the error message Out of Data and the program ends.
+</P>
+
+<H3>OUTER SPACE WEIGHT</H3>
+<P>
+
+  To see how READ-DATA is used in our weight calculating  program, here are the remaining BASIC statements.
+</P>
+<P>
+<PRE>
+10  REM *********************************************************
+20  REM *  WEIGHT                                               *
+30  REM *  Program to calculate your weight on various planets. *
+40  REM *********************************************************
+50  CLS
+60  PRINT "How much do you weigh on Earth?"
+70  INPUT WEIGHT!
+80  GOSUB 600                'PREPARE THE SCREEN
+90  FOR X% = 1 TO 10
+100   READ PLANET$,FACTOR!
+110   ETWEIGHT% = WEIGHT! * FACTOR!
+120   PRINT ,PLANET$,,ETWEIGHT%
+130 NEXT X%
+140 END
+400 REM *****  TABLE OF PLANETS AND WEIGHT FACTORS *****
+410 DATA Mercury,.38
+420 DATA Venus,.89
+430 DATA Earth,1
+440 DATA Moon,.17
+450 DATA Mars,.36
+460 DATA Jupiter,2.5
+470 DATA Saturn,1.05
+480 DATA Uranus,.89
+490 DATA Neptune,1.18
+500 DATA Pluto,.03
+</PRE>
+</P>
+<P>
+  As  you  can  see, this program is so short that most of the
+  processing is performed in the mainline  routine.    Only  a
+  single  subroutine  is  used.   That subroutine prepares the
+  screen for output.
+</P>
+<P>
+
+  Notice the ten DATA statements beginning at line 410.   Each
+  has  two fields.   The first is the planet name.  The second
+  field is the weight  factor.    These  DATA  statements  are
+  matched to variable names by the READ statement on line 100.
+  This  READ  is  part  of  a FOR-NEXT loop which executes ten
+  times, once for each DATA statement.   If you  were  to  add
+  more  DATA  statements,  the  FOR-NEXT loop would have to be
+  changed.
+</P>
+<P>
+
+  The READ statement assigns the  planet  name  in  each  DATA
+  statement  to  a string variable called PLANET$.  The weight
+  factor is assigned to a  single  precision  variable  called
+  FACTOR!.   A single precision variable is needed because the
+  weight factors are not whole numbers.   Indeed, for  several
+planets, the factors are numbers less than one.  Single precision variables  are  allowed  to hold fractional numbers.
+  The INPUT statement on line 70 also uses a single  precision
+  variable  to  hold the person's weight on Earth.  This means
+  that BASIC will permit the  user  to  enter  something  like
+  125.8765 pounds.
+</P>
+<P>
+
+  Now  look  at  line 110.   ETWEIGHT% is the integer variable
+  holding the person's weight on another planet.    ET  stands
+  for  extra  terrestrial.    ETWEIGHT% is an <i>integer </i>variable
+that is created by multiplying together two <i>single precision</i>
+variables!  When BASIC creates ETWEIGHT% it rounds  the  sum
+  from  the multiplication.  ETWEIGHT% is printed as output on
+  line 120.  An integer variable is used to  make  the  output
+  look  nice.    If  you want to know the weight more exactly,
+  change ETWEIGHT% from an integer variable to a single precision variable on lines 110 and 120.
+</P>
+<P>
+
+  To check out the operation of the program, reply 100 to  the
+  INPUT  statement.  Incidentally, the weight does not have to
+  be in pounds.    The  multiplication  works  for  kilograms,
+  ounces, or any other unit of weight.  The output is the same
+  unit  of measure as the input.  For 100 pounds, your program
+  should produce a display like this:
+</P>
+<P>
+<PRE>
+
+            Here is how much you will weigh on various planets
+            as you travel around the solar system.
+
+                Planet                      Weight
+
+                Mercury                      38
+                Venus                        89
+                Earth                        100
+                Moon                         17
+                Mars                         36
+                Jupiter                      250
+                Saturn                       105
+                Uranus                       89
+                Neptune                      118
+                Pluto                        3
+</PRE>
+</P>
+<P>
+
+  If any of your weights differ from  these,  check  the  DATA
+  statements.  Make sure that the factors are correct.
+</P>
+<P>
+
+  Each line of output in the table was created by line 120.  A
+  single  PRINT  statement  inside of a FOR-NEXT loop executed
+  ten times.  Each time it added a line to the  screen.    For
+  each  line,  the  same two variables were used.  The PLANET$
+  variable is changed by the READ statement in line 100 within
+  the FOR-NEXT loop.  ETWEIGHT% is also created  by  the  FOR-
+  NEXT  loop.  Aside from setting up the screen, the real work
+in this program is done by just  three  lines.    The  three
+  lines  inside  of the FOR-NEXT loop READ the DATA, calculate
+  ETWEIGHT%, and PRINT the output.   This routine  can  handle
+  any  number of DATA statements.  Just change the upper limit
+  on line 90 to match the number of DATA statements.
+</P>
+<P>
+
+  When humans colonize the rest of the solar system, the planets will not be the only places people live.   Some  of  the
+  best sites will be among the asteroids.  Asteroids are great
+  chunks of rock, and possibly ice, that orbit the Sun between
+  Mars and Jupiter.  Thousands of asteroids exist.  Future astronauts  will  probably tunnel into these giant boulders to
+  carve out tiny worlds where humans can live.    The  largest
+  asteroid  is  named Ceres.  It is 477 miles in diameter.  If
+  you stood on the surface of Ceres, your weight would be only
+  1/40 of your Earth weight.  Let's add Ceres  to  our  table.
+  Add  a  DATA  statement  for Ceres with a factor of .025 and
+  make the necessary change to the FOR-NEXT loop on line 90.
+</P>
+<P>
+
+  To gain experience using commas  to  position  output  in  a
+  PRINT  statement  and with the READ-DATA statements, several
+  improvements can be made to this program.    First  of  all,
+  this  program  lists a person's weight at the surface of the
+  nine planets.  However, some planets, like Jupiter and  Saturn,  do not have solid surfaces.  These planets are gas giants.   Their outer-most  layers  are  simply  thin  clouds.
+  Deeper  into  the atmosphere the clouds just get thicker and
+  thicker.   You cannot stand on the surface of Jupiter.   Beyond  Saturn  lie  the  icy  worlds  of Uranus, Neptune, and
+  Pluto.  Although they, like Jupiter and Saturn, are  covered
+  in  clouds,  these outer planets probably have icy surfaces.
+  It might be possible to stand.
+</P>
+<P>
+
+  Our program should note these  differences.    Let's  add  a
+  short  message to the output table.  To do this, add another
+  string variable to each DATA statement.  Then enter a  short
+  description like <i>Gas giant </i>or <i>Icy world </i>to each planet.  For Earth,  enter <i>Home Sweet Home</i>.  Then change the READ state-
+ment to assign the new field to a string variable.  Call  it
+  MESSAGE$.   Finally, include MESSAGE$ in the PRINT statement
+  after ETWEIGHT%.  Your output might look like this:
+</P>
+<P>
+<PRE>
+            Here is how much you will weigh on various planets
+            as you travel around the solar system.
+
+                Planet        Weight
+
+                Mercury        38           Hot!
+                Venus          89           Always Cloudy
+                Earth          100          Home Sweet Home
+                Moon           17           We've been here
+                Mars           36           Good place to live
+                Ceres          3            Asteroid
+                Jupiter        250          Gas giant
+                Saturn         105          Gas giant
+                Uranus         89           Icy world
+                Neptune        118          Icy world
+                Pluto          3            Far Out!
+</PRE>
+</P>
+<P>
+
+  Now  let's  get fancy.  Who cares how much we weigh on Mars?
+  Let's find out how high we can jump!   Add another  question
+  after  line  70.    Ask,  "How  high can you jump on Earth?"
+  Store the reply in a single precision variable called JUMP!.
+  Then create another new  single  precision  variable  called
+  JUMPFACTOR!  and use it to add another column to our output.
+  Add this algorithm into the FOR-NEXT loop.
+</P>
+<P>
+<PRE>
+
+       JUMPFACTOR! = WEIGHT! / ETWEIGHT%
+       ETJUMP% = JUMP! * JUMPFACTOR!
+</PRE>
+</P>
+<P>
+
+  Next, in  the  PRINT  statement,  slip  ETJUMP%  in  between
+  WEIGHT%  and MESSAGE$.   Of course, you must also change the
+  column headings in line 660.  For a 100 pound person who can
+  jump three feet on Earth, your output should look like this:
+</P>
+<P>
+<PRE>
+            Here is how much you will weigh on various planets
+            as you travel around the solar system.
+
+                Planet        Weight        High Jump
+
+                Mercury        38            8            Hot!
+                Venus          89            3            Always Cloudy
+                Earth          100           3            Home Sweet Home
+                Moon           17            18           We've been here
+                Mars           36            8            Good place to live
+                Ceres          3             100          Asteroid
+                Jupiter        250           1            Gas giant
+                Saturn         105           3            Gas giant
+                Uranus         89            3            Icy world
+                Neptune        118           3            Icy world
+                Pluto          3             100          Far Out!
+</PRE>
+</P>
+<P>
+  To calculate JUMPFACTOR! we divide a single precision  variable  by  an  integer  variable.   Since this mixes variable
+  types we do not use integer  division.    Use  the  ordinary
+  slash  symbol (/) for division, not the backslash symbol (\)
+  used in integer division.
+</P>
+<P>
+  Some final improvements can be made by using  colors.    Add
+  COLOR  statements at lines 605, 655, and 665.  Let the first
+  COLOR statement set a background and  a  text  color.    The
+  other  two  should  simply change the text color.  See "Text
+Mode Graphics" on page 78 to  review  using  color  in  text
+  mode.
+</P>
+<P>
+  Now  that  the  program  is complete, have some fun with it.
+  Find out how high you can really jump on Earth.    Then  use
+  that measurement in this program.  Answer this question.  On
+  Earth,  basketball  goals  are mounted at ten feet above the
+  floor.  Since just about everyone can slam dunk a  ten  foot
+  goal  on  the  Moon  or  Mars,  how  high should the goal be
+  mounted?
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>
+
+

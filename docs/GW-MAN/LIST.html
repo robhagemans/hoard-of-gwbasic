@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LIST Command</h1>
+<h4>Purpose:</h4>
+<p>To list all or part of a program to the screen, line printer, or file.</p>
+<h4>Syntax:</h4>
+<pre><b>LIST </b>[<i>line number</i>][-<i>line number</i>][,<i>filename</i>]<b>
+LIST </b>[<i>line number</i>-][,<i>filename</i>] </pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>linenumber</i></span><i> </i>is a valid line number within the range of 0 to 65529.</p>
+<p>If <span class="code"><i>filename</i></span><i> </i>is omitted, the specified lines are listed to the screen.</p>
+<p>Use the hyphen to specify a line range. If the line range is omitted, the entire program is listed. <span class="code"><i>linenumber-</i></span> lists that line and all higher numbered lines. <span class="code"><i>-linenumber</i></span><i> </i>lists lines from the beginning of the program through the specified line.</p>
+<p>The period (<span class="code">.</span>) can replace either <span class="code"><i>linenumber</i></span><i> </i>to indicate the current line.</p>
+<p>Any listing may be interrupted by pressing <span class="smallcaps"
+style='text-transform:uppercase'>ctrl-break</span>.</p>
+<h4>Examples:</h4>
+<pre>LIST</pre>
+<p>Lists all lines in the program.</p>
+<pre>LIST -20</pre>
+<p>Lists lines 1 through 20.</p>
+<pre>LIST 10-20</pre>
+<p>Lists lines 10 through 20.</p>
+<pre>LIST 20-</pre>
+<p>Lists lines 20 through the end of the program.</p>
+
+</body>
+</html>

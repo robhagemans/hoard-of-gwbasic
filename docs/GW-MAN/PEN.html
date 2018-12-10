@@ -1,0 +1,51 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PEN Statement and Function</h1>
+<h4>Purpose:</h4>
+<p>To read the light pen.</p>
+<h4>Syntax:</h4>
+<p>As a statement:</p>
+<pre><b>PEN ON
+</b><b>PEN OFF</b><b>
+PEN STOP</b> </pre>
+<p>As a function:</p>
+<pre><i>x</i> = <b>PEN</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">PEN ON</span> enables the <span class="code">PEN</span> read function.</p>
+<p><span class="code">PEN OFF</span> disables the <span class="code">PEN</span> read function.</p>
+<p><span class="code">PEN STOP</span> disables trapping. It remembers the event so immediate trapping occurs when <span class="code">PEN ON</span> is executed.</p>
+<p>The <span class="code">PEN</span> function is initially off. A <span class="code">PEN ON</span> statement must be executed before any <span class="code">PEN</span> read function calls can be made, or a <span class="code">PEN</span> read function call results in an &quot;<span class="code">Illegal function call</span>&quot; error.</p>
+<p><span class="code"><i>x</i> = PEN(<i>n</i>)</span> reads the light pen coordinates.</p>
+<p><span class="code"><i>x</i></span> is the numeric variable receiving the <span class="code">PEN</span> value.</p>
+<p><span class="code"><i>n</i></span> is an integer within the range of 0 to 9.</p>
+<p>Light pen coordinates:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=72 valign=top class="code"><i>n</i> = 0</td><td>If <span class="code">PEN</span> was down since last poll, returns -1; if not, returns 0.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 1</td><td>Returns the x-pixel coordinate when <span class="code">PEN</span> was last activated. The range is within 0 to 319 for medium resolution; 0 to 639, for high resolution.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 2</td><td>Returns the y-pixel coordinate when <span class="code">PEN</span> was last activated. The range is within 0 to 199.</td></tr><tr><td valign=top class="code"><i>n</i> = 3</td><td>Returns the current <span class="code">PEN</span> switch value. Returns -1 if down; 0 if up.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 4</td><td>Returns the last known valid x-pixel coordinate. The range is within 0 to 319 for medium resolution; or 0 to 639 for high resolution.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 5</td><td>Returns the last known valid y-pixel coordinate. The range is within 0 to 199.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 6</td><td>Returns the character row position when <span class="code">PEN</span> was last activated. The range is within 1 to 24.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 7</td><td>Returns the character column position when <span class="code">PEN</span> was last activated. The range is within 1 to 40, or 1 to 80, depending on the screen width.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 8</td><td>Returns the last known valid character row. The range is within 1 to 24.</td></tr>
+	<tr><td valign=top class="code"><i>n</i> = 9</td><td>Returns the last known valid character column position. The range is within 1 to 40, or 1 to 80, depending on the screen width.</td></tr>
+</table>
+<p>For execution speed improvements, turn the pen off with a <span class="code">PEN OFF</span> statement for those programs not using the light pen.</p>
+<p>When the pen is in the border area of the screen, the values returned will be inaccurate.</p>
+<h4>Examples:</h4>
+<pre>50 PEN ON
+60 FOR I=1 to 500
+70 X=PEN(0): X1=PEN(3)
+80 PRINT X, X1
+90 NEXT
+100 PEN OFF</pre>
+<p>This example prints the pen value since the last poll and the current value.</p>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+10 ' randfile.bas   sample random file
+20 OPEN "test2.dat" AS #1 LEN=48
+30 FIELD #1, 20 AS N$, 18 AS C$, 2 AS A$, 8 AS P$
+40 FOR I = 1 TO 3
+50 PRINT "Entry";I
+60 INPUT "Name ";NAM$
+70 INPUT "City";CITY$
+80 INPUT "Age";AGE
+90 INPUT "Phone";PHONE$
+100 LSET N$ = NAM$
+110 LSET C$ = CITY$
+120 LSET A$ = MKI$(AGE)
+130 LSET P$ = PHONE$
+140 PUT #1, I
+150 NEXT
+160 CLS
+170 FOR I = 3 TO 1 STEP -1
+180 GET #1, I
+190 NAM$ = N$
+200 CITY$ = C$
+210 AGE = CVI(A$)
+220 PHONE$ = P$
+230 PRINT I;NAM$;" ";CITY$;AGE;PHONE$
+240 NEXT
+

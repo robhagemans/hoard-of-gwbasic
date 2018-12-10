@@ -1,0 +1,117 @@
+********************************************************************************
+*
+*   \         (c) Thomas Antoni, 25.5.2004 - 12.11.2004
+*    \ /\           Mailto:thomas@antonis.de
+*    ( )            Downloaded from www.antonis.de --- www.qbasic.de   
+*  .( o ).
+*                        ----==== Hottest QBasic Stuff on Earth !!! ====----
+*
+********************************************************************************
+
+********************************************************************************
+*
+* .----------------.
+* | ENGLISH  INFO  |  (Deutsche Info: Siehe unten)
+* '----------------'
+*
+* Download File  : BASIC TRAINING V1.12 - a GW-BASIC Tutorial
+*                  ====================================================
+* Prog. Language : GW-BASIC, BASICA
+* Author         : Steve Estvanik
+*   - E-Mail     : website@cascoly.com
+*   - Website    : www.cascoly.com
+*
+********************************************************************************
+
+*** Short Description
+BASIC TRAINING is a comprehensive 41-page very professionaly written tutorial on 
+GW-BASIC which is identical with BASICA. This Tutorial introduces the 
+elements of Basic including Simple Controls, Looping, Color & Sound, Arrays & 
+DATA, GOSUBs and Functions, Files, Simple Graphics. This interactive tutorial 
+comes complete with numerous examples that you can run and modify.
+
+The tutorial is provided in 5 formats:
+
+- BT.HTM = HTML format
+- BT.TXT = ASCII text format
+- BT.DOC = Word 97 format (using the special font "Arial monopaced for SAP",
+           provided as fontfiles Arimon__.ttf and Arimonbd.ttf
+- BT.PDF = a PDF-File which can be opended by Acrobat Reader 3.0 or newer
+- BT1.COM & BT2.COM =  a DOS-based elecronic book with a convenient user
+           interface. The E-Book is divided in two parts. Simply start BT1.COM
+           and BT2.COM in the E:BOOK\ directory to read the e.book.
+
+8 of the example programs are provided as BAS programs in the PROGS\ directory.
+
+*** Overview by Steve Estvanik
+BASIC TRAINING -- Version 1.12 -- is a shareware tutorial. It introduces the 
+elements of Basic including Simple Controls, Looping, Color & Sound, Arrays & 
+DATA, GOSUBs and Functions, Files, Simple Graphics. This interactive tutorial 
+comes complete with numerous examples that you can run and modify. Registered 
+version includes an evaluation copy of LIBERTY Basic compiler for windows.  
+
+
+*** Rating
+++    (in a range of + to +++)
+
+
+********************************************************************************
+*
+* .---------------.
+* | DEUTSCHE INFO |
+* '---------------'
+*
+* Download-Datei: BASIC TRAINING V1.12 - ein GW-BASIC Tutorial
+*                 ====================================================
+* Progr.sprache : GW-BASIC, BASICA
+* Autor         : Steve Estvanik
+*   - E-Mail    : website@cascoly.com
+*   - Webseite  : www.cascoly.com
+*
+********************************************************************************
+
+*** Kurzbeschreibung
+Sehr professionell geschriebenes 41-seitiges englischsprachiges Tutorial zu GW- 
+BASIC, welches identisch ist mit BASICA. BASICA war die GW-BASIC Variante, die 
+mit Original IBM PCs mitgeliefert wurde, während GW-BASIC den so genannten IBM-
+kompatiblen PC Clones beilag. Abgesehen von den Namen sind die beiden 
+Programmiersprachen identisch.
+
+Das Tutorial behandelt alle wichtigen GW-BASIC Befehle und bietet reichhaltige
+Informationen zu folgenden Themen:
+
+- Umgang mit der Entwicklungsumgebung
+- Einfache Steuerelemente (Verzweigungen usw,)
+- Schleifen
+- Farben
+- Sound
+- Felder (Arrays)
+- Konstanten verwenden mit DATA
+- Unterprogrammaufrufe mit GOSUB
+- Dateibearbeitung, Datenbankprogrammierung
+- einfache Grafiken
+
+
+Das Tutorial liegt in 5 Formaten vor:
+
+- BT.HTM = HTML-Format mit einer komfortablen Navigation, ideal zum Ausdrucken
+- BT.TXT = ASCII-Text-format
+- BT.DOC = Word 97 Format (Verwendet die Sonderschriftart "Arial monopaced for
+           SAP", die in Form der beiden Font-dateien Arimon__.ttf und
+           Arimonbd.ttf brilirgt
+- BT.PDF = PDF-Dokument, das mit dem Acrobat Reader 3.0 oder neuer gelesen
+           werden kann
+- BT1.COM & BT2.COM =  DOS-basiertes elektronisches Buch. Das E-Book ist in
+           zwei Dateien aufgeteilt. Starte BT1.COM und BT2.COM, um das E-Book
+           zu lesen.
+
+8 der Beispielprogramme stehen im Verzeichnis PROGS\ als *.BAS-Dateien zur
+Verfügung.
+
+
+*** Bewertung
+++   (in einer Skala von + bis +++)
+
+
+
+

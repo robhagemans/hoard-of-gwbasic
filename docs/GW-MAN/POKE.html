@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>POKE Statement</h1>
+<h4>Purpose:</h4>
+<p>To write (poke) a byte of data into a memory location.</p>
+<h4>Syntax:</h4>
+<pre><b>POKE</b> <i>a</i>,<i>b</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>a</i></span> and <span class="code"><i>b</i></span> are integer expressions.</p>
+<p>The integer expression a is the offset address of the memory location to be poked. The <span class="code">DEF SEG</span> statement last executed determines the address. GW-BASIC does not check any offsets that are specified.</p>
+<p>The integer expression <span class="code"><i>b</i></span><i> </i>is the data to be poked.</p>
+<p><span class="code"><i>b</i></span><i> </i>must be within the range of 0 to 255. a must be within the range of 0 to 65535.</p>
+<p>The complementary function to <span class="code">POKE</span> is <span class="code">PEEK</span>. The argument to <span class="code">PEEK</span> is an address from which a byte is to be read.</p>
+<p><span class="code">POKE</span> and <span class="code">PEEK</span> are useful for efficient data storage, loading assembly language subroutines, and for passing arguments and results to and from assembly language subroutines.</p>
+<h4>Examples:</h4>
+<pre>20 POKE &amp;H5A00, &amp;HFF</pre>
+<p>Places the decimal value 255 (&amp;HFF) into the hex offset location (23040 decimal) See <a href="PEEK.html">PEEK</a> function example.</p>
+
+</body>
+</html>

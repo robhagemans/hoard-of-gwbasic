@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ON ... GOSUB and ON ... GOTO Statements</h1>
+<h4>Purpose:</h4>
+<p>To branch to one of several specified line numbers, depending on the value returned when an expression is evaluated.</p>
+<h4>Syntax:</h4>
+<pre><b>ON</b> <i>expression</i> <b>GOTO</b> <i>line numbers</i>
+<b>ON</b> <i>expression</i> <b>GOSUB</b> <i>line numbers</i></pre>
+<h4>Comments:</h4>
+<p>In the <span class="code">ON ... GOTO</span> statement, the value of <span class="code"><i>expression</i></span> determines which line number in the list will be used for branching. For example, if the value is 3, the third line number in the list will be destination of the branch. If the value is a non-integer, the fractional portion is rounded.</p>
+<p>In the <span class="code">ON ... GOSUB</span> statement, each line number in the list must be the first line number of a subroutine.</p>
+<p>If the value of <span class="code"><i>expression</i></span> is zero or greater than the number of items in the list (but less than or equal to 255), GW-BASIC continues with the next executable statement.</p>
+<p>If the value of <span class="code"><i>expression</i></span> is negative, or greater than 255, an &quot;<span class="code">Illegal function call</span>&quot; error occurs.</p>
+<h4>Examples:</h4>
+<pre>100 IF R&lt;1 or R&gt;4 then print &quot;ERROR&quot;:END</pre>
+<p>If the integer value of R is less than 1, or greater than 4, program execution ends.</p>
+<pre>200 ON R GOTO 150,300,320,390</pre>
+<p>If R=1, the program goes to line 150.</p>
+<p>If R=2, the program branches to line 300 and continues from there. If R=3, the branch will be to line 320, and so on.</p>
+
+</body>
+</html>

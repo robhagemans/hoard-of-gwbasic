@@ -1,0 +1,1022 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Blast Off With BASIC Appendix A: BASIC Commands Quick Reference</TITLE>
+<META NAME="keywords" CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+<META NAME="description" CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+<META NAME="Template" CONTENT="C:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY TEXT="#000000" LINK="#0000ff" VLINK="#ff0000" BACKGROUND="bluenote.jpg">
+
+<center>
+<TABLE CELLSPACING=0 BORDER=0 WIDTH=600>
+<TR><TD WIDTH="49%" VALIGN="TOP" COLSPAN=3 HEIGHT=139>
+<P><SMALL>&copy; 1991 Brian R. Page</SMALL> </P>
+<I><H1 ALIGN="CENTER">Blast Off With BASIC</H1>
+</I><H2 ALIGN="CENTER">Appendix A: BASIC Commands Quick Reference</H2>
+<H3>&nbsp;</H3>
+<FONT COLOR="#ff0000"><H3>CIRCLE </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Displays a circle on the screen. May be used only in graphics mode. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>CIRCLE (X,Y),<I>radius</I>,<I>color</I>,<I>start</I>,<I>end</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>(<I>X</I>,<I>Y</I>) specify the coordinates of the center of the circle. </P>
+<I><P>X</I> is horizontal axis (left to right across the screen), and <I>Y</I> is the vertical axis (top to bottom). </P>
+<I><P>X</I> must be a number in the range of 0 through 319. <I>Y</I> must be in the range 0 through 199. </P>
+<P>,<I>radius</I> is the distance, specified in points, from the center of the circle to the edge specified.</P>
+<P>,<I>color</I> is a number in the range 1 through 3 which selects a color from the palette currently in use (see the COLOR statement). </P>
+<P>,<I>start</I>,<I>end</I> indicate the beginning and ending positions for a partial circle. Positions are specified in radians beginning from the extreme right hand side of the circle. Circles are always drawn counterclockwise. One degree is equal to 0.0174532 radians. Therefore, the starting and ending positions may be listed in degrees multiplied by 0.0174532. If either the starting or ending points are negative numbers, BASIC draws a line from the point to the center of the circle. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+10 SCREEN 1
+20 COLOR 1,1
+30 RPD! = .0174532
+40 CIRCLE (160,100),60,1                      'FULL CIRCLE
+50 CIRCLE (50,100),30,2,(0 * RPD!),(270 * RPD!)       'PARTIAL CIRCLE
+60 CIRCLE (280,100),40,3,(-60 * RPD!),(-120 * RPD!)   'PIE</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>CLS </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Clear the screen. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>CLS </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>COLOR </H3>
+</FONT><H4>STATEMENT IN TEXT MODE </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Sets the background and text colors. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>COLOR <I>foreground</I>,<I>background</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>foreground</I> specifies a number in the range 0 through 15 to select a color for text. </P>
+<P>,<I>background</I> selects a number in the range 0 through 7 for the screen background color. </P>
+<P>0 Black </P>
+<P>8 Gray 1 Blue </P>
+<P>9 Bright Blue </P>
+<P>2 Green </P>
+<P>10 Bright Green </P>
+<P>3 Cyan </P>
+<P>11 Bright Cyan </P>
+<P>4 Red </P>
+<P>12 Bright Red </P>
+<P>5 Magenta </P>
+<P>13 Bright Magenta </P>
+<P>6 Brown </P>
+<P>14 Yellow </P>
+<P>7 White </P>
+<P>15 High-intensity White </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>COLOR </H3>
+</FONT><H4>STATEMENT IN GRAPHICS MODE </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Sets the background and palette colors. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>COLOR <I>background</I>,<I>palette</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>background</I> specifies a number in the range 0 through 15 to select a color for screen background. ,<I>palette</I> selects a number 0 or 1 to chose a palette of three colors. </P>
+<P>The actual color of a line or circle is specified by the graphics commands using the colors made available by the palette. </DIR>
+</DIR>
+
+<TABLE ALIGN=CENTER>
+<TR><TD ALIGN=CENTER>
+<B>COLOR</B></TD>
+<TD ALIGN=CENTER>
+<B>PALETTE 0</B></TD>
+<TD ALIGN=CENTER>
+<B>PALETTE 1</B></TD>
+</TR>
+
+<TR><TD ALIGN=CENTER>
+1 </TD>
+<TD ALIGN=CENTER>
+Green</TD>
+<TD ALIGN=CENTER>
+Cyan </TD>
+</TR>
+
+<TR>
+<TD ALIGN=CENTER>
+2 </TD>
+<TD ALIGN=CENTER>
+Red</TD>
+<TD ALIGN=CENTER>
+Magenta </TD>
+</TR>
+<TR>
+<TD ALIGN=CENTER>3 </TD>
+<TD ALIGN=CENTER>
+Brown</TD>
+<TD ALIGN=CENTER>
+White </TD>
+</TR>
+</TABLE>
+
+<DIR>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>DATA </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>lists data which may be assigned to variables with the READ statement. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>DATA <I>field</I>,<I>field</I>,<I>field</I>,... </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>field</I> </P>
+<P>Each field may be a string or number which will be assigned to a variable by a READ statement. Each field must be separated by a comma. If the data field contains a comma, semicolon, or blank spaces, that item must be enclosed within quotation marks. DATA statements are accessed in numerical order. The data in a field must match the variable type used in the READ statement. For example, an attempt to assign alphabetic characters to an integer variable will result in a Syntax error. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+           10  FOR X% = 1 TO 2
+           20    READ INFO$
+           30    PRINT INFO$
+           40  NEXT X%
+           50  FOR Y% = 1 TO 2
+           60    READ CHAR$,NUM%
+           70    PRINT CHAR$,NUM%
+           80  NEXT Y%
+           90  END
+           100 DATA Here is some input
+           110 DATA "which contains a comma, and lots of spaces"
+           120 DATA characters,3.14159265
+           130 DATA more characters and,3245</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>END </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Halts execution of a BASIC program. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4>
+<P>END </P>
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>END may be placed anywhere in a program. As soon as the END statement is executed, program execution stops. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>FOR-NEXT </H3>
+</FONT><H4>STATEMENTS </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Creates a loop for the repetitive execution of instructions. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>FOR <I>variable</I> = <I>x</I> TO <I>y</I> STEP <I>z</I> </P><DIR>
+<DIR>
+
+<B><FONT SIZE=5><P>.</P>
+<P>.</P>
+<P>.</P></DIR>
+</DIR>
+
+</B></FONT><P>NEXT <I>variable</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>variable</I> the number which is to be used as a counter. This name must be the same on both the FOR and the NEXT statements. </P>
+<I><P>x</I> the variable is set to this value as the loop begins. </P>
+<I><P>y</I> when the variable is greater than this value (for a positive STEP number), the loop is discontinued and execution resumes with the instruction following the NEXT statement. For a negative STEP value, execution stops when <I>x</I> becomes less than <I>y</I>. </P>
+<I><P>z</I> the number <I>z</I> is added to <I>x</I> each time a NEXT statement is executed. <I>Z</I> may be positive, negative, fractional, or zero. If STEP is not used with the statement, 1 is added to <I>x</I> each time a NEXT statement is executed. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 FOR X% = 1 TO 5
+            20  FOR FREQ% = 900 TO 970 STEP 10
+            30    SOUND FREQ%,.5
+            40  NEXT FREQ%
+            50  FOR FREQ% = 970 TO 900 STEP -10
+            60    SOUND FREQ%,.5
+            70   NEXT FREQ%
+            80 NEXT X%
+            90 END</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>GOSUB AND RETURN </H3>
+</FONT><H4>STATEMENTS </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Temporarily branches to a subroutine. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>GOSUB <I>line</I>. . . RETURN </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>line</I> is the first line number in a subroutine. Execution continues until a RETURN statement is encountered. GOSUB-RETURN statements may be nested. A RETURN statement causes BASIC to return execution to the last executed GOSUB statement. Upon return from a subroutine, execution continues with the next instruction following the GOSUB. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+   10  GOSUB 60
+   20  GOSUB 40
+   30  END
+   40  PRINT "The first subroutine, at line 40, is the last one called"
+   50  RETURN
+   60  CLS
+   70  PRINT "Subroutine beginning at line 60"
+   80  GOSUB 100
+   90  RETURN
+   100 PRINT "Nested subroutine beginning at line 100"
+   110 RETURN</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>GOTO </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Branch to a specified line number. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4>
+<P>GOTO <I>line</I> </P>
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>line</I> specifies a line number in the program. This line will be the next one executed after the GOTO. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 PRINT "This is line 10"
+            20 GOTO 50
+            30 PRINT "This is line 30"
+            40 GOTO 70
+            50 PRINT "This is line 50"
+            60 GOTO 30
+            70 END</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>IF-THEN-ELSE </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Makes a decision based on a comparison. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>IF <I>condition</I> THEN <I>alternative 1</I> ELSE <I>alternative 2</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>condition</I> is some relationship which BASIC tests to see if it is true. If the condition is true, then <I>alternative 1</I> is executed. If the condition is not true, <I>alternative 2</I> is performed. </P>
+<I><P>alternative 1</I> is any valid BASIC statement. </P>
+<I><P>alternative 2</I> is any valid BASIC statement. </P></DIR>
+</DIR>
+
+<H4>EXAMPLES </H4>
+<PRE>
+             280 IF CHOICE% = 2 THEN GOTO 600 ELSE GOTO 300
+             290 IF CHOICE% &lt;&gt; 2 THEN GOTO 300 ELSE GOTO 600
+             300 IF GUESS% = NUMBER% THEN GOTO 140
+             310 IF GUESS%  NUMBER% THEN PRINT "Too High"
+             320 IF GUESS% <NUMBER% THEN PRINT "Too Low"
+             330 IF SUB! >&lt;= 0 THEN GOTO 500
+             340 IF SUB! = 4 THEN GOTO 500
+             350 IF ANSWER$ = "y" THEN ANSWER$ = "Y"
+             360 IF QUANTITY% - SUB% &lt;1 THEN GOTO 600
+             370 IF X% = 2 THEN TWOS% = TWOS% + 1</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>INPUT </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Accepts keyboard input. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>INPUT "<I>message</I>", <I>variable</I>,<I>variable</I>,<I>variable</I>,... </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>message</I> contains text to display on the screen before accepting input for the variables. The message may be omitted. </P>
+<I><P>variable</I> the name of a variable to hold the keyboard input. More than one variable may be created by a single INPUT statement. Each variable name must be separated from the others by commas and the keyboard input must similarly separate data fields by commas. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>INT </H3>
+</FONT><H4>FUNCTION </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Creates an integer. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<I><P>variable</I> = INT(<I>x</I>) </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>x</I> the integer value of x is assigned to the variable. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 PRINT "The integer of 6.5 is" INT(6.5)
+            20 PRINT "The integer of 6.2 is" INT(6.2)
+            30 PRINT "The integer of -4.7 is " INT(-4.7)
+            40 PRINT "The integer of -4.3 is " INT(-4.3)</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>KEY </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Turns the display of function key settings on or off. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>KEY ON </P>
+<P>KEY OFF </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>ON causes the keys to be displayed at the bottom of the screen. OFF causes the key display to disappear. The function keys may still be used even with the display not present. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>LEFT$ </H3>
+</FONT><B><P>FUNCTION </P>
+</B><H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Returns the leftmost <I>x</I> characters of a string variable. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LEFT$(<I>variable</I>,<I>x</I>) </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>variable</I> a string variable. <I>x</I> the number of leftmost characters needed. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 WHO$ = "Jabberwocky"
+            20 FOR X% = 1 TO 11
+            30   PRINT LEFT$(WHO$,X%)
+            40 NEXT X%</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>LINE </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Graphics mode command to draw lines and boxes. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LINE (<I>x</I>,<I>y</I>) - (<I>x</I>,<I>y</I>),<I>color</I>,BF </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>x</I> specifies the horizontal coordinate. This is a number in the range of 0 through 319. </P>
+<I><P>y</I> specifies the vertical coordinate. This is a number in the range of 0 through 199. </P>
+<I><P>color</I> specifies a number in the range of 1 through 3 to select one of the colors made available with the palette selection of the COLOR statement. </P>
+<P>,B instructs BASIC that the coordinates given are opposite corners of a box. With this option, a single LINE command may be used to draw a rectangle. </P>
+<P>,BF causes BASIC to fill in the box with the color specified. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 SCREEN 1
+            20 LINE (0,0) - (319,199),1,B          'EMPTY BOX
+            30 LINE (50,30) - (70,90),2,BF         'FILLED BOX
+            40 LINE (25,20) - (60,20),3            'LINE
+            50 LINE (20,180) - (300,10),2          'DIAGONAL
+            60 FOR X% = 230 TO 270                 'TRIANGLE
+            70  LINE (250,150) - (X%,180)
+            80 NEXT X%</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>LIST </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Displays a BASIC program on the screen. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LIST <I>line</I> - <I>line</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4>
+<I><P>line</I> specifies a line number to list. If no line numbers are specified the entire program is listed. If one line number is specified, only that one line is displayed. If a range of line numbers is specified, only that range is displayed. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>LLIST </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Lists a BASIC program on a printer. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LLIST <I>line</I> - <I>line</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>line</I> specifies a line number to list on a printer. If no line numbers are specified the entire program is printed. If one line number is specified, only that one line is printed. If a range of line numbers is specified, only that range is printed. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>LOAD </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Moves a BASIC program into memory from a disk file. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LOAD "<I>file path</I>",R </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>file path</I> may include the disk drive, directory, and file name. ,R causes the program to RUN after it is loaded into memory. This option may be omitted. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>LOCATE </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Positions the cursor on the display screen. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LOCATE <I>row</I>,<I>column</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>row</I> a number in the range 1 through 25, numbered from the top of the screen down. Line 25 may not be used until a KEY OFF statement has been executed to remove the function key labels. </P>
+<P>,<I>column</I> a number in the range 1 through 40 in graphics mode, or 1 through 80 in text mode. A PRINT statement following a LOCATE positions output at the indicated position on the screen. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 CLS
+            20 LOCATE 10,20
+            30 PRINT "Row 10, Column 20"
+            40 LOCATE 20,50
+            50 PRINT "Row 20, Column 50"</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>LPRINT </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Prints text on a printer. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>LPRINT <I>expression</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>expression</I> may be either variables or characters enclosed within quotation marks. LPRINT functions exactly like the PRINT statement, except output appears on the printer. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>MERGE </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Combines two BASIC programs. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>MERGE "<I>file path</I>" </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>file path</I> may include the disk drive, directory, and file name. A file to be merged must have been saved with the ,A option of the SAVE command. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>PRINT </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Displays data on the screen. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>PRINT <I>expression</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>expression</I> may include variables or data enclosed within quo- tation marks. Output may be positioned in print zone fourteen characters wide by separating the fields with commas. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 PRINT "1","2","3","4","5"
+            20 PRINT "1","Here is some long text","2"</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>RANDOMIZE </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Seeds the BASIC random number generator. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>RANDOMIZE <I>x</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>x</I> specifies a number in the range -32,768 through 32,767. For a given seed, the BASIC random number generator produces the same sequence of random numbers. For more truly random numbers, the BASIC TIMER function is often used as the seed. To use a random number, see the RND function. The random number generator must be seeded before the RND function can be used. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 RANDOMIZE TIMER
+            20 PRINT RND
+            30 PRINT RND</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>READ </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Assigns fields in DATA statements to variables. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>READ <I>variable</I>,<I>variable</I>,<I>variable</I>,... </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>variable</I> identifies a variable to hold the data contained in the DATA statement. </P>
+<P>DATA statements are READ in line number order. An attempt to READ beyond the last DATA statements results in an Out of data error message. The <I>type</I> of data contained in the DATA statements must match the variable types used in the READ statement. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10 READ WORD1$
+            20 READ WORD2$
+            30 READ WORD3$
+            40 PRINT WORD3$,WORD1$,WORD2$
+            50 END
+            60 DATA My
+            70 DATA Lips
+            80 DATA Read</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>REM </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Provides a comment line in a program. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>REM <I>expression</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>expression</I> any text. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>RENUM </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Renumbers the lines of the BASIC program currently in memory. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>RENUM <I>line</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>line</I> specifies the beginning line number to use for the program. Program lines will be numbered by tens. If line is not specified, numbering begins with line 10. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>RND </H3>
+</FONT><H4>FUNCTION </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Produces a random number between 0 and 1. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<I><P>variable</I> = RND </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>variable</I> the contents of RND may be assigned to a variable. RND acts like a single precision variable holding a fractional number. The random number generator must be seeded before the RND function can be used. See the RANDOMIZE statement to seed the generator. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+            10  RANDOMIZE TIMER
+            20  PRINT INT(RND * (9 + 1))
+            30  PRINT INT(1 + RND * 9)
+            40  PRINT INT(RND * (10 + 1))
+            50  PRINT INT(1 + RND * 10)
+            60  PRINT INT(RND * (99 + 1))
+            70  PRINT INT(1 + RND * 99)
+            80  PRINT INT(RND * (100 + 1))
+            90  PRINT INT(1 + RND * 100)
+            100 PRINT INT(RND * (999 + 1))
+            110 PRINT INT(1 + RND * 999)</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>RUN </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Causes the BASIC interpreter to execute a program. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>RUN "<I>file path</I>" </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>file path</I> may include the disk drive, directory, and the file name. If no file path is specified, the program currently in memory is executed. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>SAVE </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>The program currently in memory is written to a disk file. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4>
+<P>SAVE "<I>file path</I>",A </P>
+<H4>EXPLANATION</H4>
+<I><P>file path</I> may include the disk drive, directory, and file name. </P>
+<P>,A the disk file is saved in ASCII format of ordinary text characters with no compression of blank spaces. This option must be used if the file is going to be used with a MERGE command. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>SCREEN </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Switches between text mode and graphics mode. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>SCREEN 0 </P>
+<P>SCREEN 1 </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>Screen 0 is text mode. Screen 1 is graphics mode. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>SOUND </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Creates a sound out of the personal computer speaker. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>SOUND <I>frequency</I>,<I>duration</I> </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>frequency</I> specifies a tone in Hertz (Hz) in the range 37 to 32767. The upper limit of the range is the code for silence. </P>
+<I><P>duration</I> specifies how long the tone will be sounded. Duration is specified in clock ticks. One second is equal to 18 clock ticks. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+       10 C! = 65.4                           'C NOTE FROM 2nd OCTAVE
+       20 FOR X% = 1000 TO 10000 STEP 1000
+       30  SOUND X%,1
+       40 NEXT X%
+       50 SOUND 32767,9                       'SILENCE
+       60 SOUND (4 * C!),4.5                  'MIDDLE C</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>SYSTEM </H3>
+</FONT><H4>COMMAND </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Stops the BASIC interpreter and returns control to DOS. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>SYSTEM</P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>Any program or data currently in memory is lost. </P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<FONT COLOR="#ff0000"><H3>TIMER </H3>
+</FONT><H4>FUNCTION </H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Produces a single precision number indicating the elapsed time in seconds and hundredth of a second since either midnight or a system reset. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<I><P>variable</I> = TIMER </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<I><P>variable</I> the value of TIMER may be assigned to a variable. </P></DIR>
+</DIR>
+
+<H4>EXAMPLE</H4>
+<PRE>
+       10 BEGTIME! = TIMER
+       20 INPUT "Press ENTER after you have read this message",GARBAGE$
+       30 ENDTIME! = TIMER
+       40 HOWLONG! = ENDTIME! - BEGTIME!
+       50 PRINT "It took you"HOWLONG!"seconds to read the message"</PRE>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<FONT COLOR="#ff0000"><H3>WIDTH </H3>
+</FONT><H4>STATEMENT</H4>
+<H4>PURPOSE</H4><DIR>
+<DIR>
+
+<P>Sets the text width of the display screen. </P></DIR>
+</DIR>
+
+<H4>SYNTAX</H4><DIR>
+<DIR>
+
+<P>WIDTH 40 </P>
+<P>WIDTH 80 </P></DIR>
+</DIR>
+
+<H4>EXPLANATION</H4><DIR>
+<DIR>
+
+<P>The screen width may display either 40 or 80 characters. </DIR>
+</DIR>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+</TD>
+<TD WIDTH="51%" VALIGN="TOP" HEIGHT=139><P></P></TD>
+</TR>
+<TR><TD VALIGN="TOP" COLSPAN=4 HEIGHT=460><P></P></TD>
+</TR>
+</TABLE>
+</center>
+</BODY>
+</HTML>

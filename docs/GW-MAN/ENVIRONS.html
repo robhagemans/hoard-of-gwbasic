@@ -1,0 +1,67 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ENVIRON$ Function</h1>
+<h4>Purpose:</h4>
+<p>To allow the user to retrieve the specified environment string from the environment table.</p>
+<h4>Syntax:</h4>
+<pre><i>v$</i>=<b>ENVIRON$</b>(<i>parmid</i>)
+<i>v$</i>=<b>ENVIRON$</b>(<i>nthparm</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>parmid</i></span><i> </i>is a valid string expression containing the parameter to search for.</p>
+<p><span class="code"><i>nthparm</i></span><i> </i>is an integer expression in the range of 1 to 255.</p>
+<p>If a string argument is used, <span class="code">ENVIRON$</span> returns a string containing the text following <span class="code"><i>parmid</i>=</span> from the environment string table.</p>
+<p>If <span class="code"><i>parmid</i></span><i> </i>is not found, then a null string is returned.</p>
+<p>If a numeric argument is used, <span class="code">ENVIRON$</span> returns a string containing the <span class="code"><i>nth</i></span><i> </i>parameter from the environment string table.</p>
+<p>If there is no <span class="code"><i>nth</i></span><i> </i>parameter, then a null string is returned.</p>
+<p>The <span class="code">ENVIRON$</span> function distinguishes between upper- and lowercase.</p>
+<h4>Examples:</h4>
+<p>The following lines:</p>
+<pre>ENVIRON &quot;PATH=A:\SALES; A:\ACOUNTING; B:\MKT:&quot; 'Create entry
+PRINT ENVIRON$(&quot;PATH&quot;)                          'Print entry</pre>
+<p>will print the following string:</p>
+<pre>A:\SALES; A:\ACCOUNTING; B:\MKT</pre>
+<p>The following line will print the first string in the environment:</p>
+<pre>PRINT ENVIRON$(1)</pre>
+<p>The following program saves the environment string table in an array so that it can be modified for a child process. After the child process completes, the environment is restored.</p>
+<pre>10 DIM ENVTBL$(10)
+20 NPARMS= 1 
+30 WHILE LEN(ENVIRON$(NPARMS))&gt;0
+40 ENVTBL$ (NPARMS) = ENVIRON$(NPARMS)
+50 NPARMS = NPARMS + 1
+60 WEND
+70 NPARMS = NPARMS-1 
+72 WHILE LEN(ENVIRON$(1))&gt;0
+73 A$=MID$(ENVIRON$(1), 1, INSTR (ENVIRON$(1), &quot;=&quot;))
+74 ENVIRON A$+&quot;;&quot; 
+75 WEND
+90 ENVIRON &quot;MYCHILDPARM1=SORT BY NAME&quot;
+100 ENVIRON &quot;MYCHILDPARM2=LIST BY NAME&quot;
+.
+.
+.
+1000 SHELL &quot;MYCHILD&quot;'RUNS &quot;MYCHILD.EXE&quot;
+1002 WHILE LEN(ENVIRON$(1))&gt;0
+1003 A$=MID$(ENVIRON$(1), 1, INSTR(ENVIRON$ (1), &quot;=&quot;))
+1004 ENVIRON A$+&quot;;&quot; 
+1005 WEND
+1010 FOR I=1 TO NPARMS
+1020 ENVIRON ENVTBL$(I)
+1030 NEXT I
+.
+.
+.</pre>
+<p>The <span class="code">DIM</span> statement in line 10 assumes no more than 10 parameters will be accessed.</p>
+<p>In line 20, the initial number of parameters is established as 1.</p>
+<p>In lines 30 through 70, a series of statements are used to adjust and correct  the parameter numbers.</p>
+<p>Line 71 deletes the present environment.</p>
+<p>Lines 72 through 80 create a new environment. Line 74 deletes the string.</p>
+<p>Lines 80 through 100 store the new environment.</p>
+<p>Lines 1000 through 1030 repeat the procedure by deleting the present environment and restore the parameters established in the first part of the program.</p>
+</body>
+</html>

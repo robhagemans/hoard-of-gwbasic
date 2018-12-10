@@ -1,0 +1,21 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>VIEW PRINT Statement</h1>
+<h4>Purpose:</h4>
+<p>To set the boundaries of the screen text window.</p>
+<h4>Syntax:</h4>
+<pre><b>VIEW PRINT</b> [<i>topline </i><b>TO </b><i>bottomline</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code">VIEW PRINT</span> without <span class="code"><i>topline</i></span> and <span class="code"><i>bottomline</i></span> parameters initializes the whole screen area as the text window. The whole screen area consists of lines 1 to 24; by default, line 25 is not used.</p>
+<p>Statements and functions that operate within the defined text window include <span class="code">CLS</span>, <span class="code">LOCATE</span>, <span class="code">PRINT</span>, and <span class="code">SCREEN</span>.</p>
+<p>The screen editor will limit functions such as scroll and cursor movement to the text window.</p>
+<p>For more information, see <a href="VIEW.html">VIEW</a>.</p>
+
+</body>
+</html>

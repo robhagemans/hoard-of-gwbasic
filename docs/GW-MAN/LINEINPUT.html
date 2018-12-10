@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LINE INPUT Statement</h1>
+<h4>Purpose:</h4>
+<p>To input an entire line (up to 255 characters) from the keyboard into a string variable, ignoring delimiters.</p>
+<h4>Syntax:</h4>
+<pre><b>LINE INPUT </b>[;][<i>prompt string</i>;]<i>string variable</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>prompt string</i></span> is a string literal, displayed on the screen, that allows user input during program execution.</p>
+<p>A question mark is not printed unless it is part of <span class="code"><i>prompt string</i></span>.</p>
+<p><span class="code"><i>string variable</i></span><i> </i>accepts all input from the end of the prompt to the carriage return. Trailing blanks are ignored.</p>
+<p><span class="code">LINE INPUT</span> is almost the same as the <span class="code">INPUT</span> statement, except that it accepts special characters (such as commas) in operator input during program execution.</p>
+<p>If a line-feed/carriage return sequence (this order only) is encountered, both characters are input and echoed. Data input continues.</p>
+<p>If <span class="code">LINE INPUT</span> is immediately followed by a semicolon, pressing the <span class="smallcaps">RETURN</span> key will not move the cursor to the next line.</p>
+<p>A <span class="code">LINE INPUT</span> may be escaped by typing <span class="smallcaps">CTRL-BREAK</span>. GW-BASIC returns to command level and displays <span class="code">Ok</span>.</p>
+<p>Typing <span class="code">CONT</span> resumes execution at the <span class="code">LINE INPUT</span> line.</p>
+<h4>Example:</h4>
+<pre>100 LINE INPUT A$</pre>
+<p>Program execution pauses at line 100, and all keyboard characters typed thereafter are input to string A$ until <span class="smallcaps">RETURN</span>, <span class="smallcaps">CTRL-M</span>, <span class="smallcaps">CTRL-C</span>, or <span class="smallcaps">CTRL-BREAK</span> is entered.</p>
+
+</body>
+</html>

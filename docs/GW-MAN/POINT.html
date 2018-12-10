@@ -1,0 +1,43 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>POINT Function</h1>
+<h4>Purpose:</h4>
+<p>To read the color or attribute value of a pixel from the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>POINT</b>(<i>x</i>,<i>y</i>)
+<b>POINT</b>(<i>function</i>)</pre>
+<h4>Comments:</h4>
+<p>In the first syntax, <span class="code"><i>x</i></span> and <span class="code"><i>y</i></span> are coordinates of the point to be examined.</p>
+<p>If the point given is out of range, the value -1 is returned.</p>
+<p>See the <a href="COLOR.html">COLOR</a> and <a href="PALETTE.html">PALETTE</a> statements for valid color and attribute values.</p>
+<p><span class="code">POINT</span> with one argument allows you to retrieve the current graphics coordinates.</p>
+<p><span class="code">POINT(<i>function</i>)</span> returns the value of the current x or y graphics coordinates as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=72><b>Function</b></td><td><b>Returns</b></td></tr>
+	<tr><td>0</td><td>the current physical x coordinate.</td></tr>
+	<tr><td>1</td><td>the current physical y coordinate.</td></tr>
+	<tr><td valign=top>2</td><td>the current logical x coordinate if <span class="code">WINDOW</span> is active; otherwise, it returns the current physical x coordinate as in 0 above.</td></tr>
+	<tr><td valign=top>3</td><td>the current logical y coordinate if <span class="code">WINDOW</span> is active; otherwise, it returns the current physical y coordinate as in 1 above.</td></tr>
+</table>
+<h4>Example 1:</h4>
+<pre>10 SCREEN 1
+20 FOR C=0 TO 3
+30 PSET (10, 10),C
+40 IF POINT(10, 10)&lt;&gt;C THEN PRINT &quot;BROKEN BASIC=&quot;
+50 NEXT C</pre>
+<h4>Example 2:</h4>
+<p>The following inverts the current state of a point:</p>
+<pre>10 SCREEN 2
+20 IF POINT(I, I)&lt;&gt;0 THEN PRESET(I, I) ELSE PSET(I, I)</pre>
+<h4>Example 3:</h4>
+<p>The following is another way to invert a point:</p>
+<pre>20 PSET (I, I), 1-POINT(I, I)</pre>
+
+</body>
+</html>

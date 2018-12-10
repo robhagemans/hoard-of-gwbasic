@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>NAME Command</h1>
+<h4>Purpose:</h4>
+<p>To change the name of a disk file.</p>
+<h4>Syntax:</h4>
+<pre><b>NAME</b> <i>old filename</i> <b>AS</b> <i>new filename</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>old filename</i></span> must exist and <span class="code"><i>new filename</i></span> must not exist; otherwise, an error results.</p>
+<p>After a <span class="code">NAME</span> command, the file exists on the same diskette, in the same disk location, with the new name.</p>
+<h4>Examples:</h4>
+<pre>NAME &quot;ACCTS&quot; AS &quot;LEDGER&quot;</pre>
+<p>The file formerly named <i>ACCTS</i> will now be named <i>LEDGER</i>. The file content and physical location on the diskette is unchanged.</p>
+
+</body>
+</html>

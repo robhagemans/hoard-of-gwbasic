@@ -1,0 +1,536 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Eleven: Keep Going!</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Eleven: Keep Going!</H2>
+<BR>
+</center>
+
+<P>
+  Now  the real fun begins.  It is time to take your ideas and
+  turn them into programs.  Each chapter of this  book  introduced  new  BASIC  commands and programming techniques.  You
+  learned about displaying output with PRINT, controlling program flow with GOSUB-RETURN and FOR-NEXT,  and,  of  course,
+  how  to  use each of the variable types.  With these skills,
+  you can write your own programs.  Think carefully about  all
+  the steps required to accomplish something, a game for example,  and  then write BASIC code to do each step.  And don't
+  expect your programs to work right the first time.  They almost never do!
+</P>
+<P>
+  The best way to leap into programming is to  return  to  the
+  programs  we developed in the earlier chapters and make them
+  better or different.  This will help you learn  BASIC.    As
+  you  become more comfortable with the commands, you will naturally start to write your own programs.    Here  are  some
+  ideas to get you started.
+</P>
+<P>
+  If  you  have color display screen, then immediately go back
+  and throw color into all the programs.   Be  creative.    In
+  text  mode,  every  line  of  the  screen can be a different
+  color!  Use the colors to help the human.   Colors make  the
+  displays  more readable.  You might even try mixing text and
+  graphics mode.  The NIM game, for instance, could easily run
+  in graphics mode.  Put the pebbles on the screen.  Draw seventeen circles to start, and subtract the circles as you and
+  the computer take turns.    Better  yet,  have  the  circles
+  change  color as they are subtracted.  Circles chosen by the
+  computer should turn a different  color  than  circles  subtracted  by  the human.  Improvements such as these could be
+  added with subroutines that barely change the original  program.
+</P>
+<P>
+  The UGUESS number guessing game could also be improved.  The
+  program  could  beep  each  time the player made a guess.  A
+  high frequency SOUND means the guess was too high.    A  low
+  frequency sound means the guess was too low.  Another possibility  is  to  give the player a hint.  Some code like this
+  could set the frequency of a SOUND depending on  the  secret
+  number:
+</P>
+<P>
+<PRE>
+800 FREQ% = 900
+810 IF NUMBER% < 90 THEN FREQ% = 800
+820 IF NUMBER% < 80 THEN FREQ% = 700
+830 IF NUMBER% < 70 THEN FREQ% = 600
+840 IF NUMBER% < 60 THEN FREQ% = 500
+</PRE>
+</P>
+<P>
+and so on...
+</P>
+<P>
+  The  FREQ% variable is changed by every statement until NUMBER% is greater than the condition in the IF-THEN test.  For
+  example, the FREQ% for a secret number of 74 would first be
+  set  by  line 800 and then changed by lines 810 and 820.  It
+  would then fail every test beginning with line 830.    Since
+  line  820  was  the last successful test, FREQ% would remain
+  equal to 700 Hz.
+</P>
+<P>
+  Once you learned the tones, you would have an advantage over
+  someone who did not know the program.
+</P>
+<P>
+  The sound effects programs of chapter four  are  other  good
+  places  to  experiment with BASIC.   Imagine a random number
+  subroutine that creates numbers between 100 and 13,000.  Use
+  each number as a frequency  for  a  short  SOUND  statement.
+  What  would  that sound like?  Maybe we could get the screen
+  to change colors as the tones are sounded?
+</P>
+<P>
+  Create new sounds.  How about a railroad  train?    Can  you
+  make  an airplane crash?  Combine graphics with sounds.  Use
+  the CIRCLE statement along with a  high  pitched  squeal  to
+  blow up a balloon that finally explodes and disappears.
+</P>
+
+<H3>IDEAS FOR NEW PROGRAMS</H3>
+
+<P>
+  Improving old programs is just a way to get started programming  on  your own.  To really master BASIC, write some programs from scratch.  Here are a few ideas.
+</P>
+<P>
+
+<B>OREGON TRAIL</B>
+</P>
+<P>
+  Travel overland by wagon from St. Louis to Portland, Oregon.
+  The year is 1850.  The game begins in St. Louis, gateway  to
+  the  West.  You have $1,000.  With this money you must buy a
+  wagon, horses, gun powder, and food.  Will you live  to  see
+  the  Pacific Ocean?  Random numbers can be used to throw obstacles in your path -- Indian attacks, snow storms  in  the
+  mountains,  or  losing  your  wagon  while crossing a raging
+  stream.  A program such as this combines story screens  with
+  random numbers.  A screen might look like this:
+</P>
+<P>
+<PRE>
+  *******************************************************************
+  *                                                                 *
+  *   Congratulations!  You have reached Ft. Laramie in the         *
+  *   Wyoming Territory.                                            *
+  *                                                                 *
+  *   You may buy supplies at the fort.  Do you want to stop?       *
+  *                                                                 *
+  *        1.  Stop.                                                *
+  *        2.  No, keep going.                                      *
+  *                                                                 *
+  *                                                                 *
+  *                                                                 *
+  *   Supplies:                                                     *
+  *        food       = 100 pounds                                  *
+  *        gun powder = 10 pounds                                   *
+  *        horses     = 2                                           *
+  *        money left = $ 300                                       *
+  *        Date:  July 29                                           *
+  *******************************************************************
+</PRE>
+</P>
+<P>
+  When deer and bears cross your path you will have the chance
+  to  go hunting.   Random numbers decide if your hunt is successful.  Then extra pounds of food may  be  added  to  your
+  supplies.  Of course, gun powder must be subtracted as well.
+  Each of these tasks can be placed in subroutines.
+</P>
+<P>
+
+<B>TIC-TAC-TOE</B>
+</P>
+<P>
+  Writing  a  program  to  play the game of tic-tac-toe may be
+  harder than you would imagine.  The program must have a  way
+  to see that three squares in a row have been taken.  Perhaps
+assign  each square a variable name.  When a square is taken
+  by a player, set the variable equal to some  number.    Then
+  use  a  series  of IF-THEN statements to check if one player
+  has three squares in a row.
+</P>
+<P>
+  For example, say that a square chosen by  the  human  causes
+  the  number  three  to be assigned to its variable.  Suppose
+  also that the top three square are known as A%, B%, and  C%.
+  An  IF-THEN test could see if A% + B% + C% is equal to nine.
+  If so, then the human wins!   When  the  computer  choses  a
+  square,  assign  the variable a number such as seven.  Three
+  squares in a row belonging to the computer would equal twenty-one.  Eight IF-THEN tests must be built to check for  all
+  possible  winning  rows.    If  you are clever you could put
+  these eight in a subroutine and use the same  statements  to
+  check for both the human and the computer.
+</P>
+<P>
+
+<B>ADVENTURE</B>
+</P>
+<P>
+  Adventure is like Oregon Trail.  Instead of a journey across
+  the  plains, you could be trapped inside an Egyptian pyramid
+  in a maze of twisty passages.  Random numbers determine  the
+  treasures  you find and the various goblins and spooks which
+  haunt you.
+</P>
+<P>
+
+<B>STAR WARRIORS</B>
+</P>
+<P>
+  Imagine yourself as captain of a starship.  Are enemy spaceships after you?  Do you have enough energy for your shields
+  and  blaster?    Can  you make it back to star base for supplies?
+</P>
+<P>
+
+<B>MORE MUSIC</B>
+</P>
+<P>
+  Turn your computer keyboard into a piano keyboard!    Use  a
+  loop  with  an  INPUT statement to accept letters which then
+  SOUND certain piano notes.
+</P>
+<P>
+
+<B>TEMPERATURE</B>
+</P>
+<P>
+  Programs can be practical too.  Write a program  to  convert
+  temperature  in  Fahrenheit  to Celsius.   Here is the algorithm:
+</P>
+<P>
+<PRE>
+       CELSIUS! = .5555 * (FAHRENHEIT! - 32)
+</PRE>
+</P>
+<P>
+  To convert in the other direction, from Celsius  to  Fahrenheit, use this formula:
+</P>
+<P>
+<PRE>
+       FAHRENHEIT! = (1.8 * CELSIUS!) + 32
+</PRE>
+</P>
+<P>
+
+<B>THE METRIC SYSTEM</B>
+</P>
+<P>
+  Another useful program can help with conversions between the
+  metric  system of measurements and the English system.  When
+  we need to go from centimeters to inches, we can  let  BASIC
+  do  the work.   Here is a table of conversions which you can
+  put in a program.  List a menu of conversions and then write
+  a subroutine for each one.
+</P>
+<P>
+<PRE>
+      FROM            TO             MULTIPLY BY
+
+      centimeters     inches         0.3937
+      inches          centimeters    2.54
+      meters          feet           3.281
+      feet            meters         0.3048
+      meters          yards          1.0936
+      yards           meters         0.9144
+      kilometers      miles          0.6214
+      miles           kilometers     1.6093
+      liters          gallons        0.2642
+      gallons         liters         3.785
+</PRE>
+</P>
+<P>
+
+<B>GAS MILEAGE</B>
+</P>
+<P>
+  A  final  suggestion  is  a  program to compute gas mileage.
+  This might be fun to use after a long family car trip.   Record the number of miles traveled with each tank of gasoline
+  along  with  the  number  of gallons needed at each fill up.
+  Then use a BASIC program to to divide the  number  of  miles
+  (MILES!)  by  the  number  of gallons (GALLONS!).   The data
+  could come either from INPUT commands or even from READ-DATA
+  statements.
+</P>
+
+<H2>PROGRAMMING TECHNIQUES</H2>
+
+<P>
+  Once you decide to write a program, what  do  you  do  next?
+  The first step is to completely understand the task that you
+  want  to program.   For example, to write a BASIC program to
+  play a game, first learn all of the rules.  These rules must
+  be turned into lines of BASIC.  Next, write down a  list  of
+  all  of  the  little tasks which must be accomplished in the
+  program.  Use this list to draw a flowchart.  The  flowchart
+  shows how the routines work: the order in which they run and
+  what  they  must do.   Be sure that the organization is logical.  Also, at this point, when you have a flowchart,  keep
+  in  mind  that  humans cannot be trusted.  Add routines that
+  catch cheating and mistakes.
+</P>
+<P>
+  Flowcharts do not have to be beautiful.  Use them as working
+  drawings.  When you discover problems or think of  a  better
+  way to do something, just scratch out some blocks and change
+  it.   The flowchart is not so much a map which tells you how
+  to write a program as it is a sketch pad for thinking  about
+  a program.  Good work on a flowchart saves you work later.
+</P>
+<P>
+  When  the flowchart is finished, it is time to start writing
+  BASIC code.  Use subroutine building blocks.  Begin with the
+  hardest or most important routines.  Think in terms of input
+  and output.  Each routine accepts some input from  the  rest
+  of the program.  Input will be the variables supplied to the
+subroutine.    After  some  processing,  the  routine either
+  changes variables or creates new ones.  This is the output.
+</P>
+<P>
+  Write  and  test subroutines separately.  Add lines which do
+  nothing more than create some input.  Then let  the  subroutine  do  its work.  Print the output.  In the real program,
+  the output may never be printed.   However,  during  testing
+  you  will  certainly  want to see the output of each subroutine.  We used this technique during the development of  the
+  binary  search  algorithm  for the IGUESS program in chapter
+  eight.
+</P>
+<P>
+  As the BASIC statements are entered at the keyboard, use the
+  RENUM command often to keep plenty of space between the line
+  numbers.  The RENUM command, by itself, simply  numbers  the
+  lines by tens, beginning with ten.  Sometimes, while writing
+  a  program,  you will need to insert lines of BASIC code between statements which already have line numbers.  For example, say you need to insert a GOSUB between  lines  435  and
+  436.   This is a problem.  When you get in this pinch, issue
+  RENUM and BASIC will do all the work for you.  BASIC  renumbers  all  of  the  lines in the program and changes all the
+GOTO and GOSUB line numbers.  This makes it  quick,  simple,
+  and  safe  to add lines.  The original lines 435 and 436 end
+  up with new line numbers that are ten apart.   Now  you  can
+  add that GOSUB in between.
+</P>
+<P>
+  The RENUM command is also useful when combining subroutines.
+  You  may  write  a subroutine as a separate program and then
+  merge it with the main program.  To do this, first  renumber
+the subroutine using the line numbers it will need when combined.  Issue the RENUM command along with the number of the
+  first line number.  For example, suppose you wrote a subroutine  beginning  with a line number 10.  When the subroutine
+  is added to the main program, it must begin with line number
+  400.  No problem.  Just issue the command:
+<PRE>
+RENUM 400
+</PRE>
+  and BASIC will change line ten of the subroutine  into  line
+  400.  The other lines will be numbered 410, 420, 430, and so
+  on.  Now that the routine is properly numbered, another step
+  is necessary.  This step uses a new feature of the SAVE command.
+</P>
+<P>
+  As you recall from chapter two, the SAVE command is followed
+  by a file path which includes the disk drive, directory, and
+file  name.  The file path is used by BASIC to create a disk
+  file containing a BASIC program.  When BASIC stores  a  program on disk, it squeezes, or compresses, all the characters
+  so  the file will not occupy too much disk space.  This compression also allows BASIC to load  the  file  quickly  into
+  memory.  To see what a compressed file looks like, issue the
+  DOS TYPE command.
+</P>
+<P>
+<PRE>
+TYPE C:\PGMS\NIM2.BAS
+</PRE>
+</P>
+<P>
+  The SAVE command can also be used to create an a file of ordinary  characters.   With this option, blank spaces are not
+  squeezed out.  They are left as real spaces.    To  see  how
+  this works, first you must use the BASIC interpreter to LOAD
+  a BASIC program.  Any program will do.  Then issue this command:
+<PRE>
+SAVE"C:\PGMS\TEMP",A
+</PRE>
+  The ,A following the file name tells BASIC to store the file
+  using  ordinary characters.  Now issue the SYSTEM command to
+  exit from BASIC and try the DOS TYPE command again.
+<PRE>
+TYPE C:\PGMS\TEMP.BAS
+</PRE>
+  Saving a file in ordinary characters is necessary  in  order
+  to  merge  BASIC programs.  Using our example above, where a
+  subroutine has been renumbered with lines numbers  beginning
+  at  400,  that  program  must  be  saved with the ,A option.
+  Next, LOAD the main program.   Then issue  the  BASIC  MERGE
+  command to bring in the subroutine.
+<PRE>
+MERGE "C:\PGMS\TEMP"
+</PRE>
+  If any line numbers are duplicated in both programs, the original  line will be replaced by the duplicate in the merged
+  program.  This is why the renumbering must take place before
+  the subroutine is saved.
+</P>
+<P>
+  Here are the steps for merging BASIC programs:
+</P>
+<P>
+<OL>
+<LI>RENUM the subroutine using line numbers that are not duplicated in the main program.
+
+<LI>SAVE the subroutine using the ,A option.
+
+<LI>LOAD the main program.
+
+<LI>MERGE the subroutine.
+</OL>
+</P>
+
+<H3>DEBUGGING</H3>
+
+
+<P>
+  BUGS are problems.   Sometimes the bugs are  easy  to  kill.
+  Your program crashes with an error message and you discover,
+  for instance, that you have some mismatched parentheses.  At
+  other times, the bugs are harder.  The program runs from beginning  to  end,  but  the output is not correct.  Bugs are
+  just a fact of life.  If you are the kind of person who must
+  have everything perfect and cannot stand puzzles, then  programming  is  not  for you.   On the other hand, if you like
+  mysteries and solving problems then you will probably  enjoy
+  programming.    A good programmer is not necessarily someone
+  who makes few mistakes.  A good programmer is often  someone
+  who is simply very good at rooting out and solving problems.
+</P>
+<P>
+  Remember  that computers do exactly what you ask them to do.
+They are like simple children.  If you accidentally  include
+  a variable name within the quotation marks of a PRINT statement,  then  BASIC  is  going  to  display the variable name
+  rather than the contents of the variable.  The key to debugging is learning to think like a computer.   Study  programs
+  one  line at a time.  Take the branches along with the GOTOs
+  and GOSUBs.  Make no assumptions.  The computer  only  knows
+  about  variables, BASIC commands, and line numbers.  It does
+  not know what you want to accomplish.
+</P>
+<P>
+  The best guard against bugs is thorough testing.  Design the
+  subroutines so you know exactly what input is required, that
+  is, which variables are needed by the subroutine, along with
+  the the output which must be produced.  Then, when  the  bug
+  happens,  slip  extra PRINT commands into the beginnings and
+  endings of the subroutines.  This way it is possible to  see
+  where the problem lies.  Is the subroutine getting the wrong
+  input?  If so, then chase the problem to where the input was
+  created.  On the other hand, if the input is correct and the
+  output  is  not, then the bug lies in the subroutine itself.
+  This is the time to think like a computer and  discover  why
+  the  subroutine is not behaving.  The problem may be as simple as a misspelled variable name.
+</P>
+<P>
+  Misspelled  variable  names  can,  indeed,  be  troublesome.
+  BASIC has no way to tell you that you have misspelled a variable.    It  cannot  see that the names are similar.  BASIC
+  just handles the misspelled name as if it were another variable.  You might think that a misspelled variable  would  be
+  empty.   Unfortunately, this is not the case for integer and
+  single precision variables.  These variable which hold  numbers  contain  a  value  of  zero until your program changes
+  them.  String variable, on the other hand, are empty.   However,  they may still cause problems.  For example, consider
+  this error:
+</P>
+<P>
+<PRE>
+320 INPUT FIRSTNAME$
+330 IF FIRSTNANE$ = "Bonzo" THEN GOSUB 110
+</PRE>
+</P>
+<P>
+  GOSUB  110  will never be executed no matter what is entered
+  to fill the variable on line 320.   The misspelled  variable
+  FIRSTNANE$  on  line  330  is empty and will never hold anything.
+</P>
+<P>
+  If you have cornered the bug in one subroutine and you still
+  cannot fix it, consider  rewriting  the  entire  subroutine.
+  Most  tasks can be solved in more than one way.  For a tough
+  bug, it might be time to try another way.  Replace the whole
+  routine with one that works.  This is another  advantage  to
+  using subroutine building blocks.
+</P>
+<P>
+  When a program ends in an error, it is often helpful to look
+  at what the variables contain.  This is especially true if a
+  program   goes  into  a  loop  that  must  be  stopped  with
+  CTRL-Break.  Once the program has stopped running, issue the
+  BASIC PRINT command followed by one or more variable  names.
+  Do  not  add  a line number to the command.  The line number
+  causes BASIC to use its editor to add the line to  the  program.  A PRINT without a line number is executed immediately
+  by BASIC.  For example, suppose you have a FOR-NEXT loop using  the  variable X% as a counter.  Unfortunately, when you
+  run this program it goes into an endless loop.  After  issuing a CTRL-Break, type in PRINT X% to check the value in the
+  counter.    If  the value is not what it should be, then you
+  know right away that something in your program  is  changing
+  X%.    Perhaps you have nested FOR-NEXT loops using the same
+  variable name, X%, as a counter.
+</P>
+<P>
+  Hopefully, these debugging tips have  not  scared  you  away
+  from programming.  Solving bugs can be almost as much fun as
+  programming.   Don't let the bugs get in your way.  Dream up
+  a program.  Write it in BASIC.  Crush the bugs.
+</P>
+
+<H2>WHERE TO GO FROM HERE</H2>
+<P>
+
+  Blast Off With BASIC just gets you off the ground.  In  this
+book, you have learned around thirty BASIC statements.  This
+  is  plenty  to  start  writing your own programs.   However,
+  these thirty are just an introduction.  BASIC has  over  150
+  commands, statements, and functions.  Many of these are seldom used.  However, others would help you right now.
+</P>
+<P>
+  To expand your knowledge of BASIC, see the reference manuals
+  describing  the  BASIC supplied with your personal computer.
+  Unfortunately, reference manuals may not be good  places  to
+  learn.    The job of a reference manual is to completely describe  each  BASIC command.   While it will show all of the
+  options which may be used with a command, it  may  not  tell
+  you much about how or why you would use it.  For this information, consider other How To books.  Many exist.  Check libraries  and  book stores.  A careful study of this book has
+  prepared you for one of these more detailed texts.
+</P>
+<P>
+  Another way to learn more is to share programs with friends.
+  The old saying, two heads are better than one is often  true
+in  programming.   Sometimes it is easier to find a bug in a
+  program written by a friend than it is in your own programs.
+  It is easier to think like a computer.
+</P>
+<P>
+  The best way to learn about programming  is  to  write  programs.   Even if you have nothing more than a reference manual, you can discover how the BASIC commands  work.    Write
+  little  programs  just  to  exercise  the new statements you
+  learn.  You can use these as examples later.
+</P>
+<P>
+  Most importantly, sit down at the keyboard  and  experiment.
+  Explore the commands and files.  Change programs.  Make them
+  do  what  you want.  Flush out the bugs.  Experiment.  Think
+  of new ideas and turn them into programs.  Try it.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>

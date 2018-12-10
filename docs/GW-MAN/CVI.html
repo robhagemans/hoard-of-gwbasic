@@ -1,0 +1,34 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CVI, CVS, CVD Functions</h1>
+<h4>Purpose:</h4>
+<p>To convert string values to numeric values.</p>
+<h4>Syntax:</h4>
+<pre><b>CVI</b>(<i>2-byte string</i>)
+<b>CVS</b>(<i>4-byte string</i>)
+<b>CVD</b>(<i>8-byte string</i>)</pre>
+<h4>Comments:</h4>
+<p>Numeric values read in from a random-access disk file must be converted from strings back into numbers if they are to be arithmetically manipulated.</p>
+<p><span class="code">CVI</span> converts a 2-byte string to an integer. <span class="code">MKI$</span> is its complement.</p>
+<p><span class="code">CVS</span> converts a 4-byte string to a single-precision number. <span class="code">MKS$</span> is its complement.</p>
+<p><span class="code">CVD</span> converts an 8-byte string to a double-precision number. <span class="code">MKD$</span> is its complement.</p>
+<p>(See <a href="MKIS.html">MKI$</a>, <a href="MKIS.html">MKS$</a>, and <a href="MKIS.html">MKD$</a>).</p>
+<h4>Examples:</h4>
+<pre>.
+.
+.
+70 FIELD #1, 4 AS N$, 12 AS B$...
+80 GET #1
+90 Y=CVS(N$)
+.
+.
+.</pre>
+<p>Line 80 reads a field from file #1 (the field read is defined in line 70), and converts the first four bytes (N$) into a single-precision number assigned to the variable Y.</p>
+<p>Since a single-precision number can contain as many as seven ASCII characters (seven bytes), writing a file using <span class="code">MKS$</span> conversion, and reading with the <span class="code">CVS</span> conversion, as many as three bytes per number recorded are saved on the storage medium. Even more may be saved if double-precision numbers are required. <span class="code">MKD$</span> and <span class="code">CVD</span> conversions would be used in this case.</p>
+</body>
+</html>

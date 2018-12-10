@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RUN Command</h1>
+<h4>Purpose:</h4>
+<p>To execute the program currently in memory, or to load a file from the diskette into memory and run it.</p>
+<h4>Syntax:</h4>
+<pre><b>RUN </b>[<i>line number</i>][,<b>r</b>]
+<b>RUN </b><i>filename</i>[,<b>r</b>]</pre>
+<h4>Comments:</h4>
+<p><span class="code">RUN</span> or <span class="code">RUN <i>line number</i></span><i> </i>runs the program currently in memory.</p>
+<p>If <span class="code"><i>line number</i></span><i> </i>is specified, execution begins on that line. Otherwise, execution begins at the lower line number.</p>
+<p>If there is no program in memory when <span class="code">RUN</span> is executed, GW-BASIC returns to command level.</p>
+<p><span class="code">RUN <i>filename</i></span><i> </i>closes all open files and deletes the current memory contents before loading the specified file from disk into memory and executing it.</p>
+<p>The <span class="code"><b>r</b></span><b> </b>option keeps all data files open.</p>
+<p>If you are using the speaker on the computer, please note that executing the <span class="code">RUN</span> command will turn off any sound that is currently running and will reset to Music Foreground. Also, the <span class="code">PEN</span> and <span class="code">STRIG</span> Statements are reset to <span class="code">OFF</span>.</p>
+<h4>Examples:</h4>
+<pre>RUN &quot;NEWFIL&quot;, R</pre>
+<p>Runs <i>NEWFIL.BAS</i> without closing data files.</p>
+
+</body>
+</html>

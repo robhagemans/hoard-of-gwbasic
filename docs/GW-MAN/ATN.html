@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ATN Function</h1>
+<h4>Purpose:</h4>
+<p>To return the arctangent of <span class="code"><i>x</i></span>, when <span class="code"><i>x</i></span> is expressed in radians.</p>
+<h4>Syntax:</h4>
+<pre><b>ATN</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p>The result is within the range of -&#960;/2 to &#960;/2.</p>
+<p>The expression x may be any numeric type. The evaluation of <span class="code">ATN</span> is performed in single precision unless the <span class="code">/<b>d</b></span> switch is used when GW-BASIC is executed. </p>
+<p>To convert from degrees to radians, multiply by &#960;/180.</p>
+<h4>Examples:</h4>
+<pre>10 INPUT X
+20 PRINT ATN(X)
+RUN
+ ? 3
+ 1.249046</pre>
+<p>Prints the arctangent of 3 radians (1.249046).</p>
+</body>
+</html>

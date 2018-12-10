@@ -1,0 +1,210 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Appendix D<br>Assembly Language (Machine Code) Subroutines</h1>
+<p>This appendix is written primarily for users experienced in assembly language programming.</p>
+<p>GW-BASIC lets you interface with assembly language subroutines by using the <span class="code">USR</span> function and the <span class="code">CALL</span> statement.</p>
+<p>The <span class="code">USR</span> function allows assembly language subroutines to be called in the same way GW-BASIC intrinsic functions are called. However, the <span class="code">CALL</span> statement is recommended for interfacing machine language programs with GW-BASIC. The <span class="code">CALL</span> statement is compatible with more languages than the <span class="code">USR</span> function call, produces more readable source code, and can pass multiple arguments.</p>
+
+<h2>D.1 Memory Allocation</h2>
+<p>Memory space must be set aside for an assembly language (or machine code) subroutine before it can be loaded. There are three recommended ways to set aside space for assembly language routines:</p>
+<ul>
+  <li>Specify an array and use <span class="code">VARPTR</span> to locate the start of the array before every access.</li>
+  <li>Use the <span class="code"><b>/m</b></span> switch in the command line. Get GW-BASIC's Data segment (DS), and add the size of DS to reference the reserved space above the data segment.</li>
+  <li>Execute a .COM file that stays resident, and store a pointer to it in an unused interrupt vector location.</li>
+  <li>There are three recommended ways to load assembly language routines:</li>
+  <li><span class="code">BLOAD</span> the file. Use DEBUG to load in an .EXE file that is in high memory, run GW-BASIC, and <span class="code">BSAVE</span> the .EXE file.</li>
+  <li>Execute a .COM file that contains the routines. Save the pointer to these routines in unused interrupt-vector locations, so that your application in GW-BASIC can get the pointer and use the routine(s).</li>
+  <li>Place the routine into the specified area.</li>
+</ul>
+<p>If, when an assembly language subroutine is called, more stack space is needed, GW-BASIC stack space can be saved, and a new stack set up for use by the assembly language subroutine. The GW-BASIC stack space must be restored, however, before returning from the subroutine.</p>
+
+<h2>D.2 CALL Statement</h2>
+<pre><b>CALL</b> <i>variablename</i>[(<i>arguments</i>)]</pre>
+<p><span class="code"><i>variablename</i></span> contains the offset in the current segment of the subroutine being called.</p>
+<p><span class="code"><i>arguments</i></span><i> </i>are the variables or constants, separated by commas, that are to be passed to the routine.</p>
+<p>For each parameter in <span class="code"><i>arguments</i></span>, the 2-byte offset of the parameter's location within the data segment (DS) is pushed onto the stack.</p>
+<p>The GW-BASIC return address code segment (CS), and offset (IP) are pushed onto the stack.</p>
+<p>A long call to the segment address given in the last DEF SEG statement and the offset given in <span class="code"><i>variablename</i></span> transfers control to the user's routine.</p>
+<p>The stack segment (SS), data segment (DS), extra segment (ES), and the stack pointer (SP) must be preserved.</p>
+<p>Figure D.1 shows the state of the stack at the time of the <span class="code">CALL</span> statement:</p>
+<p>    Figure 1</p>
+<h4>Figure D.1 Stack Layout When the CALL Statement is Activated not shown</h4>
+<p>The user's routine now has control. Parameters may be referenced by moving the stack pointer (SP) to the base pointer (BP) and adding a positive offset to BP.</p>
+<p>Upon entry, the segment registers DS, ES, and SS all point to the address of the segment that contains the GW-BASIC interpreter code. The code segment register CS contains the latest value supplied by <span class="code">DEF SEG</span>. If no <span class="code">DEF SEG</span> has been specified, it then points to the same address as DS, ES, and SS (the default <span class="code">DEF SEG</span>).</p>
+<p>Figure D.2 shows the condition of the stack during execution of the called subroutine:</p>
+<p>  Figure 2</p>
+<h4>Figure D.2 Stack Layout During Execution of a CALL Statement not shown</h4>
+<p>The following seven rules must be observed when coding a subroutine:</p>
+<ol>
+  <li>The called routine may destroy the contents of the AX, BX, CX, DX, SI, DI, and BP registers. They do not require restoration upon return to GW-BASIC. However, all segment registers and the stack pointer must be restored. Good programming practice dictates that interrupts enabled or disabled be restored to the state observed upon entry.</li>
+  <li>The called program must know the number and length of the parame- ters passed. References to parameters are positive offsets added to BP, assuming the called routine moved the current stack pointer into BP; that is, <span class="code">MOV BP,SP</span>. When 3 parameters are passed, the location of PO is at BP+10, P1 is at BP+8, and P2 is at BP+6.</li>
+  <li>The called routine must do a <span class="code">RETURN <i>n</i></span> (<span class="code"><i>n</i></span> is two times the number of parameters in the argument list) to adjust the stack to the start of the calling sequence. Also, programs must be defined by a <span class="code">PROC FAR</span> statement.</li>
+  <li>Values are returned to GW-BASIC by including in the argument list the variable name that receives the result.</li>
+  <li>If the argument is a string, the parameter offset points to three bytes called the string descriptor. Byte 0 of the string descriptor contains the length of the string (0 to 255). Bytes 1 and 2, respectively, are the lower and upper eight bits of the string starting address in string space.<br><br>
+    <hr>
+      <p><b><i>Note</i></b></p>
+      <p>The called routine must not change the contents of any of the three bytes of the string descriptor.</p>
+    <hr>
+</li>
+<li>Strings may be altered by user routines, but their length must not be changed. GW-BASIC cannot correctly manipulate strings if their lengths are modified by external routines.</li>
+<li>
+  <p>If the argument is a string literal in the program, the string descriptor points to program text. Be careful not to alter or destroy your program this way. To avoid unpredictable results, add <span class="code">+&quot;&quot;</span> to the string literal in the program. For example, the following line forces the string literal to be copied into string space allocated outside of program memory space:</p>
+  <pre>20 A$=&quot;BASIC&quot;+&quot;&quot;</pre>
+  <p>The string can then be modified without affecting the program.</p>
+</li>
+</ol>
+<p>Examples:</p>
+<pre>100 DEF SEG=&amp;H2000
+110 ACC=&amp;H7FA
+120 CALL ACC(A,B$,C)<br>.
+.
+.</pre>
+<p>Line 100 sets the segment to 2000 hex. The value of variable ACC is added into the address as the low word after the <span class="code">DEF SEG</span> value is left-shifted four bits (this is a function of the microprocessor, not of GW-BASIC). Here, ACC is set to &amp;H7FA, so that the call to ACC executes the subroutine at location 2000:7FA hex.</p>
+<p>Upon entry, only 16 bytes (eight words) remain available within the allocated stack space. If the called program requires additional stack space, then the user program must reset the stack pointer to a new allocated space. Be sure to restore the stack pointer adjusted to the start of the calling sequence on return to GW-BASIC.</p>
+<p>The following assembly language sequence demonstrates access of the parameters passed and storage of a return result in the variable C.</p>
+<hr>
+  <p><b><i>Note</i></b></p>
+  <p>The called program must know the variable type for numeric parameters passed. In these examples, the following instruction copies only two bytes:</p>
+  <pre>MOVSW</pre>
+  <p>This is adequate if variables A and C are integer. It would be necessary to copy four bytes if they were single precision, or copy eight bytes if they were double precision.</p>
+<hr><br>
+<table border="0" cellspacing="0" cellpadding="0">
+  <tr><td class="code">MOV BP,SP</td><td>Gets the current stack position in BP</td></tr>
+  <tr><td class="code">MOV BX,8[BP]</td><td>Gets the address of B$ description</td></tr>
+  <tr><td class="code">MOV CL,[BX]</td><td>Gets the length of B$ in CL</td></tr>
+  <tr><td class="code">MOV DX,1[BX]</td><td>Gets the address of B$ string descriptor in DX</td></tr>
+  <tr><td class="code">MOV SI,10[BP]</td><td>Gets the address of A in SI</td></tr>
+  <tr><td class="code">MOV DI,6[BP]</td><td>Gets the pointer to C in DI</td></tr>
+  <tr><td class="code">MOVSW</td><td>Stores variable A in 'C'</td></tr>
+  <tr><td class="code">RET 6</td><td>Restores stack; returns</td></tr>
+</table>
+<br>
+
+<h2>D.3 USR Function Calls</h2>
+<p>Although the <span class="code">CALL</span> statement is the recommended way of calling assembly language subroutines, the <span class="code">USR</span> function call is still available for compatibility with previously-written programs.</p>
+<h4>Syntax:</h4>
+<pre><b>USR</b>[<i>n</i>](<i>argument</i>)</pre>
+<p><span class="code"><i>n</i></span> is a number from 0 to 9 which specifies the <span class="code">USR</span> routine being called (see <a href="DEFUSR.html">DEF USR</a> statement). If <span class="code"><i>n</i></span> is omitted, <span class="code">USR0</span> is assumed.</p>
+<p><span class="code"><i>argument</i></span> is any numeric or string expression.</p>
+<p>In GW-BASIC a <span class="code">DEF SEG</span> statement should be executed prior to a <span class="code">USR</span> function call to ensure that the code segment points to the subroutine being called. The segment address given in the <span class="code">DEF SEG</span> statement determines the starting segment of the subroutine.</p>
+<p>For each <span class="code">USR</span> function call, a corresponding <span class="code">DEF USR</span> statement must have been executed to define the <span class="code">USR</span> function call offset. This offset and the currently active <span class="code">DEF SEG</span> address determine the starting address of the subroutine.</p>
+<p>When the <span class="code">USR</span> function call is made, register AL contains the <i>number type flag</i> (NTF), which specifies the type of argument given. The NTF value may be one of the following:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+	<tr><td><b>NTF Value</b></td><td><b>Specifies</b></td></tr>
+	<tr><td>2</td><td>a two-byte integer (two's complement format)</td></tr>
+	<tr><td>3</td><td>a string</td></tr>
+	<tr><td>4</td><td>a single-precision floating point number</td></tr>
+	<tr><td>8</td><td>a double-precision floating point number</td></tr>
+</table>
+<p>If the argument of a USR function call is a number (AL&lt;&gt;73), the value of the argument is placed in the <i>floating-point accumulator </i>(FAC). The FAC is 8 bytes long and is in the GW-BASIC data segment. Register BX will point at the fifth byte of the FAC. Figure D.3 shows the representation of all the GW-BASIC number types in the FAC:</p>
+<p>  Figure 3</p>
+<h4>Figure D.3 Number Types in the Floating Point Accumulator not shown</h4>
+<p>If the argument is a single-precision floating-point number:</p>
+<ul><li>BX+3 is the exponent, minus 128. The binary point is to the left of the most significant bit of the mantissa.</li>
+  <li>BX+2 contains the highest seven bits of mantissa with leading 1 suppressed (implied). Bit 7 is the sign of the number (0=positive, 1=negative).</li>
+  <li>BX+1 contains the middle 8 bits of the mantissa.</li>
+  <li>BX+0 contains the lowest 8 bits of the mantissa.</li>
+</ul>
+<p>If the argument is an integer:</p>
+<ul><li>BX+1 contains the upper eight bits of the argument.</li>
+  <li>BX+0 contains the lower eight bits of the argument.</li>
+</ul>
+<p>If the argument is a double-precision floating-point number:</p>
+<ul>
+  <li>BX+0 through BX+3 are the same as for single precision floating point.</li>
+  <li>BX-1 to BX-4 contain four more bytes of mantissa. BX-4 contains the lowest eight bits of the mantissa.</li>
+</ul>
+<p>If the argument is a string (indicated by the value 3 stored in the AL register) the (DX) register pair points to three bytes called the string descriptor. Byte 0 of the string descriptor contains the length of the string (0 to 255). Bytes 1 and 2, respectively, are the lower- and upper-eight bits of the string starting address in the GW-BASIC data segment.</p>
+<p>If the argument is a string literal in the program, the string descriptor points to program text. Be careful not to alter or destroy programs this way (see the preceding <span class="code">CALL</span> statement).</p>
+<p>Usually, the value returned by a <span class="code">USR</span> function call is the same type (integer, string, single precision, or double precision) as the argument that was passed to it. The registers that must be preserved are the same as in the <span class="code">CALL</span> statement.</p>
+<p>A far return is required to exit the <span class="code">USR</span> subroutine. The returned value must be stored in the FAC.</p>
+<br>
+
+<h2>D.4 Programs That Call Assembly Language Programs</h2>
+<p>This section contains two sample GW-BASIC programs that</p>
+<ul>
+  <li>load an assembly language routine to add two numbers together</li>
+  <li>return the sum into memory</li>
+  <li>remain resident in memory</li>
+</ul>
+<p>The code segment and offset to the first routine is stored in interrupt vector at 0:100H.</p>
+<p>Example 1 calls an assembly language subroutine:</p>
+<h4>Example 1</h4>
+<pre>10 DEF SEG=0
+100 CS=PEEK(&amp;H102)+PEEK(&amp;H103)*256
+200 OFFSET=PEEK(&amp;H100)+PEEK(&amp;H101)*256
+250 DEF SEG
+300 C1%=2:C2%=3:C3%=0
+400 TWOSUM=OFFSET
+500 DEF SEG=CS
+600 CALL TWOSUM(C1%,C2%,C3%)
+700 PRINT C3%
+800 END</pre>
+<p>The assembly language subroutine called in the above program must be assembled, linked, and converted to a .COM file. The program, when executed prior to the running of the GW-BASIC program, will remain in memory until the system power is turned off, or the system is rebooted.</p>
+<pre>0100            org 100H
+0100            double segment
+                assume cs:double
+0100 EB 17 90   start: jmp start1
+0103            usrprg proc far
+0103 55         push bp
+0104 8B EC      mov bp,sp
+0106 8B 76 08   mov si,[bp]+8        ;get address of parameter b
+0109 8B 04      mov ax,[si]          ;get value of b
+010B 8B 76 0A   mov si,[bp]+10       ;get address of parameter a
+010E 03 04      add ax,[si]          ;add value of a to value of b
+0110 8B 7E 06   mov di,[bp]+6        ;get address of parameter c
+0113 89 05      mov di,ax            ;store sum in parameter c
+0115 5D         pop bp
+0116 ca 00 06   ret 6
+0119            usrprg endp
+                                     ;Program to put procedure in
+                                     ;memory and remain resident. The
+                                     ;offset and segment are stored
+                                     ;in location 100-103H.
+0119            start1:
+0119 B8 00 00   mov ax,0
+011C 8E D8      mov ds,ax            ;data segment to 0000H
+011E BB 01 00   mov bx,0100H         ;pointer to int vector 100H
+0121 83 7F 02 0 cmp word ptr [bx],0
+0125 75 16      jne quit             ;program already run, exit
+0127 83 3F 00   cmp word ptr2 [bx],0
+012A 75 11      jne quit             ;program already run exit
+012C B8 01 03 R mov ax,offset usrprg
+012F 89 07      mov [bx],ax          ;program offset
+0131 8C c8      mov ax,cs
+0133 89 47 02   mov [bx+2],ax        ;data segment
+0136 0E         push cs
+0137 1F         pop ds
+0138 BA 0141 R  mov dx,offset veryend
+013B CD 27      int 27h
+013D            quit:
+013D CD 20      int 20h
+013F            veryend:
+013F            double ends
+                end start</pre>
+<p>Example 2 places the assembly language subroutine in the specified area:</p>
+<h4>Example 2</h4>
+<pre>10 I=0:JC=0
+100 DIM A%(23)
+150 MEM%=VARPTR(A%(1))
+200 FOR I=1 TO 23
+300 READ JC
+400 POKE MEM%,JC
+450 MEM%=MEM%+1
+500 NEXT
+600 C1%=2:C2%=3:C3%=0
+700 TWOSUM=VARPTR(A%(1))
+800 CALL TWOSUM(C1%,C2%,C3%)
+900 PRINT C3%
+950 END
+1000 DATA &amp;H55,&amp;H8b,&amp;Hec &amp;H8b,&amp;H76,&amp;H08,&amp;H8b,&amp;H04,&amp;H8b,&amp;H76
+1100 DATA &amp;H0a,&amp;H03,&amp;H04,&amp;H8b,&amp;H7e,&amp;H06,&amp;H89,&amp;H05,&amp;H5d
+1200 DATA &amp;Hca,&amp;H06,&amp;H00</pre>
+</body>
+</html>

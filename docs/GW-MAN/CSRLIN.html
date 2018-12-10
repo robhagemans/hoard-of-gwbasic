@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CSRLIN Variable</h1>
+<h4>Purpose:</h4>
+<p>To return the current line (row) position of the cursor.</p>
+<h4>Syntax:</h4>
+<pre><i>y</i>=<b>CSRLIN</b></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>y</i></span> is a numeric variable receiving the value returned. The value returned is within the range of 1 to 25.</p>
+<p>The <span class="code">CSRLIN</span> variable returns the vertical coordinate of the cursor on the active page (see the <a href="SCREENS.html">SCREEN</a> statement).</p>
+<p><span class="code">x=POS(0)</span> returns the column location of the cursor. The value returned is within the range of 1 to 40, or 1 to 80, depending on the current screen width (see the <a href="POS.html">POS</a> function).</p>
+<h4>Examples:</h4>
+<pre>10 Y=CSRLIN
+20 X=POS(0)
+30 LOCATE 24, 1
+40 PRINT &quot;HELLO&quot;
+50 LOCATE Y, X
+RUN
+ HELLO</pre>
+<p>The <span class="code">CSRLIN</span> variable in line 10 records the current line.</p>
+<p>The <span class="code">POS</span> function in line 20 records the current column.</p>
+<p>In line 40, the <span class="code">PRINT</span> statement displays the comment &quot;<span class="code">HELLO</span>&quot; on the 24<sup>th</sup> line of the screen.</p>
+<p>The <span class="code">LOCATE</span> statement in line 50 restores the position of the cursor to the original line and column.</p>
+</body>
+</html>

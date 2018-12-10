@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>GOSUB ... RETURN Statement</h1>
+<h4>Purpose:</h4>
+<p>To branch to, and return from, a subroutine.</p>
+<h4>Syntax:</h4>
+<pre><b>GOSUB</b> <i>line number</i>
+<b>.</b>
+<b>.</b>
+<b>.</b>
+<b>RETURN</b> [<i>line number</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>line number</i></span> is the first line number of the subroutine.</p>
+<p>A subroutine may be called any number of times in a program, and a subroutine may be called from within another subroutine. Such nesting of subroutines is limited only by available memory.</p>
+<p>A <span class="code">RETURN</span> statement in a subroutine causes GW-BASIC to return to the statement following the most recent <span class="code">GOSUB</span> statement. A subroutine can contain more than one <span class="code">RETURN</span> statement, should logic dictate a <span class="code">RETURN</span> at different points in the subroutine.</p>
+<p>Subroutines can appear anywhere in the program, but must be readily distinguishable from the main program.</p>
+<p>To prevent inadvertent entry, precede the subroutine by a <span class="code">STOP</span>, <span class="code">END</span>, or <span class="code">GOTO</span> statement to direct program control around the subroutine.</p>
+<h4>Examples:</h4>
+<pre>10 GOSUB 40
+20 PRINT &quot;BACK FROM SUBROUTINE&quot;
+30 END
+40 PRINT &quot;SUBROUTINE&quot;;
+50 PRINT &quot; IN&quot;;
+60 PRINT &quot; PROGRESS&quot;
+70 RETURN
+RUN
+ SUBROUTINE IN PROGRESS
+ BACK FROM SUBROUTINE</pre>
+<p>The <span class="code">END</span> statement in line 30 prevents re-execution of the subroutine.</p>
+</body>
+</html>

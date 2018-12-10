@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CLOSE Statement</h1>
+<h4>Purpose:</h4>
+<p>To terminate input/output to a disk file or a device.</p>
+<h4>Syntax:</h4>
+<pre><b>CLOSE</b> [[#]<i>filenumber</i>[,[#]<i>filenumber</i>]...]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filenumber</i></span> is the number under which the file was opened. The association between a particular file or device and file number terminates upon execution of a <span class="code">CLOSE</span> statement. The file or device may then be reopened using the same or a different file number. A <span class="code">CLOSE</span> statement with no file number specified closes all open files and devices.</p>
+<p>A <span class="code">CLOSE</span> statement sent to a file or device opened for sequential output writes the final buffer of output to that file or device.</p>
+<p>The <span class="code">END</span>, <span class="code">NEW</span>, <span class="code">RESET</span>, <span class="code">SYSTEM</span>, or <span class="code">RUN</span> and <span class="code">LOAD</span> (without <span class="code">r</span> option) statements always close all files or devices automatically. <span class="code">STOP</span> does not close files.</p>
+<h4>Examples:</h4>
+<pre>250 CLOSE</pre>
+<p>This closes all open devices and files.</p>
+<pre>300 CLOSE 1, #2, #3</pre>
+<p>Closes all files and devices associated with file numbers 1, 2, and 3.</p>
+</body>
+</html>

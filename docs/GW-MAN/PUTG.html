@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PUT Statement (Graphics)</h1>
+<h4>Purpose:</h4>
+<p>To transfer graphics images to the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>PUT</b>(<i>x</i>,<i>y</i>),<i>array</i>,[,<i>action verb</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>action verb</i></span> may be <span class="code">PSET</span>, <span class="code">PRESET</span>, <span class="code">AND</span>, <span class="code">OR</span>, <span class="code">XOR</span>.</p>
+<p>The <span class="code">(<i>x</i>,<i>y</i>)</span> are the coordinates of the top-left corner of the image to be transferred.</p>
+<p>The <span class="code">PUT</span> and <span class="code">GET</span> statements transfer graphics images to and from the screen. <span class="code">PUT</span> and <span class="code">GET</span> make possible animation and high-speed object motion in either graphics mode.</p>
+<p>The <span class="code">PUT</span> statement transfers the image stored in the array onto the screen. The specified point is the coordinate of the upper-left corner of the image. An &quot;<span class="code">Illegal function call</span>&quot; error results if the image to be transferred is too large to fit onto the screen.</p>
+<p>The action verb is used to interact the transferred image with the image already on the screen. <span class="code">PSET</span> transfers the data onto the screen verbatim.</p>
+<p><span class="code">PRESET</span> is the same as <span class="code">PSET</span> except that an inverse image (black on white) is produced.</p>
+<p><span class="code">AND</span> transfers the image only if an image already exists under the transferred image.</p>
+<p><span class="code">OR</span> superimposes the image onto the existing image.</p>
+<p><span class="code">XOR</span> is a special mode often used for animation. <span class="code">XOR</span> causes the points on the screen to be inverted where a point exists in the array image. This behavior is exactly like the cursor on the screen. <span class="code">XOR</span> is especially useful for animation. When an image is put against a complex background twice, the background is restored unchanged. An object can be moved around the screen without obliterating the background. The default action mode is <span class="code">XOR</span>.</p>
+<p>For more information about effects within the different modes, see the <a href="COLOR.html">COLOR</a>, <a href="PALETTE.html">PALETTE</a>, and <a href="SCREENS.html">SCREEN</a> statements.</p>
+<p>Animation of an object is usually performed as follows:</p>
+<ol>
+	<li>Put the object(s) on the screen.</li>
+	<li>Recalculate the new position of the object(s).</li>
+	<li>Put the object(s) on the screen a second time at the old location(s) to remove the old image(s).</li>
+	<li>Return to Step 1, this time putting the object(s) at the new location.</li>
+</ol>
+<p>Movement done this way leaves the background unchanged. Flicker can be cut down by minimizing the time between Steps 4 and 1, and by making sure that there is enough time delay between Steps 1 and 3. If more than one object is being animated, process every object at once, one step at a time.</p>
+<p>If it is not important to preserve the background, animation can be performed using the <span class="code">PSET</span> action verb.</p>
+<p>Leave a border around the image (when it is first gotten) as large or larger than the maximum distance the object will move. Thus, when an object is moved, this border effectively erases any points. This method may be somewhat faster than the method using <span class="code">XOR</span> described above since only one <span class="code">PUT</span> is required to move an object. However, the image to be <span class="code">PUT</span> must be larger than the existing image.</p>
+<h4>Examples:</h4>
+<pre>10 CLS: SCREEN 1
+20 PSET (130, 120)
+30 DRAW &quot;U25; E7; R20; D32; L6; U12; L14&quot;
+40 DRAW &quot;D12; L6&quot;: PSET(137, 102)
+50 DRAW &quot;U4; E4; R8; D8; L12&quot;
+60 PSET (137, 88)
+70 DRAW &quot;E4; R20; D32; G4&quot;: PAINT (131,119)
+80 DIM A (500)
+90 GET (125, 130)-(170, 80), A
+100 FOR I= 1 TO 1000: NEXT I
+110 PUT (20, 20), A, PSET
+120 FOR I= 1 TO 1000: NEXT i
+130 GET (125, 130)-(170, 80), A
+140 FOR I= 1 TO 1000: NEXT I
+150 PUT (220, 130), A, PRESET</pre>
+
+</body>
+</html>

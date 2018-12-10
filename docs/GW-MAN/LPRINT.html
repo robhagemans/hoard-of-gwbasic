@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LPRINT and LPRINT USING Statements</h1>
+<h4>Purpose:</h4>
+<p>To print data at the line printer.</p>
+<h4>Syntax:</h4>
+<pre><b>LPRINT</b> [<i>list of expressions</i>][;]
+<b>LPRINT USING</b> <i>string exp</i>; <i>list of expressions</i>[;]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>list of expressions</i></span> consists of the string or numeric expression separated by semicolons.</p>
+<p><span class="code"><i>string expressions</i></span><i> </i>is a string literal or variable consisting of special formatting characters. The formatting characters determine the field and the format of printed strings or numbers.</p>
+<p>These statements are the same as <span class="code">PRINT</span> and <span class="code">PRINT USING</span>, except that output goes to the line printer. For more information about string and numeric fields and the variables used in them, see the <a href="PRINT.html">PRINT</a> and <a href="PRINTUSING.html">PRINT USING</a> statements.</p>
+<p>The <span class="code">LPRINT</span> and <span class="code">LPRINT USING</span> statements assume that your printer is an 80-character-wide printer.</p>
+<p>To reset the number of characters that you can print across the printed page (assuming that your printer is wider than 80 characters), see the <a href="WIDTH.html">WIDTH</a> statement.</p>
+
+</body>
+</html>

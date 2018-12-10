@@ -1,0 +1,172 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Chapter 4<br>The GW-BASIC Screen Editor</h1>
+<p>You can edit GW-BASIC program lines as you enter them, or after they have been saved in a program file.</p>
+
+<h2>4.1 Editing Lines in New Files</h2>
+<p>If an incorrect character is entered as a line is being typed, it can be deleted with the <span class="smallcaps">BACKSPACE</span> or <span class="smallcaps">DEL</span> keys, or with <span class="smallcaps">CTRL-H</span>. After the character is deleted, you can continue to type on the line.</p>
+<p>The <span class="smallcaps">ESC</span> key lets you delete a line from the screen that is in the process of being typed. In other words, if you have not pressed the <span class="smallcaps">RETURN</span> key, and you wish to delete the current line of entry, press the <span class="smallcaps">ESC</span> key.</p>
+<p>To delete the entire program currently residing in memory, enter the NEW command. NEW is usually used to clear memory prior to entering a new program.</p>
+
+<h2>4.2 Editing Lines in Saved Files</h2>
+<p>After you have entered your GW-BASIC program and saved it, you may discover that you need to make some changes. To make these modifications, use the <span class="code">LIST</span> statement to display the program lines that are affected:</p>
+<ol>
+	<li> Reload the program.</li>
+	<li> Type the <span class="code">LIST</span> command, or press the <span class="smallcaps">F1</span> key.</li>
+	<li> Type the line number, or range of numbers, to be edited.</li>
+</ol>
+<p>The lines will appear on your screen.</p>
+
+<h3>4.2.1 Editing the Information in a Program Line</h3>
+<p>You can make changes to the information in a line by positioning the cursor where the change is to be made, and by doing one of the following:</p>
+<ul>
+	<li>Typing over the characters that are already there.</li>
+	<li>Deleting characters to the left of the cursor, using the <span class="smallcaps">BACKSPACE</span> key.</li>
+	<li>Deleting characters at the cursor position using the <span class="smallcaps">DEL</span> key on the number pad.</li>
+	<li>Inserting characters at the cursor position by pressing the <span class="smallcaps">INS</span> key on the number pad. This moves the characters following the cursor to the right making room for the new information.</li>
+	<li>Adding to or truncating characters at the end of the program line.</li>
+</ul>
+<p>If you have changed more than one line, be sure to press <span class="smallcaps">RETURN</span> on each modified line. The modified lines will be stored in the proper numerical sequence, even if the lines are not updated in numerical order.</p>
+
+<hr> 
+	<p><b><i>Note</i></b></p>
+	<p>A program line will not actually have changes recorded within the GW-BASIC program until the <span class="smallcaps">RETURN</span> key is pressed with the cursor positioned somewhere on the edited line.</p>
+<hr>
+  
+<p>You do not have to move the cursor to the end of the line before pressing the <span class="smallcaps">RETURN</span> key. The GW-BASIC Interpreter remembers where each line ends, and transfers the whole line, even if <span class="smallcaps">RETURN</span> is pressed while the cursor is located in the middle or at the beginning of the line.</p>
+<p>To truncate, or cut off, a line at the current cursor position, type <span class="smallcaps">CTRL-END</span> or <span class="smallcaps">CTRL-E</span>, followed by pressing the <span class="smallcaps">RETURN</span> key.</p>
+<p>If you have originally saved your program to a program file, make sure that you save the edited version of your program. If you do not do this, your modifications will not be recorded.</p>
+
+<h2>4.3 Special Keys</h2>
+<p>The GW-BASIC Interpreter recognizes nine of the numeric keys on the right side of your keyboard. It also recognizes the <span class="smallcaps">BACKSPACE</span> key, <span class="smallcaps">ESC</span> key, and the <span class="smallcaps">CTRL</span> key. The following keys and key sequences have special functions in GW-BASIC: </p>
+<table border=0 cellspacing=0 cellpadding=6>
+    <tr> 
+      <td width=144 valign=top> <b>Key</b></td>
+      <td> <b>Function</b></td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">BACKSPACE</span> or <span class="smallcaps">CTRL-H</span></td>
+      <td> Deletes the last character typed, or deletes the character to the left of the cursor. All characters to the right of the cursor are moved left one position. Subsequent characters and lines within the current logical line are moved up as with the <span class="smallcaps">DEL</span> key.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CTRL-BREAK</span> or <span class="smallcaps">CTRL-C</span></td>
+      <td> Returns to the direct mode, without saving changes made to the current line. It will also exit auto line-numbering mode.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CTRL-CURSOR LEFT</span> or <span class="smallcaps">CTRL-B</span></td>
+      <td> Moves the cursor to the beginning of the previous word. The previous word is defined as the next character to the left of the cursor in the set A to Z or in the set 0 to 9.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CTRL-CURSOR RIGHT</span> or <span class="smallcaps">CTRL-F</span></td>
+      <td> Moves the cursor to the beginning of the next word. The next word is defined as the next character to the right of the cursor in the set A to Z or in the set 0 to 9. In other words, the cursor moves to the next number or letter after a blank or other special character.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CURSOR DOWN</span> or <span class="smallcaps">CTRL--</span>  </td>
+      <td> Moves the cursor down one line on the screen.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CURSOR LEFT</span> or <span class="smallcaps">CTRL-]</span>  </td>
+      <td> Moves the cursor one position left. When the cursor is advanced beyond the left edge of the screen, it will wrap to the right side of the screen on the preceding line.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CURSOR RIGHT</span> or <span class="smallcaps">CTRL-\</span></td>
+      <td> Moves the cursor one position right. When the cursor is advanced beyond the right edge of the screen, it will wrap to the left side of the screen on the following line.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CURSOR UP</span> or <span class="smallcaps">CTRL-6</span></td>
+      <td> Moves the cursor up one line on the screen.</td>
+    </tr>
+    <tr> 
+      <td valign=top> <span class="smallcaps">CTRL-BACKSPACE</span> or <span class="smallcaps">DEL</span></td>
+      <td> Deletes the character positioned over the cursor. All characters to the right of the one deleted are then moved one position left to fill in where the deletion was made.If a logical line extends beyond one physical line, characters on subsequent lines are moved left one position to fill in the previous space, and the character in the first column of each subsequent line is moved up to the end of the preceding line.<span class="smallcaps">DEL</span> (delete) is the opposite of <span class="smallcaps">INS</span> (insert). Deleting text reduces logical line length.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-END</span> or <span class="smallcaps">CTRL-E</span></td>
+      <td> Erases from the cursor position to the end of the logical line. All physical screen lines are erased until the terminating <span class="smallcaps">RETURN</span> is found.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-N</span> or <span class="smallcaps">END</span></td>
+      <td> Moves the cursor to the end of the logical line. Characters typed from this position are added to the line.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-RETURN</span> or <span class="smallcaps">CTRL-J</span></td>
+      <td> Moves the cursor to the beginning of the next screen line. This lets you create logical program lines which are longer than the physical screen width. Logical lines may be up to 255 characters long. This function may also be used as a line feed.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-M</span> or <span class="smallcaps">RETURN</span>  </td>
+      <td> Enters a line into the GW-BASIC program. It also moves the cursor to the next logical line.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-[</span> or <span class="smallcaps">ESC</span></td>
+      <td> Erases the entire logical line on which the cursor is located.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top class="smallcaps"> CTRL-G</td>
+      <td> Causes a beep to emit from your computer's speaker.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-K</span> or <span class="smallcaps">HOME</span></td>
+      <td> Moves the cursor to the upper left corner of the screen. The screen contents are unchanged.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-HOME</span> or <span class="smallcaps">CTRL-L</span></td>
+      <td> Clears the screen and positions the cursor in the upper left corner of the screen.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-R</span> or <span class="smallcaps">INS</span></td>
+      <td> <p>Turns the Insert Mode on and off. Insert Mode is indicated by the cursor blotting the lower half of the character position. In Graphics Mode, the normal cursor covers the whole character position. When Insert Mode is active, only the lower half of the character position is blanked by the cursor.</p>
+        <p>When Insert Mode is off, characters typed replace existing characters on the line. The <span class="smallcaps">SPACEBAR</span> erases the character at the current cursor position and moves the cursor one character to the right. The <span class="smallcaps">CURSOR-RIGHT</span> key moves the cursor one character to the right, but does not delete the character.</p>
+        <p>When Insert Mode is off, pressing the <span class="smallcaps">TAB</span> key moves the cursor over characters until the next tab stop is reached. Tab stops occur every eight character positions.</p>
+        <p>When Insert Mode is on, characters following the cursor are moved to the right as typed characters are inserted before them at the current cursor position. After each keystroke, the cursor moves one position to the right. Line wrapping is observed. That is, as characters move off the right side of the screen, they are inserted from the left on subsequent lines. Insertions increase logical line length.</p>
+        <p>When Insert Mode is on, pressing the <span class="smallcaps">TAB</span> key causes blanks to be inserted from current cursor position to the next tab stop. Line wrapping is observed as above.</p></td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-NUM LOCK</span> or <span class="smallcaps">CTRL-S</span></td>
+      <td> Places the computer in a pause state. To resume operation, press any other key.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top class="smallcaps"> CTRL-PRTSC</td>
+      <td> Causes characters printed on the screen to echo to the line printer (<b>lpt1:</b>). In other words, you will be printing what you type on the screen. Pressing <span class="smallcaps">CTRL-PRTSC</span> a second time turns off the echoing of characters to <b>lpt1:</b>.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top class="smallcaps"> SHIFT + PRTSC</td>
+      <td> Sends the current screen contents to the printer, effectively creating a snapshot of the screen.</td>
+    </tr>
+    <tr> 
+      <td width=144 valign=top> <span class="smallcaps">CTRL-I</span> or <span class="smallcaps">TAB</span></td>
+      <td> Moves the cursor to the next tab stop. Tab stops occur every eight columns.</td>
+    </tr>
+  </table>
+
+  <h2>4.4 Function Keys</h2>
+  <p>Certain keys or combinations of keys let you perform frequently-used commands or functions with a minimum number of keystrokes. These keys are called <i>function keys</i>.</p>
+  <p>The special function keys that appear on the left side of your keyboard can be temporarily redefined to meet the programming requirements and specific functions that your program may require.</p>
+  <p>Function keys allow rapid entry of as many as 15 characters into a program with one keystroke. These keys are located on the left side of your keyboard and are labeled <span class="smallcaps">F1</span> through <span class="smallcaps">F10</span>. GW-BASIC has already assigned special functions to each of these keys. You will notice that after you load GW-BASIC, these special key functions appear on the bottom line of your screen. These key assignments have been selected for you as some of the most frequently used commands.</p>
+  <p>Initially, the function keys are assigned the following special functions:</p>
+
+<h4>Table 4.1</h4>
+<p><b>GW-BASIC Function Key Assignments</b></p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+<tr><td><b>Key</b></td><td><b>Function</b></td><td width="32">&nbsp;</td><td><b>Key</b></td><td><b>Function</b></td></tr>
+  <tr><td class="smallcaps">F1</td><td><span class="code">LIST</span></td><td>&nbsp;</td><td> <span class="smallcaps">F6</span></td><td> <span class="code">,&quot;LPT1:&quot;<span style='font-family:Symbol'>¿</span></span></td></tr>
+  <tr><td class="smallcaps">F2</td><td><span class="code">RUN<span style='font-family:Symbol'>¿</span></span></td><td>&nbsp;</td><td><span class="smallcaps">F7</span></td><td><span class="code">TRON<span style='font-family:Symbol'>¿</span></span></td></tr>
+  <tr><td class="smallcaps">F3</td><td><span class="code">LOAD&quot;</span></td><td>&nbsp;</td><td><span class="smallcaps">F8</span></td><td><span class="code">TROFF<span style='font-family:Symbol'>¿</span></span></td></tr>
+  <tr><td class="smallcaps">F4</td><td><span class="code">SAVE&quot;</span></td><td>&nbsp;</td><td><span class="smallcaps">F9</span></td><td class="code">KEY</td></tr>
+  <tr><td class="smallcaps">F5</td><td class="code">CONT<span style='font-family:Symbol'>¿</span></td><td>&nbsp;</td><td><span class="smallcaps">F10</span></td><td><span class="code">SCREEN 0,0,0<span style='font-family:Symbol'>¿</span></span></td></tr>
+</table>
+<br>
+
+<hr> 
+	<p><b><i>Note</i></b></p>
+	<p>The <span class="code" style='font-family:Symbol'>¿</span> following a function indicates that you needn't press the <span class="smallcaps">RETURN</span> key after the function key. The selected command will be immediately executed.</p>
+<hr>
+
+<p>If you choose, you may change the assignments of these keys. Any one or all of the 10 function keys may be redefined. For more information, see the <a href="KEY.html">KEY</a> and <a href="ONCOMN.html">ON KEY</a> statements in the <i>GW-BASIC User's Reference</i>.</p>
+</body>
+</html>

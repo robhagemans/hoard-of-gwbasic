@@ -1,0 +1,162 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Chapter 3<br>Reviewing and Practicing GW-BASIC</h1>
+<p>The practice sessions in this chapter will help you review what you have learned. If you have not done so, this is a good time to turn on your computer and load the GW-BASIC Interpreter.</p>
+
+<h2>3.1 Example for the Direct Mode</h2>
+<p>You can use your computer in the direct mode to perform fundamental arithmetic operations. GW-BASIC recognizes the following symbols as arithmetic operators:</p>
+
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td><p><b>Operation</b></p></td>	<td><p><b>GW-BASIC Operator</b></p></td></tr>
+  <tr><td><p>Addition</p></td>		<td class="code"><p>+</p></td></tr>
+  <tr><td><p>Subtraction</p></td>	<td class="code"><p>-</p></td></tr>
+  <tr><td><p>Multiplication</p></td>	<td class="code"><p>*</p></td></tr>
+  <tr><td><p>Division</p></td>		<td class="code"><p>/</p></td></tr>
+</table>
+
+<p>To enter a problem, respond to the <span class="code">Ok</span> prompt with a question mark (<span class="code">?</span>), followed by the statement of the problem you want to solve, and press the <span class="smallcaps">RETURN</span> key. In GW-BASIC, the question mark can be used interchangeably with the keyword <span class="code">PRINT</span>. The answer is then displayed.</p>
+<p>Type the following and press the <span class="smallcaps">RETURN</span> key:</p>
+  
+<pre>?2+2</pre>
+
+<p>GW-BASIC will display the answer on your screen:</p>
+
+<pre>?2+2
+ 4
+Ok</pre>
+
+<p>To practice other arithmetic operations, replace the <span class="code">+</span> sign with the desired operator.</p>
+<p>The GW-BASIC language is not restricted to arithmetic functions. You can also enter complex algebraic and trigonometric functions. The formats for these functions are provided in <a href="Chapter 6.html">Chapter 6, &quot;Constants, Variables, Expressions and Operators.&quot;</a></p>
+
+<h2>3.2 Examples for the Indirect Mode</h2>
+<p>The GW-BASIC language can be used for functions other than simple algebraic calculations. You can create a program that performs a series of operations and then displays the answer. To begin programming, you create lines of instructions called <i>statements</i>. Remember that there can be more than one statement on a line, and that each line is preceded by a number.</p>
+<p>For example, to create the command <span class="code">PRINT 2+3</span> as a statement, type the following:</p>
+  
+<pre>10 print 2+3</pre>
+  
+<p>When you press the <span class="smallcaps">RETURN</span> key, the cursor shifts to the next line, but nothing else happens. To make the computer perform the calculation, type the following and press the <span class="smallcaps">RETURN</span> key:</p>
+  
+<pre>run</pre>
+
+<p>Your screen should look like this:</p>
+  
+<pre>Ok
+10 print 2+3
+run
+ 5
+Ok</pre>
+
+<p>You have just written a program in GW-BASIC.</p>
+<p>The computer reserves its calculation until specifically commanded to continue (with the <span class="code">RUN</span> command). This allows you to enter more lines of instruction. When you type the <span class="code">RUN</span> command, the computer does the addition and displays the answer.</p>
+<p>The following program has two lines of instructions. Type it in:</p>
+  
+<pre>10 x=3
+20 print 2+x</pre>
+
+<p>Now use the <span class="code">RUN</span> command to have the computer calculate the answer.</p>
+<p>Your screen should look like this:</p>
+
+<pre>Ok
+10 x=3
+20 print 2+x
+run
+ 5
+Ok</pre>
+
+<p>The two features that distinguish a program from a calculation are</p>
+<ol>
+  <li>The numbered lines</li>
+  <li>The use of the <span class="code">run</span> command</li>
+</ol>
+<p>These features let the computer know that all the statements have been typed and the computation can be carried out from beginning to end. It is the numbering of the lines that first signals the computer that this is a program, not a calculation, and that it must not do the actual computation until the <span class="code">RUN</span> command is entered.</p>
+  <p>In other words, calculations are done under the direct mode. Programs are written under the indirect mode.</p>
+  <p>To display the entire program again, type the <span class="code">LIST</span> command and press the <span class="smallcaps">RETURN</span> key:</p>
+  
+<pre>list</pre>
+
+<p>Your screen should look like this:</p>
+
+<pre>Ok
+10 x=3
+20 print 2+x
+run
+Ok
+ 5
+Ok
+list
+10 X=3
+20 PRINT 2+X
+Ok</pre>
+
+<p>You'll notice a slight change in the program. The lowercase letters you entered have been converted into uppercase letters. The <span class="code">LIST</span> command makes this change automatically.</p>
+
+<h2>3.3 Function Keys</h2>
+<p>Function keys are keys that have been assigned to frequently-used commands. The ten function keys are located on the left side of your keyboard. A guide to these keys and their assigned commands appears on the bottom of the GW-BASIC screen. To save time and keystrokes, you can press a function key instead of typing a command name.</p>
+<p>For example, to list your program again, you needn't type the <span class="code">LIST</span> command; you can use the function key assign to it, instead:</p>
+<ul>
+  <li>Press the <span class="smallcaps">F1</span> key.</li>
+  <li>Press <span class="smallcaps">RETURN</span>.</li>
+</ul>
+<p>Your program should appear on the screen.</p>
+<p>To run the program, simply press the <span class="smallcaps">F2</span> key, which is assigned to the <span class="code">RUN</span> command.</p>
+<p>As you learn more commands, you'll learn how to use keys <span class="smallcaps">F3</span> through <span class="smallcaps">F10</span>. <a href="Chapter 4.html">Chapter 4, &quot;The GW-BASIC Screen Editor,&quot;</a> contains more information about keys used in GW-BASIC.</p>
+
+<h2>3.4 Editing Lines</h2>
+<p>There are two basic ways to change lines. You can</p>
+<ul>
+  <li>Delete and replace them</li>
+  <li>Alter them with the <span class="code">EDIT</span> command</li>
+</ul>
+<p>To delete a line, simply type the line number and press the <span class="smallcaps">RETURN</span> key. For example, if you type <span class="code">12</span> and press the <span class="smallcaps">RETURN</span> key, line number 12 is deleted from your program.</p>
+<p>To use the <span class="code">EDIT</span> command, type the command <span class="code">EDIT</span>, followed by the number of the line you want to change. For example, type the following, and press the <span class="smallcaps">RETURN</span> key:</p>
+
+<pre>edit 10</pre>
+
+<p>You can then use the following keys to perform editing:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td valign=top><b>Key</b></td><td valign=top> <b>Function</b></td></tr>
+  <tr><td valign=top><span class="smallcaps">CURSOR UP</span>, <br>
+      <span class="smallcaps">CURSOR DOWN</span>, <br>
+      <span class="smallcaps">CURSOR LEFT</span>, <br>
+      <span class="smallcaps">CURSOR RIGHT</span></td>
+  <td valign=top>Moves the cursor within the statement</td></tr>
+  <tr><td valign=top class="smallcaps">BACKSPACE</td>
+  <td valign=top> Deletes the character to the left of the cursor</td></tr>
+  <tr><td valign=top> <span class="smallcaps">DELETE</span> (<span class="smallcaps">DEL</span>)</td>
+  <td valign=top> Deletes the current character</td></tr>
+  <tr><td valign=top> <span class="smallcaps">INSERT</span> (<span class="smallcaps">INS</span>)</td>
+  <td valign=top> Lets you insert characters to the left of the cursor.</td></tr>
+</table>
+
+<p>For example, to modify statement (line) 10 to read <span class="code">x=4</span><i>,</i> use the <span class="smallcaps">CURSOR-RIGHT</span> control key to move the cursor under the 3, and then type a 4. The number 4 replaces the number 3 in the statement.</p>
+<p>Now press the <span class="smallcaps">RETURN</span> key, and then the <span class="smallcaps">F2</span> key.</p>
+<p>Your screen displays the following:</p>
+
+<pre>Ok
+10 X=4
+RUN
+ 6
+Ok</pre>
+
+<h2>3.5 Saving Your Program File</h2>
+<p>Creating a program is like creating a data file. The program is a file that contains specific instructions, or statements, for the computer. In order to use the program again, you must save it, just as you would a data file.</p>
+<p>To save a file in GW-BASIC, use the following procedure:</p>
+<ol>
+  <li>Press the  <span class="smallcaps">F4</span> key. The command word <span class="code">SAVE&quot;</span> appears on your screen.</li>
+  <li>Type a name for the program, and press the <span class="smallcaps">RETURN</span> key. The file is saved under the name you specified.</li>
+</ol>
+<p>To recall a saved file, use the following procedure:</p>
+<ol>
+  <li>Press the <span class="smallcaps">F3</span> key. The command load <span class="code">LOAD&quot;</span> appears on your screen.  </li>
+  <li>Type the name of the file.</li>
+  <li>Press <span class="smallcaps">RETURN</span>.</li>
+</ol>
+<p>The file is loaded into memory, and ready for you to list, edit, or run.</p>
+</body>
+</html>

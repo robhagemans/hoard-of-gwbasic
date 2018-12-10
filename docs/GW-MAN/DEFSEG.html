@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DEF SEG Statement</h1>
+<h4>Purpose:</h4>
+<p>To assign the current segment address to be referenced by a subsequent <span class="code">BLOAD</span>, <span class="code">BSAVE</span>, <span class="code">CALL</span>, <span class="code">PEEK</span>, <span class="code">POKE</span>, or <span class="code">USR</span>.</p>
+<h4>Syntax:</h4>
+<pre><b>DEF SEG </b>[=<i>address</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>address</i></span><i> </i>is a numeric expression within the range of 0 to 65535.</p>
+<p>The address specified is saved for use as the segment required by <span class="code">BLOAD</span>, <span class="code">BSAVE</span>, <span class="code">PEEK</span>, <span class="code">POKE</span>, and <span class="code">CALL</span> statements.</p>
+<p>Entry of any value outside the address range (0-65535) results in an &quot;<span class="code">Illegal Function Call</span>&quot; error, and the previous value is retained.</p>
+<p>If the address option is omitted, the segment to be used is set to GW-BASIC's data segment (DS). This is the initial default value.</p>
+<p>If you specify the address option, base it on a 16-byte boundary.</p>
+<p>Segment addresses are shifted 4 bits to the left; so to get the segment address, divide the memory location by 16.</p>
+<p>For <span class="code">BLOAD</span>, <span class="code">BSAVE</span>, <span class="code">PEEK</span>, <span class="code">POKE</span>, or <span class="code">CALL</span> statements, the value is shifted left four bits (this is done by the microprocessor, not by GW-BASIC) to form the code segment address for the subsequent call instruction (see the <a href="BLOAD.html">BLOAD</a>, <a href="BSAVE.html">BSAVE</a>, <a href="CALL.html">CALL</a>, <a href="PEEK.html">PEEK</a>, and <a href="POKE.html">POKE</a> statements).</p>
+<p>GW-BASIC does not perform additional checking to assure that the resultant segment address is valid.</p>
+<h4>Examples:</h4>
+<pre>10 DEF SEG=&amp;HB800</pre>
+<p>Sets segment to screen buffer.</p>
+<pre>20 DEF SEG</pre>
+<p>Restores segment to BASIC DS.</p>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p><span class="code">DEF</span> and <span class="code">SEG</span> must be separated by a space. Otherwise, GW-BASIC will interpret the statement <span class="code">DEFSEG=100</span> to mean, &quot;assign the value 100 to the variable DEFSEG.&quot;</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,389 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Glossary</h1>
+<dl>
+<dt>abend</dt>
+<dd>An acronym for <i>abnormal end of task</i>. An abend is the termination of computer processing on a job or task prior to its completion because of an error condition that cannot be resolved by programmed recovery procedures.</dd>
+<dt>access</dt>
+<dd>The process of seeking, reading, or writing data on a storage unit.</dd>
+<dt>access methods</dt>
+<dd>Techniques and programs used to move data between main memory and input/output devices.</dd>
+<dt>accuracy</dt>
+<dd>The degree of freedom from error. Accuracy is often confused with <i>precision</i>, which refers to the degree of preciseness of a measurement.</dd>
+<dt>acronym</dt>
+<dd>A word formed by the initial letters of words or by initial letters plus parts of several words. Acronyms are widely used in computer technology. For example, <i>COBOL</i> is an acronym for COmmon Business Oriented Language.</dd>
+<dt>active partition</dt>
+<dd>A section of the computer's memory that houses the <i>operating system</i> being used.</dd>
+<dt>address</dt>
+<dd>A name, label, or number identifying a register, location or unit where information is stored.</dd>
+<dt>algebraic language</dt>
+<dd>A language whose statements are structured to resemble the structure of algebraic expression. Fortran is a good example of an algebraic language.</dd>
+<dt>algorithm</dt>
+<dd>A set of well-defined rules or procedures to be followed in order to obtain the solution of a problem in a finite number of steps. An algorithm can involve arithmetic, algebraic, logical and other types of procedures and instructions. An algorithm can be simple or complex. However, all algorithms must produce a solution within a finite number of steps. Algorithms are fundamental when using a computer to solve problems, because the computer must be supplied with a specific set of instructions that yields a solution in a reasonable length of time.</dd>
+<dt>alphabetic</dt>
+<dd>Data representation by alphabetical characters in contrast to numerical; the letters of the alphabet.</dd>
+<dt>alphanumeric</dt>
+<dd>A contraction of the words alphabetic and numeric; a set of characters including letters, numerals, and special symbols.</dd>
+<dt>application</dt>
+<dd>The system or problem to which a computer is applied. Reference is often made to an application as being either of the computational type, in which arithmetic computations predominate, or of the data processing type, in which data handling operations predominate.</dd>
+<dt>application program</dt>
+<dd>A computer program designed to meet specific user needs.</dd>
+<dt>argument</dt>
+<dd>
+<ol><li>A type of variable whose value is not a direct function of another variable. It can represent the location of a number in a mathematical operation, or the number with which a function works to produce its results.</li>
+<li>A known reference factor that is required to find a desired item (function) in a table. For example, in the square root function <span class="code">SQRT(<i>X</i>)</span>, <span class="code"><i>X</i></span> is the argument. The value of <span class="code"><i>X</i></span> determines the square root value returned by this function.</li>
+</ol>
+</dd>
+<dt>array</dt>
+<dd>
+<ol>
+  <li>An organized collection of data in which the argument is positioned before the function.</li>
+  <li>A group of items or elements in which the position of each item or element is significant. A multiplication table is a good example of an array.</li>
+</ol>
+</dd>
+  <dt>ASCII</dt>
+  <dd>Acronym for American Standard Code for Information Interchange. ASCII is a standardized 8-bit code used by most computers for interfacing.</dd>
+  <dd>ASCII was developed by the American National Standards Institute (ANSI). It uses 7 binary bits for information and the 8th bit for parity purposes.</dd>
+  <dt>assembler</dt>
+  <dd>A computer program that produces a machine-language program which may then be directly executed by the computer.</dd>
+  <dt>assembly language</dt>
+  <dd>A symbolic language that is machine-oriented rather than problem-oriented. A program in an assembly language is converted by an assembler to a machine-language program. Symbols representing storage locations are converted to numerical storage locations; symbolic operation codes are converted to numeric operation codes.</dd>
+  <dt>asynchronous</dt>
+  <dd><ol>
+    <li>Not having a regular time or clocked relationship. See synchronous.</li>
+    <li>A type of computer operation in which a new instruction is initiated when the former instruction is completed. Thus, there is no regular time schedule, or clock, with respect to instruction sequence. The current instruction must be complete before the next is begun, regardless of the length of time the current instruction takes.</li>
+    </ol>
+  </dd>
+  <dt>asynchronous communication</dt>
+  <dd>A way of transmitting data serially from one device to another, in which each transmitted character is preceded by a start bit and followed by a stop bit. This is also called start/stop transmission.</dd>
+  <dt>back-up</dt>
+  <dd><ol>
+    <li>A second copy of data on a diskette or other medium, ensuring recovery from loss or destruction of the original media.</li>
+    <li>On-site or remote equipment available to complete an operation in the event of primary equipment failure.</li>
+    </ol>
+  </dd>
+  <dt>BASIC</dt>
+  <dd>Acronym for Beginner's All-purpose Symbolic Instruction Code. BASIC is a computer programming language developed at Dartmouth College as an instructional tool in teaching fundamental programming concepts. This language has since gained wide acceptance as a time-sharing language and is considered one of the easiest programming languages to learn.</dd>
+  <dt>batch processing</dt>
+  <dd>A method of operating a computer so that a single program or set of related programs must be completed before the next type of program is begun.</dd>
+  <dt>baud</dt>
+  <dd>A unit of measurement of data processing speed. The speed in bauds is the number of signal elements per second. Since a signal element can represent more than one bit, baud is not synonymous with bits-per-second. Typical baud rates are 110, 300, 1200, 2400, 4800, and 9600.</dd>
+  <dt>binary</dt>
+  <dd><ol>
+    <li>A characteristic or property involving a choice or condition in which there are two possibilities.</li>
+    <li>A numbering system which uses 2 as its base instead of 10 as in the decimal system. The binary system uses only two digits, 0 and 1, in its written form.</li>
+    <li>A device whose design uses only two possible states or levels to perform its functions. A computer executes programs in binary form.</li>
+    </ol>
+  </dd>
+  <dt>binary digit</dt>
+  <dd>A quantity which is expressed in the binary digits of 0 and 1.</dd>
+  <dt>bit</dt>
+  <dd>A contraction of &quot;binary digit&quot;. A bit can either be 0 or 1, and is the smallest unit of information recognizable by a computer.</dd>
+  <dt>block</dt>
+  <dd>An amount of storage space or data, of arbitrary length, usually contiguous, and often composed of several similar records, all of which are handled as a unit.</dd>
+  <dt>boolean logic</dt>
+  <dd>A field of mathematical analysis in which comparisons are made. A pro- grammed instruction can cause a comparison of two fields of data, and modify one of those fields or another field as a result of comparison. This system was formulated by British mathematician George Boole (1815-1864). Some boolean operators are OR, AND, NOT, XOR, EQV, and IMP.</dd>
+  <dt>boot</dt>
+  <dd>A machine procedure that allows a system to begin operations at the desired level by means of its own initiation. The first few instructions are loaded into a computer from an input device. These instructions allow the rest of the system to be loaded. The word <i>boot</i> is abbreviated from the word <i>bootstrap</i>.</dd>
+  <dt>bps</dt>
+  <dd>Bits per second.</dd>
+  <dt>buffer</dt>
+  <dd>A temporary storage area from which data is transferred to or from various devices.</dd>
+  <dt>built-in clock</dt>
+  <dd>A real-time clock that lets your programs use the time of day and date. Built into MS-DOS, it lets you set the timing of a program. It can be used to keep a personal calendar, and it automatically measures elapsed time.</dd>
+  <dt>byte</dt>
+  <dd>An element of data which is composed of eight data bits plus a parity bit, and represents either one alphabetic or special character, two  decimal digits, or eight binary bits. Byte is also used to refer to a sequence of eight binary digits handled as a unit. It is usually encoded in the <i>ASCII</i> format.</dd>
+  <dt>calculation</dt>
+  <dd>A series of numbers and mathematical signs that, when entered into a computer, is executed according to a series of instructions.</dd>
+  <dt>central processor (CPU)</dt>
+  <dd>The heart of the computer system, where data is manipulated and calculations are performed. The CPU contains a control unit to interpret and execute the program and an arithmetic-logic unit to perform computations and logical processes. It also routes information, controls input and output, and temporarily stores data.</dd>
+  <dt>chaining</dt>
+  <dd>The use of a pointer in a record to indicate the address of another record logically related to the first.</dd>
+  <dt>character</dt>
+  <dd>Any single letter of the alphabet, numeral, punctuation mark, or other symbol that a computer can read, write, and store. Character is synonymous with the term <i>byte</i>.</dd>
+  <dt>COBOL</dt>
+  <dd>Acronym for COmmon Business-Oriented Language, a computer language suitable for writing complicated business applications programs. It was developed by CODASYL, a committee representing the U. S. Department of Defense, certain computer manufacturers, and major users of data processing equipment. COBOL is designed to express data manipulations and processing problems in English narrative form, in a precise and standard manner.</dd>
+  <dt>code</dt>
+  <dd><ol>
+    <li>To write instructions for a computer system</li>
+    <li>To classify data according to arbitrary tables</li>
+    <li>To use a machine language</li>
+    <li>To program</li>
+    </ol>
+  </dd>
+  <dt>command</dt>
+  <dd>A pulse, signal, word, or series of letters that tells a computer to start, stop, or continue an operation in an instruction. Command is often used  incorrectly as a synonym for instruction.</dd>
+  <dt>compatible</dt>
+  <dd>A description of data, programs or equipment that can be used between different kinds of computers or equipment.</dd>
+  <dt>compiler</dt>
+  <dd>A computer program that translates a program written in a problem- oriented language into a program of instructions similar to, or in, the language of the computer.</dd>
+  <dt>computer network</dt>
+  <dd>A geographically dispersed configuration of computer equipment connected by communication lines and capable of load sharing, distributive processing, and automatic communication between the computers within the network.</dd>
+  <dt>concatenate</dt>
+  <dd>To join together data sets, such as files, in a series to form one data set, such as one new file. The term concatenate literally means &quot;to link together.&quot; A concatenated data set is a collection of logically connected data sets.</dd>
+  <dt>configuration</dt>
+  <dd>In hardware, a group of interrelated devices that constitute a system. In software, the total of the software modules and their interrelationships.</dd>
+  <dt>constant</dt>
+  <dd>A never-changing value or data item.</dd>
+  <dt>coprocessor</dt>
+  <dd>A microprocessor device connected to a central microprocessor that per- forms specialized computations (such as floating-point arithmetic) much more efficiently than the CPU alone.</dd>
+  <dt>cursor</dt>
+  <dd>A blinking line or box on a computer screen that indicates the next location for data entry.</dd>
+  <dt>data</dt>
+  <dd>A general term used to signify all the basic information elements that can be produced or processed by a computer. See <i>information</i>.</dd>
+  <dt>data element</dt>
+  <dd>The smallest named physical data unit.</dd>
+  <dt>data file</dt>
+  <dd>A collection of related data records organized in a specific manner. Data files contain computer records which contain information, as opposed to containing data handling information or a program.</dd>
+  <dt>debug</dt>
+  <dd>The process of checking the logic of a computer program to isolate and remove mistakes from the program or other software.</dd>
+  <dt>default</dt>
+  <dd>An action or value that the computer automatically assumes, unless a different instruction or value is given.</dd>
+  <dt>delimit</dt>
+  <dd>To establish parameters; to set a minimum and a maximum.</dd>
+  <dt>delimiter</dt>
+  <dd>A character that marks the beginning or end of a unit of data on a storage medium. Commas, semi-colons, periods, and spaces are used as delimiters to separate and organize items of data.</dd>
+  <dt>detail file</dt>
+  <dd>A data file composed of records having similar characteristics, but containing data which is relatively changeable by nature, such as employee weekly payroll data. Compare to <i>master file</i>.</dd>
+  <dt>device</dt>
+  <dd>A piece of hardware that can perform a specific function. A printer is an example of a device.</dd>
+  <dt>diagnostic programs</dt>
+  <dd>Special programs used to align equipment or isolate equipment malfunctions.</dd>
+  <dt>directory</dt>
+  <dd>A table that gives the name, location, size, and the creation or last revision date for each file on the storage media.</dd>
+  <dt>diskette</dt>
+  <dd>A flat, flexible platter coated with magnetic material, enclosed in a protective envelope, and used for storage of software and data.</dd>
+  <dt>Disk Operating System</dt>
+  <dd>A collection of procedures and techniques that enable the computer to operate using a disk drive system for data entry and storage. Disk Operating System is usually abbreviated to <i>DOS</i>.</dd>
+  <dt>DOS</dt>
+  <dd>The acronym for Disk Operating System. DOS rhymes with &quot;boss.&quot;</dd>
+  <dt>double-density</dt>
+  <dd>A type of diskette that has twice the storage capacity of standard single- density diskettes.</dd>
+  <dt>double-precision</dt>
+  <dd>The use of two computer words to represent each number. This technique allows the use of twice as many digits as are normally available and is used when extra precision is needed in calculations.</dd>
+  <dt>double-sided</dt>
+  <dd>A term that refers to a diskette that can contain data on both surfaces of the diskette.</dd>
+  <dt>drive</dt>
+  <dd>A device that holds and manipulates magnetic media so that the CPU can read data from or write data to them.</dd>
+  <dt>end-of-file mark (EOF)</dt>
+  <dd>A symbol or machine equivalent that indicates that the last record of a file has been read.</dd>
+  <dt>erase</dt>
+  <dd>To remove or replace magnetized spots from a storage medium.</dd>
+  <dt>error message</dt>
+  <dd>An audible or visual indication of hardware or software malfunction or of an illegal data-entry attempt.</dd>
+  <dt>execute</dt>
+  <dd>To carry out an instruction or perform a routine.</dd>
+  <dt>exponent</dt>
+  <dd>A symbol written above a factor and on the right, telling how many times the factor is repeated. In the example of A<sup>2</sup>, A is the factor and 2 is the exponent. A<sup>2</sup> means A times A (A × A).</dd>
+  <dt>extension</dt>
+  <dd>A one-to-three-character set that follows a filename. The extension further defines or clarifies the filename. It is separated from the filename by a period(.).</dd>
+  <dt>field</dt>
+  <dd>An area of a record that is allocated for a specific category of data.</dd>
+  <dt>file</dt>
+  <dd>A collection of related data or programs that is treated as a unit by the computer.</dd>
+  <dt>file protection</dt>
+  <dd>The devices or procedures that prevent unintentional erasure of data on a storage device, such as a diskette.</dd>
+  <dt>file structure</dt>
+  <dd>A conceptual representation of how data values, records, and files are related to each other. The structure usually implies how the data is stored and how the data must be processed.</dd>
+  <dt>filename</dt>
+  <dd>The unique name, usually assigned by a user, which is used to identify one file for all subsequent operations that use that file.</dd>
+  <dt>fixed disk</dt>
+  <dd>A hard disk enclosed in a permanently-sealed housing that protects it from environmental interference. Used for storage of data.</dd>
+  <dt>floating-point arithmetic</dt>
+  <dd>A method of calculation in which the computer or program automatically records, and accounts for, the location of the radix point. The programmer need not consider the radix location.</dd>
+  <dt>floating-point routine</dt>
+  <dd>A set of program instructions that permits a floating-point mathematics operation in a computer which lacks the feature of automatically accounting for the radix point.</dd>
+  <dt>format</dt>
+  <dd>A predetermined arrangement of data that structures the storage of information on an external storage device.</dd>
+  <dt>function</dt>
+  <dd>A computer action, as defined by a specific instruction. Some GW-BASIC functions are <span class="code">COS</span>, <span class="code">EOF</span>, <span class="code">INSTR</span>, <span class="code">LEFT$</span>, and <span class="code">TAN</span>.</dd>
+  <dt>function keys</dt>
+  <dd>Specific keys on the keyboard that, when pressed, instruct the computer to perform a particular operation. The function of the keys is determined by the applications program being used.</dd>
+  <dt>GIGO</dt>
+  <dd>An informal term that indicates sloppy data processing; an acronym for Garbage In Garbage Out. The term GIGO is normally used to make the point that if the input data is bad (garbage in) then the output data will also be bad (garbage out).</dd>
+  <dt>global search</dt>
+  <dd>Used in reference to a variable (character or command), a global search causes the computer to locate all occurrences of that variable.</dd>
+  <dt>graphics</dt>
+  <dd>A hardware/software capability to display objects in pictures, rather than words, usually on a graphic (CRT) display terminal with line-drawing capability and permitting interaction, such as the use of a light pen.</dd>
+  <dt>hard copy</dt>
+  <dd>A printed copy of computer output in a readable form, such as reports, checks, or plotted graphs.</dd>
+  <dt>hardware</dt>
+  <dd>The physical equipment that comprises a system.</dd>
+  <dt>hexadecimal</dt>
+  <dd>A number system with a base, or radix, of 16. The symbols used in this system are the decimal digits 0 through 9 and six additional digits which are generally represented as A, B, C, D, E, and F.</dd>
+  <dt>hidden files</dt>
+  <dd>Files that cannot be seen during normal directory searches.</dd>
+  <dt>hierarchical directories</dt>
+  <dd>See <i>tree-structured directories</i>.</dd>
+  <dt>housekeeping functions</dt>
+  <dd>Routine operations that must be performed before the actual processing begins or after it is complete.</dd>
+  <dt>information</dt>
+  <dd>Facts and knowledge derived from data. The computer operates on and gen- erates data. The meaning derived from the data is information. That is, information results from data; the two words are not synonymous, although they are often used interchangeably.</dd>
+  <dt>interpreter</dt>
+  <dd>A program that reads, translates and executes a user's program, such as one written in the BASIC language, one line at a time. A compiler, on the other hand, reads and translates the entire user's program before executing it.</dd>
+  <dt>input</dt>
+  <dd><ol>
+    <li>The process or device concerning the entry of data into a computer.</li>
+    <li>Actual data being entered into a computer.</li>
+    </ol>
+  </dd>
+  <dt>input/output</dt>
+  <dd>A general term for devices that communicate with a computer. Input/output is usually abbreviated as I/O.</dd>
+  <dt>instruction</dt>
+  <dd>A program step that tells the computer what to do next. Instruction is often used incorrectly as a synonym for command.</dd>
+  <dt>integer</dt>
+  <dd>A complete entity, having no fractional part. The whole or natural number. For example, 65 is an integer; 65.1 is not.</dd>
+  <dt>integrated circuit</dt>
+  <dd>A complete electronic circuit contained in a small semiconductor component.</dd>
+  <dt>interface</dt>
+  <dd>An information interchange path that allows parts of a computer, computers, and external equipment (such as printers, monitors, or modems), or two or more computers to communicate or interact.</dd>
+  <dt>I/O</dt>
+  <dd>The acronym for input/output.</dd>
+  <dt>job</dt>
+  <dd>A collection of tasks viewed by the computer as a unit.</dd>
+  <dt>K</dt>
+  <dd>The symbol signifying the quantity 2<sup>10</sup>, which is equal to 1024. K is sometimes confused with the symbol <i>k</i>, (kilo) which is equal to 1000.</dd>
+  <dt>logarithm</dt>
+  <dd>A logarithm of a given number is the value of the exponent indicating the power required to raise a specified constant, known as the base, to produce that given number. That is, if B is the base, N is the given  number and L is the logarithm, then B<sup>L</sup> = N. Since 10<sup>3</sup> = 1000, the logarithm to the base 10 of 1000 is 3.</dd>
+  <dt>loop</dt>
+  <dd>A series of computer instructions that are executed repeatedly until a desired result is obtained or a predetermined condition is met. The ability to loop and reuse instructions eliminates countless repetitious instructions and is one of the most important attributes of stored programs.</dd>
+  <dt>M</dt>
+  <dd>The symbol signifying the quantity 1,000,000 (10<sup>6</sup>). When used to denote storage, it more precisely refers to 1,048,576 (2<sup>20</sup>).</dd>
+  <dt>mantissa</dt>
+  <dd>The fractional or decimal part of a logarithm of a number. For example, the logarithm of 163 is 2.212. The mantissa is 0.212, and the characteristic is 2.0.</dd>
+  <dd>In floating-point numbers, the mantissa is the number part. For example, the number 24 can be written as 24, 2 where 24 is the mantissa and 2 is the exponent. The floating-point number is read as .24 × 10<sup>2</sup>, or 2<sup>4</sup>.</dd>
+  <dt>master file</dt>
+  <dd>A data file composed of records having similar characteristics that rarely change. A good example of a master file would be an employee name and address file that also contains social security numbers and hiring dates.</dd>
+  <dt>media</dt>
+  <dd>The plural of medium.</dd>
+  <dt>medium</dt>
+  <dd>The physical material on which data is recorded and stored. Magnetic tape, punched cards, and diskettes are examples of media.</dd>
+  <dt>memory</dt>
+  <dd>The high-speed work area in the computer where data can be held, copied, and retrieved.</dd>
+  <dt>menu</dt>
+  <dd>A list of choices from which an operator can select a task or operation to be performed by the computer.</dd>
+  <dt>microprocessor</dt>
+  <dd>A semiconductor <i>central processing unit</i> (CPU) in a computer.</dd>
+  <dt>modem</dt>
+  <dd>Acronym for modulator demodulator. A modem converts data from a computer to analog signals that can be transmitted through telephone lines, or converts the signals from telephone lines into a form the computer can use.</dd>
+  <dt>MS-DOS</dt>
+  <dd>Acronym for Microsoft Disk Operating System.</dd>
+  <dt>nested programs or subroutines</dt>
+  <dd>A program or subroutine that is incorporated into a larger routine to permit ready execution or access of each level of the routine. For example, nesting loops involves incorporating one loop of instructions into another loop.</dd>
+  <dt>null</dt>
+  <dd>Empty or having no members. This is in contrast to a blank or zero, which indicates the presence of no information. For example, in the number 540, zero contains needed information.</dd>
+  <dt>numeric</dt>
+  <dd>A reference to numerals as opposed to letters or other symbols.</dd>
+  <dt>octal number system</dt>
+  <dd>A representation of values or quantities with octal numbers. The octal number system uses eight digits: 0, 1, 2, 3, 4, 5, 6, and 7, with each position in an octal numeral representing a power of 8. The octal system is used in computing as a simple means of expressing binary quantities.</dd>
+  <dt>operand</dt>
+  <dd>A quantity or data item involved in an operation. An operand is usually designated by the address portion of an instruction, but it may also be a result, a parameter, or an indication of the name or location of the next instruction to be executed.</dd>
+  <dt>operating system</dt>
+  <dd>An organized group of computer <i>instructions</i> that manage the overall operation of the computer.</dd>
+  <dt>operator</dt>
+  <dd>A symbol indicating an operation and itself the subject of the operation. It indicates the process that is being performed. For example, + is addition, - is subtraction, × is multiplication, and / is division.</dd>
+  <dt>option</dt>
+  <dd>An add-on device that expands a system's capabilities.</dd>
+  <dt>output</dt>
+  <dd>Computer results, or data that has been processed.</dd>
+  <dt>parallel output</dt>
+  <dd>The method by which all bits of a binary word are transmitted simultaneously.</dd>
+  <dt>parameter</dt>
+  <dd>A <i>variable</i> that is given a value for a specific program or run. A definable characteristic of an item, device, or system.</dd>
+  <dt>parity</dt>
+  <dd>An extra-bit of code that is used to detect data errors in memory by mak- ing the sum of the active bit in a data word either an odd or an even number.</dd>
+  <dt>partition</dt>
+  <dd>An area on a <i>fixed disk</i> set aside for a specific purpose, such as a location for an operating system.</dd>
+  <dt>peripheral</dt>
+  <dd>An external input/output, or storage device.</dd>
+  <dt>pixel</dt>
+  <dd>The acronym for picture element. A pixel is a single dot on a monitor that can be addressed by a single bit.</dd>
+  <dt>port</dt>
+  <dd>The entry channel to and from the central computer for connection of a communications line or other <i>peripheral</i> device.</dd>
+  <dt>power</dt>
+  <dd>The functional area of a system that transforms an external power source into internal DC supply voltage.</dd>
+  <dt>program</dt>
+  <dd>A series of instructions or statements in a form acceptable to a computer, designed to cause the computer to execute a series of operations. Computer programs include software such as operating systems, assemblers, compilers, interpreters, data management systems, utility programs, sort-merge programs, and maintenance/diagnostic programs, as well as application programs such as payroll, inventory control, and engineering analysis programs.</dd>
+  <dt>prompt</dt>
+  <dd>A character or series of characters that appear on the screen to request input from the user.</dd>
+  <dt>RAM</dt>
+  <dd>Acronym for <i>random-access memory</i>.</dd>
+  <dt>radian</dt>
+  <dd>The natural unit of measure of the angle between two intersecting half-lines on the angles from one half-line to another intersecting half-line. It is the angle subtended by an arc of a circle equal in length to the radius of the circle. As the circumference of a circle is equal to 2&#960; times its radius, the number of radians in an angle of 360° or in a complete turn is 2&#960;.</dd>
+  <dt>radix</dt>
+  <dd>A number that is arbitrarily made the fundamental number of a system of numbers; a base. Thus, 10 is the radix, or base, of the common system of logarithms, and also of the decimal system of enumeration.</dd>
+  <dt>random-access memory</dt>
+  <dd>The system's high-speed work area that provides access to memory storage locations by using a system of vertical and horizontal coordinates. The computer can write information into or read information from the random access memory. Random-access memory is often called <i>RAM</i>.</dd>
+  <dt>raster unit</dt>
+  <dd>On a graphic display screen, a raster unit is the horizontal or vertical distance between two adjacent addressable points on the screen.</dd>
+  <dt>read-only memory</dt>
+  <dd>A type of memory that contains permanent data or instructions. The computer can read from but not write to the read-only memory. Read-only memory is often called <i>ROM</i>.</dd>
+  <dt>real number</dt>
+  <dd>An ordinary number, either rational or irrational; a number in which there is no imaginary part, a number generated from the single unit, 1; any point in a continuum of natural numbers filled in with all rationals and all irrationals and extended indefinitely, both positive and negative.</dd>
+  <dt>real time</dt>
+  <dd><ol>
+    <li>The actual time required to solve a problem.</li>
+    <li>The process of solving a problem during the actual time that a related physical process takes place so that results can be used to guide the physical process.</li>
+    </ol>
+  </dd>
+  <dt>remote</dt>
+  <dd>A term used to refer to devices that are located at sites away from the central computer.</dd>
+  <dt>reverse video</dt>
+  <dd>A display of characters on a background, opposite of the usual display.</dd>
+  <dt>ROM</dt>
+  <dd>Acronym for <i>read-only memory</i>.</dd>
+  <dt>RS-232</dt>
+  <dd>A standard communications interface between a <i>modem</i> and terminal devices that complies with EIA Standard RS-232.</dd>
+  <dt>serial output</dt>
+  <dd>Sending only one bit at a time to and from interconnected devices.</dd>
+  <dt>single-density</dt>
+  <dd>The standard recording density of a diskette. Single-density diskettes can store approximately 3400 bits per inch (bpi).</dd>
+  <dt>single-precision value</dt>
+  <dd>The number of words or storage positions used to denote a number in a computer. Single-precision arithmetic is the use of one word per number; double-precision arithmetic is the use of two words per number, and so on. For variable word-length computers, precision is the number of digits used to denote a number. The higher the precision, the greater the number of decimal places that can be carried.</dd>
+  <dt>single-sided</dt>
+  <dd>A term used to describe a diskette that contains data on one side only.</dd>
+  <dt>software</dt>
+  <dd>A string of instructions that, when executed, direct the computer to perform certain functions.</dd>
+  <dt>stack architecture</dt>
+  <dd>An architecture wherein any portion of the external memory can be used as a last-in, first-out stack to store/retrieve the contents of the accumulator, the flags, or any of the data registers. Many units contain a 16-bit stack pointer to control the addressing of this external stack. One of the major advantages of the stack is that multiple-level interrupts can be handled easily, since complete system status can be saved when an interrupt occurs and then be restored after the interrupt. Another major advantage is that almost unlimited subroutine nesting is possible.</dd>
+  <dt>statement</dt>
+  <dd>A high-level language instruction to the computer to perform some sequence of operations.</dd>
+  <dt>synchronous</dt>
+  <dd>A type of computer operation in which the execution of each instruction or each event is controlled by a clock signal: evenly spaced pulses that enable the logic gates for the execution of each logic step. A synchronous operation can cause time delays by causing waiting for clock signals although all other signals at a particular logic gate were available. See <i>asynchronous</i>.</dd>
+  <dt>switch</dt>
+  <dd>An instruction, added to a command, that designates a course of action, other than default, for the command process to follow.</dd>
+  <dt>syntax</dt>
+  <dd>Rules of statement structure in a programming language.</dd>
+  <dt>system</dt>
+  <dd>A collection of hardware, software, and firmware that is interconnected to operate as a unit.</dd>
+  <dt>task</dt>
+  <dd>A machine run; a program in execution.</dd>
+  <dt>toggle</dt>
+  <dd>Alternation of function between two stable states.</dd>
+  <dt>track</dt>
+  <dd>A specific area on a moving-storage medium, such as a diskette, disk, or tape cartridge, that can be accessed by the drive heads.</dd>
+  <dt>tree-structured directory</dt>
+  <dd>A file-organization structure, consisting of directories and subdirectories that, when diagrammed, resembles a tree.</dd>
+  <dt>truncation</dt>
+  <dd>To end a computation according to a specified rule; for example, to drop numbers at the end of a line instead of rounding them off, or to drop characters at the end of a line when a file is copied.</dd>
+  <dt>upgrade</dt>
+  <dd>To expand a system by installing options or using revised software.</dd>
+  <dt>utility function</dt>
+  <dd>Computer programs, dedicated to one particular task, that are helpful in using the computer. For example, FDISK, for setting up partitions on the fixed disk.</dd>
+  <dt>variable</dt>
+  <dd>A quantity that can assume any of a set of values as a result of processing data.</dd>
+  <dt>volume label</dt>
+  <dd>The name for the contents of a diskette or a partition on a fixed disk.</dd>
+  <dt>word</dt>
+  <dd>The set of bits comprising the largest unit that the computer can handle in a single operation.</dd>
+  <dt>write-protect notch</dt>
+  <dd>A cut-out opening in the sealed envelope of a diskette that, when covered, prevents writing or adding text to the diskette, but allows information to be read from the diskette.</dd>
+</dl>
+</body>
+</html>

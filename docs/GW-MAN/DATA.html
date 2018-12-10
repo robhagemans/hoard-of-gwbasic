@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DATA Statement</h1>
+<h4>Purpose:</h4>
+<p>To store the numeric and string constants that are accessed by the program <span class="code">READ</span> statement(s).</p>
+<h4>Syntax:</h4>
+<pre><b>DATA </b><i>constants</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>constants</i></span><i> </i>are numeric constants in any format (fixed point, floating-point, or integer), separated by commas. No expressions are allowed in the list.</p>
+<p>String constants in <span class="code">DATA</span> statements must be surrounded by double quotation marks only if they contain commas, colons, or significant leading or trailing spaces. Otherwise, quotation marks are not needed.</p>
+<p><span class="code">DATA</span> statements are not executable and may be placed anywhere in the program. A <span class="code">DATA</span> statement can contain as many constants that will fit on a line (separated by commas), and any number of <span class="code">DATA</span> statements may be used in a program.</p>
+<p><span class="code">READ</span> statements access the <span class="code">DATA</span> statements in order (by line number). The data contained therein may be thought of as one continuous list of items, regardless of how many items are on a line or where the lines are placed in the program. The variable type (numeric or string) given in the <span class="code">READ</span> statement must agree with the corresponding constant in the <span class="code">DATA</span> statement, or a &quot;<span class="code">Type Mismatch</span>&quot; error occurs.</p>
+<p><span class="code">DATA</span> statements may be reread from the beginning by use of the <span class="code">RESTORE</span> statement.</p>
+<p>For further information and examples, see the <a href="RESTORE.html">RESTORE</a> statement and the <a href="READ.html">READ</a> statement.</p>
+<p><b>Example 1:</b></p>
+<pre>.
+.
+.
+80 FOR I=1 TO 10
+90 READ A(I)
+100 NEXT I
+110 DATA 3.08,5.19,3.12,3.98,4.24
+120 DATA 5.08,5.55,4.00,3.16,3.37
+.
+.
+.</pre>
+<p>This program segment reads the values from the <span class="code">DATA</span> statements into array A. After execution, the value of A(1) is 3.08, and so on. The <span class="code">DATA</span> statements (lines 110-120) may be placed anywhere in the program; they may even be placed ahead of the <span class="code">READ</span> statement.</p>
+<p><b>Example 2:</b></p>
+<pre>5 PRINT
+10 PRINT &quot;CITY&quot;,&quot;STATE&quot;,&quot;ZIP&quot;
+20 READ C$,S$,Z
+30 DATA &quot;DENVER,&quot;,&quot;COLORADO&quot;,80211
+40 PRINT C$,S$,Z
+RUN
+ CITY STATE ZIP
+ DENVER, COLORADO 80211</pre>
+<p>This program reads string and numeric data from the <span class="code">DATA</span> statement in line 30.</p>
+</body>
+</html>

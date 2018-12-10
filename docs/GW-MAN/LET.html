@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LET Statement</h1>
+<h4>Purpose:</h4>
+<p>To assign the value of an expression to a variable.</p>
+<h4>Syntax:</h4>
+<pre>[<b>LET</b>] <i>variable</i>=<i>expression</i></pre>
+<h4>Comments:</h4>
+<p>The word <span class="code">LET</span> is optional; that is, the equal sign is sufficient when assigning an expression to a variable name.</p>
+<p>The <span class="code">LET</span> statement is seldom used. It is included here to ensure compatibility with previous versions of BASIC that require it.</p>
+<p>When using <span class="code">LET</span>, remember that the type of the variable and the type of the expression must match. If they don't, a &quot;<span class="code">Type mismatch</span>&quot; error occurs.</p>
+<h4>Example 1:</h4>
+<p>The following example lets you have downward compatibility with an older system. If this downward compatibility is not required, use the second example, as it requires less memory.</p>
+<pre>110 LET D=12
+120 LET E=12^2
+130 LET F=12^4
+140 LET SUM=D+E+F
+.
+.
+.</pre>
+<h4>Example 2:</h4>
+<pre>110 D=12
+120 E=12^2
+130 F=12^4
+140 SUM=D+E+F
+.
+.
+.</pre>
+
+</body>
+</html>

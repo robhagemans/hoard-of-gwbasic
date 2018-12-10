@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ON ERROR GOTO Statement</h1>
+<h4>Purpose:</h4>
+<p>To enable error trapping and specify the first line of the error-handling subroutine.</p>
+<h4>Syntax:</h4>
+<pre><b>ON ERROR GOTO </b><i>line number</i></pre>
+<h4>Comments:</h4>
+<p>Once error trapping has been enabled, all errors detected by GW-BASIC, including direct mode errors, (for example, syntax errors) cause GW-BASIC to branch to the line in the program which begins the specified error-handling subroutine.</p>
+<p>GW-BASIC branches to the line specified by the <span class="code">ON ERROR</span> statement until a <span class="code">RESUME</span> statement is found.</p>
+<p>If <span class="code"><i>line number</i></span> does not exist, an &quot;<span class="code">Undefined line</span>&quot; error results.</p>
+<p>To disable error trapping, execute the following statement:</p>
+<pre>ON ERROR GOTO 0</pre>
+<p>Subsequent errors print an error message and halt execution.</p>
+<p>An <span class="code">ON ERROR GOTO 0</span> statement in an error-trapping subroutine causes GW-BASIC to stop and print the error message for the error that caused the trap. It is recommended that all error-trapping subroutines execute an <span class="code">ON ERROR GOTO 0</span> if an error is encountered for which there is no recovery action.</p>
+<p>If an error occurs during execution of an error-handling subroutine, the GW-BASIC error message is printed and execution terminated. Error trapping does not occur within the error-handling subroutine.</p>
+<h4>Examples:</h4>
+<pre>10 ON ERROR GOTO 1000
+.
+.
+.
+1000 A=ERR: B=ERL
+1010 PRINT A, B
+1020 RESUME NEXT</pre>
+<p>Line 1010 prints the type and location of the error on the screen (see the <a href="ERR.html">ERR</a> and <a href="ERL.html">ERL</a> variables).</p>
+<p>Line 1020 causes program execution to continue with the line following the error.</p>
+
+</body>
+</html>

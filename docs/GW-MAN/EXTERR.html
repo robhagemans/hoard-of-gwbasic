@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>EXTERR Function</h1>
+<h4>Purpose:</h4>
+<p>To return extended error information.</p>
+<h4>Syntax:</h4>
+<pre><b>EXTERR</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">EXTERR</span> returns &quot;extended&quot; error information provided by versions of DOS 3.0 and greater. For versions of DOS earlier than 3.0, <span class="code">EXTERR</span> always returns zero. The single integer argument must be in the range 0-3 as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td><b>Value of <span class="code"><i>n</i></span></b></td>
+	<td><b>Return Value</b></td></tr>
+	<tr><td>0</td><td>Extended error code</td></tr>
+	<tr><td>1</td><td>Extended error class</td></tr>
+	<tr><td>2</td><td>Extended error suggested action</td></tr>
+	<tr><td>3</td><td>Extended error locus</td></tr>
+</table>
+<p>The values returned are not defined by GW-BASIC, but by DOS. Refer to the <i>MS-DOS Programmer's Reference</i> (version 3.0 or later) for a description of the values returned by the DOS extended error function.</p>
+<p>The extended error code is actually retrieved and saved by GW-BASIC each time appropriate DOS functions are performed. Thus when an <span class="code">EXTERR</span> function call is made, these saved values are returned.</p>
+</body>
+</html>

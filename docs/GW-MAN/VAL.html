@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>VAL Function</h1>
+<h4>Purpose:</h4>
+<p>Returns the numerical value of string <span class="code"><i>x$</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>VAL</b>(<i>x$</i>)</pre>
+<h4>Comments:</h4>
+<p>The <span class="code">VAL</span> function also strips leading blanks, tabs, and line feeds from the argument string. For example, the following line returns -3:</p>
+<pre>VAL(&quot; -3&quot;) </pre>
+<p>The <span class="code">STR$</span> function (for numeric to string conversion) is the complement to the <span class="code">VAL(<i>x$</i>)</span> function.</p>
+<p>If the first character of <span class="code"><i>x$</i></span><i> </i>is not numeric, the <span class="code">VAL(<i>x$</i>)</span> will return zero.</p>
+<h4>Examples:</h4>
+<pre>10 READ NAME$, CITY$, STATE$, ZIP$
+20 IF VAL(ZIP$)&lt;90000 OR VAL(ZIP$)&gt;96699 THEN PRINT NAME$ TAB(25) &quot;OUT OF STATE&quot;
+30 IF VAL(ZIP$)&gt;=90801 AND VAL(ZIP$)&lt;=90815 THEN PRINT NAME$ TAB(25) &quot;LONG BEACH&quot;
+.
+.
+.</pre>
+
+</body>
+</html>

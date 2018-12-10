@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>FIX Function</h1>
+<h4>Purpose:</h4>
+<p>To truncate <span class="code"><i>x</i></span> to a whole number.</p>
+<h4>Syntax:</h4>
+<pre><b>FIX</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">FIX</span> does not round off numbers, it simply eliminates the decimal point and all characters to the right of the decimal point.</p>
+<p><span class="code">FIX(<i>x</i>)</span> is equivalent to <span class="code">SGN(<i>x</i>)*INT(ABS(<i>x</i>))</span>. The major difference between <span class="code">FIX</span> and <span class="code">INT</span> is that <span class="code">FIX</span> does not return the next lower number for negative <span class="code"><i>x</i></span>.</p>
+<p><span class="code">FIX</span> is useful in modulus arithmetic.</p>
+<h4>Examples:</h4>
+<pre>PRINT FIX(58.75)
+ 58</pre>
+<pre>PRINT FIX(-58.75)
+ -58</pre>
+</body>
+</html>

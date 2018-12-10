@@ -1,0 +1,240 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Appendix F<br>Communications</h1>
+<p>This appendix describes the GW-BASIC statements necessary to support RS-232 asynchronous communications with other computers and peripheral devices.<br>
+</p>
+
+<h2>F.1 Opening Communications Files</h2>
+<p>The <span class="code">OPEN COM</span> statement allocates a buffer for input and output in the same manner as the <span class="code">OPEN</span> statement opens disk files.<br>
+</p>
+
+<h2>F.2 Communications I/O</h2>
+<p>Since the communications port is opened as a file, all I/O statements valid for disk files are valid for COM.</p>
+<p>COM sequential input statements are the same as those for disk files:</p>
+<pre>INPUT#
+LINE INPUT#
+INPUT$ </pre>
+<p>COM sequential output statements are the same as those for diskette:</p>
+<pre>PRINT#
+PRINT# USING</pre>
+<p>See the <i>GW-BASIC User's Reference</i> for more information on these statements.<br>
+</p>
+
+<h2>F.3 The COM I/O Functions</h2>
+<p>The most difficult aspect of asynchronous communications is processing characters as quickly as they are received. At rates above 2400 baud (bps), it is necessary to suspend character transmission from the host long enough for the receiver to catch up. This can be done by sending XOFF (<span class="smallcaps">CTRL-S</span>) to the host to temporarily suspend transmission, and XON (<span class="smallcaps">CTRL-Q</span>) to resume, if the application supports it.</p>
+<p>GW-BASIC provides three functions which help to determine when an overrun condition is imminent:</p>
+<table border=0 cellspacing=0 cellpadding=3>
+  <tr>
+    <td width=72 valign=top class="code">LOC(<i>x</i>)</td>
+    <td>Returns the number of characters in the input queue waiting to be read. The input queue can hold more than 255 characters (determined by the /<b>c</b>: switch). If there are more than 255 characters in the queue, <span class="code">LOC(<i>x</i>)</span> returns 255. Since a string is limited to 255 characters, this practical limit alleviates the need for the programmer to test for string size before reading data into it.</td>
+  </tr>
+  <tr>
+    <td valign=top><span class="code">LOF(<i>x</i>)</span></td>
+    <td><p>Returns the amount of free space in the input queue; that is</p>
+      <pre><b>/c</b>:(<i>size</i>)-number of characters in the input queue</pre>
+      <span class="code">LOF</span> may be used to detect when the input queue is reaching storage capacity.
+    </td>
+  </tr>
+  <tr>
+    <td valign=top class="code">EOF(<i>x</i>)</td>
+    <td>True (-1), indicates that the input queue is empty. False (0) is returned if any characters are waiting to be read.</td>
+  </tr>
+</table>
+<br>
+
+<h2>F.4 Possible Errors:</h2>
+<p>A &quot;<span class="code">Communications buffer overflow</span>&quot; error occurs if a read is attempted after the input queue is full (that is, <span class="code">LOC(<i>x</i>)</span> returns 0).</p>
+<p>A &quot;<span class="code">Device I/O</span>&quot; error occurs if any of the following line conditions are detected on receive: overrun error (OE), framing error (FE), or break interrupt (BI). The error is reset by subsequent inputs, but the character causing the error is lost.</p>
+<p>A &quot;<span class="code">Device fault</span>&quot; error occurs if data set ready (DSR) is lost during I/O.</p>
+<p>A &quot;<span class="code">Parity error</span>&quot; occurs if the PE (parity enable) option was used in the <span class="code">OPEN COM</span> statement and incorrect parity was received.<br>
+</p>
+
+<h2>F.5 The INPUT$ Function</h2>
+<p>The <span class="code">INPUT$</span> function is preferred over the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements for reading COM files, because all ASCII characters may be significant in communications. <span class="code">INPUT</span> is least desirable because input stops when a comma or an enter is seen. <span class="code">LINE INPUT</span> terminates when an enter is seen.</p>
+<p><span class="code">INPUT$</span> allows all characters read to be assigned to a string.</p>
+<p><span class="code">INPUT$</span> returns <span class="code">x</span> characters from the <span class="code">y</span> file. The following statements then are most efficient for reading a COM file:</p>
+<pre class=codepara>10 WHILE NOT EOF(1)
+20 A$=INPUT$(LOC(1),#1)
+30 ...
+40 ... Process data returned in A$ ...
+50 ...
+60 WEND</pre>
+<p>This sequence of statements translates: As long as something is in the input queue, return the number of characters in the queue and store them in A$. If there are more than 255 characters, only 255 are returned at a time to prevent string overflow. If this is the case, <span class="code">EOF(1)</span> is false, and input continues until the input queue is empty.<br>
+</p>
+
+<h3>GET and PUT Statements for COM Files</h3>
+<h4>Purpose:</h4>
+<p>To allow fixed-length I/O for COM.</p>
+<h4>Syntax:</h4>
+<pre><b>GET</b> <i>filenumber, nbytes</i> <b>PUT</b> <i>filenumber, nbytes</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filenumber</i></span> is an integer expression returning a valid file number.</p>
+<p><span class="code"><i>nbytes</i></span> is an integer expression returning the number of bytes to be transferred into or out of the file buffer. <span class="code"><i>nbytes</i></span> cannot exceed the value set by the <b>/s:</b> switch when GW-BASIC was invoked.</p>
+<p>Because of the low performance associated with telephone line communications, it is recommended that <span class="code">GET</span> and <span class="code">PUT</span> not be used in such applications.</p>
+<h4>Example:</h4>
+<p>The following TTY sample program is an exercise in communications I/O. It is designed to enable your computer to be used as a conventional terminal. Besides full-duplex communications with a host, the TTY program allows data to be downloaded to a file. Conversely, a file may be uploaded (transmitted) to another machine.</p>
+<p>In addition to demonstrating the elements of asynchronous communications, this program is useful for transferring GW-BASIC programs and data to and from a computer.</p>
+<hr>
+<i><b><p>Note</p></b></i>
+<p>This program is set up to communicate with a DEC® System-20 especially in the use of XON and XOFF. It may require modification to communicate with other types of hardware.</p>
+<hr><br>
+
+<h2>F.6 The TTY Sample Program</h2>
+<pre>10 SCREEN 0,0:WIDTH 80
+15 KEY OFF:CLS:CLOSE
+20 DEFINT A-Z
+25 LOCATE 25,1
+30 PRINT STRING$(60,&quot; &quot;)
+40 FALSE=0:TRUE=NOT FALSE
+50 MENU=5 'Value of MENU Key (^E)
+60 XOFF$=CHR$(19):XON$=CHR$(17)
+100 LOCATE 25,1:PRINT &quot;Async TTY Program&quot;;
+110 LOCATE 1,1:LINE INPUT &quot;Speed?&quot;;&quot;SPEED$
+120 COMFIL$=&quot;COM1:,+SPEED$+&quot;,E,7&quot;
+130 OPEN COMFIL$ AS #1
+140 OPEN &quot;SCRN:&quot;FOR OUTPUT AS #3
+200 PAUSE=FALSE
+210 A$=INKEY$:IF A$=&quot;&quot;THEN 230
+220 IF ASC(A$)=MENU THEN 300 ELSE PRINT #1,A$;
+230 IF EOF(1) THEN 210
+240 IF LOC(1)&gt;128 THEN PAUSE=TRUE:PRINT #1,XOFF$;
+250 A$=INPUT$(LOC(1),#1)
+260 PRINT #3,A$;:IF LOC(1)&gt;0 THEN 240
+270 IF PAUSE THEN PAUSE=FALSE:PRINT #1,XON$;
+280 GOTO 210
+300 LOCATE 1,1:PRINT STRING$(30,32):LOCATE 1,1
+310 LINE INPUT &quot;FILE?&quot;;DSKFIL$
+400 LOCATE 1,1:PRINT STRING$(30,32):LOCATE 1,1
+410 LINE INPUT&quot;(T)ransmit or (R)eceive?&quot;;TXRX$
+420 IF TXRX$=&quot;T&quot; THEN OPEN DSKFIL$ FOR INPUT AS #2:GOTO 1000
+430 OPEN DSKFIL$ FOR OUTPUT AS #2
+440 PRINT #1,CHR$(13);
+500 IF EOF(1) THEN GOSUB 600
+510 IF LOC(1)&gt;128 THEN PAUSE=TRUE:PRINT #1,XOFF$;
+520 A$=INPUT$(LOC(1),#1)
+530 PRINT #2,A$;:IF LOC(1)&gt;0 THEN 510
+540 IF PAUSE THEN PAUSE=FALSE:PRINT #1,XON$;
+550 GOTO 500
+600 FOR I=1 TO 5000
+610 IF NOT EOF(1) THEN I=9999
+620 NEXT I
+630 IF I&gt;9999 THEN RETURN
+640 CLOSE #2;CLS:LOCATE 25,10:PRINT &quot;* Download complete *&quot;;
+650 RETURN 200
+1000 WHILE NOT EOF(2)
+1010 A$=INPUT$(1,#2)
+1020 PRINT #1,A$;
+1030 WEND
+1040 PRINT #1,CHR$(28);^Z to make close file.
+1050 CLOSE #2:CLS:LOCATE 25,10:PRINT &quot;** Upload complete **&quot;;
+1060 GOTO 200
+9999 CLOSE:KEY ON</pre><br>
+
+<h2>F.7 Notes on the TTY Sample Program</h2>
+<hr>
+  <p><b><i>Note</i></b></p>
+  <p><i>Asynchronous</i> implies character I/O as opposed to line or block I/O. Therefore, all prints (either to the COM file or screen) are terminated with a semicolon (;). This retards the return line feed normally issued at the end of the <span class="code">PRINT</span> statement.</p>
+<hr>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+<thead>
+<tr><td width=108 valign=top><b>Line Number</b></td><td><b>Comments</b></td></tr>
+</thead>
+<tr>
+<td valign=top>10</td>
+<td>Sets the <span class="code">SCREEN</span> to black and white alpha mode and sets the width to 80.</td>
+</tr>
+<tr>
+<td valign=top>15</td>
+<td>Turns off the soft key display, clears the screen, and makes sure that all files are closed.</td>
+</tr>
+<tr>
+<td valign=top>20</td>
+<td>Defines all numeric variables as integer, primarily for the benefit of the subroutine at 600-620. Any program looking for speed optimization should use integer counters in loops where possible.</td>
+</tr>
+<tr>
+<td valign=top>40</td>
+<td>Defines Boolean true and false.</td>
+</tr>
+<tr>
+<td valign=top>50</td>
+<td>Defines the ASCII (ASC) value of the <span class="smallcaps">MENU</span> key.</td>
+</tr>
+<tr>
+<td valign=top>60</td>
+<td>Defines the ASCII XON and XOFF characters.</td>
+</tr>
+<tr>
+<td valign=top>100-130</td>
+<td>Prints program ID and asks for baud rate (speed). Opens communications to file number 1, even parity, 7 data bits.</td>
+</tr>
+<tr>
+<td valign=top>200-280</td>
+<td valign=top>
+<p>This section performs full-duplex I/O between the video screen and the device connected to the RS-232 connector as follows:</p>
+<ol>
+	<li>Read a character from the keyboard into A$. <span class="code">INKEY$</span> returns a null string if no character is waiting.</li>
+	<li>If a keyboard character is available, waiting, then:</li>
+		<ul type="disc">
+			<li>If the character is the <span class="smallcaps">MENU</span> key, the operator is ready to down-load a file. Get filename.</li>
+			<li>If the character (A$) is not the <span class="smallcaps">MENU</span> key send it by writing to the communications file (<span class="code">PRINT #1...</span>).</li>
+		</ul>
+	<li>If no character is waiting, check to see if any characters are being received.</li>
+	<li>At 230, see if any characters are waiting in COM buffer. If not, go back and check the keyboard.</li>
+	<li>At 240, if more than 128 characters are waiting, set PAUSE flag to indicate that input is being suspended. Send XOFF to host, stopping further transmission.</li>
+	<li>At 250-260, read and display contents of COM buffer on screen until empty. Continue to monitor size of COM buffer (in 240). Suspend transmission if reception falls behind.</li>
+	<li>Resume host transmission by sending XON only if suspended by previous XOFF.</li>
+	<li>Repeat process until the <span class="smallcaps">MENU</span> key is pressed.</li>
+</ol>
+</td>
+</tr>
+<tr>
+<td valign=top>300-320</td>
+<td>Get disk filename to be down-loaded to. Open the file as number 2.</td>
+</tr>
+<tr>
+<td valign=top>400-420</td>
+<td>Asks if file named is to be transmitted (uploaded) or received (down-loaded).</td>
+</tr>
+<tr>
+<td valign=top>430</td>
+<td><p>Receive routine. Sends a <span class="code">RETURN</span> to the host to begin the down-load. This program assumes that the last command sent to the host was to begin such a transfer and was missing only the terminating return. If a DEC&reg; system is the host, such a command might be</p>
+  <pre>COPY TTY:=MANUAL.MEM (MENU Key)</pre>
+if the <span class="smallcaps">MENU</span> key was struck instead of <span class="code">RETURN</span>.</td>
+</tr>
+<tr>
+<td valign=top>500</td>
+<td>When no more characters are being received, (<span class="code">LOC(<i>x</i>)</span> returns 0), then performs a timeout routine.</td>
+</tr>
+<tr>
+<td valign=top>510</td>
+<td>If more than 128 characters are waiting, signal a pause and send XOFF to the host.</td>
+</tr>
+<tr>
+<td valign=top>520-530</td>
+<td>Read all characters in COM queue (<span class="code">LOC(x)</span>) and write them to diskette (<span class="code">PRINT #2</span>...) until reception is caught up to transmission.</td>
+</tr>
+<tr>
+<td valign=top>540-550</td>
+<td>If a pause is issued, restart host by sending XON and clearing the pause flag. Continue the process until no characters are received for a predetermined time.</td>
+</tr>
+<tr>
+<td valign=top>600-650</td>
+<td>Time-out subroutine. The FOR loop count was determined by experimentation. If no character is received from the host for 17-20 seconds, transmission is assumed complete. If any character is received during this time (line 610), then set n well above the <span class="code">FOR</span> loop range to exit loop and return to caller. If host transmission is complete, close the disk file and resume regular activities.</td>
+</tr>
+<tr>
+<td valign=top>1000-1060</td>
+<td>Transmit routine. Until end of disk file, read one character into <span class="code">A$</span> with <span class="code">INPUT$</span> statement. Send character to COM device in 1020. Send a ^Z at end of file in 1040 in case receiving device needs one to close its file. Lines 1050 and 1060 close disk file, print completion message, and go back to conversation mode in line 200.</td>
+</tr>
+<tr>
+<td valign=top>9999</td>
+<td>Presently not executed. As an exercise, add some lines to the routine 400-420 to exit the program via line 9999. This line closes the COM file left open and restores the function key display.</td>
+</tr>
+</table>
+</body>
+</html>

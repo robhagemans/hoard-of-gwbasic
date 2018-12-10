@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DEFINT/SNG/DBL/STR Statements</h1>
+<h4>Purpose:</h4>
+<p>To declare variable types as integer, single-precision, double-precision, or string.</p>
+<h4>Syntax:</h4>
+<pre><b>DEF</b><i>type</i> <i>letters</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>type</i></span><i> </i>is <span class="code">INT</span> (integer), <span class="code">SNG</span> (single-precision number), <span class="code">DBL</span> (double-precision number), or <span class="code">STR</span> (string of 0-255 characters).</p>
+<p><span class="code"><i>letters</i></span><i> </i>are letters (separated by commas) or range of letters of the alphabet.</p>
+<p>A <span class="code">DEF<i>type</i></span> statement declares that variable names beginning with the letter(s) specify that type of variable. However, a type declaration character (<span class="code">%</span>,<span class="code">!</span>,<span class="code">#</span>,<span class="code">$</span>) always takes precedence over a <span class="code">DEF<i>type</i></span> statement in the typing of a variable.</p>
+<p>If no type declaration statements are encountered, BASIC assumes all variables are single-precision. Single-precision is the default value.</p>
+<h4>Examples:</h4>
+<pre>10 DEFDBL L-P</pre>
+<p>All variables beginning with the letters L, M, N, O, and P will be double-precision variables.</p>
+<pre>10 DEFSTR A
+20 A=&quot;120#&quot;</pre>
+<p>All variables beginning with the letter A will be string variables. The $ declaration is unnecessary in this example.</p>
+<pre>10 DEFINT I-N, W-Z
+20 W$=&quot;120#&quot;</pre>
+<p>All variables beginning with the letters I, J, K, L, M, N, W, X, Y, Z will be integer variables. W$ in Line 20 establishes a string variable beginning with the letter W. However, the variable W will remain an integer elsewhere in the program.</p>
+</body>
+</html>

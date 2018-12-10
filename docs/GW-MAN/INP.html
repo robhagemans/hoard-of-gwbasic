@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>INP Function</h1>
+<h4>Purpose:</h4>
+<p>To return the byte read from machine port n.</p>
+<h4>Syntax:</h4>
+<pre><b>INP</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> represents a valid machine port number within the range of 0 to 65535.</p>
+<p>The <span class="code">INP</span> function is one way in which a peripheral device may communicate with a GW-BASIC program.</p>
+<p><span class="code">INP</span> is the complementary function to the <span class="code">OUT</span> statement.</p>
+<h4>Examples:</h4>
+<pre>100 A=INP(56)</pre>
+<p>Upon execution, variable A contains the value present on port 56. The number returned will be within the range of 0 to 255, decimal.</p>
+<p>The assembly language equivalent to this statement is</p>
+<pre>MOV DX,56
+IN AL,DX</pre>
+</body>
+</html>

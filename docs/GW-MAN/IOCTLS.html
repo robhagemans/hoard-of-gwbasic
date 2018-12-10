@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>IOCTL$ Function</h1>
+<h4>Purpose:</h4>
+<p>To allow GW-BASIC to read a &quot;control data&quot; string from an open character device driver.</p>
+<h4>Syntax:</h4>
+<pre><b>IOCTL$</b>([<b>#</b>]<i>file number</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span><i> </i>is the file number open to the device.</p>
+<p>The <span class="code">IOCTL$</span> function is generally used to get acknowledgement that an <span class="code">IOCTL</span> statement succeeded or failed. It is also used to get device information, such as device width after an <span class="code">IOCTL</span> statement requests it.</p>
+<h4>Examples:</h4>
+<pre>10 'GW is a possible command
+20 'for get device width
+30 OPEN &quot;\DEV\MYLPT&quot; AS#1
+40 IOCTYL#1, &quot;GW&quot;
+50 'Save it in WID
+60 WID=VAL(IOCTL$(#1))</pre>
+
+</body>
+</html>

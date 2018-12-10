@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>OPEN Statement</h1>
+<h4>Purpose:</h4>
+<p>To establish input/output (I/O) to a file or device.</p>
+<h4>Syntax:</h4>
+<pre><b>OPEN</b> <i>mode</i>,[<b>#</b>]<i>file number</i>,<i>filename</i>[,<i>reclen</i>]
+<b>OPEN</b> <i>filename</i> [<b>FOR</b> <i>mode</i>][<b>ACCESS</b> <i>access</i>][<i>lock</i>] <b>AS</b> [<b>#</b>]<i>file number</i> [<b>LEN</b>=<i>reclen</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span> is the name of the file.</p>
+<p><span class="code"><i>mode</i></span> (first syntax) is a string expression with one of the following characters:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=96><b>Expression</b></td><td><b>Specifies</b></td></tr>
+  <tr><td class="code">O</td>
+  <td>Sequential output mode</td></tr>
+  <tr><td class="code">I</td>
+  <td>Sequential input mode</td></tr>
+  <tr><td class="code">R</td>
+  <td>Random input/output mode</td></tr>
+  <tr><td class="code">A</td>
+  <td>Position to end of file</td></tr>
+</table>
+<p><span class="code"><i>mode</i></span><i> </i>(second syntax) determines the initial positioning within the file, and the action to be taken if the file does not exist. If the <span class="code">FOR</span> mode clause is omitted, the initial position is at the beginning of the file. If the file is not found, one is created. This is the random I/O mode. That is, records may be read or written at any position within the file. The valid modes and actions taken are as follows:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=96 valign=top class="code">INPUT</td>
+  <td>Position to the beginning of the file. A &quot;<span class="code">File not found</span>&quot; error is given if the file does not exist.</td>
+  </tr>
+  <tr><td class="code">OUTPUT</td>
+  <td>Position to the beginning of the file. If the file does not exist, one is created.</td></tr>
+  <tr><td class="code">APPEND</td>
+  <td>Position to the end of the file. If the file does not exist, one is created.</td></tr>
+  <tr><td class="code">RANDOM</td>
+  <td>Specifies random input or output mode.</td></tr>
+</table>
+<p><span class="code"><i>mode</i></span><i> </i>must be a string constant. Do not enclose <span class="code"><i>mode</i></span><i> </i>in double quotation marks. <span class="code"><i>access</i></span><i> </i>can be one of the following:</p>
+<pre>READ
+WRITE
+READ WRITE </pre>
+<p><span class="code"><i>file number</i></span><i> </i>is a number between 1 and the maximum number of files allowed. The number associates an I/O buffer with a disk file or device. This association exists until a <span class="code">CLOSE</span> or <span class="code">CLOSE</span> file number statement is executed.</p>
+<p><span class="code"><i>reclen</i></span><i> </i>is an integer expression within the range of 1-32767 that sets the record length to be used for random files. If omitted, the record length defaults to 128-byte records.</p>
+<p>When <span class="code"><i>reclen</i></span><i> </i>is used for sequential files, the default is 128 bytes, and <span class="code"><i>reclen</i></span><i> </i>cannot exceed the value specified by the <span class="code">/<b>s</b></span> switch.</p>
+<p>A disk file must be opened before any disk I/O operation can be performed on that file. <span class="code">OPEN</span> allocates a buffer for I/O to the file and determines the mode of access that is used with the buffer.</p>
+<p>More than one file can be opened for input or random access at one time with different file numbers. For example, the following statements are allowed:</p>
+<pre>OPEN &quot;B:TEMP&quot; FOR INPUT AS #1
+OPEN &quot;B:TEMP&quot; FOR INPUT AS #2</pre>
+<p>However, a file may be opened only once for output or appending. For example, the following statements are illegal:</p>
+<pre>OPEN &quot;TEMP&quot; FOR OUTPUT AS #1
+OPEN &quot;TEMP&quot; FOR OUTPUT AS #2</pre>
+<hr>
+	<i><b><p>Note</p></b></i>
+	<p>Be sure to close all files before removing diskettes from the disk drives  (see <a href="CLOSE.html">CLOSE</a> and <a href="RESET.html">RESET</a>).</p>
+<hr>
+<p>A device may be one of the following:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=128 class="code">A:, B:, C:... </td>
+  <td>Disk Drive</td></tr>
+  <tr><td class="code">KYBD:</td>
+  <td>Keyboard (input only)</td></tr>
+  <tr><td class="code">SCRN:</td>
+  <td>Screen (output only)</td></tr>
+  <tr><td class="code">LPT1:</td>
+  <td>Line Printer 1</td></tr>
+  <tr><td class="code">LPT2:</td>
+  <td>Line Printer 2</td></tr>
+  <tr><td class="code">LPT3:</td>
+  <td>Line Printer 3</td></tr>
+	<tr><td class="code">COM1:</td>
+	<td>RS-232 Communications 1</td></tr>
+  <tr><td class="code">COM2:</td>
+  <td>RS-232 Communications 2</td></tr>
+</table>
+<p>For each device, the following <span class="code">OPEN</span> modes are allowed:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=128 class="code">KYBD:</td>
+  <td>Input Only</td></tr>
+	<tr><td class="code">SCRN:</td>
+	<td>Output Only</td></tr>
+	<tr><td class="code">LPT1:</td>
+	<td>Output Only</td></tr>
+	<tr><td class="code">LPT2:</td>
+	<td>Output Only</td></tr>
+	<tr><td class="code">LPT3:</td>
+	<td>Output Only</td></tr>
+	<tr><td class="code">COM1:</td>
+	<td>Input, Output, or Random Only</td></tr>
+  <tr><td class="code">COM2:</td>
+  <td>Input, Output, or Random Only</td></tr>
+</table>
+<p>Disk files allow all modes.</p>
+<p>When a disk file is opened for <span class="code">APPEND</span>, the position is initially at the end of the file, and the record number is set to the last record of the file (<span class="code">LOF(<i>x</i>)/128</span>). <span class="code">PRINT</span>, <span class="code">WRITE</span>, or <span class="code">PUT</span> then extends the file. The program may position elsewhere in the file with a <span class="code">GET</span> statement. If this is done, the mode is changed to random and the position moves to the record indicated.</p>
+<p>Once the position is moved from the end of the file, additional records may be appended to the file by executing a <span class="code">GET #<i>x</i></span>, <span class="code">LOF(<i>x</i>)/<i>reclen</i></span> statement. This positions the file pointer at the end of the file in preparation for appending. </p>
+<p>Any values entered outside of the ranges given result in &quot;<span class="code">Illegal function call</span>&quot; errors. The files are not opened.</p>
+<p>If the file is opened as <span class="code">INPUT</span>, attempts to write to the file result in &quot;<span class="code">Bad file mode</span>&quot; errors.</p>
+<p>If the file is opened as <span class="code">OUTPUT</span>, attempts to read the file result in &quot;<span class="code">Bad file mode</span>&quot; errors.</p>
+<p>Opening a file for <span class="code">OUTPUT</span> or <span class="code">APPEND</span> fails, if the file is already open in any mode.</p>
+<p>Since it is possible to reference the same file in a subdirectory via different paths, it is nearly impossible for GW-BASIC to know that it is the same file simply by looking at the path. For this reason, GW-BASIC does not let you open the file for <span class="code">OUTPUT</span> or <span class="code">APPEND</span> if it is on the same disk, even if the path is different. For example if <i>mary</i> is your working directory, the following statements all refer to the same file:</p>
+<pre>OPEN &quot;REPORT&quot;
+OPEN &quot;\SALES\MARY\REPORT&quot;
+OPEN &quot;..\MARY\REPORT&quot;
+OPEN &quot;..\..\MARY\REPORT&quot;</pre>
+<p>At any one time, it is possible to have a particular diskette filename open under more than one file number. Each file number has a different buffer, so several records from the same file may be kept in memory for quick access. This allows different modes to be used for different purposes; or, for program clarity, different file numbers to be used for different modes of access.</p>
+<p>If the <span class="code">LEN=<i>reclen</i></span> option is used, <span class="code"><i>reclen</i></span> may not exceed the value set by the <span class="code">/<b>s</b>:<i>reclen</i></span> switch option in the command line.</p>
+<p>In a network environment, the use of the <span class="code">OPEN</span> statement is based upon two different sets of circumstances:</p>
+<ul>
+  <li>Devices may be shared on a network for specific purposes only, so that <span class="code">OPEN</span> statements may be restricted to specific modes among those which might be requested, such as: <span class="code">INPUT</span>, <span class="code">OUTPUT</span>, <span class="code">APPEND</span>, and default (random).</li>
+  <li>Files may be restricted by the implementation of an <span class="code">OPEN</span> statement which allows a process to specify an access to the successfully opened file. The access determines a guaranteed exclusivity range on that file by the process while the <span class="code">OPEN</span> statement is in effect.</li>
+</ul>
+<p><span class="code"><i>lock</i></span> can be one of the following:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+  <tr>
+	<td width=120 valign=top class="code">SHARED</td>
+		<td>&quot;deny none&quot; mode. No restrictions are placed on the read/write accessibility of the the file to another process, except that the default mode is not allowed by any of the modes including <span class="code">SHARED</span>.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">LOCK READ</td>
+		<td>&quot;deny read&quot; mode. Once a file is opened with the <span class="code">LOCK READ</span> access, no other process is granted read-access to that file. An attempt to open a file with this access will be unsuccessful, if the file is currently open in default mode or with a read access.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">LOCK WRITE</td>
+		<td>&quot;deny write&quot; mode. A file successfully opened with <span class="code">LOCK WRITE</span> access may not be opened for a write access by another process. An attempt to open a file with this access will be unsuccessful if the file has been opened in default mode, or with a write access by another process.</td>
+  </tr>
+  <tr>
+	<td valign=top class="code">LOCK READ WRITE</td>
+		<td>&quot;deny all&quot; or &quot;exclusive&quot; mode. If a file is successfully opened with this access, the process has exclusive access to the file. A file that is currently open in this mode cannot be opened again in any mode by any process.</td>
+  </tr>
+  <tr>
+	<td valign=top>default</td>
+		<td>&quot;compatibility&quot; mode, in which the compatibility with other BASICs is understood. No access is specified. The file may be opened any number of times by a process, provided that the file is not currently opened by another process. Other processes are denied access to the file while it is open under default access. Therefore, it is functionally exclusive.</td>
+  </tr>
+</table>
+<p>When an attempt is made to open a file that has been previously accessed by another process, the error &quot;<span class="code">Permission Denied</span>&quot; will result. An example of a situation generating this error is when a process attempts to <span class="code">OPEN SHARED</span> on a file that is already <span class="code">OPEN LOCK READ WRITE</span> by another process.</p>
+<p>If an <span class="code">OPEN</span> statement fails because the mode is incompatible with network-installed sharing access to a device, the error generated is &quot;<span class="code">Path/File Access Error</span>.&quot; An example of this is when a process is attempting to <span class="code">OPEN</span> a file for output on a directory that has been shared for read only.</p>
+<p>For more information about using files in a networking environment, see the <a href="LOCK.html">LOCK</a> and <a href="UNLOCK.html">UNLOCK</a> statements.</p>
+<h4>Examples:</h4>
+<pre>10 OPEN &quot;I&quot;,2,&quot;INVEN&quot;</pre>
+<p>Opens file 2, <i>inven</i>, for sequential input.</p>
+
+</body>
+</html>

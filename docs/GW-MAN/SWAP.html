@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SWAP Statement</h1>
+<h4>Purpose:</h4>
+<p>To exchange the values of two variables.</p>
+<h4>Syntax:</h4>
+<pre><b>SWAP</b> <i>variable1</i>,<i>variable2</i></pre>
+<h4>Comments:</h4>
+<p>Any type variable may be swapped (integer, single-precision, double-precision, string), but the two variables must be of the same type or a &quot;<span class="code">Type mismatch</span>&quot; error results.</p>
+<h4>Examples:</h4>
+<pre>LIST
+10 A$=&quot;ONE &quot;: B$=&quot;ALL &quot;: C$=&quot;FOR &quot;
+20 PRINT A$ C$ B$
+30 SWAP A$, B$
+40 PRINT A$ C$ B$
+RUN
+ ONE FOR ALL
+ ALL FOR ONE</pre>
+<p>Line 30 swaps the values in the A$ and B$ strings.</p>
+
+</body>
+</html>

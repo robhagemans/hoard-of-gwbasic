@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LEFT$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a string that comprises the left-most n characters of <span class="code"><i>x$</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>LEFT$</b>(<i>x$</i>,<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> must be within the range of 0 to 255. If <span class="code"><i>n</i></span> is greater than <span class="code">LEN(<i>x$</i>)</span>, the entire string (<span class="code"><i>x$</i></span>) will be returned. If <span class="code"><i>n</i></span> equals zero, the null string (length zero) is returned (see the <a href="MIDSF.html">MID$</a> and <a href="RIGHTS.html">RIGHT$</a> substring functions).</p>
+<h4>Example:</h4>
+<pre>10 A$=&quot;BASIC&quot;
+20 B$=LEFT$(A$, 3)
+30 PRINT B$
+RUN
+ BAS</pre>
+<p>The left-most three letters of the string &quot;BASIC&quot; are printed on the screen.</p>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>VARPTR Function</h1>
+<h4>Purpose:</h4>
+<p>To return the address in memory of the variable or file control block (FCB).</p>
+<h4>Syntax:</h4>
+<pre><b>VARPTR</b>(<i>variable name</i>)
+<b>VARPTR</b>(<b>#</b><i>file number</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">VARPTR</span> is usually used to obtain the address of a variable or array so it can be passed to an assembly language subroutine. A function call of the following form:</p>
+<pre>VARPTR(A(0))</pre>
+<p>is usually specified when passing an array, so that the lowest-addressed element of the array is returned.</p>
+<p>All simple variables should be assigned before calling <span class="code">VARPTR</span> for an array, because the addresses of the arrays change whenever a new simple variable is assigned.</p>
+<p><span class="code">VARPTR (#<i>file number</i>)</span> returns the starting address of the GW-BASIC File Control Block assigned to <span class="code"><i>file number</i></span>.</p>
+<p><span class="code">VARPTR (<i>variable name</i>)</span> returns the address of the first byte of data identified with the variable name.</p>
+<p>A value must be assigned to variable name prior to execution of <span class="code">VARPTR</span>, otherwise, an &quot;<span class="code">Illegal function call</span>&quot; error results.</p>
+<p>Any type variable name may be used (numeric, string, or array), and the address returned will be an integer within the range of 32767 to -32768. If a negative address is returned, it is added to 65536 to obtain the actual address.</p>
+<p>Offsets to information in the FCB from the address returned by <span class="code">VARPTR</span> are shown in the following table:</p>
+<h4>Table 7</h4>
+<p><b>Offsets to FCB Information</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+<tr><td width=56><b>Offset</b></td>
+  <td width=56><b>Length</b></td>
+  <td width=80><b>Name</b></td>
+  <td><b>Description</b></td></tr>
+<tr><td valign=top>0</td><td valign=top>1</td><td valign=top>Mode</td>
+<td>The mode in which the file was opened:<br>
+  1 Input only<br>
+  2 Output only<br>
+  4 Random I/O<br>
+  16 Append only<br>
+  32 Internal use<br>
+  64 Future use<br>
+  128 Internal use </td>
+</tr>
+<tr><td valign=top>1</td><td valign=top>38</td><td valign=top>FCB</td><td>Diskette file control block. </td></tr>
+<tr><td valign=top>39</td><td valign=top>2</td><td valign=top>CURLOC</td><td>Number of sectors read or written for sequential access. The last record number +1 read or written for random files.</td></tr>
+<tr><td valign=top>41</td><td valign=top>1</td><td valign=top>ORNOFS</td><td>Number of bytes in sector when read or written.</td></tr>
+<tr><td valign=top>42</td><td valign=top>1</td><td valign=top>NMLOFS</td><td>Number of bytes left in <span class="code">INPUT</span> buffer.</td>
+</tr>
+<tr><td valign=top>43</td><td valign=top>3</td><td valign=top>***</td><td>Reserved for future expansion.</td></tr>
+<tr><td valign=top>46</td><td valign=top>1</td><td valign=top>DEVICE</td>
+<td>Device Number:<br>
+0-9 Disks A: through J:<br>
+255 <span class="code">KYBD</span>:<br>
+254 <span class="code">SCRN:</span><br>
+253 <span class="code">LPT1:</span><br>
+252 <span class="code">CAS1:</span><br>
+251 <span class="code">COM1:</span><br>
+250 <span class="code">COM2:</span><br>
+249 <span class="code">LPT2:</span><br>
+248 <span class="code">LPT3:</span></td>
+</tr>
+<tr><td valign=top>47</td><td valign=top>1</td><td valign=top>WIDTH</td><td>Device width. </td></tr>
+<tr><td valign=top>48</td><td valign=top>1</td><td valign=top>POS</td><td>Position in buffer for <span class="code">PRINT</span>.</td>
+</tr>
+<tr><td valign=top>49</td><td valign=top>1</td><td valign=top>FLAGS</td><td>Internal use during <span class="code">BLOAD</span>/<span class="code">BSAVE</span>. Not used for data files.</td>
+</tr>
+<tr><td valign=top>50</td><td valign=top>1</td><td valign=top>OUTPOS</td><td>Output position used during tab expansion.</td></tr>
+<tr><td valign=top>51</td><td valign=top>128</td><td valign=top>BUFFER</td><td>Physical data buffer. Used to transfer data between DOS and BASIC. Use this offset to examine data in sequential I/O mode.</td></tr>
+<tr><td valign=top>179</td><td valign=top>2</td><td valign=top>VRECL</td><td>Variable length record size. Default is 128. Set by length option in OPEN statement.</td></tr>
+<tr><td valign=top>181</td><td valign=top>2</td><td valign=top>PHYREC</td><td>Current physical record number.</td></tr>
+<tr><td valign=top>183</td><td valign=top>2</td><td valign=top>LOGREC</td><td>Current logical record number.</td></tr>
+<tr><td valign=top>185</td><td valign=top>1</td><td valign=top>***</td><td>Future use. </td></tr>
+<tr><td valign=top>186</td><td valign=top>2</td><td valign=top>OUTPOS</td><td>Disk files only. Output position for <span class="code">PRINT</span>, <span class="code">INPUT</span>, and <span class="code">WRITE</span>.</td>
+</tr>
+<tr><td valign=top>188</td><td valign=top>n</td><td valign=top>FIELD</td><td>Actual FIELD data buffer. Size is determined by S:switch. VRECL bytes are transferred between BUFFER and FIELD on I/O operations. Use this offset to examine file data in random I/O mode.</td></tr>
+</table>
+<h4>Example 1:</h4>
+<pre>100 X=VARPTR(Y)</pre>
+<p>When executed, the variable X will contain an address that points to the storage space assigned to the variable Y.</p>
+<h4>Example 2:</h4>
+<pre>10 OPEN &quot;DATA.FIL&quot; AS #1
+20 FCBADR = VARPTR(#1)
+30 DATADR = FCBADR+188
+40 A$ = PEEK(DATADR)</pre>
+<p>In line 20, FCBADR contains the start of FCB.</p>
+<p>In line 30, DATADR contains the address of the data buffer.</p>
+<p>In line 40, A$ contains the first byte in the data buffer.</p>
+
+</body>
+</html>

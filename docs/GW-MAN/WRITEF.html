@@ -1,0 +1,27 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WRITE# Statement</h1>
+<h4>Purpose:</h4>
+<p>To write data to a sequential file.</p>
+<h4>Syntax:</h4>
+<pre><b>WRITE #</b><i>filenum</i>, <i>list of expressions</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filenum</i></span><i> </i>is the number under which the file was opened for output.</p>
+<p><span class="code"><i>list of expressions</i></span><i> </i>is a list of string and/or numeric expressions  separated by commas or semicolons.</p>
+<p>The <span class="code">WRITE#</span> and <span class="code">PRINT#</span> statements differ in that <span class="code">WRITE#</span> inserts commas between the items as they are written and delimits strings with quotation marks, making explicit delimiters in the list unnecessary. Another difference is that <span class="code">WRITE#</span> does not put a blank in front of a positive number. After the last item in the list is written, a carriage return/line feed sequence is inserted.</p>
+<h4>Examples:</h4>
+<p>Let A$ = &quot;CAMERA&quot; and B$ = &quot;93604-1&quot;. The following statement:</p>
+<pre>WRITE#1, A$, B$</pre>
+<p>writes the following image to disk:</p>
+<pre>&quot;CAMERA&quot;, &quot;93604-1&quot;</pre>
+<p>A subsequent <span class="code">INPUT$</span> statement, such as the following, would input &quot;CAMERA&quot; to A$ and &quot;93604-1&quot; to B$:</p>
+<pre>INPUT#1, A$, B$</pre>
+
+</body>
+</html>

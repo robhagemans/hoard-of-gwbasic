@@ -1,0 +1,44 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PRESET and PSET Statements</h1>
+<h4>Purpose:</h4>
+<p>To display a point at a specified place on the screen during use of the graphics mode.</p>
+<h4>Syntax:</h4>
+<pre><b>PRESET</b>(<i>x</i>,<i>y</i>)[,<i>color</i>]
+<b>PSET</b>(<i>x</i>,<i>y</i>)[,<i>color</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code">(<i>x</i>,<i>y</i>)</span> represents the coordinates of the point.</p>
+<p><span class="code"><i>color</i></span> is the color of the point.</p>
+<p>Coordinates can be given in either absolute or relative form.</p>
+<h4>Absolute Form</h4>
+<p>(<span class="code"><i>absolute x</i>, <i>absolute y</i></span>) is more common and refers directly to a point without regard to the last point referenced. For example:</p>
+<pre>(10,10)</pre>
+<h4>Relative Form</h4>
+<p><span class="code">STEP (<i>x offset</i>, <i>y offset</i>)</span> is a point relative to the most recent point referenced. For example:</p>
+<pre>STEP(10,10)</pre>
+<p>Coordinate values can be beyond the edge of the screen. However, values outside the integer range (-32768 to 32767) cause an &quot;<span class="code">Overflow</span>&quot; error.</p>
+<p>(0,0) is always the upper-left corner and (0,199) is the lower-left corner in both high resolution and medium resolution.</p>
+<p>See the <a href="COLOR.html">COLOR</a> and <a href="PALETTE.html">PALETTE</a> statements for more information.</p>
+<p>If the value for color is greater than 3, an &quot;<span class="code">Illegal function call</span>&quot; error is returned.</p>
+<h4>Example 1:</h4>
+<p>The following draws a diagonal line from (0,0) to (100,100).</p>
+<pre>10 CLS
+20 SCREEN 1
+30 FOR I=0 TO 100
+40 PSET (I,I)
+50 NEXT
+60 LOCATE 14,1</pre>
+<h4>Example 2:</h4>
+<p>The following clears out the line by setting each pixel to 0.</p>
+<pre>40 FOR I=100 TO 0 STEP -1
+50 PSET(I,I),0
+60 NEXT I</pre>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WRITE Statement</h1>
+<h4>Purpose:</h4>
+<p>To output data to the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>WRITE</b>[<i>list of expressions</i>]</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>list of expressions</i></span> is omitted, a blank line is output. If list of expressions is included, the values of the expressions are output at the terminal. The expressions in the list may be numeric and/or string expressions, and must be separated by commas or semicolons.</p>
+<p>When printed items are output, each item will be separated from the last by a comma. Printed strings are delimited by double quotation marks. After the last item in the list is printed, GW-BASIC inserts a carriage return/line feed.</p>
+<p>The difference between <span class="code">WRITE</span> and <span class="code">PRINT</span> is that <span class="code">WRITE</span> inserts commas between displayed items and delimits strings with double quotation marks. Positive numbers are not preceded by blank spaces.</p>
+<p><span class="code">WRITE</span> outputs numeric values using the same format as the <span class="code">PRINT</span> statement.</p>
+<h4>Examples:</h4>
+<pre>10 A=80: B=90: C$=&quot;THAT'S ALL&quot;
+20 WRITE A, B, C$
+RUN
+ 80, 90, &quot;THAT'S ALL&quot;</pre>
+
+</body>
+</html>

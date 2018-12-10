@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>GOTO Statement</h1>
+<h4>Purpose:</h4>
+<p>To branch unconditionally out of the normal program sequence to a specified line number.</p>
+<h4>Syntax:</h4>
+<pre><b>GOTO </b><i>line number</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>line number</i></span><i> </i>is any valid line number within the program.</p>
+<p>If <span class="code"><i>line number</i></span><i> </i>is an executable statement, that statement and those following are executed. If it is a non-executable statement, execution proceeds at the first executable statement encountered after <span class="code"><i>line number</i></span>.</p>
+<h4>Examples:</h4>
+<pre>10 READ R
+20 PRINT &quot;R =&quot;; R;
+30 A = 3.14*R^2
+40 PRINT &quot;AREA =&quot;; A
+50 GOTO 10
+60 DATA 5, 7, 12
+RUN
+ R = 5 AREA = 78.5
+ R = 7 AREA = 153.86
+ R = 12 AREA = 452.16
+ Out of data in 10</pre>
+<p>The &quot;<span class="code">out of data</span>&quot; advisory is generated when the program attempts to read a fourth <span class="code">DATA</span> statement (which does not exist) in line 60.</p>
+</body>
+</html>

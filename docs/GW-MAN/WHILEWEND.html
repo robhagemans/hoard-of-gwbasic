@@ -1,0 +1,38 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WHILE ... WEND Statement</h1>
+<h4>Purpose:</h4>
+<p>To execute a series of statements in a loop as long as a given condition is true.</p>
+<h4>Syntax:</h4>
+<pre><b>WHILE </b><i>expression</i>
+.
+.
+.
+[<i>loop statements</i>]
+.
+.
+.
+<b>END</b> </pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>expression</i></span> is nonzero (true), <span class="code"><i>loop statements</i></span> are executed until the <span class="code">WEND</span> statement is encountered. GW-BASIC then returns to the <span class="code">WHILE</span> statement and checks expression. If it is still true, the process is repeated.</p>
+<p>If it is not true, execution resumes with the statement following the <span class="code">WEND</span> statement.</p>
+<p><span class="code">WHILE</span> and <span class="code">WEND</span> loops may be nested to any level. Each <span class="code">WEND</span> matches the most recent <span class="code">WHILE</span>.</p>
+<p>An unmatched <span class="code">WHILE</span> statement causes a &quot;<span class="code">WHILE without WEND</span>&quot; error. An unmatched <span class="code">WEND</span> statement causes a &quot;<span class="code">WEND without WHILE</span>&quot; error.</p>
+<h4>Examples:</h4>
+<pre>90 'BUBBLE SORT ARRAY A$
+100 FLIPS=1
+110 WHILE FLIPS
+115 FLIPS=0
+120 FOR N=1 TO J-1
+130 IF A$(N)&gt;A$(N+1) THEN SWAP A$(N), A$(N+1): FLIPS=1
+140 NEXT N
+150 WEND</pre>
+
+</body>
+</html>

@@ -1,0 +1,304 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+  <h1>Chapter 5<br>Creating and Using Files</h1>
+  <p>There are two types of files in MS-DOS systems:</p>
+  <ul>
+    <li><i>Program files</i>, which contain the program or instructions for the computer</li>
+    <li><i>Data files</i>, which contain information used or created by program files </li>
+  </ul>
+
+  <h2>5.1 Program File Commands</h2>
+  <p>The following are the commands and statements most frequently used with program files. The <i>GW-BASIC User's Reference</i> contains more information on each of them.</p>
+  <pre><b>SAVE</b> <i>filename</i>[,<b>a</b>][,<b>p</b>]</pre>
+  <p>Writes to diskette the program currently residing in memory.</p>
+<pre><b>LOAD</b> <i>filename</i>[,<b>r</b>]</pre>
+  <p>Loads the program from a diskette into memory. <span class="code">LOAD</span> deletes the current contents of memory and closes all files before loading the program.</p>
+  <pre><b>RUN</b> <i>filename</i>[,<b>r</b>]</pre>
+  <p>Loads the program from a diskette into memory and runs it immediately. <span class="code">RUN</span> deletes the current contents of memory and closes all files before loading the program.</p>
+  <pre><b>MERGE</b> <i>filename</i></pre>
+  <p>Loads the program from a diskette into memory, but does not delete the current program already in memory.</p>
+  <pre><b>KILL</b> <i>filename</i></pre>
+  <p>Deletes the file from a diskette. This command can also be used with data files.</p>
+  <pre><b>NAME</b> <i>old filename</i> <b>AS</b> <i>new filename</i></pre>
+  <p>Changes the name of a diskette file. Only the <i>name</i> of the file is changed. The file is not modified, and it remains in the same space and position on the disk. This command can also be used with data files.</p><br>
+
+  <h2>5.2 Data Files</h2>
+  <p>GW-BASIC programs can work with two types of data files:</p>
+  <ul>
+    <li>Sequential files</li>
+    <li>Random access files</li>
+  </ul>
+  <p>Sequential files are easier to create than random access files, but are limited in flexibility and speed when accessing data. Data written to a sequential file is a series of ASCII characters. Data is stored, one item after another (sequentially), in the order sent. Data is read back in the same way.</p>
+  <p>Creating and accessing random access files requires more program steps than sequential files, but random files require less room on the disk, because GW-BASIC stores them in a compressed format in the form of a string.</p>
+  <p>The following sections discuss how to create and use these two types of data files.</p>
+
+  <h3>5.2.1 Creating a Sequential File</h3>
+  <p>The following statements and functions are used with sequential files:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr class="code"><td>CLOSE </td><td>LOF</td></tr>
+	<tr class="code"><td>EOF </td><td>OPEN</td></tr>
+	<tr class="code"><td>INPUT# </td><td>PRINT#</td></tr>
+	<tr class="code"><td>LINE INPUT#</td><td>PRINT# USING</td></tr>
+	<tr class="code"><td>LOC </td><td>UNLOCK</td></tr>
+	<tr class="code"><td>LOCK </td><td>WRITE#</td></tr>
+</table>
+  <p>The following program steps are required to create a sequential file and access the data in the file:</p>
+  <ol>
+    <li><p>Open the file in output (<span class="code">O</span>) mode. The current program will use this file first for output:</p>
+      <pre>OPEN &quot;O&quot;,#1,&quot;<i>filename</i>&quot;</pre>
+    </li>
+    <li><p>Write data to the file using the <span class="code">PRINT#</span> or <span class="code">WRITE#</span> statement:</p>
+      <pre>PRINT#1,A$
+PRINT#1,B$
+PRINT#1,C$</pre>
+    </li>
+    <li><p>To access the data in the file, you must close the file and reopen it in input (<span class="code">I</span>) mode:</p>
+    <pre>CLOSE #1
+OPEN &quot;I&quot;,#1,&quot;<i>filename</i></pre></li>
+    <li><p>Use the <span class="code">INPUT#</span> or <span class="code">LINE INPUT#</span> statement to read data from the sequential file into the program:</p>
+      <pre>INPUT#1,X$,Y$,Z$</pre>
+    </li>
+  </ol>
+  <p>Example 1 is a short program that creates a sequential file, data, from information input at the terminal.</p>
+
+  <h4>Example 1</h4>
+  <pre>10 OPEN &quot;O&quot;,#1,&quot;DATA&quot;
+20 INPUT &quot;NAME&quot;;N$
+30 IF N$=&quot;DONE&quot; THEN END
+40 INPUT &quot;DEPARTMENT&quot;;D$
+50 INPUT &quot;DATE HIRED&quot;;H$
+60 PRINT#1,N$;&quot;,&quot;D$&quot;,&quot;;H$
+70 PRINT:GOTO 20
+RUN
+ NAME? MICKEY MOUSE
+ DEPARTMENT? AUDIO/VISUAL AIDS
+ DATE HIRED? 01/12/72
+ NAME? SHERLOCK HOLMES
+ DEPARTMENT? RESEARCH
+ DATE HIRED? 12/03/65
+ NAME? EBENEEZER SCROOGE
+ DEPARTMENT? ACCOUNTING
+ DATE HIRED? 04/27/78
+ NAME? SUPER MANN
+ DEPARTMENT? MAINTENANCE
+ DATE HIRED? 08/16/78
+ NAME? DONE
+OK</pre>
+
+  <h3>5.2.2 Accessing a Sequential File</h3>
+  <p>The program in Example 2 accesses the file <i>data</i>, created in the program in Example 1, and displays the name of everyone hired in 1978.</p>
+
+  <h4>Example 2</h4>
+<pre>10 OPEN &quot;I&quot;,#1,&quot;DATA&quot;
+20 INPUT#1,N$,D$,H$
+30 IF RIGHT$(H$,2)=&quot;78&quot; THEN PRINT N$
+40 GOTO 20
+50 CLOSE #1
+RUN
+ EBENEEZER SCROOGE
+ SUPER MANN
+Input past end in 20
+Ok</pre>
+  <p>The program in Example 2 reads, sequentially, every item in the file. When all the data has been read, line 20 causes an &quot;<span class="code">Input past end</span>&quot; error. To avoid this error, insert line 15, which uses the <span class="code">EOF</span> function to test for end of file:</p>
+  <pre>15 IF EOF(1) THEN END</pre>
+  <p>and change line 40 to <span class="code">GOTO 15</span>.</p>
+  <p>A program that creates a sequential file can also write formatted data to the diskette with the <span class="code">PRINT# USING</span> statement. For example, the following statement could be used to write numeric data to diskette without explicit delimiters:</p>
+  <pre>PRINT#1, USING&quot;####.##,&quot;; A, B, C, D</pre>
+  <p>The comma at the end of the format string serves to separate the items in the disk file.</p>
+  <p>The <span class="code">LOC</span> function, when used with a sequential file, returns the number of 128-byte records that have been written to or read from the file since it was opened.</p>
+
+  <h3>5.2.3 Adding Data to a Sequential File</h3>
+  <p>When a sequential file is opened in <span class="code">O</span> mode, the current contents are destroyed. To add data to an existing file without destroying its contents, open the file in append (<span class="code">A</span>) mode. </p>
+  <p>The program in Example 3 can be used to create, or to add onto a file called <i>names</i>. This program illustrates the use of <span class="code">LINE INPUT</span>. <span class="code">LINE INPUT</span> will read in characters until it sees a carriage return indicator, or until it has read 255 characters. It does not stop at quotation marks or commas.</p>
+  <h4>Example 3</h4>
+  <pre>10 ON ERROR GOTO 2000
+20 OPEN &quot;A&quot;, #1, &quot;NAMES&quot;
+110 REM ADD NEW ENTRIES TO FILE
+120 INPUT &quot;NAME&quot;; N$
+130 IF N$=&quot;&quot; THEN 200 `CARRIAGE RETURN EXITS INPUT LOOP
+140 LINE INPUT &quot;ADDRESS? &quot;; A$
+150 LINE INPUT &quot;BIRTHDAY? &quot;; B$
+160 PRINT#1, N$
+170 PRINT#1, A$
+180 PRINT#1, B$
+190 PRINT: GOTO 120
+200 CLOSE #1
+2000 ON ERROR GOTO 0</pre>
+  <p>In lines 10 and 2000 the <span class="code">ON ERROR GOTO</span> statement is being used. This statement enables error trapping and specifies the first line (2000) of the error handling subroutine. Line 10 enables the error handling routine. Line 2000 disables the error handling routine and is the point where GW-BASIC branches to print the error messages.</p>
+
+  <h2>5.3 Random Access Files</h2>
+  <p>Information in random access files is stored and accessed in distinct, numbered units called <i>records</i>. Since the information is called by number, the data can be called from any disk location; the program needn't read the entire disk, as when seeking sequential files, to locate data. GW-BASIC supports large random files. The maximum logical record number is 2<sup>32</sup> -1.</p>
+<p>The following statements and functions are used with random files:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+	<tr class="code"><td>CLOSE</td><td>FIELD</td><td>MKI$</td></tr>
+	<tr class="code"><td>CVD</td><td>LOC</td><td>MKS$</td></tr>
+	<tr class="code"><td>CVI</td><td>LOCK</td><td>OPEN</td></tr>
+	<tr class="code"><td>CVS</td><td>LOF</td><td>PUT</td></tr>
+	<tr class="code"><td>EOF</td><td>LSET/RSET</td><td>UNLOCK</td>
+	</tr><tr class="code"><td>ET</td><td>MKD$</td><td>&nbsp;</td></tr>
+</table>
+
+  <h3>5.3.1 Creating a Random Access File</h3>
+  <p>The following program steps are required to create a random data file:</p>
+  <ol>
+    <li><p>Open the file for random access (<span class="code">R</span>) mode. The following example specifies a record length of 32 bytes. If the record length is omitted, the default is 128 bytes.</p>
+      <pre>OPEN &quot;R&quot;, #1, &quot;<i>filename</i>&quot;, 32</pre>
+    </li>
+    <li><p>Use the <span class="code">FIELD</span> statement to allocate space in the random buffer for the variables that will be written to the random file:</p>
+      <pre>FIELD#1, 20 AS N$, 4 AS A$, 8 AS P$</pre>
+      <p>In this example, the first 20 positions (bytes) in the random file buffer are allocated to the string variable N$. The next 4 positions are allocated to A$; the next 8 to P$.</p>
+    </li>
+    <li><p>Use <span class="code">LSET</span> or <span class="code">RSET</span> to move the data into the random buffer fields in left- or right-justified format (L=left SET;R=right SET). Numeric values must be made into strings when placed in the buffer. <span class="code">MKI$</span> converts an integer value into a string; <span class="code">MKS$</span> converts a single-precision value, and <span class="code">MKD$</span> converts a double-precision value.</p>
+      <pre>LSET N$=X$
+LSET A$=MKS$(AMT)
+LSET P$=TEL$</pre>
+    </li>
+    <li><p>Write the data from the buffer to the diskette using the <span class="code">PUT</span> statement:</p>
+      <pre>PUT #1, CODE%</pre>
+    </li>
+  </ol>
+  <p>The program in Example 4 takes information keyed as input at the terminal and writes it to a random access data file. Each time the <span class="code">PUT</span> statement is executed, a record is written to the file. In the example, the 2-digit <span class="code">CODE%</span> input in line 30 becomes the record number.</p>
+  
+  <hr> 
+    <p>Note</p>
+    <p>Do not use a fielded string variable in an <span class="code">INPUT</span> or <span class="code">LET</span> statement. This causes the pointer for that variable to point into string space instead of the random file buffer.</p>
+  <hr>
+
+  <h4>Example 4</h4>
+  
+  <pre>10 OPEN &quot;R&quot;, #1, &quot;INFOFILE&quot;, 32
+20 FIELD#1, 20 AS N$, 4 AS A$, 8 AS P$
+30 INPUT &quot;2-DIGIT CODE&quot;; CODE%
+40 INPUT &quot;NAME&quot;; X$
+50 INPUT &quot;AMOUNT&quot;; AMT
+60 INPUT &quot;PHONE&quot;; TEL$: PRINT
+70 LSET N$=X$
+80 LSET A$=MKS$(AMT)
+90 LSET P$=TEL$
+100 PUT #1, CODE%
+110 GOTO 30</pre>
+
+  <h3>5.3.2 Accessing a Random Access File</h3>
+  <p>The following program steps are required to access a random file:</p>
+  <ol>
+    <li><p>Open the file in <span class="code">R</span> mode:</p>
+      <pre>OPEN &quot;R&quot;, #1, &quot;<i>filename</i>&quot;, 32</pre>
+    </li>
+    <li><p>Use the <span class="code">FIELD</span> statement to allocate space in the random buffer for the variables that will be read from the file:</p>
+      <pre>FIELD, #1, 20 AS N$, 4 AS A$, 8 AS P$</pre>
+      <p>In this example, the first 20 positions (bytes) in the random file buffer are allocated to the string variable N$. The next 4 positions are allocated to A$; the next 8 to P$.</p>
+      <hr> 
+        <p><b><i>Note</i></b></p>
+        <p>In a program that performs both <span class="code">INPUT</span> and <span class="code">OUTPUT</span> on the same random file, you can often use just one <span class="code">OPEN</span> statement and one <span class="code">FIELD</span> statement.</p>
+      <hr>
+    </li>
+    <li><p>Use the <span class="code">GET</span> statement to move the desired record into the random buffer.</p>
+      <pre>GET #1, CODE%</pre>
+      <p>The data in the buffer can now be accessed by the program.</p>
+    </li>
+    <li><p>Convert numeric values back to numbers using the convert functions: <span class="code">CVI</span> for integers, <span class="code">CVS</span> for single-precision values, and <span class="code">CVD</span> for double-precision values.</p>
+      <pre>PRINT N$
+PRINT CVS(A$)
+.
+.
+.</pre>
+    </li>
+  </ol>
+  <p>The program in Example 5 accesses the random file, <i>infofile</i>, that was created in Example 4. By inputting the 3-digit code, the information associated with that code is read from the file and displayed.</p>
+
+  <h4>Example 5</h4>
+  <pre>10 OPEN &quot;R&quot;,#1,&quot;INFOFILE&quot;,32
+20 FIELD #1, 20 AS N$, 4 AS A$, 8 AS P$
+30 INPUT &quot;2-DIGIT CODE&quot;;CODE%
+40 GET #1, CODE%
+50 PRINT N$
+60 PRINT USING &quot;$$###.##&quot;;CVS(A$)
+70 PRINT P$:PRINT
+80 GOTO 30</pre>
+  <p>With random files, the <span class="code">LOC</span> function returns the current record number. The current record number is the last record number used in a <span class="code">GET</span> or <span class="code">PUT</span> statement. For example, the following line ends program execution if the current record number in file#1 is higher than 99:</p>
+  <pre>IF LOC(1)&gt;99 THEN END</pre>
+  <p>Example 6 is an inventory program that illustrates random file access. In this program, the record number is used as the part number, and it is assumed that the inventory will contain no more than 100 different part numbers. </p>
+  <p>Lines 900-960 initialize the data file by writing <span class="code">CHR$(255)</span> as the first character of each record. This is used later (line 270 and line 500) to determine whether an entry already exists for that part number.</p>
+  <p>Lines 130-220 display the different inventory functions that the program performs. When you type in the desired function number, line 230 branches to the appropriate subroutine.</p>
+
+  <h4>Example 6</h4>
+  <pre>120 OPEN&quot;R&quot;,#1,&quot;INVEN.DAT&quot;,39
+125 FIELD#1,1 AS F$,30 AS D$, 2 AS Q$,2 AS R$,4 AS P$
+130 PRINT:PRINT &quot;FUNCTIONS:&quot;:PRINT
+135 PRINT 1,&quot;INITIALIZE FILE&quot;
+140 PRINT 2,&quot;CREATE A NEW ENTRY&quot;
+150 PRINT 3,&quot;DISPLAY INVENTORY FOR ONE PART&quot;
+160 PRINT 4,&quot;ADD TO STOCK&quot;
+170 PRINT 5,&quot;SUBTRACT FROM STOCK&quot;
+180 PRINT 6,&quot;DISPLAY ALL ITEMS BELOW REORDER LEVEL&quot;
+220 PRINT:PRINT:INPUT&quot;FUNCTION&quot;;FUNCTION
+225 IF (FUNCTION&lt;1)OR(FUNCTION&gt;6) THEN PRINT &quot;BAD FUNCTION NUMBER&quot;:GOTO 130
+230 ON FUNCTION GOSUB 900,250,390,480,560,680
+240 GOTO 220
+250 REM BUILD NEW ENTRY
+260 GOSUB 840
+270 IF ASC(F$) &lt; &gt; 255 THEN INPUT&quot;OVERWRITE&quot;;A$: IF A$ &lt; &gt; &quot;Y&quot; THEN RETURN
+280 LSET F$=CHR$(0)
+290 INPUT &quot;DESCRIPTION&quot;;DESC$
+300 LSET D$=DESC$
+310 INPUT &quot;QUANTITY IN STOCK&quot;;Q%
+320 LSET Q$=MKI$(Q%)
+330 INPUT &quot;REORDER LEVEL&quot;;R%
+340 LSET R$=MKI$(R%)
+350 INPUT &quot;UNIT PRICE&quot;;P
+360 LSET P$=MKS$(P)
+370 PUT#1,PART%
+380 RETURN
+390 REM DISPLAY ENTRY
+400 GOSUB 840
+410 IF ASC(F$)=255 THEN PRINT &quot;NULL ENTRY&quot;:RETURN
+420 PRINT USING &quot;PART NUMBER ###&quot;;PART%
+430 PRINT D$
+440 PRINT USING &quot;QUANTITY ON HAND #####&quot;;CVI(Q$)
+450 PRINT USING &quot;REORDER LEVEL #####&quot;;CVI(R$)
+460 PRINT USING &quot;UNIT PRICE $$##.##&quot;;CVS(P$)
+470 RETURN
+480 REM ADD TO STOCK
+490 GOSUB 840
+500 IF ASC(F$)=255 THEN PRINT &quot;NULL ENTRY&quot;:RETURN
+510 PRINT D$:INPUT &quot;QUANTITY TO ADD&quot;;A%
+520 Q%=CVI(Q$)+A%
+530 LSET Q$=MKI$(Q%)
+540 PUT#1,PART%
+550 RETURN
+560 REM REMOVE FROM STOCK
+570 GOSUB 840
+580 IF ASC(F$)=255 THEN PRINT &quot;NULL ENTRY&quot;:RETURN
+590 PRINT D$
+600 INPUT &quot;QUANTITY TO SUBTRACT&quot;;S%
+610 Q%=CVI(Q$)
+620 IF (Q%-S%)&lt;0 THEN PRINT &quot;ONLY&quot;;Q%;&quot;IN STOCK&quot; :GOTO 600
+630 Q%=Q%-S%
+640 IF Q%= &lt; CVI(R$) THEN PRINT &quot;QUANTITY NOW&quot;;Q%;&quot;REORDER LEVEL&quot;;CVI(R$)
+650 LSET Q$=MKI$(Q%)
+660 PUT#1,PART%
+670 RETURN
+680 REM DISPLAY ITEMS BELOW REORDER LEVEL4
+690 FOR I=1 TO 100
+710 GET#1,I
+720 IF CVI(Q$)&lt;CVI(R$) THEN PRINT D$;&quot;QUANTITY&quot;;CVI(Q$) TAB(50) &quot;REORDER LEVEL&quot;;CVI(R$)
+730 NEXT I
+740 RETURN
+840 INPUT &quot;PART NUMBER&quot;;PART%
+850 IF(PART% &lt; 1)OR(PART% &gt; 100) THEN PRINT &quot;BAD PART NUMBER&quot;:GOTO 840 ELSE GET#1,PART%:RETURN
+890 END
+900 REM INITIALIZE FILE
+910 INPUT &quot;ARE YOU SURE&quot;;B$:IF B$ &lt; &gt; &quot;Y&quot; THEN RETURN
+920 LSET F$=CHR$(255)
+930 FOR I=1 TO 100
+940 PUT#1,I
+950 NEXT I
+960 RETURN</pre>
+</body>
+</html>

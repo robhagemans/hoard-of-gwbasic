@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>STRIG(n) Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow the use of a joystick by enabling or disabling the trapping of its buttons.</p>
+<h4>Syntax:</h4>
+<pre><b>STRIG</b>(<i>n</i>) <b>ON</b>
+<b>STRIG</b>(<i>n</i>) <b>OFF</b>
+<b>STRIG</b>(<i>n</i>) <b>STOP</b></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is 0, 2, 4, or 6, corresponding to the buttons on the joystick, where:</p>
+<p>0 is button A1</p>
+<p>2 is button B1</p>
+<p>4 is button A2</p>
+<p>6 is button B2</p>
+<h4>Examples:</h4>
+<pre>STRIG(<i>n</i>) ON </pre>
+<p>Enables trapping of the joystick buttons. After this statement is executed, GW-BASIC checks to see if this button has been pressed before executing following statements.</p>
+<pre>STRIG(<i>n</i>) OFF </pre>
+<p>Disables GW-BASIC from checking the state of the button.</p>
+<pre>STRIG(<i>n</i>) STOP</pre>
+<p>Disables trapping of a given button through the <span class="code">ON STRIG(<i>n</i>)</span> statement. But, any pressings are remembered so that trapping may take place once it is reenabled.</p>
+
+</body>
+</html>

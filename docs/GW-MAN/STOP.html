@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>STOP Statement</h1>
+<h4>Purpose:</h4>
+<p>To terminate program execution and return to command level.</p>
+<h4>Syntax:</h4>
+<pre><b>STOP</b></pre>
+<h4>Comments:</h4>
+<p><span class="code">STOP</span> statements may be used anywhere in a program to terminate execution. When a <span class="code">STOP</span> is encountered, the following message is printed:</p>
+<pre>Break in line nnnnn</pre>
+<p>Unlike the <span class="code">END</span> statement, the <span class="code">STOP</span> statement does not close files.</p>
+<p>GW-BASIC always returns to command level after a <span class="code">STOP</span> is executed. Execution is resumed by issuing a <span class="code">CONT</span> command.</p>
+<h4>Examples:</h4>
+<pre>10 INPUT A, B, C
+20 K=A^2*5.3: L=B^3/.26
+30 STOP
+40 M=C*K+100: PRINT M
+RUN
+ ? 1, 2, 3
+BREAK IN 30
+PRINT L
+ 30.76923
+CONT
+ 115.9</pre>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SPACE$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a string of <span class="code"><i>x</i></span> spaces.</p>
+<h4>Syntax:</h4>
+<pre><b>SPACE$</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>x</i></span><i> </i>is rounded to an integer and must be within the range of 0 to 255 (see <a href="SPC.html">SPC</a> function).</p>
+<h4>Examples:</h4>
+<pre>10 FOR N=1 TO 5
+20 X$=SPACE$(N)
+30 PRINT X$; N
+40 NEXT N
+RUN
+ 1
+  2
+   3
+    4
+     5</pre>
+<p>Line 20 adds one space for each loop execution.</p>
+
+</body>
+</html>

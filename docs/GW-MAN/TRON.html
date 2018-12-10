@@ -1,0 +1,35 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>TRON/TROFF Commands</h1>
+<h4>Purpose:</h4>
+<p>To trace the execution of program statements.</p>
+<h4>Syntax:</h4>
+<pre><b>TRON</b>
+<b>TROFF</b></pre>
+<h4>Comments:</h4>
+<p>As an aid in debugging, the <span class="code">TRON</span> (trace on) command enables a trace flag that prints each line number of the program as it is executed. The numbers appear enclosed in square brackets.</p>
+<p><span class="code">TRON</span> may be executed in either the direct or indirect mode.</p>
+<p>The trace flag is disabled with the <span class="code">TROFF</span> (trace off) command, or when a <span class="code">NEW</span> command is executed.</p>
+<h4>Examples:</h4>
+<pre>TRON
+10 K=10
+20 FOR J=1 TO 2
+30 L=K + 10
+40 PRINT J; K; L
+50 K=K+10
+60 NEXT
+70 END
+RUN
+ [10][20][30][40] 1 10 20
+ [50][60][30][40] 2 20 30
+ [50][60][70]
+TROFF</pre>
+
+</body>
+</html>

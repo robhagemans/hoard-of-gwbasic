@@ -1,0 +1,415 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Two: Hardware, Software, BASIC, and DOS</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Two: Hardware, Software, BASIC, and DOS</H2>
+<BR>
+</center>
+
+<P>
+In the first chapter we learned how to write a simple BASIC program.  Now we will take a break from programming to learn more about BASIC itself and about your personal computer.  This chapter will prepare you for all the programming jobs that we will tackle in the remainder of the book.
+</P>
+<P>
+All computers, from the smallest personal computers to the largest number crunchers, are made of three basic parts.  The most obvious piece is the central processor.  The CENTRAL PROCESSING UNIT (CPU) is the heart of a computer.  In a strict sense, it is the computer.  The CPU's job is to execute instructions.  Instructions, to a CPU, consist of all the little steps that actually make up a single BASIC statement.  The work of a CPU is rather simple.  It can move information from one location to another, compare values, or perform arithmetic (multiply, divide, add, subtract).  The BASIC statements that we will learn in this book result in one or more of these three functions when they are executed inside the CPU.
+</P>
+<P>
+In personal computers the CPU is contained in a rather large integrated circuit, or chip.  These chips have names such as 8088, 286, or 386SX.  The chief difference among processor chips is speed.  For example, the latest IBM personal computers have processor chips that are over ten times faster than the early IBM personal computers.  Thus, a calculation that took one second for a machine manufactured about 1985, can now be performed in less than one-tenth of a second.
+</P>
+<P>
+The second piece of every computer system is MEMORY.  Before a CPU can perform its lightning-fast calculations, it has to have some numbers to crunch. All input to the processor, and the results of its processing, must be stored in memory.  Memory works just like a pad of paper.  It's where the computer writes information it needs to remember.  Electronic computer memory holds information using binary numbers.  This is that language of ones and zeros that we talked about earlier.  All information, not just numbers, gets stored in binary in a computer's memory.  For example, a capital A gets stored in binary as 0100 0001.  The number 7 is 0011 0111.  Both the letter A and the number 7 are stored as sequences of eight positions.  Each position is set to either one or zero.  In a personal computer, each position is called a BIT, and a set of eight bits is called a BYTE.
+</P>
+<P>
+ To represent letters and numbers, each byte must use a different combination of on and off bits.  Are there enough?  Let's see.  The alphabet consists of twenty-six letters that can be either upper case or lower case.  This gives us fifty-two letters.  Add to that the ten numerals, 0 through 9.  Finally, add all the special characters such as !#$%&*() and the period.  All of these characters, numbers, and symbols are represented by different combinations of the eight bits.  Indeed, with eight bits, we can represent 256 different characters.  The eight bits provide plenty of combinations.
+</P>
+<P>
+Computer memory would have a hard time storing something like the letter A.  However, when the A is stored in binary, it can be represented by a set of tiny switches.  Imagine a row of eight small light bulbs.  If a bit is one, then the light is on.  The A would be stored, in lights, as: off on off off off off off on.  This is exactly how computer memory works.  The integrated circuits, or memory chips, that make up memory hold millions of tiny switches that are set either on or off depending on what they are storing.
+</P>
+<P>
+You might expect that a personal computer would need a lot of memory chips to hold even a screen full of information.  You would be right!  Most personal computers today have somewhere between 256 thousand bytes and one million bytes.  Most of the integrated circuits inside your computer are memory chips.
+</P>
+<P>
+When electronic computers were first developed during World War II, they were "programmed" with dials and switches.  These early computers did not use programming languages like BASIC.  Memory was used to hold only the information being processed.  This information consisted of numbers used in elaborate mathematical calculations.  Once the numbers were entered into the computer memory, the computer operators adjusted the dials and switches to set how the computer would handle the numbers.
+</P>
+<P>
+It is easy to see that this kind of processing is awkward.  To run a different program, a person had to change all the dials and switches.  As World War II drew to a close, a new kind of computer was invented.  It was called the stored program computer.  All personal computers are of this type.  In a stored program computer, the computer program is held in memory along with the information to be processed.  This simple idea was a revolutionary advancement.  In modern terms, we distinguish between DATA, which is the information, and the computer PROGRAM.  Both are held as binary codes in memory.  Data are the pieces of information held in variables.  Data are also the information placed as output on the computer screen.  The program is the collection of instructions, like PRINT and INPUT, which perform the calculations and move the data to the screen.
+</P>
+<P>
+The final part of a modern computer is not quite so obvious as the CPU and the memory.  However, it is just as important.  To be of any use, we must have ways of getting programs into and out of the computer.  We need to perform input and output.  The most familiar Input/Output (I/O) devices are the keyboard for input and the screen for output.  There are many other types of I/O devices.  For example, output can be sounds, printed paper, data on floppy disks, or magnetic tapes.  Input can come from a joystick, light pen, touch screen, or the same floppy disks used to record output.  We may take the I/O devices for granted, but the computer must contain specialized circuits to make them work.
+</P>
+<P>
+We have seen that computers are made up of a CPU, memory, and some I/O devices.  All of these components are hardware.  Hardware is what you see when you look at a computer.  It is the chips, disks, screen, and everything that takes up space.  Software, on the other hand, consists of programs and data.  A computer without software is just a dead beast.  The software makes the circuits move information around, generates the dazzling displays, and brings the appearance of intelligence to a block of transistors.  BASIC programs are software.
+</P>
+
+<H3>DISK OPERATING SYSTEM (DOS)</H3>
+
+<P>
+When you turn on the electrical power to your personal computer one of the first things to happen is that the Disk Operating System (DOS) gets loaded into memory.  DOS is a program.  It is software.  DOS is called a <i>Disk</i> Operating System because it is stored on a disk.  The job of an operating system is to make life simple for the computer programmer.  DOS manages the hardware.  When your program runs, it passes information back and forth to DOS.  For example, when you PRINT something to the screen, your program does not have to know what kind of screen is attached to the computer.  Similarly, if you printed some output on a printer, your BASIC program would not have to know what kind of printer was used, how fast it printed, and how to make it start and stop.  All these details, and many others, are handled by DOS.
+</P>
+<P>
+If DOS just managed the insides of your personal computer we might not be too interested in it.   So why do we need to learn about DOS?  In addition to its other chores, DOS also manages computer disk files.
+</P>
+<P>
+A FILE is a collection of information.  The information can be programs or data.   The early personal computers stored their information on cassette tapes.  To do this, hardware inside the personal computer moved the binary information out of memory and recorded it on magnetic tape.  If a bit were ON in memory, then it would be ON when written to the tape.   When the cassette tape was played back, or read, the status of the bits would be moved back into memory.  In this way, programs and data could be permanently stored even when the computer was turned off.
+</P>
+<P>
+Storing files on cassette tape was useful, but it could be slow.   Say you needed to get to a program that was tenth on your tape.  You had to stop your computing to find the tenth program and then read it into memory.  Computer users needed a way to get to their files very quickly.   The floppy disk satisfied this need.   A floppy disk is really nothing more than a disk of magnetic tape.   The disk itself is a thin piece of plastic with a magnetic coating.  To locate a file recorded on the disk, your computer does not have to start at the beginning and read until it finds the file.  Instead, the floppy disk spins while recording heads on either side of the disk move the bits on or off.   To retrieve a file, the computer, under the control of DOS, moves the read/write head directly to the needed program.  This is much faster than using cassette tapes.
+</P>
+<P>
+Floppy disks are very popular.  The disks themselves come in a variety of sizes.  The two most popular are 5.25 inches square or 3.5 inches.   Within these two sizes, different disks can hold different amounts of data.  See your computer manuals for exactly which kind of floppy disk to use.  Whatever you have, treat your disks with care.  Floppy disks are easily damaged.  Don't touch the surface of the disk.  Be sure that they are not scratched or folded.  The 3.5-inch disk is somewhat sturdier than the 5.25-inch kind.  All require careful handling.
+</P>
+<P>
+Although floppy disks win the speed race over cassette tape, they are still somewhat slow, and they do not hold enough data to be really convenient.   The solution to both the speed and the capacity problems is the hard disk.  A hard disk is very similar to a floppy disk.  However, instead of a single round disk of flexible plastic, a hard disk uses a short stack of hard platters.  Each platter is made of hard plastic and is covered on both sides with a magnetic coating.  The hard disks spin very rapidly.  As they spin, a set of read/write heads skim over the surfaces.   The hard disk can hold more than a floppy because it has many more surfaces on which to record files.  Also, since each platter is stiff, it can spin more quickly, thus moving more bits into and out of memory in a shorter period of time.  Hard disks, however, are more fragile than floppy disks.  Because of this, a hard disk is usually permanently installed inside your computer.  To move information from one computer to another you can copy a file from the hard disk to a floppy disk.  The floppy disk is easy to transport.
+</P>
+
+<H4>FILES</H4>
+Regardless of whether you use a hard disk or floppy disks, you will need to learn some DOS commands.  These commands will let you create, move, copy, and delete files.    Before getting into the commands, let's look more closely at files.
+</P>
+<P>
+DOS file names can appear complicated but they are really very simple.  A file name itself is made of two pieces.  The first part is the FILE NAME, which may contain from one to eight characters and numbers.  The second part of the name is called an EXTENSION and it can be from one to three characters or numbers.  The file name and the extension are separated by a period.    In manuals, this will appear as <i> filename.ext.  </i>  For an example, suppose we had saved the program from chapter one.  We might name it blastoff.bas.  DOS needs to know not only the filename, but also where to find this file.  The name that DOS would use is called the FILE PATH.  The file path includes the file name.  Here is an example: 
+<P><PRE>
+C:\PGMS\BLASTOFF.BAS
+</P></PRE>
+Let's look at this in detail.   The C: identifies the disk drive.  By convention, the A and B drives are usually floppy devices.  If you have a hard disk drive, it will be called the C drive.  The first backslash (\) identifies something called the root directory.  A DIRECTORY is simply a list of files and other directories.  Think of a directory as a filing cabinet drawer.  The drawer may contain file folders of programs and data, or pointers to other filing cabinet drawers.  The word PGMS following the backslash is the name of a directory.  After that directory name we have another backslash and the file name.
+</P>
+<P>
+The directory organization in DOS is an upside down branching tree structure.   It all begins with a root directory.  Each disk, floppy or hard disk, has its own root directory.  You could keep all of your files in the root directory itself.  Indeed, you will probably do this with floppy disks.  However, it might be neater to organize your work in separate filing cabinet drawers.  A hard disk will hold so many files that separate directories, or subdirectories, are practically required.  Keeping all of your files in the root directory would be like keeping all of your file folders in a pile on the floor.  If you decide to use directories, they will start out with a definition in the root directory.
+</P>
+<P>
+Be sure you understand file names before going on.  Just remember that a file path is made up of:
+</P>
+<P>
+Disk Drive - A, B, or C followed by a colon (:)
+<BR>
+Backslash identifying the root directory (\)
+<BR>
+Directory Name followed by another backslash and the filename.ext
+</P>
+<P>
+Do not confuse the backslash (\) with a slash (/).  Although they look similar, they have different meanings to a computer.
+</P>
+
+<H3>DOS COMMANDS</H3>
+<P>
+This is not a book about DOS.  This is a book about BASIC programming.  Therefore, the DOS commands that we will learn are only those needed to get started writing programs.  Of the more than fifty DOS commands supplied with your computer, we will learn less then ten.  As you become a better programmer and a better user of your personal computer, you will certainly need to learn more about DOS.  The following commands may form a good start, but they are only a start.  If you get hooked on computers and programming be sure to read more about DOS.
+</P>
+
+<H4>DIR (DIRECTORY)</H4>
+<P>
+The directory command lists the file names and subdirectories contained in a directory.   The listing of files will include the filename and extension for each file, plus the date and time the file was last changed.  The directory command may be entered by itself:
+<P><PRE>
+DIR
+</P></PRE>
+or it may be entered with either of two options:
+<P><PRE>
+DIR/P
+</P></PRE>
+In this case, the DIR command is followed by a slash (/), not a backslash (\), and the letter P.  This causes DOS to stop listing files once it has filled up your screen.  The /P stands for PAUSE.  If you have a great number of files, it will be necessary to use this /P option.  Otherwise, the screen fills up and scrolls away before you have a chance to read it!
+</P>
+<P>
+The other option is also useful if you have many files.   In this form, the command
+<P><PRE>
+DIR/W
+</P></PRE>
+will list  the  files across the width of your screen.  The wide display does not include the date and time information for each file.
+</P>
+<P>
+Try out the DIR command along with its two options.  You can't do any damage with it.
+</P>
+
+<H4>FORMAT</H4>
+
+<P>
+In contrast to the harmless DIR command, FORMAT is a powerful and dangerous command.  FORMAT is used to prepare a disk for use by DOS.  Before a new floppy disk can be used it must be formatted.  Once the FORMAT completes, DOS can write new files onto the disk.  The format process checks the diskette for damage and builds the root directory among other things.  FORMAT is dangerous because it destroys any data, which may already be on a disk.  The command may be entered as:
+<P><PRE>
+FORMAT A:
+</P></PRE>
+to FORMAT  a  new  floppy disk in drive A:.  Of course, any disk drive may be specified, even a hard disk identified as drive C:.  Remember: FORMATTING A DISK DESTROYS ALL DATA ON THAT DISK.  You will probably never have the need to FORMAT a hard disk.  As a rule, only FORMAT new diskettes.
+</P>
+<P>
+If you have a new floppy disk, place it in the correct floppy disk drive, probably A: or B:, and try out the FORMAT command.  You can use this diskette to store your BASIC programs as you write them.
+</P>
+<H4>MKDIR (MAKE DIRECTORY)</H4>
+<P>
+The MKDIR command creates a directory.  This new directory will be a SUBDIRECTORY of either the root directory or another directory.  For our use, we will assume that you need to create a subdirectory off of your root directory for a floppy diskette in drive A:.  To do this, enter the command:
+<P><PRE>
+MKDIR A:\PGMS
+</P></PRE>
+This creates a directory called PGMS.  You might use this directory to store programs.   If you have a hard disk in your personal computer, you might wish to create your directory on it.  To do this, enter the command:
+<P><PRE>
+MKDIR C:\PGMS
+</P></PRE>
+If a directory by the name of PGMS already exists, DOS will issue the message:
+<P><PRE>
+Unable to create directory
+</P></PRE>
+and you will have to think of a different name for your directory other than pgms.
+
+</P>
+<H4>CHDIR (CHANGE DIRECTORY)</H4>
+<P>
+Once a directory has been created, the CHDIR command may be used to instruct DOS to make it the CURRENT DIRECTORY.  Files may be easily saved and read on the current directory; and the DIR command will list the contents of the current directory.  If you used the MKDIR command to create a directory for programs on your A: diskette, enter this command to make it the current directory:
+<P><PRE>
+CHDIR A:\PGMS
+</P></PRE>
+If, instead, you created the \PGMS subdirectory on your hard disk, use the C: instead of the A: in the file path.   After you have created a new directory and used this command to make it the current directory, try out DIR.  The display should look similar to this:
+<P><PRE>
+Volume in drive C has no label
+Directory of  C:\PGMS
+
+.             &lt;DIR&gt;      1-09-91  12:33p
+..            &lt;DIR&gt;      1-09-91  12:33p
+         2 File(s)  13041664 bytes free
+</PRE></P>
+<P>
+You can see that the directory \pgms already contains two entries!  These are special pointers that are placed in every directory.  They are called "dot" and "dot-dot."  You may ignore them.
+</P>
+<P>
+To change back to the root directory from your newly created directory, enter the command:
+<P><PRE>
+CHDIR \
+</P></PRE>
+<H4>COPY</H4>
+<P>
+The COPY command is used to copy files from one directory to another.  We will use this command often to make copies of the BASIC programs.  The directories holding the copied file can be on the same disk, or they may be on different disks.  For example, if you have a hard disk, you may want to keep one directory full of finished BASIC programs while another holds those you are working on.  Also, you will want to create BACKUP copies of your programs on floppy disks that you can store in a safe place.  These backup files will save the day in case your hard disk or ordinary floppy disk is destroyed.  Copies also let you share programs with friends.
+</P>
+<P>
+The COPY command names the file being copied along with the new directory and name to use.  The name may or may not be changed during the copy operation.  Here are several examples.
+<P><PRE>
+COPY C:\PGMS\HELLO.BAS   A:\PGMS
+</P></PRE>
+The above example copies the file hello.bas from the \pgms directory on your C: disk to the \pgms directory on your  A: disk.
+<P><PRE>
+COPY C:\PGMS\HELLO.BAS   C:\PGMS\HELLO.BKU
+</P></PRE>
+This example creates a backup copy of hello.bas with a new name of hello.bku.  After the copy, hello.bas still exists.
+<P><PRE>
+COPY C:\PGMS\*.*   A:\PGMS
+</P></PRE>
+<P>
+This final example is one we will use a lot.  Notice that the file name to be copied is *.*.  This is not a real file name.  It is special.  The asterisks are <i>wildcard </i>characters.  These tell DOS to copy any file names and any extensions.  In other words, COPY all files in the \pgms directory on the C: drive and place them in the \pgms directory on the A: drive.  This is a useful way to  make  backup copies of your programs.
+</P>
+
+<H4>ERASE</H4>
+<P>
+ERASE is an easy command to understand.  It erases a file from a directory.  To use, just enter ERASE followed by the name of the file you no longer need.  For example:
+<P><PRE>
+ERASE C:\PGMS\HELLO.BKU
+</P></PRE>
+This example erases the file hello.bku from the \pgms directory on the C: disk.   The ERASE command can be dangerous.  It can use the same wildcard characters that we learned about with COPY.  You can ERASE many files with one command.  Be careful.  It may be best to avoid the wildcard characters with ERASE.  Be sure you know exactly what you are erasing.
+</P>
+
+<H4>RMDIR (REMOVE DIRECTORY)</H4>
+
+<P>
+The RMDIR command acts like ERASE, except RMDIR will remove an entire directory.  This would be a dangerous command except that RMDIR requires that the directory be empty before it will be removed.  Here is an example:
+<P><PRE>
+RMDIR C:\PGMS
+</P></PRE>
+If you attempt to remove a directory that is not empty, DOS will issue the message:
+<P><PRE>
+Invalid path, not directory,
+or directory not empty
+</P></PRE>
+Just for fun, you may try making  (MKDIR) and removing (RMDIR) a few directories.
+</P>
+<H4>TYPE</H4>
+<P>
+The final DOS command we will study is TYPE.   This command causes DOS to list the contents of a file on your screen.  To use, enter TYPE followed by a file path.  For example:
+<P><PRE>
+TYPE A:READ.ME
+</P></PRE>
+This example will list a file called read.me from the root directory of the A: disk.  Of course, any file path could be used with TYPE.  When executing the TYPE command, DOS simply displays the entire file on the screen.    If the file is larger than one screen, the first portion will SCROLL off the top of the screen as new lines are added to the bottom.  This happens so quickly that it is impossible to read the text.   The TYPE command, however, can be made to pause.  Press the CTRL and the S key at the same time.  This halts the display.  Pressing CTRL-S again will allow DOS to continue.    We won’t have much use for the TYPE command while writing BASIC programs, but it is useful for investigating new files.
+</P>
+<P>
+Our study of DOS commands is complete.  We have learned how to:
+</P>
+<P>
+<UL>
+<LI>List the contents of a directory with the DIR command
+<LI>FORMAT a new diskette
+<LI>Make a new directory with the MKDIR command
+<LI>Use CHDIR to change the current directory
+<LI>COPY files from one directory to another
+<LI>ERASE unwanted files
+<LI>Remove entire empty directories with RMDIR and, list the contents of a file on the screen with TYPE.
+</UL>
+<P>
+Before we leave DOS altogether, one point needs to be emphasized.  MAKE BACKUP COPIES OF YOUR PROGRAMS.   Use the COPY command generously to make copies of the programs you write.  Few things in life can be as disappointing as losing many hours of programming work to a flicker of electrical power or a damaged floppy disk.   Keep two copies of your work.  One copy can be your working disk where you create new programs and change old programs.  On the other diskette, copy all the files you would miss if your working disk were destroyed.
+</P>
+
+
+<H3>BASIC IS A PROGRAM TOO</H3>
+<P>
+We already learned that when your program is running on your personal computer that it is using services provided by DOS.  That gives us two programs in your computer's memory at the same time.  There is a third.  BASIC is a program too.  Your programs are written in the BASIC <i>language </i>and are executed by the BASIC <i>interpreter</i>.  An interpreter is a program that translates programming commands that make sense to you into the binary instructions that make sense to the CPU.  Therefore, when you ran the little program in chapter one, you actually had three programs running concurrently: your program of BASIC statements, the BASIC interpreter that converted the statements into MACHINE CODE, and DOS which provided services such as placing your words on the screen.
+</P>
+<P>
+Why is this important?  The BASIC interpreter does more than just convert statements into machine code.   It provides a host of services to make life easier for you, the programmer.  BASIC helps you WRITE programs.
+</P>
+<P>
+The BASIC interpreter is started on your IBM Personal Computer by typing BASICA while in DOS.  This causes DOS to locate a file called BASICA.COM, load it into a special location in memory, and run it.    When BASIC starts, it clears the screen and displays a title and the copyright information.    Now you are ready to enter BASIC commands.  At this point, anything you type will be handled by the BASIC EDITOR.   An editor is a program that lets you enter program statements, list all or parts of a program, and helps you make changes to statements already entered.
+</P>
+<P>
+If you enter line numbers, BASIC assumes you are writing a program and will place the line in memory to execute later.  As we saw in chapter one, BASIC stores the lines of your program in memory in order by line number.   This does not have to match the order that you enter the lines.  You can start in the middle of the program, like we did, and enter lines 60, 50, and 30.  The order of entry is not important.  BASIC stores these lines in the order 30, 50, 60.    Incidentally, the exact numbering is not important.  We could as easily use 3, 5, and 6.  The order is the same.
+</P>
+<P>
+On the other hand, if you enter something without a line number then BASIC assumes you have entered a command and will execute it immediately.  Even BASIC programming statements may be entered without line numbers!  For example, enter the CLS command without a line number.      BASIC immediately clears the screen.   Try it.  Other BASIC commands can be used to display your programs, produce a copy on a printer, or save a program as a disk file.  All of these kind are immediate commands.
+</P>
+<P>
+Here is a short description of some of the more useful immediate commands.
+</P>
+
+<H3>BASIC COMMANDS</H3>
+<P>
+</P>
+
+<H4>LIST</H4>
+<P>
+The LIST command displays, in order, all of the program lines currently in memory.  To see how this works, enter the program from chapter one:
+<P><PRE>
+10 CLS
+20 PRINT "Please type your name and press the ENTER key"
+30 INPUT WHO$
+40 CLS
+50 PRINT WHO$ "is going to"
+60 PRINT "Blast Off With BASIC !"
+</P></PRE>
+Next, type RUN just to make sure that the program works correctly and that you entered it without errors.  Let's try out using CLS as an immediate command.  You should be looking at a blank screen.  Now enter LIST.  A complete listing of your program should appear on your screen.
+</P>
+<P>
+LIST can also display just a few lines of your program.  This is helpful for the longer programs that fill up more than one screen.  To do this, just add the line number or line numbers to be LISTed.  Try this:
+<P><PRE>
+LIST 30-50
+</P></PRE>
+Of course, a single line can be displayed, too.
+<P><PRE>
+LIST 60
+</P></PRE>
+LIST is a command you will use a lot.  Once your program is on the screen, you can use the arrow keys to move the cursor up and change the lines you have already entered.   This is editing.  Whenever you make a change to a line of BASIC, you must press the ENTER key.  Try this now.  Make some changes to the program.  Change the words within the quotation marks on the PRINT statements.  You may even wish to use the INSERT and DELETE keys on your keyboard.  Use CLS and LIST to make sure your changes are right.
+</P>
+<P>
+Take some time to feel comfortable LISTing and editing your program.  You will be doing this often.  Indeed, since LIST is used so frequently, the command has been assigned to the F1 function key.  Press F1 and the command LIST will appear on your screen.   You may then press ENTER to list your entire program, or add line numbers and then press ENTER.  The F1 key makes the LIST command very easy to use.
+<P><PRE>
+LLIST
+</P></PRE>
+A command very similar to LIST is LLIST.  This works exactly the same as LIST except the program is printed on a printer rather than the screen.
+</P>
+
+<H4>SAVE</H4>
+<P>
+SAVE causes BASIC to write the program now in memory into a disk file.  The name of the file must follow the SAVE command and must be typed inside of quotation marks.  To save our first program as blastoff.bas in a directory named \pgms, on disk drive C:, enter this command:
+<P><PRE>
+SAVE "C:\PGMS\BLASTOFF"
+</P></PRE>
+Note that we did not include the EXTENSION portion of the file name in our command.   This is because BASIC assumes that your BASIC programs have an extension of .BAS.  As long as we want to have a file named blastoff.bas we do not have to include the .bas.  We can, however, use a different extension.
+<P><PRE>
+SAVE "C:\PGMS\BLASTOFF.BKU"
+</P></PRE>
+This command creates a file called blastoff.bku.  The .bku does not mean anything special to BASIC.  We know, however, that we have just created a backup file for safe keeping.
+</P>
+<P>
+For convenience, the SAVE command is assigned to function key F4.
+</P>
+<P>
+<H4>LOAD</H4>
+<P>
+Once a program has been saved to a disk file, it may be placed back into memory with the LOAD command.  To use LOAD, type in the file name just as you would with SAVE.  The file path must be inside the quotation marks.  If the file name extension is bas, then you do not have to include it.  Here is an example that will LOAD the program we just saved:
+<P><PRE>
+LOAD "C:\PGMS\BLASTOFF.BKU"
+</P></PRE>
+Since the LOAD command is used frequently it, like LIST, is assigned to a function key.  Just press F3, and LOAD " will appear.  Finish filling in the file name, add the closing quotation marks, and press ENTER.
+</P>
+<H4>DELETE</H4>
+<P>
+The DELETE command removes lines of your BASIC program from memory.  You may specify either a single line number to be deleted, or a range of line numbers.  If no line numbers are specified then the entire program will be deleted from memory.  DELETE does not remove a copy of the program that is stored on disk.  An example will clarify how DELETE works:
+<P><PRE>
+DELETE 20-50
+</P></PRE>
+This command causes lines 20 through 50 to be deleted from the program.  Try deleting some of the lines from the program we created in chapter one.  Then use the LIST command to display the result.
+</P>
+
+<H4>RUN</H4>
+<P>
+RUN, in its plain form, executes the BASIC program currently in memory.  This is how we have used it so far.  A file name may also be added to the command  (in quotation marks, of course), to cause a program to be loaded from disk and then run.  This would be the same as entering LOAD followed by a plain RUN.  For example, the command
+<P><PRE>
+RUN "C:\PGMS\BLASTOFF"
+</P></PRE>
+will get the blastoff.bas program from the \pgms directory, load it into memory and start it running.  After the program runs, it is still in memory (unless you used DELETE).    You may run the same program again simply by typing:
+<P><PRE>
+RUN
+</P></PRE>
+As you might imagine, RUN is a very popular command.  For this reason, it has been assigned to function key F2.    The RUN on F2 is only the plain form.  You cannot add the file name.
+</P?
+<H4>SYSTEM</H4>
+<P>
+We used the command BASICA to start the BASIC interpreter.  The command SYSTEM will stop it.  When you are completely finished editing and running BASIC programs, enter SYSTEM to return to DOS.  Be sure that all your programs are saved before issuing this command.   SYSTEM does not automatically save your programs or remind you of unsaved changes to your programs.
+</P>
+
+<H3>COMMANDS TO REMEMBER</H3>
+<P>
+This chapter has prepared you to be a BASIC programmer.  These eight DOS commands and seven BASIC commands provide you with the skills to start programming.  Review this list and make sure you remember each command.
+</P>
+<H4>DOS COMMANDS</H4>
+
+<UL>
+<LI> DIR  Displays the contents of the current file directory.
+<LI< FORMAT  Prepares a new disk for use by DOS.  Any files already on the disk are destroyed by FORMAT.
+<LI> MKDIR  Creates a new directory.
+<LI> CHDIR	Changes the current directory.
+<LI> COPY   Copies a file from one directory or disk to  another.
+<LI> ERASE  Removes a file from a directory.
+<LI> RMDIR	Removes an empty directory.
+</UL>
+</P>
+<P>
+
+<H4>BASIC COMMANDS</H4>
+
+<UL>
+<LI> LIST  Displays the BASIC program currently in memory.
+<LI> LLIST Prints a BASIC program on a printer.
+<LI> SAVE  Copies a BASIC program from memory to disk.
+<LI> LOAD  Copies a BASIC program from disk to memory.
+<LI> DELETE Deletes lines from the BASIC program currently in memory.
+<LI> RUN  RUN has two forms.  One executes the BASIC program currently loaded into memory.  The other loads a program from disk and then executes it.
+<LI> SYSTEM	SYSTEM stops the BASIC interpreter.  No BASIC programs can run without the BASIC interpreter.
+</UL>
+Now let's write some software!
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+</BODY>
+</HTML>
+
+

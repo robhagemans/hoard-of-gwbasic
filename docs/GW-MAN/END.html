@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>END Statement</h1>
+<h4>Purpose:</h4>
+<p>To terminate program execution, close all files, and return to command level.</p>
+<h4>Syntax:</h4>
+<pre><b>END</b></pre>
+<h4>Comments:</h4>
+<p><span class="code">END</span> statements may be placed anywhere in the program to terminate execution.</p>
+<p>Unlike the <span class="code">STOP</span> statement, <span class="code">END</span> does not cause a &quot;<span class="code">Break in line <i>xxxx</i></span>&quot; message to be printed.</p>
+<p>An <span class="code">END</span> statement at the end of a program is optional. GW-BASIC always returns to command level after an <span class="code">END</span> is executed.</p>
+<p><span class="code">END</span> closes all files.</p>
+<h4>Examples:</h4>
+<pre>520 IF K&gt;1000 THEN END ELSE GOTO 20</pre>
+<p>Ends the program and returns to command level whenever the value of K exceeds 1000.</p>
+</body>
+</html>

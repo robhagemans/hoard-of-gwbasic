@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PRINT Statement</h1>
+<h4>Purpose:</h4>
+<p>To output a display to the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>PRINT</b> [<i>list of expressions</i>][;]
+<b>?</b>[<i>list of expressions</i>][;]</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>list of expressions</i></span><i> </i>is omitted, a blank line is displayed.</p>
+<p>If <span class="code"><i>list of expressions</i></span><i> </i>is included, the values of the expressions are displayed. Expressions in the list may be numeric and/or string expressions, separated by commas, spaces, or semicolons. String constants in the list must be enclosed in double quotation marks.</p>
+<p>For more information about strings, see the <a href="STRINGS.html">STRING$</a> function.</p>
+<p>A question mark (<span class="code">?</span>) may be used in place of the word <span class="code">PRINT</span> when using the GW-BASIC program editor.</p>
+<h4>Print Positions</h4>
+<p>GW-BASIC divides the line into print zones of 14 spaces. The position of each item printed is determined by the punctuation used to separate the items in the list:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=103><b>Separator</b></td><td><b>Print Position</b></td></tr>
+	<tr><td class="code">,</td><td>Beginning of next zone</td></tr>
+	<tr><td class="code">;</td><td>Immediately after last value</td></tr>
+	<tr><td>space(s)</td><td>Immediately after last value</td></tr>
+</table>
+<p>If a comma, semicolon, or <span class="code">SPC</span> or <span class="code">TAB</span> function ends an expression list, the next <span class="code">PRINT</span> statement begins printing on the same line, accordingly spaced. If the expression list ends without a comma, semicolon, or <span class="code">SPC</span> or <span class="code">TAB</span> function, a carriage return is placed at the end of the lines (GW-BASIC places the cursor at the beginning of the next line).</p>
+<p>A carriage return/line feed is automatically inserted after printing <span class="code"><i>width</i></span> characters, where <span class="code"><i>width</i></span> is 40 or 80, as defined in the <span class="code">WIDTH</span> statement. This results in two lines being skipped when you print exactly 40 (or 80) characters, unless the <span class="code">PRINT</span> statement ends in a semicolon.</p>
+<p>When numbers are printed on the screen, the numbers are always followed by a space. Positive number are preceded by a space. Negative numbers are preceded by a minus (<span class="code">-</span>) sign. Single-precision numbers are represented with seven or fewer digits in a fixed-point or integer format.</p>
+<p>See the <a href="LPRINT.html">LPRINT</a> and <a href="LPRINT.html">LPRINT USING</a> statements for information on sending data to be printed on a printer.</p>
+<h4>Examples:</h4>
+<pre>10 X$= STRING$(10,45)
+20 PRINT X$&quot;MONTHLY REPORT&quot; X$
+RUN
+ ----------MONTHLY REPORT----------</pre>
+<p>45 is the decimal equivalent of the ASCII symbol for the minus (<span class="code">-</span>) sign.</p>
+
+</body>
+</html>

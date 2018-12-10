@@ -1,0 +1,41 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RESUME Statement</h1>
+<h4>Purpose:</h4>
+<p>To continue program execution after an error-recovery procedure has been  performed.</p>
+<h4>Syntax:</h4>
+<pre><b>RESUME</b>
+<b>RESUME 0</b>
+<b>RESUME NEXT</b>
+<b>RESUME </b><i>line number</i> </pre>
+<h4>Comments:</h4>
+<p>Any one of the four formats shown above may be used, depending upon where execution is to resume:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=187><b>Syntax</b></td><td><b>Result</b></td></tr>
+  <tr><td><span class="code">RESUME</span> or <span class="code">RESUME 0</span></td>
+  <td>Execution resumes at the statement that caused an error.</td></tr>
+	<tr><td valign=top class="code">RESUME NEXT</td>
+	<td>Execution resumes at the statement immediately following the one that caused an error.</td></tr>
+  <tr><td class="code">RESUME <i>line number</i></td>
+  <td>Execution resumes at the specified line number.</td></tr>
+</table>
+<p>A <span class="code">RESUME</span> statement that is not in an error trapping routine causes a &quot;<span class="code">RESUME without error</span>&quot; message to be printed.</p>
+<h4>Examples:</h4>
+<pre>10 ON ERROR GOTO 900
+.
+.
+.
+900 IF (ERR=230) AND (ERL=90) THEN PRINT &quot;TRY AGAIN&quot;: RESUME 80
+.
+.
+.</pre>
+<p>If an error occurs after line 10 is executed, the action indicated in line 900 is taken and the program continues at line 80.</p>
+
+</body>
+</html>

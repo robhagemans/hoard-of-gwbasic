@@ -1,0 +1,275 @@
+<HTML>
+<HEAD>
+
+<TITLE>Blast Off With BASIC Chapter Five: Pick a Number</TITLE>
+
+<META NAME="description"  CONTENT="Colloquia is a personal home page for photography, science, programming, and amateur radio">
+
+<META NAME="keywords"  CONTENT="Brian Page, Blast Off, BASIC, programming, instruction, GW-BASIC">
+
+</HEAD>
+
+<BODY BACKGROUND="bluenote.jpg" text="#000000" link="#0014ff" vlink="#ff0000">
+
+<center>
+
+
+<TABLE>
+<TR>
+<TD VALIGN=TOP WIDTH=600>
+
+<SMALL>&copy; 1991 Brian R. Page</SMALL>
+
+<CENTER>
+<H1><I>Blast Off With BASIC</I></H1>
+<BR>
+<H2>Chapter Five: Pick a Number</H2>
+<BR>
+</center>
+
+<P>
+By now you have certainly learned that computers just execute program instructions one after another.  When you run a program several times, and always supply the same input, the result will always be the same.  This is fortunate.  When you run The <i>Little Fugue in G Minor </i>the computer does not decide to play the theme from the <i>Twilight Zone</i>.  Programs are predictable.  Now consider games.
+</P>
+<P>
+Most games involve an element of chance: a role of the dice or a spin of the wheel.  This is true of computer games, also.  Without chance, you could always beat the computer once you learned its game.  Unless, of course, the computer could change the way it plays from one run of the program to another.  Then it would have a fighting chance.
+</P>
+
+<H3>RANDOM NUMBERS</H3>
+
+<P>
+BASIC provides a way to slip a little chance into our programs.  It is done with random numbers.  A truly random number is one which cannot be guessed, selected, or calculated before it is produced.  While this may sound simple, it is a difficult task for a computer.  After all, your machine cannot flip a coin or role some dice.
+</P>
+<P>
+The job of producing a random number in BASIC is handled by the RND <i>function</i>.  RND is not a statement or a command.  It is a function.  Although functions are used just like statements, they are slightly different.  When BASIC executes an ordinary statement, it simply converts the statement into one or more machine code instructions.  With a function, the process is more involved.  To execute a function, BASIC actually runs a little subroutine within BASIC itself.  Fortunately, when it comes to writing programs, functions work like statements.
+</P>
+<P>
+In many ways, RND works like a variable name.  The difference is that we can never be sure what it holds.  We know only that it contains a number.  Let's experiment.  Enter this line:
+</P>
+<P><PRE>
+10 PRINT RND
+</PRE></P>
+and press F2 to run the program.  Your output should look like this:
+<P><PRE>
+.1213501
+</PRE></P>
+<P>
+Press F2 a few more times.  Are you surprised?  Each time you run your program it prints the same number!  This certainly is not very random.  The BASIC subroutine which makes up random numbers is called, appropriately, <i>the random number generator</i>.  It works by taking a number, performing some mysterious calculations with it, and creating a new number somewhere <i>between </i>zero and one.  The problem with our one line program is that we never supplied the random number generator with a number to begin its calculations.
+</P>
+<P>
+This process of supplying a number to the random number generator is called <i>seeding</i> and it is done with the RANDOMIZE statement.  To use this command in a program, simply enter RANDOMIZE followed by a number between -32768 and 32767.
+</P>
+<PRE>
+RANDOMIZE <i>number</i>
+</PRE>
+<P>
+Once seeded, the random number generator can produce a sequence of random numbers.  Unfortunately, if the same seed is used twice, the random number generator will produce the <i>same </i>sequence of random numbers!  We still have a problem.  What we need is some way to seed the generator with a different number each time a program executes.  Fortunately, there is a solution.
+</P>
+<P>
+BASIC has a function called TIMER which returns the number of seconds since midnight.  TIMER can be used to supply the seed for the random number generator.
+</P>
+<P><PRE>
+RANDOMIZE TIMER
+</PRE></P>
+<P>
+This is a very good solution to our problem.  The number produced by TIMER lists not only seconds but also <i>hundredths </i>of a second!  TIMER changes one hundred times each second.  The chances of ever seeding the random number generator twice with the same number are very slight!  To see what comes out of the TIMER function, enter this one line program:
+</P>
+<P><PRE>
+10 PRINT TIMER
+</PRE></P>
+<P>
+Any time we need a random number in a program the random number generator must first be seeded.  Do this with a RANDOMIZE TIMER statement.  This must appear at least once in a program.  Then, to actually get a random number, use the RND function.  Here is how the statement and the function work together:
+<P><PRE>
+10 RANDOMIZE TIMER
+20 PRINT RND
+</PRE></P>
+<P>
+Now that we have solved the problem of getting a truly random number, we have another problem.  The number returned by the RND function is somewhere between zero and one.  Indeed, we get seven digits of a number less than one.  However, most often we need a more useful number, like a whole number between 1 and 100.
+</P>
+
+<H4>RANDOM NUMBER FORMULAS</H4>
+<P>
+Converting a fractional number into a whole number is easy when we let BASIC do all the work.  Two formulas for generating integers will be presented.  We will examine each carefully.  The first formula will produce a number between 1 and some higher limit.  This number will be held in the integer variable X%.
+</P>
+<P><PRE>
+10 X% = INT(1 + RND * 100)
+20 PRINT X%
+</PRE></P>
+ In this case, X% will be a number in the range of 1 to 100.  This means that it could be either 1 or 100, as well as any number in between.  We must be careful talking about the ranges of numbers.  Beware the word <i>between</i>.  There are 98 numbers <i>between </i>1 and 100.
+</P>
+<P>
+Here is how BASIC executes line 10.  INT is  another BASIC function like RND.  It will make X% equal to the integer value of whatever number is included within the parentheses. INT does not round the number.  For example, INT(39.7) will set X% equal to 39, not 40.  At the moment, line 10 does not look like it has a number inside of parentheses.  BASIC first carries out the arithmetic and then creates the integer.
+</P>
+<P>
+In executing the formula inside of the parentheses, BASIC follows the rule: multiply, divide, add, and then subtract.  In other words, if an equation contains several operations, like an addition and a multiplication,  BASIC performs the multiplication first and then the addition.  You may have learned this as the My Dear Aunt Sally rule, where the first letter of each word stands for multiply, divide, add, and subtract.  Following My Dear Aunt Sally, BASIC first takes the fractional random number in RND and multiplies it by 100.  RND holds a number in the range of .0000001 to .9999999.  After multiplication, it becomes something in the range of 00.00001 to 99.99999.  Then, BASIC performs the addition of 1.  This gives us numbers in the range of 1.00001 to 100.99999.  Now the INT function kicks in.  Since INT does not round, X% is assigned the value 1, 100, or some whole number in between.  The lowest X% could be is 1; the highest is 100.
+</P>
+<P>
+Let's suppose that RND holds the number .7148205.  See if you can predict what will be placed in X%.
+</P>
+<P><PRE>
+X% = INT(1 + .7148205 * 100)
+</PRE></P>
+<P>
+Do the multiplication first.  This gives us 71.48205.  Then do the addition: 71.48205 + 1 = 72.48205.  The INT function causes us to drop everything to the right of the decimal point.  X% equals 72.
+</P>
+<P>
+In this formula, 100 is the upper limit of our random integer number.  You can, of course, substitute another number as the upper limit.
+</P>
+<P>
+The lower limit of the above equation is 1.  However, sometimes we need  to have a lower limit of 0.  To do this, we must use a different formula.  This one makes X% equal to a number in the the range of 0 to 9.
+</P>
+<P><PRE>
+10 X% = INT(RND * (9 + 1))
+</PRE></P>
+<P>
+Much of this should be familiar.  Note, however, that we have more than one set of parentheses.  Parentheses tell us (and  BASIC) not to follow the My Dear Aunt Sally rule.  Instead, perform all of the arithmetic within the inner-most parentheses first.  This means that the addition of 9 and 1 should be performed <i>before </i>the multiplication.  Of course, 9 plus 1 equals 10.  Then the fractional number in RND is multiplied by 10.  Like we saw before, this gives us a number between 0.000001 and 9.999999.  Again, the INT function drops all digits to the right of the decimal point.  Thus, we are left with a number in the range of 0 through 9.
+</P>
+<P>
+We could have written line 10 as:
+</P>
+<P><PRE>
+10 X% = INT(RND * 10)
+</PRE></P>
+However, this is not as clear.  In the previous example, we could tell at a glance that 9 was the upper limit.  Of course, another number could be used as an upper limit.
+</P>
+<P>
+Be careful with parentheses.  They must always come in pairs.  When you forget one, BASIC issues the message:
+</P>
+<P><PRE>
+Syntax error in 10
+</PRE></P>
+<P>
+The following table lists a variety of formulas for getting random integers.  Review a few to make sure you understand what BASIC is doing.  Also, you may want to use some of these as you create your own games.
+</P>
+<P>
+<PRE><B>
+   Range       Formula    </B>
+   0 - 9    X% = INT(RND * (9 + 1))    
+   1 - 9    X% = INT(1 + RND * 9)      
+   0 - 10   X% = INT(RND * (10 + 1))   
+   1 - 10   X% = INT(1 + RND * 10)     
+   0 - 99   X% = INT(RND * (99 + 1))   
+   1 - 99   X% = INT(1 + RND * 99)     
+   0 - 100  X% = INT(RND * (100 + 1))  
+   1 - 100  X% = INT(1 + RND * 100)    
+   0 - 999  X% = INT(RND * (999 + 1))  
+   1 - 999  X% = INT(1 + RND * 999)    
+</PRE>
+</P>
+<P>
+To do some more experimenting with random numbers, create a FOR-NEXT loop that uses one of these random number equations then prints the value of X%.  Start with this program:
+</P>
+<P><PRE>
+10 RANDOMIZE TIMER
+20 FOR Z% = 1 TO 25
+30   X% = INT(1 + RND * 9)
+40   PRINT X%
+50 NEXT Z%
+60 END
+</PRE></P>
+
+<H3>GUESS A NUMBER</H3>
+<P>
+Now that we know all there is to know about random numbers, it is time to try some in a program.  This first program creates a number in the range of 1 to 100.  Then you get to guess the number.  The computer will provide hints.
+</P>
+<P><PRE>
+10  REM *********************************************************
+20  REM *  UGUESS1                                              *
+30  REM *  Guess a random number selected by a BASIC program    *
+40  REM *********************************************************
+50  RANDOMIZE TIMER
+60  NUMBER% = INT(1 + RND * 100)
+70  CLS
+80  PRINT "Guess a number in the range 1 and 100"
+90  INPUT GUESS%
+100 IF GUESS% = NUMBER% THEN GOTO 140
+110 IF GUESS% > NUMBER% THEN PRINT "Too High!  Try Again"
+120 IF GUESS% < NUMBER% THEN PRINT "Too Low!  Try Again"
+130 GOTO 90
+140 PRINT "Very Good!  You Guessed the Number."
+150 END
+</PRE></P>
+<P>
+The program really begins with line 50 where the random number generator is seeded.  In line 60, the integer variable NUMBER% is assigned a number in the range of 1 to 100.  Then the screen is cleared and the program asks a question.  At line 90, execution stops until you enter a guess.  If you are lucky, and you guess the number stored in NUMBER%, the IF-THEN statement in line 100 will send you to line 140 and the end of the program.  If you do not guess correctly, nothing happens on line 100, and BASIC continues with line 110.  If your guess is greater than the secret number held in NUMBER%, then BASIC prints "Too High!  Try Again" on the screen.  If your guess is less than the number, then the PRINT statement on line 120 is executed.
+</P>
+<P>
+Next, look at the GOTO 90 on line 130.  Since this GOTO is not part of an IF-THEN statement, it will get executed whenever BASIC gets to line 130.  And the only way around line 130 is to guess the number, pass the IF-THEN test on line 100, and take the GOTO 140.
+</P>
+<P>
+A good programmer knows that every program can be made better.  This is certainly true of UGUESS1.  For instance, how can we tell if we are hot shots at guessing secret numbers?  What we need is some way to count how many guesses it takes to nail the secret number.  Let's improve our program by adding a few lines.
+</P>
+<P><PRE>
+20  REM *  UGUESS2                                    *
+65  TRYS% = 0
+95  TRYS% = TRYS% + 1
+145 PRINT "It took you" TRYS% "trys to guess correctly."
+</PRE></P>
+<P>
+Once you make these changes, LIST the program so you can see what we have accomplished.  First, line 20 simply changes the name of the program in our remarks flower box.  The other three lines are the real changes.
+</P>
+<P>
+On line 65 we define a new integer variable called TRYS% and set it equal to zero.  This variable will be used to count our guesses.  Then, in line 95, we add one to TRYS%.  Line 95 comes immediately after the INPUT statement.  Therefore, as soon as we enter a guess, TRYS% gets increased by one.  Take a good look at line 95.  TRYS% is used in two places.  BASIC takes the number in TRYS%, adds one to it, and places the sum back in TRYS%.
+</P>
+<P>
+Finally, line 145 is added at the end of the program to PRINT the number of guesses held in TRYS%.  Check out the use of quotation marks on line 145.  We are mixing words that should appear exactly as we have typed together with a variable name.  Make sure that TRYS% is not accidentally placed within quotation marks.
+</P>
+<P>
+Would it be possible to make this program even better?  You bet!  The way we have it now, you can still take as many guesses as you like.  Maybe we should cut you off  after, say, ten trys.  This might make you more careful with your guesses.
+</P>
+<P>
+Get ready to add some more lines to the program.  Issue the RENUM command and a LIST to see what happened.  RENUM renumbers all the lines of the program.  The lines are renumbered by tens.  The renumbering gives us more space to add lines.  Now, add these statements:
+</P>
+<P><PRE>
+20  REM *  UGUESS3                                              *
+35  REM *  You only get ten trys.                               *
+125 IF TRYS% = 10 THEN GOTO 190
+190 PRINT "Too Bad!  Your ten guesses are up."
+200 PRINT "The correct number was " NUMBER%
+210 END
+</PRE></P>
+<P>
+Lines 20 and 35 change only the remarks.  Line 125, on the other hand, is a major change.  It changes the logic of our program.  LIST the entire program on your screen and look carefully at lines 120 through 140.  The order of the IF-THEN statements is important.
+</P>
+<P>
+We now have two ways to avoid the GOTO on line 150.  The first way is to  guess the secret number.  The IF-THEN on line 120 catches this and uses GOTO 160 to congratulate you.  The only other way to avoid line 150 is to keep guessing until TRYS% is equal to 10.  This is spotted by the IF-THEN test on line 125.  Execution is then routed to a new ending for the program using lines 190 through 210.
+</P>
+<P>
+With this improvement we now have the need to think carefully about our guesses.  We need a plan for finding the secret number using as few guesses as possible.  Perhaps we should change the way we think about the problem.  Instead of trying to find one number in 100 that is right, let's try to identify as many numbers as possible that are <i>not </i>right.
+</P>
+<P>
+With our first guess we have 100 numbers to chose from.  If we pick the number in the middle, that is, 50, we can instantly narrow the search to only 50 numbers.  This trick of dividing a range by two when searching for a number is called a <i>binary search</i>.  Binary.  We have seen that word before.  Binary memory holds only two things: a one or a zero.  A binary search divides a group by <i>two</i>.  Binary means "having to do with the number two."  Memory is binary since it has two conditions, zero or one.  A search is binary when it divides by two.
+</P>
+<P>
+A binary search is a very good way to find a secret number.  Each time we guess, we eliminate half of the choices.  When we guess 50, the program will tell us if we are high or low.  For example, suppose the secret number is 37.  First we guess 50.  The program says "Too high."  Then we guess 25, since 25 is halfway between 1 and 50.  The program says "Too Low."  Next we find the number that is halfway between 25 and 50.  We might guess 37.
+</P>
+<P>
+Use the UGUESS3 program to explore binary  searches.    You might also work out a few on paper.  Answer these questions:
+</P>
+
+<P>
+<OL>
+<LI>Using a binary search, what is the hardest number to guess?  Some numbers are easy, like 50.  Others will take more trys.  What numbers take the most trys?
+<LI>The program permits ten guesses.  This is more than enough to find the secret number <i>every </i>time.  What is the lowest number of trys that would still allow you to guess the secret number every game?  Change line 125 and test your answer.
+</OL>
+</P>
+
+<P>
+Finally, could the program be made even better?  How about some music?  Perhaps you can add some GOSUB-RETURN routines that play different songs and noises.  These kinds of improvements should be fun.
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<CENTER>
+<P><A HREF="_start.htm#content">Return to Table of Contents</A></P>
+</CENTER>
+
+
+</TD>
+</TR>
+</TABLE>
+
+</center>
+
+
+</BODY>
+</HTML>
+

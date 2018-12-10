@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>DELETE Command</h1>
+<h4>Purpose:</h4>
+<p>To delete program lines or line ranges.</p>
+<h4>Syntax:</h4>
+<pre><b>DELETE</b> [<i>line number1</i>][-<i>line number2</i>]
+<b>DELETE</b> <i>line number1</i>-</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>line number1</i></span> is the first line to be deleted.</p>
+<p><span class="code"><i>line number2</i></span> is the last line to be deleted.</p>
+<p>GW-BASIC always returns to command level after a <span class="code">DELETE</span> command is executed. Unless at least one line number is given, an &quot;<span class="code">Illegal Function Call</span>&quot; error occurs.</p>
+<p>The period (<span class="code">.</span>) may be used to substitute for either line number to indicate the current line.</p>
+<h4>Examples:</h4>
+<pre>DELETE 40 </pre>
+<p>Deletes line 40.</p>
+<pre>DELETE 40-100 </pre>
+<p>Deletes lines 40 through 100, inclusively.</p>
+<pre>DELETE -40</pre>
+<p>Deletes all lines up to and including line 40.</p>
+<pre>DELETE 40- </pre>
+<p>Deletes all lines from line 40 to the end of the program.</p>
+</body>
+</html>

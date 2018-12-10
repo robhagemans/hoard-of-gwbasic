@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CLS Statement</h1>
+<h4>Purpose:</h4>
+<p>To clear the screen.</p>
+<h4>Syntax:</h4>
+<pre><b>CLS</b> [<i>n</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is one of the following values:</p>
+<table class=MsoTableGrid border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=84><b>Value of <span class="code"><i>n</i></span></b></td><td><b>Effect</b></td></tr>
+	<tr><td>0</td><td>Clears the screen of all text and graphics</td></tr>
+	<tr><td>1</td><td>Clears only the graphics viewport</td></tr>
+	<tr><td>2</td><td>Clears only the text window</td></tr>
+</table><br>
+<p>If the graphics viewport is active, <span class="code">CLS</span> without argument clears only the viewport. If the graphics viewport is inactive, <span class="code">CLS</span> clears the text window.</p>
+<p>If the screen is in alpha mode, the active page is cleared to the currently selected background color (see the <a href="SCREENS.html">SCREEN</a> and <a href="COLOR.html">COLOR</a> statements).</p>
+<p>If the screen is in graphics mode, the entire screen buffer is cleared to background color.</p>
+<p>The screen may also be cleared by pressing <span class="smallcaps">CTRL-HOME</span>, or by changing the screen mode with the <span class="code">SCREEN</span> or <span class="code">WIDTH</span> statements.</p>
+<p><span class="code">CLS</span> returns the cursor to the upper-left corner of the screen, and sets the last point referenced to the center of the screen.</p>
+<p>If the <span class="code">VIEW</span> statement has been used, <span class="code">CLS</span> clears only the last viewport specified.</p>
+<h4>Examples:</h4>
+<pre>1 CLS</pre>
+<p>This clears the screen.</p>
+</body>
+</html>

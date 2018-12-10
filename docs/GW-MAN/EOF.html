@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>EOF Function</h1>
+<h4>Purpose:</h4>
+<p>To return -1 (true) when the end of a sequential or a communications file has been reached, or to return 0 if end of file (EOF) has not been found.</p>
+<h4>Syntax:</h4>
+<pre><i>v</i>=<b>EOF</b>(<i>file number</i>)</pre>
+<h4>Comments:</h4>
+<p>If a <span class="code">GET</span> is done past the end of the file, <span class="code">EOF</span> returns -1. This may be used to find the size of a file using a binary search or other algorithm. With communications files, a -1 indicates that the buffer is empty.</p>
+<p>Use <span class="code">EOF</span> to test for end of file while inputting to avoid &quot;<span class="code">Input Past End</span>&quot; errors.</p>
+<h4>Examples:</h4>
+<pre>10 OPEN &quot;I&quot;, 1, &quot;DATA&quot;
+20 C=0
+30 IF EOF(1) THEN 100
+40 INPUT#1, M(C)
+50 C=C+1: GOTO 30
+100 END</pre>
+<p>The file named <i>DATA</i> is read into the M array until the end of the file is reached, then the program branches to line 100.</p>
+</body>
+</html>

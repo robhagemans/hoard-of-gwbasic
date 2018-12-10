@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PMAP Function (Graphics)</h1>
+<h4>Purpose:</h4>
+<p>To map expressions to logical or physical coordinates.</p>
+<h4>Syntax:</h4>
+<pre><i>x</i>=<b>PMAP</b> (<i>exp</i>,<i>function</i>)</pre>
+<h4>Comments:</h4>
+<p>This function is valid for graphics modes only.</p>
+<p><span class="code"><i>x</i></span> is the physical coordinate of the point that is to be mapped.</p>
+<p><span class="code"><i>exp</i></span> is a numeric variable or expression.</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=72><b>Function </b></td><td><b>Maps</b></td></tr>
+	<tr><td>0</td><td>logical expressions to physical x</td></tr>
+	<tr><td>1</td><td>logical expressions to physical y</td></tr>
+	<tr><td>2</td><td>physical expressions to logical x</td></tr>
+	<tr><td>3</td><td>physical expressions to logical y</td></tr>
+</table>
+<p><span class="code">PMAP</span> is used with <span class="code">WINDOW</span> and <span class="code">VIEW</span> to translate coordinates.</p>
+
+</body>
+</html>

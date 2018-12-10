@@ -1,0 +1,40 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>ENVIRON Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow the user to modify parameters in GW-BASIC's environment string table. This may be to change the path parameter for a child process, (see <a href="ENVIRONS.html">ENVIRON$</a>, <a href="SHELL.html">SHELL</a>, and the MS-DOS utilities PATH command), or to pass parameters to a child by inventing a new environment parameter.</p>
+<h4>Syntax:</h4>
+<pre><b>ENVIRON </b><i>string</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>string</i></span> is a valid string expression containing the new environment string parameter.</p>
+<p><span class="code"><i>string</i></span><i> </i>must be of the following form</p>
+<pre><i>parmid</i>=<i>text</i></pre>
+<p>where <span class="code"><i>parmid</i></span><i> </i>is the name of the parameter such as PATH.</p>
+<p><span class="code"><i>parmid</i></span><i> </i>must be separated from text by an equal sign or a blank. <span class="code">ENVIRON</span> takes everything to the left of the first blank or equal sign as the <span class="code"><i>parmid</i></span>; everything following is taken as text.</p>
+<p><span class="code"><i>text</i></span><i> </i>is the new parameter text. If <span class="code"><i>text</i></span><i> </i>is a null string, or consists only of a single semicolon, then the parameter (including <span class="code"><i>parmid</i>=</span>) is removed from the environment string table, and the table is compressed. <span class="code"><i>text</i></span><i> </i>must not contain  any embedded blanks.</p>
+<p>If <span class="code"><i>parmid</i></span><i> </i>does not exist, then <span class="code"><i>string</i></span><i> </i>is added at the end of the environment string table.</p>
+<p>If <span class="code"><i>parmid</i></span><i> </i>does exist, it is deleted, the environment string table is compressed, and the new string is added at the end.</p>
+<h4>Examples:</h4>
+<p>Assuming the environment string table is empty, the following statement will create a default path to the root directory on Disk A:</p>
+<pre>ENVIRON &quot;PATH=A:\&quot;</pre>
+<p>If your work subdirectory were john, you would be able to get DEBUG from the root.</p>
+<p>A new parameter may be added:</p>
+<pre>ENVIRON &quot;COMSPEC=A:\COMMAND.COM&quot;</pre>
+<p>The environment string table now contains</p>
+<pre>PATH=A:\; COMSPEC=A:\COMMAND.COM</pre>
+<p>The path may be changed to a new value:</p>
+<pre>ENVIRON &quot;PATH=A:\SALES; A:\ACCOUNTING&quot;</pre>
+<p>The path parameter may be appended by using the <span class="code">ENVIRON$</span> function with the <span class="code">ENVIRON</span> statement:</p>
+<pre>ENVIRON &quot;PATH=&quot;+ENVIRON$(&quot;PATH&quot;)+&quot;; B:\SAMPLES&quot;</pre>
+<p>Finally, delete the parameter COMSPEC:</p>
+<pre>ENVIRON &quot;COMSPEC=;&quot;</pre>
+<p>The environment string table now contains</p>
+<pre>PATH=A:\SALES; A:\ACCOUNTING; B:\SAMPLES</pre>
+</body>
+</html>

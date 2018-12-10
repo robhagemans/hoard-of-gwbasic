@@ -1,0 +1,28 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RESTORE Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow <span class="code">DATA</span> statements to be reread from a specified line.</p>
+<h4>Syntax:</h4>
+<pre><b>RESTORE</b>[<i>line number</i>]</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>line number</i></span> is specified, the next <span class="code">READ</span> statement accesses the first item in the specified <span class="code">DATA</span> statement.</p>
+<p>If <span class="code"><i>line number</i></span> is omitted, the next <span class="code">READ</span> statement accesses the first item in the first <span class="code">DATA</span> statement.</p>
+<h4>Examples:</h4>
+<pre>10 READ A, B, C,
+20 RESTORE
+30 READ D, E, F
+40 DATA 57, 68, 79
+.
+.
+.</pre>
+<p>Assigns the value 57 to both A and D variables, 68 to B and E, and so on.</p>
+
+</body>
+</html>

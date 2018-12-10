@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>KEY(n) Statement</h1>
+<h4>Purpose:</h4>
+<p>To initiate and terminate key capture in a GW-BASIC program.</p>
+<h4>Syntax:</h4>
+<pre><b>KEY(<i>n</i>) ON</b><b>
+KEY(<i>n</i>) OFF</b><b>
+KEY</b>(<i>n</i>) <b>STOP</b> </pre>
+<h4>Comments:</h4>
+<p><i>n</i> is a number from 1 to 20 that indicates which key is to be captured. Keys are numbered as follows:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr valign="bottom"><td>  <b>Key Number</b></td>
+  <td>  <b>Key</b></td>
+  </tr>
+  <tr><td>1-10</td><td>Function keys <span class="smallcaps">F1</span> through <span class="smallcaps">F10</span></td>
+  </tr>
+  <tr><td>11</td><td class="smallcaps">  CURSOR UP</td>
+  </tr>
+  <tr><td>12</td><td class="smallcaps">  CURSOR LEFT</td>
+  </tr>
+  <tr><td>13</td><td class="smallcaps">  CURSOR RIGHT</td>
+  </tr>
+  <tr><td>14</td><td class="smallcaps">  CURSOR DOWN</td>
+  </tr>
+  <tr><td valign=top>15-20</td>
+	  <td>Keys defined in the following format (see <a href="KEY.html">KEY</a> statement): <span class="code">KEY <i>n</i>, CHR$(<i>hex code</i>) + CHR$(<i>scan code</i>)</span></td>
+  </tr>
+</table>
+<p>Execution of the <span class="code">KEY(<i>n</i>) ON</span> statement is required to activate keystroke capture from the function keys or cursor control keys. When the <span class="code">KEY(<i>n</i>) ON</span> statement is activated and enabled, GW-BASIC checks each new statement to see if the specified key is pressed. If so, GW-BASIC performs a <span class="code">GOSUB</span> to the line number specified in the <span class="code">ON KEY(<i>n</i>)</span> statement. An <span class="code">ON KEY(<i>n</i>)</span> statement must precede a <span class="code">KEY(<i>n</i>)</span> statement.</p>
+<p>When <span class="code">KEY(<i>n</i>) OFF</span> is executed, no key capture occurs and no keystrokes are retained.</p>
+<p>If <span class="code">KEY(n) STOP</span> is executed, no key capture occurs, but if a specified key is pressed, the keystroke is retained so that immediate keystroke capture occurs when a <span class="code">KEY(<i>n</i>) ON</span> is executed.</p>
+<p>For further information on key trapping, see the <A HREF="ONCOMN.html">ON KEY(n)</a> statement.</p>
+
+</body>
+</html>

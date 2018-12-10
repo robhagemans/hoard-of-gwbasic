@@ -1,0 +1,224 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>SCREEN Statement</h1>
+<h4>Purpose:</h4>
+<p>To set the specifications for the display screen.</p>
+<h4>Syntax:</h4>
+<pre><b>SCREEN</b> [<i>mode</i>] [,[<i>colorswitch</i>]][,[<i>apage</i>]][,[<i>vpage</i>]]</pre>
+<h4>Comments:</h4>
+<p>The <span class="code">SCREEN</span> statement is chiefly used to select a screen mode appropriate for a particular display-hardware configuration. Supported hardware configurations and screen modes are described below.</p>
+<h4>MDPA with Monochrome Display: Mode 0</h4>
+<p>The IBM Monochrome Display and Printer Adapter (MDPA) is used to connect only to a monochrome display. Programs written for this configuration must be text mode only.</p>
+<h4>CGA with Color Display: Modes 0, 1, and 2</h4>
+<p>The IBM Color Graphics Adapter (CGA) and Color Display are typically paired with each other. This hardware configuration permits the running of text mode programs, and both medium-resolution and high-resolution graphics programs.</p>
+<h4>EGA with Color Display: Modes 0, 1, 2, 7, and 8</h4>
+<p>The five screen modes 0, 1, 2, 7, and 8 allow you to interface to the IBM Color Display when it is connected to an IBM Enhanced Graphics Adapter (EGA). If EGA switches are set for CGA compatibility, programs written for modes 1 and 2 will run just as they would with the CGA. Modes 7 and 8 are similar to modes 1 and 2, except that a wider range of colors is available in modes 7 and 8.</p>
+<h4>EGA with Enhanced Color Display: Modes 0, 1, 2, 7, and 8</h4>
+<p>With the EGA/IBM Enhanced Display configuration, modes 0, 1, 2, 7, and 8 are virtually identical to their EGA/Color Display counterparts. Two possible differences are as follows:</p>
+<ul>
+  <li>In mode 0, the border color cannot be the same as for the EGA/Color Display because the border cannot be set on an Enhanced Color Display when it is in 640 × 350 text mode.</li>
+  <li>The quality of the text is better on the Enhanced Color Display (an 8 × 14 character box for Enhanced Color Display versus an 8 × 8 character box for color display).</li>
+</ul>
+<h4>EGA with Enhanced Color Display: Mode 9</h4>
+<p>The full capability of the Enhanced Color Display is taken advantage of in this mode. Mode 9 allows the highest resolution possible for the EGA/Enhanced Color Display configuration. Programs written for this mode will not work for any other hardware configuration.</p>
+<h4>EGA with Monochrome Display: Mode 10</h4>
+<p>The IBM Monochrome Display can be used to display monochrome graphics at a very high resolution in this mode. Programs written for this mode will not work for any other hardware configuration.</p>
+<h4>Arguments</h4>
+<p>The <i>mode</i> argument is an integer expression with legal values 0, 1, 2, 7, 8, 9, and 10. All other values are illegal. Selection of a mode argument depends primarily on your program's anticipated display hardware, as described above.</p>
+<p>Each of the <span class="code">SCREEN</span> modes is described individually in the following paragraphs.</p>
+<h4 class="code">SCREEN 0</h4>
+<ul>
+  <li>Text mode only</li>
+  <li>Either 40 × 25 or 80 × 25 text format with character-box size of 8 × 8 (8 × 14 with EGA)</li>
+  <li>Assignment of 16 colors to any of 2 attributes</li>
+  <li>Assignment of 16 colors to any of 16 attributes (with EGA)</li>
+</ul>
+<h4 class="code">SCREEN 1</h4>
+<ul><li>320 × 200 pixel medium-resolution graphics</li>
+  <li>80 × 25 text format with character-box size of 8 × 8</li>
+  <li>Assignment of 16 colors to any of 4 attributes</li>
+  <li>Supports both EGA and CGA</li>
+  <li>2 bits per pixel</li>
+</ul>
+<h4 class="code">SCREEN 2</h4>
+<ul><li>640 × 200 pixel high-resolution graphics</li>
+  <li>40 × 25 text format with character-box size of 8 × 8</li>
+  <li>Assignment of 16 colors to any of 2 attributes</li>
+  <li>Supports both EGA and CGA</li>
+  <li>1 bit per pixel</li>
+</ul>
+<h4 class="code">SCREEN 7</h4>
+<ul>
+  <li>320 × 200 pixel medium-resolution graphics</li>
+  <li>40 × 25 text format with character-box size of 8 × 8</li>
+  <li>2, 4, or 8 memory pages with 64K, 128K, or 256K of memory, respectively, installed on the EGA</li>
+  <li>Assignment of any of 16 colors to 16 attributes</li>
+  <li>EGA required</li>
+  <li>4 bit per pixel</li>
+</ul>
+<h4 class="code">SCREEN 8</h4>
+<ul>
+  <li>640 × 200 pixel high-resolution graphics</li>
+  <li>80 × 25 text format with character-box size of 8 × 8</li>
+  <li>1, 2, or 4 memory pages with 64K, 128K, or 256K of memory, respectively, installed on the EGA</li>
+  <li>Assignment of any of 16 colors to 16 attributes</li>
+  <li>EGA required</li>
+  <li>4 bits per pixel</li>
+</ul>
+<h4 class="code">SCREEN 9</h4>
+<ul><li>640 × 350 pixel enhanced-resolution graphics</li>
+  <li>80 × 25 text format with character-box size of 8 × 14</li>
+  <li>Assignment of either 64 colors to 16 attributes (more than 64K of EGA memory), or 16 colors to 4 attributes (64K of EGA memory)</li>
+  <li>Two display pages if 256K of EGA memory installed</li>
+  <li>EGA required</li>
+  <li>2 bits per pixel (64K EGA memory) 4 bits per pixel (more than 64K EGA memory)</li>
+</ul>
+<h4 class="code">SCREEN 10</h4>
+<ul>
+  <li>640 × 350 enhanced-resolution graphics</li>
+  <li>80 × 25 text format with character-box size of 8 × 14</li>
+  <li>Two display pages if 256K of EGA memory installed</li>
+  <li>Assignment of up to 9 pseudo-colors to 4 attributes</li>
+  <li>EGA required</li>
+  <li>2 bits per pixel</li>
+</ul>
+<p>The following are default attributes for <span class="code">SCREEN 10</span>, monochrome display:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=120><b>Attribute Value</b></td><td><b>Displayed Pseudo-Color</b></td></tr>
+	<tr><td>0</td><td>Off</td></tr>
+  <tr><td>1</td><td>On, normal intensity</td></tr>
+  <tr><td>2</td><td>Blink</td></tr>
+  <tr><td>3</td><td>On, high intensity</td></tr>
+</table>
+<p>The following are color values for <span class="code">SCREEN 10,</span> monochrome display:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+  <tr><td width=120><b>Color Value</b></td><td><b>Displayed Pseudo-Color</b></td></tr>
+	<tr><td>0</td><td>Off</td></tr>
+  <tr><td>1</td><td>Blink, off to on</td></tr>
+  <tr><td>2</td><td>Blink, off to high intensity</td></tr>
+	<tr><td>3</td><td>Blink, on to off</td></tr>
+	<tr><td>4</td><td>On</td></tr>
+  <tr><td>5</td><td>Blink, on to high intensity</td></tr>
+  <tr><td>6</td><td>Blink, high intensity to off</td></tr>
+  <tr><td>7</td><td>Blink, high intensity to on</td></tr>
+  <tr><td>8</td><td>High intensity</td></tr>
+</table>
+<p>For both composite monitors and TVs, the <span class="code"><i>colorswitch</i></span> is a numeric expression that is either true (non-zero) or false (zero). A value of zero disables color and permits display of black and white images only. A nonzero value permits color. The meaning of the <span class="code"><i>colorswitch</i></span> argument is inverted in <span class="code">SCREEN</span> mode 0. </p>
+<p>For hardware configurations that include an EGA and enough memory to support multiple-screen pages, two arguments are available. These <span class="code"><i>apage</i></span> and <span class="code"><i>vpage</i></span> arguments determine the &quot;active&quot; and &quot;visual&quot; memory pages. The active page is the area in memory where graphics statements are written; the visual page is the area of memory that is displayed on the screen.</p>
+<p>Animation can be achieved by alternating the display of graphics pages. The goal is to display the visual page with completed graphics output, while executing graphics statements in one or more active pages. A page is displayed only when graphics output to that page is complete. Thus, the following program fragment is typical:</p>
+<pre>SCREEN 7,, 1, 2  'work in page 1, show page 2
+.
+. Graphics output to page 1
+. while viewing page 2
+.</pre>
+<pre>SCREEN 7,,2,1  'work in page 2, show page 1
+.
+. Graphics output to page 2
+. while viewing page 1
+.</pre>
+<p>The number of pages available depends on the <span class="code">SCREEN</span> mode and the amount of available memory, as described in the following table:</p>
+<h4>Table 2</h4>
+<p><span class="code"><b>SCREEN</b></span><b> Mode Specifications</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td width="64"valign=bottom><b>Mode</b></td>
+<td width="96"valign=bottom><b>Resolution</b></td>
+<td width="72"valign=bottom><b>Attribute Range</b></td>
+<td width="64"valign=bottom><b>Color Range</b></td>
+<td width="64"valign=bottom><b>EGA Memory</b></td>
+<td width="64"valign=bottom><b>Pages</b></td>
+<td width="64"valign=bottom><b>Page Size</b></td>
+</tr>
+<tr><td rowspan="2">0 </td><td>40-column text</td><td>NA</td><td>0-15<sup>a</sup></td><td>NA</td><td>1</td><td>2K</td></tr>
+<tr><td>80-column text</td><td>NA</td><td>0-15<sup>a</sup></td><td>NA</td><td>1</td><td>4K</td></tr>
+<tr><td>1</td><td>320×200</td><td>0-3<sup>b</sup></td><td>0-3</td><td>NA</td><td>1</td><td>16K</td></tr>
+<tr><td>2</td><td>640×200</td><td>0-1<sup>b</sup></td><td>0-1</td><td>NA</td><td>1</td><td>16K</td></tr>
+<tr><td rowspan="3">7</td><td rowspan="3">320×200</td><td rowspan="3">0-15</td><td rowspan="3">0-15</td><td>64K</td><td>2</td><td rowspan="3">32K</td></tr>
+<tr><td>128K</td><td>4</td></tr>
+<tr><td>256K</td><td>8</td></tr>
+<tr><td rowspan="3">8</td><td rowspan="3">640×200</td><td rowspan="3">0-15</td><td rowspan="3">0-15</td><td>64K</td><td>1</td><td rowspan="3">64K</td></tr>
+<tr><td>128K</td><td>2</td></tr>
+<tr><td>256K</td><td>4</td></tr>
+<tr><td rowspan="3">9</td><td rowspan="3">640×350</td><td>0-3</td><td>0-15</td><td>64K</td><td>1</td><td>64K</td></tr>
+<tr><td>0-15</td><td>0-63</td><td>128K</td><td>1</td><td rowspan="2">128K </td></tr>
+<tr><td>0-15</td><td>0-63</td><td>256K</td><td>2</td></tr>
+<tr><td rowspan="2">10 </td><td rowspan="2">640×350 </td><td rowspan="2">0-3 </td><td rowspan="2">0-8 </td><td>128K</td><td>1</td><td rowspan="2">128K </td></tr>
+<tr><td>256K</td><td>2</td></tr>
+</table>
+<p><sup>a</sup> Numbers in the range 16-31 are blinking versions of the colors 0-15.<br>
+<sup>b</sup> Attributes applicable only with EGA.</p>
+<h4>Attributes and Colors</h4>
+<p>For various screen modes and display hardware configurations, different attribute and color settings exist. (See the <a href="PALETTE.html">PALETTE</a> statement for a discussion of attribute and color number.) The majority of these attribute and color configurations are summarized in the following table:</p>
+<h4>Table 3</h4>
+<p><b>Default Attributes and Colors for Most Screen Modes</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td colspan=3><b>Attributes for Mode</b></td>
+<td colspan=2><b>Color Display</b></td>
+<td colspan=2><b>Monochrome Display</b></td>
+</tr>
+<tr>
+<td width=40><b>1,9</b></td>
+<td width=32><b>2</b></td>
+<td width=80><b>0,7,8,9<sup>b</sup></b></td>
+<td width=72><b>Number<sup>c</sup></b></td>
+<td width=144><b>Color</b></td>
+<td width=72><b>Number<sup>c</sup></b></td>
+<td><b>Color</b></td>
+</tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>Black</td><td>0</td><td>Off</td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>1</td><td>1</td><td>Blue</td><td>&nbsp; </td><td>(Underlined)<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>2</td><td>2</td><td>Green</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>3</td><td>3</td><td>Cyan</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>4</td><td>4</td><td>Red</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>5</td><td>5</td><td>Magenta</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>6</td><td>6</td><td>Brown</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>7</td><td>7</td><td>White</td><td>1</td><td>On<sup>a</sup></td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>8</td><td>8</td><td>Gray</td><td>0</td><td>Off</td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>9</td><td>9</td><td>Light Blue</td><td>&nbsp; </td><td>High intensity (underlined)</td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>10</td><td>10</td><td>Light Green</td><td>2</td><td>High intensity</td></tr>
+<tr><td>1</td><td>&nbsp; </td><td>11</td><td>11</td><td>Light Cyan</td><td>2</td><td>High intensity</td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>12</td><td>12</td><td>Light Red</td><td>2</td><td>High intensity</td></tr>
+<tr><td>2</td><td>&nbsp; </td><td>13</td><td>13</td><td>Light Magenta</td><td>2</td><td>High intensity</td></tr>
+<tr><td>&nbsp; </td><td>&nbsp; </td><td>14</td><td>14</td><td>Yellow</td><td>2</td><td>High intensity</td></tr>
+<tr><td>3</td><td>1</td><td>15</td><td>15</td><td>High-intensity White</td><td>0</td><td>Off</td></tr>
+</table>
+<p><sup>a</sup> Off when used for background.<br>
+<sup>b</sup> With EGA memory &gt; 64K.<br>
+<sup>c</sup> Only for mode 0 monochrome.</p>
+<p>The default foreground colors for the various modes are given in the following table:</p>
+<h4>Table 4</h4>
+<p><b>Default Foreground Colors</b></p>
+<table border=0 cellspacing=0 cellpadding=0>
+<tr>
+<td>&nbsp; </td>
+<td colspan=2 align="center"><b>Default foreground attribute</b></td>
+<td colspan=2 align="center"><b>Default foreground color</b></td>
+</tr>
+<tr>
+<td width=64><b>Screen mode</b></td>
+<td width=108><b>Color/Extended Display<sup>a</sup></b></td>
+<td width=116><b>Monochrome Display</b></td>
+<td width=108><b>Color/Extended Display<sup>a</sup></b></td>
+<td width=116><b>Monochrome Display</b></td>
+</tr>
+<tr><td>0</td><td>7</td><td>7</td><td>7</td><td>1</td></tr>
+<tr><td>1</td><td>3</td><td>NA</td><td>15</td><td>NA</td></tr>
+<tr><td>2</td><td>1</td><td>NA</td><td>15</td><td>NA</td></tr>
+<tr><td>7</td><td>15</td><td>NA</td><td>15</td><td>NA</td></tr>
+<tr><td>8</td><td>15</td><td>NA</td><td>15</td><td>NA</td></tr>
+<tr><td>9</td><td>3<sup>b</sup></td><td>NA</td><td>63</td><td>NA</td></tr>
+<tr><td>10</td><td>NA</td><td>3</td><td>NA</td><td>8</td></tr>
+</table>
+<p><sup>a</sup> IBM Enhanced Color Display<br>
+<sup>b</sup> 15 if greater than 64K of EGA memory<br>
+NA=Not Applicable</p>
+
+</body>
+</html>

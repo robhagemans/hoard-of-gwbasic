@@ -1,0 +1,47 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>REM Statement</h1>
+<h4>Purpose:</h4>
+<p>To allow explanatory remarks to be inserted in a program.</p>
+<h4>Syntax:</h4>
+<pre><b>REM</b>[<i>comment</i>]
+<b>'</b>[<i>comment</i>]</pre>
+<h4>Comments:</h4>
+<p><span class="code">REM</span> statements are not executed, but are output exactly as entered when the program is listed.</p>
+<p>Once a <span class="code">REM</span> or its abbreviation, an apostrophe (<span class="code">'</span>), is encountered, the program ignores everything else until the next line number or program end is encountered.</p>
+<p><span class="code">REM</span> statements may be branched into from a <span class="code">GOTO</span> or <span class="code">GOSUB</span> statement, and execution continues with the first executable statement after the <span class="code">REM</span> statement. However, the program runs faster if the branch is made to the first statement.</p>
+<p>Remarks may be added to the end of a line by preceding the remark with an apostrophe (<span class="code">'</span>) instead of <span class="code">REM</span>.</p>
+<hr>
+	<p><i><b>Note</b></i></p>
+	<p>Do not use <span class="code">REM</span> in a <span class="code">DATA</span> statement because it will be considered to be legal data.</p>
+<hr>
+<h4>Examples:</h4>
+<pre>.
+.
+.
+120 REM CALCULATE AVERAGE VELOCITY
+130 FOR I=1 TO 20
+440 SUM=SUM+V(I)
+450 NEXT I
+.
+.
+.</pre>
+<p>or</p>
+<pre>.
+.
+.
+129 FOR I=1 TO 20 'CALCULATED AVERAGE VELOCITY
+130 SUM=SUM+V(I)
+140 NEXT I
+.
+.
+.</pre>
+
+</body>
+</html>

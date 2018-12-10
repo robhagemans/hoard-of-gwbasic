@@ -1,0 +1,22 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RMDIR Command</h1>
+<h4>Purpose:</h4>
+<p>To delete a subdirectory.</p>
+<h4>Syntax:</h4>
+<pre><b>RMDIR</b> <i>pathname</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>pathname</i></span> is a string expression, not exceeding 63 characters, identifying the subdirectory to be removed from its parent.</p>
+<p>The subdirectory to be deleted must be empty of all files except &quot;<span class="code">.</span>&quot; and &quot;<span class="code">..</span>&quot; or a &quot;<span class="code">Path file/access error</span>&quot;  is given.</p>
+<h4>Examples:</h4>
+<p>Referring to the sample directory structure illustrated in <span class="code">CHDIR</span>, the following command deletes the subdirectory <i>report</i>:</p>
+<pre>RMDIR &quot;SALES\JOHN\REPORT&quot;</pre>
+
+</body>
+</html>

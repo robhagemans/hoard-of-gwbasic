@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>WIDTH Statement</h1>
+<h4>Purpose:</h4>
+<p>To set the printed line width in number of characters for the screen and line printer.</p>
+<h4>Syntax:</h4>
+<pre><b>WIDTH</b> <i>size</i>
+<b>WIDTH</b> <i>file number</i>, <i>size</i>
+<b>WIDTH</b> &quot;<i>dev</i>&quot;, <i>size</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>size</i></span>, an integer within the range of 0 to 255, is the new width.</p>
+<p><span class="code"><i>file number</i></span> is the number of the file that is open.</p>
+<p><span class="code"><i>dev</i></span> is a valid string expression identifying the device. Valid devices are <span class="code">SCRN:</span>, <span class="code">LPT1:</span>, <span class="code">LPT2:</span>, <span class="code">LPT3:</span>, <span class="code">COM1:</span>, and <span class="code">COM2:</span>.</p>
+<h4>Changing Screen Width</h4>
+<p>The following statements are used to set the screen width. Only a 40- or 80-column width is allowed.</p>
+<pre>WIDTH size</pre>
+<pre>WIDTH &quot;SCRN:&quot;, size</pre>
+<p>See the <a href="SCREENS.html">SCREEN</a> statement for more information.</p>
+<p>Changing <span class="code">SCREEN</span> mode affects screen width only when moving between <span class="code">SCREEN 2</span> and <span class="code">SCREEN 1</span> or <span class="code">SCREEN 0</span>.</p>
+<hr>
+<p><b><i>Note</i></b></p>
+<p>Changing the screen width clears the screen and sets the border screen color to black.</p>
+<hr>
+<h4>Changing Line printer Width</h4>
+<p>The following <span class="code">WIDTH</span> statement is used as a deferred width assignment for the line printer. This statement stores the new width value without actually changing the current width setting:</p>
+<pre>WIDTH &quot;LPT1:&quot;, <i>size</i></pre>
+<p>A statement of the following form recognizes this stored width value:</p>
+<pre>OPEN &quot;LPT1:&quot; FOR OUTPUT AS <i>number</i></pre>
+<p>and uses it while the file is open:</p>
+<pre>WIDTH <i>file number</i>, <i>size</i></pre>
+<p>If the file is open to <b>lpt1:</b>, line printer width is immediately changed to the new size specified. This allows the width to be changed at will while the file is open. This form of <span class="code">WIDTH</span> has meaning only for <b>lpt1:</b>. After outputting the indicated number of characters from the open file, GW-BASIC inserts a carriage return at the end of the line and wraps the output, if the width is less than the length of the record.</p>
+<p>Valid widths for the line printer are 1 through 255.</p>
+<p>Specifying <span class="code">WIDTH 255</span> for the line printer (<b>lpt1:</b>) enables line wrapping. This has the effect of infinite width.</p>
+<p>Any value entered outside of these ranges results in an &quot;<span class="code">Illegal function call</span>&quot; error. The previous value is retained.</p>
+<p>Using the <span class="code">WIDTH</span> statement on a communications file causes a carriage return to be sent after the number of characters specified by the size attribute. It does not alter either the receive or transmit buffer.</p>
+<h4>Examples:</h4>
+<pre>10 WIDTH &quot;LPT1:&quot;, 75
+20 OPEN &quot;LPT1:&quot; FOR OUTPUT AS #1
+.
+.
+.
+6020 WIDTH #1, 40</pre>
+<p>Line 10 stores a line printer width of 75 characters per line.</p>
+<p>Line 20 opens file #1 to the line printer and sets the width to 75 for subsequent <span class="code">PRINT #1</span>, statements.</p>
+<p>Line 6020 changes the current line printer width to 40 characters per line.</p>
+
+</body>
+</html>

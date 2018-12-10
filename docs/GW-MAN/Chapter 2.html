@@ -1,0 +1,165 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Chapter 2<br>Getting Started with GW-BASIC</h1>
+<p>This chapter describes how to load GW-BASIC into your system. It also explains the two different types of operation modes, line formats, and the various elements of GW-BASIC.</p>
+
+<h2>2.1 Loading GW-BASIC</h2>
+<p>To use the GW-BASIC language, you must load it into the memory of your computer from your working copy of the MS-DOS diskette. Use the following procedure:</p>
+<ol>
+  <li>Turn on your computer.</li>
+  <li>Insert your working copy of the MS-DOS diskette into Drive A of your computer, and press <span class="smallcaps">RETURN</span>.</li>
+  <li><p>Type the following command after the <span class="code">A&gt;</span> prompt, and press <span class="smallcaps">RETURN</span>:</p>
+  <pre>gwbasic</pre>
+  </li>
+</ol>
+
+<p>Once you enter GW-BASIC, the GW-BASIC prompt, <span class="code">Ok</span><i>,</i> will replace the MS-DOS prompt, <span class="code">A&gt;</span><i>.</i></p>
+<p>On the screen, the line <span class="code">XXXXX Bytes Free</span> indicates how many bytes are available for use in memory while using GW-BASIC.</p>
+<p>The function key (<span class="smallcaps">F1–F10</span>) assignments appear on the bottom line of the screen. These function keys can be used to eliminate key strokes and save you time. <a href="Chapter%204.html">Chapter 4, &quot;The GW-BASIC Screen Editor,&quot;</a> contains detailed information on function keys.</p>
+
+<h2>2.2 Modes of Operation</h2>
+<p>Once GW-BASIC is initialized (loaded), it displays the <span class="code">Ok</span> prompt. <span class="code">Ok</span> means GW-BASIC is at <i>command level;</i> that is, it is ready to accept commands. At this point, GW-BASIC may be used in either of two modes: <i>direct mode</i> or <i>indirect mode.</i></p>
+
+<h3>2.2.1 Direct Mode</h3>
+<p>In the direct mode, GW-BASIC statements and commands are executed as they are entered. Results of arithmetic and logical operations can be displayed immediately and/or stored for later use, but the instructions themselves are lost after execution. This mode is useful for debugging and for using GW-BASIC as a calculator for quick computations that do not require a complete program.</p>
+
+<h3>2.2.2 Indirect Mode</h3>
+<p>The indirect mode is used to enter programs. Program lines are always preceded by line numbers, and are stored in memory. The program stored in memory is executed by entering the <span class="code">RUN</span> command.</p>
+
+<h2>2.3 The GW-BASIC Command Line Format</h2>
+<p>The GW-BASIC command line lets you change the environment or the conditions that apply while using GW-BASIC.</p>
+
+<hr> 
+  <p><b><i>Note</i></b></p>
+  <p>When you specify modifications to the operating environment of GW-BASIC, be sure to maintain the parameter sequence shown in the syntax statement. To skip a parameter, insert a comma. This will let the computer know that you have no changes to that particular parameter.</p>
+<hr>
+
+<p>GW-BASIC uses a command line of the following form:</p>
+
+<pre><b>gwbasic</b>[<i>filename</i>][&lt;<i>stdin</i>][[&gt;]&gt;<i>stdout</i>][<b>/f:</b><i>n</i>][<b>/i</b>][<b>/s</b>:<i>n</i>][<b>/c:</b><i>n</i>][<b>/m:</b>[<i>n</i>][,<i>n</i>]][<b>/d</b>]</pre>
+
+<p><span class="code"><i>filename</i></span> is the name of a GW-BASIC program file. If this parameter is present, GW-BASIC proceeds as if a RUN command had been given. If no extension is provided for the filename, a default file extension of .BAS is assumed. The .BAS extension indicates that the file is a GW-BASIC file. The maximum number of characters a filename may contain is eight with a decimal and three extension characters.</p>
+<p><span class="code"><i>&lt;stdin</i></span> redirects GW-BASIC's standard input to be read from the specified file. When used, it must appear before any switches.</p>
+<p>This might be used when you have multiple files that might be used by your program and you wish to specify a particular input file.</p>
+<p><span class="code"><i>&gt;stdout</i></span> redirects GW-BASIC's standard output to the specified file or device. When used, it must appear before any switches. Using <span class="code">&gt;&gt;</span> before <span class="code"><i>stdout</i></span> causes output to be appended.</p>
+<p>GW-BASIC can be redirected to read from standard input (keyboard) and write to standard output (screen) by providing the input and output filenames on the command line as follows:</p>
+<p class="code">gwbasic <i>program name</i> &lt;<i>input file</i>[&gt;]&gt;<i>output file</i></p>
+<p>An explanation of file redirection follows this discussion of the GW-BASIC command line.</p>
+<p>Switches appear frequently in command lines; they designate a specified course of action for the command, as opposed to using the default for that setting. A switch parameter is preceded by a slash (<span class="code">/</span>).</p>
+<p><span class="code"><b>/f:</b><i>n</i> </span>sets the maximum number of files that may be opened simultaneously during the execution of a GW-BASIC program. Each file requires 194 bytes for the File Control Block (FCB) plus 128 bytes for the data buffer. The data buffer size may be altered with the <b>/s:</b> switch. If the <span class="code"><b>/f:</b></span> switch is omitted, the maximum number of open files defaults to 3. This switch is ignored unless the <span class="code"><b>/i</b></span> switch is also specified on the command line.</p>
+<p><span class="code"><b>/i</b></span><b> </b>makes GW-BASIC statically allocate space required for file operations, based on the <span class="code"><b>/s</b></span><b> </b>and <span class="code"><b>/f</b></span> switches.</p>
+<p><span class="code"><b>/s:</b><i>n</i></span> sets the maximum record length allowed for use with files. The record length option in the <span class="code">OPEN</span> statement cannot exceed this value. If the <span class="code"><b>/s:</b></span><b> </b>switch is omitted, the record length defaults to 128 bytes. The maximum record size is 32767.</p>
+<p><span class="code"><b>/c:</b><i>n</i></span><i> </i>controls RS-232 communications. If RS-232 cards are present, <span class="code">/c:0</span> disables RS-232 support, and any subsequent I/O attempts for each RS-232 card present. If the <span class="code"><b>/c</b></span><b>:</b> switch is omitted, 256 bytes are allocated for the receive buffer and 128 bytes for the transmit buffer for each card present.</p>
+<p>The <span class="code"><b>/c:</b></span><b> </b>switch has no affect when RS-232 cards are not present. The <span class="code"><b>/c:</b><i>n</i></span> switch allocates <span class="code"><i>n</i></span> bytes for the receive buffer and 128 bytes for the transmit buffer for each RS-232 card present.</p>
+<p><span class="code"><b>/m:</b><i>n</i>[,<i>n</i>]</span> sets the highest memory location (first <span class="code"><i>n</i></span>) and maximum block size (second <span class="code"><i>n</i></span>) used by GW-BASIC. GW-BASIC attempts to allocate 64K bytes of memory for the data and stack segments. If machine language subroutines are to be used with GW-BASIC programs, use the <span class="code"><b>/m:</b></span> switch to set the highest location that GW-BASIC can use. The maximum block size is in multiples of 16. It is used to reserve space for user programs (assembly language subroutines) beyond GW-BASIC's workspace.</p>
+<p>The default for maximum block size is the highest memory location. The default for the highest memory location is 64K bytes unless maximum block size is specified, in which case the default is the maximum block size (in multiples of 16).</p>
+<p><span class="code"><b>/d</b></span><b> </b>allows certain functions to return double-precision results. When the <span class="code"><b>/d</b></span> switch is specified, approximately 3000 bytes of additional code space are used. The functions affected are <span class="code">ATN</span>, <span class="code">COS</span>, <span class="code">EXP</span>, <span class="code">LOG</span>, <span class="code">SIN</span>, <span class="code">SQR</span>, and <span class="code">TAN</span>.</p>
+
+<hr> 
+  <p><b><i>Note</i></b></p>
+  <p>All switch numbers may be specified as decimal, octal (preceded by <span class="code">&amp;O</span>), or hexadecimal (preceded by <span class="code">&amp;H</span>).</p>
+<hr>
+
+<p>Sample GW-BASIC command lines are as follows:</p>
+<p>The following uses 64K bytes of memory and three files; loads and executes the program file <i>payroll.bas:</i></p>
+<pre>A&gt;gwbasic PAYROLL</pre>
+<p>The following uses 64K bytes of memory and six files; loads and executes the program file <i>invent.bas:</i></p>
+<pre>A&gt;gwbasic INVENT /F:6</pre>
+<p>The following disables RS-232 support and uses only the first 32K bytes of memory. 32K bytes above that are reserved for user programs:</p>
+<pre>A&gt;gwbasic /C:0 /M:32768,4096</pre>
+<p>The following uses four files and allows a maximum record length of 512 bytes:</p>
+<pre>A&gt;gwbasic /F:4 /S:512</pre>
+<p>The following uses 64K bytes of memory and three files. Allocates 512 bytes to RS-232 receive buffers and 128 bytes to transmit buffers, and loads and executes the program file <i>tty.bas:</i></p>
+<pre>A&gt;gwbasic TTY /C:512</pre>
+<p>For more information about RS-232 Communications, see <a href="Appendix%20F.html">Appendix F</a>.</p>
+
+<h4>Redirection of Standard Input and Output</h4>
+<p>When redirected, all <span class="code">INPUT</span>, <span class="code">LINE</span> <span class="code">INPUT</span>, <span class="code">INPUT$</span>, and <span class="code">INKEY$</span> statements are read from the specified input file instead of the keyboard.</p>
+<p>All <span class="code">PRINT</span> statements write to the specified output file instead of the screen.</p>
+<p>Error messages go to standard output and to the screen.</p>
+<p>File input from <span class="code">KYBD:</span> is still read from the keyboard.</p>
+<p>File output to <span class="code">SCRN:</span> still outputs to the screen.</p>
+<p>GW-BASIC continues to trap keys when the <span class="code">ON KEY(<i>n</i>)</span> statement is used.</p>
+<p>Typing <span class="smallcaps">CTRL-BREAK</span> when output is redirected causes GW-BASIC to close any open files, issue the message &quot;<span class="code">Break in line <i>nnnn</i></span>&quot; to standard output, exit GW-BASIC, and return to MS-DOS.</p>
+<p>When input is redirected, GW-BASIC continues to read from this source until a <span class="smallcaps">CTRL-Z</span> is detected. This condition can be tested with the end-of-file (<span class="code">EOF</span>) function. If the file is not terminated by a <span class="smallcaps">CTRL-Z</span>, or if a GW-BASIC file input statement tries to read past the end of file, then any open files are closed, and GW-BASIC returns to MS-DOS.</p>
+<p>For further information about these statements and other statements, functions, commands, and variables mentioned in this text, refer to the <i>GW-BASIC User's Reference.</i></p>
+<p>Some examples of redirection follow.</p>
+<pre>GWBASIC MYPROG &gt;DATA.OUT</pre>
+<p>Data read by the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements continues to come from the keyboard. Data output by the <span class="code">PRINT</span> statement goes into the data.out file.</p>
+<pre>gwbasic MYPROG &lt;DATA.IN</pre>
+<p>Data read by the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements comes from data.in. Data output by <span class="code">PRINT</span> continues to go to the screen.</p>
+<pre>gwbasic MYPROG &lt;MYINPUT.DAT &gt;MYOUTPUT.DAT</pre>
+<p>Data read by the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements now come from the file <i>myinput.dat</i>, and data output by the <span class="code">PRINT</span> statements goes into <i>myoutput.dat</i>.</p>
+<pre>gwbasic MYPROG &lt;\SALES\JOHN\TRANS.DAT &gt;&gt;\SALES\SALES.DAT</pre>
+<p>Data read by the <span class="code">INPUT</span> and <span class="code">LINE INPUT</span> statements now comes from the file \<i>sales</i>\<i>john</i>\<i>trans.dat</i>. Data output by the <span class="code">PRINT</span> statement is appended to the file \<i>sales</i>\<i>sales.dat</i>.</p>
+<br>
+
+<h2>2.4 GW-BASIC Statements, Functions, Commands, and Variables</h2>
+<p>A GW-BASIC program is made up of several elements: keywords, commands, statements, functions, and variables.</p>
+
+<h3>2.4.1 Keywords</h3>
+<p>GW-BASIC keywords, such as <span class="code">PRINT</span>, <span class="code">GOTO</span>, and <span class="code">RETURN</span> have special significance for the GW-BASIC Interpreter. GW-BASIC interprets keywords as part of statements or commands.</p>
+<p>Keywords are also called <i>reserved words</i>. They cannot be used as variable names, or the system will interpret them as commands. However, keywords may be embedded within variable names.</p>
+<p>Keywords are stored in the system as <i>tokens</i> (1- or 2-byte characters) for the most efficient use of memory space.</p>
+
+<h3>2.4.2 Commands</h3>
+<p>Commands and statements are both executable instructions. The difference between commands and statements is that commands are generally executed in the direct mode, or command level of the interpreter. They usually perform some type of program maintenance such as editing, loading, or saving programs. When GW-BASIC is invoked and the GW-BASIC prompt, <span class="code">Ok</span><i>,</i> appears, the system assumes command level.</p>
+
+<h3>2.4.3 Statements</h3>
+<p>A statement, such as <span class="code">ON ERROR...GOTO</span>, is a group of GW-BASIC keywords generally used in GW-BASIC program lines as part of a program. When the program is run, statements are executed when, and as, they appear.</p>
+
+<h3>2.4.4 Functions</h3>
+<p>The GW-BASIC Interpreter performs both numeric and string functions.</p>
+
+<h4>2.4.4.1 Numeric Functions</h4>
+<p>The GW-BASIC Interpreter can perform certain mathematical (arithmetical or algebraic) calculations. For example, it calculates the sine (<span class="code">SIN</span>), cosine (<span class="code">COS</span>), or tangent (<span class="code">TAN</span>) of angle <i>x</i>.</p>
+<p>Unless otherwise indicated, only integer and single-precision results are returned by numeric functions.</p>
+
+<h4>2.4.4.2 String Functions</h4>
+<p>String functions operate on strings. For example, <span class="code">TIME$</span> and <span class="code">DATE$</span> return the time and date known by the system. If the current time and date are entered during system start up, the correct time and date are given (the internal clock in the computer keeps track).</p>
+
+<h4>2.4.4.3 User-Defined Functions</h4>
+<p>Functions can be user-defined by means of the <span class="code">DEF FN</span> statement. These functions can be either string or numeric.</p>
+
+<h3>2.4.5 Variables</h3>
+<p>Certain groups of alphanumeric characters are assigned values and are called <i>variables</i>. When variables are built into the GW-BASIC program they provide information as they are executed.</p>
+<p>For example, <span class="code">ERR</span> defines the latest error which occurred in the program; <span class="code">ERL</span> gives the location of that error. Variables can also be defined and/or redefined by the user or by program content.</p>
+<p>All GW-BASIC commands, statements, functions, and variables are individually described in the <i>GW-BASIC User's Reference</i>.</p>
+
+<h2>2.5 Line Format</h2>
+<p>Each of the elements of GW-BASIC can make up sections of a program that are called <i>statements</i>. These statements are very similar to sentences in English. Statements are then put together in a logical manner to create programs. The <i>GW-BASIC User's Reference</i> describes all of the statements available for use in GW-BASIC.</p>
+<p>In a GW-BASIC program, lines have the following format:</p>
+<pre class="code">nnnnn statement[statements]</pre>
+<p><span class="code">nnnnn</span> is a line number</p>
+<p><span class="code">statement</span> is a GW-BASIC statement.</p>
+<p>A GW-BASIC program line always begins with a line number and must contain at least one character, but no more than 255 characters. Line numbers indicate the order in which the program lines are stored in memory, and are also used as references when branching and editing. The program line ends when you press the <span class="smallcaps">RETURN</span> key.</p>
+<p>Depending on the logic of your program, there may be more than one statement on a line. If so, each must be separated by a colon (<span class="code">:</span>). Each of the lines in a program should be preceded by a line number. This number may be any whole integer from 0 to 65529. It is customary to use line numbers such as 10, 20, 30, and 40, in order to leave room for any additional lines that you may wish to include later. Since the computer will run the statements in numerical order, additional lines needn't appear in consecutive order on the screen: for example, if you entered line 35 after line 60, the computer would still run line 35 after line 30 and before line 40. This technique may save your reentering an entire program in order to include one line that you have forgotten.</p>
+<p>The width of your screen is 80 characters. If your statement exceeds this width, the cursor will wrap to the next screen line automatically. Only when you press the <span class="smallcaps">RETURN</span> key will the computer acknowledge the end of the line. Resist the temptation to press <span class="smallcaps">RETURN</span> as you approach the edge of the screen (or beyond). The computer will automatically wrap the line for you. You can also press <span class="smallcaps">CTRL-RETURN</span>, which causes the cursor to move to the beginning of the next screen line without actually entering the line. When you press <span class="smallcaps">RETURN</span>, the entire logical line is passed to GW-BASIC for storage in the program.</p>
+<p>In GW-BASIC, any line of text that begins with a numeric character is considered a program line and is processed in one of three ways after the <span class="smallcaps">RETURN</span> key is pressed:</p>
+<ul>
+  <li>A new line is added to the program. This occurs if the line number is legal (within the range of 0 through 65529), and if at least one alpha or special character follows the line number in the line.</li>
+  <li>An existing line is modified. This occurs if the line number matches the line number of an existing line in the program. The existing line is replaced with the text of the newly-entered line. This process is called <i>editing</i>.<br>
+    <br>
+
+  <hr> 
+    <p><b><i>Note</i></b></p>
+    <p>Reuse of an existing line number causes all of the information contained in the original line to be lost. Be careful when entering numbers in the indirect mode. You may erase some program lines by accident.</p>
+  <hr>
+  </li>
+  <li>An existing line is deleted. This occurs if the line number matches the line number of an existing line, and the entered line contains only a line number. If an attempt is made to delete a nonexistent line, an &quot;<span class="code">Undefined line number</span>&quot; error message is displayed.</li>
+</ul>
+
+<h2>2.6 Returning to MS-DOS</h2>
+<p>Before you return to MS-DOS, you must save the work you have entered under GW-BASIC, or the work will be lost.</p>
+<p>To return to MS-DOS, type the following after the <span class="code">Ok</span> prompt, and press <span class="smallcaps">RETURN</span>:</p>
+<pre>system</pre>
+<p>The system returns to MS-DOS, and the <span class="code">A&gt;</span> prompt appears on your screen.</p>
+</div>
+</body>
+</html>

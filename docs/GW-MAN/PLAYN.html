@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PLAY(n) Function</h1>
+<h4>Purpose:</h4>
+<p>To return the number of notes currently in the background music queue.</p>
+<h4>Syntax:</h4>
+<pre><b>PLAY</b>(<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span> is a dummy argument, and may be any value.</p>
+<p><span class="code">PLAY(<i>n</i>)</span> returns 0 when in music foreground mode.</p>
+<p>The maximum returned value of <span class="code"><i>x</i></span> is 32.</p>
+<h4>Examples:</h4>
+<pre>10 ' when 4 notes are left in
+20 ' queue play another tune
+30 PLAY &quot;MBABCDABCDABCD&quot;
+40 IF PLAY (0) =4 then 200
+.
+.
+.
+200 PLAY &quot;MBCDEFCDEF&quot;</pre>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LPOS Function</h1>
+<h4>Purpose:</h4>
+<p>To return the current position of the line printer print head within the line printer buffer.</p>
+<h4>Syntax:</h4>
+<pre><b>LPOS</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">LPOS</span> does not necessarily give the physical position of the print head.</p>
+<p><span class="code"><i>x</i></span> is a dummy argument.</p>
+<p>If the printer has less than the 132 characters-per-line capability, it may issue internal line feeds and not inform the computer internal line printer buffer. If this has happened, the value returned by <span class="code">LPOS(<i>x</i>)</span> may be incorrect. <span class="code">LPOS(<i>x</i>)</span> simply counts the number of printable characters since the last line feed was issued.</p>
+<h4>Examples:</h4>
+<p>The following line causes a carriage return after the 60th character is printed on a line:</p>
+<pre>100 IF LPOS(X)&gt;60 THEN LPRINT CHR$(13)</pre>
+
+</body>
+</html>

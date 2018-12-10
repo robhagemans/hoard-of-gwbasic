@@ -1,0 +1,59 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>FOR ... NEXT Statements</h1>
+<h4>Purpose:</h4>
+<p>To execute a series of instructions a specified number of times in a loop.</p>
+<h4>Syntax:</h4>
+<pre><b>FOR</b> <i>variable</i>=<i>x</i> <b>TO</b> <i>y</i> [<b>STEP</b> <i>z</i>] 
+<b>. </b>
+<b>. </b>
+<b>. </b>
+<b>NEXT</b> [<i>variable</i>][,<i>variable</i>...]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>variable</i></span> is used as a counter.</p>
+<p><span class="code"><i>x</i></span>,<span class="code"><i>y</i></span>, and <span class="code"><i>z</i></span> are numeric expressions.</p>
+<p><span class="code"><b>STEP</b> <i>z</i></span> specifies the counter increment for each loop.</p>
+<p>The first numeric expression (<span class="code"><i>x</i></span>) is the initial value of the counter. The second numeric expression (<span class="code"><i>y</i></span>) is the final value of the counter.</p>
+<p>Program lines following the <span class="code">FOR</span> statement are executed until the <span class="code">NEXT</span> statement is encountered. Then, the counter is incremented by the amount specified by <span class="code">STEP</span>.</p>
+<p>If <span class="code">STEP</span> is not specified, the increment is assumed to be 1.</p>
+<p>A check is performed to see if the value of the counter is now greater than the final value (<span class="code"><i>y</i></span>). If it is not greater, GW-BASIC branches back to the statement after the <span class="code">FOR</span> statement, and the process is repeated. If it is greater, execution continues with the statement following the <span class="code">NEXT</span> statement. This is a <span class="code">FOR-NEXT</span> loop.</p>
+<p>The body of the loop is skipped if the initial value of the loop times the sign of the step exceeds the final value times the sign of the step.</p>
+<p>If <span class="code">STEP</span> is negative, the final value of the counter is set to be less than the initial value. The counter is decremented each time through the loop, and the loop is executed until the counter is less than the final value.</p>
+<h4>Nested Loops:</h4>
+<p><span class="code">FOR-NEXT</span> loops may be nested; that is, a <span class="code">FOR-NEXT</span> loop may be placed within the context of another <span class="code">FOR-NEXT</span> loop. When loops are nested, each loop must have a unique variable name as its counter.</p>
+<p>The <span class="code">NEXT</span> statement for the inside loop must appear before that for the outside loop.</p>
+<p>If nested loops have the same end point, a single <span class="code">NEXT</span> statement may be used for all of them.</p>
+<p>The <span class="code"><i>variable(s)</i></span><i> </i>in the <span class="code">NEXT</span> statement may be omitted, in which case the <span class="code">NEXT</span> statement will match the most recent <span class="code">FOR</span> statement.</p>
+<p>If a <span class="code">NEXT</span> statement is encountered before its corresponding <span class="code">FOR</span> statement, a &quot;<span class="code">NEXT without FOR</span>&quot; error message is issued and execution is terminated. </p>
+<h4>Examples:</h4>
+<p>The following example prints integer values of the variable I% from 1 to 10 in steps of <i>z</i>. For fastest execution, I is declared as an integer by the % sign.</p>
+<pre>10 K=10
+20 FOR I%=1 TO K STEP 2
+30   PRINT I%
+40 NEXT
+RUN
+ 1
+ 3
+ 5
+ 7
+ 9</pre>
+<p>In the following example, the loop does not execute because the initial value of the loop exceeds the final value. Nothing is printed by this example.</p>
+<pre>10 R=0
+20 FOR S=1 TO R
+30   PRINT S
+40 NEXT S</pre>
+<p>In the next example, the loop executes 10 times. The final value for the loop variable is always set before the initial value is set.</p>
+<pre>10 S=5
+20 FOR S=1 TO S+5
+30   PRINT S;
+40 NEXT
+RUN
+ 1 2 3 4 5 6 7 8 9 10</pre>
+</body>
+</html>

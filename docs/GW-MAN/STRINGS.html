@@ -1,0 +1,31 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>STRING$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return</p>
+<ul>
+  <li>a string of length <span class="code"><i>n</i></span> whose characters all have ASCII code <span class="code"><i>j</i></span>, or</li>
+  <li>the first character of <span class="code"><i>x$</i></span></li>
+</ul>
+<h4>Syntax:</h4>
+<pre><b>STRING$</b>(<i>n</i>,<i>j</i>)
+<b>STRING$</b>(<i>n</i>,<i>x$</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">STRING$</span> is also useful for printing top and bottom borders on the screen or the printer.</p>
+<p><span class="code"><i>n</i></span> and <span class="code"><i>j</i></span> are integer expressions in the range 0 to 255.</p>
+<h4>Examples:</h4>
+<pre>10 X$ = STRING$(10, 45)
+20 PRINT X$ &quot;MONTHLY REPORT&quot; X$
+RUN
+ ----------MONTHLY REPORT----------</pre>
+<p>45 is the decimal equivalent of the ASCII symbol for the minus (-) sign.</p>
+<p><a href="Appendix C.html">Appendix C in the GW-BASIC User's Guide</a	> lists ASCII character codes.</p>
+
+</body>
+</html>

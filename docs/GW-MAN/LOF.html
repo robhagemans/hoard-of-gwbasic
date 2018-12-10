@@ -1,0 +1,26 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LOF Function</h1>
+<h4>Purpose:</h4>
+<p>To return the length (number of bytes) allocated to the file.</p>
+<h4>Syntax:</h4>
+<pre><b>LOF</b>(<i>file number</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the number of the file that the file was opened under.</p>
+<p>With communications files, <span class="code">LOF</span> returns the amount of free space in the input buffers.</p>
+<h4>Examples:</h4>
+<p>The following sequence gets the last record of the random-access file <i>file.big</i>, and assumes that the file was created with a default record length of 128 bytes:</p>
+<pre>10 OPEN &quot;R&quot;,1,&quot;FILE.BIG&quot;
+20 GET #1,LOF(1)/128
+.
+.
+.</pre>
+
+</body>
+</html>

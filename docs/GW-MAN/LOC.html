@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>LOC Function</h1>
+<h4>Purpose:</h4>
+<p>To return the current position in the file.</p>
+<h4>Syntax:</h4>
+<pre><b>LOC</b>(<i>file number</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>file number</i></span> is the file number used when the file was opened.</p>
+<p>When transmitting or receiving a file through a communication port, <span class="code">LOC</span> returns the number of characters in the input buffer waiting to be read. The default size for the input buffer is 256 characters, but can be changed with the <span class="code">/<b>c</b>:</span> option on the GW-BASIC command line. If there are more than 255 characters in the buffer, <span class="code">LOC</span> returns 255. Since a string is limited to 255 characters, this practical limit alleviates the need to test for string size before reading data into it. If fewer than 255 characters remain in the buffer, then <span class="code">LOC</span> returns the actual count.</p>
+<p>With random disk files, <span class="code">LOC</span> returns the record number just read from, or written to, with a <span class="code">GET</span> or <span class="code">PUT</span> statement.</p>
+<p>With sequential files, <span class="code">LOC</span> returns the number of 128-byte blocks read from, or written to, the file since it was opened. When the sequential file is opened for input, GW-BASIC initially reads the first sector of the file. In this case, the <span class="code">LOC</span> function returns the character <i>1</i> before any input is allowed.</p>
+<p>If the file was opened but no disk input/output was performed, <span class="code">LOC</span> returns a zero.</p>
+<h4>Examples:</h4>
+<pre>200 IF LOC(1)&gt;50 THEN STOP</pre>
+<p>The program stops after 51 records are read or written. </p>
+
+</body>
+</html>

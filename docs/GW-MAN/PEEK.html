@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PEEK Function</h1>
+<h4>Purpose:</h4>
+<p>To read from a specified memory location.</p>
+<h4>Syntax:</h4>
+<pre><b>PEEK</b>(<i>a</i>)</pre>
+<h4>Comments:</h4>
+<p>Returns the byte (decimal integer within the range of 0 to 255) read from the specified memory location a. a must be within the range of 0 to 65535.</p>
+<p>The <span class="code">DEF SEG</span> statement last executed determines the absolute address that will be peeked into.</p>
+<p><span class="code">PEEK</span> is the complementary function to the <span class="code">POKE</span> statement.</p>
+<h4>Examples:</h4>
+<pre>10 A=PEEK(&amp;H5A00)</pre>
+<p>The value of the byte, stored in user-assigned hex offset memory location 5A00 (23040 decimal), will be stored in the variable A.</p>
+
+</body>
+</html>

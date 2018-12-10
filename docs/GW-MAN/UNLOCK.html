@@ -1,0 +1,45 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>UNLOCK Statement</h1>
+<h4>Purpose:</h4>
+<p>To release locks that have been applied to an opened file. This is used in a multi-device environment, often referred to as a network or network environment.</p>
+<h4>Syntax:</h4>
+<pre><b>UNLOCK </b>[<b>#</b>]<i>n</i> [,[<i>record number</i>] [<b>TO </b><i>record number</i>]]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>n</i></span><i> </i>is the number that was assigned the file as it was originally numbered in the program.</p>
+<p><span class="code"><i>record number</i></span><i> </i>is the number of the individual record that is to be unlocked. Or, if a range of records are to be unlocked, record number designates the beginning and ending record of the specified range.</p>
+<p>The range of legal record numbers is 1 to 2<sup>32</sup>-1. The limit on record size is 32767 bytes.</p>
+<p>The record range specified must be from lower to (the same or) higher record numbers.</p>
+<p>If a starting record number is not specified, the record number 1 is assumed.</p>
+<p>If an ending record number is not specified, then only the specified record is unlocked.</p>
+<p>The following are legal <span class="code">UNLOCK</span> statements:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=160 class="code">UNLOCK #<i>n</i></td><td>unlocks the entire file <span class="code"><i>n</i></span></td></tr>
+	<tr><td class="code">UNLOCK #<i>n</i>, <i>X</i></td><td>unlocks record <span class="code"><i>X</i></span> only</td></tr>
+	<tr><td class="code">UNLOCK #<i>n</i>, TO <i>Y</i></td><td>unlocks records 1 through <span class="code"><i>Y</i></span></td></tr>
+	<tr><td class="code">UNLOCK #<i>n</i>, <i>X</i> TO <i>Y</i></td><td>unlocks records <span class="code"><i>X</i></span> through <span class="code"><i>Y</i></span></td></tr>
+</table>
+<p>The locked file or record range should be unlocked before the file is closed.</p>
+<p>Failure to execute the <span class="code">UNLOCK</span> statement can jeopardize future access to that file in a network environment.</p>
+<p>In the case of files opened in random mode, if a range of record numbers is specified, this range must match exactly the record number range given in the <span class="code">LOCK</span> statement.</p>
+<p>The &quot;<span class="code">Permission denied</span>&quot; message will appear if a syntactically correct <span class="code">UNLOCK</span> request cannot be granted. The <span class="code">UNLOCK</span> statement must match exactly the paired <span class="code">LOCK</span> statement.</p>
+<p>It is expected that the time in which files or regions within files are locked will be short, and thus the suggested usage of the <span class="code">LOCK</span> statement is within shortterm paired <span class="code">LOCK</span>/<span class="code">UNLOCK</span> statements.</p>
+<h4>Examples:</h4>
+<p>The following demonstrates how the <span class="code">LOCK</span>/<span class="code">UNLOCK</span> statements should be used:</p>
+<pre>LOCK #1, 1 TO 4
+LOCK #1, 5 TO 8
+UNLOCK #1, 1 TO 4
+UNLOCK #1, 5 TO 8</pre>
+<p>The following example is illegal:</p>
+<pre>LOCK #1, 1 TO 4
+LOCK #1, 5 TO 8
+UNLOCK #1, 1 TO 8</pre>
+
+</body>
+</html>

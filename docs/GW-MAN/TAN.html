@@ -1,0 +1,23 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>TAN Function</h1>
+<h4>Purpose:</h4>
+<p>To calculate the trigonometric tangent of <span class="code"><i>x</i></span>, in radians.</p>
+<h4>Syntax:</h4>
+<pre><b>TAN</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code">TAN(<i>x</i>)</span> is calculated in single-precision unless the <span class="code">/<b>d</b></span><b> </b>switch is used when GW-BASIC is executed.</p>
+<p>If <span class="code">TAN</span> overflows, the &quot;<span class="code">Overflow</span>&quot; error message is displayed; machine infinity with the appropriate sign is supplied as the result, and execution continues.</p>
+<p>To obtain <span class="code">TAN(<i>x</i>)</span> when <i>x</i> is in degrees, use <span class="code">TAN(<i>x</i>*pi/180)</span>.</p>
+<h4>Examples:</h4>
+<pre>10 Y = TAN(X)</pre>
+<p>When executed, Y will contain the value of the tangent of X radians.</p>
+
+</body>
+</html>

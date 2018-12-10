@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+<h1>CINT Function</h1>
+<h4>Purpose:</h4>
+<p>To round numbers with fractional portions to the next whole number or integer.</p>
+<h4>Syntax:</h4>
+<pre><b>CINT</b>(<i>x</i>)</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>x</i></span> is not within the range of -32768 to 32767, an &quot;<span class="code">Overflow</span>&quot; error occurs.</p>
+<p>See the <a href="FIX.html">FIX</a> and <a href="INT.html">INT</a> functions, both of which return integers.</p>
+<h4>Examples:</h4>
+<pre>PRINT CINT(45.67)
+ 46</pre>
+<p>45.67 is rounded up to 46.</p>
+<hr>
+	<p><b><i>Note</i></b></p>
+	<p>See the <a href="CDBL.html">CDBL</a> and <a href="CSNG.html">CSNG</a> functions for converting numbers to the double-precision and single-precision data types, respectively.</p>
+<hr>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>PRINT USING Statement</h1>
+<h4>Purpose:</h4>
+<p>To print strings or numbers using a specified format.</p>
+<h4>Syntax:</h4>
+<pre><b>PRINT USING</b> <i>string expressions</i>;<i>list of expressions</i>[;]</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>string expressions</i></span> is a string literal or variable consisting of special formatting characters. The formatting characters determine the field and the format of printed strings or numbers.</p>
+<p><span class="code"><i>list of expressions</i></span><i> </i>consists of the string or numeric expressions separated by semicolons.</p>
+<h4>String Fields</h4>
+<p>The following three characters may be used to format the string field:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=72 class="code">!</td><td>Specifies that only the first character in the string is to be printed.</td></tr>
+	<tr><td valign=top>\<span class="code"><i>n</i></span> spaces\</td>
+		<td>
+			<p>Specifies that 2+n characters from the string are to be printed.</p>
+			<p>If the backslashes are typed with no spaces, two characters are printed; if the backslashes are typed with one space, three characters are printed, and so on.</p>
+			<p>If the string is longer than the field, the extra characters are ignored. If the field is longer than the string, the string is left-justified in the field and padded with spaces on the right. For example:</p>
+			<pre>10 A$=&quot;LOOK&quot;: B$=&quot;OUT&quot;
+30 PRINT USING &quot;!&quot;; A$; B$
+40 PRINT USING&quot;\  \&quot;; A$; B$
+50 PRINT USING&quot;\   \&quot;; A$; B$;&quot;!!&quot;
+RUN
+ LO
+ LOOKOUT
+ LOOK OUT!!</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">&amp;</td>
+		<td>Specifies a variable length string field. When the field is specified with <span class="code">&amp;</span>, the string is output exactly as input. For example:
+			<pre>10 A$=&quot;LOOK&quot;: B$=&quot;OUT&quot;
+20 PRINT USING &quot;!&quot;; A$
+30 PRINT USING &quot;&amp;&quot;; B$
+RUN
+ LOUT</pre>
+		</td>
+	</tr>
+</table>
+<h4>Numeric Fields</h4>
+<p>The following special characters may be used to format the numeric field:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=72 valign=top class="code">#</td>
+		<td>
+			<p>A pound sign is used to represent each digit position. Digit positions are always filled. If the number to be printed has fewer digits than positions specified, the number is right-justified (preceded by spaces) in the field.</p>
+			<p>A decimal point may be inserted at any position in the field. If the format string specifies that a digit is to precede the decimal point, the digit always is printed (as 0 if necessary). Numbers are rounded as necessary. For example:</p>
+			<pre>PRINT USING &quot;##.##&quot;;.78
+ 0.78</pre><pre>PRINT USING &quot;###.##&quot;;987.654
+ 987.65</pre>
+			<pre>PRINT USING &quot;##.##&quot; ;10.2,5.3,66.789,.234
+ 10.20 5.30 66.79 0.23</pre><p>In the last example, three spaces were inserted at the end of the format string to separate the printed values on the line.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">+</td><td>A plus sign at the beginning or end of the format string causes the sign of the number (plus or minus) to be printed before or after the number.</td></tr>
+	<tr><td valign=top class="code">-</td>
+		<td>
+			<p>A minus sign at the end of the format field causes negative numbers to be printed with a trailing minus sign. For example:</p>
+			<pre>PRINT USING&quot;+##.##&quot;;-68.95,2.4,55.6,-9
+ -68.95 +2.40 +55.60 -0.90</pre><pre>PRINT USING&quot;##.##-&quot;;-68.95,22.449,-7.01
+ 68.95 22.45 7.01-</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">**</td>
+		<td>
+			<p>A double asterisk at the beginning of the format string causes leading spaces in the numeric field to be filled with asterisks. The <span class="code">**</span> also specifies two more digit positions. For example:</p>
+			<pre>PRINT USING &quot;**#.#&quot;;12.39,-0.9,765.1
+ *12.4* -09765.1</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">$$</td>
+		<td>
+			<p>A double dollar sign at the beginning of the format string causes a dollar sign to be printed to the immediate left of the formatted number. The <span class="code">$$</span> specifies two more digit positions, one of which is the dollar sign. The exponential format cannot be used with <span class="code">$$</span>. Negative numbers cannot be used unless the minus sign trails to the right. For example:</p>
+			<pre>PRINT USING &quot;$$###.##&quot;;456.78
+ $456.78</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">**$</td>
+		<td>
+			<p>The <span class="code">**$</span> at the beginning of a format string combines the effects of the above two symbols. Leading spaces are filled with asterisks, and a dollar sign is printed before the number. <span class="code">**$</span> specifies three more digit positions, one of which is the dollar sign. For example:</p>
+			<pre>PRINT USING &quot;**$##.##&quot;;2.34
+ ***$2.34</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">,</td>
+		<td>
+			<p>A comma to the left of the decimal point in the format string causes a comma to be printed to the left of every third digit to the left of the decimal point. A comma at the end of the format string is printed as part of the string.</p>
+			<pre>PRINT USING &quot;####.##&quot;;1234.5
+ 1234.50</pre>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">^^^^</td>
+		<td>
+			<p>Four carets may be placed after the digit position characters to specify exponential format. The four carets allow space for <span class="code">E+xx</span> to be printed. Any decimal point position may be specified. The significant digits are left-justified, and the exponent is adjusted. Unless a leading <span class="code">+</span> or trailing <span class="code">+</span> or <span class="code">-</span> is specified, one digit position is used to the left of the decimal point to print a space or a minus sign. For example:</p>
+			<pre>PRINT USING &quot;##.##^^^^&quot;;234.56
+ 2.35E+02</pre>
+			<pre>PRINT USING &quot;.####^^^^-&quot;;888888
+OK</pre>
+			<pre>PRINT USING &quot;+.##^^^^&quot;;123
+ +.12E+03</pre>
+			<p>Note that in the above examples the comma is not used as a delimiter with the exponential format.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">_</td>
+		<td>
+			<p>An underscore in the format string causes the next character to be output as a literal character. For example:</p>
+			<pre>PRINT USING &quot;_!##.##_!&quot;;12.34
+ !12.34!</pre>
+			<p>The literal character itself may be an underscore by placing &quot;<span class="code">_</span>&quot; in the format string.</p>
+		</td>
+	</tr>
+	<tr><td valign=top class="code">%</td>
+		<td>
+			<p>A percent sign is printed in front of the number if the number to be printed is larger than the specified numeric field. If rounding causes the number to exceed the field, a percent sign is printed in front of the rounded number. For example:</p>
+			<pre>PRINT USING &quot;##.##&quot;;111.22
+ %111.22</pre><pre>PRINT USING &quot;.##&quot;';.999
+ %1.00</pre>
+			<p>If the number of digits specified exceeds 24, an &quot;<span class="code">Illegal function call</span>&quot; error results.</p>
+		</td>
+	</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>VARPTR$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return a character form of the offset of a variable in memory.</p>
+<h4>Syntax:</h4>
+<pre><b>VARPTR$</b>(<i>variable</i>)</pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>variable</i></span><i> </i>is the name of a variable that exists in the program.</p>
+<hr>
+<p><b><i>Note</i></b></p>
+<p>Assign all simple variables before calling <span class="code">VARPTR$</span> for an array element, because the array addresses change when a new simple variable is assigned.</p>
+<hr>
+<p><span class="code">VARPTR$</span> returns a three-byte string of the following form:</p>
+<p>| Byte 0 | Byte 1 | Byte 2 |</p>
+<p>Byte 0 contains one of the following variable types:</p>
+<p>2 integer</p>
+<p>3 string</p>
+<p>4 single-precision</p>
+<p>8 double precision</p>
+<p>Byte 1 contains the 8086 address format, and is the least significant byte. </p>
+<p>Byte 2 contains the 8086 address format, and is the most significant byte.</p>
+<h4>Examples:</h4>
+<pre>100 X = USR(VARPTR$(Y))</pre>
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>RIGHT$ Function</h1>
+<h4>Purpose:</h4>
+<p>To return the rightmost <span class="code"><i>n</i></span> characters of string <span class="code"><i>x$</i></span>.</p>
+<h4>Syntax:</h4>
+<pre><b>RIGHT$</b>(<i>x$</i>,<i>n</i>)</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>n</i></span> is equal to or greater than <span class="code">LEN(<i>x$</i>)</span>, <span class="code">RIGHT$</span> returns <span class="code"><i>x$</i></span>. If <span class="code"><i>n</i></span> equals zero, the null string (length zero) is returned (see the <a href="MIDSF.html">MID$</a> and <a href="LEFTS.html">LEFT$</a> functions).</p>
+<h4>Examples:</h4>
+<pre>10 A$=&quot;DISK BASIC&quot;
+20 PRINT RIGHT$(A$, 5)
+RUN
+ BASIC</pre>
+<p>Prints the rightmost five characters in the A$ string.</p>
+
+</body>
+</html>

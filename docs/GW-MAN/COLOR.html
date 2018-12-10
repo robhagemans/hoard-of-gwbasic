@@ -1,0 +1,69 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>COLOR Statement</h1>
+<h4>Purpose:</h4>
+<p>To select display colors</p>
+<h4>Syntax:</h4>
+<pre><b>COLOR</b> [<i>foreground</i>][,[<i>background</i>][,<i>border</i>]]
+<b>COLOR</b> [<i>background</i>][,[<i>palette</i>]]
+<b>COLOR</b> [<i>foreground</i>][,[<i>background</i>]]</pre>
+<h4>Comments:</h4>
+<p>In general, <span class="code">COLOR</span> allows you to select the foreground and background colors for the display. In <span class="code">SCREEN 0</span> a border color can also be selected. In <span class="code">SCREEN 1</span> no foreground color can be selected, but one of two four-color palettes can be selected for use with graphics statements. The different syntaxes and effects that apply to the various screen modes are described below:</p>
+<table border=0 cellspacing=0 cellpadding=0>
+	<tr><td width=96 valign=top><b>Mode</b></td><td><b>Effect</b></td></tr>
+	<tr>
+		<td width=96 valign=top class="code">SCREEN 0</td>
+		<td>
+			<p>Modifies the current default text foreground and background colors, and the screen border. The <span class="code"><i>foreground</i></span> color must be an integer expression in the range 0-31. It is used to determine the &quot;foreground&quot; color in text mode, which is the default color of text. Sixteen colors can be selected with the integers 0-15. A blinking version of each color can be selected by adding 16 to the color number; for example, a blinking color 7 is equal to 7 + 16, or 23. Thus, the legal integer range for <span class="code"><i>foreground</i></span> is 0-31.</p>
+			<p>The <span class="code"><i>background</i></span> color must be an integer expression in the range 0-7, and is the color of the background for each text character. Blinking colors are not permitted.</p>
+			<p>The <span class="code"><i>border</i></span> color is an integer expression in the range 0-15, and is the color used when drawing the screen border. Blinking colors are not permitted.</p>
+			<p>If no arguments are provided to <span class="code">COLOR</span>, then the default color for background and border is black (<span class="code">COLOR 0</span>), and for foreground, is as described in the <a href="SCREENS.html">SCREEN</a> statement reference pages.</p>
+		</td>
+	</tr>
+	<tr>
+		<td width=96 valign=top class="code">SCREEN 1</td>
+		<td>
+			<p>In mode 1, the <span class="code">COLOR</span> statement has a unique syntax that includes a <span class="code"><i>palette</i></span> argument, which is an odd or even integer expression. This argument determines the set of display colors to use when displaying particular color numbers. </p>
+			<p>For hardware configurations that do not have an IBM® Enhanced Graphics Adapter (EGA), the default color settings for the <i>palette</i> parameter are equivalent to the following:</p>
+			<pre>COLOR ,0  'Same as the next three PALETTE statements
+          '1 = green, 2 = red, 3 = yellow</pre><pre>COLOR ,1  'Same as the next three PALETTE statements
+          '1 = cyan, 2 = magenta, 3 = white</pre><p>With the EGA, the default color settings for the palette parameter are equivalent to the following:</p>
+			<pre>COLOR ,0     'Same as the next three PALETTE statements
+PALETTE 1,2  'Attribute 1 = color 3 (green)
+PALETTE 2,4  'Attribute 2 = color 5 (red)
+PALETTE 3,6  'Attribute 3 = color 6 (brown)</pre><pre>COLOR ,1     'Same as the next three PALETTE statements
+PALETTE 1,3  'Attribute 1 = color 3 (cyan)
+PALETTE 2,5  'Attribute 2 = color 5 (magenta)
+PALETTE 3,7  'Attribute 3 = color 15 (white)</pre><p>Note that a <span class="code">COLOR</span> statement will override previous <span class="code">PALETTE</span> statements.</p>
+		</td>
+	</tr>
+  <tr><td width=96 valign=top class="code">SCREEN 2</td><td>No effect. An &quot;<span class="code">Illegal function call</span>&quot; error message occurs if <span class="code">COLOR</span> is used in this mode.</td>
+  </tr>
+  <tr><td width=96 valign=top class="code">SCREEN 7- SCREEN 10</td><td>In these modes, no <span class="code"><i>border</i></span> color can be specified. The graphics background is given by the <span class="code"><i>background</i></span> color number, which must be in the valid range of color numbers appropriate to the screen mode. See the <a href="SCREENS.html">SCREEN</a> statement reference pages for more details. The <span class="code"><i>foreground</i></span> color argument is the default line drawing color. </td>
+  </tr>
+</table>
+<p>Arguments outside valid numeric ranges result in &quot;<span class="code">Illegal function call</span>&quot; errors.</p>
+<p>The foreground color may be the same as the background color, making displayed characters invisible. The default background color is black, or color number 0, for all display hardware configurations and all screen modes.</p>
+<p>With the Enhanced Graphics Adapter (EGA) installed, the <span class="code">PALETTE</span> statement gives you flexibility in assigning different display colors to the actual color-number ranges for the <span class="code"><i>foreground</i></span>, <span class="code"><i>background</i></span>, and <span class="code"><i>border</i></span> colors discussed above. See the <a href="PALETTE.html">PALETTE</a> statement reference pages for more details.</p>
+<p>For more information, see <a href="CIRCLE.html">CIRCLE</a>, <a href="DRAW.html">DRAW</a>, <a href="LINE.html">LINE</a>, <a href="PAINT.html">PAINT</a>, <a href="PALETTE.html">PALETTE</a>, <a href="PRESET.html">PRESET</a>, <a href="PRESET.html">PSET</a>, and <a href="SCREENS.html">SCREEN</a></p>
+<h4>Examples:</h4>
+<p>The following series of examples show <span class="code">COLOR</span> statements and their effects in the various screen modes:</p>
+<pre>SCREEN 0
+COLOR 1, 2, 3  'foreground=1, background=2, border=3 </pre>
+<pre>SCREEN 1
+COLOR 1, 0     'foreground=1, even palette number
+COLOR 2, 1     'foreground=2, odd palette number</pre>
+  <pre>SCREEN 7
+COLOR 3, 5     'foreground=3, background=5</pre>
+<pre>SCREEN 8
+COLOR 6, 7     'foreground=6, background=7</pre>
+<pre>SCREEN 9
+COLOR 1, 2     'foreground=1, background=2</pre>
+</body>
+</html>

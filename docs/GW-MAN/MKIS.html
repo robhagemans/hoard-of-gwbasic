@@ -1,0 +1,33 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>MKI$, MKS$, MKD$ Functions</h1>
+<h4>Purpose:</h4>
+<p>To convert numeric values to string values.</p>
+<h4>Syntax:</h4>
+<pre><b>MKI$</b>(<i>integer expression</i>)<b>
+MKS$</b>(<i>single-precision expression</i>)<b>
+MKD$</b>(<i>double-precision expression</i>) </pre>
+<h4>Comments:</h4>
+<p><span class="code">MKI$</span> converts an integer to a 2-byte string.</p>
+<p><span class="code">MKS$</span> converts a single-precision number to a 4-byte string.</p>
+<p><span class="code">MKD$</span> converts a double-precision number to an 8-byte string.</p>
+<p>Any numeric value placed in a random file buffer with a <span class="code">LSET</span> or a <span class="code">RSET</span> statement must be converted to a string (see <a href="CVI.html">CVI</a>, <a href="CVI.html">CVS</a>, <a href="CVI.html">CVD</a>, for the complementary functions).</p>
+<p>These functions differ from <span class="code">STR$</span> because they change the interpretations of the bytes, not the bytes themselves.</p>
+<h4>Examples:</h4>
+<pre>90 AMT=(K+T)
+100 FIELD #1, 8 AS D$, 20 AS N$
+110 LSET D$=MKS$(AMT)
+120 LSET N$=A$
+130 PUT #1
+.
+.
+.</pre>
+
+</body>
+</html>

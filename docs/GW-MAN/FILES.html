@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>FILES Command</h1>
+<h4>Purpose:</h4>
+<p>To print the names of the files residing on the specified drive.</p>
+<h4>Syntax:</h4>
+<pre><b>FILES</b> [<i>pathname</i>]</pre>
+<h4>Comments:</h4>
+<p>If <span class="code"><i>pathname</i></span> is omitted, the command lists <i>all</i> files in the current directory of the selected drive. <span class="code"><i>pathname</i></span> may contain question marks (<span class="code">?</span>) to match any character in the filename or extension. An asterisk (<span class="code">*</span>) as the first character of the filename or extension will match any file or any extension.</p>
+<p>This syntax also displays the name of the directory and the number of bytes in the file. When a tree-structured directory is used, two special symbols also appear.</p>
+<p>Subdirectories are denoted by <span class="code">&lt;DIR&gt;</span> following the directory name.</p>
+<h4>Examples:</h4>
+<pre>FILES
+FILES &quot;*.BAS&quot;
+FILES &quot;B:*.*&quot;
+FILES &quot;TEST?.BAS&quot;</pre>
+<p><span class="code">FILES</span> now allows pathnames. The directory for the specified path is displayed. If an explicit path is not given, the current directory is assumed.</p>
+<pre>FILES &quot;ACCTS\&quot;</pre>
+<p>Lists all files in the directory named <i>accts</i>.</p>
+<pre>FILES &quot;B:ACCTS\*.PAY&quot;</pre>
+<p>Lists all files in the directory named <i>accts</i> that are on the diskette in drive B: and have the extension of <i>.PAY</i>.</p>
+</body>
+</html>

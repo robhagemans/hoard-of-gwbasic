@@ -1,0 +1,423 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>Appendix A<br>Error Codes and Messages</h1>
+<table border=0 cellspacing=0 cellpadding=0>
+<thead><tr><td valign=top><b>Code</b></td><td><b>Message</b></td></tr></thead>
+<tr>
+	<td valign=top class="code">1</td>
+	<td>
+	<p class="code">NEXT without FOR</p>
+	<span class="code">NEXT</span> statement does not have a corresponding <span class="code">FOR</span> statement. Check variable at <span class="code">FOR</span> statement for a match with the <span class="code">NEXT</span> statement variable.</td>
+</tr>
+<tr>
+<td valign=top class="code">2</td>
+<td>
+<p class="code">Syntax error</p>
+A line is encountered that contains an incorrect sequence of characters (such as unmatched parentheses, a misspelled command or statement, incorrect punctuation). This error causes GW-BASIC to display the incorrect line in edit mode.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>3</span></td>
+<td>
+<p class="code">RETURN without GOSUB</p>
+A <span class="code">RETURN</span> statement is encountered for which there is no previous <span class="code">GOSUB</span> statement.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>4</span></td>
+<td>
+<p class="code">Out of DATA</p>
+A <span class="code">READ</span> statement is executed when there are no <span class="code">DATA</span> statements with unread data remaining in the program.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>5</span></td>
+<td>
+<p class="code">Illegal function call</p>
+An out-of-range parameter is passed to a math or string function. An illegal function call error may also occur as the result of:
+<ul>
+  <li>a negative or unreasonably large subscript</li>
+  <li>a negative or zero argument with <span class="code">LOG</span></li>
+  <li>a negative argument to <span class="code">SQR</span></li>
+  <li>a negative mantissa with a noninteger power</li>
+  <li>a call to a USR function for which the starting address has not yet been given</li>
+  <li>an improper argument to <span class="code">MID$</span>, <span class="code">LEFT$</span>, <span class="code">RIGHT$</span>, <span class="code">INP</span>, <span class="code">OUT</span>, <span class="code">WAIT</span>, <span class="code">PEEK</span>, <span class="code">POKE</span>, <span class="code">TAB</span>, <span class="code">SPC</span>, <span class="code">STRING$</span>, <span class="code">SPACE$</span>, <span class="code">INSTR</span>, or <span class="code">ON...GOTO</span></li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>6</span></td>
+<td>
+<p class="code">Overflow</p>
+The result of a calculation is too large to be represented in GW-BASIC's number format. If underflow occurs, the result is zero, and execution continues without an error.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>7</span></td>
+<td>
+<p class="code">Out of memory</p>
+A program is too large, has too many <span class="code">FOR</span> loops, <span class="code">GOSUB</span>s, variables, or expressions that are too complicated. Use the <span class="code">CLEAR</span> statement to set aside more stack space or memory area.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>8</span></td>
+<td>
+<p class="code">Undefined line number</p>
+A line reference in a <span class="code">GOTO</span>, <span class="code">GOSUB</span>, <span class="code">IF-THEN...ELSE</span>, or <span class="code">DELETE</span> is a nonexistent line.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>9</span></td>
+<td>
+<p class="code">Subscript out of range</p>
+An array element is referenced either with a subscript that is outside the dimensions of the array, or with the wrong number of subscripts.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>10</span></td>
+<td>
+<p class="code">Duplicate Definition</p>
+Two <span class="code">DIM</span> statements are given for the same array, or a <span class="code">DIM</span> statement is given for an array after the default dimension of 10 has been established for that array.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>11</span></td>
+<td>
+<p class="code">Division by zero</p>
+A division by zero is encountered in an expression, or the operation of involution results in zero being raised to a negative power. Machine infinity with the sign of the numerator is supplied as the result of the division, or positive machine infinity is supplied as the result of the involution, and execution continues.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>12</span></td>
+<td>
+<p class="code">Illegal direct</p>
+A statement that is illegal in direct mode is entered as a direct mode command.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>13</span></td>
+<td>
+<p class="code">Type mismatch</p>
+A string variable name is assigned a numeric value or vice versa; a function that expects a numeric argument is given a string argument or vice versa.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>14</span></td>
+<td>
+<p class="code">Out of string space</p>
+String variables have caused GW-BASIC to exceed the amount of free memory remaining. GW-BASIC allocates string space dynamically until it runs out of memory.</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>15</span></td>
+<td>
+<p class="code">String too long</p>
+<p>An attempt is made to create a string more than 255 characters long.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>16</span></td>
+<td>
+<p class="code">String formula too complex</p>
+<p>A string expression is too long or too complex. Break the expression into smaller expressions.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>17</span></td>
+<td>
+<p class="code">Can't continue</p>
+<p>An attempt is made to continue a program that</p>
+<ul>
+  <li>Has halted because of an error</li>
+  <li>Has been modified during a break in execution</li>
+  <li>Does not exist</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>18</span></td>
+<td>
+<p class="code">Undefined user function</p>
+<p>A USR function is called before the function definition (<span class="code">DEF</span> statement) is given.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>19</span></td>
+<td>
+<p class="code">No RESUME</p>
+<p>An error-trapping routine is entered but contains no <span class="code">RESUME</span> statement.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>20</span></td>
+<td>
+<p class="code">RESUME without error</p>
+<p>A <span class="code">RESUME</span> statement is encountered before an error-trapping routine is entered.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>21</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>No error message is available for the existing error condition. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>22</span></td>
+<td>
+<p class="code">Missing operand</p>
+<p>An expression contains an operator with no operand following it.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>23</span></td>
+<td>
+<p class="code">Line buffer overflow</p>
+<p>An attempt is made to input a line that has too many characters.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>24</span></td>
+<td>
+<p class="code">Device Timeout</p>
+<p>GW-BASIC did not receive information from an I/O device within a predetermined amount of time.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>25</span></td>
+<td>
+<p class="code">Device Fault</p>
+<p>Indicates a hardware error in the printer or interface card.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>26</span></td>
+<td>
+<p class="code">FOR Without NEXT</p>
+<p>A <span class="code">FOR</span> was encountered without a matching <span class="code">NEXT</span>.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>27</span></td>
+<td>
+<p class="code">Out of Paper</p>
+<p>The printer is out of paper; or, a printer fault.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>28</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>No error message is available for the existing error condition. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>29</span></td>
+<td>
+<p class="code">WHILE without WEND</p>
+<p>A <span class="code">WHILE</span> statement does not have a matching <span class="code">WEND</span>.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>30</span></td>
+<td>
+<p class="code">WEND without WHILE</p>
+<p>A <span class="code">WEND</span> was encountered without a matching <span class="code">WHILE</span>.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>31-49</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>No error message is available for the existing error condition. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>50</span></td>
+<td>
+<p class="code">FIELD overflow</p>
+<p>A <span class="code">FIELD</span> statement is attempting to allocate more bytes than were specified for the record length of a random file.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>51</span></td>
+<td>
+<p class="code">Internal error</p>
+<p>An internal malfunction has occurred in GW-BASIC. Report to your dealer the conditions under which the message appeared.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>52</span></td>
+<td>
+<p class="code">Bad file number</p>
+<p>A statement or command references a file with a file number that is not open or is out of range of file numbers specified at initialization.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>53</span></td>
+<td>
+<p class="code">File not found</p>
+<p>A <span class="code">LOAD</span>, <span class="code">KILL</span>, <span class="code">NAME</span>, <span class="code">FILES</span>, or <span class="code">OPEN</span> statement references a file that does not exist on the current diskette.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>54</span></td>
+<td>
+<p class="code">Bad file mode</p>
+<p>An attempt is made to use <span class="code">PUT</span>, <span class="code">GET</span>, or <span class="code">LOF</span> with a sequential file, to <span class="code">LOAD</span> a random file, or to execute an <span class="code">OPEN</span> with a file mode other than <span class="code">I</span>, <span class="code">O</span>, <span class="code">A</span>, or <span class="code">R</span>.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>55</span></td>
+<td>
+<p class="code">File already open</p>
+<p>A sequential output mode <span class="code">OPEN</span> is issued for a file that is already open, or a <span class="code">KILL</span> is given for a file that is open.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>56</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>An error message is not available for the error condition which exists. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>57</span></td>
+<td>
+<p class="code">Device I/O Error</p>
+<p>Usually a disk I/O error, but generalized to include all I/O devices. It is a fatal error; that is, the operating system cannot recover from the error.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>58</span></td>
+<td>
+<p class="code">File already exists</p>
+<p>The filename specified in a <span class="code">NAME</span> statement is identical to a filename already in use on the diskette.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>59-60</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>No error message is available for the existing error condition. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>61</span></td>
+<td>
+<p class="code">Disk full</p>
+<p>All disk storage space is in use.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>62</span></td>
+<td>
+<p class="code">Input past end</p>
+<p>An <span class="code">INPUT</span> statement is executed after all the data in the file has been input, or for a null (empty) file. To avoid this error, use the <span class="code">EOF</span> function to detect the end of file.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>63</span></td>
+<td>
+<p class="code">Bad record number</p>
+<p>In a <span class="code">PUT</span> or <span class="code">GET</span> statement, the record number is either greater than the maximum allowed (16,777,215) or equal to zero.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>64</span></td>
+<td>
+<p class="code">Bad filename</p>
+<p>An illegal form is used for the filename with <span class="code">LOAD</span>, <span class="code">SAVE</span>, <span class="code">KILL</span>, or <span class="code">OPEN</span>; for example, a filename with too many characters.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>65</span></td>
+<td>
+<p class="code">Unprintable error</p>
+<p>No error message is available for the existing error condition. This is usually caused by an error with an undefined error code.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>66</span></td>
+<td>
+<p class="code">Direct statement in file</p>
+<p>A direct statement is encountered while loading a ASCII-format file. The <span class="code">LOAD</span> is terminated.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>67</span></td>
+<td>
+<p class="code">Too many files</p>
+<p>An attempt is made to create a new file (using <span class="code">SAVE</span> or <span class="code">OPEN</span>) when all directory entries are full or the file specifications are invalid.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>68</span></td>
+<td>
+<p class="code">Device Unavailable</p>
+<p>An attempt is made to open a file to a nonexistent device. It may be that hardware does not exist to support the device, such as lpt2: or lpt3:, or is disabled by the user. This occurs if an OPEN &quot;COM1: statement is executed but the user disables RS-232 support with the /c: switch directive on the command line.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>69</span></td>
+<td>
+<p class="code">Communication buffer overflow</p>
+<p>Occurs when a communications input statement is executed, but the input queue is already full. Use an <span class="code">ON ERROR GOTO</span> statement to retry the input when this condition occurs. Subsequent inputs attempt to clear this fault unless characters continue to be received faster than the program can process them. In this case several options are available:</p>
+<ul>
+  <li>Increase the size of the COM receive buffer with the <span class="code">/c:</span> switch.</li>
+  <li>Implement a hand-shaking protocol with the host/satellite (such as: XON/XOFF, as demonstrated in the TTY programming example) to turn transmit off long enough to catch up.</li>
+  <li>Use a lower baud rate for transmit and receive.</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>70</span></td>
+<td>
+<p class="code">Permission Denied</p>
+<p>This is one of three hard disk errors returned from the diskette controller.</p>
+<ul>
+  <li>An attempt has been made to write onto a diskette that is write protected.</li>
+  <li>Another process has attempted to access a file already in use.</li>
+  <li>The <span class="code">UNLOCK</span> range specified does not match the preceding <span class="code">LOCK</span> statement.</li>
+</ul>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>71</span></td>
+<td>
+<p class="code">Disk not Ready</p>
+<p>Occurs when the diskette drive door is open or a diskette is not in the drive. Use an <span class="code">ON ERROR GOTO</span> statement to recover.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>72</span></td>
+<td>
+<p class="code">Disk media error</p>
+<p>Occurs when the diskette controller detects a hardware or media fault. This usually indicates damaged media. Copy any existing files to a new diskette, and reformat the damaged diskette. <span class="code">FORMAT</span> maps the bad tracks in the file allocation table. The remainder of the diskette is now usable.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>73</span></td>
+<td>
+<p class="code">Advanced Feature</p>
+<p>An attempt was made to use a reserved word that is not available in this version of GW-BASIC.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>74</span></td>
+<td>
+<p class="code">Rename across disks</p>
+<p>Occurs when an attempt is made to rename a file to a new name declared to be on a disk other than the disk specified for the old name. The naming operation is not performed.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>75</span></td>
+<td>
+<p class="code">Path/File Access Error</p>
+<p>During an <span class="code">OPEN</span>, <span class="code">MKDIR</span>, <span class="code">CHDIR</span>, or <span class="code">RMDIR</span> operation, MS-DOS is unable to make a correct path-to-filename connection. The operation is not completed.</p>
+</td>
+</tr>
+<tr>
+<td valign=top class="code">  <span style='font-size:11.0pt'>76</span></td>
+<td>
+<p class="code">Path not found</p>
+<p>During an <span class="code">OPEN</span>, <span class="code">MKDIR</span>, <span class="code">CHDIR</span>, or <span class="code">RMDIR</span> operation, MS-DOS is unable to find the path specified. The operation is not completed.</p>
+</td>
+</tr>
+</table>
+</body>
+</html>

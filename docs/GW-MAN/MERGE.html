@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>GW-BASIC User's Guide</title>
+<link rel="stylesheet" href="stylesheet.css">
+</head>
+
+<body>
+
+<h1>MERGE Command</h1>
+<h4>Purpose:</h4>
+<p>To merge the lines from an ASCII program file into the program already in memory.</p>
+<h4>Syntax:</h4>
+<pre><b>MERGE </b><i>filename</i></pre>
+<h4>Comments:</h4>
+<p><span class="code"><i>filename</i></span><i> </i>is a valid string expression containing the filename. If no extension is specified, then GW-BASIC assumes an extension of .BAS.</p>
+<p>The diskette is searched for the named file. If found, the program lines on the diskette are merged with the lines in memory. After the <span class="code">MERGE</span> command, the merged program resides in memory, and GW-BASIC returns to the direct mode.</p>
+<p>If the program being merged was not saved in ASCII code with the a option to the <span class="code">SAVE</span> command, a &quot;<span class="code">Bad file mode</span>&quot; error is issued. The program in memory remains unchanged.</p>
+<p>If any line numbers in the file have the same number as lines in the program in memory, the lines from the file replace the corresponding lines in memory.</p>
+<h4>Examples:</h4>
+<pre>MERGE &quot;SUBRTN&quot;</pre>
+<p>Merges the file <i>subrtn.bas </i>with the program currently in memory, provided <i>subrtn </i>was previously saved with the <span class="code"><b>a</b></span> option. If some of the program lines are the same as those in the <i>subrtn.bas </i>file being merged, then the original program lines are replaced by the lines from <i>subrtn.bas</i>.</p>
+
+</body>
+</html>
