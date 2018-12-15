@@ -1,0 +1,201 @@
+
+
+
+
+
+
+                    ùWhizPix (C) Copyright ùWhizWare 2003
+
+                    ùTweety - Display Windows BMP files
+
+                    ùFelix  - Convert BMP to BLOAD/PUT files
+
+                    ùThomas - Enlarge EGA/VGA fonts
+
+                    ùWhizJoy - 12 animated graphics routines
+|WhizPix
+
+   The programs that comprise this set may be freely copied, ripped apart,
+   torn asunder, trashed, or whatever.  But don't blame the author if they
+   wreak havoc, fry your computer, or nuke your microwave.  These programs
+   are free to anyone who wants to use them, for whatever reasons they are
+   inclined to do so.  And you can't get a better deal than that, right?
+
+   The programs that comprise this set were all written and debugged in
+   GW-BASIC using the GWBASIC.EXE interpreter version 3.23.  GW-BASIC is
+   a trademark name of Microsoft Corp., and GWBASIC.EXE is a copyrighted
+   program product of Microsoft Corp.
+
+   The programs that comprise this set were all developed and tested on a
+   PC running the Windows 98 SE operating system.  They have also been
+   retro-tested on Windows 95, Windows 3.1, Windows 3.0, MS-DOS 5.0, and
+   MS-DOS 4.0.  And, in case you didn't already know it, Windows and MS-DOS
+   are also trademarks of Microsoft Corp.
+
+   The programs that comprise this set were all designed to be used on a
+   PC that has at least EGA graphics capability.  It has been the author's
+   experience that so far (2003), all modern PC's with souped-up VGA's can
+   still emulate the old EGA technology. If your's can't, that's too bad.
+|WhizWare
+
+   WhizWare is a contrived name coined by Thomas C. McIntire in the 1980's
+   and he uses it as a catch-all descriptor for software that he gives away.
+   In the beginning, WhizWare was apt because he was adept at designing
+   software that would make early generation micros really whiz.  Over the
+   years, as PCs got bigger and faster, and had lots more memory and bigger
+   disks, WhizWare has evolved to also mean software that is a whiz to use.
+
+   Tom has been a programmer since 1962.  He is retired today in the sense
+   that he no longer earns his daily bread writing computer programs.  Now,
+   instead, he does it strictly for the fun of it.  And he enjoys conversing
+   with serious students of GW-BASIC and assembly languages.
+
+                whizware@bellsouth.net - personal e-mail address
+
+                http://basicusers.net  - forum moderator as WhizCat
+
+                http://trailingedge.us - software download site
+
+   Tom's disk-based GW-BASIC programming manual can be gotten from the above
+   URL. It is called GeeWhiz. It is also the most complete and accurate
+   reference for the GW-BASIC language.  And for an e-book on how to write
+   efficient GW-BASIC programs, drag down also a copy of his "BLUE" book.
+|Tweety
+
+   Tweety.BAS is a simple program that can read simple BMP files and put
+   them on the screen.  This program has a very low IQ.  If you get a
+   bizarre mess on your screen, it is likely because the named file does
+   not resemble what is expected.
+
+   Expected:  Files of type BMP made by a program whose options are set
+   for 16-bit colors, and that does NOT use RLE (Run Length Encoding).
+   MS Paint can output BMP files that Tweety.BAS can display correctly.  In
+   the event your favorite picture will not work here, load it with Paint,
+   then do a "save as" with the 16-bit option on.
+
+   Although Tweety.BAS does not test for "invalid" files, here are three
+   tests that can be added that should trap most files that will not work:
+
+      1.  The 1st two bytes of a BMP file should always = "BM".
+      2.  Byte 11 in the file should = "v" (76 in hex).
+      3.  Byte 30 in the file should = 0 (00 in hex).
+
+   Tweety.BAS does not care if a file (a picture) is too large for SCREEN 9
+   mode.  You will get as much as will fit on the screen.  Tests for too big
+   can be added right after OPEN to see if XL>639 or YL>349, if you want.
+
+                                                         Continued ¿
+| 
+
+   Aspect ratios:  Pictures created with Windows programs will appear
+   elongated when displayed in SCREEN 9 mode. If this is bothersome, use
+   Paint to "squash" the image a bit before saving it for this use.  This
+   phenomena is a natural consequence of moving higher resolution images
+   to a low-tech mode.  Although it would be theoretically possible to add
+   compensating logic to Tweety.BAS for achieving near-similar aspect
+   ratios, some loss of detail would have to occur.  But such is the
+   price of progress, yes?
+
+   Do not be surprised that some colors will also be a tad different.
+   This too is a natural consequence of changing environments.  To keep
+   Tweety.BAS simple, it translates Windows "color codes" to ones
+   comparable to those of the older EGA/VGA standard defaults.  Although
+   it would be possible to add PALETTE manipulating logic to this program,
+   the gain would not likely be worth the pain.  Here again, a degree of
+   quality loss is a necessary cost of moving backwards to more primitive
+   technologies.
+
+   On the other hand, by golly, when GW-BASIC was in its heyday, to write
+   a program that could display as fine a picture as this one of Bugs and
+   Tweety would have taken more hours to design than it would have been
+   worth.  Not only that, see ùFelix next for how to do even more. ¿
+                                                                   ³
+|Felix
+
+   Felix.BAS is a modified version of Tweety.BAS, so it inherited the
+   same shortcomings.  See ùTweety for more about that.  This page only
+   deals with the tricks used to make BSAVE files out of BMP images.
+
+   After Felix appears on the screen, GET is used to capture that image
+   into an array, then PUT is used to BSAVE the contents of that array
+   to disk using the same file name, with the extension changed to BSV.
+   Notice that no tests were built-in to preclude accidentally overwriting
+   a file by the same name.
+
+   This program is otherwise stupid, too, in favor of simplicity.  One
+   potential limitation is that an image may be so big that a DIM cannot
+   be specified for an array large enough to hold it all.  In the event
+   this is a problem, a test can be added immediately after the expression
+   that computes how big a DIM must be.  No test was included here because
+   "how big" is a function of how much memory is available in a target
+   program that borrows in-line logic from this one.
+
+   One possible solution if size is a problem is to compile a program with
+   QuickBASIC.  In that world, so-called large numeric arrays can be stored
+   beyond the domain of a user program.  See more tradeoffs next.  ¿
+                                                                   ³
+                                                                   ³
+| 
+
+   Two possible advantages of ùFelix over ùTweety is that BLOAD and PUT
+   are a whale of lot faster than the simplistic "drawing" method.  And,
+   once a picture is drawn and stored as a BSAVE image, the coding needed
+   in a "show program" is so much simpler.
+
+   These same advantages are even more important in a program that has to
+   repeatedly display a given image, of course.  The flip side of this coin
+   is, however, Tweety doesn't care how big a picture is, if it will in
+   fact fit on the screen, because it needs no array to store it all in.
+
+   Another method that is sometimes a pragmatic solution when memory is a
+   constraint is to enlarge a small image in situ.  The ùThomas program
+   included with this set began life as an easy way to produce larger than
+   normal text on a monitor.  Because characters in graphics modes are
+   simply video images, see how the same algorithms in that program can be
+   equally useful for enlarging any "image".
+
+   Rarely is any one method ever a perfect solution for all problems,
+   however.  Right?  Else, why would the world need programmers?  Read on.
+|Thomas
+
+   An obvious and dramatic difference between Windows and DOS has always
+   been the appearance of printed text on the screen.  Windows makes it
+   relatively easy for programmers to output text utilizing a multitude of
+   character fonts proportionally scaled over a wide range of point sizes.
+   DOS grew up in an electronics ghetto where such things were not really
+   possible.
+
+   GW-BASIC was DOS sired, and neither ever matured to take advantage of
+   modern electronics technology.  Yet, with just a little effort, it is
+   possible to write GW-BASIC programs that produce much fancier output than
+   the examples shown in text books written twenty-five years ago.  The
+  ùTweety and ùFelix tricks included with this set of programs is one way,
+   but only practical for "canned messages".  The tricks employed by Thomas
+   are all based on first doing a conventional PRINT.  Then by use of small
+   nested loops, the "standard" text image is simply enlarged, skewed, or
+   rotated.
+
+   One pass enlargement of 8x14 EGA characters looks pretty good on most
+   monitors.  The same algoritm can be used to double such images again, of
+   course.  But they start looking a bit tacky at this point, and doing it
+   again is even sorrier.   But do not despair, if you really care: Drag
+   down a copy of WhizFont from WhizCat's GeeWhiz collection of ùWhizWare 
+   programs.
+                        And, oh boy, WhizJoy is next.
+|WhizJoy
+
+   The dozen routines included in WhizJoy are chunks of code that do
+   crude animated graphics.  All of these are at least twenty years old.
+   Most were originally written back when a 4.77 Mhz machine was a race
+   horse, and VGA was more popular then than Viagra is now.  See them for
+   what they are, but see also why they are included with this set of
+   programs.  Now and then when you need a piece of code to do something
+   like this, remember where you stashed WhizPix.
+
+   As for what each of the 12 routines in WhizJoy can do, run the program.
+   The whole show lasts but five minutes on an old XT.  On newer machines
+   it will all be over in less time than it takes Reba McEntire to sing her
+   latest hit.  Plus, WhizJoy is easier on your ears, if nothing else.
+
+                  And have fun, with my compliments.  TM
+|

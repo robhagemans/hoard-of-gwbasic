@@ -1,0 +1,874 @@
+
+
+
+                   ùWhizAct (C) Copyright ùWhizWare 1995
+
+
+
+     ùMenu Options          ùChart of Accounts         ùGeneral information
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³ ùAcct Posting   ³    ³ ùAccount Codes      ³    ³ ùSystem requirements  ³
+   ³ ùDaily Journal  ³    ³ ùTypes of Accounts  ³    ³ ùUsage limitations    ³
+   ³ ùList Accounts  ³    ³ ùDescriptions       ³    ³ ùInstalling WhizAct   ³
+   ³ ùNet Worth      ³    ³ ù100 Asset          ³    ³ ùOn-line Help & Info  ³
+   ³ ùReceivables    ³    ³ ù200 Receivable     ³    ³ ùKeyboard usage       ³
+   ³ ùBills Pending  ³    ³ ù300 Income         ³    ³ ùOperating errors     ³
+   ³ ùIncome & Exp.  ³    ³ ù400 Liability      ³    ³ ùAccounting errors    ³
+   ³ ùFiles & Disks  ³    ³ ù500 Payable        ³    ³ ùGenerating reports   ³
+   ³ ùQuit WhizAct   ³    ³ ù600 Expense        ³    ³ ùFile formats, etc.   ³
+   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizAct
+
+  WhizAct is our generic name for a simple accounting system for small firms.
+  It is meant to be a whiz to learn and a whiz to use for persons that are not
+  trained bookkeepers.
+
+  WhizAct was designed with the following scenario in mind:
+
+    Your business grosses less than a million bucks per year.  You do your
+    own accounting (sort of).  You put copies of invoices and receipts in a
+    box and give them to your tax man, or bookkeeping company or whatever.
+    They rap you with two fees--one for sorting out the mess, and one for
+    preparing tax returns or fiscal health statements that bankers can
+    understand.  WhizAct can sharply reduce these fees.
+
+  Many small business operators judge the fiscal well being of their company
+  by looking in their wallet or cash drawer.  WhizAct can give you a better
+  overview--where the money is coming from and where it went--for a
+  relatively small cost in terms of time and energy.
+
+  WhizAct can be used on small cheap systems; it does not waste a lot of disk
+  space nor demand voracious amounts of memory.  There are limits, of course,
+  in the context of "how big your company is".  Read on.
+|General
+
+                                                     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  This On-line help file is organized such that it   ³ ùSystem requirements  ³
+  may be read from "top to bottom"--a good idea in   ³ ùUsage limitations    ³
+  the beginning.                                     ³ ùInstalling WhizAct   ³
+                                                     ³ ùOn-line Help & Info  ³
+  A reading of the general subjects shown here       ³ ùKeyboard usage       ³
+  will provide an overview of ùWhizAct concepts.     ³ ùOperating errors     ³
+                                                     ³ ùAccounting errors    ³
+  To get quickly to help pages about specifics,      ³ ùGenerating reports   ³
+  hit <Home> to see the full index of all topics.    ³ ùFile formats, etc.   ³
+                                                     ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|System
+
+  System requirements:  Any "PC compatible" computer running DOS 3 (or later)
+  with a hard disk and some kind of color monitor.
+
+  Memory needed:  Less than 200KB
+
+  Disk space needed:  Less than a meg, typically, for four or five years.
+
+  Printer needed:  Almost any kind, or even, none at all.
+
+    ùWhizAct does assume, if you have a printer, it can be addressed
+     as what DOS calls the "system printer".
+|Usage
+
+  Usage limitations:  Your ùChart of Accounts cannot consist of more than 200
+  ledgers (account numbers).
+
+  The maximum number of transaction lines (postings) that can be held in a
+  single history file is 32,766 (records).  You would have to make about 30
+  postings every day, five days a week, for five years to exceed this limit.
+ ùWhizAct assumes a more likely rate of about 30 or 40 postings once a week
+  (or even, just once a month).
+
+  The magic limit for all accounting amounts is $999,999.99 (a million bucks.)
+  If an account balance or a bottom line figure is apt to exceed this figure
+  you can probably afford a more sophisticated system (and let somebody else
+  learn how to manage it.)
+|Installing
+
+  Installing ùWhizAct is a whiz.  Create a path for it (ours is called WA).
+
+      MD \WA
+
+  Copy the files from the distribution disk into that path.
+
+      CD \WA
+      COPY A:*.* C:
+
+  The needed files are:
+
+     WhizAct.EXE  ÄÄÄ  the program
+     WhizAct.LDG  ÄÄÄ  the ledger (account number) file
+     WhizAct.MRI  ÄÄÄ  the Memory Resident Index file
+     WhizAct.TRX  ÄÄÄ  the transactions (journal, history) file
+
+  The optional files are:
+
+     WAhelp.DAT   ÄÄÄ  the ùOn-line help data (text) file
+     WAhelp.EXE   ÄÄÄ  the help program itself
+|On-line
+
+  On-line Help and info may be called by WhizAct.EXE (the ùWhizAct program),
+  by hitting <?> most anytime.  When you <Esc> to exit, you will return to
+  the same entry point you were at in ùWhizAct before you called for help.
+
+  WAhelp.EXE may also be run from DOS command mode.  Just type WAHELP and
+  hit <Enter>.  When you <Esc> to exit, you will return to command mode.
+
+  WAhelp.EXE presumes use of a 2-button Mouse.  (Extra buttons are ignored.)
+  Mickey's right paw works the same as the <Esc> key and his left paw works
+  the same as the <Enter> key.  This can be reversed:
+
+      Hit <F2> any time while running WAhelp to "flip flop" how this
+      program interprets which paw is for what.  (The setting you
+      choose are stored in the WAhelp.DAT file.)
+
+  Mickey's paws are sensed when depressed then released, i.e., when "clicked".
+
+  WAhelp.EXE assumes your mouse driver has already been loaded before WAhelp
+  is started.  When you <Esc> the mouse driver is left in memory.  WAhelp does
+  not fool with the driver's sensitivity or speed parameters--they remain as
+  they were before WAhelp was run.  NOTE:  WAhelp is NOT mouse dependent; it
+  works just fine without one.
+|Keyboard
+
+  Keyboard usage is consistent with most "posting programs".  Data is stored
+  in FIELDS, within RECORDS, within FILES.
+
+  Within a FIELD, type what is wanted, then hit <Enter> to store that entry
+  and proceed (to the right) to the next FIELD within that RECORD.
+
+  <TAB> and <back TAB> move from field to field without changing anything.
+  <Ins> and <Del> and the left and right <arrow> keys and <backspace> may be
+  used for "editing" data within a field.
+
+  <Home> and <End> are typically used to jump quickly to the first or last
+  RECORD within a FILE.  <PgUp> and <PgDn> are often useful to "page" upwards
+  or downwards within a FILE.
+
+  The up and down <arrow> keys are often useful for "scrolling" through a
+  file, one RECORD at a time.  The <arrow> keys may also be used for making
+ ùMenu selections.
+
+  The question mark key <?> is nearly always active for seeing ùOn-line help.
+
+  Function keys <F1-F10> are useful during ùFiles operations (only).
+|Operating
+
+  Operating errors?  Maybe.
+
+  Like Ford (and others) this author thinks ùWhizAct is bug free.  If you hit
+  a tree at 100 miles an hour in a Mustang it is unlikely you will get much
+  sympathy from Ford.  You are not supposed to "crash" this program either,
+  if you drive it normally (see ùUsage limits).
+
+  In the unlikely event our testing failed to cover all expected errors, this
+  program can detect certain types of problems and provide a diagnostic aid:
+  A program line number and an error code meaningful to this author.  If you
+  ever encounter this situation, report these two numbers to me and we will
+  send you a "fixed" version of the program for free.  (See the ùWhizWare
+  page for how to contact us.)
+|Accounting
+
+  Accounting errors are generally one of two kinds:  An erroneous amount, or
+  an amount posted to a wrong account.
+
+  Accounting sages teach us to correct mistakes such as these by "backing out"
+  incorrect entries, then by reposting them as they should have been.
+
+    Suppose you posted 75.00 to account 110.10 but it should have been for
+    only ten bucks.  This should be corrected by posting -75.00 to account
+    110.10 (with an appropriate reference, like "ERROR ADJUSTMENT"), then by
+    posting a "correct" transaction.
+
+  Now, we both know your "books" could have been fixed by simply posting
+  -65.00 to account 110.10 ...  This is a nefarious technique, however, and
+  will not solve problems of postings that involve incorrect account numbers.
+
+ ùWhizAct provides another alternative, as well, but one that accountants
+  would find professionally vulgar:  See ùFiles and ùF7 FixTrx for a means to
+  "edit" records in your TRX file.  It is your computer, your books, and
+  your money (and so are any accounting errors).  Caveat.
+|Generating
+
+  Reports may be generated in two ways--directly to the system printer or,
+  into a text file (often called an ASCII file).  One good reason for sending
+  output to a file is so that a report can be "edited" with most any word
+  processing or text editing program.
+
+ ùWhizAct supposes you know how to "manage" your printer; it should be on, and
+  "on line" before you start a print run.  Printing commences at the top of a
+  page and a page-slew is generated after the last page prints.  Formatting is
+  based on a standard page size of 8.5 x 11 inches.
+
+  The following options are shown at the bottom of the screen for any report.
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 before a report is run.
+
+           ÚÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+           ³ LPT1: ³ C:WhizAct.R20 ³ B:WhizAct.R20 ³ A:WhizAct.R20 ³
+           ÀÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  To select an output option hit <L> (or C or B or A) or move the cursor with
+  <arrow> keys, then hit <Enter> when ready to start the report run.  Notice
+  that text file names are hard coded in ùWhizAct --name extensions vary as
+  R20, R50, R60 or R70, the 2, 5, 6 or 7 based on the ùMenu line.  Caveat:
+  Any "old" WhizAct.R?0 file will be overwritten.
+|File
+
+  Accounting data maintained with ùWhizAct are stored in FILES (which consist
+  of RECORDS, and records consist of FIELDS).  The organization of this data
+  and the manner in which it is encoded is intricate; an exact awareness of
+  these "formats" is normally only of interest to a programmer.
+
+  For the sake of easy reference most of this documentation refers simply to
+  the MRI or LDG or TRX files--the file-name extensions that can be seen
+  with DIR.  Technical descriptions of these files can be found near the end
+  of this information file.  See ùTRX or ùLDG or ùMRI if you are interested
+  in this mundane minutiae.
+
+  A general awarness of how these files are related will be sufficient for
+  most users.  TRX is an abbreviation for transactions; LDG is short for
+  ledgers; MRI is an acronym for Memory Resident Index (a table, actually,
+  containing account numbers and pointers into the LDG file).
+
+  When you "post" a transaction (in the TRX file) its account number is used
+  to find the related ledger (in the LDG file) by a reference to the MRI
+  file.  From an accountant's perspective, all of this equates to a ùChart of
+  Accounts ...
+|Chart
+
+ ùWhizAct is a General Ledger accounting system.  A simple definition:
+
+    General Ledgers are "totals" of subsidiary activity, reflecting, for
+    example, the sum of all money received or spent, by categories.  You
+    would record here things like the total of all paychecks written (not
+    who each individual check was written to).
+
+
+                          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                          ³ ùAccount Codes      ³
+   See these help pages   ³ ùTypes of Accounts  ³   See the next page for
+   for specifics about    ³ ùDescriptions       ³   an explanation of the
+   each topic             ³ ù100 Asset          ³  ùWhizAct "ledger" scheme
+                          ³ ù200 Receivable     ³
+                          ³ ù300 Income         ³
+                          ³ ù400 Liability      ³
+                          ³ ù500 Payable        ³
+                          ³ ù600 Expense        ³
+                          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|Account
+
+    Each "ledger"--each record in the LDG file--causes one line to be
+    printed on a report.  Each ledger has a unique "account number".  All
+    accounts are listed in serially ascending sequence, accordingly.  We
+    have chosen an arbitrary major break-out of accounts, the 100 series,
+    200-series of accounts, and so on.  Within each major grouping you may
+    choose your own scheme of "subdivisions" such as 120.20 or 319.19, etc.
+
+  Each ledger also contains a "code" field:
+
+    L is for Ledger    ÄÄÄ an account that you actually "post to"
+    H is for Header    ÄÄÄ the "title" of a following group of accounts
+    S is for Sub-total ÄÄÄ the total of a "sub-group" of accounts
+    T is for Total     ÄÄÄ the "bottom line" of the 100s or 200s, etc.
+
+   (If you type a lower case letter, it will be up-shifted automatically.)
+
+   See that Header ledgers are simply "titles"; their ùDescriptions are
+   printed but they contain no "balances".  H ledgers cannot be posted-to.
+
+   S and T ledgers work similar.  Their descriptions are printed; they cannot
+   be posted-to; their balances are generated automatically.
+|Types
+
+  Each "ledger"--each record in the LDG file--contains a "type" field.
+  This field is only applicable to L (viz ùAccount codes q.v.)  A type-code
+  of D means Debit; C means Credit.  In nearly all cases, accounting ledgers
+  (L accounts) should be coded with a D.  (If you type a small "d" or "c"
+  here, it will be up-shifted automatically.)
+
+    This code simply controls the arithmetic of a "posting".  Normally you
+    just enter an amount and it will add to the balance for that account.
+    If a ledger is coded as a type "C" however, any posting to that account
+    will be subtracted from that balance (resulting in a "credit" balance).
+
+  A possible use of this capability:
+
+      110.10  Checking Deposits       ÄÄÄ an L account, type D
+      110.20  Checks Written          ÄÄÄ an L account, type C
+      110.30  Service Charge          ÄÄÄ an L account, type C
+      110.40    Balance in Checking   ÄÄÄ an S ledger
+|Descriptions
+
+  Each "ledger"--each record in the LDG file--contains a "description"
+  field--which may contain nearly anything you want, spaced however you
+  want.
+
+  To make our reports "pretty" we like to use all CAPS, mixed CAPS and lower
+  case, and indenting.  Like:
+
+      100.00 CAPITAL ASSETS        ÄÄÄ Header
+      110.00  CASH                 ÄÄÄ Header
+      110.10    Checking           ÄÄÄ Ledger
+      110.20    Cash on Hand       ÄÄÄ Ledger
+      110.90      Total Cash       ÄÄÄ Sub-total
+      120.00  VEHICLES             ÄÄÄ Header
+      120.10    Truck #1           ÄÄÄ Ledger
+      120.20    Truck #2           ÄÄÄ Ledger
+      120.30      Total Vehicles   ÄÄÄ Sub-total
+      199.00 TOTAL CAPITAL ASSETS  ÄÄÄ Total
+
+  Notice that whatever is stored in a Description field, it will be printed
+  on reports as is (including "blanks", spelling errors, etc.) 
+|100
+
+  Assets are kept track of in the 100-series of accounts.  Cash, real estate
+  and vehicles are obvious examples.  A less obvious, yet very real case is
+  money owed to you:   Accounts receivable are an asset (presuming they are
+  collectable at some point).
+
+    Notice that, as a category, the "worth" of real estate does not change
+    often.  Accounts receivable may change daily, by contrast, depending on
+    your billing cycle and how many payments you receive each day.
+
+  Because of these distinctions, we have subdivided "assets" into two major
+  groups, the 100-series and the 200-series:  "static vs. volatile".
+|200
+
+  Receivables are posted to the 200-series of accounts.  When you send an
+  invoice to someone, what they owe you is properly termed an "accounts
+  receivable" amount.  When they pay you, that amount should be removed
+  from receivables and posted as Income (to a ù300 account).
+
+  You could "post" each invoice sent out, individually, to a receivables
+  account, and post each check received as income, AND make the corresponding
+  offsetting posting to remove the money from receivables ...
+
+  A more practical scheme for some might be to simply post the SUM of all
+  invoices sent out in one week, and all the checks received during the
+  same period.  Choices about frequency, posting cycles and level of detail
+  are your options.  The "accuracy" of your reports, however, does depend on
+  making sure that "double posting" is done, properly moving money into and
+  out of receivables and income accounts in a corresponding fashion.
+
+  Note:  An even more subtle type of accounts receivable includes things such
+  as utilities deposits.  A new telephone subscriber might have to put up a
+  deposit of $200, for example, and after a year or so, Ma Bell is supposed to
+  refund that deposit.  See that, if you treat the total "hook up fee" as an
+  expense, the eventual refund will resemble income ...
+|300
+
+  Income should be posted to the 300-series of accounts.  There are many forms
+  of income:  Cash, of course, and checks from customers are obvious cases.
+  Less obvious, but equally important in many businesses, things such as
+  interest automatically added to bank accounts are income too.
+
+  Whether you want to consider this category of accounts as total revenue or
+  simply cash flow is optional of course.  Being able to rely on the accuracy
+  of the ùIncome & Expense report requires a consistent approach, however.
+
+  A nominal "interest" addition to checking may not have much bearing on how
+  you do business:  Just like a "service charge" may or may not deserve to be
+  treated as an "expense".  The key word, again, is consistency.  If you want
+  accurate reports, all amounts must be accounted for, one way or another. 
+|400
+
+  Liabilities are kept track of in the 400-series of accounts.  Loans and
+  mortgages are obvious examples.  A less obvious, yet very real case is
+  money you owe (or may owe) for other reasons.
+
+  Notice that, as a category, some liabilities "go down", eventually to zero.
+  Loans are a case in point.  Some "overhead" type liabilities go on and on,
+  however, and typically, the amounts of payments to those accounts varies
+  from month to month (or on some other cycle). 
+
+    Because of these distinctions, we have subdivided "liabilities" into two
+    major groups, the 400-series and the 500-series, "static vs. volatile",
+    depreciating (or constant), vs. routine Accounts Payable.
+
+  In a generic sense, whatever you owe is a liability (which effectively
+  reduces the net worth of your company).  Whether to consider obligations
+  as Liabilities or Payables is optional, of course.  Being able to produce
+  a useful ùNet Worth report, however, depends on a consistent approach:
+
+    If you want to record loan-payments-owed as ùBills Pending on a monthly
+    basis, for example, then you must also post a corresponding reduction
+    to a liabilities account as well.
+|500
+
+  Accounts Payable may be kept track of in the 500-series accounts.  One
+  typical reason for doing this is to keep up with what you owe, to make sure
+  you are going to have enough money on hand to pay ùBills Pending.
+
+  Example:  You receive bills all month long but only send out checks once a
+  month.  In a number of cases, such as for loans, you may receive no "bill",
+  but send an installment payment as a matter of routine.
+
+    To make a "buy decision" often requires an awareness of what is already
+    owed, how much is on hand, and of course, what is expected to be received.
+    To get a "dynamic answer" at any given moment does require that ALL types
+    of activity have been posted "as of that moment".
+
+  Choices about posting either or both, liabilities and payables, may vary.
+  To be able to depend on your reports does require a consistent approach,
+  however.  In all events, do not overlook the less obvious:  Monies withheld
+  from paychecks is a case in point.  So are things like workmans comp,
+  unemployment taxes, and so on.  When it is time to surrender deposits, it
+  is nice to have the money on hand.
+|600
+
+  Expenses should be posted to the 600-series of accounts.  For many of us,
+  this series of accounts will have more individual ledgers than any other
+  category.  Because of the IRS.  A tax auditor will typically challenge our
+  "expenses" and expect to see "proof".
+
+  Some may prefer to have a catch-all account for all "utilities", but the
+  following examples might be better:
+
+     630.00   UTILITIES            ÄÄÄ Header
+     630.10     Gas Company        ÄÄÄ Ledger
+     630.20     Light Company      ÄÄÄ Ledger
+     630.30     Telephone Company  ÄÄÄ Ledger
+     630.40     Water Dept.        ÄÄÄ Ledger
+     630.90       TOTAL UTILITIES  ÄÄÄ Sub-total
+
+  With this scheme, when you post a gas bill, for example, the "description"
+  for that transaction might simply be "May 95, CK 1357".  If you prefer a
+  single Utilities ledger, each posting to that account needs to reference
+  who the payment was made to.
+
+  A second advantage to the above scheme is that you can better analyze your
+  "expenses" and be able to see opportunities for cutting costs.  Maybe.
+|Menu
+
+                            ÛßßßßßßßßßßßßßßßßßßßßßÛ
+                            Û  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ Û
+  If what you want to do    Û  ³ùAcct Posting   ³ Û   To display this menu at
+  is already highlighted    Û  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ Û   anytime just hit <Esc>
+  just hit <Enter>          Û   ùDaily Journal    Û
+                            Û                     Û
+           or               Û   ùList Accounts    Û
+                            Û                     Û   To turn off the menu
+  Move box up or down       Û   ùNet Worth        Û   and resume on the page
+  with <arrow> keys         Û                     Û   already being shown,
+                            Û   ùReceivables      Û   just hit <Esc> again
+           or               Û                     Û
+                            Û   ùBills Pending    Û
+  Hit first letter, like    Û                     Û
+  A or D or L, etc.         Û   ùIncome & Exp.    Û   To get help at anytime
+                            Û                     Û   hit the question mark
+  <Caps Lock> and <Shift>   Û   ùFiles & Disks    Û   <?> key while holding
+  keys are ignored.         Û                     Û   down either <Shift> key
+                            Û   ùQuit ùWhizAct    Û
+                            Û                     Û
+                            ÛÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÛ
+|Acct
+
+  Account Posting is the clerical chore of recording transactions--amounts
+  of money--and a description of the nature of that posting.  Each "line"
+  entered results in a record being added to the TRX (transactions) file.
+
+  line ³   date   ³ acct#  ³ reference             ³  amount  ³   balance ³
+    305³ 05-13-95 ³ 630.20 ³ May 95, CK 1357       ³   167.48 ³   1456.45 ³ D
+
+  line:  Prints automatically
+  date:  <Enter> by itself repeats last date typed (system date initially)
+         dashes and year may be omitted; BEEP if date is not logical
+  acct:  Only "L" ledgers (see ùAccount codes); trailing zeros may be omitted
+         BEEP if not a valid Ledger; ùDescriptions are shown on bottom line
+  reference:  Your choice; free format text entry; should be "meaningful"
+  amount:  Dollars and cents; trailing zeroes not needed; commas not allowed
+           type plus or minus sign first, to override D or C (viz ùTypes q.v.)
+  balance:  Updated automatically based on D or C and/or <+> or <-> signs.
+
+    Also:  <PgUp> and <PgDn> are useful for "looking back".
+           <Tab> and <Shift><Tab> will jump from field to field, but only if
+           entry in current field is valid.
+
+    Note:  A line is not stored until <Enter> is used in the amount field.
+|Daily
+
+
+  Daily Journal may be an apt description; the journal is simply a listing of
+  transactions.  Usually it is a good idea to print one at the end of the
+  "day"--after a posting session--so you can check your work.
+
+
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  a journal is printed.  Output may be sent to the printer or a disk file;
+  see ùGenerating reports for more about this.
+
+
+    Also--under ùFiles --see ùF7 FixTrx for how to fix mistakes, an
+    alternative to conventional methods for correcting ùAccounting errors.
+|List
+
+
+  List Accounts--on the main ùMenu --does just that, on the monitor.
+  <Home> and <End> are usable for getting quickly to the first or last page.
+  <PgUp> and <PgDn> work as one would expect.
+
+
+    <Prt Sc> can also be used to print each screen (each page)--we tape
+    these sheets to the wall as a handy index of our ùChart of Accounts.
+
+
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  a List is done.
+|Net
+
+
+  Strictly speaking, our Net Worth is the value of what we own, minus what we
+  owe:  Assets, less Liabilities.
+
+
+  This report prints the ù100 and ù200 series, Assets and Accounts Receivable,
+  then the ù400 and ù500 series, Liabilities and Accounts Payable, and it
+  produces an arithmetic "bottom line" difference.
+
+
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  this report is printed.  Output may be sent to the printer or a disk file;
+  see ùGenerating reports for more about this.
+|Receivables
+
+
+  Receivables is a report option to list the ù200 series of accounts, the
+  Accounts Receivable category:  Money owed to us but not yet received.
+
+
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  this report is printed.  Output may be sent to the printer or a disk file;
+  see ùGenerating reports for more about this.
+|Bills
+
+
+  Bills Pending is a report option to list the ù500 series of accounts, what
+  is more generally called Accounts Payable.
+
+
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  this report is printed.  Output may be sent to the printer or a disk file;
+  see ùGenerating reports for more about this.
+|Income
+
+
+  Income & Exp. is a report option for producing what some might want to think
+  of as a profitability statement:  A listing of the ù300 series of accounts
+  (Income) followed by the ù600 series (Expenses), then an arithmetic "bottom
+  line" difference.
+
+ 
+  See ùFiles and the use of ùF8 and ùF9 and ùF10 about useful options before
+  this report is printed.  Output may be sent to the printer or a disk file;
+  see ùGenerating reports for more about this.
+|Files
+
+
+  The Files & Disks ùMenu option is a single selector for accessing a variety
+  of tasks associated with doing "computer file maintenance" (as distinct from
+  doing accounting, posting, and printing reports).
+
+  When this option is first selected, ùWhizAct enters an "editing mode" for
+  the master (LDG) file for creating or modifying your ùChart of Accounts.
+  In this mode, the usual ùKeyboard capabilities are active.  Function keys
+  (F-keys) 1-10 are active as well, as shown here, useful for selecting
+  "subfunctions" described on following pages.
+
+
+
+                                ÚÄÄÄÄÄÄÄÄÄÄÄ¿
+                               ³ùF1 Find   ³
+                                ³ùF2 Change ³
+                                ³ùF3 Delete ³
+                                ³ùF4 New    ³
+ÚÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÁÄÄÄÄÂÄÄÄÄÄÄÁÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ùF5 Backup ³ùF6 Restore ³ùF7 FixTrx ³ùF8 Sort ³ùF9 Set Range ³ùF10 Update Bal³
+ÀÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|F1
+
+
+  <F1> is used to Find a specific record based on what you type, then <Enter>.
+  If no match is found, the "next closest" record in the file is shown.
+
+
+  In <F1> mode, only the first field is accessable; whatever is typed is used
+  for searching the file; NO data in any record is altered while in this mode.
+
+
+  <Home> and <End> are usable for getting quickly to the first or last record.
+  Up and Down <arrow> keys may be used to "scroll" backwards and forwards in
+  the file.  <PgUp> and <PgDn> work the same as Up and Down arrows.
+|F2
+
+
+  <F2> is used to Change (edit) a record's contents:  Fields in the record
+  then being displayed.
+
+
+  Hitting <F2> disables the ability to "scroll" through the file, but enables
+  the use of <Tab> and <Shift><Tab>.  Use of <Enter> in any field causes that
+  (entire) record to be updated (over-written) in the disk file.
+|F3
+
+
+  <F3> is used to Delete a record.  Use carefully.  When <F3> is hit, the
+  next thing you will see (in the middle of the screen) is a terse prompt:
+
+                           ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                           ³ <3> to confirm ³
+                           ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+  This is conceptually akin to the infamous DOS prompt, "Are you sure?"  An
+  inherent weakness to the Y-for-Yes or N-for-No scheme is that we often
+  anticipate the prompt and hit Y without hesitation.  In the example shown
+  here, you must hit <3> to effectively say "yes"; ANY other key stroke will
+  be treated as NO.  The number--shown here as a 3--varies randomly from
+  0-9 to lessen the risk of unintentional "yes" responses.
+|F4
+
+
+  <F4> is used to create a New record.  If no ledger is found matching the
+  account number typed, a new (otherwise blank) record is inserted into the
+  file.  (If a record already exists with that number, that record is shown
+  and ùWhizAct reverts to ùF2 Change mode automatically.)
+
+
+  Notice that <F4> is NOT active while editing journal records--during
+ ùF7 FixTrx operations.  Additions to the TRX file can only result from
+  doing ùAcct Posting.
+|F5
+
+
+  <F5> is used to copy ALL files in the ùWhizAct path to a floppy.  Use with
+  care.  This is akin to doing COPY *.* --files on the destination disk
+  having matching names will be OVER-WRITTEN.
+
+  When <F5> is hit, the next thing you will see is a terse prompt for a drive
+  designation.  The choices are <A> or <B>.  Any other key stroke will exit
+  the request to do a BACKUP.  If you hit <A> or <B>, the next prompt (in the
+  middle of the screen) is also terse:
+
+                           ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                           ³ <1> to confirm ³
+                           ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  In the example shown here you must hit <1> to effectively say "yes"; ANY 
+  other key stroke will be treated as NO.  The number--shown here as a 1--
+  varies from 0-9 to lessen the risk of unintentional "yes" responses.
+
+  Note:  All ùWhizAct files are "closed" before a BACKUP is done, and this
+  program restarts afresh after the copying is finished.  See ùQuit for why.
+|F6
+
+
+  <F6> is used to copy ALL files from a floppy into the ùWhizAct path.  Use
+  with care.  This is akin to doing COPY *.* --files on the system disk
+  having matching names will be OVER-WRITTEN.
+
+  When <F6> is hit, the next thing you will see is a terse prompt for a drive
+  designation.  The choices are <A> or <B>.  Any other key stroke will exit
+  the request to do a RESTORE.  If you hit <A> or <B>, the next prompt (in
+  the middle of the screen) is also terse:
+
+                           ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                           ³ <7> to confirm ³
+                           ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  In the example shown here you must hit <7> to effectively say "yes"; ANY 
+  other key stroke will be treated as NO.  The number--shown here as a 7--
+  varies from 0-9 to lessen the risk of unintentional "yes" responses.
+
+  Note: all ùWhizAct files are "closed" before a RESTORE is done, and this
+  program restarts afresh after the copying is finished.  See ùQuit for why.
+|F7
+
+  <F7> FixTrx is a special editing mode to enable us to "fix" mistakes in the
+  TRX (transactions) file.  During this mode, records being edited are shown
+  at the bottom of the screen.  Only <F1>, <F2> and <F3> are active; they
+  work the same as when editing records in the LDG file.
+
+  Editing differs from "posting" in several ways.  Changes in the amount field
+  DO NOT dynamically affect any balances.  During posting you cannot enter an
+  account number for a nonexistent ledger (nor for other than L-accounts; see
+ ùAccount codes).  In this mode, however, you can enter any properly formatted
+  account number; if it matches an existing LDG record it will be displayed at
+  the top of the screen; "not found" accounts will be shown as a blank record.
+
+  If you hit <F3> to Delete a transaction, the first digit of the acct# will
+  be altered--like, ş10.10--causing that line to be ignored during updating
+  operations.   (See ùF9 Sort and ùF10 Update for more about this.)
+                               ÚÄÄÄÄÄÄÄÄÄÄÄ¿
+                              ³ùF1 Find   ³
+                               ³ùF2 Change ³
+                               ³ùF3 Delete ³
+   ÚÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÂÄÄÁÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³ line ³  date  ³ acct#  ³ reference              ³   amount  ³   balance ³
+   ³   305³04-09-95³ 110.10 ³ Deposit #44            ³    356.50 ³   1195.75 ³
+|F8
+
+
+  <F8> Sort should typically be done after every ùAcct Posting session.  We
+  can post transactions in any order; this routine will cause all records in
+  the TRX file to be sequenced by date and account number.
+
+     Records that have been marked as "deleted" during ùF7 FixTrx operations
+     will be sorted also, ending up as the last records in a group for a
+     given date.
+
+
+  Another reason for doing a Sort periodically is so that the ùDaily Journal
+  is logically organized.  Notice also that reports reflect the "latest"
+  transaction that affects each account; that cross-reference is only valid
+  AFTER a Sort has been done.
+
+
+  Sorting is a critical step for another reason:  The logic for "controlling"
+  which transactions should be used during ùF10 Update operations supposes the
+  TRX file has been sorted.  See ùF9 Set Range for why this is important.
+|F9
+
+  <F9> Set Range is a valuable feature.  The input screen looks like this:
+
+
+ ÛßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßÛ
+ Û     ÚÄÄÄÄÄÄÄ inclusive dates ÄÄÄÄÄÄ¿     ÚÄ inclusive line numbers Ä¿      Û
+ Û     ³                              ³     ³                          ³      Û
+ Û     À from 04-01-95  thru 04-31-95 Ù     À from 115     thru 190    Ù      Û
+ ÛÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÛ
+
+
+  These parameters are used as begin-and-end limits for two different jobs:
+ ùDaily Journal and ùF10 Update Balances.  During reading of the TRX file,
+  both dates and line numbers are examined; any lines "outside" the specified
+  ranges are ignored.  The logic of this scheme supposes an ùF8 Sort has been
+  done, of course.
+
+  Because most accounting work is period oriented we typically need to specify
+  inclusive dates, but not "line numbers".  Thus, the "default" line number
+  range of from 1 to the end of the file is appropriate for most update runs.
+  Specific line limits can be set, however, like for the printing of a partial
+ ùDaily Journal.
+|F10
+
+  <F10> Update Balances is a critical job step.  Although individual ledger
+  balances are dynamically updated during ùAcct Posting, S and T accounts
+  (see ùAccount codes) are NOT affected at that time.  Also, if any ùF7 FixTrx
+  editing is done, even individual account balances may not be "correct".
+
+    A typical work day should go like this:  Do your posting, then do an
+   ùF8 Sort, then ùF9 Set Range, then hit <F10>.  Bingo, now your books
+    should balance.  Select ùList on the main ùMenu to see your current
+    fiscal health.
+
+  Setting ranges and rerunning this update routine makes it possible to
+  generate reports for any period of time.  Keep in mind, however, the
+  updating process changes balances in both the LDG and TRX files.  One way
+  to preserve your sanity and the sanctity of your accounting data base is
+  to do it like this:
+
+    Do a backup of your files, run an update for the period wanted, then
+    restore your files as they were before.  See ùF5 Backup and ùF6 Restore
+    for how easy this can be (and why ùWhizAct has these features built in).
+|Quit
+
+  Quit is the only proper way to exit ùWhizAct (to ensure the integrity of
+  your accounting data).
+
+  When Quit is selected the MRI file is updated on disk, in its entirety.
+  (This file is loaded into memory, en masse, when this program is started.)
+
+  Quit also instructs DOS to purge all of its "buffers" ...
+
+    When an application program "writes" a record in a disk file, DOS may
+    not do it just then--it typically waits until all of its buffers are
+    full, or until the program issues a CLOSE command.  If you turn off the
+    machine (or a power failure occurs) and Quit has not been done, no mere
+    mortal can know for sure how many bits or bytes may have evaporated.
+
+  This author proposes another rule:  Include in you AUTOEXEC.BAT file, a
+  CHKDSK (Check Disk) command so that this is done every time the system is
+  powered up.  Although this primitive cannot diagnose exact maladies, it
+  can often provide forewarning that all is not well.  In the event, the
+  /F option (see your DOS manual) may be of some help.  By examining the
+  "files" that CHKDSK may manufacture, you might also be able to discern
+  which data bases might be "fractured".  The next three pages here give an
+  insight into what ùWhizAct files look like at the bits and bytes level.
+|TRX
+
+  Transaction (TRX) file records are fixed lengths, 80 bytes per.  Although
+  each record ends with a CR/LF (hex 0D0A) pair of bytes, this file is
+  actually processed by ùWhizAct as a RELATIVE file (sometimes referred to
+  as a RANDOM file).  If this file is looked at with the DOS TYPE command it
+  will resemble what is often called an ASCII file.  There is one important
+  difference, however:  What may appear to be "spaces" on a monitor are in
+  many cases a code-28 byte (1C in hex).  This has been done to achieve rapid
+  printing on a monitor.  Entire lines (records) may be output with a single
+  PRINT command; the code-28 bytes cause printing to "jump over" those same
+  columns on the screen.
+
+    field  cols   contents                    field  cols   contents
+       1    1-6   line number                    8   49-51  1C1C1C (hex)
+       2    7-8   1C1C (hex)                     9   52-60  amount (ASCII)
+       3    9-16  date (mm-dd-yy)               10   61-63  1C1C1C (hex)
+       4   17-19  1C1C1C (hex)                  11   64-72  balance (ASCII)
+       5   20-25  acct numb (ddd.dd)            12   73-74  1C1C (hex)
+       6   26-28  1C1C1C (hex)                  13   75-78  unused spaces
+       7   29-48  reference (text)              14   79-80  0D0A (hex)
+|LDG
+
+  Ledger (LDG) file records are fixed lengths, 64 bytes per.  This file is
+  actually a RELATIVE file (termed RANDOM by some folks).  There are no field
+  delimiters in these records.  All data is in ASCII format save for field #2;
+  it is a 2-byte binary number, the record's own relative position in this
+  file.  This number may be used for a superficial integrity check; if any
+  inconsistency in the serially ascending sequence is found, the file has
+  undoubtedly become corrupted or disjointed.
+
+  field  cols  contents                    field  cols  contents
+     1   1-6   account number (ddd.dd)        6     46  type (D or C or blank)
+     2   7-8   record number (binary)         7  47-54  date (last posted)
+     3   9-35  reference (text)               8  55-60  line (last posted)
+     4  36-44  balance (zzzzzz.dd)            9  61-64  spaces (unused)
+     5     45  code (L,H,S,T or blank)
+
+  If a record in this file is deleted, the first byte (column 1) is changed to
+  a code-254 (FE in hex).  When new records are added to this file, a check is
+  made for any deleted ones.  In the event, subsequent records are moved up
+  one slot, thus new records are added to the end of the file.  Normal access
+  into this file is via the ùMRI ...
+|MRI
+
+  The Memory Resident Index (MRI) file consists of a 7-byte header record,
+  201 8-byte "data" fields and a single code-26 (1A hex) byte.  The header
+  record has this definition (all in "binary" format): 
+
+   cols  contents
+      1  file ID, always 253 (FD in hex)
+    2-3  DATA SEG in memory at time file is written to disk
+    4-5  segment offset in memory at time file is written to disk
+    6-7  length of file (bytes) not counting the header or trailing 1Fh.
+
+  The first "data" record of 8 bytes is a floating point binary count of the
+  records contained in the ùLDG file.  The next 200 records contain a 6-byte
+  ASCII image of account numbers, each followed by a 2-byte binary pointer of
+  the relative position in the LDG file of the record it refers to.
+
+  This file is called "memory resident" because it is loaded (once) when
+ ùWhizAct first starts, maintained in memory for the duration, and rewritten
+  to disk when a ùQuit is done.  This file can be regenerated automatically
+  if need be.  On start up, if a LDG file is found but no MRI (because maybe
+  you erased it) a fast scan is made of the LDG file and a new MRI is built
+  on the fly.
+|WhizWare
+
+  WhizWare is a software development company (a sweat shop, really.)
+
+  Their address is:
+
+       WhizWare
+       635 Kendrick Rd
+       Milner, GA 30257
+
+  The analyst that designed ùWhizAct is Thomas C. McIntire.  Write to Tom
+  if you have any problems or wish to comment on this software.  He will
+  appreciate the input.  His e-mail address is:  whizware@bellsouth.net
+|

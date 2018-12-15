@@ -1,0 +1,7 @@
+My first incarnation of this game was born in 1986, sired in GW-BASIC on a CGA machine. I have no idea where the idea for it came from. A few years ago, while browsing the internet I came upon a more elaborate game called Pop'em that was similar in concept. Post haste, I wrote one sort of like it in GW-BASIC for VGA machines. Not long after, having called that one PopOff, I crafted a near duplicate in my Whiz assembly language and called it PopTwo. Because this game has long been a favorite of my mine and my wife, and our kids and grandkids, it was a natural choice for a Just BASIC project.
+
+If nothing else, this program was a worthwhile project because it jerked me round the learning curve a bit further. Although the coding itself is unlike any of my others, the overall design of this game is similar.
+
+One of the things I learned was, maybe I should have structured it differently. Maybe next time I will. I developed this version on a 1.2 GHz machine and on it, it "feels" good. Performance is merely comfortable on one running at 400 MHz. On my old 100 MHz machine, however, its pokey pace is barely tolerable.
+
+I share Drop'em here thinking that others might enjoy seeing my third attempt in Just BASIC. I hasten to add, another thing I learned was, there's still a lot I don't yet know how to do in this language. But I'm a'learnin and would appreciate any and all comments, criticisms, or whatever.

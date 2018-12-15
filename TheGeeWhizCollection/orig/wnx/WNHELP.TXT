@@ -1,0 +1,922 @@
+
+                      WhizNews (C) Copyright WhizWare, 1995
+
+                          A ùWhizWare Software Product
+
+                           Author: Thomas C. McIntire
+
+                     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         Vers:  4.0  ³ ùWhizNews Help and Information Index ³  11-20-02
+       ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³ ùAction message lines                 ùIndex of show pages     ³
+       ³ ùAutoWhiz programming                 ùInfo programming        ³
+       ³ ùCGA graphics                         ùPainting with color     ³
+       ³ ùClearing after pages                 ùSpeed (pace, TU)        ³
+       ³ ùColor on text pages                  ùText <key> editing      ³
+       ³ ùCompiling show programs              ùViewing show pages      ³
+       ³ ùConfiguring page files               ùWhizDraw program        ³
+       ³ ùDrawing with characters              ùWhizHelp compiler       ³
+       ³ ùEditing a show                       ùWhizNews.EXE program    ³
+       ³ ùEGA/VGA graphics                     ùWhizNews.WPG work file  ³
+       ³ ùFile space requirements              ùWNeditor.EXE program    ³
+       ³ ùIcon files                           ùWNhelp.DAT text file    ³
+       ³ ùImporting show pages                 ùWNhelp.EXE program      ³
+       ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizNews
+
+ WhizNews is our generic name for show programs containing animated text and
+ video graphics.  In its simplest form, the show program ùWhizNews.EXE cycles
+ through "pages" stored in a file called ùWhizNews.WPG ... when the end of
+ the show is reached, the show starts all over again.
+
+ WhizNews shows can be started by typing the program's name as a DOS command
+ (or from a batch file) or they can be automatically started if a system sits
+ idle for a specified period of time (see ùAutoWhiz for how this can be done).
+
+ WhizNews shows can be stopped by hitting most any keyboard key.  A special
+ meaning can be assigned to the use of <Enter>; we call it ùInfo programming:
+
+    A show program is, conceptually, an "advertising movie".  If a viewer
+    wants to know more about a certain "product" the show can be interrupted
+    and the system switches to a static text-file displaying mode.  <Esc> is
+    used to exit that mode, and the show resumes as before.
+
+ WhizNews shows can be "named" whatever you like; the end product is a set of
+ files that can be distributed as a "video presentation program" for a variety
+ of audiences.  See ùCompiling and ùConfiguring for more about this, special
+ functions built into our ùEditing program.  See also, ùAction about "animated
+ text", or ùCGA and ùEGA/VGA and ùIcon for more about "video graphics".
+|WhizNews.EXE
+
+
+
+
+
+ WhizNews.EXE is the name of our "show program".  It contains the logic for
+ "processing" pages from a show file initially called ùWhizNews.WPG (WPG means
+ "WhizPage file"; read on to discern this meaning.)
+
+ As this program runs it "loads" each page directly into video RAM.  Part of a
+ page is thus an immediately visible "background mask".  The show program then
+ displays ùAction text initially loaded into an invisible area of video RAM,
+ along with parameters that control ùClearing and ùSpeed and ùColor and so on.
+
+ WhizNews.EXE is also the file that is used as a basis for show programs known
+ by other names.  The ùCompiling function -- while ùEditing -- first copies
+ this file to one that you name, then that file is internally changed to access
+ other files to be included with your end-product video presentation program.
+|WhizNews.WPG
+
+
+
+
+
+ WhizNews.WPG is the name of a WhizPage file that always contains 60 pages;
+ùEditing can only be done to this file; it must reside in the same path as
+ the editing program itself.
+
+ WhizNews.WPG is also the file that is used to create show programs known by
+ other names.  The ùConfiguring function -- while ùEditing -- can be used to
+ create an end-product WhizPage file of fewer than 60 pages.  (See ùFile for
+ how to determine space requirements.)  This function can be used "in reverse"
+ also, to copy existing shows back into the work file for updating, correcting,
+ or whatever.
+
+ Another important concept is the idea of ùImporting pages from "old shows"
+ (or a library of "canned pages") into WhizNews.WPG; see that ùEditing is an
+ apt term because, we seldom have to create whole new shows from scratch.
+|Info
+
+
+
+
+
+ Info programming is an optional capability that allows a viewer to interrupt a
+ show and invoke a "help program":  A text file "reading mode".
+
+ Create the text file itself using your favorite text editor or word processing
+ program.  "Process" that file with ùWhizHelp and specify target names for the
+ Info program and its corresponding text file.  Then, using the ùCompiling
+ function of the ùWhizNews ùEditing program, specify the name of the program
+ generated with WhizHelp.
+
+   (A "blank name" provided at compile time effectively means "no Info", and
+   use of <Enter> will be treated like any other key to simply stop the show.)
+|WhizHelp
+
+
+
+
+
+ WhizHelp is a development system that we use for providing on-line help in all
+ of our systems (just like this one called ùWNhelp.EXE that displays what you
+ are now reading, text pages stored in the ùWNhelp.DAT file).
+
+ WhizHelp has its own on-line help capability, developed using WhizHelp itself,
+ naturally.  That system defines the brief rules for "writing" text pages that
+ can be found quickly and easily, with or without a Mouse, and how the "read"
+ program can be made "context sensitive".
+
+ The output from WhizHelp can have whatever file names you like, so that they
+ will seem to be an integral part of any "software package".
+
+ It is this same inherent capability that makes it possible to use WhizHelp to
+ add ùInfo files capability to a ùWhizNews show.  To make that show "context
+ sensitive" we follow special syntax rules when ùEditing our ùIndex of show
+ pages in the ùWhizNews.WPG file.
+|CGA
+
+
+ CGA graphics--Color Graphics Adapter--was the first-out capability for a
+ PC to be able to "draw", and to be able to do it in color.  WhizNews has
+ intentionally maintained its ability to work on CGA systems.  We have also
+ added an enhancement that provides much higher resolution "pictures" on
+ those that have ùEGA/VGA (q.v.) capabilities.
+
+   Note:  On some (older) systems--depending on the type of video adapter
+   present--some "characters" may not appear as they normally should.  In
+   the event, on such machines, the DOS program GRAFTABL should be run (once)
+   before a WhizNews program is run.
+
+ To provide a show editor with an easy means of interspersing some simple
+ animated graphics sequences (to break up the monotony and tedium of text-only
+ output) there are six canned CGA graphics routines hard-coded into the show
+ program itself.  These routines can be "turned on" as a ùClearing action to
+ follow the presentation of any text page.  (See ùEditing for how to do this.)
+
+ The alternative to CGA graphics is more comprehensive, as can be seen on the
+ next few pages (q.v.):  ùEGA/VGA graphics, and ùIcon files created with our
+ùWhizDraw system.
+|EGA/VGA
+
+ EGA/VGA graphics--Enhanced Graphics Adapters, etc.--provide for higher
+ resolution images with more color capabilities than the earlier ùCGA systems
+ but at a price, of course.  There are some direct relationships between higher
+ resolution, more colors, the speed of a given machine, and the size of disk
+ files used to hold graphics images.  Really fancy graphics could cause older
+ machines to run too slow or consume too much disk space.  See ùIcon and ùFile 
+ descriptions for more about this.
+
+ WhizNews editors can deliberate the various trade-offs and produce shows that
+ will run on a broad range of system configurations.  Another consideration
+ is, of course, the time and effort necessary for a person to do fancy "art".
+
+    Some pretty impressive and innovative shows can be fabricated using only
+    the ùWhizNews ùEditing program; a typical page can be built from scratch
+    in just a few minutes.  In contrast, although ùWhizDraw (a video graphics
+    drawing program) is far easier to use than many similar programs, it can
+    still take several hours to create really complex pictures, sometimes.
+
+ The complications of doing "animated graphics" has been curtailed by putting
+ that logic inside the show program itself; it contains built-in subroutines
+ for various ways of displaying and erasing what would otherwise be "static"
+ pictures.  These options can be selected with the ùClearing function during
+ùEditing (which is also how ùSpeed options are selected).
+|Icon
+
+
+ We use the word Icon just as Webster does:  An image or representation; a
+ portrait; picture; illustration, etc.  A further distinction is necessary in
+ this environment, however.  All images on a monitor are made up of dots; some
+ are on and some are off.  The buzz word for these dots is Pixel, short for
+ Picture Elements.
+
+ùWhizNews runs primarily in text mode; characters (letters, numbers, etc.) are
+ stored in memory and files as codes; the "shaping" of those characters is done
+ at display-time by systems software and electronics, each code representing a
+ certain "standard" character.
+
+ Icon files, on the other hand, contain "bit images" (not codes).  These bits
+ (or dots or pixels, or whatever) are mapped into video RAM just as they are
+ stored:  A "digitized image" or picture.  There are a variety of programs on
+ the market for recording or creating such images in files in the first place;
+ WhizNews can only "play" pictures stored in files produced by ùWhizDraw (q.v.)
+
+   It is possible to "import" scanner images stored in MSP (Windows) format,
+   however.  A program called WDgraf (WhizDraw Graphics Files Utility) can
+   convert such files to be compatible with all of our software.  Read on.
+|WhizDraw
+
+
+
+ WhizDraw is a graphics pixel punching program.  And a lot more.  It differs
+ from most packages of this genre because it is a full-screen editor; no menus
+ or other junk clutters up part of the screen; it makes use of pop-up menus as
+ an alternative.
+
+ WhizDraw can do most of the things typical of such programs, like one-click
+ support for drawing of lines and boxes and circles, and so on, and the tasks
+ usually referred to by names like cut, paste, zoom, rotate, enlarge, fill and
+ paint.  And it contains three sets of fonts for typing and printing, etc.
+
+ Here is how WhizDraw can relate to WhizNews:  We use a scanner program--the
+ one that came with our scanner-device--to capture an image from a book or
+ magazine, or whatever, into an MSP-type file (viz, Windows format).  Then we
+ run WDgraf, the Graphics Files Utility that is included with WhizDraw, to
+ convert it to an ùIcon file so that we can edit it, modify it, etc.  Now, all
+ we have to do is move the result to a ùWhizNews show path and change its name
+ to make it a "callable" file.  That naming convention is described under the
+ topic ùClearing ...a function accessed with the WhizNews ùEditing program.
+|WNeditor.EXE
+
+ùEditing of Show Pages is done with WNeditor; this system consists of 5 files:
+
+     WNeditor.EXE   (the program)
+     WNeditor.WPG   (WhizPage file of screens associated with F-keys)
+     WhizNews.WPG   (WhizPage file of 60 work pages)
+     WNhelp.EXE     (on-line help program)
+     WNhelp.DAT     (on-line help data file)
+
+ The ùWhizNews editing program is used to edit (create, erase or modify) text
+ pages stored in the work-pages file.  This program also contains routines for
+ùImporting pages from other show files and for ùConfiguring and ùCompiling show
+ programs for distribution.
+
+     WNeditor.EXE can be started as a DOS command:  WNEDITOR <Enter>
+
+ This program expects WNeditor.WPG and WhizNews.WPG to be in the path where
+ WNeditor.EXE is stored.  The two WNhelp files should normally be in that same
+ path as well (if not there, requests for help will simply be ignored).
+
+   WNeditor.EXE can also be linked-to from WhizNews.EXE (the show program).
+   If the show in progress is WhizNews.WPG and <Alt><249> is punched, the
+   editor is invoked with the show page then being displayed already loaded.
+   (On exit from the editor, the show resumes with the last page "saved".)
+|Editing
+
+ The WNeditor program is Function-Key driven.  F-keys 1 through 10 are used
+ like "hot keys"; <F1> pulls up a "menu screen"; this key can be used anytime;
+ this start-up screen has two other uses:  The only correct way to exit the
+ editing program is via <Esc> while on this screen.  This is also the way to
+ get "on-line help":  To call ùWNhelp.EXE while editing.  To do this, anytime,
+ hit <F1> then </> (or <?> because the <Shift> keys are ignored at this point).
+ The WhizNews help scheme is described next because it is akin to how ùInfo 
+ programming can be made part of a video presentation system.
+
+
+     For quick access, here is an index of topics specific to ùWNeditor.EXE 
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³  ù<F2> Configure Show File    ùWhizNews.WPG and ùConfiguring concepts  ³
+   ³  ù<F3> Compile Show Program   ùWhizNews.EXE and ùCompiling concepts    ³
+   ³  ù<F4> Draw Boxes             ùDrawing tricks and limitations          ³
+   ³  ù<F5> Draw Characters        ùPseudo graphics vs. ùCGA or ùEGA/VGA    ³
+   ³  ù<F6> Color Settings         ùPainting with ùColor                    ³
+   ³  ù<F7> Action Messages        ùViewing ùAction settings and ùStart up  ³
+   ³  ù<F8> Load a WhizPage        ùIndex maintenance, ùImporting & ùInfo   ³
+   ³  ù<F9> Save a WhizPage        ùClearing and ùIcon and ùSpeed           ³
+   ³  ù<F10> Edit a WhizPage       ùText <key> editing functions            ³
+   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WNhelp.EXE
+
+
+
+
+ WNhelp.EXE is the WhizNews on-line help program.  It "displays" text screens
+ stored in the WNhelp.DAT (data) file.
+
+     WNhelp.EXE can be started as a DOS command:  WNHELP <Enter>
+
+ This program expects WNhelp.DAT to be in the path where WNhelp.EXE is stored.
+ (If not there, the help program simply terminates.)
+
+     WNhelp.EXE can also be linked-to from WNhelp.EXE whenever the start-up
+     menu screen is being displayed, by hitting either <?> or </>.
+
+ Help topics can be quickly selected with a Mouse if Mickey's driver is already
+ in memory.  Normally the left button works like <Enter> and the right button
+ works like <Esc>.  These two buttons work when "clicked".  The "meaning" of
+ these two buttons can be flip-flopped anytime WNhelp.EXE is running by hitting
+ the <F2> key.
+|WNhelp.DAT
+
+
+
+
+
+ WNhelp.DAT is a specially configured file consisting mostly of ASCII text.
+
+         WNhelp.DAT contains some "binary data" however; sending
+         it to a printer could cause some folks a severe migraine.
+
+ WNhelp.DAT is normally read by use of WNhelp.EXE--our on-line help program.
+
+ WNhelp.DAT was created from a pure ASCII file that we maintain with our
+ favorite word processing program:
+
+  ùConfiguring of this file is done with ùWhizHelp and that program itself
+   is used as the basis for ùCompiling the program WNhelp.EXE--the exact
+   same scheme you can use for providing ùInfo capability as part of a show
+   of your own.
+|File
+
+
+ Disk file space requirements may be a design issue for some ùWhizNews show
+ packages.  ùWhizNews.EXE itself is about 72KB; a show with ùInfo capability
+ will contain a second program of about 50KB.  The additional space required
+ is a function of how many Pages a show consists of, the ùIcon files that must
+ accompany it, and the size of the data file itself for ùInfo text.
+
+   Each WhizPage contains 3,248 bytes; a show can have up to 60 pages, thus a
+   maximum size of 194,880 bytes.  See ùConfiguring for how to reduce this
+   overhead for shows having fewer than 60 pages.
+
+   The size of the ùInfo data file to be included is a matter of verbosity, of
+   course.  ùCompiling an ASCII file for use with this system results in a file
+   just slightly larger than the source (less than 100 bytes typically).
+
+  ùIcon files-- ùEGA/VGA graphics images--are stored in individual files
+   which can be quite large (up to a maximum of 64KB, per).  Even "small"
+   pictures can run 10KB or more.  Obviously, if space is an issue, few of,
+   and small may be criteria to impose when planning a production...
+
+   Moderate productions will often fit 720KB disks; large shows on 1.44MB.
+|Configuring
+
+
+
+
+
+ ùEditing (per se) can only be done to pages in the ùWhizNews.WPG file which
+  contains 60 pages (nearly 200,000 bytes).  Most shows will require fewer
+  pages, and most show programmers will prefer a name of their own choosing.
+
+          Solution:  Hit <F2> to Configure a ùWhizNews Show File
+
+ ùEditing (per se) can only be done to pages in the ùWhizNews.WPG file.  It
+  is sometimes necessary to change, modify, or otherwise update "old shows".
+
+       Solution:  Hit <F2> to copy a Configured file into ùWhizNews.WPG 
+
+
+
+                          See the next page for more ...
+|<F2>
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³  Function Key <F2> can be used anytime while running  ³
+          ³ ùWNeditor.EXE for custom ùConfiguring of a Show File. ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+ Note:  If a target <filespec> already exists, it will be clobbered.
+
+ Idea:  If the target is ùWhizNews.WPG you might want to make an off-line
+        back-up copy of it first to preserve pages that will be destroyed.
+
+ Note:  The current ùIndex is changed to correspond to the incoming pages.
+
+ Idea:  If the target is a "good show" you might want to make an off-line
+        back-up copy of it first to preclude a chance of "blowing the show".
+
+ Idea:  Double check the End-of-Show mark first.  Hit <F8> to see it.
+
+ Note:  If a <filespec> contains a typo or is otherwise not valid to DOS
+        you will hear a BEEP and the cursor positions to the line in error.
+
+ Note:  Whatever is entered on this screen is "remembered" until changed.
+|Compiling
+
+
+
+
+
+
+ ùWhizNews.EXE is the name of our "run a show" program; the WhizPage file it
+  knows by heart is called ùWhizNews.WPG (that name is built-in).
+
+  Most show programmers will prefer names of their own choosing.
+
+  Some presentation programs will include a few ùIcon files and some may have
+ ùInfo text file reading capability as well.
+
+        Solution:  Hit <F3> to Compile custom WhizNews Show Programs
+
+
+
+                          See the next page for more...
+|<F3>
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³  Function Key <F3> can be used anytime while running  ³
+          ³ ùWNeditor.EXE for ùCompiling a custom Show Program.   ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+ Note: ùWhizNews shows run best, naturally, when stored on a hard disk.
+
+ Idea:  Do not specify a disk drive when compiling; the <filespecs> used
+        here become embeded in the resultant Show Program.
+
+ Note:  It is easier for a user to use *.* for copying all files from a
+        distribution disk.
+
+ Idea:  Use the same "first name" for all <filespecs> when compiling a show
+        package.  (And, why dictate a Path, at all?)
+
+ Note:  If a <filespec> contains a typo or is otherwise not valid to DOS
+        you will hear a BEEP and the cursor positions to the line in error.
+
+ Note:  Whatever is entered on this screen is "remembered" until changed.
+
+|Pseudo
+
+  Pseudo graphics is jargon for drawing with certain characters.  ÚÄÄÄÄÄÄÄ¿
+                                                                  ³  Ü°Û  ³
+                                                 A simple graph:  ³ ²Û°Û± ³
+                                                                  ÀÄÄÄÄÄÄÄÙ
+
+  Entertaining animation can be achieved with some "standard" PC characters.
+
+     Type a line like this:          ÜßÜßÜßÜßÜßÜßÜßÜßÜßÜßÜßÜßÜßÜßÜß
+     Mark it for ùAction to Rotate.
+     You will like what happens.
+
+  Caveat:  Unfortunately, not all "standard" characters look exactly alike on
+  different systems, nor even, in different display modes on a given system.
+
+ ùWhizNews runs in 40-column mode (40 characters per line) rather than the
+  customary 80-column text mode.  Some of the "double wide" characters look a
+  little different than their skinnier cousins.
+
+  There is also a considerable difference between ùCGA and ùEGA/VGA adapters:
+  The character cell sizes are different; even zero varies (slash vs. a dot).
+
+       With this background in mind, see the next page about "Drawing"...
+|Drawing
+
+
+
+  DOS books often refer to the standard PC font set as ASCII characters but
+  this is a misnomer.  ASCII defined the "meaning" of only 128 codes; the
+  first 32 are "control codes".  PCs "print characters" for codes 32-127 as
+  ASCII defined them, and now have a ùPseudo graphics set of characters for
+  codes 128-255.  Some can also be printed for codes below 32 (their "control
+  meanings" have deviated somewhat from the original ASCII standard).
+
+ ùWhizNews depends on DOS (and the system BIOS) for keyboard input and output
+  on monitors.  Thus:  There is an inherent capability to produce characters
+  that have no corresponding "key".  (Surprised?  A lot of hackers don't know
+  this either.)  It is done by holding down <Alt> and punching a code number
+  on the numeric key pad.  (Such characters are not displayed until you let
+  go of the <Alt> key.)
+
+      So:  <Alt><196> then <Alt><196> then <Alt><217> will "print"  ÄÄÙ
+
+  ùWNeditor.EXE provides a much easier means for Drawing Boxes and other
+   "shapes" while ùEditing --see the next two pages for how to do this.
+|<F4>
+
+
+
+
+  Function Key <F4> is used for ùDrawing Boxes; it is used in two different
+  but related ways:
+
+    While actually ùEditing --see ù<F10> --<F4> works as an on/off switch.
+    When ON, moving the cursor with the <arrow> keys causes "boxes" to be
+    drawn.
+
+    While on any screen other than <F10>, <F4> pops up a menu of options and
+    rules related to Box Drawing.  To get to this screen while editing hit
+    <Alt><F4>.  If done this way, and you hit <F4> then <Enter>, the return
+    to editing mode is automatic.
+|<F5>
+
+
+
+
+  Function Key <F5> is used for ùDrawing with most any character; it is used
+  in two different but related ways:
+
+    While actually ùEditing --see ù<F10> --<F5> works as an on/off switch.
+    When ON, moving the cursor with the <arrow> keys causes "shapes" to be
+    drawn.
+
+    While on any screen other than <F10>, <F5> pops up a menu of options and
+    rules related to Character Drawing.  To get to this screen while editing
+    hit <Alt><F5>.  If done this way, and you hit <F5> then <Enter>, the
+    return to editing mode is automatic.
+|Color
+
+
+ Without a doubt, color is a significant attraction to ùWhizNews viewers.
+ For those doing the ùEditing however, color programming is no trivial trick.
+
+ Colors on computer monitors are relative, not specific.  Brown, for example,
+ may look like dark red on some, but almost orange on others.  There are many
+ reasons, including the obvious one of inept use of the "tuning knobs".  For
+ colorful text, hues and tints are not important but good contrast is:  Green
+ words on a blue background would be bad; yellow on blue a much better choice.
+
+ Border coloring can be attractive, but, it may not work on all systems.  The
+ new edge-to-edge type monitors is a case in point.  Another mechanical risk
+ is potential with colored borders too:  Vertical or horizontal adjustments
+ may be so off-center that your pretty border could offend someone's sense of
+ symmetry.  (And, the unknowing might reckon it's your fault.)
+
+ Colored text characters pose another kind of risk.  Suppose we build a show
+ on an ùEGA/VGA system and it really looks great.  It may look lousy to a
+ viewer with a ùCGA adapter, however.  Don't forget about character cell-size
+ differences; a blank line above and below text, and an extra space fore and
+ aft a message string is sage advice.
+|Painting
+
+
+ Painting with color is an important aspect of ùEditing show pages.  When a
+ show page first hits the screen it should be seen as a "back drop" for the
+ùAction lines coming up.  If those text strings are going to have colors that
+ are different than the overall background, an extra programming step will be
+ necessary.
+
+     The usual steps are:  Paint the whole screen.  Type and Draw what's
+     wanted.  Mark the Action strings.  Do a save.
+
+
+ The Save process "lifts" the Action strings off the page and hides them in an
+ unseen area so they can be played out on a background mask, i.e., the screen
+ as it will look with the action strings omitted.  Now, if those strings were
+ painted with various background colors, when the characters are blanked the
+ result will look like empty boxes.  Sometimes this is good but more often it
+ is not what is wanted.  So, just before a Save is done--after all Action
+ strings have been marked--paint over the Action areas with the uniform
+ background colors wanted.
+
+     CAVEAT:  Do not forget this important last step EVERY TIME a Save
+              is done.  (It must be done even if nothing is changed!)
+|<F6>
+
+
+
+
+  Function Key <F6> is used for ùPainting with color; it is used in two
+  different but related ways:
+
+    While actually ùEditing --see ù<F10> --<F6> works as an on/off switch.
+    When ON, moving the cursor with the <arrow> keys causes whatever is on
+    the screen to be "painted".
+
+    While on any screen other than <F10>, <F6> pops up a menu of options and
+    rules related to Color settings.  To get to this screen while editing
+    hit <Alt><F6>.  If done this way, and you hit <F6> then <Enter>, the
+    return to editing mode is automatic.
+|Action
+
+ Without a doubt, Action is a significant feature of ùWhizNews shows.  For
+ those doing the ùEditing however, Action requires a little brain strain.
+
+    There are 25 lines on the screen; each line can contain 40 characters.
+    Action strings are played out from top to bottom in 1-2-3 order.  Only
+    one "message string" can be marked on each line; all of the characters
+    in such strings must have a common ùColor setting.  With these points
+    in mind, now we can have some fun...
+
+ Given a black background:  On line 1 type 40 "spaces" in blue.  Mark columns
+ 1 through 40 to "streak up".  See what happens:  A blue background, for what
+ is to follow, will smoothly scroll up the screen.
+
+ Similarly, line 25 can consist of 40 black spaces marked to "streak down"
+ (a neat trick preceding an ùIcon --they always have black backgrounds).
+
+    Remember, a "space" is a character with all of its pixels turned off and
+    <Alt><219> resembles a space with all of its pixels turned on.  All other
+    characters are made up of patterns of ons and offs, ON meaning foreground
+    color and OFF meaning background color.
+
+  See ùViewing and ùStart for some useful tricks for doing Action experiments.
+|<F7>
+
+
+
+
+    Function Key <F7> is used for ùAction messages; it is used in two
+    different but related ways:
+
+    While actually ùEditing --see ù<F10> --<F7> works as an on/off switch.
+    When ON, moving the cursor with the <arrow> keys causes whatever is on
+    the screen to be "marked".
+
+    While on any screen other than <F10>, <F7> pops up a menu of options and
+    rules related to ùAction settings.  To get to this screen while editing
+    hit <Alt><F7>.  If done this way, and you hit <Enter>, the return to
+    editing mode is automatic.
+|Viewing
+
+
+ Because ùEditing must be done on a static screen, no ùAction can be seen.  A
+ùWhizNews page consists of 2000 characters (40 times 25 lines) so it's hard to
+ remember which are marked to do what.  Hitting <Home> while on screen <F7> is
+ a handy trick, but experimentation is often needed to achieve what is wanted
+ at "play time".  The following tricks can shorten trial-and-error exercises:
+
+   Save a page being worked on in slot 1 of the index (it can be moved into
+   its proper place later).  PS:  We normally make Page #01 a simple black,
+   blank page in final productions; it is our secret "test" slot.
+
+   Temporarily mark Page #01 as the end of the show.  Now we can watch just
+   this one page, over and over to see if it works the way we want it to.
+
+   To avoid having to go to and fro in DOS command mode:  Start ùWhizNews.EXE 
+   then hit <Alt><249>; this is a quick link to ùWNeditor.EXE and the Page on
+   screen is automatically loaded as if <F10> had been hit.  Make whatever
+   adjustments are needed, Save the page, then hit <F1><Esc>.
+
+ Watching a whole show over and over can be both boring and time consuming for
+ its creator.  See ùSpeed and ùStart for how to zip through such reviews...
+|Index
+
+ Each page in a ùWhizNews.WPG file can be assigned a name (a brief description
+ or whatever) to make it easier to "remember" what's on a page.  These titles
+ are displayed in an index of pages whenever ù<F8> Load is selected.
+
+ The "name" assigned to a page may have a second use:  A subject-word used to
+ make an ùInfo presentation "context sensitive".  ùWhizHelp works like this
+ program; a viewer can quick-pick pages by clicking on any word that has a
+ dot-character in front of it.
+
+ Scenario:  A show is in progress; a viewer hits <Enter>.  If the show package
+ includes ùInfo capability, and the Index entry for the page then running
+ begins with a dot (an <Alt><249> code) and ends with a space, and that "name"
+ exactly matches one for a page in the accompanying text file, that is the
+ page that is snapped on the screen when the "read me" program is invoked.
+ (PS:  A "no match", deliberate or otherwise, will default to the first page
+ in the text file; this happens also for Index titles that do not begin with
+ a dot.)
+
+ See that, effectively, Index titles are unseen by anyone other than a show's
+ producer.  Although the entry for each page can contain only 20 characters,
+ cryptic abbreviations can be coined as mnemonic aids for knowing what's on a
+ page, what ùIcon it calls, or whatever.
+|<F8>
+
+         Function Key <F8> is usable anytime to the get to the Load menu.
+
+         If <Enter> is hit, the page with the highlighted number is copied
+         from ùWhizNews.WPG to a work area (in WNeditor.WPG) and the program
+         switches to ùEditing mode, just as if ù<F10> Edit was selected.
+
+        ùIndex maintenance is done on this screen also; to switch to this
+         mode hit <Home>.  Changes are dynamic (titles are stored with each
+         page in ùWhizNews.WPG and are updated immediately with whatever is
+         done while in this mode).
+
+         The presentation order of Pages can be changed while in Index
+         maintenance mode, using <Home> to tag one page, then <End> for
+         the one with which it is to be "swapped".
+
+         The green note () on this screen denotes the "end of the show",
+         the last page to run before ùWhizNews starts over.  To change this,
+         move the note with <arrows> and <Tab> then hit <Enter>.
+
+        ùImporting pages from other files (paths, disks, etc.) is another
+         valuable capability...
+
+                                                                (cont)
+|Importing
+
+       The time that it takes to create new presentation shows can be
+       sharply reduced by simply ùEditing WhizPages from "old shows".
+
+  Suppose Page 13 from another file can be used (as is or with minor changes).
+  To "import" it into ùWhizNews.WPG do it like this:
+
+      Hit ù<F8> Load to see the current ùIndex then <Alt><F8> to get to
+      Index maintenance mode.  Move the cursor to Page 13.
+
+        If the current Page 13 is valuable, move it to another slot; the
+        incoming page will REPLACE whatever is in this same position.
+
+      Now hit <Alt><F8>.  Type the <filespec> of the disk file that contains
+      the page to be imported.  DOS <filespec> rules apply; any error will
+      cause a BEEP and this mode will be automatically terminated.
+
+  The built-in error handling routine attempts to also prevent an accidental
+  attempt to load a "page" from a file that is not, in fact, a WhizPage file.
+  This logic is not 100% fool-proof, however (can't be).  It might be wise to
+  do an off-line backup of ùWhizNews.WPG before attempting this if unsure of
+  what's where in a particular path or disk.  This same risk is potential for
+  a non-existing page (see ùConfiguring for how this could happen).
+|Clearing
+
+     ùWhizNews shows consist of Pages; after each page has "played",
+      the screen can be cleared in a variety of ways...
+
+ Nine of the Clearing routines built into ùWhizNews.EXE are done with the
+ monitor still operating in text mode.  Three of these control how the next
+ page is introduced (useful for achieving smooth continuity of multi-page
+ subjects).  The other six options in this category use "spaces" to clear the
+ screen; one of these is typically used to make a smooth transition when the
+ next page is to have a background color different than the current one.
+
+ The six ùCGA graphics routines are useful as "mental intermissions" between
+ subjects.  They are also useful for attracting attention (although primitive,
+ they are pretty and entertaining).  These routines are built in and require
+ no parameters; they are pre-set to run for a fixed amount of time.
+
+ The other choice for clearing is "Load WhizDraw Icon".  A number of pages in
+ this file pertain to this one subject, viz:  ùWhizDraw ùIcon ùSpeed ùEGA/VGA 
+
+     Whatever the choice, Clearing options are "set up" when a Page is
+     "saved"--when it is moved from the ùEditing buffer into a numbered
+     slot in the WhizPage file...
+                                                                (cont)
+|<F9>
+
+
+
+         Function Key <F9> is usable anytime to get to the Save menu.
+
+         Save copies an ù<F10> Edit page to a slot in ùWhizNews.WPG 
+
+         Parameters selected on this screen are stored with the Page.
+
+         A page can be copied into a slot other than back to the one
+         from which an ù<F8> Load was done.
+
+         The Save function can also be used to ERASE a Page; if <Del>
+         is hit a safety-prompt pops up to preclude accidents.  This
+         option DOES NOT alter ùIndex (q.v.) entries.
+
+         <Home> switches the Clearing options to those for ùIcon 
+         actions only if the cursor is on "Load WhizDraw Icon"; any
+         values set up here are ignored if, later, a different type
+         of ùClearing action is selected.
+|Speed
+
+ Without a doubt, Speed is a critical factor in ùWhizNews productions.  For
+ those doing the ùEditing this is probably the hardest thing to get "right".
+ There are a number of things to consider, and in the end, a lot depends on
+ your intuition:  This is art, not science.
+
+   A 486 runs faster than a 286; a lot faster than an 8086, as we all know.
+   Disk access times can vary considerably, even on a given computer.  Video
+   display times differ too, in different modes, on any given model.
+
+ùWhizNews.EXE first addresses speed like this:  There is an automatic ticker
+ built into the electronics of all computers that "clicks" approximately 18
+ times a second.  WhizNews utilizes default "click counts" that are
+ preprogrammed for certain actions.  When ùAction lines are displayed, "Walk
+ right" is consistently faster than "Spell right" because their base Time
+ Units have been adjusted by the start-up timer loop.  (This auto-adjust
+ algorithm can be defeated; see ùStart for how.)
+
+ Having gained an intuitive feel for the pace of the various ùAction options
+ --study ùViewing if you have not already--see how "on screen time" can be
+ managed by doing things like printing a few invisible spaces.
+
+ Controlling the pace of ùIcon animation is done differently...
+                                                                (cont)
+| 
+
+  Animated graphics are relatively slow, even on the fastest computers.  The
+  canned ùCGA routines in ùWhizNews.EXE are paced by factors in the TU table
+  in much the same way that ùAction text is pre-programmed to produce fairly
+  consistent results.
+
+  The TU table is used for ùSpeed control of ùIcon displays in ùEGA/VGA modes
+  as well, but the permutations of size and color complexity are so vast that
+  no simple formulae can be devised that would satisfy everybody.  So, we let
+  you be the judge (and the programmer).  Study screen <F9>.  Notice the list
+  of options when you hit <Home> after selecting "Load WhizDraw Icon" as a
+ ùClearing action.  The "paceTU" parameters are used as additional multipliers
+  for controlling on-screen animation and display duration.  A higher factor
+  means go slower (5 TU takes 5 times longer than 1 TU, for example).
+
+  All Icon images are rectangles; height vs. width must be considered when
+  choosing how to display and clear a graphics image, and at what speeds.  The
+  "Spin erase" option, for example, works best if the Icon image is a square,
+  rather than a rectangle.  "Flip over" and "Turn around" performance times
+  are dramatically different for wide vs. tall rectangles.
+
+  Again, trial and error is the pragmatic way to determine what works best;
+  see ùStart for some ways to make experimenting fairly easy.
+|<F10>
+
+
+
+
+
+
+
+      Function Key <F10> can be used anytime to get to ùEditing mode.
+
+      This function is similar in concept to Word Processing, i.e.,
+      you can "type" whatever is wanted, anywhere on the screen.
+
+      See the next page for a list of special <key> functions useful
+      in this mode...
+|Text
+
+          Text <key> editing functions while in ù<F10> Edit mode
+  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  Use <Backspace> to print a space and move left (reverse of space-bar).
+      <Home> to move cursor to upper left corner of screen.
+      <End> to move cursor to end of current line.
+      <Tab> to jump to the right...<Shift><Tab> to jump to the left.
+            Tabs are at positions 1, 8, 16, 24, 32, and 40.
+      <Del> to delete a character and shift rest of line left.
+            Right-most character will be a blank.  Color = Switch <F6>.
+      <Ins> to begin inserting characters and shift rest of line right.
+            Color = cursor's position.  Switch <F6> is ignored.
+      <Arrows> to move cursor one position in indicated direction.
+
+  Use <PgUp> or <PgDn> to shift entire page up or down 1 line.
+
+  Use <Alt> with <E> to Erase a line.
+                 <B> to Blank from the beginning of a line.
+                 <H> to Hash (erase) to the end of a line.
+                 <C> to Copy line above (overlaying current line).
+                 <D> to Delete a line and up-scroll lines below.
+                 <I> to Insert a blank line and down-scroll lines below.
+
+      Note:  These functions kill any ùAction marks on all lines modified.
+|Start
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³ The conventional way to start ùWhizNews.EXE is as a DOS command.  There ³
+  ³ are a number of alternatives and, some useful start-up options as well. ³
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  Batch files:  WHIZNEWS (or your compiled version's name) can be used just
+  like any other dot-EXE or dot-COM program.
+
+  Shell:  Most programming languages provide an ability for "calling" another
+  program.  (In BASIC the command is SHELL "<filespec>".)
+
+  Timer: ùAutoWhiz (q.v.) is a TSR (Terminate and Stay Resident) program.  It
+  can be conditioned to monitor keyboard activity; if no keys are hit for a
+  predetermined time, it will auto-start another program.
+
+  Switch options in the start-up command string, viz:  WHIZNEWS <dot>7 #9
+
+    The dot (an <Alt><249> character) means start the show with this page
+    number rather than 01; a handy jump-start ùViewing trick.
+
+    The pound-number is used as a ùSpeed TU factor, rather than the one
+   ùWhizNews.EXE generates itself for deciding how fast it should run.
+
+                                                                (cont)
+| 
+
+ The ability to jump-start a show at a page other than 01 and the option for
+ defeating the automatic ùSpeed regulating algorithm were both devised for the
+ benefit of show programmers.  (Neither of these options are typically needed
+ for end-use productions.)
+
+   Jump-start option:  The syntax is critical, a dot-character followed by
+   a one or two digit number (1-60), with a space fore and aft.
+
+      If ùWhizNews.WPG is the WhizPage file, the dot-number can be after
+      the end-of-show page.  In the event, the show will continue from that
+      point, run through page 60, restart at page 01, but recycle as usual,
+      when the end-of-show page is encountered.
+
+      If the named WhizPage file is other than WhizNews.WPG, the dot-number
+      must not be higher than the last page in the file.  (In the event, what
+      happens next is anybody's guess, but a re-boot will likely be necessary.
+
+  ùSpeed over-ride option:  The syntax is critical, a pound sign followed by
+   a digit (1-9), with a space fore and aft.  The higher the number, the
+   slower the show runs.  A special test is made for #-1 (a negative value);
+   this  will make the show run as fast as your computer can go...a handy
+   trick for ùViewing a show's overall continuity, quickly.
+|AutoWhiz
+
+
+
+
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ AutoWhiz is another ùWhizWare invention available from WhizWare. ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+   It is a TSR program with a number of features, all described in AWhelp,
+   a self-contained free standing on-line programmer's manual.
+
+      Scenario:  A computer is used for POS (Point of Sale) like a cash
+      register, but it often sits idle for varying amounts of time.  The
+      monitor is readily visible to shoppers strolling through the store.
+      AutoWhiz senses no sale is in progress so it invokes a ùWhizNews
+      advertising show.  A customer approaches with a purchase selection;
+      the sales clerk hits any key on the keyboard, and bingo, the show
+      stops and the machine reverts to its role of being a cash register.
+
+   AutoWhiz is feature rich; far too comprehensive to fully describe here.
+   Contact ùWhizWare and ask for a free copy of AWhelp to discern its
+   usage potential for specific environments.
+|WhizWare
+
+
+           WhizWare is a software Research and Development firm
+
+                            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                            ³ WhizWare           ³
+                            ³ 635 Kendrick Road  ³
+                            ³ Milner, GA  30257  ³
+                            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+       All of our software packages are referred to by name; most of
+       them have names beginning or ending with "Whiz", gee whiz.
+
+       Our products are all fully documented on disks; we use our own
+      ùWhizHelp package.  Who wants to fool with paper manuals today?
+       No, we are not like Microstuff and most others:  To keep you from
+       being able to use pirated copies of their software they make you
+       buy the book.  Our prices are so low you can afford to be honest
+       and pay us.
+|

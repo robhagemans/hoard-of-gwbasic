@@ -1,0 +1,655 @@
+                                            ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿  º This file has been specially º
+      ³  ùWhizInfo = Information about   ³  º contrived to demonstrate how º
+      ³   ùWhizWare Software Products    ³  º WhizNews and WhizInfo can be º
+      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  º paired to provide a fun way  º
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                   º for doing presentations.     º
+         ³  ùAutoWhiz   ³                   ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+         ³  ùDataWhiz   ³      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³  ùGeeWhiz    ³      ³  If <Enter> is hit while WhizNews.EXE  ³
+         ³  ùLoanWhiz   ³      ³  is running, WhizInfo.EXE is invoked   ³
+         ³  ùPopOff     ³      ³  and it begins displaying information  ³
+         ³  ùPOSwhiz    ³      ³  from the WhizInfo.DAT file beginning  ³
+         ³  ùWDgraf     ³      ³  with a page relating to this index.   ³
+         ³  ùWhizú      ³      ³  <Esc> will resume the WhizNews show.  ³
+         ³  ùWhizAct    ³      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+         ³  ùWhizBAM    ³
+         ³  ùWhizDraw   ³
+         ³  ùWhizFont   ³      ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³  ùWhizHelp   ³      ³  This index is the first page shown if ³
+         ³  ùWhizKids   ³      ³  WhizInfo is started as a DOS command. ³
+         ³  ùWhizKits   ³      ³  <Esc> will exit back to command mode. ³
+         ³  ùWhizNews   ³      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|AutoWhiz
+
+   AutoWhiz is our generic name for this set of files:
+
+      AutoWhiz.EXE  -- the on-line user's manual displaying program
+      AutoWhiz.DAT  -- the text data file displayed by AutoWhiz.EXE
+      AW.com        -- the AutoWhiz TSR program itself
+
+  Why use AW.com?  If you have a POS (Point Of Sale) computer that can be seen
+  by patrons, if it sits idle for long periods of time, AW.com can terminate
+  the POS program and invoke an advertising program (viz ùWhizNews maybe).
+
+    This is a really great concept, but, inappropriate for certain types of
+    situations.  Most programs fall into one of two categories:  Those that
+    gracefully tolerate an "end" anytime, and those that do not (because they
+    need to do some house keeping before closing down).
+
+  AW.com is a little smarter than Cntl-Break:  It flushes all file buffers,
+  closes all files, unlocking any regions locked by the program, then that
+  program is terminated.  AutoWhiz is inappropriate for most applications
+  that do not like Cntl-C.
+
+                     AutoWhiz works with DOS 4.0 and later.
+           See ùWhizWare to get your copy of this innovative program.
+|WhizNews
+
+  WhizNews is the name of our "animated products catalog"--the show-n-tell
+  program called WhizNews.EXE.  It "plays" pages stored in a WhizPage file
+  called WhizNews.WPG.  The graphics-art images are individual "Icon files"
+  named WhizNews.I01, WhizNews.I02, and so on.
+
+  WhizNews is also a product from WhizWare--it is a "compiler type" of
+  program.  Included with it is a program called WNeditor.  The editor is
+  used to create pages in a dot-WPG file; the compiler is used to create a
+  "show package" by whatever naming scheme is wanted.  Our WhizDraw is the
+  system we use to create the graphics-art files.
+
+  See how you can build "video magazines" of your own:
+
+      The license fee for the WhizNews compiler, editor, and a
+      very comprehensive on-line help system is $0.00
+
+      The license fee for the ùWhizDraw (q.v.) package is also $0.00
+
+      The license fee for ùWhizHelp (q.v.) is also $0.00 it is how we
+      created the ùWhizInfo (q.v.) dynamic "on-line information" files.
+
+        See ùWhizWare for how to get your own show up and running ...
+|WhizInfo
+
+
+
+  WhizInfo.DAT is the name of the file that contains the text your are now
+  reading.  The program that is now running is WhizInfo.EXE--it contains
+  the logic for "picking pages" and snapping them on the screen quickly.
+
+    The text file--an ASCII file, basically--was created with our
+    favorite word processing program.  Then we introduced that file to
+   ùWhizHelp (q.v.) and told it to generate a custom on-line information
+    package to be called WhizInfo.
+
+    See that WhizInfo.EXE can be run as a stand-alone program or invoked by
+    another program.  (Which is what ùWhizNews does if you hit <Enter> while
+    it is running.)
+
+       PS:  If you are using a Mouse and do not like our default assignment
+       of Mickey's paws--left for <Enter> and right for <Esc>--this can be
+       changed at will.  Just hit <F2> while WhizInfo is running and the
+       meaning of the left and right buttons will be "flip-flopped".
+|WhizDraw
+
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  WhizDraw is a powerful pixel pounder ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+
+  A "full screen" graphics art and drawing program that is easy to use and
+  quickly learned.  It features pop-up menus so that, unlike most programs
+  of this genre, your sketch pad is the entire screen.
+
+  The capabilities usually expected are built-in:  Cut and Paste and Zoom and
+  the like,  plus one-click support for drawing Lines or Ovals or Boxes, and 
+  several for speedy painting of large areas with particular colors.  This
+  package also includes three different size font sets.
+
+  Two unique features of this product:  WD9JetXL for sending your Rembrandts
+  to an HP PaintJet XL printer in living color, and ùWDgraf --our Graphics
+  Files Utility program.  This combination makes it easy to import an MSP
+  (Windows) type file captured with a scanner, dink the colors, and produce
+  camera-ready hard copy.
+
+  WhizDraw works in "screen 9 mode" on any EGA/VGA machine with a Mouse,
+  running under DOS 3.0 or later.  Not only is it fast, even on older 8086
+  machines, it can all work in a mere 640 KB environment, including its easy
+  to use on-line manual.
+                                                                (cont)
+| 
+
+  No, WhizDraw is not a full-blown desk-top publishing system.  It was not
+  intended to be.  It costs far less, yet can be highly useful for many small
+  chores.  Especially for those that need to do them on an occasional basis
+  --because it requires so little practice to master.
+
+  The pretty pictures displayed by ùWhizNews were all developed with WhizDraw.
+  This program is also the tool we use for creating connect-the-dots files for
+ ùWhizKids ...
+
+             The one-time license fee for ùWhizDraw is only $0.00
+
+               See ùWhizWare for how to order this great package.
+|WDgraf
+
+
+
+     WDgraf is a graphics files utility program included with WhizDraw.
+
+
+     We wanted to scan photos and convert those MSP-type files into ones
+     compatible with WhizDraw.  WDgraf can do such conversions and more:
+
+       Rotate an image n-degrees.  (Viz:  n can be 1, 2, 3 ... 90ø).
+
+       Filter an image:  To "clean up" fly specks from dirty input.
+
+       Smooth an image:  To make round corners out of square ones.
+
+       Scale an image:  To reduce images so they will fit on one screen.
+
+
+
+                    See ùWhizDraw for more about this package.
+|PopOff
+
+        There is a freeware game out there in the Whacky Wide World
+        called Pop'em.  This is my idea of what that program might
+        have looked like if it had been written in GW-BASIC for DOS
+        machines.  Naturally, me thinks mine is better, even when
+        running on Windows machines.
+
+        A game begins with 80 icons arranged in an 10 by 8 grid.  By
+        clicking on any adjacent pair of the same color, all of those
+        alike that are touching will disappear, and the remainder are
+        shifted to fill the gaps.
+
+        Warning:  This game can be highly addictive.  It has four skill
+        levels, and in the forth one, a game can last half an hour or
+        more.
+
+        And if you are a student of BASIC, take a look at the source
+        code for this program to learn some alternative ways for
+        drawing simple icons.
+|POSwhiz
+
+        T-Rex reincarnated?  Not quite, but here is a way to put an old
+        PC back into service: make it a Point Of Sale machine--a cash
+        register, that is.
+
+        POSwhiz was designed for a Mom and Pop operated Thrift Store.
+        Not only is it highly customizable, now you get it complete with
+        the source code.  Meaning, if you do not like it, fix it!
+
+        Minimum system receipe:
+
+          1 DOS computer, an XT or AT with 512KB memory, or so.
+          1 disc drive, a small HD is best, but 1 floppy will do.
+          1 color monitor, CGA or EGA or VGA or...
+          1 keyboard, the old 98 key kind, or a 101, or 102, or 103...
+          1 printer (optional), almost any old dot-matrix friction feed.
+
+        Modern machines that have been used successfully:
+
+          DOS up through version 7.0
+          Windows W3 up through 98 SE.
+
+                 See ùWhizWare about how to get a copy of POSwhiz
+|Whizú
+
+        Whiz is an Assembler Program, an 8086 assembly language
+        programmer's "work bench", really.
+
+                Whiz includes a specialized text editor.
+                While you are creating a dot-COM program you can
+                jump to DEBUG and test it, then return to where
+                you were inside the editor.
+
+        If this sounds similar to the way we program in GW-BASIC,
+        it should.  That is what the author had in mind when he
+        invented Whiz.
+
+   Small, compact, and quick.  That is why it is called Whiz, gee whiz.
+
+                See ùWhizWare for how to become a Whiz whizzer.
+
+|GeeWhiz
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ °°°°°°°°°°°
+         ³ Programming in GW-BASICı on a PC compatible?  ³ °°°°°°°°°°°
+         ÀÄÄÄ¿                                           ÀÄÄÄ¿ °°°°°°°
+         °°° ³ Tired of trying to find help in the manuals?  ³ °°°°°°°
+         °°° ÀÄÄÄ¿                                           ÀÄÄÄ¿ °°°
+         °°°°°°° ³ Tired of trying to figure out what they mean? ³ °°°
+         °°°°°°° ÀÄÄÄ¿                                           ÀÄÄÄ¿
+         °°°°°°°°°°° ³ Tired of having to learn via trial and error? ³
+         °°°°°°°°°°° ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+         ÍÍÍÍÍÍÍÍÍÍÍÍÍ ùWhizWare has a solution, gee whiz. ÍÍÍÍÍÍÍÍÍÍÍ
+
+            We call it GeeWhiz--An on-line language information
+            system for anyone writing programs in GW-BASIC.
+
+               GeeWhiz is quick, easy to install and easy to use!
+
+            And it runs on nearly any PC running DOS 3.0 or later.
+            Color or mono, with or without a Mouse.  Only a half-meg
+            or so of system disk space is needed to hold all of this
+            compacted wealth of knowledge.
+
+                                                                (cont)
+| 
+
+            The "on-line" concept:  While editing and debugging you
+            can SHELL to GeeWhiz, find facts quickly, and return to
+            where you were.  Done with a Function Key, we call this
+            a hot-key, hot-line for spontaneous programming help.
+
+           ùGeeWhiz is loaded with proven tricks of the trade, too.
+            It was written by a professional programmer that has
+            written thousands of successful applications in BASIC,
+            dating from the earliest versions of CBASIC, MBASIC and
+            the many variants since.  Thus, the "techniques" examples
+            are really useful modules of code that really do work.
+
+            The single system license fee for GeeWhiz is a mere $0.00
+            See ùWhizWare for how to get your copy.  Load it and take a
+            look.  We are confident you will be glad you did, gee whiz.
+
+             Also:  We offer special site licensing rates for schools
+             so they can make use of this powerful teaching assistant.
+
+        ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+        ı GW-BASIC is a registered trademark of MicroSoft Corporation
+|WhizTool
+
+  WhizTool is the name of a disk.  It contains five programs written in
+  GWBASIC.  They are tools usefulı when writing programs in that language.
+
+     LHITS -- Lines Hit -- provides a list of line numbers that have
+     been branched-to, and which lines referenced them, after a program
+     has run to some point.
+
+     LXREF -- Lines Cross Reference -- provides the same output as LHITS,
+     but for an entire program, whether it has been run or not.
+
+     VFIND -- Variables Find -- searches a program for the name of a
+     variable and reports each of the lines that it is found in.
+
+     VLIST -- Variables List -- reports the names of all variables that
+     have been used (since RUN was done), listed in the order they were
+     "activated".
+
+     VXREF -- Variables Cross Reference -- provides a listing of all
+     variables named anywhere in a program and the line numbers that
+     each are found in.
+
+         ıUseful?  The WhizWare Wizard says:  "They are indispensable!"
+                                                                (cont)
+| 
+
+           ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+           ³ Dynamic code analyzers make debugging a whiz; static ³
+           ³ code analyzers are essential quality control tools.  ³
+           ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  Because the programs on our ùWhizTool disk depend on an exact knowledge of
+  where things are inside GWBASIC.EXE, they are version-sensitive. ùGeeWhiz
+  provides a lot of insight about that.  Off the shelf these tools work fine
+  for version 3.23--they can be patched, of course, so they can be used with
+  older interpreters.
+
+  This is a ùWhizKits package, the source code itself.  These programs are
+  stored in ASCII format, so they can be merged into a program while it is
+  in development.  (Then, typically, they are deleted from the end-product
+  program.)
+
+  The ùWhizTool disk also contains an on-line user's manual that includes
+  tricks of the trade for making maximum use of these professional tools.
+
+     If you have written more than one program, the worth of these tools
+     must be obvious--far more than the one-time license fee of only $0.00
+
+              Contact ùWhizWare to get these tools shipped pronto.
+|WhizKids
+
+         ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+         İ                       Ş   It is a connect-the-dots program.  Some
+         İ For the kids we have: Ş   drawings have numbers by the dots and
+         İ                       Ş   some have letters.  Cursor arrow-keys
+         İ       WhizKids        Ş   are used to pick one of four choices--
+         İ                       Ş   one is correct--the next number or
+         İ To make learning fun! Ş   letter to be "connected" in sequence.
+         İ                       Ş
+         ßßßßßßßßßßßßßßßßßßßßßßßßß
+
+         This program was designed to help pre-kindergarten children to
+         learn to count.  To learn the alphabet.  To recognize the shape
+         of numbers and letters.  And to learn that learning can be fun.
+
+         This program was designed with the help of an expert teacher--
+         the director of an early childhood learning center--with many
+         years of experience in teaching pre-schoolers.
+
+         WhizKids runs on nearly any DOS based machine that has an EGA or
+         VGA monitor (or equivalent).  The basic package contains twenty
+         drawings and twenty matching full color image files...
+
+                                                                (cont)
+| 
+
+         When all of the dots are connected--the lines are drawn as
+         numbers or letters are picked in sequence--that "drawing" is
+         overlaid by a corresponding "real art" picture as reward for a
+         job well done.
+
+         Only two other keys are used by the student besides the four
+         arrow keys:  Enter is used to "pick" a drawing from a "menu" to
+         work on.  The Escape key is useful to quit a drawing early.
+
+         For the teacher: ùWhizKids also has on-line help built in.  It
+         is the manual for the program and it contains suggestions for
+         making effective use of it.
+
+         The WhizKids license fee is only $0.00  See ùWhizWare for how to
+         place your order for this exciting software.
+
+         Also:  Take another look at our ùWhizDraw program--it is how we
+         made the drawings for this package.  And how you can create more
+         of your own design or to suit particular student needs.
+|WhizBAM
+
+
+         WhizBAM = The easy way to produce machine language modules
+                   that can be merged as is, into BASIC programs.
+
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³ PUSH ES     ;save for caller  ³     Create an assembly language
+  ³ PUSH DS     ;make ES=DS       ³     source file (viz this example)
+  ³ POP ES      ; now mine        ³     and introduce it to WhizBAM.
+  ³ CLD         ;to loop forward  ³
+  ³ MOV AX,0000 ;from address *** ³     Any Word Processor or text
+  ³ MOV SI,AX   ; set source      ³     editor can be used that will
+  ³ MOV AX,0000 ;to address ***   ³     output a "standard ASCII file".
+  ³ MOV DI,AX   ; set destination ³
+  ³ MOV CX,0400 ;words to move    ³     The code shown on the next page
+  ³ REPZ        ;loop until 0     ³     is the result--an ASCII file
+  ³ MOVSW       ;2-byte words     ³     that is ready to "merge" into a
+  ³ POP ES      ;restore ES       ³     BASIC program.
+  ³ RETF        ;exit             ³
+  ÀÄÒÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+    º
+    º
+    º                                                           (cont)
+| 
+    º   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ÈÍÍÍµ 4000 MID$(MC, 1)=CHR$(&H6)    'PUSH ES     ;save for caller  ³
+        ³ 4010 MID$(MC, 2)=CHR$(&H1E)   'PUSH DS     ;make ES=DS       ³
+        ³ 4020 MID$(MC, 3)=CHR$(&H7)    'POP ES      ;  now mine       ³
+        ³ 4030 MID$(MC, 4)=CHR$(&HFC)   'CLD         ;to loop forward  ³
+        ³ 4040 MID$(MC, 5)=CHR$(&HB8)   'MOV AX,0000 ;from address *** ³
+        ³ 4050 MID$(MC, 6)=MKI$(&H0)                                   ³
+        ³ 4060 MID$(MC, 8)=MKI$(&HC689) 'MOV SI,AX   ; set source      ³
+        ³ 4070 MID$(MC,10)=CHR$(&HB8)   'MOV AX,0000 ;to address ***   ³
+        ³ 4080 MID$(MC,11)=MKI$(&H0)                                   ³
+        ³ 4090 MID$(MC,13)=MKI$(&HC789) 'MOV DI,AX   ; set destination ³
+        ³ 4100 MID$(MC,15)=CHR$(&HB9)   'MOV CX,0400 ;words to move    ³
+        ³ 4110 MID$(MC,16)=MKI$(&H400)                                 ³
+        ³ 4120 MID$(MC,18)=CHR$(&HF3)   'REPZ        ;loop until 0     ³
+        ³ 4130 MID$(MC,19)=CHR$(&HA5)   'MOVSW       ;2-byte words     ³
+        ³ 4140 MID$(MC,20)=CHR$(&H7)    'POP ES      ;restore ES       ³
+        ³ 4150 MID$(MC,21)=CHR$(&HCB)   'RETF        ;exit             ³
+        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+ ùWhizBAM is a "mini-assembler":  Load-and-go dot-COM programs are an output
+  alternative.  Two other types of BASIC merge files are possible also.  One
+  resembles the above, but with assignments made to integer array elements,
+  or the "code" can be output as strings of numbers in DATA statements.
+                                                                (cont)
+| 
+
+        ùWhizBAM permits symbolic names for JMP and DW and the like.  And
+         it produces an error report if need be, to help ensure output is
+         syntactically clean.
+
+         WhizBAM on-line Help is another invaluable feature:  It shows
+         many proven examples of how to implant machine language modules
+         into BASIC programs (both interpreter and compiler versions of
+         the language) and a variety of schemes for passing arguments
+         to and fro.
+
+
+         Total cost:  Only $0.00  See ùWhizWare for how to order yours.
+|WhizAct
+
+  WhizAct is our generic name for a simple accounting system for small firms.
+  It is meant to be a whiz to learn and a whiz to use for persons that are
+  not trained bookkeepers.
+
+  WhizAct was designed with the following scenario in mind:
+
+    Your business grosses less than a million bucks per year.  You do your
+    own accounting (sort of).  You put copies of invoices and receipts in a
+    box and give them to your tax man, or bookkeeping company or whatever.
+    They rap you with two fees -- one for sorting out the mess, and one for
+    preparing tax returns or fiscal health statements that bankers can
+    understand.  WhizAct can sharply reduce these fees.
+
+  Many small business operators judge the fiscal well being of their company
+  by looking in their wallet or cash drawer.  WhizAct can give you a better
+  overview--where the money is coming from and where it went--for a
+  relatively small cost in terms of time and energy.
+
+  WhizAct can be used on small cheap systems; it does not waste a lot of disk
+  space nor demand voracious amounts of memory.  Order your WhizAct from
+ ùWhizWare and get your accounting act together for only $0.00
+|LoanWhiz
+
+
+
+     LoanWhiz is not just another amortization program.  This one works!
+         (Unlike some of those from Microsloppy in years gone by.)
+
+
+  LoanWhiz is far more sophisticated too.  It can output to a printer or
+  on your monitor, or into an ASCII text file (so you can edit the results
+  with your favorite word processing program).
+
+
+  Thinking about buying a new car?  Do a fast on-screen modeling exercise
+  using different payments and rates of interest before you sign on the
+  dotted line.  Know what that loan is really going to cost you...
+
+
+              ùWhizWare for how to order any of our packages.
+|WhizHelp
+
+            Tired of building on-line "Help" schemes?
+              All of that text!  And a way to display it.
+                And an "indexing" means for the operator.
+                  With Mouse or keyboard "pick this" capability.
+
+
+         ÃÄÄÄÄÄÄÄÄÄÄÄ ùWhizWare has a solution, gee whiz. ÄÄÄÄÄÄÄÄÄÄÄ´
+
+
+          We call it WhizHelp--a programming tool that eliminates 
+          a lot of drudgery, saves you time and money and produces a
+          consistent, friendly methodology to your users.
+
+          The concepts:  Your "help screens" are in an ASCII text file;
+          one that you build (and maintain) using your shop's preferred
+          word processing program.
+
+          The program that "plays" these pages and that manages operator
+          index referencing and page scrolling is our own WhizHelp.EXE
+          program re-named to fit in with your package's file naming
+          scheme.  It reads your "help data file" and pops them on the
+          screen quickly.
+                                                                (cont)
+| 
+
+          The essence of it all is WhizHelp.COM--a compiler type
+          of program that converts your .TXT file to a .DAT file and
+          copies and implants into your version of the core program
+          color parameters, a screen mode code, and the name of your
+          data file.  All automatically.  And it produces an error
+          report, if need be, to warn you of pages that do not conform
+          to the simple rules necessary to make all of this work.
+
+          Notice you have to do only three things:  Create the input
+          source file, run this tool, and simply include a SHELL line
+          inside your package that can be triggered by the operator
+          when they want to get help.
+
+          We can help you do all of this easily and cheaply.  The
+          regular license fee for ùWhizHelp is only $0.00  Contact
+         ùWhizWare to get help with the problem of providing help in
+          your packages.
+
+              As an aside:  Notice how we make use of our own tools.
+              This system-- ùWhizInfo --was generated with our
+             ùWhizHelp compiler.
+|WhizKits
+
+
+
+        ùWhizWare makes software tools for software writers.  Some
+         we call WhizKits; an idea somewhat unique in the industry:
+
+                "When you buy the whole box, you get it all."
+
+         And you are free to plagiarize our source code, modify it, or
+         whatever.  The single proviso that applies to our definition of
+         a WhizKits "Unrestricted License" is that you will not market a
+         similarly featured product that would compete directly with one
+         of ours.
+
+         We pride ourselves on out-of-the-box quality.  Although our
+         guarantee must be limited to "as delivered" for WhizKits, we
+         will be happy to assist users on a time available basis in the
+         event any technical difficulty is encountered in making use of
+         this type of software.  The regular one-time license fee for a
+         WhizKits package is only $0.00
+|DataWhiz
+
+                ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                ³ My sister bought a mailing labels ³
+                ³ program.  So did my neighbor; and ³
+                ³ a client.  They all bugged me:    ³
+                ³ "Can you change my program ..."   ³
+                ÀÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+                         ³    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                         ÀÄÄÄÄ´ Solution:  DataWhiz ³
+                              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  Our ùWhizKits package--not just "another one of those"--one that you
+  can change.  Because you get the source code.  It is written in GW-BASIC.
+  And it can be compiled, if you want to.  And MODIFIED.
+
+    Off the shelf it is suitable for a "few hundred" names and addresses.
+    Or whatever:  Seven 32-byte fields per record.
+
+  Two types of output:  Mailing labels or "rosters".  Three output targets:
+  Printer, an ASCII text file or simply, on the monitor.  Records can be
+  tagged to print or be skipped over; any or all fields can be designated to
+  print or not.  On-line help is another nice touch; it too can be modified.
+
+                                                                (cont)
+| 
+
+  See the difference:  Most of these features are common to many Mailing
+  Label Programs.  Some of the better ones can be "parameterized", also.
+
+  Rather than doing a "config" or an install however, to customize ùDataWhiz 
+  you simply patch the program itself.  Its modularity and design simplicity
+  makes this easy for anyone with a little programming experience.
+
+ ùDataWhiz can also serve as the basis for creating much more sophisticated
+  programs--add a few subroutines to do "totals" for example.  Bingo:  A
+  simple Accounts Receivables program customized to specific needs.
+
+  And it can be done in far less time than when starting from scratch.  The
+  data-base-maintenance routines already exist, complete with a multi-level
+  menu scheme, printer management routines, and so on.
+
+  All this for a fraction of our normal ùWhizKits fee:  This one is only $64.
+  Even if you pay yourself minimum wages, this cost is easily paid back with
+  only one spin-off application.
+
+  DataWhiz is small, simple and cheap.  But it contains a lot of good code.
+  And it works.  See ùWhizWare and order your copy post haste and be a wise
+  old owl:  No need to re-invent the wheel...
+|WhizFont
+
+                      We needed to do "animated text".
+            Like words that rrrrrrrrrrrrrrrrip across the screen.
+                 Or that roll over or streak or fade out ...
+                     And BIG letters toooooooooooooooo.
+
+    And we needed a program that could do high speed dynamic updating of
+    real-time data in graphics modes, displayed  with "custom characters".
+
+    ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ WhizWare's solution is called WhizFont ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+    Two programs:  An editor--a pixel puncher--for creating customized font
+    sets.  And a collection of pre-coded routines for displaying various
+    "animation sequences".
+
+    The quintesence:  A machine language routine for poking pixel bits
+    directly into video RAM as rapidly as possible.  In any color-on-color
+    combination.  Anywhere on the screen.
+
+    A character, of course, can be a letter or a number, a bird or even Abe
+    Lincoln.  Included in this package are five pre-edited and enlarged
+    "standard PC character" font files.  And another containing 256 "icons"
+    --little pictures--of such common items as a bird, a bulldozer, etc.
+                                                                (cont)
+| 
+
+         The five font sizes are, as "cells", in terms of pixels-wide and
+         pixels-high:  8x16, 16x24, 24x32, 32x40 and 40x48.
+
+    All of this is designed to work on any EGA or VGA machine running in
+    "screen mode 9", which is shorthand for graphics based on a screen
+    layout of 640 pixels wide, by 350 down, in any of 16 color combinations.
+    (On a VGA, 256 "shades" can be established for the 16 colors traditional
+    on an EGA.)
+
+   ùWhizFont is a "show and tell" demonstration program.  It was written in
+    GWBASIC but designed such that it is "compatible" with BASIC compilers.
+    Its inherent modularity makes it easy to steal specific subroutines for
+    implanting in other programs.
+
+    This ùWhizKits package includes WFedit, the program that makes it easy
+    for developers to create custom characters and icons of their own.  And
+    WFBAM:  Machine language source code for that high speed module that can
+    be called from within any language.  (See ùWhizBAM about this!)
+
+    Wow.  Powerful code packaged especially for pro-programmers: Only $0.00
+
+                  Jump to ùWhizWare now, for ordering information.
+|WhizWare
+
+       WhizWare is the name of a software Research and Development firm.
+       The boss and author of these programs is Tom McIntire, aka WhizCat.
+
+          e-mail address:  whizware@bellsouth.net
+
+       Here are some sites for finding free downloads of our programs:
+
+          http://basicusers.net
+          http://trailingedge.us
+          http://development4life.net
+          
+          All of our software packages are referred to by name, and
+          most have names beginning or ending with "Whiz", gee whiz.
+
+       Our products are all fully documented using our ùWhizHelp scheme.
+       Who wants to fool with paper manuals today?  No, we are not like
+       Microstuff and most others:  To keep you from being able to use
+       pirated copies of their software they make you buy the book.  Our
+       prices are so low you can afford to be honest and pay us.  And
+       you can't do better than free, right?
+|
+

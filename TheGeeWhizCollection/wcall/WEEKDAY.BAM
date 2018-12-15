@@ -1,0 +1,6 @@
+MOV AH,2A
+INT 21 ; DOS
+MOV DX,AX ; weekday # in AL
+MOV AX,2580 ; set INT 80
+INT 21 ; DOS
+RETF ; answer is in 0000:0200

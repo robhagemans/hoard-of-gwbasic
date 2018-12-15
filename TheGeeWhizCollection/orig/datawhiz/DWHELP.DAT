@@ -1,0 +1,743 @@
+   ÉÍ ùDataWhiz ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»                               ÚÄÄÄÄÄÄÄÄÄ¿
+   º general info about how to use º                               ³ùPrinter ³
+   º this program and how it works º         fields in        ÚÄÄÄÄ´ùDatfile ³
+   ÈÍÍËÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼         records to  ÚÄÄÄÄÁÄ¿  ³ùMonitor ³
+      º                                      operate on  ³ùName ³  ÀÂÄÄÄÄÄÄÄÄÙ
+      º                                                  ³ùAdrs ³   ³
+      º                                                  ³ùCity ³   ³ output
+      º                                            ÚÄÄÄÂÄ´ùTele ³   ³ device 
+      º                search file for next        ³   ³ ³ùFirm ³   ³
+      º                record that contains        ³   ³ ³ùData ³   ³
+  ÉÍÍÍÊÍÍÍ»            this "string"    ÚÄÄÄÄÄÄ¿   ³   ³ ³ùKeys ³   ³
+  º other º                          ÚÄÄ´ùFind ÃÄÄÄÙ   ³ ÀÂÄÄÄÄÄÙ   ³
+  º ùHelp º     add/change/erase     ³  ÀÄÄÄÄÄÄÅÄÄÄÄÄÄ¿³  ³         ³
+  º pages º     records   ÚÄÄÄÄÄÄÄÄ¿ ³ ÚÄÄÄÄÄÄÄ´ùMake ÃÙ  ³         ³
+  ÈÍÍÍÍÍÍÍ¼               ³ùInsert ³ ³ ³       ÀÄÄÄÄÄÄÙ   ³         ³
+                        ÚÄ´ùModify ³ ³ ³   replace all    ³         ³
+             ÚÄÄÄÄÄÄÄÄ¿ ³ ³ùDelete ³ ³ ³   "find this"    ³         ³
+             ³ùUpdate ÃÄÙ ÀÄÄÄÄÄÄÄÄÙ ³ ³   "with this"    ³         ³
+        task ³ùSearch ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³                  ³         ³
+   selection ³ùChange ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                  ³         ³
+        menu ³ùRoster ÃÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         ³
+             ³ùLabels ÃÄÄÙ                 select fields            ³
+             ³ùOutput ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+             ³ùQuit   ³
+|DataWhiz
+
+  This program has three main uses:  To print "rosters" of names and telephone
+  numbers and the like.  Or to print names and addresses on mailing labels. It
+  can also be used like a "phone index"--to simply find a person's address,
+  phone number or whatever, quickly and easily. 
+
+  Names, phone numbers, addresses, etc. are stored in a data file on disk.
+  This program also contains an "editing" capability:  To change items (called
+  fields) and to create new records or erase ones no longer needed.  (A record
+  is a group of fields, one group for each "person").
+
+  A series of menus is used for "task selection", i.e., to tell the program
+  what you want to do.  When you select ùUpdate for example, the next menu
+  shown will let you indicate whether you want to ùInsert a new record into
+  the file, or ùModify or ùDelete one that already exists.
+
+  Menu selections may be made in one of two ways:  Each key word in a menu
+  starts with a unique capital letter.  Hitting <S> on the keyboard while the
+  DataWhiz menu is being displayed, for example, will automatically switch you
+  to the ùSearch routine in the program.  The alternative way to make menu
+  selections is to move the "red bar" up or down with the up or down cursor
+  arrow keys, then hit <Enter> when the desired choice is highlighted.
+
+  ÄÄÄÄÄÄÄÄÄÄÄ The next page contains more help, about Help itself. ÄÄÄÄÄÄÄÄÄÄ
+|Help
+
+  "Help" can always be had by a single key stroke:  The question mark key <?>
+  can be hit at any time to "bring up" ùDWhelp.COM --then <Esc> will bring
+  you back to where you were so you can resume what you were doing before.
+
+  This help file is organized to befit normal usage:  The subjects shown on
+  the first page are those most likely needed for review during regular use
+  of the main program.
+
+  Successive pages in this file are also arranged for the benefit of those
+  that want to read the whole book from top to bottom; a logical progression
+  from a simple overview, down through "how to use", right on down to the
+  technical nitty gritty.  The following supplemental index can be used by
+  those in a hurry.
+
+         ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+         º ùConfig - machine requirements, memory, disk space, etc. º
+         º ùDesign - how this program works internally              º
+         º ùCoding - how it is organized and how to read it         º
+         º ùFixing - how to go about "patching" this program        º
+         ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+
+  See ùWhizWare for the address of where to get help if this is not enough.
+|Update
+
+  There are three main tasks associated with maintaining any "data base"--
+  addition and deletion of records and making routine changes or corrections
+  to records already on file.
+                                                         Update
+  The key words used for this, in this program are:    ÚÄÄÄÄÄÄÄÄ¿
+  Selecting one of these sets the "mode" for what      ³ùInsert ³
+  comes next.  <Esc> can be used to escape from an     ³ùModify ³
+  "erroneous choice" of mode, at any time, without     ³ùDelete ³
+  causing any harm to records already on file.         ÀÄÄÄÄÄÄÄÄÙ
+
+  When ùInsert is selected a "blank record" is displayed on the screen, so
+  you can fill in the blanks.
+
+  When ùModify is selected an existing record is displayed on the screen, so
+  you can "edit" the information in it.
+
+  When ùDelete is selected an existing record is displayed on the screen, so
+  you can "erase" it from the file.
+
+  The record that will be displayed when ùModify or ùDelete is selected will
+  be the one last found with ùSearch --see the next page for how that works.
+|Search
+
+  Search    To find records containing "this string".
+ ÚÄÄÄÄÄÄ¿
+ ³ùName ³   When Search is selected you will next see this menu.  So you can
+ ³ùAdrs ³   indicate which field is to be looked at (in each record) during a
+ ³ùCity ³   scan through the file from the top down.
+ ³ùTele ³
+ ³ùFirm ³   Either hit a field name's capital letter--like N or A or one of
+ ³ùData ³   the others shown--or move the highlight bar up or down with a
+ ³ùKeys ³   cursor arrow key and hit <Enter>.  Then you will see ùFind ...
+ ÀÄÄÄÄÄÄÙ
+  Searches work like this:  Suppose you cannot remember whether a name is
+  stored as McDonald or MacDonald or Mc Donald or whatever.  So look for
+  just "Donald".
+
+  Yes, if Donald Duck is on file, that record would be shown first.  If you
+  hit <Page Down> searching will continue, however.  And <Page Up> will cause
+  the search to "back up" in case you bumped past the record you wanted.
+
+  Similarly, the cursor up and down <arrow> keys will step backwards or 
+  forwards one record at a time.  So you can find one of the Smith brothers
+  by simply initiating a search for "Smith".
+|Change
+
+  Change    To find records containing "a string"; change those to "this one".
+ ÚÄÄÄÄÄÄ¿
+ ³ùName ³   When Change is selected you will next see this menu.  So you can
+ ³ùAdrs ³   indicate which field is to be looked at (in each record) during a
+ ³ùCity ³   scan through the file from the top down.
+ ³ùTele ³
+ ³ùFirm ³   Either hit a field name's capital letter--like N or A or one of
+ ³ùData ³   the others shown--or move the highlight bar up or down with a
+ ³ùKeys ³   cursor arrow key and hit <Enter>.  Then you will see ùFind ...
+ ÀÄÄÄÄÄÄÙ
+  Scanning in this case works with "character sequences", similar to that for
+ ùSearch --but always from the beginning to the end of the file.  After
+  entering a ùFind string, you will next be prompted for a ùMake string.
+
+  Substitutions work like this:  Suppose you had some records with GA in the
+ ùCity field and some with Georgia.  But you wish you had been consistent.
+  So ùFind "Georgia" and ùMake "GA"
+
+  Each time "Georgia" is found you will be prompted to use <F6> to update that
+  record; hit <Enter> for those you do not want changed.
+|Roster
+
+  Roster    To print a list of selected fields, for certain records.
+ ÚÄÄÄÄÄÄ¿
+ ³ùName ³   When Roster is selected you will next see this menu.  So you can
+ ³ùAdrs ³   "mark" which fields are to be printed.  If you pick one a second
+ ³ùCity ³   time it will be "un-marked".
+ ³ùTele ³
+ ³ùFirm ³   Either hit a field name's capital letter--like N or A or one of
+ ³ùData ³   the others shown--or move the highlight bar up or down with a
+ ³ùKeys ³   cursor arrow key and hit <Enter>.
+ ÀÄÄÄÄÄÄÙ
+  A message bar can also be seen that tells you to hit <F6> when you are ready
+  to start the production run.
+
+  Displayed at this time are also what was last set up on the ùOutput menu and
+  what ùKeys were specified for ùFind the last time ùSearch was set up.
+
+  If either of these are incorrect, hit <Esc> to return to the main menu so
+  those menus can be accessed.
+
+    Note:  Only those records containing a corresponding ùFind string will
+    be output; all others will be skipped over.  For those that are output,
+    only the fields "marked" as above will be printed.
+|Labels
+
+  Labels    To print mailing labels with selected fields for certain records.
+ ÚÄÄÄÄÄÄ¿
+ ³ùName ³   When Labels is selected you will next see this menu.  So you can
+ ³ùAdrs ³   "mark" which fields are to be printed.  If you pick one a second
+ ³ùCity ³   time it will be "un-marked".
+ ³ùTele ³
+ ³ùFirm ³   Either hit a field name's capital letter--like N or A or one of
+ ³ùData ³   the others shown--or move the highlight bar up or down with a
+ ³ùKeys ³   cursor arrow key and hit <Enter>.
+ ÀÄÄÄÄÄÄÙ
+  A message bar can also be seen that tells you to hit <F6> when you are ready
+  to start the production run.
+
+  Displayed at this time are also what was last set up on the ùOutput menu and
+  what ùKeys were specified for ùFind the last time ùSearch was set up.
+
+  If either of these are incorrect, hit <Esc> to return to the main menu so
+  those menus can be accessed.
+
+    Note:  Only those records containing a corresponding ùFind string will
+    be output; all others will be skipped over.  For those that are output,
+    only the fields "marked" as above will be printed.  The size of the labels
+    should be:  1 and half inches high, by 3 and half wide. 
+|Output
+
+   Output      To "configure" the destination for "printed" reports.
+ ÚÄÄÄÄÄÄÄÄÄ¿
+ ³ùPrinter ³   When Output is selected you will next see this menu.  So you
+ ³ùDatfile ³   can pre-set where the ùRoster or ùLabels routines are to send
+ ³ùMonitor ³   their results.
+ ÀÄÄÄÄÄÄÄÄÄÙ
+
+  Either hit a device's capital letter--P or D or M--or move the highlight
+  bar up or down with a cursor arrow key and hit <Enter>.  The next prompt
+  will read <filespec> ...  Review the descriptions for each of the key words
+  above before deciding what should be entered at this point.
+
+    Note:  The error handler in this program is simplistic.  If a <filespec>
+    entered here is "invalid" or a drive is not latched or the printer is off,
+    etc., the error message will simply say there is a problem with the Output
+    Device.  But this does not happen until an attempt is actually made to
+    start a ùRoster or ùLabels run.  In the event:  Start over.  No real harm
+    has been done.
+|Quit
+
+  Quit is the key word to select when you wish to end a work session using
+  this program.  DO NOT do a Ctrl-Break.
+
+  It is wise to back up your data base file after every work session that
+  involves doing any type of ùUpdate or ùChange ...
+
+  Either the COPY or BACKUP (DOS) commands may be used for this.  If COPY is
+  used, to re-load the master file use COPY again, to overwrite the hard disk
+  version of the file with the contents saved on a back up disk.  If BACKUP
+  is used, its DOS countertype is RESTORE.
+
+           The name of the file to be backed up is:  DataWhiz.DBF
+
+  In the event of an abend (jargon for "abnormal ending"):  If a power outage
+  or a "re-boot" or a "program error" occurs while the master file is being
+  updated on disk, check the file BEFORE doing any further updating to it.
+
+  Records in the file are "sorted" during some update operations; if this
+  process is interrupted the file should be restored from a back up copy.  It
+  is not necessary to restore the master file if an abend occurs during any
+  type of print run; printing and simply searching for information in the file
+  involves no type of changes on disk.
+|Insert
+
+  Insert:  To create a new record and insert it into the file in alphabetical
+  order based on the name (or whatever) that is entered in the ùKeys field.
+
+  When Insert is selected a "blank record" is displayed on the screen.  So
+  you can fill in the blanks.  After the last field is entered--the one
+  called ùKeys --a message bar appears indicating that <F6> may be hit to
+  cause that record to be added to the file.
+
+  The up and down cursor arrow keys may be used to move from line to line to
+  make corrections before you hit <F6>.  Note:  If this is not done, whatever
+  has been typed will simply be discarded!
+|Modify
+
+  Modify:  To "correct" or otherwise edit an existing record and replace it in
+  the file--in alphabetical order based on the name (or whatever) contained
+  in the ùKeys field, if in  fact that field itself is changed in some way.
+
+  When Modify is selected an existing record is displayed on the screen.  The
+  record shown will be the one last found using ùSearch (q.v.)
+
+  A message bar appears to remind you that <F6> may be hit to cause the file
+  to be updated.  The up and down cursor arrow keys may be used to move from
+  line to line to make corrections before you hit <F6>.  Note:  If this is not
+  done, whatever has been typed will simply be discarded--the record on disk
+  will remain unchanged.
+|Delete
+
+  Delete:  To "erase" an existing record already on file.
+
+  When Delete is selected an existing record is displayed on the screen.  The
+  record shown will be the one last found using ùSearch (q.v.)
+
+  A message bar is also shown with a number in brackets--like <5>--which is
+  the number key (not a function key) that you must hit to confirm that you
+  really do want to throw out this record.  If you change your mind or are
+  looking at the wrong record simply hit <Esc> and no harm will be done.
+
+  If you hit any key other than the number shown (or Esc) a different number
+  will be shown.  The reason for this "randomness" is to preclude the kind of
+  mistakes we can make when we anticipate the DOS "Are you sure?" prompt.
+|Find
+
+  Find is the "prompt" for entering a "search for this string" sequence of
+  characters.
+
+  The way it works is described under ùSearch --it works similarly for
+ ùChange runs.  For the ùKeys field it is the string that is tested for,
+  to control which records are printed during ùRoster and ùLabels runs.
+|Make
+
+  Make is the "prompt" for entering a "replacement string" sequence of
+  characters.
+
+  The way it works is described under ùChange --which is the only use made
+  of whatever is entered here.
+|Name
+
+  Name is the "name" of the first field in each record.
+
+  What you actually enter in this field is up to you--names of friends,
+  books in your library, or from an inventory of your wine cellar.
+
+  This field can also be left "blank".  But see ùKeys before you decide how
+  to best use this field.
+|Adrs
+
+  Adrs is the "name" of the second field in each record.
+
+  What you actually enter in this field is up to you--the street address
+  of this person's record or the author of the above book title, etc.
+
+  This field can also be left "blank".
+|City
+
+  City is the "name" of the third field in each record.
+
+  What you actually enter in this field is up to you--the city, state and
+  zip code portion of an address or the vineyard for this grape juice.
+
+  This field can also be left "blank".
+|Tele
+
+  Tele is the "name" of the fourth field in each record.
+
+  What you actually enter in this field is up to you--this person's phone
+  number or the copyright date of the book described by this record. 
+
+  This field can also be left "blank".
+|Firm
+
+  Firm is the "name" of the fifth field in each record.
+
+  What you actually enter in this field is up to you--where this person
+  works or whether this is red wine, white or whatever.
+
+  This field can also be left "blank".
+|Data
+
+  Data is the "name" of the sixth field in each record.
+
+  What you actually enter in this field is up to you--how much this person
+  owes you or whether this book is fiction, western or whatever.
+
+  This field can also be left "blank".
+|Keys
+
+  Keys is the "name" of the seventh field in each record.
+
+  What you actually enter in this field is up to you--BUT IT IS IMPORTANT
+  that a "consistent scheme" be followed for what this field does contain.
+
+  This field SHOULD NOT be "blank".  It is the field used by the program to
+  keep all records in sorted-order, sequenced "alphabetically", from the top
+  down.
+
+  Typically:  Aardvark, Robert A, Jr--to agree with Robert A. Aardvark, Jr.
+  which is stored in the "name" field.  So that you can ùSearch for "Aard"
+  or print an alphabetized ùRoster but be able to produce mailing ùLabels with
+  the names "turned around".
+|Printer
+
+  When Printer is selected on the ùOutput menu the next prompt will be
+  <filespec> so you can specify a device or file name.  Normally the default
+  of LPT1: will be satisfactory.
+
+  Note:  Acceptable device names are LPT1: and LPT2: and LPT3: and SCRN: and
+  COM1: and COM2: --the trailing colon IS NECESSARY.
+
+  (SCRN: refers to the monitor; COM1: and COM2: are for serial ports.)
+
+  A disk file name can also be specified here but see ùDatfile for a more
+  normal means for that.  (Done here the file will contain "page slew" codes
+  and the like; not usually wanted in text files.)
+|Datfile
+
+  When Datfile is selected on the ùOutput menu the next prompt will be
+  <filespec> so you can specify a device or file name.  Normally a DOS disk
+  file name like the default one shown of DataWhiz.TXT will be sufficient but
+  a drive and path names may also be needed.  See your DOS book about what is
+  legal here.
+
+  A "device name" can also be specified here but see ùPrinter for a more
+  normal means for that.  (Done here the output will not be "paged" nor
+  spaced properly.)
+
+     The advantage of routing some forms of output to a data file rather
+     than to a printer or the screen is that you can "edit" that text with
+     a word processing program, then use it to print that "report".
+|Monitor
+
+  When Monitor is selected on the ùOutput menu the next prompt will be
+  <filespec> so you can specify a device or file name.  Normally the default
+  of SCRN: will be satisfactory.
+
+  Note:  Acceptable device names are LPT1: and LPT2: and LPT3: and SCRN: and
+  COM1: and COM2: --the trailing colon IS NECESSARY.
+
+  A disk file name can also be specified here but see ùDatfile for a more
+  normal means for that.  (Done here processing halts after every "screen 
+  full" to give you time to read what, in this case, would be invisible.)
+|Config
+
+  Configuration requirements for running ùDataWhiz are:
+
+  DOS 3.0 or later; GWBASIC.EXE 3.20 or later.  On any PC with a "color"
+  monitor.  (See ùFixing for what would have to be changed to use on a "mono"
+  machine.)
+
+  Each record contains 256 bytes; the file can have a theoretic maximum of
+  32,767 records.  The practical limit is more like a few hundred for older,
+  slower machines; maybe a couple of thousand for the new screamers.
+
+  Both cases above presume running from a hard disk.  While this program can
+  work on floppies, performance is likely to be untenable because of the
+  slower access times for those types of drives.
+
+  No special CONFIG.SYS file is needed.  GWBASIC.EXE must be included in the
+  environment path used by this program when running the dot-BAS version of
+  this program.  Also:  The command line that starts the interpreter must
+  include /S:256 as the last thing on that line.
+|Design
+
+  A number of factors influenced the overall design of this program.  As is
+  invariably the case, a number of tradeoffs were necessary to achieve the
+  primary goals.  Which were ...
+
+  Simplicity:  Experience tells us that many users never read the book; they
+  prefer to rely on intuition and trial and error.  So be it.  The task
+  selection scheme used here requires going back to the main menu repeatedly.
+  But it is easy to remember the flow; especially for those that make only
+  occasional use of this program.  (Most cases, presumably.)
+
+  Integrity:  Immediately after any one record is updated the file is closed
+  and a RESET command is issued to force DOS to flush its buffers.  (Then an
+  OPEN is done, again.)  Although this is somewhat inefficient it does tend to
+  minimize "mis-allocation" problems and "lost changes" due to power outages
+  and the like.  Conversely, the CLOSE-RESET-OPEN sequence is done only once,
+  at the end, when the file must be re-sorted.  A compromise but on reflection
+  a seemingly rational one.
+
+  File organization:  No record index keys (effectively), no index files, no
+  account numbers required, etc.  To maintain the KISS theme:  Keep it simple,
+  stupid.  Yes the file has to be perpetually sorted.  A bad idea for large
+  files.  But ...
+                                                             (Continued)
+| 
+
+  File growth:  When a ùDelete is done that record is simply tagged and moved
+  to the bottom of the file.  When an ùInsert is done it will overwrite a
+  previously deleted one--so the overall file length is increased only when
+  necessary.  A favorite trick for minimizing disk fragmentation headaches.
+
+  Record structures:  256 bytes per; eight 32-byte fields in each.  As is,
+  this means 32 bytes are "wasted" in each record--only 7 can be accessed
+  on the menus.  A small price to pay; most designers allocate "reserved"
+  spaces; here we do it in anticipation of being able to easily devise custom
+  additional features.  (Such as a field for holding account balances, a time
+  and date stamp, or whatever.)
+
+  Data field contents:  Mostly just ASCII text strings.  Always fully left
+  justified.  The only byte-code restriction is FF (in hex; 255 in decimal).
+  This is the marker used to tag deleted records; if the operator attempts to
+  insert this code in a string it is automatically converted to a space (which
+  is what would be seen, anyway, PS.)  A few of the low-order "control codes"
+  cannot be entered either; such as an 07 (a "bell" code).  Ho hum.
+
+  Error handling:  Cheap and simple.  Report the error code and line number so
+  the operator can give you some meaningful feedback.  When they hit <any key>
+  an arbitrary CLOSE:RESET:RUN sequence is done so they can get going again in
+  the meanwhile.                                             (Continued)
+| 
+
+  As is, there are no known bugs in ùDataWhiz (naturally).  If an error occurs
+  that does not involve an attempt to "print" to a device or a file, a bug was
+  introduced while ùFixing --with two exceptions:  There is no built-in logic
+  to deal with the 32767-records limit.  Nor with a "Disk full" problem.
+
+  There is an ages-old bug in GWBASIC.EXE involving LOC; you can GET and PUT
+  way beyond 32767 but LOC returns bad values if you do.  We could have kept
+  track of our own record pointer in a floating point variable and not use
+  LOC.  Nobody is going to use this program for files that large, so ....
+
+  The overhead necessary to monitor for a "Disk full" situation and to provide
+  a graceful way for the operator to deal with this unlikely event would add
+  unwarranted clutter to our "simple program".  Its inherent design makes it
+  impractical to use on floppies; if out of space on a hard disk, problems
+  with this little job will seem minuscule by comparison.
+
+  Design issues described thus far may provide useful insight to well versed
+  users.  What follows on the subject of ùCoding ought to be known by anyone
+  inclined to doing any ùFixing --which is covered a little further on.
+|Coding
+
+  Looking at a listing of the DataWhiz.BAS program from the top down--which
+  is the way it was designed--let us dispense with the first three lines
+  quickly.  The first line is simply "title documentation"; the second line is
+  a branch to the logical beginning of the program.  The merits of the third
+  line require more insight.
+
+  The SAVE in 1020 is handy during development and debugging; we often need to
+  do a "save" (as we all know).  Frequent re-typing of a program's name can
+  result in unnoticed cases of "name mistakes".  Always doing a RENUM 1000 and
+  RUN 1020 are habits ingrained over a couple of decades of coding experience.
+
+  The LIST- following the SAVE does two things.  It terminates the SAVE, but
+  far more importantly, it displays the branch table:  an index of what is
+  where in the program.  Several other of its merits ought to be known also.
+
+  The GOTO statements are aimed at the entry point of specific modules; the
+  short name after the line number--like Q2keys--works like a paragraph
+  header; that name is repeated on the target line; that remark is the only
+  thing on that line; any in-line GOSUB that calls one of these routines has
+  this same name appended to the end of that line as a remark.  Because the
+  names have a mnemonic quality, when they are seen down in the bowels of the
+  program, it becomes easy to "remember" what that jump does.
+                                                             (Continued)
+| 
+
+  The descriptions in the branch table are a terse abstract of what goes on in
+  those routines.  Once again:  RENUM 1000.  RUN 1020.  The index is updated--
+  we do not have to remember where things are on the basis of line numbers; the
+  RUN does a free save for us and LIST works to pop up our index.  PS:  To
+  compile this program do not forget to make a remark out of line 1020. (SAVE
+  and LIST are unknown words in that Dizzy Land).
+
+  Sidelight:  The modules listed in the index table are subroutines (ERtrap is
+  the only exception).  Subroutines are always coded as blocks; the first line
+  contains only its name; the last line is always (and only) a RETURN--the
+  only exit point:  Internal early-outs must branch to this last line.  These
+  structures can only be accessed via the GOTO line in the branch table; no
+  subroutine ever does any kind of GOTO outside its own block boundaries.  No
+  RETURN-line-number is ever done.  The sum of all of this:  We never get an
+  out of memory error because of stack overflows caused by mismatched GOSUB
+  and RETURN pairs.  Routing jumps through the branch table makes it easy to
+  bind together modules stolen from other programs or to move them around
+  inside a program during development.  Enough said.
+
+  Go now to the beginning.  Line 1010 always tells us where that is--
+  ('begin) program "initialization" ...
+
+                                                             (Continued)
+| 
+
+  The initialization section of the program (beginning at 'begin) is coded as
+  a one-time, fall-through sequence which drops down into the 'mainline.
+
+  Notice the "global characteristics" of the entire program are established
+  here.  ALL variables used anywhere in the program are first declared here;
+  a default data-typing scheme is established; the random number generator is
+  seeded with an unpredictable value; the screen is cleared to its normal
+  white-on-black state; F-key legends are turned off and the built-in function
+  key mechanics are disabled.
+
+  Let us dispense with the mundane first:  See ùDelete for why we needed to do
+  RANDOMIZE.  This program does quite a few COLOR commands; COLOR 7,0:CLS will
+  set things aright if we do a RUN after a ^Break while we are ùFixing ...  To
+  discern F-key usage we must first disable the clumsy builtin scheme; that is
+  what KEY OFF and FOR I=1 TO 10 does.  The ON ERROR prevails for the duration.
+  (Floating error traps are strictly verboten; so is disabling one; so is
+  RESUME done to a line number.)
+
+  Now for the variables: DEFSTR M-Z:DEFINT C-L once and for all  so we do not
+  have to clutter up our code with data-typing appendages.  This sage does not
+  agree with self-typing-name proponents--some rational is needed to see why.
+  And to make it easier to read my code.
+                                                             (Continued)
+| 
+ 
+  The letters break-out of M-Z for strings and C-L for integers has prevailed
+  in my programs for years (from FORTRAN days of yore).  So too the use of A
+  for double precision and B for single precision variables.  Because names
+  not otherwise declared revert automatically to single precision, no DEFSNG B
+  is done.  As it is coded ùDataWhiz uses no double precision variables so you
+  see no DEFDBL A.
+
+  Sidelight:  Because many plotting and graphics texts use X and Y differently
+  --thanks to fellows like Descartes--programs of mine with that bent do a
+  DEFINT C-L,X,Y or DEFSTR ranges only from M-W (so that X-Z can default to
+  single precision).  Which is why you see no X-Z names here.  Also, no names
+  starting with the letter O are ever used because of potential eye-balling
+  confusion with zero.
+
+  One letter or two.  Local or global.  The difference:  Data that must be
+  "shared" among subroutines is considered global; those variables always have
+  two character names.  Conversely, within a subroutine, one-character names
+  can be used capriciously to the extent it can be presumed their contents are
+  not depended upon elsewhere.  User defined functions--DEF FN--are always
+  considered as global yet they use 1-letter names because there are so few;
+  they are defined only once; only during program initialization.
+
+                                                             (Continued)
+| 
+
+  One letter or two:  Why?  Because it is faster in GW-BASIC.  Because in days 
+  of yore that is all we could use.  Because today it is still enough.  Notice
+  their mnemonic quality.  And their "full name" descriptions in the remarks
+  on the lines where they are first named.
+
+  Presentation scheme:  Variables are named in a deliberately stacked order.
+  To optimize the performance of the interpreter (which has no impact on the
+  compiler, pro or con).  The most frequently used variables are named first;
+  locals are used a lot more often than globals.  And so on.
+
+  Why all variables are declared up front embraces several design issues.  One
+  of the best reasons is that when we need to coin a new one we only have to
+  look at this list to be sure we do not create a conflict.  Equally, down in
+  the bowels of the program, if we forget what one is for we can look at this
+  "glossary".  (Notice the kinship with the branch table "index" scheme.)
+
+  String space management is highly disciplined in this program--the only way
+  to do a good job in GW-BASIC.  More than the reasoning above about naming
+  them up front is important:  How they are initialized and how they are used
+  is too.  Understanding the underlying theory will enhance your ability to
+  read my code--a necessary first step before doing any ùFixing of your own.
+
+                                                             (Continued)
+| 
+
+  Ever had a BASIC program seemingly go to lunch?  Maybe it is simply trying
+  to clean up the garbage in so called free string space.  (You cannot do a
+  ^Break while that is going on.) ùDataWhiz exhibits several disciplines that,
+  collectively, avoid creating garbage in the first place.  Here we will just
+  list the major points; it would take too much time and space to cover this
+  subject in depth.
+
+  Notice NO concatenation is ever done:   P$+"hello" is an absolute no-no.
+  Q2=MKI$(0) is the correct way to initialize a string; not Q2="  ".  Once a
+  string is initialized use LSET or RSET or MID$ to modify its contents, i.e.,
+  never do a "LET" to a string variable a second time.
+
+  Given all of the preceding, folks that know the languageı ought to now be
+  able to "read" this program.  Only two other points about discipline need
+  to be made before jumping to the next page-- ùFixing the way it works.
+
+  FOR/NEXT and WHILE/WEND structures enjoy single-entry, single-exit thoughts
+  similar to GOSUB and RETURN.  In at the top, out the bottom.  No GOTO, ever,
+  outside a block.  Conditional exits are done by "forcing" the condition so
+  that execution can "fall through" at the bottom.
+
+            ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+            ı See ùGeeWhiz --A great tool for anyone using GW-BASIC.
+|Fixing
+
+  Listed next are some fairly easy "fixes"; the program's design anticipates
+  these tend to be the ones most commonly wanted.
+
+  Sidelight:  For those out of practice, remember to make a backup copy of the
+  original version before doing any patching, in case something gets "lost"
+  because of editing mistakes.  The drill for making fixes is LOAD, EDIT, then
+  RENUM 1000, RUN 1020, then RUN, to check to make sure everything works Ok.
+  Also:  Start the interpreter with an S-switch.  Like this--GWBASIC /S:256
+
+  Label sizes:  In the subroutine called 'Labels look for the remark that says
+  "space to next label".  See the WHILE G<9 on the left ... that 9 is what can
+  be changed.  Spacing is 6 lines per inch; as is, that is an inch and a half.
+  About 5 lines lower see PRINT #2,TAB(8) ... that 8 is what can be changed to
+  adjust the left margin.  Spacing is 8-characters per inch on each line.
+
+  File name:  The name of the master file is stored in a variable called RF
+  during initialization.  Find 'begin, then the remark 'RecordFile.  See the
+  name on the left:  "DataWhiz.DBF".  Change it to whatever you want.
+
+  F-key usage:  This program only uses F6.  See DEF FNF= in the initialization
+  section ('begin).  The "@" is for F6.  The characters for F1...F10 are:
+  1=";", 2="<", 3="=", 4="?", 5=">", 6="@", 7="A", 8="B", 9="C", 10="D".
+                                                             (Continued)
+| 
+
+  Field names:  The names of the fields can be changed.  Carefully.  They are
+  stored in a variable called NF during initialization.  Find 'begin, then the
+  remark 'NameFields.  See the string on the left.  Notice that all seven
+  names are four characters each; they each must start with a unique capital
+  letter.  Fewer than four characters may be used but the 4-byte interval
+  spacing must be maintained.  Next the "Legal" menu-selection logic must be
+  modified in the next line down.  See the DEF FNL ...  And the two strings
+  of letters.  Those on the left are caps; on the right, lower case.  They
+  must agree with the field names selected, in corresponding order.
+
+  Menu defaults:  When this program is first started all menu selections are
+  pre-coded with certain "defaults"--when ùSearch is selected for the first
+  time, for example, the ùKeys field is automatically highlighted.  If you
+  prefer ùName for a default, for example, do this:  Find 'begin near the top
+  of the program, then find the remark that reads 'menu defaults.  See the
+  expression on the left that reads D2=7; change the 7 to 1.
+
+  Output defaults:  Suppose you will always be using LPT2 for this program
+  rather than LPT1.  Changing this is similar to that above, on the next line
+  down.  Find 'output defaults.  See LSET S6="LPT1:" on the left.  Change the
+  1 to a 2.
+
+                                                             (Continued)
+| 
+
+  Color changes:  Inside ùDataWhiz (.BAS) the key word is COLOR.  It is always
+  followed by two arguments, like COLOR 15,1 ... which is interpreted to mean
+  high intensity white characters displayed on a blue background.  For the
+  list of possible alternatives and an explanation of when they may be used
+  reference the COLOR command in your BASIC language manual.
+
+  Color changes:  The program that displays ùHelp pages is ùDWhelp.COM --it
+  is a free-standing program normally run via a SHELL command from within the
+  main program, although, it can be run from DOS command mode or from within
+  a "batch" file.  This program has its own COLOR arguments pre-encoded, but
+  they may be over-ridden by use of codes on the command line that starts it.
+  Like this:  "DWhelp 0 7" which would cause white characters displayed on a
+  black background.  To make this change so that when ùDataWhiz invokes this
+  program find the subroutine called 'Q2keys.  See the shell-to expression:
+  SHELL "DWhelp".  Change it to SHELL "DWhelp 0 7", for example.  Notice the
+  single space between the codes and the space following the name.  Both codes
+  must be specified (even if only one is to be changed).  Color codes used
+  here must be specified as hexadecimal characters ...
+
+             Dec:  0  1  2  3  4  5  6  7  8  9  10 11 12 13 14 15
+             Hex:  0  1  2  3  4  5  6  7  8  9   A  B  C  D  E  F
+
+  Other "help" changes require the use of WhizHelp ...       (Continued)
+|DWhelp.COM
+
+  DWhelp.COM is an on-line help program that may be run from DOS command mode
+  by simply typing DWhelp and hitting <Enter>.  It is normally run via a SHELL
+  command from within ùDataWhiz itself.  (Done in the Q2keys subroutine, PS.)
+
+  The help program reads and displays text contained in DWhelp.DAT which is,
+  for the most part, an ASCII text file that is loaded into memory using a
+  BLOAD command.
+|GeeWhiz
+
+  GeeWhiz is another great time saving tool from ùWhizWare --it is an on-line
+  help manual for GW-BASIC programmers, for both novices and pros.
+
+  GeeWhiz is loaded with proven tricks of the trade, too.  It was written by a
+  professional programmer that has written thousands of successful programs in
+  BASIC dating from the earliest versions of CBASIC, MBASIC, and the many
+  variants since.
+|WhizWare
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³  WhizWare         ³
+  ³  635 Kendrick Rd  ÃÄÄÄÄÄÄÄÄÄ A software development sweat shop.
+  ³  Milner, GA 30257 ³
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  The analyst that designed ùDataWhiz is Thomas C. McIntire.  Write to Tom
+  if you have any problems or wish to comment on this software.  He will
+  appreciate the input and will fire off a quick response to your questions.
+
+  You can also try to run him down by E-mail:  whizware@bellsouth.net
+|

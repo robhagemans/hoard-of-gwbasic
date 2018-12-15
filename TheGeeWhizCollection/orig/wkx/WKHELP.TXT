@@ -1,0 +1,455 @@
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³ ùWhizKids  ³
+   ÀÄÄÄÂÄÄÄÄÂÄÄÄÙ     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³    ÀÄÄÄÄÄÄÄÄÄ´ (C) Copyright ùWhizWare 1993 ÃÄÄÄ¿
+       ³              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ   ³
+       ³                                        ÚÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄ¿
+       ³                                        ³ Technical info ÀÄÄÄÄÄÄÄÄÄÄ¿
+       ³                                        ³  ùWKhelp.EXE & WKhelp.DAT ³
+       ³                                        ³  ù<drawing>.ICN files     ³
+       ³                                        ³  ù<drawing>.PLT files     ³
+   ÚÄÄÄÁÄÄÄÄ¿                                   ³  ùWhizKids.DIR file       ³
+   ³ How to ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                 ³  ùWhizKids.EXE program    ³
+   ³  ùcreate new pictures    ³                 ÀÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+   ³  ùcopy drawings to paper ³                          ³
+   ³  ùrun the main program   ÃÄÄÄÄÄÄ¿                   ³
+   ³  ùinstall this software  ³      ³    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ      ³    ³
+                                ÚÄÄÄÄÁÄÄÄÄÁÄÄÄÄ¿
+                                ³ Teacher tips ÀÄÄÄÄÄÄÄ¿
+                                ³  ùname recognition   ³
+                                ³  ùalphabet exercises ³
+                                ³  ùnumbers exercises  ³
+                                ³  ùcomputer usage     ³
+                                ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizKids
+
+  The collective name of this software package is WhizKids ....
+
+  It consists of two programs, a (help) data file, a number of drawing files
+  and a directory file that contains the names of those drawings.
+
+  The program files have dot-EXE appended to their names; ùWhizKids.EXE is
+  the "main program"; ùWKhelp.EXE is the program that displays this data,
+  which is "text" stored in the WKhelp.DAT file.
+
+  The drawings that are displayed on the screen are defined by two files, each
+  having identical file names, one with a name extension of PLT, one of ICN.
+  The ù<drawing>.PLT files contain plot-coordinates--where the dots go on
+  the screen.  The ù<drawing>.ICN files are the "real art" graphic images that
+  are displayed after all of the dots are connected for a specific image.
+
+  WhizKids was designed with the assistance of a veteran preschool teacher,
+  a Director of an Early Childhood Development Center.  (PS:  She is also the
+  wife of the author of this software...no mere coincidence, indeed.)
+
+  The information in the pages that follow are meant to be helpful to those
+  using this software to help children learn.  A general overview is followed
+  by increasingly technical detail for those interested in deriving maximum 
+  use of this tremendous teaching aid.
+|WhizWare
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³ WhizWare         ³
+  ³ 635 Kendrick Rd  ÃÄÄÄ A computer software marketing firm.
+  ³ Milner, GA 30257 ³
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+  The analyst that designed the ùWhizKids program is Thomas C. McIntire.
+  Write to Tom if you have any problems or wish to comment on this software.
+  He will appreciate the input and will fire off a quick response to your
+  questions.
+
+             Our E-mail address is:  whizware@bellsouth.net   
+|install
+
+  To run this software under DOS ...
+
+    Create a path on that disk to store this software in, then copy all of
+    the files from the distribution disk into that path.  Change over to
+    that path, type WhizKids, then hit Enter. 
+
+    Consult your DOS manual about MKDIR (make directory) and COPY and CHDIR
+    (change directory) or ask someone to help that is versed in these matters.
+
+  To run this software under Windows ...
+
+    Create a folder to store this software in, then copy all of the files
+    from the distribution disk into that path.  You will likely want to
+    create a shortcut next (via Explorer).  It is also a good idea to set
+    the "properties" for a "full screen".  Select "Help" from the Windows
+    "Start" menu for information on how to do these chores
+
+  Note:  It is always a good idea to make a copy of the distribution disk
+  before doing anything else, to safeguard against damage to your "only copy".
+|run
+
+  DOS:  When the operating system "prompts" you for a command--simply type
+  WHIZKIDS and hit <Enter>.  Windows:  Click on WhizKids.EXE ...
+
+  A "menu" will be displayed of the names of the drawings included with this
+  disk.   Use the cursor control keys--the <arrow> keys--to move the
+  outline box to one of the names listed, then hit <Enter>.
+                                                               ÚÄÄÄ¿
+      A connect-the-dots outline will be displayed with        ³ 2 ³
+      either numbers or letters next to the dots, then         ÀÄÂÄÙ
+      a diagram similar to the one shown here will be    ÚÄÄÄ¿ ÉÍÏÍ» ÚÄÄÄ¿
+      displayed.                                         ³ 4 ÃÄ¶ 1 ÇÄ´ 9 ³
+                                                         ÀÄÄÄÙ ÈÍÑÍ¼ ÀÄÄÄÙ
+      In this case, if the "up" arrow is hit, a line           ÚÄÁÄ¿
+      will be drawn from dot #1 to dot #2.  (Any other         ³ 6 ³
+      key will simply cause a low-pitched "beep".)             ÀÄÄÄÙ
+
+  Two other keys are important:  The <Esc> key will "quit" a drawing early and
+  return the program to the menu display.  <Esc> at that time will terminate
+  the ùWhizKids program and return control to DOS.
+
+  The question mark <?> key will switch from drawing mode to this help program
+  at any time; <Esc> from there will cause a return back to drawing mode.
+| 
+
+  If you have a Mouse:  The on-line help program checks to see if MOUSE.COM or
+  MOUSE.SYS has already been loaded.  If not, or Mickey is not responding this
+  program simply defaults to no-Mouse mode.  (Use the cursor keys instead.)
+
+    Also:  Only one of two buttons are tested for; the left one works like
+    <Enter> and the right one like <Esc>.  This can be flip-flopped however,
+    if you prefer, by hitting <F2> any time this program is running.
+
+  Notice that the program ùWKhelp.EXE may be run by itself--type WKHELP and
+  hit <Enter> from DOS command mode, or click on WKhelp.EXE in Windows to do
+  this.  Also, in the event  you would like to capture some of this
+  information on paper for off-line reference, consider using the <Prt Scr>
+  key to "print the screen".
+
+  It is also possible in most cases to reproduce "screen art" on paper, on a
+  printer.  The next page describes how this type of ùcopy operation may be
+  done.
+|copy
+
+  Assuming you have a printer connected to your computer that is of the
+  "dot matrix" type technology and you have the DOS (command) program called
+  GRAPHICS.COM ....
+
+      Note:  See your DOS manual about specifics regarding the GRAPHICS
+      command if you are not already versed in its intricacies.
+
+  Now, BEFORE you run ùWhizKids load the GRAPHICS program into memory ....
+  Typically all that is needed is to type that one-word command--GRAPHICS--
+  while in DOS command mode; it need be done only once after each system
+  power-on.
+
+  Connect-the-dots images:  Perhaps you want to make hand-outs for your Sunday
+  School class.  When you first select a drawing name simply hit <Prt Scr>
+  when the "blank" picture is displayed.
+
+  Or perhaps you like one of the "real art" pictures that are displayed when a
+  dots-image has been completed.  Notice the program halts when these pictures
+  are displayed, waiting for some (any) key to be hit before returning to the
+  menu.  Now is the time to hit <Prt Scr> to reproduce what you see on paper.
+
+      Note:  Graphics images routed to a printer in this manner are printed
+      "sideways", and color usually winds up being "shades of gray".
+|create
+
+  ùWhizWare markets a software product which is the same one we use to
+   make drawings for this program.  And you can do it too.  It is not hard
+   at all.  In fact, it can be rather fun.
+
+   If you are not so inclined, perhaps you know a teenager or someone else
+   that is "really into computers" ....  See our info page about ùWhizDraw 
+   then look at ùWhizWare for their address.
+
+   See ùWhizKids.DIR about how ùWhizKids.EXE knows the names of drawings that
+   it displays in its menu routine.
+|computer
+
+  ùWhizKids has two basic modes:  Counting, or the ABCs in sequence.  And
+   the ability to recognize the shapes of numbers and letters.
+
+   To make it possible for a child to concentrate on these thoughts we have
+   minimized the number of keys that must be used to communicate with the
+   program.  See the correspondence between the input "boxes" and the cursor
+   arrow keys on the keyboard.
+
+   Notice too the conceptual similarity of "multiple choice tests" which they
+   are bound to encounter as they grow older.
+
+   In this case, when they pick a correct answer, a line is drawn between dots
+   (an incorrect choice produces an immediate "beep").  To reward them for
+   finishing a complete drawing they are presented with the "real art" image,
+   the one their line drawing was created from.  (Viz, they perceive they
+   actually drew the finished product.)
+
+   Because this program does not actually write anything to disk, anywhere,
+   it is relatively safe to permit a child to use "your computer"; no harm
+   is apt to be caused to any valuable data or files you have in the system.
+|numbers
+
+  The normal scheme of ùWhizKids is that when a name is selected from the
+  menu by use of <Enter> the number of dots that comprise that drawing will
+  dictate whether letters or numbers will be used to connect the dots.  If
+  more than 26 dots are needed numbers are shown, otherwise letters are used.
+
+  This "default logic" may be altered for the smaller drawings, however:
+
+  When a child is first being taught to count, for example, a simplistic
+  figure such as a TRIANGLE might be chosen.  To cause those three dots to
+  be labeled as 1, 2, 3 (rather than A, B, C) hit <F1> on the keyboard to
+  pick the name from the menu (instead of the <Enter> key).
+
+  A variation of this concept can be used for more advanced students to help
+  them learn to count by twos, threes, fours and fives.  Respectively, use
+  <F2> or <F3> or <F4> or <F5> to make a menu selection.
+
+    The maximum number of dots for a given image is 99, so, what happens if
+    you hit <F5>--to count by fives--and 99 would be exceeded?  Nothing.
+    The program will simply respond as if you had hit <Enter>--the image
+    will be numbered as it "normally" would be.
+|alphabet
+
+  The normal scheme of ùWhizKids is that when a name is selected from the
+  menu by use of <Enter> the number of dots that comprise that drawing will
+  dictate whether letters or numbers will be used to connect the dots.  If
+  more than 26 dots are needed numbers are shown, otherwise letters are used,
+  starting with the letter A.  This "default logic" may be altered for the
+  smaller drawings, however:  (For more than 26, the following is ignored.)
+
+  When a child is first being taught letter shapes, for example, a simplistic
+  figure such as a TRIANGLE might be chosen.  To cause those three dots to
+  be labeled to start with a letter other than A--to produce J, K, L, for
+  example--hit <J> on the keyboard to pick the name from the menu (instead
+  of the <Enter> key).
+
+  A variation of this concept can be used for more advanced students to help
+  them learn to distinguish between upper and lower case letters.  Letters
+  shown in the "pick boxes" are normally always capitals.  To cause them to
+  be displayed as lower-case equivalents, depress either <Ctrl> key and hold
+  it down while making a menu selection with <Enter> or a letter-key (then
+  release both keys, of course).
+
+    What happens if you hit <Z>, for example, and three letters are needed?
+    The sequence would start with X, that is, X, Y, and Z would be shown.
+|name
+
+  The menu of drawing names that is displayed by this program comes from a
+  file called ùWhizKids.DIR (see that subject page for more on this).
+
+  When a drawing is selected that name is displayed adjacent to the pick-box
+  display so that the child may discern "cause and affect".  And to encourage
+  recognition of word-shapes and their relationships to objects.
+
+  It is not difficult to change the names we have chosen to identify the
+  drawing files (and thus to change what the child will see).
+
+    Do this, for example, at the DOS command level:
+
+      REN TRIANGLE.* PYRAMID.*  (then hit <Enter>, of course)
+
+    Now, immediately:  DEL WHIZKIDS.DIR being careful to delete only that
+    specific file; the next time ùWhizKids.EXE is run it will automatically
+    generate a new dot-DIR file with the "new" names in it.
+
+  It is also possible to cause the names to be displayed with a mixture of
+  upper and lower case letters for the benefit of more advanced students.
+  Study ùWhizKids.DIR and pay particular attention to the advice about being
+  careful to maintain the overall format of this file ....
+|WhizKids.EXE
+
+  WhizKids.EXE is the file name of the main program--the one that displays
+  the connect-the-dots images.  This program was written with GWBASIC.EXE
+  (version 3.23) and then compiled with QB.EXE (version 2.0).  It requires
+  only about 60 Kb of memory to run in.
+
+  This software has been tested on both XT and AT type machines, with both
+  an EGA, and a VGA monitor and adapter.  No special CONFIG.SYS parameters
+  are required.  WhizKids.EXE does expect all of its related files to be in
+  the same path that it is run from.
+
+  The menu of drawing names that is displayed by this program comes from a
+  file called ùWhizKids.DIR (see that subject page for more on this).
+
+  The "dots images" are contained in individual files that have dot-PLT name
+  extensions; the corresponding "real art" images have corresponding names,
+  with dot-ICN extensions.  See ù<drawing>.PLT and ù<drawing>.ICN for details
+  about what is in those files.  These "plot" and "icon" files were created
+  with a program called ùWhizDraw (q.v.) also available from ùWhizWare (q.v.)
+
+  The next page gives a brief overview of how WhizKids.EXE works ....
+| 
+
+  When ùWhizKids.EXE begins it first looks for a file called ùWhizKids.DIR --
+  it is a directory-file.  If found, it displays the name-portion of all of
+  the dot-PLT files contained in that file.
+
+    Note:  If no dot-DIR file is found this program automatically does a DOS
+    command--DIR *.PLT>WhizKids.DIR--to generate a new one.  Thus, this
+    is how a "new menu" can be generated when additional drawing files are
+    added to the disk or old ones are removed for one reason or another.
+
+  The menu routine automatically adjusts to a screen lay-out of 8 columns of
+  names, with up to 20 names listed in each column.  They are displayed in
+  the order they are reflected in the dot-DIR file.
+
+  When <Enter> is hit--while the menu page is being displayed--the name
+  surrounded by a box is used to "read" the corresponding dot-PLT file and a
+  lines-image is displayed (briefly).  This routine also assigns numbers (or
+  letters) to those dot-positions.  If the total number of dots is 26 or less,
+  letters are assigned, otherwise numbers are used, of from 1 to 99.
+
+  The way the positions for the numbers (or letters) are determined is
+  described on the next page ....
+| 
+
+  Where dots occur on the screen is determined by "plot coordinates" stored in
+ ù<drawing>.PLT files.  As the coordinates are read, in sequence, lines are
+  drawn to connect the dots.  When the complete image is drawn a second pass
+  is made to determine where the numbers (or letters) should be positioned.
+
+  Starting from the beginning again, running in sequence, the area around each
+  dot is inspected to find enough "blank space" for the number or letter to be
+  printed (so that it will not over-print a line or another number or letter).
+  The logic for determining where dot-numbers (or letters) should be printed
+  is also influenced by whether a given dot is left or right of the center of
+  the overall image--in an attempt to give first preference for displaying
+  it "outside" the basic picture.
+
+  Numbers or letters may appear left or right of a dot, to the left and above,
+  to the left and below, to the right and above, or to the right and below.
+  Occasionally, on some drawings, no "blank space" can be found close to the
+  dot for its number (or letter), so it is simply omitted (on the display).
+
+  The artist that "draws" an image file can influence whether or not numbers
+  or letters are apt to be omitted (too many dots closely spaced is the key).
+  An occasional missing number or letter is considered the better alternative
+  to spacing them too far away, or over-printing something else.
+|WhizKids.DIR
+
+  When ùWhizKids.EXE begins it first looks for a file called WhizKids.DIR, a
+  directory-file.  If this file is not found "DIR *.PLT>WhizKids.DIR" is done
+  to create it.  (This is how a "new menu" can be generated when additional
+  drawing files are added to the disk or old ones are removed for some reason.)
+
+  The total contents of this file are identical to what would be shown on the
+  screen if DIR was done while in DOS command mode.  The menu-display routine
+  in ùWhizKids.EXE simply reads this file, displays the names of the dot-PLT
+  files, and ignores the other trivia.
+
+  Notice the presentation sequence of names on the menu may be deliberately
+  organized by "stacking" the files on the disk in a preferred order.
+
+    It is also possible to use a text editor or word processing program to
+    rearrange the file-name lines contained in WhizKids.DIR but it must be
+    done carefully, so that the overall format of this file is not altered.
+|<drawing>.PLT
+
+  Files with name extensions of dot-PLT (Plot files) are generated by someone
+  using ùWhizDraw --a ùWhizWare shareware product.  The gist of how this is
+  done goes like this:
+
+    1.  <Load> an icon file on the screen.  (See ù<drawing>.ICN for details.)
+    2.  <Paste> that image at a preferred location on a blank screen.
+    3.  Hit <F5> to initialize a plot data file called WDplot.DAT.
+    4.  Move the cursor arrow to desired "dot" positions and hit <F5> to
+        record each of those successive coordinates in the plot data file.
+        (The "color setting" at that point is also saved; it is the color
+        that will be used when lines are drawn by ùWhizKids.EXE eventually.)
+    5.  When the "line drawing" is finished <Quit> is done, to mark the end
+        of the plot file.  Which is also logical because the next thing that
+        should typically be done is to re-name WDplot.DAT to be a dot-PLT
+        file that corresponds to the dot-ICN file that was used.
+
+  The internal format of dot-PLT files:  ASCII (text) data; three numeric
+  values per line, separated by spaces, the horizontal and vertical screen
+  coordinates, followed by a color code for that line.  The first record
+  relates to steps 2 and 3, above; those that follow relate to dot-positions
+  for the lines to be drawn, in presentation order.
+|<drawing>.ICN
+
+  Files with name extensions of dot-ICN (Icon files) are generated by someone
+  using ùWhizDraw --another ùWhizWare product.  The gist of how this is
+  done goes like this:
+
+    1.  <Draw> an image on the screen.
+    2.  <Cut> that image (save it in memory).
+    3.  <Save> the cut image (copy it from memory to a dot-ICN file).
+
+  The internal format of dot-ICN files is a function of how the BSAVE and
+  BLOAD commands work, commands used within the ùWhizDraw program.
+
+  Graphics-art images may be generated in one of several ways.  They may be
+  "free hand drawn" using the various pixel-editing and automatic drawing
+  functions built into the ùWhizDraw program.  They may also be "imported"
+  using a special Graphics Utility File program included with this package--
+  images that are first captured with a scanner, viz, graphics image files
+  that correspond to what are commonly called dot-MSP files.
+
+  Notice the opportunities:  A scanner can be used to capture images from
+  nearly any printed material.  Art that you have drawn on paper or even
+  photographs.  Even photos of students themselves, family members, pets or
+  other things they can personally relate to.
+|WKhelp.EXE
+
+  WKhelp.EXE is the file name of the ùWhizKids on-line help program.  It reads
+  and displays the information contained in WKhelp.DAT--the data file, that
+  is, the text that you see here.
+
+ ùWhizKids.EXE is designed such that it will automatically invoke WKhelp any
+  time the question-mark <?> key is hit.  WKhelp.EXE is designed such that it
+  may also be run by simply typing WKHELP at the DOS command level.
+
+    The text contained in WKhelp.DAT was originally generated using PCW, a
+    word processing program, and stored as WKhelp.TXT, an ASCII text file.
+    Another WhizWare program--WhizHELP--uses the TXT file to generate this
+    customized WKhelp.EXE program.
+
+  Notice that the WKhelp files (dot-EXE, DAT, TXT) are not essential to the
+  overall working of ùWhizKids.EXE (in the interest of saving disk space
+  they may be deleted, although, they are not very large).
+
+  If WKhelp.EXE is not contained in the working path of ùWhizKids.EXE and the
+  <?> key is hit, it is simply ignored.
+|WhizDraw
+
+                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                 ³  WhizDraw:  A powerful pixel punching program. ³
+                 ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+          A "full screen" graphics art and drawing program that is easy
+          to use and quickly learned.  It features pop up menus so that,
+          unlike most tools of this genre, your sketch pad is the entire
+          screen.
+
+          The capabilities usually expected are built-in:  Cut and Paste
+          and Zoom and the like.  Plus one-click support for drawing
+          Lines and Ovals and Boxes.  And several for speedy painting of
+          large areas with particular colors.  And it comes with three
+          "customizable" font sets.
+
+          Two unique features of this package:  WD9JetXL for generating
+          your Rembrandts on an HP PaintJet printer in living color, plus
+          WDGraF--our Graphics Files Utility program.
+
+            This combination makes it easy to import a shades-of-gray
+            MSP-type file captured with a scanner, dink the colors and
+            produce camera-ready hard copy.
+                                                           (continued)
+| 
+
+          Even without a high priced color printer, <Print Screen> makes
+          some pretty pictures on most any dot matrix printer.
+
+          WhizDraw works in "screen 9 mode" (640x350 resolution) on any
+          EGA/VGA machine with a Mouse, running under DOS 4.0 or later.
+          Not only is it fast, even on older 8086 machines, it can all
+          work in a mere 640 Kb environment, including its easy to use
+          on-line manual.
+
+          No, WhizDraw is not a full blown desk-top publishing system.  It
+          was not intended to be.  Yet, it can be highly useful for many
+          "small" chores, especially for those that you need to do on an
+          occasional basis, because it requires so little practice to master.
+          Even by youngsters!
+
+|

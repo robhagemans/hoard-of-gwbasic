@@ -1,0 +1,665 @@
+ORG 0100
+  CALL NE 0100     ;+Init
+  CALL NE 0100     ;+Load
+  JNC 0180         ;+Begin
+  JMP NE 0100      ;+End
+;#Begin
+  MOV BL,[0000]    ;+TryFind|
+  CMP BL,00
+  JZ 0180          ;+GoPage
+  XOR BH,BH
+  CALL NE 0100     ;+HotStart
+  JMP NE 0100      ;+KeyLoop
+;#GoPage
+  CALL NE 0100     ;+Page
+;#KeyLoop
+  CALL NE 0100     ;+GetKey
+  CMP AH,47
+  JZ 0180          ;+<Home>
+  CMP AH,48
+  JZ 0180          ;+<Up>
+  CMP AH,49
+  JZ 0180          ;+<PgUp>
+  CMP AH,4B
+  JZ 0180          ;+<Left>
+  CMP AH,4D
+  JZ 0180          ;+<Right>
+  CMP AH,50
+  JZ 0180          ;+<Down>
+  CMP AH,51
+  JZ 0180          ;+<PgDn>
+  CMP AL,0D
+  JZ 0180          ;+<Enter>
+  CMP AH,01        ; <Esc>
+  JNE 0180         ;-KeyLoop
+  JMP NE 0100      ;+End
+;#<Home>
+  MOV AL,[0000]    ;+1stFile
+  MOV SI,[0000]    ;+FindFile
+  MOV [SI],AL
+  MOV DX,1840      ; PgDn pos
+  CALL NE 0100     ;+Load
+  JMP NE 0100      ;-GoPage
+;#<PgUp>
+  CALL NE 0100     ;+PgUp
+  JMP NE 0100      ;-GoPage
+;#<PgDn>
+  CALL NE 0100     ;+PgDn
+  JMP NE 0100      ;-GoPage
+;#<Left>
+  CALL NE 0100     ;+Left
+  JMP NE 0100      ;-KeyLoop
+;#<Right>
+  CALL NE 0100     ;+Right
+  JMP NE 0100      ;-KeyLoop
+;#<Up>
+  CALL NE 0100     ;+Up
+  JMP NE 0100      ;-KeyLoop
+;#<Down>
+  CALL NE 0100     ;+Down
+  JMP NE 0100      ;-KeyLoop
+;#<Enter>
+  CMP DX,1848
+  JZ 0180          ;-<Home>
+  CMP DX,1838
+  JZ 0180          ;-<PgUp>
+  CMP DX,1840
+  JZ 0180          ;-<PgDn>
+  CMP DX,1801
+  JZ 0180          ;+End
+  CALL NE 0100     ;+Enter
+  JMP NE 0100      ;-KeyLoop
+;#End
+  XOR AX,AX        ; reset
+  INT 33           ; MOUSE
+  MOV AH,00        ; reset
+  MOV AL,[0000]    ;+Mode
+  INT 10           ; BIOS
+  INT 20           ; DOS
+;ÄÄÄÄÄÄ subroutines ÄÄÄÄÄ
+;#GetKey
+  CALL NE 0100     ;+CursFlip
+  MOV AX,0001      ; MickOn
+  INT 33           ; MOUSE
+  XOR AX,AX        ;#NoKey
+  CALL NE 0100     ;+MickGet
+  CMP AX,0000
+  JNZ 0180         ;+MickHit
+  MOV AH,01        ; keystat
+  INT 16           ; BIOS
+  JZ 0180          ;-NoKey
+  XOR AH,AH        ; =0
+  INT 16           ; BIOS
+  MOV CX,AX
+  MOV AX,0002      ; MickOff
+  INT 33           ; MOUSE
+  MOV AX,CX
+  PUSH AX          ;#MickHit
+  CALL NE 0100     ;+CursFlip
+  POP AX
+  RET
+;#Up
+  DEC DH
+  CMP DH,FF
+  JZ 0180          ;+EndUp
+  MOV DL,[005C]    ; FCB1
+  CMP DH,DL        ;  lines
+  JG 0180          ;-Up
+  CALL NE 0100     ;+Scanù
+  JNZ 0180         ;-Up
+  RET
+  MOV DX,1840      ;#EndUp
+  RET
+;#Down
+  INC DH
+  MOV DL,[005C]    ; FCB1
+  CMP DH,DL        ;  lines
+  JG 0180          ;+EndDown
+  CALL NE 0100     ;+Scanù
+  JNZ 0280         ;-Down
+  RET
+  MOV DX,1840      ;#EndDown
+  RET
+;#Scanù
+  XOR DL,DL        ; col=0
+  MOV CX,DX        ; line/col
+  XCHG CH,CL       ; col/line
+  SHL CX,1         ; line*2
+  MOV SI,CX        ; get beg
+  ADD SI,005D      ;  of line
+  MOV DI,[SI]      ;  in FCB1
+  MOV CX,0050      ;  max len
+  MOV SI,DI        ; beg line
+  MOV AL,0A        ; find eol
+  REPNZ
+  SCASB
+  MOV CX,DI        ; calc
+  SUB CX,SI        ;  max
+  PUSH CX
+  MOV DI,SI        ;  len
+  MOV AL,F9        ; "ù"
+  REPNZ
+  SCASB
+  DEC DI           ; assume
+  MOV AH,[DI]      ;  found
+  POP SI           ; eol o/s
+  XCHG SI,CX
+  SUB CX,SI        ; dot o/s
+  DEC CX           ;  calc
+  MOV DL,CL        ;  pos
+  CMP AH,AL        ; found?
+  RET
+;#Left
+  MOV SI,DX        ; save
+  CMP DH,18
+  JNZ 0280         ;+GoLeft
+  LEA DI,[0000]    ;+Left25
+  MOV CX,0005      ; str len
+  MOV AL,DL        ;  find
+  REPNE            ;  cur
+  SCASB            ;  pos
+  MOV DL,[DI]      ; new pos
+  RET
+  SUB DL,01        ;#GoLeft
+  JC 0280          ;+EndLeft
+  MOV AH,02        ; mov curs
+  INT 10           ; BIOS
+  MOV AH,08        ; get chr
+  INT 10           ; BIOS
+  CMP AL,F9        ; dot?
+  JNZ 0280         ;-GoLeft
+  RET
+  MOV DX,SI        ;#EndLeft
+  RET
+;#Right
+  MOV SI,DX        ; save 
+  CMP DH,18
+  JNZ 0280         ;+GoRight
+  LEA DI,[0000]    ;+Right25
+  MOV CX,0005      ; str len
+  MOV AL,DL        ;  find
+  REPNE            ;  cur
+  SCASB            ;  pos
+  MOV DL,[DI]      ; new pos
+  RET
+  INC DL           ;#GoRight
+  CMP DL,4F
+  JZ 0280          ;+EndRight
+  MOV AH,02        ; mov curs
+  INT 10           ; BIOS
+  MOV AH,08        ; get chr
+  INT 10           ; BIOS
+  CMP AL,F9        ; dot?
+  JNZ 0280         ;-GoRight
+  RET
+  MOV DX,SI        ;#EndRight
+  RET
+;#PgUp
+  MOV DX,1838      ; PgUp pos
+  MOV DI,BP        ; BegPage
+  DEC DI           ; eop
+  STD              ; backup
+  MOV AL,7C        ; "|"
+  MOV CX,07D0      ; find
+  REPNE            ;  this
+  SCASB            ;  page
+  INC DI           ;  header
+  CMP DI,[0000]    ;+PageTop
+  JNZ 0280         ;+NextPgUp
+  MOV AL,FF
+  MOV [0000],AL    ;+GetFile
+  CALL NE 0100     ;+NextFile
+  MOV AL,[0000]    ;+GetFile
+  CMP AL,00        ; PgUp?
+  JZ 0280          ;+NextPgUp
+  CLD
+  MOV DI,BP
+  MOV CX,FFFF      ; max
+  MOV AL,7C        ; "|"
+  REPNZ            ;#eof
+  SCASB
+  MOV AH,[DI]      ; find
+  CMP AH,0D        ;  end
+  JNZ 0280         ;-eof
+  DEC DI
+  STD
+  DEC DI           ;#NextPgUp
+  MOV CX,07D0      ; find
+  REPNE            ;  prev
+  SCASB            ;  page
+  INC DI           ;  header
+  MOV BP,DI        ; BegPage
+  RET
+;#PgDn
+  MOV DX,1840      ; PgDn pos
+  MOV AX,[BP]      ; no
+  CMP AH,0D        ; header?
+  JNZ 0280         ;+RetPgDn
+  MOV AL,01
+  MOV [0000],AL    ;+GetFile
+  CALL NE 0100     ;+NextFile
+  RET              ;#RetPgDn
+;#Enter
+  XOR BH,BH        ; page
+  MOV SI,005C      ; FCB1
+  MOV AH,02        ;#KeyWord
+  INT 10           ; BIOS
+  MOV AH,08        ; get char
+  INT 10           ; BIOS
+  INC DL           ; col
+  MOV [SI],AL
+  INC SI
+  CMP AL,20        ;#Space
+  JNZ 0280         ;-KeyWord
+  MOV BX,SI
+  MOV SI,005C
+  MOV AL,7C        ; "|"
+  MOV [SI],AL
+  SUB BX,SI
+  DEC BX           ; chars
+;#HotStart
+  MOV AL,01
+  MOV [0000],AL    ;+GetFile
+  MOV [0000],AL    ;+TryFind|
+  CALL NE 0100     ;+Find|
+  MOV DX,1840      ; PgDn pos
+  CALL NE 0100     ;+Page
+  RET
+;#Find|
+  LEA DI,[0000]    ;+Init
+  MOV CX,07D0      ;#Scan|
+  MOV AL,7C        ; "|"
+  REPNE
+  SCASB
+  MOV AL,[DI]
+  CMP AL,0D        ; eof
+  JNZ 0380         ;+GoFind|
+  MOV AL,01
+  MOV [0000],AL    ;+GetFile
+  PUSH BX
+  CALL NE 0100     ;+NextFile
+  POP BX
+  MOV AL,[0000]    ;+1stFile
+  MOV SI,[0000]    ;+FindFile
+  CMP AL,[SI]
+  JNE 0380         ;-Find|
+  MOV AL,[0000]    ;+TryFind|
+  SUB AL,01
+  MOV [0000],AL    ;+TryFind|
+  JNC 0380         ;-Find|
+  RET
+  DEC DI           ;#GoFind|
+  PUSH DI
+  MOV CX,BX        ; BX=len
+  MOV SI,005C      ; FCB1
+  REPE
+  CMPSB
+  POP SI
+  JNZ 0380         ;-Scan|
+  MOV BP,SI
+  RET
+;#NextFile
+  MOV SI,[0000]    ;+FindFile
+  MOV AL,[SI]
+  ADD AL,[0000]    ;+GetFile
+  MOV [SI],AL
+  CALL NE 0100     ;+Load
+  JNC 0380         ;+RetNext
+  MOV AL,[0000]    ;+1stFile
+  MOV [SI],AL
+  XOR AL,AL        ; failed
+  MOV [0000],AL    ;+GetFile
+  CALL NE 0100     ;+Load
+  RET              ;#RetNext
+;#Load
+  PUSH DX
+  LEA DX,[0000]    ;+FileSpec
+  MOV AX,3D00      ; open file
+  INT 21           ; DOS
+  JC 0380          ;+RetLoad
+  MOV BX,AX        ; FH
+  LEA DX,[0000]    ;+Init
+  MOV CX,FFFF      ; max bytes
+  MOV AX,3F00      ; read file
+  INT 21           ; DOS
+  PUSHF            ; save CY
+  MOV AX,3E00      ; close
+  INT 21           ; DOS
+  LEA DI,[0000]    ;+Init
+  MOV CL,[DI]      ; 1st pg
+  CMP CL,7C        ;  header?
+  JZ 0380          ;+EndLoad
+  LEA DI,[0000]    ;+1stPage
+  MOV BP,DI        ;#EndLoad
+  MOV [0000],DI    ;+PageTop
+  POPF             ; read Ok?
+  POP DX           ;#RetLoad
+  RET
+;#CursFlip
+  XOR BH,BH
+  MOV CX,[0000]    ;+Curs
+  XOR CH,20        ; flip
+  MOV [0000],CX    ;+Curs
+  MOV AL,[0000]    ;+Mode
+  CMP AL,03
+  JG 0380          ;+GrafCurs
+  CMP CH,20
+  JZ 0380          ;+TextOff
+  MOV AH,02        ; move
+  INT 10           ; BIOS
+  MOV AH,01        ;#TextOff
+  INT 10           ; BIOS
+  RET
+  MOV BL,1F        ;#GrafCurs
+  CMP DH,18        ; line 25?
+  JZ 0380          ;+Graf25
+  MOV AH,02        ; mov curs
+  INT 10           ; BIOS
+  MOV AL,F9        ; "ù"
+  CMP CH,20        ; on?
+  JZ 0380          ;+GrafOn
+  XOR AL,F1        ; make F9
+  MOV CX,0001      ;#GrafOn
+  MOV AH,09
+  INT 10
+  RET
+  PUSH DS          ;#Graf25
+  MOV AX,A000      ; videoRAM
+  MOV DS,AX        ; seg
+  XOR AH,AH
+  MOV AL,DH        ; line
+  MOV CX,0460
+  PUSH DX
+  MUL CX
+  POP DX
+  MOV CX,DX
+  XOR CH,CH
+  ADD AX,CX        ; add col
+  MOV SI,AX
+  MOV CX,000E
+  MOV AL,[SI]      ;#LoopGraf
+  XOR AL,FF
+  MOV [SI],AL
+  ADD SI,0050
+  LOOP 0480        ;-LoopGraf
+  POP DS
+  RET
+;#Page
+  MOV BH,1F        ; color
+  XOR CX,CX        ; 0,0
+  PUSH DX
+  MOV DX,174F      ; 24,80
+  MOV AX,0600      ; scroll
+  INT 10           ; BIOS
+  MOV DI,BP        ; BegPage
+  MOV CX,0050      ; max len
+  CLD              ; ahead
+  MOV AL,0A        ; find
+  REPNE            ;  end of
+  SCASB            ;  header
+  MOV BP,DI        ; BegPage
+  MOV CX,0780      ; max len
+  MOV AL,7C        ; "|"
+  REPNE            ; next
+  SCASB            ;  header
+  DEC DI           ; adjust
+  PUSH DI          ; save
+  SUB DI,BP        ; NextPage
+  MOV BL,1F        ;#Put
+  MOV CX,DI        ; color
+  XOR BH,BH        ; page 0
+  XOR DX,DX        ; 0,0
+  MOV AX,1300      ; put string
+  INT 10           ; BIOS
+  MOV DI,BP        ; this page
+  POP BP           ; next page
+  MOV SI,005D      ; FCB1
+  MOV CX,0800      ; max len
+  MOV BX,7C00      ; count
+  MOV AL,0A        ; eol
+  MOV [SI],DI      ;#Lines
+  MOV [005C],BL    ; used
+  CMP BL,18        ; max
+  JZ 0480          ;+RetPage
+  CMP BH,[DI]      ; "|"
+  JZ 0480          ;+RetPage
+  REPNE            ; find
+  SCASB            ;  eol
+  INC SI           ; FCB1
+  INC SI           ;  ptr
+  INC BL           ; count
+  JMP NE 0100      ;-Lines
+  POP DX           ;#RetPage
+  RET
+;#MickGet
+  PUSH DX
+  MOV AX,0003      ; status
+  INT 33           ; MOUSE
+  CMP BX,0000      ; click?
+  JNZ 0480         ;+Button
+  XOR AX,AX        ; no hit
+  POP DX           ;#MickEsc
+  RET
+  PUSH BX          ;#Button
+  INT 33           ;#MickWait
+  CMP BX,0000
+  JNZ 0480         ;-MickWait
+  MOV AX,0002      ; MickOff
+  INT 33           ; MOUSE
+  MOV AX,0100      ; equate
+  POP BX           ;  right
+  SHR BL,1         ;  to
+  CMP BL,00        ;  <Esc>
+  JNZ 0480         ;-MickEsc
+  PUSH CX          ; Xcol
+  PUSH DX          ; Yrow
+  MOV CL,08        ;#Ydiv
+  POP AX           ; Yrow
+  DIV CL
+  MOV BH,AL        ; BH=Yrow
+  MOV CL,08        ; Xdiv
+  POP AX           ; Xcol
+  DIV CL
+  MOV BL,AL        ; BL=Xcol
+  CMP BH,18
+  JZ 0480          ;+Mick25
+  MOV CX,BX        ; new pos
+  MOV DX,BX        ; check
+  XOR BX,BX        ;  for dot
+  MOV AH,02        ; move curs
+  INT 10           ; BIOS
+  MOV AH,08        ; get char
+  INT 10           ; BIOS
+  CMP AL,F9        ; dot?
+  JNZ 0480         ;+MickBad
+  POP DX           ; as was
+  MOV DX,CX        ; new pos
+  MOV AX,000D      ; <Enter>
+  RET
+  CMP BL,01        ;#Mick25
+  MOV AX,0100      ; <Esc>
+  JZ 0480          ;+Mick25ok
+  CMP BL,38
+  MOV AX,4900      ; <PgUp>
+  JZ 0480          ;+Mick25ok
+  CMP BL,40
+  MOV AX,5100      ; <PgDn>
+  JZ 0480          ;+Mick25ok
+  CMP BL,48
+  MOV AX,4700      ; <Home>
+  JNZ 0480         ;+MickOff
+  POP DX           ;#Mick25ok
+  RET
+  POP DX           ;#MickBad
+  XOR BX,BX        ; page
+  MOV AH,02        ; move curs
+  INT 10           ; BIOS
+  MOV AX,0001      ;#MickOff
+  INT 33           ; MOUSE
+  XOR AX,AX
+  RET
+;ÄÄÄÄÄÄÄÄ globals ÄÄÄÄÄÄÄ
+;#Right25
+  DB 01 38 40 48 01
+;#Left25
+  DB 01 48 40 38 01
+;#Color
+  DB 1F
+;#FileSpec
+  DW "WBhelp.DAT======================="
+  DW "================================="
+;#FindFile
+  DW 0000
+;#1stFile
+  DB "T"
+;#GetFile
+  DB 01
+;#TryFind|
+  DB 00
+;#Curs
+  DW 2017
+;#Mode
+  DB 00
+;#PageTop
+  DW 0000
+;#1stPage
+  DW 0A7C
+;ÄÄÄÄÄ overlay area ÄÄÄÄÄ
+;#Init
+  MOV BH,[0000]    ;-Color
+  MOV BL,B7        ; mov BH
+  MOV [0000],BX    ;-Page
+  MOV BL,B3        ; mov BL
+  MOV [0000],BX    ;-Put
+  MOV [0000],BX    ;-GrafCurs
+  MOV CX,0043
+  LEA DI,[0000]    ;-FileSpec
+  MOV AX,003D      ; "="
+  REPNZ
+  SCASB
+  DEC DI           ; make
+  MOV [DI],AH      ;  ASCIIz
+  DEC DI           ; end ptr
+  MOV [0000],DI    ;-FindFile
+  MOV AL,[DI]
+  MOV [0000],AL    ;-1stFile
+  MOV DI,0081      ; DTA
+  MOV SI,DI
+  XOR CH,CH
+  MOV CL,[0080]    ; str len
+  ADD SI,CX        ; end str
+  CMP CL,00        ; no opts
+  JZ 0580          ;+Screen
+  MOV AL,20        ; space
+  MOV [SI],AL      ; at end
+  MOV AL,2F        ; "/"
+  REPNZ
+  SCASB
+  CMP CL,00        ; no colors
+  JZ 0580          ;+Context
+  MOV AX,[DI]
+  MOV CL,21
+  LEA DI,[0000]    ;+Hex
+  REPNE            ;  0-F
+  SCASB            ;  foreg
+  MOV DL,CL
+  XCHG AH,AL
+  MOV CL,21
+  LEA DI,[0000]    ;+Hex
+  REPNE            ;  0-F
+  SCASB            ;  backg
+  MOV DH,CL
+  CMP DX,0000
+  JZ 0580          ;+Context
+  XOR DX,1010
+  MOV CL,04
+  SHL DH,CL
+  ADD DL,DH
+  MOV BH,DL
+  MOV BL,B7        ; mov BH
+  MOV [0000],BX    ;-Page
+  MOV BL,B3        ; mov BL
+  MOV [0000],BX    ;-Put
+  MOV [0000],BX    ;-GrafCurs
+  MOV DI,0081      ;#Context
+  MOV CL,[0080]    ; str len
+  MOV AL,F9        ; dot
+  REPNZ
+  SCASB
+  CMP CL,00        ; dot?
+  JZ 0580          ;+Screen
+  MOV SI,DI
+  MOV DI,005C      ; FCB1
+  MOV AL,7C        ; "|"
+  STOSB            ;#LoopDTA
+  LODSB
+  INC CH           ; count
+  CMP AL,20        ; end?
+  JNZ 0580         ;-LoopDTA
+  MOV [0000],CH    ;-TryFind|
+  MOV AX,0040      ;#Screen
+  MOV DS,AX        ; BIOS RAM
+  MOV AL,[0049]    ; video
+  PUSH CS          ; this
+  POP DS           ; area
+  MOV [0000],AL    ;-Mode
+  MOV BX,0070      ; color
+  CMP AL,04        ; <=3?
+  JL 0680          ;+Text
+  MOV AX,0EB1      ; mov CL 
+  MOV [0000],AX    ;-Ydiv
+  MOV CL,04        ; fix
+  MOV AX,[0000]    ;-Page
+  SHR AH,CL        ; graphics
+  PUSH AX          ; for pal #0
+  XOR AH,AH        ; pre-set
+  MOV [0000],AX    ;-Page
+  POP BX           ; set
+  XOR BL,BL        ; #0
+  MOV AX,1000      ; set single
+  INT 10           ; BIOS
+  MOV BX,000F      ; hi white
+  MOV DX,1800      ;#Text
+  LEA BP,[0000]    ;+Line25
+  MOV CX,004F      ; bytes
+  MOV AX,1301      ; put str
+  INT 10           ; BIOS
+  MOV AX,0920      ; col 80
+  MOV CX,0001      ; 1 byte
+  INT 10           ; BIOS
+  MOV AL,[0000]    ;-Mode
+  CMP AL,04        ; text?
+  JL 0680          ;+EndInit
+  MOV AL,3C        ; cmp AL
+  XOR AH,AH        ; 00=" "
+  MOV [0000],AX    ;-Space
+  MOV AX,A000      ; video RAM
+  MOV DS,AX        ; reverse
+  MOV ES,AX        ; video
+  MOV SI,6900      ; line 25
+  MOV DI,SI        ; cols 1-80
+  MOV CX,0230      ; 520 words
+  LODSW            ;#RevLoop
+  XOR AX,FFFF      ; invert
+  STOSW            ; 2 bytes
+  LOOP 0680        ;-RevLoop
+  PUSH CS          ; restore
+  POP DS           ; segment
+  PUSH CS          ; registers
+  POP ES           ; to normal
+  MOV DX,1840      ;#EndInit
+  XOR AX,AX        ; reset
+  INT 33           ; MOUSE
+  CMP AX,0000      ; MickOk?
+  JNZ 0680         ;+RetInit
+  MOV AL,C3        ; RET
+  LEA DI,[0000]    ;-MickGet
+  MOV [DI],AL      ; kill
+  RET              ;#RetInit
+;#Line25
+  DW " ù<Esc> to exit "
+  DW "³ point to subject (dot) then <Enter> "
+  DW "³ ù<PgUp> ù<PgDn> ù<Home> "
+;#Hex
+  DB 00
+  DB "fedcba9876543210FEDCBA9876543210"

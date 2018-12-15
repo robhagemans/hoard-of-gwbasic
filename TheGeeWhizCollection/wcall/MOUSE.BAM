@@ -1,0 +1,28 @@
+JMP 0000        ;+Mouse 
+DW 0001
+DW 0000
+DW 0000
+DW 0000
+PUSH DI         ;#Mouse
+MOV DI,SP       ; 03-23-05
+MOV DI,[DI-2]   ; adrs of CALL
+MOV AX,[DI+2]   ; GM(1)
+MOV BX,[DI+4]   ; GM(2)
+MOV CX,[DI+6]   ; GM(3)
+MOV DX,[DI+8]   ; GM(4)
+PUSHF
+PUSH BP
+PUSH SI
+PUSH DS
+PUSH ES
+INT 33          ; call driver
+POP ES
+POP DS
+POP SI
+POP BP
+POPF
+MOV [DI+4],BX   ; GM(2)
+MOV [DI+6],CX   ; GM(3)
+MOV [DI+8],DX   ; GM(4)
+POP DI
+RETF            ; fini

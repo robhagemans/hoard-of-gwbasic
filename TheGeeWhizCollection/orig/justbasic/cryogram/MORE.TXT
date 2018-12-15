@@ -1,0 +1,11 @@
+As shipped originally, CryoGram includes 199 cryptograms. More and different cryptograms may be added by anyone. Care must be taken, however, to adhere to certain rules about the file called CryoGram.txt.
+
+As a file, Cryogram.txt is more properly called a relative (or RANDOM) file. In this sense, each cryptogram is one record. TXT was chosen as a name because the file actually contains only text-type data, and it can be viewed and modified with nearly any text editor or word processing program.
+
+1. A cryptogram is always and only 192 characters, including spaces.
+
+2. A cryptogram must be organized such that the data stream may be output as 6 lines, each containing 32 characters. Note: No line terminators may be contained within the data stream. When displayed, line breaks are automatically inserted after every 32 characters.
+
+3. A cryptogram may consist of only upper case letters of the alphabet, spaces, or any of the following punctuation characters: ! " _ ( ) , - . / : ; ? As used here, the underscore character (_) will be interpreted and displayed as a long dash, same as is most often used as a prefix for author's names.
+
+That's it. Know, however, if any of the above rules are bent, the results may be chaotic. CryoGram contains no logic to deal with aberrations. Caveat. And have fun. TM  

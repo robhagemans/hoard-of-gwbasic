@@ -1,0 +1,767 @@
+                                            ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                      ³ ùWhizFont Programming Guide ³
+     ³ ùWhizWare     ³                      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     ³ ùWFhelp       ³
+     ³ ùWFedit       ³
+     ³ ùWhizIcon     ³
+     ³ ùfontfile.WF# ³
+     ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                        ³ ùGW-BASIC vs. QB    ³
+                        ³ ùCoding style       ³
+                        ³ ùDebugging          ³
+                        ³ ùLoading font files ³
+                        ³ ùFile layouts       ³
+                        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                                                 ³ ùInterfacing to ùWFbam ³
+                                                 ³ ùPerformance           ³
+                                                 ³ ùMemory optimization   ³
+     ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+     ³ùTips about character and ùIcon designs  ³
+     ³ùFont sizes, ùPositioning and ùColor     ³
+     ³ùAnimation and ùReal Time Updating notes ³
+     ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizWare
+
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³  WhizWare         ³
+  ³  635 Kendrick Rd  ÃÄÄÄÄÄÄÄÄÄ A computer software development firm.
+  ³  Milner, GA 30257 ³
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+  The analyst that designed ùWhizFont is Thomas C. McIntire.  Write to Tom
+  if you have any problems or wish to comment on this software.  He will 
+  appreciate the input and will fire off a quick response to your questions.
+
+  You can also try to run him down by E-mail:  whizware@bellsount.net
+
+  Remember that down here in Georgia we are in the Eastern Time Zone.
+|WhizFont
+
+  WhizFont is our generic name for this entire ùWhizWare package.
+
+  WhizFont is also the "root name" of several files included herein:
+
+     WhizFont.EXE -- the show-n-tell prototyping program
+
+     WhizFont.BAS -- the source file for the above compiled program
+
+     WhizFont.WF# -- # being 1-5 of our enlarged "PC Character" sets.
+
+  Other files associated with this package have names beginning with WF.
+  As does ùWFedit and ùWFhelp for example.  Similarly, notice that our
+  "font data" files have WF as the first two letters in name-extensions.
+  All of which makes it relatively easy to COPY these files using wildcards.
+
+  Nothing about WhizFont is path-sensitive.  We keep ours in a path called
+  simply \WF, which is our preference.  Yours need not be the same.
+|WFhelp
+
+  WFhelp.EXE is our "on-line help program".  It displays text contained in
+  the WFhelp.DAT file.  The dot-DAT file is conventional ASCII text, written
+  with our shop's word processing program, adhering to conventions defined by
+  WhizHelp, A ùWhizWare programming tool that makes it relatively painless
+  to provide on-line help in any software package.
+
+
+  Notice that WFhelp.EXE can be "shelled-to" as is done from within both
+ ùWhizFont and ùWFedit --but this help-play program can also be executed by
+  itself:  Simply type WFHELP on a DOS command line or from within a batch
+  file.
+
+
+  WFhelp.EXE works with or without a mouse.  It checks to see if Mickey is
+  alive and well, and if so, it begins with a default assumption that the
+  right button works like <Escape> and the left one like <Enter>.
+|WFedit
+
+  WFedit is a simple "character editor".  The dot-BAS file is the source
+  program; the dot-EXE file is the compiled version of this same program.
+
+  Like most of our software, it can be run in either interpreted or compiled
+  mode.
+
+  To start the GW-BASIC version:  GWBASIC WFEDIT /S:240
+                             or:  GWBASIC WFEDIT WHIZICON /S:240
+
+  To start the  QB 2.0  version:  WFEDIT
+                             or:  WFEDIT WHIZICON
+
+  In the examples above, the first brings up the editor so it will use the
+  default ùFont files.  The second choice works with ùFont files with a first
+  name of ùWhizIcon but could be any name of your choice.
+
+  If customization of this program is to be attempted, some useful info can
+  be found under ùGW-BASIC vs. QB.
+|WFbam
+
+  WFbam is a machine language module.  It was actually coded with our shop's
+  word processing program, according to conventions defined by WhizBAM:  Our
+  BASIC Assembly Modules programming tool.
+
+  WhizBAM, for example, reads the WFbam.BAM file and automatically generates
+  an ASCII merge-module like the one found at "MCinit" in ùWhizFont --that
+  whole series of MID$ statements.  Which can be "updated" manually.  Of
+  course.  But it is a lot of work and fraught with opportunities for typos.
+  WhizBAM automates the drudgery and produces syntactically clean code.
+
+  Another key word relative to making use of WFbam is ùInterfacing --this
+  topic ought to be studied before attempting to modify this code.
+|WhizIcon
+
+  WhizIcon.WF5 is an "icons file" supplied with this package.  It is the file
+  that contains pictures of "objects" that ùWhizFont displays.  An index of
+  those records follows.  Record numbers not listed are all zeros, i.e., if
+  output, they will produce a blank cell on the screen.
+
+  #001-010 Pigeon -- A "bird" that can fly, right-to-left across the screen
+  #011-012 Lincoln -- Tall slim man standing at attention
+  #013-014 ManWalking -- Old Abe runs from left-to-right
+  #015-016 BigFoot -- Left and Right shoe foot prints canted Northeast
+  #021-024 Spinner -- Resembles a propeller; includes a moving "piston"
+  #030 -- TurnDrum -- Resembles a drum rotating clockwise
+  #031 -- IceCold -- Ice Cold Beer; 3 words in one large cell
+  #032-042 Rocket -- Shoots upwards and "explodes"
+  #090-094 Wheel -- Circle with each of 4 quadrants solid, plus 1 with a hub
+  #100-110 LEDclock -- 10 "LED" digits, 0-9, plus a colon
+  #128 -- Bulldozer side view, pointed to the right
+|fontfile.WF#
+
+  Our editor-- ùWFedit --is hard-coded to enforce file name extensions
+  of dot-WF#, the number being 1, 2, 3, 4 or 5.
+
+  If your shop prefers some other convention, modify WFedit.BAS accordingly.
+  See ùWFedit and ùGW-BASIC vs. QB for some help on that.  Or use REN to
+  re-name a file before and after editing.
+
+  Notice that a file's first name can be anything you want.  ùWFedit will
+  use a default name of ùWhizFont --to edit files with different first names,
+  include that name on the command line that invokes WFedit.  Like:
+
+         WFEDIT WHIZICON
+
+  The above will start the editor so it will operate on the following 5 files:
+
+     WHIZICON.WF1  WHIZICON.WF2  WHIZICON.WF3  WHIZICON.WF4  WHIZICON.WF5
+
+
+  PS:  The only ùWhizIcon file included herein is for ùFont size #5.
+|GW-BASIC
+
+  We are using GWBASIC.EXE version 3.23; most any version after about 3.20
+  should produce similar results; versions older than that probably will not
+  work at all.  Most of the time we use QB.EXE version 2.0 for compiling;
+  version 4.5 only when forced to.
+
+  All of our coding is done initially in GW-BASIC bearing in mind what works
+  the same and what does not in QB.  We do it this way because it is so much
+  more productive to code and debug in GW.  Yes this does restrict us to a
+  "sub-set" of the language common to both.  (We have yet to find any real
+  advantages in the "super-set" added to QB.)
+
+  A second reason for using GW first, then compiling with QB:  For those that
+  use only GW these programs will work as is.  And little must be done to them
+  to make these same programs work correctly for those that "like" QB.
+
+  How to "read" our code in general is covered under ùCoding style.  Here we
+  list specifics peculiar to the problem of compatibility between GW and QB.
+
+  Source code:  GW-BASIC can SAVE programs as ASCII text files or as what they
+  call "binary" files.  Each of the successive versions of QB can "read" ASCII
+  files; they can also save that code in their own internal formats (which are
+  different between successive versions of QB.)      So ... (next page)
+| 
+
+  For those working exclusively with QB:  Load the dot-BAS file into your
+  editor.  Line 1010 points to where execution actually begins (just past
+  the branch table at the top of the program).  The line just before that
+  is a dummy ON I GOTO ...
+
+  Line numbers listed there point to lines in the source file that can be
+  removed entirely to "convert" the program to a QB-only form.  For those of
+  us working in both environments we simply make these lines "remarks" just
+  before we attempt to do a compilation.
+
+  Successive pages from here down cover the following topics; you can page
+  down from here or simply pick a key word listed below to go directly there:
+
+  ùSwitches  ùLinking  ùCALL  ùVARPTR  ùVARSEG  ùLNA (Large Numeric Arrays)
+|Switches
+
+  Source code (compiler) switches ...
+
+  Switches, GW
+
+    The default file (sector) size is 128 bytes.  These programs need a
+    minimum size of 240, thus /s:240 is needed as the last item on the
+    command line that starts the interpreter.
+
+  Switches, QB
+
+    Debug off.  Minimize String Data on.  On Error and Resume Next should
+    be on for ùWFedit but for ùWhizFont it should be off.  Obj (BCOM.LIB)
+    should be on, and Optimization for Speed should be on.
+|Linking
+
+  Object code (linking) switches ...
+
+  The "L" switch must be on-- /L USERLIB --or whatever your library file
+  is that includes CALL ABSOLUTE support.
+
+    Note:  In early issues of QB 2.0 we got link-time errors when we tried to
+    use CALL ABSOLUTE because of a stupid mistake in the library.  After many
+    arduous hours of trial and error we devised a cure.  If you have a similar
+    problem give us a shout for a description of our surgical technique. 
+
+  The need for other switches is a matter of which compiler you are using and
+  whatever mods you may have made to our code.
+|CALL
+
+ ùWFbam is a machine language routine.  Inside ùWhizFont the object code is
+  stored in a string whose name is MC.  To execute this sequence we CALL it.
+  Which is conceptually akin to a GOSUB.  The RETF at the end of that code
+  works similar to a RETURN.
+
+  The CALL construct requirements for GW are simply CALL I, having set up I
+  with the address of where the MC string starts in memory.  In QB programs
+  this construct must be written as CALL ABSOLUTE(I).  Remember that in both
+  cases, I should be defined as an integer variable.
+
+  Now for the Catch-22 problems:  Two addresses are needed (in all cases).
+  The "base address" is that of the Data Segment--in the above I is an
+  offset value from this base address--the one that the micro's DS register
+  is set to when the CALL takes place.
+
+  In GW programs DS is normally set to the "default" DEF SEG.  In QB 2 most
+  "data" is also local to a single DS.  In QB 4.5 (and later) all bets are
+  off--just where things are is not always easy to determine.
+
+  Anyway, just before a CALL, make sure DS is set correctly--via a DEF SEG
+  if necessary.  See ùInterfacing for info on how we "pass arguments".
+|VARPTR
+
+  Here we use VARPTR to obtain the address (offset into the Data Segment) of
+  where the MC string is (which contains the WFbam object code).
+
+  For strings the value produced by VARPTR must be adjusted to "jump over" the
+  uninteresting "header bytes", to get to the two address bytes we need.  In
+  GW we add 1 to the VARPTR value; in QB we add 2.  Now we can use PEEK to get
+  the two bytes we need, the address word to put into I before a CALL to I.
+  QB lovers also have an alternative gadget for this:  SADD (String Address).
+
+  Once again, DEF SEG is important.  The value produced by VARPTR is a correct
+  offset, but before we PEEK we must ensure that DS is set correctly in order
+  for PEEK to refer to the right two bytes.  A default DEF SEG may be needed
+  prior to PEEK to ensure a correct result.  Especially in QB 4.5 and later
+  versions.
+
+  Also:  As a matter of habit it is a good idea to always go through the crap
+  of obtaining the "now at" VARPTR of MC just before a CALL.  In GW we code
+  such that this is unnecessary overhead because our data is "static".  In QB
+  things get moved around so much, by so many different constructs that it is
+  often impossible to preclude this.  (Which is one reason why we can write
+  some programs that actually run faster in GW than in QB, PS.)
+|VARSEG
+
+  WFbam was designed to be "generic", thus it includes a short series of
+  instructions to force the DS (Data Segment) to a correct setting.  Notice
+  in ùWhizFont in the "MCinit" subroutine we "no-op" these instructions.
+
+  See ùInterfacing about what must be done by sophisticated folks that enjoy
+  later and greater versions of QB or like Large Numeric Arrays and understand
+  $DYNAMIC, and $STATIC, and so on.
+
+  VARSEG was added to QB after version 2.  (For QB 2.0 refer to PTR86.)  This
+  is a counterpart to ùVARPTR --VARSEG gives us a DS value; VARPTR gives an
+  offset value, relative to a given Data Segment base address.  This is true
+  for SADD as well, by the way.
+
+  The next page gives a brief overview of LNA--Large Numeric Array--for
+  those wanting to go that route.  For QB 4.5 and later you have little choice
+  but to read on ...
+|LNA
+
+  In GW a DIM reserves space in interpreter working storage "down under" the
+  area that contains a "scalar variables index table".  Whenever a new simple
+  variable's name must be added to the index all arrays are moved downward to
+  make room for this add on.  An ERASE done on an array also causes any other
+  arrays that follow to be shifted upwards.
+
+  In QB the above description is also true in a conceptual sense.  And REDIM
+  works somewhat akin to ERASE.  Now broach the problem of LNAs--arrays
+  that are set up outside the "normal" Data Segment area.
+
+  In QB, whether we use a literal or a variable in a DIM statement has a
+  consequence.  In the case DIM C(19), array C is a "static" array but the
+  following will implicitly cause a "dynamic" (LNA) array:  I=19:DIM C(I).
+  Add to this "metacommand" complications.  $DYNAMIC and $STATIC can subvert
+  the compiler's normal inclinations regarding the use of literals (static)
+  or variables (run-time dynamic) as arguments in DIM statements.
+
+  Significance:  The DS--Data Segment--address of LNA data is different
+  than for "regular" data.  Also, the DS may be the same or different for
+  various dynamic arrays in a given program.  Good luck Charlie.  (No wonder
+  this is so poorly documented.  Too much brain strain is involved.)
+|Loading
+
+  Font files may be loaded into memory in one of several ways.  In ùWhizFont we
+  have used the simple scheme of reading groups of "characters" from disk on an
+  as needed basis.  As demonstrated, this gives acceptable performance for many
+  types of applications.
+
+  Another alternative would be to "read" entire files once and move that data
+  to specific "tanks" in memory, to minimize disk thrashing once a program is
+  up and running.
+
+  The overhead to "read and move" may be tolerable for the smaller ùFont file
+  sizes.  For the larger sizes, the warm-start delay time involved might be
+  intolerable.  In those cases consider this (very) fast alternative:
+
+    Code a one-time quicky to read a font file into an ùLNA array then BSAVE
+    that array (to a different file name, preferably).  Now, in the end-use
+    program, use BLOAD once during program start-up.  And that is QUICK.
+
+    All of which poses some complications, however:  Review ùVARSEG and
+   ùLNA and ùVARPTR if you opt to go this route.  There is no such thing
+    as ùLNA in the wonderful world of GW.  We can do it, ourselves, however.
+    Consider the possibility of a fixed DS address of &H8000, for example.
+|Interfacing
+
+  Interfacing to WFbam is simply a matter of implanting constants into that
+  code preparatory to doing a ùCALL to the beginning of that routine, at its
+  absolute (physical) address in memory.  See "CallMC" in ùWhizFont for how
+  this is actually done
+
+  Two design strategies are evident:  Only as much as is required needs to be
+  "implanted" for any given use.  In highly repetitious situations, like for a
+  series of characters of a common ùFont size, or when no change in ùColor is
+  necessary, no "overhead" has to be suffered between successive jumps to this
+  module.
+
+  This chunk of code has also been kept as small as possible.  We prefer to do
+  "high level math" like multiplying in our "high level language", as well.
+  In effect, we are doing only those things in machine code that will produce
+  the fastest speed we can obtain, for that single task of punching pixels in
+  video RAM.
+
+  Two other design trade-offs were made in favor of speed:  Arbitrary "puts"
+  is one; this module does not "read and merge" pixel bytes; anything already
+  on screen is simply overwritten.  Byte-boundary alignment is another form of
+  expedient:  Horizontal ùPositioning is always in increments of 8 pixel
+  coordinates.
+|Performance
+
+  WFbam itself was designed for the fastest possible output.  But there are
+  several things you can do to achieve optimum performance for certain types
+  of applications.
+
+  Suppose you have need for only two ùFont sizes, for example.  Consider the
+  advantages of having two "MC" modules.  Each permanently implanted with the
+  corresponding "arguments" necessary to a specific (different) holding tank.
+
+  Some alternative ways to construct "font tanks" is another methodology that
+  can considerably enhance performance.  See ùLNA for some viable ideas.
+
+  Most of what goes on in ùWhizFont runs pretty fast.  A particular exception
+  concerns the two subroutines we labeled "TurnDrum" and "IceCold".  They use
+  nested loops to "move" pixel bytes inside the "FileTank".  Notice first this
+  can be done much faster for ùFont sizes 2 and 4 because LET-type moves could
+  be used in lieu of PEEK and POKE, thus moving two bytes at a time, faster.
+
+  Another scheme could make use of a specialized machine language routine to
+  do byte-at-a-time moves for odd-numbered ùFont sizes.  There is a prototype
+  of such a routine in our GeeWhiz package that could be easily modified to do
+  just this.  Read on for more ideas ...
+| 
+
+  The idea of a specialized machine language routine for moving blocks of bytes
+  from one place to another may have further merit:  ùWhizFont reads groups of
+  records into a file buffer and are hence, accessible only as string data.
+  Then we use a loop to move those bytes to an integer array.  Which actually
+  stinks when we need to achieve maximum performance.
+
+  Our WhizDraw package was confronted with this design issue; the solution was
+  a machine language module that is described in GeeWhiz--a ShareWare package
+  also available from ùWhizWare --meaning it can be obtained for evaluation
+  purposes by merely sending us five bucks to cover our handling costs.
+
+  On the other hand, if you opt to go with ùLNA concepts or are using QB 4.5 or
+  later, this idea begins to lose its appeal because of ùVARSEG headaches; the
+  Data Segment for where the file buffer bytes are and the DS for the "tank"
+  are invariably going to be different.  Which has both design and performance
+  impacts.  Which is one of the reasons FOR/NEXT loops are not real fast.  (And
+  another situation in which we can sometimes achieve faster performance in GW
+  than with QB compiled programs, PS.)
+|Memory
+
+  Memory conservation may or may not be important.  Consider the following:
+ ùFont file sizes are, respectively, 4096, 12288, 24576, 40960, and 61440.
+  Added together they would require 143,360 bytes to hold them all in memory
+  at once.  (Assuming anybody would really need to.)
+
+  In GW we only have a 64K block to operate in.  Actually, only about 60K is
+  usable.  Even a modest size program would run out of memory if we tried to
+  load the entire file into memory for ùFont sizes 4 or 5.  Even #3 might be
+  a tight fit in large programs.
+
+  In QB there are 64K data-block limits also.  Their ùLNA concepts allow us to 
+  store large "pages" of data in memory but at the cost of degraded performance
+  and more complicated programming.  Further, a solution that works for QB 2
+  is unlikely to work for QB 4.5, and one for either will probably not work for
+  QB 7.  And so on.  (Incompatibilities between various versions of QB are one
+  of the major reasons we abhor doing anything in QB.)
+
+  Look at our suggestions under ùPerformance before opting to design such that
+  entire files need to be loaded into memory all at once.  And review how we
+  do it in ùWhizFont then consider the ideas on the next page ...
+| 
+
+  It is a rare application indeed that actually uses 256 different characters.
+  Only 128 would be adequate for many.  And recall when Elvis was king.  Back
+  then we did a lot of work with a lot of systems that only had 64-character
+  font sets.  So ...
+
+  Upper case letters (26) plus lower case (26) and 10 digits add up to 62.
+  Throw in a space, a period, and a few others for punctuation.  See that, as
+  few as 80 or so would work for a large majority of applications, even today.
+
+  And who says "A" has to be in slot 65 in our ùFont files.  Why not make it
+  number one?  Or whatever.  And converting an input code of 65 to an output
+  code of 1, for example, involves little brain strain.
+
+  Run this line of thinking to a conclusion:  Why bother to load and store
+  Spanish or German accented characters if you live in Salt Lake City?
+
+  Write a one-time quicky that can read a full size font file and output to
+  another, shorter file, only what is needed.  Bingo.
+|Tips
+
+  Here are a few tips to consider when designing text characters ...
+
+  An entire character cell is always output.
+
+  Leave a few blank rows of dots down each side of a character so that when
+  two or more are output side-by-side there is a little space between them.
+
+  Similarly, a few blanks at the top and bottom of each character will permit
+  printing one above another with no wasted space.
+
+ ùWFedit includes an option to "map" a standard PC character into our larger
+  cells.  The primary purpose of that option is for "seeing" a suggested
+  placement of characters within cells and which edges ought to be blank.
+|Icon
+
+  Here are a few things to consider when designing icons ...
+
+  An entire character cell is always output.
+
+  If a background color is to be used that is different than the rest of the
+  screen, remember that this whole "square" will be in this different color.
+
+  Both background and foreground color settings apply to an entire character
+  cell.  (Mixed colors within a single figure is not possible.)
+
+  For animated figures that move:  If movement will be to the left, at
+  intervals of 8 pixel positions, for example, draw the figure such that the
+  right 8 rows will be blank.  Now when the object is moved it will "blank"
+  where it was, automatically.
+
+  Upward and downward movement can be done in increments of one dot-row.
+  Horizontal movement can only be done in increments of 8:  Moving sideways
+  does not appear as smooth as vertical movement.
+|Debugging
+
+  Debugging problems are generally of one of two types:  Things that just
+  do not work quite right; fatal crashes that "hang" the stupid machine.
+
+  For simple bugs, no problem.  Solve those as you normally would.
+
+  The hairy critters are the aggravating ones because you have to keep
+  rebooting the machine.  And you cannot do an autopsy without a body.
+
+  Here are a few ideas for those not practiced in doing calls to machine
+  language routines ...
+
+  Be sure you have done a "save" before any attempt to RUN.
+
+  Make sure your system is backed up.  A badly aimed CALL could land anywhere.
+  Consider what the consequence might be if you inadvertently provoked a DOS
+  file manager routine:  You could fry your FAT, for example.
+
+  Double and triple check for bent bytes in the MC string--if incorrectly
+  modified, execution may never get to RETF, for example.  ùWFbam writes bytes
+  into video memory.  If this routine is corrupted, it could whack some other
+  area of memory.  And you might start believing in viruses, too ...
+| 
+
+  To confirm the validity of CALL addresses:
+
+    Write a quicky routine that will PEEK and print about 40 bytes starting
+    from that address-offset, making sure DEF SEG is correct as well.  Now
+    compare what you see with the MID$ values shown in "MCinit".  If there is
+    little resemblance, your CALL is badly aimed.
+
+  To confirm that the "MC" string itself is not corrupt:
+
+    Do the same thing as above, for the entire 100 bytes or so.  Now, one at
+    a time, check each byte to see if its value is consistent with the listing
+    and with those values overlaid by "CallMC".  And remember that "words" in
+    memory are stored with their bytes reversed, in a left-to-right sense.
+
+  If all of this is Ok, but the machine still goes out to lunch:
+
+   ùWFbam makes a little use of the already initialized stack space.  In some
+    very sophisticated environments the stack could already be near its upper
+    limits when the CALL is done.  If our use of that stack goes off the end
+    the result will be totally unpredictable.  Try allocating a larger stack.
+    See your language manual.  Look at CLEAR, specifically.  And good luck.
+|File
+
+ ùFont files are organized as records.  Each record constitutes one complete
+  character (or icon).  Bits in these bytes correlate to pixels on a one for
+  one basis.  A one-bit indicates a pixel that will be On; a zero-bit is for
+  a pixel that will be Off.
+
+    Yes, we know about planes and that 4 bits are needed for each pixel,
+    one bit for each of the four "color planes".  But that is needed only
+    at output time, which is when color is generated.  In our files we only
+    need to know which bits need to be On and which Off to determine "shape".
+
+  Read the bits in record bytes from left-to-right and the bytes themselves
+  from left-to-right also.  For ùFont size 3, for example, a cell is 24 bits
+  wide and 32 bits high.  As bytes it is 3 wide and 4 high.  So the first
+  three bytes in a record are for the first row of pixels; the next 3 are for
+  the next row down.  And so on.  And the overall length of each record is
+  3 times 4 bytes (which is 12, of course).
+
+  Notice when we read and write records to these files we add 1 to ASCII code
+  values to access the corresponding character.  ASCII code 0 is legal but you
+  cannot GET or PUT to record #0.  (#1 is the first record in any file.)
+
+  Consider the not so obvious observation on the next page as well ...
+| 
+
+  The basic thrust of ùWhizFont was for larger than normal characters.  And
+  for being able to output them rapidly.
+
+  Then we saw need for an "editor" so we could create custom "fonts".  So:
+ ùWFedit --and immediately we recognized that we can "draw" anything.  An "A"
+  could look like anything--a moose, even, if we are clever.  Ipso, we now
+  have an icons capability.  And because of the speed potential of ùWFbam we
+  can make our moose fly across the screen.
+
+  Now, more to the point:  ASCII as used in the PC world relates to 0-255
+  characters.  And ùWFedit was designed to accommodate that range.  But there
+  is nothing magical about the number 256.  ùFont files could be devised with
+  literally thousands of icons in them.
+
+  Similarly, several files might be appended end-to-end.  Even multiple font
+  sizes could be contained within a single file.  And so on.  And on, and on,
+  and ...
+
+  In another vein:  There is nothing particularly magical about our concept of
+  cell sizes either.  Notice that ùWFbam depends on outside advice as to how
+  many bytes wide and how high a "character" is.  Now it is up to you ...
+|Coding
+
+  Coding style is most often a function of programmer's preference.  This
+  programmer prefers a particular discipline; a little background on the
+  rules I play by should make it relatively easy to read my code.
+
+  A branch table is located at the top of the program.  Down below, whenever a
+  GOSUB is done, it is always targeted at a GOTO line in this table.  Thus the
+  table works as a Table of Contents; the remarks describe briefly what each
+  subroutine is for.  And the line number of the GOTO itself tells us where
+  that block of code is in the program.  (And it is automatically updated when
+  a RENUMB is done.)
+
+  Notice the short "names" of these routines as well.  That same remark marks
+  the beginning of each of those subroutines.  And any line that contains a
+  GOSUB to one of these modules always has the same name appended as a remark
+  on that call line.
+
+  Subroutines themselves are always coded as single-entry, single-exit blocks.
+  No GOTO is ever done from within a subroutine to a line outside of that
+  module.  The above is equally true for FOR/NEXT and WHILE/WEND structures.
+  (Those who say we cannot write structured programs in BASIC are wrong!)
+
+  Next page ...
+| 
+ 
+  Indentation:  If only one space follows a line number, that line is the
+  target of a branch from some other line.  Or it denotes the beginning of a
+  major sequence of logic.  Lines with more than one space following the line
+  number are never targeted by a branch from anywhere else.
+
+  FOR/NEXT loops:  Indenting plays a role here, too.  When FOR and NEXT are on
+  separate lines, they are indented exactly the same distance from the left.
+  And all lines between corresponding FOR and NEXT lines are indented at least
+  one space beyond the beginning FOR.  Control variables are not named after
+  NEXT.  They are not needed.  Because of the indenting discipline used it is
+  easy to eye-ball which NEXT belongs to which FOR in nested loop structures.
+  The only way out of a FOR/NEXT loop is to force the "to-limit" such that a
+  fall-through will occur when NEXT is next encountered.
+
+  WHILE/WEND loops:  The same rigid disciplines apply here as described above.
+  (WEND does nor need a "control variable", obviously.  So why do some folks
+  insist that one should be named after every NEXT?  What's the dif?)
+
+  Data typing:  Done only once.  Always at the beginning of the program.  No
+  type-appendages (% or $ etc.) are ever used anywhere.  Read just a little
+  more before you decide you do not like my style ...
+| 
+
+  Variables always have but one or two characters.  Single character names
+  are only used for "locals", i.e., inside subroutines.  And their contents
+  should not be depended upon by any other module of code.  That is what
+  "globals" are for:  Two character names are used to contain values that
+  may be "passed" from one routine to another or need to be depended upon
+  to have valid contents at any given time, anywhere in the program.
+
+  The names themselves:  Nearly all two character names have a mnemonic
+  quality, i.e., they are an abbreviation or acronym that befits their use.
+  That definition can be seen in a remark following the initialization of
+  that variable in the beginning of the program.
+
+    PS:  All variables used anywhere in any of my programs are always pre-
+    initialized in the beginning of the program, with a remark describing
+    what they are for.  With but few exceptions that "meaning" prevails
+    from then on.  To preclude the need for a lot of one-timers, a few are
+    always pre-allocated to be used for generic purposes.
+
+  Letter choices for names:  A is always reserved for double precision names
+  and B for single precision.  C-L can only be used for integers.  M-W are for
+  strings.  X-Z in non-graphics programs are also used for strings but in
+  graphics programs they are used for integers.  One more page ...
+| 
+
+  Another of my rules about variable names is that two-letter names must use
+  two letters from different "sets".  Numeric variables normally start with
+  A, B, or C-L.  When a second letter is needed it must come from the "string
+  set", i.e., from the M-W group.  And the reverse is true as well.  The second
+  letter used in string names must be a letter normally used only for numeric
+  variables.
+
+  Occasionally a digit (0-9) is used as a second character for global names.
+  Although permitted, a period is never used as part of names in my programs.
+
+  Array names:  A slight exception to the above rules is sometimes made.
+  Because arrays are considered to always be global in nature, anyway, they
+  may have merely one-letter names.  Notice also that ALL arrays are always
+  pre-defined during initialization.  Even little ones.  And no ERASE is ever
+  done, so the only place you will see DIM is in the beginning.
+
+  User defined function names (DEF FN):  One or two letters.  Like arrays,
+  FN-names are by default always considered to be global in nature.  Also:
+  They too are always defined only once.  In the beginning of the program.
+
+  Now perhaps you can read my code and see how it works, even if you do not
+  like my style.
+|Font
+
+  There are five font sizes ...
+
+    size width height
+     1     8  x  16     Successive widths are in increments of 8 pixels
+     2    16  x  24     Height is always 8 pixels greater than width
+     3    24  x  32
+     4    32  x  40     The size of #3 can thus be computed as: 
+     5    40  x  48         3*8=24 (width) and 24+8=32 (height)
+
+   In terms of bytes the above equates to the following ...
+
+    size width height
+     1     1  x  2      Successive widths are in increments of 1 byte
+     2     2  x  3      Height is always 1 byte greater than width
+     3     3  x  4
+     4     4  x  5      The size of #3 can thus be computed as:
+     5     5  x  6          3 (width) and 3+1=4 (height)
+
+                        See ùFile layout for how these equate to records
+                        and overall file sizes.
+|Positioning
+
+  Positioning of characters or icons is done on the basis of X and Y screen
+  coordinates.
+
+  The X-axis runs horizontally, left to right, from position 0 to 639.
+
+  The Y-axis runs vertically, top to bottom, from position 0 to 349.
+
+  Although you can specify any legal X-axis value (0-639) ùWFbam adjusts
+  that if necessary to the next position evenly divisible by 8 (an even byte
+  boundary in video RAM).
+
+  If a position is specified close to the right edge and the width of the
+  cell to be output is "too wide" a wrap-around will occur:  Part of the
+  image will be displayed on the left side of the screen.
+
+  If a position is specified close to the bottom of the screen, part of the
+  image to be displayed may be "off screen", i.e., in an invisible area of
+  video RAM.
+|Color
+
+  Output can be done in any one of 16 colors on a background of any of these
+  same 16 colors.  (If both foreground and background color codes are the same
+  the net result will be a "blank" cell of that color.)
+
+  Although a color code of zero may be specified do not expect this to produce
+  black, necessarily.  In graphics modes code zero means whatever the global
+  background color setting has already been established for.  Like if you do
+  COLOR 15,1 for example, all pixels that are "off"--that are 0-bits--will
+  be displayed as blue.
+
+  Unlike the artificial restrictions imposed by most languages, ùWFbam can
+  produce high-intensity "background" colors for individual characters.
+  Thus:  Although black is not possible on a blue screen, gray is.
+
+  Otherwise ùWFbam is insensitive to whatever COLOR statements you use.  On the
+  other hand, PALETTE does have an influence:  PALETTE settings are maintained
+  by the video adapter driver. ùWFbam simply pokes pixel bits in video RAM; the
+  adapter interprets what color is reflected by which bits are on in which of
+  its memory planes.
+|Animation
+
+  Animation may be achieved by repeatedly outputting a given icon at
+  successively different locations.  The ùWhizFont program has subroutines
+  that do this.  See those that output "WhizFont From WhizWare", and the
+  like, and the one labeled "Dozer".
+
+  Another technique is one that outputs several different icons at a fixed
+  location.  In the ùWhizFont program the subroutines that are labeled as
+  "Spinner" and "Wheels" are useful examples.
+
+  Both of the above methods can be used in combination.  In ùWhizFont see
+  the subroutines called "ManWalk", "Pigeon", and "Rockets".
+
+  Another method worth considering sometimes is to use a loop that moves the
+  bytes around inside the buffer that holds the pixels for a given icon.  In
+ ùWhizFont two subroutines do this.  The one called "TurnDrum" rotates the
+  pixels horizontally, left-to-right.  In "Ice Cold" nested loops are used to
+  shift the pixels vertically upwards.
+
+  See ùReal Updates (next page) for more ideas also.
+|Real
+
+  The ùWhizFont program includes two examples of subroutines that use "real
+  time data" to generate their output.  The one called "RollNumb" resembles
+  what we might see on our car's trip meter.  With a slight modification it
+  could be made to resemble gallons and price readings on older gas pumps.
+
+  The subroutine labeled "LEDclock" shows the current system time and mimics
+  7-segment characters common to many LED and LCD type displays.
+
+  Combinations of these tricks and those we use for other kinds of ùAnimation
+  may prove useful.  Timing may be a key operative in making design choices.
+  Although ùWFbam is strictly coded for high speed output, other "overhead"
+  chores could hog more CPU time than can be tolerated during cycles of data
+  gathering from input ports.
+
+  Our ùWhizFont program was largely written to make it easy to lift algorithms
+  from it.  The overhead of this modularity and the constant jumping to test
+  for keyboard input and the like are highly redundant and may well not be
+  necessary in many real applications.  At the same time, however, it is felt
+  this overhead may approximate that needed for "processing" real time data in
+  many cases.  See ùPerformance optimization for more thoughts on this.
+|

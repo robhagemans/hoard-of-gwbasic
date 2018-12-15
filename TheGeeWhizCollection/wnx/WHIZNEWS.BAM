@@ -1,0 +1,32 @@
+JMP 0000        ;+WhizNews
+DW 0000
+DW 0000
+DW 0000
+DW 0000
+DW 0000
+PUSH SI         ;#WhizNews
+MOV SI,0000     ; 06-30-95
+MOV AX,[SI+02]  ; D(1)
+MOV BX,[SI+04]  ; D(2)
+MOV CX,[SI+06]  ; D(3)
+MOV DX,[SI+08]  ; D(4)
+PUSH DS         ; save
+CMP AH,3F       ; get?
+JE 0000         ;+GetPut
+CMP AH,40       ; put?
+JNE 0000        ;+DOS
+MOV DS,DX       ;#GetPut
+XOR DX,DX       ; offset
+INT 21          ;#DOS
+POP DS          ; reset
+MOV [SI+02],AX  ; D(1)
+MOV [SI+04],BX  ; D(2)
+MOV [SI+06],CX  ; D(3)
+MOV [SI+08],DX  ; D(4)
+LAHF            ; flags
+AND AX,0100     ; CY
+MOV [SI+0A],AX  ; D(5)
+POP SI          ; reset
+RETF            ; fini
+NOP
+DW "WHIZNEWS.MSK"

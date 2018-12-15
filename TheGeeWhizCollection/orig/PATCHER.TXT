@@ -1,0 +1,164 @@
+
+
+                   ùGW-BASIC ùPatcher by ùTom McIntire
+
+          WARNING:  Patcher.BAS overwrites parts of ùGWBASIC.EXE
+
+    Patcher.COM (only) displays information in Patcher.TXT (this file).
+
+
+     Patcher is useful for customizing your GW-BASIC interpreter:
+
+    ù1 -- Change the default F-key macros (legends)
+    ù2 -- Disable the "protected file" lock (defeats use of SAVE "P")
+    ù3 -- New version ID (replace 3.23) displayed on start up
+
+
+  If the above advice seems like Greek, you are playing with the wrong toy. 
+  Patcher is a useful tool for those writing GW-BASIC programs.  The pages
+  that follow provide rationale for each of the changes that can be made.
+  Whether to change anything at all, or not, deserves premeditation.  In the
+  event, while running Patcher.BAS, these pages can be seen by hitting <?>.
+|GW-BASIC
+
+
+  GW-BASIC is a registered trademark of Microsoft Corp.  GW-BASIC is the
+  name of a specific programming language, one considered to be a lesser
+  member of a species of languages generically called BASIC.
+
+  Definition of GW-BASIC--lexicon, syntax, grammar, semantics--is properly
+  the function of ùGWBASIC.EXE and further, that definition is subject to
+  variations depending on a particular version (issue) of the interpreter.
+
+  Continued...
+|GWBASIC.EXE
+
+
+  GWBASIC.EXE is a computer program copyrighted by Microsoft Corp. in the
+  years 1983 through 1988.  As far as this author knows, ùPatcher will work
+  correctly only for GWBASIC.EXE Version 3.23 (the newest one owned by
+  this author.)  The issue date of that file is probably 10-14-88.
+
+  Another way to confirm whether Patcher will work correctly is to look
+  at the exact length of GWBASIC.EXE--a file size of 80,608 is expected. 
+
+  In any event:  BE SURE YOU HAVE A RELIABLE BACKUP COPY OF YOUR ORIGINAL.
+
+  Patcher does not try to ascertain what version you are working with.
+  (It cannot, really, because you may have already modified it before.)
+
+  Continued...
+|Tom
+
+  The author of ùPatcher is Tom McIntire.  He originally wrote this program
+  for his own use.  Thinking that others might have similar needs, he has
+  decided to make it available to anyone that wants a copy for themselves.
+
+  No warranties about this program should be assumed.  Use it at your own
+  risk.  If you would like to correspond with Tom, his e-mail address is:
+
+                          whizware@bellsouth.net
+
+  Continued...
+|Patcher
+
+
+  Patcher as used herein refers to
+
+    Patcher.BAS -- the utility program itself
+
+    Patcher.COM -- the "help" program
+
+    Patcher.TXT -- the information text file displayed by Patcher.COM
+
+  All three of these files ought to be kept in the same run-time path.
+  The copy of ùGWBASIC.EXE to be modified should also be in this same path.
+
+     While running the BAS program, hit <?> at any time to get "help".
+     If the COM or TXT files are not accessible, use of <?> is ignored.
+
+  The usual method of starting ùGW-BASIC programs, will work, i.e.,
+
+                 type GWBASIC PATCHER and hit Enter
+|1
+
+
+  One is tempted to assume that whoever coined the built-in F-key macros
+  was not really a practicing BASIC programmer.  In fact, I rather doubt
+  that he was much practiced in any computer language.
+
+  For whatever reason they were originally chosen, however, we have been
+  blessed with that same list since day one because of those twin
+  software writer's nemeses:  forward and backward compatibility.
+
+  Sure, we can assign replacement values to F-keys whenever we want to,
+  down in the fabric of our programs.  That assumes, of course, we already
+  have a program in memory, or we do not mind the aggravation of typing in
+  ones that we like every time we load the interpreter.
+
+  Patcher.BAS makes it easy to "edit" the default F-key assignments.  Type
+  in whatever you want.  Those strings will be implanted in GWBASIC.EXE
+  from then on.
+
+     Restrictions:  15 bytes is the maximum length for each F-key legend.
+     To implant a trailing Enter-key code, hit <Enter> where you want it.
+       (It will be shown as  but in memory it is really an 0D (hex). 
+|2
+
+  Once upon a time, I too made some use of the ability to SAVE with
+  the comma-P option.  The inventors of that capability must also have
+  thought it was a good idea--they devoted quite a chunk of code space
+  to providing that capability.  As time went on, however, most of us
+  learned it was not such a hot idea after all.
+
+  If you ever lost the original copy of a program that you had saved
+  as a "protected file" you had but two options:  Rewrite the program,
+  or figure out how to defeat the P mechanism in the interpreter.  The
+  second alternative was my choice the first time this happened to me.
+  Of the several solutions I devised over the years, this one is my
+  favorite.  ùPatcher simply no-ops the conditional jump that tests
+  for a "P" setting.
+
+    Note:  This works because, once a protected program is in memory, it
+    is no different than one that is not protected.  (The ID byte--the
+    first byte--in a protected file is FEh, rather than FFh.  A P-file is
+    encrypted when saved, but decoded on the fly by the loader, PS.)
+
+  By patching the interpreter so that the tester no longer works, you can
+  then LIST, or RENUM, or EDIT, no matter where a GW-BASIC file came from.
+|3
+
+  When ùGWBASIC.EXE begins, assuming it is loaded without including the
+  name of a program to be jump started, ùGW-BASIC and its version number
+  and copyright information are shown at the top of the screen.  Because
+ ùPatcher can only modify version 3.23 of the interpreter, that tidbit
+  is effectively redundant.  At the same time, needing to be able "see"
+  that the version then in memory is no longer pristine, this seemed a
+  good place to put our own mark.  My idea was to keep it brief, but also
+  to be able to uniquely stamp several different versions of my own doing.
+
+  Patcher will accept any four characters you wish to use as an ID, and
+  use them to overwrite the "3.23" that is hard coded into the interpreter.
+
+    Note:  Copyright doctrine embraces the GWBASIC.EXE entity without
+    specific regard to the notion of versions.  Ipso, rather than risk
+    the ire of Sir Gates and his legal beagles, I have opted to not
+    alter any of the rest of the start-up display.
+
+    Also:  Because Patcher "updates" GWBASIC.EXE as if it was any other
+    (random) data file, DOS arbitrarily updates its date and time stamp
+    in the directory.  Thus, looking at GWBASIC.EXE on a disk, it is
+    easy to ascertain whether a given copy is an "original" file or not.
+| 
+
+
+ ùPatcher is useful for implanting "permanent" changes in GWBASIC.EXE.
+  There are many other things that would have to be changed to be able
+  to write GW-BASIC programs that can take full advantage of the newer
+  features of modern machines.  My e-manual called GeeWhiz documents
+  some other easy mods that can be made by a running application program
+  to "update" the interpreter a tad more.  All of these tricks are merely
+  stopgaps, however, to allow us to stretch the life of GW-BASIC a few
+  more years.  For me, at least, that will probably be long enough.  TM
+|
+

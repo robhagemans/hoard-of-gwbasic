@@ -1,0 +1,828 @@
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄ¿                                         by Tom McIntire
+  ³ ùWhizCall ³    Telephone Dialing Program              aka WhizCat
+  ÀÄÂÄÄÄÄÄÄÂÄÄÙ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿           03-20-05
+    ³      ÀÄÄÄÄ´ (C) Copyright ùWhizWare 1997 ÃÄÄÄÄ¿
+    ³           ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ  ÚÄÁÄÄÄÄÄÄÄÄ¿
+    ³                                             ³ Overview ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³          User & Technical Reference Manual  ³  ùProgram design goals  ³
+    ³                                             ³  ùHardware assumptions  ³
+    ³                   SUBJECTS INDEX            ³  ùOperating Systems     ³
+    ³                                             ³  ùProgramming Languages ³
+  ÚÄÁÄÄÄÄÄÄ¿                                      ³  ùSoftware file types   ³
+  ³ How to ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                    ³  ùData file formats     ³
+  ³  ùInstall this software  ³                    ÀÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+  ³  ùRun this program       ³                      ³
+  ³  ùMake telephone calls   ³                      ³
+  ³  ùSet up usage options   ³           ÚÄÄÄÄÄÄÄÄÄÄÁÄÄ¿
+  ³  ùMaintain phone numbers ÃÄÄÄÄÄÄÄÄÄÄÄ´ Programming ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ           ³  ùGW-BASIC interpreted program ³
+                                         ³  ùQuickBASIC compiled program  ³
+      This software may be freely        ³  ùWhizBAM assembler modules    ³
+      copied and distributed with        ³  ùWhizFont VGA font generator  ³
+      my compliments. TM                 ³  ùWhiz assembly language       ³
+                                         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizCall
+
+  WhizCall is called WhizCall for two reasons:
+
+    Other than games, most of my programs include Whiz in their names.
+ 
+    This program makes serial, or what I call "chain-dialing" a whiz.
+
+  I am an old man. I take quite a few medicines daily. My prescriptions are
+  refilled by mail. To order refills I dial a number that is answered by a
+  robot. After punching a one or a two for a menu selection, I next enter my
+  Social Security number followed by a pound sign. Then, as I am told to do
+  so, I punch in prescription numbers one at a time. Each are seven digits
+  long, plus a pound sign. Five refills requires punching more than fifty
+  buttons. The odds on me hitting that many without an error is on a par with
+  winning the state lottery. The same drill with WhizCall takes fewer than a
+  dozen mouse clicks.
+
+  WhizCall is equally useful as a personal phone book containing names and
+  phone numbers arranged to suit one's preferences. As is, WhizCall is quick
+  and easy to use. Beyond the built-in options, the program can be modified
+  further by anyone versed in the ùGW-BASIC language. Much of this document
+  is technical stuff that explains how the program works. And all of this is
+  free, gee whiz. Read on.
+|WhizWare
+
+  WhizWare was the name of my software company years ago. Although it is no
+  longer an operating company, I still use the name as a catchall handle
+  for all of my programs.
+
+  In recent years I have repackaged many of my old programs as freeware and
+  now give away the source code as well. Additionally, now and then, I write
+  a new one just for the fun of it. Costs me nothing to give it all away,
+  obviously, and I enjoy doing it.
+
+  Visit my web site to see a complete list of files that can be downloaded
+  from my freeware library:  www.scottserver.net/whizware
+
+  I also enjoy exchanging e-mail with folks who use my programs or would like
+  help with modifying them. The two languages that I am most versed in are
+ ùGW-BASIC and ùWhiz (a WhizWare 16-bit assembly language product).
+
+  My personal e-mail address is: whizware@bellsouth.net
+|Install
+
+  Installing ùWhizCall merely requires copying all of its files into a single
+  Windows folder or DOS path. WhizCall does NOT tamper with Windows registry
+  settings, nor does it arbitrarily create any files, folders or paths. To
+  uninstall WhizCall, simply delete your WhizCall folder.
+
+  To use the ùWhizCall.BAS version, ùGWBASIC.EXE (an interpreter) must
+  already be resident on the system. As provided here, WhizCall.BAS expects
+  the interpreter to be resident in the same folder, in the root of the same
+  disk drive, or somewhere else that the operating system already knows
+  about. (Location may be defined in a CONFIG.SYS file, for example.)
+
+  WhizCall can be started from a DOS or Windows command line, like:
+
+  GWBASIC WhizCall           (for the BAS version)
+  WhizCall.EXE               (for the EXE version)
+
+  There are several advantages to using a batch file to launch either the
+  BAS or EXE version of the program. This is especially true when run on a
+  computer equipped with most any version of Windows. ùWhizCall.BAT is a
+  prefab copy of such a batch file.
+| 
+
+  For Windows, in the folder containing ùWhizCall and all of its parts,
+  create a shortcut that points to either ùWhizCall.BAT or ùWhizCall.EXE -
+  whichever version of the program that is preferred. Then, after making a
+  few changes to the properties of that shortcut, WhizCall will be fully
+  installed and ready to run.
+
+  Suggestions about shortcut properties:
+
+    Right click on the icon, then click on properties.  On the General,
+    Program page select Change icon, then Browse to find ùWhizCall.ICN
+    (icon). On the Run tab, select Maximized screen. On the Screen page,
+    select full screen.
+
+  The shortcut is now ready to use and can be moved to the Desktop, or
+  any Start up folder (or copied to both).
+
+  Note: A shortcut--an icon link--that works with Windows 98 is included for
+  WhizCall.BAS. As is, it expects WhizCall and all of its parts to be stored
+  at C:\Windows\Program Files\WhizCall\. It may be easier, if necessary, to
+  modify this file rather than to create a new one.
+|Run
+
+ ùWhizCall starts in ready-to-dial mode, with the file pointer already
+  positioned at the phone number last selected (the one displayed in the
+  middle of the screen).
+
+  A different name may be selected by scrolling the page up or down, with
+  arrow keys or Page keys, or by hitting a letter key. Additionally, if the
+  mouse is on, an initial letter may be picked from the bottom line on the
+  screen, or if a desired name is visible it can be picked with a left-click.
+
+  The Escape key, or Mickey's right paw always work the same, to switch from
+  calling mode to the main menu, or as an exit from any other mode.
+
+  Main menu choices include:
+    Edit - for file ùMaintenance to Add, Change, or Delete names and numbers.
+    Opts - to ùSet or modify several options built into the program.
+    Help - an automatic link to ùWhizCall.COM to see this ùWhizCall.HLP file.
+    Quit - to exit the program altogether. 
+
+  Each of the above are described on subsequent pages; the next page tells
+  how to make phone calls using WhizCall. 
+|Make
+
+  Making phone calls with this program is easy. That's its purpose, gee whiz.
+
+  Once a name has been moved to the middle of the screen (and shown in large
+  type), Enter or left-click will enlarge the associated phone number. At
+  that point, Enter (or left-click) again will cause that number to be dialed.
+
+  When the MODEM first connects to the phone line, a message to that affect
+  appears in the upper right corner of the screen. From that point on, the
+  phone stays "off the hook" until an Escape or right-click is done. It is
+  this feature that makes it possible to dial successive numbers whenever a
+  robot answers. In practice, as soon as you hear the MODEM finish ringing
+  the first number you can pick up your extension so that you can listen to
+  whomever (or whatever) answers.
+
+  When a human answers, I normally hit Escape to "hang up" the MODEM. If a
+  robot answers, however, I delay hitting Escape until finished "talking"
+  to it. By the way, while a line is open, menu selections and other numbers
+  can be input from either WhizCall, or from your telephone key pad.
+
+  When done, be sure to hang up both, your receiver and the MODEM. Failing
+  to hit Escape will leave the line open, even after hanging up the phone. 
+ |Set
+
+  WhizCall provides several options that may be set according to your own
+  preferences. On the main menu, pick "O" for Options for that page.
+
+  Port# can be either 0, 1, or 2. When set to 0, the program works as it
+  otherwise would, but it does NOT dial any phone numbers. For dialing to
+  work, use 1 or 2 depending on which hardware port a MODEM is assigned to.
+
+  Hours as shown at the top of the WhizCall screen can be shown in 12 or 24
+  hour format. The time and date shown come from the system clock.
+
+  Mouse speed is adjustable so that it will work on old PC/XT computers and
+  today's hotrods. Speed of 0 will disable the mouse altogether. (Program
+  works fine without a mouse, or while the mouse is disabled.)
+
+  File2 is usually set to N-for-None. T-for-Text will cause ùWhizCall.TXT (an
+  ASCII text file) to be generated from ùWhizCall.DAT (the program's data
+  file). Similarly, C-for-CSV will generate ùWhizCall.CSV for use with most
+  spread sheet programs such as MS Excel.
+
+  Page scrolling can be done with up and down arrows and the Page keys. This
+  option can reverse the built-in scrolling action if so desired.
+|Maintain
+
+  Maintenance of any data base consists of three primary functions: Add,
+  Change, and Delete. ùWhizCall contains built-in routines for creating new
+  records, fixing existing ones, and for eliminating ones no longer needed.
+
+  On the main menu, click on Edit, hit the letter E, or if the mouse is not
+  on, move to the desired line with arrows and hit Enter. A second menu
+  appears. In the same way, pick or click on Add, Chg (Change) or Del
+  (Delete) to get to those routines.
+
+  When Add is selected, a new (blank) line is inserted in front of the one
+  shown in the mid-page display. During typing of Add or Chg, hit Enter
+  after each data field. After the last field, the whole line is stored on
+  disk. If Esc is hit at any time prior to the end of the line, the disk
+  file is NOT updated with those entries. In the event that a blank line is
+  inadvertently inserted into the file, it too may be deleted, same as any
+  other record.
+
+  When Del (Delete) is selected, a "decision message" appears on the line
+  about to be deleted. Whichever number is shown inside <brackets>, that
+  numeric key is the one to hit to remove that record from the file. Esc or
+  any other key will work as an "escape" to prevent accidental deletions.
+|Help
+
+ ùWhizCall.COM is a program useful for displaying the ùWhizCall.HLP file
+  while operating the ùWhizCall.BAS or ùWhizCall.EXE programs.
+ 
+  WhizCall.COM can also be run independent of either ùWhizCall program.
+
+    Note: When in DOS command mode, if only the word WhizCall is typed,
+    WhizCall.COM will start automatically. In the DOS world, when no file
+    extension is named, a COM file is looked for first, then a BAT, then
+    an EXE file.
+
+  Mouse usability while running WhizCall.COM is independent of any options
+ ùSet on the Opts menu in the ùWhizCall program. The help program will make
+  use of a mouse if one is present, or the program will work just fine on a
+  system that has no mouse. 
+
+ ùWhizCall.HLP is this data file. Although it is formatted to suit the
+  built-in features of WhizCall.COM, the help file is in reality a DOS
+  text file. As such--an ASCII file, basically--this file may also be
+  viewed, and printed, with programs such as Windows Notepad or Wordpad.
+
+    Note: When printing WhizCall.HLP with a Windows program, use its font
+    called "System" to achieve character spacing similar to this screen.
+|Program
+
+  No program can be a perfect solution to everyone's needs. ùWhizCall was
+  designed with specific requirements in mind:
+
+    Easy to use. Easy to learn to use. Self-contained help information.
+
+    Usable on almost any PC configuration made in the last twenty years.
+
+    Can be used, as is, with nearly any version of DOS or Windows.
+
+    Easily customized by anyone versed in ùGW-BASIC (oldest PC language).
+
+    Simple data file scheme makes it easy to export data to other programs.
+
+  The next section of this document provides a technical overview of how
+  each of these goals has been addressed.
+|Hardware
+
+ ùWhizCall expects no peculiar hardware other than a MODEM. It is supposed
+  that the MODEM is accessible from either Port 1 or Port 2. In the event of
+  an unusual or missing MODEM, the dialing capability in this program can be
+ ùSet off. If set on erroneously or incorrectly, the program may "crash" if
+  a dialing attempt is made. (Such crashes are harmless and operation can be
+  resumed with no risk to the files or the system.)
+
+  If a mouse is present on a system, this program can make use of it. An
+  attempt to "turn on" a lazy, missing, or dead mouse will simply be ignored.
+  WhizCall works fine, with or without a mouse.
+|Operating
+
+ ùWhizCall was originally written on a PC/XT running DOS 3.0 nearly twenty
+  years ago. Although it has recently been "upgraded" so that it will run
+  with contemporary Windows versions, it is still useful on almost any PC
+  sold in the last twenty years.
+
+  Because this is an "old" 16-bit application, WhizCall is not as fancy as
+  modern Windows applications. On the other hand, neither does it depend on
+  DLL files and such. The ùGWBASIC.EXE interpreter is required to run the
+  BAS version of this program. ùWhizCall.EXE is a self-contained compiled
+  program and it therefore does not depend on any other software.
+
+  Thus far, this package has been tested on PC/XT, PC/AT, 486 and newer
+  computers up through Pentium 4. It has worked for me with DOS versions 3
+  through 6, and Windows 3.01, 95, and 98 SE.
+|Programming
+
+  GW-BASIC programs must be "interpreted" by another program. As a DOS command
+  line construction, GWBASIC WHIZCALL will cause ùGWBASIC.EXE to be loaded and
+  it in turn will launch ùWhizCall.BAS -- the essence of this package.
+
+ ùWhizCall.BAS was designed such that it can also be "compiled" using
+  Microsoft's ùQuickBASIC (vers 2.0) compiler. This was often done in days of
+  yore because compiled programs typically run much faster than interpreted
+  ones. ùWhizCall.EXE is also a stand-alone file. (Does not need to have
+  GWBASIC.EXE resident on the system.)
+
+  WhizBAM: GW-BASIC does not include commands for managing a mouse. My
+  solution was to prefab a part of WhizCall with an assembly language program.
+  My ùWhizBAM assembler was used to manufacture a routine that WhizCall can
+  CALL. It in turn can invoke either MOUSE.COM or MOUSE.SYS (components of DOS
+  and Windows). WhizBAM was also used to build a small routine to fetch
+  the day of the week from DOS.
+
+  WhizFont: The "large print" displayed by WhizCall is rendered by use of a
+  custom font file generated with my ùWhizFont editor.
+
+  Whiz: ùWhizCall.COM was generated with my assembler called ùWhiz (which is
+  also now available from my freeware library, gee whiz).
+|Software
+
+  ùWhizCall is made up of several files. Technical details concerning each
+   are listed on subsequent pages. The following is an index of those pages.
+
+    ùWhizCall.BAS - interpreted program
+    ùWhizCall.EXE - compiled program
+    ùMouse.BAM    - assembly language module
+    ùWeekDay.BAM  - assembly language module
+    ùWhizCall.FNT - font for "big" characters
+    ùWhizCall.HLP - (this) documentation file
+    ùWhizCall.COM - displays WhizCall.HLP
+
+  See ùData for layout descriptions of
+
+     WhizCall.DAT - names and phone number data
+     WhizCall.TXT - optional output text file
+     WhizCall.CSV - optional output Excel file
+|WhizCall.BAS
+
+  WhizCall.BAS resembles an ASCII text file. Although it was created using
+  the editor built into GWBASIC.EXE, this file can be looked at with most
+  any text editor. If modified with other than GWBASIC.EXE, however, there
+  is a good chance that the result will no longer be usable.
+
+  If a SAVE is done by ùGWBASIC.EXE without specifying A-for-ASCII, the
+  resulting BAS file will no longer be viewable by other programs.
+
+  WhizCall.BAS was developed on a DOS 3.0 machine running GWBASIC.EXE
+  version 3.23. Whether the BAS program will work correctly on a Windows
+  machine is a function of whether the GWBASIC.EXE interpreter can run on
+  such a platform. My experience has been, GWBASIC.EXE works fine with
+  Windows 3.1, 95, 98, 98 Plus, and 98 SE.
+|WhizCall.EXE
+
+  WhizCall.EXE is an "executable" machine language file. This is the
+  ultimate "object" file generated by the QuickBASIC compiler, which also
+  uses WhizCall.BAS as its "source" file.
+
+  See ùQuickBASIC for technical notes about compiling.
+|Mouse.BAM
+
+  Mouse programming is routinely done via INT 33h to access a considerable
+  number of functions peculiar to Mickey and his friends. WhizCall makes use
+  of only five functions: 1) initialize the mouse driver; 2) turn the cursor
+  on; 3) turn the cursor off; 4) get the location of the cursor and the
+  state of the buttons; 5) reposition the cursor.
+
+  GW-BASIC has no INT command. GW-BASIC does have a CALL command. CALL can
+  be  used to jump out of BASIC to a machine language routine. When a RETF
+  is encountered in that stream, return is back to BASIC, to the command next
+  after the CALL. See that CALL is conceptually similar to a GOSUB.
+
+  Mouse.BAM was created with an ASCII text editor. This is the "source" file
+  used as input to WhizBAM, a specialized assembler that can output lines of
+  GW-BASIC statements. This output was then implanted into ùWhizCall.BAS with
+  the GW-BASIC MERGE command.
+
+  Beyond this one-time use, Mouse.BAM actually has no further value other
+  than for study, possible program maintenance, or when building some other
+  package with similar needs. See ùWhizBAM for technical notes about how
+  this file was used with that assembler. See the next page about how
+  Mouse.BAM works.
+| 
+
+  The logic of Mouse.BAM:
+
+    JMP 0000      ;+Mouse           ÚÄÄÄÄÄÄÄÄÄ¿
+    DW 0001                         ³       PUSH SI
+    DW 0000                         ³       PUSH DS
+    DW 0000                         ³       PUSH ES
+    DW 0000                         ³       INT 33 ; call driver
+    PUSH DI       ;#Mouse           ³       POP ES
+    MOV DI,SP     ; 03-23-05        ³       POP DS
+    MOV DI,[DI-2] ; adrs of CALL    ³       POP SI
+    MOV AX,[DI+2] ; GM(1)           ³       POP BP
+    MOV BX,[DI+4] ; GM(2)           ³       POPF
+    MOV CX,[DI+6] ; GM(3)           ³       MOV [DI+4],BX ; GM(2)
+    MOV DX,[DI+8] ; GM(4)           ³       MOV [DI+6],CX ; GM(3)
+    PUSHF                           ³       MOV [DI+8],DX ; GM(4)
+    PUSH BP                         ³       POP DI
+      ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ       RETF ; fini
+
+  That initial JMP is to "go around" the four words in this block that
+  follow the jump itself (which is also two bytes wide). Four parameters can
+  be passed to the Mouse driver using BASIC expressions like GM(1)=1. On
+  return, answers from the driver can be obtained as in X=GM(3) and Y=GM(4).
+| 
+
+  Rules for mouse programming are, in effect, a unique language. The mouse
+  driver can do quite a number of things. These "functions" are typically
+  invoked by a code in AX, values in BX, CX and DX in some cases. Upon exit,
+  the driver places return values in BX, CX, and DX, but normally leaves AX
+  as it was.
+
+ ùWhizCall makes use of only five mouse functions. Their trigger codes are:
+
+    0 - Reset the driver to its default values
+    1 - Turn ON the mouse pointer
+    2 - Turn OFF the mouse pointer
+    3 - Get status of buttons and current X,Y coordinates  
+    4 - Set (forcibly move) cursor to position X,Y
+
+  Of these, only when using code 3 do we really care, or expect answers.
+
+  Notations: The ùWhizBAM file reflects use of array variables GM(1)-GM(3).
+  These equate to G(1)-G(3) in WhizCall. See that the logic here supposes
+  that this routine is stored in an integer array. The name of that array
+  is known only by GW-BASIC. The mouse driver is working with byte-pairs
+  relative to the beginning of this assembly language routine.
+|WeekDay.BAM
+
+  GW-BASIC, and others, have built-in functions for fetching today's date
+  and time from the system. DATE$ and TIME$ are certainly nice to have. And
+  since DOS already knows the day of the week for any date, it has always
+  been a mystery to me why there is no DAY$. As an alternative to designing
+  and debugging a comprehensive day-calculator, ùWhizCall.BAS uses a tiny
+  assembly language routine. This one will cause DOS to return a number (0-6)
+  corresponding to days of the week such as Sun, Mon, Tue, and so on.
+
+  WeekDay.BAM was created with an ASCII text editor. This is the source file
+  used as input to WhizBAM, a specialized assembler that can output lines of
+  GW-BASIC statements. This output was then implanted into ùWhizCall.BAS using
+  the GW-BASIC MERGE command.
+
+  Beyond this one-time use, WeekDay.BAM actually has no further value other
+  than for study, possible program maintenance, or when building some other
+  package with similar needs. See ùWhizBAM for technical notes about how this
+  file was used with that assembler. See the next page about how this
+  assembly language module works.
+| 
+
+  The logic of WeekDay.BAM:
+
+    MOV AH,2A   ; get date
+    INT 21      ; DOS
+    MOV DX,AX   ; weekday # in AL
+    MOV AX,2580 ; set INT 80
+    INT 21      ; DOS
+    RETF        ; answer @ 0000:0200
+
+  INT 21 is a call to DOS services. In this case, AH is preloaded with the
+  function code used to request the system date. Other returned vales are
+  ignored. Day of week (0-6) comes back in AL. Moving AX to DX frees AX so
+  that 2580h can be loaded preparatory to requesting DOS to MOV the day number
+  to INT 80. In BASIC then, PEEK can be used to retrieve the week day number
+  from 0000:0200 (the physical memory location of INT 80).
+
+  Notes: Moving AX to DX is a simple expedient. Function 25h will store the
+  contents of CX and DX at the vector address for INT 80. Because INT 80 is
+  one of those historically reserved for BASIC, but no longer in fact used,
+  usurping this location is a relatively safe trick.
+|WhizCall.FNT
+
+  WhizCall.FNT contains bit patterns for rendering characters in 16x24 cells.
+  BLOAD, a GW-BASIC command, is used to move this file from disk into an
+  array each time ùWhizCall is loaded. WhizCall.FNT contains pixel patterns
+  corresponding to values 32-127 of the ASCII code set, and for 0-31 of those
+  in the PC de facto standard.
+
+  As records in a relative file, WhizCall.FNT is organized as 1 record per
+  each character. For 16x24 pixel characters, each record is 48 bytes long.
+  In this case, because WhizCall.FNT is a BLOAD file into an integer array,
+  successive byte-pairs connote 16-bit wide lines. This file also contains a
+  7-byte header, and a 1-byte end-of-file marker. 
+
+  See ùWhizFont for technical notes about how this file was generated.
+|WhizCall.HLP
+
+  WhizCall.HLP is an ASCII text file created with a text editor. This file
+  is meant to be read using WhizCall.COM. The formatting rules for this
+  scheme are fairly simple.
+
+  Length of each text line is limited to a maximum of 79 characters.
+
+  Length of each page is limited to a maximum of 24 visible lines.
+
+  Dot-words work as shortcuts to pages with corresponding names. Those pages
+  must begin with a bar character -- CHR$(124) -- followed immediately by the
+  key word.  These "header lines" are not visible on the monitor, and this
+  line is not included in the max-24 limit.
+
+  Continuation pages, for pages longer than 24 lines, should begin with
+  a bar-character followed immediately by one space on a line by itself.
+
+  The very last thing in the file is a bar character on a line by itself.
+
+  See ùWhiz for how WhizCall can be used to display other help files that
+  conform to the rules above.  
+|Data
+
+  WhizCall.DAT is the data file containing names, phone numbers, extensions
+  and notes. Each line shown on the screen corresponds to one record.
+
+  Each record is made up of 6 fields containing any character < CHR$(128)
+
+    0 - Null -  2 bytes
+    1 - Name - 14 bytes
+    2 - Numb - 14 bytes
+    3 - Ext  -  4 bytes
+    4 - Note - 27 bytes
+    5 - Null -  1 byte
+
+  Record #1, the first record in the file, is used to hold program values
+  which are ASCII strings, left-justified in the same fields described above.
+
+    0 - Port, Index (0, 1, or 2 for port #n)
+    1 - File Pointer (position of last record dialed)
+    2 - Mode, Hours (2 or 4 for 12 or 24)
+    3 - Make File (N, T, or C for None, TXT, or CSV)
+    4 - Page Direction (U or D for Up or Down)
+    5 - Global Speed of Mouse (0-5) 
+                                (continued)
+| 
+
+   Another aspect of WhizCall.DAT is important: Whenever a record is
+   deleted, all of its fields are set to spaces, then a marker is installed
+   in it to make it possible for additions to reuse this space in the file.
+   (Thus, the file may grow, but will never shrink.)
+
+   The dead-record marker is a single CHR$(255) stored in the first position
+   of the Name field. This trick makes it possible to sort deleted records
+   onto the bottom of the file. In practice, what really happens is, all
+   records following the one to be deleted are moved up one position, then
+   the "dead record" overwrites the old, last record in the file.
+
+   During an Add, all records following the insert point are moved down one
+   position. Shifting stops when a "dead record" is encountered, or the end
+   of the file is reached.
+
+   As noted above, the ùWhizCall.DAT file is uniquely formatted especially
+   for the benefit of this program. Because it is sometimes quite handy to
+   make use of this data with some other application, two other types of
+   files may be generated that are more compatible with some packages.
+
+        The next two pages describe ùCSV and ùTXT files respectively. 
+|CSV
+
+  CSV files are referred to as such because the data fields in each record
+  are separated by commas. (CSV = Comma Separated Variables.)
+
+  If the C option is ùSet on the Opts page, when Quit is done, ùData in
+ ùWhizCall.DAT is copied to a file called WhizCall.CSV. Data in this case
+  means records containing names and phone numbers. The header record is NOT
+  copied into the CSV file, nor are "dead" records, if any, stored at the
+  tail end of the DAT file.
+
+  CSV records each contain 4 fields of data: Name, Phone number, Extension
+  and Notes, always in that order. Unlike the DAT file, CSV records may vary
+  in length because each of the fields may vary in length. Each string begins
+  and ends with a quotation mark, and each quoted string is separated by a
+  comma. Empty fields, i.e., those containing no data will be represented by a
+  pair of quotes with nothing in between. Each record (each line) of the CSV
+  file ends with an unseen CR/LF (Carriage Return/Line Feed) pair of bytes.
+
+  The very last byte in WhizCall.CSV files is always a (harmless) end-of-file
+  marker. This BASIC convention is a byte that looks like a CHR$(27).
+
+  Having the several characteristics described above, WhizCall.CSV files
+  may be loaded directly into MS Excel, or similar spread sheet programs.
+|TXT
+
+  TXT files are referred to as such because the data in each record
+  resembles what is generally meant by terms like ASCII, or text files,
+  or even, sequential or serial output files.
+
+  Data in this case means records containing names and phone numbers. The
+  header record is NOT copied into the TXT file, nor are "dead" records,
+  if any, stored at the tail end of the DAT file.
+
+  Unlike some text files, WhizCall.TXT contains only fixed-length records.
+  Just as they appear on the ùWhizCall screen, columnar alignment of the
+  fields is maintained by the use of extra space characters. Each record
+  (each line) ends with an unseen CR/LF pair of bytes.
+
+  The fundamental scheme described above depends on fixed-width characters
+  (as opposed to variable-width.) To reproduce the same columnar alignment
+  with Windows programs, the font set called "System" should be used.
+
+  The very last byte in WhizCall.TXT files is always a (harmless) end-of-file
+  marker. This BASIC convention is a byte that looks like a CHR$(27).
+|GW-BASIC
+
+  GW-BASIC, spelled thus, is the proper name of a programming language first
+  copyrighted by Microsoft in 1983. During its infancy, the essence of this
+  language was also known as MBASIC, BASICA, and IBM BASIC. The evolution of
+  GW-BASIC ceased in 1988 with version 3.23.
+
+  Correct execution of all of the commands and functions in GW-BASIC programs
+  is only possible when using the GWBASIC.EXE interpreter. Some simplistic
+  GW-BASIC programs can be ported as is, more or less, to other environments
+  such as Microsoft's QuickBASIC compiler, and Microsoft's other interpreter
+  called QBasic.
+
+  In this case, ùWhizCall was very deliberately written to make it portable
+  between GW-BASIC and QuickBASIC 2.0. As is, this program runs fine when
+  used with GWBASIC.EXE. Only a couple of minor changes need to be made to
+  be able to use the QB 2.0 compiler to generate an EXE version.
+
+  Line 1020 in all ùWhizWare GW-BASIC programs contain a SAVE and a LIST
+  statement. Neither of these can be executed in other environments. This
+  line is a handy development tool, however: RUN 1020 is a quick and easy
+  method of maintaining an up to date copy of the program on disk.
+
+  Next is an overview of WhizCall.BAS and coding conventions employed.
+|  
+
+ ùWhizCall is made up of blocks of GW-BASIC program lines. Following the
+  3-line ID block is a branch table, an initialization block, a "mainline"
+  loop, then 19 subroutines. This overview describes architecture and coding
+  conventions. Assuming the reader is already versed in GW-BASIC itself, it
+  is hoped this additional input will make it relatively easy to figure out
+  how WhizCall works.
+
+  Branch table: GOSUB is never done directly from one module to another.
+  Instead, all GOSUB commands are aimed at a line in the branch table which
+  does an immediate GOTO to the targeted routine. This convention makes the
+  branch table an index. See that, whenever a RENUM is done, this index is
+  automatically updated. Having the branch table at the beginning of the
+  program makes it easy to find where things happen down in the bowels of
+  the program.
+
+  Subroutines: All subroutines are blocks of lines. The first line of each
+  block contains only a brief "name" that corresponds to the one shown in
+  the branch table. Down in the bowels of the program, these names are also
+  appended to the end of any line containing a GOSUB. This naming scheme
+  makes it easier to "see" why each GOSUB is done, and where it goes.
+
+                                 (continued)
+| 
+
+  Branching: All calls to subroutines are via the branch table. There is
+  only one link to each one, aimed at its "name" line. Branching within
+  blocks is permitted, but no GOTO, THEN or ELSE may be aimed at any line
+  outside of a block. The only permitted exit from a subroutine is via the
+  single RETURN that denotes the end of that block. In a similar vein, no
+  branch may be aimed outside of FOR/NEXT and WHILE/WEND structures. Meaning,
+  the only way to exit such blocks is by falling through the respective NEXT
+  or WEND. When necessary, an "early out" is done by forcing the terminating
+  condition to be true.
+
+  Indenting: All lines that are the target of a branch or jump are fully
+  left-justified (only one space after the line number). So too is the last
+  line of any routine. Otherwise, any line that is not the target of a branch
+  or jump will begin with at least two spaces.
+
+  Multi-statement lines: Dense code is this author's habit. Certain rules
+  prevail, nonetheless. FOR and its related NEXT are normally on separate
+  lines, each indented a similar number of spaces. The same thing is true of
+  WHILE and WEND. One exception does occur, however. If an entire FOR/NEXT
+  or WHILE/WEND block will fit on one line, so be it. In all events, a line
+  never contains more than 79 characters including its line number. (No line
+  wrapping should occur during LIST or LLIST.)  
+                                (continued)
+| 
+
+  Variables naming: Names in ùWhizCall.BAS are always 1 or 2 characters.
+  From the outset, names beginning with letters:
+
+    A and B are not used, but default to single precision
+    C-L are exclusively for integer variables
+    M-W are exclusively for string variables
+    X and Y are integers used in graphics statements
+    Z is not used, but is predefined for integers
+
+  Given these defaults, appendages such as $ and % are unneeded anywhere.
+
+  The second letter of two-letter names is always one of those from the other
+  group. In PD and SE, for example, P and S denote strings. Their second
+  letters, D and E are from the integers group. Conversely, ET and GQ denote
+  integer variables; T and Q are from the string group.
+
+  Adhering to the above, names are still supposed to have a mnemonic quality.
+  Q is used for Query, typically, so GQ means Get Q. Similarly, it is not
+  hard to remember that MF holds a string code that means Make File.
+  The above conventions also make it easier to spot typing errors during
+  programming exercises. Likewise, names like XX or RR can be used as
+  temporaries during debugging without worrying about data conflicts. 
+                                (continued)
+| 
+
+  Local vs. global: Simple variables with one-character names are used only
+  locally. Those with two-character names are considered global in nature.
+  Meaning, locals are values set or used within a subroutine, but their
+  contents cannot be counted on anywhere else. Conversely, the contents of
+  global variables are preserved across GOSUB boundaries. Their use must be
+  respected by all logic elsewhere.
+
+  Arrays: Only six arrays are used. Although they each have only single
+  letter names, they are all respected as global in nature.
+
+  Variables assignments: All variables used by WhizCall are first declared
+  during program initialization. Brief remarks on those lines provide eyeball
+  glimpses of the "meaning" of their names. By and large, those meanings hold
+  true throughout the course of the program.
+
+  String space utilization: After their initial allocation, the length of
+  string variables remains constant throughout the program. This is done by
+  use of functions such as LSET, RSET and MID$. Meaning, other than that
+  first time, an expression such as MF="N" is no longer permitted. Rather,
+  when necessary to change the content of MF, LSET MF="C" would be OK.
+
+                                (continued)
+| 
+
+  Memory mapping: An overall intent is to freeze internal memory allocations
+  once the program gets underway. Static string space allocations are achieved
+  as described above; nowhere is string concatenation permitted. (Nothing
+  even remotely like M$+R$, for example.) Similarly, all simple variables are
+  named first during initialization and DIM statements are done last. Further,
+  DIM always uses an in-line constant rather than a variable name. Meaning,
+  DIM J(500) is the rule rather than something like I=500:DIM J(I).
+
+    Note: In GW-BASIC, any simple variable invented after a DIM causes all
+    arrays to be moved. And string concatenation causes "new space" to be
+    used for the result. And space containing previous values is abandoned.
+    Such string space fragmentation forces the interpreter to do a "garbage
+    cleanup" periodically. And that causes things in memory to move around.
+
+    Note: In QuickBASIC, static vs. dynamic DIM statements has an unseen,
+    unwanted consequence. DIM J(100) will cause those 100 elements to be
+    stored in the same physical block as other working storage. DIM J(I),
+    however, may cause those 100 elements to be stored beyond the "bottom"
+    of this program. This too is unwanted.
+
+  The above shop rules are especially important in programs that CALL
+  assembly language routines. Even so, DEF SEG always precedes a CALL.
+|QuickBASIC
+
+  Line 1030 in ùWhizCall.BAS is a dummy that is never executed. Rather, the
+  numbers following GOTO are of lines that must be modified to be able to
+  compile this program with QB 2.0. Notice that line 1020 is listed first,
+  followed by the numbers of two more lines that need to made into remarks.
+
+  Line 1030 is kept in the source file because it serves as an "index" of
+  the lines that must be changed. ON I GOTO is handy because, if a RENUM is
+  done, this little index is updated automatically.
+
+  The basic difference in these two languages is, in this instance, CALL as
+  used in GW-BASIC must be written as CALL ABSOLUTE in QuickBASIC. It is not
+  usually practical to adopt this "dual attitude" amongst later versions of
+  QuickBASIC, or other BASIC dialects. The differences are simply too many,
+  not only of CALL, but of many other commands, functions, and semantics to
+  devise a "common" source file.
+
+  When compiling WhizCall.BAS with QB 2.0, two options must always be set ON.
+  Because WhizCall contains ON ERROR logic, the compiler must be told to
+  expect that possibility, and that a RESUME NEXT will likely follow. Output
+  from the compiler is an OBJ file, of course. That file must be used as
+  input to the DOS LINK program to produce the end product, an EXE
+  stand-alone program.
+|WhizBAM
+
+  WhizBAM is an assembler, and a source code generator. It reads source files
+  containing assembly language statements, translates them into machine code,
+  then generates a GW-BASIC program reflecting that object code. WhizBAM can
+  optionally output DATA statements, numeric array assignment statements, or
+  MID$ constructs that insert machine codes into a string array. The two
+  WhizBAM modules used in ùWhizCall are both integer arrays.
+
+  WhizBAM is a two-pass assembler. It actually outputs two files. The interim
+  file has a last name of LST. In any case, the LST file can be Listed on a
+  printer using most any program that can print ASCII text files. The primary
+  purpose of the LST file, however, is to be able to "see" any error messages
+  that developed during the assembly process. Most often, when an assembly is
+  "clean," the LST file is simply discarded.
+
+  The other output from WhizBAM is a BAS text file. This file always begins
+  with line 4000, and subsequent lines are incremented by 10. This file can
+  thus be inserted into any GW-BASIC program with a MERGE command.
+
+  After Mouse.BAM and WeekDay.BAM were merged into ùWhizCall.BAS those
+  lines were edited to conserve space and eliminate variable name conflicts.
+  The object code they represent, however, was maintained precisely as
+  output by the assembler. 
+|WhizFont
+
+  WhizFont is another ùWhizWare freeware program. It is useful for
+  generating bit-mapped images of characters that can be displayed in
+  EGA/VGA modes. A pixel-editor program in this package makes it easy to
+  develop icons in several cell sizes. ùWhizCall uses output from that
+  editor for 16x24 icons that correspond to ASCII character codes 0-127.
+
+  WhizFont files are organized such that the icons can be easily drawn with
+  FOR/NEXT loops that make use of BASIC's LINE styling concepts. WhizCall
+  does this, but uses a calculated index into an integer array rather than
+  with a record pointer into a relative file.
+
+  At the very end of WhizCall.BAS is a short program that can "read" a
+  WhizFont file into an array which will then be output to disk using a
+  a one-time BSAVE. In this case, only half of a 256-character font file is
+  needed because this program does not need to output "graphics" characters.
+
+  Although this "tool module" is tacked onto the end of WhizCall.BAS, it is
+  never actually executed as a WhizCall routine. Its primary purpose here is
+  for documentation. It could also prove to be useful in the event it is
+  ever desirable to once again use WhizFont to modify any of the characters
+  that can be displayed by WhizCall.
+|Whiz
+
+ ùWhizCall.COM was originally generated using my Whiz Assembler, another
+ ùWhizWare freeware product. Whiz is a complete software development kit that
+  includes both source (WSP) and object files (COM). Its own WhizHelp.COM
+  program was modified to become WhizCall.COM in this package.
+
+  WhizCall.COM can be renamed so that it can be used for other applications.
+  The name of the file to be displayed -- WhizCall.HLP -- is embeded as a
+  constant inside WhizCall.COM. The "formal" way to modify this constant is
+  to change the constant, then re-assemble the program. For name changes,
+  however, there is an even easier way to do it. 
+
+  The structure of WhizCall.COM is such that it is relatively easy to modify
+  its target's name. The name-constant appears only once, and it is very near
+  the beginning of the file. Most any hex-code editor can be used to modify
+  this name. In this case, DOS Debug was the preferred choice.
+
+  Notice that, if a modification is needed, the name string is followed by a
+  repetition of equal marks. This convention must be maintained, and the
+  overall space allocated for the name+equals marks must not be altered.
+
+
+               The next page is the last page of this document.
+| 
+
+
+
+
+
+               Enjoy! This program package may be freely used,
+               copied, and distributed with my compliments. TM
+
+                           whizware@bellsouth.net
+|

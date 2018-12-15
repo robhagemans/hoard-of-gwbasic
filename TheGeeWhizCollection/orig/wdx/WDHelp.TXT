@@ -1,0 +1,872 @@
+                 ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                 ³  ùWhizDraw (C) Copyright  ùWhizWare  1995  ³
+ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+ ³ ùMasks ÄÄÄ  Full screen image files           ÄÄ¿                          ³
+ ³ ùIcons ÄÄÄ  Small screen image files (cutouts) ÄÅÄ See Save and Load also  ³
+ ³ ùFonts ÄÄÄ  Character-shape files for Type    ÄÄÙ                          ³
+ ³ ùMouse ÄÄÄ  How to use and how to set button options                       ³
+ ³ ùKeys  ÄÄÄ  Which ones are usable for what                                 ³
+ ³ ùMenus ÄÄÄ  Getting around in WhizDraw                                     ³
+ ³ ùColors ÄÄ  How to dynamically select                                      ³
+ ³ ùSave  ÄÄÄ  For copying Masks, Icons, or Fonts to disk                     ³
+ ³ ùLoad  ÄÄÄ  For loading Masks, Icons, or Fonts from disk                   ³
+ ³ ùGraf  ÄÄÄ  To SHELL to WhizDraw's Graphics Files Utility Program          ³
+ ³ ùPjet  ÄÄÄ  For putting your drawing on paper                              ³
+ ³ ùHelp  ÄÄÄ  To see Status, Font codes, or How to use WhizDraw              ³
+ ³ ùCmnd  ÄÄÄ  To SHELL to DOS command mode (and return via EXIT)             ³
+ ³ ùQuit  ÄÄÄ  To terminate and exit WhizDraw                                 ³
+ ³ ùDraw  ÄÂÄ  To select the following "drawing" modes                        ³
+ ³         ³                                                                  ³
+ ³         ÃÄ ùZoom ùLines ùBoxes ùOvals ùArcs ùDots ùErase ùFill ùUnfill     ³
+ ³         ³                                                                  ³
+ ³         ÀÄ ùXcolor ùInvert ùMirror ùRotate ùW x 2 ùH x 2 ùCut ùPaste ùType ³
+ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizWare
+
+   WhizWare is a software development firm.
+
+       WhizWare
+       635 Kendrick Rd
+       Milner, GA 30257
+
+   The analyst that designed ùWhizDraw is Thomas C. McIntire.  Write to Tom
+   if you have any problems or wish to comment on this software.  He will
+   appreciate the input.  His e-mail address is:   whizware@bellsouth.net
+
+|WhizDraw
+
+  WhizDraw is our generic name for the following software components:
+
+    WhizDraw.EXE - the main program  (WhizDraw.BAS is the source file)
+    WhizDraw.OVL - overlay file -- menus, text and machine language routines
+    WDhelp.EXE   - this program, which is called by WhizDraw.EXE
+    WDhelp.DAT   - the Help data file displayed by WDhelp.EXE
+    WDhelp.TXT   - the Help source file input to WhizHelp.EXE
+    WDJetXL.EXE  - driver for HP PaintJet XL -- see ùPjet (and WDJetXL.BAS)
+    WDGraf.EXE   - Graphics Files Utility -- see ùGraf (and WDGraf.BAS) 
+    WD???.FNT    - standard character sets -- see ùFonts
+    *.MSK        - sample mask files -- see ùMasks
+    *.ICN        - sample icon files -- see ùIcons
+
+    WhizDraw.EXE, WhizDraw.OVL and WDEGA.FNT must be in the run-time path.
+    WDhelp.DAT must be in the same path as WDhelp.EXE; they must both be
+    in the same path as WhizDraw.EXE to get Help from the WhizDraw menu.
+
+    WDJetXL.EXE must be in that same path if it is to be called via WhizDraw.
+    Note:  Use this program only for an HP PaintJet XL--the odd control
+    codes it uses will drive any other printer bonkers.  If you do not have
+    this specific printer, delete this program from your run time path.
+    (If selected then, the request will simply be ignored). 
+|Masks
+
+  Masks is our generic name for full-screen images stored in disk files.
+
+  Mask files are large:  112,000 bytes.  (See ùIcons for comparison.)
+
+  We suggest using a file name extension of .MSK for mask files.
+  If no name extension is typed, dot-MSK will be added for you.
+
+  Also see ùLoad and ùSave and ùGraf ...
+|Icons
+
+  Icons is our generic name for part-screen images stored in disk files.
+
+  Icon files are only as large as need be.  (See ùMasks for comparison.)
+
+  We suggest using a file name extension of .ICN for icon files.
+  If no name extension is typed, dot-ICN will be added for you.
+
+  Icon files are created by copying a cut-image from memory to disk.
+    (When loaded they are copied from disk into this same buffer.)
+
+  See ùCut and ùPaste for more about this.
+
+  Also see ùLoad and ùSave and ùGraf ...
+|Fonts
+
+  Fonts is our generic name for printable character sets stored in disk files.
+
+  Font files are always 7,176 bytes in size.
+
+  We suggest using a file name extension of .FNT for font files.
+  If no name extension is typed, dot-FNT will be added for you.
+
+  To customize individual characters select ùType from the ùDraw menu then
+  hit <Ins>.  Instructions for using this feature are shown at that time.
+
+  Also see ùLoad and ùSave ...
+|Mouse
+
+  WhizDraw presumes use of a 2-button Mouse.  (Extra buttons are ignored.)
+
+  Mickey's right paw works the same as the <Esc> key and his left paw works
+  the same as the <Enter> key.  This can be reversed while in any ùDraw mode.
+
+      Hit <F2> any time while running ùWhizDraw to "flip flop" how this
+      program interprets which paw is for what.  (The setting you choose is
+      stored in the WDhelp.DAT file.)
+
+  Mickey's paws are sensed when depressed then released.  The Enter paw works
+  like an "auto-repeat key" during ùDots and ùLines and ùZoom and while
+  editing ùFonts but in all other cases the buttons are not acted on until
+  "clicked".
+
+  WhizDraw assumes your mouse driver has already been loaded before
+  WhizDraw is started.  When you ùQuit the mouse driver is left in memory.
+
+  WhizDraw does not fool with the driver's sensitivity or speed parameters
+  --they remain as they were before WhizDraw is run.
+|Keys
+
+  Keys on the keyboard work generally as expected.  However:
+
+    The <Tab> key is used to change the spacing interval of cursor movement
+    done via the cursor-arrow keys.  Normally it moves 1 dot-space at a time.
+    <Tab> will change this to 10 dot-spaces at a time.  Hitting <Tab> again
+    resets the interval back to 1.  (This key is active only while in ùDraw 
+    routines.)  The spacing interval set by <Tab> while doing ùDraw ùType is
+    either one dot-space or the size of one character cell (8 x 14).
+
+    <Ctrl>+<Enter> has a special use during ùPaste and ùLoad for ùMasks ...
+    See those pages for that definition.
+
+    See ùFonts about the only time the <Ins> key is used.
+    During ùDraw routines <Home> resets the from-pointer.
+    In some ùDraw routines <Del> is an "un-do" key.
+    See ùColors about how <Alt> + <0...9> and <A...F> are used.
+
+  See the next page about special functions assigned to F-keys ...
+| 
+
+    <F1> Is an "auto-cut" key.  It will automatically reposition the
+         "cut-box" to surround the same image area last operated on by
+         a ùCut or ùPaste function.  (This is handy when you have been
+         editing an ùIcons image and want to update the cut buffer.)
+         <F1> is only active while in ùCut mode, PS.
+
+    <F2> Flip-flops (reverses) the meaning of ùMouse buttons.
+
+    <F3> Is operable only during ùZoom editing.  It stores the current
+         X and Y positions and pixel color setting each time this key is
+         hit in a disk file called WDPLOT.DAT.  This file is automatically
+         deleted when WhizDraw first begins and closed in conjunction
+         with ùQuit (so, if its contents are to be used the file must be
+         preserved before this program is executed again).  Note:  This
+         capability is peculiar to a package called ùWhizKids ...
+
+    <F4> Displays cursor X and Y positions during ùDraw routines.
+         At that point, hitting <F5> ... <F10> will save the X and Y
+         coordinates displayed so that they may be recalled--and
+         the cursor moved to--the last position saved with <F5> or
+         <F6>, etc., whenever the <F4> display is not on.  Hitting any
+         key (or button) turns off the <F4> display.
+|Menus
+
+  Menus in WhizDraw are lists of things you can do--the way you get around.
+
+  Notice that the key words in each menu begin with unique capitals.
+
+  A function can be selected from a menu in one of three ways:
+
+    By hitting its initial letter on the keyboard or by moving the
+    cursor with arrows or the Mouse to that word then hit <Enter>.
+
+      <Esc> is always usable, from anywhere, to get to menu-mode.
+
+  Switching from ùDraw routines to menu-mode also resets the from-pointer
+    and saves your Rembrandt in the "un-do" buffer.  See ùKeys for more.
+|Colors
+
+  Colors are selected by key-codes:
+
+    0 = Black      8 = Gray
+    1 = Blue       9 = Hi Blue           (Hi means high intensity or bright)
+    2 = Green      A = Hi Green
+    3 = Cyan       B = Hi Cyan           (Cyan is also known as Marine Blue)
+    4 = Red        C = Hi Red
+    5 = Magenta    D = Hi Magenta        (sort of Purple or Pink)
+    6 = Brown      E = Yellow            (Brown may appear as a shade of Red)
+    7 = White      F = Hi White
+
+       These keys (0-9 and A-F) are like hot keys during ùDraw routines.
+
+       During ùDraw ùType use <Alt> + the key-code to set colors.
+
+       Notice that these codes are the same as hexadecimal values
+       for 0-15 (these are the color codes that are used in BASIC).
+|Save
+
+  Save means copying from memory to disk.  When you select Save a second menu
+  selection is necessary to specify what you want saved.
+
+  Having selected Save, and a file type, you must next supply (type) a file
+  specification according to DOS rules for such, then hit <Enter>.  If no
+  dot-whatever is typed, a default name extension is added automatically.
+  See ùMasks or ùIcons or ùFonts for more about this.
+
+       If a filespec is displayed and it is correct, just hit <Enter>.
+
+       Remember that if a file already exists that exactly matches
+       your file specification it will be updated.  (Destroyed?)
+
+       If DOS doesn't like your file specification you will hear a two-tone
+       beep to let you know the Save could not be done.
+
+      <Esc> is always usable, from anywhere, to get to menu-mode.
+|Load
+
+  Load means copying from disk to memory.  When you select Load a second menu
+  selection is necessary to specify what you want loaded.
+
+  Having selected Load and a file type you must next supply (type) a file
+  specification according to DOS rules for such, then hit <Enter>.  If no
+  dot-whatever is typed, a default name extension is added automatically.
+  See ùMasks or ùIcons or ùFonts for more about this.  Also, when loading
+  Masks, <Ctrl>+<Enter> "overlays" a mask on top of whatever is already on
+  screen, vs. just <Enter>, which "replaces" an existing screen.
+
+       If a filespec is displayed and it is correct just hit <Enter>.
+
+       Remember that if a file already exists in memory it will be
+       replaced (overwritten) by the file being loaded.
+
+       If DOS doesn't like your file specification you will hear a two-tone
+       beep to let you know the Load could not be done.
+
+      <Esc> is always usable, from anywhere, to get to menu-mode.
+|Draw
+
+  Draw is a second level menu of 18 drawing routines.  Once one is picked
+  you stay in that "mode" until a different one is selected.
+
+  ùZoom enlarges a 16x16 dot square area of the screen so you can better
+     see the dots and it lets you "edit" them.
+  ùLines & ùBoxes & ùOvals & ùArcs & ùDots are actual drawing routines.
+  ùErase & ùFill & ùUnfill & ùXcolor are automatic coloring routines.
+  ùInvert & ùMirror & ùRotate are turn-this-image-around routines.
+  ùW x 2 & ùH x 2 are enlarging routines for doubling the size of an image.
+  ùCut & ùPaste are for moving images around on the screen or between
+     the screen and disk files-- ùIcons we call them.
+  ùType activates the keyboard so that text may be added to a drawing.
+
+              When you pick any drawing routine the Draw menu
+              disappears and you are then in the mode selected.
+
+  While drawing, <Esc> exits to the Draw menu; from there, <Esc> exits
+  to the main menu.
+|Graf
+
+  Graf may be selected to link to our WDGraf.EXE program:  A utility useful in
+  several ways...
+
+    It can "convert" a mono-type .MSP file --an image file in a format common
+    to several other drawing packages (and some scanner software) so that it
+    can be imported into WhizDraw.  It can also "convert" WhizDraw ùMasks and
+   ùIcons and CogoWhiz files (and vice versa).
+
+    During any of these conversions it is also possible to "rotate" an image.
+    This is different than that done by ùDraw ùRotate --an MSP or MSK file
+    may be re-generated as if it had been saved with the image turned on its
+    left side.  Icon files may be turned a specific number of degrees (1-90).
+    Considering up as 0, a positive number of degrees turns the image to the
+    right; a negative number turns the image toward the left.  (To go beyond
+    90ø turn n-degrees then use ùInvert and ùMirror to get what you want.) 
+
+    During any of these conversions it is also possible to "down scale":  An
+    image may be reduced by half, by a third, and so on.
+
+
+  This is a powerful tool.  But.  See the next page for some "limitations" ...
+| 
+
+  WDGraf.EXE may be run from command mode as a free standing program or linked
+  to via the ùGraf option on the main WhizDraw menu.  If done this way, know
+  that:  Any on-screen "drawing" being worked on will be lost!  Best do a
+ ùSave if necessary, before choosing the ùGraf option.  (Use ùHelp Status if
+  you can't remember what you are doing.) 
+
+  Scaling:  When an existing image is "scaled down" some detail is bound to be
+  lost.  (Also see the note below about over-writing an existing file.)
+
+  Rotation:  The output image is simply re-plotted pixel-by-pixel.  Because
+  the screen is arranged with 640 pixels across, but only 350 vertically, the
+  "edges" of large pictures can be lost.  And proportionality suffers; what
+  used to be round will likely wind up as ovals.  When rotating ùIcons some
+  detail may become "fuzzy".  (Because:  The arithmetic involved produces
+  fractions but pixel positions are finite integers--a pixel cannot be
+  turned on "between" absolute positions; rounding puts them in the nearest
+  possible whole-numbered position.)
+
+  Files:  WDGraf reads an existing file and creates a new one.  You name the
+  "source file" and the "target file".  Just like elsewhere in the wonderful
+  world of DOS, if a target file already exists having a matching name it will
+  be over-written.  (The previous file contents will be lost).  Caveat.
+| 
+
+ Filtering:  If Y-for-Yes is selected, after an image is produced it will be
+  scanned for "isolated pixels".  In a solid-color area, for example, if a
+  lone pixel is found whose color differs from all of those adjacent to it,
+  it will be automatically changed to the color of its neighbors.
+
+ Smoothing:  If Y-for-Yes is selected, after an image is produced it will be
+  scanned for "rough edges".  If an image is enlarged using ùW x 2 or
+  ùH x 2 for example, this function can be used to "fill in" pixels between
+  diagonally opposed matching colors.  (This frequently produces much smoother 
+  shapes.)
+
+   NOTE:  For very large images--especially for full Mask files--be
+   patient.  Both filtering and smoothing are inherently slow processes.  In
+   many cases you can see individual pixels being changed.  In large "blank"
+   areas, however, nothing will be seen to be happening thus one might think
+   the program has gone into limbo.  Be patient.  Go get a cup of coffee or
+   something.  The wait will usually be well worth it.  These two options can
+   save you a lot of work by reducing the amount of ùZoom editing you might
+   otherwise have to do. 
+|Pjet
+
+  Pjet is used to send a full screen color image to an HP PaintJet XL printer.
+     This is done via a separate program--WDjetXL.EXE--that can only be used
+     with that model of printer.
+
+  When Pjet is selected several options may be specified before the
+  call (via SHELL) to WDjetXL is done:
+
+    The letter A will Abandon the paper--leaving it where it is when the
+      program ends, so an immediate restart will continue on the same sheet.
+    The letter L will indicate that the output mode is to be Landscape--as
+      opposed to Portrait, viz the default mode.
+    The letter S will indicate that the output is to be Scaled--as opposed
+      to "normal", viz the default mode.  PS:  Scaling gives a more
+      proportionally correct picture.
+
+    Q=rrr means Quit after rrr monitor dot Y-lines have been printed (0-349).
+    X=ddddd means start in horizontal (printer) column ddddd.
+    Y=ddddd means start at vertical (printer) row ddddd.
+     (ddddd is "decipoints", 1/720 of an inch-- 360 = a half-inch, etc.)
+
+         Note:  All option indicators must be separated by spaces.
+| 
+
+  The default output (DOS) device is LPT1.  If your printer is set up as LPT2,
+    for example, then include LPT2: as an option when this program is started.
+    Notice the colon; it is a must.  This same thing works if your printer is
+    set up as a serial device.  For example, type COM1: as an option to route
+    output to serial port 1.
+
+  Normally, when called from the ùWhizDraw menu, what is then on the screen is
+    what you want printed.  It is also possible to supply the name of one of
+    your ùMasks as a start-up option.  Whenever this is done, the source file
+    name must be the first option named.  Done this way, from the WhizDraw
+    menu, what is then on screen will be preserved as is--the file from disk
+    is the one that will be printed.
+
+  It is also possible to start WDjetXL.EXE as a stand alone program, viz:
+
+    WDJETXL MYFILE.MSK L S Q=90
+    ÄÄÄÂÄÄÄ ÄÄÄÄÄÂÄÄÄÄ ³ ³ ³
+       ³         ³     ³ ³ ÀÄ print monitor Y-lines 0-90 then Quit
+       ³         ³     ³ ÀÄ Scale switch is on
+       ³         ³     ÀÄ Landscape mode is on
+       ³         ÀÄ a WhizDraw mask file (full screen or 112,000 bytes)
+       ÀÄ our PaintJet XL program (a dot-EXE file)
+| 
+
+  During any of this <Esc> exits to the main menu if selected from within
+    Whizdraw (or returns to DOS if WDjetXL is jump started).  Which is what
+    you should do if you don't have this model of printer.  In fact if your
+    printer is different, you should delete WDjetXL.EXE from your run-time
+    path.  (Then if selected on the Menu the request will be ignored.)
+
+            To send your art work to other printers maybe you can
+            use DOS <Print Screen> capabilites.  Check your manuals.
+            Look closely too, at the (DOS) GRAPHICS command. 
+|Help
+
+  Help is the menu selector for one of three types of info:
+
+    Status -- For where you are and what you have loaded, etc.
+
+   ùFonts -- Displays all of the characters in your currently loaded
+      font file so you can see what number to punch with <Alt>, or to
+      "capture" a character to be auto-duped while in ùDraw ùType mode.
+
+    How to -- Calls this program, WDhelp.EXE (via SHELL).
+
+      Notice that this is a free standing program and can be run directly
+      from DOS command mode.  (In which case it exits back to DOS.)
+      Also, this program can be called after using ùCmnd to shell to DOS.
+      Which is a useful trick if WDhelp.EXE and WDhelp.DAT are not in your
+      run time path.
+
+    PS:  See ùWhizHelp about how WDhelp files are created and maintained--
+   ùWhizWare developed a special package for making it easy to produce
+    "on-line help" for any software product (or for any subject).
+|Cmnd
+
+  Cmnd is an abbreviation for Command:  A means for temporarily exiting
+ ùWhizDraw to COMMAND.COM (to DOS command mode).
+
+  A common use of this is for when you get a beep because a ùLoad failed.
+  For example:  Select Cmnd, go to DOS, then use DIR to see your file names.
+
+      When you are finished sightseeing or whatever you do, BE SURE to
+      use the DOS EXIT command to return to WhizDraw.
+
+  See this:  When you SHELL out of WhizDraw your work screen is being held
+  in a background video buffer.  If you can't, won't or don't EXIT back
+  to WhizDraw you are going to lose your masterpiece.
+
+  Because the machine is still in graphics mode when you shell out of WhizDraw
+  no cursor will appear while you are typing.  (See ùType also.)
+
+  Note:  Many DOS commands should not be used in SHELL mode.  Things like
+  GRAPHICS will hang the system and blow your show.  No program should be
+  executed that alters the monitor's adapter settings either.
+
+      Hint:  Do a ùSave first if you are nervous about any of this.
+|Quit
+
+  Quit is the way to exit ùWhizDraw (the ONLY correct way).
+
+  Return is to whence you came from.  No, we do not aggravate you with a
+  warning that an on-screen image may be lost because you forgot to ùSave it.
+  (Use ùHelp Status if you can't remember what you are doing.) 
+
+  If a batch file invoked WhizDraw, return is to the next line in that file.
+
+  If you shelled to WhizDraw, return is back to the calling program.
+
+  If started as a DOS command, return is back to DOS command mode.
+
+     See ùCmnd as an alternative for quick out-and-back DOS chores.
+|Zoom
+
+  Zoom enlarges a 16x16 dot square area of the screen so you can better
+  see the dots, and it lets you "edit" them.
+
+  The area to be zoom-edited is outlined by a box-shaped cursor.
+
+          Move the box until it surrounds the area wanted,
+          then hit <Enter>.
+
+  A grid is displayed, each cell depicting 1 dot of the area to be edited.
+  Editing of individual cells works similar to ùDraw ùDots --see ùColors also
+  about how to change the colors of the cells.
+
+          As you edit cells in the grid notice that corresponding
+          changes occur in the area selected for zoom-editing.
+
+          <Esc> removes the grid so you can move the box-shaped
+          cursor to a new location.
+
+  Also, while editing, the <Del> key works as an "un-do" key to restore your
+  screen as it was before the current grid was selected.  See ùKeys about a
+  special use of <F3> during Zoom.
+|Lines
+
+  Lines are drawn from where you started (the from-point) to where you are
+  at (the to-point) when you hit <Enter>.
+
+  That point then becomes the from-point for the next line.
+
+      This works such that, by holding down Mickey's <Enter> paw
+      and moving slowly, any shape can be drawn much as could be
+      done with a pencil.
+
+      See ùColors about how to set the color for drawing lines.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Boxes
+
+  Boxes are drawn from where you started (the from-point) to where you are
+  at (the to-point) when you hit <Enter>.
+
+  That point then becomes the from-point for the next box.
+
+  The guide lines for boxes are a rectangle (dashes).
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      See ùColors about how to set the color for drawing boxes.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Ovals
+
+  Ovals are drawn from where you started (the from-point) to where you are
+  at (the to-point) when you hit <Enter>.
+
+  The from-point of an oval is the radius point.
+
+  The to-point of an oval is a point on the circumference.
+
+  An oval can be either a circle or an ellipse.
+
+  The guide line for an oval is a dotted-line radius.  If cursor movement is
+  along only a vertical or horizontal axis the result will be a circle.  If
+  movement is along both a vertical and a horizontal axis, an ellipse will
+  be drawn.
+ 
+      See ùColors about how to set the color for drawing ovals.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Arcs
+
+  Arcs are drawn from where you started (the from-point) to where you are
+  at (the to-point) when you hit <Enter>.
+
+  The from-point of an arc is the radius point.
+
+  The to-point of an arc is a point on the circumference.
+
+  The guide line for an arc is a dotted-line radius.  If cursor movement is
+  along only a vertical or horizontal axis the result will be a half circle
+  If movement is along both a vertical and a horizontal axis, one fourth of
+  an ellipse will be drawn.
+ 
+  The quadrant of one fourth of an ellipse is determined by the to-point.  If
+  the cursor is up and to the left of the from-point the arc will be drawn as 
+  if from 9 o'clock to 12 o'clock.  Down and to the right is similar to three
+  o'clock to 6 o'clock, and so on.
+
+      See ùColors about how to set the color for drawing arcs.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Dots
+
+  Dots are drawn by hitting <Enter>.
+
+       This works such that, by holding down Mickey's <Enter> paw
+       and moving slowly, any area can be colored much as could be
+       done with a pencil.
+
+       See ùColors about how to set the color for drawing dots.
+|Erase
+
+  Erase is, effectively, a filled-in box drawing function done from where
+  you started (the from-point) to where you are at (the to-point) when you
+  hit <Enter>.
+
+  That point then becomes the from-point for the next erase-box.
+
+  The guide lines for erasing are a rectangle (dashes).
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      See ùColors about how to set the color for erasing.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Fill
+
+  Fill works to fill in an already drawn figure with a given color.
+
+  The figure to be filled must be fully outlined with a color other than that
+  with which it is to be painted.  And the entire outline must be of the same
+  color.
+
+      See ùColors about how to set the color for using Fill.
+
+      Also, during Fill, the <Del> key works as an "un-do" key to restore
+      your screen as it was before the current Fill was selected.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+|Unfill
+
+  Unfill is conceptually akin to ùFill (but it is different).  Suppose you
+  have a figure which is a solid color:  Use Unfill to run around inside
+  that figure and change the "edge" to a different color.
+
+  Notice another important difference:  Unfill starts at your from-point and
+  runs "upwards" until a pixel is found whose color is not the same as the
+  one at the from-point, then it attempts to follow the outline of the
+  figure changing the edge colors as it goes ...
+
+      See ùColors about how to set the color for using Unfill.
+
+      Also, during Unfill, the <Del> key works as an "un-do" key to restore
+      your screen as it was before the current Unfill was selected.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+      IMPORTANT:  See the next page ...
+| 
+
+ ùUnfill colors with the first (primary color) while scanning for another
+  color.  If you select Unfill twice in succession without changing your
+  color settings you may not like what will happen:  The logic of this
+  routine is such that it will go on, and on, and on, and on ...
+
+  Any keyboard key can be used to break out of this seemingly perpetual
+  situation, and <Del> can be used immediately thereafter to restore the
+  screen to the "as was" image (same as the screen looked the last time a
+  Menu selection was made).
+|Xcolor
+
+  Xcolor is a mnemonic for "exchange one color with another".
+
+  The guide lines for Xcolor are a rectangle (dashes).
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+  Two colors must be specified:  The from-color and the to-color.
+
+       See ùColors about how to set colors.
+
+       The first color set is the from-color.
+
+       The second color set is the to-color.
+
+       The second color set is also the one the guide-lines are drawn in.
+
+  Returning to the menu or use of the <Home> key will establish a new
+  from-point at the position the cursor is then at.
+|Invert
+
+  Invert will "flip" an image about its horizontal (middle) axis.
+
+  The area to be inverted is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  The guide lines for Invert are a rectangle (dashes).
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+      Suppose you had an image:    then Invert would cause:  
+|Mirror
+
+  Mirror will "reverse" an image on its vertical (middle) axis.
+
+  The area to be reversed is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  The guide lines for Mirror are a rectangle (dashes).
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+      Suppose you had an image:    then Mirror would cause:  
+|Rotate
+
+  Rotate copies and pivots a rectangular image 90ø.
+
+  The area to be rotated is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  The guide lines for Rotate are a rectangle (dashes).
+
+  The pivot-point is the corner marked as the to-point.
+
+  The direction of rotation is based on the vector of the diagonal:  Along a
+  line from the from-point towards the to-point.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+  Suppose you had an image:  Ä¿  then Rotate would cause:  ÄÙ
+
+  Also see ùGraf about how "large images" can be rotated and about turning
+  a specified number of degrees in the 0-90 range.
+|W
+
+  W x 2 is shorthand for "double the Width of an image".
+
+  The area to be enlarged is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  The guide lines for W x 2 are a rectangle (dashes).
+
+  When done, the cursor is moved such that hitting <Enter> again will enlarge
+  the image once again.
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+  Also see ùGraf about how images can be "scaled".
+|H
+
+  H x 2 is shorthand for "double the Height of an image".
+
+  The guide lines for H x 2 are a rectangle (dashes).
+
+  The area to be enlarged is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  When done, the cursor is moved such that hitting <Enter> again will enlarge
+  the image once again.
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+  Also see ùGraf about how images can be "scaled".
+|Cut
+
+  Cut is short for "cut out and capture a rectangular image in a buffer".
+
+  The captured image can be output elsewhere on the screen using ùPaste --
+  and (or) it can be saved in a disk file.  See ùSave and ùIcons ...
+
+  The area to be cut out is outlined by a box drawn from where you started
+  (the from-point) to where you are at (the to-point) when you hit <Enter>.
+
+  The guide lines for Cut are a rectangle (dashes).
+
+           The maximum size that an image (rectangle) can be is
+           approximately two-thirds of a full screen.  A two-tone
+           alarm will sound if an attempted Cut is too large.
+
+  Notice that the from-point and the to-point are diagonally opposed corners.
+
+      Returning to the menu or use of the <Home> key will establish
+      a new from-point at the position the cursor is then at.
+
+  Also see ùKeys about a special function assigned to <F1>.
+|Paste
+
+  Paste is used to output a rectangular image currently held in a buffer area.
+
+  An image to be pasted can be loaded into this buffer by use of either ùCut
+  from the ùDraw menu or by use of ùLoad from the main menu.
+
+               See ùIcons and ùSave also, for more about this.
+
+  The guide lines for Paste form a rectangle (dashes) that is of the same
+  dimensions as that of the image being held in the cut buffer.
+
+       This rectangle can be moved to a desired location on the screen.
+       <Enter> is used to cause Paste to replace that portion of the screen
+       with the image held in the buffer.
+
+       <Ctrl>+<Enter> works similar, but, the result is an "overlay" of the
+       cut buffer image "superimposed" on whatever is already on screen.
+       Meaning:  Only non-zero (colored) pixels are output.
+
+       A two-tone alarm will sound if any portion of the guide-line rectangle
+       is positioned off-screen for a "regular paste" but not for an "overlay".
+
+  See ùKeys also, about a special function assigned to <F1>.
+|Type
+
+  Type turns off the drawing cursor and turns on the typewriter keyboard.
+
+  A simulated text-cursor shows where keyboard input will occur.
+
+  Both a background and a foreground color may be set for typing.
+
+              See ùColors about how to set colors.
+
+         The first color set will be used for the background.
+         The second color set will be used for the characters.
+             (Remember to use <Alt> to set color codes.)
+
+  Other special-use keys and their functions are:
+
+      <Tab> to change arrow key spacing (1 dot or 1 character cell)
+      <Home> to move to the upper left corner of the screen
+      <End> to move to the end of a line (right-most column, same line) 
+      <Enter> to duplicate the last character typed
+      <Del> to restore the screen as it was before
+      <Ins> to customize individual characters
+
+               See ùLoad and ùSave and ùFonts for more about this.
+|WhizKids
+
+  ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ 
+  İ                       Ş
+  İ For the kids we have: Ş
+  İ        WhizKids       Ş
+  İ To make learning fun! Ş
+  İ                       Ş
+  ßßßßßßßßßßßßßßßßßßßßßßßßß
+  It is a connect-the-dots program.  Some drawings have numbers by the dots.
+  Some have letters.  Cursor arrow-keys are used to pick one of four choices
+  --one is correct--the next number or letter to be "connected" in sequence.
+
+  This program was designed to help pre-kindergarten children to learn to
+  count.  To learn the alphabet.  To recognize the shape of numbers and
+  letters.  And to learn that learning can be fun.
+
+  This program was designed with the help of an expert teacher--the director
+  of an early childhood learning center, with many years of experience
+  teaching the 3-5 years age group.
+
+  WhizKids runs on nearly any DOS based machine that has an EGA or VGA monitor
+  (or equivalent).  The basic package contains twenty drawings and twenty
+  matching full color image files ...
+| 
+
+         When all of the dots are connected--the lines are drawn as
+         numbers or letters are picked in sequence--that "drawing"
+         is overlaid by the corresponding "real graphics art" image
+         as reward for a job well done.
+
+  Only two other keys are used by the student besides the four arrow keys:
+  <Enter> is used to pick a drawing from a menu to work on.  <Escape> is
+  useful to quit a drawing early.
+
+         For the teacher:  WhizKids also has on-line help built in.  It
+         is the manual for the program, and it contains suggestions for
+         making effective use of it.
+
+         See now another use of ùWhizDraw --it is how we made the drawings
+         for WhizKids.  With it you can create ones of your own design to
+         suit particular student needs. 
+|WhizHelp
+
+  Tired of building on-line "Help" schemes?
+       All of that text!  And a way to display it.
+              And an "indexing" means for the operator.
+                    With Mouse or keyboard "pick this" capability.
+
+                        ùWhizWare has a whizzing solution.
+
+  We call it WhizHelp--A programming tool that eliminates a lot of drudgery,
+  saves you time and money and produces a consistent, friendly methodology to
+  your users.
+
+    The concept:  Your "help" screens are in an ASCII text file; one that you
+    build (and maintain) using your shop's preferred word processing program.
+
+    The program that "plays" these pages and that manages user index access
+    and page scrolling is our own WhizHelp.EXE program renamed to fit in with
+    your package's file naming scheme.  It reads your "help data file" and
+    pops whole pages on the screen quickly.
+
+  The essence of it all is  WhizHelp.COM--a compiler type of program that
+  converts your .TXT file to a .DAT file and copies and implants into your
+  version of the core program color parameters, a screen mode code, and the
+  name of your data file.  All automatically.  And it produces an error
+| 
+
+  report, if need be, to warn you of pages that do not conform to the simple
+  rules necessary to make all of this work.
+
+    Notice you have to do only three things:  Create the input source file,
+    run this tool, and simply include a SHELL line inside your package that
+    can be triggered by the operator when they want to get help.
+
+  Sure, this package was designed for programmers, but others can make good
+  use of it too:  Create on-line help about any subject.  Like, price lists,
+  order-completion check lists, quick reference guides to complicated
+  procedures, and so on.
+
+    All of this works in 8086 machines with as little as 512 Kb memory but is,
+    of course, even faster on the newer ones:  Effectively, any machine
+    running under DOS 3.0 or later.
+
+     See ùWhizWare for how to contact us for more about WhizHelp.
+|

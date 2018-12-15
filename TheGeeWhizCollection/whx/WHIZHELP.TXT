@@ -1,0 +1,759 @@
+
+          ùWhizHelp  (C) Copyright ùWhizWare 1994  Vers 2.0  04-02-94
+
+        General information about this program ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³ ùWhy use it   ùHow to use    ùWhen to use   ùWhat it does  ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+           Specific information about ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+            ³ ùWhizHelp.COM      ùWhizHelp.EXE      ùWhizHelp.DAT  ³
+            ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+            General information about your files ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+             ³ ù<help>.TXT        ù<help>.EXE        ù<help>.DAT  ³
+             ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+         Advanced techniques ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³ ùContext-sensitive accessing   ùMulti-volume help files  ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+   Quick reference about ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ ùCursor keys   ùPage keys   ùHome   ùEscape   ùMouse  ùIndex words   ³
+    ³ ùCOLOR  ùVideo modes  ùSHELL  ùPCOPY  ùCharacters  ùLimits  ùErrors  ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|WhizWare
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³  WhizWare         ³
+   ³  635 Kendrick Rd  ÃÄÄÄ A computer software sweat shop.
+   ³  Milner, GA 30257 ³
+   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+   The analyst that designed ùWhizHelp is Thomas C. McIntire.  Write to Tom
+   if you have any problems or wish to comment on this software.  He will
+   appreciate the input and will fire off a quick response to your questions.
+
+      Tom's e-mail address is:  whizware@bellsouth.net
+|WhizHelp
+
+  WhizHelp is our generic name for the following software components:
+
+    ùWhizHelp.COM - the main program
+    ùWhizHelp.EXE - this program, which is called by WhizHelp.COM
+    ùWhizHelp.DAT - the Help data file displayed by WhizHelp.EXE
+
+  All three of these files must be located in the same run-time path.
+
+    WhizHelp.COM is a programming tool.  It reads an ASCII text file and
+    converts it to a file that can be loaded into memory en masse, to be
+    shown as "On-Line Help" pages.
+
+  WhizHelp.COM also generates a "customized" version of WhizHelp.EXE to be
+  included with your application program set.  From within your application
+  programs simply ùSHELL to your <help>.EXE whenever the user opts to get
+  help.  What they will see will be your "help text".  How they find their
+  way around is controlled by your <help>.EXE--which will work just like
+  this one does.
+
+  For more general information about this package see:
+
+      ùWhy use it   ùHow to use    ùWhen to use   ùWhat it does
+|Why
+
+                      ÚÄÄ To save you time in developing new applications.
+                      ³
+  Why use ùWhizHelp ÄÄ´
+                      ³
+                      ÀÄÄ An easy way to provide "On-Line Help", anytime.
+
+  All programs ought to have "On-Line Help".  Agreed.  Building the text
+  screens is a chore.  So is writing the code to "show" help.  WhizHelp
+  seeks to minimize the effort needed:  Create the text with nearly any
+  Word Processing or text editing program.  Run ùWhizHelp.COM to convert
+  that file to one that ùWhizHelp.EXE can "play".  Insert a ùSHELL command
+  at an appropriate point in your application to "get help" and the job is
+  done, in short order, with zero coding effort.
+
+  A spin-off advantage to this scheme is that all of your applications will
+  reflect a consistent approach to your users on how to get help.
+|How
+
+  How:  The three ùWhizHelp files (dot-COM, dot-EXE and dot-DAT) must all be
+  in a common run-time path.  They can be executed as is from any disk drive.
+  Performance is better of course on a hard disk.  To start the program simply
+  type WHIZHELP while in DOS command mode.
+
+    Note:  The logic of DOS will default-load the dot-COM program.  It is
+    possible to run the help program itself by typing WHIZHELP.EXE--it
+    is a free standing program itself, normally shelled-to from within the
+    dot-COM program.
+
+  Tell WhizHelp.COM the names of your ù<help>.TXT and ù<help>.DAT and
+  ù<help>.EXE files, and the Screen (background) and Text (foreground)
+  ùCOLOR your help text should be displayed with, and whether the ùVideo 
+  mode will be for Text or Graphics.  Then hit <F1>.  In only a minute or
+  so the job is done.
+
+
+
+
+  See the next page about <filespec> logic, especially about the consequence
+  of naming drive and path names ...
+| 
+
+  The source file name-- ù<help>.TXT can be anywhere.  In this case the drive
+  and path are merely needed to find the file.
+
+  The object file name-- ù<help>.DAT --can be targetted to a specific path
+  and even to a specific drive.  But the FULL name you specify here will be
+  the one that will be implanted in ù<help>.EXE --which you may or may not
+  want to happen.  To make your "play" program as generic as possible, DO NOT
+  specify a drive or a path for this name.  Simply let ùWhizHelp.EXE generate
+  your dot-DAT file in its own path, then copy it to where you want it to be
+  and delete it from the path you are operating from.
+
+  The program file name-- ù<help>.EXE --can specify a drive and path; that
+  is where your copied "version" of ùWhizHelp.EXE will wind up.
+|When
+
+  When:  WhizHelp can be used in nearly any DOS based machine, in nearly
+  any programming environment that tolerates ùSHELL concepts, any that
+  supports Video service calls to BIOS routines (Interrupt 10h, functions
+  06h and 13h).
+
+  WhizHelp works with or without a ùMouse --built-in logic anticipates that
+  a MOUSE.COM or MOUSE.SYS has already been loaded, one that is compatible
+  with Microsoft versions of that software.  Only two buttons are used; the
+  right one for Enter, the left for Escape.  <F2> will "flip" this, however,
+  for users that prefer the "reversed use" of Mickey's paws.
+
+  WhizHelp works with nearly any type of monitor and adapter.  Its two main
+  modes of operation are the equivalents of either SCREEN 0 or SCREEN 9 as
+  defined in GWBASIC.EXE and QuickBASIC.EXE manuals.
+|What
+
+  What WhizHelp does: ùWhizHelp.COM reads an ASCII text file that has been
+  formatted to conform to what is expected by this program.  See ù<help>.TXT 
+  for more on that.
+
+  The file that is output is one with a name extension of .DAT; it is a copy
+  of your text file that has been slightly modified:  A seven-byte header has
+  been added, and a zero-byte has been inserted at the end of the file.
+
+ ùWhizHelp.EXE is also copied and renamed as a dot-EXE file of your choice.
+  It is then modified internally to reflect the name of your ù<help>.DAT file
+  and to condition it to run with your ùCOLOR and ùVideo mode choices.
+
+  WhizHelp also contains built in quality assurance help:  Checks are done
+  to ensure illogical ùCOLOR and ùVideo options are not selected, and that
+  your ù<help>.TXT file conforms to the format conventions expected by this
+  system.  See ùErrors for more about this. 
+|WhizHelp.COM
+
+  WhizHelp.COM was written for GWBASIC.EXE Version 3.23 then compiled with
+  QuickBASIC.EXE Version 2.0--thus, it is in fact a dot-EXE program.  We
+  changed its last name so that we could have two programs with the same
+  first name.  (And so that WHIZHELP typed as a command would invoke the
+  primary program rather than our help program.)
+
+  WhizHelp.COM is the main program in the ùWhizHelp set.  This is the one
+  that lets you specify your "options", then it reads your ù<help>.TXT file
+  and creates your ù<help>.EXE and ù<help>.DAT files.
+|WhizHelp.EXE
+
+  WhizHelp.EXE was written for GWBASIC.EXE Version 3.23 then compiled with
+  QuickBASIC.EXE Version 2.0--it has four machine language routines imbedded
+  within it that were built using WhizBAM.  (Another programming tool available
+  from ùWhizWare --it converts Assembly Language source files into modules
+  that can be merged into BASIC programs with virtually zero coding effort.)
+
+     It is WhizHelp.EXE that displays help about WhizHelp.  This file is
+     also the "master file" used to generate your own ù<help>.EXE program.
+     See ùHow and ùWhat for more about this.
+
+  Notice also that the dot-EXE files--yours and mine--are free-standing
+  programs themselves.  They can be executed directly or from a batch file.
+  Or they can be the target of a ùSHELL command (or its equivalent) from
+  within any language environment that has such a capability.
+|WhizHelp.DAT
+
+  WhizHelp.DAT is our WhizHelp help file.  It contains the text you are seeing
+  right now.  This file was itself generated using ùWhizHelp.COM --our source
+  file for that run was called WhizHelp.TXT, naturally.  We maintain that file
+  with our own favorite Word Processing program.
+
+  By and large, this file--and your own ù<help>.DAT file--are conventional
+  ASCII text files.  The first seven bytes are unconventional, however:  They
+  conform to what GWBASIC.EXE and QuickBASIC.EXE expect for BSAVE and BLOAD.
+
+    The first byte is equivalent to a CHR$(253); the next four bytes are
+    zeros; the next two are an integer equivalent of the load size of this
+    file, i.e., its actual byte count, less eight.  And a CHR$(0) marks
+    the end of the file.
+
+    Also, line pointers are added to bar-word lines to help ù<help>.EXE find
+   ùIndex words on those pages quickly.
+|<help>.TXT
+
+  <help>.TXT is the file you build with a Word Processor or text editor.
+  You supply the <help> name.
+
+  No line should be longer than 79 characters.  The first character should
+  normally be a space.  Blank lines are permitted, however.  A given "page"
+  cannot have more than 24 lines, nor less than one.  Each page must be
+  preceded by an "index word", like this:  <Alt><124>Index<CR>
+
+  <Alt><124> is the "vertical bar character" on most keyboards; it must start
+  in column 1; the key word itself follows immediately; it contains no spaces,
+  nor ASCII codes below 32, or above 248; it is immediately followed by a
+  Carriage Return code (usually generated by your use of the Enter key.)
+
+  Inside the text page itself "cross reference ùIndex words" are denoted by
+  a matching spelling of one that precedes a text page.  Like this:  ùIndex 
+
+  Note the "dot" in front of the word; it is an ASCII code 249--again, no
+  imbedded spaces, but the word itself must be followed by at least one space.
+
+
+
+  Continued.  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+| 
+
+  Continuation pages are possible for a given subject.  They should follow one
+  after another.  The start of each continuation page is denoted by a "bar" in
+  column 1, followed by 1 space, then a Carriage Return code.
+
+  This scheme works such that a "pick" of an ùIndex word will always find the
+  first page for that subject and <Page Down> will move forward from there.
+
+  Note the way <Page Down> and <Page Up> work:  They scroll through the file,
+  forwards or backwards.  Some thought may need to be given to how text pages
+  are organized in the file overall.  At times, sometimes, your user may want
+  to "walk" through the file; the presentation sequence ought to lend itself
+  to such use so that there is an orderly progression from one subject to
+  another.
+
+  The very first text page in the file has no preceding "bar"--no ùIndex 
+  word.  This page ought to normally work as a subject index; each of the
+  index words that have corresponding subject pages ought to be listed so
+  the user can get rapidly to where they want to be.  This is the page that
+  <Home> will always find:  The beginning of the file.
+|<help>.EXE
+
+  <help>.EXE is the program file ùWhizHelp.COM builds.  It does this by first
+  copying ùWhizHelp.EXE to a file with a name of your choice.  You supply the
+  <help> name.  Its name extension must be dot-EXE.
+
+  Your version of this program file is then modified internally to reflect the
+  name of your ù<help>.DAT file and the ùCOLOR and ùVideo options you specify.
+
+  This is the program that you should ùSHELL to from within your end product
+  application.
+|<help>.DAT
+
+  <help>.DAT is the on-line help text file ùWhizHelp.COM builds.  It does this
+  by reading your ù<help>.TXT file, copying it to a file with a name of your
+  choice.  You supply the <help> name.
+
+     By and large, this file will resemble your ù<help>.TXT file.  See also
+    ùWhizHelp.DAT for the few specific differences.
+|Cursor
+
+  When ù<help>.EXE is first loaded it checks to see if a ùMouse is active.
+  With or without a rodent, the keyboard works the same.  The only visible
+  difference is the shape of the on-screen cursor.
+
+  In text mode-- see ùVideo --the no-Mouse cursor is a blinking rectangle;
+  8 dots wide and 14 high (EGA/VGA and mono), 8 by 8 for CGA; its ùCOLOR is
+  "reverse video", i.e., the opposite of the screen vs. text color, depending
+  on its current location on the screen at a given point.  If Mickey is alive
+  the cursor is supplied by the Mouse driver:  A similar non-blinking shape.
+
+  In graphics modes (EGA/VGA), the no-Mouse cursor is an 8 by 10 non-blinking
+  rectangle, also done in reversed video colors.  Mickey's cursor is the
+  driver's default arrow-shape.
+
+  The keyboard cursor arrow keys:  Up is up and Down is down, etc.  This works
+  such that positioning is automatic, and the cursor always aligns directly
+  over "subject dots", the ASCII 249-character preceding ùIndex words.
+|Page
+
+  The page keys-- <Page Up> and <Page Down> --work as intuitively expected:
+  Up or down one full text screen, based on the physical arrangement of those
+  pages within your ù<help>.DAT file.
+
+  Notice the legends at the bottom of the screen:  Those keys work as labeled;
+  they can be picked by Mickey as well--by pointing to them then hitting the
+  ùMouse Enter-button.
+
+  If <Page Up> is hit and the first page in the file is already on screen, it
+  is simply redisplayed.  If the last page is visible and <Page Down> is hit,
+  the first page will be displayed, same as if ùHome had been hit.
+|Home
+
+  The <Home> key is always active and causes an immediate display of the first
+  page in your ù<help>.DAT file--presumably your "help index" screen.
+
+  Notice the legends at the bottom of the screen:  Those keys work as labeled;
+  they can be picked by Mickey as well, by pointing to them then hitting the
+ ùMouse Enter-button.
+|Escape
+
+  The <Escape> key has but one use:  To get out of Dodge in a hurry.  It is
+  the only correct way to exit ù<help>.EXE --return is to whence ...
+
+  If the help program is started from DOS command mode, return is back to
+  the command line prompt.
+
+  If started from a batch file, return is to the next line in that file.
+
+  If called by a program via ùSHELL return is to the next command in that
+  program.
+
+    Note:  See ùPCOPY for some ideas about how to save and restore screen
+    images before and after the operator opts to get help.
+
+  Notice the legends at the bottom of the screen:  Those keys work as labeled;
+  they can be picked by Mickey as well, by pointing to them then hitting the
+ ùMouse Enter-button  In this case, Mickey's Escape-button works just like
+  the <Escape> key, no matter where the cursor is.
+|Mouse
+
+  When ù<help>.EXE is first loaded it checks to see if a ùMouse is active.
+  With or without a rodent, the keyboard works the same.  The only visible
+  difference is the shape of the on-screen ùCursor --Mickey's cursor is
+  the driver's "default" shape and color.
+
+  Our help program only uses four driver functions:  Reset (0), Show cursor
+  and Hide cursor (codes 1 and 2), Get Button Status (3) and Position (4).
+  The driver is left in situ on exit; no "sensitivity" adjustments are made.
+
+    Design assumptions:  MOUSE.COM or MOUSE.SYS has already been loaded.
+    If not or Mickey is not responding, the help program simply reverts
+    to no-Mouse mode.
+
+    Buttons:  Only one of two is tested for.  Button 1 works the same as
+    the <Enter> key.  Button 2 works like <Escape>.  The operator may
+    "flip flop" this, however, by hitting <F2> any time the help program is
+    running.  If changed, this is remembered:  Byte #2 in your ù<help>.DAT
+    is updated with a code so that the next time the program is invoked the
+    button assignments will be set the same as when last changed.
+|Index
+
+  A fundamental concept of WhizHelp is that the user can get quickly to any
+  subject of their choice--to any specific "page" in your ù<help>.DAT file.
+
+  This is possible primarily because we presume ùHome will show your subjects
+  index, i.e., the first page in your help file.  The layout and organization
+  of that page is entirely up to you.  The key is:  Index words are denoted
+  as such by the "dot" in front of each:  an ASCII character, code 249.
+
+  This dot can be implanted with most editing programs by holding down either
+  <Alt> key and indexing 249 on the numeric key pad.  When <Alt> is released
+  the dot-character will be shown.
+
+    Note:  Some Word Processors obviate normal DOS conventions; if the
+    <Alt> trick does not work, see your user's manual; they probably have
+    some alternative scheme for deriving characters not shown on key caps.
+
+  Cross-references:  Notice that an Index word can appear anywhere on any
+  screen.  So that, rather than saying "also see so and so", simply use an
+  Index word in context; if the user wants to go there they merely "pick"
+  that word for an immediate page change.  But read the next page ...
+| 
+
+  The key to ùWhizHelp page indexing is that each page in your ù<help>.DAT 
+  file begins with an (unseen) ùIndex word.  The logic of ù<help>.EXE works
+  like this:
+
+  When <Enter> is hit the character at the cursor's current position is
+  examined.  If it is a dot--an ASCII code 249--characters are lifted
+  from the screen, moving to the right, until a space is encountered.
+
+  Now a search is made, from the beginning of the file, looking for a
+  matching word that is preceded by a "bar" character--an ASCII code 124.
+  That word must be an exact case-sensitive match; it must be the only word
+  on that line, and fully left justified.  That line must be followed by at
+  least one more line (presumably a line of text.)
+
+  PS:  If no match is found--probably because of a typing error made in
+  your ù<help>.TXT file, the search terminates when the bottom of the file
+  is encountered, then a ùHome is done, as a default solution.  See ùErrors 
+  for more about situations similar to this.
+|COLOR
+
+  On a mono-machine no problem--two choices, basically:  White on black
+  or vice versa.  (Or amber, or green, or whatever.)  In the event you
+  told ùWhizHelp.COM to use some other colors, but ù<help>.EXE detects it
+  is running in a mono environment, it will adjust accordingly.
+
+  In the wonderful world of color your choices are many:  A Screen color--
+  called background in some manuals--is denoted by code numbers.  So is
+  the foreground, the color of the characters to be shown.  The codes are:
+       ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+       ³ 0 - Black     8 - Gray       ³
+       ³ 1 - Blue      9 - Hi Blue    ³  Hi:  High Intensity (bright)
+       ³ 2 - Green     A - Hi Green   ³
+       ³ 3 - Cyan      B - Hi Cyan    ³  Cyan:  Akin to Marine Blue
+       ³ 4 - Red       C - Hi Red     ³
+       ³ 5 - Magenta   D - Hi Magenta ³  Magenta:  Sort'a Purple or Pink
+       ³ 6 - Brown     E - Yellow     ³  Brown:  Or a shade of Red
+       ³ 7 - White     F - Hi White   ³
+       ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+  A Screen color can only be a code in the range 0-7.  Text can be any in
+  the range 1-9, or A-F, but the same code cannot be specified for both.
+
+  More ought to be known about making these selections ÄÄÄÄÄÄÄÄ¿
+| 
+
+  When ù<help>.EXE comes up running it automatically "reverses" the ùCOLOR 
+  scheme chosen for the bottom line on the screen:  Our instructions line.
+  This is not done with a "color command", however.  It is done by punching
+  pixel bytes directly in video ram.  (Thus, video adapter settings are not
+  arbitrarily altered.  But see ùVideo modes for further considerations.)
+
+  Some color schemes are not aesthetically pleasing; some may be on some
+  monitors, but not on others.  Here are some we have found consistently
+  viable on a wide range of machines:
+
+    White (7) or Hi White (F) or Yellow (E) on a Blue (1) background
+
+    Either type of White (7 or F) or Yellow (E) on Black (0)
+
+  Also:  The color of the ùCursor "character" is shown in reversed video if
+  running without a ùMouse but if Mickey is involved that driver has its own
+  trick for establishing its cursor's color.  In text mode with a ùMouse some
+  color combinations are not good, although ,they might otherwise be with our
+  no-Mouse scheme of reverse video.  Those suggested above produce acceptable
+  results on most systems, however, with or without a rodent.
+
+  Color choices can be set dynamically, too.  <Page Down> to see how.
+| 
+
+  Some application writers like to let their users pick color choices.
+
+  The settings specified when ùWhizHelp.COM is run can be altered by
+  including ùCOLOR codes on the command line or in the ùSHELL string
+  that invokes your ù<help>.EXE program.
+
+  Like this:   HELP.EXE 1 F       or       SHELL "HELP.EXE 1 F"
+
+  In this example, HELP is the name of your program; 1 is the code for a
+  Blue screen; F is the code for High Intensity White characters.  Notice
+  the spaces--they are a must.
+
+  Also:  If one color is specified, they both must be.  If not, or they are
+  illogical, contradictory, or invalid, they will simply be ignored.
+|Video
+
+  There are three ways to specify a Video mode for ù<help>.EXE --T for Text,
+  G for Graphics, or N for "No change".  To decide, consider the following.
+
+  Typically we specify No change, meaning the help program works in the same
+  mode that was established before this program was invoked.  This is handy
+  when we want to do a ùPCOPY before and after, so that the user perceives a
+  dynamic transfer from one program to the other.  And we do not have to go to
+  extreme efforts to be able to "re-paint" what was on-screen before the user
+  opted to get help.  But ...
+
+  Text mode performance is far superior to Graphics mode:  Text output in
+  high resolution graphics modes (EGA/VGA) is noticeably slow.  We use the
+  text-stream output BIOS services to display help text; that function is
+  not especially fast, but it is dependable, and produces consistent output
+  on any system, in any video mode.
+
+  Know this, especially:  If T or G is specified, even if in fact no change
+  is actually necessary because that mode was pre-established, ùPCOPY tricks
+  are obviated.  Which may be your preference, sometimes.
+
+  Anyway:  Help is always done on page zero; no other pages in video ram are
+  addressed for any reason.
+|SHELL
+
+  Our use of this word--SHELL--is in the same context that GWBASIC.EXE
+  and QuickBASIC.EXE perceive its meaning:  To "call" another program, and
+  when it ends, return is to the caller and execution proceeds with the next
+  instruction in that program.
+
+  Those manuals define the syntax rules for SHELL something like this:
+
+    SHELL "HELP" where the name of the program being called is either a
+    quoted string, or a named string variable that has been assigned that
+    program's name.  (In this example, simply HELP.)
+
+  Note:  Name searches are done by DOS.  If no name extension is specified,
+  dot-COM is looked for first, then dot-BAT, then dot-EXE.  If a dot-name is
+  specified it is looked for exclusively.  Also:  Only dot-BAT, COM, or EXE
+  can be explicitly named--a "Bad command" message occurs otherwise.
+
+  Other considerations:  The ùMouse driver will be reset on return to the
+  calling program; it may be necessary to re-establish its parameters in
+  some sophisticated graphics environments.  In no-Mouse text modes recall
+  that the cursor's size is modified by the help program; this might also
+  need to be reset after the SHELL is done.  (See ùPCOPY for more, too.)
+|PCOPY
+
+  Our use of this word--PCOPY--is in the same context that GWBASIC.EXE
+  and QuickBASIC.EXE perceive its meaning:  Monitor adapters (other than
+  monochrome ones) have multiple blocks of bytes (pages); PCOPY literally
+  "Page Copies" one block of bytes to another.  Thus:  PCOPY 0,1 would copy
+  block zero to block one.
+
+  Assuming page zero is the one currently visible on-screen, and PCOPY 0,1
+  is done just before a ùSHELL to ù<help>.EXE then on return, PCOPY 1,0 will
+  restore what was being displayed before.  But ...
+
+  The help program does alter the state of the ùCursor and does a reset of
+ ùMouse parameters.  Your calling program may thus have to remember and
+  re-establish these values whenever your user opts to get "help".  Also,
+  "palette values" are reset to their defaults when a ùSHELL is done; in
+  sophisticated graphics cases--especially VGA--your calling program will
+  have to reset ùCOLOR parameters if other than default values are being used.
+|Characters
+
+  Most all of the standard PC character set can be used in ù<help>.TXT pages.
+  Here are the only exceptions, reflected as ASCII code values:
+
+    Dec  Hex  Meaning
+      7   07  Bell--can be used to intentionally cause a BEEP
+     10   0A  Line Feed--move down one line
+     13   0D  Carriage Return--move to beginning of line
+     36   24  Dollar sign ($)--See ùMulti-volume about this only exception
+    124   7C  Vertical Bar  ÄÄ¿
+    249   F9  Large "dot"   ÄÄÁÄÄ See ùIndex for how we use these
+
+  Normally, in conventional DOS environments, so called ASCII files have
+  variable length records (lines).  Each line is terminated by a CR/LF pair.
+  In that order, code 13, then 10, usually shown in hex as 0D0A.
+
+  Consideration might ought to be given to several others, too.  If a user
+  opts to hit <Print Screen> to get a hard copy of ù<help>.DAT screens, a
+  number of character codes can cause weird results when they hit a printer.
+  Avoid code 27 (Escape) especially; see specific printer manuals for more.
+|Limits
+                             ùWhizHelp Limits
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+   ³  Text lines cannot be longer than 79 characters.                     ³
+   ³                                                                      ³
+   ³  Column 1 of each line should normally be a space character.         ³
+   ³                                                                      ³
+   ³  Blank lines are Ok, i.e., Carriage Return codes only, but no text.  ³
+   ³                                                                      ³
+   ³  A given text page cannot be longer than 24 lines.                   ³
+   ³                                                                      ³
+   ³  An ùIndex word cannot be longer than 32 characters.                 ³
+   ³                                                                      ³
+   ³  The maximum number of ùIndex words on a given page is 64            ³
+   ³                                                                      ³
+   ³  A ù<help>.TXT file cannot contain more than 58,000 bytes.           ³
+   ³                                                                      ³
+   ³  Valid Screen (background) ùCOLOR codes are 0-7.                     ³
+   ³                                                                      ³
+   ³  Valid Text (foreground) ùCOLOR codes are 1-9 and A-F.               ³
+   ³                                                                      ³
+   ³  Valid Video codes are T, G, or N (for "No change").                 ³
+   ³                                                                      ³
+   ³  See also ùCharacters --about those not usable in text pages.        ³
+   ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+|Errors
+
+  Yep, we all make errors. ùWhizHelp.COM trys to help preclude many, however.
+
+  During options entry:  Your <help> file names are supposed to have specific
+  extensions.  They need not be typed; they will be default-appended for you.
+
+  If file names cannot be found, or a disk is not ready, or ùCOLOR or ùVideo 
+  mode codes are invalid, a low pitched grunt is sounded and the cursor moves
+  directly to the field in question.  (This is done only when <F1> is hit.)
+
+  File overwrites:  If a ù<help>.DAT file already exists you will be prompted
+  for a Yes or No (Y or N) to determine whether that file should be replaced.
+  No skips the copy process; Yes overwrites the old file.  No is a good idea
+  if you merely wish to change ùCOLOR and ùVideo options.
+
+  If a ù<help>.EXE file already exists a Yes response merely updates that
+  file.  No is interpreted as No Change, and that phase is skipped.  No is
+  useful here if the text file is being updated but the help program itself
+  needs no changes.
+
+  During the phase that reads ù<help>.TXT and generates ù<help>.DAT a number
+  of potential errors are looked for; some are "fixed" automatically; others
+  cannot be; either produces a warning and requests a go-ahead decision ...
+| 
+
+  The prompt for a detected (or suspected) error is Continue or Abort--hit
+  <Enter> to continue or <Escape> to terminate the copy run.  If Continue is
+  indicated, here is a list of the fixes ùWhizHelp.COM will attempt:
+
+    Unnecessary trailing spaces at the end of text lines will be truncated.
+
+    If an ùIndex word is positioned as the last word on a line and it is not
+    followed by a needed space, one will be added.
+
+    If a given line is longer than the 79-character limit it will be chopped
+    off from position 80 on; the remainder will be discarded.
+
+    If a bar-character (ASCII code 124) is found by itself on a line, a space
+    will be added to indicate this is the start of a continuation page.
+
+    If a text page header--see ùIndex --contains an imbedded space, it will
+    be shortened; the space and whatever follows will be discarded.
+
+    Copying stops if the ù<help>.DAT file broaches the 58,000 byte limit.
+
+  Hit <Page Down> to see the next page:  A list of potential problems that
+  are tested for, but for which no arbitrary fix is attempted ...
+| 
+
+  A text page is more than 24 lines long:  If this admonishment is ignored,
+ ù<help>.EXE will survive.  But:  As the page is displayed, when the cursor
+  reaches line 25, scrolling will occur.  The top-most lines will disappear
+  and the balance shifts upward until the end of the page is found.  (And the
+  bottom line will be "blown" from there on.)
+
+  A page could be headed by a "bar-word" that has no "dot-word" reference
+  anywhere.  Such pages will simply work like continuation pages.  Either
+  an ùIndex reference was omitted, or there is a slight "spelling" difference
+  in the two words.
+
+  Conversely, an ùIndex reference might be included somewhere for which there
+  is no corresponding text page.  Again this can be simply because of a mere
+  typing error, but it could also be because that page was never written.  In
+  either event the help program will run Ok, but unsuccessful "pick" searches
+  cause the equivalent of what happens when ùHome is hit.
+
+  No more than 64 ùIndex words (including duplicates) can be shown on a given
+  page.  If this admonishment is ignored ù<help>.EXE will "hang" and a system
+  restart will be necessary.
+|Context-sensitive
+
+  Many well designed systems provide "context-sensitive" help ...
+
+    At a given point in a program, if the operator calls for help, a page of
+    information relating specifically to "where they are" is displayed
+    automatically--they need not have to find this subject by searching
+    through an "index", or whatever.
+
+ ùWhizHelp provides a means for developers to achieve similar results ...
+
+    Suppose, inside your program, the operator is at the point where a
+    telephone number should be typed.  And they hit your "help key".
+
+    Your logic then might look like this:  SHELL "MYHELP úPhone"
+
+      Assuming that, inside your help text, somewhere there is a help
+      page that begins with <Alt><124>Phone ...
+
+    Note:  See ùCOLOR also.  If you need to dynamically over-ride the
+    pre-established settings, do it like this:  SHELL "MYHELP 1 F úPhone".
+
+  What happens next? ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                                                               ³
+| 
+
+  Although a "jump start" may be made into your help system--to a specific
+  page, as described above--the system otherwise behaves as it normally
+  would ...
+
+    The operator can page Up or Down from that point, or go ùHome or
+   ùEscape or whatever, just as would be the case for a "cold start".
+
+    PS:  This same jump start scheme works equally well if done from the
+    DOS prompt point, or from within a batch file ...
+
+
+
+  Now, for some really "advanced" techniques, see the next topic:
+
+   ùMulti-volume help file systems ÄÄÄÄÄÄÄ¿
+                                          ³
+                                          ³
+                                          ÀÄÄ pick page down ÄÄ¿
+                                                               ³
+                                                               ³
+                                                               ³
+                                                               ³
+|Multi-volume
+
+   Suppose you find our 58,000 file size limitation a problem:  Split your
+   help text into two or more files, none of which are individually larger
+   than 58000 bytes ...
+
+   Now, consider these additional tidbits:
+
+     The last page in each file--with the singular exception of the last
+     page in the last file of the set--needs to begin with a unique bar
+     line-- <Alt><124>$ --this pair of bytes makes it possible for a user
+     to "page up" from one file into the "last page" of a preceding file.
+
+     The first page of all files in a multi-volume set cannot begin with a
+     bar-line of any kind.  (Which is the "normal" case for single-file
+     help schemes.)
+
+   The way "pick this subject" works in this world:
+
+     In the case, for example, a page from the second file of a set contains
+     a dot-word that references a help page contained in the first file:
+
+       No problem.  The first file will be reloaded and a "jump start" is
+       made to the desired page.
+| 
+
+   In the case, for example, a page from the second file of a set contains
+   a dot-word that references a help page contained later in this same file:
+
+       No problem.  Searching is done for any page from the top down, in
+       the realm of the currently loaded file, first.  If a corresponding
+       page is found within that file, it will be displayed.  If not found,
+       and more files are available, they are each searched until a match
+       is found.
+
+   Meanwhile, there can be a problem, of course:  If no page can be found,
+   at all, in any of the help files that constitute a ùMulti-volume set, you
+   will be caught up in a forever running loop.
+
+   Consider:  Our ùWhizHelp compiler trys to help you; it provides error
+   messages to advise that you have no-match situations in your indexing
+   scheme.  But, only for cases within a GIVEN FILE.  It cannot possibly
+   know that a dot-word is supposed to eventually link to a page in another
+   file (one that maybe you have not even written yet).  Caveat.
+
+   Now, how does ùWhizHelp know when you have a ùMulti-volume help system?
+
+   Read on ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+| 
+ 
+   If a reader is perusing the last page of a file and they hit ùPage Down,
+   or they "pick" a dot-word off that page before ùWhizHelp.EXE decides to
+   go ùHome it first checks to see if another file can be loaded.  Like this:
+
+     Suppose my first file is called MYHELP.HP0--notice the last character
+     in the name is an ASCII zero, and the decimal equivalent of "0" is 48,
+     so, 1 is added to that, and decimal 49 is an ASCII "1".  Now, a file
+     having a name of MYHELP.HP1 is looked for.  If found, that file is loaded
+     and all continues.  If not found it is time to go home.
+
+   Note:  Home in this context means load and commence with the file that was
+   named when ùWhizHelp.COM was run and the answer was Yes to the question of
+   whether this file should be modified (your package's help-driver).
+
+   PS:  The mechanism above is similar for ùPage Up.  An attempt is made to
+   find a file with a name whose last character is "one less" than the one
+   currently loaded.  If found, no problem, it is loaded; if not, we simply
+   go home, to the beginning of the "compiled-name file".
+
+   By the way, the above example used .HP0 and .HP1 but it really does not
+   matter to us what you prefer.  Something like .DAT and .DAU and .DAV works
+   the same way, naturally.
+| 
+
+   "Happy trails to you, until we meet again ..."
+
+      If you can hum this tune and remember who made it popular, maybe
+      we went to school together.
+
+      In either event, I sincerely hope you find this tool to your liking.
+
+      I like it, and use it a lot, and will welcome your critique.  TM.
+
+      Drop us a line at ùWhizWare ...
+|
