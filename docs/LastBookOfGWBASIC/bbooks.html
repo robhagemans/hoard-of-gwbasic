@@ -1,0 +1,371 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Library DataBase of Books using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>Library DataBase of Books</h1></center>
+<center><h4>by Joseph_Sixpack</h4></center>
+<center><h4>and written in</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+10 ' Library.bas  Program by fhb4family
+20 '   rev 1.00 11/24/98  copied & modified from music.bas v1.10 of 10/5/98 
+30 '   save"library.bas",a '  your
+40 '   save"books.bas",a   '  choice!
+50 '     i forget why this section was left blank... sorry.. :-(
+60 '
+70 '
+80 '
+90 '
+100 '
+110 '
+120 'Program:
+130 GOSUB 400 'Initialization
+140 GOSUB 530 'FunctionKeys
+150 GOSUB 570 'CountData
+160 GOSUB 630 'MainMenu
+170 PRINT "Ended at progam":END
+180 '--------------------------
+190 'SubroutineLocator:
+200 CLS:LIST  120-180  'Program
+210 CLS:LIST  400-510  'VariableInitialization
+220 CLS:LIST  530-550  'FunctionKeys
+230 CLS:LIST  570-620  'CountData     (variable=TOTALBOOKS)
+240 CLS:LIST  630-840  'MainMenu
+250 CLS:LIST  850-930  'ActionTakenOnKeyPress
+260 CLS:LIST  940-1200 'DisplayByBookNumber:
+270 CLS:LIST 1210-1450 'DisplayBy (Title|Author|Category|Publisher|Note)
+280 CLS:LIST 1460-1750 'MultipleFieldSearches
+290 CLS:LIST 1720-1750 'ScreenScrollingPauser
+300 CLS:LIST 1760-1810 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="7e2d1d0c1112122d0a110e3e4a2c1b1d110c1a0d">[email&#160;protected]</a>
+310 CLS:LIST 1820-1860 'SearchCompleted-Go2MainMenu
+320 CLS:LIST 1870-1910 'NoMatchFound-Go2MainMenu
+330 CLS:LIST 1920-1950 'ScrollStop
+340 CLS:LIST 1960-1990 'ReadDataCard
+350 CLS:LIST 2000-2080 'PrintDataCard2Screen
+360 CLS:LIST 2090-2230 'PrintAllData2Printer
+370 CLS:LIST 2240-2290 'Exit2DOS
+380 CLS:LIST 2300-     'DataCards
+390 '-------------------------
+400 'VariableInitialization:            ugh!  i forgot, a basket array...
+410 KEY OFF:COLOR 14,4:OPTION BASE 0:VIEW PRINT
+420 DIM V$(7,2)          'V stands for VARIABLES (basket array or table)
+430  V$(0,0)= "Th-th-th-":V$(0,1)= "that's "   : V$(0,2)="all, folks!..."
+440  V$(1,0)= "BNO$"     :V$(1,1)= "BOOKNO$"   : V$(1,2)="enter the Booknumber"
+450  V$(2,0)= "TITL$"    :V$(2,1)= "TITLE$"    : V$(2,2)="the Title"
+460  V$(3,0)= "AUTH$"    :V$(3,1)= "AUTHOR$"   : V$(3,2)="the Author's Name"
+470  V$(4,0)= "CATEG$"   :V$(4,1)= "CATEGORY$" : V$(4,2)="the category"
+480  V$(5,0)= "PUBL$"    :V$(5,1)= "PUBLISHER$": V$(5,2)="the Publisher"
+490  V$(6,0)= "NTE$"     :V$(6,1)= "NOTE$"     : V$(6,2)="the notes"
+500  V$(7,0)= "EMPTY  "  :V$(7,1)= "Enter fragment of ":V$(7,2)="empty slot"
+510 RETURN 'to program, FunctionKeys
+520 '----------------------------------
+530 'FunctionKeys:
+540 FOR FKEY=1 TO 10:KEY FKEY,"":NEXT FKEY ' all Function Keys turned off
+550 RETURN 'to program, CountData
+560 '-------------------------
+570 'CountData: 'just to see how many datacards of cd's there are.
+580   GOSUB 1960 'ReadDataCard
+590     IF V$(1,1)="end of data" THEN RETURN 'to Program, MainMenu
+600     TOTALBOOKS=TOTALBOOKS + 1
+610     GOTO 580 '^^^^^^^^^^^^^^^^^^Loop thru data counting entries
+620 '-------------------------
+630 'MainMenu:
+640 CLS
+650 RESTORE
+660 T=26
+670 EASTEREGG=0
+680 LINECOUNT=0
+690 PRINT LEFT$(TIME$,5);
+700 PRINT TAB(20)"The SixPacks Family's Library book locator";
+710 PRINT TAB(70)DATE$
+720 LOCATE  5,T:PRINT "Search & List";TOTALBOOKS;"entries by: "
+730 LOCATE  8,T:PRINT "Book number"
+740 LOCATE  9,T:PRINT "Title"    
+750 LOCATE 10,T:PRINT "Author"
+760 LOCATE 11,T:PRINT "Category"
+770 LOCATE 12,T:PRINT "Publisher, ISBN, LOC info"
+780 LOCATE 13,T:PRINT "Notes information"
+790 LOCATE 14,T:PRINT "Multiple field query"
+800 LOCATE 16,T:PRINT "Quit to interpreter"
+810 LOCATE 17,T:PRINT "eXit"
+820 LOCATE 25,T:PRINT "Press capital letter for selection";
+830 GOSUB 1920 'ScreenPauseTilKeyPress
+840 '---------------------
+850 'ActionTakenOnKeyPress:
+860 IF INSTR("bBtTaAcCpPnNmMqQxX",KP$)=0 THEN GOTO 630 'MainMenu
+870 IF INSTR("qQ",KP$)>0 THEN CLS:LIST 190-390 'quit2Interpreter & list subrout.
+880 IF INSTR("xX",KP$)>0 THEN 2240 'Exit2Dos
+890 IF INSTR("bB",KP$)>0 THEN  940 'DisplayByRecordTapeDiskNumber
+900 IF INSTR("tTaAcCpPnN",KP$)>0 THEN 1210 'DisplayByTitl|Auth|Categ|Pub|Note
+910 IF INSTR("mM",KP$)>0 THEN 1460 'MultifieldSearch
+920 'PRINT "Program end at:  ActionTakenOnKeyPress-MainMenu":END
+930 '-------------------------------------
+940 'DisplayByRecordTapeDiskNumber:
+950 CLS
+960 LOCATE 25,1
+970 PRINT "RecCount=";TOTALBOOKS;
+980 LOCATE 2,34: PRINT "AlphaRangeNo.":PRINT:PRINT
+990 PRINT TAB(16)"A 1xx     G  7xx    M 13xx    S 19xx     Y 25xx"
+1000 PRINT TAB(16)"B 2xx     H  8xx    N 14xx    T 20xx     Z 26xx"
+1010 PRINT TAB(16)"C 3xx     I  9xx    O 15xx    U 21xx"
+1020 PRINT TAB(16)"D 4xx     J 10xx    P 16xx    V 22xx"
+1030 PRINT TAB(16)"E 5xx     K 11xx    Q 17xx    W 23xx"
+1040 PRINT TAB(16)"F 6xx     L 12xx    R 18xx    X 24xx"
+1050 LOCATE 12,24:PRINT "Input the book number"
+1060 LOCATE 13,24:INPUT "keep book number between (100-2699): ";BNO$
+1070 CLS
+1080   IF BNO$="" THEN 630   'to main menu if no entry
+1090   ENTRY.CHECK=VAL(BNO$) 'alphabet entrys set to zero
+1100   IF ENTRY.CHECK <100 OR ENTRY.CHECK > 2699 THEN 940 'numeric range check
+1110 GOSUB 1960 'ReadTheDataCards
+1120   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1870 'NoMatch
+1130   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1820 'SearchComplet
+1140   IF BNO$=V$(1,1) THEN GOSUB 2000 'PrintDataCard2Screen
+1150   IF BNO$=V$(1,1) THEN LINECOUNT=LINECOUNT+1
+1160   IF BNO$=V$(1,1) THEN EASTEREGG=EASTEREGG+1
+1170   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3566564750505b66415a4575016750565a475146">[email&#160;protected]</a>
+1180   GOTO 1110 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1190 'PRINT "ended at DisplayByRecordTapeOrDiskNumber":END
+1200 '-------------------------------------
+1210 'DisplayBy (Title|Author|Category|Publisher|note):
+1220 CLS
+1230 IF KP$="b"OR KP$="B" THEN KP=1  'book number
+1240 IF KP$="t"OR KP$="T" THEN KP=2  'title
+1250 IF KP$="a"OR KP$="A" THEN KP=3  'author
+1260 IF KP$="c"OR KP$="C" THEN KP=4  'category
+1270 IF KP$="p"OR KP$="P" THEN KP=5  'publisher
+1280 IF KP$="n"OR KP$="N" THEN KP=6  'notes
+1290 IF KP$="m"OR KP$="M" THEN KP=7  'multifield query
+1300 LOCATE 8,20
+1310 PRINT V$(7,1);V$(KP,2);:INPUT V$(KP,0)
+1320   IF V$(KP,0)="" THEN 630  'MainMenu 
+1330 CLS
+1340 LOCATE 1,20
+1350 PRINT V$(7,1);V$(KP,2);":  ";V$(KP,0)
+1360 GOSUB 1960
+1370   IF V$(1,1)="end of data" AND EASTEREGG = 0 THEN GOTO 1870 'NoMatch
+1380   IF V$(1,1)="end of data" AND EASTEREGG <> 0 THEN GOTO 1820 'SerchComplet
+1390   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN GOSUB 2000 'PrintDataCard2Screen
+1400   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN LINECOUNT=LINECOUNT+1
+1410   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN EASTEREGG=EASTEREGG+1
+1420   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="451626372a292916312a3505711720262a372136">[email&#160;protected]</a>
+1430   GOTO 1360 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data                  
+1440 'END
+1450 '-------------------------------------
+1460 'MultipleFieldSearches:
+1470 CLS
+1480 PRINT:PRINT
+1490 PRINT TAB(30) "Multiple Field Query"
+1500 PRINT: PRINT: PRINT TAB(5) "                            TITLE: "
+1510 PRINT TAB(5) "                           AUTHOR: "
+1520 PRINT TAB(5) "                         CATEGORY: "
+1530 PRINT TAB(5) "                        PUBLISHER: "
+1540 PRINT TAB(5) "                             NOTE: "
+1550 LOCATE  6,40:INPUT;V$(2,0)
+1560 LOCATE  7,40:INPUT;V$(3,0)
+1570 LOCATE  8,40:INPUT;V$(4,0)
+1580 LOCATE  9,40:INPUT;V$(5,0)
+1590 LOCATE 10,40:INPUT;V$(6,0)
+1600   IF V$(2,0) ="" AND V$(3,0)="" AND V$(4,0)="" AND V$(5,0)="" AND V$(6,0)="" THEN GOTO 630 'goto MainMenu if no input
+1610 LOCATE 25,1
+1620 PRINT "Press the Anykey to search or 'N' to reedit query.";
+1630 GOSUB 1920 'ScreenPauseTilKeyPress
+1640   IF KP$="n" OR KP$="N" THEN 1460 'MultipleFieldSearches
+1650 CLS
+1660 GOSUB 1960 'ReadDataCard
+1670   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1870 'No match
+1680   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1820 'Search complete
+1690   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN GOSUB 2000
+1700   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN LINECOUNT=LINECOUNT + 1
+1710   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN EASTEREGG=EASTEREGG + 1
+1720   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e1b2829384848fb282938e8d8db2958e91a1d5b384828e938592">[email&#160;protected]</a>
+1730   GOTO 1660 '^^^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1740 'END
+1750 '---------------------------
+1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="93c0f0e1f6f6fdc0f0e1fcfffffafdf4c0e7fce3d3a7c1f6f0fce1f7e0">[email&#160;protected]</a>:
+1770 LOCATE 25,1:PRINT "Press the Anykey to continue.                       ";
+1780 GOSUB 1920 'ScreenPauseTilKeyPress
+1790 LINECOUNT=0:CLS
+1800 RETURN ' to either 1)Bno   2)Titl|Auth|Cat|Publ|Note   3)MultiField
+1810 '---------------------------
+1820 'SearchCompleted:
+1830 LOCATE 25,1:PRINT "Search completed...                 press the Anykey";
+1840 GOSUB 1920 'ScreenPauseTilKeyPress
+1850 GOTO 630 'MainMenu
+1860 '---------------------------
+1870 'NoMatchFound:
+1880 LOCATE 25,1:PRINT "Sorry, no match found.  Please try again.           ";
+1890 GOSUB 1920 'ScreenPauseTilKeyPress
+1900 GOTO 630 'MainMenu
+1910 '---------------------------
+1920 'ScreenScrollingPauser:
+1930 KP$=INKEY$:IF KP$="" THEN 1930 'pause   decision
+1940 RETURN 'to any of many calling subroutines...
+1950 '---------------------------
+1960 'ReadDataCard:
+1970 READ V$(1,1),V$(2,1),V$(3,1),V$(4,1),V$(5,1),V$(6,1)
+1980 RETURN 'to calling subroutine ie CountData,...
+1990 '---------------------------
+2000 'PrintDataCard2Screen:
+2010 PRINT V$(1,1);"   ";V$(2,1)
+2020 PRINT V$(3,1)
+2030 PRINT V$(4,1);" - ";V$(5,1)
+2040 PRINT V$(6,1)
+2050 PRINT
+2060 FOR DL=1 TO 4000:NEXT
+2070 RETURN
+2080 '---------------------------
+2090 'PrintAllData2Printer:    This is a small program within a program *
+2100 CLS
+2110 RESTORE
+2120 READ BOOKNO$,TITLE$,AUTHOR$,CATEGORY$,PUBLISHER$,NOTE$
+2130   IF LINECOUNT=4 THEN GOSUB 1760    '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="82d1e1f0edeeeed1f6edf2c2b6d0e7e1edf0e6f1">[email&#160;protected]</a>
+2140   IF BOOKNO$="end of data" THEN END  'or change code to goto 630 main menu
+2150   PRINT BOOKNO$;TAB(6)TITLE$
+2160   PRINT TAB(6) AUTHOR$
+2170   PRINT TAB(6) CATEGORY$;" - ";PUBLISHER$
+2180   PRINT TAB(6) NOTE$
+2190   PRINT
+2200   LINECOUNT=LINECOUNT+1
+2210   GOTO 2120 '^^^^^^^^^^^^^^^^^^^loop thru data printing everything...
+2220 END
+2230 '---------------------------
+2240 'Exit2DOS:
+2250 CLS
+2260 LOCATE 10,20
+2270 PRINT V$(0,0);V$(0,1);V$(0,2);
+2280 FOR DL=1 TO 40000!:NEXT:RUN"MNU-DBAS.BAS
+2290 '---------------------------
+2300 'DataCards:
+2310 '-BOOKNO$-    --TITLE$--     --AUTHOR$--    --CATEGORY$--     --PUBLISHER$--NOTE$ (ISBN, LOC & NOTES)
+2320 DATA"100" , "A  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2330 DATA"200" , "B  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2340 DATA"300" , "C  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2350 DATA"400" , "D  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2360 DATA"500" , "E  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2370 DATA"600" , "F  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2380 DATA"700" , "G  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2390 DATA"800" , "H  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2400 DATA"900" , "I  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2410 DATA"1000", "J  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2411 DATA"1001", "Joy of Cooking", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2420 DATA"1100", "K  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2430 DATA"1200", "L  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2440 DATA"1300", "M  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2450 DATA"1400", "N  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2460 DATA"1500", "O  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2470 DATA"1600", "P  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2480 DATA"1700", "Q  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2490 DATA"1800", "R  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2500 DATA"1900", "S  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2510 DATA"2000", "T  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2520 DATA"2100", "U  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2530 DATA"2200", "V  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2540 DATA"2300", "W  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2550 DATA"2400", "X  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2560 DATA"2500", "Y  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2570 DATA"2600", "Z  Title   ", "  Author  ", "  Category  ", "   Publisher", "  ISBN, Loc & notes"
+2580 DATA"end of data",,,,,
+2590 END
+2600 '-----------------------------
+2610 'Embedded Commands
+2620 '              SAVE"BOOKS.DB",A
+2630  CLS:LIST 190-390  'roadmap of subroutines
+2640  CLS:LIST 390-520  'display variable names
+
+
+</pre>
+
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+<a href="bbooks.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595162" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595162&amp;f=us-w3" ALT=1 WIDTH=1 HEIGHT=1>

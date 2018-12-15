@@ -1,0 +1,194 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>2 column letter writing using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>2 Column Letter Writing</h1></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>Two column letters are sort of fun.  You can do it a grand 
+ten lines of code.
+
+What you do is put your computer into 40 column mode with 
+the command "mode 40 25.  Two column letters generally 
+requires 108 to 120 lines of data depending on what you want 
+your margins to be.  You use the same methods as the single 
+column letter with the exception that you load all your 
+sentence lines into an array and print from there.
+As i recall, each line is about 32 characters long with a 
+middle column of about 3/8" of an inch +/-.
+
+If you are going to do a lot of two column stuff, create an 
+empty form (2column.frm) to call up for your letter, that 
+way you will save a lot of time.  Personally, don't think 
+there have ever been too many two column letters in my life 
+so this program may not be very relevant for you either.
+At best, it would make sort of nice family newsletter form 
+or club news.  But... it certainly is not in competition 
+with any bloatware word processor, but it is totally 
+adequate for some purposes.  
+
+1  '  a two column page by fhb4family
+2 DATA "Dear Mother,
+3 DATA "
+4 DATA "How are you?  I am fine.  Just a
+5 DATA "note to let you know that this
+6 DATA "is a two column letter to you.
+7 DATA "
+8 DATA "You ask, why a 2 column letter?
+9 DATA "Well, that is a good question.
+10 DATA"And i know that you like to ask
+11 DATA"good questions.  Mother's are
+12 DATA"like that.  Actually, to answer
+13 DATA"that question correctly, i have
+14 DATA"to go back a few days when i up-
+15 DATA"loaded some GW=BASIC files to
+16 DATA"the internet as part of my web-
+17 DATA"site.  What was missing were the
+18 DATA"old multi-column files of long
+19 DATA"ago.  How long ago?  Real long
+20 DATA"ago. Now is the time for all
+21 DATA"good men to take a nap.
+.
+.
+.  108 to 120 lines of letter go in here
+.
+.
+108
+109 ' end of data
+110 'ProgramStartsHere:
+111 DIM A$(108)    'create string array that holds sentences
+112 I=1            'set incrementing counter I to 1 (just to make sure)
+113 WHILE I<109    'set incrementing parameter
+114   READ A$(I)   'load data into array
+115   I=I+1        'increment the counter
+116   WEND         '^^^^^^^loop to load sentences into array
+117 I=1            'reset counter to 1 again for 2nd while-wend loop
+118 WHILE I<109    'set incrementing parameter
+119   PRINT TAB(6) A$(I);:PRINT TAB(42)A$(I+54)  '2 column printing
+120   I=I+1        'increment the counter
+121   WEND         '^^^^^^^^loop to print 2 column sentences
+122 ' save "2column.bas",a
+
+You can add a Variable Assignment line to include:
+   MT (margin top)
+   2C (second column)
+   ML (margin left)
+   WA (wrap at)
+   STSCADL (start the second column at data line)  :-)
+and use code like
+  MT=4: ML=6: 2C=42
+        then
+  FOR J=1 TO MT:PRINT:NEXT  'print blank lines at top of page
+        and
+  PRINT TAB(ML)A$(I);:PRINT TAB(2C)A$(I+STSCADL)
+inserted into the proper place of your program.  these are just
+suggestions. but for 2column printing just keep it as simple as
+possible.  
+
+To send the array to the printer you have to change ALL the PRINT
+statements to LPRINT and don't forget to press enter afterwards
+on that line.  If your printer doesn't output press the formfeed
+and wait a few seconds, if nothing, press again.
+
+</pre>
+
+<hr>
+
+</body>
+
+<a href="b2column.html#top">TOP</a> of page<br>
+Back to <a href="bindex.html">Index</a><br>
+GW-BASIC <a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595135" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595135&amp;f=us-w3" ALT=1 WIDTH=1 HEIGHT=1>

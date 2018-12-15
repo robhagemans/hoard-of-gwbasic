@@ -1,0 +1,556 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>IBM Selectric Typewriter Emulator - GW-Basic</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>IBM Selectric</h1></center>
+<center><h2>Typewriter Emulator</h2></center>
+<center><h3>by</h3></center>
+<center><h4>Joseph_Sixpack</h4></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+10 '            Correctable IBM Selectric Typewriter emulator
+20 '                        tw.bas by fhb Aug 15, 1997
+30 '
+40 '                R E V I S I O N   H I S T O R Y
+50 '   10/nn/97 # 1.01 modified screen messages
+60 '    9/21/98 # 1.02 tried to bulletproof menu user input
+70 '    9/22/98 # 1.03 reinstituted error message subroutines
+80 '    9/22/98 # 1.04 rewrote program for ease of updates & readability
+90 '    9/23/98 # 1.05 fixed a LOT of induced bugs due to rewrite, grrrr...
+100 '   9/27/98 # 1.06 cleaned up program a bit more
+110 '   9/28/98 # 1.07 rewrote EditLetterCorrectSpelling subroutine
+120 '  10/01/98 # 1.08 Changed opening screen back to old simpler way (print)
+130 '  10/10/98 # 1.09 rewrote for-nexts to while-wend in speller for stack(?)
+140 '  10/24/98 # 1.10 added spell checker
+150 '  11/04/98 # 1.11 rewrote exit routine to allow multiple re-entry
+160 '  03/14/99 # 1.12 commenced adding save array to disk, read array from disk 
+170 '----------------------------------------
+180 'Program:
+190 ON ERROR GOTO 2070 'error check subroutine (don't use GOSUB, it doesn't work)
+200 GOSUB 280  'VariableInitialization
+210 GOSUB 330  'FunctionKeyAssignments
+220 GOSUB 3680 'load spelling array
+230 GOSUB 420  'OpeningScreen
+240 GOSUB 700  'WriteTheSentences
+250 GOSUB 880  'MainMenu
+260 END 'of program
+270 '----------------------------------------
+280 'VariableInitialization:
+290 VIEW PRINT:KEY OFF
+300 DIM L$(61)
+310 RETURN 'to program, FunctionKeyAssignments
+320 '--------------
+330 'FunctionKeyAssignments:
+340 I=1 'there can't be an I=0 or you will get an error
+350 WHILE I<11 'loop thru function keys & null all of them out
+360   KEY I,""
+370   I=I+1
+380   WEND 'F2=clear line with ESC, then enter CONT command
+390 KEY 2, CHR$(27)+"CONT"+CHR$(13)
+400 RETURN 'to Program, OpeningScreen
+410 '----------------------------------------
+420 'OpeningScreen:
+430 CLS
+440 PRINT"     **********************************************************************
+450 PRINT"       Q & D IBM Correctable Selectric Typewriter emulator by FHB 8/15/97
+460 PRINT"     **********************************************************************
+470 PRINT"
+480 PRINT"        IBM Selectric emulator relies on GW-Basic's line input function
+490 PRINT"        to enter your 60 typed letter lines into memory as an array.
+500 PRINT"
+510 PRINT"        By rewriting the subscripted string variables (sentences) of the
+520 PRINT"        array to the screen, you are able to re-edit your letter, correct
+530 PRINT"        spelling errors or re-arrange sentences or paragraphs if need be.
+540 PRINT"
+550 PRINT"        Emulator also has incremental as well as scrolling page preview
+560 PRINT"        for a non-editable examination of your letter prior to printing.
+570 PRINT"
+580 PRINT"        Pressing SPACEBAR, ENTER on a new line while writing your letter
+590 PRINT"        will terminate editing session and transfer you to the main menu.
+600 PRINT"
+610 PRINT"        At the main menu, you have the option of automatically printing
+620 PRINT"        an envelope.  The address is taken from the letter array.
+630 PRINT"
+640 PRINT"        All in all, it works pretty good, but it's a typewriter and NOT
+650 PRINT"        a word processor.  Within its limits, it's completely functional.       
+660 PRINT"                                                        Best wishes, Dad";
+670 GOSUB 2000 'ScreenPauser
+680 RETURN 'to Program, WriteTheSentences
+690 '----------------------------------------
+700 'WriteTheSentences:
+710 CLS
+720 I=1
+730 T=10
+740 WHILE Z$<>" "
+750   GOSUB 2160 'ClearInputLine&LineInputMessage
+760   LOCATE 24,1
+770   PRINT I;
+780   LOCATE 24,15
+790   LINE INPUT">";L$(I)
+800   PRINT I;TAB(T)L$(I);
+810   Z$=(L$(I))
+820   I=I+1
+830   IF I=61 THEN Z$=" "
+840   WEND
+850 T=0
+860 RETURN 'to Program,MainMenu
+870 '----------------------------------------
+880 'MainMenu:
+890 CLS
+900 T=25 'tab setting
+910 X=FRE(D) 'garbage collection
+920 PRINT TAB(T)"    M A I N   M E N U"
+930 PRINT:PRINT TAB(T)"(I)ncremental page preview"
+940 PRINT TAB(T)"(S)crolling page preview"
+950 PRINT:PRINT TAB(T)"(P)rint"
+960 PRINT TAB(T)"(E)dit"
+970 PRINT TAB(T)"(L)ook up spelling
+980 PRINT TAB(T)"(N)ew Letter
+990 PRINT:PRINT TAB(T)"en(V)elopes
+1000 PRINT TAB(T)"(F)ont codes to Printer"
+1010 PRINT:PRINT TAB(T)"(W)rite letter to disk
+1020 PRINT TAB(T)"(R)ead letter from disk
+1030 PRINT:PRINT TAB(T)"(Q)uit to GW-Basic"
+1040 PRINT TAB(T)"e(X)it to DOS"
+1050 PRINT:PRINT TAB(T)"Enter choice (I/S/P/E/L/N/V/W/R/F/Q/X)"
+1060 T=0
+1070  KP$=INKEY$:IF KP$="" THEN 1070   'pause - decision - loop until
+1080   IF INSTR("iIsSpPeEnlLNvVwWrRfFqQxX",KP$)=0 THEN GOSUB 1230
+1090   IF KP$="i" OR KP$="I" THEN GOSUB 1300 'IncrementalScreenPrntPrevi
+1100   IF KP$="s" OR KP$="S" THEN GOSUB 1440 'ScrollingLetterOverview
+1110   IF KP$="p" OR KP$="P" THEN GOSUB 1560 'SendLetter2Printer
+1120   IF KP$="e" OR KP$="E" THEN GOSUB 1690 'EditLetter/CorrectSpelling
+1130   IF KP$="l" OR KP$="L" THEN GOSUB 3850 'LookupWord2CorrectSpelling
+1140   IF KP$="n" OR KP$="N" THEN GOSUB 1900 'NewLetter
+1150   IF KP$="v" OR KP$="V" THEN 2450 'EnvelopeAddresser
+1160   IF KP$="w" OR KP$="W" THEN STOP 'for right now
+1170   IF KP$="r" OR KP$="R" THEN STOP 'for right now
+1180   IF KP$="f" OR KP$="F" THEN 2920 'SendFonts2Printer
+1190   IF KP$="q" OR KP$="Q" THEN STOP 'Quit2GWBasicInterpreter
+1200   IF KP$="x" OR KP$="X" THEN 2220 'ExitDecision
+1210 GOTO 880 'MainMenu
+1220 '--------------------
+1230 'RejectMessage:
+1240 CLS
+1250 LOCATE 12,10
+1260 PRINT "Just the letters (I/S/P/E/L/N/V/F/Q/X) are accepted... Try again"
+1270 GOSUB 2000 'ScreenPauser
+1280 RETURN 'to MainMenu
+1290 '----------------------------------------
+1300 'IncrementalScreenPrintPreview:
+1310 T=10:H=1:J=20
+1320 WHILE I<60
+1330   CLS
+1340   FOR I= H TO J
+1350     PRINT I;TAB(T)L$(I)
+1360       FOR DL=1 TO 400:NEXT DL 'a short visual cue DelayLoop
+1370     NEXT I
+1380   GOSUB 2000 'ScreenPauser
+1390   H=H+10:J=J+10
+1400   WEND '^^^^^^^^^^^^^loop thru array for incrementally view
+1410 T=0:H=0:I=1:J=0
+1420 RETURN 'MainMenu
+1430 '--------------------
+1440 'ScrollingLetterOverview:
+1450 CLS
+1460 T=10:I=1
+1470 WHILE I < 61
+1480   PRINT I;TAB(T) L$(I)
+1490     FOR DL=1 TO 3000:NEXT DL 'loooooooong scrolling delay loop
+1500   I=I+1
+1510   WEND '^^^^^^^^^^^^^loop thru array to view letter
+1520 GOSUB 2000 'ScreenPauser
+1530 T=0:I=0
+1540 RETURN 'to MainMenu
+1550 '----------------------------------------
+1560 'SendLetter2Printer:
+1570 CLS
+1580 T=10:I=1
+1590 LOCATE 10,20
+1600 PRINT"Letter is now being printed.  Please Wait...";
+1610 LPRINT CHR$(27)+CHR$(38)+CHR$(108)+CHR$(48)+ CHR$(79); 'PCL3 portrait mode
+1620 WHILE I<>61
+1630   LPRINT TAB(T)L$(I)
+1640   I=I+1
+1650   WEND '^^^^^^^^^^^^^loop thru array and print letter
+1660 T=0:I=1
+1670 RETURN 'MainMenu
+1680 '----------------------------------------
+1690 'EditLetter/CorrectSpelling:
+1700 H=1:J=15:T=10:I=1
+1710 WHILE I < 60 'do loop until line number gets to 60
+1720   CLS
+1730   PRINT TAB(T)"             Notes on editing your letter
+1740   PRINT TAB(T)"Don't forget to press the ENTER key on each line edited.
+1750   PRINT TAB(T)"When your session is over, enter F2 (CONT) to continue.
+1760   PRINT TAB(T)"in this editing mode quotes aren't accepted as line input.
+1770   PRINT TAB(T)"so be careful, forget editing any lines containing quotes.
+1780   LOCATE 25,1
+1790   PRINT "F2 = Edits next group of sentences";
+1800   LOCATE 7,1
+1810   FOR I= H TO J
+1820     PRINT "   L$(";I;")=";CHR$(34);L$(I);CHR$(34)
+1830     NEXT I        '^^^^^^^^^^^^^loop thru lines H to J of letter on screen
+1840   STOP 'when J is exceeded
+1850   H=H+15:J=J+15 'increment array read limits by 15 and start over
+1860   WEND 'end of WHILE-WEND loop
+1870 H=0:I=1:J=0:T=0 'reinitialize all subroutine variables to zero 'cept I
+1880 RETURN 'to MainMenu
+1890 '----------------------------------------
+1900 'NewLetter:
+1910 CLS
+1920 LOCATE 10,15
+1930 PRINT"Creating a new letter erases the existing one."
+1940 LOCATE 12,15
+1950 PRINT "Are you sure you want to create a new letter (Y/N) ?"
+1960 KP$=INKEY$:IF KP$="" THEN 1960  'pause - looooop - decision
+1970   IF KP$="y" OR KP$="Y" THEN RUN
+1980 RETURN 'to MainMenu
+1990 '----------------------------------------
+2000 'ScreenPauser:
+2010 LOCATE 25,1
+2020 PRINT "Press the Anykey to continue...";
+2030   KP$=INKEY$:IF KP$="" THEN 2030 'pause - loooop - decision
+2040 LOCATE 25,1 :PRINT SPACE$(79);
+2050 CLS:RETURN 'to caller
+2060 '----------------------------------------
+2070 'OnErrorCheck:
+2080 CLS
+2090 LOCATE 10,10
+2100  PRINT"An error";ERR;"has occurred in line";ERL;"check it out!..."
+2110 LOCATE 12,10
+2120    IF ERR=25 THEN PRINT "Printer is not turned on or no paper in it."
+2130  GOSUB 2000 'ScreenPauser
+2140  RESUME 880 'MainMenu
+2150 '----------------------------------------
+2160 'ClearInputLine&LineInputMessage:
+2170 LOCATE 24,1
+2180 PRINT SPC(78); 'clears away the old LINE INPUT string
+2190 LOCATE 25,1:PRINT "Exit=Spacebar,enter";TAB(70) DATE$;
+2200 RETURN 'WriteTheSentences
+2210 '----------------------------------------
+2220 'ExitDecision:
+2230 CLS:T=22
+2240 LOCATE 5,15
+2250 PRINT "Exiting the IBM SELECTRIC EMULATOR will lose your letter."
+2260 LOCATE 9,1
+2270 PRINT TAB(T) "Pressing 6 exits to Landlord VI program
+2280 PRINT TAB(T) "         9          Landlord IX program
+2290 PRINT TAB(T) "         L          Letters Menu"
+2300 PRINT TAB(T) "         4          Main Menu"
+2310 PRINT TAB(T) "         X          System"
+2320 PRINT
+2330 PRINT TAB(T) "or Press SPACEBAR to return"
+2340 PRINT TAB(T) "to main menu of your letter"
+2350 PRINT:PRINT TAB(T) "Enter Choice (6|9|L|4|X|or Spacebar)
+2360 KP$=INKEY$:IF KP$="" THEN 2360 'pause - looooop - decision
+2370 IF INSTR(" 469lLxX",KP$)=0 THEN 2220
+2380   IF KP$="6" THEN RUN"LL6.BAS
+2390   IF KP$="9" THEN RUN"LL9.BAS
+2400   IF KP$="l" OR KP$="L" THEN RUN"MNU-LETR
+2410   IF KP$="4" THEN RUN"MNU-MAIN
+2420   IF KP$="x" OR KP$="X" THEN SYSTEM
+2430 GOTO 880 'MainMenu
+2440 '----------------------------------------
+2450 'EnvelopeAddresser:
+2460 CLS:KB=0:KK=0
+2470 LOCATE  4,20:PRINT"E N V E L O P E    S E L E C T O R"
+2480 LOCATE  7,20:PRINT"Press        Envelope         Size"
+2490 LOCATE  9,20:PRINT"1            #10 common       9.5 x 4.2";CHR$(34)
+2500 LOCATE 10,20:PRINT"2            # 6              6.5 x 3.6";CHR$(34)
+2510 LOCATE 11,20:PRINT"M            Main menu"
+2520 LOCATE 14,10:PRINT"Enter appropriate selection: (1,2,M)
+2530 KP$=INKEY$:IF KP$="" THEN 2530           'pause - looooop - decision
+2540   IF INSTR("12mM",KP$)=0 THEN 2460
+2550   IF KP$="m" OR KP$="M" THEN 880
+2560   IF VAL(KP$)=1 THEN TABADDR=52 ELSE TABADDR=66
+2570   IF VAL(KP$)=1 THEN SKIPLINE= 8 ELSE SKIPLINE=6
+2580   IF VAL(KP$)=1 THEN TABTOP=16 ELSE TABTOP=46
+2590 INPUT "     What is the FIRST line number of the addressee";KB
+2600 INPUT "     What is the LAST  line number of the addressee";KK
+2610 '--------------------
+2620 'PreviewPrintEnvelope2Screen:
+2630 CLS:I=1
+2640 LOCATE 4,1
+2650 PRINT "MM JOSEPH SIXPACK"
+2660 PRINT "NNNNN LLLLLLL AVENUE"
+2670 PRINT "LLLLLL LLLL CA 9NNNN-NNNN"
+2680 FOR LINEFEED=1 TO SKIPLINE
+2690   PRINT
+2700   NEXT LINEFEED '^^^^^^^^^^loop for envelope spacing between return addr
+2710 FOR I=KB TO KK
+2720   PRINT TAB(40) L$(I)
+2730   NEXT I        '^^^^^^^^^^loop thru letter printing addressee's address.
+2740 LOCATE 24,1
+2750 PRINT"Does everything look okay (Y/N)?"
+2760 KP$=INKEY$:IF KP$="" THEN 2760 'p       ause - loop - decision
+2770 IF KP$="n" OR KP$="N" THEN 880 'MainMenu
+2780 '--------------------
+2790 'SendEnvelope2Printer:
+2800 LPRINT CHR$(27)+CHR$(38)+CHR$(108)+CHR$(49)+CHR$(79); 'switch to landscape
+2810 WIDTH LPRINT 132    'sheesh! omitting this gave me a fit in landscape mode
+2820 LPRINT TAB(TABTOP) "MM JOSEPH SIXPACK"
+2830 LPRINT TAB(TABTOP) "NNNNN LLLLLLL AVENUE"
+2840 LPRINT TAB(TABTOP) "LLLLLL LLLL CA 9NNNN-NNNN"
+2850 FOR LINEFEED=1 TO SKIPLINE
+2860   LPRINT
+2870   NEXT LINEFEED '^^^^^^^^^^^looping to print empty lines for spacing
+2880 FOR I=KB TO KK
+2890   LPRINT TAB(TABADDR)L$(I)
+2900   NEXT I '^^^^^^^^^^^looping to print addressee's name & address
+2910 GOTO 880 'MainMenu
+2920 '----------------------------------------
+2930 'SendPCL3Codes4Fonts_2Printer:
+2940 CLS
+2950 LOCATE  6,15:PRINT"P R I N T E R    C O D E S    T O    P R I N T E R
+2960 LOCATE  8,15:PRINT"1.     Courier       12pt, 10p       (PCL3 font #69)
+2970 LOCATE  9,15:PRINT"2.     CG-Times      14pt, prop      (PCL3 font #25)
+2980 LOCATE 10,15:PRINT"3.     Univers       12pt, prop      (PCL3 font #45)
+2990 LOCATE 11,15:PRINT"4.     Letter Gothic 12pt, 12p       (PCL3 font #95)
+3000 LOCATE 12,15:PRINT"M      Main Menu"
+3010 LOCATE 14,15:PRINT"Select font (1-4|M)"
+3020 KP$=INKEY$:IF KP$="" THEN 3020 '    pause - loooooop - decision
+3030   IF INSTR("1234mM",KP$)=FALSE THEN 2930
+3040   IF VAL(KP$)=1 THEN GOSUB 3110
+3050   IF VAL(KP$)=2 THEN GOSUB 3180
+3060   IF VAL(KP$)=3 THEN GOSUB 3250
+3070   IF VAL(KP$)=4 THEN GOSUB 3320
+3080   IF KP$="m" OR KP$="M" THEN 880
+3090 GOTO 2930 'SendPCL3Codes4Fonts_2Printer
+3100 '----------------------------------------
+3110 'CourierFontCodes2Printer: 'select#1 font
+3120 LOCATE 25,1                                   
+3130 PRINT"courier font codes sent to printer.  Press anykey";
+3140 LPRINT CHR$(27)+"(s0p10h12v0s0b3T";
+3150 KP$=INKEY$:IF KP$="" THEN 3150 '    pause - loooooop - decision
+3160 RETURN 'to PCL3MainMenu
+3170 '----------------------------------------
+3180 'CG-TimesFontCodes2Printer: 'select#2 font
+3190 LOCATE 25,1
+3200 PRINT"CG-Times font codes sent to printer.  Press anykey";
+3210 LPRINT CHR$(27)+"(s1p14v0s0b4101T";
+3220 KP$=INKEY$:IF KP$="" THEN 3220  '  pause - looooop - decision
+3230 RETURN 'to PCL3MainMenu
+3240 '----------------------------------------
+3250 'UniversFontCodes2Printer: 'select#3 font
+3260 LOCATE 25,1
+3270 PRINT"Univers font codes sent to printer.  Press anykey";
+3280 LPRINT CHR$(27)+"(s1p12v0s0b52T";
+3290 KP$=INKEY$:IF KP$="" THEN 3290 '   pause - loooop - decision
+3300 RETURN 'to PCL3MainMenu
+3310 '----------------------------------------
+3320 'LetterGothicFontCodes2Printer: 'select#4 font
+3330 LOCATE 25,1
+3340 PRINT"Letter Gothic font codes sent to printer.  Press anykey";
+3350 LPRINT CHR$(27)+"(s0p12h12v0s0b6T";
+3360 KP$=INKEY$:IF KP$="" THEN 3360 '    pause - loooooop - decision
+3370 RETURN 'to PCL3MainMenu
+3380 '----------------------------------------
+3390 'LookupWordData & Program 'was inserted into tw.bas 10/24/98
+3400 DATA "A","abeyance",alzheimer","anecdotal","argument","available","apropos"
+3410 DATA "B"
+3420 DATA "C","chocoholic","correspondence"
+3430 DATA "D"
+3440 DATA "E","embarrass","emphysema","exaggerate","existence"
+3450 DATA "F"
+3460 DATA "G","gourmet","gray"
+3470 DATA "H","homonyms"
+3480 DATA "I","intriguing"
+3490 DATA "J"
+3500 DATA "K"
+3510 DATA "L"
+3520 DATA "M","mnemonic"
+3530 DATA "N","mnemonic"
+3540 DATA "O"
+3550 DATA "P"
+3560 DATA "Q"
+3570 DATA "R","restaurant", "reconcile"
+3580 DATA "S"
+3590 DATA "T","tomorrow"
+3600 DATA "U"
+3610 DATA "V","venereal","vengeance","vengeful"
+3620 DATA "W"
+3630 DATA "X"
+3640 DATA "Y"
+3650 DATA "Z"
+3660 DATA "zymurgy"
+3670 '------------------------
+3680 'WordCount:
+3690 WHILE A$<>"zymurgy"
+3700  READ A$
+3710  C=C+1
+3720  WEND
+3730 '------------------------
+3740 'LoadWordsArray:
+3750 RESTORE
+3760 I=1
+3770 DIM A$(C)
+3780 WHILE I <> C+1
+3790   READ A$
+3800   A$(I)=A$
+3810   I=I+1
+3820   WEND
+3830 RETURN
+3840 '------------------------
+3850 'CheckWord:
+3860 CLS
+3870 I=1
+3880 INPUT "input a fragment of the word that you want checked";X$
+3890 WHILE I<> C+1
+3900   IF INSTR(A$(I),X$)>0 THEN PRINT A$(I);" ",
+3910   IF INSTR(A$(I),X$)>0 THEN W=W+1
+3920   I=I+1
+3930   WEND
+3940 IF W>0 THEN LOCATE 25,1:PRINT"Press the AnyKey to continue...";
+3950 IF W=0 THEN GOSUB 3990 'WordNotFound
+3960 KP$=INKEY$:IF KP$="" THEN 3960 '   pause - loooop - decision
+3970 RETURN
+3980 '----------------------------------------
+3990 'WordNotFound:
+4000 LOCATE 12,20:PRINT "Word not Found... Please try a different fragment";
+4010 LOCATE 25,1:PRINT "Press the AnyKey to continue...";
+4020 RETURN
+4030 '----------------------------------------
+4040 'WriteLetterToDisk:
+4050 '
+4060 '
+4070 '----------------------------------------
+4080 'ReadLetterFromDisk:
+4090 '
+4100 '
+4110 '
+4120 '----------------------------------------
+4130 'SubroutineRoadMap:
+4140 CLS:LIST  380-320  'VariableInitialization
+4150 CLS:LIST  330-400  'FunctionKeyAssignments
+4160 CLS:LIST  420-680  'OpeningScreen
+4170 CLS:LIST  700-860  'WriteTheSentences
+4180 CLS:LIST  880-1200 'MainMenu
+4190 CLS:LIST 1230-1280 '  RejectMessage
+4200 CLS:LIST 1300-1420 ' IncrementalScreenPrintPreview
+4210 CLS:LIST 1440-1540 ' ScrollingLetterOverView
+4220 CLS:LIST 1560-1670 ' SendLetter2Printer
+4230 CLS:LIST 1690-1880 ' EditLetterCorrectSpelling
+4240 CLS:LIST 1900-1970 ' NewLetter
+4250 CLS:LIST 2000-2050 '  ScreenPauser
+4260 CLS:LIST 2070-2140 'OnERRORCheck
+4270 CLS:LIST 4280-4450 'LIST RoadMap - part 2        <---===***
+4280 CLS:LIST 2160-2200 'ClearInputLine&LineInputMessage
+4290 CLS:LIST 2220-2430 'ExitDecision
+4300 CLS:LIST 2450-2580 'EnvelopeAddresser
+4310 CLS:LIST 2620-2770 ' PreviewPrintEnvelope2Screen
+4320 CLS:LIST 2790-2910 ' ActualEnvelopeAddressing
+4330 CLS:LIST 2930-3100 ' PCL3Codes2PrinterMenu
+4340 CLS:LIST 3110-3160 '  CourierFontCodes2Printer
+4350 CLS:LIST 3180-3230 '  CG-TimesFontCodes2Printer
+4360 CLS:LIST 3250-3300 '  UniverseFontCodes2Printer
+4370 CLS:LIST 3320-3380 '  LetterGothicFontCodes2Printer
+4380 CLS:LIST 3390-3660 'Dictionary
+4390 CLS:LIST 3680-3730 'WordCount
+4400 CLS:LIST 3740-3840 'LoadWordsArray
+4410 CLS:LIST 3850-4030 'CheckWord
+4420 CLS:LIST 4040-4060 'WriteLetterToDisk
+4430 CLS:LIST 4080-4110 'ReadLetterFromDisk
+4440 CLS:LIST 4130-4270 'LIST RoadMap - part 1       <---===***
+4450 CLS:LIST 4470-    'Imbedded commands for saving program
+4460 '----------------------------------------
+4470 'EmbeddedCommands:
+4480 '                  save"TW.BAS",A
+4490 CLS:LIST 4130-4300 'Roadmap upper
+4500 CLS:LIST 4220-4450 'Roadmap lower
+
+
+</pre>
+
+</body>
+
+<a href="btw.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595137" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595137&amp;f=us-w6" ALT=1 WIDTH=1 HEIGHT=1>

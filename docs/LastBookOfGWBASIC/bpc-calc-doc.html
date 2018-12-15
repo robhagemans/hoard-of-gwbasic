@@ -1,0 +1,1179 @@
+<html>
+<!--
+123456789 123456789 123456789 123456789 123456789 1234567890
+ -->
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>PC-CALC, a GW-BASIC Spreadsheet Documentation</title>
+
+<meta name="author" content="Joseph_Sixpack" />
+<meta name="keywords" content="pc-calc, spreadsheet, gw-basic, gw-basic programs, programming gw-basic, last book of gw-basic, gw- 
+basic programming" />
+<meta name="description" content="pc-calc, a spreadsheet in gw-basic" />
+
+</head>
+
+<a name="top"></a>
+
+<center><h1>PC-CALC</h1></center>
+<center><h4>written by professionals in</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Return to GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Return to the <a href="bindex.html">GW-Basic Index</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>This is the second of two files concerning PC-CALC.  You know, i wonder
+if this is the original source of Jim Button's PC-CALC?  same name?
+
+<hr>
+                                                                     1
+                                     PC-CALC
+
+                                       by
+
+                               John L. Vandegrift
+                                       and
+                                  Guy C. Gordon
+<hr>
+                                                                      2
+                                     Preface
+
+               Welcome  to PC-Calc, the electronic spreadsheet designed
+          for use with the IBM-PC or  VICTOR  9000  personal  computer.
+          This user's manual will serve as your guide.
+
+               The  PC-Calc  user's  manual  is intended to accommodate
+          a large number of people with a wide range of computer exper-
+          ience.  It is organized into three main sections.
+
+               Section  l  is  an  introduction to PC-Calc and includes
+          information about starting PC-Calc and  what  the  user  will
+          see.   You  should  read  this section before trying anything
+          with the PC-Calc program.
+
+               Section 2 is an instructional section,  containing  les-
+          sons  which  have been structured to foresee some of problems
+          and questions that  will  arise.   These  lessons  will  lead
+          you  from  initiating a PC-Calc session through various exer-
+          cises which illustrate how  PC-Calc  can  assist  in  solving
+          problems  and  increasing  your  efficiency.   The  exercises
+          should be run with the terminal in  front  of  you,  as  they
+          are  designed  to  lead  you through the features of PC-Calc.
+          With usage, you will become familiar with some  of  the  more
+          advanced features of PC-Calc.  
+
+               Section  3  is the command reference.  This section con-
+          tains a description of each  of  the  commands  available  to
+          the  user.   As  you  use  the  advanced features of PC-Calc,
+          and become more familiar with them, you  will  find  yourself
+          spending  more  time  in this section.  The best way to learn
+          PC-Calc is to use it.  Do not be afraid  of  making  mistakes
+          and  experimenting.  No matter what you type at the keyboard,
+          you cannot hurt the computer or the PC-Calc program, although
+          it is always a good idea to have a backup of all programs.
+           
+               PC-Calc  is  laid  out  similarly to classic spreadsheet
+          programs.  It is not intended  to  completely  replace  these
+          programs,  but  will  allow  you  to learn what a spreadsheet
+          is all about.  Written in BASIC,  PC-Calc  has  many  limita-
+          tions.   First,  interpretive Basic is slow.  Second, it must
+          pause once in a while  to  free  more  space  for  variables.
+          (When  this  happens  PC-Calc  will  not  respond for up to 2
+          minutes.)  If you are running the compiled version of PC-Calc
+          these  may  not  be problems.  Third, Basic limits your space
+          to about 1000 cells.  If you start  using  PC-Calc  and  find
+          that  it  serves  a  useful  purpose in your home or at work,
+          then it may be time to  start  looking  at  the  full  priced
+          spreadsheets,  which  are bigger, faster, have more features,
+          (and cost a whole lot more).  Your  experience  with  PC-Calc
+          will  be  of  great  value to you in evaluating the many com-
+          mercially available spreadsheets. 
+<hr>
+                                                                      3
+                                  1.  Overview
+
+               Spreadsheet  application  programs,  of  which   PC-Calc
+          is  one,  were born out of the observation that many problems
+          are commonly solved using a pencil, paper and  a  calculator.
+          Calculating sales projections, departmental budgets, engineer-
+          ing estimates, etc. are all done in this manner. 
+
+               PC-Calc  combines  the  familiarity  and  convenience of
+          a pocket calculator with the powerful memory  and  electronic
+          screen  capabilities of the personal computer.  With PC-Calc,
+          the screen becomes a window that shows  part  of  the  larger
+          worksheet.   You  can  access  different  parts  of the sheet
+          at will, displaying any 22 by 8  section  of  the  50  by  20
+          sheet.
+
+               The  screen  is  divided into a 22 by 8 grid of rows and
+          columns.  The intersection  of  these  rows  and  columns  is
+          called a cell.  At each cell you can enter a number, a label,
+          or an equation.  In this  fashion  you  can  quickly  set  up
+          your own tables, charts, and records
+
+               Formatting  commands  allow you to customize the appear-
+          ance of the data in the  worksheet,  both  on  a  global  and
+          local  level.  Global formatting applies to all of the cells,
+          while local formatting applies to only to  individual  cells.
+          (Local  formatting  takes precedence over global formatting.)
+          In this manner, you  can  make  your  spreadsheet  look  like
+          your  bank  statement,  your  income tax form, or your ledger
+          book. 
+
+               The real power of PC-Calc lies in its ability to  remem-
+          ber  the equations and numbers used as you defined your prob-
+          lem.  If you need to change a number on  the  worksheet,  you
+          need  merely  change that number and PC-Calc will recalculate
+          all the numbers  that  relate  to  it.   Recalculation  makes
+          PC-Calc  a  powerful  tool.   This  allows the user to easily
+          correct mistakes, as well as examine "whatif" situations. 
+
+               Imagine, for example, that you are doing a sales projec-
+          tion.   You  may  want  to know the impact on your company if
+          a specific product does not  sell  as  well  as  anticipated.
+          What  if  you  sell  only  100  cogs instead of 150?  What if
+          you sell 500?  What if you lose one of your  sales  personnel
+          and  you  know  that his 35% share of your sales will go with
+          him?  These are all  examples  of  "whatif"  situations  that
+          PC-Calc  makes  easy  to  analyze.  Whereas it would take the
+          you several hours of erasing and  recalculating  to  do  this
+          on  paper,  once  the model was set up, PC-Calc will make the
+          calculations in a matter of seconds.
+
+<hr>
+                                                                       4
+
+          Perhaps you keep a household  budget,  and  you  know
+          that  next  month there will be an additional 5% tax on gaso-
+          line.  With PC-Calc you could look up  last  month's  budget,
+          and  with  one  command  multiply all the gasoline charges by
+          1.05 and use the  result  as  an  estimate  of  next  month's
+          budget.  
+
+               To  set  up  these  models,  you  must decide what items
+          you want to show and where you want them on the  spreadsheet.
+          After  you  have  decided  on a layout, you can enter titles,
+          labels and other textual information to show where  the  data
+          is  to go.  Next you enter the raw data such as prices, rates
+          or any other numbers, into  the  cells  you  have  designated
+          for  them.   Finally,  you  enter the equations which will be
+          used to calculate intermediate values and the  final  numbers
+          you are interested in (i.e. the bottom line).  
+
+               Once  you establish the format for a particular applica-
+          tion, you can change  the  numbers  at  will.   PC-Calc  will
+          take  care of calculating new answers for the equations based
+          on the new values you  just  entered,  as  well  as  handling
+          the  formatting  of  those  cells  so that they are displayed
+          in a pleasing and useful manner.  PC-Calc is unique in allow-
+          ing  you  to display numbers either as decimals or fractions.
+          You can save the entire worksheet to a  file  and  recall  it
+          later,  print  the  worksheet on the printer to obtain a hard
+          copy, or print a copy to a disk  file  which  you  may  enter
+          into your word processor as a table.
+
+               In  an  hour or two, you can learn enough of the elemen-
+          tary features of PC-Calc to enable you to solve simple  prob-
+          lems.   As  you  use  PC-Calc  and  become more familiar with
+          it, you will learn the more advance commands  and  techniques
+          such as how to have PC-Calc draw a graph of your results. 
+<hr>
+                                                                      5
+
+                               Matrix Introduction
+
+               1.1  Screen  Format.   The  PC-Calc  matrix  is  made up
+          of one thousand cells divided  into  fifty  rows  and  twenty
+          columns.   Each cell is displayed as a maximum of eight posi-
+          tions.  As a result, only twenty-two rows and  eight  columns
+          are  displayed  on  the screen.  The rows are labeled numeri-
+          cally and the columns are  labeled  alphabetically,  starting
+          at  the  upper  left  corner  of  the matrix.  Thus the first
+          cell in the upper left corner would be A1.  When the  program
+          starts  up,  it will show cells A1 through H22 on the screen.
+          See the Goto command for information on displaying  the  rest
+          of the matrix.  
+
+               1.2   Cursor and Status Line.  The current cell is indi-
+          cated by an inverse video  cursor.   When  PC-Calc  is  first
+          run  the current cell will be A1.  The top line of the screen
+          is the status line.  This line is used to give more  informa-
+          tion  about  the  current cell, as well as to prompt the user
+          for  more  information  when  executing  a  Special  Command.
+          Values  will  be  shown  unformatted in full precision on the
+          status line, although they  will  have  either  a  global  or
+          local  format  applied  to  them  when  displayed in the cell
+          of the matrix on the screen.  The global  and  local  formats
+          control  how  the  value is displayed and  printed.  For more
+          information on the  formatting  of  values,  see  the  Format
+          command.
+
+               1.3   Cursor  Manipulation.   The  cursor  can  be moved
+          to any cell on the screen through  the  user  of  the  cursor
+          keys  to  the  right  of  the keyboard.  Each time one of the
+          cursor arrow keys is pressed, the current cell changes appro-
+          priately, as indicated by the inverse video  cursor.  Through
+          these keys, the user is allowed to move the  cursor  anywhere
+          on  the  screen.   The  status  line at the top of the screen
+          will change to indicate  the  contents  of  the  new  current
+          cell. 
+
+               The Goto command can be used to move the cursor directly
+          to any cell in the matrix.  This command  takes  a  few  more
+          keystrokes  than  the  cursor  movement  keys,  but will save
+          keystrokes when moving to a location more than  a  few  cells
+          away.   Also,  the  Goto command allows you to move to a cell
+          that is off the screen.  If the  cell  is  off  the   screen,
+          and  the  Goto  command  is  used to access it, then the cell
+          will be put at the top left corner of the screen.   For  more
+          information about the Goto command, see section 2.
+<hr>
+                                                                      6
+
+               You  may  also  move  the  screen  window by a full page
+          (screen).  On the IBM-PC the  PageUp  and  PageDn  keys  move
+          the  screen  22 lines, while Control left & right cursor move
+          the screen 8 columns.  On the  Victor  9000  these  functions
+          are  performed  by  the  SCRL up & down and WORD right & left
+          keys
+
+               1.4  Entering Data.  The  user  can  enter  three  types
+          of  data  into  the  current cell.  The first type of data is
+          a numerical value.  To tell PC-Calc that a  value  is  to  be
+          entered  into  the  current  cell,  press the = key.  PC-Calc
+          will respond by clearing the status line  and  prompting  you
+          for  the  value  to  be entered.  You enter a value and press
+          return when done.  The status  line  will  again  be  cleared
+          and  PC-Calc  will  display  the  new contents of the current
+          cell.  
+
+               The second type of data that can be entered is a  label.
+          This  is  useful  for  labeling  columns or rows of data.  To
+          tell PC-Calc that a label is to be entered into  the  current
+          cell,  press  the  '  key.   PC-Calc will respond by clearing
+          the status line and prompting the  user  for  a  label.   The
+          user  enters  a label and presses return.  PC-Calc will enter
+          the label and display  the  contents  of  the  current  cell.
+          Labels can have up to eight characters per cell.  If a longer
+          label is desired, more characters  can  be  entered  and  the
+          label will be automatically continued into the next cell.
+
+               The  third  type  of  data  that can be entered into the
+          current cell is an equation.  This is done through the  Spec-
+          ial  Commands  section.   For  more  information  on entering
+          equations, see the Equation command in the  Special  Commands
+          section.
+
+               1.5  Clearing   the  Screen.   Occasionally  the  screen
+          may become cluttered with  unwanted  material.   Or  you  may
+          wish  to  clear  any highlighted cells back to normal bright-
+          ness.  Pressing the HOME key causes  PC-Calc  to  redraw  the
+          display.   It  does  not  alter the information in any of the
+          cells.
+
+               1.6  Cancel.  There will  be  times  when  you  want  to
+          stop  PC-Calc  from  updating the screen (which can be slow).
+          For instance, PC-Calc is drawing the screen and  you  realize
+          that  you  have  another  change  to make, and then will need
+          to update the screen again.  You may press the END key  (IBM-
+          PC)  or  REQuest  CANcel  key  (Victor 9000) and PC-Calc will
+          immediately return control  to  you.   After  you  make  your
+          change  you  can  press  the HOME key and PC-Calc will redraw
+          the entire display.  
+
+               1.7  Quit.  To exit PC-Calc enter /Q.
+<hr>
+                                                                      7
+                                     Lessons
+
+               2.1  Lesson 1.  To run the compiled version  of  PC-Calc
+          (file  PC-CALC.EXE)  type  in  PC-CALC  <enter>.   To run the
+          interpreted BASIC version (PC-CALC.BAS) enter BASIC  PC-CALC.
+          The  compiled  version  will  run faster but may require more
+          memory.  With the interpreted  version  you  can  adjust  the
+          number  of  rows  and  columns  to fit you memory size.  When
+          you have PC-Calc running, you should see the PC-Calc  outline
+          on  the  screen  with rows 1 through 22 displayed on the left
+          and columns A through H  displayed  across  the  top  of  the
+          screen.   At  the intersection of a row and column is a cell.
+          In each cell, you can enter a label  (text),  a  value  (con-
+          stant) or an equation (formula).
+
+               The  top  line  of  the screen is the status line, which
+          gives the contents of the current  cell.   The  current  cell
+          is  indicated  on  the  screen by inverse video cursor.  When
+          the program is first run, the  cursor  will  be  in  cell  A1
+          and  the  status  line will show "A01 = (blank)", which indi-
+          cates that nothing has  been  entered  into  cell  A1.   This
+          status  line is used to display the cell contents and receive
+          user interaction.  When  PC-Calc  is  waiting  for  the  user
+          to  issue  a  command,  this  line  will show the contents of
+          the current cell. 
+
+               Movement of the cursor is done through the  cursor  con-
+          trol  keys.   To  move  to  cell  A2 you would press the down
+          arrow key.  To access a cell that  is  off  the  screen,  use
+          the  Goto  command.   The Goto command is entered by pressing
+          the "." key.  PC-Calc will respond  by  clearing  the  status
+          line  and  asking  for  the cell to which to go.  This can be
+          a cell on or off the screen.  If it is off  the  screen,  PC-
+          Calc  will  clear  the  screen  and  display a new section of
+          the matrix with the requested cell in  the  top  left  corner
+          of  the  screen,  if  appropriate.   Even for movement on the
+          screen, the Goto command can be easier than the  cursor  keys
+          if the user has to move more than a few cells.  In addressing
+          cells you may specify either A01 or A1 as you please.  
+
+                     * * * Practice moving the cursor * * *
+
+               Moving the cursor and window around are fairly  straight
+          forward  as  you  have  seen, but so far the worksheet should
+          be empty.  Writing on the worksheet is just as easy.   Before
+          going  further,  press  the  HOME key to clear the screen and
+          rebuild the window on the screen.  Now  move  the  cursor  to
+          cell  A1,  press  the  quote key ('), enter "SALES" and press
+          return.  Upon pressing the quote  key,  PC-Calc  responds  by
+          clearing  the  status  line  and  prompting you for the label
+          to go into cell A1.  As you enter "SALES",  PC-Calc  displays
+          it  on  the  status  line.   The BACKSPACE key can be used to
+ 
+<hr>
+                                                                      8
+
+          correct any errors before you press  the  return  key,  which
+          tells  PC-Calc  to  enter the label in the current cell (A1).
+
+               Each cell can normally  hold  up  to  eight  characters.
+          If the label you desire to enter is longer than eight charac-
+          ters, PC-Calc will allow you  to  enter  nine  characters  in
+          the  cell  and  automatically  continue the label in the next
+          cell.  (The ninth  character  goes  into  the  space  between
+          the  cells.)  In this way you can have long titles and labels
+          in the PC-Calc matrix.  At this point the status line  should
+          read A01=SALES.
+
+               Now  move  the cursor to B1 by pressing the right cursor
+          key. When the status line  reads  B01=(b[=s-%b kke..
+<hr>
+
+Joe6PackNotes:
+
+     here the file looked like it contained a virus as a string of high
+     order ascii and low order was present.  deleted all of it (about a
+     half line of stuff. So watch out if you find the original.
+
+<hr>
+          This  key  may  be  used with or without the shift key
+          being pressed.  PC-Calc will prompt  the  user  for  a  value
+          to  go in B1.  You can then enter a number up to eight digits
+          long.  When you have the number, press return to tell PC-Calc
+          to  enter the number in the matrix.  Fractions may be entered
+          with a space between the integer  and  the  fractional  parts
+          (e.g. 12 3/8). 
+
+                 * * * Practice entering Labels and Values * * *
+
+               To  enter  an equation, you must go to the Equation com-
+          mand in the Special Command section by pressing  the  /  key.
+          PC-Calc will respond by displaying all the commands available
+          to you in this section.   To  execute  the  Equation  command
+          press  the  E key.  PC-Calc will then prompt for the Equation
+          to go in the current cell.  Equations can have cell referenc-
+          es, numbers, the four math operators (+,-,*,/) and ten levels
+          of parentheses.  From  cell  C1  enter  the  equation  B1+100
+          and  press  return.   The  status line will show the equation
+          you have just entered and its current evaluation.   The  cell
+          will display this value.  
+
+               If  we  change  the  value  of B1 we must ask PC-Calc to
+          re-compute the value of the  equation  in  C1.   To  do  this
+          you  enter  /C  which  tells PC-Calc to go through the matrix
+          and calculate all of the equations, placing  the  new  values
+          in  the  cells.   In  this fashion, the user can make several
+          changes and, when finished with  the  changes,  tell  PC-Calc
+          to  compute  the new values.  Since this may take the longest
+          of any of the commands,  you  should  make  as  many  changes
+          as  possible  before  re-computing.   At  this  point, change
+          the value of B1 and press /C.  PC-Calc will  respond  by  re-
+          calculating  the  value  of  C1  and displaying the new value
+          highlighted so that you can  see  what  happened.   You  will
+          notice  that  the  cursor  disappears  while  PC-Calc is busy
+          executing your command.   It's  reappearance  is  the  signal
+          that you may enter your next command. 
+<hr>
+                                                                      9
+                     * * * Practice entering equations * * *
+
+               After  entering  values,  labels  and equations into the
+          matrix and computing the results, we  can  save  the  PC-Calc
+          matrix  as  a  file  so  that  it can be recalled later.  The
+          command to do this is the SAVE  command,  /S.   PC-Calc  will
+          respond  by  prompting  for a filespec or name to give to the
+          matrix you are saving.   (You  are  also  shown  the  default
+          file  name  which  will  be  used  if you press enter.)  This
+          follows the DOS conventions for naming  files  and  can  have
+          the  drive  prefix  as  well  as  the filetype extension.  If
+          you do not provide an extension, PC-Calc will use  the  file-
+          type  .CAL  to  indicate  that  this is a PC-Calc spreadsheet
+          file.  After entering the  filespec,  PC-Calc  will  ask  you
+          to  insert the correct disk for the file, giving you a chance
+          to swap diskettes if needed.  
+
+               After you have saved the  matrix  to  a  file,  use  the
+          LOAD  command  (/L)  to  load  the file back into the PC-Calc
+          matrix.  To indicate clearly that  it  has  worked,  we  will
+          obtain  a  new  empty  matrix first.  Execute the NEW command
+          by typing /N.   PC-Calc  will  respond  by  re-starting  from
+          the  beginning,  with  a  new, empty matrix.  Now execute the
+          LOAD command by typing /L.  PC-Calc  will  ask  you  for  the
+          name  of  the  file  to be loaded, just as with the SAVE com-
+          mand.  PC-Calc will display the matrix as it is  loaded  into
+          memory.   If  you give PC-Calc the name of a nonexistent file
+          an error message will  appear  on  the  status  line.   Press
+          return to recover.  The name you give becomes the new default
+          file name.
+
+                  * * * Practice Saving and Loading files * * *
+
+               The one last command we will  cover  in  lesson  one  is
+          the  QUIT  command,  which  terminates  the  PC-Calc program.
+          You should make note of the fact that PC-Calc does NOT  auto-
+          matically  save  the  data  in  the matrix when you Quit.  It
+          is up to you to save any matrix that  you  believe  is  worth
+          keeping.   To  exit  the  PC-Calc  program type /Q which will
+          return you to the MS-DOS operating  system  after  displaying
+          the credits. 
+<hr>
+                                                                     10
+
+          2.2  Lesson  2  -  In  this  lesson, you will learn more
+          about the power of Calc, building  on  the  basic  principles
+          you  have  seen  so far.  We will set up an example and build
+          from there.
+
+            ----A-------B-------C-------D-------E-------F-------G----
+                         100     500    1000    2000    3000    5000
+            A/L RATE   50.00   49.50   45.00   43.00   40.00   39.00
+            INCL TAX   52.50   51.98   47.25   45.15   42.00   40.95
+            GP PCT      0.30    0.30    0.30    0.30    0.30    0.30
+            RATE       75.00   74.25   67.50   64.50   60.00   58.50
+            GP/100     22.50   22.28   20.25   19.35   18.00   17.55
+            GP $       22.50  111.38  202.50  387.00  540.00  877.50
+
+                                   Figure 2.1
+
+               Figure 2.1 shows the matrix that we will use  to  demon-
+          strate  the  capabilities  of  Calc.   In  column A, there is
+          a series of labels for the  corresponding  rows  of  informa-
+          tion.   In  row  1 there is a series of values that label the
+          corresponding columns.   First,  we  will  enter  the  labels
+          in  column  A.   If  you do not have a clear screen, press /N
+          to get a New matrix.  Move the cursor to  A2  and  press  the
+          quote  key  to enter a label.  Now enter "A/L RATE" and press
+          return.  Do the same thing for cells A3 through  A7  so  that
+          they  look  like  the cells in Figure 2.1.  Now use the = key
+          to enter the corresponding values for  cells  B1  through  G1
+          and cells B2 through G2.
+
+               At  this  point  all  the  values  in the first two rows
+          are being displayed with  two  decimal  places,  even  though
+          you  entered  the  top  row  as simple integers.  To get your
+          matrix to look like the one  in  Figure  2.1  we'll  have  to
+          use  the  Format  command.   In the Format command, there are
+          two options--Global and Local.   The  Global  format  applies
+          to  all  cells  which  have  not yet been assigned a specific
+          Local format.  When you assign a cell a  Local  format,  that
+          takes  precedence over the Global format.  When PC-Calc first
+          starts up the Global Format is two decimal places.
+
+               In Figure 2.1, row 1 is formatted  Locally  to  Integer.
+          To  set  the  local format for row 1, press /F to execute the
+          Format command, then press L to set a Local format.   PC-Calc
+          will  now  ask  if  you  want the cells displayed as Integer,
+          0-7 decimal places,  or  fractions.   Enter  I  for  Integer.
+          Now  tell  PC-Calc  that you want this format to apply to the
+          top row of cells by entering  B1,  press  return,  enter  G1,
+          and  press  return.   At  this  point your matrix should look
+          like rows 1 and 2 of Figure 2.1 as  well  as  column  A.   If
+          not,  trace  back  through  the  first  part of the lesson to
+          pick up anything you might have missed.
+<hr>
+                                                                     11
+
+               Row 3 of Figure 2.1 is 105% of row  2,  (row  2  plus  a
+          5%  tax).   For  this,  we  will need to enter an equation in
+          B3 to relate this formula to Calc.  Move the cursor  to  cell
+          B3  and  enter  /E to enter the Equation.  Now enter  B2*1.05
+          and press return.  B3 now has  the  correct  formula  in  it,
+          but  there  are  five  more cells to fill.  Rather than enter
+          the same equation five  times,  we  will  use  the  Replicate
+          command.  
+
+               The  Replicate command is used in PC-Calc to copy formu-
+          las, values and labels into a series of cells.  In  the  case
+          of formulas you have the option of copying the formula exact-
+          ly, or relative to where it is placed.  To execute the Repli-
+          cate  command,  enter  /R.  PC-Calc will then ask you for the
+          source cell.  In this case, enter B3  and  press  return.  If
+          your  cursor is at B3 you may simply press return and PC-Calc
+          will enter the value  of  the  current  cell.   PC-Calc  will
+          next  ask  if  there  is  to be a multiple number of cells in
+          the source.  Press N for No.  If we were going to  copy  part
+          of  a  whole  row  or column we would enter Yes.  PC-Calc now
+          asks if the replicate is Absolute or Relative. If  we  picked
+          Absolute,  all  of  the cells would have the equation B2*1.05
+          in them, which would be a bit redundant  to  say  the  least,
+          thus  we  want  to  replicate Relative to the location of the
+          equation.  Press R  for  Relative.   Next  PC-Calc  wants  to
+          know  where  to replicate the equation.  You will be prompted
+          for the first and last cells  in  the  target  range.   Enter
+          C3,  return,  G3,  and  return.   PC-Calc  will now replicate
+          the equation into the cells that we want, and the  new  equa-
+          tions  will  reference  the cell directly above them, not B2.
+
+               At this point you should  be  able  to  finish  off  the
+          matrix  in  Figure  2.1  with the following information.  Row
+          4 is simply the value .30, row 5 is row  3  divided  by  (one
+          minus  row  4),  row 6 is row 5 minus row 3, and row 7 is row
+          6 times row 1 divided by 100.  Do not read the next paragraph
+          until you have tried to use the commands we have just covered
+          to duplicate Figure 2.1.  If  you  need  a  little  help,  go
+          on to the next paragraph. 
+
+                    * * * Enter the rest of Figure 2.1 * * *
+
+               If  you  are  having  problems,  here  are the equations
+          for column B:
+                         B4 = .30
+                         B5 = B3/(1-B4)
+                         B6 = B5-B3
+                         B7 = B6*B1/100
+
+                 * * * SAVE, then practice on this matrix * * *
+<hr>
+                                                                     12
+
+               2.3  Lesson 3 - In  this  lesson,  we  will  learn  some
+          of  the  more  advanced features that make entering data into
+          the matrix a bit easier.  Load the file back into the  matrix
+          that  we  created in lesson 2.  First, we will blank a series
+          of locations with the Blank command.  Enter  /B  and  PC-Calc
+          will  ask  for  the series of cells to be blanked.  Enter B2,
+          press return, enter G2 and press return.  PC-Calc will erases
+          the contents of locations B2 through G2.  Now move the cursor
+          to B2.  Before re-entering the values we  will  tell  PC-Calc
+          to  automatically  jump  across  the row for us.  To do this,
+          enter /J and select R for  Row.   Now  whenever  a  label  or
+          value  is  entered in a cell, PC-Calc will automatically jump
+          to the cell to the right of the  current  cell.   To  skip  a
+          cell  in  the  row  you  may simply press return.  Try it out
+          by re-entering the values that were in row 2.
+
+               Next we will examine the print command.  When  printing,
+          only  8  columns  of  information will fit on an 80 character
+          wide printer, or 14 columns of information on a 132 character
+          wide  printer.   PC-Calc will prompt you for the column where
+          you wish to start printing.   If  your  matrix  is  too  wide
+          to  print  at  one  time  you will have to print it in two or
+          more parts.  To print  the  matrix  from  the  lesson,  ready
+          the  printer,  execute  the  Print command by entering /P and
+          tell PC-Calc to start  with  column  A.   PC-Calc  will  then
+          print  the  first 8 or 14 columns depending upon your printer
+          width.  
+
+               To change the printer width we must use the  /Z  command
+          which  changes a number of the PC-Calc default values.  These
+          are the maximum number of rows, the maximum  number  of  col-
+          umns,  your  printer  width, print output file or device, and
+          the Bold flag.  In each case, PC-Calc shows you  the  current
+          default  and  prompts  you for a new value.  To leave a value
+          as defined you may  simply  press  return.   Telling  PC-Calc
+          to  use  fewer  rows  and  columns  will greatly increase the
+          speed of operation as PC-Calc will  not  try  to  process  or
+          display  any  of  the  information  in  the  remaining cells.
+          However the cells are still there for you to use by  increas-
+          ing  the  the  default  values  whenever needed.  The maximum
+          size of the PC-Calc matrix is set in  the  program  and  will
+          appear the first time you enter /Z.  These values are usually
+          50 rows by 20 columns  and  are  limited  by  the  addressing
+          ability  of  MS  Basic.   At  this time, enter /Z and set the
+          number of rows and columns to 8 each.  
+
+               If you have an 80 column printer  you  should  enter  80
+          when  prompted  for  printer width. This will prevent PC-Calc
+          from trying to print past the end of your  paper.   When  PC-
+          Calc  asks  for  the  name of the print output file or device
+          press return to keep the default device LST  (your  printer).
+          You  could enter a filename and PC-Calc would store the print
+<hr>
+                                                                     13
+
+          output for you to print later, or to enter into a  word  pro-
+          cessor.
+
+               If  you  elect  to  leave the Bold feature ON, values in
+          the matrix which PC-Calc has just computed will be highlight-
+          ed  on  the  screen.  For the Total and Average commands, the
+          cells just Totaled will be highlighted.   Any  command  which
+          rewrites  the screen (e.g. HOME) will erase the highlighting,
+          as will running the cursor over the cells.   If  you  do  not
+          find this feature helpful, use /Z to turn Bold OFF.
+
+               The  next  command  we  will  review is the Modify Value
+          command, /M.  This command will allow you to perform a calcu-
+          lation  on  a  series of values (not equations) and leave the
+          new value in the cells.  It has no  effect  on  equations  or
+          labels.   For  an  example,  we  will  increase the values in
+          row 2 by 11% using the Modify Value  command.   To  do  this,
+          enter  /M,  to  which  PC-Calc  will respond "Finish equation
+          :".  PC-Calc assumes the value in the  cell  to  be  modified
+          to  be  the  first  term of the equation, so just enter *1.11
+          and press return.  PC-Calc will then ask  for  the  range  of
+          cells  to  be modified.  Tell PC-Calc to use cells B2 through
+          G2.  PC-Calc will then  modify  these  values  for  you.   To
+          see  the  entire  results  on  the whole matrix, enter /C and
+          PC-Calc will use the new values as  input  to  the  equations
+          which  reference  those   cells.   The  Modify  Value command
+          can use all of the facilities available in the regular  equa-
+          tion  mode:   cell  references, numbers, the four math opera-
+          tors, and ten levels of parentheses.  
+
+               There are two PC-Calc  commands  which  write  equations
+          for  you.   These  are  the  Total  and Average commands.  To
+          use these commands, move the cursor to  the  cell  where  you
+          wish  the  resulting  equation to be placed, then execute the
+          appropriate command, /T for Total or /A for Average.  PC-Calc
+          then prompts for the source range for the cells to be totaled
+          or averaged, and places  both  the  equation  and  the  value
+          of  the  total  or  average in the current cell.  If the Bold
+          feature is ON the source  range  for  the  total  or  average
+          will be highlighted.  
+            
+               Two  of  the  most  powerful  commands  at your disposal
+          are the Insert and Delete  commands.   These  commands  allow
+          you  to  make  room  in  the matrix for new data by Inserting
+          a blank row or column or to Delete a row  or  column  without
+          leaving  a  blank  space.   When these commands are executed,
+          PC-Calc automatically modifies all equations  in  the  matrix
+          so  that  they  reference  the  same data, even though it has
+          been moved to a new location.
+
+               For example, suppose we wanted to add a  column  labeled
+          200  between  columns  B  and  C of our lesson matrix.  To do
+<hr>
+                                                                     14
+
+          so, move to column C and execute the Insert command by typing
+          /I  and  selecting  C  for  column insert.  PC-Calc will move
+          all of the columns from C through T one column to the  right,
+          losing the data in column T, and creating a new, blank column
+          C.  Finally all equations will  be  altered,  such  that  any
+          reference  to  (for  instance)  C5,  will  now  reference D5.
+
+               The Delete command does just the  opposite.   To  Delete
+          column  C,  move  the cursor to any cell in the column, enter
+          /D and select C to delete a Column.  This will cause  columns
+          D  through  T  to  be  moved  one column to the left, placing
+          a blank column in column T and deleting  column  C.   Finally
+          all  equations  which  referenced  any  cell  which was moved
+          will be updated to reference the same data in its  new  loca-
+          tion.  
+
+               Words of caution:  be careful when deleting or inserting
+          columns and rows.  PC-Calc  can  easily  wipe  out  a  series
+          of values in an instant.  
+
+               The  Window  command  allows  the user to display either
+          the row 1 or column A on the screen at all  times.   For  ex-
+          ample,  go  to  cell  A50 and execute the Window command, /W,
+          and select the row option by entering R.  You  will  now  see
+          row  1 where the top row is.  This allows you to place labels
+          for data in row 1 or column A  and  see  them  from  anywhere
+          in the matrix. 
+           
+               The  END  key  (IBM-PC)  or  REQuest  CANcel key (Victor
+          9000) can be used to save time  using  PC-Calc  by  canceling
+          unwanted  screen  rewrites.   Any  time  PC-Calc is redrawing
+          the entire screen (for example after a GOTO  to  a  cell  off
+          the  screen,  at the end of the /Z command or after you press
+          HOME) you may press the END or REQ CAN key and  PC-Calc  will
+          immediately  stop  drawing  the screen and be ready to accept
+          a new command.  You may also Cancel a Print (/P) or a Compute
+          (/C)  command.   In  the  latter case any cells that were not
+          redrawn will still retain their old values.
+
+               Finally, a word  about  series.   A  number  of  PC-Calc
+          commands  (/B,  /F,  /T, etc.) ask you to enter the first and
+          last cells of a series.  Normally  these  cells  will  be  in
+          a  straight  line  on  a  row or column.  However you may, if
+          you like, enter a block  series.   For  instance,  you  could
+          use  /B  to  blank  out  the block of cells C2-C5, D2-D5, and
+          E2-E5 by entering the  series  C2-E5.   PC-Calc  considers  a
+          block  series  to  be  all  cells from the starting column to
+          the ending column on each row  from  the  start  to  the  end
+          of  the  series.   In effect, you are entering the upper left
+          and lower right corners of a rectangle.
+<hr>
+                                                                     15
+
+               2.4 Lesson 4 - This final lesson  will  cover  a  single
+          feature--plotting  Bar  Graphs.   PC-Calc  can  offer  such a
+          feature only with limitations.  For one, you  can  only  draw
+          horizontal  Bar  Graphs.   Second,  you  must scale the graph
+          yourself (i.e.  PC-Calc  will  not  automatically  scale  the
+          graph  to  fit  within a window).  Third, if you wish to make
+          the graph smaller, you must  manually  erase  the  bars  with
+          the  Blank  command  (/B).  Fourth, you cannot graph negative
+          numbers.  And fifth, the resolution is limited to 1/2 charac-
+          ter  width.   Despite  these  limitations, the Bar Graphs you
+          can draw provide  a  pleasing  visual  presentation  of  your
+          results.  
+
+               To  draw  a Bar Graph, arrange the results to be plotted
+          in a column.  In the example shown  in  Figure  2.2  we  have
+          put  labels  in  column A and results in column B.  Next, put
+          a single scale factor in column C  next  to  each  result  to
+          be  plotted.   This is most easily done by entering the scale
+          factor in the top cell  of  the  column  and  Replicating  it
+          through  the  rest  of  the  column.  The value of this scale
+          factor will depend upon the magnitude of  the  data  and  the
+          desired  size  of the graph.  You cannot see the scale factor
+          in Figure 2.2 because the  Bar  graph  is  displayed  in  its
+          place, but the value used in is 15.  Also, the bars in Figure
+          2.2 are drawn with X's.  This  is  not  how  it  will  appear
+          on  your  screen  where the bars will be drawn as solid bars.
+          What character you see when you print a bar graph will depend
+          on  what  printer  you  own  and  how it interprets the eight
+          bit code it is sent.
+
+          ----A--------B--------C--------D--------E--------F--------G--
+                              Putnum Health Fund, Stock Price  INCREASE
+            Sun.    Increase   ----------------------------------------
+          MAY 1982     0.00
+          Feb. 27      3.27    XXXXXXXXXXXXXXXXXXXXX
+          Mar.  5      3.72    XXXXXXXXXXXXXXXXXXXXXXXXX
+          Mar. 13      3.89    XXXXXXXXXXXXXXXXXXXXXXXXXX
+          Mar. 20      3.75    XXXXXXXXXXXXXXXXXXXXXXXXX
+          Mar. 27      4.27    XXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          Apr.  3      4.20    XXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          Apr. 10      3.92    XXXXXXXXXXXXXXXXXXXXXXXXXX
+          Apr. 17      4.67    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          Apr. 24      5.06    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          May   8      5.44    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          May  15      5.42    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          0May  22     5.24    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          May  29      5.50    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+          June  5      5.54    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+          AVERAGE      4.56    XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+                                   Figure 2.2
+<hr>                                                                 16
+
+               After  you  have entered the labels shown in Figure 2.2,
+          and the values in column B and the scale factor 15 in  column
+          C,  draw  the  graph by Formatting the scale factors as Bars.
+          To do this, enter /F for Format,  L  for  Local,  B  for  Bar
+          Graph  and  then  the  first  and  last cell addresses of the
+          column of scale factors (C4-C20).  PC-Calc  will  redraw  the
+          entire screen, showing the Bar Graph.  
+
+               PC-Calc  draws the graph by multiplying the scale factor
+          in the cell formatted as a B by the value in the cell immedi-
+          ately  to  the  left,  and  then  creating a label consisting
+          of that many half-characters wide bars.  This  label  is  ex-
+          tended  into  the  cells  to  the right, as far as the screen
+          permits.  The scale factor is  retained  in  the  first  cell
+          of  the  Bar  graph but is not displayed.  (You can, however,
+          see it on the status line.)  If the  last  character  in  the
+          bar  is  only  a  half-character it will be brighter than the
+          rest of the bar.  If the graph is not as wide  as  you  wish,
+          you  can  modify  the  scale factor in the entire column with
+          the /M command,  followed  by  HOME  to  redraw  the  screen.
+          If  the  graph  is TOO wide, first erase the labels extending
+          beyond the scale factors with the /B command and then proceed
+          to  modify  the  scale  factors (otherwise parts of the first
+          bar graph will remain in the cells).
+
+               With a little practice you  will  find  the  Bar  Graphs
+          very  easy to work with and very clear at presenting results.
+          For example, if the cells to  be  plotted  contain  equations
+          which  are  the  results  of a simulation, you can change the
+          input data, Compute the values of the  equations,  and  Clear
+          the  screen to see the results plotted, all in a few seconds.
+
+               Accompanying this program you will  find  a  file  named
+          STOCKS.CAL.   Load  this  file to see an example of using PC-
+          Calc to follow the price  of  a  stock.   Press  the  Control
+          right  arrow  key  (WORD  right  arrow on the Victor 9000) to
+          move to cell I1 and see a second graph (Figure 2.2),  showing
+          the  price  increase  of  the same stock.  This shows how the
+          Bar graph need not be right next to the part of  the  spread-
+          sheet  that  generated  the data.  You can Replicate the data
+          you want to graph in another section of the matrix and  graph
+          it  there,  or  you can graph a column of cells each of which
+          contains the equation making it equal  to  a  cell  elsewhere
+          in  the  matrix.  In the latter case you can see the new data
+          graphed whenever you change the old  data  simply  by  enter-
+          ing  /C  to  Compute  the  equations  and  HOME to redraw the
+          screen.
+<hr>
+                                                                     17
+                               3. Special Commands
+
+               INTRODUCTION.   The  Special  Commands  allow  the  user
+          to  manipulate  the  contents  of  the PC-Calc matrix.  These
+          commands are accessed by pressing the / key and then  select-
+          ing  the  appropriate  command.   Any  commands that use cell
+          references for source ranges or target ranges apply to  cells
+          off  the  screen  as well as on the  screen.  So you can, for
+          example, replicate to locations off the screen.
+
+               /A   AVERAGE   This command allows the user  to  average
+          a  series  of  cells  and put the result in the current cell,
+          as indicated by the inverse  video  cursor.   Thus  the  user
+          should  position  the  cursor  to the cell where he wants the
+          average to appear and  type  /A.   PC-Calc  will  prompt  for
+          the  first  and last cells you want included in the equation.
+          You should enter each  cell  when  asked  and  press  return.
+          PC-Calc  will  then  write  the  equation  for the average of
+          that series of cells and  its  value  in  the  current  cell.
+          If  the BOLD option is on the cells of the series being aver-
+          aged will be highlighted.  You may notice  that  the  Average
+          command  first  displays the total of the range, then changes
+          it to the average.
+
+               /B   BLANK     This command allows  the  user  to  blank
+          out  (erase)  a  series  of cells, either in a row or column.
+          To erase a series of cells press  /B  and  give  PC-Calc  the
+          starting  and ending cells of the series.  PC-Calc will erase
+          everything from the cells  in  the  series  (values,  labels,
+          equations  and  local  formatting).   In this as in all other
+          commands, when PC-Calc  prompts  you  for  a  cell,  pressing
+          Return  defaults  to  the  current  cell.   Thus to blank the
+          current cell you could type /B [CR] [CR].
+
+               /C   COMPUTE   PC-Calc will go through  the  matrix  row
+          by  row  from  the  top  computing and displaying the current
+          values of all equations in the matrix.  If  the  BOLD  option
+          is  on,  each  computed  value  will be highlighted.  You may
+          Cancel the Compute command by pressing the  END  or  REQ  CAN
+          key.
+
+               /D   DELETE    Deletes either an entire row or an entire
+          column.  When a column  or  row  is  deleted,  the  following
+          columns  or  rows  are  all moved up one location and the new
+          last column or row is left blank.  PC-Calc  then  alters  the
+          equations  in  the  matrix  to reference the new locations of
+          the cells.  To use the Delete  command  move  the  cursor  to
+          the  column  or  row  to  be  deleted and press /D, then tell
+          PC-Calc whether you want to delete a column  or  a  row.   Be
+          careful  with  this command as you cannot recover the deleted
+          results unless you have previously Saved the matrix.
+<hr>
+                                                                     18
+
+               /E   EQUATION  This command allows  the  user  to  enter
+          an  equation into the current cell.  The user may use numbers
+          with decimals or fractions, cell references,  the  four  main
+          math  operators  (+,-,*,/)  and  ten  levels  of parentheses.
+          To enter an equation type /E, the desired equation  for  that
+          cell,  and  return.  There are no priorities among the opera-
+          tors.  Each is evaluated as it is  encountered  reading  left
+          to  right  (except  for  division  of one constant by another
+          (e.g. 1/3) which is interpreted as the fraction "one third")
+          Thus 3-1*2 equals 4, not 1, and 5-1/3 is 4 2/3 not (5-1)/3.
+
+               /F   FORMAT    This command allow  the  user  to  Format
+          the  displayed  and  printed  values of the cells.  There are
+          two main options to this command--Global  formats  and  Local
+          formats.   The Global Format applies to all cells not locally
+          formatted.  A Local Format overrides the  Global  format  for
+          that  cell.   Each  cell  may  be  formatted as an Integer, a
+          decimal number with 0  to  7  decimal  places  displayed,  or
+          a  fraction  rounded  to  a  Half,  Fourth, Eighth, Sixteenth
+          or Thirtysecond.  To use  the  Format  command  type  /F  and
+          either  G  for  Global  for  L  for Local.  Next enter any of
+          the following:  I for Integer, 0 thru 7 for that many decimal
+          places,  H  for  Halves,  F  for Fourths, E for Eights, S for
+          Sixteenths, or T for Thiryseconds.  If you chose Local format-
+          ting, PC-Calc will prompt for a series of cells to be format-
+          ted.   As usual, you may press return to indicate the current
+          cell.
+
+               There are  several  special  formatting  commands  which
+          may  be  used  but  which  are  not  mentioned  in the Format
+          prompt.  If you enter G, PC-Calc will change a locally format-
+          ted cell back to the Global format.  If you enter D,  PC-Calc
+          will  display  the  current system date.  If you enter @, PC-
+          Calc will display the current system  time  (T  is  used  for
+          fractions).   The  date  and  time  will always be current up
+          to the last time the  cell  was  displayed.   Thus  when  you
+          re-Load  the  matrix  tomorrow,  you will get tomorrow's date
+          and time.  If you enter !,  PC-Calc  will  change  the  value
+          of that cell into a label (i.e. it will no longer be a number
+          or an equation and will not change with  /C).   This  may  be
+          used to "freeze" the date and time.  
+               A  format  of  type B will cause a Bar Graph to be drawn
+          by multiplying those cells by the  values  in  the  cells  to
+          the  left,  and drawing a solid bar of that many half-charac-
+          ters in the current cell and extending to the right.
+
+               /G   GOTO      This command  allows  the  user  to  move
+          the  cursor  to any cell in the matrix, whether on the screen
+          or off.  If the target cell is off  the  screen,  the  screen
+          will  be  cleared  and  the target cell will be placed in the
+          top left corner, if appropriate.  The  Goto  command  can  be
+          accessed  either  as  a Special Command (/G) or as a one key-
+          stroke command by pressing ".".
+<hr>
+                                                                     19
+
+               /H   HELP      This  command  displays  a  page  of  one
+          line  instructions  covering  each  of  the Special Commands.
+          When you are done reading Help press any  key  to  return  to
+          your place in the matrix.
+
+               /I   INSERT    This  command  is  the  compliment of the
+          Delete command.  It allows  the  user  to  insert  either  an
+          entire  row  or  an  entire column.  To execute this command,
+          move the cursor to a cell before which you want a new  column
+          or  row.   Press /I and select either Row or Column.  PC-Calc
+          will insert a blank row  or  column,  moving  all  subsequent
+          rows  or  columns  down  one,  with the last one dropping off
+          the matrix.  Finally, all equations  are  updated  such  that
+          all  references to cells that were moved are altered to point
+          to the same data.
+
+               /J   JUMP      This command  sets  the  Jump  mode  flag
+          such  that  whenever  the user enters a value with the = key,
+          a label with the ' key, or simply  presses  the  return  key,
+          the  cursor  is  moved  one cell along the row or column.  To
+          use this option type /J, then enter either R  to  move  along
+          the  Row,  C  to move down the Column, or a space to turn off
+          the Jump option.
+
+               /L   LOAD      Used  to  load  PC-Calc  files  saved  on
+          disk  with  the SAVE command.  PC-Calc will prompt for a file
+          name.  You may enter then entire DOS filespec.  If  you  omit
+          the  drive  name  PC-Calc will use the default drive.  If you
+          omit the filetype PC-Calc will append .CAL to the file  name.
+          Simply  pressing  return will load the default filename shown
+          on the status line, which is the  last  file  you  Loaded  or
+          Saved.
+
+               /M   MODIFY    This  command  allows  the user to modify
+          the values of a series of  cells.   In  doing  this,  PC-Calc
+          will  ask  you to finish the equation used to modify the val-
+          ues, assuming the value of the cells to be  modified  as  the
+          first  term  of  the  equation.  Thus to increase a series of
+          cells by 50% and then  subtract  10  from  them,  finish  the
+          equation  with  *1.50-10.  Beware of equations such as A1-1/3
+          which  will  be  interpreted  as  A1  minus  one  third,  not
+          (A1-1)/3.   If  the  Bold  option  is  ON the modified series
+          will be highlighted
+
+               /N   NEW       This command  re-runs  PC-Calc  from  the
+          start, clearing all cells and resetting all default values.
+<hr>
+                                                                     20
+
+               /P   PRINT     Prints  a  section  of  the matrix on the
+          printer.  PC-Calc will print as  many  columns  as  will  fit
+          in  the  width  of  your  printer  (which you set with the /Z
+          command).  An 80 character wide  printer  will  hold  columns
+          A-H,  a  132  character  wide printer will print columns A-N.
+          PC-Calc will prompt  for  the  column  with  which  to  start
+          printing.   As  usual pressing return defaults to the current
+          cursor position.  You may also print a copy  of  your  matrix
+          to  a  disk  file,  which may then be used as input to a word
+          processor.  For this you must change the default  file/device
+          name  with  the  /Z  command.  The /P command will then write
+          an ASCII file which you  can  display  on  the  screen,  copy
+          to  your  printer,  or  use as input to another program.  You
+          may Cancel the Print command  by  pressing  the  END  or  REQ
+          CAN key.
+
+               /Q   QUIT      This  is  how  to  exit  Calc.  Make sure
+          that all data has been saved before Quitting.   If  you  exit
+          PC-Calc  in  any  other manner (i.e. by error or ^C) you will
+          find that your cursor is turned off.  To  regain  the  cursor
+          run PC-Calc and type /Q.
+
+               /R   REPLICATE This  command allow the user to replicate
+          information from one part of  the  matrix  to  another.   For
+          values  or  formulas,  this  is  a regular copy function, but
+          for equations PC-Calc can  replicate  the  equation  Relative
+          to  its  position so that it will reference the correct cells
+          from the row or column of its  new  position.   To  use  this
+          command  type  /R.  PC-Calc  will  prompt  for the cell to be
+          replicated.  You may press return  to  indicate  the  current
+          cell.   PC-Calc  will  then  ask  if there is to be more than
+          one cell used as the source.  If you respond with  a  Y,  PC-
+          Calc  will  increment  the  source cell replicated from as it
+          steps through  the  target  range.   Otherwise  PC-Calc  will
+          copy  only  the  one  cell  to all of the cells in the target
+          range.  Next PC-Calc will ask if the  replication  is  to  be
+          Absolute  or  Relative.   Use Absolute for labels, values and
+          equations that you want to be copied  exactly  as  they  are.
+          Use  Relative  replication for equations which must reference
+          cell in the same position relative  to  their  new  location.
+          Finally  PC-Calc  will  prompt  for  the  target range of the
+          replication.  
+
+               /S   SAVE      This is the compliment of the  LOAD  com-
+          mand.   This  command  Saves  the  PC-Calc Matrix as a binary
+          disk file.  The user is prompted for a  filespec,  which  can
+          include  the  drive  name  and file extension.  If you do not
+          specify a file extension PC-Calc  will  append  .CAL  to  the
+          file  name.  Pressing  return will Save the default file name
+          show on the status line, which is  the  last  file  Saved  or
+          Loaded. 
+<hr>
+                                                                     21
+
+               /T   TOTAL     This   command   generates  the  equation
+          for the total of a series of  cells  and  puts  the  equation
+          and  the  value  in  the  current cell.  Works similar to the
+          Average command.  If the Bold feature is ON then  the  series
+          totaled will be highlighted.
+
+               /W   WINDOW    This  sets  an internal flag which causes
+          PC-Calc to display Row 1 or Column A on  the  screen  at  all
+          times.   This  is  used  if  you have labels in the first Row
+          or Column that you wish to see even  if  you  are  displaying
+          a  part  of  the  matrix  beyond  what originally fits on the
+          screen.  After typing /W enter either R for row, C for Column
+          or  a  space  to turn off the Window option.  You will notice
+          that this option adds some extra time to  all  commands  that
+          change any cell being displayed.
+
+               /Z             This  command  allow  the  user to change
+          certain default values used by  Calc.   PC-Calc  will  prompt
+          you  to  enter  the  Maximum  Row and Column you wish to use.
+          Making these numbers as small as needed will greatly increase
+          the  speed  of  Calc,  since PC-Calc will not have to display
+          as many cells or calculate  the  values  of  unneeded  cells.
+          Next  PC-Calc  will  prompt  for  the  width of your printer.
+          Enter the number of characters your printer can handle across
+          the  page.   PC-Calc  will  then  ask  for the name of a file
+          for printed output.  For this to go to  your  printer,  leave
+          the  default  value,  LST,  by  pressing return.  To print to
+          a disk file, enter any valid MS-DOS filename such as  B:BUDG-
+          ET.TXT. Finally PC-Calc will ask if you want the Bold feature
+          ON or OFF.  When Bold is ON PC-Calc will  highlight  the  re-
+          sults  of  its  calculations  to  distinguish  them  from con
+          stants.   In the Total and Average  commands,  PC-Calc  high-
+          lights  the  range  which was just Totaled or Averaged.  This
+          can help avoid mistakes.  Clearing  the  screen  returns  all
+          cells  to  normal brightness, as does any other command which
+          rewrites the screen.  For all of the above prompts,  pressing
+          return will retain the current value.
+<hr>
+                                                                       22
+
+                                   HELP SCREEN
+      
+     /A  AVERAGE  -generates the equation for averaging a series of cells
+     /B  BLANK    -erases a series of cells leaving them blank
+     /C  COMPUTE  -computes all equations
+     /D  DELETE   -deletes the current Row or Column
+     /E  EQUATION -Enters an equation into the current cell
+     /F  FORMAT   -sets the number of decimal places to be displayed
+     /G  GOTO     -allows you to goto any cell including those off screen
+     /H  HELP     -displays these helpful messages
+     /I  INSERT   -inserts an entire blank row or column before the current cell
+     /J  JUMP     -causes the cursor to auto. jump across the Row or Column
+     /L  LOAD     -loads a previously SAVEd PC-Calc file
+     /M  MODIFY   -modifies a series of cells by an equation you enter
+     /N  NEW      -reruns PC-Calc from the start
+     /P  PRINT    -prints as much of the matrix as possible from a given column
+     /Q  QUIT     -returns you to MS-DOS
+     /R  REPLICATE's cells.  Equations can be copied Relative to their position 
+     /S  SAVE     -saves the current matrix on disk
+     /T  TOTAL    -generates the equation for the total of a series
+     /W  WINDOW   -places Row 1 or Col A on screen at all times (for labels)
+     /Z -changes the maximum Row and Column, and the printer defaults
+     Special Keys:  HOME Clr screen; END Cancel; = enter value; ' enter label
+<hr>
+ A>
+     Special Keys:  HOME Clr screen; END Cancel; = ent
+
+</pre>
+</body>
+
+<a href="bpc-calc-doc.html#top">TOP</a><br>
+Back to <a href="btoc.html">Table of Contents</a><br>
+Back to <a href="bindex.html">GW-BASIC Index</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595144" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595144&amp;f=us-w1" ALT=1 WIDTH=1 HEIGHT=1>

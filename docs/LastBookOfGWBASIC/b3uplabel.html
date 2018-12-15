@@ -1,0 +1,386 @@
+<html>
+ 
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>3 up Label printer 3x10 using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>3up 3x10 Label Printer</h1></center>
+<center><h4>Using Avery 1810 Labels</h4></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>Here is the 30 blank labels for your filling out.
+
+Ummm... you might want to send a PCL code to throw
+the printer into a more accommodating font for labels
+if 25 characters long won't quite do it for you.
+
+Each of the early "intelligent" printers are slightly 
+different and may require futzing around with.  When you 
+change all the PRINT statement to LPRINT (there are 5 of 
+them) run the program for the first time on a blank sheet of 
+paper (and not label stock) you may find your printer may 
+not start to print even if you are in win98se and using an
+intelligent printer.
+
+At that point, press the formfeed key on the printer a wait 
+a few seconds.  If it doesn't start to print, press it again 
+and wait.  If the labels spacing comes out goofy, you didn't 
+effectively replace all FIVE print statements with LPRINT.  
+
+If push comes to shove, See TW.BAS for some PCL stuff. 
+(printer control language) or hopefully, you have your own 
+source of information on PCL.
+
+GW-BASIC is getting some printing static from the later 
+Windows operating systems after win98se.  So mainly to save 
+yourself some headaches, just use this in DOS mode.  But, in 
+any event, try it first, it may work anyhow.
+
+Plus, to make matters worse, you may have to jitter-bug 
+around with the T1-T2-T3 column spacing variables as well as 
+throw in a couple of "print:print:print" lines in front to 
+adjust vertical spacing. Hopefully, that may not be 
+necessary.
+
+Don't use label stock for checking out the spacing, just use 
+normal 24# paper and hold it up to the light against a page 
+of empty labels to check spacing.
+
+10   ' a three up label page blank by fhb4family
+20 DATA "T1                       "
+30 DATA "1 2LLLLLLLLLLLLLLLLLLLLLL"
+40 DATA "1 3456789 123456789 12345"
+50 DATA "1 4LLLLLLLLLLLLLLLLLLLLLL"
+60 DATA "B1                       "
+70 DATA "T2                       "
+80 DATA "2 2LLLLLLLLLLLLLLLLLLLLLL"
+90 DATA "2 3456789 123456789 12345"
+100 DATA "2 4LLLLLLLLLLLLLLLLLLLLLL"
+110 DATA "B2                       "
+120 DATA "T3                       "
+130 DATA "3 2LLLLLLLLLLLLLLLLLLLLLL"
+140 DATA "3 3456789 123456789 12345"
+150 DATA "3 4LLLLLLLLLLLLLLLLLLLLLL"
+160 DATA "B3                       "
+170 DATA "T4                       "
+180 DATA "4 2LLLLLLLLLLLLLLLLLLLLLL"
+190 DATA "4 3356789 123456789 12345"
+200 DATA "4 4LLLLLLLLLLLLLLLLLLLLLL"
+210 DATA "B4                       "
+220 DATA "T5                       "
+230 DATA "5 2LLLLLLLLLLLLLLLLLLLLLL"
+240 DATA "5 3456789 123456789 12345"
+250 DATA "5 4LLLLLLLLLLLLLLLLLLLLLL"
+260 DATA "B5                       "
+270 DATA "T6                       "
+280 DATA "6 2LLLLLLLLLLLLLLLLLLLLLL"
+290 DATA "6 3456789 123456789 12345"
+300 DATA "6 4LLLLLLLLLLLLLLLLLLLLLL"
+310 DATA "B6                       "
+320 DATA "T7                       "
+330 DATA "7 2LLLLLLLLLLLLLLLLLLLLLL"
+340 DATA "7 3456789 123456789 12345"
+350 DATA "7 4LLLLLLLLLLLLLLLLLLLLLL"
+360 DATA "B7                       "
+370 DATA "T8                       "
+380 DATA "8 2LLLLLLLLLLLLLLLLLLLLLL"
+390 DATA "8 3456789 123456789 12345"
+400 DATA "8 4LLLLLLLLLLLLLLLLLLLLLL"
+410 DATA "B8                       "
+420 DATA "T9                       "
+430 DATA "9 2LLLLLLLLLLLLLLLLLLLLLL"
+440 DATA "9 3456789 123456789 12345"
+450 DATA "9 4LLLLLLLLLLLLLLLLLLLLLL"
+460 DATA "B9                       "
+470 DATA "T10                      "
+480 DATA "10 2LLLLLLLLLLLLLLLLLLLLL"
+490 DATA "10 356789 123456789 12345"
+500 DATA "10 4LLLLLLLLLLLLLLLLLLLLL"
+510 DATA "B10                      "
+520 DATA "T11                      "
+530 DATA "11 2LLLLLLLLLLLLLLLLLLLLL"
+540 DATA "11 356789 123456789 12345"
+550 DATA "11 4LLLLLLLLLLLLLLLLLLLLL"
+560 DATA "B11                      "
+570 DATA "T12                      "
+580 DATA "12 2LLLLLLLLLLLLLLLLLLLLL"
+590 DATA "12 356789 123456789 12345"
+600 DATA "12 4LLLLLLLLLLLLLLLLLLLLL"
+610 DATA "B12                      "
+620 DATA "T13                      "
+630 DATA "13 2LLLLLLLLLLLLLLLLLLLLL"
+640 DATA "13 356789 123456789 12345"
+650 DATA "13 4LLLLLLLLLLLLLLLLLLLLL"
+660 DATA "B13                      "
+670 DATA "T14                      "
+680 DATA "14 2LLLLLLLLLLLLLLLLLLLLL"
+690 DATA "14 356789 123456789 12345"
+700 DATA "14 4LLLLLLLLLLLLLLLLLLLLL"
+710 DATA "B14                      "
+720 DATA "T15                      "
+730 DATA "15 2LLLLLLLLLLLLLLLLLLLLL"
+740 DATA "15 356789 123456789 12345"
+750 DATA "15 4LLLLLLLLLLLLLLLLLLLLL"
+760 DATA "B15                      "
+770 DATA "T16                      "
+780 DATA "16 2LLLLLLLLLLLLLLLLLLLLL"
+790 DATA "16 356789 123456789 12345"
+800 DATA "16 4LLLLLLLLLLLLLLLLLLLLL"
+810 DATA "B16                      "
+820 DATA "T17                      "
+830 DATA "17 2LLLLLLLLLLLLLLLLLLLLL"
+840 DATA "17 356789 123456789 12345"
+850 DATA "17 4LLLLLLLLLLLLLLLLLLLLL"
+860 DATA "B17                      "
+870 DATA "T18                      "
+880 DATA "18 2LLLLLLLLLLLLLLLLLLLLL"
+890 DATA "18 356789 123456789 12345"
+900 DATA "18 4LLLLLLLLLLLLLLLLLLLLL"
+910 DATA "B18                      "
+920 DATA "T19                      "
+930 DATA "19 2LLLLLLLLLLLLLLLLLLLLL"
+940 DATA "19 356789 123456789 12345"
+950 DATA "19 4LLLLLLLLLLLLLLLLLLLLL"
+960 DATA "B19                      "
+970 DATA "T20                      "
+980 DATA "20 2LLLLLLLLLLLLLLLLLLLLL"
+990 DATA "20 356789 123456789 12345"
+1000 DATA "20 4LLLLLLLLLLLLLLLLLLLLL"
+1010 DATA "B20                      "
+1020 DATA "T21                      "
+1030 DATA "21 2LLLLLLLLLLLLLLLLLLLLL"
+1040 DATA "21 356789 123456789 12345"
+1050 DATA "21 4LLLLLLLLLLLLLLLLLLLLL"
+1060 DATA "B21                      "
+1070 DATA "T22                      "
+1080 DATA "22 2LLLLLLLLLLLLLLLLLLLLL"
+1090 DATA "22 356789 123456789 12345"
+1100 DATA "22 4LLLLLLLLLLLLLLLLLLLLL"
+1110 DATA "B22                      "
+1120 DATA "T23                      "
+1130 DATA "23 2LLLLLLLLLLLLLLLLLLLLL"
+1140 DATA "23 356789 123456789 12345"
+1150 DATA "23 4LLLLLLLLLLLLLLLLLLLLL"
+1160 DATA "B23                      "
+1170 DATA "T24                      "
+1180 DATA "24 2LLLLLLLLLLLLLLLLLLLLL"
+1190 DATA "24 356789 123456789 12345"
+1200 DATA "24 4LLLLLLLLLLLLLLLLLLLLL"
+1210 DATA "B24                      "
+1220 DATA "T25                      "
+1230 DATA "25 2LLLLLLLLLLLLLLLLLLLLL"
+1240 DATA "25 356789 123456789 12345"
+1250 DATA "25 4LLLLLLLLLLLLLLLLLLLLL"
+1260 DATA "B25                      "
+1270 DATA "T26                      "
+1280 DATA "26 2LLLLLLLLLLLLLLLLLLLLL"
+1290 DATA "26 356789 123456789 12345"
+1300 DATA "26 4LLLLLLLLLLLLLLLLLLLLL"
+1310 DATA "B26                      "
+1320 DATA "T27                      "
+1330 DATA "27 2LLLLLLLLLLLLLLLLLLLLL"
+1340 DATA "27 356789 123456789 12345"
+1350 DATA "27 4LLLLLLLLLLLLLLLLLLLLL"
+1360 DATA "B27                      "
+1370 DATA "T28                      "
+1380 DATA "28 2LLLLLLLLLLLLLLLLLLLLL"
+1390 DATA "28 356789 123456789 12345"
+1400 DATA "28 4LLLLLLLLLLLLLLLLLLLLL"
+1410 DATA "B28                      "
+1420 DATA "T29                      "
+1430 DATA "29 2LLLLLLLLLLLLLLLLLLLLL"
+1440 DATA "29 356789 123456789 12345"
+1450 DATA "29 4LLLLLLLLLLLLLLLLLLLLL"
+1460 DATA "B29                      "
+1470 DATA "T30                      "
+1480 DATA "30 2LLLLLLLLLLLLLLLLLLLLL"
+1490 DATA "30 346789 123456789 12345"
+1500 DATA "30 4LLLLLLLLLLLLLLLLLLLLL"
+1510 DATA "B30                      "
+1520 'End of data statements
+1530 '
+1540 '======3 column label program starts here================
+1550 '
+1560 'LabelProgramStartsHere:
+1570 GOSUB 1620   'VariableAssignments
+1580 GOSUB 1700   'load 150 data elements into array A$(150)
+1590 GOSUB 1780   'Print3AcrossLabels
+1600 END
+1610 '
+1620 'VariableAssignments:
+1630 DIM A$(150)   'create string array that holds labels (data)
+1640 T1=1          'set first column tab
+1650 T2=28         'set second column tab
+1660 T3=55         'set third column tab
+1670 LC=1          'set the line counter to 1
+1680 RETURN' to program
+1690 '
+1700 'LoadLabelData:
+1710 I=1           'set counter I to 1
+1720 WHILE I<151   'set incrementing parameter
+1730   READ A$(I)  'load the label lines (data)into the array
+1740   I=I+1       'increment the counter
+1750   WEND        '^^^^^^^^^^^^^^^loop to load labels into array
+1760 RETURN 'to program
+1770 '
+1780 'Print3AcrossLabels:
+1790 I=1           'reset counter to 1 again for 2nd while-wend loop
+1800 WHILE I<51    'set incrementing parameter
+1810   PRINT TAB(T1) A$(I);    'To print data on labels, change the
+1820   PRINT TAB(T2) A$(I+50); 'three PRINT statements to LPRINT.
+1830   PRINT TAB(T3) A$(I+100) 'check label positioning with paper
+1840   LC=LC+1                 'increment line counter by one
+1850   IF LC>5 THEN GOSUB 1890 'go to insert a line
+1860 I=I+1
+1870 WEND   '^^^^^^^^^^^^^^^^loop thru data to print 3-up label page
+1880 '
+1890 'Insert-A-Line:
+1900 PRINT  'print an empty line to separate labels
+1910 LC=1   'reset LC (line counter) to 1
+1920 RETURN 'to 3AcrossLabels routine
+1930 '
+1940 'Data Editing Roadmap:
+1950 '  cls: list 20-210    'edit labels 1-4
+1960 '  cls: list 220-410   'edit labels 5-8
+1970 '  cls: list 420-610   'edit labels 9-12
+1980 '  cls: list 620-810   'edit labels 13-16
+1990 '  cls: list 820-1010  'edit labels 17-20
+2000 '  cls: list 1020-1210 'edit labels 21-24
+2010 '  cls: list 1220-1410 'edit labels 25-28
+2020 '  cls: list 1420-1510 'edit labels 29-30
+2030 'Subroutine Editing Roadmap:
+2040 '  cls: list 1610-1690 'VariableAssignments
+2050 '  cls: list 1690-1770 'LoadLabelData
+2060 '  cls: list 1770-1880 'Print3acrossLabels
+2070 '  cls: list 1880-1930 'Insert-A-Line
+2080 '  save "3uplabel.bas",a 'save the program in ASCII mode
+2090 '  cls: list 1930-2100 'Subroutine Editing Roadmap
+2100 '
+
+Well, i tried the program and it works perfectly using 3x10
+Avery 1810's (1" x 2 5/8") labels.  If you get any border- 
+line letters onto the Labels, alter the DataLines by 
+inserting a blank space in the data using typeover before 
+the offending letter.  Then start your address in the next 
+column.  But you shouldn't have to do that.  Don't forget to 
+press the enter key after you change all 5 PRINT statements 
+to LPRINT.
+
+About the only use i can think of for 3 column labels is for 
+sending out Christmas cards or maybe some other important 
+announcement.  i used them for Christmas cards for a couple 
+of years, but with a glue-on return label and a pre-printed 
+crooked address label and a custom rubber stamp for a 
+signature, i got the message and ordered another rubber 
+stamp that said:
+
+           "This impersonal Christmas card
+            hastily sent to you has not been
+            touched by human hands.  Pleas do
+            not fold, spindle or mutilate."
+
+Funny, i didn't get too many cards back after that  :-)
+Anyhow, if you can use the 3up-labels, there it is.  All you 
+gotta do is don't go over the opening and closing quotes 
+with your crayolas when you enter the DATA (carefully)
+
+</pre>
+
+<hr>
+
+</body>
+
+Go to <a href="b3uplabel.html#top">TOP</a><br>
+<a href="bindex.html">Index</a><br>
+Back to the <a href="btoc.html">Table of Contents</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595140" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595140&amp;f=us-w5" ALT=1 WIDTH=1 HEIGHT=1>

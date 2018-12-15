@@ -1,0 +1,512 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>The Old Tin Rolodex Supercharged = GW-BASIC</title>
+</head>
+
+<!--
+This rolodex has some interesting properties.  It can filter 
+business from personal phone numbers, if your phone rings, 
+and you see a number that is vaguely familiar on the caller 
+I.D. just type the first number of the incoming call and up 
+pops all the phone numbers that have that number.
+-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>The Old Tin Rolodex</h1></center>
+<center><h4>using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>This rolodex has some interesting properties.  It can filter 
+business from personal phone numbers.
+
+If your phone rings, and you see a number that is vaguely 
+familiar on the caller I.D. just type the first number of 
+the incoming call and up pops all the phone numbers that 
+have that number.
+
+Press a certain key (your choice - i happen to use "x") and 
+out pops your Christmas Card list
+
+Once you catch on to the coding field, you can recode and do 
+almost anything you want with your data.
+
+And some other stuff, most of which i have forgotten by now.  
+Examine the code and it will all be revealed to you.  This 
+is probably among the most used of the gw-basic programs.
+
+Oh, one more thing before i forget.  Ummm, this whole thing 
+needs to be/could be rewritten and recoded to a more compact 
+address form if desired.  your call.  really depends on how 
+many names and addresses you got.  you can always just split 
+the file or even just write all the data out to a file if 
+you want.  I didn't 'cause... well... ummm. at my age, a lot 
+of people in my rolodex aren't here anymore, so i only need 
+about 20 or so names in the "rolodex" and most of those are 
+just business stuff.  Pizza, drug store, auto mechanic, & 
+etc... 
+
+<hr>
+
+code starts here:
+
+10  ' a rolodex program by fhb4family.  Copyleft notice.
+20 DATA "1?", " "
+30 DATA "1?", "                              H E L P   S C R E E N"
+40 DATA "1?", " "
+50 DATA "1?", "                 1.    Upper case letters search for a LAST"
+60 DATA "1?", "                       name or BUSINESS name match."
+70 DATA "1?", "                 2.    Lower case letters search for a FIRST"
+80 DATA "1?", "                       name match."
+90 DATA "1?", " "
+100 DATA "1?", "                  3.   The nubers 2-9 list phones starting with"
+110 DATA "1?", "                       that number for an incoming call query"
+120 DATA "1?", "                 4.    The letter 'X' yields a Xmas listing.
+130 DATA "1?", "                 5.    There are only 5 commands besides the"
+140 DATA "1?", "                       upper & lower case alphabet searches."
+150 DATA "1?", "                       They are: "
+160 DATA "1?", "                                 Space bar...CLS"
+170 DATA "1?", "                                 F1..........Help"
+180 DATA "1?", "                                 F2..........Edit"
+190 DATA "1?", "                                 F3..........Browse"
+200 DATA "1?", "                                 F7..........Exit"
+210 DATA "1?", "                                        That's it!    ...dad"
+220 DATA "A5", "A*******, S******               w(213) 541-****"
+230 DATA "s", "S****** A*******                w(818) 541-****"
+240 DATA "AI", "All City Insurance Company       (***) 541-****   HOMEOWNER'S"
+250 DATA "A3", "A******, David                  h(213) 327-****  w(  )         "
+260 DATA "d", "David A******                   h(213) 327-****  w(  )         "
+270 DATA "Z",
+280 DATA "A8", "Animal Pickup (Live)            w(818) 831-****"
+290 DATA "Z",
+300 DATA "B3", "B***** Systems Inc              w(***) 320-****"
+310 DATA "a", "Al B****s & Barbara             h(***) 375-****"
+320 DATA "b", "Barbara B***** & Al             h(***) 375-****"
+330 DATA "B3","B*****, Al & Barbara            h(***) 375-****
+340 DATA "BX","Mr. & Mrs. *** B******
+350 DATA "abBX", "NNN LLL LLL LLLLL"
+360 DATA "abBX", "LLLLLLL LLLLL, CA nnnnn"
+370 DATA "X"," "
+380 DATA "X"," "
+390 DATA "B", "B****, R** & B******            w(   )         "
+400 DATA "b", "B****** B**** & R**             w(   )         "
+410 DATA "r", "R** & B****** B****             w(   )         "
+420 DATA "Z", "
+430 DATA "B7", "B***, H*** E********            h(715) 7NN-****"
+440 DATA "h", "H*** B*** (***)                 h(715) 7**-****"
+450 DATA "X", "Mrs. H*** E. B***
+460 DATA "X", "P.O. Box NNN or NNNN H***** St.
+470 DATA "X", "D**********, WI  NNNNN
+480 DATA "X", "
+490 DATA "X", "
+500 DATA "B4", "B*********, N****** & C*****    h(906) 4**-****"
+510 DATA "n", "N****** B********* & C*****     h(906) 4**-****"
+520 DATA "c", "C***** B********* & N******     h(906) 4**-****"
+530 DATA "X", "Mr. & Mrs. N****** B*********"
+540 DATA "X", "LNNNNN B********* LN Lane"
+550 DATA "X", "W*****, MI  NNNNN-NNNN"
+560 DATA "X", " "
+570 DATA "X", " "
+580 DATA "B3", "B******, R****** & K******      h(***) 3NN-NNNN"
+590 DATA "r", "R****** & K****** B******       h(***) 3**-****"
+600 DATA "k", "K****** & R****** B******       h(***) 3**-****"
+610 DATA "Z", "
+620 DATA "B", "                                                  *** Hours ***"
+630 DATA "B5", "Borders Books & Music            (***) 540-7000   Mon-Thu 9a- 
+10p"
+640 DATA "B", "  3700 Torrance Blvd.                             Fri-Sat 9a-11p"
+650 DATA "B", "  Torrance, CA 90503                              Sunday 11a-8p"
+660 DATA "r", "R****** of Buff's Electronics "
+670 DATA "B", "Buff's Electronics - R****** "
+680 DATA "B6", "B****, A****                    h(909) 6**-**** -02
+690 DATA "B", "   NNNN B******** Way
+700 DATA "a", "A**** B****                     h(909) 6**-**** -02
+710 DATA "a", "   NNNN B******** Way
+720 DATA "M", "M******, F**** & D**** & J**** & ?
+730 DATA "f", "F**** & D**** M****** & J**** & ?
+740 DATA "Mf", "  NNNNN ******* ***. ****** City, CA NNNNN-****
+750 DATA "Z", "
+760 DATA "N7", "N***** - M******* B******       w(***) 7NN-NNNN (now retired)
+770 DATA "m", "M******* B****** (work)         w(***) 7NN-NNNN (now retired)"
+780 DATA "j", "Joseph Sixpack (couch)          h(***) 3NN-NNNN (Hey! that's me)"
+790 DATA "B3", "B******, F***, ****** & ****   h(***) 3**-****"
+800 DATA "b", "B***** V*** & A*****            w(***) 3nn-nnnn"
+810 DATA "a", "A***** V*** & B*****            w(***) 3nn-nnnn"
+820 DATA "V", "V***, B***** & A*****           h(333) 3nn-nnnn"
+830 DATA "X", "Mr. & Mrs. B***** V***
+840 DATA "VX", "nnn nth Street #2"
+850 DATA "VX", "**** *****, CA *****"
+860 DATA "X", " "
+870 DATA "X", " "
+880 DATA "X", "Mrs. G***** C******
+890 DATA "g", "G***** C******                  h(***) 5**-****"
+900 DATA "C5", "C******, G*****                 h(***) 5**-****"
+910 DATA "CgX","NNNN W*** ****** Street
+920 DATA "CgX","T*******, CA 9nnnn-nnnn
+930 DATA "X", "
+940 DATA "X", "
+950 DATA "X", "
+960 DATA "E7", "ELLLLLL, LL MLLL & MLLLLL       h(217) 7**-****"
+970 DATA "m", "M*** E****** & M*****           h(217) 7**-****"
+980 DATA "Z",
+990 DATA "E", "                                              "
+1000 DATA "E", "Emergency Phone Numbers"
+1010 DATA "E", "     Police.......nnn-nnnn                    "
+1020 DATA "P", "     Police.......nnn-nnnn                    "
+1030 DATA "E", "     Fire.........nnn-nnnn                    "
+1040 DATA "F", "     Fire.........nnn-nnnn                    "
+1050 DATA "E", "     Ambulance....nnn-nnnn                    "
+1060 DATA "A", "     Ambulance....nnn-nnnn                    "
+1070 DATA "E", "     Something....nnn-nnnn                    "
+1080 DATA "E", "                                              "
+1090 DATA "CE", "Credit Cards - Information & Lost or Stolen Cards"
+1100 DATA "CEA", "    American Express(US)                   1-800-528-4800"
+1110 DATA "CED", "    Diners Club/Carte Blanche (US, Canada) 1-800-525-9135"
+1120 DATA "CEM", "    Master Card (US, Canada)               1-800-999-0454"
+1130 DATA "CEV", "    VISA (US, Canada)                      1-800-336-8472"
+1140 DATA "Z",
+1150 DATA "F2", "F*****s, Y*****a                h(818) 285-****"
+1160 DATA "y", "Yolanda Flowers                 h(818) 285-****"
+1170 DATA "Z",
+1180 DATA "F", "F***** F*******                 w(***) 212-****"
+1190 DATA "F2", "F**** MM J*** & B****           w(***) 212-****"
+1200 DATA "j", "J*** F*** & B****               w(***) 212-****   h(   )      "
+1210 DATA "b", "bird supplies - Ford's Feathers w(***) 212-****"
+1220 DATA "Z",
+1230 DATA "d", "Don H*********n                 h(***) 316-**** w(***) 719-****"
+1240 DATA "H3", "H**********, Don - Nissan      h(***) 316-****  w(31) 719-****"
+1250 DATA "N", "Nissan Repair, (D.H**********)  h(***) 316-****"
+1260 DATA "A", "Auto Repair, Nissan (D.H*****.) h(***) 316-****"
+1270 DATA "Z",
+1280 DATA "H4", "H***** , D*** & A****            h(619) nnn-nnnn xnnnn
+466-2067"
+1290 DATA "a", "Anita H***** & Dave             h(***) 4**-****"
+1300 DATA "d", "Dave H****n & Anita             h(***) 4**-****"
+1310 DATA "Z",
+1320 DATA "H4", "H******, Stan & Pat             h(?  ) 445-****"
+1330 DATA "p", "Pat H****** & Stanley           h(   ) 445-****"
+1340 DATA "s", "Stan H****** & Pat              h(?  ) 445-****"
+1350 DATA "Z",
+1360 DATA "p", "Phil H***** & Sandy             h(***) 8**-****"
+1370 DATA "H8", "H*****, Phil & Sandy            h(***) 8**-****"
+1380 DATA "Z",
+1390 DATA "K5", "K********, Bill                 h(***) 581-****"
+1400 DATA "K4", "K**** M****** S******           w(***) 442-****"
+1410 DATA "b", "Bill K*********                  h(***) 581-****"
+1420 DATA "Z",
+1430 DATA "A", "Automotive Service (Nissan)     w(***) 3**-****"
+1440 DATA "P3", "P******* Automotive Service       w(***) 3**-****"
+1450 DATA "A", "Automotive Service (P*****)     w(***) 3**-****"
+1460 DATA "H", "H****, P*** - Auto Technician   h(***) 3**-****"
+1470 DATA "p", "P******* J*********              h(***) 3**-****"
+1480 DATA "Z",
+1490 DATA "K5", "K****, R****** *.*.*.           w(***) 5**-****"
+1500 DATA "r", "R****** K**** *.*.*.            w(***) 5**-****"
+1510 DATA "T", "Taxes & Accounting, R.*****     w(***) 5**-****"
+1520 DATA "A", "Accounting & Taxes, R.*****     w(***) 5**-****"
+1530 DATA "Z",
+1531 DATA "s3", "S**** K*******   Sentra Service w(***)3**-**** or 3**-****"
+1532 DATA "K", "K*******, S****  Sentra Service w(***)3**-**** or 3**-****"
+1533 DATA "sK", "  1NNN West NNNnd Street  LLLLLLL, CA  (Hours:  m-f 8:30-5:00)"
+1540 DATA "p", "P*** L**** & R****              h(805) 9**-****"
+1550 DATA "r", "R**** L**** & P****             h(805) 9**-****"
+1560 DATA "L", "L**** I*********, P*** & R****  h(805) 9**-****"
+1570 DATA "L9", "L****, P*** & R****             h(805) 9**-****"
+1580 DATA "L", "Lexmark Printer model 1020 qty (2) serial#??????     136-144"
+1590 DATA "L", "    Technical Support            (606) 232-3000  10-7pm EST M-F"
+1600 DATA "L", "    Supplies/Options             (800) 438-2468"
+1610 DATA "L", "    Broken or Missing Parts      (800) 453-9267  10-7pm EST M-F"
+1620 DATA "L", "    Publications                 (800) 553-9727"
+1630 DATA "L", "    Lexmark BBS                  (606) 232-5238  (anytime)"
+1640 DATA "L", "    Automated FAX system         (606) 232-2380  (anytime)"
+1650 DATA "L", "    Service                      (800) 253-9778"
+1660 DATA "L", "    Lexmark Authorized Dealers   (800) 358-5835  (anytime)"
+1670 DATA "Z",
+1680 DATA "b", "B**** L*****                      none         "
+1690 DATA "L", "L****, B******                    none         "
+1700 DATA "Z",
+1710 DATA "L6", "L***, L**** (*** R.I.P.)        h(***) 6**-****"
+1720 DATA "l", "L**** L***  (*** R.I.P.)        h(***) 6**-****"
+1730 DATA "Z",
+1740 DATA "M3", "M********, H*** & M*****         (***) 3**-****"
+1750 DATA "h", "H*** M*******r & M*****          (***) 3**-****"
+1760 DATA "m", "M***** M******** & H***          (***) 3**-****"
+1770 DATA "Z",
+1780 DATA "m", "M***** M*******                  (***) 3**-****
+1790 DATA "M3", "M*******, M*****                 (***) 3**-****
+1800 DATA "X", "Ms. M***** M*******
+1810 DATA "X", "nnnn V***** Blvd. #N
+1820 DATA "X", "V*****, CA 9****
+1830 DATA "X",
+1840 DATA "X",
+1850 DATA "X",
+1860 DATA "P7", "P********, G***** & M*******     (***) 7**-****"
+1870 DATA "g", "G***** P******** & M*******      (***) 7**-****"
+1880 DATA "m", "M******* P******** & G*****      (***) 7**-****"
+1890 DATA "Z",
+1900 DATA "S3", "S****, E******* Esq.             (***) 3**-****"
+1910 DATA "e", "E******* S**** Esq.              (***) 3**-****"
+1920 DATA "Z",
+1930 DATA "p", "P********** D.D.S.               (***) 5**-****"
+1940 DATA "d", "D***************s D.D.S.         (***) 5**-****"
+1950 DATA "S5", "S***************** D.D.S.        (***) 5**-****"
+1960 DATA "Z",
+1970 DATA "f", "F**** S*******f                 w(***) 6**-****  h(***)2**-****"
+1980 DATA "S6", "***** Instrument Company        w(***) 6**-****"
+1990 DATA "S2", "S********, F****                h(***) 2**-****  w(***)6**-****"
+2000 DATA "n", "N***** S********                w(***) 2**-****  R.I.P. 1996 "
+2010 DATA "S", "S****, N***** (***********)     w(***) 2**-****  R.I.P. 1996 "
+2020 DATA "Z",
+2030 DATA "S8", "S********, R****                w(***) ***-****  R.I.P. ????"
+2040 DATA "r", "R**** S********                 w(***) ***-****   R.I.P. ????"
+2050 DATA "S", "S********, D****                w(***) ***-****"
+2060 DATA "d", "D**** S********                 w(***) ***-****"
+2870 DATA "Z",
+2080 DATA "S", "S********** Botanic Gardens (*****) w(***) 5**-****"
+2090 DATA "G", "GARDENS, S********** Botanic(*****) w(***) 5**-****"
+2100 DATA "n58", "N**************************     w(***) 5**-****  h(***) 8**-****"
+2110 DATA "Z",
+2120 DATA "S", "S*************. - D** J******   w(***) 5**-****"
+2130 DATA "AI", "Auto Insurance, ***********     w(***) 5**-****"
+2140 DATA "d", "D****************************   w(***) 5**-****"
+2150 DATA "J5", "J******, *** - ***************  w(***) 5**-****"
+2160 DATA "Z",
+2170 DATA "S8", "S*****, V**** & ****** (*****)  h(***) 8**-****"
+2180 DATA "v", "V**** S***** & J***** (*****)   h(***) 8**-****"
+2190 DATA "Sv", "   nnn ***** Place    San Pedro, CA 9****"
+2200 DATA "Z",
+2210 DATA "T75", "T***, MM M*********           h(***) 7**-**** h(***) 5**-****"
+2220 DATA "m", "Mike Tani                       w(***) 7**-**** h(***) 5**-****"
+2230 DATA "Z",
+2240 DATA "V2", "Victor Valley Gem & Mineral Club (619) 243-2330"
+2250 DATA "V", "Verbatim Data Life + disks w teflon
+2260 DATA "V", "                 hours 10-4est   (800) 538-8589"
+2270 DATA "Z",
+2280 DATA "V5", "V** W*****, S*****              w(   )         h(***) 5**-****"
+2290 DATA "s", "S***** V** W*****               w(   )          h(***) 5**-****"
+2300 DATA "Z",
+2310 DATA "W6", "W***, E***** (B******'s mom)    w(***) 6**-****"
+2320 DATA "e", "E***** W*** (B******'s mom)     w(***) 6**-****"
+2330 DATA "Z",
+2340 DATA "W3", "W*****, D*****(hair dresser)    w(***) 3**-****"
+2350 DATA "C", "CHANGES IN HAIR DESIGN (D***** W*****) w(***) 3**-****"
+2360 DATA "d", "D***** W***** (hair dresser)    w(***) 3**-****"
+2370 DATA "H", "Hair Dresser - Debbie Watson    w(***) 3**-****"
+2380 DATA "aZX", "Ms A**** Z*******"
+2390 DATA "aZX", "nnnn E** Avenue #17" 
+2400 DATA "aZX", "L*** B****, CA 9****"
+2410 DATA "aZX", " "
+2420 DATA "aZX", " "
+2430 DATA "-1", "     -----=====***** END OF DATA *****=====-----"
+2440 '===============================
+2450 'RolodexProgram:
+2460 DEFINT A-Z
+2470 GOSUB 2520 'ScreenPainter
+2480 GOSUB 2610 'FunctionKeyAssignments
+2490 GOSUB 2660 'KeyPressAction_&_LoopThruData_&_DisplayAddresses
+2500 END
+2510 '-------------------------------
+2520 'ScreenPainter:
+2530 VIEW PRINT:KEY OFF:COLOR 10,4:CLS
+2540 PRINT TAB(18)CHR$(224)+"-"+CHR$(234)+"   T E L E P H O N E    R O L O D E X"
+2550 PRINT LEFT$(TIME$,5);TAB(30)"   Joseph_Sixpack's  ";TAB(71)DATE$
+2560 LOCATE 25,1
+2570 PRINT"Commands:  Type (aA-zZ), CLS=spacebar, F1=help, F2=edit, F3=browse, F7=exit";
+2580 VIEW PRINT 3 TO 24:COLOR 14,1:GOSUB 2810
+2590 RETURN 'to FunctionKeyAssignments
+2600 '-------------------------------
+2610 'FunctionKeyAssignments:
+2620    KEY 1, "1": KEY 2, CHR$(224): KEY 3, CHR$(228): KEY 4, "": KEY  5, ""
+2630    KEY 6, "" : KEY 7, CHR$(234): KEY 8, ""       : KEY 9, "": KEY 10, ""
+2640 RETURN 'to KeyPressAction_&_LoopthruData_&_DisplayAddresses
+2650 '-------------------------------
+2660 'KeyPressAction_LoopThruData_DisplayAddresses:
+2670 RESTORE 2680 LET KP$=INKEY$:IF KP$="" THEN 2680 '  pause - loop - decision
+2690 LET C=0
+2700   IF KP$ = CHR$(224) THEN LIST 3470-  'END        'F2 was pressed
+2710   IF KP$ = CHR$(228) THEN GOTO  2970 'F3 was pressed, BrowseData
+2720   IF KP$ = " "       THEN GOSUB 2810 'Spacebar pressed
+2730   IF KP$ = CHR$(234) THEN GOTO  2850 'SignOff_&_ReturnToMainMenu F7press
+2740 READ A$, B$
+2750   IF A$ = "-1" THEN GOTO 2670 'resets data pointer & awaits keypress
+2760   IF INSTR(A$, KP$) > 0 THEN PRINT B$
+2770   IF INSTR(A$, KP$) > 0 THEN C=C+1
+2780   IF C > 20 THEN GOSUB 2910 'ScrollStop
+2790 GOTO 2740 '^^^^^^^^^^^^^^^^^^^^^^^^^ looping thru data to find matchups
+2800 '-------------------------------
+2810 'HomeBrewCLS:
+2820 FOR I=3 TO 24:PRINT SPACE$(80);:NEXT  'cls erases line 25 so...
+2830 LOCATE 3,1:RETURN
+2840 '-------------------------------
+2850 'SignOff_Return2MainMenu:
+2860 CLS:LOCATE 9,22:PRINT"Rolodex Program Terminated."
+2870     LOCATE 11,22:PRINT"  Thank you for using me.  "
+2880     FOR DL= 1 TO 32000: NEXT DL
+2890 RUN"mnu-main
+2900 '--------------------------------
+2910 'ScrollStop:  'loop - pause - decision
+2920    PRINT "     Press any key to scroll listings"
+2930    IF INKEY$="" THEN 2930
+2940    LET C=0
+2950  RETURN
+2960 '==============================
+2970 'RolodexBrowserProgram:
+2980 GOSUB 3020 'ScreenPainter
+2990 GOSUB 3100 'LoopThruData_&_Browse
+3000 END
+3010 '------------------------------
+3020 'BrowserScreenPainter:
+3030 VIEW PRINT:KEY OFF:COLOR 11,9:CLS
+3040 LOCATE 1,1:PRINT TAB(32)"Rolodex Browser"
+3050 LOCATE 24,1
+3060 PRINT TAB(10)"SCROLL=spacebar,  EXIT=AnyKey";
+3070 VIEW PRINT 2 TO 23:COLOR 14,4
+3080 RETURN 'to LoopThruData_&_Browse
+3090 '------------------------------
+3100 'LoopThruData_&_Browse:
+3110 CLS
+3120 RESTORE
+3130 C=0
+3140 DATALINE=0
+3150 READ A$, B$
+3160   DATALINE=DATALINE+1
+3170   C=C+1
+3180   PRINT DATALINE;TAB(7) A$;TAB(12)B$
+3190   IF A$ = "-1" THEN GOSUB 3240 'PauseScreenScrollstop
+3200   IF A$ = "-1" THEN GOTO 3300  'ReviewAgain_Or_Exit?
+3210   IF C=20 THEN GOSUB 3240 'PauseScreenScrolling
+3220   GOTO 3150   '^^^^^^^^^^^^^^^^^^^^^^^^Looping thru data
+3230 '------------------------------
+3240 'PauseScreenScrolling:
+3250   KP$=INKEY$:IF KP$="" THEN 3250 '  loop - pause - decision
+3260   IF KP$<>" " THEN RUN
+3270   C=0
+3280   RETURN
+3290 '------------------------------
+3300 'ReviewAgain_Or_Exit?:
+3310 CLS
+3320 LOCATE 10,20:PRINT "Would you like to review again?";
+3330 KP$=INKEY$:IF KP$="" THEN 3330    '  loop - pause - decision
+3340   IF KP$="Y" OR KP$="y" THEN 3110 'view data all over again
+3350 LOCATE 10,20:PRINT "Thank you for using Quick Browser..."
+3360 FOR DL=1 TO 20000:NEXT DL:CLS:RUN 'restarts ROLO.BAS program
+3370 '        SAVE "ROLO.BAS",A
+3380 '------------------------------
+3390 'PrintChristmasCardLabels: 'not finished yet... dad
+3400 RESTORE:KP$="X"
+3410 READ A$, B$
+3420   IF A$ = "-1" THEN END
+3430   IF INSTR(A$, KP$) > 0 THEN  PRINT TAB(5) B$
+3440  'IF INSTR(A$, KP$) > 0 THEN LPRINT TAB(5) B$
+3450   GOTO 3410 '^^^^^^^^^^^^^^^^^^^^^^^^^Looping thru data to print labels
+3460 '------------------------------
+3470 'SubroutineRoadmap: The I.P. never should get into here
+3480 CLS:LIST 2450-2500 'RolodexProgram
+3490 CLS:LIST 2520-2600 'ScreenPainter
+3500 CLS:LIST 2610-2650 'FunctionKeyAssignments
+3510 CLS:LIST 2660-2800 'KeyPressAction_LoopThruData_DisplayAddresses
+3520 CLS:LIST 2810-2840 'HomeBrewCLS
+3530 CLS:LIST 2850-2900 'SignOff_Return2MainMenu
+3540 CLS:LIST 2910-2960 'ScrollStop
+3550 CLS:LIST 2970-3010 'RolodexBrowserProgram    <===separate program
+3560 CLS:LIST 3020-3090 'BrowserScreenPainter
+3570 CLS:LIST 3100-3230 'LoopThruData_&_Browse
+3580 CLS:LIST 3240-3290 'PauseScreenScrolling
+3590 CLS:LIST 3300-3380 'ReviewAgain_Or_Exit?
+3600 CLS:LIST 3390-3460 'PrintChristmasCardLabels <===separate program
+3610 CLS:LIST 3470-3610 'SubroutineRoadmap
+3620 '------------------------------
+3630 'RevisionHistory:    Programmed by fhb4family 1996-1998
+3640 '  rev 1.009  10/15/98   added subroutine roadmap & revision history
+3650 '           save"rolo.bas",a
+
+
+</pre>
+
+</body>
+
+<a href="brolo.html#top">TOP</a>
+<a href="index-2.html">Index</a>
+<a href="toc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595161" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595161&amp;f=us-w3" ALT=1 WIDTH=1 HEIGHT=1>

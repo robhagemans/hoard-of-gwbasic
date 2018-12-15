@@ -1,0 +1,289 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+-->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Home Budget Spreadsheet using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>The Home Budget Spreadsheet</h1></center>
+<center><h4>using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+0 '   The ******* family budget for 1998  by dad 6/10/98 v1.01
+1  CLS : KEY OFF
+2 '-----------------------------------
+3 'VariableStringAssignments:
+4 F$ = "#####"
+5 G$ = "######"
+6 H$ = "\   \"                'not used yet
+7 I$ = "\            \"       'not used yet...
+8 TITLE$ = "The ******* Family's Home Budget for 1998"
+9 MONTHS$ = "Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec Total"
+10 '----------------------------------
+11 'PrintBudgetHeading2Screen:
+12 PRINT TAB(19); TITLE$; TAB(70); DATE$: PRINT
+13 PRINT TAB(17); MONTHS$;
+14 '----------------------------------
+15 'Read&Total&PrintTheDataLoop2Screen:
+16 READ A$, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+17   LC = LC + 1
+18   IF LC = 12 THEN PRINT : PRINT
+19   IF LC = 23 THEN PRINT : PRINT  'Row separation counter
+20   IF LC = 27 THEN PRINT : PRINT
+21   IF LC = 34 THEN PRINT : PRINT
+22 ' IF LC = 37 THEN PRINT : PRINT
+23 '
+24  IF A$ = "zzz" THEN 59    '    Jumps out of loop if data terminates
+25   TOTAL = JAN + FEB + MAR + APR + MAY + JUN + JUL + AUG + SEP + OCT + NOV + DEC
+26   PRINT A$;
+27   IF JAN = 0 THEN PRINT "     ";  ELSE PRINT USING F$; JAN;
+28   IF FEB = 0 THEN PRINT "     ";  ELSE PRINT USING F$; FEB;
+29   IF MAR = 0 THEN PRINT "     ";  ELSE PRINT USING F$; MAR;
+30   IF APR = 0 THEN PRINT "     ";  ELSE PRINT USING F$; APR;
+31   IF MAY = 0 THEN PRINT "     ";  ELSE PRINT USING F$; MAY;
+32   IF JUN = 0 THEN PRINT "     ";  ELSE PRINT USING F$; JUN;
+33   IF JUL = 0 THEN PRINT "     ";  ELSE PRINT USING F$; JUL;
+34   IF AUG = 0 THEN PRINT "     ";  ELSE PRINT USING F$; AUG;
+35   IF SEP = 0 THEN PRINT "     ";  ELSE PRINT USING F$; SEP;
+36   IF OCT = 0 THEN PRINT "     ";  ELSE PRINT USING F$; OCT;
+37   IF NOV = 0 THEN PRINT "     ";  ELSE PRINT USING F$; NOV;
+38   IF DEC = 0 THEN PRINT "     ";  ELSE PRINT USING F$; DEC;
+39   IF TOTAL = 0 THEN PRINT "     ";  ELSE PRINT USING G$; TOTAL;
+40   LINETOTAL = TOTAL
+41   GRANDLINETOTAL = GRANDLINETOTAL + LINETOTAL
+42   TOTAL = 0
+43   JANTOTAL = JANTOTAL + JAN
+44   FEBTOTAL = FEBTOTAL + FEB
+45   MARTOTAL = MARTOTAL + MAR
+46   APRTOTAL = APRTOTAL + APR
+47   MAYTOTAL = MAYTOTAL + MAY
+48   JUNTOTAL = JUNTOTAL + JUN
+49   JULTOTAL = JULTOTAL + JUL
+50   AUGTOTAL = AUGTOTAL + AUG
+51   SEPTOTAL = SEPTOTAL + SEP
+52   OCTTOTAL = OCTTOTAL + OCT
+53   NOVTOTAL = NOVTOTAL + NOV
+54   DECTOTAL = DECTOTAL + DEC
+55   GRANDTOTAL = JANTOTAL + FEBTOTAL + MARTOTAL + APRTOTAL + MAYTOTAL + JUNTOTAL + JULTOTAL + AUGTOTAL + SEPTOTAL + OCTTOTAL + NOVTOTAL + DECTOTAL
+56   GOTO 16'^^^^^^^^^^Loop thru the data and add everything up
+57 '---------------------------------
+58 'PrintMonthlyTotals:
+59 PRINT "              ";
+60 PRINT " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- -----";
+61 PRINT "      Totals  ";
+62 PRINT USING F$; JANTOTAL; FEBTOTAL; MARTOTAL; APRTOTAL; MAYTOTAL; JUNTOTAL; JULTOTAL; AUGTOTAL; SEPTOTAL; OCTTOTAL; NOVTOTAL; DECTOTAL;
+63 PRINT USING G$; GRANDTOTAL
+64 PRINT
+65 PRINT TAB(8); "YTD Net Income & Expense totals ="; : PRINT USING " $#####,"; GRANDTOTAL;
+66 '---------------------------------
+67 'DoCrossTabVerificationCheck:  
+68  IF GRANDLINETOTAL = GRANDTOTAL THEN PRINT " O.K." ELSE PRINT " Error exists"
+69 '---------------------------------
+70 'BudgetDataStartsHere:
+71 DATA "FAMILY INCOME ",,,,,,,,,,,,
+72 '      Row title       JAN  FEB  MAR  APR  MAY  JUN  JUL  AUG  SEP  OCT  NOV DEC
+73 DATA " ***'s S.S.   ", 902, 902, 902, 902, 902, 902, 902, 902, 902, 902, 902,902
+74 DATA " ***'s Pension", 898, 898, 898, 898, 898, 898, 898, 898, 898, 898, 898,898
+75 DATA " ***'s Income ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+76 DATA " ***'s Other  ",   3,    ,    ,   3,    ,    ,   3,    ,    ,   3,    ,
+77 DATA " ***'s Note   ", 789, 789, 789, 789, 789, 789, 789, 789, 789, 789, 789,789
+78 DATA " ***'s Contrib",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+79 DATA " ***'s Income ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+80 DATA " ***'s S.S.   ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+81 DATA " ***'s Income ", -65, -65, -65, -65, -65, -65, -65, -65, -65, -65, -65, -65
+82 DATA " ***'S Other  ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+83 DATA "EXPENSES      ",,,,,,,,,,,,
+84 DATA " HOUSE        ",,,,,,,,,,,,
+85 DATA "  Mortgage    ",-789,-789,-789,-789,-789,-789,-789,-789,-789,-789,-789,-789
+86 DATA "  Homeowners  ", -40, -40, -40, -40, -40, -40, -40, -40, -40, -40,    ,
+87 DATA "  Prop Taxes  ",    ,    ,-660,   0,   0,   0,   0,   0,   0,   0,   0,-660
+88 DATA "  Water&Power ",-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100
+89 DATA "  SoCalGas    ", -38, -38, -38, -38, -38, -38, -38, -38, -38, -38, -38, -38
+90 DATA "  Telephone   ", -55, -55, -55, -55, -55, -55, -55, -55, -55, -55, -55, -55
+91 DATA "  Cable       ", -33, -33, -33, -33, -33, -33, -33, -33, -33, -33, -33, -33
+92 DATA "  Upkeep      ", -20, -20, -20, -20, -20, -20, -20, -20, -20, -20, -20, -20
+93 DATA "  Yard        ",  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5
+94 DATA " FOOD         ",,,,,,,,,,,,
+95 DATA "  Groceries   ",-475,-475,-475,-475,-475,-475,-475,-475,-475,-475,-475,-475
+96 DATA "  Eating Out  ",-250,-250,-250,-250,-250,-250,-250,-250,-250,-250,-250,-250
+97 DATA "  Borders&Etc ",-217,-217,-217,-217,-217,-217,-217,-217,-217,-217,-217,-217
+98 DATA " AUTOMOBILES  ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+99 DATA "  92 Sentra   ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+100 DATA "   Insurance  ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+101 DATA "   Gasoline   ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+102 DATA "   Lic&Maint. ", -30, -30, -30, -30, -30, -30, -30, -30, -30, -30, -30, -30
+103 DATA "  98 AutoLease",-300,-300,-300,-300,-300,-300,-300,-300,-300,-300,-300,-300
+104 DATA "   Gasoline   ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+105 DATA " MEDICAL      ",,,,,,,,,,,,
+106 DATA "  *******     ", -80, -80, -80, -80, -80, -80, -80, -80, -80, -80, -80, -80
+107 DATA "  **** Ins    ", -75,    ,    , -75,    ,    , -75,    ,    , -75,    ,
+108 DATA " Credit card  ",-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100
+109 DATA "zzz",,,,,,,,,,,,
+110 END
+111 '===================================
+112 'SendTheBudget2Printer:
+113 RESTORE
+114  CLS : KEY OFF
+115 '-----------------------------------
+116 'VariableStringAssignments:
+117 F$ = "#####": LC = 0
+118 G$ = "######"
+119 H$ = "\   \"
+120 I$ = "\            \"
+121 TITLE$ = "The ******* Family's Home Budget for 1998"
+122 MONTHS$ = "Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec Total"
+123 '----------------------------------
+124 'PrintBudgetHeading2Printer:
+125 LPRINT TAB(19); TITLE$; TAB(70); DATE$: LPRINT
+126 LPRINT TAB(17); MONTHS$;
+127 '----------------------------------
+128 'Read&Total&PrintTheDataLoop2Printer:
+129 READ A$, JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG, SEP, OCT, NOV, DEC
+130   LC = LC + 1
+131   IF LC = 12 THEN LPRINT : LPRINT
+132   IF LC = 23 THEN LPRINT   'Row separation counter
+133   IF LC = 27 THEN LPRINT
+134   IF LC = 34 THEN LPRINT
+135   IF LC = 37 THEN LPRINT
+136 '
+137   IF A$ = "zzz" THEN 172:  '    Jumps out of loop if data terminates
+138   TOTAL = JAN + FEB + MAR + APR + MAY + JUN + JUL + AUG + SEP + OCT + NOV + DEC
+139   LPRINT A$;
+140   IF JAN = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; JAN;
+141   IF FEB = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; FEB;
+142   IF MAR = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; MAR;
+143   IF APR = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; APR;
+144   IF MAY = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; MAY;
+145   IF JUN = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; JUN;
+146   IF JUL = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; JUL;
+147   IF AUG = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; AUG;
+148   IF SEP = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; SEP;
+149   IF OCT = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; OCT;
+150   IF NOV = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; NOV;
+151   IF DEC = 0 THEN LPRINT "     ";  ELSE LPRINT USING F$; DEC;
+152   IF TOTAL = 0 THEN LPRINT "     ";  ELSE LPRINT USING G$; TOTAL;
+153   LINETOTAL = TOTAL
+154   GRANDLINETOTAL = GRANDLINETOTAL + LINETOTAL
+155   TOTAL = 0
+156   JANTOTAL = JANTOTAL + JAN
+157   FEBTOTAL = FEBTOTAL + FEB
+158   MARTOTAL = MARTOTAL + MAR
+159   APRTOTAL = APRTOTAL + APR
+160   MAYTOTAL = MAYTOTAL + MAY
+161   JUNTOTAL = JUNTOTAL + JUN
+162   JULTOTAL = JULTOTAL + JUL
+163   AUGTOTAL = AUGTOTAL + AUG
+164   SEPTOTAL = SEPTOTAL + SEP
+165   OCTTOTAL = OCTTOTAL + OCT
+166   NOVTOTAL = NOVTOTAL + NOV
+167   DECTOTAL = DECTOTAL + DEC
+168   GRANDTOTAL = JANTOTAL + FEBTOTAL + MARTOTAL + APRTOTAL + MAYTOTAL + JUNTOTAL + JULTOTAL + AUGTOTAL + SEPTOTAL + OCTTOTAL + NOVTOTAL + DECTOTAL
+169   GOTO 129'^^^^^^^^^^Loop thru the data and add everything up
+170 '---------------------------------
+171 'PrintMonthlyTotals2Printer:
+172 LPRINT "              ";
+173 LPRINT " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- -----";
+174 LPRINT "      Totals  ";
+175 LPRINT USING F$; JANTOTAL; FEBTOTAL; MARTOTAL; APRTOTAL; MAYTOTAL; JUNTOTAL; JULTOTAL; AUGTOTAL; SEPTOTAL; OCTTOTAL; NOVTOTAL; DECTOTAL;
+176 LPRINT USING G$; GRANDTOTAL
+177 LPRINT
+178 LPRINT TAB(8); "YTD Net Income & Expense totals ="; : LPRINT USING " $#####,"; GRANDTOTAL;
+179 '---------------------------------
+180 'DoCrossTabVerificationCheck:  
+181  IF GRANDLINETOTAL = GRANDTOTAL THEN LPRINT "    O.K." ELSE LPRINT "    THERE IS AN ERROR!"
+182 '---------------------------------
+183 '        save "BUDGET.WKB", a
+184 END
+
+
+</pre>
+
+</body>
+
+<a href="bbudget.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595145" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595145&amp;f=us-w2" ALT=1 WIDTH=1 HEIGHT=1>

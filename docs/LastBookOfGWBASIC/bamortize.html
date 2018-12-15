@@ -1,0 +1,446 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Loan Amortization Program using GW-Basic</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment
+-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>Loan Amortization Program</h1></center>
+<center><h3>written in</h3></center>
+<center><h1>GW-Basic</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+0 'Loan Amortization Program by fhb4family 4/20/99
+1 'Math algorithms from Professor D. Huff's book, "How to figure it" Norton
+2 '(he was my old math teacher in the last century)
+3 '----------------------------------
+4 'Program-Housekeeping&Variables:
+5    KEY OFF:ON ERROR GOTO 255
+6    VIEW PRINT
+7    COLOR 14,4              'used red for "red ink" that loan represents
+8    FOR I=1 TO 10:KEY I,"":NEXT I:I=0  'null out function keys
+9    CHAR.ALLOW$="0123456789." 'only these ascii characters allowed as input
+10    CP6$="###,###.##"       'Comma & Penny for up to 6 digits
+11   DCP6$="$$##,###.##"      'Dollar, Comma, Penny for up to 6 digits
+12    DC6$="$$##,###"         'Dollar, Comma for up to 6 digits
+13   DCP7$="$$####,###.##"    'Dollar, Comma for up to 7 digits
+14 '----------------------------------
+15 'OpeningScreenSplash:
+16    CLS                                  'Three asterisks at line's end
+17    PRINT TAB(31)"Amortization Table"    'signal a line which needs to be 
+18    PRINT TAB(29)"Input Loan Conditions" 'altered if program is compiled.
+19    LOCATE 24,24:PRINT"(Q) to edit         (X) to System";
+20    'locate 24,35:print "X = system"                                   '***
+21 '----------------------------------
+22 'InputMemoryInterestRateString&Check:
+23    ROW=6
+24    LOCATE 6,29
+25    INPUT " Interest percent";MA$
+26 'if you want to edit or quit then turn off error checking upon quit...
+27    IF LEN(MA$)=1 AND (MA$= "q" OR MA$="Q") THEN CLS:ON ERROR GOTO 0:LIST 308-334 
+28    IF LEN(MA$)=1 AND (MA$= "x" OR MA$="X") THEN color 7,0:cls:system 'RUN"mnu-biz
+29    IF LEN(MA$)>5 THEN GOSUB 264:GOTO 22 'ClearInputLine & start over
+30 'Check for letters input in interest rate (MA$)
+31    FOR I=1 TO LEN(MA$)
+32      IF INSTR(CHAR.ALLOW$,MID$(MA$,I,1))=0 THEN BAD.INPUT$="yes"
+33      NEXT I
+34  IF BAD.INPUT$="yes" THEN GOSUB 264:GOTO 22
+35 'is Interest entry an acceptable number & do boundary checks...
+36 MA=VAL(MA$)
+37    IF MA>0 AND MA<1 THEN MA=MA*100
+38   'IF MA>1.01 AND MA<1.99 THEN MA=(MA-1)*100
+39    IF MA<=0  THEN GOSUB 264:GOTO 22      'clear entry  then retry
+40    IF MA>99 OR MA<1 THEN GOSUB 264:GOTO 22
+41 '----------------------------------
+42 'InputPrincipal:
+43    ROW=8
+44    LOCATE 8, 30
+45    INPUT"Principal amount";MB$
+46 'do you want to edit or quit?  then turn off error checking upon quit...
+47    IF LEN(MB$)=1 AND (MB$="q" OR MB$="Q") THEN CLS:ON ERROR GOTO 0:LIST 308-334 
+48    IF LEN(MB$)=1 AND (MB$="x" OR MB$="X") THEN color 7,0:cls:system 'RUN"mnu-biz
+49 'is principal amount too big for your wallet?  then...
+50    IF LEN(MB$)>6 THEN GOSUB 264:GOTO 42
+51 'any unallowed characters input into principal?  then...
+52    FOR I=1 TO LEN(MB$)
+53      IF INSTR(CHAR.ALLOW$,MID$(MB$,I,1))=0 THEN BAD.INPUT$="yes" 
+54      NEXT I
+55    IF BAD.INPUT$="yes" THEN GOSUB 264:GOTO 42
+56 'one last whack at it...
+57    IF VAL(MB$)=0 THEN GOSUB 264:GOTO 42
+58 'Convert principal to acceptable number &  do a wallet checks...
+59 MB=VAL(MB$)
+60    IF MB<1 OR MB>999999! THEN GOSUB 264:GOTO 42
+61 '----------------------------------
+62 'InputTerm:
+63    ROW=10
+64    LOCATE 10, 30
+65    INPUT" Number of years";MC$      'Term of loan in years
+66 'do you want to edit or quit?  then turn off error checking upon exit...
+67    IF LEN(MC$)=1 AND (MC$="q" OR MC$="Q") THEN CLS:ON ERROR GOTO 0:LIST 308-334 
+68    IF LEN(MC$)=1 AND (MC$="x" OR MC$="X") THEN color 7,0:cls:system 'RUN"mnu-biz
+69 'is term too long?  then...
+70    IF LEN(MC$)>2 THEN GOSUB 264:GOTO 62
+71 'any unallowed characters input into term?  then...
+72    FOR I=1 TO LEN(MC$)
+73      IF INSTR(CHAR.ALLOW$,MID$(MC$,I,1))=0 THEN BAD.INPUT$="yes"
+74      NEXT I
+75    IF BAD.INPUT$="yes" THEN GOSUB 264:GOTO 62
+76 'one last whack at it...
+77    IF VAL(MC$)=0 THEN GOSUB 264:GOTO 62
+78 'Convert principal to acceptable number &  do a wallet checks...
+79 MC=VAL(MC$)
+80    IF MC<1 OR MC>99 THEN GOSUB 264:GOTO 62
+81 '---------------------------------
+82 'InputPaymentsPerYear:
+83    ROW=12
+84    LOCATE 12, 29
+85    INPUT"Payments per year";MD$    'Repayments per year
+86 'do you want to edit or quit?  then turn off error checking upon quit...
+87    IF LEN(MD$)=1 AND (MD$="q" OR MD$="Q") THEN CLS:ON ERROR GOTO 0:LIST 308-334
+88    IF LEN(MD$)=1 AND (MD$="x" OR MD$="X") THEN color 7,0:cls:system 'RUN"mnu-biz
+89 'is PAYMENTS.PER.YEAR too many?  then...
+90    IF LEN(MD$)>3 THEN GOSUB 264:GOTO 82
+91 'any unallowed characters input into Payments per year? then...
+92    FOR I=1 TO LEN(MD$)
+93      IF INSTR(CHAR.ALLOW$,MID$(MD$,I,1))=0 THEN BAD.INPUT$="yes"
+94      NEXT I
+95    IF BAD.INPUT$="yes" THEN GOSUB 264:GOTO 82
+96 'one last whack at it...
+97    IF VAL(MD$)=0 THEN GOSUB 264:GOTO 82
+98 'Convert term to acceptable number...
+99    IF VAL(MD$)<1 OR VAL(MD$)>366 THEN GOSUB 264:GOTO 82
+100 MD=VAL(MD$)
+101 '---------------------------------
+102 'ConvertMemoryVariables2WorkingVariables:
+103     A=MA                   'rate of interest
+104     B=MB                   'principal
+105     C=MC                   'term
+106     D=MD                   'payments per year
+107     I=A/(100*D)            'Monthly interest rate = I  
+108     R=B*I/(1-(1+I)^(-D*C)) 'Monthly repayment amount
+109  TLIP=(R*D*C)-B            'Total Loan Interest Paid
+110   TPI=R*D*C                'Total Principal & Interest
+111     J=0
+112     K=0
+113  YEAR=0
+114 '---------------------------------
+115 'PrintOpeningDataScreen:
+116    CLS
+117    PRINT TAB(31)"Amortization Table":PRINT
+118    PRINT TAB(10) "Interest   Principal      Term";
+119    PRINT TAB(46) "Payments       Payment"
+120    PRINT TAB(10) USING "##.##";A;:PRINT"%";
+121    PRINT TAB(22) USING DC6$;B;
+122    PRINT TAB(34) C;:PRINT"yrs";
+123    PRINT TAB(45) D;:PRINT"/year";
+124    PRINT TAB(57) USING DCP6$;R
+125    PRINT
+126    PRINT TAB(11) "No.        Interest         ";
+127    PRINT TAB(39) "Principal             Balance"
+128    VIEW PRINT 7 TO 24
+129    PRINT TAB(57) USING DCP6$;B;
+130 '---------------------------------
+131 'DoCalcStuff&PrintAmortizationLoop:
+132    I=0
+133 WHILE R < B
+134    A1=A/100   'convert integer to decimal yearly interest rate
+135    A2=A1/D    'divided by payments/year = monthly decimal interest rate
+136    B1=B*A2    'monthly interest = Balance x monthly rate of interest
+137    B2=R-B1    'Amt. applied to prin. = Monthly payment-monthly interest
+138     B=B-B2    'Balance = Balance - Amount Applied to principal
+139     K=K+1     'using K here as an iteration counter for payment no.
+140     J=J+1     'same with J except it is used just to control scrolling.
+141     I=I+1     '????
+142   IF I > 12 THEN GOSUB 283:I=0
+143    PRINT TAB(10) K;
+144    PRINT TAB(20) USING CP6$;B1;
+145    PRINT TAB(38) USING CP6$;B2;
+146    PRINT TAB(58) USING CP6$;B;
+147  IF J=D THEN YEAR=YEAR+1:GOSUB 274
+148 WEND  '^^^^^^^^^^^^^^^^^^^Loop thru amortization calculations
+149 '---------------------------------
+150 'LastPaymentPrintout:
+151 K=K+1      'Advance the payment no. counter by 1 (out of loop)
+152 B1=B*A2    'monthly interest on last payment
+153 'now print out all the last payment stuff on the last line.
+154    PRINT TAB(10) K;
+155    PRINT TAB(20) USING CP6$;B1;
+156    PRINT TAB(38) USING CP6$;B+B1;
+157    PRINT TAB(58) USING CP6$;0  'make it pretty...
+158 '---------------------------------
+159 'PrintPrincipal&InterestSummation:
+160    PRINT TAB(19) "Total Loan Interest Paid  :";USING DCP7$;TLIP
+161    PRINT TAB(19) "Total Principal & Interest:";USING DCP7$;TPI;
+162 YEAR=YEAR+1
+163 GOSUB 274 'to ScreenPauser#2
+164 '---------------------------------
+165 'Wrapup:
+166    VIEW PRINT:CLS
+167    LOCATE 10,25:PRINT "Do another Calculation (y/n) ?"
+168    LOCATE 25,1:PRINT "Spacebar=see again";
+169    LOCATE 25,37:PRINT "P=print";
+170    LOCATE 25,70:PRINT "Esc=edit";
+171 GOSUB 283 'ScreenPauser#3
+172    IF KP$="y" OR KP$="Y" THEN 4 'Program
+173    IF KP$=" " THEN GOTO 102 're-createWORKINGLoanVariables
+174    IF KP$="p" OR KP$="P" THEN GOSUB 182:GOSUB 283
+175    IF KP$=CHR$(27) THEN CLS:LIST 308-334                          '***
+176    IF KP$="n" OR KP$="N" THEN COLOR 7,0:CLS:SYSTEM
+177    'IF KP$="n" OR KP$="N" THEN RUN"mnu-biz                         '***
+178 GOTO 165 'Wrapup
+179 '  
+180 '==================  P R I N T E R    O U T P U T ==============
+181 '
+182 'PrinterOutput-ResetLoanVariablesForRecalc
+183   CLS 'Reassign memory variables to working printer variables...
+184   LOCATE 10,18
+185   PRINT"Printing...  Press the Anykey when finished.";
+186 'How many of these reassignments are unnecessary?
+187    A=MA                   'rate of interest
+188    B=MB                   'principal
+189    C=MC                   'term
+190    D=MD                   'payments per year
+191    I= A/(100*D)           'Monthly interest rate
+192    R=B*I/(1-(1+I)^(-D*C)) 'Monthly repayment amount
+193 TLIP=(R*D*C)-B            'Total Loan Interest Paid
+194  TPI=R*D*C                'Total Principal & Interest
+195    J=0                    'Line counter 
+196    K=0                    'Payment number
+197 YEAR=0                    'year number - but not needed here just yet... 
+198 '---------------------------------
+199 'PrinterOutput-AmortizationHeading&LoanTerms
+200   LPRINT TAB(31)"Amortization Table"
+201   LPRINT
+202   LPRINT TAB(10) "Interest   Principal      Term";
+203   LPRINT TAB(46) "Payments     Monthly Payment"
+204   LPRINT TAB(10) USING "##.##";A;:LPRINT"%";
+205   LPRINT TAB(22) USING DC6$;MB;
+206   LPRINT TAB(34) C;:LPRINT"yrs";
+207   LPRINT TAB(45) D;:LPRINT"/year";
+208   LPRINT TAB(57) USING DCP6$;R
+209   LPRINT
+210   LPRINT TAB(11) "No.        Interest";
+211   LPRINT TAB(39) "Principal             Balance"
+212   LPRINT TAB(57) USING DCP6$;B;
+213 '---------------------------------
+214 'PrinterOutput-DoCalcStuff&PrintAmortizationLoop:
+215 WHILE J<48
+216   A1=A/100     'convert integer to decimal yearly interest rate
+217   A2=A1/D      'divided by payments/year = monthly decimal interest rate
+218   B1=B*A2      'monthly interest = Balance x monthly rate of interest
+219   B2=R-B1      'Amt. applied to prin. = Monthly payment-monthly interest
+220   B=B-B2       'Balance = Balance - Amount Applied to principal
+221   K=K+1        'using K here as an iteration counter for payment no.
+222   J=J+1        'same with J except it is used just to control scrolling.
+223   L=L+1
+224   LPRINT TAB(10) K;
+225   LPRINT TAB(20) USING CP6$;B1;
+226   LPRINT TAB(38) USING CP6$;B2;
+227   LPRINT TAB(58) USING CP6$;B
+228   IF L=D THEN LPRINT:L=0 'separate the years with a blank line
+229   IF B < R  THEN GOTO 237  'PrinterOutput-LastPaymentPrintOut
+230 WEND                  '^^^^^^^^^^^^^^^^^^^^^Looper
+231 LPRINT:J=0 'added an lprint here to get to 60 lines to trigger a formfeed
+232 GOTO 199 'start a new page (if you are using an inkjet w 60 lines/page)
+233           'if you are not using a page length of 60 lines then 
+234           'add a few lprints to trigger a formfeed... sorry
+235           'i will try an put in a HP-PCL3 code for 60 lines later...
+236 '---------------------------------
+237 'PrinterOutput-LastPaymentPrintout:
+238   B1 = B * A2 'monthly interest on last payment
+239   LPRINT TAB(10) K+1;
+240   LPRINT TAB(20) USING CP6$;B1;
+241   LPRINT TAB(38) USING CP6$;B+B1;
+242   LPRINT TAB(58) USING CP6$;0
+243 '---------------------------------
+244 'PrinterOutput-PrintPrincipal&InterestSummation:
+245   LPRINT
+246   LPRINT TAB(19) "Total Loan Interest Paid  :";USING DCP6$;TLIP
+247   LPRINT TAB(19) "Total Principal & Interest:";USING DCP6$;TPI;
+248	'YEAR=YEAR+1
+249   LPRINT:LPRINT TAB(20) TIME$,DATE$,CHR$(12)
+250 RETURN 'to WrapUp
+251 END    'of printer subroutine...
+252 '
+253 '=================== S U B R O U T I N E S =====================
+254 '
+255 'OnError:
+256    LOCATE 1,30:PRINT "An Error has occured! "
+257    LOCATE 2,22:PRINT "Error # is:";ERR,"Error Line is:";ERL
+258      IF ERR=25 THEN LOCATE 10,17 'error message OVERPRINTS normal message
+259    PRINT"Oops!  You forgot to turn on the printer again.";
+260    LOCATE 25,1:PRINT"Press the AnyKey to restart...";
+261    KP$=INKEY$:IF KP$="" THEN 261   'pause
+262 GOTO 102 'restart with old loan variables
+263 '---------------------------------
+264 'ClearInputLine&Reset bad.input$:
+265    LOCATE ROW,48:PRINT SPC(48);:ROW=0
+266    BAD.INPUT$="no"
+267    RETURN 'to calling loan data input routine
+268 '---------------------------------
+269 'ScreenPauser#1:
+270    LOCATE 24,1:PRINT "Press the AnyKey to continue...";
+271    KP$=INKEY$:IF KP$="" THEN 271 'pause
+272 GOTO 5  'Program-Housekeeping&Variables (on error line)
+273 '---------------------------------
+274 'ScreenPauser#2:
+275    LOCATE 24,11
+276    PRINT "Year number";YEAR;
+277    PRINT TAB(54)"Anykey continues";
+278    KP$=INKEY$:IF KP$="" THEN 278 'pause
+279    CLS:J=0:I=0
+280    IF KP$=CHR$(27) THEN GOTO 165 'WrapUp
+281 RETURN
+282 '---------------------------------
+283 'ScreenPauser#3:
+284    KP$=INKEY$:IF KP$="" THEN 284 'pause
+285    CLS
+286 RETURN
+287 '--------------------------------- 	
+288 'DoAllTheDateStuffHere:  'leave blank for right now... 
+289 '
+290 '
+291 '
+292 '
+293 '
+294 '
+295 '
+296 '
+297 '
+298 '---------------------------------
+299 'DataDictionary:
+300 '
+301 '
+302 '
+303 '
+304 '
+305 '
+306 '
+307 '---------------------------------
+308 'EmbeddedCommands:
+309 CLS:LIST  0-3  'Main Program (LoanAmortizationProgram)
+310 CLS:LIST  3-14  'HouseKeeping
+311 CLS:LIST  14-21  'OpeningScreenSplash
+312 CLS:LIST  21-41  'Input&CheckRoutine4Interest
+313 CLS:LIST  41-61  'Input&CheckRoutine4Principal
+314 CLS:LIST  61-81  'Input&CheckRoutine4Term
+315 CLS:LIST  81-101 'Input&CheckRoutine4PaymentsPerYear
+316 CLS:LIST 101-114 'ConvertMemoryVariables2WorkingVariables
+317 CLS:LIST 114-130 'PrintOpeningDataScreen
+318 CLS:LIST 130-149 'DoCalcStuff&PrintAmortization
+319 CLS:LIST 149-158 'LastPaymentPrintOut
+320 CLS:LIST 158-164 'PrintPrincipal&InterestSummation
+321 CLS:LIST 164-179 'WrapUp
+322 CLS:LIST 180-198 'PrinterOutput-ResetLoanVariablesForRecalc
+323 CLS:LIST 198-213 'PrinterOutput-AmortizationHeading&LoanTerms
+324 CLS:LIST 213-236 'PrinterOutput-DoCalcStuff&PrintAmortizationLoop
+325 CLS:LIST 236-243 'PrinterOutput-LastPaymentPrintout
+326 CLS:LIST 243-253 'PrinterOutput-Principal&InterestSummation
+327 CLS:LIST 253-263 'OnError
+328 CLS:LIST 263-268 'ClearInputLine
+329 CLS:LIST 268-273 'ScreenPauser#1
+330 CLS:LIST 273-282 'ScreenPauser#2
+331 CLS:LIST 282-287 'ScreenPauser#3
+332 CLS:LIST 287-298 'DateStuff
+333 CLS:LIST 298-307 'DataDictionary
+334 CLS:LIST 308-     'EmbeddedCommands
+335 LPRINT:LPRINT TAB(20) TIME$,DATE$,CHR$(12)
+336 '      save"amortize.bas",a
+337 '
+338 '      save"amortize.bas",a
+
+
+</pre>
+
+</body>
+
+<a href="bamortize.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595176" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595176&amp;f=us-w3" ALT=1 WIDTH=1 HEIGHT=1>

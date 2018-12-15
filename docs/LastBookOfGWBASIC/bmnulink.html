@@ -1,0 +1,605 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Various MNU-LLLL Ring Menus - GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" to "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>A Listing of the 17+ line</h1></center>
+<center><h1>Ring Menu System</h1></center>
+<center><h4>using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+Note:  The ascii character (|=124) is on either side of a
+function key at the bottom of each menu.  That represents a
+substitute for the high order ascii box drawing characters
+which surround the function keys on the original GW-BASIC
+program menus.  They are 218, 196, 191, 179, 217, 192.
+
+The HTML parser chokes on high order characters and won't
+let me upload any file that has high order ascii characters
+in the file.  Putting the boxes back around the function key
+selections isn't that all of a problem.  Just do one top and
+bottom line and then copy it to each menu changing the
+line number if necessary.  For the char 179 you can just
+search and replace alt 179 with alt 124 on the keypad.
+For laptops, usually F11 toggles between keypad and text.
+You stumble around a bit at first, but after a short time
+you are off and running like a pro.  i didn't wanna upload
+this file using a binary switch, even if that were possible.
+  sorry...
+<hr>
+
+0 VIEW PRINT:KEY OFF:COLOR 10,4:CLS     'by fhb rev.c  5/2/98
+1 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+2 PRINT LEFT$(TIME$,5);TAB(32)"LETTERS MENU";TAB(71) DATE$:LOCATE 21,1
+3 PRINT"
+4 PRINT"| HELP ||BIZLET||MOTHER||CASSIE||files ||FRIEND|| main ||  TW  ||prior || next |";
+5 PRINT"
+6 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";:VIEW PRINT 3 TO 20:COLOR 11,8:CLS
+7  KEY 1, "RUN"   +CHR$(34)+ "HELP"    +CHR$(13)
+8  KEY 2, "RUN"   +CHR$(34)+ "BIZLET"  +CHR$(13)
+9  KEY 3, "RUN"   +CHR$(34)+ "MOTHER"  +CHR$(13)
+10 KEY 4, "RUN"   +CHR$(34)+ "CASSIE"  +CHR$(13)
+11 KEY 5, "files" +CHR$(13)+ "*.bas"   +CHR$(13)
+12 KEY 6, "RUN"   +CHR$(34)+ "FRIEND"  +CHR$(13)
+13 KEY 7, "RUN"   +CHR$(34)+ "MNU-MAIN"+CHR$(13)
+14 KEY 8, "RUN"   +CHR$(34)+ "TW"      +CHR$(13)
+15 KEY 9, "RUN"   +CHR$(34)+ "MNU-MAIN"+CHR$(13)
+16 KEY 10,"RUN"   +CHR$(34)+ "MNU-flet" +CHR$(13):NEW
+17 '           SAVE"MNU-LETR.BAS",A
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:COLOR 10,4:CLS     'by fhb rev.c  5/2/98
+1 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+2 PRINT LEFT$(TIME$,5);TAB(33)"WORKSHEET MENU";TAB(71) DATE$:LOCATE 21,1
+3 PRINT"
+4 PRINT"| HELP || vde  ||CASHFL||BUDGET||files ||  LL6 || exit || LL9  ||prior || next |";
+5 PRINT"
+6 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";:VIEW PRINT 3 TO 20:COLOR 11,6:CLS
+7  KEY 1, "RUN"   +CHR$(34)+ "HELP-FFA"+CHR$(13)
+8  KEY 2, "SHELL" +CHR$(34)+ "V"       +CHR$(13)
+9  KEY 3, "RUN"   +CHR$(34)+ "QBAS-CFL"+CHR$(13)
+10 KEY 4, "RUN"   +CHR$(34)+ "QBAS-BUD"+CHR$(13)
+11 KEY 5, "FILES" +CHR$(34)+ "*.BAS"   +CHR$(13)
+12 KEY 6, "RUN"   +CHR$(34)+ "QBAS-LL6"+CHR$(13)
+13 KEY 7, "RUN"   +CHR$(34)+ "EXIT"    +CHR$(13)
+14 KEY 8, "RUN"   +CHR$(34)+ "QBAS-LL9"+CHR$(13)
+15 KEY 9, "RUN"   +CHR$(34)+ "MNU-CFG" +CHR$(13)
+16 KEY 10,"RUN"   +CHR$(34)+ "MNU-MATH"+CHR$(13):NEW
+17 '           SAVE"MNU-WKS.BAS",A
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:COLOR 11,9:CLS     'by fhb rev.c  5/2/98
+1 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+2 PRINT LEFT$(TIME$,5);TAB(31)"FORM LETTER MENU";TAB(71) DATE$:LOCATE 21,1
+3 PRINT"
+4 PRINT"| HELP ||CREDIT||NOTIFY|| XMAS ||files ||FRMLET|| exit ||  TW  ||prior || next |";
+5 PRINT"
+6 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";:VIEW PRINT 3 TO 20:COLOR 14,0:CLS
+7  KEY 1, "RUN"   +CHR$(34)+ "HELP"    +CHR$(13)
+8  KEY 2, "RUN"   +CHR$(34)+ "EMERCRED"+CHR$(13)
+9  KEY 3, "RUN"   +CHR$(34)+ "NOTIFY"  +CHR$(13)
+10 KEY 4, "RUN"   +CHR$(34)+ "XMAS"    +CHR$(13)
+11 KEY 5, "files" +CHR$(34)+ "*.BAS"   +CHR$(13)
+12 KEY 6, "RUN"   +CHR$(34)+ "FL"      +CHR$(13)
+13 KEY 7, "RUN"   +CHR$(34)+ "exit"    +CHR$(13)
+14 KEY 8, "RUN"   +CHR$(34)+ "TW"      +CHR$(13)
+15 KEY 9, "RUN"   +CHR$(34)+ "MNU-LETR"+CHR$(13)
+16 KEY 10,"RUN"   +CHR$(34)+ "MNU-BIZ" +CHR$(13):NEW
+17 '           SAVE"MNU-FLET.BAS",A
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:COLOR 10,4:CLS     'by fhb rev.c  5/2/98
+1 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+2 PRINT LEFT$(TIME$,5);TAB(33) "BUSINESS MENU";TAB(71) DATE$:LOCATE 21,1
+3 PRINT"
+4 PRINT"|AMORT ||      ||  OC  || BBIZ ||files || LL6  || exit || LL9  ||prior || next |";
+5 PRINT"
+6 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";:VIEW PRINT 3 TO 20:COLOR 11,1:CLS
+7  KEY 1, "RUN"   +CHR$(34)+ "AMORT1"  +CHR$(13)
+8  KEY 2, ""       ' "SHELL" +CHR$(34)+ "v"       +CHR$(13)
+9  KEY 3, "RUN"   +CHR$(34)+ "OC"      +CHR$(13)
+10 KEY 4, "RUN"   +CHR$(34)+ "BIRDBIZ" +CHR$(13)
+11 KEY 5, "files" +CHR$(34)+ "*.BAS"   +CHR$(13)
+12 KEY 6, "RUN"   +CHR$(34)+ "LL6"     +CHR$(13)
+13 KEY 7, "RUN"   +CHR$(34)+ "EXIT"    +CHR$(13)
+14 KEY 8, "RUN"   +CHR$(34)+ "LL9 "    +CHR$(13)
+15 KEY 9, "RUN"   +CHR$(34)+ "MNU-FLET"+CHR$(13)
+16 KEY 10,"RUN"   +CHR$(34)+ "MNU-CFG"+CHR$(13):NEW
+17 '           save"MNU-BIZ.bas",a
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 10,1:CLS     'by fhb rev.E 11/15/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(29)"Our Music Collection";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"|SONATA||CHAMBR||CNCRTO||SYMPH ||OPERA ||RELIG ||return||PIANO ||GUITAR||MODERN|";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 7,0:CLS
+17 KEY 1, "RUN"   +CHR$(34)+ "SONATA"     +CHR$(13)
+18 KEY 2, "RUN"   +CHR$(34)+ "CHAMBER"    +CHR$(13)
+19 KEY 3, "RUN"   +CHR$(34)+ "CONCERTO"   +CHR$(13)
+20 KEY 4, "RUN"   +CHR$(34)+ "SYMPHONY"   +CHR$(13)
+21 KEY 5, "RUN"   +CHR$(34)+ "OPERAS"     +CHR$(13)
+22 KEY 6, "RUN"   +CHR$(34)+ "RELIGION"   +CHR$(13)
+23 KEY 7, "RUN"   +CHR$(34)+ "MNU-DBAS"   +CHR$(13)
+24 KEY 8, "RUN"   +CHR$(34)+ "PIANO"      +CHR$(13)
+25 KEY 9, "RUN"   +CHR$(34)+ "GUITAR"     +CHR$(13)
+26 KEY 10,"RUN"   +CHR$(34)+ "MODERN"     +CHR$(13):'NEW
+27 '           SAVE"MNU-MUSI.BAS",A
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 14,6:CLS     'by fhb rev.E 11/15/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(29)"Books - Music - Movies";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"| HELP ||BOOKS ||MUSIC ||MOVIES||files ||PLANTS|| exit ||VMUSIC||prior || next |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 11,1:CLS
+17 KEY 1, "RUN"   +CHR$(34)+ "HELP-FFA"   +CHR$(13)
+18 KEY 2, "RUN"   +CHR$(34)+ "BOOKS.DB"   +CHR$(13)
+19 KEY 3, "RUN"   +CHR$(34)+ "MNU-MUSI"   +CHR$(13)
+20 KEY 4, "RUN"   +CHR$(34)+ "MOVIES.DB"  +CHR$(13)
+21 KEY 5, "FILES" +CHR$(34)+ "*.db"       +CHR$(13)
+22 KEY 6, "RUN"   +CHR$(34)+ "PLANT"      +CHR$(13)
+23 KEY 7, "RUN"   +CHR$(34)+ "EXIT"       +CHR$(13)
+24 KEY 8, "RUN"   +CHR$(34)+ "VMUSIC.DB"  +CHR$(13)
+25 KEY 9, "RUN"   +CHR$(34)+ "MNU-MATH"   +CHR$(13)
+26 KEY 10,"RUN"   +CHR$(34)+ "MNU-APPS"   +CHR$(13):NEW
+27 '           SAVE"MNU-DBAS.BAS",A
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the Four Files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(35)"MAIN MENU";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"| HELP ||SSaver||  RCP || ROLO ||  CB  || Works|| exit ||LISTER||prior || next |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 11,1:CLS
+17 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "HELP-FFA"+CHR$(13)
+18 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "SSAVER"   +CHR$(13)
+19 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-RCP" +CHR$(13)
+20 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "ROLO"    +CHR$(13)
+21 KEY 5, CHR$(27) + "RUN"   +CHR$(34)+ "CB"      +CHR$(13)
+22 KEY 6, CHR$(27) + "RUN"   +CHR$(34)+ "2WORKS"  +CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "EXIT"    +CHR$(13)
+24 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "LISTER"  +CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-APPS"+CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "MNU-LETR"+CHR$(13):'NEW
+27 '           SAVE"MNU-MAIN.BAS",A
+
+<hr>
+
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(32)"STATISTICS MENU";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"|      ||      ||      ||      ||      || ECO  ||return||      ||      ||      |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 14,1:CLS
+17 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "        "+CHR$(13)
+18 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "  "      +CHR$(13)
+19 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "   "     +CHR$(13)
+20 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "    "    +CHR$(13)
+21 KEY 5, CHR$(27) + "RUN"   +CHR$(34)+ "     "   +CHR$(13)
+22 KEY 6, CHR$(27) + "RUN"   +CHR$(34)+ "GO2-ECO" +CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-MATH"+CHR$(13)
+24 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "      "  +CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "        "+CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "        "+CHR$(13)':NEW
+27 '           SAVE"MNU-STAT.BAS",A
+
+<hr>
+
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the Four Files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(30)"Entree Recipes Menu";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"| LAND || SEA  || AIR  || DIRT ||      ||      ||return||      ||      ||      |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 11,1:CLS
+17 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-LAND"+CHR$(13)
+18 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-SEA" +CHR$(13)
+19 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-AIR" +CHR$(13)
+20 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-DIRT"+CHR$(13)
+21 KEY 5, CHR$(27) + "RUN"   +CHR$(34)+ "mnu-rcp "+CHR$(13)
+22 KEY 6, CHR$(27) + "RUN"   +CHR$(34)+ "mnu-rcp "+CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-RCP" +CHR$(13)
+24 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "mnu-rcp "+CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "mnu-rcp "+CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "mnu-rcp "+CHR$(13):'NEW
+27 '           SAVE"MNU-ENTR.BAS",A
+
+<hr>
+
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(25)"Mathematical Applications Menu";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"| ALGE || GEOM || TRIG ||ANALYT||CALCUL||STATS || BLAH || BLAH ||prior || next |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 14,1:CLS
+17 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "        "+CHR$(13)
+18 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "  "      +CHR$(13)
+19 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "   "     +CHR$(13)
+20 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "    "    +CHR$(13)
+21 KEY 5, CHR$(27) + "RUN  " +CHR$(34)+ "     "   +CHR$(13)
+22 KEY 6, CHR$(27) + "RUN"   +CHR$(34)+ "mnu-stat"+CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "    "    +CHR$(13)
+24 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "      "  +CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-WKS" +CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "MNU-DBAS"+CHR$(13):NEW
+27 '           SAVE"MNU-math.BAS",A
+
+<hr>
+
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the Four Files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(21)"YourName Family's Select Recipes Menu";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"|APTIZR||SALADS||BREADS||SOUPS ||STEWS ||CASROL||return||ENTREE|| SIDE ||DESERT|";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 11,1:CLS
+17 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-APPE"+CHR$(13)
+18 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-SALA"+CHR$(13)
+19 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-BREA"+CHR$(13)
+20 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-SOUP"+CHR$(13)
+21 KEY 5, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-STEW"+CHR$(13)
+22 KEY 6, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-CASS"+CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-MAIN"+CHR$(13)
+24 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-ENTR"+CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "RCP-SIDE"+CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "RCP-DESS"+CHR$(13):'NEW
+27 '           SAVE"MNU-RCP.BAS",A
+
+<hr>
+
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 10,9:CLS 'by fhb rev.d3  2/20/99
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;
+10 PRINT TAB(25)"Microsoft Works 3.0a Menu   (DOS)";
+11 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+12 LOCATE 21,1
+13 PRINT"
+14 PRINT"|WORKS ||MOTHER||CASSIE||FRIEND||BIZLET||RECIPE||return||XTGOLD||      ||      |";
+15 PRINT"
+16 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+17 VIEW PRINT 3 TO 20:COLOR 4,11:CLS
+18 KEY 1, CHR$(27) + "RUN" +CHR$(34)+ "2W3-WKS"  +CHR$(13)
+19 KEY 2, CHR$(27) + "RUN" +CHR$(34)+ "2W3-MOML" +CHR$(13)
+20 KEY 3, CHR$(27) + "RUN" +CHR$(34)+ "2W3-C&NL" +CHR$(13)
+21 KEY 4, CHR$(27) + "RUN" +CHR$(34)+ "2W3-FRIL" +CHR$(13)
+22 KEY 5, CHR$(27) + "RUN" +CHR$(34)+ "2W3-BIZL" +CHR$(13)
+23 KEY 6, CHR$(27) + "RUN" +CHR$(34)+ "2W3-FOOD" +CHR$(13)
+24 KEY 7, CHR$(27) + "RUN" +CHR$(34)+ "MNU-APPS" +CHR$(13)
+25 KEY 8, CHR$(27) + "RUN" +CHR$(34)+ "2W3XTREE" +CHR$(13)
+26 KEY 9, "" 'CHR$(27) + "RUN" +CHR$(34)+ "MNU-DBAS"+CHR$(13)
+27 KEY 10,"" 'CHR$(27) + "RUN" +CHR$(34)+ "MNU-MAIN"+CHR$(13)
+28 '           SAVE"MNU-WKS3.BAS",A
+29 NEW
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 10,9:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;
+10 PRINT TAB(25)"Correspondence Menu with VDE";
+11 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+12 LOCATE 21,1
+13 PRINT"
+14 PRINT"|      ||MOTHER||CASSIE||FRIEND||BIZLET||      ||return||      ||      ||      |";
+15 PRINT"
+16 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+17 VIEW PRINT 3 TO 20:COLOR 4,11:CLS
+18 KEY 1, "" 'commented out CHR$(27) + "RUN" +CHR$(34)+ "123"     +CHR$(13)
+19 KEY 2, CHR$(27) + "RUN" +CHR$(34)+ "2VDEMOML"+CHR$(13)
+20 KEY 3, CHR$(27) + "RUN" +CHR$(34)+ "2VDEC&NL"+CHR$(13)
+21 KEY 4, CHR$(27) + "RUN" +CHR$(34)+ "2VDEFRIL"+CHR$(13)
+22 KEY 5, CHR$(27) + "RUN" +CHR$(34)+ "2VDEBIZL"+CHR$(13)
+23 KEY 6, "" 'commented out CHR$(27) + "RUN" +CHR$(34)+ "OFFICE"  +CHR$(13)
+24 KEY 7, CHR$(27) + "RUN" +CHR$(34)+ "mnu-apps"+CHR$(13)
+25 KEY 8, "" 'commented out CHR$(27) + "RUN" +CHR$(34)+ "XTREE"   +CHR$(13)
+26 KEY 9, "" 'commented out CHR$(27) + "RUN" +CHR$(34)+ "MNU-DBAS"+CHR$(13)
+27 KEY 10,"" 'commented out CHR$(27) + "RUN" +CHR$(34)+ "MNU-MAIN"+CHR$(13)
+28 '           SAVE"MNU-VDE.BAS",A
+29 NEW
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(30)"Configuration Menu";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"|      ||      ||      ||      ||      ||      || exit ||      ||prior || next |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR  7,0:CLS
+17 KEY 1, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "2NORMAL"+CHR$(13)
+18 KEY 2, CHR$(27) + "SHELL" +CHR$(34)+ "IBM-AT" +CHR$(13)
+19 KEY 3, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "2WIN31" +CHR$(13)
+20 KEY 4, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "2FFA"   +CHR$(13)
+21 KEY 5, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "2WPE"   +CHR$(13)
+22 KEY 6, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "2WINWORD"+CHR$(13)
+23 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "EXIT"   +CHR$(13)
+24 KEY 8, "" 'CHR$(27) + "SHELL" +CHR$(34)+ "V"      +CHR$(13)
+25 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+"MNU-BIZ" +CHR$(13)
+26 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+"MNU-WKS" +CHR$(13):NEW
+27 '           SAVE"MNU-CFG.BAS",A
+29 ' old DOS line 13
+30 ' PRINT"|NORMAL||IBM-AT||WIN 31|| FFA  || WPE  ||WORD 6|| exit || VDE  ||prior || next |";
+
+<hr>
+
+0 VIEW PRINT:KEY OFF:DIM M$(12):COLOR 10,9:CLS     'by fhb rev.d  9/17/98
+1 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+2 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+3 IF HR>12 THEN HR=HR-12
+4 IF HR=0 THEN HR=12
+5 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+6 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+7 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+8 PRINT TAB(20)"Welcome to the four files of the Apocalypse"
+9 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(26)"Windows 98 Application Menu";
+10 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+11 LOCATE 21,1
+12 PRINT"
+13 PRINT"|      ||      ||      ||WORKS ||      ||CWORD || VDE  ||ZTREE ||prior || next |";
+14 PRINT"
+15 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+16 VIEW PRINT 3 TO 20:COLOR 0,10:CLS
+17 KEY 1, "" 'CHR$(27) + "RUN" +CHR$(34)+ "2123"    +CHR$(13)
+18 KEY 2, "" 'CHR$(27) + "RUN" +CHR$(34)+ "2DBASE"  +CHR$(13)
+19 KEY 3, "" 'CHR$(27) + "RUN" +CHR$(34)+ "2WSTAR5" +CHR$(13)
+20 KEY 4, CHR$(27) + "RUN" +CHR$(34)+ "2MSWORKS"+CHR$(13)
+21 KEY 5, "" 'CHR$(27) + "RUN" +CHR$(34)+ "2WORD"   +CHR$(13)
+22 KEY 6, CHR$(27) + "RUN" +CHR$(34)+ "2CWORDPA" +CHR$(13)
+23 KEY 7, CHR$(27) + "RUN" +CHR$(34)+ "MNU-VDE" +CHR$(13)
+24 KEY 8, CHR$(27) + "RUN" +CHR$(34)+ "2ZTREE"  +CHR$(13)
+25 KEY 9, CHR$(27) + "RUN" +CHR$(34)+ "MNU-DBAS"+CHR$(13)
+26 KEY 10,CHR$(27) + "RUN" +CHR$(34)+ "MNU-MAIN"+CHR$(13):NEW
+27 '           SAVE"MNU-APPS.BAS",A
+29 ' below is the original line 13 of this program used on DOS machines
+30 ' PRINT"| 123  ||dBASE ||WSTAR ||WORKS || WORD ||MARGIE|| VDE  ||ZTREE ||prior || next |";
+39 ' line 40 = old DOS title
+40 ' PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(32)"Application Menu";
+
+<hr>
+
+5 SCREEN 9
+10  VIEW PRINT:KEY OFF:DIM M$(12):COLOR 11,4:CLS     'by fhb rev.d  9/17/98
+20 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+30 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+40 IF HR>12 THEN HR=HR-12
+50 IF HR=0 THEN HR=12
+60 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+70 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+80 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+90 PRINT TAB(21)"Welcome to the four files of the Apocalypse"
+100 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;TAB(36)"MAIN MENU";
+110 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+120 LOCATE 21,1
+130 PRINT"
+140 PRINT"| HELP || 1998 || RCP  || ROLO ||files ||word 6|| exit ||LISTER||prior || next |";
+150 PRINT"
+160 PRINT"   F1      F2      F3      F4      F5      F6      F7      F8      F9     F10";
+170 VIEW PRINT 3 TO 20:COLOR 11,1:'CLS
+180 KEY 1, CHR$(27) + "RUN"   +CHR$(34)+ "HELP-FFA"+CHR$(13)
+190 KEY 2, CHR$(27) + "RUN"   +CHR$(34)+ "98"      +CHR$(13)
+200 KEY 3, CHR$(27) + "RUN"   +CHR$(34)+ "RCP"     +CHR$(13)
+210 KEY 4, CHR$(27) + "RUN"   +CHR$(34)+ "ROLO"    +CHR$(13)
+220 KEY 5, CHR$(27) + "files" +CHR$(34)+ "*.BAS"   +CHR$(13)
+230 KEY 6, CHR$(27) + "SHELL" +CHR$(34)+ "word6"   +CHR$(13)
+240 KEY 7, CHR$(27) + "RUN"   +CHR$(34)+ "EXIT"    +CHR$(13)
+250 KEY 8, CHR$(27) + "RUN"   +CHR$(34)+ "LISTER"  +CHR$(13)
+260 KEY 9, CHR$(27) + "RUN"   +CHR$(34)+ "MNU-APPS"+CHR$(13)
+270 KEY 10,CHR$(27) + "RUN"   +CHR$(34)+ "MNU-LETR"+CHR$(13):'NEW
+280 '           SAVE"MNU-TEST.BAS",A
+
+<hr>
+
+285 CIRCLE (320,160),150
+290 LOCATE 5,36:PRINT"Main Menu";
+300 LOCATE 8,26:PRINT"Applications";TAB(46)"Letters";
+310 LOCATE 12,21:PRINT"Books-Music-Movies";TAB(51)"Form Letters";
+320 LOCATE 16,26:PRINT"Worksheets";TAB(46)"Business";
+330 LOCATE 19,31:PRINT"System Configuration";
+331 LOCATE 3,1
+
+</pre>
+
+</body>
+
+<a href="bmnulink.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595194" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595194&amp;f=us-w5" ALT=1 WIDTH=1 HEIGHT=1>

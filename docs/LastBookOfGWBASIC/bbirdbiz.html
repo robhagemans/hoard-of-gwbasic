@@ -1,0 +1,269 @@
+
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>K.I.S.S. Bird Business Accounting using GW-Basic</title
+</head>
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>K.I.S.S. Bird Business Accounting System</h1></center>
+<center><h4>written in</h4></center>
+<center><h1></h1>GW-Basic</center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+This is a small K.I.S.S. bird business income and expense 
+tracking program that was written for my son.  Naturally he 
+never used it, he just used his credit card statements 
+instead.  (smartass..) that never occured to me...
+
+Anyhow, you just fill in the inline data statements with 
+your expenses or income and it automatically does a Profit 
+and Loss statement for you.  Kind of handy, if you need that 
+sort of thing... (he didn't)
+
+kept the total transactions to about 100 or so a year, but 
+you can go much higher if you need to and naturally, you can 
+use it for other things as well. (some people's kids...)
+
+<hr>
+
+1 VIEW PRINT:KEY 7, "run"+CHR$(34)+"menu"+CHR$(13)
+2  CLS:X=25: 'sets the tabular spacing for the P&L statement.
+3 '               K.I.S.S. Bird Business Accounting
+4 '               written by Dad for "******* *******"
+5 '               during February 12, 1996
+6 '
+7 READ TNO,DAY$,TRAN$,PERS$,ACCT$,AMT,RATE,MIL,HR,NOTE$
+8 IF TNO=999 THEN 22
+9 '
+10 '  Add up all the different accounts and store them to memory variables.
+11 '
+12 IF ACCT$="EXP" THEN TEXP=TEXP+AMT
+13 IF ACCT$="PUR" THEN TPUR=TPUR+AMT
+14 IF ACCT$="SAL" THEN TSAL=TSAL+AMT
+15 IF ACCT$="SAL" THEN TAXOD=TAXOD+(AMT*RATE)
+16 IF ACCT$="RIP" THEN TRIP=TRIP+AMT
+17 TMIL=TMIL+MIL
+18 THR=THR+HR
+19 IF PERS$<>"" THEN TCOUNT=TCOUNT+1
+20 'PRINT TNO;DAY$;TRAN$;PERS$;ACCT$;AMT;RATE;MIL;HR;NOTE$
+21 GOTO 7
+22 PRINT TAB(X)"******* ******* Bird Business"
+23 PRINT TAB(X)"    K.I.S.S. Accounting":PRINT
+24 PRINT TAB(X)"YTD Income & Expense Report"
+25 PRINT TAB(X)"    as of:  ";:PRINT DATE$:PRINT
+26 PRINT TAB(X)"Sales          ";:PRINT USING "$$###";TSAL
+27 PRINT TAB(X)"  Expenses     ";:PRINT USING "#####";TEXP
+28 PRINT TAB(X)"  Purchases    ";:PRINT USING "#####";TPUR
+29 PRINT TAB(X)"  Tax owing    ";:PRINT USING "#####";TAXOD
+30 PRINT TAB(X)"  Mileage      ";:PRINT USING "#####";TMIL*.275
+31 PRINT TAB(X)"              ------"
+32 NPROFIT = TSAL-TEXP-TPUR-TAXOD-TMIL*.275
+33 PRINT TAB(X)"Net Profit  ";:PRINT USING "$######,";NPROFIT
+34 IF NPROFIT < 0 THEN PRINT TAB(X)"No federal taxes owing" ELSE PRINT TAB(X)"After taxes ";:PRINT USING "$$###";NPROFIT*.8
+35 THOURS = ((VAL(DATE$)-1)*31)+VAL(MID$(DATE$,4,2))+THR
+36 '    Calcs hourly rate depending
+37 PRINT TAB(X)"Total Labor   ";THOURS;:PRINT"hours"
+38 IF NPROFIT > 0 THEN HWAGE=NPROFIT*.8/THOURS ELSE HWAGE=NPROFIT/THOURS
+39 PRINT TAB(X)"Actual wages ";:PRINT USING "$$##.##";HWAGE;:PRINT"/hour"
+40 PRINT TAB(X)"Based on ";TCOUNT;" transactions"
+41 A$="$#####,"
+42 PRINT TAB(X)"YTD bird deaths = ";:PRINT USING A$;TRIP
+43 PRINT TAB(X)"Income + Bird deaths = ";
+44 IF NPROFIT > 0 THEN PRINT USING A$;(NPROFIT*.8)-TRIP
+45 IF NPROFIT < 0 THEN PRINT USING A$;NPROFIT-TRIP
+46 PRINT"f7=exit"
+47 GOSUB 149
+48 '   ----------------data starts here------------------
+49 '   TNO DATE   TRANSACTION  PERSON  ACC  AMT   RATE  MIL HR  NOTES
+50 DATA 01,Jan06,MonkeyChow  ,Ford   ,EXP ,34  ,      ,10 , 1,
+51 DATA 02,     ,            ,       ,    ,    ,      ,   ,  ,
+52 DATA 03,     ,            ,       ,    ,    ,      ,   ,  ,
+53 DATA 04,     ,            ,       ,    ,    ,      ,   ,  ,
+54 DATA 05,     ,            ,       ,    ,    ,      ,   ,  ,
+55 DATA 06,     ,            ,       ,    ,    ,      ,   ,  ,
+56 DATA 07,     ,            ,       ,    ,    ,      ,   ,  ,
+57 DATA 08,     ,            ,       ,    ,    ,      ,   ,  ,
+58 DATA 09,     ,            ,       ,    ,    ,      ,   ,  ,
+59 DATA 10,     ,            ,       ,    ,    ,      ,   ,  ,
+60 DATA 11,     ,            ,       ,    ,    ,      ,   ,  ,
+61 DATA 12,     ,            ,       ,    ,    ,      ,   ,  ,
+62 DATA 13,     ,            ,       ,    ,    ,      ,   ,  ,
+63 DATA 14,     ,            ,       ,    ,    ,      ,   ,  ,
+64 DATA 15,     ,            ,       ,    ,    ,      ,   ,  ,
+65 DATA 16,     ,            ,       ,    ,    ,      ,   ,  ,
+66 DATA 17,     ,            ,       ,    ,    ,      ,   ,  ,
+67 DATA 18,     ,            ,       ,    ,    ,      ,   ,  ,
+68 DATA 19,     ,            ,       ,    ,    ,      ,   ,  ,
+69 DATA 20,     ,            ,       ,    ,    ,      ,   ,  ,
+70 DATA 21,     ,            ,       ,    ,    ,      ,   ,  ,
+71 DATA 22,     ,            ,       ,    ,    ,      ,   ,  ,
+72 DATA 23,     ,            ,       ,    ,    ,      ,   ,  ,
+73 DATA 24,     ,            ,       ,    ,    ,      ,   ,  ,
+74 DATA 25,     ,            ,       ,    ,    ,      ,   ,  ,
+75 DATA 26,     ,            ,       ,    ,    ,      ,   ,  ,
+76 DATA 27,     ,            ,       ,    ,    ,      ,   ,  ,
+77 DATA 28,     ,            ,       ,    ,    ,      ,   ,  ,
+78 DATA 29,     ,            ,       ,    ,    ,      ,   ,  ,
+79 DATA 30,     ,            ,       ,    ,    ,      ,   ,  ,
+80 DATA 31,     ,            ,       ,    ,    ,      ,   ,  ,
+81 DATA 32,     ,            ,       ,    ,    ,      ,   ,  ,
+82 DATA 33,     ,            ,       ,    ,    ,      ,   ,  ,
+83 DATA 34,     ,            ,       ,    ,    ,      ,   ,  ,
+84 DATA 35,     ,            ,       ,    ,    ,      ,   ,  ,
+85 DATA 36,     ,            ,       ,    ,    ,      ,   ,  ,
+86 DATA 37,     ,            ,       ,    ,    ,      ,   ,  ,
+87 DATA 38,     ,            ,       ,    ,    ,      ,   ,  ,
+88 DATA 39,     ,            ,       ,    ,    ,      ,   ,  ,
+89 DATA 40,     ,            ,       ,    ,    ,      ,   ,  ,
+90 DATA 41,     ,            ,       ,    ,    ,      ,   ,  ,
+91 DATA 42,     ,            ,       ,    ,    ,      ,   ,  ,
+92 DATA 43,     ,            ,       ,    ,    ,      ,   ,  ,
+93 DATA 44,     ,            ,       ,    ,    ,      ,   ,  ,
+94 DATA 45,     ,            ,       ,    ,    ,      ,   ,  ,
+95 DATA 46,     ,            ,       ,    ,    ,      ,   ,  ,
+96 DATA 47,     ,            ,       ,    ,    ,      ,   ,  ,
+97 DATA 48,     ,            ,       ,    ,    ,      ,   ,  ,
+98 DATA 49,     ,            ,       ,    ,    ,      ,   ,  ,
+99 DATA 50,     ,            ,       ,    ,    ,      ,   ,  ,
+100 DATA 51,     ,            ,       ,    ,    ,      ,   ,  ,
+101 DATA 52,     ,            ,       ,    ,    ,      ,   ,  ,
+102 DATA 53,     ,            ,       ,    ,    ,      ,   ,  ,
+103 DATA 54,     ,            ,       ,    ,    ,      ,   ,  ,
+104 DATA 55,     ,            ,       ,    ,    ,      ,   ,  ,
+105 DATA 56,     ,            ,       ,    ,    ,      ,   ,  ,
+106 DATA 57,     ,            ,       ,    ,    ,      ,   ,  ,
+107 DATA 58,     ,            ,       ,    ,    ,      ,   ,  ,
+108 DATA 59,     ,            ,       ,    ,    ,      ,   ,  ,
+109 DATA 60,     ,            ,       ,    ,    ,      ,   ,  ,
+110 DATA 61,     ,            ,       ,    ,    ,      ,   ,  ,
+111 DATA 62,     ,            ,       ,    ,    ,      ,   ,  ,
+112 DATA 63,     ,            ,       ,    ,    ,      ,   ,  ,
+113 DATA 64,     ,            ,       ,    ,    ,      ,   ,  ,
+114 DATA 65,     ,            ,       ,    ,    ,      ,   ,  ,
+115 DATA 66,     ,            ,       ,    ,    ,      ,   ,  ,
+116 DATA 67,     ,            ,       ,    ,    ,      ,   ,  ,
+117 DATA 68,     ,            ,       ,    ,    ,      ,   ,  ,
+118 DATA 69,     ,            ,       ,    ,    ,      ,   ,  ,
+119 DATA 70,     ,            ,       ,    ,    ,      ,   ,  ,
+120 DATA 71,     ,            ,       ,    ,    ,      ,   ,  ,
+121 DATA 72,     ,            ,       ,    ,    ,      ,   ,  ,
+122 DATA 73,     ,            ,       ,    ,    ,      ,   ,  ,
+123 DATA 74,     ,            ,       ,    ,    ,      ,   ,  ,
+124 DATA 75,     ,            ,       ,    ,    ,      ,   ,  ,
+125 DATA 76,     ,            ,       ,    ,    ,      ,   ,  ,
+126 DATA 77,     ,            ,       ,    ,    ,      ,   ,  ,
+127 DATA 78,     ,            ,       ,    ,    ,      ,   ,  ,
+128 DATA 79,     ,            ,       ,    ,    ,      ,   ,  ,
+129 DATA 80,     ,            ,       ,    ,    ,      ,   ,  ,
+130 DATA 81,     ,            ,       ,    ,    ,      ,   ,  ,
+131 DATA 82,     ,            ,       ,    ,    ,      ,   ,  ,
+132 DATA 83,     ,            ,       ,    ,    ,      ,   ,  ,
+133 DATA 84,     ,            ,       ,    ,    ,      ,   ,  ,
+134 DATA 85,     ,            ,       ,    ,    ,      ,   ,  ,
+135 DATA 86,     ,            ,       ,    ,    ,      ,   ,  ,
+136 DATA 87,     ,            ,       ,    ,    ,      ,   ,  ,
+137 DATA 88,     ,            ,       ,    ,    ,      ,   ,  ,
+138 DATA 999,,,,,,,,,
+139 '              save "birdbiz.bas",a
+140 ' RENUM <NEW LINENO>,<AT LINENO>,<INCREMENT>
+141 END
+142 ' -----------------------OTHER NOTES--------------------------------
+143 '
+144 '
+145 '
+146 '             ' save "(c/d/e/f:(directory/biz.bas",a
+147 END
+148 RUN"menu
+149 PRINT "      Your 'hobby' cost you about $nn/day or $nnn/month for 199n."
+150 PRINT "      Cashflow averages about -$nnn per month.          ...dad"
+151 RETURN
+
+
+</pre>
+
+</body>
+
+<a href="bbirdbiz.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595156" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595156&amp;f=us-w5" ALT=1 WIDTH=1 HEIGHT=1>

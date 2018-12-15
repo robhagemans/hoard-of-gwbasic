@@ -1,0 +1,415 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Q & D Checkbook Balancing - GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>Quick & Dirty</h1></center>
+<center><h1>CheckBook Balancer</h1></center>
+<center><h4>using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+What follows is some Quick & Dirty checkbook balancing
+programs, running from the largest to the most minimal.
+A checkbook program is really something that most of us
+don't really need, but, here it is anyhow.
+
+They show mainly what you can get away with using just
+GW-Basic.  The smallest runs about 24 bytes of code to do
+checkbook dollars in - dollars out.  Anyhow, here they all
+are.
+
+<hr>
+
+Here is the first...
+
+1 'a q&d checkbook balancer by fhb Jan2008
+2 '
+3 'LoopThruCheckbookData:
+4 WHILE AMT <> -.001
+5   READ AMT
+6   BAL = BAL + AMT
+7   WEND
+8 '
+9 'ScreenReport:
+10 CLS:PRINT:PRINT TAB(10)"Your current Balance is:";
+11 PRINT USING "$#,###.##";BAL
+12 '
+13 'CheckBookData:
+14 DATA 676, 1.26,-100, -150, -.001
+15 '
+16 'EmbeddedCommands:
+17 '   locate,,0,0,7   'block cursor
+18 '   save"chekbook.bas",a
+
+<hr>
+
+Here is the second one.  It is the same, same.  Only smaller.
+Here we are down to three lines with no comments.  It is the
+same program as above, just compacted a bit.
+
+1 WHILE AMT <> -.001:READ AMT:BAL=BAL+AMT:WEND
+2 PRINT USING "$#,###.##";BAL
+3 DATA 676, 1.26,-100, -150, -.001
+
+<hr>
+
+Here is number three. The tiniest, consisting of 30 bytes if 
+saved as an ASCII file or only 24 bytes if saved without the 
+/a switch.  Here really you are just using GW-Basic as a 
+simple calculator, entering your deposits and checks as plus 
+or minus values.  It works for me and it is all i ever need
+given my humble economic status.  Of course you are limited
+to 255 bytes per line, but i have NEVER needed more.
+
+1 PRINT 676+1.26-150-100.25
+
+or using GW-Basic in direct mode...
+
+?  674.00  - 100.00 - 150.00 - 168.23 - 100.00 - 42.30
+press enter and then basic will print out the balance.
+
+<hr>
+
+This tiny basic program is number four. It is the most 
+formal of the five, but in reality, it just does the same as 
+the first even smaller first three but with more blab by 
+introducing primitive accounting thingys into the punchcards 
+(aka:  data statments).
+
+0 '       Q & D checkbook balancing program by fhb 7/11/99
+1 'VariableStuff:     codes for purchases (vowels removed, lower case)
+2 SEARCH4BBM$="BBM"
+3 CASH$    ="Cash"
+4 CD$      ="cd"
+5 COMPUTER$="cmptr"
+6 COOKBOOK$="ckbk"
+7 COMPBOOK$="cmptrbk"
+8 OTHER$="thr"
+9 '---------------------------------
+10 'ReadDataCards&DoTheMath:
+11 WHILE VAL(CK$)<>-1
+12   READ CK$,CL$,DATE.$,PAYEE$,AMT,NOTE$
+13   IF AMT>0 THEN CREDITS=CREDITS+AMT
+14   IF AMT<0 THEN DEBITS =DEBITS +AMT
+15   IF INSTR(PAYEE$,SEARCH4BBM$)>0 THEN SPENTATBORDERS=SPENTATBORDERS+AMT
+16   IF INSTR(PAYEE$,CASH$)>0 THEN CASH=CASH+AMT
+17   IF INSTR(PAYEE$,CD$)      >0 THEN       CD=CD+AMT
+18   IF INSTR(PAYEE$,COOKBOOK$)>0 THEN COOKBOOK=COOKBOOK+AMT
+19   IF INSTR(PAYEE$,COMPBOOK$)>0 THEN COMPBOOK=COMPBOOK+AMT
+20   IF INSTR(PAYEE$,OTHER$)   >0 THEN    OTHER=OTHER+AMT
+21   IF INSTR(PAYEE$,COMPUTER$)>0 THEN COMPUTER=COMPUTER+AMT
+22   WEND
+23 TOTAL.SPENT=-(CASH+CD+COOKBOOK+COMPBOOK+OTHER+COMPUTER)
+24 '--------------------------------
+25 'PrintOutTheBalance:
+26 CLS
+27 PRINT TAB(25)"Joseph_Sixpack's little checkbook balancer":PRINT
+28 PRINT TAB(30)"Deposits: ";USING "$$,###.##";CREDITS
+29 PRINT TAB(30)"  Checks: ";USING " #,###.##";DEBITS
+30 PRINT TAB(30)"          ";" --------"
+31 PRINT TAB(30)" Balance: ";USING "$$,###.##";CREDITS+DEBITS;
+32 'IF CREDITS+DEBITS < 0 THEN PRINT "  Overdraft! Overdraft!"
+33 PRINT:PRINT
+34 PRINT "P                 Allowance: ";USING "$$##.##";-CASH
+35 PRINT "E   D         BBM      CD's: ";USING "####.##";-CD
+36 PRINT "R t A         BBM Cookbooks: ";USING "####.##";-COOKBOOK
+37 PRINT "I o T         BBM Compbooks: ";USING "####.##";-COMPBOOK;
+38 PRINT" Borders subtotal ";:PRINT USING "$$##.##";-SPENTATBORDERS
+39 PRINT "O   E             Computers: ";USING "####.##";-COMPUTER
+40 PRINT "D                     Other: ";USING "####.##";-OTHER
+41 PRINT TAB(30) "-------"
+42 PRINT TAB(19)"PTD Total  ";USING "$$##.##";TOTAL.SPENT
+43 IF TOTAL.SPENT<>-DEBITS THEN PRINT "Oops! an error in distributing expenses occured.  Please check your data."
+44 IF CREDITS+DEBITS<0 THEN LOCATE 8,50:COLOR 22,4:PRINT " Overdraft! Overdraft!
+45 '--------------------------------
+46 'ExitProgram:
+47 LOCATE 20,1:PRINT "X=exit, AnyOtherKey=edit";
+48 KP$=INKEY$:IF KP$="" THEN 48
+49   IF KP$="x" OR KP$="X" THEN RUN"mnu-main
+50 CLS:LIST 52-
+51 '--------------------------------
+52 'DataCards:
+53 '    CK$  CL$   Date.$    Payee$             Amount   Note$
+54 DATA ,,,,7.60,  'prior balance (800) 111-1234  call the bank and ask
+55 'DATA    ,    , "Jun 23", "SS deposit      ", 633.00, "               "
+56 'DATA 694, yes, "Jun 23", "Cash            ",-100.00, "allowance      "
+57 'DATA 695,    , "Jun 24", "BBM cds         ", -42.16, "books & cd's   "
+58 'DATA 696,    , "Jun 28", "BBM ckbk        ", -32.39, "cookbooks      "
+59 'DATA 697, yes, "Jun 30", "Cash            ",-100.00, "allowance      "
+60 'DATA 698, yes, "Jun 30", "BBM 2 cd sets   ", -50.31, "JCsuper&v1610  "
+61 'DATA 699, yes, "Jul 07", "Cash            ",-100.00, "allowance      "
+62 'DATA 700, yes, "Jul 11", "BBM cd          ", -18.39, "Bruckner 4 sym "
+63 'DATA 701, yes, "Jul 12", "BBM ckbk        ", -21.61, "cookbooks      "
+64 'DATA 702, yes, "Jul 15", "Cash            ", -50.00, "allowance      "
+65 'DATA 703, yes, "Jul 19", "Alltech cmptr   ", -19.49, "compcase,2pw3's"
+66 'DATA 704, yes, "Jul 19", "Household thr   ", -25.00, "VCRpmt,bal=160 "
+67 'DATA 705, yes, "Jul 21", "Cash            ", -70.00, "allowance      "
+68 DATA    ,    , "Jul 28", "SS deposit      ", 633.00, "               "
+69 DATA 706, yes, "Jul 28", "Cash            ",-100.00, "allowance      "
+70 DATA 707, yes, "Jul 28", "I.R.Shakie  thr ",-100.00, "on account     "
+71 DATA 708,    , "Jul 28", "Dept W & P  thr ",-162.03, "               "
+72 DATA 709, yes, "Jul 28", "BBM ckbk        ", -32.42, "Master Recipes "
+73 DATA 710,    , "Jul 29", "BBM cds         ", -24.88, "Fantasia&Bruckner"
+74 DATA 711,    , "Aug 04", "Cash            ", -60.00, "allowance      "
+75 DATA 712,    , "Aug 08", "BBM ckbk (2)    ", -19.46, "AHA & BetHom&Gar"
+76 DATA 713,    , "Aug 10", "Cash            ", -60.00, "allowance      "
+77 DATA 714,    , "      ", "                ",       , "               "
+78 DATA 715,    , "      ", "                ",       , "               "
+79 DATA 716,    , "      ", "                ",       , "               "
+80 DATA 717,    , "      ", "                ",       , "               "
+81 DATA 718,    , "      ", "                ",       , "               "
+82 DATA 719,    , "      ", "                ",       , "               "
+83 DATA 720,    , "      ", "                ",       , "               "
+84 DATA 721,    , "      ", "                ",       , "               "
+85 DATA 722,    , "      ", "                ",       , "               "
+86 DATA 723,    , "      ", "                ",       , "               "
+87 DATA 724,    , "      ", "                ",       , "               "
+92 DATA -1 ,    , "      ", "                ",       , "               "
+93 '                      save"cb.bas",a
+
+<hr>
+
+Here is yet another little program that is called:
+Dollars in - Dollars out, or $in-$out.
+
+It takes the place of a $3.00 calculator or the back of an 
+envelope.  :-)  You enter your expense and income items in 
+the APPROPRIATE data section in your program and then run 
+the program.  It reads everything and adds it all up and 
+then tells you your balance.  A cheap adding machine works 
+good too, as does using basic in direct mode for example:
+
+anyhow, here is $in-$out.bas.  You can make it even simpler 
+if you want...
+
+10 '  K.I.S.S. accounting - $IN-$OUT.BAS
+20 '
+30 'ScreenStuff:
+40 CLS:LOCATE,,,0,7:color 14,1
+50 '
+60 'Read&TotalDataEntrys:
+70 WHILE INCOME <> -1
+80    READ INCOME, OUTGO,COMMENT$
+90    TOTALIN=TOTALIN+INCOME
+100   TOTALOUT=TOTALOUT+OUTGO
+110   WEND
+120 '
+130 'DataItems:
+140 '   $In     $Out     Your comments go in here
+150 DATA 675.00,     0, "Social security pension     "
+160 DATA     0, 150.00, "Sears charge card           "
+170 DATA     0, 100.00, "Chevron gas bill            "
+180 DATA     0, 100.00, "Water & Power this month    "
+190 DATA     0,      0, "                            "
+200 DATA     0,      0, "                            "
+210 DATA -1, 0,         "                            "
+220 '
+230 'PrintReport:
+240 PRINT "    $ In       $ Out"
+250 PRINT TOTALIN;" - ";TOTALOUT
+260 PRINT " Balance  =";USING "$$###.##";TOTALIN-TOTALOUT
+270 '
+280 'EmbeddedCommands:
+290 '    save  "$in-$out.bas",a
+300 '   cls:list  50-120  'Program
+310 '   cls:list 130-220  'DataItems
+320 '   cls:list 220-270  'PrintReport
+330 '   cls:list 270-     'EmbeddedCommands
+
+<hr>
+                    Fun with Minimalism
+
+And finally again, getting brutal with no code:  my favorite 
+checkbook balancer, or anything else adder-upper.
+
+This program will do the same thing as all the above 
+programs which are more extensively programmed, just add up 
+a bunch of expenses and incomes.
+
+First notice that there are multiple data items for any 
+single data line.  Each item is offset from the others a bit 
+to help keep track of what is what.  The Income goes first 
+and any expense goes second or reverse if it is easier for 
+you.  just be consistent.  
+
+You can add up as many entries as normally possible using 
+multiple data lines.  just keep your brains on straight when 
+you are putting in the data.
+
+In the old days of the 8088 world, most GW-BASIC programs 
+were written in such a fashion to get as much speed as 
+possible.  Nowadays running the humble GW-BASIC interpreter 
+on a P4 @ 3gig...  well... let's just say that you don't 
+need to program like that anymore.  Nor do you need ANY KIND 
+of a compiler ever...   
+
+Anyhow, here is the 3 line program almost the same as the 
+one earlier given.
+
+1 WHILE I<>-1:READ I,O:TI=TI+I:TO.=TO.+O:WEND
+2 DATA 675, 0  ,0,150  ,0,100  ,-1,0
+3 PRINT TI;"-";TO.;"=";TI-TO.
+
+That's it!  a whopping 3 lines of code.  Runs fine.  Gives 
+you all the info that you need.  Save as a short named basic 
+program like io.bas or whatever.  Mostly i use $in-$out.bas.
+which reads, "dollars in, dollars out dot basic."
+
+Moreover, you can be completely clandestine if you want to 
+by just keeping a few of the very short programs on 3x5 
+cards and just retype them in whenever you need to do a 
+couple of personal things and at the same time keep all the 
+evidence off the bosses computer who gets grumpy when she 
+sees an old fashioned line numbered program sitting there 
+thumbing its nose at her.
+
+I & O stands for Income and Outgo.
+TI = TotalIncome, TO = total outgo.
+(but watch the zeros and capital ohs.)
+
+And don't forget to notice that TO is a reserved word "to" 
+in gw-basic.
+
+Now the common thing is to just put a period after the end 
+of any reserved word or whatever that works for you.
+
+So the variable TO for Total outgo becomes TO.  tricky huh?  
+
+Now you don't gotta remember any of that reserved word stuff 
+at all.
+
+Just use anything for variables that comes to mind.
+
+If it stumbles, put a period after it and you are off and 
+running again.  Plus, you can have real fun writing complete 
+basic programs using just only the reserved words with 
+periods after all the reserved words.  Let them set a couple 
+of years and then reread them...  :-)  Take aspirin...  
+
+Anyhooo gw-basic is a lot of fun besides being occasionally 
+useful to people who don't need a computer in the first 
+place except to surf and blab on the web.
+
+And remember, BASIC is written exclusively for us dummies to 
+play with and not for 'them' as it is small and simple 
+consisting of just ONE tiny program:  gwbasic.exe and is 
+even originally called:
+
+<b>B</b>EGINNERS <b>A</b>LL <b>P</b>URPOSE <b>S</b>YMBOLIC <b>I</b>NSTRUCTION <b>C</b>ODE...
+
+And if you don't believe me, try on VB.NET (2005 and beyond) 
+for size and comprehensibility.  You'll wear holes in your 
+scalp scratching your head trying to get your brains around 
+that stuff.  definitely not for this senior citizen...
+
+What we need now is for Gates and Witten to publish a couple 
+hundred of retro demo programs that solve problems for real 
+dummies.  Early BYTE magazine had a lot of spiffy math stuff 
+in their publication.  If they ever put the old mags 
+online...  Or better yet, take a page from Wikipedia and  
+developing a B.A.S.I.C. programs archive web site for us 
+sandbox hobbists?   hmmmm...  oops... oh God, what about all 
+the different languages of the world?  sheesh... that would 
+complicate things...  oh well.  anyhow, here are mine at 
+least for you to play with...  they work for me.
+
+BUT:  this entire web site (>2.5 x 10<sup>6th</sup>)bytes has been written with:
+<b>Video Display Editor</b>... and, ahem... NOT gw-basic. :-)
+
+<hr>
+</pre>
+
+</body>
+
+<a href="bcb.html#top">TOP</a><br>
+<a href="bindex.html">Index</a><br>
+<a href="btoc.html">TOC</a><br>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595146" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595146&amp;f=us-w1" ALT=1 WIDTH=1 HEIGHT=1>

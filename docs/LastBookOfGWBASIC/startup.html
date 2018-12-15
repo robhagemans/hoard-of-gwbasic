@@ -1,0 +1,170 @@
+<html>
+<!--
+123456789 123456789 123456789 123456789 123456789 1234567890
+ -->
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <meta name="author"
+     content="Joseph_Sixpack"/>
+  <meta name="keywords"
+     content="gw-basic, programs, programming"/>
+  <meta name="description"
+     content="A GW-Basic startup program for trig purposes"/>
+  <title>Startup program for Trig functions</title>
+</head>                                     
+
+<a name="top"></a>
+
+<center><h1>A Tiny B.A.S.I.C. program for Trigsters</h1></center>
+<center><h4>Shop Trig with GW-BASIC></h4></center>
+<center><h1>by Joseph_Sixpack</h1></center>
+
+Back to <a href="btoc.html">GW-BASIC Table of Contents</a></br>
+Go to the <a href="bindex.html">Index</a> of "The Last Book of GW-BASIC"</br>
+
+<body><script type="text/javascript" src="/js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="//ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>Okay, here it is.  A very simple concept that can pay off 
+big and save you a lot of time in looking for your six 
+dollar scientific calculator.
+  (that's supposed to be a joke  :-)
+
+Here is a tiny program that you can set up to run in a batch 
+file or by memory when you startup GW-BASIC for machine shop 
+purposes or for trig problems.  The program is called 
+STARTUP.BAS and it goes like this:
+
+If you are home alone, and aren't using a batch file the 
+command from the prompt goes something like this:
+
+gwbasic[.exe] startup[.bas]  (bracket content optional)
+let me make that cleaner sans brackets:
+   gwbasic startup
+that's it.
+here is what the program looks like:
+
+     1  cls
+     2  key off
+     3  locate ,,,0,7
+     4  pi=4*atn(1)
+     5  r2d=pi/180
+     6  print tab(10) "The Value of PI=";pi
+     7  print tab(10) "The value of the radians to degrees factor is:"
+     8  print tab(10) "PI/180=";r2d
+     9  print "So to find the sine of 45 degrees for example"
+     10  print "enter the question mark for the shorthand version"
+     11  print "of print & then:    sin(45*r2d)    this will give"
+     12  print "you the value of the sine of 45 degrees in degrees"
+     13  print "and not value in radians."
+     14 '  save"startup.bas", A
+     15 '  system
+
+After a while, you can just delete all the blab if you want 
+from lines 6 to 13 and just keep it simple to just 
+establish the value of the conversion factor contained in 
+the variable "r2d"
+
+That's it!  all first five lines, and lines 14 & 15 if you 
+want.
+
+If you wanna show off you can get the startup program down 
+to just 1 to 3 lines if you want.
+
+1 cls:key off:locate,,,0,7:pi=4*atn(1):r2d=pi/180
+2 save"startup.bas",a:'   system
+
+All you are doing is just creating the value for PI and a 
+conversion factor called (r2d) "radians to degrees" to 
+translate the radian return for trig functions in gw-basic 
+to degrees.
+
+Other semi-automatic math thingys can be done too if the 
+need be.
+
+But for Joseph_Sixpacks who just crank handles, all you 
+mostly need is the trig stuff and simple multiplication and 
+addition, maybe even subtraction.
+
+But beware, Compound trig was yet another headache for 
+machinists in the last century.  M.O.W. (measurement over 
+wires) for threads probably is okay in basic too,
+
+Come to think of it, see your machinist's handbook for more 
+confusion.
+
+</pre>
+</body>
+
+Go to <a href="#top">TOP</a> of Page<br>
+Back to GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Back to GW-BASIC <a href="bindex.html">Index</a><br>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595176" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595176&amp;f=us-w6" ALT=1 WIDTH=1 HEIGHT=1>

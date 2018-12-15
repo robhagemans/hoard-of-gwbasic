@@ -1,0 +1,727 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Six Unit Apartment Accounting - GW-Basic</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+Back to <a href="index-2.html">Main</a> Index
+
+<center><h1>Six Unit Apartment Accounting</h1></center>
+<center><h3>Address of unit(s) goes in here</h3></center>
+<center><h4>using</h4></center>
+<center><h1>GW-Basic</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+0 ' LL6.BAS
+1 '  K.I.S.S. Apartment House Accounting    LANDLORD VI
+2 '  written for ****** ******* by dad during Oct19-Oct 26, 1997
+3 '  rev #1
+4 '  rev #2
+5 '-------------------------------------------
+6 'MainProgram:
+7    GOSUB 51'Variable&FunctionKeyAssignments
+8    GOSUB 154'ReadRentalTransactionData_&_SumAccounts
+9 END'of Main Program
+10 '-------------------------------------------
+11 'SubroutineLocator:  'delete line number & press enter to edit subroutine
+12 CLS:LIST  11-27  'SubroutineLocator
+13 CLS:LIST  29-49  'HelpScreen
+14 CLS:LIST  51-152 'Variable&FunctionKeyAssignments
+15 CLS:LIST 154-293 'ReadRentalTransactionData&SumAccounts
+16 CLS:LIST 295-387 'Finish up Calculations
+17 CLS:LIST 389-417 'MainMenu
+18 CLS:LIST 419-443 'View Reports Menu       The Instruction Pointer never
+19 CLS:LIST 445-468 'Income & Expense Reprt  gets into this code section.
+20 CLS:LIST 470-483 'Transactn Detail Reprt  These CLS:LISTs serve only to
+21 CLS:LIST 500-521 'Apts(1-apt) I&E Menu    keep track of subroutine line
+22 CLS:LIST 534-553 'Apts(1-apt) I&E Rprt    numbers for programming needs.
+23 CLS:LIST 555-577 'Names Of Accounts
+24 CLS:LIST 579-592 'Imbedded Commands   (save "LL6.BAS",A)
+25 CLS:LIST 594-609 'Rental Transaction Data
+26 CLS:LIST 601-614 'Add Data
+27 END OF SUBROUTINE LOCATION LISTING
+28 '-------------------------------------------
+29 'HelpScreen:
+30 CLS:PRINT TAB(T) "L A N D L O R D   VI   H E L P   S C R E E N"
+31 PRINT:PRINT:PRINT
+32 PRINT"         Aside from the number keys to call up a selection,
+33 PRINT"         there are only two other keys to mention.
+34 PRINT"
+35 PRINT"         The Space Bar & the F1 key.
+36 PRINT"
+37 PRINT"         The space bar always returns to the prior menu or screen
+38 PRINT"         unless you have selected to go into 'direct mode' to add
+39 PRINT"         transactions.  Then to return to operations you must type
+40 PRINT"         The direct command 'RUN'+<enter> to restart BASIC to return
+41 PRINT"         to the main menu of the LandLord VI program.
+42 PRINT"
+43 PRINT"         The F1 key calls this help screen.
+44 PRINT"
+45 PRINT"         Every thing else is pretty much self explanatory...
+46 PRINT"         Press the spacebar now to return to last screen.
+47 PRINT"                                               That's it!    Dad
+48 KP$=INKEY$:IF KP$="" THEN 48  'pauses screen until any key is pressed
+49 RETURN' to place where the F1 key was pressed.
+50 '-------------------------------------------
+51 'Variable&FunctionKeyAssignments:
+52 '
+53 '------------------ CONSOL CONTROL
+54 VIEW PRINT    'clear any pre-existing windows from another program (menu) 
+55 COLOR 7,0     'screen colors fg=white bg=black
+56 CLS
+57 '------------------ FUNCTION KEYS
+58 '              Null out all the preexisting function key assignments
+59 '              F1 calls help screen
+60 '          
+61 FOR I=1 TO 10:KEY I,"":NEXT I                     'cancel preexisting 
+62    'KEY 7,"run"+CHR$(34)+"menu"+CHR$(13)          'commented out for now
+63 ON KEY(1) GOSUB 29: KEY(1) ON                    'calls help screen
+64 '
+65 '------------------ PRINT VARIABLES
+66 T=20     'T = TAB value used for printing reports
+67 '             The different "print using" number formats go into
+68 '             nmemonic named arrays (Subscript = significant digits)
+69 'dc$(1-3)=dollars & cents, do$(2-6)=dollars only, no$(2-6)=numbers only
+70 DC$(1)="$#.##":DC$(2)="$##.##":DC$(3)="$###.##"
+71 DO$(2)="$##":DO$(3)="$###":DO$(4)="$#,###"
+72 DO$(5)="$$#,###":DO$(6)="$$##,###"
+73 NO$(2)="##":NO$(3)="###":NO$(4)="#,###":NO$(5)="##,###":NO$(6)="###,###"
+74 RANDOMIZE TIMER:LOCATE 6,20:PRINT"Please wait, doing calculations...";
+75 '
+76 '------------------ PROGRAM APARTMENT CAPACITY VARIABLES
+77 '     APTNO = program's theoretical maximum unit capacity (not Apartment's)
+78 '             without non-minor program modifications. 
+79 '       APT = # of rental units in this building actually under accounting
+80 APTNO=15      'don't change this value it's necessary to read the arrays
+81 APT=6         'this can be changed to reflect the number of apt units.
+82 '------------------ ARRAY STUFF
+83 '              All arrays set to hold "aptno" values (list locations 1-15)
+84 '              plus a totalizer location (list location 0)
+85 OPTION BASE 0
+86 DIM SQFT(APTNO), DALYRENT(APTNO), TENANT$(APTNO), SQFTNET(APTNO)
+87 DIM FMI(APTNO), EXPENSE(APTNO), MA(APTNO), VACDAY(APTNO), TVAC(APTNO)
+88 DIM RENT(APTNO), SD(APTNO), LMR(APTNO), NET(APTNO), TNET(APTNO)
+89 DIM TRUST(APTNO)
+90 '------------------ PROGRAM VARIABLES
+91 LET MA=.345   'MA=Mileage Allowance currently allowed by the IRS
+92 '
+93 '------------------ APARTMENT SIZE RATIOS
+94 '              Establish (apartment sqft/building sqft) size factor which
+95 '              will enable us to calculate and assign specific apartment 
+96 '              values to variables that will allow us to create an Income  
+97 '              & Expense Report for each individual apartment.
+98  LET SQFT(1 ) = 1050/4731                  '.222
+99  LET SQFT(2 ) = 820/4731                   '.1733
+100  LET SQFT(3 ) = 820/4731
+101  LET SQFT(4 ) = 820/4731
+102  LET SQFT(5 ) = 610/4731                   '.129
+103  LET SQFT(6 ) = 610/4731
+104  LET SQFT(7 ) = 0
+105  LET SQFT(8 ) = 0
+106  LET SQFT(9 ) = 0
+107 LET SQFT(10) = 0
+108 LET SQFT(11) = 0
+109 LET SQFT(12) = 0
+110 LET SQFT(13) = 0
+111 LET SQFT(14) = 0
+112 LET SQFT(15) = 0
+113 '              Total all the apt sqft ratios to see if they make sense.
+114 '              SQFT(0) should be VERY close to value 1.0  check it out...
+115 FOR I=1 TO APTNO:SQFT(0)=SQFT(0)+SQFT(I):NEXT I
+116 '
+117 '------------------ DAILY RENT FOR EACH INDIVIDUAL APARTMENT 
+118 ' daily rent = monthly rent * 12 months / 365 days per year
+119 LET DALYRENT(1 ) = 825*12/365
+120 LET DALYRENT(2 ) = 650*12/365
+121 LET DALYRENT(3 ) = 650*12/365
+122 LET DALYRENT(4 ) = 635*12/365
+123 LET DALYRENT(5 ) = 425*12/365
+124 LET DALYRENT(6 ) = 400*12/365
+125 LET DALYRENT(7 ) = 0
+126 LET DALYRENT(8 ) = 0
+127 LET DALYRENT(9 ) = 0
+128 LET DALYRENT(10) = 0
+129 LET DALYRENT(11) = 0
+130 LET DALYRENT(12) = 0
+131 LET DALYRENT(13) = 0
+132 LET DALYRENT(14) = 0
+133 LET DALYRENT(15) = 0
+134 '----------------- TENANT NAMES & PHONE NUMBERS
+135 '   put the tenants names and phone numbers (soc.sec. too?)
+136 LET TENANT$(1 )="MM Alfred *. Neumann         3**-****
+137 LET TENANT$(2 )="Ms Joyce C. Wheat            333-3333
+138 LET TENANT$(3 )="Mr Egar A. Poeandastick      326-****
+139 LET TENANT$(4 )="MM George Mashington Tarver  326-****
+140 LET TENANT$(5 )="Ms ********** **********     326-****
+141 LET TENANT$(6 )="Mr M****** * ******          326-*****
+142 LET TENANT$(7 )=" "
+143 LET TENANT$(8 )=" "
+144 LET TENANT$(9 )=" "
+145 LET TENANT$(10)=" "
+146 LET TENANT$(11)=" "
+147 LET TENANT$(12)=" "
+148 LET TENANT$(13)=" "
+149 LET TENANT$(14)=" "
+150 LET TENANT$(15)=" "
+151 RETURN'to MainProgram, ReadRentalTransactionData_&_SumAccounts
+152 '
+153 '----------------- PLOW THROUGH ALL THE DATA TO READ AND SUM IT ALL UP!
+154 'ReadRentalTransactionData_&_SumAccounts:
+155 READ TNO, DAY$, ACCT$, AMT, MIL, HR, NOTE$
+156 IF TNO=-1 THEN GOTO 295'FinishUpCalculations
+157 '
+158 '         RENTS
+159 IF ACCT$="RENT1"  OR ACCT$="rent1"  THEN RENT(1 )=RENT(1) +AMT
+160 IF ACCT$="RENT2"  OR ACCT$="rent2"  THEN RENT(2 )=RENT(2) +AMT
+161 IF ACCT$="RENT3"  OR ACCT$="rent3"  THEN RENT(3 )=RENT(3) +AMT
+162 IF ACCT$="RENT4"  OR ACCT$="rent4"  THEN RENT(4 )=RENT(4) +AMT
+163 IF ACCT$="RENT5"  OR ACCT$="rent5"  THEN RENT(5 )=RENT(5) +AMT
+164 IF ACCT$="RENT6"  OR ACCT$="rent6"  THEN RENT(6 )=RENT(6) +AMT
+165 IF ACCT$="RENT7"  OR ACCT$="rent7"  THEN RENT(7 )=RENT(7) +AMT
+166 IF ACCT$="RENT8"  OR ACCT$="rent8"  THEN RENT(8 )=RENT(8) +AMT
+167 IF ACCT$="RENT9"  OR ACCT$="rent9"  THEN RENT(9 )=RENT(9) +AMT
+168 IF ACCT$="RENT10" OR ACCT$="rent10" THEN RENT(10)=RENT(10)+AMT
+169 IF ACCT$="RENT11" OR ACCT$="rent11" THEN RENT(11)=RENT(11)+AMT
+170 IF ACCT$="RENT12" OR ACCT$="rent12" THEN RENT(12)=RENT(12)+AMT
+171 IF ACCT$="RENT13" OR ACCT$="rent13" THEN RENT(13)=RENT(13)+AMT
+172 IF ACCT$="RENT14" OR ACCT$="rent14" THEN RENT(14)=RENT(14)+AMT
+173 IF ACCT$="RENT15" OR ACCT$="rent15" THEN RENT(15)=RENT(15)+AMT
+174 '
+175 '         FMI = FEES & MISCELLANEOUS INCOME
+176 IF ACCT$="FMI1"   OR ACCT$="fmi1"   THEN FMI(1)=FMI(1 ) +AMT
+177 IF ACCT$="FMI2"   OR ACCT$="fmi2"   THEN FMI(2)=FMI(2 ) +AMT
+178 IF ACCT$="FMI3"   OR ACCT$="fmi3"   THEN FMI(3)=FMI(3 ) +AMT
+179 IF ACCT$="FMI4"   OR ACCT$="fmi4"   THEN FMI(4)=FMI(4 ) +AMT
+180 IF ACCT$="FMI5"   OR ACCT$="fmi5"   THEN FMI(5)=FMI(5 ) +AMT
+181 IF ACCT$="FMI6"   OR ACCT$="fmi6"   THEN FMI(6)=FMI(6 ) +AMT
+182 IF ACCT$="FMI7"   OR ACCT$="fmi7"   THEN FMI(7)=FMI(7 ) +AMT
+183 IF ACCT$="FMI8"   OR ACCT$="fmi8"   THEN FMI(8)=FMI(8 ) +AMT
+184 IF ACCT$="FMI9"   OR ACCT$="fmi9"   THEN FMI(9)=FMI(9 ) +AMT
+185 IF ACCT$="FMI10"  OR ACCT$="fmi10"  THEN FMI(10)=FMI(10)+AMT
+186 IF ACCT$="FMI11"  OR ACCT$="fmi11"  THEN FMI(11)=FMI(11)+AMT
+187 IF ACCT$="FMI12"  OR ACCT$="fmi12"  THEN FMI(12)=FMI(12)+AMT
+188 IF ACCT$="FMI13"  OR ACCT$="fmi13"  THEN FMI(13)=FMI(13)+AMT
+189 IF ACCT$="FMI14"  OR ACCT$="fmi14"  THEN FMI(14)=FMI(14)+AMT
+190 IF ACCT$="FMI15"  OR ACCT$="fmi15"  THEN FMI(15)=FMI(15)+AMT
+191 '
+192 '         EXP = EXPENSES
+193 IF ACCT$="EXP1"   OR ACCT$="exp1"   THEN EXPENSE(1 )=EXPENSE(1) +AMT
+194 IF ACCT$="EXP2"   OR ACCT$="exp2"   THEN EXPENSE(2 )=EXPENSE(2) +AMT
+195 IF ACCT$="EXP3"   OR ACCT$="exp3"   THEN EXPENSE(3 )=EXPENSE(3) +AMT
+196 IF ACCT$="EXP4"   OR ACCT$="exp4"   THEN EXPENSE(4 )=EXPENSE(4) +AMT
+197 IF ACCT$="EXP5"   OR ACCT$="exp5"   THEN EXPENSE(5 )=EXPENSE(5) +AMT
+198 IF ACCT$="EXP6"   OR ACCT$="exp6"   THEN EXPENSE(6 )=EXPENSE(6) +AMT
+199 IF ACCT$="EXP7"   OR ACCT$="exp7"   THEN EXPENSE(7 )=EXPENSE(7) +AMT
+200 IF ACCT$="EXP8"   OR ACCT$="exp8"   THEN EXPENSE(8 )=EXPENSE(8) +AMT
+201 IF ACCT$="EXP9"   OR ACCT$="exp9"   THEN EXPENSE(9 )=EXPENSE(9) +AMT
+202 IF ACCT$="EXP10"  OR ACCT$="exp10"  THEN EXPENSE(10)=EXPENSE(10)+AMT
+203 IF ACCT$="EXP11"  OR ACCT$="exp11"  THEN EXPENSE(11)=EXPENSE(11)+AMT
+204 IF ACCT$="EXP12"  OR ACCT$="exp12"  THEN EXPENSE(12)=EXPENSE(12)+AMT
+205 IF ACCT$="EXP13"  OR ACCT$="exp13"  THEN EXPENSE(13)=EXPENSE(13)+AMT
+206 IF ACCT$="EXP14"  OR ACCT$="exp14"  THEN EXPENSE(14)=EXPENSE(14)+AMT
+207 IF ACCT$="EXP15"  OR ACCT$="exp15"  THEN EXPENSE(15)=EXPENSE(15)+AMT
+208 IF ACCT$="EXPA"   OR ACCT$="expa"   THEN EXPA=EXPA+AMT
+209 '
+210 '         MORTGAGE 1ST & 2ND
+211 IF ACCT$="MORT1" OR ACCT$="mort1" THEN MORT1=MORT1+AMT
+212 IF ACCT$="MORT2" OR ACCT$="mort2" THEN MORT2=MORT2+AMT
+213 '
+214 '         UTILITIES
+215 IF ACCT$="TRASH" OR ACCT$="trash" THEN TRASH=TRASH+AMT
+216 IF ACCT$="PHONE" OR ACCT$="phone" THEN PHONE=PHONE+AMT
+217 IF ACCT$="CABLE" OR ACCT$="cable" THEN CABLE=CABLE+AMT
+218 IF ACCT$="YARD"  OR ACCT$="yard"  THEN YARD=YARD+AMT
+219 IF ACCT$="PEST"  OR ACCT$="pest"  THEN PEST=PEST+AMT
+220 IF ACCT$="WP"    OR ACCT$="wp"    THEN WP=WP+AMT
+221 IF ACCT$="GAS"   OR ACCT$="gas"   THEN GAS=GAS+AMT
+222 '
+223 '         TAXES, LICENSES & FEES
+224 IF ACCT$="CITYL" OR ACCT$="cityl" THEN CITYL=CITYL+AMT
+225 IF ACCT$="PTAX"  OR ACCT$="ptax"  THEN PTAX =PTAX +AMT
+226 '
+227 '         VAC = VACANCY
+228 IF ACCT$="VAC1"   OR ACCT$="vac1"   THEN VACDAY(1)  =VACDAY(1)  +AMT
+229 IF ACCT$="VAC2"   OR ACCT$="vac2"   THEN VACDAY(2)  =VACDAY(2)  +AMT
+230 IF ACCT$="VAC3"   OR ACCT$="vac3"   THEN VACDAY(3)  =VACDAY(3)  +AMT
+231 IF ACCT$="VAC4"   OR ACCT$="vac4"   THEN VACDAY(4)  =VACDAY(4)  +AMT
+232 IF ACCT$="VAC5"   OR ACCT$="vac5"   THEN VACDAY(5)  =VACDAY(5)  +AMT
+233 IF ACCT$="VAC6"   OR ACCT$="vac6"   THEN VACDAY(6)  =VACDAY(6)  +AMT
+234 IF ACCT$="VAC7"   OR ACCT$="vac7"   THEN VACDAY(7)  =VACDAY(7)  +AMT
+235 IF ACCT$="VAC8"   OR ACCT$="vac8"   THEN VACDAY(8)  =VACDAY(8)  +AMT
+236 IF ACCT$="VAC9"   OR ACCT$="vac9"   THEN VACDAY(9)  =VACDAY(9)  +AMT
+237 IF ACCT$="VAC10"  OR ACCT$="vac10"  THEN VACDAY(10) =VACDAY(10) +AMT
+238 IF ACCT$="VAC11"  OR ACCT$="vac11"  THEN VACDAY(11) =VACDAY(11) +AMT
+239 IF ACCT$="VAC12"  OR ACCT$="vac12"  THEN VACDAY(12) =VACDAY(12) +AMT
+240 IF ACCT$="VAC13"  OR ACCT$="vac13"  THEN VACDAY(13) =VACDAY(13) +AMT
+241 IF ACCT$="VAC14"  OR ACCT$="vac14"  THEN VACDAY(14) =VACDAY(14) +AMT
+242 IF ACCT$="VAC15"  OR ACCT$="vac15"  THEN VACDAY(15) =VACDAY(15) +AMT
+243 '
+244 '         SD = SECURITY DEPOSIT
+245 IF ACCT$="SD1"    OR ACCT$="sd1"    THEN SD(1 )=SD(1 )+AMT
+246 IF ACCT$="SD2"    OR ACCT$="sd2"    THEN SD(2 )=SD(2 )+AMT
+247 IF ACCT$="SD3"    OR ACCT$="sd3"    THEN SD(3 )=SD(3 )+AMT
+248 IF ACCT$="SD4"    OR ACCT$="sd4"    THEN SD(4 )=SD(4 )+AMT
+249 IF ACCT$="SD5"    OR ACCT$="sd5"    THEN SD(5 )=SD(5 )+AMT
+250 IF ACCT$="SD6"    OR ACCT$="sd6"    THEN SD(6 )=SD(6 )+AMT
+251 IF ACCT$="SD7"    OR ACCT$="sd7"    THEN SD(7 )=SD(7 )+AMT
+252 IF ACCT$="SD8"    OR ACCT$="sd8"    THEN SD(8 )=SD(8 )+AMT
+253 IF ACCT$="SD9"    OR ACCT$="sd9"    THEN SD(9 )=SD(9 )+AMT
+254 IF ACCT$="SD10"   OR ACCT$="sd10"   THEN SD(10)=SD(10)+AMT
+255 IF ACCT$="SD11"   OR ACCT$="sd11"   THEN SD(11)=SD(11)+AMT
+256 IF ACCT$="SD12"   OR ACCT$="sd12"   THEN SD(12)=SD(12)+AMT
+257 IF ACCT$="SD13"   OR ACCT$="sd13"   THEN SD(13)=SD(13)+AMT
+258 IF ACCT$="SD14"   OR ACCT$="sd14"   THEN SD(14)=SD(14)+AMT
+259 IF ACCT$="SD15"   OR ACCT$="sd15"   THEN SD(15)=SD(15)+AMT
+260 '
+261 '         LMR = LAST MONTH'S RENT
+262 IF ACCT$="LMR1"   OR ACCT$="lmr1"   THEN LMR(1 )=LMR(1 )+AMT
+263 IF ACCT$="LMR2"   OR ACCT$="lmr2"   THEN LMR(2 )=LMR(2 )+AMT
+264 IF ACCT$="LMR3"   OR ACCT$="lmr3"   THEN LMR(3 )=LMR(3 )+AMT
+265 IF ACCT$="LMR4"   OR ACCT$="lmr4"   THEN LMR(4 )=LMR(4 )+AMT
+266 IF ACCT$="LMR5"   OR ACCT$="lmr5"   THEN LMR(5 )=LMR(5 )+AMT
+267 IF ACCT$="LMR6"   OR ACCT$="lmr6"   THEN LMR(6 )=LMR(6 )+AMT
+268 IF ACCT$="LMR7"   OR ACCT$="lmr7"   THEN LMR(7 )=LMR(7 )+AMT
+269 IF ACCT$="LMR8"   OR ACCT$="lmr8"   THEN LMR(8 )=LMR(8 )+AMT
+270 IF ACCT$="LMR9"   OR ACCT$="lmr9"   THEN LMR(9 )=LMR(9 )+AMT
+271 IF ACCT$="LMR10"  OR ACCT$="lmr10"  THEN LMR(10)=LMR(10)+AMT
+272 IF ACCT$="LMR11"  OR ACCT$="lmr11"  THEN LMR(11)=LMR(11)+AMT
+273 IF ACCT$="LMR12"  OR ACCT$="lmr12"  THEN LMR(12)=LMR(12)+AMT
+274 IF ACCT$="LMR13"  OR ACCT$="lmr13"  THEN LMR(13)=LMR(13)+AMT
+275 IF ACCT$="LMR14"  OR ACCT$="lmr14"  THEN LMR(14)=LMR(14)+AMT
+276 IF ACCT$="LMR15"  OR ACCT$="lmr15"  THEN LMR(15)=LMR(15)+AMT
+277 '
+278 '         MILES
+279 TMIL=TMIL+MIL             'totaling the miles driven
+280 '
+281 '         HOURS
+282 THR=THR+HR                'totaling the hours put in for each transaction
+283 '
+284 '         COUNT
+285 IF ACCT$<>"" THEN COUNT=COUNT+1    'count the number of transactions
+286 '
+287 '         HAPPY FACE
+288 '     Print a multicolored happy face for each loop through the data
+289 '     at the opening screen to tell the user that the machine is busy
+290 COLOR RND*15+1,RND*14+1:PRINT CHR$(2);
+291 '
+292 '         LOOP
+293 GOTO 154'ReadRentalTransactionData (Loop throught data until finished)
+294 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+295 'FinishUpCalculations:                         Total up individual apts
+296 '
+297 '       ---------- TOTAL ALL RENTS, from all apartments      
+298 FOR I=1 TO APTNO:RENT(0)=RENT(0)+RENT(I):NEXT I 'Rents
+299 '
+300 '       ---------- TOTAL FEES & MISCELLANEOUS INCOME, all apartments       
+301 FOR I=1 TO APTNO: FMI(0)= FMI(0)+ FMI(I):NEXT I 'Fees & Misc. Income
+302 '
+303 '       ---------- SUBTOTAL EXPENSES, from all apartments 
+304 FOR I=1 TO APTNO: EXPENSE(0)= EXPENSE(0)+ EXPENSE(I):NEXT I 'Expenses, unit apts
+305 '
+306 '       ---------- TOTAL EXPENSES, from all apartments
+307 TEXP=EXPENSE(0)+EXPA  'Total apt expenses + general (all) expenses
+308 '
+309 '       ---------- TRUST MONIES, from all apartments
+310 '       Using the Last Month's Rent (LMR) and Security Deposit (SD)
+311 '       calculate the Grand Total of the monies held in TRUST
+312 '       as well as the individual apartment TRUST amounts.
+313 FOR I=1 TO APTNO: LMR(0)=LMR(0)+LMR(I):NEXT I 'total last month's rent
+314 FOR I=1 TO APTNO:  SD(0)=SD(0) +SD(I): NEXT I 'total security deposit
+315 ' 
+316 '       ---------- TRUST MONIES, BUILDING GRAND TOTAL 
+317 GTTRUST=LMR(0)+SD(0)      'add them together for one big giant number
+318 '       Individual apartment trust amounts created from the
+319 '       last month's rent and the security deposit
+320 '
+321 '       ---------- TRUST MONIES, APARTMENT TOTAL
+322 '       Add the last months rent to the security for all apartments
+323 FOR I=1 TO APTNO:TRUST(I)=LMR(I)+SD(I):NEXT I
+324 '
+325 '       ---------- UTLITIES, TAXES, LICENSES & FEES
+326 TUTL=TRASH+PHONE+CABLE+YARD+PEST+WP+GAS+CITYL+PTAX
+327 '
+328 '       ---------- MILEAGE ALLOWANCE, APT
+329 '       Create unit APT mileage allowance (based on sq. ft. fraction)
+330 '       Total miles driven * apartment fraction * IRS mileage allowance.
+331 '               MA   &  TMIL assigned above
+332 FOR I=1 TO APTNO: MA(I)=TMIL*SQFT(I)*MA: NEXT I
+333 '
+334 '       ---------- VACANT DAYS, APT
+335 '       Collect all apartment vacant days into variable VACDAY(0)
+336 FOR I=1 TO APTNO: VACDAY(0)=VACDAY(0)+VACDAY(I): NEXT I
+337 '
+338 '       ---------- VACANT DAYS VALUATION, APT
+339 '       Establish dollar value for each apartment units days of vacancy
+340 '       by multiplying vacant days by daily rent for each apartment.
+341 '       put all individual apartment valuations up into array TVAC(i)
+342 FOR I=1 TO APTNO: TVAC(I)=(VACDAY(I)*DALYRENT(I)): NEXT I
+343 '
+344 '       ---------- VACANT DAYS VALUATION, all apartments
+345 '       Sum all the individual apartment vacancy valuations
+346 '       and place the value into the variable TVAC(0) 
+347 FOR I=1 TO APTNO: TVAC(0)=TVAC(0)+TVAC(I): NEXT I
+348 '
+349 '       ---------- NET INCOME, GRAND TOTAL
+350 '       Rent+Fees&MiscIncome-expenses-utilities-1stMortgage-2ndMortgage
+351 '       -total miles driven * IRS mileage allowance 
+352 GTNET=RENT(0)+FMI(0)-TEXP-TUTL-MORT1-MORT2-TMIL*MA
+353 '
+354 '       ---------- NET INCOME, APT
+355 '       Approximate as close as possible the net profit for each apartment
+356 '       Total NET for each apartment = (Rent + Fees & Misc Income), minus
+357 '       a percentage of both mortgages based on apartments square footage
+358 '       minus, expenses, minus utilities divided by the number of apt
+359 '       units involved, minus the appropriate mileage allowance
+360 FOR I = 1 TO APTNO           'calculate each apartment's Total NET profit.
+361   TNET(I)=RENT(I)+FMI(I)-(MORT1*SQFT(I))-(MORT2*SQFT(I))- EXPENSE(I)-TUTL/APT-EXPA/APT-MA(I)
+362   NEXT I
+363 '
+364 '       ---------- NET PROFIT PER SQUARE FOOT, APT
+365 '       Here we are calculating the NET profits on a square foot basis.
+366 '       The apartment net profits are divided by the apartment sqft. size
+367 SQFTNET  = GTNET/4731          'do the whole building first
+368 SQFTNET(1) =   TNET(1)/1050      'and then apartments 1 to 15 (max)
+369 SQFTNET(2) =   TNET(2)/820
+370 SQFTNET(3) =   TNET(3)/820
+371 SQFTNET(4) =   TNET(4)/820
+372 SQFTNET(5) =   TNET(5)/610
+373 SQFTNET(6) =   TNET(6)/610
+374 SQFTNET(7) =   TNET(7)/1      'If the number of apartments in the
+375 SQFTNET(8) =   TNET(8)/1      'program code exceeds the actual number
+376 SQFTNET(9) =   TNET(9)/1      'of apartments in the building then you
+377 SQFTNET(10) =  TNET(10)/1     'have to go through the whole program and
+378 SQFTNET(11) =  TNET(11)/1     'comment out or delete all extra code.
+379 SQFTNET(12) =  TNET(12)/1     'Merely changing the value of APTNO won't
+380 SQFTNET(13) =  TNET(13)/1     'do it.  The program will simply issue a
+381 SQFTNET(14) =  TNET(14)/1     'subscript out of range error message
+382 SQFTNET(15) =  TNET(15)/1     'during the calculation phase of the
+383 '                              'program.
+384 '
+385 COLOR 7,0:PRINT"   Done!":FOR DL=1 TO 20000:NEXT DL
+386 GOTO 389'MainMenu
+387 END
+388 '-------------------------------------------
+389 'MainMenu:
+390 CLS:PRINT CHR$(255);LEFT$(TIME$,5);:PRINT SPC(61)DATE$
+391 PRINT:PRINT:PRINT
+392 PRINT"                             L A N D L O R D   VI
+393 PRINT"                               NNNN ****** BLVD.
+394 PRINT"                             K.I.S.S.   Accounting
+395 PRINT"                                  Main Menu
+396 PRINT:PRINT:PRINT
+397 PRINT"                             1.....V)iew YTD Reports
+398 PRINT"                             2.....A)dd  Data              Currently
+399 PRINT"                             3.....S)ave Data                ";COUNT
+400 PRINT"                             4.....T)enant Info              Items
+401 PRINT"                             5.....W)rite Letters
+402 PRINT"                             6.....L)ease Forms
+403 PRINT"
+404 PRINT"
+405 PRINT"                             9.....Q)uit to I)nterpreter
+406 PRINT"                             0.....eX)it to DOS
+407 LET KP$=INKEY$:IF KP$="" THEN 407
+408 IF KP$="1" OR KP$="V" OR KP$="v" THEN GOTO 419'ViewReportsMenu
+409 IF KP$="2" OR KP$="A" OR KP$="a" THEN GOTO 611'AddData
+410 IF KP$="3" OR KP$="S" OR KP$="s" THEN GOTO 579'EmbeddedCommands
+411 IF KP$="4" OR KP$="T" OR KP$="t" THEN RUN"LL6-ROLO.BAS
+412 IF KP$="5" OR KP$="W" OR KP$="w" THEN RUN"TW.BAS
+413 IF KP$="6" OR KP$="L" OR KP$="l" THEN RUN"LL6WORKS.BAS
+414 IF KP$="9" OR KP$="I" OR KP$="i" OR KP$="Q" OR KP$="q" THEN CLS:LIST 11-27
+415 IF KP$="0" OR KP$="X" OR KP$="x" THEN run"MNU-BIZ.BAS 'SYSTEM
+416 GOTO 389'MainMenu
+417 END
+418 '-------------------------------------------
+419 'ViewReportsMenu:
+420 CLS:PRINT TIME$;:PRINT SPC(61)DATE$:KP$=""
+421 PRINT:PRINT:PRINT:PRINT
+422 PRINT"                   Z O O N K E R ' S    A P A R T M E N T S"
+423 PRINT
+424 PRINT"                              YTD Reports Menu"
+425 PRINT:PRINT:PRINT
+426 PRINT"                          1.....Income & Expense
+427 PRINT
+428 PRINT"                          2.....Transaction review
+429 PRINT
+430 PRINT"                          3.....Apartment Reports
+431 PRINT
+432 PRINT"                          4.....Names of Accounts
+433 PRINT
+434 LOCATE 25,5:PRINT"                  ";
+435 LOCATE 25,5:PRINT"Main Menu=spacebar";
+436 LET KP$=INKEY$:IF KP$="" THEN 436
+437 IF KP$=" " THEN GOTO 389'Main Menu
+438 IF KP$="1" OR KP$="I" OR KP$="i" THEN GOTO 445'Income&ExpenseReport
+439 IF KP$="2" OR KP$="T" OR KP$="t" THEN GOTO 470'TransactionReview
+440 IF KP$="3" OR KP$="A" OR KP$="a" THEN GOTO 500'ApartmentReports
+441 IF KP$="4" OR KP$="N" OR KP$="n" THEN GOTO 555'NamesOfAccounts
+442 GOTO 419'this menu
+443 END
+444 '-------------------------------------------
+445 'Income&ExpenseReport:
+446 CLS:KP$=""
+447 PRINT TAB(T)"B R E N N A N ' S   A P A R T M E N T S":PRINT
+448 PRINT TAB(T)"YTD Income & Expense Report ";DATE$:PRINT:PRINT
+449 PRINT TAB(T) "                          Expense     Income"
+450 PRINT TAB(T) "Rents                     ",:PRINT USING DO$(5);RENT(0)
+451 PRINT TAB(T) "Fees & Misc Income        ",:PRINT USING NO$(6);FMI(0)
+452 PRINT TAB(T) "  1st Mortgage            ";:PRINT USING NO$(6);MORT1
+453 PRINT TAB(T) "  2nd Mortgage            ";:PRINT USING NO$(6);MORT2
+454 PRINT TAB(T) "  Apartment Expenses      ";:PRINT USING NO$(6);TEXP
+455 PRINT TAB(T) "  Utilities               ";:PRINT USING NO$(6);TUTL
+456 PRINT TAB(T) "  Mileage Allowance       ";:PRINT USING NO$(6);TMIL*MA
+457 PRINT TAB(T) "                                    --------"
+458 PRINT TAB(T) "Net                       ",:PRINT USING DO$(5);GTNET
+459 PRINT:PRINT
+460 PRINT TAB(T) "Net per square foot         ";:PRINT USING DC$(1);SQFTNET
+461 PRINT TAB(T) "Monies held in TRUST      ";:PRINT USING DO$(5);GTTRUST
+462 PRINT TAB(T) "Labor hours involved      ";:PRINT USING NO$(6);THR
+463 PRINT TAB(T) "Net Income/Total Hours    ";:PRINT USING DO$(5);GTNET/THR
+464 PRINT TAB(T) "Total no. vacant days         ";:PRINT USING NO$(3);VACDAY(0)
+465 PRINT TAB(T) "Total rent revenues lost  ";:PRINT USING DO$(5);TVAC(0)
+466 LET KP$=INKEY$:IF KP$="" THEN 466
+467 GOTO 419'ViewReportsMenu
+468 END
+469 '-------------------------------------------
+470 'TransactionDetailReport:
+471 RESTORE:COUNT=0:TNO=0
+472 CLS:PRINT TAB(20)"T R A N S A C T I O N    D E T A I L "
+473 PRINT"TNO   DATE   ACCT   AMOUNT   MIL   HR   NOTES"
+474 COUNT=0
+475 READ TNO, DAY$, ACCT$, AMT, MIL, HR, NOTE$
+476 IF TNO=-1 THEN GOTO 491
+477 PRINT USING "###";TNO;:PRINT USING "  \    \";DAY$;ACCT$;
+478 PRINT USING " $$,###   ###   ##";AMT;MIL,HR;
+479 PRINT USING "   \              \";NOTE$
+480 COUNT=COUNT+1
+481 IF COUNT=21 THEN GOTO 484
+482 GOTO 475 'loop back & read some more data to output to the screen...
+483 '^^^^^^^^^^^^^^^^^^^^^^^^^^^^^LOOP
+484 'ScrollingTransactionDetailScreenPauser:
+485 LOCATE 25,5:PRINT "                ";  'semicolon goes here...
+486 LOCATE 25,5:PRINT "Press the anykey";  'semicolon goes here too...
+487 KP$=INKEY$:IF KP$="" THEN 487         'KP$ stands for keypress string...
+488 LOCATE 25,1:PRINT "                "   'but NO semicolon here!...
+489 GOTO 472
+490 '-------------------------------------------
+491 'KeypresstoReportsMenu:
+492 LOCATE 25,5:PRINT "                                                   ";
+493 LOCATE 25,5:PRINT "enter (V)iew Reports menu or (D)etail report again.";
+494 KP$=INKEY$:IF KP$="" THEN GOTO 494;
+495 LOCATE 25,5:PRINT "                                                   "
+496 IF KP$="D" OR KP$="d" THEN GOTO 470
+497 IF KP$="V" OR KP$="v" THEN GOTO 419
+498 GOTO 491
+499 '-------------------------------------------
+500 'Apartment Detail (1 to APT) I & E Menu:
+501 CLS
+502 PRINT TAB(12)"Y T D    A P A R T M E N T    D E T A I L    R E P O R T"
+503 PRINT:PRINT TAB(32)"as of:   ";DATE$
+504 PRINT:PRINT:PRINT:PRINT TAB(18) "Aptno        Occupant"
+505 PRINT:PRINT TAB(20)"1 . . . ";TENANT$(1)
+506 PRINT:PRINT TAB(20)"2 . . . ";TENANT$(2)
+507 PRINT:PRINT TAB(20)"3 . . . ";TENANT$(3)
+508 PRINT:PRINT TAB(20)"4 . . . ";TENANT$(4)
+509 PRINT:PRINT TAB(20)"5 . . . ";TENANT$(5)
+510 PRINT:PRINT TAB(20)"6 . . . ";TENANT$(6)
+511 PRINT:PRINT:PRINT SPC(27):PRINT "Enter Apartment ( 1 -";APT;"): ";
+512 '
+513 '         --------SPECIALIZED DATA ENTRY ROUTINE
+514 '         If the number of apartments in the building is 10 or more
+515 '         then go to a two-key entry routine for establishing KP$ instead
+516 '         of a single (inkey$) keystroke entry routine.
+517 IF APT<10 THEN 520 ELSE 525
+518 '
+519 '-------------------------------
+520 'BuildingSizeLessThan10units:
+521 LET KP$=INKEY$:IF KP$="" THEN 521
+522 IF KP$=" " THEN GOTO 419'ViewReportsMenu
+523 GOTO 529'GoOnFromHere
+524 '-------------------------------
+525 'BuildingSizeGreaterThan10units:
+526 LET KP$=INPUT$(2)                  'need two keystrokes from keyboard
+527 IF KP$="  " THEN GOTO 419'ViewReportsMenu  'two spacebar keys to return
+528 '-------------------------------
+529 'GoOnFromHere:
+530 IF VAL(KP$)<1 OR VAL(KP$)>APT THEN GOTO 500 'ApartmentDetailMenu
+531 GOTO 534'Apartments(1 to APT)I&EReport
+532 END
+533 '-----------------------------------
+534 'Apartments(1 to APT)I&EReport:
+535 CLS:PRINT TAB(T)"YTD Apartment #";STR$(VAL(KP$));" Report as of: ";DATE$
+536 PRINT:PRINT TAB(T) TENANT$(VAL(KP$)):PRINT:PRINT
+537 PRINT TAB(T) "Rents                    ",USING DO$(5);RENT(VAL(KP$))
+538 PRINT TAB(T) "Fees & Misc Income       ",USING NO$(6);FMI(VAL(KP$))
+539 PRINT TAB(T) "  1st Mortgage sq.ft.%   ",USING NO$(6);MORT1* SQFT(VAL(KP$))
+540 PRINT TAB(T) "  2nd Mortgage sq.ft.%   ",USING NO$(6);MORT2* SQFT(VAL(KP$))
+541 PRINT TAB(T) "  Apartment Expenses     ",USING NO$(6);EXPENSE(VAL(KP$))
+542 PRINT TAB(T) "  Utilities              ",USING NO$(6);TUTL/APT
+543 PRINT TAB(T) "  Mileage Allowance      ",USING NO$(6);MA(VAL(KP$))
+544 PRINT TAB(T) "                                     -------"
+545 PRINT TAB(T) "Net                      ",USING DO$(5);TNET(VAL(KP$)):PRINT:PRINT
+546 PRINT TAB(T) "Net per square foot, Apt #";STR$(VAL(KP$)),USING DC$(3);SQFTNET(VAL(KP$)):PRINT
+547 PRINT TAB(T) "Monies held in Trust     ",USING DO$(5);TRUST(VAL(KP$)):PRINT
+548 PRINT TAB(T) "Apartment Vacancy ";VACDAY(VAL(KP$));"days @ ";
+549 PRINT USING DO$(2);DALYRENT(VAL(KP$));
+550 PRINT "/DAY";USING DO$(5);VACDAY(VAL(KP$))*DALYRENT(VAL(KP$))
+551 KP$=INKEY$:IF KP$="" THEN 551    '<---typical endless loop until keypress
+552 GOTO 500 'ApartmentDetailMenu
+553 END'of subroutine
+554 '-----------------------------------
+555 'NamesOfAccounts:
+556 CLS
+557 PRINT"                     Account Names & Tenants Initials
+558 PRINT
+559 PRINT"     Tenant Initials    mmFHB   mrMJB   mmBLK   msBAC   mmYEL   msJLB
+560 PRINT
+561 PRINT"     Rents              RENT1   RENT2   RENT3   RENT4   RENT5   RENT6
+562 PRINT
+563 PRINT"     Fees & Misc Income  FMI1    FMI2    FMI3    FMI4    FMI5    FMI6
+564 PRINT
+565 PRINT"     Expenses     EXPA   EXP1    EXP2    EXP3    EXP4    EXP5    EXP6
+566 PRINT
+567 PRINT"     Vacancy             VAC1    VAC2    VAC3    VAC4    VAC5    VAC6
+568 PRINT
+569 PRINT"     Utilities       WP   GAS    YARD   TRASH    PEST   PHONE   CABLE
+570 PRINT
+571 PRINT"     Mortgage,Fees&Tax  MORT1   MORT2   CITYL    PTAX
+572 PRINT
+573 PRINT"     Last Month rent     LMR1    LMR2    LMR3    LMR4    LMR5    LMR6
+574 PRINT
+575 PRINT"     Security Deposit     SD1     SD2     SD3     SD4     SD5     SD6
+576 LET KP$=INKEY$:IF KP$="" THEN 576
+577  GOTO 419 'ViewReportsMenu
+578 '-------------------------------------------
+579 'ImbeddedCommands:
+580 CLS:LOCATE  6,5:PRINT"save"+CHR$(34)+"LL6.bas"+CHR$(34)+",a";
+581 LOCATE 10,5:PRINT"goto 3820'mainmenu
+582 LOCATE 12,5:PRINT"SYSTEM","'Exits to MS-D0S "
+583 LOCATE 14,5:PRINT"RENUM
+584 LOCATE 16,5
+585 PRINT"lprint CHR$(27)+CHR$(40)+CHR$(115)+CHR$(49)+CHR$(81);'draft print
+586 LOCATE 18,5
+587 PRINT"lprint CHR$(27)+CHR$(40)+CHR$(115)+CHR$(50)+CHR$(81);'LQP
+588 LOCATE 20,5:PRINT"LPRINT TAB(60) TIME$;SPC(3);DATE$;
+589 LOCATE 25,5
+590 PRINT"Press <ENTER> NOW with cursor on command line to effect SAVE.";
+591 LOCATE 5,1
+592 END
+593 '-------------------------------------------
+594 ' RentalTransactionData:
+595 '    TNO,  DAY$,  ACCT$,  AMT, MIL, HR,  NOTE$
+596 DATA 001, NOV06,   EXP2,   25,  10,  1, "
+597 DATA 002, NOV07,   EXP2,   25,  10,  1, "
+598 DATA 000, NOV08,   EXP2,   25,  10,  5, "
+599 DATA 000, NOV10,   EXP2,   25,    ,  3, "BATHROOM&KITCHEN
+600 DATA 000, NOV10,   EXPA,   20,  10,  1, "CABINET HINGES
+601 DATA 000,      ,       ,     ,    ,   , "
+602 DATA 000,      ,       ,     ,    ,   , "
+603 DATA 000,      ,       ,     ,    ,   , "
+604 DATA 000,      ,       ,     ,    ,   , "
+605 DATA 000,      ,       ,     ,    ,   , "
+606 DATA 000,      ,       ,     ,    ,   , "
+607 DATA 000,      ,       ,     ,    ,   , "
+608 DATA  -1,      ,       ,     ,    ,   , :' -1=data terminator. Don't erase
+609 END'of rental transaction data
+610 '-------------------------------------------
+611 'AddData:
+612 CLS
+613 LOCATE 25,5:PRINT"MainMenu=RUN+<enter>       REMEMBER TO SAVE YOUR DATA!";
+614 LIST 594-614
+615 '          save"ll6.bas",a
+
+---------------------end of code on line 6155----------
+<hr>
+
+</pre>
+
+</body>
+
+<a href="bll6.html#top">TOP</a>
+<a href="bindex.html">Basic Index</a>
+<a href="btoc.html">TOC</a>
+Back to <a href="index-2.html">Main Index</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595159" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595159&amp;f=us-w4" ALT=1 WIDTH=1 HEIGHT=1>

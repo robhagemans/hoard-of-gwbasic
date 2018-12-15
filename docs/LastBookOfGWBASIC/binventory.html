@@ -1,0 +1,484 @@
+<html>
+<!--
+123456789 123456789 123456789 123456789 123456789 1234567890
+ -->
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+<title>random access inventory program using gw-basic</title>
+<meta name="author" content="Joseph_Sixpack"/>
+<meta name="keywords" content="file handling,inventory,random access,gw-basic,gw-basic programs,programming gw-basic,last book of 
+gw-basic, gw-basic programming"/>
+<meta name="description" content="inventory file in gw-basic,random access,inventory in gw-basic"/>
+</head>
+
+<a name="top"></a>
+
+<center><h1>INVENTORY PROGRAM</h1></center>
+<center><h4>using a random access file within</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Back to GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Back to <a href="bindex.html">Index</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+This is a pretty early program for me, long before i settled
+on putting the subroutine roadmap at the bottom of the code
+so i could just type "list" and bonk the program to the bottom.
+allowing me to just pick and choose the ornery subroutine.
+
+It works, change N to a million, feed it a nonsense string and
+let 'er rip.  go back and pick off every 100,000th record, fill
+in some low value and see how fast GW-BASIC 3.23 can blast thru
+1,000,000 records on your pentium 4.  just for fun.  try it.
+you will be A-M-A-Z-E-D !   (see line 3070 for initialization)
+
+10 ' Example program for RANDOM ACCESS FILE study  8/19-NN/98 by fhb
+20 ' original code suggested from MS-BASIC manual
+30 '------------------------------------
+40 'Program:
+50 GOTO 350      'InitializeMostVariables
+60 GOTO 500      'OpenInventoryDataFileForUse
+70 GOTO 580      'MainMenu
+80 CLOSE:END     'Quit to GW-BASIC interpreter
+90 CLOSE:SYSTEM  'Exit to System
+100 '-----------------------------------
+110 'SubroutineRoadMap:            'The IP never points in here
+120 CLS:LIST 110-320   'SubroutineRoadmap
+130 CLS:LIST 350-490   'InitializeMostVariables
+140 CLS:LIST 500-570   'OpenInventoryDataFileForUse
+150 CLS:LIST 580-870   'MainMenu
+160 CLS:LIST 880-1140   'Edit/Overwrite/AddRecord
+170 CLS:LIST 1150-1360  'ListAllRecords
+180 CLS:LIST 1320-1360 'ScreenScrollingPauser
+190 CLS:LIST 1370-1420 'ViewPrintScreenReconstructor
+200 CLS:LIST 1430-1580 'CheckRecordStatus
+210 CLS:LIST 1590-1850 'AddStock
+220 CLS:LIST 1860-1930 'NegativeQuantityAnnouncement
+230 CLS:LIST 1940-2280 'SubtractStock
+240 CLS:LIST 2290-2410 'OverSubtractionAnnouncement
+250 CLS:LIST 2420-2590 'ReorderReport
+260 CLS:LIST 2600-2670 'GetRecordNumber
+270 CLS:LIST 2680-2750 'NullEntryCheck
+280 CLS:LIST 2760-2910 'BadRecordNumberAnnouncement
+290 CLS:LIST 2840-3310 'InitializeInventoryDataFile
+300 CLS:LIST 3320-3370 'WaitForKeyPress
+310 CLS:LIST 3380-3630 'ErrorTrapping
+320 LIST 3640 'imbedded command to save program in ASCII format
+330 '-----------------------------------
+340 'InitializeMostVariables:
+350 CLS                            
+360 KEY OFF                        
+370 ON ERROR GOTO 3380 'ErrorTrapReporter                      
+380                    '
+390 FOR I=1 TO 10      'null out function keys
+400   KEY I,""
+410   NEXT I
+420                    '
+430 N=100              'establishes number of records in inven.dat
+440 T=20               '1st tab position
+450 U=25               '2nd tab position
+460 V=30               '3rd tab position
+470 DASH30$ = "------------------------------"
+480 GOTO 60 'to OpenInventoryDataFileForUse
+490 '-----------------------------------
+500 'OpenInventoryDataFileForUse:
+510                                'Both methods of opening a random access 
+520 OPEN"R",#1,"inven.dat",39      'file are shown here. The advantage to the
+530 'OPEN "inven.dat" as #1 len 39 'second method is that no commas are needed
+540                                'and therefore it is easier to remember.
+550 FIELD #1,1 AS F$, 30 AS D$, 2 AS Q$, 2 AS R$, 4 AS P$ 'fielding the buffer
+560 GOTO 70 ' to program (MainMenu)
+570 '-----------------------------------
+580 'MainMenu:
+590 CLS                                  
+600 COLOR 14,4:CLS
+610 LOCATE 6,1
+620 PRINT:PRINT TAB(V) "Inventory Program"
+630 PRINT
+640 PRINT TAB(U) "1......C)heck a part"
+650 PRINT TAB(U) "2......E)dit/overwrite/add a part"
+660 PRINT TAB(U) "3......L)ist all";N;"parts"
+670 PRINT TAB(U) "4......A)dd stock"
+680 PRINT TAB(U) "5......S)ubtract stock"
+690 PRINT TAB(U) "6......R)eorder Report":PRINT
+700 PRINT TAB(U) "7......Q)uit to BASIC"
+710 PRINT TAB(U) "8......eX)it to system
+720                                '
+730 KP$=INKEY$:IF KP$="" THEN 730
+740                                '
+750 IF INSTR("12345678cCeElLaAsSrRqQxX",KP$)=0 THEN 580
+760                                '
+770 IF VAL(KP$)=1 OR KP$="c" OR KP$="C" THEN GOTO 1430 'CheckRecordStatus
+780 IF VAL(KP$)=2 OR KP$="e" OR KP$="E" THEN GOTO  880 'Edit/Overwrite/AddRecord
+790 IF VAL(KP$)=3 OR KP$="l" OR KP$="L" THEN GOTO  1150 'ListAllRecords
+800 IF VAL(KP$)=4 OR KP$="a" OR KP$="A" THEN GOTO 1590 'AddStock
+810 IF VAL(KP$)=5 OR KP$="s" OR KP$="S" THEN GOTO 1940 'SubtractStock
+820 IF VAL(KP$)=6 OR KP$="r" OR KP$="R" THEN GOTO 2420 'ReorderReport
+830 IF VAL(KP$)=7 OR KP$="q" OR KP$="Q" THEN GOTO   80 'Quit2Basic
+840 IF VAL(KP$)=8 OR KP$="x" OR KP$="X" THEN GOTO   90 'Exit2System
+850                                ' 
+860 GOTO 580 'Loop back to MainMenu if keypress unsuccessful
+870 '-----------------------------------
+880 'Edit/Overwrite/AddRecord:
+890 CLS 
+900 LOCATE 10,20
+910 INPUT"Input part number";PART$
+920 PART!=VAL(PART$)
+930   IF PART!<1 OR PART!>N! THEN 2760 ELSE GET #1, PART!
+940   IF ASC(F$)=255 THEN 1010 ELSE 960
+950                                '
+960 LOCATE 12,20
+970 PRINT "Overwrite existing part data?"
+980 KP$=INPUT$(1)
+990   IF KP$="Y" OR KP$="y" THEN 1010 ELSE 580
+1000                                ' 
+1010 CLS
+1020 LSET F$=CHR$(0)
+1030 LOCATE 4,T:PRINT "Adding or Overwriting a Record"
+1040 LOCATE 8,T:PRINT "Record/Partno";PART!
+1050 LOCATE 11,39:PRINT DASH30$
+1060 LOCATE 10,T:INPUT "      Description";DESC$:LSET D$=DESC$
+1070 LOCATE 12,T:INPUT "Quantity in stock";Q%   :LSET Q$=MKI$(Q%)
+1080 LOCATE 14,T:INPUT "    Reorder level";R%   :LSET R$=MKI$(R%)
+1090 LOCATE 16,T:INPUT "       Unit price";P    :LSET P$=MKS$(P)
+1100 LOCATE 18,T:PRINT"Is information correct (Y/N)?"
+1110 KP$=INKEY$:IF KP$="" THEN 1110
+1120   IF KP$="Y" OR KP$="y" THEN PUT #1, PART! ELSE 1060
+1130 GOTO 580 'MainMenu
+1140 '-----------------------------------
+1150 'ListAllRecords:
+1160 VIEW PRINT:CLS
+1170 FMT$="####### \                            \   #####          #####"
+1180 PRINT TAB(U)"I N V E N T O R Y   L I S T I N G";TAB(65) N;"items"
+1190 PRINT "                                          Quantity       Reorder"
+1200 PRINT " Partno           Description             on hand         level"
+1210 'PRINT " ======   ==============================  ========       ======="
+1215 LOCATE 25,1:PRINT"Press the AnyKey to scroll listing...";
+1220 VIEW PRINT 4 TO 24
+1230 FOR I = 1 TO N
+1240   GET #1, I
+1250   PRINT USING FMT$;I;D$;CVI(Q$);CVI(R$)
+1260   COUNT=COUNT+1
+1270     IF COUNT=20 THEN GOSUB 1320  'scrollstop after 20 lines
+1280     IF I=N! THEN GOSUB 1370 'ViewPrintScreenReconstuctor
+1290   NEXT I '^^^^^^^^^^^loop thru inventory items & print
+1300 GOTO 580 'MainMenu
+1310 '--------------
+1320 'ScreenScrollingPauser:
+1330 KP$=INKEY$:IF KP$="" THEN 1330
+1340 COUNT=0
+1350 RETURN
+1360 '--------------
+1370 'ViewPrintScreenReconstructor:
+1380 KP$=INKEY$:IF KP$="" THEN 1380
+1390 VIEW PRINT:CLS
+1400 COUNT=0
+1410 RETURN
+1420 '----------------------------------
+1430 'CheckRecordStatus:
+1440 GOSUB 2600 'GetPartNumber
+1450 GOSUB 2680 'NullEntryCheck
+1460 CLS
+1470 LOCATE 5,1
+1480 PRINT TAB(T) "Inventory Status for Individual Part Number
+1490 PRINT TAB(T) "===========================================":PRINT:PRINT
+1500 PRINT TAB(T) "     Part number:  ";USING "#######";PART!
+1510 PRINT
+1520 PRINT TAB(T) "       Item name:  ";D$;TAB(69)"<"
+1530 PRINT TAB(T) "Quantity on hand:  ";USING "#####";CVI(Q$)
+1540 PRINT TAB(T) "   Reorder level:  ";USING "#####";CVI(R$)
+1550 PRINT TAB(T) "      Unit price:  ";USING "$$####.##";CVS(P$)
+1560 GOSUB 3320 'WaitForKeyPress
+1570 GOTO 580 'MainMenu
+1580 '----------------------------------
+1590 'AddStock:
+1600 CLS
+1610 LOCATE 5,U:PRINT "A D D I N G   S T O C K"
+1620 LOCATE 8,U:INPUT "Input part number";PART$:PART!=VAL(PART$)
+1630   IF PART!<1 OR PART!>N! THEN 1640 ELSE 1670
+1640 LOCATE 10,15:PRINT"The Part number is out of permissable range of 1 to";N
+1650 LOCATE 25,15:PRINT"Press the Anykey to reenter part number...";
+1660 KP$=INKEY$:IF KP$="" THEN 1660 ELSE 1590
+1670 GET #1, PART!
+1680   IF ASC(F$)=255 THEN GOTO 1690 ELSE GOTO 1710
+1690 LOCATE 10,T:PRINT "Part number ";PART$;" is a null entry"
+1700 KP$=INKEY$:IF KP$="" THEN 1700 ELSE 580
+1710 CLS
+1720   LOCATE  4,U:PRINT "Add to an inventory part number"
+1730   LOCATE  5,U:PRINT "==============================="
+1740   LOCATE  8,T:PRINT "     Part number: ";PART!
+1750   LOCATE  9,T:PRINT "Item description: ";D$;TAB(68)"<"
+1760   LOCATE 10,T:PRINT "Quantity on hand: ";CVI(Q$)
+1770   LOCATE 11,T:PRINT "   Reorder Level: ";CVI(R$)
+1780   LOCATE 14,T:INPUT " Quantity to add: ";A$
+1790 A%=VAL(A$)
+1800   IF A%<0 THEN 1860 'NegativeQuantityAnnouncement
+1810 Q%=CVI(Q$)+A%
+1820 LSET Q$=MKI$(Q%)
+1830 PUT #1,PART!
+1840 GOTO 580'MainMenu
+1850 '--------------
+1860 'NegativeQuantityAnnouncement:
+1870 LOCATE 17,15:PRINT"The quantity to add must NOT be a negative number"
+1880 LOCATE 25, 1:PRINT"Please press the Anykey to reenter quantity to add...";
+1890 KP$=INKEY$:IF KP$="" THEN 1890
+1900 LOCATE 17,15:PRINT"                                                 "
+1910 LOCATE 25, 1:PRINT"                                                     ";
+1920 GOTO 1710 ' subsubroutine in quantity to Add.
+1930 '----------------------------------
+1940 'SubtractStock:
+1950 CLS
+1960 LOCATE 5,20
+1970 PRINT"S U B T R A C T I N G    S T O C K"
+1980 LOCATE 8,25
+1990 INPUT "Input part number";PART$:PART!=VAL(PART$)
+2000   IF PART!<1 OR PART!>N! THEN 2010 ELSE 2060
+2010 LOCATE 10,15
+2020 PRINT"The Part number is out of permissable range of 1 to";N
+2030 LOCATE 25,15
+2040 PRINT"Press the Anykey to reenter part number...";
+2050 KP$=INKEY$:IF KP$="" THEN 2050 ELSE 1940
+2060 GET #1,PART!
+2070   IF ASC(F$)=255 THEN GOTO 2080 ELSE GOTO 2100
+2080 LOCATE 10,20:PRINT "Part number ";PART$;" is a null entry"
+2090 KP$=INKEY$:IF KP$="" THEN 2090 ELSE 580
+2100 CLS
+2110   LOCATE  4,U:PRINT "Subtract an inventory part number"
+2120   LOCATE  5,U:PRINT "================================="
+2130   LOCATE  8,T:PRINT "         Part number: ";PART!
+2140   LOCATE  9,T:PRINT "    Item description: ";D$;TAB(72)"<"
+2150   LOCATE 10,T:PRINT "    Quantity on hand: ";CVI(Q$)
+2160   LOCATE 11,T:PRINT "       Reorder Level: ";CVI(R$)
+2170   LOCATE 14,T:INPUT "Quantity to subtract: ";S$
+2180 S%=VAL(S$)
+2190   IF S%<0 THEN 2100
+2200 Q%=CVI(Q$)
+2210   IF Q%-S% <0 THEN 2290
+2220 Q%=Q%-S%
+2230   IF Q%<=CVI(R$) THEN LOCATE 16,T
+2240 PRINT "quantity now";Q%;" reorder level";CVI(R$)
+2250 LSET Q$=MKI$(Q%)
+2260 PUT #1, PART!
+2270 GOTO 580 'MainMenu
+2280 '--------------
+2290 'OverSubtractionAnnouncement:
+2300 LOCATE 17, 5
+2310 PRINT"The quantity to SUBTRACT must NOT result in NEGATIVE inventory";
+2320 LOCATE 18, 5:PRINT"Only";Q%;" IN STOCK"
+2330 LOCATE 25, 1
+2340 PRINT"Please press the Anykey to reenter quantity to subtract...";
+2350 KP$=INKEY$:IF KP$="" THEN 2330
+2360 LOCATE 17, 5
+2370 PRINT"                                                              ";
+2380 LOCATE 25, 1
+2390 PRINT"                                                          ";
+2400 GOTO 2100 ' subsubroutine in quantity to subtract
+2410 '----------------------------------
+2420 'ReorderReport:
+2430 CLS
+2440 LOCATE 1,T
+2450 LINEFORMAT$="   #######  \                            \   #####          #####"
+2460 PRINT "Reorder Report";TAB(55)DATE$
+2470 PRINT
+2480 PRINT "                                             Quantity       Reorder"
+2490 PRINT "    Partno           Description             on hand         level"
+2500 PRINT "   =======  ==============================   ========       ======="
+2510 FOR I!=1 TO N!
+2520   GET #1, I!
+2530   IF CVI(Q$)<CVI(R$) THEN PRINT USING LINEFORMAT$;I!;D$;CVI(Q$);CVI(R$)
+2540   'IF CVI(Q$)<CVI(R$) THEN COUNT=COUNT+1
+2550   'IF COUNT>15 THEN GOSUB 1480 'WaitForKeyPress (used as screen pauser)
+2560   NEXT I '^^^^^^^^^^^^^^^^^^^^Loop thru data looking for reorder items
+2570 GOSUB 3320 'WaitForKeyPress
+2580 GOTO 580  'MainMenu
+2590 '----------------------------------
+2600 'GetRecordNumber:
+2610 CLS
+2620 LOCATE 10,T
+2630 INPUT "Input part number";PART$
+2640 PART!=VAL(PART$)
+2650   IF PART!<1 OR PART!>N THEN GOTO 2760 ELSE GET #1, PART!
+2660 RETURN 'to calling subroutine
+2670 '----------------------------------
+2680 'NullEntryCheck:
+2690 IF ASC(F$)=255 THEN 2700 ELSE 2740
+2700 CLS
+2710 LOCATE 10,18
+2720 PRINT "Part number";PART!;"is still a null entry at this time"
+2730 GOSUB 3320 'WaitForKeyPress
+2740 RETURN 'to calling subroutine
+2750 '----------------------------------
+2760 'BadRecordNumberAnnouncment:
+2770 CLS
+2780 LOCATE 10,10
+2790 PRINT "Part number is out of permissable range of 1 to";N
+2800 GOSUB 3320 'WaitForKeyPress
+2810 GOTO 570 'Main Menu
+2820 END
+2830 '===============Datafile Initialization Subroutine =================
+2840 '
+2850 '  This is a hidden buried datafile initialization subroutine   
+2860 '  that you use only ONCE!  DON'T use it twice as every time    
+2870 '  it's used, ALL existing data is ERASED!                      
+2880 '
+2890 '----------------------------------
+2900 'InitializingDataFileMessage:
+2910 CLS
+2920 LOCATE 10,10
+2930 PRINT "Reinitializing the inventory datafile will DELETE all the data"
+2940 LOCATE 12,18
+2950 PRINT "Are you SURE that you want to do that (Y/N)?"
+2960 LOCATE 25,1
+2970 PRINT "Enter Yes to reinitialize datafile.  Any other key for system";
+2980 KP$=INPUT$(3)
+2990   IF KP$="Yes" THEN 3010 ELSE SYSTEM
+3000 '-----------------
+3010 'Doit!:
+3020 CLS
+3030 CLOSE
+3040 N!=100 'if needs require (N!|N#)=1,677,215 records is theo max limit.
+3050        'i checked program with 1,000,000 records of 39 bytes each and
+3060        'generated a 39,000,000 byte datafile and everything worked ok.
+3070        '
+
+But!  i understand GW-BASIC 3.23 can go a LOT higher due to unannounced
+changes in the code.  At 1,000,000 records, that is 999,000 more than i need.
+Oh, by the way.  delete all the unnumbered comment lines if you are going
+to play with this program.  ....please  :-)    
+
+3080 OPEN "inven.dat" AS #1 LEN=39
+3090 'open "R",#1,"inven.dat",39     'optional format
+3100 FIELD #1,1 AS F$,30 AS D$,2 AS Q$,2 AS R$,4 AS P$ 'fielding the buffer
+3110 LSET F$=CHR$(255)
+3120 DESC$="                              "
+3130 LSET D$=DESC$
+3140 Q%=0
+3150 LSET Q$=MKI$(Q%)
+3160 R%=0
+3170 LSET R$=MKI$(R%)
+3180 P=0
+3190 LSET P$=MKS$(P)
+3200 LOCATE 10,10:PRINT "Initializing datafile, please wait...
+3210 LOCATE 12,10:PRINT "a 1,000,000 million record datafile
+3220 LOCATE 13,10:PRINT "takes about 5 minutes on a 33mhz 486
+3230 LOCATE 14,10:PRINT "with an IDE drive.  Pentiums are faster.
+3240 LOCATE 15,10:PRINT "Faster is faster, slower is slower....
+3250 FOR J=1 TO N!
+3260   PUT #1, J
+3270   NEXT J '^^^^^^^^^^^^^^^^^Loop thru datafile initialization creation
+3280 CLOSE #1:PRINT:PRINT
+3290 PRINT TAB(10) "finished... ";N!;"record datafile has been initialized"
+3300 GOSUB 3320:GOTO 40 'Program
+3310 '===========================================================
+3320 'WaitForKeyPress:
+3330 LOCATE 25,10
+3340 PRINT "Press the AnyKey to continue...";
+3350 KP$=INKEY$:IF KP$="" THEN 3350
+3360 RETURN 'to calling subroutine
+3370 '----------------------------------
+3380 'ErrorTrapReporter:
+3385 VIEW PRINT:CLS
+3390 LOCATE 25,1:PRINT "There has been an error on line";ERL;"  ";
+3400 IF ERR=1 THEN PRINT "Error #1 = Input value overflow";
+3410 IF ERR=2 THEN PRINT "Error #2 = Syntax error or Data/Read conflict";
+3420 IF ERR=3 THEN PRINT "Error #3 = RETURN without a GOSUB";
+3430 IF ERR=4 THEN PRINT "Error #4 = Out of Data - Read count";
+3440 IF ERR=5 THEN PRINT "Error #5 = Illegal function call";
+3450 IF ERR=6 THEN PRINT "Error #6 = Integer/Input value overflow";
+3460 IF ERR=7 THEN PRINT "Error #7 = Out of Memory, try CLEAR for stack space";
+3470 IF ERR=8 THEN PRINT "Error #8 = Undefined line number";
+3480 IF ERR=9 THEN PRINT "Error #9 = Subscript out of range";
+3490 IF ERR=10 THEN PRINT "Error #10 = Duplicate definition";
+3500 IF ERR=11 THEN PRINT "Error #11= Division by zero";
+3510 IF ERR=12 THEN PRINT "Error #12= Illegal direct...";
+3520 IF ERR=13 THEN PRINT "Error #13= Type mismatch";
+3530 IF ERR=14 THEN PRINT "Error #14= Out of string space";
+3540 IF ERR=15 THEN PRINT "Error #15= String too long";
+3550 IF ERR=16 THEN PRINT "Error #16= String formula too complex";
+3560 IF ERR=17 THEN PRINT "Error #17= Can't continue";
+3570 IF ERR=18 THEN PRINT "Error #18= Undefined user function";
+3580 IF ERR=19 THEN PRINT "Error #19= no RESUME";
+3590 IF ERR=25 THEN PRINT "Error #25= Device fault-printer interface adapter";
+3600 IF ERR>19 THEN PRINT "The error# =";ERR;
+3610 KP$=INKEY$:IF KP$="" THEN 3610
+3620 RESUME 580
+3630 '----------------------------------
+3640 '           save"inven.bas",a
+
+</pre>
+</body>
+
+<a href="binventory.html#top">TOP</a><br>
+Back to GW-Basic <a href="btoc.html">Table of Contents</a><br>
+Back to <a href="bindex.html">Index</a>
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595170" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595170&amp;f=us-w5" ALT=1 WIDTH=1 HEIGHT=1>

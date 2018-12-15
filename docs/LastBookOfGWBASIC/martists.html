@@ -1,0 +1,446 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Music Lister by ARTIST using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Return to <a href="mus-toc.html">Music</a> Table of Contents><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<center><h1>Artist Music Lister</h1></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>
+10 ' Music Lister Program by fhb4family
+20 '   rev 1.00  7/10/98  Hurray it finally works!  & Announced to the world...
+30 '   rev 1.01           lots of changes from 1.01 - 1.06
+40 '   ...                went to basket array variables somewhere in here...
+50 '   rev 1.06  7/22/98  see archive LListings of old code if interested.
+60 '   rev 1.07  7/26/98  added PrintData subroutine
+70 '   rev 1.08 10/02/98  rewrote DisplayByRecordTapeDiskNumber
+80 '   rev 1.09 10/05/98  improved program logic - partial rewrite most routines
+90 '                      The Variable EASTEREGG makes its appearance
+100 '   rev 1.10 10/06/98  changed MainMenu to Letter (was numbers)
+110 '                      if-thens under menu changed to instr(a$,b$) function
+120 'Program:          
+130 GOSUB 400 'Initialization
+140 GOSUB 530 'FunctionKeys
+150 GOSUB 570 'CountData
+160 GOSUB 630 'MainMenu
+170 PRINT "Ended at progam":END
+180 '--------------------------
+190 'SubroutineLocator:
+200 CLS:LIST  120-180  'Program
+210 CLS:LIST  400-510  'VariableInitialization
+220 CLS:LIST  530-550  'FunctionKeys
+230 CLS:LIST  570-620  'CountData     (variable=TOTALMUSIC)
+240 CLS:LIST  630-840  'MainMenu
+250 CLS:LIST  850-930  'ActionTakenOnKeyPress
+260 CLS:LIST  940-1200 'DisplayByRecordTapeDiskNumber:
+270 CLS:LIST 1210-1450 'DisplayBy (Composer|Title|Conductor|Group|Label)
+280 CLS:LIST 1460-1750 'MultipleFieldSearches
+290 CLS:LIST 1720-1750 'ScreenScrollingPauser
+300 CLS:LIST 1760-1810 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="401323322f2c2c13342f3000741225232f322433">[email&#160;protected]</a>
+310 CLS:LIST 1820-1860 'SearchCompleted-Go2MainMenu
+320 CLS:LIST 1870-1910 'NoMatchFound-Go2MainMenu
+330 CLS:LIST 1920-1950 'ScrollStop
+340 CLS:LIST 1960-1990 'ReadDataCard
+350 CLS:LIST 2000-2080 'PrintDataCard2Screen
+360 CLS:LIST 2090-2230 'PrintAllData2Printer
+370 CLS:LIST 2240-2290 'Exit2DOS
+380 CLS:LIST 2300-     'DataCards
+390 '-------------------------
+400 'VariableInitialization:
+410 KEY OFF:COLOR 10,9:OPTION BASE 0:VIEW PRINT
+420 DIM V$(7,2)          'V stands for VARIABLES (basket array or table)
+430  V$(0,0)= "Th-th-th-":V$(0,1)= "that's "   : V$(0,2)="all, folks!..."
+440  V$(1,0)= "RTD$"     :V$(1,1)= "RTDNO$"    : V$(1,2)="enter the RTD number"
+450  V$(2,0)= "COMP$"    :V$(2,1)= "COMPOSER$" : V$(2,2)="Composer's name"
+460  V$(3,0)= "TIT$"     :V$(3,1)= "TITLE$"    : V$(3,2)="Title"
+470  V$(4,0)= "CONDUCT$" :V$(4,1)= "CONDUCTOR$": V$(4,2)="Conductor's name"
+480  V$(5,0)= "SOGA$"    :V$(5,1)= "GROUP$"    : V$(5,2)="Group's name"
+490  V$(6,0)= "LABL$"    :V$(6,1)= "LABEL$"    : V$(6,2)="Label info"
+500  V$(7,0)= "EMPTY  "  :V$(7,1)= "Enter fragment of ":V$(7,2)="empty slot"
+510 RETURN 'to program, FunctionKeys
+520 '----------------------------------
+530 'FunctionKeys:
+540 FOR FKEY=1 TO 10:KEY FKEY,"":NEXT FKEY ' all Function Keys turned off
+550 RETURN 'to program, CountData
+560 '-------------------------
+570 'CountData: 'just to see how many datacards of cd's there are.
+580   GOSUB 1960 'ReadDataCard
+590     IF V$(1,1)="end of data" THEN RETURN 'to Program, MainMenu
+600     TOTALMUSIC=TOTALMUSIC + 1
+610     GOTO 580 '^^^^^^^^^^^^^^^^^^Loop thru data counting entries
+620 '-------------------------
+630 'MainMenu:
+640 CLS
+650 RESTORE
+660 T=26
+670 EASTEREGG=0
+680 LINECOUNT=0
+690 PRINT LEFT$(TIME$,5);
+700 PRINT TAB(18)"Your Name ARTIST Music Collection Finder";
+710 PRINT TAB(70)DATE$
+720 LOCATE  5,T:PRINT "Search & List";TOTALMUSIC;"entries by: "
+730 LOCATE  8,T:PRINT "Rtdno      (Record Tape Disk no.)"
+740 LOCATE  9,T:PRINT "Composer"
+750 LOCATE 10,T:PRINT "Title"
+760 LOCATE 11,T:PRINT "cOnductor"
+770 LOCATE 12,T:PRINT "Symphony, orchestra, group, artist"
+780 LOCATE 13,T:PRINT "Label information"
+790 LOCATE 14,T:PRINT "Multiple field query"
+800 LOCATE 16,T:PRINT "Quit to interpreter"
+810 LOCATE 17,T:PRINT "eXit"
+820 LOCATE 25,T:PRINT "Press capital letter for selection";
+830 GOSUB 1920 'ScreenPauseTilKeyPress
+840 '---------------------
+850 'ActionTakenOnKeyPress:
+860 IF INSTR("rRcCtToOsSlLmMqQxX",KP$)=0 THEN GOTO 630 'MainMenu
+870 IF INSTR("qQ",KP$)>0 THEN CLS:LIST 190-390 'Quit2Interpreter & list subrout.
+880 IF INSTR("xX",KP$)>0 THEN 2240 'Exit2Dos
+890 IF INSTR("rR",KP$)>0 THEN  940 'DisplayByRecordTapeDiskNumber
+900 IF INSTR("cCtToOsSlL",KP$)>0 THEN 1210 'DisplayByComp|Tit|Cond|Grp
+910 IF INSTR("mM",KP$)>0 THEN 1460 'MultifieldSearch
+920 'PRINT "Program end at:  ActionTakenOnKeyPress-MainMenu":END
+930 '-------------------------------------
+940 'DisplayByRecordTapeDiskNumber:
+950 CLS
+960 LOCATE 25,1
+970 PRINT "RecCount=";TOTALMUSIC;
+980 LOCATE 2,34: PRINT "AlphaRangeNo.":PRINT:PRINT
+990 PRINT TAB(16)"A 1xx     G  7xx    M 13xx    S 19xx     Y 25xx"
+1000 PRINT TAB(16)"B 2xx     H  8xx    N 14xx    T 20xx     Z 26xx"
+1010 PRINT TAB(16)"C 3xx     I  9xx    O 15xx    U 21xx"
+1020 PRINT TAB(16)"D 4xx     J 10xx    P 16xx    V 22xx"
+1030 PRINT TAB(16)"E 5xx     K 11xx    Q 17xx    W 23xx"
+1040 PRINT TAB(16)"F 6xx     L 12xx    R 18xx    X 24xx"
+1050 LOCATE 12,24:PRINT "Input your collection's record
+1060 LOCATE 13,24:INPUT "tape or disk number (100-2699): ";RTD$
+1070 CLS
+1080   IF RTD$="" THEN 630   'to main menu if no entry
+1090   ENTRY.CHECK=VAL(RTD$) 'alphabet entrys set to zero
+1100   IF ENTRY.CHECK <100 OR ENTRY.CHECK > 2699 THEN 940 'numeric range check
+1110 GOSUB 1960 'ReadTheDataCards
+1120   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1870 'NoMatch
+1130   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1820 'SearchComplet
+1140   IF RTD$=V$(1,1) THEN GOSUB 2000 'PrintDataCard2Screen
+1150   IF RTD$=V$(1,1) THEN LINECOUNT=LINECOUNT+1
+1160   IF RTD$=V$(1,1) THEN EASTEREGG=EASTEREGG+1
+1170   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="9dcefeeff8f8f3cee9f2eddda9cff8fef2eff9ee">[email&#160;protected]</a>
+1180   GOTO 1110 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1190 'PRINT "ended at DisplayByRecordTapeOrDiskNumber":END
+1200 '-------------------------------------
+1210 'DisplayBy (Composer|Title|Conductor|Group|Label):
+1220 CLS
+1230 IF KP$="r"OR KP$="R" THEN KP=1
+1240 IF KP$="c"OR KP$="C" THEN KP=2
+1250 IF KP$="t"OR KP$="T" THEN KP=3
+1260 IF KP$="o"OR KP$="O" THEN KP=4
+1270 IF KP$="s"OR KP$="S" THEN KP=5
+1280 IF KP$="l"OR KP$="L" THEN KP=6
+1290 IF KP$="m"OR KP$="M" THEN KP=7
+1300 LOCATE 8,20
+1310 PRINT V$(7,1);V$(KP,2);:INPUT V$(KP,0)
+1320   IF V$(KP,0)="" THEN 630
+1330 CLS
+1340 LOCATE 1,20
+1350 PRINT V$(7,1);V$(KP,2);":  ";V$(KP,0)
+1360 GOSUB 1960
+1370   IF V$(1,1)="end of data" AND EASTEREGG = 0 THEN GOTO 1870 'NoMatch
+1380   IF V$(1,1)="end of data" AND EASTEREGG <> 0 THEN GOTO 1820 'SerchComplet
+1390   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN GOSUB 2000 'PrintDataCard2Screen
+1400   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN LINECOUNT=LINECOUNT+1
+1410   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN EASTEREGG=EASTEREGG+1
+1420   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a5f6c6d7cac9c9f6d1cad5e591f7c0c6cad7c1d6">[email&#160;protected]</a>
+1430   GOTO 1360 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data                  
+1440 'END
+1450 '-------------------------------------
+1460 'MultipleFieldSearches:
+1470 CLS
+1480 PRINT:PRINT
+1490 PRINT TAB(30) "Multiple Field Query"
+1500 PRINT: PRINT: PRINT TAB(5) "                         COMPOSER: "
+1510 PRINT TAB(5) "                            TITLE: "
+1520 PRINT TAB(5) "                        CONDUCTOR: "
+1530 PRINT TAB(5) "SYMPHONY,ORCHESTRA, GROUP, ARTIST: "
+1540 PRINT TAB(5) "                            LABEL: "
+1550 LOCATE  6,40:INPUT;V$(2,0)
+1560 LOCATE  7,40:INPUT;V$(3,0)
+1570 LOCATE  8,40:INPUT;V$(4,0)
+1580 LOCATE  9,40:INPUT;V$(5,0)
+1590 LOCATE 10,40:INPUT;V$(6,0)
+1600   IF V$(2,0) ="" AND V$(3,0)="" AND V$(4,0)="" AND V$(5,0)="" AND V$(6,0)="" THEN GOTO 630 'goto MainMenu if no input
+1610 LOCATE 25,1
+1620 PRINT "Press the Anykey to search or 'N' to reedit query.";
+1630 GOSUB 1920 'ScreenPauseTilKeyPress
+1640   IF KP$="n" OR KP$="N" THEN 1460 'MultipleFieldSearches
+1650 CLS
+1660 GOSUB 1960 'ReadDataCard
+1670   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1870 'No match
+1680   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1820 'Search complete
+1690   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN GOSUB 2000
+1700   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN LINECOUNT=LINECOUNT + 1
+1710   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN EASTEREGG=EASTEREGG + 1
+1720   IF LINECOUNT=4 THEN GOSUB 1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="782b1b0a1d1d162b1b0a1714142b0c1708384c2a1d1b170a1c0b">[email&#160;protected]</a>
+1730   GOTO 1660 '^^^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1740 'END
+1750 '---------------------------
+1760 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e3b0809186868db080918c8f8f8a8d84b0978c93a3d7b186808c918790">[email&#160;protected]</a>:
+1770 LOCATE 25,1:PRINT "Press the Anykey to continue.                       ";
+1780 GOSUB 1920 'ScreenPauseTilKeyPress
+1790 LINECOUNT=0:CLS
+1800 RETURN ' to either 1)RTD   2)Comp|Tit|Cond|Grup|labl   3)MultiField
+1810 '---------------------------
+1820 'SearchCompleted:
+1830 LOCATE 25,1:PRINT "Search completed...                 press the Anykey";
+1840 GOSUB 1920 'ScreenPauseTilKeyPress
+1850 GOTO 630 'MainMenu
+1860 '---------------------------
+1870 'NoMatchFound:
+1880 LOCATE 25,1:PRINT "Sorry, no match found.  Please try again.           ";
+1890 GOSUB 1920 'ScreenPauseTilKeyPress
+1900 GOTO 630 'MainMenu
+1910 '---------------------------
+1920 'ScreenScrollingPauser:
+1930 KP$=INKEY$:IF KP$="" THEN 1930 'Wait for keypress
+1940 RETURN 'to any of many calling subroutines...
+1950 '---------------------------
+1960 'ReadDataCard:
+1970 READ V$(1,1),V$(2,1),V$(3,1),V$(4,1),V$(5,1),V$(6,1)
+1980 RETURN 'to calling subroutine ie CountData,...
+1990 '---------------------------
+2000 'PrintDataCard2Screen:
+2010 PRINT V$(1,1);"   ";V$(2,1)
+2020 PRINT V$(3,1)
+2030 PRINT V$(4,1);" - ";V$(5,1)
+2040 PRINT V$(6,1)
+2050 PRINT
+2060 FOR DL=1 TO 4000:NEXT
+2070 RETURN
+2080 '---------------------------
+2090 'PrintAllData2Printer:    This is a small program within a program *
+2100 CLS
+2110 RESTORE
+2120 READ RTDNO$,COMPOSER$,TITLE$,CONDUCTOR$,GROUP$,LABEL$
+2130   IF LINECOUNT=4 THEN GOSUB 1760    '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="47142435282b2b14332837077315222428352334">[email&#160;protected]</a>
+2140   IF RTDNO$="end of data" THEN END  'or goto 440 main menu
+2150   PRINT RTDNO$;TAB(6)COMPOSER$
+2160   PRINT TAB(6)TITLE$
+2170   PRINT TAB(6) CONDUCTOR$;" - ";GROUP$
+2180   PRINT TAB(6) LABEL$
+2190   PRINT
+2200   LINECOUNT=LINECOUNT+1
+2210   GOTO 2120 '^^^^^^^^^^^^^^^^^^^loop thru data printing everything...
+2220 END
+2230 '---------------------------
+2240 'Exit2DOS:
+2250 CLS
+2260 LOCATE 10,20
+2270 PRINT V$(0,0);V$(0,1);V$(0,2);
+2280 FOR DL=1 TO 40000!:NEXT:RUN"MNU-DBAS.BAS
+2290 '---------------------------
+2300 'DataCards:
+2310 '      1       2               3                     4                  5                             6
+2320 '    RTDNO  ---COMPOSER---    -----TITLE------    ---CONDUCTOR-----    -----GROUP-----          ---LABEL INFORMATION---
+2330 DATA"100", "A  composer    ", "  title         ", "  conductor      ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2340 DATA"200", "B  composer    ", "  title         ", "  conductor      ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2350 DATA"202", "Barbar, Samuel", "Overture to The School for Scandal 8:00", "Gerard Schwarz", "Seattle Sym", "Delos DE 3078 CD-DDD 1990 06"
+2360 DATA"202", " Gershwin, George", "An American in Paris 21:44", "Gerard Schwarz", "Seattle Sym w Charles Butler-Trumpet", "Delos DE 3078 CD-DDD 1990 06"
+2370 DATA"202", "Bernstein, Leonard", "Arias & Barcarolles 31:37", "Gerard Schwarz", "Seattle Sym orch by Bright Sheng", "Delos DE 3078 CD-DDD 1990 06"
+2380 DATA"203", "Barbar, Samuel", "Sym #1 in one movement, Opus 9 19:40","Carter Nice","Ljubljana Sym Orch", "VOXBOX(2) CD-DDD CDX5091 06"
+2390 DATA"203", "Barbar, Samuel", "Sym #2, Opus 19 30:23", "Andrew Schenk", "New Zealand Sym Orch", "VoxBox(2) CD-DDD CDX5091 00"
+2400 DATA"203", "Barbar, Samuel", "Concerto for Piano & Orch Opus 38 28:30", "David Epstein", "MIT Sym Orch w Abbot Ruskin-piano", "VoxBox(2) CD-DDD CDX5091 00"
+2410 DATA"203", " Hanson, Howard", "Concerto for Piano & Orch 20:19", "David Epstein", "MIT Sym Orch w Eugene List-Piano", "VoxBox(2) CD-DDD CDX5091 00"
+2420 DATA"203", "Barbar, Samuel", "Overture to the School for Scandal Opus 5 8:35", "Andrew Schenk", "New Zealand Sym Orch", "VoxBox(2) CD-DDD CDX5091 00"
+2430 DATA"203", "Barbar, Samuel", "Music for a Scene from Shelley Opus 7 9:53", "Andrew Schenk", "New Zealand Sym Orch", "VoxBox(2) CD-DDD CDX5091 00"
+2440 DATA"203", "Barbar, Samuel", "Essay no. 1 for Orch 7:36", "Andrew Schenk", "New Zealand Sym Orch", "VoxBox(2) CD-DDD CDX5091 00"
+2450 DATA"203", "Barbar, Samuel", "Adagio for Strings (from the string quartet, Opus 11) 9:03", "Andrew Schenk", "New Zealand Sym Orch", VoxBox(2) CD-DDD CDX5091 00"
+2460 DATA"204", "      ","Three Decades of James Bond 38:10"," ", "London Pops Orch", "BCCD 276 CD-CCC 1993 06"
+2470 DATA"205", "Bland, Ed", "Urban Classical (a collection of various works)", " ", "  ", "Cambria CD-1026 1994 16"
+2480 DATA"300", "C  composer    ", "    title       ", "   conductor     ", "    group-artist     ", "RCA 55-115 '1961' 06"
+2490 DATA"303", "Cimarosa, Domenico", "Le Astuzie Femminili (Italian Opera)","Mario Rossi","Orch 'A. Scarlatti' e Coro di Napoli della RAI", "Memories HR 4285/86 CD(2)-AAD 1959 $reg25 04"
+2500 DATA"305", "Copland, Aaron", "OUT WEST! Tone poems of American West - Billy the Kid (Ballet Suite) 20:45", "Gerard Schwartz","Seattle Sym", "Delos DE 3104 CD-DDD 1992 06"
+2510 DATA"305", "Copland, Aaron", "OUT WEST! Tone poems of American West - Rodeo (Four Dance Episodes) 19:23", "Gerard Schwartz","Seattle Sym", "Delos DE 3104 CD-DDD 1992 00"
+2520 DATA"305", " Grofe, Ferde", "OUT WEST! Tone poems of the American West - Grand Canyon Suite 33:25", "Gerard Schwartz","Seattle Sym", "Delos DE 3104 CD-DDD 1992 00"
+2530 DATA"400", "D  composer    ", "    title       ", "   conductor     ", "    group-artist     ", "RCA 55-115 '1961' 06"
+2540 DATA"500", "E  composer    ", "    title       ", "   conductor     ", "    group-artist     ", "RCA 55-115 '1961' 06"
+2550 DATA"600", "F  composer    ", "    title       ", "   conductor     ", "    group-artist     ", "RCA 55-115 '1961' 06"
+2560 DATA"700", "G  composer    ", "    title       ", "   conductor     ", "    group-artist     ", "RCA 55-115 '1961' 06"
+2570 DATA"702", "Glinka, M.     ", "Ivan Susanin & Rusian & Ludmila - excerpts", "Evgeni Svetlanov","USSR Sym Orch & USSR Bolshoi Theatre Orch", Melodiya Record Co. SUCD 10-00166 CD-AAD 1963-1984 06"
+2580 DATA"702", "Glinka, M.     ", "Andante Cantabile & Rondo in D minor 17:05", "Evgeni Svetlanov","USSR Sym Orch & USSR Bolshoi Theatre Orch", Melodiya Record Co. SUCD 10-00166 CD-AAD 1990 00"
+2590 DATA"703", "Gorecki, Henryk", "Sym #3 Sym of Sorrowful Songs 55:49", "Antoni Wit","Polish National Radio Sym Orch-Zofia Kilanowicz Soprano","NAXOS 8.550822 CD-DDD 1993 06"
+2600 DATA"703", "Gorecki, Henryk", "3 Olden Style Pieces 9:57","Antoni Wit","Polish National Radio Sym Orch-Zofia Kilanowicz Soprano","NAXOS 8.550822 CD-DDD 1993 00"
+2610 DATA"755", "Griffes, Charles","Pleasure Dome of Kubla Khan 10:48","Gerard Schwarz","Seattle Sym","Delos DE 3099 CD-DDD 1990 06"
+2620 DATA"755", "Griffes, Charles","White Peacock 6:06","Gerard Schwarz","Seattle Sym w Bernard Shapiro-Oboe","Delos DE 3099 CD-DDD 1990 00"
+2630 DATA"755", "Griffes, Charles","Poem for Flute & Orch 11:29","Gerard Schwarz","Seattle Sym w Scott Goff-Flute","Delos DE 3099 CD-DDD 1990 00"
+2640 DATA"755", "Griffes, Charles","Three Tone Pictures 8:15 (Lake at Evening, Vale of Dreams, Night Winds)","Gerard Schwarz","Seattle Sym w Victoria Bogdashevskaya-Piano","Delos DE 3099 CD-DDD 1990 00"
+2650 DATA"755", "Griffes, Charles","Bacchanale","Gerard Schwarz","Seattle Sym","Delos DE 3099 CD-DDD 1990 00"
+2660 DATA"800", "H  composer    ", "    title       ", "   conductor     ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2670 DATA"900", "I  composer    ", "    title       ", "   conductor     ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2680 DATA"1000", "J  composer    ", "    title       ", "   conductor     ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2690 DATA"1100", "K  composer    ", "    title       ", "   conductor     ", "Chicago Sym          ", "RCA 55-115 '1961' 06"
+2700 DATA"1200", "L  composer    ", "    title       ", "   conductor     ", "Group              ", "Label "
+2710 DATA"1300", "M  composer    ", "    title       ", "   conductor     ", "Group              ", "Label "
+2720 DATA"1303", "Mussorgsky, Modest","Pictures at an Exhibition-Ravel's orch. mm:ss", "George Szell", "Cleveland Orch", "Sony Essential Classics SBK-48-1162 CD-ADD 1963 07"
+2730 DATA"1303", " Kodaly, Zoltan","Hary Janos Suite mm:ss", "George Szell", "Cleveland Orch", "Sony Essential Classics SBK-48-1162 CD-ADD 1969 00"
+2740 DATA"1303", " Prokofiev, Sergi","Lieutenant Kije - Symphonic Suite, Op 60 mm:ss", "George Szell", "Cleveland Orch", "Sony Essential Classics SBK-48-1162 CD-ADD 1969 00"
+2750 DATA"1305", "Mussorgsky, Modest","Pictures from an Exhibition MM:SS", "Lorin Maazel", "New Philharmonia Orch", "EMI Encore CDE-7-67781-2 CD-ADD 1963 07"
+2760 DATA"1305", " Ravel, Maurice", "Bolero 13:05", "Lorin Maazel", "New Philharmonia Orch", "EMI Encore CDE-7-67781-2 CD-ADD 1972 00"
+2770 DATA"1305", " Ravel, Maurice", "Pavane pour une Infante defunte 6:23", "Lorin Maazel", "New Philharmonia Orch", "EMI Encore CDE-7-67781-2 CD-ADD 1972 00"
+2780 DATA"1305", " Ravel, Maurice", "Alborada del gracioso 7:49", "Lorin Maazel", "New Philharmonia Orch", "EMI Encore CDE-7-67781-2 CD-ADD 1972 00"
+2790 DATA"1305", " Ravel, Maurice", "La Valse 12:00", "Lorin Maazel", "New Philharmonia Orch", "EMI Encore CDE-7-67781-2 CD-ADD 1972 00"
+2800 DATA"1400", "N    composer  ", "    title            ", "    conductor    ", "Group              ", "Label "
+2810 DATA"1500", "O    composer  ", "    title            ", "    conductor    ", "Group              ", "Label "
+2820 DATA"1505", "Orff","Carmina Burana hh:mm", "Eugene Ormandy","Philadelphia Orch", "Sony Essential Classics SBK-47668 CD-ADD 1960 08"
+2830 DATA"1600", "P    composer  ", "    title            ", "    conductor    ","     group-artist   ", "   label"
+2840 DATA"1605", "Praetorius, Michael", "Terpsichore 1612: Dances", "David Munrow", "The Early Music Consort of London", "EMI Classics CDM-7-69024-2 CD-ADD 1974 15"
+2850 DATA"1605", "Praetorius, Michael", "Motets from Musae Sioniae and other collections", "David Munrow", "The Early Music Consort of London", "EMI Classics CDM-7-69024-2 CD-ADD 1974 00"
+2860 DATA"1616", "Prokofiev, Sergey", "Romeo & Juliet (a complete Ballet in 4 acts) 151:09", "Andrew Mogrelia", "National Sym Orch of Ukraine", "NAXOS(2) 8.553184-5 CD-DDD 1994 07"
+2870 DATA"1700", "Q    composer  ", "    title             ", "    conductor        ", "Group              ", "Label "
+2880 DATA"1800", "R    composer  ", "    title             ", "    conductor        ", "Group              ", "Label "
+2890 DATA"1805", "Rautavaara, Einojuhani", "Cantus Arcticus 17:12", "Max Pommer", "Leipzig Radio Sym Orch", "BMG Catalyst 09026-62671-2 CD-DDD 1994 15"
+2900 DATA"1805", "Rautavaara, Einojuhani", "String Quartet #4 22:03", "Max Pommer", "Sirius String Quartet", "BMG Catalyst 09026-62671-2 CD-DDD 1994 00"
+2910 DATA"1805", "Rautavaara, Einojuhani", "Sym #5 31:34", "Max Pommer", "Leipzig Radio Sym Orch", "BMG Catalyst 09026-62671-2 CD-DDD 1994 00"
+2920 DATA"1807", "Reiche, Anton", "Wind Quintets 6,  9 & 21  (27:36, 21:02, 26:55) vol #5", "   ", "Abert Schweitzer Quintet", "CPO 999 026-2 CD-DDD 1988 04"
+2930 DATA"1808", "Reiche, Anton", "Wind Quintets 2, 13 & 25  (24:59, 26:08, 22:33) vol #7", "   ", "Abert Schweitzer Quintet", "CPO 999 028-2 CD-DDD 1988 04"
+2940 DATA"1809", "Reiche, Anton", "Wind Quintets 7, 23 & 18  (26:51, 24:09, 26:44) vol #6", "   ", "Abert Schweitzer Quintet", "CPO 999 027-2 CD-DDD 1988 04"
+2950 DATA"1811", "Rimsky-Korsakov", "Scheherazade Suite after Arabian Nights, Op 35 50:00","Evgeni Svetlanov","U.S.S.R. Sym Orch","Melodiya Record Company, Russia SUCD 10-00180 CD-AAD 1969 06"
+2960 DATA"1811", "Rimsky-Korsakov", "Sadko, Musical Picture Op 5 10:49","Evgeni Svetlanov","U.S.S.R. Sym Orch","Melodiya Record Company, Russia SUCD 10-00180 CD-AAD 1965 00"
+2970 DATA"1811", "Rimsky-Korsakov", "Fantasia on Serbian Themes, Op.6 06:56","Evgeni Svetlanov","U.S.S.R. Sym Orch","Melodiya Record Company, Russia SUCD 10-00180 CD-AAD 1965 00"
+2980 DATA"1811", "Rimsky-Korsakov", "At the Tomb, prelude to the memory of M. Belyaev Op.61 4:18","Evgeni Svetlanov","U.S.S.R. Sym Orch","Melodiya Record Company, Russia SUCD 10-00180 CD-AAD 1965 00"
+2990 DATA"1812", "     unknown   ", "Red Army Choir & Band", "Victor Fedorov", "Red Army Choir & Band", "NAXOS 8.553154 CD-DDD 1994 07"
+3000 DATA"1900", "S    composer  ", "    title                ", "   conductor        ", "Group              ", "Label "
+3010 DATA"1901", "Saint-Saens, Camille", "Carnival of the Animals", "Lalo Schifrin", "    not entered yet", "Dove Audio, Allegro 30700 CD-??? 19nn 04"
+3020 DATA"1904", "Shostakovich, D.", "Preludes & Fugues for Piano Op 87 nos. 11-16 46:45", "Tatiana Nikolaeva", "                 ","Melodiya Record Company, Russia SUCD 10-00074 CD-ADD 1987 07"
+3030 DATA"1905", "Schubert, Franz", "Sonata for Viola & Piano in A minor 25:00", "Valeri Gergiev", "Moscow Philharmony Orch", "Melodiya Record Company, Russia SUCD 10-00540 1986 07"
+3040 DATA"1905", "Stravinsky, Igor", "Chanson Russe 4:56", "Valeri Gergiev", "Moscow Philharmony Orch", "Melodiya Record Company, Russia SUCD 10-00540 1986 00"
+3050 DATA"1905", " Tchaikovsky, A.", "Concerto for Viola & Orch 22:37", "Valeri Gergiev", "Moscow Philharmony Orch", "Melodiya Record Company, Russia SUCD 10-00540 1986 00"
+3060 DATA"1905", " Beriot, Ch.", "Scene de Ballet, Op 100  10:37", "Valeri Gergiev", "Moscow Philharmony Orch", "Melodiya Record Company, Russia SUCD 10-00540 1986 00"
+3070 DATA"2000", "T    composer  ", "    title                ", "   conductor        ", "Group              ", "Label "
+3080 DATA"2001", "Taylor, Deems", "Thru the Looking Glass 31:24", "Gerard Schwarz", "Seattle Sym", "Delos DE 3099 CD-DDD 1990 00"
+3090 DATA"2005", "Tchaikovsky", "Capriccio Italien, Op 45 16:16","Eugene Ormandy","Philadelphia Orch","CBS Odyssey MKB-42248 CD-ADD 1989 06"
+3100 DATA"2005", "Tchaikovsky", "March Slave Op 31, 10:44","Eugene Ormandy","Philadelphia Orch","CBS Odyssey MKB-42248 CD-ADD 1989 00"
+3110 DATA"2005", " Rimsky-Korsakov", "Capriccio Espagnol, Op 34 16:00","Eugene Ormandy","Philadelphia Orch","CBS Odyssey MKB-42248 CD-ADD 1989 00"
+3120 DATA"2005", " Rimsky-Korsakov", "Russian Easter Overture, Op 36 14:22","Eugene Ormandy","Philadelphia Orch","CBS Odyssey MKB-42248 CD-ADD 1989 00"
+3130 DATA"2006", "Tchaikovsky", "1812 Overture, 15:26","Vato Kahi","Georgian Festival Orch","Sony Infinity Digital QK-64562 CD-DDD 1994 06"
+3140 DATA"2006", " Borodin, Alexander", "Polovtsian Dances 12:03","Jahni Mardjani","Georgian Festival Orch", "Sony Infinity Digital QK-64562 CD-DDD 1992 00"
+3150 DATA"2006", " Glinka, Mikhail", "Overture to Rustan & Lyudmila 5:19", "Stanislav Gorkovenko", "Saint Petersburg Radio & TV Sym Orch", "Sony Infinity Digital QK-64562 CD-DDD 1995 00"
+3160 DATA"2006", " Glinka, Mikhail", "Dances from Act III of Rustan & Lyudmila 13:37", "Stanislav Gorkovenko", "Saint Petersburg Radio & TV Sym Orch", "Sony Infinity Digital QK-64562 CD-DDD 1995 00"
+3170 DATA"2006", " Glinka, Mikhail", "Overture to A Life for the Czar 9:40", "Stanislav Gorkovenko", "Saint Petersburg Radio & TV Sym Orch", "Sony Infinity Digital QK-64562 CD-DDD 1995 00"
+3180 DATA"2006", " Glinka, Mikhail", "Waltz Fantasia in B Minor 9:04", "Stanislav Gorkovenko", "Saint Petersburg Radio & TV Sym Orch", "Sony Infinity Digital QK-64562 CD-DDD 1995 00"
+3190 DATA"2100", "U    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3200 DATA"2200", "V    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3210 DATA"2205", "Vangelis","L'Apocalypse des Animaux", "Vangelis"," ","PolyDor PolyGramRecords 831403-2 CD-AAD 1973 15"
+3220 DATA"2205", "Vangelis","Soil Festivities", "Vangelis"," ","PolyDor 8231396-2 CD-AAD 1984 15"
+3230 DATA"2300", "W    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3240 DATA"2400", "X    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3250 DATA"2500", "Y    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3260 DATA"2600", "Z    composer  ", "    title                ", "    conductor        ", "    group              ", "    label "
+3270 DATA"end of data",,,,,
+3280 END
+3290 '-----------------------------
+3300 'Embedded Commands
+3310 '              SAVE"MUSIC.DB",A
+3320  CLS:LIST 190-390  'roadmap of subroutines
+3330  CLS:LIST 390-520  'display variable names
+
+</pre>
+
+<hr>
+
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+<a href="martists.html#top">TOP</a><br>
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Return to <a href="mus-toc.html">Music</a> Table of Contents><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595258" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595258&amp;f=us-w1" ALT=1 WIDTH=1 HEIGHT=1>

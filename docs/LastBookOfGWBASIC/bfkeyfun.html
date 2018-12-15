@@ -1,0 +1,338 @@
+
+<html>
+<!--
+123456789 123456789 123456789 123456789 123456789 1234567890
+ -->
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <meta name="author" content="Joseph_Sixpack"/>
+  <meta name="keywords" content="gw-basic, gw-basic programs, programming gw-basic, last book of gw-basic"/>
+  <meta name="description" content="Function key programming w GW-BASIC"/>
+  <title>Drawing boxes and Language support with GW-BASIC's high order ascii characters</title>
+</head>
+
+<a name="top"></a>
+<center><h1>Fun with Function Keys</h1></center>
+<center><h5>or</h5></center>
+<center><h3>Programming the Function Keys to assist</h3></center>
+<center><h3>Drawing Lines or Writing Foreign Languages</h3></center>
+
+Back to <a href="btoc.html">GW-BASIC Table of Contents</a><br>
+Back to <a href="toc.html">Frankenbook's</a> Table of Contents<br>
+<hr>
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+<pre>The following eleven programs simply change the Function keys
+to draw box drawing characters or allow the insertion of some 
+special pronounciation characters into French, German or 
+Spanish language writing.
+
+There is a lot more you can do with the function keys within 
+a program by using them to call subroutines, merge programs 
+or data but none of that was ever needed by a Joseph_Sixpack.
+There are a lot of tricks that GW-BASIC can do that a 
+Joseph_Sixpack doesn't need to do.
+
+Anyhow here is the first of the programs that change the 
+function keys to enable easier box drawing.
+<hr>
+<center><h4>Single Line Box Drawing ala WordStar</h4></center>
+10 'Configure Function Keys vertical is single horizonal is single
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(179)
+40 KEY 2, CHR$(196)
+50 KEY 3, CHR$(218)
+60 KEY 4, CHR$(191)
+70 KEY 5, CHR$(192)
+80 KEY 6, CHR$(217)
+90 KEY 7, CHR$(194)
+100 KEY 8, CHR$(193)
+110 KEY 9, CHR$(195)
+120 KEY 10, CHR$(180)
+130 '      cross intersect is chr$(197)
+140 ' run"ascii.bas 'for other chr$(???) values
+150 '    save"DRAWV1H1.BAS",a
+<hr>
+<center><h4>Single Vertical, Double Horizontal</h4></center>
+10 'Configure Function Keys verticals are single, horizonals are double
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(179)
+40 KEY 2, CHR$(205)
+50 KEY 3, CHR$(213)
+60 KEY 4, CHR$(184)
+70 KEY 5, CHR$(212)
+80 KEY 6, CHR$(190)
+90 KEY 7, CHR$(209)
+100 KEY 8, CHR$(207)
+110 KEY 9, CHR$(198)
+120 KEY 10, CHR$(181)
+130 '      cross intersect is chr$(216)
+140 ' run"ascii.bas 'for other chr$(???) values
+150 '    save"DRAWV1H2.BAS",a
+<hr>
+<center><h4>Double Vertical, Single Horizontal</h4></center>
+10 'Configure Function Keys verticals are double, horizonals are single
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(186)
+40 KEY 2, CHR$(196)
+50 KEY 3, CHR$(214)
+60 KEY 4, CHR$(183)
+70 KEY 5, CHR$(211)
+80 KEY 6, CHR$(189)
+90 KEY 7, CHR$(210)
+100 KEY 8, CHR$(208)
+110 KEY 9, CHR$(199)
+120 KEY 10, CHR$(182)
+130 '      cross intersect is chr$(215)
+140 ' run"ascii.bas 'for other chr$(???) values
+150 '    save"DRAWV2H1.BAS",a
+<hr>
+<center><h4>Double Vertical, Double Horizontal</h4></center>
+10 'Configure Function Keys verticals are double horizonals are double
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(186)
+40 KEY 2, CHR$(205)
+50 KEY 3, CHR$(201)
+60 KEY 4, CHR$(187)
+70 KEY 5, CHR$(200)
+80 KEY 6, CHR$(188)
+90 KEY 7, CHR$(203)
+100 KEY 8, CHR$(202)
+110 KEY 9, CHR$(204)
+120 KEY 10, CHR$(185)
+130 '      cross intersect is chr$(206)
+140 ' run"ascii.bas 'for other chr$(???) values
+150 '    save"DRAWV2H2.BAS",a
+<hr>
+<h4><center>Function keys dressed up to use as program keys</center></h4>
+
+The next three programs, draw boxes.
+
+10 CLS:key on
+20 LOCATE,,,0,7      'generates a block cursor
+30 '
+40 'ProgramFunctionKeys:
+50 'use the following six lines to draw the boxes around the Function keys
+60 'in the mnu-main.bas and other menuing screens.
+70 KEY 1,CHR$(218)  'F1 = upper left corner
+80 KEY 2,CHR$(196)  'F2 = top and bottom longitudinal bar
+90 KEY 3,CHR$(191)  'F3 = upper right corner
+100 KEY 4,CHR$(179)  'F4 = vertical bar
+110 KEY 5,CHR$(192)  'F5 = bottom left corner
+120 KEY 6,CHR$(217)  'F6 = bottom right corner
+130 'Now draw Function Key Outlines Using F1 to F6 Keys:
+140 'Don't forget the semi-colon at the end of each line.
+150 'and enclose the box drawing characters in quotes.
+160 LOCATE 22,1
+170 PRINT"ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿";
+180 PRINT"³ HELP ³³      ³³      ³³      ³³      ³³      ³³      ³³      ³³PRIOR ³³ NEXT ³";
+190 PRINT"ÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙ";
+200 'EmbeddedCommands:
+210 '     SAVE"LINEDRAW.BAS",A
+<hr>
+<center><h4>The same thing only a tad different</h4></center>
+10 CLS:key on: LOCATE,,,0,7      'generates a block cursor
+30 '
+40 'ProgramFunctionKeys:
+50 'use the following six lines to draw the boxes around the Function keys
+60 'in the mnu-main.bas and other menuing screens.
+70 KEY 1,CHR$(218)  'F1 = upper left corner
+80 KEY 2,CHR$(196)  'F2 = top and bottom longitudinal bar
+90 KEY 3,CHR$(191)  'F3 = upper right corner
+100 KEY 4,CHR$(179)  'F4 = vertical bar
+110 KEY 5,CHR$(192)  'F5 = bottom left corner
+120 KEY 6,CHR$(217)  'F6 = bottom right corner
+130 '
+140 'Now draw Function Key Outlines Using F1 to F6 Keys:
+150 'Don't forget the semi-colon at the end of each line.
+160 LOCATE 22,1
+170 PRINT"ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿ÚÄÄÄÄÄÄ¿";
+190 PRINT"³ HELP ³³      ³³      ³³      ³³      ³³      ³³      ³³      ³³PRIOR ³³ NEXT ³";
+200 PRINT"ÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙÀÄÄÄÄÄÄÙ";
+210 '
+220 '     SAVE"LINDRAW1.BAS",A
+<hr>
+<h4><center>Line Drawing the old fashioned way</center></h4>
+10  'Printing Boxes the old fashioned way, one character at a time.
+20 '
+30 'PrintTopLine:
+40 I=0
+50 WHILE I<10
+60   PRINT CHR$(218);     'PrintUpperLeftCorner
+70     J=0
+80     WHILE J < 6
+90       PRINT CHR$(196); 'PrintTopBar x 6
+100       J=J+1
+110     WEND
+120   PRINT CHR$(191);    'PrintUpperRightCorner
+130   I=I+1
+140 WEND
+150 '
+160 'PrintMiddleLine:
+170 I=0
+180 WHILE I<10
+190   PRINT CHR$(179);"      ";CHR$(179); 'prints vertical bars & spaces
+200   I=I+1
+210 WEND
+220 '
+230 'PrintLowerLine:
+240 I=0
+250 WHILE I < 10
+260   PRINT CHR$(192);     'BottomLeftCorner
+270   J=0
+280     WHILE J<6
+290       PRINT CHR$(196); 'PrintBottomBar x 6
+300       J=J+1
+310     WEND
+320   PRINT CHR$(217);     'PrintBottomRightCorner
+330   I=I+1
+340 WEND
+350 END
+360 '---------------------------
+370 'Embedded Commands:
+380 '   save"lindraw2.bas",a
+390 '   cls:list 10-150     'print upper line
+400 '   cls:list 150-220    'print middle line
+410 '   cls:list 220-360    'print bottom line
+420 '   cls:list 360-420    'embedded commands
+<hr>
+<center><h4>Foreign Language Assistance</h4></center>
+The next four programs alter the function keys to assist
+with writing in foreign languages.
+<center><h4>G E R M A N</h4></center>
+10 'Configure Function Keys for umlaut vowels
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(142)  'umlaut A
+40 KEY 2, CHR$(143)  'umlaut a
+50 KEY 3, CHR$(255)  'left blank
+60 KEY 4, CHR$(137)  'umlaut e
+70 KEY 5, CHR$(255)  'left blank
+80 KEY 6, CHR$(139)  'umlaut i
+90 KEY 7, CHR$(153)  'umlaut O
+100 KEY 8, CHR$(148)  'umlaut o
+110 KEY 9, CHR$(154)  'umlaut U
+120 KEY 10, CHR$(129)  'umlaut u
+130 ' run"ascii.bas 'for other chr$(???) values
+140 '    save"german.bas",a
+<hr>
+<center><h4>F R E N C H</h4></center>
+10 'Configure Function Keys for French writing
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(130) 'e accent (aigu)
+40 KEY 2, CHR$(133) 'a grave
+50 KEY 3, CHR$(151) 'u grave
+60 KEY 4, CHR$(131) 'a circonflexe
+70 KEY 5, CHR$(136) 'e circonflexe
+80 KEY 6, CHR$(140) 'i circonflexe
+90 KEY 7, CHR$(147) 'o circonflexe
+100 KEY 8, CHR$(150) 'u circonflexe
+110 KEY 9, CHR$(135) 'c cedille
+120 KEY 10, CHR$(128) 'C cedille
+130 ' run"ascii.bas 'for other chr$(???) values
+140 '    save"french.BAS",a
+<hr>
+<center><h4>S P A N I S H</h4></center>
+10 'Configure Function Keys for Spanish writing
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(160) 'a accent
+40 KEY 2, CHR$(130) 'e accent
+50 KEY 3, CHR$(161) 'i accent
+60 KEY 4, CHR$(162) 'o accent
+70 KEY 5, CHR$(163) 'u accent
+80 KEY 6, CHR$(173) 'upside down exclamation point
+90 KEY 7, CHR$(168) 'upside down question mark
+100 KEY 8, CHR$(164) 'n tilde
+110 KEY 9, CHR$(165) 'N tilde
+120 KEY 10, CHR$(255) 'reserved for the peso
+130 ' run"ascii.bas 'for other chr$(???) values
+140 '    save"spanish.bas",a
+<hr>
+<center><h4>C O O K I N G</h4></center>
+10 'Configure Function Keys for writing recipes
+20 CLS:KEY ON:LOCATE ,,,0,7
+30 KEY 1, CHR$(160) 'a accent  (voila)
+40 KEY 2, CHR$(130) 'e accent
+50 KEY 3, CHR$(241) 'plus or minus
+60 KEY 4, CHR$(247) 'approximately equal
+70 KEY 5, CHR$(164) 'n tilde
+80 KEY 6, CHR$(173) 'upside down exclamation point
+90 KEY 7, CHR$(168) 'upside down question mark
+100 KEY 8, CHR$(171) 'one half
+110 KEY 9, CHR$(172) 'one fourth
+120 KEY 10, CHR$(248) 'degrees
+130 ' run"ascii.bas 'for other chr$(???) values
+140 '    save"cooking.bas",a
+</pre>
+</body>
+<hr>
+Go to <a href="bfkeyfun.html#top">TOP</a> of Page<br>
+Back to GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Back to GW-BASIC <a href="bindex.html">Index</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595138" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595138&amp;f=us-w8" ALT=1 WIDTH=1 HEIGHT=1>

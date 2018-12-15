@@ -1,0 +1,312 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Form Letters using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>Form Letter Template</h1></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>
+10 ' FL.BAS  (Form Letter)        an empty form letter program
+20 ' programmed for MJB by dad Nov 1st, 1997 a form letter machine to handle
+30 ' gobby correspondence that occasionally comes up... ie: RIP notification,
+40 ' tenant stuff, and God only knows what else coming down the pike...
+50 '---------------------------------
+60 'Program:
+70 GOSUB 120 'VariableAssignments
+80 GOSUB 210 'FunctionKeys
+90 GOSUB 270 'MainMenu
+100 END
+110 '--------------------------------
+120 'VariableAssignments:
+130 KEY OFF
+140 VIEW PRINT
+150 CLS
+160 COLOR 7,0 
+170 MT=6    'MT=margin top
+180 TAB=10
+190 RETURN
+200 '--------------------------------
+210 'FunctionKeys:
+220 FOR I=1 TO 10
+230   KEY I,""
+240   NEXT I                 'turn off function keys
+250 RETURN'to Program,MainMenu
+260 '-------------------------------
+270 'MainMenu:
+280 CLS
+290 RESTORE
+300 S=25:T=30:U=35
+310 PRINT TAB(2) LEFT$(TIME$,5);TAB(U)"Form letters";TAB(70) DATE$:PRINT
+320 PRINT TAB(S) "Select DataFile Filter Number:" :PRINT
+330 PRINT TAB(T) "1...All letters
+340 PRINT TAB(T) "2...Business  Announcements
+350 PRINT TAB(T) "3...Customer  Notification
+360 PRINT TAB(T) "4...Emergency Notification
+370 PRINT TAB(T) "5...Relatives/Friends
+380 PRINT TAB(T) "6...Bird Club Correspondence
+390 PRINT TAB(T) "7...Christmas Letter w Card
+400 PRINT TAB(T) "8...Tenant Related Letters
+410 PRINT TAB(T) "9...Letters to Colleagues
+420 PRINT TAB(T) "0...RFQ from Vendors/Suppliers
+430 PRINT
+440 PRINT TAB(T) "P...Print letters
+450 PRINT TAB(T) "E...Envelopes
+460 PRINT TAB(T) "F...Font Control Codes to Printer
+470 PRINT TAB(T) "S...Save Program & Data Changes
+480 PRINT TAB(T) "Q...Quit to GW-BASIC Interpreter
+490 PRINT TAB(T) "X...eXit to DOS
+495 ' -----------------
+500 KP$=INKEY$:IF KP$=""  THEN 500 'screen pauser
+505 ' -----------------
+510 IF KP$="P" OR KP$="p" THEN GOTO 1290'PrintoutLetters
+520 IF KP$="E" OR KP$="e" THEN GOTO 1620'PrintEnvelopes
+530 IF KP$="F" OR KP$="f" THEN GOTO 1650'SendControlCodes2Printer
+540 IF KP$="S" OR KP$="s" THEN GOTO 1470'EmbeddedCommands
+550 IF KP$="Q" OR KP$="q" THEN CLS:LIST 1330-1460
+560 IF KP$="X" OR KP$="x" THEN RUN"MNU-FLET.BAS
+570 CHOICE$="0123456789"
+580 '         if keypress$ is in choice$ then hop over LOOPback to
+590 IF INSTR(CHOICE$,KP$)>0 THEN 620'PrintSelectLetter2Screen
+600 GOTO 270 'loopback to MainMenu ^^^^^^^^^^^^^^^^^^^^^
+610 '-------------------------------
+620 'PrintSelectLetter2Screen:
+630 READ SALU$,FLAG$,PHON$,NAME.$,ADD1$,ADD2$,CSZ$
+640 IF SALU$="ZZZ" THEN GOTO 270'MainMenu
+650 IF INSTR(FLAG$,KP$)=0 THEN 620 'IF record doesn't contain a matching flag
+660 ' ^^^^^^^^^^^^^^^^^^^^^^^^^^^^ 'value THEN do the conditional loop
+670 '-------------------------------
+680 'TheActualLetter:
+690 CLS
+700 COLOR 14,4
+710 CLS
+720 FOR I=1 TO MT
+730  PRINT
+740  NEXT I   '1" margin on top of page
+750 PRINT TAB(10) DATE$
+760 FOR I=1 TO 4
+770  PRINT
+780  NEXT I
+790 PRINT TAB(10) SALU$
+800 PRINT
+810 PRINT TAB(10) "How are you?  We are fine.  Well, it is Christmas time again
+820 PRINT TAB(10) "and my wife shot Santa.  She is retiring this year so i won't
+830 PRINT TAB(10) "have a plugged nickel to buy you anything with.
+840 PRINT TAB(10) "
+850 PRINT TAB(10) "Please tell us your best price & delivery for partno 333-444
+860 PRINT TAB(10) "quantity 10 dozen (144)  or is that 12 dozen?  let's see...
+870 PRINT TAB(10) "10 x 12 = 120... no that isn't right, it must be 12 dozen.
+880 KP$=INKEY$:IF KP$="" THEN 880 'pause the screen and wait
+890 PRINT TAB(10) "
+900 PRINT TAB(10) "Funeral services will be at 3:30am Sunday Morning.
+910 PRINT TAB(10) "
+920 PRINT TAB(10) "Due to unfortunate cost increases in my grand style of living
+930 PRINT TAB(10) "all rents will be increased 300% next month only.  This will
+940 PRINT TAB(10) "help pay my liquor bill.
+950 PRINT TAB(10) "
+960 PRINT TAB(10) "Dear Sirs:  Somebody swiped my wallet with my credit cards
+970 PRINT TAB(10) "in it.  I know you told me to not leave home with them but
+980 PRINT TAB(10) "i feel it is necessary someone tell you that they are lost.
+990 PRINT TAB(10) "so if any liquor charges from Sam's liquor comes in, that
+1000 PRINT TAB(10) "wasn't me...
+1010 PRINT TAB(10) "
+1020 PRINT TAB(10) "Respectfully,
+1030 PRINT TAB(10) "
+1040 PRINT TAB(10) "
+1050 PRINT TAB(10) "
+1060 PRINT TAB(10) "Mr Joseph_Sixpack
+1070 PRINT TAB(10) "nnnnn Sllllll Ave.
+1080 PRINT TAB(10) "Hlllll City, CA 9nnnn
+1090 PRINT TAB(10) "(nnn) nnn-nnnn
+1100 PRINT TAB(10) "
+1110 KP$=INKEY$:IF KP$="" THEN 1110 'press the Anykey to continue
+1120 PRINT CHR$(12)
+1130 GOTO 620 'PrintSelectLetter2Screen ^^^^^^^^^^^^^^^^Loop for another letter
+1140 '---------------------------
+
+          This may need a little explanation here.
+The inline data (formletter datafile) is in 7 or 8 fields, 
+(your choice)  So each record of inline data really takes up 
+two DATA lines.  The names of the fields are in the two 
+lines following the commented out title line.  
+
+In the salutation field, notice the numbers 1 thru 4.  These 
+are only there to show you that the program in development 
+is in fact pulling up the right data from that record.  You 
+of course are not going to use any numbers in your 
+salutation.  You don't want your mother to get a letter 
+starting with:
+     14 Dear Mom...
+but until all the bugs are ironed out, it is a handy way to 
+see if all your comma delimited data is delimited.  Don't 
+forget the quotes around any field that is to be interpreted 
+as a $String field.
+
+1150 'FormLetterDataFile:
+1160 '     Saluation               Flag    Phone
+1170 '     FullName            Address1    Address2      CityStateZip
+1180 DATA "1  Dear John & Martha","1x7", "333-3333"
+1190 DATA "MM John J. Always","222 West 22nd St.","L.A. CA",
+1200 DATA "2  Dear Jim & Jane"   ,"127 ",  "333-3334"
+1210 DATA "MM Jim A. Dorkys","222 West 22nd St.", "Suite 222", "L.A. CA"
+1220 DATA "3  Dear Jack & Jill"  ,"13 7", "222-2222"
+1230 DATA "MM Jack J. Koways","222 West 22nd St.","L.A. CA",
+1240 DATA "4  Dear Jocko & Janice"  ,"14 7", "222-2222"
+1250 DATA "MM Jocko M. Puwugs","222 West 22nd St.","L.A. CA",
+1260 DATA "ZZZ",,,,,,
+
+The second field, called "flag" after the Salutation field, 
+is four bytes long, upon which the FormLetter program 
+decides just what it is, that it is supposed to print.
+
+The program is not finished of course.  It is just given 
+here as an example of how a single form letter program can 
+make decisions depending upon how you code your inline data 
+statements.  Nothing here is set in concrete so you can 
+change or alter any subroutine. 
+
+1270 '
+1280 '----------------------------
+1290 'PrintoutLetters:
+1300 CLS:PRINT"not implemented  yet..."
+1310 END
+1320 '
+1330 '----------------------------
+1340 'SubroutineRoadmap:
+1350 CLS:LIST   60-100  'Program
+1360 CLS:LIST  120-150  'VariableAssignments
+1370 CLS:LIST  270-600  'MainMenu
+1380 CLS:LIST  620-660  'PrintSelectLetters2Screen
+1390 CLS:LIST  680-950  'TheActualLetter (top half)
+1400 CLS:LIST  950-1130 'TheActualLetter (bottom half)
+1410 CLS:LIST 1150-1260 'FormLetterDataFiles
+1420 CLS:LIST 1290-1310 'PrintoutLetters
+1430 CLS:LIST 1340-1440 'SubroutineRoadmap
+1440 CLS:LIST 1470-1600 'EmbeddedCommands
+1450 CLS:LIST 1620-1630 'PrintEnvelopes
+1460 '----------------------------
+1470 'EmbeddedCommands:
+1480 CLS
+1490 LOCATE 5,1
+1500 PRINT TAB(10) "SAVE"+CHR$(34)+"FL.BAS"+CHR$(34)+",A"
+1510 PRINT
+1520 '        Send these PCL3 codes to printer for DRAFT mode printing
+1530 PRINT "  LPRINT CHR$(27)+CHR$(40)+CHR$(115)+CHR$(49)+CHR$(81);";
+1540 PRINT " 'draft mode"
+1550 PRINT
+1560 '        Send these PCL3 codes to printer for LETTER QUALITY printing
+1570 PRINT "  LPRINT CHR$(27)+CHR$(40)+CHR$(115)+CHR$(50)+CHR$(81);";
+1580 PRINT " 'letter quality
+1590 LOCATE 4,1
+1600 END
+1610 '---------------------------
+1620 'PrintEnvelopes:
+1630 'end
+1640 '--------------------------
+1650 'SendControlCodes2Printer:
+1660 '
+1670 '
+1680 'end
+1690 '          save"formletr.bas",a
+
+</pre>
+
+<hr>
+
+</body>
+
+<a href="bformletr.html#top">TOP</a><br>
+<a href="bindex.html">Index</a><br>
+<a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595135" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595135&amp;f=us-w6" ALT=1 WIDTH=1 HEIGHT=1>

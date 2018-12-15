@@ -1,0 +1,490 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>VHS Movie Lister using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Return to <a href="mov-toc.html">Movies</a> Table of Contents<br> 
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<center><h1>VHS Movie Lister</h1></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>
+10 ' vhsmovie.bas  Program by fhb4family
+20 '   rev 1.00 11/15/98  copied & modified from music.bas v1.10 of 10/5/98
+30 '   rev 1.01 11/18/98  variables and screen display changed for movie use.
+40 '   save"vhsmovie.bas",a
+50 '
+60 '
+70 '
+80 '
+90 '
+100 '
+110 '
+120 'Program:
+130 GOSUB 420 'Initialization
+140 GOSUB 550 'FunctionKeys
+150 GOSUB 590 'CountData
+160 GOSUB 650 'MainMenu
+170 PRINT "Ended at progam":END
+180 '--------------------------
+190 'SubroutineLocator:
+200 CLS:LIST  120-180  'Program
+210 CLS:LIST  420-530  'VariableInitialization
+220 CLS:LIST  550-570  'FunctionKeys
+230 CLS:LIST  590-640  'CountData     (variable=totalmovie)
+240 CLS:LIST  650-860  'MainMenu
+250 CLS:LIST  870-950  'ActionTakenOnKeyPress
+260 CLS:LIST  960-1220 'DisplayByTapeNumber:
+270 CLS:LIST 1230-1470 'DisplayBy (Title|Character|Actor|ProductionGroup|Label)
+280 CLS:LIST 1480-1770 'MultipleFieldSearches
+290 CLS:LIST 1740-1770 'ScreenScrollingPauser
+300 CLS:LIST 1780-1830 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="85d6e6f7eae9e9d6f1eaf5c5b1d7e0e6eaf7e1f6">[email&#160;protected]</a>
+310 CLS:LIST 1840-1880 'SearchCompleted-Go2MainMenu
+320 CLS:LIST 1890-1930 'NoMatchFound-Go2MainMenu
+330 CLS:LIST 1940-1970 'ScrollStop
+340 CLS:LIST 1980-2010 'ReadDataCard
+350 CLS:LIST 2020-2110 'PrintDataCard2Screen
+360 CLS:LIST 2120-2260 'PrintAllData2Printer
+370 CLS:LIST 2270-2320 'Exit2DOS
+380 CLS:LIST 2330-2860 'DataCards - 1st group
+390 CLS:LIST 2860-3560 'DataCards - 2nd group
+400 CLS:LIST 3560-3750 'DataCards - 3rd group
+410 '-------------------------
+420 'VariableInitialization:
+430 KEY OFF:COLOR 14,6:OPTION BASE 0:VIEW PRINT
+440 DIM V$(7,2)          'V stands for VARIABLES (basket array or table)
+450  V$(0,0)= "Th-th-th-":V$(0,1)= "that's "   : V$(0,2)="all, folks!..."
+460  V$(1,0)= "VHS$"     :V$(1,1)= "VHSNO$"    : V$(1,2)="VHS number"
+470  V$(2,0)= "TITL$"    :V$(2,1)= "TITLE$"    : V$(2,2)="Movie Title"
+480  V$(3,0)= "CHAR$"    :V$(3,1)= "CHARACTER$": V$(3,2)="Movie Character name"
+490  V$(4,0)= "ACTR$"    :V$(4,1)= "ACTOR$"    : V$(4,2)="Actor's name"
+500  V$(5,0)= "GRUP$"    :V$(5,1)= "GROUP$"    : V$(5,2)="Production Group"
+510  V$(6,0)= "LABL$"    :V$(6,1)= "LABEL$"    : V$(6,2)="VHS tape label info"
+520  V$(7,0)= "EMPTY  "  :V$(7,1)= "Enter fragment of ":V$(7,2)="empty slot"
+530 RETURN 'to program, FunctionKeys
+540 '----------------------------------
+550 'FunctionKeys:
+560 FOR FKEY=1 TO 10:KEY FKEY,"":NEXT FKEY ' all Function Keys turned off
+570 RETURN 'to program, CountData
+580 '-------------------------
+590 'CountData: 'just to see how many datacards of cd's there are.
+600   GOSUB 1980 'ReadDataCard
+610     IF V$(1,1)="end of data" THEN RETURN 'to Program, MainMenu
+620     TOTALMOVIE=TOTALMOVIE + 1
+630     GOTO 600 '^^^^^^^^^^^^^^^^^^Loop thru data counting entries
+640 '-------------------------
+650 'MainMenu:
+660 CLS
+670 RESTORE
+680 T=26
+690 EASTEREGG=0
+700 LINECOUNT=0
+710 PRINT LEFT$(TIME$,5);
+720 PRINT TAB(18)"Your Family's VHS tape movie locator";
+730 PRINT TAB(70)DATE$
+740 LOCATE  5,T:PRINT "Search & List";TOTALMOVIE;"entries by: "
+750 LOCATE  8,T:PRINT "Vhs tape number"
+760 LOCATE  9,T:PRINT "Title"
+770 LOCATE 10,T:PRINT "Character"
+780 LOCATE 11,T:PRINT "Actor"
+790 LOCATE 12,T:PRINT "Production group (director, producer, composer, etc.)
+800 LOCATE 13,T:PRINT "Label information"
+810 LOCATE 14,T:PRINT "Multiple field query"
+820 LOCATE 16,T:PRINT "Quit to interpreter"
+830 LOCATE 17,T:PRINT "eXit to menus
+840 LOCATE 25,T:PRINT "Press capital letter for selection";
+850 GOSUB 1940 'ScreenScrollingPauser
+860 '---------------------
+870 'ActionTakenOnKeyPress:
+880 IF INSTR("vVtTcCaApPlLmMqQxX",KP$)=0 THEN GOTO 650 'MainMenu
+890 IF INSTR("qQ",KP$)>0 THEN CLS:LIST 190-400 'Quit2GW-Basic & LIST subroutines
+900 IF INSTR("xX",KP$)>0 THEN 2270 'Exit2Dos
+910 IF INSTR("vV",KP$)>0 THEN  960 'DisplayByVHSTapeNumber
+920 IF INSTR("tTcCaApPlL",KP$)>0 THEN 1230 'DisplayByTitle|Char|Actr|Grup|labl)
+930 IF INSTR("mM",KP$)>0 THEN 1480 'MultifieldSearch
+940 'PRINT "Program end at:  ActionTakenOnKeyPress-MainMenu":END
+950 '-------------------------------------
+960 'DisplayByVHSTapeNumber:
+970 CLS
+980 LOCATE 25,1
+990 PRINT "RecCount=";TOTALMOVIE;
+1000 LOCATE 2,34: PRINT "AlphaRangeNo.":PRINT:PRINT
+1010 PRINT TAB(16)"A 1xx     G  7xx    M 13xx    S 19xx     Y 25xx"
+1020 PRINT TAB(16)"B 2xx     H  8xx    N 14xx    T 20xx     Z 26xx"
+1030 PRINT TAB(16)"C 3xx     I  9xx    O 15xx    U 21xx"
+1040 PRINT TAB(16)"D 4xx     J 10xx    P 16xx    V 22xx"
+1050 PRINT TAB(16)"E 5xx     K 11xx    Q 17xx    W 23xx"
+1060 PRINT TAB(16)"F 6xx     L 12xx    R 18xx    X 24xx"
+1070 LOCATE 12,24:PRINT "Input your collection's
+1080 LOCATE 13,24:INPUT "tape number (100-2699): ";VHS$
+1090 CLS
+1100   IF VHS$="" THEN 650   'to main menu if no entry
+1110   ENTRY.CHECK=VAL(VHS$) 'alphabet entrys set to zero
+1120   IF ENTRY.CHECK <100 OR ENTRY.CHECK > 2699 THEN 960 'numeric range check
+1130 GOSUB 1980 'ReadTheDataCards
+1140   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1890 'NoMatch
+1150   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1840 'SearchComplet
+1160   IF VHS$=V$(1,1) THEN GOSUB 2020 'PrintDataCard2Screen
+1170   IF VHS$=V$(1,1) THEN LINECOUNT=LINECOUNT+1
+1180   IF VHS$=V$(1,1) THEN EASTEREGG=EASTEREGG+1
+1190   IF LINECOUNT=4 THEN GOSUB 1780 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="d98abaabbcbcb78aadb6a999ed8bbcbab6abbdaa">[email&#160;protected]</a>
+1200   GOTO 1130 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1210 'PRINT "ended at DisplayByRecordTapeOrDiskNumber":END
+1220 '-------------------------------------
+1230 'DisplayByTitle|Character|Actor|ProductionGroup|Label:
+1240 CLS
+1250 IF KP$="v"OR KP$="V" THEN KP=1
+1260 IF KP$="t"OR KP$="T" THEN KP=2
+1270 IF KP$="c"OR KP$="C" THEN KP=3
+1280 IF KP$="a"OR KP$="A" THEN KP=4
+1290 IF KP$="p"OR KP$="P" THEN KP=5
+1300 IF KP$="l"OR KP$="L" THEN KP=6
+1310 IF KP$="m"OR KP$="M" THEN KP=7
+1320 LOCATE 8,20
+1330 PRINT V$(7,1);V$(KP,2);:INPUT V$(KP,0)
+1340   IF V$(KP,0)="" THEN 650
+1350 CLS
+1360 LOCATE 1,20
+1370 PRINT V$(7,1);V$(KP,2);":  ";V$(KP,0)
+1380 GOSUB 1980
+1390   IF V$(1,1)="end of data" AND EASTEREGG = 0 THEN GOTO 1890 'NoMatch
+1400   IF V$(1,1)="end of data" AND EASTEREGG <> 0 THEN GOTO 1840 'SerchComplet
+1410   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN GOSUB 2020 'PrintDataCard2Screen
+1420   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN LINECOUNT=LINECOUNT+1
+1430   IF INSTR((V$(KP,1)),V$(KP,0))>0 THEN EASTEREGG=EASTEREGG+1
+1440   IF LINECOUNT=4 THEN GOSUB 1780 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e9ba8a9b868585ba9d8699a9ddbb8c8a869b8d9a">[email&#160;protected]</a>
+1450   GOTO 1380 '^^^^^^^^^^^^^^^^^^^^^^^^loop thru data                  
+1460 'END
+1470 '-------------------------------------
+1480 'MultipleFieldSearches:
+1490 CLS
+1500 PRINT:PRINT
+1510 PRINT TAB(30) "Multiple Field Query"
+1520 PRINT: PRINT: PRINT TAB(5) "                            Title: "
+1530 PRINT TAB(5) "                        Character: "
+1540 PRINT TAB(5) "                            Actor: "
+1550 PRINT TAB(5) "           Production team member: "
+1560 PRINT TAB(5) "                            Label: "
+1570 LOCATE  6,40:INPUT;V$(2,0)
+1580 LOCATE  7,40:INPUT;V$(3,0)
+1590 LOCATE  8,40:INPUT;V$(4,0)
+1600 LOCATE  9,40:INPUT;V$(5,0)
+1610 LOCATE 10,40:INPUT;V$(6,0)
+1620   IF V$(2,0) ="" AND V$(3,0)="" AND V$(4,0)="" AND V$(5,0)="" AND V$(6,0)="" THEN GOTO 650 'goto MainMenu if no input
+1630 LOCATE 25,1
+1640 PRINT "Press the Anykey to search or 'N' to reedit query.";
+1650 GOSUB 1940 'ScreenPauseTilKeyPress
+1660   IF KP$="n" OR KP$="N" THEN 1480 'MultipleFieldSearches
+1670 CLS
+1680 GOSUB 1980 'ReadDataCard
+1690   IF V$(1,1)="end of data" AND EASTEREGG=0 THEN GOTO 1890 'No match
+1700   IF V$(1,1)="end of data" AND EASTEREGG<>0 THEN GOTO 1840 'Search complete
+1710   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN GOSUB 2020 'printDataCard2Screen
+1720   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN LINECOUNT=LINECOUNT + 1
+1730   IF INSTR(V$(2,1),V$(2,0))>0 AND INSTR(V$(3,1),V$(3,0))>0 AND INSTR(V$(4,1),V$(4,0))>0 AND INSTR(V$(5,1),V$(5,0))>0 AND INSTR(V$(6,1),V$(6,0))>0 THEN EASTEREGG=EASTEREGG + 1
+1740   IF LINECOUNT=4 THEN GOSUB 1780 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b4878697e7e75487869747777486f746b5b2f497e7874697f68">[email&#160;protected]</a>
+1750   GOTO 1680 '^^^^^^^^^^^^^^^^^^^^^^^^^^loop thru data
+1760 'END
+1770 '---------------------------
+1780 '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1b4878697e7e7548786974777772757c486f746b5b2f497e7874697f68">[email&#160;protected]</a>:
+1790 LOCATE 25,1:PRINT "Press the Anykey to continue.                       ";
+1800 GOSUB 1940 'ScreenPauseTilKeyPress
+1810 LINECOUNT=0:CLS
+1820 RETURN ' to either 1)RTD   2)Titl|Char|Actr|Grup|Labl   3)MultiField
+1830 '---------------------------
+1840 'SearchCompleted:
+1850 LOCATE 25,1:PRINT "Search completed...                 press the Anykey";
+1860 GOSUB 1940 'ScreenPauseTilKeyPress
+1870 GOTO 650 'MainMenu
+1880 '---------------------------
+1890 'NoMatchFound:
+1900 LOCATE 25,1:PRINT "Sorry, no match found.  Please try again.           ";
+1910 GOSUB 1940 'ScreenPauseTilKeyPress
+1920 GOTO 650 'MainMenu
+1930 '---------------------------
+1940 'ScreenScrollingPauser:
+1950 KP$=INKEY$:IF KP$="" THEN 1950 'wait for keypress
+1960 RETURN 'to any of many calling subroutines...
+1970 '---------------------------
+1980 'ReadDataCard:
+1990 READ V$(1,1),V$(2,1),V$(3,1),V$(4,1),V$(5,1),V$(6,1)
+2000 RETURN 'to calling subroutine ie CountData,...
+2010 '---------------------------
+2020 'PrintDataCard2Screen:
+2030 PRINT V$(1,1);"    ";V$(2,1);"    "V$(3,1)
+2040 'PRINT V$(3,1)
+2050 PRINT V$(4,1)
+2060 PRINT V$(5,1)
+2070 PRINT V$(6,1)
+2080 PRINT
+2090 FOR DL=1 TO 4000:NEXT
+2100 RETURN
+2110 '---------------------------
+2120 'PrintAllData2Printer:    This is a small program within a program *
+2130 CLS
+2140 RESTORE
+2150 READ VHSNO$,TITLE$,CHARACTER$,ACTOR$,GROUP$,LABEL$
+2160   IF LINECOUNT=4 THEN GOSUB 1780    '<a href="http://www.geocities.ws/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="386b5b4a5754546b4c5748780c6a5d5b574a5c4b">[email&#160;protected]</a>
+2170   IF VHSNO$="end of data" THEN END  'or goto 440 main menu
+2180   PRINT VHSNO$;TAB(6)TITLE$
+2190   PRINT TAB(6) CHARACTER$
+2200   PRINT TAB(6) ACTOR$;" - ";GROUP$
+2210   PRINT TAB(6) LABEL$
+2220   PRINT
+2230   LINECOUNT=LINECOUNT+1
+2240   GOTO 2150 '^^^^^^^^^^^^^^^^^^^loop thru data printing everything...
+2250 END
+2260 '---------------------------
+2270 'Exit2DOS:
+2280 CLS
+2290 LOCATE 10,20
+2300 PRINT V$(0,0);V$(0,1);V$(0,2);
+2310 FOR DL=1 TO 40000!:NEXT:RUN"MNU-DBAS.BAS
+2320 '---------------------------
+2330 'DataCards:   'CASE SENSITIVE data cards - capitalize appropriately
+2340 'Vhsno-Title-Characters-Actors-MovieInfo (producr/directr/music)-Label
+2350 DATA"100", "A","  ","  ","  ","   "
+2360 '
+2370 DATA"101", "Apocalypse Now","Kurtz"
+2380 DATA"Mart.Sheen, Marl.Brando, Rob.Duval+, Harris.Ford, Denn.Hopper"
+2390 DATA"DW=Francis Ford Coppola+ W=John Milus, M=Carmine Coppola"
+2400 DATA"1979 153m"
+2410 '
+2420 DATA"200", "B   ","  ","  ","  ","  "
+2430 DATA"300", "C   ","  ","  ","  ","  "
+2440 DATA"301", "Cats","  ","  ","  ","  "
+2450 DATA"400", "D   ","  ","  ","  ","  "
+2460 '
+2470 DATA"401", "Dr. No","James Bond 007"
+2480 DATA"Sean Connery, Ursula Andress, Joseph Wiseman, Jack Lord"
+2490 DATA"D=Terence Young, C=Ted Moore, M=John Barry"
+2500 DATA"1962 111m  Bond #1"
+2510 '
+2520 DATA"402", "Diamonds are Forever","James Bond 007 v Ernst Blofeld"
+2530 DATA"Sean Connery, Jill St. John, Charles Gray, Bruce Cabot, Jimmy Dean"
+2540 DATA"D=Guy Hamilton, W=Tom Mankiewicz, C=Ted Moore, M=John Barry+"
+2550 DATA "1971 120m (Connery gets 1,000,000 for this one)"
+2560 '
+2570 DATA"500", "E","  ","  ","  ","  "
+2580 DATA"600", "F","  ","  ","  ","  "
+2590 '
+2600 DATA"601", "For Your Eyes Only","James Bond 007"
+2610 DATA"Roger Moore, Carole Bouquet, Chaim Topol"
+2620 DATA"D=John Glen, W=Michael G. Wilson, M=Bill Conti+, S=Sheena Easton"
+2630 DATA"1981 136m"
+2640 '
+2650 '
+2660 DATA"602", "From Russia with Love","James Bond 007 v SPECTRE, Rosa Klebb"
+2670 DATA"Sean Connery, Daniela Bainchi, Pedro Armendariz Sr., Lotte Lenya"
+2680 DATA"D=Terence Young, C=Ted Moore, M=John Barry"
+2690 DATA"1963 125m Bond #2"
+2700 '
+2710 DATA"700", "G","  ","  ","  ","  "
+2720 '
+2730 DATA"701", "Goldeneye","James Bond 007, Xenia Onatopp"
+2740 DATA"Pierce Brosnan, Famke Janssen, Sean Bean"
+2750 DATA"D=Martin Campbell, W=Michael France&, M=Eric Sera, S=Tina Turner"
+2760 DATA"1995 130m"
+2770 '
+2780 DATA"702", "Goldfinger","James Bond 007, Pussy Galore, Oddjob"
+2790 DATA"Sean Connery, Honor Blackman, Gert Frobe, Shirley Eaton, Tania Mallet"
+2800 DATA"D=Guy Hamilton, C=Ted Moore, M=John Barry, S=Shirley Bassey"
+2810 DATA"1964 117m Bond #3"
+2820 '
+2830 DATA"800", "H","  ","  ","  ","  "
+2840 DATA"900", "I","  ","  ","  ","  "
+2850 DATA"1000", "J","  ","  ","  ","  "
+2860 DATA"1100", "K","  ","  ","  ","  "
+2870 DATA"1200", "L","  ","  ","  ","  "
+2880 '
+2890 DATA"1201", "Licence to Kill","James Bond 007"
+2900 DATA"Timothy Dalton,  Carey Lowell, Robert Davi, (Wayne Newton)"
+2910 DATA"D=John Glen, W=Michael G. Wilson & Richard Maibaum, M=Michael Kamen"
+2920 DATA"1989 133m  Dalton's 2nd Bond movie"
+2930 '
+2940 DATA"1202", "Live and Let Die", "James Bond 007 v Dr. Kananga (voodoo)" 
+2950 DATA"Roger Moore, Jane Seymour, Yaphet Kotto, Clifton James, etc.)"
+2960 DATA"D=Guy Hamilton, W=Tom Manikiewicz, C=Ted Moore, M=George Martin" 
+2970 DATA"1973 131m  Song+=Paul McCartney"
+2980 '
+2990 DATA"1203", "(the) Living Daylights","James Bond 007"
+3000 DATA"Timothy Dalton, Maryam D'Abo, Jeroen Krabbe, John Rhys-Davies"
+3010 DATA"D=John Glen, W=Richard Maibaum & Michael G. Wilson, M=John Barry"
+3020 DATA"1987 130m  Dalton's 1st Bond movie"
+3030 '
+3040 DATA"1300", "M","  ","  ","  ","  "
+3050 '
+3060 DATA"1301", "(the) Man with the Golden Gun","James Bond 007"
+3070 DATA"Roger Moore, Chris. Lee, Britt Ekland, Maud Adams, Herve Villechaize"
+3080 DATA"D=Guy Hamilton, W=Tom Mankiewicz, C=Ted Moore, M=John Barry"
+3090 DATA"1974 134m  Bond#9"
+3100 '
+3110 DATA"1302", "Moonraker","James Bond 007 v Jaws & Amazons"
+3120 DATA"Roger Moore, Louis Chiles, Richard Kiel, Michael Lonsdale"
+3130 DATA"D=Lewis Gilbert, M=John Barry"
+3140 DATA"1979 136m"
+3150 '
+3160 '
+3170 DATA"1400", "N","  ","  ","  ","  "
+3180 '
+3190 DATA"1401", "Never Say Never Again*"
+3200 DATA"James Bond 007 v SPECTRE, Fatima Blush"
+3210 DATA"Sean Connery, Klaus Brandauer, Kim Basinger, Max Sydow, Barb.Carrera"
+3220 DATA"D=Irvin Kershner"
+3230 DATA"1983 134m (remake of Thunderball)  *not in collection yet!"
+3240 '
+3250 DATA"1500", "O","  ","  ","  ","  "
+3260 '
+3270 DATA"1501", "Octopussy","James Bond 007"
+3280 DATA"Roger Moore, Maud Adams, Louis Jourdan, Kristina Wayborn, Kabir Bedi"
+3290 DATA"D=John Glen, W=Michael G. Wilson, M=John Barry"
+3300 DATA"1983 140m"
+3310 '
+3320 DATA"1502", "On Her Majesty's Secret Service","James Bond 007 v Blofeld"
+3330 DATA"George Lazenby, Diana Rigg, Telly Savalas, Gabriele Ferzetti"
+3340 DATA"D=Peter Hunt, M=John Barry"
+3350 DATA"1969 144m Bond #6"
+3360 '
+3370 DATA"1600", "P","  ","  ","  ","  "
+3380 DATA"1700", "Q","  ","  ","  ","  "
+3390 DATA"1800", "R","  ","  ","  ","  "
+3400 DATA"1900", "S","  ","  ","  ","  "
+3410 '
+3420 DATA"1901", "(the) Spy Who Loved Me","James Bond 007 v Jaws"
+3430 DATA"Roger Moore, Barbara Bach, Curt Jurgens, Rich. Kiel, Caroline Munro"
+3440 DATA"D=Lewis Gilbert, M=Marvin Hamisch & Paul Buckmaster S=Carly Simon"
+3450 DATA"1977 136m Marvin Hamlisch song 'Nobody Does it Better+"
+3460 '
+3470 DATA"2000", "T","  ","  ","  ","  "
+3480 '
+3490 DATA"2002", "Thunderball","James Bond 007 v SPECTRE"
+3500 DATA"Sean Connery, Claudine Auger, Adolfo Cili, Luciana Paluzzi"
+3510 DATA"D=T.Young, W=J.Hopkins & R.Maibaum, C=T.Moore, M=J.Barry, S=Tom Jones"
+3520 DATA"1965 125m Bond #4  (remade as Never Say Never Again in 1983 w Connery"
+3530 '
+3540 DATA"2100", "U","  ","  ","  ","  "
+3550 '
+3560 DATA"2200", "V","  ","  ","  ","  "
+3570 DATA"2201", "(a) View to a Kill","James Bond 007 v Evil Max Zorin"
+3580 DATA"Roger Moore, Christopher Walken, Tanya Roberts, Grace Jones"
+3590 DATA"D=John Glen, W=Michael G. Wilson, M=John Barry, Perform=Duran Duran"
+3600 DATA"1985 131m (Roger Moores last Bond) "
+3610 '
+3620 DATA"2300", "W","  ","  ","  ","  "
+3630 DATA"2400", "X","  ","  ","  ","  "
+3640 DATA"2500", "Y","  ","  ","  ","  "
+3650 '
+3660 DATA"2501", "You Only Live Twice","James Bond 007 v Blofeld"
+3670 DATA"Sean Connery, Mie Hama, Akiko Wakabayashi, Tetsuro Tamba, Karin Dor"
+3680 DATA"D=Lewis Gilbert, C=Fred Young, M=John Barry, S=Nancy Sinatra"
+3690 DATA"1967 125m"
+3700 '
+3710 DATA"2600", "Z","  ","  ","  ","  "
+3720 DATA"end of data",,"  ","  ","  ","  "
+3730 END
+3740 '-----------------------------
+3750 'Embedded Commands
+3760 '              SAVE"VHSMOVIE.BAS",A
+3770  CLS:LIST 190-410  'roadmap of subroutines
+3780  CLS:LIST 410-540  'display variable names
+3790  CLS:LIST 2330-2860 'display first part of datacards
+3800  CLS:LIST 2330-3730 'display second part of datacards
+
+<pre>
+<hr>
+
+<script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script></body>
+
+<a href="vhsmovie.html#top">TOP</a><br>
+<a href="bindex.html">Index</a><br>
+Return to GW-Basic <a href="btoc.html">Table of Contents</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595271" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595271&amp;f=us-w3" ALT=1 WIDTH=1 HEIGHT=1>

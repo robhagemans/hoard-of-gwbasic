@@ -1,0 +1,166 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>A Memo Writing Program using GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>A Memo Writing Program</h1></center>
+<center><h4>for the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>
+1 'MemoPrinterProgram:
+2 '      Prints Date and Time, Headings, Text by fhb rev'd 9/17/98
+3 '
+4 'PrintTimeDate:
+5 DIM M$(12):COLOR 11,4:CLS
+6 HR=VAL(LEFT$(TIME$,2)):D$=DATE$
+7 IF HR>11 THEN AMPM$=" pm" ELSE AMPM$=" am"
+8 IF HR>12 THEN HR=HR-12
+9 IF HR=0 THEN HR=12
+10 M$(1)="  January":M$( 2)=" February":M$( 3)="    March":M$( 4)="    April"
+11 M$(5)="      May":M$( 6)="     June":M$( 7)="     July":M$( 8)="   August"
+12 M$(9)="September":M$(10)="  October":M$(11)=" November":M$(12)=" December"
+13 PRINT STR$(HR);":";MID$(TIME$,4,2);AMPM$;
+14 PRINT TAB(62) M$(VAL(MID$(D$,1,2)));" ";MID$(D$,4,2);", ";RIGHT$(D$,4)
+15 '
+16 'DoTheMemoHeadings:
+17 DIM A$(14)  'our array starts at 0 so there are 15 elements.
+18 PRINT:PRINT:PRINT:PRINT:PRINT
+19 PRINT TAB(30) "M E M O R A N D U M"
+20 PRINT:PRINT:PRINT
+21 PRINT TAB(10) "F R O M:  M A N A G E M E N T"
+22 PRINT:PRINT:PRINT
+23 PRINT TAB(14) "T O:  A L L   E M P L O Y E E S"
+24 PRINT:PRINT:PRINT
+25 '
+26 'WriteTheMemo:
+27 WHILE I<15
+28   LINE INPUT"     >";A$(I)  'the empty space between lets you control
+29   I=I+1                     'line length a bit better, adjust as necessary
+30   WEND                      'depending on line length values from 5 to 9
+31 WHILE J<15                  'work pretty well.
+32   PRINT TAB(9)A$(J)         'same with tab() value.
+33   J=J+1
+34   WEND
+35 '   SAVE"MEMO.BAS",A
+
+You have to change all 15 PRINT Statements to LPRINT
+to print the memo  or you can just change them all up
+front, save the program, and do it that way.  Your call.
+
+Here is an even simpler MEMO format, and in some ways
+superior.
+
+1 CLS:PRINT:PRINT:PRINT TAB(10)TIME$;:PRINT TAB(60)DATE$
+2 PRINT TAB(30) "M E M O R A N D U M"
+3 PRINT:PRINT:PRINT TAB(10) "FROM:  EMPLOYER NAME";
+4 PRINT TAB(52) "TO:  ALL EMPLOYEES"
+5 PRINT:PRINT:PRINT
+6 PRINT TAB(10)"This year, please remember to take your free turkey home  "
+7 PRINT TAB(10)"and not leave in your locker over the two week holiday    "
+8 PRINT TAB(10)"vacation.                                                 "
+9 PRINT TAB(10)"                                                          "
+10 PRINT TAB(10)"Thank you all and have a nice vacation.                  "
+11 '     save "memo2.bas",a
+12 ' Don't forget to change all the PRINT's to LPRINT's
+ 
+</pre>
+
+<hr>
+
+</body>
+
+<a href="bmemo.html#top">TOP</a><br>
+<a href="bindex.html">Index</a><br>
+GW-BASIC <a href="btoc.html">Table of Contents</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595137" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595137&amp;f=us-w7" ALT=1 WIDTH=1 HEIGHT=1>

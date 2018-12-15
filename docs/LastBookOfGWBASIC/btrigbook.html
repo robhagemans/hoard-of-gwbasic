@@ -1,0 +1,913 @@
+<html>
+<!--
+123456789 123456789 123456789 123456789 123456789 1234567890
+ -->
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <meta name="author" content="Joseph_Sixpack" />
+  <meta name="keywords" content="gw-basic, gw-basic programs, programming gw-basic, last book of gw-basic, gw-basic programming" />
+  <meta name="description" content="trigonometry a shop trigbook"/>
+  <title>Shop Trigonometry in GW-BASIC</title>
+</head>
+
+<a name="top"></a>
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+<pre><center><h1>SHOP TRIGONOMETRY</h1></center>
+<center><h4>using GW-BASIC</h4></center>
+
+Back to <a href="btoc.html">GW-BASIC Table of Contents</a></br>
+Go to the <a href="bindex.html">Index</a> of "The Last Book of GW-BASIC"
+<hr>
+This program shows some methods of establishing values for
+the sine, cosine and tangent expressed in degrees and not 
+radians.  Results from all three different methods are 
+shown.  This program is just an example program showing the 
+three different methods.
+
+1  'Ways of returning the Sine, Cosine & Tangent in degree values
+2 '
+3 'Method #1:    ***Create Variables***
+4 'PI=355/113
+5 '    or
+6 PI=4*ATN(1)    'establish PI - probably the best method
+7 '   then
+8 ' r2d= 2*pi/360   'since there are 2PI radians in a circle, we simply divide
+9 '                  360 into (2 x 3.1415926535) to get the value for 1 degree
+10 '                  or reducing the fraction, pi/180
+11 '    so
+12 R2D=PI/180     'convert from Radians to Degrees
+13 '
+14 'Method #2:    ***Define FN functions***
+15 DEF FNSINE(X)=SIN(X*4*ATN(1)/180)    'or use the def fn function
+16 DEF FNCOSINE(X)=COS(X*4*ATN(1)/180)  'to create your own translation method
+17 DEF FNTANGENT(X)=TAN(X*4*ATN(1)/180)'fnsine, fncosine, fntangent
+18 '
+19 'Method #3:   Straight Declaration
+20 'PI=3.1415926535
+21 'R2D= pi/180
+22 '
+23 CLS:INPUT "Input Degrees: ",X:PRINT "      Values are in Degrees"
+24 '
+25 PRINT "  sine          cosine        tangent"
+26 '
+27 PRINT FNSINE(X), FNCOSINE(X), FNTANGENT(X)       'sin/cos/tan using FN
+28 '
+29 PRINT SIN(X*PI/180),COS(X*PI/180), TAN(X*PI/180) 'sin/cos/tan varibles
+30 '
+31 PRINT SIN(X*R2D),COS(X*R2D), TAN(X*R2D)          'sin/cos/tan w r2d variable
+32 '     save   "trig.bas",a
+33 ' or you could just buy a cheap calculator  :-)
+
+<hr>
+This this snippit of code gives all six (6) transcendental functions 
+plus their reciprocals for a given degree value EXPRESSED IN 
+DECIMAL DEGREES.  So if you want the sine of 30 degrees and 20 
+minutes you have to imput 30.3333 degrees as 20 minutes is 1/3 of 
+a degree.  15 minutes is 1/4 of a degree and so on... 
+Finally a 5" sinebar setting is offered as well.
+
+10 CLS: PRINT TAB(30)"The Trig Book"
+20 PI=3.141592654#
+30 R2D=PI/180
+40 INPUT "Input degrees ",DEGREES
+50 PRINT"The Sine of";DEGREES;"degrees is: ";USING "###.######";SIN(DEGREES*R2D)
+60 PRINT"The Cosine of";DEGREES;"degrees is: ";USING "###.######";COS(DEGREES*R2D)
+70 PRINT"The Tangent of";DEGREES;"degrees is: ";USING "###.######";TAN(DEGREES*R2D)
+80 PRINT"The Cotangent of";DEGREES;"degrees is: ";USING "###.######";1/TAN(DEGREES*R2D)
+90 PRINT"The Secant of";DEGREES;"degrees is: ";USING "###.######";1/COS(DEGREES*R2D)
+100 PRINT"The Cosecant of";DEGREES;"degrees is: ";USING "###.######";1/SIN(DEGREES*R2D)
+110 PRINT"5 inch sinebar setting is: ";USING "##.####";SIN(DEGREES*R2D)*5;:PRINT " inches"
+120 '     save"trigbook.bas",a
+
+<hr>
+
+The next six programs deliver the inverse function of the sine, 
+cosine, tangent, cotangent, secant and cosecant in radians, 
+decimal degrees, and degrees, minutes, seconds.  giving you a 
+complete six dollar calculator.  nifty huh?
+
+<hr>
+
+10 'Delivers the arcsine of a value.
+20 '
+30 'VariableAssignments:
+40 LOCATE,,,0,7   'block cursor
+50 PI=4*ATN(1)    'establish the value for PI
+60 R2D=PI/180     'convert from radians to degrees
+70 '
+80 'Ask4SineValue:
+90 INPUT "input sine value: ";SINE
+100 '
+110 'EstablishValueLimits:
+120   IF SINE>1 THEN PRINT "Sine Value too high":GOTO 90
+130   IF SINE=1 THEN PRINT "the angle whose sine is 1 is 90 degrees":END
+140   IF SINE<0 THEN PRINT "Sine Value too low":GOTO 90
+150 '
+160 'Do all the DMS monkey motion:
+170 DECIMALDEGREE=ATN(SINE/SQR(-SINE*SINE+1))/R2D
+180 DEGREES=INT(DECIMALDEGREE)
+190 '
+200 DECIMALMINUTES=DECIMALDEGREE-INT(DECIMALDEGREE)
+210 MINUTES=INT(DECIMALMINUTES*60)
+220 '
+230 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+240 SECONDS=INT(DECIMALSECONDS*60)
+250 '
+260 'PrintTheMess:
+270 PRINT"the angle whose sine is:";
+280 PRINT SINE;"is";
+290 PRINT TAB(25) ATN(SINE/SQR(-SINE*SINE+1));"Radians"
+300 PRINT TAB(22)"or: "DECIMALDEGREE;"decimal degrees"
+310 PRINT TAB(22)"or: "DEGREES;"degrees";MINUTES;"minutes";SECONDS;"seconds"
+320 '
+330 '    save"asindms.bas",a
+
+<hr>
+
+10 'Delivers the arccosine of a value
+20 '
+30 'VariableAssignments:
+40 LOCATE,,,0,7   'block cursor
+50 PI=4*ATN(1)    'establish the value for PI
+60 R2D=PI/180     'convert from radians to degrees
+70 '
+80 'Ask4CosineValue:
+90 INPUT "input cosine value: ";COSINE
+100 '
+110 'EstablishValueLimits:
+120   IF COSINE>1 THEN PRINT"Cosine value too high":GOTO 90
+130   IF COSINE=1 THEN PRINT"The cosine value of 1 is 90 degrees":END
+140   IF COSINE<0 THEN PRINT"Cosine value too low":GOTO 90
+150 '
+160 'Do all the DMS monkey motion:
+170 DECIMALDEGREE=ATN(COSINE/SQR(-COSINE*COSINE+1))/R2D
+180 DEGREES=INT(DECIMALDEGREE)
+190 '
+200 DECIMALMINUTES=DECIMALDEGREE-INT(DECIMALDEGREE)
+210 MINUTES=INT(DECIMALMINUTES*60)
+220 '
+230 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+240 SECONDS=INT(DECIMALSECONDS*60)
+250 '
+260 'PrintTheMess:
+270 PRINT"the angle whose cosine is:";
+280 PRINT COSINE;"is: "
+290 PRINT TAB(28) ATN(COSINE/SQR(-COSINE*COSINE+1));"Radians"
+300 PRINT TAB(22)"or: "DECIMALDEGREE;"Decimal Degrees"
+310 PRINT TAB(22)"or: "DEGREES;"Degrees";MINUTES;"Minutes";SECONDS;"Seconds"
+320 '
+330 '    save"acosdms.bas",a
+
+<hr>
+
+10 'returns the arctangent of a value
+20 '
+30 'Variable Assignments:
+40 LOCATE,,,0,7   'block cursor
+50 PI=4*ATN(1)    'establish the value for PI
+60 R2D=PI/180     'convert from radians to degrees
+70 '
+80 'Ask4TangentValue:
+90 INPUT "input tangent value: ";TANGENT
+100 '
+110 'Do all the DMS monkey motion:
+120 DECIMALDEGREES=ATN(TANGENT)/R2D
+130 DEGREES=INT(DECIMALDEGREES)
+140 '
+150 DECIMALMINUTES=DECIMALDEGREES-INT(DECIMALDEGREES)
+160 MINUTES=INT(DECIMALMINUTES*60)
+170 '
+180 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+190 SECONDS=INT(DECIMALSECONDS*60)
+200 '
+210 'PrintTheMess:
+220 PRINT"the angle whose tangent is:";
+230 PRINT TANGENT;"is: "
+240 PRINT TAB(28) ATN(TANGENT);"Radians"
+250 PRINT TAB(22)"or: ";ATN(TANGENT)/R2D;"Decimal Degrees"
+260 PRINT TAB(22)"or: ";DEGREES;"Degrees";MINUTES;"Minutes";SECONDS;"Seconds"
+270 '
+280 '    save"atandms.bas",a
+
+<hr>
+This one is a little more complete
+
+10 'returns the arccotangent of a value
+20 '
+30 'VariableAssignments:
+40 LOCATE,,,0,7   'block cursor
+50 PI=4*ATN(1)    'establish the value for PI
+60 R2D=PI/180     'convert from radians to degrees
+70 '
+80 'Ask4CotangentValue:
+90 INPUT "input cotangent value: ";COTANGENT
+100 '
+110 'Establish all the values and tuck them into variables:
+120 '
+130 'Radians first:
+140 RADIANS=(-ATN(COTANGENT)+PI/2)
+150 '
+160 'Then the decimal degrees:
+170 DECIMALDEGREES=(-ATN(COTANGENT)+PI/2)/R2D
+180 '
+190 'Degrees:
+200 DEGREES=INT(DECIMALDEGREES)
+210 '
+220 'Minutes:
+230 DECIMALMINUTES=DECIMALDEGREES-INT(DECIMALDEGREES)
+240 MINUTES=INT(DECIMALMINUTES*60)
+250 '
+260 'Seconds:
+270 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+280 SECONDS=INT(DECIMALSECONDS*60)
+290 '
+300 'PrintTheMess:
+310 PRINT"the angle whose cotangent is:";
+320 PRINT COTANGENT;"is: "
+330 PRINT TAB(28) RADIANS;"Radians"
+340 PRINT TAB(22)"or: "DECIMALDEGREES;"Decimal Degrees"
+350 PRINT TAB(22)"or: "DEGREES;"Degrees";MINUTES;"Minutes";SECONDS;"Seconds"
+360 '
+370 '    save"acotdms.bas",a
+
+<hr>
+
+i've never, ever needed the arcsecant, but here it is anyway.
+
+
+10 'returns the arcsecant of a value
+20 '
+30 '     As a personal note, keep the input over 1.0"
+40 '     After thrashing for 2 days swearing at the formulas offered
+50 '     i realized that my low input was causing all the grief.
+60 '     And this with a table of secant values right in front of me.
+70 '     Apologies to every source that was sworn at.  :-)  sigh...
+80 '
+90 'VariableAssignments:
+100 LOCATE,,,0,7   'block cursor
+110 PI=4*ATN(1)    'establish the value for PI
+120 R2D=PI/180     'convert from radians to degrees
+130 '
+140 'Ask4SecantValue:
+150 INPUT "input secant value: ";SECANT
+160 '
+170 'CheckEntry4CorrectValues:
+180   IF SECANT < 1 THEN PRINT "Secant is always >= 1.000":GOTO 150
+190 '
+200 'Establish all the values and tuck them into variables:
+210 '
+220 'Radians first:
+230 RADIANS=ATN(SECANT/SQR(SECANT*SECANT-1))+SGN(SGN(SECANT)-1)*PI/2
+240 RADIANS=ATN(SQR(SECANT*SECANT-1))+(X<0)*PI
+250 '
+260 'Then the decimal degrees:
+270 DECIMALDEGREES=RADIANS/R2D
+280 '
+290 'Degrees:
+300 DEGREES=INT(DECIMALDEGREES)
+310 '
+320 'Minutes:
+330 DECIMALMINUTES=DECIMALDEGREES-INT(DECIMALDEGREES)
+340 MINUTES=INT(DECIMALMINUTES*60)
+350 '
+360 'Seconds:
+370 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+380 SECONDS=INT(DECIMALSECONDS*60)
+390 '
+400 'PrintTheMess:
+410 PRINT"the angle whose secant is:";
+420 PRINT SECANT;"is: "
+430 PRINT TAB(28) RADIANS;"Radians"
+440 PRINT TAB(22)"or: "DECIMALDEGREES;"Decimal Degrees"
+450 PRINT TAB(22)"or: "DEGREES;"Degrees";MINUTES;"Minutes";SECONDS;"Seconds"
+460 '
+470 '    save"asecdms.bas",a
+
+<hr>
+
+Oh my!  aren't we getting advanced...
+yet another "never used it" function.
+
+10 'returns the arccosecant of a value
+20 '
+30 'VariableAssignments:
+40 LOCATE,,,0,7   'block cursor
+50 PI=4*ATN(1)    'establish the value for PI
+60 R2D=PI/180     'convert from radians to degrees
+70 '
+80 'Ask4CosecantValue:
+90 PRINT"Keep the input greater then 1.0"
+100 INPUT "input cosecant value: ";COSECANT
+110 '
+120 'CheckEntry4CorrectValues:
+130   IF COSECANT < 1 THEN PRINT "Cosecant is always >= 1.000":GOTO 100
+140 '
+150 'Establish all the values and tuck them into variables:
+160 '
+170 'Radians first:   'Either of these algorithms seem to work okay.
+180 ' RADIANS=ATN(1/SQR(COSECANT*COSECANT-1))+(SGN(COSECANT)-1)*PI/2
+190 RADIANS=ATN(1/SQR(COSECANT*COSECANT-1))+(X<0)*PI
+200 '
+210 'Then the decimal degrees:
+220 DECIMALDEGREES=RADIANS/R2D
+230 '
+240 'Degrees:
+250 DEGREES=INT(DECIMALDEGREES)
+260 '
+270 'Minutes:
+280 DECIMALMINUTES=DECIMALDEGREES-INT(DECIMALDEGREES)
+290 MINUTES=INT(DECIMALMINUTES*60)
+300 '
+310 'Seconds:
+320 DECIMALSECONDS=DECIMALMINUTES*60-MINUTES
+330 SECONDS=INT(DECIMALSECONDS*60)
+340 '
+350 'PrintTheMess:
+360 PRINT"the angle whose cosecant is:";
+370 PRINT COSECANT;"is: "
+380 PRINT TAB(28) RADIANS;"Radians"
+390 PRINT TAB(22)"or: "DECIMALDEGREES;"Decimal Degrees"
+400 PRINT TAB(22)"or: "DEGREES;"Degrees";MINUTES;"Minutes";SECONDS;"Seconds"
+410 '
+420 '    save"acscdms.bas",a
+
+<hr>
+
+Here are some shorties if you don't need all the goobblygook
+
+<hr>
+10 'Delivers the arcsine of a value
+20 LOCATE,,,0,7   'block cursor
+30 PI=4*ATN(1)    'establish the value for PI
+40 R2D=PI/180     'convert from radians to degrees
+50 INPUT "input sine value: ";SINE
+60   IF SINE>1 THEN PRINT "Sine Value too high":GOTO 50
+70   IF SINE=1 THEN PRINT "the angle whose sine is 1 is 90 degrees":END
+80   IF SINE<0 THEN PRINT "Sine Value too low":GOTO 50
+90 ARCSIN=ATN(SINE/SQR(-SINE*SINE+1))
+100 PRINT"the angle whose sine is";SINE;"is";ARCSIN/R2D;"decimal degrees"
+110 '    save"arcsin.bas",a
+
+<hr>
+
+10 'Delivers the arccosine of a value
+20 LOCATE,,,0,7   'block cursor
+30 PI=4*ATN(1)    'establish the value for PI
+40 R2D=PI/180     'convert from radians to degrees
+50 INPUT "input cosine value: ";COSINE
+60   IF COSINE>1 THEN PRINT"Cosine value too high":GOTO 50
+70   IF COSINE=1 THEN PRINT"The cosine value of 1 is 90 degrees":END
+80   IF COSINE<0 THEN PRINT"Cosine value too low":GOTO 50
+90 ARCCOSINE=ATN(COSINE/SQR(-COSINE*COSINE+1))
+100 PRINT"The cosine value of";COSINE;"is";ARCCOSINE/R2D;"decimal degrees"
+110 '    save"arccos.bas",a
+
+<hr>
+
+10 'returns the arctangent of a value
+20 LOCATE,,,0,7   'block cursor
+30 PI=4*ATN(1)    'establish the value for PI
+40 R2D=PI/180     'convert from radians to degrees
+50 INPUT "input tangent value: ";TANGENT
+60 PRINT "The angle whose tangent is ";TANGENT;"is ";ATN(TANGENT)/R2D;"decimal degrees"
+70 '    save"arctan.bas",a
+<hr>
+
+Here is a little fun program of just two lines that does the same 
+thing as the above program.
+
+1 PI=4*ATN(1):R2D=PI/180:INPUT"input tangent value: ";TANGENT
+2 PRINT "The angle whose tangent is ";TANGENT;"is ";ATN(TANGENT)/R2D;"decimal degrees"
+
+<hr>
+
+Here are three little programs for the Sine, Cosine and 
+Tangent that you can use if you only have a three dollar 
+four function calculator instead of a six dollar calculator.
+
+i used sine, cosine and tangent for about 55 years almost 
+daily and never knew that a series expansion was available 
+that didn't need a scientific calculator or slide rule.
+Talk about dumb... :-(
+
+Anyhow here they are:
+
+<hr>
+
+10 'Sine Series Expansion
+20 'The expansion series for the Sine is:
+30 '           SinZ = Z-Z^3/3!+Z^5/5!-Z^7/7!+Z^9/9!...
+40 '
+50 'Housekeeping:
+60 LOCATE,,,0,7:COLOR 14,4:CLS
+70 '
+80 'VariableAssignments:
+90 PI=4#*ATN(1#)
+100 R2D=PI/180#
+110 '
+120 'ScreenPainter:
+130 PRINT:PRINT
+140 PRINT TAB(30)"Sine Series Expansion":PRINT TAB(36)"using"
+150 PRINT TAB(18)"Sine of X = X-X^3/3!+X^5/5!-X^7/7!+X^9/9!..."
+160 '
+170 'InputRoutine:
+180 LOCATE 9,20:INPUT "Degrees: ";DEGREES
+190 IF DEGREES=90 THEN LOCATE 13,15:PRINT "The sine of 90 degrees is 1.00000":END
+200 IF DEGREES>90 OR DEGREES<0 THEN GOTO 60
+210 RADIANS=DEGREES*R2D  'convert degree input to radians
+220 '
+230 'DoTheSeriesExpansions:
+240 SINE=RADIANS-RADIANS^3/6+RADIANS^5/120-RADIANS^7/5040+RADIANS^9/362880!-RADIANS^11/(1*2*3*4*5*6*7*8*9*10*11)
+250 '
+260 'PrintTheResults:
+270 LOCATE 13, 15:PRINT "The sine of";DEGREES;"degrees is: ";
+280 PRINT USING "#.#######";SINE
+290 '
+300 'EmbeddedCommands:
+310      SAVE"SINEXPAN.BAS",A
+
+<hr>
+
+10 'Cosine Series Expansion
+20 'The expansion series for the Cosine is:
+30 '           CosZ = 1-Z^2/2!+Z^4/4!-Z^6/6!+Z^8/8!...
+40 '
+50 'Housekeeping:
+60 LOCATE,,,0,7:COLOR 14,4:CLS
+70 '
+80 'VariableAssignments:
+90 PI=4#*ATN(1#)
+100 R2D=PI/180#
+110 '
+120 'ScreenPainter:
+130 PRINT:PRINT
+140 PRINT TAB(30)"Cosine Series Expansion":PRINT TAB(36)"using"
+150 PRINT TAB(18)"Cosine of X = 1-X^2/2!+X^4/4!-X^6/6!+X^8/8!..."
+160 '
+170 'InputRoutine:
+180 LOCATE 9,20:INPUT "Degrees: ";DEGREES
+190 IF DEGREES=0 THEN LOCATE 13,15:PRINT "The cosine of 0 degrees is 1.00000":END
+200 IF DEGREES=90 THEN LOCATE 13,15:PRINT"The cosine of 90 degress is zero":END
+210 IF DEGREES>90 OR DEGREES<0 THEN GOTO 60
+220 RADIANS=DEGREES*R2D  'convert degree input to radians
+230 '
+240 'DoTheSeriesExpansions:
+250 COSINE=1-RADIANS^2/2+RADIANS^4/24-RADIANS^6/720+RADIANS^8/40320!-RADIANS^10/(1*2*3*4*5*6*7*8*9*10)  'this is just 10 factorial
+260 '
+270 'PrintTheResults:
+280 LOCATE 13, 15:PRINT "The cosine of";DEGREES;"degrees is: ";
+290 PRINT USING "#.#######";COSINE
+300 '
+310 'EmbeddedCommands:
+320      SAVE"COSEXPAN.BAS",A
+
+<hr>
+
+A lot of math books present this series Tangent algorithm
+in an unclear fashion for a joseph_sixpack.  Simply don't
+understand it correctly.  (turned out to be limits)
+operator error again...
+
+i never could get the tangent function to work correctly so 
+i used an old fashioned approach of combining the two 
+formulas, sine & cosine.  sorry, maybe i can find a correct 
+algorithm later on.  anyhow, this one seems to work okay.  
+Be aware however that most of the time, my problems with an 
+algorithm can be traced back to operator error.
+
+Now my method of sin/cos to find the tangent is good up to
+90 degrees.  The fancy formula method just goes up to 45 
+degrees and then you gotta go the cofunction of the 
+complementary angle routine so here i use both sine and
+cosine series expansion.  it works good.
+
+<hr>
+
+10 'Tangent Series Expansion
+20 'The expansion series for the Tangent is:
+30 '           TanZ = sin/cos expansions
+40 '
+50 'Housekeeping:
+60 LOCATE,,,0,7:COLOR 14,4:CLS
+70 '
+80 'VariableAssignments:
+90 PI=4#*ATN(1#)
+100 R2D=PI/180#
+110 '
+120 'ScreenPainter:
+130 PRINT:PRINT
+140 PRINT TAB(28)"Tangent Series Expansion":PRINT TAB(36)"using"
+150 PRINT TAB(25)"Tangent of X = Sin/Cos Expansion
+160 '
+170 'InputRoutine:
+180 LOCATE 9,20:INPUT "Degrees: ";DEGREES
+190 '
+200 IF DEGREES=0 THEN LOCATE 13,15:PRINT "The tangent of 0 degrees is zero":END
+210 IF DEGREES=90 THEN LOCATE 13,15:PRINT"The tangent of 90 degress is undefined":END
+220 IF DEGREES>90 OR DEGREES<0 THEN GOTO 60
+230 RADIANS=DEGREES*R2D  'convert degree input to radians
+240 '
+250 'DoTheSeriesExpansions:
+260 '
+270 OPPOSITE = RADIANS - (RADIANS^3)/6 + (RADIANS^5)/120 - (RADIANS^7)/5040 + (RADIANS^9)/362880! - (RADIANS^11)/(1*2*3*4*5*6*7*8*9*10*11) 'this is just the sine expansion
+280 '
+290 ADJACENT = 1 - (RADIANS^2)/2 + (RADIANS^4)/24 - (RADIANS^6)/720 + (RADIANS^8)/40320! - (RADIANS^10)/(1*2*3*4*5*6*7*8*9*10) 'this is the cosine expansion
+300 TANGENT = OPPOSITE/ADJACENT  'and of course opp/adj = tan
+310 '
+320 'PrintTheResults:
+330 LOCATE 13, 15:PRINT "The Tangent of";DEGREES;"degrees is: ";
+340 PRINT USING "###.#####";TANGENT
+350 '
+360 'EmbeddedCommands:
+370      SAVE"TANEXPAN.BAS",A
+
+<hr>
+
+Okay, now here is the algorithm with which, i had problems. 
+Seems like i didn't know that it is limited to pi/4 radians 
+or 45 degrees.  Any degree entry higher than 45 and the 
+algorithm starts heading south.  Okay, operator error 
+again...
+
+Now this tangent program, using a series expansion, has been 
+more "professionally" written so as to not throw error 
+messages upon bad data entry.  Pay particular attention to 
+the use of the "Check4number$ and Check4letter$" method of 
+error checking to see if the degrees have been entered 
+correctly.  Naturally, all the foofaw gives us a lot longer 
+program as well.  i run this program using the /d switch for 
+gw-basic but i haven't figured out why yet.
+
+10 'Tangent Series Expansion
+20 'The expansion series for the Tangent is:
+30 '   TanZ = Z^3/3+2Z^5/15+17Z^7/315+...where |Z| is less than pi/4 (45 deg)
+40 '
+50 'ProgramTangent:
+60 GOSUB 120 'housekeeping
+70 GOSUB 180 'VariableAssignments
+80 GOSUB 230 'ScreenPainter
+90 GOSUB 350 'InputRoutine
+100 '
+110 '
+120 'Housekeeping:
+130 LOCATE,,,0,7:COLOR 14,4:CLS
+140 CHECK4NUMBER$="0123456789."
+150 'CHECK4LETTER$="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+160 RETURN 'to VariableAssignments
+170 '
+180 'VariableAssignments:
+190 PI=4#*ATN(1#)
+200 R2D=PI/180#
+210 RETURN 'to sub ScreenPainter
+220 '
+230 'ScreenPainter:
+240 PRINT:PRINT
+250 PRINT TAB(22)"Tangent Series Expansion up to 45";CHR$(248)
+260 PRINT TAB(37)"using"
+270 PRINT TAB(18)"Tangent of X = X + 1/3*X^3 + 2/15*X^5 + 17/315*X^7..."
+280 LOCATE 23,18:PRINT "'exit' or 'x' to quit.";
+290 LOCATE 24,18:PRINT "Spacebar clears screen after calculation";
+300 '
+310 'Here we use a string in order to check the data entry.
+320 LOCATE 9,18:INPUT "Degrees: ";DEGREES$
+330 RETURN 'to sub CheckInput
+340 '
+350 'CheckInput:
+360 IF DEGREES$="x" OR DEGREES$="X" OR DEGREES$="exit" OR DEGREES$="EXIT" THEN CLS:NEW
+370 FOR I=1 TO LEN(DEGREES$)
+380  IF INSTR(CHECK4NUMBER$,MID$(DEGREES$,I,1))=0 THEN 420   '(errormessage)
+390  ' IF INSTR(CHECK4LETTER$,MID$(DEGREES$,I,1))>0 THEN 420   '(errormessage)
+400  NEXT:GOTO 480
+410 '
+420 'ErrorMessages:
+430 PRINT:PRINT TAB(10)"Wrong Data Entry! re-enter Degrees value correctly"
+440 PRINT:PRINT TAB(10)"press the AnyKey to continue..."
+450 WHILE INKEY$="":WEND
+460 GOTO 50
+470 '
+480 'ConvertString2Number:
+490 DEGREES=VAL(DEGREES$)
+500 IF DEGREES=0 THEN LOCATE 13,15:PRINT "The tangent of 0 degrees is zero"
+510 IF DEGREES=45 THEN LOCATE 13,15:PRINT"The tangent or 45 degrees is 1.0000000":GOTO 640
+520 IF DEGREES>45 THEN LOCATE 13,15:PRINT"For this algorithm degrees should be < 45":GOTO 640
+530 IF DEGREES<0 THEN LOCATE 13,15:PRINT"For this program degrees should be > 0":GOTO 640 'comment this line out and you can do -tangents... sort of... mostly...
+540 '
+550 RADIANS=DEGREES*R2D  'convert degree input to radians
+560 '
+570 'DoTheSeriesExpansionNowUsingRadians:  (only good to PI/4 or 45 degrees!)
+580 TANGENT=RADIANS+1/3*(RADIANS^3)+2/15*(RADIANS^5)+17/315*(RADIANS^7)+62/2835*(RADIANS^9)+1382/155925!*(RADIANS^11)+21844/6081075!*(RADIANS^13)+929569!/638512875#*(RADIANS^15)+6404582!/10854718875#*(RADIANS^17)
+590 '
+600 'PrintTheResults:
+610 LOCATE 13,18:PRINT "Tangent of ";DEGREES$;CHR$(248);" is: ";
+620 PRINT USING "#.#########";TANGENT
+630 '
+640 WHILE INKEY$="":WEND:CLS
+650 GOTO 50
+660 'EmbeddedCommands:
+670 '    SAVE"TANEXPA2.BAS",A
+
+<hr>
+Okay, here is yet another trigbook program, but this one 
+does a lot of bad entry trapping making it "more 
+professional".  yeah right...  It started out as a recursive 
+way to load the appropriate arrays to simplify formula 
+building but it turned out to be more confusing than the 
+simple "joe6pack" way.  Anyhow, it runs good (now) but i had 
+my fits with the program for a while there.  pretty much 
+bullet proof as near as i can tell.
+
+Series expansion again is the method.
+
+The A&S book  well... i suspect that they should really go 
+through that thing with a fine toothed comb. and check for 
+errors or omissions if dummies are going to read it and try 
+and use it.   Page 75-76 comes to mind.  God help you if you 
+don't know the answer to your problem before you open the 
+book.  But remember, in all fairness to A&S, this is a 
+joe6pack talking... :-(
+
+10 'HouseKeeping:
+20 OPTION BASE 1:DIM F(15)
+30 CHECK4NUMBER$="0123456789."
+40 '  CHECK4LETTER$="aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ"
+50 PI=4*ATN(1):R2D=180/PI:D2R=PI/180  'stuck this extra stuff in but not needed
+60 T=1:N=1:LOCATE,,,0,7:COLOR 15,0:CLS
+70 '
+80 'LoadFactorialArrayF:
+90 WHILE N<>16   'start loop and just load values up to 15
+100   T=T*N      'total=total * number
+110   F(N)=T     'load F() array with factorial of N
+120   N=N+1      'increment the number
+130   WEND
+140 '
+150 'SeeWhatWeGotSoFar:
+160 'FOR I=1 TO 15:PRINT F(I):NEXT   'uncomment this to check on array values
+170 '
+180 'ScreenPainter:
+190 CLS
+200 LOCATE  3,20:  PRINT "Trigonometric Functions by Series Expansion";
+210 LOCATE  4,20:  PRINT "___________________________________________";
+220 LOCATE 22,20:  PRINT "eXit                           Cls=spacebar";
+230 LOCATE  7,20:  INPUT "Degrees: "; DEGREES$  'input degrees as string
+240 '
+250 'CheckInput$:
+260 IF DEGREES$="x" OR DEGREES$="X" THEN CLS:NEW
+270 IF DEGREES$="" THEN GOSUB 610
+280 FOR I=1 TO LEN(DEGREES$)
+290  IF INSTR(CHECK4NUMBER$,MID$(DEGREES$,I,1))=0 THEN 610   '(errormessage)
+300  'IF INSTR(CHECK4LETTER$,MID$(DEGREES$,I,1))>0 THEN 610  '(errormessage)
+310 NEXT
+320 '
+330 'Convert degrees$2degrees:
+340 X=VAL(DEGREES$)
+350 '
+360 'CheckX:
+370 IF X=0 THEN GOTO 720
+380 IF X=90 THEN GOTO 810
+390 IF X < .0002776 OR X > 89.9998 THEN 610   '  +/- 1 second of angle
+400 '
+410 R=X*D2R  'convert X to radian measure for use in calculations
+420 '
+430 'CalculateSine using just the first seven terms of the expansion:
+440 SINE=R^1/F(1)-R^3/F(3)+R^5/F(5)-R^7/F(7)+R^9/F(9)-R^11/F(11)+R^13/F(13)
+450 COSINE=1-R^2/F(2)+R^4/F(4)-R^6/F(6)+R^8/F(8)-R^10/F(10)+R^12/F(12)
+460 TANGENT=SINE/COSINE
+470 COTANGENT=(COSINE/SINE)
+480 SECANT= 1/COSINE
+490 COSECANT=1/SINE
+500 '
+510 'Print2Screen:
+520 LOCATE 9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+530 LOCATE 11,20:PRINT "Sine      = ";:PRINT USING "####.#######";SINE
+540 LOCATE 12,20:PRINT "Cosine    = ";:PRINT USING "####.#######";COSINE
+550 LOCATE 13,20:PRINT "Tangent   = ";:PRINT USING "####.#######";TANGENT
+560 LOCATE 14,20:PRINT "Cotangent = ";:PRINT USING "####.#######";COTANGENT
+570 LOCATE 15,20:PRINT "Secant    = ";:PRINT USING "####.#######";SECANT
+580 LOCATE 16,20:PRINT "Cosecant  = ";:PRINT USING "####.#######";COSECANT
+585 LOCATE 18,20:PRINT "5 inch Sinebar setting: ";USING "#.####";5*SINE
+590 GOTO 640
+600 '
+610 'ErrorMessage:
+620 PRINT TAB(10)"the degree value entered does not compute."
+630 PRINT TAB(10)"Press the Anykey to continue."
+640 WHILE INKEY$="":WEND
+650 GOTO 60
+660 '
+670 '
+680 '
+690 '
+
+well, i know this is cheating but this is the easiest way
+to handle singularities or division by zero issues...
+
+700 '
+710 '
+720 'SINE=ZERO BOUNDARYVALUES:
+730 LOCATE  9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+740 LOCATE 11,20: PRINT "Sine      =   0.000000";
+750 LOCATE 12,20: PRINT "Cosine    =   1.000000";
+760 LOCATE 13,20: PRINT "Tangent   =   0.000000";
+770 LOCATE 14,20: PRINT "Cotangent =  undefined";
+780 LOCATE 15,20: PRINT "Secant    =   1.000000";
+790 LOCATE 16,20: PRINT "Cosecant  =  undefined";
+800 WHILE INKEY$="":WEND:GOTO 60
+810 '
+820 'Sine=90 boundaryValues:
+830 LOCATE 9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+840 LOCATE 11,20: PRINT "Sine      =   1.000000";
+850 LOCATE 12,20: PRINT "Cosine    =   0.000000";
+860 LOCATE 13,20: PRINT "Tangent   =  undefined";
+870 LOCATE 14,20: PRINT "Cotangent =  undefined";
+880 LOCATE 15,20: PRINT "Secant    =  undefined";
+890 LOCATE 16,20: PRINT "Cosecant  =   1.000000";
+900 WHILE INKEY$="":WEND:GOTO 60
+910 '
+920 'EmbeddedCommands:
+930 '       save"recur.bas",a
+
+<hr>
+
+Well, here is one that shows you how joseph_sixpacks get 
+into trouble.  Now this program works fine.  It returns all 
+the right values and error traps okay and everything.
+
+BUT...
+
+There is something wrong with the code.  i have calculated 
+sine & cosine unnecessarily twice according to my mind.
+
+See if you can alter the code to just calc the 
+transcendentals once and come up with the right answers.
+<hr>
+
+10 'HouseKeeping:
+20 Z=14
+30 OPTION BASE 1:DIM F(13):DIM P(13)
+40 CHECK4NUMBER$="0123456789."
+50 PI=4*ATN(1):R2D=180/PI:D2R=PI/180
+60 T=1:N=1:LOCATE,,,0,7:COLOR 15,0:CLS
+70 '
+80 'LoadFactorialArray "F" & PowerArray "P"
+90 WHILE N<>Z   'start loop and just load values up to 13
+100   T=T*N      'total=total * number
+110   F(N)=T    'load F() array with factorial of N
+120   P(N)=X^N  'load P() array with X to the N power
+130   N=N+1     'increment the number
+140   WEND
+150 '
+160 SINE= P(1)/F(1) -P(3)/F(3) +P(5)/F(5) -P(7)/F(7) +P(9)/F(9) -P(11)/F(11) +P(13)/F(13)
+170 COSINE= 1 -P(2)/F(2) +(P4)/F(4) -P(6)/F(6) +P(8)/F(8) -P(10)/F(10) +P(12)/F(12)
+180 TANGENT=SINE/COSINE
+190 COT=COSINE/SINE
+200 SEC=1/COSINE
+210 CSC=1/SINE
+220 '
+230 'ScreenPainter:
+240 CLS
+250 LOCATE  3,20:  PRINT "Trigonometric Functions by Series Expansion";
+260 LOCATE  4,20:  PRINT "___________________________________________";
+270 LOCATE 22,20:  PRINT "eXit                           Cls=spacebar";
+280 LOCATE  7,20:  INPUT "Degrees: "; DEGREES$  'input degrees as string
+290 '
+300 'CheckInput$:
+310 IF DEGREES$="x" OR DEGREES$="X" THEN CLS:NEW
+320 IF DEGREES$="" THEN GOSUB 660
+330 FOR I=1 TO LEN(DEGREES$)
+340  IF INSTR(CHECK4NUMBER$,MID$(DEGREES$,I,1))=0 THEN 660   '(errormessage)
+350 NEXT
+360 '
+370 'Convert degrees$2degrees:
+380 X=VAL(DEGREES$)
+390 '
+400 'CheckX:
+410 IF X=0 THEN GOTO 720
+420 IF X=90 THEN GOTO 810
+430 IF X < .0002776 OR X > 89.9998 THEN 660   '  +/- 1 second of angle
+440 '
+450 R=X*D2R  'convert X to radian measure for use in calculations
+460 '
+470 'CalculateSine using just the first seven terms of the expansion:
+480 SINE=R^1/F(1)-R^3/F(3)+R^5/F(5)-R^7/F(7)+R^9/F(9)-R^11/F(11)+R^13/F(13)
+490 COSINE=1-R^2/F(2)+R^4/F(4)-R^6/F(6)+R^8/F(8)-R^10/F(10)+R^12/F(12)
+500 TANGENT=SINE/COSINE
+510 COTANGENT=(COSINE/SINE)
+520 SECANT= 1/COSINE
+530 COSECANT=1/SINE
+540 '
+550 'Print2Screen:
+560 LOCATE 9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+570 LOCATE 11,20:PRINT "Sine      = ";:PRINT USING "####.#######";SINE
+580 LOCATE 12,20:PRINT "Cosine    = ";:PRINT USING "####.#######";COSINE
+590 LOCATE 13,20:PRINT "Tangent   = ";:PRINT USING "####.#######";TANGENT
+600 LOCATE 14,20:PRINT "Cotangent = ";:PRINT USING "####.#######";COTANGENT
+610 LOCATE 15,20:PRINT "Secant    = ";:PRINT USING "####.#######";SECANT
+620 LOCATE 16,20:PRINT "Cosecant  = ";:PRINT USING "####.#######";COSECANT
+630 LOCATE 18,20:PRINT "5 inch sinebar setting: ";SINE*5;"inches";
+640 GOTO 690
+650 '
+660 'ErrorMessage:
+670 PRINT TAB(10)"the degree value entered does not compute."
+680 PRINT TAB(10)"Press the Anykey to continue."
+690 WHILE INKEY$="":WEND
+700 GOTO 60
+710 '
+720 'SINE=ZERO BOUNDARYVALUES:
+730 LOCATE  9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+740 LOCATE 11,20: PRINT "Sine      =   0.000000";
+750 LOCATE 12,20: PRINT "Cosine    =   1.000000";
+760 LOCATE 13,20: PRINT "Tangent   =   0.000000";
+770 LOCATE 14,20: PRINT "Cotangent =  undefined";
+780 LOCATE 15,20: PRINT "Secant    =   1.000000";
+790 LOCATE 16,20: PRINT "Cosecant  =  undefined";
+800 WHILE INKEY$="":WEND:GOTO 60
+810 '
+820 'Sine=90 boundaryValues:
+830 LOCATE 9,20:PRINT "The Transcendental functions of: ";X;"degrees are:"
+840 LOCATE 11,20: PRINT "Sine      =   1.000000";
+850 LOCATE 12,20: PRINT "Cosine    =   0.000000";
+860 LOCATE 13,20: PRINT "Tangent   =  undefined";
+870 LOCATE 14,20: PRINT "Cotangent =  undefined";
+880 LOCATE 15,20: PRINT "Secant    =  undefined";
+890 LOCATE 16,20: PRINT "Cosecant  =   1.000000";
+900 WHILE INKEY$="":WEND:GOTO 60
+910 '
+920 'EmbeddedCommands:
+930 '       save"trig.bas",a
+
+<hr>
+</pre>
+</body>
+
+Go to <a href="btrigbook.html#top">TOP</a> of Page<br>
+Back to GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+Back to GW-BASIC <a href="bindex.html">Index</a><br>
+Return to Frankenbook's <a href="toc.html">Table of Contents</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595175" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595175&amp;f=us-w1" ALT=1 WIDTH=1 HEIGHT=1>

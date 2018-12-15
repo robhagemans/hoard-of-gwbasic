@@ -1,0 +1,429 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+<title>XYZ Scatter Plot using GW-BASIC also XZY, YXZ, YZX, ZXY, ZYX</title>
+<meta name="author" content="Joseph_Sixpack"/>
+<meta name="keywords" content="xyz scatter plot, xyz plot, statistics, gw-basic, data"/>
+<meta name="description" content="xyz scatter plot using gw-basic"/>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+
+<center><h1>XYZ, XZY, YZX, YXZ, ZXY, XYX</h1></center>
+<center><h1>XYZ Scatter Plot</h1></center>
+<center><h4>for 1 member of the family using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+Page 1 of the <a href="bindex.html">Last Book of GW-BASIC</a><br>
+Back to the GW-BASIC <a href="btoc.html">Table of Contents</a><br>
+All the way back to <a href="index-2.html">Frankenbook</a>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<hr>
+
+<pre>Here is the world famous scatter plot offered to demonstrate 
+the "plotting" ease that GW-BASIC offers.  This is a real 
+life set of data for the California Department of Fish & 
+Game.  Scatter plots are very heuristic.  Don't try this 
+with Excel, Lotus, Quattro or most if not all big buck 
+spreadsheets.  Mathematica might be a good candidate if you 
+have money falling out of your pockets as an undergrad.  
+GW-BASIC is 80k and substantially free nowadays.
+
+This eleven liner took about an hour or so to program.
+
+Entering the damn data and making sure that it was right 
+took more time than writing the program.
+
+so here it is:
+
+<hr>
+0 '  XYZ Scatter plot for AFSS data for little joe   by Dad 7/6/97
+1  KEY OFF:SCREEN 9:X=2:Z=X/2:SCALE=65:CLS
+2 LOCATE 24,40:PRINT;"X axis";
+3 LOCATE 20,52:PRINT;"Y-axis"
+4 LOCATE 5,40:PRINT;"Z-axis"
+5 LOCATE 1,12:PRINT;"Alluvial Fan Sage Scrub XYZ data scatter plot"
+6 PSET(250,320):READ A,B,C,D
+7 IF A=-1 THEN END
+8 B=INT(B*SCALE):C=INT(C*SCALE*.71):D=INT(D*SCALE)
+9 DRAW "R=B;H=C;U=D;"
+10 DRAW "R=Z; E=X; U=X; H=X; L=X; G=X; D=X; F=X; R=Z;"
+11 GOTO 6
+12  DATA 01, 1.4995, 2.1389,  .4270
+13  DATA 02, 1.8612, 2.1715,  .2677
+14 DATA 03, 1.5854, 2.1557, 1.0605
+15 DATA 04, 1.4793, 2.2945, 1.9765
+16 DATA 05, 2.7058, 2.9035, 2.3465
+17 DATA 06, 2.7773, 1.4686,  .2772
+18 DATA 07, 1.4387,  .7512,  .0000
+19 DATA 08,  .6995, 1.7411,  .5421
+20 DATA 09,  .9325, 1.8604,  .4600
+21 DATA 10,  .7486, 1.8131, 1.0669
+22 DATA 11,  .6152, 1.7068, 1.2018
+23 DATA 12, 1.3375, 1.9660, 1.1937
+24 DATA 13, 1.1321, 1.8769,  .9371
+25 DATA 14,  .8957, 1.7351,  .8728
+26 DATA 15,  .6803, 1.5743,  .6170
+27 DATA 16,  .9595, 1.6879,  .8603
+28 DATA 17,  .8273, 1.8191, 1.1716
+29 DATA 18,  .5899, 1.4775,  .8119
+30 DATA 19,  .5436, 1.2493, 1.0423
+31 DATA 20,  .4902, 1.2025, 1.0413
+32 DATA 21,  .7736, 1.1598, 1.3124
+33 DATA 22,  .6733,  .8439, 1.1702
+34 DATA 23,  .5654, 1.2714, 1.3441
+35 DATA 24,  .5798,  .7240, 1.2280
+36 DATA 25,  .6592, 1.0490, 1.3369
+37 DATA 26, 1.8461,  .0000, 1.6290
+38 DATA 27, 1.1743,  .6863, 1.0851
+39 DATA 28,  .8976, 1.0594, 1.0010
+40 DATA 29,  .3560, 1.1844, 1.1960
+41 DATA 30,  .6534, 1.5503, 1.2366
+42 DATA 31,  .4500, 1.6940,  .9745
+43 DATA 32,  .9231, 1.8469, 1.4691
+44 DATA 33,  .7515, 1.6721, 1.3296
+45 DATA 34,  .8265, 1.6877, 1.6278
+46 DATA 35,  .7867, 1.8584, 1.5597
+47 DATA 36,  .4438, 1.2024, 1.1287
+48 DATA 37,  .7591, 1.7360, 1.6143
+49 DATA 38,  .2260, 1.2362, 1.1664
+50 DATA 39,  .3556, 1.4742, 1.2187
+51 DATA 40,  .4247, 1.5957, 1.1407
+52 DATA 41,  .6870, 1.7400, 1.5513
+53 DATA 42,  .4394, 1.4514, 1.3917
+54 DATA 43,  .3285, 1.3879, 1.3097
+55 DATA 44,  .3044, 1.1463, 1.2559
+56 DATA 45,  .1751, 1.2116, 1.2037
+57 DATA 46,  .1216, 1.2475, 1.0744
+58 DATA 47,  .2959, 1.2151, 1.2393
+59 DATA 48,  .2697, 1.2368, 1.1740
+60 DATA 49,  .1879, 1.2074, 1.1225
+61 DATA 50,  .4902, 1.1955, 1.2925
+62 DATA 51,  .4011, 1.1863, 1.2654
+63 DATA 52, 1.0326, 1.0139, 1.6375
+64 DATA 53, 1.5640, 2.3959, 1.8978
+65 DATA 54, 1.6412, 2.6543, 2.3175
+66 DATA 55,  .4817, 1.4772, 1.0541
+67 DATA 56,  .1950, 1.3350, 1.0585
+68 DATA 57,  .0382, 1.2672, 1.0598
+69 DATA 58,  .2543, 1.2623, 1.2282
+70 DATA 59,  .0666, 1.1959, 1.1551
+71 DATA 60,  .2477, 1.3296, 1.2480
+72 DATA 61,  .3367, 1.3466, 1.1665
+73 DATA 62,  .2607, 1.2223, 1.1622
+74 DATA 63,  .0039, 1.1506, 1.0540
+75 DATA 64,  .0000, 1.1977, 1.0651
+76 DATA 65,  .1962, 1.1377, 1.1530
+77 DATA 66, 1.9418, 2.1418, 2.0091
+78 DATA 67, 2.1931, 1.9199,  .9839
+79 DATA 68, 2.5058,  .6947, 2.0698
+80 DATA 69, 2.3929,  .9940, 1.9217
+81 DATA 70, 2.4543,  .5430, 1.9068
+82 DATA 71, 1.9308, 1.7989, 2.1861
+83 DATA 72, 1.4486, 2.1841, 2.1584
+84 DATA 73, 2.2468, 3.3279, 1.7581
+85 DATA 74, 1.9534, 1.2612, 1.4237
+86 DATA 75, 2.2676,  .9611, 1.6325
+87 DATA 76, 2.4898, 1.0243, 1.6692
+88 DATA 77, 2.2378, 1.6328, 1.3779
+89 DATA 78, 2.3343, 2.1064, 1.6839
+90 DATA 79, 1.9824, 2.1600, 1.2654
+91 DATA 80, 2.2608, 2.2918,  .7735
+92 DATA 81, 2.1251, 2.9757, 1.8120
+93 DATA 82, 2.1404, 3.0122, 1.3500
+94 DATA 83, 1.9309, 2.5199, 1.0129
+95 DATA 84, 1.3673, 2.2355, 1.4707
+96 DATA -1,  .0000,  .0000,  .0000
+97 '        save"c:\bas\afsscat.xyz",a
+<hr>
+
+0 '  YXZ Scatter plot for AFSS data for little joe   by dad 7/6/97
+1  KEY OFF:SCREEN 9:X=2:Z=X/2:SCALE=101:CLS
+2 LOCATE 10,15:PRINT;"Y axis";
+3 LOCATE 17,14:PRINT;"X-axis"
+4 LOCATE 4,60:PRINT;"Z-axis"
+5 LOCATE 1,12:PRINT;"Alluvial Fan Sage Scrub YXZ data scatter plot"
+6 PSET( 75,151):READ A,B,C,D
+7 IF A=-1 THEN END
+8 C=INT(C*SCALE):B=INT(B*SCALE*.70711):D=INT(D*SCALE) ' sin45deg*B for scaling
+9 DRAW "R=C;f=B;U=D;"
+10 DRAW "R=Z; E=X; U=X; H=X; L=X; G=X; D=X; F=X; R=Z;"
+11 GOTO 6
+12 DATA 01, 1.4995, 2.1389,  .4270
+13 DATA 02, 1.8612, 2.1715,  .2677
+14 DATA 03, 1.5854, 2.1557, 1.0605
+15 DATA 04, 1.4793, 2.2945, 1.9765
+16 DATA 05, 2.7058, 2.9035, 2.3465
+17 DATA 06, 2.7773, 1.4686,  .2772
+18 DATA 07, 1.4387,  .7512,  .0000
+19 DATA 08,  .6995, 1.7411,  .5421
+20 DATA 09,  .9325, 1.8604,  .4600
+21 DATA 10,  .7486, 1.8131, 1.0669
+22 DATA 11,  .6152, 1.7068, 1.2018
+23 DATA 12, 1.3375, 1.9660, 1.1937
+24 DATA 13, 1.1321, 1.8769,  .9371
+25 DATA 14,  .8957, 1.7351,  .8728
+26 DATA 15,  .6803, 1.5743,  .6170
+27 DATA 16,  .9595, 1.6879,  .8603
+28 DATA 17,  .8273, 1.8191, 1.1716
+29 DATA 18,  .5899, 1.4775,  .8119
+30 DATA 19,  .5436, 1.2493, 1.0423
+31 DATA 20,  .4902, 1.2025, 1.0413
+32 DATA 21,  .7736, 1.1598, 1.3124
+33 DATA 22,  .6733,  .8439, 1.1702
+34 DATA 23,  .5654, 1.2714, 1.3441
+35 DATA 24,  .5798,  .7240, 1.2280
+36 DATA 25,  .6592, 1.0490, 1.3369
+37 DATA 26, 1.8461,  .0000, 1.6290
+38 DATA 27, 1.1743,  .6863, 1.0851
+39 DATA 28,  .8976, 1.0594, 1.0010
+40 DATA 29,  .3560, 1.1844, 1.1960
+41 DATA 30,  .6534, 1.5503, 1.2366
+42 DATA 31,  .4500, 1.6940,  .9745
+43 DATA 32,  .9231, 1.8469, 1.4691
+44 DATA 33,  .7515, 1.6721, 1.3296
+45 DATA 34,  .8265, 1.6877, 1.6278
+46 DATA 35,  .7867, 1.8584, 1.5597
+47 DATA 36,  .4438, 1.2024, 1.1287
+48 DATA 37,  .7591, 1.7360, 1.6143
+49 DATA 38,  .2260, 1.2362, 1.1664
+50 DATA 39,  .3556, 1.4742, 1.2187
+51 DATA 40,  .4247, 1.5957, 1.1407
+52 DATA 41,  .6870, 1.7400, 1.5513
+53 DATA 42,  .4394, 1.4514, 1.3917
+54 DATA 43,  .3285, 1.3879, 1.3097
+55 DATA 44,  .3044, 1.1463, 1.2559
+56 DATA 45,  .1751, 1.2116, 1.2037
+57 DATA 46,  .1216, 1.2475, 1.0744
+58 DATA 47,  .2959, 1.2151, 1.2393
+59 DATA 48,  .2697, 1.2368, 1.1740
+60 DATA 49,  .1879, 1.2074, 1.1225
+61 DATA 50,  .4902, 1.1955, 1.2925
+62 DATA 51,  .4011, 1.1863, 1.2654
+63 DATA 52, 1.0326, 1.0139, 1.6375
+64 DATA 53, 1.5640, 2.3959, 1.8978
+65 DATA 54, 1.6412, 2.6543, 2.3175
+66 DATA 55,  .4817, 1.4772, 1.0541
+67 DATA 56,  .1950, 1.3350, 1.0585
+68 DATA 57,  .0382, 1.2672, 1.0598
+69 DATA 58,  .2543, 1.2623, 1.2282
+70 DATA 59,  .0666, 1.1959, 1.1551
+71 DATA 60,  .2477, 1.3296, 1.2480
+72 DATA 61,  .3367, 1.3466, 1.1665
+73 DATA 62,  .2607, 1.2223, 1.1622
+74 DATA 63,  .0039, 1.1506, 1.0540
+75 DATA 64,  .0000, 1.1977, 1.0651
+76 DATA 65,  .1962, 1.1377, 1.1530
+77 DATA 66, 1.9418, 2.1418, 2.0091
+78 DATA 67, 2.1931, 1.9199,  .9839
+79 DATA 68, 2.5058,  .6947, 2.0698
+80 DATA 69, 2.3929,  .9940, 1.9217
+81 DATA 70, 2.4543,  .5430, 1.9068
+82 DATA 71, 1.9308, 1.7989, 2.1861
+83 DATA 72, 1.4486, 2.1841, 2.1584
+84 DATA 73, 2.2468, 3.3279, 1.7581
+85 DATA 74, 1.9534, 1.2612, 1.4237
+86 DATA 75, 2.2676,  .9611, 1.6325
+87 DATA 76, 2.4898, 1.0243, 1.6692
+88 DATA 77, 2.2378, 1.6328, 1.3779
+89 DATA 78, 2.3343, 2.1064, 1.6839
+90 DATA 79, 1.9824, 2.1600, 1.2654
+91 DATA 80, 2.2608, 2.2918,  .7735
+92 DATA 81, 2.1251, 2.9757, 1.8120
+93 DATA 82, 2.1404, 3.0122, 1.3500
+94 DATA 83, 1.9309, 2.5199, 1.0129
+95 DATA 84, 1.3673, 2.2355, 1.4707
+96 DATA -1,  .0000,  .0000,  .0000
+97 '        save"c:\bas\afss-xyz\afssca2.YXZ",a
+<hr>
+
+0 '  ZYX Scatter plot for AFSS data for little joe   by Dad 7/6/97
+1  KEY OFF:SCREEN 9:X=4:Z=X/2:SCALE=65:CLS
+2 LOCATE 24,40:PRINT;"Z axis";
+3 LOCATE 20,73:PRINT;"Y-axis"
+4 LOCATE 5,62:PRINT;"X-axis"
+5 LOCATE 1,12:PRINT;"Alluvial Fan Sage Scrub ZYX data scatter plot"
+6 PSET(55,320):READ A,B,C,D
+7 IF A=-1 THEN END
+8 B=INT(B*SCALE):C=INT(C*SCALE*.71):D=INT(D*SCALE*3.7)
+9 DRAW "R=D;H=C;U=B;"
+10 DRAW "R=Z; E=X; U=X; H=X; L=X; G=X; D=X; F=X; R=Z;"
+11 GOTO 6
+12  DATA 01, 1.4995, 2.1389,  .4270
+13  DATA 02, 1.8612, 2.1715,  .2677
+14 DATA 03, 1.5854, 2.1557, 1.0605
+15 DATA 04, 1.4793, 2.2945, 1.9765
+16 DATA 05, 2.7058, 2.9035, 2.3465
+17 DATA 06, 2.7773, 1.4686,  .2772
+18 DATA 07, 1.4387,  .7512,  .0000
+19 DATA 08,  .6995, 1.7411,  .5421
+20 DATA 09,  .9325, 1.8604,  .4600
+21 DATA 10,  .7486, 1.8131, 1.0669
+22 DATA 11,  .6152, 1.7068, 1.2018
+23 DATA 12, 1.3375, 1.9660, 1.1937
+24 DATA 13, 1.1321, 1.8769,  .9371
+25 DATA 14,  .8957, 1.7351,  .8728
+26 DATA 15,  .6803, 1.5743,  .6170
+27 DATA 16,  .9595, 1.6879,  .8603
+28 DATA 17,  .8273, 1.8191, 1.1716
+29 DATA 18,  .5899, 1.4775,  .8119
+30 DATA 19,  .5436, 1.2493, 1.0423
+31 DATA 20,  .4902, 1.2025, 1.0413
+32 DATA 21,  .7736, 1.1598, 1.3124
+33 DATA 22,  .6733,  .8439, 1.1702
+34 DATA 23,  .5654, 1.2714, 1.3441
+35 DATA 24,  .5798,  .7240, 1.2280
+36 DATA 25,  .6592, 1.0490, 1.3369
+37 DATA 26, 1.8461,  .0000, 1.6290
+38 DATA 27, 1.1743,  .6863, 1.0851
+39 DATA 28,  .8976, 1.0594, 1.0010
+40 DATA 29,  .3560, 1.1844, 1.1960
+41 DATA 30,  .6534, 1.5503, 1.2366
+42 DATA 31,  .4500, 1.6940,  .9745
+43 DATA 32,  .9231, 1.8469, 1.4691
+44 DATA 33,  .7515, 1.6721, 1.3296
+45 DATA 34,  .8265, 1.6877, 1.6278
+46 DATA 35,  .7867, 1.8584, 1.5597
+47 DATA 36,  .4438, 1.2024, 1.1287
+48 DATA 37,  .7591, 1.7360, 1.6143
+49 DATA 38,  .2260, 1.2362, 1.1664
+50 DATA 39,  .3556, 1.4742, 1.2187
+51 DATA 40,  .4247, 1.5957, 1.1407
+52 DATA 41,  .6870, 1.7400, 1.5513
+53 DATA 42,  .4394, 1.4514, 1.3917
+54 DATA 43,  .3285, 1.3879, 1.3097
+55 DATA 44,  .3044, 1.1463, 1.2559
+56 DATA 45,  .1751, 1.2116, 1.2037
+57 DATA 46,  .1216, 1.2475, 1.0744
+58 DATA 47,  .2959, 1.2151, 1.2393
+59 DATA 48,  .2697, 1.2368, 1.1740
+60 DATA 49,  .1879, 1.2074, 1.1225
+61 DATA 50,  .4902, 1.1955, 1.2925
+62 DATA 51,  .4011, 1.1863, 1.2654
+63 DATA 52, 1.0326, 1.0139, 1.6375
+64 DATA 53, 1.5640, 2.3959, 1.8978
+65 DATA 54, 1.6412, 2.6543, 2.3175
+66 DATA 55,  .4817, 1.4772, 1.0541
+67 DATA 56,  .1950, 1.3350, 1.0585
+68 DATA 57,  .0382, 1.2672, 1.0598
+69 DATA 58,  .2543, 1.2623, 1.2282
+70 DATA 59,  .0666, 1.1959, 1.1551
+71 DATA 60,  .2477, 1.3296, 1.2480
+72 DATA 61,  .3367, 1.3466, 1.1665
+73 DATA 62,  .2607, 1.2223, 1.1622
+74 DATA 63,  .0039, 1.1506, 1.0540
+75 DATA 64,  .0000, 1.1977, 1.0651
+76 DATA 65,  .1962, 1.1377, 1.1530
+77 DATA 66, 1.9418, 2.1418, 2.0091
+78 DATA 67, 2.1931, 1.9199,  .9839
+79 DATA 68, 2.5058,  .6947, 2.0698
+80 DATA 69, 2.3929,  .9940, 1.9217
+81 DATA 70, 2.4543,  .5430, 1.9068
+82 DATA 71, 1.9308, 1.7989, 2.1861
+83 DATA 72, 1.4486, 2.1841, 2.1584
+84 DATA 73, 2.2468, 3.3279, 1.7581
+85 DATA 74, 1.9534, 1.2612, 1.4237
+86 DATA 75, 2.2676,  .9611, 1.6325
+87 DATA 76, 2.4898, 1.0243, 1.6692
+88 DATA 77, 2.2378, 1.6328, 1.3779
+89 DATA 78, 2.3343, 2.1064, 1.6839
+90 DATA 79, 1.9824, 2.1600, 1.2654
+91 DATA 80, 2.2608, 2.2918,  .7735
+92 DATA 81, 2.1251, 2.9757, 1.8120
+93 DATA 82, 2.1404, 3.0122, 1.3500
+94 DATA 83, 1.9309, 2.5199, 1.0129
+95 DATA 84, 1.3673, 2.2355, 1.4707
+96 DATA -1,  .0000,  .0000,  .0000
+97 '        save"c:\bas\AFSSCAT.ZYX",a
+
+</pre>
+
+<hr>
+
+</body>
+
+Go to <a href="bxyzscat.html#top">TOP</a><br>
+Back to <a href="bindex.html">Index</a><br>
+GW-BASIC <a href="btoc.html">Table of Contents</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595171" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595171&amp;f=us-w2" ALT=1 WIDTH=1 HEIGHT=1>

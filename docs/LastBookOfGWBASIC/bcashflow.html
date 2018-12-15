@@ -1,0 +1,171 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>Family Cashflow tracker - GW-BASIC</title>
+</head>
+
+<!--  the "LessThanBangDashDash"
+      "DashDashGreaterThan" is a nondisplaying comment-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<center><h1>Family CashFlow Tracker</h1></center>
+<center><h4>using</h4></center>
+<center><h1>GW-BASIC</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+0 CLS : F$ = "#####": DEFINT A-F, H-R, U-Z
+1 TITLE$ = "The ******* Family's Cashflow for 1998"
+2 PRINT TAB(19); TITLE$; TAB(70); DATE$: PRINT
+3 PRINT "                 ";
+4 PRINT "Jan  Feb  Mar  Apr  May  Jun  Jul  Aug  Sep  Oct  Nov  Dec Totl";
+5 PRINT : PRINT
+6 READ A$, B, C, D, E, F, G, H, I, J, K, L, M
+7    IF A$ = "zzz" THEN 18             'Jumps out of loop if data terminates
+8    T = B + C + D + E + F + G + H + I + J + K + L + M
+9    TT = TT + T
+10   PRINT A$;
+11   PRINT USING F$; B; C; D; E; F; G; H; I; J; K; L; M; T
+12   T = 0
+13   LC = LC + 1: IF LC = 11 THEN PRINT : LC = 0: 'linecount printing loop & reset
+14   SB = SB + B: SC = SC + C: SD = SD + D: SE = SE + E: SF = SF + F: SG = SG + G
+15   SH = SH + H: SI = SI + I: SJ = SJ + J: SK = SK + K: SL = SL + L: SM = SM + M
+16   GRANDTOTAL = SB + SC + SD + SE + SF + SG + SH + SI + SJ + SK + SL + SM
+17   GOTO 6'^^^^^^^^^^Loop thru the data and add everything up
+18 PRINT "               ";
+19 PRINT " ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----";
+20 PRINT "       Totals  ";
+21 PRINT USING F$; SB; SC; SD; SE; SF; SG; SH; SI; SJ; SK; SL; SM; TT;
+22 PRINT
+23 PRINT TAB(8); "YTD Net Income & Expense totals ="; : PRINT USING " $#####,"; GRANDTOTAL;
+24 PRINT
+25 DATA "FAMILY INCOME  ",,,,,,,,,,,,
+26 DATA "  ***'s S.S.   ", 902, 902, 902, 902, 902, 902, 902, 902, 902, 902, 902,902
+27 DATA "  ***'s Pension", 898, 898, 898, 898, 898, 898, 898, 898, 898, 898, 898,898
+28 DATA "  ***'s Income ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+29 DATA "  ***'s Other  ",   3,    ,    ,   3,    ,    ,   3,    ,    ,   3,    ,
+30 DATA "  nnn's Note   ", 865, 865, 865, 865, 865, 865, 865, 865, 865, 865, 865,865
+31 DATA "  nnn's Contrib",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+32 DATA "  nnn's Income ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+33 DATA "  mmm's S.S.   ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+34 DATA "  mmm's Income ", -65, -65, -65, -65, -65, -65, -65, -65, -65, -65, -65, -65
+35 DATA "  mmm'S Other  ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+36 DATA "EXPENSES       ",,,,,,,,,,,,
+37 DATA "  House        ",,,,,,,,,,,,
+38 DATA "    Mortgage   ",-865,-865,-865,-865,-865,-865,-865,-865,-865,-865,-865,-865
+39 DATA "    Homeowners ", -40, -40, -40, -40, -40, -40, -40, -40, -40, -40,    ,
+40 DATA "    Prop Taxes ",    ,    ,-660,   0,   0,   0,   0,   0,   0,   0,   0,-660
+41 DATA "    Water&Power",-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100
+42 DATA "    SoCalGas   ", -38, -38, -38, -38, -38, -38, -38, -38, -38, -38, -38, -38
+43 DATA "    Telephone  ", -55, -55, -55, -55, -55, -55, -55, -55, -55, -55, -55, -55
+44 DATA "    Cable      ", -33, -33, -33, -33, -33, -33, -33, -33, -33, -33, -33, -33
+45 DATA "    Upkeep     ", -20, -20, -20, -20, -20, -20, -20, -20, -20, -20, -20, -20
+46 DATA "    Yard       ",  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5,  -5
+47 DATA "  Food         ",,,,,,,,,,,,
+48 DATA "    Groceries  ",-475,-475,-475,-475,-475,-475,-475,-475,-475,-475,-475,-475
+49 DATA "    Eating Out ",-250,-250,-250,-250,-250,-250,-250,-250,-250,-250,-250,-250
+50 DATA "    Borders&Etc",-217,-217,-217,-217,-217,-217,-217,-217,-217,-217,-217,-217
+51 DATA "  Automobiles  ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+52 DATA "  92 Sentra    ",    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,    ,
+53 DATA "    Insurance  ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+54 DATA "    Gasoline   ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+55 DATA "    Lic&Maint. ", -30, -30, -30, -30, -30, -30, -30, -30, -30, -30, -30, -30
+56 DATA "  98 Auto Lease",-300,-300,-300,-300,-300,-300,-300,-300,-300,-300,-300,-300
+57 DATA "    Gasoline   ", -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50, -50
+58 DATA "  MEDICAL      ",,,,,,,,,,,,
+59 DATA "      Dentist  ", -80, -80, -80, -80, -80, -80, -80, -80, -80, -80, -80, -80
+60 DATA "      Insurance", -75,    ,    , -75,    ,    , -75,    ,    , -75,    ,
+61 DATA "  Credit Card  ",-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100,-100
+62 DATA "zzz",,,,,,,,,,,,
+63 '        save "budget.bas", a
+64 '      Design of spreadsheet not hardened yet.  do not use    dad.
+65 '    save"cashflow.wkb",a
+
+</pre>
+
+</body>
+
+<a href="bcashflow.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+
+
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595145" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595145&amp;f=us-w1" ALT=1 WIDTH=1 HEIGHT=1>

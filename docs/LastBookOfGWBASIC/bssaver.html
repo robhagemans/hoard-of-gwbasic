@@ -1,0 +1,350 @@
+<html>
+
+<!--   DTD or Date & time info
+       Version 1.0  July 29th, 2005
+       multiline comments
+ -->
+
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<head>
+  <title>a Family Screen Saver in GW-Basic</title>
+</head>
+
+<!--  the "LessThanBangDashDash" + "DashDashGreaterThan"
+      is a nondisplaying comment
+-->
+
+<a name="top"></a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+Back to <a href="index-2.html">Main Index</a> 
+
+<center><h1>Family Screen Saver</h1></center>
+<center><h4>written in</h4></center>
+<center><h1>GW-Basic</h1></center>
+
+<body><script type="text/javascript" src="../js/policy.js"></script>
+<center><script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&amp;height=90"></script>
+</center>
+<!--script type="text/javascript" src="/js/AdBoxDiv.js"></script-->
+<script type="text/javascript">
+adserver();
+window.onload=function(){
+html = document.body.innerHTML;
+
+checkPolicy(html);
+if ((displayif == 0) && (adstring != null)) {
+document.getElementById("footeraddiv").innerHTML = adstring;
+}
+}
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-26341965-1']);
+  _gaq.push(['_setDomainName', '.geocities.ws']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+
+<script type="text/javascript">
+<!--
+ H4jewqpdjh6y = /geocities\.ws$|geocities\.ws\/$|geocities\.ws\/index\.php|geocities\.ws\/archive|geocities\.ws\/search|geocities\.ws\/terms-of-use\.php|geocities\.ws\/terms-of-service\.php|geocities\.ws\/about\.php/i;
+        t48193jfrdsswdsq = document.URL;
+        H4jewqpdjh6yfound = t48193jfrdsswdsq.search(H4jewqpdjh6y);
+	
+if(H4jewqpdjh6yfound == -1){
+	document.write("<center><ins data-revive-zoneid=\"1\" data-revive-id=\"249a85bd1b1946c71ef2de94958ed350\"><\/ins><script async src=\"\/\/147.135.187.149\/ads\/www\/delivery\/asyncjs.php\"><\/script><\/center><br>");
+}
+//-->
+</script>
+
+<!-- following code added by server. PLEASE REMOVE -->
+<!-- preceding code added by server. PLEASE REMOVE -->
+
+<pre>
+Warning!
+
+Watch the timing delay loops (DL) you are going to have
+to adjust them for the speed of each computer.
+
+
+10  'CLOCK.BAS or SSAVER.BAS
+20 'a wacko clock program by fhb on Oct 10, 1997 revf Mar2000
+30 'revG 3/8/2000 eliminated gosub's & goto's & incorporated student comments
+40 'to show and explain how to do string operations on numbers & strings
+50 'mid$(string,beginning position,length) so mid$("abcdefg",4,2) yields "de"
+60 'left$ or right$(string,length) so right$("abcdefghi",3) yields "ghi"
+70 'and left$("abcdefghi",3) yields "abc"
+80 'instr(starting.position,searched.string,searching.string)=location
+90 'VAL omits leading zeros, STR$ recoverts to string w/o leading zeros as well.
+100 'VAL("00001") results in 1 as numeric,  STR$(00001) results in 1 as string
+110 '
+120 'variable assignments & Housekeeping
+130 TIMER OFF:VIEW PRINT:COLOR 7,0:CLS:RANDOMIZE TIMER:KEY OFF:OPTION BASE 1
+140 '
+150 'null out the function keys
+160 FOR I=1 TO 10:KEY I,"":NEXT I
+170 '
+180 'first count the data items to establish array size
+190 WHILE MNO<>999
+200   READ MNO,MES$
+210   SIZE=SIZE+1
+220   WEND
+230 '
+240 'then load your data into array.
+250 DIM MNO(SIZE), MES$(SIZE)
+260 RESTORE
+270 FOR I=1 TO SIZE
+280   READ MNO(I),MES$(I)
+290   NEXT I
+300 '
+310 'PaintScreenLooper  'vvvvvvvvvvvvvvvvvvvvvvLOOP STARTS HERE
+320 WHILE INKEY$=""
+330 CLS
+340 '
+350 'let's start by altering Military time to Civilian time in Time$.
+360 'first, snip out the hour from time$
+370 HOUR=VAL(LEFT$(TIME$,2))
+380 '
+390 'is it AM or PM?
+400 IF HOUR>11 THEN AMPM$="pm" ELSE AMPM$="am"
+410 IF HOUR>12 THEN HOUR=HOUR-12
+420 IF HOUR=0 THEN HOUR=12
+430 '
+440 'convert the numeric variable HOUR back to a string variable  HOUR$
+450 HOUR$=STR$(HOUR)
+460 '
+470 'snip out the minutes from TIME$
+480 MINUTE$=MID$(TIME$,4,2)  'extract minutes
+490 '
+500 'next snip out the year from DATE$
+510 YEAR=VAL(RIGHT$(DATE$,4))
+520 '
+530 'create elapsed day "extraction" strings for leap & normal years.
+540 '           jan feb mar apr may jun jul aug sep oct nov dec
+550 JDLEAP$="   000 031 060 091 121 152 182 213 244 274 305 335"
+560 JDNORM$="   000 031 059 090 120 151 181 212 243 273 304 334"
+570 '
+580 'then check for leap year condition and assign correct version to variable.
+590 IF YEAR MOD 4=0 THEN ELAPSDAY$=JDLEAP$ ELSE ELAPSDAY$=JDNORM$
+600 '
+610 'create a string indicating 1st day of year from 1980 in 28 year cycle.
+620 FIRSTDAYOFYEAR$="3567134561234671245672345712"
+630 '                ^1980     ^1990     ^2000
+640 'now figure out what year number we are in the 28 year cycle
+650 YEARNO=YEAR-1979
+660 YEARNO=YEARNO MOD 28
+670 IF YEARNO MOD 28=0 THEN YEARNO=28
+680 '
+690 'we know what year number we are, so on what day did that year begin?
+700 YEARBEGINS=VAL(MID$(FIRSTDAYOFYEAR$,YEARNO,1))
+710 '
+720 'ok, so now let's create an "extraction" weekday string good all year long.
+730 DAY$="12345678"+"   Sunday   Monday  TuesdayWednesday Thursday   Friday Saturday   Sunday   Monday  TuesdayWednesday Thursday   Friday"
+740 '
+750 'now we "snip out" the appropriate weekday sequence sting for that year.
+760 FOR I=1 TO 7
+770   IF YEARBEGINS=I THEN DAY$="12345678"+MID$(DAY$,I*9,63)
+780   NEXT
+790 '
+800 'but first let's go back to ELAPSDAY$ above and calc the julian day.
+810 ELAPSED.DAYS.THIS.YEAR = VAL(MID$(ELAPSDAY$,VAL(LEFT$(DATE$,2))*4,3))
+820 ELAPSED.DAYS.THIS.MONTH = VAL(MID$(DATE$,4,2))
+830 JULIANDAY = (ELAPSED.DAYS.THIS.YEAR) + (ELAPSED.DAYS.THIS.MONTH)
+840 '
+850 'now calculate what day number we are to establish a string location.
+860 STRINGPOSITION= (JULIANDAY MOD 7)*9
+870 IF JULIANDAY MOD 7=0 THEN STRINGPOSITION=63
+880 '
+890 'then use it to find out what day it is.
+900 WKDY$=MID$(DAY$,STRINGPOSITION,9)
+910 '
+920 'but now we have to trim off all the leading blanks so that it prints nice.
+930 LENGTH=0 
+940   FOR I=1 TO 9
+950   IF INSTR(I,WKDY$,CHR$(32))<>0 THEN LENGTH=LENGTH ELSE LENGTH=LENGTH+1
+960   NEXT
+970 WKDY$=RIGHT$(WKDY$,LENGTH)
+980 '
+990 'create an extraction string that contains all the months.
+1000 MONTH$="12345678"+"  January February    March    April      May     June     July   AugustSeptember  October November December"
+1010 '
+1020 'now we need to snip out the month from MONTH$ to get the Month.
+1030 MN$=MID$(MONTH$,VAL(LEFT$(DATE$,2))*9,9)
+1040 '
+1050 'and get rid of all the leading blanks so that it prints properly.
+1060 LENGTH=0
+1070 FOR I=1 TO 9
+1080   IF INSTR(I,MN$,CHR$(32))<>0 THEN LENGTH=LENGTH ELSE LENGTH=LENGTH+1
+1090   NEXT
+1100 MN$=RIGHT$(MN$,LENGTH)
+1110 '
+1120 'also don't forget to snip out the year from DATE$
+1130 YEAR$=RIGHT$(DATE$,4)
+1140 '
+1150 'now we can Generate a random X & Y for DAY, DATE, TIME placement
+1160 X1=INT(ABS(RND*24+1))
+1170 Y1=INT(ABS(RND*37+1))
+1180 LOCATE X1,Y1  'this looks like a good place then
+1190 '
+1200 'print out the Day, Month, Date, Year, & Time.
+1210 PRINT "It's ";WKDY$;", ";MN$;" ";MID$(DATE$,4,2);", ";YEAR$;
+1220 PRINT " ";HOUR$;":";MINUTE$;AMPM$;
+1230 '
+1240 'get & Randomly place the first message
+1250 MESNO=INT(RND*SIZE)+1  'select the 1st message
+1260 LENGTH=LEN(MES$(MESNO))  'find out how long it is
+1270 X2=INT(ABS(RND*24)+1):Y2=INT(ABS(RND*80-LENGTH)+1) 'placement coordinates
+1280 IF X2=X1 THEN 1270      '^^^^^^^^Loop if X2 = X1 (avoiding overwrites)
+1290 LOCATE X2,Y2           'put it there
+1300 PRINT MES$(MESNO);     'print it
+1310 '
+1320 'get & randomly place the 2nd message
+1330 MESNO=INT(RND*SIZE)+1  'select the 2nd message
+1340 LENGTH=LEN(MES$(MESNO))  'how long is it?
+1350 X3=INT(ABS(RND*24)+1):Y3=INT(ABS(RND*80-LENGTH)+1) 'placement coordinates
+1360 IF X3=X1 OR X3=X2 THEN 1350 '^^^^^^^^Loop if X3 = X1 or X2
+1370 LOCATE X3,Y3           'put it there
+1380 PRINT MES$(MESNO);     'print it
+1390 '
+1400 'get & randomly place the 3rd message
+1410 IF WKDY$="Monday" THEN MESSAGE4DAY$="It's newspaper day & trash night"
+1420 IF WKDY$="Tuesday" AND VAL(LEFT$(TIME$,2))<13 THEN MESSAGE4DAY$="If it's Tuesday, then give Margaret a kiss." ELSE MESSAGE4DAY$=""
+1430 IF WKDY$="Wednesday" THEN MESSAGE4DAY$="Time to do the laundry..."
+1440 LENGTH=LEN(MESSAGE4DAY$)  'how long is it?
+1450 X4=INT(ABS(RND*24)+1):Y4=INT(ABS(RND*80-LENGTH)+1) 'placement coordinates
+1460 IF X4=X1 OR X4=X2 OR X4=X3 THEN 1450 '^^^^^^^^Loop if X4 = X1 or X2 or x3
+1470 LOCATE X4,Y4              'put it there
+1480 PRINT MESSAGE4DAY$;       'print it
+1490 '
+1500 'loiter around for a while with a delay loop
+1510 FOR DL=1 TO 320000!:NEXT DL
+1520 WEND  '^^^^^^^^^^^^^^^^Mainloop until the AnyKey is pressed.
+1530 CLS:RUN "mnu-main.bas"   'used if program within FFA
+1540 'CLS:SYSTEM                'used if program standalone
+1550 END  ' just in case...
+1560 '-----------------------------------
+1570 'Data:
+1580 DATA 1,"What time is it?"
+1590 DATA 2,"Hi Wify!"
+1600 DATA 3,"Hi baby!"
+1610 DATA 4,"Tweet!"
+1620 DATA 5,"Squawk!"
+1630 DATA 6,"Hi Grumpy!"
+1640 DATA 7,"Hi Your Giant Greeness!"
+1650 DATA 8,"Welcome to the Sixpack Household!"
+1660 DATA 9,"Tweet-Tweet-Tweet!"
+1670 DATA 10,"Grump! Grump! Grump!"
+1680 DATA 11,"Squawk! Squawk! Squawk!"
+1690 DATA 12,"Tweet! tweet..."
+1700 DATA 13,"Hi Catfood"
+1710 DATA 14,"Hi Emily"
+1720 DATA 15,"Where's the kleenex? i gotta blow my nose!"
+1730 DATA 16,"God Damn Phone!"
+1740 DATA 17,"Hi Joe"
+1750 DATA 18,"Hi dogfood"
+1760 DATA 19,"Hi! My name is Emily"
+1770 DATA 20,"Meow!"
+1780 DATA 21,"zzzz...snore, snore"
+1790 DATA 22,"Snore..."
+1800 DATA 23,"Squawk! squawk.."
+1810 DATA 24,"bitch, bitch, bitch..."
+1820 DATA 25,"Hurry up! i gotta get into the bathroom..."
+1830 DATA 26,"Can i come in?  i gotta make bubbles..."
+1840 DATA 27,"Has anybody seen my glasses?"
+1850 DATA 28,"Where in the hell are my glasses?"
+1860 DATA 29,"Hey! there isn't any milk left..."
+1870 DATA 30,"Quiet!"
+1880 DATA 31,"Hey! somebody came in last night and stole a sock!"
+1890 DATA 32,"What do you want for dinner?"
+1900 DATA 33,"Shall i make two cups?"
+1910 DATA 34,"I don't care whose last supper it is, NO i.d. NO wine!"
+1920 DATA 35,"The 'Shakedown artist' is outside hollering for peanuts again"
+1930 DATA 36,"Squawk, Squawk, Squawk, Squawk....    Noisy Green Bird!
+1940 DATA 37,"Grrrr....
+1950 DATA 38,""
+1960 DATA 39,""
+1970 DATA 40,""
+1980 DATA 41,""
+1990 DATA 42,""
+2000 DATA 999,"zzzz..."
+2010 '------------------------------------
+
+Note:
+
+To use the roadmaps just delete the line number
+and then just press enter.
+
+gw-basic will then execute the remaining commands
+and list that line number range.
+
+It makes it a lot easier to change or correct
+any code if the roadmaps are included within
+the program.  Sometimes us joe sixpacks really
+have to thrash around to get things right...
+
+To use the embedded commands do the same thing.
+
+
+2020 'SubroutineRoadMap:
+2030 CLS:LIST  120-170   'VariableAssignments
+2040 CLS:LIST  180-230   'CountData
+2050 CLS:LIST  230-300   'LoadData
+2060 CLS:LIST  310-490   'PaintScreenLooper - Time
+2070 CLS:LIST  500-620   'PaintScreenLooper - Year
+2080 CLS:LIST  630-780   'PaintScreenLooper - Yearno
+2090 CLS:LIST  790-980   'PaintScreenLooper - Julianday
+2100 CLS:LIST  990-1100  'PaintScreenLooper - Month
+2110 CLS:LIST 1120-1140  'PaintScreenLooper - Year
+2120 CLS:LIST 1150-1230  'PaintScreenLooper - print day,date,time
+2130 CLS:LIST 1230-1310  'PaintScreenLooper - print 1st message
+2140 CLS:LIST 1310-1390  'PaintScreenLooper - print 2nd message
+2150 CLS:LIST 1390-1490  'PaintScreenLooper - print 3rd message
+2160 CLS:LIST 1490-1560  'Program exit routine & delay loop
+2170 CLS:LIST 1570-1770  'Data (1st part)
+2180 CLS:LIST 1770-2000  'Data (2nd part)
+2190 CLS:LIST 2010-      'Subroutine Roadmap
+2200 CLS:LIST 2210-      'embedded commands
+2210 '----------------------------------
+2220 'EmbeddedCommands:
+2230 '           save"ssaver.bas",a
+
+</pre>
+
+</body>
+
+<a href="bssaver.html#top">TOP</a>
+<a href="bindex.html">Index</a>
+<a href="btoc.html">TOC</a>
+
+<!-- ARCHIVE by GEOCITIES.WS -->
+<div id="footeraddiv" name="footeraddiv">Hosted by www.Geocities.ws</div>
+<br>	
+<center>
+        <div>
+<!--script language="javascript" type="text/javascript" src="http://ad.broadcaststation.net/ads/show_ad.php?width=728&height=90"></script-->
+<script type="text/javascript">
+	atOptions = {
+		'key' : '5046d8ab865606a85a55c357926403c9',
+		'format' : 'iframe',
+		'height' : 90,
+		'width' : 728,
+		'params' : {}
+	};
+	document.write('<scr' + 'ipt type="text/javascript" src="http' + (location.protocol === 'https:' ? 's' : '') + '://www.bcloudhost.com/5046d8ab865606a85a55c357926403c9/invoke.js"></scr' + 'ipt>');
+</script>
+        </div>
+
+</center>
+</html>
+<!-- text below generated by server. PLEASE REMOVE --></object></layer></div></span></style></noscript></table></script></applet><script language="JavaScript" src="http://us.i1.yimg.com/us.yimg.com/i/mc/mc.js"></script><script language="JavaScript" src="http://us.js2.yimg.com/us.js.yimg.com/lib/smb/js/hosting/cp/js_source/geov2_001.js"></script><script language="javascript">geovisit();</script><noscript><img src="http://visit.geocities.yahoo.com/visit.gif?us1256595177" alt="setstats" border="0" width="1" height="1"></noscript>
+<IMG SRC="http://geo.yahoo.com/serv?s=76001084&amp;t=1256595177&amp;f=us-w4" ALT=1 WIDTH=1 HEIGHT=1>
