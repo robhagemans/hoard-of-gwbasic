@@ -1,0 +1,120 @@
+                        PCjr PLAYER
+                 Public Domain Version 1.1     
+                      by Wayne Pierce
+
+     To start playing music just type:
+
+                 BASICA PCJRPLAY
+
+     or use the batch file provided and simply type:
+ 
+                 PLAY
+
+
+     And answer the questions.  When you are ready to write your own music, 
+read the rest of this documentation for a very basic music tutorial.  For more 
+information on music, lookup MUSIC in any encyclopedia.
+
+WRITING MUSIC FOR PCjr PLAYER
+
+     To write music for PCjr PLAYER you need to study the BASIC manual for the 
+PLAY command.  The music coding can be done on an ordinary word processor that 
+can edit an ASCII file, like PC-WRITE (tm) by QUICKSOFT, or EDLIN provided on 
+the IBM DOS diskette with your system, or PERSONAL EDITOR (tm) by IBM.  
+
+     The only requirement is that the last character of the file must be the 
+BASIC EOF (End Of File) character (26).  What you can do if your word processor 
+can not create this character is use the file TEMPLATE.MUS as the start of your 
+own music.  It contains the basics for a short 2 measure song and you can 
+expand the file to create your own transcript.  Just don't delete the character 
+after the last line of the file.  
+
+     The first two lines of a music file (.MUS extension) are the Title and The 
+author of the song.  Remember, if there are any commas in any line, you need to 
+place quotes ("....") at each end of the text line.  
+
+     After the title and author/description lines, each measure is composed of 
+four lines: 
+
+    1 - The measure identifier, I like to use the measure number and the verse 
+           that goes with it.  While the music is playing, the words show up a 
+           little early, but it makes it nice to be able to sing along.  Again, 
+           if any line has a comma be sure to start and end the line with 
+           quotes (").  
+    2 - The PLAY commands for voice A.
+    3 - The PLAY commands for voice B.
+    4 - The PLAY commands for voice C.
+
+     To create tied notes (notes which run together, or sound as one), preceed 
+the first note with ML and precede the last note in the tied set of notes with 
+MN.
+
+     For beginners, here is a summary of what the BASIC PLAY command system is:
+
+                             ÄÄÄÄÄ B ¿   OCTAVE ASSIGNMENTS
+                                 A   ³
+A-    play A flat.           ÄÄÄÄÄ G ³
+A+    play A sharp.              F   ÃÄO5
+A+8.  play a dotted eighth   ÄÄÄÄÄ E ³             NOTE TYPES  (Ln or NOTEn)
+       note (A sharp).           D   ³     
+>A    play the A note an     ÄÄÄÄÄ C Ù      NAME  LENGTH  DESCRIPTION  
+        octave higher.           B   ¿
+                             ÄÄÄÄÄ A ³      WHOLE      1  CIRCLE
+                                 G   ³      HALF       2  CIRCLE WITH TAIL
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ F ÃÄO4   QUARTER    4  SOLID CIRCLE WITH TAIL
+                                 E   ³      EIGHTH     8  QUARTER WITH ONE FLAG
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ D ³      SIXTEENTH 16  QUARTER WITH TWO FLAGS
+TREBLE CLEF      3               C   Ù
+(top staff or ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ B ¿             REST TYPES (Pn)
+ set of lines)   4               A   ³                                
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ G ³      NAME  LENGTH  DESCRIPTION
+                                 F   ÃÄO3
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ E ³      WHOLE      1  BOX BELOW LINE
+                                 D   ³      HALF       2  BOX ABOVE LINE
+        MIDDLE C             ÄÄÄÄÄ C Ù      QUARTER    4  FUNNY "z" SQUIGGLE
+                                 B   ¿      EIGHTH     8  ONE FLAG TO LEFT
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ A ³      SIXTEENTH 16  TWO FLAGS TO LEFT
+                                 G   ³
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ F ÃÄO2
+                 3               E   ³             OTHER CODES
+BASS CLEF     ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ D ³
+(bottom staff)   4               C   Ù      Vn  Volume n=0 to 15 (quiet to loud)
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ B ¿      ML  Legato, plays each note so it
+                                 A   ³            runs to the next.
+              ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ G ³      MN  Normal, plays each note with a
+                                 F   ÃÄO1         short pause to the next note.
+                             ÄÄÄÄÄ E ³      MS  Staccato, plays each note with
+ 3   BEATS PER MEASURE           D   ³            a longer pause to the next.
+ÄÄÄ                          ÄÄÄÄÄ C Ù
+ 4   NOTE PER BEAT               B   ¿
+     (here a quarter note)   ÄÄÄÄÄ A ÃO0  (lowest note possible)
+                                     Ù
+
+     TIED NOTES ARE NOTES CONNECTED WITH A CURVED LINE.  THE FIRST NOTE OF THE 
+TIE IS PRECEEDED WITH AN ML AND THE LAST NOTE OF THE TIE IS PRECEEDED WITH AN 
+MN.
+
+  ERROR MESSAGES-----   (or planned improvements for version 2.0)
+
+     INPUT PAST END - look for a comma that is not within quotes.  Type SYSTEM 
+then edit the file you were trying to play to correct the problem.
+
+     FILE NOT FOUND - the file name you typed in is not correct.  Type RUN to 
+start the program again.
+
+
+     Look at the sample music included to get an idea for how to write other 
+music.  Usually, I put in the first measure all of the tempo (T), volume (V), 
+starting octave (O), and default note length (L).  I like to put the volume of 
+the melody notes a little louder than the harmony and the bass notes even 
+louder than the melody.  That way the melody is easy to pick out and the bass 
+carries the harmony, the bass notes seem to be rather quiet.
+
+     Have fun, if you have any suggestions, please leave a note to me,
+         Wayne Pierce
+
+
+FIXES:
+      Version 1.1  -  reduced play buffer to 5 notes because if the whole 
+                      buffer was used the PLAY command would get mixed up on 
+                      certain types of music coding.  

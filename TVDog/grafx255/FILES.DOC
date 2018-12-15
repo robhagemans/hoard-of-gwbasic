@@ -1,0 +1,96 @@
+The following files are included in the GRAFIX package:
+
+
+Common files:
+
+butter	 bin		Saved graphic image files
+horse1	 bin			..
+horse2	 bin			..
+horse3	 bin			..
+horse4	 bin			..
+horse5	 bin			..
+p-demo1  bin			..
+p-demo2  bin			..
+adjmem	 com		Tandy 1000 memory adjuster
+grafix	 com		GRAFIX main program
+tandy11  com            Tandy 1000 SL/TL BIOS support routines program
+demo	 com		GRAFIX demo program
+files	 doc		This file
+grafix	 doc		GRAFIX documentation file
+readme	 doc		Contains important new information about the package
+register doc		GRAFIX registration form
+
+Quick, Turbo & PowerBasic SoundDriver files
+
+SOUNDX   COM        GRAFIX main program stripped down to only 
+                    access the 3 Voice sound chip for users who 
+                    have EGA or VGA and still want Tandy Sound
+                    in their programs. Uses the same Commands to
+                    access the sounds as GRAFIX.COM.
+SOUNDX   DOC        Instructions for using SOUNDX.COM
+SOUNDX   QBS        SOUND QuickBASIC interface source file
+SOUNDX   PBU        SOUND PowerBASIC compiled unit
+SOUNDX   PBS        SOUND PowerBASIC unit interface source file
+SOUNDPBS INC        SOUND PowerBASIC subprogram definition file
+SOUNDQBS LIB        SOUND QuickBASIC library file
+SOUNDQBS OBJ        SOUND QuickBASIC object file
+SOUNDQBS QLB        SOUND QuickBASIC quick library
+SOUNDQBS INC        SOUND QuickBASIC subprogram definition file
+SOUNDQBS ASM        SOUND QuickBASIC assembler source file
+SOUNDTBS INC        SOUND Turbo BASIC interface source file
+
+BASIC interface:
+
+grafix	 qbs		QuickBASIC interface source file
+grafqbs  asm		QuickBASIC assembler source file
+grafqbs  obj		QuickBASIC object file
+grafqbs  inc		QuickBASIC subprogram definition file
+grafqbs  lib		QuickBASIC library file
+grafqbs  qlb		QuickBASIC quick library
+grafpbs  inc		PowerBASIC subprogram definition file
+grafix	 pbs		PowerBASIC unit interface source file
+grafix	 pbu		PowerBASIC compiled unit
+graftbs  inc		Turbo BASIC interface source file
+arty	 bas		BASIC demo programs
+ball	 bas			..
+boxscape bas			..
+butcones bas			..
+city	 bas			..
+horse	 bas			..
+kaleido  bas			..
+kaleidos bas			..
+lines	 bas			..
+novamax  bas			..
+p-demo1  bas			..
+p-demo2  bas			..
+put-1	 bas			..
+rndboxes bas			..
+shimweel bas			..
+t-bird	 bas			..
+wormy	 bas			..
+
+
+PASCAL interface:
+
+grafpas  asm		PASCAL assembler source file
+grafpas  obj		PASCAL object file
+grafix	 pas		PASCAL unit source file
+grafix	 qpu		QuickPASCAL compiled unit
+arty	 pas		PASCAL demo programs
+ball	 pas			..
+boxscape pas			..
+butcones pas			..
+city	 pas			..
+horse	 pas			..
+kaleido  pas			..
+kaleidos pas			..
+lines	 pas			..
+novamax  pas			..
+p-demo1  pas			..
+p-demo2  pas			..
+put-1	 pas			..
+rndboxes pas			..
+shimweel pas			..
+t-bird	 pas			..
+wormy	 pas			..
+

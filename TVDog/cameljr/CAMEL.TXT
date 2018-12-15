@@ -1,0 +1,5 @@
+To run, type BASIC CAMEL.BAS and answer the questions.  When the computer 
+begins to beep, hit a key to draw the plane.
+
+Downloaded from the IBM PC Company BBS.
+

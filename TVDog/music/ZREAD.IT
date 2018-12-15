@@ -1,0 +1,35 @@
+These tunes were composed on a Tandy 1000 and an IBM PCjr.
+You need a PC with a four-oscillator sound generator like
+the aforementioned computers to get these programs to work.
+Don't even bother if you want to use these on a PC. Instead,
+look for a program called PCCHOIR.ARC, which breaks some of these
+tunes into monophonic renditions for several PC's.
+
+         v.100
+
+ Name               Description
+ ============       ===========
+*ACRES.BAS          The famous "Green Acres" theme music.
+ AMADEUS1.BAS       Fantasia #1 in D by Mozart.
+ FORTRESS.BAS       Martin Luther / Davey & Goliath fame.
+*FUTURE-K.BAS       from the movie, by the composer himself!
+ HALLE.BAS          The second half of the Hallelujah Chorus.
+*HITCH.BAS          "Good Evening..."
+*PERRY.BAS          Raymond Burr - very loud.
+ SCOUT.BAS          by Tom Lehrer - you need to know the lyrics.
+ SOMEONE.BAS        a nice Gershwin tune
+ XMAS1.BAS          \
+ XMAS2.BAS            \    Four tunes for your
+ XMAS3.BAS            /    office Christmas party.
+ XMAS4.BAS          /
+
+ Songs adapted by Jim O'Kane, Arlington, TX
+    except (*) by Robert Renfrow, Garland, TX
+
+June, 1986
+
+jlh, 7/97:
+FORTRES2.BAS - modified version of FORTRESS.BAS
+FUTURE-2.BAS - minor modification of FUTURE-K.BAS (so it doesn't hang)
+XMAS1_2.BAS - modified to increase the volume of the melody
+

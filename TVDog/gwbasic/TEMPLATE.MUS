@@ -1,0 +1,19 @@
+TEMPLATE music score to start your own music from.
+"This model by Wayne Pierce, note quotes needed for the comma here"
+<1>  The first measure where you establish each voice's characteristics
+V8T85O4L16CCCCCCCCCCCCCCCC
+V8T85O3L2GG
+V10T85O1L4CCCC
+"<2>  Voice A: volume 8, slow tempo (85), octave 4, default note is sixteenth"
+<C1
+E1
+CC>C8C8<G8C8
+"<3>  Voice C: volume 10, same tempo, octave 1 (bass notes), quarter notes"
+C2C4C8CC
+<CC
+CCCC
+"<4>  The 1st character of the 4th line from here is EOF, add lines before it"
+E1
+E1
+E8MLE8EEMNE
+

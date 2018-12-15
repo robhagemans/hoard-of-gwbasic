@@ -1,0 +1,78 @@
+
+
+
+
+
+		These are two demo programs on how to access the Tandy
+		Features.  I find knowing how to access these things
+		usefull because I can now make better programs.  
+		All you have to do is copy these programs onto a disk 
+		with TANDY GW-BASIC.  I use 3.20.  You may or may not 
+		be able to use a smaller version.  After the BASIC is
+		on the disk, type at the dos prompt:
+
+				BASIC
+		
+		Now BASIC will load.  Next type:
+			
+				LOAD "TGA"
+
+		The graphics demo is now loaded.  You can type:
+			
+					LIST
+	
+		to list the program or:
+		
+					RUN
+
+		to run the program.  To use the sound demo program, 
+		type:
+
+			LOAD "TSA"
+
+		this will load the Tandy Sound Chip demo.
+
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+If you find this usefull, please send a monetary thank-you note to:
+
+
+
+			Scott Brown
+			415a Richbell Road
+			Larchmont, NY 10538
+
+
+
+Thank you for your support.
+
+		If you want, you can sign up for Speer-Brown BBS
+		this is a Bulletin Board System for your MODEM
+		you can access all of the programs written by
+		Speer-Brown on SB-BBS.
+
+			after Feburary 1st, 1990
+
+			(914)-833 1369

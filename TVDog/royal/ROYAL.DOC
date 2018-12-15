@@ -1,0 +1,42 @@
+C. Matthew Bole                              WRITTEN IN GW-BASIC
+80 WHITE OAK LANE                            BY MICROSOFT
+ETTERS, PA. 17319                            SIZE: 11 KILOBYTES
+(717) 782-3902                               MONOCHROME OR COLOR
+
+                             ROYAL FLUSH
+                        SUMMARY OF THE PROGRAM
+The program "ROYAL FLUSH" imitates a one dollar casino video poker
+slot machine.  The program should operate on any IBM PC but does take
+advantage of the Tandy 1000s SCREEN 6 capability. The program is easy
+to run and only uses four keys, the left, right, down cursor, and
+enter keys.  The program was written for GW-basic (version 2.02).
+While in basic, load the program under the name "IBMROYAL" and run. 
+Push the down cursor key to insert coins into the video poker slot
+machine. As coins are inserted, the number of coins will be
+highlighted on the coin table.  The maximum number of coins allowed is
+five.  After the user has inserted the desired number of coins, hit
+enter to deal the cards.  The cards are then created and dealt from
+the right hand corner of the screen and placed along the lower half of
+the screen.  To discard any of the cards not desired, use the left or
+right cursor key to move the discard box over the desired card and hit
+enter to leave the word "DISCARD" in the box.
+If the user makes a mistake, he needs to move the discard box over the
+discarded card and push enter again.  This will remove the word
+"DISCARD" and the card will no longer be discarded on the next deal.
+The user has the option to clear all "DISCARDS" by pushing the right
+cursor key until the discard box is over the "CLEAR BOX" and push
+enter. 
+To deal new cards to replace the discarded cards, place the discard
+box over the deal box and push enter.  The cards with the word
+"DISCARD" will be changed automatically for new cards.
+The program will then evaluate the cards to determine if the user has
+a winning hand.  The type of hand will be highlighted on the coin
+table. The program then informs the user of his winnings and also
+keeps track of the total amount of winnings minus the money spent.
+This is printed in the lower right corner of the screen. Of course if
+the user has won, an alarm will go off just like in a casino.
+The program will then clear all the cards and start the "INSERT COIN"
+box blinking again.
+To escape the program push the escape key and the program will exit to
+DOS.
+

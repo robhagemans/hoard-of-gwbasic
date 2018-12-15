@@ -1,0 +1,12 @@
+graf260.zip    160708  03/24/05  TSR's provide access to 3-voice sound
+                                 chip and Tandy graphics for Basic,
+                                 Pascal, and assembly language programs.
+mymouse.zip     58353  09/22/94  Draw program using Tandy 1000 graphics
+                                 and Color (joystick port) Mouse.  Saves
+                                 graphic images in Basic for use in GW
+                                 Basic programs.
+pix1000f.zip    39984  09/22/94  Paint program for Tandy 1000.  (Requires
+                                 GW Basic.)
+tanpics.zip     44028  08/12/04  Batch file displays Dr. Who pictures in
+                                 Tandy video.  With Tanload program to
+                                 display them (uses Basic BLOAD format).

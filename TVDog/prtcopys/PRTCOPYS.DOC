@@ -1,0 +1,59 @@
+       This is the documentation file for "PRTCOPYS.BAS".
+     
+         DeskMate's "TEXT" application has no facilities for printing
+     multiple copies of a text file, but it does have the capability of
+     printing to a file.  
+         PRTCOPYS.BAS is written in GW-BASIC and is very simple to use. 
+     First, you must use "TEXT" to print the document to a file.  then run
+     PRTCOPYS.BAS. When it is run, it will ask you for the name of the file
+     to print (include disk drive, path, filename, and extension), and how
+     many copies you want.  You will then be asked if the information is
+     correct, answer by hitting <Y>es, <N>o, or <Esc>.  <Y> will start
+     printing (be sure that the printer is on, and has enough paper).  <N>
+     will ask you to reenter the information.  Hitting the <Esc> key exits
+     the program.  It is much simpler to use than it is to explain.
+     
+         There are so many different system configurations, and so many
+     different ways to set things up with DeskMate, that I can't include a
+     complete list of setup instructions.  But I will explain how I have it
+     set up on my system just to give a general idea.  
+     
+         I have created a program list box in DeskMate for the BASIC
+     programs I use with DeskMate (PRTCOPYS.BAS is only one of them).  The
+     list box is set to :
+                         Menu Title: BASIC
+                       Program Name: BASICA.COM
+                Data File Extension: BAS
+                 Start-up Directory: C:\DESK
+                        Clock Speed: Fast
+     and the list box size is set to the default.  I do not have BASICA.COM
+     in the same directory as DeskMate (c:\desk), but it is in a
+     directory that is stated in the DOS "PATH=" statement.  The BASIC
+     program itself (in this case PRTCOPYS.BAS) IS in the same directory as
+     DeskMate.
+         I have it set up this way to make it as easy to run a BASIC
+     program as it is to run a DeskMate application.  
+     
+         This program will work on ANY file you wish to print.  It will NOT
+     change the format of the file it is printing.  If the DOS "TYPE" or
+     "PRINT" commands will not print the file properly, then PRTCOPYS.BAS
+     will not either.  When I use PRTCOPYS, first I print out the file
+     using the DOS type command as such:
+     
+                     "TYPE thisfile.txt > prn"
+     
+     if that gives me an acceptable printout, then I will use PRTCOPYS to
+     print as many more as I need.  If the printout is not acceptable, then
+     I have to change the text file I want to print and try again.
+     
+         If you have any questions or comments on PRTCOPYS.BAS please leave
+     an E-Mail message for "Red Baron8" or send a letter to:
+     
+                         Greg C. Hvazda
+                         757 E. Main St.  L-201
+                         Lansdale,  PA  19446
+     
+         If you find this program useful, please send a small donation
+     ($5.00) to the above address.  If you have any suggestions for other
+     small programs to perform some trivial task (or even a not so trivial
+     task) send them to me, and I'll take a crack at it.

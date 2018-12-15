@@ -1,0 +1,29 @@
+                                     EDIT
+
+
+    The edit is a short program I wrote to help me create the DRAW string
+fonts used in Pix1000. Almost all available commands for it are on function
+keys 1 through 5. The only command not available on a function key is the "S"
+command. Typing Sx where x is a number (multiples of 4) will change the scale
+of the display. The default scale is 32. When you issue the edit command you
+are prompted for a character or key that you want to assign a DRAW string to.
+Ascii codes 1-128 are available to assign DRAW strings to, (press ALT and type
+the ascii code on the numeric keypad to assign codes 1-31). You do not have to
+necessarily create a font file. You can assign any DRAW string to the keys,
+electronic symbols, for example, anything you want.
+
+    After you input what key you want to work on press <HOME> or the arrow
+keys to move to the top left corner of the screen and start typing in the draw
+string, Ux, Dx, Gx, M+x,+y, etc. (If you don't know how GW Basic's draw
+command works then go to the library or buy Tandy's BASIC Reference Manual.)
+Pressing <ENTER> will cause the program to display the string you are working
+on in the reference grid in the lower half of the screen. You can then press
+<HOME>, <END>, or the arrow keys to move back to the top of the screen and
+continue editing your draw string. Pressing <ENTER> will redraw the string
+with any updates. When finished the draw string press any of the other 5
+functions keys to go on to something else. F1 edit, will repeat what was just
+described. F2 display, clears the screen and lets you type in any characters
+you have defined to see how the look in relation to one another. Press F5 exit
+from here to return to the command mode. F3 load, loads any existing font
+files so you can edit them. F4 save, saves the file to disk so that it can be
+used with Pix1000. F5 exit, ends the program.

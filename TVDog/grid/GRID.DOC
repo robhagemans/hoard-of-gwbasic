@@ -1,0 +1,18 @@
+GRID.DOC is a three-dimensional tic-tac-toe program written to take advantage
+of the TANDY-1000's graphics capability.  I did not code the logic of the 
+program.  It came from an unknown source.  I only added in the routines to
+change the output from ascii teletype to a 3-dimensional grid representation.
+
+Specifing a particular cell in a grid is specified by a 3-digit sequence:
+
+	1) The grid level 1-3 (1 being the top most)
+	2) The row number 1-4 (1 being the farthest from screen)
+	3) The column number (1 being the right-most)
+
+For example:  234 would specify the second grid, third row, and 4th column.
+
+The program will only accept digits and the <BACKSPACE> (for correcting a
+previous keystroke).
+
+Craig Hubbs  (72371, 1075)
+

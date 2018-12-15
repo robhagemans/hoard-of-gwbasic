@@ -1,0 +1,139 @@
+Files in directory ../tandy1000/basic:
+
+1kbasman.zip 12322130  11/16/04  _Tandy 1000 BASIC Reference Manual_.  
+                                 1984 edition for original 1000.  PDF 
+                                 format.
+3dholo.zip       5441  03/27/97  Simple animation of cylinder in Tandy
+                                 graphics (GW-Basic).
+3k4kbasm.zip  3122207  10/03/04  _Tandy 3000/4000 Basic Reference Manual_.
+                                 PDF format.
+3kbasm.zip    7215056  03/28/05  _Tandy 3000 Basic Reference Manual_.  PDF
+                                 format.
+3kbasqk.zip    648298  03/27/05  Tandy 3000 Basic Quick Reference Guide.
+                                 PDF format.
+abasic.zip      56191  04/18/05  Tandy GW-Basic 01.01.00 from the original
+                                 1000/1000A disk set in the system 
+                                 directory.  Supports Tandy video/3 voice
+                                 (requires emulator on new PC).
+abstra.zip        815  07/04/97  Basic program, displays moving lines in
+                                 Tandy graphics.
+america.zip      1873  03/27/97  Basic program, displays American flag
+                                 in Tandy graphics and plays "Star
+                                 Spangled Banner" in 3-voice (GW-Basic).
+                                 (Must run from diskette.)
+animal.zip       2153  07/04/97  Basic program, plays "Talk to the
+                                 Animals," displays lyrics.
+bach.zip         5101  07/04/97  Basic program, plays Bach's Trio Sonata
+                                 No. 1 on 3-voice chip.
+bach1.zip        1713  07/04/97  Basic program, plays Bach's Fantasia
+                                 and Fugue in C Minor on 3-voice chip.
+baghdad.zip      2518  03/27/97  Picture of Scud missile and information
+                                 in Tandy graphics (GW-Basic).
+basquik.zip    826149  08/03/05  Tandy GW-BASIC Quick Reference.  PDF
+                                 format.
+blackmon.zip     2312  03/20/97  Three Basic programs by James Blackmon.
+                                 Joystick recommended.
+cadkey.zip       4201  05/15/97  Rudimentary CAD program for the 1000SX,
+                                 written in Basic (does not run on the
+                                 1000TL).
+cameljr.zip      2874  07/03/97  Basic program draws Sopwith Camel
+                                 airplane in Tandy/PCjr graphics.
+condo.zip        5719  05/15/97  Condo game in Basic.  Developers compete
+                                 to make the most money while avoiding
+                                 disasters (like building inspectors :-).
+dmpcod.zip       5395  05/15/97  A collection of Basic programs and
+                                 accompanying batch files for setting
+                                 printing modes on the DMP 130 printer.
+down2bas.zip    74757  09/20/94  Several Basic programs from _1000
+                                 Magazine_ (now defunct).  Load and run
+                                 MENU.BAS to start.
+draw01.zip       6051  09/19/94  Drawing program for Tandy 1000's (GW
+                                 Basic).
+drive.zip        2192  09/19/94  Driving game for Tandy 1000's (GW
+                                 Basic).
+exbasic.zip     52283  12/18/04  GW-Basic from 1000EX disk set in the
+                                 system directory.  Supports Tandy video,
+                                 3-voice (requires emulator on new PC).
+f-111f.zip       2958  03/29/97  Basic program, displays picture of F-111F
+                                 plane in Tandy graphics.
+fewsong2.zip     7441  03/29/97  6 songs for 3-voice chip (GW-Basic).
+flagman2.zip     3811  03/29/97  Animation of man raising American flag,
+                                 plays "Star Spangled Banner" (Tandy
+                                 graphics, 3-voice, GW-Basic).
+grand.zip         702  05/15/97  Basic program, plays "You're a Grand Old
+                                 Flag" on the 3-voice chip.
+grid.zip         5453  05/15/97  3-dimensional tic-tac-toe game for Tandy
+                                 1000's (GW-Basic).
+gwbasic.zip    406334  09/05/97  A large collection of Basic programs
+                                 from James Blackmon (includes some other
+                                 programs in this directory).
+invent.zip       6587  08/02/95  A simple database program in Tandy 1000
+                                 GW-Basic used to manage a small business
+                                 inventory.
+jr-draw.zip      4443  07/03/97  Drawing program in Basic for Tandy
+                                 1000/PCjr.
+jrmusic.zip     20048  07/03/97  Basic program plays 8 songs on PCjr
+                                 3-voice chip, with modified version for
+                                 1000's.
+land.zip        42976  03/29/97  GW-Basic program displays fractal
+                                 landscapes in Tandy graphics (slow but
+                                 impressive-looking).
+lines.zip        3948  03/29/97  Several Tandy graphics demos (GW-Basic).
+medley.zip      14885  05/15/97  Christmas carol medley, played on the
+                                 3-voice chip (GW-Basic).
+midnight.zip     3588  07/03/97  Basic program shows short animation in
+                                 Tandy 1000/PCjr graphics.
+music.zip       11409  07/03/97  13 songs for the 3-voice chip, in Basic.
+nosoufix.txt      656  05/15/97  Debug patch to correct lack of sound
+                                 with SOUND function in Tandy GW-Basic
+                                 v1.1 on the 1000A.
+otm-fkey.zip     5085  03/29/97  GW-Basic program, enables programming of
+                                 function keys under DOS (requires
+                                 ANSI.SYS).
+pcjrplay.zip     8385  07/03/97  Basic program plays songs on the 3-voice
+                                 chip.  Contains information on
+                                 programming the chip in Basic.
+pepsi.zip         876  07/03/97  Basic program displays Pepsi logo in
+                                 Tandy/PCjr graphics.
+prtcopys.zip     2103  04/11/97  Basic program, prints multiple copies of
+                                 a file.
+psycho.zip        464  07/04/97  Basic program, displays weird sounds and
+                                 pictures (uses Tandy graphics).
+rbow.zip         7419  07/04/97  Basic program, plays "The Rainbow
+                                 Connection" children's song on 3-voice
+                                 chip, with animation in Tandy graphics.
+royal.zip       11515  08/02/95  Poker slot machine game in GW-Basic for
+                                 Tandy 1000 and 1000TX (does not run on
+                                 1000TL).
+slot.zip         4308  09/19/94  Slot machine game for 1000-series (GW
+                                 Basic).
+snowbi.zip       1137  05/15/97  Basic program, plays "Snowbird" by Anne
+                                 Murray in 3-voice.
+spacepic.zip     2569  03/29/97  Program displays 3 animated space
+                                 pictures in Tandy graphics (GW-Basic).
+sxbasman.zip  7525454  01/18/05  _Tandy 1000 BASIC Reference Manual_.  
+                                 1986 edition covers GW-Basic v2.02 and 
+                                 3.20.  PDF format.
+tandydmo.zip     1244  09/17/94  Simple programs demonstrate use of Tandy
+                                 graphics and 3-voice sound in GW Basic.
+tbasic.txt       1211  09/17/94  Patch instructions for Tandy GW Basic
+                                 2.02, fixes problem with beep.
+t1basprg.zip     7783  07/16/02  Basic programs that use Tandy 3-voice
+                                 sound.
+tlbasic.zip     59664  12/18/04  GW-Basic from 1000TL disk set in the
+                                 system directory.  Supports Tandy video,
+                                 3-voice (requires emulator on new PC).
+twelve.zip       7381  05/15/97  Basic program, displays Christmas tree in
+                                 Tandy graphics, plays "The Twelve Days of
+                                 Christmas" on the 3-voice chip.
+usa16clr.zip     5687  09/19/94  Map of the U.S. for Tandy 1000 video (GW
+                                 Basic).
+vehicles.zip     6110  09/19/94  Program displays pictures of cars on
+                                 Tandy 1000 (GW Basic).
+warship.zip      3000  03/30/97  Program displays picture of aircraft
+                                 carrier in Tandy graphics (GW-Basic).
+willtell.zip     1564  04/14/97  Basic program plays overture to "William
+                                 Tell" on the 3-voice chip.
+xmas.zip        10377  05/15/97  Basic programs, display Christmas tree
+                                 and wreath in Tandy graphics, play carols
+                                 on the 3-voice chip.

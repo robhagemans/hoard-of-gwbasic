@@ -1,0 +1,4878 @@
+				  GRAFIX 2.55
+
+		   Tandy 1000 Graphics And Sound Extensions
+			160x200x16 Color Graphics Mode
+			320x200x16 Color Graphics Mode
+			640x200x16 Color Graphics Mode
+		     Texas Instruments SN76496 Sound Chip
+
+
+				  Written By:
+			      Joseph A. Albrecht
+			 9250 Old Cedar Ave  Apt. 215
+			    Bloomington, MN  55425
+
+			      GEnie Mail Address:
+				  A.ALBRECHT
+
+
+
+Table of contents:
+
+    1 - Introduction To The GRAFIX Package
+    2 - BASIC And PASCAL Programming Interface
+    3 - ASSEMBLER Programming Interface
+    4 - GRAFIX Utility Programs
+    5 - Miscellaneous Details About The GRAFIX Package
+
+			   CHAPTER 1 - Introduction
+
+
+GRAFIX	is a  memory resident  graphics and  sound program  for your  Tandy 1000
+series personal  computer. It provides you  with a complete set  of graphics and
+sound  functions that  can be  executed from  your favorite programming language
+such as compiled BASIC and PASCAL. To  use GRAFIX just install it when you start
+up your computer by including the following lines in your AUTOEXEC.BAT file:
+
+  TANDY11
+  GRAFIX
+
+That's all there is to it. Since the  program is memory resident you can use any
+of  the program's  sound and  graphic functions  anytime you  want. The  TANDY11
+program is  necessary if own  a Tandy 1000  SL or Tandy  1000 TL computer.  This
+enables those computers to do 640x200x16 color graphics. (See chapter 4 for more
+information on the TANDY11 program)
+
+The following list are some of the functions GRAFIX provides you with:
+
+  Points
+  Lines
+  Circles and ellipses
+  Line and solid boxes
+  Filling irregular areas with color
+  Storing and transferring areas of the graphic screen
+  Variable screen viewport
+  Multiple video pages
+  Printing text strings on the graphics screen
+  Graphics text cursor
+  Using the Tandy 1000's 3 voice sound and noise capabilities
+  Making sounds and noises in background while your program executes
+  Changing the speed of the system timer for precise sound and noise duration
+  Three different graphic modes supported:
+    160x200x16 color graphics
+    320x200x16 color graphics
+    640x200x16 color graphics (Tandy 1000 SL/TL only)
+
+These functions are accessed by passing  the GRAFIX program a set values through
+your computer's  CPU registers and  executing an INT  instruction. Sounds pretty
+easy, huh! Well, you  never have to be that concerned with  the mechanics of the
+GRAFIX	program. I  have provided  you with  a set  of interfacing  programs for
+compiled BASIC	and PASCAL. These  interfaces act as  a translator between  your
+program and the GRAFIX program. For example, if you wanted to draw a blue box in
+Turbo PASCAL all you have to do is include a line like this in your program:
+
+  DrawBox(0, 0, 319, 199, 1);
+
+The interface  takes the values  passed to  it,  places the values  into the CPU
+registers, and	executes the INT  instruction without you  ever having to  worry
+about  those  intricate  details.  The	following  is  list  of  interfaces  for
+programming languages currently provided:
+
+  Microsoft QuickBASIC 4.0 and greater
+  Borland Turbo BASIC 1.0 - 1.1
+  SPECTRA Publishing PowerBASIC 2.0 and greater
+  Microsoft QuickPASCAL 1.0 and greater
+  Borland Turbo PASCAL 4.0 and greater
+
+Chapter 2 describes the BASIC and PASCAL programming interfaces telling you what
+each function does and how to use it  in your program. For those of you who have
+a different programming  language and would  like to design  your own interface,
+read chapter  3. This describes the  ASSEMBLY language interface for  GRAFIX. It
+gives all  the technical information necessary	for setting up an  interface for
+any other  programming language such as  C. Chapter 4 discusses  the two utility
+programs, ADJMEM and  TANDY11 provided with the GRAFIX	package. Chapter 5 gives
+all the miscellaneous details of GRAFIX.
+
+	      CHAPTER 2 - BASIC And PASCAL Programming Interfaces
+
+
+This chapter describes	the BASIC and PASCAL programming  interfaces for GRAFIX.
+All the  functions are listed in  alphabetical order with a  description of what
+the function  does, an explanation of  each parameter, and an  example of how to
+use  it in  your program  for  both  BASIC and	PASCAL. Following  the functions
+listing there is a section on the necessary steps to integrate the interface for
+each language product into your program.
+
+
+Functions summary for BASIC and PASCAL:
+
+********************************************************************************
+
+  Animate(X, Y, Image[Index], Duration)
+    Animates an image as described in the 'ExtPut' function.
+
+    It	automatically  transfers  and  erases  the  image  all	in one step. The
+    duration  is the  amount of  time to  pause between  the transfer  and erase
+    stages of the function. This can help  adjust the amount of flicker. (Do not
+    confuse the duration for this function with the duration for the 'ExtSound',
+    'Noise', and 'Delay' functions. The duration here is in no way tied to clock
+    ticks or the 8253 timer chip)
+
+  Parameters:
+    X - Horizontal position of image
+    Y - Vertical position of image
+    Image[Index] - Integer array  holding saved image starting	at the specified
+		   index
+    Duration is a number 1 - 65535:
+      This is the amount of delay between transfer and erase of image
+
+  Examples:
+    BASIC
+      CALL Animate(X, Y, Image%(0), Duration%)
+    PASCAL
+      Animate(X, Y, Image[0], Duration);
+
+********************************************************************************
+
+  AudioOff
+    Turns all current sounds and noises off and disables background processing.
+
+    See the 'ExtSound' and 'Noise'  functions for more information on background
+    processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL AudioOff
+    PASCAL
+      AudioOff;
+
+********************************************************************************
+
+  BLoad(FileName, BLoadArea)
+    Stores a file  saved with BASIC's BSAVE function into  the specified area of
+    memory.
+
+    This is available  for PASCAL programs only. This  is primarily intended for
+    use with the demo programs provided with the GRAFIX package in which BSAVE'd
+    images  are  stored  into  arrays.	Since  PASCAL  lacks  a BLOAD function I
+    provided one to fill in the gap.
+
+  Parameters:
+    FileName - Name of BSAVE'd file
+    BLoadArea  - Area  of memory  to  store  BSAVE'd image.  This is  usually an
+		 integer array.
+
+  Examples:
+    BASIC
+      None
+    PASCAL
+      BLoad('IMAGE.BIN', Image[0]);
+
+********************************************************************************
+
+  ClearKey
+    Clears the keyboard buffer.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ClearKey
+    PASCAL
+      ClearKey;
+
+********************************************************************************
+
+  ClearScreen
+    Clears the screen viewport using the current background color.
+
+    See the 'SetView' function for a description of the screen viewport.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ClearScreen
+    PASCAL
+      ClearScreen;
+
+********************************************************************************
+
+  ColorOff
+    Turns the color signal off for use with a monochrome composite monitor.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ColorOff
+    PASCAL
+      ColorOff;
+
+********************************************************************************
+
+  ColorOn
+    Turns  the	color  signal  back  on  again	if  you  had  turned it off with
+    'ColorOff'.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ColorOn
+    PASCAL
+      ColorOn;
+
+********************************************************************************
+
+  CurrentPoint(X, Y)
+    Returns the current X, Y coordinates.
+
+  Parameters:
+    X - Variable to hold current horizontal position
+    Y - Variable to hold current vertical position
+
+  Examples:
+    BASIC
+      CALL CurrentPoint(X%, Y%)
+    PASCAL
+      CurrentPoint(X, Y);
+
+********************************************************************************
+
+  CursorOff
+    Sets the graphics cursor off making it invisible.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL CursorOff
+    PASCAL
+      CursorOff;
+
+********************************************************************************
+
+  CursorOn
+    Sets the graphics cursor on making it visible.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL CursorOn
+    PASCAL
+      CursorOn;
+
+********************************************************************************
+
+  CursorStatus(Status, Size)
+     Returns the current graphics cursor status and size.
+
+  Parameters:
+    Status - Variable to hold graphics cursor status
+	       0 = Off
+	       1 =  On
+    SizeStatus - Variable to hold graphics cursor size
+		   0 = Normal Size
+		   1 = Half Size
+
+  Examples:
+    BASIC
+      CALL CursorStatus(Status%, SizeStatus%)
+    PASCAL
+      CursorStatus(Status, SizeStatus);
+
+********************************************************************************
+
+  DrawBox(X1, Y1, X2, Y2, Color)
+    Draws a line box from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+    Color - Color of box
+
+  Examples:
+    BASIC
+      CALL DrawBox(0, 0, 319, 199, 1)
+    PASCAL
+      DrawBox(0, 0, 319, 199, 1);
+
+********************************************************************************
+
+  DrawBoxC(X1, Y1, X2, Y2)
+    Draws a line box from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+
+  Examples:
+    BASIC
+      CALL DrawBoxC(10, 10, 100, 100)
+    PASCAL
+      DrawBoxC(10, 10, 100, 100);
+
+********************************************************************************
+
+  ExitGraphics
+    Leaves the	graphics screen mode, enters  the 80x25 color text  screen mode,
+    and disables all graphics functions.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ExitGraphics
+    PASCAL
+      ExitGraphics;
+
+********************************************************************************
+
+  Ellipse(X, Y, MajorAxis, MinorAxis)
+    Draws an ellipse centered at the specified X, Y position using the specified
+    major and minor axes and current drawing color.
+
+    When you draw a  circle you specify an X, Y center	along with a radius. The
+    radius  is a  single number  that indicates  how many  points away	from the
+    center the circle should expand out. The  radius is in fact broken down into
+    two  separate numbers;  a number  of horizontal  and vertical  points. These
+    numbers  are derived  from the  current  setting  of the  aspect ratio.  The
+    horizontal and vertical number of points are called the major and minor axes
+    of the ellipse.  Using the aspect ratio to break  down the radius into these
+    two  parts has  it's limitations.   Calling the  ellipse procedure  with the
+    specified major  and minor axes  gives you the  ultimate control in  drawing
+    circular shapes.
+
+  Parameters:
+    X - Horizontal center of ellipse
+    Y - Vertical center of ellipse
+    MajorAxis - Size of major axis
+    MinorAxis - Size of minor axis
+
+  Examples:
+    BASIC
+      CALL Ellipse(160, 100, 50, 40)
+    PASCAL
+      Ellipse(160, 100, 50, 40);
+
+********************************************************************************
+
+  EllipseC(X, Y, MajorAxis, MinorAxis, Color)
+    Draws an ellipse centered at the specified X, Y position using the specified
+    major and minor axes and specified color.
+
+    See the 'Ellipse' function for a description of an ellipse.
+
+  Parameters:
+    X - Horizontal center of ellipse
+    Y - Vertical center of ellipse
+    MajorAxis - Size of major axis
+    MinorAxis - Size of minor axis
+    Color - Color of ellipse
+
+  Examples:
+    BASIC
+      CALL EllipseC(160, 100, 50, 40, 1)
+    PASCAL
+      EllipseC(160, 100, 50, 40, 1);
+
+********************************************************************************
+
+  ExtCircle(X, Y, Radius)
+    Draws a circle  centered at X, Y using the	specified radius, current values
+    of aspect ratio and current drawing color.
+
+    See the 'SetAspect' function for a description of the aspect ratio.
+
+  Parameters:
+    X - Horizontal center of circle
+    Y - Vertical center of circle
+    Radius - Radius of circle
+
+  Examples:
+    BASIC
+      CALL ExtCircle(160, 100, 75)
+    PASCAL
+      ExtCircle(160, 100, 75)
+
+********************************************************************************
+
+  ExtCircleC(X, Y, Radius, Color)
+    Draws a circle  centered at X, Y using the	specified radius, current values
+    of aspect ratio and the specified color.
+
+    See the 'SetAspect' function for a complete description of the aspect ratio.
+
+  Parameters:
+    X - Horizontal center of circle
+    Y - Vertical center of circle
+    Radius - Radius of circle
+    Color - Color of circle
+
+  Examples:
+    BASIC
+      CALL ExtCircleC(160, 100, 75, 1)
+    PASCAL
+      ExtCircle(160, 100, 75, 1)
+
+********************************************************************************
+
+  ExtGet(X1, Y1, X2, Y2, Image[Index])
+    Stores a graphics image from X1, Y1 to X2, Y2 into the an integer array.
+
+    This is used  with the 'ExtPut' function to store  and transfer areas of the
+    graphics  screen. Be  EXTREMELY careful  when using  this function in making
+    sure the array is large enough to  hold the entire image you are storing. If
+    not,  this	function  will	cheerfully  overwrite  anything after the ending
+    position of  the array in  your program. This  includes other variables,  or
+    even  program instructions.  The result   would be	less than  pleasurable I
+    assure you. Fortunately, there is a simple solution to this problem that can
+    be set up in your program to  see that this terrible event never occurs. Use
+    the following procedure to determine if  the array is large enough to safely
+    store the whole image:
+
+    SafeSize = ((W / 4) + 6) * H
+       H - Image's number of points in height
+       W - Image's number of points in width
+
+    ArraySize = L - S + 1
+       L - Integer array's largest possible index number
+       S - Integer array's smallest possible index number
+
+    IF ArraySize < SafeSize THEN DON'T execute this function
+
+    Most programming  languages allow you  to determine an  array's smallest and
+    largest index number.  If the language you are working  in doesn't have this
+    capability then you'll have to supply those figures yourself.
+
+  Parameters:
+    X1 - Upper left horizontal position to store
+    Y1 - Upper left vertical position to store
+    X2 - Lower right horizontal position to store
+    Y2 - Lower right vertical position to store
+    Image[Index] - Integer array to hold graphic image starting at the specified
+		   index
+
+  Examples:
+    BASIC
+      CALL ExtGet(0, 0, 50, 75, Image%(0))
+    PASCAL
+      ExtGet(0, 0, 50, 75, Image[0]);
+
+********************************************************************************
+
+  ExtLine(X1, Y1, X2, Y2)
+    Draws a line from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of line
+    Y1 - Upper left vertical position of line
+    X2 - Lower right horizontal position of line
+    Y2 - Lower right vertical position of line
+
+  Examples:
+    BASIC
+      CALL ExtLine(10, 15, 100, 150)
+    PASCAL
+      ExtLine(10, 15, 100, 150);
+
+********************************************************************************
+
+  ExtLineC(X1, Y1, X2, Y2, Color)
+    Draws a line from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of line
+    Y1 - Upper left vertical position of line
+    X2 - Lower right horizontal position of line
+    Y2 - Lower right vertical position of line
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL ExtLineC(10, 15, 100, 150, 1)
+    PASCAL
+      ExtLineC(10, 15, 100, 150, 1);
+
+********************************************************************************
+
+  ExtPaint(X, Y, FillColor, BoundaryColor)
+    Fills  an enclosed	shape starting	at X,  Y with  the specified  fill color
+    stopping at the specified boundary color.
+
+    An example of using  the ExtPaint function would be if you	drew a circle in
+    red and wanted  to fill the interior with  a blue. If you gave  the starting
+    position  as the  center of  the circle,  the fill	color as  blue, and  the
+    boundary color as red; the interior  would be filled with blue while leaving
+    the red border of the circle alone.
+
+  Parameters:
+    X - Starting horizontal position to paint
+    Y - Starting vertical position to paint
+    FillColor - Color used to fill the paint area
+    BoundaryColor - Color at which to stop painting
+
+  Examples:
+    BASIC
+      CALL ExtPaint(100, 10, 5, 14)
+    PASCAL
+      ExtPaint(100, 10, 5, 14);
+
+********************************************************************************
+
+ ExtPut(X, Y, Image[Index], PutAction)
+   Transfers a	graphics image stored with  'ExtGet' starting at X,  Y using the
+   specified action.
+
+   Action is 1 of 5 options described as follows:
+
+     1 = PRESET - Produces a numeric opposite of the color stored
+		  in the array:
+
+		    Array Color   Screen Color
+		    -----------   ------------
+			00	       15
+			01	       14
+			02	       13
+			03	       12
+			04	       11
+			05	       10
+			06	       09
+			07	       08
+			08	       07
+			09	       06
+			10	       05
+			11	       04
+			12	       03
+			13	       02
+			14	       01
+			15	       00
+
+     2 = PSET - Transfers the image exactly as it was stored.
+
+     3 = AND - Does a logical AND  between the point on the screen and the color
+	       in the array.
+
+     4 = OR - Does a logical OR between the point on the screen and the color in
+	      the array.
+
+     5 = XOR - Does a logical XOR between the  point on the screen and the color
+	       in the array. When PUT against a background twice, the background
+	       is  restored. This  allows animation  to take  place. To  perform
+	       animation do the following:
+
+		 1) PUT the image on the screen
+		 2) Calculate the next X, Y position
+		 3) PUT the image at the previous X, Y position
+		 4) Repeat Step 1
+
+  Parameters:
+    X - Horizontal position to transfer image
+    Y - Vertical position to transfer image
+    Image[Index] - Integer array holding graphic image starting at the specified
+		   index
+    PutAction - Action to use when transferring image
+
+  Examples:
+    BASIC
+      CALL ExtPut(10, 20, Image%(0), 5)
+    PASCAL
+      ExtPut(10, 20, Image[0], 5);
+
+********************************************************************************
+
+  ExtSound(Frequency, Duration, Volume, Channel)
+    Generates a sound with the	specified frequency, duration, volume, and sound
+    channel.
+
+    This function works  exactly like the SOUND function  in the special version
+    of GW-BASIC that came with you Tandy  1000. Sounds can be made in background
+    if you enable sound buffering. This means that your program will continue to
+    execute while sounds  are being made. Each sound channel  has it's own sound
+    buffer. Each buffer can hold up to 64 entries.
+
+  Parameters:
+    Frequency is a number 110 - 32767:
+      This is  the tone to produce  in Hertz. Certain frequencies  correspond to
+      musical  notes.	The  following	chart  shows   the  frequency  for  each
+      corresponding note:
+
+	Note  Freq     Note  Freq     Note  Freq     Note  Freq
+	----  ----     ----  ----     ----  ----     ----  ----
+
+	C2	65     A3     220     F#5    740     C7    2489
+	C#2	69     A#3    233     G5     784     C#7   2637
+	D2	73     B3     247     G#5    831     D7    2794
+	D#2	78     C4     262     A5     880     D#7   2960
+	E2	82     C#4    277     A#5    932     E7    3136
+	F2	87     D4     294     B5     988     F7    3322
+	F#2	93     D#4    311     C6    1047     F#7   3520
+	G2	98     E4     330     C#6   1109     G7    3729
+	G#2    104     F4     349     D6    1175     G#7   3951
+	A2     110     F#4    370     D#6   1245     A7    4186
+	A#2    116     G4     392     E6    1319     A#7   4435
+	B2     123     G#4    415     F6    1397     B7    4699
+	C3     131     A4     440     F#6   1480     C8    4978
+	C#3    139     A#4    466     G6    1568     C#8   5274
+	D3     147     B4     494     G#6   1661     D8    5587
+	D#3    156     C5     523     A6    1760     F#8   5919
+	E3     165     C#5    554     A#6   1865     G8    6271
+	F3     175     D5     587     B6    1976     G#8   6645
+	F#3    185     D#5    622     D#8   2093     A8    7040
+	G3     196     E5     659     E8    2217     A#8   7459
+	G#3    208     F5     698     F8    2349     B8    7902
+
+      The Texas Instruments SN76496 sound chip	in the Tandy 1000 cannot produce
+      frequencies below  110 Hertz. If you  use the above chart  please remember
+      you cannot make notes below A2.
+
+    Duration is a number 0 - 65535:
+      This is the number of clock ticks the sound will last. See the 'FastTimer'
+      function for more information on clock ticks.
+
+    Volume is a number 0 - 15:
+      0 is the quietest.
+      15 is the loudest.
+
+    Sound channel is a number 0 - 2:
+      This is  the sound channel  to use when  producing the sound.  You can set
+      each sound channel to a different tone to make a 3-note chord.
+
+  Examples:
+    BASIC
+      CALL ExtSound(880, 8, 7, 0)
+    PASCAL
+      ExtSound(880, 8, 7, 0);
+
+********************************************************************************
+
+  FastTimer(Speed)
+    Sets the speed of the 8253 timer chip.
+
+    The 8253 timer chip is the driving force behind the 'ExtSound', 'Noise', and
+    'Pause' functions. These functions rely on a certain period of time to last.
+    This period of time  is known as a clock tick. When  you first start-up your
+    computer  the  timer  chip	is  set  at  18.2  clock  ticks  per second. The
+    'FastTimer' function allows  you to change the speed to  a rate greater than
+    that. The  reason for this is  to increase the performance	of the functions
+    previously mentioned. The 'ExtSound' function is a good example. You can use
+    the 'ExtSound' function to produce notes  to make music. There is a limiting
+    factor in  that at a  rate of 18.2	clock ticks per  second notes that  last
+    1/19th or less their normal time cannot be produced. GW-BASIC sets the timer
+    chip to  run at 4  times it's normal  rate when it  uses the PLAY statement.
+    This allows it to make notes up to 1/64th their normal time. The 'FastTimer'
+    function allows you to run the timer  chip up to 256 times it's normal rate.
+    This gives	you almost unlimited  flexibility in writing  programs that make
+    sounds or  noises to last  exactly as long	as you want.  Another area where
+    this function can  be useful is in the  use of the 'Pause' function.  A more
+    precise time than 1/18th of a second can be used if you need it. I recommend
+    that you use values of 8 or less  if you are going to use this function only
+    for sounds or  noises and set it to  rates greater than that for  only short
+    periods of time in the use of  the 'Pause' function. This is because running
+    the 8253 timer  faster than it's normal setting will  cause your computer to
+    run slower. The higher the rate setting the slower your computer will run.
+
+    An extremely important  thing to remember about using  this function is that
+    you MUST use the 'ResetTimer' function  before you end your program. Failure
+    to do so can result in anything from your current time of day being wrong to
+    a locked up computer system. Avoid using  this function if you are using the
+    debugging facilities  of one of the  compilers. As soon as	a break point is
+    reached the program  is ended for all practical purposes.  The main thing to
+    remember is the 'ResetTimer' timer	function must be executed before control
+    is passed back to the operating system or the compiler you are working with.
+
+  Parameters:
+    Speed is a number 2 - 256:
+      This is the number  of times greater you want the 8253  timer chip to run.
+      A setting of 4 will make it run 4 times faster than before. This will make
+      clock ticks occur 72.8 times a second.
+
+  Examples:
+    BASIC
+      CALL FastTimer(8)
+    PASCAL
+      FastTimer(4);
+
+********************************************************************************
+
+  FillBox(X1, Y1, X2, Y2, Color)
+    Draws a solid box from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+    Color - Color of box
+
+  Examples:
+    BASIC
+      CALL FillBox(0, 0, 100, 75, 1)
+    PASCAL
+      FillBox(0, 0, 100, 75, 1);
+
+********************************************************************************
+
+  FillBoxC(X1, Y1, X2, Y2)
+    Draws a solid box from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+
+  Examples:
+    BASIC
+      CALL FillBoxC(0, 0, 100, 75)
+    PASCAL
+      FillBoxC(0, 0, 100, 75);
+
+********************************************************************************
+
+  GetActivePage(Page)
+    Returns  the  current  active  page.  See  the  'PageCopy' function for more
+    information on video paging.
+
+  Parameters:
+    Page - Variable to store the value of the current active page.
+
+  Examples:
+    BASIC
+      CALL GetActivePage(Page%)
+    PASCAL
+      GetActivePage(Page);
+
+********************************************************************************
+
+  GetAspect(XAspect, YAspect)
+    Returns  the current  horizontal and  vertical portions  of the aspect ratio
+    used in circle drawing.
+
+  Parameters:
+    XAspect - Variable to store horizontal portion of aspect ratio
+    YAspect - Variable to store vertical portion of aspect ratio
+
+  Examples:
+    BASIC
+      CALL GetAspect(XAspect%, YAspect%)
+    PASCAL
+      GetAspect(XAspect, YAspect);
+
+********************************************************************************
+
+  GetBackColor(Color)
+    Returns the current background color.
+
+  Parameters:
+    Color - Variable to store current background color
+
+  Examples:
+    BASIC
+      CALL GetBackColor(BackColor%)
+    PASCAL
+      GetBackColor(BackColor);
+
+********************************************************************************
+
+  GetCursor(Row, Column)
+    Returns the current text row and column.
+
+  Parameters:
+    Row - Variable to store current text row
+    Column - Variable to store current text column
+
+  Examples:
+    BASIC
+      CALL GetCursor(Row%, Column%)
+    PASCAL
+      GetCursor(Row, Column);
+
+********************************************************************************
+
+  GetDisplayPage(Page)
+    Returns  the current  display page.   See the  'PageCopy' function	for more
+    information on video paging.
+
+  Parameters:
+    Page - Variable to store the value of the current display page.
+
+  Examples:
+    BASIC
+      CALL GetDisplayPage(Page%)
+    PASCAL
+      GetDisplayPage(Page);
+
+********************************************************************************
+
+  GetInput(Prompt, String)
+    Allows input of string variables while in the color graphics mode.
+
+    It provides many of the editing  capabilities of BASIC's INPUT function. The
+    keys that are listed show what editing functions are currently handled:
+
+      BACKSPACE - Backspaces  the cursor,  erasing  the  first character  to the
+		  left. All characters to right move left one position.
+
+      ENTER - Exits the  'GetInput' function and  transfers the entered  data to
+	      string variable.
+
+      ESC - Erases  the  entire  line  and  moves  the	cursor	to  first keying
+	    position.
+
+      HOME - Moves the cursor to the first keying position.
+
+      LEFT ARROW - Moves the cursor left one space.
+
+      RIGHT ARROW - Moves the cursor right one space
+
+      END - Moves the end of the line.
+
+      INSERT - Toggles insert mode on/off. If  insert mode is on then characters
+	       are added at current cursor position.  If insert mode is off then
+	       characters are overwritten at the current cursor position.
+
+      DELETE - Deletes the  character at the  current cursor position  and moves
+	       all remaining characters to the left one position.
+
+    The graphics cursor is turned on  for this function. It's previous status is
+    restored when the function is done.
+
+  Parameters:
+    Prompt - Prompt to display for input
+    String - String variable to hold input entered
+
+  Examples:
+    BASIC
+      CALL GetInput("Enter Your Name ", A$)
+    PASCAL
+      GetInput('Enter Your Name ', A);
+
+********************************************************************************
+
+  GetPlotColor(Color)
+    Returns the current drawing color.
+
+  Parameters:
+    Color - Variable to store current drawing color
+
+  Examples:
+    BASIC
+      CALL GetPlotColor(PlotColor%)
+    PASCAL
+      GetPlotColor(PlotColor);
+
+********************************************************************************
+
+  GetScreen(Image[Index])
+    Copies the entire screen buffer into an integer array.
+
+    This method is at least 5 times faster than using the 'ExtGet' function.
+
+  Parameters:
+    Image[Index] - The	integer array to hold the screen  buffer at the starting
+		   index.
+
+    To make  sure the integer  array is large  enough to hold  the entire screen
+    buffer use	the following chart  for the proper  array size for  each screen
+    mode:
+
+      160x200x16 color graphics mode:
+	BASIC
+	  DIM Image%(8005)
+	PASCAL
+	  Image: ARRAY[0..8005] OF WORD;
+
+      320x200x16 color graphics mode:
+	BASIC
+	  DIM Image%(16005)
+	PASCAL
+	  Image: ARRAY[0..16005] OF WORD;
+
+      640x200x16 color graphics mode:
+	BASIC
+	  DIM Image%(32005)
+	PASCAL
+	  Image: ARRAY[0..32005] OF WORD;
+
+  Examples:
+    BASIC
+      CALL GetScreen(Image%(0))
+    PASCAL
+      GetScreen(Image%[0]);
+
+********************************************************************************
+
+ GetTandy11(Status)
+   Returns the the  status of the TANDY11 driver for  using the 640x200x16 color
+   graphics mode on the Tandy 1000 SL/TL computers.
+
+  Parameters:
+    Status - Variable to hold status of Tandy11 driver
+      0 = TANDY11 driver is not installed
+      1 = TANDY11 driver is installed
+
+  Examples:
+    BASIC
+      CALL GetTandy11(Tandy11%)
+    PASCAL
+      GetTandy11(Tandy11);
+
+********************************************************************************
+
+  GetTextColor(Color)
+    Returns the current text color used in the 'PrintString' function.
+
+  Parameters:
+    Color - Variable to store current text color.
+
+  Examples:
+    BASIC
+      CALL GetTextColor(TextColor%)
+    PASCAL
+      GetTextColor(TextColor);
+
+********************************************************************************
+
+  GetTimer(TimerValue)
+    Returns  the current  speed of  the  8253  timer chip.  See the  'FastTimer'
+    function for more information on the 8253 timer chip.
+
+  Parameters:
+    TimerValue - Variable to store the speed of the 8253 timer chip.
+
+  Examples:
+    BASIC
+      CALL GetTimer(TimerValue%)
+    PASCAL
+      GetTimer(TimerValue);
+
+********************************************************************************
+
+  GetView(MinX, MinY, MaxX, MaxY)
+    Returns the current values of the screen viewport.
+
+  Parameters:
+    MinX - Variable to hold minimum X value
+    MinY - Variable to hold minimum Y value
+    MaxX - Variable to hold maximum X value
+    MaxY - Variable to hold maximum Y value
+
+  Examples:
+    BASIC
+      CALL GetView(MinX%, MinY%, MaxX%, MaxY%)
+    PASCAL
+      GetView(MinX, MinY, MaxX, MaxY);
+
+********************************************************************************
+
+  GraphStatus(Status)
+    Returns whether the graphics functions are enabled or disabled.
+
+  Parameters:
+    Status - Variable to hold graphic functions status
+      0 = Graphic functions are disabled
+      1 = Graphic functions are enabled
+
+  Examples:
+    BASIC
+      CALL GraphStatus(Status%)
+    PASCAL
+      GraphStatus(Status);
+
+********************************************************************************
+
+  HalfCursor
+    Sets the text cursor to half size.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL HalfCursor
+    PASCAL
+      HalfCursor;
+
+********************************************************************************
+
+  HighGraphics
+    Enters the	640x200x16 color graphics  screen mode and  enables all graphics
+    functions on the Tandy 1000 SL/TL computers only.
+
+    This function verifies both the GRAFIX and TANDY11 drivers are loaded before
+    attempting to enter the graphics mode.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL HighGraphics
+    PASCAL
+      HighGraphics;
+
+********************************************************************************
+
+  LineRel(XRel, YRel)
+    Draws a  line a relative distance  from the current X,  Y position using the
+    current drawing color.
+
+    You can give this function both positive and negative values.
+
+  Parameters:
+    XRel - Number points to draw line in a horizontal direction
+    YRel - Number points to draw line in a vertical direction
+
+  Examples:
+    BASIC
+      CALL LineRel(10, 10)
+    PASCAL
+      LineRel(10, 10);
+
+********************************************************************************
+
+  LineRelC(XRel, YRel, Color)
+    Draws a  line a relative distance  from the current X,  Y position using the
+    specified color.
+
+    You can give this function both positive and negative values.
+
+  Parameters:
+    XRel - Number points to draw line in a horizontal direction
+    YRel - Number points to draw line in a vertical direction
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL LineRelC(-5, -10, 15)
+    PASCAL
+      LineRelC(-5, -10, 15);
+
+********************************************************************************
+
+  LineTo(X, Y)
+    Draws a line to  the specified X, Y position from the  current X, Y position
+    using the current drawing color.
+
+  Parameters:
+    X - Ending horizontal position of line
+    Y - Ending vertical position of line
+
+  Examples:
+    BASIC
+      CALL LineTo(50, 75)
+    PASCAL
+      LineTo(50, 75);
+
+********************************************************************************
+
+  LineToC(X, Y, Color)
+    Draws a line to  the specified X, Y position from the  current X, Y position
+    using the specified drawing color.
+
+  Parameters:
+    X - Ending horizontal position of line
+    Y - Ending vertical position of line
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL LineToC(50, 75, 6)
+    PASCAL
+      LineToC(50, 75, 6);
+
+********************************************************************************
+
+  LowGraphics
+    Enters the	160x200x16 color graphics  screen mode and  enables all graphics
+    functions.
+
+    This  function verifies  the GRAFIX  driver is  loaded before  attempting to
+    enter the graphics mode.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL LowGraphics
+    PASCAL
+      LowGraphics;
+
+********************************************************************************
+
+  MediumGraphics
+    Enters the	320x200x16 color graphics  screen mode and  enables all graphics
+    functions.
+
+    This  function verifies  the GRAFIX  driver is  loaded before  attempting to
+    enter the graphics mode.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL MediumGraphics
+    PASCAL
+      MediumGraphics;
+
+********************************************************************************
+
+  MoveRel(X, Y)
+    Moves a  relative distance from the  current X, Y position	without plotting
+    any points.
+
+    You can give this function both positive and negative values.
+
+  Parameters:
+    X - Number of points to move in a horizontal direction
+    Y - Number of points to move in a vertical direction
+
+  Examples:
+    BASIC
+      CALL MoveRel(15, 20)
+    PASCAL
+      MoveRel(15, 20);
+
+********************************************************************************
+
+  MoveTo(X, Y)
+    Moves to the specified X, Y position  from the current X, Y position without
+    plotting any points.
+
+  Parameters:
+    X - Horizontal position to move to
+    Y - Vertical position to move to
+
+  Examples:
+    BASIC
+      CALL MoveTo(0, 0)
+    PASCAL
+      MoveTo(0, 0);
+
+********************************************************************************
+
+  Noise(Source, Volume, Duration)
+    Generates a periodic or white noise  sound with the specified volume for the
+    specified length of time.
+
+    This function works  exactly like the NOISE function  in the special version
+    of	GW-BASIC  that	came  with  your  Tandy  1000.	Test  it out to hear the
+    difference between the periodic and white noise sound effects. Noises can be
+    made  in background  if you  enable noise  buffering. This	means that  your
+    program  will continue  to execute	while noises  are being  made. The noise
+    buffer can hold up to 64 entries.
+
+  Parameters:
+    Source is a number 0-7:
+      0-3 are periodic noises
+      4-7 are white noises
+
+    Volume is a number 0-15:
+      0 is the quietest
+      15 is the loudest
+
+    Duration is a number 0 to 65535:
+      This is the number of clock ticks the noise will last. See the 'FastTimer'
+      function for more information on clock ticks.
+
+  Examples:
+    BASIC
+      CALL Noise(4, 8, 12)
+    PASCAL
+      Noise(4, 8, 12);
+
+********************************************************************************
+
+  NoiseBufOff
+    Disables background processing of noises.
+
+    See the 'Noise' function for a description of background noise processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL NoiseBufOff
+    PASCAL
+      NoiseBuffOff
+
+********************************************************************************
+
+  NoiseBufOn
+    Enables the processing of noises in background.
+
+    See the 'Noise' function for a description of background noise processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL NoiseBufOn
+    PASCAL
+      NoiseBufOn;
+
+********************************************************************************
+
+  NoiseOff
+    Turns  off all  current noises   off and  disables background  processing of
+    noises.
+
+    See the 'Noise' function for a description of background noise processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL NoiseOff
+    PASCAL
+      NoiseOff
+
+********************************************************************************
+
+  NormalCursor
+    Sets the text cursor to normal size.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL NormalCursor
+    PASCAL
+      NormalCursor;
+
+********************************************************************************
+
+  PageCopy(Source, Destination)
+    Copies the source video page to the destination video page.
+
+    The following is a table showing the video modes that GRAFIX supports on the
+    Tandy 1000:
+
+			    Memory    Video   Page #
+    Screen Size   Colors   Required   Pages   Range
+    -----------   ------   --------   -----   ------
+      160x200	    16	     16K	8      0-7
+      320x200	    16	     32K	4      0-3
+      640x200	    16	     64K	2      0-2 (Tandy 1000 SL/TL only)
+
+    The memory required  is the amount of memory needed  for one graphic screen.
+    The Tandy 1000 has the ability to access  up to 128K of video memory. As you
+    can see each graphic screen is less than 128K in size. The Tandy 1000 allows
+    you to select which part of that 128K you want to work with as well as which
+    part you want to display on your monitor. These graphic screens are known as
+    video  pages. You  can work  with one  video page  while displaying another.
+    There are two types  of video pages, a Display page and  an Active page. The
+    Display page is  the one that shows up on  your computer monitor. The Active
+    page is the  one that all the graphic  functions will work with. The  two do
+    not  have to  be  the  same. You  can for  example work   with page  1 while
+    displaying	page 0.  When you  initially enter  any of  the video  modes the
+    Active  and Display  pages are  both set  to 0.  You can  change these  with
+    'SetActivePage' and  'SetDisplayPage' functions. The  number of video  pages
+    you have to work with depends on  the video mode you choose. The above table
+    shows  the maximum	number of  video  pages  for each  video mode.	One very
+    important  thing to  remember before  using video  pages is  that the  Tandy
+    1000's video  memory MUST first  be protected. See  the 'ADJMEM' section  in
+    chapter 4 for an explanation of why this must be done.
+
+  Parameters:
+    Source - The video page to copy from.
+    Destination - The video page to copy to.
+
+  Examples:
+    BASIC
+      CALL PageCopy(1, 0)
+    PASCAL
+      PageCopy(0, 1);
+
+********************************************************************************
+
+  PaletteUsing(PaletteArray[Index])
+    Changes the  color palette using  16 elements of  an integer array	starting
+    with the specified index value.
+
+    Each array element	holds the new color value  for the corresponding palette
+    entry. See the 'SetPalette' function for a description of palette registers.
+
+  Parameters:
+    PaletteArray[Index] - Integer holding the  palette entries starting with the
+			  specified index.
+
+  Examples:
+    BASIC
+      CALL PaletteUsing(PalArray%(Index%))
+    PASCAL
+      PaletteUsing(PalArray[Index]);
+
+********************************************************************************
+
+  Pause(Delay)
+    Delays a program for the specified number of clock ticks.
+
+    Clock  ticks occur	at a  default rate  of 18.2  times a  second unless  the
+    'FastTimer'  function  is  used.  A  number  of  36  would	delay  a program
+    approximately 2  seconds at the default  clock tick rate. This  function has
+    the  advantage being  more precise	than a	high level  language delay  loop
+    because  it uses  an assembly  language interface.	Use it	when you need to
+    delay for a precise number of clock ticks.
+
+  Parameters:
+    Delay - Number of clock ticks to delay program. See the 'FastTimer' function
+	    for more information on clock ticks.
+
+  Examples:
+    BASIC
+      CALL Pause(20)
+    PASCAL
+      Pause(20);
+
+********************************************************************************
+
+  PlotPoint(X, Y)
+    Plots  a point  at the  specified X,  Y position  using the  current drawing
+    color.
+
+  Parameters:
+    X - Horizontal position to plot point
+    Y - Vertical position to plot point
+
+  Examples:
+    BASIC
+      CALL PlotPoint(160, 100)
+    PASCAL
+      PlotPoint(160, 100);
+
+********************************************************************************
+
+  PlotPointC(X, Y, Color)
+    Plots a point at the specified X, Y position using the specified color.
+
+  Parameters:
+    X - Horizontal position to plot point
+    Y - Vertical position to plot point
+    Color - Color of point
+
+  Examples:
+    BASIC
+      CALL PlotPoint(160, 100, 5)
+    PASCAL
+      PlotPoint(160, 100, 5);
+
+********************************************************************************
+
+  PointColor(X, Y, Color)
+    Returns the color of the point at the specified X, Y position.
+
+  Parameters:
+    X - Horizontal position of point
+    Y - Vertical position of point
+    Color - Variable to hold color of point
+
+  Examples:
+    BASIC
+      CALL PointColor(100, 100, PixelColor%)
+    PASCAL
+      PointColor(100, 100, PixelColor);
+
+********************************************************************************
+
+  PrintString(String)
+    Prints a text  string using the current text color	and advances to the next
+    line.
+
+  Parameters:
+    String - Text string to print
+
+  Examples:
+    BASIC
+      CALL PrintString("Hi there everybody")
+    PASCAL
+      PrintString('Hi there everybody');
+
+********************************************************************************
+
+  PrintStringX(String)
+    Prints a  text string using the  current text color but  does not advance to
+    the next line.
+
+  Parameters:
+    String - Text string to print
+
+  Examples:
+    BASIC
+      CALL PrintStringX("Hi there everybody")
+    PASCAL
+      PrintStringX('Hi there everybody');
+
+********************************************************************************
+
+  PutScreen(Image[Index])
+    Transfers the saved image from an  integer array stored with the 'GetScreen'
+    function to the screen buffer.
+
+    This method is 5 times faster than using the 'ExtPut' function.
+
+  Parameters:
+    Image[Index] - The	integer array holding the screen  buffer at the starting
+    index.
+
+  Examples:
+    BASIC
+      CALL PutScreen(Image%(0))
+    PASCAL
+      PutScreen(Image%[0]);
+
+********************************************************************************
+
+  ResetPalette
+    Resets the color palette to the default state.
+
+    See the 'SetPalette' function for a description of palette registers.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ResetPalette
+    PASCAL
+      ResetPalette;
+
+********************************************************************************
+
+  ResetTimer
+    Resets the 8253  timer chip to it's default speed  of 1. See the 'FastTimer' 
+    function for a description of the 8253 timer chip.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ResetTimer
+    PASCAL
+      ResetTimer;
+
+********************************************************************************
+
+  ResetView
+    Resets the screen viewport to it's default size.
+
+    See the SetView function for a description of the screen viewport.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL ResetView
+    PASCAL
+      ResetView;
+
+********************************************************************************
+
+  SetActivePage(ActivePage)
+    Sets the  current active page which  all graphics functions will  work with.
+    See the 'PageCopy' function for a description of video pages.
+
+  Parameters:
+    ActivePage - Active page to set.
+
+  Examples:
+    BASIC
+      CALL SetActivePage(ActivePage%)
+    PASCAL
+      SetActivePage(ActivePage);
+
+********************************************************************************
+
+  SetAspect(XAspect, YAspect)
+    Sets the horizontal and vertical portions of the aspect ratio used in circle
+    drawing.
+
+    The three different video modes that the GRAFIX program supports each have a
+    different number  of points horizontally  than vertically. For  example, the
+    640x200x16	color graphics	mode has  640 points  horizontally by 200 points
+    vertically. Another factor	is the computer monitor you  are using. Computer
+    monitors  are just	like televisions  sets in  that ratio  to the  number of
+    points horizontally  to the number	of points vertically  is 4:3. These  two
+    factors mean that when you draw a  shape on the graphics screen it will look
+    out  of proportion	to it's  size. For  example a  100x100 box  drawn on the
+    640x200 graphics screen would like approximately like this:
+
+				   ********
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   *	  *
+				   ********
+
+    The box  is 100 points high  by 100 points wide,  yet it is not  square. Any
+    shape  drawn in  any one  of the  three graphics  mode will  suffer the same
+    result unless  the points are scaled  in proportion to the	4:3 ratio of the
+    computer monitor and to the number of horizontal and vertical points for the
+    graphics  mode being  used. The  scaling factor  used in  drawing circles is
+    called the aspect ratio. This is calculated by dividing the number of points
+    horizontally by the number of points vertically. Divide this number by 4 and
+    then multiply  by 3. The aspect  ratio for the 640x200  graphics mode is 2.4
+    ((640 / 200) / 4) * 3). There is a problem in that the GRAFIX program cannot
+    accept fractional numbers as a parameter.  The solution here is to break the
+    aspect ratio into two parts: a horizontal portion and vertical portion. This
+    can be done for any graphics mode  by dividing down the number of horizontal
+    and vertical  points until they  both cannot be  divided evenly anymore  and
+    scaling the horizontal portion. The 640x200 mode would work like this:
+
+      640   64	 16   16 / 4   4   4 * 3   12
+      --- : -- : -- : --     : - : -	 : --
+      200   20	  5    5       5   5	    5
+
+    The  final	answer	is  12:5.  First  we  divided  640:200 down to 16:5. The
+    horizontal portion	was then scaled by  dividing by 4 and  multiplying by 3.
+    You will notice that 12 divided by 5 happens to be 2.4.
+
+    Each graphics mode has a default aspect  ratio so that circles drawn will be
+    perfectly round. The reason you are  allowed to change the aspect ratio with
+    this function  is that you	may not  want  to draw a  perfectly round circle
+    every time. By  changing the aspect ratio values you  can draw a circle that
+    is	more elongated	either horizontally  or vertically.  This gives you much
+    more flexibility in drawing circular shapes.
+
+  Parameters:
+    XAspect - Horizontal portion of the aspect ratio
+    YAspect - Vertical portion of the aspect ratio
+
+  Examples:
+    BASIC
+      CALL SetAspect(12, 5)
+    PASCAL
+      SetAspect(12, 5);
+
+********************************************************************************
+
+  SetBackColor(Color)
+    Sets the current background color.
+
+  Parameters:
+    Color - New background color
+
+  Examples:
+    BASIC
+      CALL SetBackColor(1)
+    PASCAL
+      SetBackColor(1);
+
+********************************************************************************
+
+  SetCursor(Row, Column)
+    Sets  the  current	text  cursor  position	for  use  with the 'PrintString'
+    function.
+
+  Parameters:
+    Row - Text cursor row
+    Column - Text cursor column
+
+  Examples:
+    BASIC
+      CALL SetCursor(10, 1)
+    PASCAL
+      SetCursor(10, 1);
+********************************************************************************
+
+  SetDisplayPage(DisplayPage)
+    Sets  the current  display page  which  will  be displayed	on the	computer
+    monitor. See the 'PageCopy' function for a description of video pages.
+
+  Parameters:
+    DisplayPage - Display page to set.
+
+  Examples:
+    BASIC
+      CALL SetDisplayPage(DisplayPage%)
+    PASCAL
+      SetDisplayPage(DisplayPage);
+
+********************************************************************************
+
+  SetPalette(Palette, Color)
+    Allows you to redefine any one of the 16 palette registers.
+
+    Palettes registers are special areas in the video system that determine what
+    colors are displayed on the screen. There  are 16 in all allowing for the 16
+    different colors. By default each palette register has the same value as its
+    corresponding color number.  For example, palette register 1  has a value of
+    1, which is blue, and palette register 5 has a value of 5, which is magenta.
+    This means that all 16 palette registers initially have the values 0-15.
+
+  Parameters:
+    Palette - Palette register number to set
+    Color - New color value for palette register
+
+  Examples:
+    BASIC
+      CALL SetPalette(1, 10)
+    PASCAL
+      SetPalette(1, 10);
+
+********************************************************************************
+
+  SetPlotColor(Color)
+    Sets  the current  drawing color  for use  in graphic  functions that do not
+    specify a color as one of the parameters.
+
+  Parameters:
+    Color - New drawing color value
+
+  Examples:
+    BASIC
+      CALL SetPlotColor(5)
+    PASCAL
+      SetPlotColor(5);
+
+********************************************************************************
+
+  SetTextColor(Color)
+    Sets the current text color used by 'PrintString'.
+
+  Parameters:
+    Color - New text color value
+
+  Examples:
+    BASIC
+      CALL SetTextColor(14)
+    PASCAL
+      SetTextColor(14);
+
+********************************************************************************
+
+  SetView(MinX, MinY, MaxX, MaxY)
+    Sets the screen viewport boundary values.
+
+    The  screen viewport  is an  area  in  which all  graphics functions  except
+    'PrintString' and 'PrintStringX'  must fit. If not, they  are clipped on the
+    viewport's boundaries. The  default size of the screen  viewport is the size
+    of the  screen mode being used.  For example, if you  were in the 320x200x16
+    color graphics mode  and drew a line from  0, 0, to 500, 199;  the line's X2
+    value would be clipped at 319 which is the default maximum horizontal border
+    value for that screen mode. You can set the screen viewport to any size that
+    you want. The only limitation is that the values can be no smaller or larger
+    than  the  physical  size  of  the	screen	mode  you  are	working  in. The
+    'PrintString' and  'PrintStringX' functions ignore	the screen viewport  and
+    place text anywhere  on the screen. This is because  you are working in text
+    screen coordinates and not graphics screen coordinates.
+
+  Parameters:
+    MinX - Minimum horizontal border value
+    MinY - Minimum vertical border value
+    MaxX - Maximum horizontal border value
+    MaxY - Maximum vertical border value
+
+  Examples:
+    BASIC
+      CALL SetView(10, 10, 309, 189)
+    PASCAL
+      SetView(10, 10, 309, 189);
+
+********************************************************************************
+
+  SoundBufOff
+    Disables background processing of sounds.
+
+    See  the   'ExtSound'  function  for  a   description  of  background  sound
+    processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL SoundBufOff
+    PASCAL
+      SoundBufOff;
+
+********************************************************************************
+
+  SoundBufOn
+     Enables background processing of sounds.
+
+     See  the  'ExtSound'  function  for   a  description  of  background  sound
+     processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL SoundBufOn
+    PASCAL
+      SoundOn;
+
+********************************************************************************
+
+  SoundOff
+    Turns  off all  current sounds   off and  disables background  processing of
+    sounds.
+
+   See the 'ExtSound' function for a description of background sound processing.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL SoundOff
+    PASCAL
+      SoundOff;
+
+********************************************************************************
+
+  SpeakerOff
+    Disables the exterior speaker.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL SpeakerOff
+    PASCAL
+      SpeakerOff;
+
+********************************************************************************
+
+  SpeakerOn
+    Enables the exterior speaker.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL SpeakerOn
+    PASCAL
+      SpeakerOn;
+
+********************************************************************************
+
+  WaitKey
+    Pauses the program and waits for a key to be pressed at the keyboard.
+
+  Parameters:
+    None
+
+  Examples:
+    BASIC
+      CALL WaitKey
+    PASCAL
+      WaitKey
+
+********************************************************************************
+
+  XorCircle(X, Y, Radius)
+    XOR's a circle  centered at X, Y using the  specified radius, current values
+    of aspect ratio and current drawing color.
+
+    See the 'SetAspect' function for a description of the aspect ratio.
+
+  Parameters:
+    X - Horizontal center of circle
+    Y - Vertical center of circle
+    Radius - Radius of circle
+
+  Examples:
+    BASIC
+      CALL XorCircle(160, 100, 75)
+    PASCAL
+      XorCircle(160, 100, 75)
+
+********************************************************************************
+
+  XorCircleC(X, Y, Radius, Color)
+    XOR's a circle  centered at X, Y using the  specified radius, current values
+    of aspect ratio and the specified color.
+
+    See the 'SetAspect' function for a complete description of the aspect ratio.
+
+  Parameters:
+    X - Horizontal center of circle
+    Y - Vertical center of circle
+    Radius - Radius of circle
+    Color - Color of circle
+
+  Examples:
+    BASIC
+      CALL XorCircleC(160, 100, 75, 1)
+    PASCAL
+      XorCircle(160, 100, 75, 1)
+
+********************************************************************************
+
+  XorDrawBox(X1, Y1, X2, Y2, Color)
+    XOR's a line box from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+    Color - Color of box
+
+  Examples:
+    BASIC
+      CALL XorDrawBox(0, 0, 319, 199, 1)
+    PASCAL
+      XorDrawBox(0, 0, 319, 199, 1);
+
+********************************************************************************
+
+  XorDrawBoxC(X1, Y1, X2, Y2)
+    XOR's a line box from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+
+  Examples:
+    BASIC
+      CALL XorDrawBoxC(10, 10, 100, 100)
+    PASCAL
+      XorDrawBoxC(10, 10, 100, 100);
+
+********************************************************************************
+
+  XorEllipse(X, Y, MajorAxis, MinorAxis)
+    XOR's an ellipse centered at the specified X, Y position using the specified
+    major and minor axes and current drawing color.
+
+    See the 'Ellipse' function for a description of an ellipse.
+
+  Parameters:
+    X - Horizontal center of ellipse
+    Y - Vertical center of ellipse
+    MajorAxis - Size of major axis
+    MinorAxis - Size of minor axis
+
+  Examples:
+    BASIC
+      CALL XorEllipse(160, 100, 50, 40)
+    PASCAL
+      XorEllipse(160, 100, 50, 40);
+
+********************************************************************************
+
+  XorEllipseC(X, Y, MajorAxis, MinorAxis, Color)
+    XOR's an ellipse centered at the specified X, Y position using the specified
+    major and minor axes and specified color.
+
+    See the 'Ellipse' function for a description of an ellipse.
+
+  Parameters:
+    X - Horizontal center of ellipse
+    Y - Vertical center of ellipse
+    MajorAxis - Size of major axis
+    MinorAxis - Size of minor axis
+    Color - Color of ellipse
+
+  Examples:
+    BASIC
+      CALL XorEllipseC(160, 100, 50, 40, 1)
+    PASCAL
+      XorEllipseC(160, 100, 50, 40, 1);
+
+********************************************************************************
+
+  XorFillBox(X1, Y1, X2, Y2, Color)
+    XOR's a solid box from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+    Color - Color of box
+
+  Examples:
+    BASIC
+      CALL XorFillBox(0, 0, 100, 75, 1)
+    PASCAL
+      XorFillBox(0, 0, 100, 75, 1);
+
+********************************************************************************
+
+  XorFillBoxC(X1, Y1, X2, Y2)
+    XOR's a solid box from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of box
+    Y1 - Upper left vertical position of box
+    X2 - Lower right horizontal position of box
+    Y2 - Lower right vertical position of box
+
+  Examples:
+    BASIC
+      CALL XorFillBoxC(0, 0, 100, 75)
+    PASCAL
+      XorFillBoxC(0, 0, 100, 75);
+
+********************************************************************************
+
+  XorLine(X1, Y1, X2, Y2)
+    XOR's a line from X1, Y1 to X2, Y2 using the current drawing color.
+
+  Parameters:
+    X1 - Upper left horizontal position of line
+    Y1 - Upper left vertical position of line
+    X2 - Lower right horizontal position of line
+    Y2 - Lower right vertical position of line
+
+  Examples:
+    BASIC
+      CALL XorLine(10, 15, 100, 150)
+    PASCAL
+      XorLine(10, 15, 100, 150);
+
+********************************************************************************
+
+  XorLineC(X1, Y1, X2, Y2, Color)
+    XOR's a line from X1, Y1 to X2, Y2 using the specified color.
+
+  Parameters:
+    X1 - Upper left horizontal position of line
+    Y1 - Upper left vertical position of line
+    X2 - Lower right horizontal position of line
+    Y2 - Lower right vertical position of line
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL XorLineC(10, 15, 100, 150, 1)
+    PASCAL
+      XorLineC(10, 15, 100, 150, 1);
+
+********************************************************************************
+
+  XorLineRel(XRel, YRel)
+    XOR's a  line a relative distance  from the current X,  Y position using the
+    current drawing color.
+
+    You can give this function both positive and negative values.
+
+  Parameters:
+    XRel - Number points to draw line in a horizontal direction
+    YRel - Number points to draw line in a vertical direction
+
+  Examples:
+    BASIC
+      CALL XorLineRel(10, 10)
+    PASCAL
+      XorLineRel(10, 10);
+
+********************************************************************************
+
+  XorLineRelC(XRel, YRel, Color)
+    XOR's a  line a relative distance  from the current X,  Y position using the
+    specified color.
+
+    You can give this function both positive and negative values.
+
+  Parameters:
+    XRel - Number points to draw line in a horizontal direction
+    YRel - Number points to draw line in a vertical direction
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL XorLineRelC(-5, -10, 15)
+    PASCAL
+      XorLineRelC(-5, -10, 15);
+
+********************************************************************************
+
+  XorLineTo(X, Y)
+    XOR's a line to  the specified X, Y position from the  current X, Y position
+    using the current drawing color.
+
+  Parameters:
+    X - Ending horizontal position of line
+    Y - Ending vertical position of line
+
+  Examples:
+    BASIC
+      CALL XorLineTo(50, 75)
+    PASCAL
+      XorLineTo(50, 75);
+
+********************************************************************************
+
+  XorLineToC(X, Y, Color)
+    XOR's a line to  the specified X, Y position from the  current X, Y position
+    using the specified drawing color.
+
+  Parameters:
+    X - Ending horizontal position of line
+    Y - Ending vertical position of line
+    Color - Color of line
+
+  Examples:
+    BASIC
+      CALL XorLineToC(50, 75, 6)
+    PASCAL
+      XorLineToC(50, 75, 6);
+
+********************************************************************************
+
+  XorPoint(X, Y)
+    XOR's  a point  at the  specified X,  Y position  using the  current drawing
+    color.
+
+  Parameters:
+    X - Horizontal position to plot point
+    Y - Vertical position to plot point
+
+  Examples:
+    BASIC
+      CALL XorPoint(160, 100)
+    PASCAL
+      XorPoint(160, 100);
+
+********************************************************************************
+
+  XorPointC(X, Y, Color)
+    XOR's a point at the specified X, Y position using the specified color.
+
+  Parameters:
+    X - Horizontal position to plot point
+    Y - Vertical position to plot point
+    Color - Color of point
+
+  Examples:
+    BASIC
+      CALL XorPointC(160, 100, 5)
+    PASCAL
+      XorPointC(160, 100, 5);
+
+********************************************************************************
+
+QuickBASIC programming interface:
+
+  To use GRAFIX  with the QuickBASIC programming environment  simply type in the
+  following line:
+
+    QB /L GRAFQBS
+
+  This will  start QuickBASIC and load	in the interface for  GRAFIX which is in
+  the GRAFQBS.QLB quick library. The next  step to use GRAFIX in your QuickBASIC
+  programs  is	to  make  sure	that  every  program  you  write begins with the
+  following line:
+
+    '$INCLUDE: 'GRAFQBS.INC' 
+
+  GRAFQBS.INC  contains  all  the  subprogram  definitions  necessary to use the
+  QuickBASIC  interface  for  GRAFIX.  The  interface  for  GRAFIX  expects  all
+  variables  passed to	it to  be of  type integer  so GRAFQBS.INC  contains the
+  following line:
+
+    DEFINT A-Z
+
+  This	makes sure  that all  variables used  in your  program are  of the  type
+  integer  by default.	If you	compile a  program from  outside the  QuickBASIC
+  programming environment, be  sure to specify the GRAFQBS.LIB	library when you
+  use the LINK program to create the EXE file.
+
+  The interface  provided for QuickBASIC  is for version  4.5. If you  are still
+  using version 4.0 following these steps to create a new set of libraries:
+
+    1) Compile the GRAFIX.QBS file with the BC.EXE program like this:
+	 BC grafix.qbs;
+
+    2) Create a new object library with the LIB.EXE program like this:
+	 LIB grafqbs -+grafix.obj,nul,grafqbs
+
+    3) Create a new quick library with the LINK.EXE program like this:
+	 LINK /q grafqbs.lib,,nul,bqlb40
+
+
+Turbo BASIC and PowerBASIC programming interfaces:
+
+  Using the the  Turbo BASIC and PowerBASIC interfaces for  GRAFIX are easy. For
+  Turbo BASIC make  sure that every program you write  starts with the following
+  line:
+
+    $INCLUDE "GRAFTBS.INC"
+
+  For  PowerBASIC  make  sure  that  every  program  you  write  starts with the
+  following line:
+
+    $INCLUDE "GRAFPBS.INC"
+
+  The interfaces for  Turbo BASIC and PowerBASIC are almost  entirely made up of
+  INLINE  assembler subprograms.  Be careful  when making  calls to GRAFIX using
+  both interfaces because no checking is done by either compiler to validate the
+  number of  parameters or type  of variables used  when you make  the call. For
+  example, if typed in	the following program all bets are off	as to what would
+  be drawn on the screen:
+
+    $INCLUDE "GRAFTBS.INC"
+    CALL MediumGraphics
+    X1 = 0
+    Y1 = 0
+    X2 = 319
+    Y2 = 199
+    Color = 1
+    CALL ExtLine(X1, Y1, X2, Y2, Color)
+
+  The ExtLine function only  expects 4 parameters to be passed to  it not 5. Pay
+  close attention to the number of  parameters a certain function requires. This
+  will save you  a lot of headache later. Another  problem you may encounter can
+  be found by just changing a few lines in the above example:
+
+    $INCLUDE "GRAFPBS.INC"
+    DEFDBL X
+    CALL MediumGraphics
+    X1 = 0
+    Y1 = 0
+    X2 = 319
+    Y2 = 199
+    CALL ExtLine(X1, Y1, X2, Y2)
+
+  The previous problem	of the number of parameters has  been fixed, but now the
+  call won't work because of the 'DEFDBL X' statement. This causes all variables
+  starting with  the letter X to  be of type double  precision. Double precision
+  variables are floating point numbers 8 bytes in length each. The interface for
+  GRAFIX  expects all  variables passed  to it	to be  of type	integer. Integer
+  variables  are whole	numbers 2  bytes  in  length each.  The GRAFTBS.INC  and
+  GRAFPBS.INC files contains the following line:
+
+    DEFINT A-Z
+
+  This	makes sure  that all  variables used  in your  program are  of the  type
+  integer by default.
+
+  Also be careful  when using an implicit variable type  other than integer. The
+  following example shows what I mean:
+
+    $INCLUDE "GRAFPBS.INC"
+    CALL MediumGraphics
+    X1# = 0
+    Y1# = 0
+    X2# = 319
+    Y2# = 199
+    CALL ExtLine(X1#, Y1#, X2#, Y2#)
+
+  When you attach  '#' to a variable you  are declaring it to be  of type double
+  precision. Just be careful the type of  variable you pass to a GRAFIX function
+  since no type checking is done by the either compiler.
+
+
+QuickPASCAL and Turbo PASCAL programming interface:
+
+  The interfaces for  QuickPASCAL and Turbo PASCAL are identical  in the way you
+  incorporate them into your program. To  use GRAFIX in your PASCAL program just
+  list GRAFIX as one of the units in your program's USES statement like this:
+
+    USES
+      Grafix;
+
+  That's all there is to it.
+
+  Turbo PASCAL versions 4.0 to 5.5 units are not compatible, so I do not provide
+  the compiled	GRAFIX unit with the  package. You can easily  create the GRAFIX
+  unit by loading  the program GRAFIX.PAS into Turbo PASCAL  and compiling it to
+  disk. This was the easiest way to solve the compatibility problem.
+
+		 CHAPTER 3  - ASSEMBLER Programming Interface
+
+
+This chapter gives the technical details of the GRAFIX package. It will give you
+the  necessary	information  to  write	an  ASSEMBLY  language interface for the
+programming language you  are working with. I'm going to  assume that anyone who
+reads this chapter  already knows how to program in  80x86 ASSEMBLY language. If
+you don't  then I suggest that  you skip this section.  It probably will confuse
+you more than help.
+
+An ASSEMBLY language interface for GRAFIX is  the key to writing an interface in
+another programming language. The BASIC  and PASCAL interfaces provided with the
+package  are written  in ASSEMBLER.  GRAFIX is	a memory  resident program,  all
+requests  to it  are done  through  the  video BIOS  interrupt. The  AH register
+contains  the hexadecimal  value EE  which indicates  to GRAFIX  that a function
+request is about  to be made. The AL register  contains the function number. The
+remaining registers  BX, CX, DX,  SI, DI, and  DS contain the  parameters of the
+requested function.  For example, if  you wanted  to  draw a solid  green box on
+screen from 0, 0 - 319, 199 the function call would look like this:
+
+	MOV	AX,0EE11H	;Draw solid box function
+	MOV	BX,0		;X1 location in BX
+	MOV	CX,0		;Y1 location in CX
+	MOV	SI,319		;X2 location in SI
+	MOV	DI,199		;Y2 location in DI
+	MOV	DX,2		;Box color in DX
+	INT	10H		;Call GRAFIX
+
+The  next section  of this  chapter will  list each  of the  GRAFIX functions in
+numerical order. The format of each function listing is as follows:
+
+Title
+Function number
+Description
+Register entry values
+Register exit values
+Example
+Comments
+
+The title  is the name	I use for  the function in  the ASSEMBLY language source
+file, it is just listed here for  reference purposes. The function number is the
+the value for  the AL register, it is listed  in decimal format. The description
+explains  what each  function does.  The register  entry values  are the  values
+required to execute  the function. The exit values are	any register values that
+the function might  return to your program. The example  is an ASSEMBLY language
+code fragment showing  a call to GRAFIX for that  function. The comments section
+is optional  and is included  only where I  feel extra clarification  is needed.
+Entry values for the AX register for each function are in hexadecimal.
+
+********************************************************************************
+
+TITLE:
+  ClearScreen
+
+FUNCTION NUMBER:
+  00
+
+DESCRIPTION:
+  Clears the screen viewport to the current background color.
+
+ENTRY VALUES:
+  AX = EE00
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE00H	;Clear screen function
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetView'  function in chapter 2 for a  more information of the screen
+  viewport.
+
+********************************************************************************
+
+TITLE:
+  ColorEnable
+
+FUNCTION NUMBER:
+  01
+
+DESCRIPTION:
+  Turns the color enable signal on or off.
+
+ENTRY VALUES:
+  AX = EE01
+  BX = Action
+	 0 = Turn color enable signal off
+	 1 = Turn color enable signal on
+
+EXIT VALUES:
+   None
+
+EXAMPLE:
+	MOV	AX,0EE01H	;Color enable signal function
+	MOV	BX,0		;Turn color enable signal off
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  This	function  is  mainly  provided	for  people  with  monochrome  composite
+  monitors.  The color	graphics are  much easier  to see  when the color enable
+  signal is turned off.
+
+********************************************************************************
+
+TITLE:
+  SetColor
+
+FUNCTION NUMBER:
+  02
+
+DESCRIPTION:
+  Sets the current drawing, text, or background color.
+
+ENTRY VALUES:
+  AX = EE02
+  BX = Color type
+	 01 = Drawing color
+	 02 = Text color
+	 03 = Background color
+  CX = Color
+
+EXIT VALUES:
+  None
+
+
+EXAMPLE:
+	MOV	AX,0EE02H	;Set color function
+	MOV	BX,1		;Set drawing color
+	MOV	CX,4		;Set drawing color to RED
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  The drawing  color is the color  that will be used  for all graphics functions
+  that do not  specify a color as one  of the parameters. The text  color is the
+  color of the characters printed  with the PrintString function. The background
+  color is the color of the screen background and border.
+
+********************************************************************************
+
+TITLE:
+  GetColor
+
+FUNCTION NUMBER:
+  03
+
+DESCRIPTION:
+  Returns the current drawing, text, or background color.
+
+ENTRY VALUES:
+  AX = EE03
+  BX = Color type
+	 01 = Return drawing color
+	 02 = Return text color
+	 03 = Return background color
+
+EXIT VALUES:
+  CX = Color
+
+EXAMPLE:
+	MOV	AX,0EE03H	;Get color function
+	MOV	BX,3		;Return current background color
+	INT	10H		;Call GRAFIX
+	MOV	[BColor],CX	;Store current background color
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  SetAspect
+
+FUNCTION NUMBER:
+  04
+
+DESCRIPTION:
+  Sets the  vertical and horizontal  elements of the  aspect ratio used  to draw
+  circles.
+
+ENTRY VALUES:
+  AX = EE04
+  BX = Horizontal portion of aspect ratio
+  CX = Vertical portion of aspect ratio
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE04H	;Set aspect ratio function
+	MOV	BX,12		;Horizontal portion of aspect ratio
+	MOV	CX,5		;Vertical portion of aspect ratio
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetAspect' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  GetAspect
+
+FUNCTION NUMBER:
+  05
+
+DESCRIPTION:
+  Returns the current horizontal and vertical portions of the aspect ratio.
+
+ENTRY VALUES:
+  AX = EE05
+
+EXIT VALUES:
+  BX = Horizontal portion of aspect ratio
+  CX = Vertical portion of aspect ratio
+
+EXAMPLE:
+	MOV	AX,0EE05H	;Get aspect ratio function
+	INT	10H		;Call GRAFIX
+	MOV	[HAspect],BX	;Store horizontal portion of aspect ration
+	MOV	[VAspect],CX	;Store vertical portion of aspect ration
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  Point
+
+FUNCTION NUMBER:
+  06
+
+DESCRIPTION:
+  Plots individual points onto the screen using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE06
+  SI = X position
+  DI = Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE06H	;Plot point function
+	MOV	SI,160		;X position
+	MOV	DI,100		;Y position
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  GetPoint
+
+FUNCTION NUMBER:
+  07
+
+DESCRIPTION:
+  Returns the current color of the point at the specified X, Y position.
+
+ENTRY VALUES:
+  AX = EE07
+  SI = X position
+  DI = Y position
+
+EXIT VALUES:
+  AX = Color of point
+
+EXAMPLE:
+	MOV	AX,0EE07H	;Get color of point function
+	MOV	SI,160		;X position
+	MOV	DI,100		;Y position
+	INT	10H		;Call GRAFIX
+	MOV	[Point],AX	;Store color of point
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  MoveTo
+
+FUNCTION NUMBER:
+  08
+
+DESCRIPTION:
+  Updates the current X, Y position by replacing the previous X, Y values.
+
+ENTRY VALUES:
+  AX = EE08
+  SI = New X position
+  DI = New Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE08H	;Move to function
+	MOV	SI,0		;X position
+	MOV	DI,0		;Y position
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  MoveRel
+
+FUNCTION NUMBER:
+  09
+
+DESCRIPTION:
+  Updates the current X, Y position by adding to the previous X, Y values.
+
+ENTRY VALUES:
+  AX = EE09
+  SI = Number of points to add horizontally
+  DI = Number of points to add vertically
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE09H	;Move relative function
+	MOV	SI,10		;Horizontal points to move
+	MOV	DI,10		;Vertical points to move
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  You can give this function either  positive or negative values allowing you to
+  move up, down, left, and right.
+
+********************************************************************************
+
+TITLE:
+  GetXY
+
+FUNCTION NUMBER:
+  10
+
+DESCRIPTION:
+  Returns the current X, Y position.
+
+ENTRY VALUES:
+  AX = EE0A
+
+EXIT VALUES:
+  BX = Current X position
+  CX = Current Y position
+
+EXAMPLE:
+	MOV	AX,0EE0AH	;Get current X, Y function
+	INT	10H		;Call GRAFIX
+	MOV	[X],BX		;Store current X position
+	MOV	[Y],CX		;Store current Y position
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  Line
+
+FUNCTION NUMBER:
+  11
+
+DESCRIPTION:
+  Draws a line starting at the upper left  X, Y position to the lower right X, Y
+  position using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE0B
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE0BH	;Draw line function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,319		;Lower right X
+	MOV	DI,199		;Lower right Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  LineTo
+
+FUNCTION NUMBER:
+  12
+
+DESCRIPTION:
+  Draws a line from  the current X, Y position to specified  X, Y position using
+  the current drawing color.
+
+ENTRY VALUES:
+  AX = EE0C
+  SI = Ending X position
+  DI = Ending Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE0CH	;Draw line to function
+	MOV	SI,319		;Ending X
+	MOV	DI,199		;Ending Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  LineRel
+
+FUNCTION NUMBER:
+  13
+
+DESCRIPTION:
+  Draws  a line  from the  current X,  Y position  adding the  number of  points
+  horizontally and vertically to get the ending X, Y position. The line is drawn
+  using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE0D
+  SI = Number of points to add horizontally
+  DI = Number of points to add vertically
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE0DH	;Draw line relative function
+	MOV	SI,-10		;Number of points to add horizontally
+	MOV	DI,-10		;Number of points to add vertically
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  You can give this function both positive and negative values.
+
+********************************************************************************
+
+TITLE:
+  DrawBox
+
+FUNCTION NUMBER:
+  14
+
+DESCRIPTION:
+  Draws a line box  starting at the upper left X, Y  position to the lower right
+  X, Y position using the specified color.
+
+ENTRY VALUES:
+  AX = EE0E
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of box
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE0EH	;Draw box with color function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,100		;Lower right X
+	MOV	DI,100		;Lower right Y
+	MOV	DX,1		;Box color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  Circle
+
+FUNCTION NUMBER:
+  15
+
+DESCRIPTION:
+  Draws a  circle centered at  the specified X,  Y position using  the specified
+  radius, and current drawing color.
+
+ENTRY VALUES:
+  AX = EE0F
+  SI = X origin
+  DI = Y origin
+  BX = Radius
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE0FH	;Draw circle function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Radius
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetApect' function in chapter 2 for description of the aspect ratio.
+
+********************************************************************************
+
+TITLE:
+  Paint
+
+FUNCTION NUMBER:
+  16
+
+DESCRIPTION:
+  Paints  irregular shapes  starting at  the specified	X, Y  position using the
+  specified fill color stopping at the specified boundary color.
+
+ENTRY VALUES:
+  AX = EE10
+  SI = Starting X position
+  DI = Starting Y position
+  BX = Fill color
+  CX = Boundary color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE10H	;Paint function
+	MOV	SI,100		;X starting position
+	MOV	DI,100		;Y starting position
+	MOV	BX,9		;Fill color
+	MOV	CX,14		;Boundary color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'ExtPaint' function in chapter 2 for a detailed explanation.
+
+********************************************************************************
+
+TITLE:
+  FillBox
+
+FUNCTION NUMBER:
+  17
+
+DESCRIPTION:
+  Draws a solid box starting at the upper  left X, Y position to the lower right
+  X, Y position using the specified color.
+
+ENTRY VALUES:
+  AX = EE11
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of box
+
+EXAMPLE:
+	MOV	AX,0EE11H	;Fill box with color function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;Y1 position
+	MOV	SI,100		;X2 position
+	MOV	DI,100		;Y2 position
+	MOV	DX,5		;Box color
+	INT	10H		;Call GRAFIX
+
+EXIT VALUES:
+  None
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  SetPalette
+
+FUNCTION NUMBER:
+  18
+
+DESCRIPTION:
+  Sets the specified palette register to the specified color.
+
+ENTRY VALUES:
+  AX = EE12
+  BX = Palette register number
+  CX = Color value to store
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE12H	;Set palette register function
+	MOV	BX,1		;Palette register number
+	MOV	CX,0		;Color to store
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetPalette' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  PaletteUsing
+
+FUNCTION NUMBER:
+  19
+
+DESCRIPTION:
+  Sets all 16 palette registers using 16 elements of an integer array.
+
+ENTRY VALUES:
+  AX = EE13
+  DS = Segment address of integer array
+  DX = Offset address of integer array
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE13H	;Set all 16 palette registers function
+	MOV	DX,SEG Array	;Segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See  the 'SetPalette'  function in  chapter 2  for a	detailed explanation  of
+  palette registers.
+
+********************************************************************************
+
+TITLE:
+  ResetPalette
+
+FUNCTION NUMBER:
+  20
+
+DESCRIPTION:
+  Resets all 16 palette registers to their default state.
+
+ENTRY VALUES:
+  AX = EE14
+
+EXIT VALUES:
+ None
+
+EXAMPLE:
+	MOV	AX,0EE14H	;Reset palette registers function
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See  the 'SetPalette'  function in  chapter 2  for a	detailed explanation  of
+  palette registers.
+
+********************************************************************************
+
+TITLE:
+  Get
+
+FUNCTION NUMBER:
+  21
+
+DESCRIPTION:
+  Stores a graphics image starting at the  upper left X, Y position to the lower
+  right X, Y position into an integer array.
+
+ENTRY VALUES:
+  AX = EE15
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DS = Segment address of integer array
+  DX = Offset address of integer array
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE15H	;Store graphics image function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;Y1 position
+	MOV	SI,50		;X2 position
+	MOV	DI,75		;Y2 position
+	MOV	DX,SEG Array	;Segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'ExtGet' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  Put
+
+FUNCTION NUMBER:
+  22
+
+DESCRIPTION:
+  Transfers an image  that was previously stored using the  Get function using 1
+  of 5 actions.
+
+ENTRY VALUES:
+  AX = EE16
+  SI = Starting X position
+  DI = Starting Y position
+  BX = Action
+       1 = PRESET
+       2 = PSET
+       3 = AND
+       4 = OR
+       5 = XOR
+  DS = Segment address of integer array
+  DX = Offset address of integer array
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE16H	;Transfer graphics image function
+	MOV	SI,10		;Starting X position
+	MOV	DI,30		;Starting Y position
+	MOV	BX,5		;Use XOR action
+	MOV	DX,SEG Array	;Segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'ExtPut' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  SetCursor
+
+FUNCTION NUMBER:
+  23
+
+DESCRIPTION:
+  Turns the graphics cursor on/off or sets it to full/half size.
+
+ENTRY VALUES:
+  AX = EE17
+  BX = Action
+	 0 = Turn graphics cursor off
+	 1 = Turn graphics cursor on
+	 2 = Set cursor to full size
+	 3 = Set cursor to half size
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE17H	;Set graphics cursor function
+	MOV	BX,0		;Turn cursor off
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  The reason  I provided a  cursor was for  the text support.  When you turn the
+  cursor on  it acts exactly  like the cursor  you have in  text screen mode. It
+  advances 8 points at time up and down so it will always cover a text character
+  evenly.  One example	of using  the text  cursor is  if you  develop an  input
+  routine. You could  turn the cursor on to show  the current position where the
+  person was typing.  You could use the half cursor  size to indicate the person
+  had pressed the insert key and now the insert state is active.
+
+********************************************************************************
+
+TITLE:
+  GetCursor
+
+FUNCTION NUMBER:
+  24
+
+DESCRIPTION:
+  Returns the current graphics cursor status and size.
+
+ENTRY VALUES:
+  AX = EE18
+
+EXIT VALUES:
+  BX = Cursor status
+	 0 = Graphics cursor off
+	 1 = Graphics cursor on
+  CX = Cursor size
+	 0 = Cursor is full size
+	 1 = Cursor is half size
+
+EXAMPLE:
+	MOV	AX,0EE18H	;Get graphics cursor status/size function
+	INT	10H		;Call GRAFIX
+	MOV	[Status],BX	;Store cursor status
+	MOV	[CursorSize],CX ;Store cursor size
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  SetCursorPos
+
+FUNCTION NUMBER:
+  25
+
+DESCRIPTION:
+  Sets	the current  graphics cursor  position in  text format	for use with the
+  'PrintString' function.
+
+ENTRY VALUES:
+  AX = EE19
+  BX = Column
+  CX = Row
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE19H	;Set graphics cursor position function
+	MOV	BX,10		;Column
+	MOV	CX,15		;Row
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  GetCursorPos
+
+FUNCTION NUMBER:
+  26
+
+DESCRIPTION:
+  Returns the current graphics cursor position in text format.
+
+ENTRY VALUES:
+  AX = EE1A
+
+EXIT VALUES:
+  BX = Current column
+  CX = Current row
+
+EXAMPLE:
+	MOV	AX,0EE1AH	;Get graphics cursor position function
+	INT	10H		;Call GRAFIX
+	MOV	[Column],BX	;Store column
+	MOV	[Row],CX	;Store row
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  PrintString
+
+FUNCTION NUMBER:
+  27
+
+DESCRIPTION:
+  Prints a  text string on  the graphics screen  starting at the  current cursor
+  position using the current text color.
+
+ENTRY VALUES:
+  AX = EE1B
+  BX = Action when printing string
+	 0 = Don't advance to the next line after printing the string
+	 1 = Advance to the next line after printing the string
+  CX = Length of string
+  DS = Segment address of string
+  DX = Offset address of string
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE1BH	;Print text string function
+	MOV	BX,1		;Use an ending carriage return/line feed
+	MOV	CX,10		;Length of string
+	MOV	DX,SEG String	;Segment address of string
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET String;Offset address of string
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  Using the 'SetColor'	function you can use any  of the 16 colors to  print the
+  string with. Using  the 'SetCursor' function you control  the starting row and
+  column location the string will be printed at.
+
+********************************************************************************
+
+TITLE:
+  Animate
+
+FUNCTION NUMBER:
+  28
+
+DESCRIPTION:
+  Animates an image  doing both the initial transfer and  final erase all in one
+  step. The  delay is the amount  of time to pause  between the initial transfer
+  and final erase of the image. Use this to minimize flickering.
+
+ENTRY VALUES:
+  AX = EE1C
+  SI = Starting X position
+  DI = Starting Y position
+  DS = Segment address of array
+  DX = Offset address of array
+  CX = Delay (1 - 65535)
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE1CH	;Animate function
+	MOV	SI,50		;Starting X position
+	MOV	DI,75		;Starting Y position
+	MOV	CX,100		;Amount of delay
+	MOV	DX,SEG Array	;Segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See  the  'Animate'  and  'ExtPut'  functions  in  chapter  2  for  a detailed
+  explanation.
+
+********************************************************************************
+
+TITLE:
+  PointC
+
+FUNCTION NUMBER:
+  29
+
+DESCRIPTION:
+  Plots individual points onto the screen using the specified color.
+
+ENTRY VALUES:
+  AX = EE1D
+  SI = X position
+  DI = Y position
+  DX = Color of point
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE1DH	;Plot point with color function
+	MOV	SI,10		;X position
+	MOV	DI,10		;Y position
+	MOV	DX,3		;Color of point
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  LineC
+
+FUNCTION NUMBER:
+  30
+
+DESCRIPTION:
+  Draws a line starting at the upper left  X, Y position to the lower right X, Y
+  position using the specified color.
+
+ENTRY VALUES:
+  AX = EE1E
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of line
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE1EH	;Draw line with color function
+	MOV	BX,10		;X1 position
+	MOV	CX,10		;Y1 position
+	MOV	SI,150		;X2 position
+	MOV	DI,199		;Y2 position
+	MOV	DX,1		;Color of line
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  LineToC
+
+FUNCTION NUMBER:
+  31
+
+DESCRIPTION:
+  Draws a line starting at the current	X, Y position to specified X, Y position
+  using the specified color.
+
+ENTRY VALUES:
+  AX = EE1F
+  SI = X position to line to
+  DI = Y position to line to
+  DX = Color of line
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE1FH	;Draw line to with color function
+	MOV	SI,150		;Ending X position
+	MOV	DI,199		;Ending Y position
+	MOV	DX,10		;Color of line
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  LineRelC
+
+FUNCTION NUMBER:
+  32
+
+DESCRIPTION:
+  Draws  a line  from the  current X,  Y position  adding the  number of  points
+  horizontally and vertically to get the ending X, Y position. The line is drawn
+  using the specified color.
+
+ENTRY VALUES:
+  AX = EE20
+  SI = Number of points to move horizontally
+  DI = Number of points to move vertically
+  DX = Color of line
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE20H	;Draw line relative with color function
+	MOV	SI,5		;Number of points to move horizontally
+	MOV	DI,10		;Number of points to move vertically
+	MOV	DX,2		;Color of line
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  You can give this function both positive and negative values.
+
+********************************************************************************
+
+TITLE:
+  CircleC
+
+FUNCTION NUMBER:
+  33
+
+DESCRIPTION:
+  Draws a  circle centered at  the specified X,  Y position using  the specified
+  radius, color.
+
+ENTRY VALUES:
+  AX = EE21
+  SI = Starting X position
+  DI = Starting Y position
+  BX = Radius
+  DX = Color of circle
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE21H	;Draw circle with color function
+	MOV	SI,160		;X origin
+	MOV	DI,10		;Y origin
+	MOV	BX,50		;Radius
+	MOV	DX,15		;Color of circle
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the  'SetAspect' function in chapter  2 for a detailed  explanation of the
+  aspect ratio.
+
+********************************************************************************
+
+TITLE:
+  DrawBoxC
+
+FUNCTION NUMBER:
+  34
+
+DESCRIPTION:
+  Draws a line box  starting at the upper left X, Y  position to the lower right
+  X, Y position using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE22
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE22H	;Draw box function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;X2 position
+	MOV	SI,319		;X2 position
+	MOV	DI,199		;Y2 position
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  FillBoxC
+
+FUNCTION NUMBER:
+  35
+
+DESCRIPTION:
+  Draws a solid box starting at the upper  left X, Y position to the lower right
+  X, Y using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE23
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE23H	;Fill box function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;X2 position
+	MOV	SI,319		;X2 position
+	MOV	DI,199		;Y2 position
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorPoint
+
+FUNCTION NUMBER:
+  36
+
+DESCRIPTION:
+  XOR's individual points onto the screen using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE24
+  SI = X position
+  DI = Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE24H	;Xor point function
+	MOV	SI,160		;X position
+	MOV	DI,100		;Y position
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorPointC
+
+FUNCTION NUMBER:
+  37
+
+DESCRIPTION:
+  XOR's individual points onto the screen using the specified color.
+
+ENTRY VALUES:
+  AX = EE25
+  SI = X position
+  DI = Y position
+  DX = Color of point
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE25H	;Xor point with color function
+	MOV	SI,160		;X position
+	MOV	DI,100		;Y position
+	MOV	DX,1		;Point color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorLine
+
+FUNCTION NUMBER:
+  38
+
+DESCRIPTION:
+  XOR's a line starting at the upper left  X, Y position to the lower right X, Y
+  position using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE26
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE26H	;Xor line function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,319		;Lower right X
+	MOV	DI,199		;Lower right Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorLineC
+
+FUNCTION NUMBER:
+  39
+
+DESCRIPTION:
+  XOR's a line starting at the upper left  X, Y position to the lower right X, Y
+  position using the specified color.
+
+ENTRY VALUES:
+  AX = EE27
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of line
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE27H	;Xor line with color function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,319		;Lower right X
+	MOV	DI,199		;Lower right Y
+	MOV	DX,12		;Line color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorLineTo
+
+FUNCTION NUMBER:
+  40
+
+DESCRIPTION:
+  XOR's a line from  the current X, Y position to specified  X, Y position using
+  the current drawing color.
+
+ENTRY VALUES:
+  AX = EE28
+  SI = Ending X position
+  DI = Ending Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE28H	;Xor line to function
+	MOV	SI,319		;Ending X
+	MOV	DI,199		;Ending Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorLineToC
+
+FUNCTION NUMBER:
+  41
+
+DESCRIPTION:
+  XOR's a line from  the current X, Y position to specified  X, Y position using
+  the specified color.
+
+ENTRY VALUES:
+  AX = EE29
+  SI = Ending X position
+  DI = Ending Y position
+  DX = Line color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE29H	;Xor line to with color function
+	MOV	SI,319		;Ending X
+	MOV	DI,199		;Ending Y
+	MOV	DX,5		;Line color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorLineRel
+
+FUNCTION NUMBER:
+  42
+
+DESCRIPTION:
+  XOR's  a line  from the  current X,  Y position  adding the  number of  points
+  horizontally and vertically to get the ending X, Y position. The line is drawn
+  using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE2A
+  SI = Number of points to add horizontally
+  DI = Number of points to add vertically
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE2AH	;Xor line relative function
+	MOV	SI,10		;Number of points to add horizontally
+	MOV	DI,10		;Number of points to add vertically
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  You can give this function both positive and negative values.
+
+********************************************************************************
+
+TITLE:
+  XorLineRelC
+
+FUNCTION NUMBER:
+  43
+
+DESCRIPTION:
+  XOR's  a line  from the  current X,  Y position  adding the  number of  points
+  horizontally and vertically to get the ending X, Y position. The line is drawn
+  using the specified color.
+
+ENTRY VALUES:
+  AX = EE2B
+  SI = Number of points to add horizontally
+  DI = Number of points to add vertically
+  DX = Line color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE2BH	;Xor line relative with color function
+	MOV	SI,-10		;Number of points to add horizontally
+	MOV	DI,-10		;Number of points to add vertically
+	MOV	DX,3		;Line color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  You can give this function both positive and negative values.
+
+********************************************************************************
+
+TITLE:
+  XorDrawBox
+
+FUNCTION NUMBER:
+  44
+
+DESCRIPTION:
+  XOR's a line box  starting at the upper left X, Y  position to the lower right
+  X, Y position using the specified color.
+
+ENTRY VALUES:
+  AX = EE2C
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of box
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE2CH	;Xor box with color function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,100		;Lower right X
+	MOV	DI,100		;Lower right Y
+	MOV	DX,1		;Box color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorDrawBoxC
+
+FUNCTION NUMBER:
+  45
+
+DESCRIPTION:
+  XOR's a line box  starting at the upper left X, Y  position to the lower right
+  X, Y position using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE2D
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE2DH	;Xor box function
+	MOV	BX,0		;Upper left X
+	MOV	CX,0		;Upper left Y
+	MOV	SI,100		;Lower right X
+	MOV	DI,100		;Lower right Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorFillBox
+
+FUNCTION NUMBER:
+  46
+
+DESCRIPTION:
+  XOR's a solid box starting at the upper  left X, Y position to the lower right
+  X, Y position using the specified color.
+
+ENTRY VALUES:
+  AX = EE2E
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+  DX = Color of box
+
+EXAMPLE:
+	MOV	AX,0EE2EH	;Xor fill box with color function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;Y1 position
+	MOV	SI,100		;X2 position
+	MOV	DI,100		;Y2 position
+	MOV	DX,5		;Box color
+	INT	10H		;Call GRAFIX
+
+EXIT VALUES:
+  None
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorFillBoxC
+
+FUNCTION NUMBER:
+  47
+
+DESCRIPTION:
+  XOR's a solid box starting at the upper  left X, Y position to the lower right
+  X, Y position using the current drawing color.
+
+ENTRY VALUES:
+  AX = EE2F
+  BX = Upper left X position
+  CX = Upper left Y position
+  SI = Lower right X position
+  DI = Lower right Y position
+
+EXAMPLE:
+	MOV	AX,0EE2FH	;Xor fill box function
+	MOV	BX,0		;X1 position
+	MOV	CX,0		;Y1 position
+	MOV	SI,100		;X2 position
+	MOV	DI,100		;Y2 position
+	INT	10H		;Call GRAFIX
+
+EXIT VALUES:
+  None
+
+COMMENTS:
+  None
+
+********************************************************************************
+
+TITLE:
+  XorCircle
+
+FUNCTION NUMBER:
+  48
+
+DESCRIPTION:
+  XOR's a  circle centered at  the specified X,  Y position using  the specified
+  radius, and current drawing color.
+
+ENTRY VALUES:
+  AX = EE30
+  SI = X origin
+  DI = Y origin
+  BX = Radius
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE30H	;Xor circle function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Radius
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetApect' function in chapter 2 for description of the aspect ratio.
+
+********************************************************************************
+
+TITLE:
+  XorCircleC
+
+FUNCTION NUMBER:
+  49
+
+DESCRIPTION:
+  XOR's a  circle centered at  the specified X,  Y position using  the specified
+  radius, and color.
+
+ENTRY VALUES:
+  AX = EE31
+  SI = X origin
+  DI = Y origin
+  BX = Radius
+  DX = Circle color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE31H	;Xor circle with color function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Radius
+	MOV	DX,8		;Circle color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetApect' function in chapter 2 for description of the aspect ratio.
+
+********************************************************************************
+
+TITLE:
+  Ellipse
+
+FUNCTION NUMBER:
+  50
+
+DESCRIPTION:
+  Draws an ellipse  centered at the specified X, Y  position using the specified
+  major and minor axes and current drawing color.
+
+ENTRY VALUES:
+  AX = EE32
+  SI = X origin
+  DI = Y origin
+  BX = Major axis
+  CX = Minor axis
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE32H	;Ellipse function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Major axis
+	MOV	CX,75		;Minor axis
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'Ellipse' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  EllipseC
+
+FUNCTION NUMBER:
+  51
+
+DESCRIPTION:
+  Draws an ellipse  centered at the specified X, Y  position using the specified
+  major and minor axes and color.
+
+ENTRY VALUES:
+  AX = EE33
+  SI = X origin
+  DI = Y origin
+  BX = Major axis
+  CX = Minor axis
+  DX = Ellipse color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE33H	;Ellipse with color function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Major axis
+	MOV	CX,75		;Minor axis
+	MOV	DX,7		;Ellipse color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'Ellipse' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  XorEllipse
+
+FUNCTION NUMBER:
+  52
+
+DESCRIPTION:
+  XOR's an ellipse  centered at the specified X, Y  position using the specified
+  major and minor axes and current drawing color.
+
+ENTRY VALUES:
+  AX = EE34
+  SI = X origin
+  DI = Y origin
+  BX = Major axis
+  CX = Minor axis
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE34H	;Xor ellipse function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Major axis
+	MOV	CX,75		;Minor axis
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'Ellipse' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  XorEllipseC
+
+FUNCTION NUMBER:
+  53
+
+DESCRIPTION:
+  XOR's an ellipse  centered at the specified X, Y  position using the specified
+  major and minor axes and color.
+
+ENTRY VALUES:
+  AX = EE35
+  SI = X origin
+  DI = Y origin
+  BX = Major axis
+  CX = Minor axis
+  DX = Ellipse color
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE35H	;Xor ellipse with color function
+	MOV	SI,160		;X origin
+	MOV	DI,100		;Y origin
+	MOV	BX,50		;Major axis
+	MOV	CX,75		;Minor axis
+	MOV	DX,7		;Ellipse color
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'Ellipse' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  SetView
+
+FUNCTION NUMBER:
+  54
+
+DESCRIPTION:
+  Sets the size of the current screen viewport.
+
+ENTRY VALUES:
+  AX = EE36
+  BX = Minimum X
+  CX = Minimum Y
+  SI = Maximum X
+  DI = Maximum Y
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE36H	;Set screen viewport function
+	MOV	BX,10		;Minimum X
+	MOV	CX,10		;Minimum Y
+	MOV	SI,309		;Maximum X
+	MOV	DI,189		;Maximum Y
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetView' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  GetView
+
+FUNCTION NUMBER:
+  55
+
+DESCRIPTION:
+  Returns the size of the current screen viewport.
+
+ENTRY VALUES:
+  AX = EE37
+
+EXIT VALUES:
+  BX = Minimum X
+  CX = Minimum Y
+  SI = Maximum X
+  DI = Maximum Y
+
+EXAMPLE:
+	MOV	AX,0EE37H	;Get screen viewport function
+	INT	10H		;Call GRAFIX
+	MOV	[MinX],BX	;Store minimum X
+	MOV	[MinY],CX	;Store minimum Y
+	MOV	[MaxX],SI	;Store maximum X
+	MOV	[MaxY],DI	;Store maximum Y
+
+COMMENTS:
+  See the 'SetView' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  ResetView
+
+FUNCTION NUMBER:
+  56
+
+DESCRIPTION:
+  Resets the screen viewport to it's default size.
+
+ENTRY VALUES:
+  AX = EE38
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE38H	;Reset screen viewport function
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'SetView' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  GetScreen
+
+FUNCTION NUMBER:
+  57
+
+DESCRIPTION:
+  Copies the entire screen buffer into an integer array.
+
+ENTRY VALUES:
+  AX = EE39
+  DS = Segment address of integer array
+  DX = Offset address of integer array
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE39H	;Copy screen function
+	MOV	DX,SEG Array	;Get segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Get offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'GetScreen' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  PutScreen
+
+FUNCTION NUMBER:
+  58
+
+DESCRIPTION:
+  Copies the entire screen from an integer array into the screen buffer.
+
+ENTRY VALUES:
+  AX = EE3A
+  DS = Segment address of integer array
+  DX = Offset address of integer array
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE3AH	;Transfer screen function
+	MOV	DX,SEG Array	;Get segment address of array
+	MOV	DS,DX		; ..
+	MOV	DX,OFFSET Array ;Get offset address of array
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'PutScreen' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  SetDisplayPage
+
+FUNCTION NUMBER:
+  59
+
+DESCRIPTION:
+  Sets the current display page which will display on the computer monitor.
+
+ENTRY VALUES:
+  AX = EE3B
+  BX = Display page number
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE3BH	;Set display page function
+	MOV	BX,1		;Set display page number
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'PageCopy' function in chapter 2 for more information on video pages.
+
+********************************************************************************
+
+TITLE:
+  GetDisplayPage
+
+FUNCTION NUMBER:
+  60
+
+DESCRIPTION:
+  Returns the current display page.
+
+ENTRY VALUES:
+  AX = EE3C
+
+EXIT VALUES:
+  BX = Current display page number
+
+EXAMPLE:
+	MOV	AX,0EE3CH	;Get display page function
+	INT	10H		;Call GRAFIX
+	MOV	[DPage],BX	;Store current display page number
+
+COMMENTS:
+  See the 'PageCopy' function in chapter 2 for more information on video pages.
+
+********************************************************************************
+
+TITLE:
+  SetActivePage
+
+FUNCTION NUMBER:
+  61
+
+DESCRIPTION:
+  Sets the current active page which all graphic functions will work with.
+
+ENTRY VALUES:
+  AX = EE3D
+  BX = Active page number
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE3DH	;Set active page function
+	MOV	BX,1		;Set active page number
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'PageCopy' function in chapter 2 for more information on video pages.
+
+********************************************************************************
+
+TITLE:
+  GetActivePage
+
+FUNCTION NUMBER:
+  62
+
+DESCRIPTION:
+  Returns the current active page.
+
+ENTRY VALUES:
+  AX = EE3E
+
+EXIT VALUES:
+  BX = Current active page number
+
+EXAMPLE:
+	MOV	AX,0EE3EH	;Get active page function
+	INT	10H		;Call GRAFIX
+	MOV	[APage],BX	;Store current active page number
+
+COMMENTS:
+  See the 'PageCopy' function in chapter 2 for more information on video pages.
+
+********************************************************************************
+
+TITLE:
+  PageCopy
+
+FUNCTION NUMBER:
+  63
+
+DESCRIPTION:
+  Copies the source video page to the destination video page.
+
+ENTRY VALUES:
+  AX = EE3F
+  SI = Source video page
+  DI = Destination video page
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE3FH	;Page copy function
+	MOV	SI,3		;Set source page number
+	MOV	DI,2		;Set destination page number
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'PageCopy' function in chapter 2 for more information on video pages.
+
+********************************************************************************
+
+TITLE:
+  System
+
+FUNCTION NUMBER:
+  128
+
+DESCRIPTION:
+  This is  a blanket routine to  incorporate many system level	functions of the
+  GRAFIX package.
+
+ENTRY VALUES:
+  AX = EE80
+  BX = Action
+	  0 = Return residency status in AX
+	  1 = Return current graphics system status in AX
+	  2 = Enter 320x200x16 graphics mode and enable all graphics functions
+	  3 = Enter 80x25 text mode and disable all graphics functions
+	  4 = Disable all current sound processing
+	  5 = Enable sound buffer processing
+	  6 = Disable sound buffer processing
+	  7 = Disable all current noise processing
+	  8 = Enable noise buffer processing
+	  9 = Disable noise buffer processing
+	 10 = Disable all current sound and noise processing
+	 11 = Enter 640x200x16 graphics mode and enable all graphics functions
+	 12 = Return if 640x200x16 color mode is supported
+	 13 = Enter 160x200x16 graphics mode and enable all graphics functions
+
+EXIT VALUES:
+  BX = 00 entry value
+	 AX = DEAD indicates this package is resident
+
+  BX = 01 entry value
+	 AX = 0 indicates graphics system is inactive
+	      1 indicates graphics system is active
+
+  BX = 12 entry value
+	 AX = 0 indicates 640x200x16 color graphics mode not supported
+	      1 indicates 640x200x16 color graphics mode supported
+
+  Here is a list of each subfunction's description:
+
+  BX = 00:
+	 This will enable you to determine if the GRAFIX program is installed or
+	 not. If it is resident the AX register will contain the value 0DEADH to
+	 indicate this	fact. This is  useful to make  sure the program  you are
+	 going to run was loaded after the GRAFIX program.
+
+  BX = 01:
+	 This will let you determine the  current status of the graphics system.
+	 The system  must be enabled before  any of it's functions  can be used.
+	 This is a handy little item to have to make sure the graphics system is
+	 enabled before attempting to use any of the functions.
+
+  BX = 02:
+	 This enables all functions in the  graphics system and enters the Tandy
+	 1000's 320x200x16 color graphics mode.  It also resets all the graphics
+	 variables to their default state.
+
+  BX = 03:
+	 This disables all functions in the graphics system and enters the 80x25
+	 text screen mode.
+
+  BX = 04:
+	 This  turns all  current sound  processing off.  All current sounds are
+	 turned  off,  the  sound  buffer  is  cleared,  and  sound buffering is
+	 disabled.
+
+  BX = 05:
+	 This turns sound buffering on allowing you to make sounds in background
+	 while your program is executing.
+
+  BX = 06:
+	 This turns  sound buffering off. The  current sound is left  alone, but
+	 the sound buffer is cleared of any remain sounds to make.
+
+  BX = 07:
+	 This  turns all  current noise  processing off.  All current noises are
+	 turned  off,  the  noise  buffer  is  cleared,  and  noise buffering is
+	 disabled.
+
+  BX = 08:
+	 This turns noise buffering on allowing you to make noises in background
+	 while your program is executing.
+
+  BX = 09:
+	 This turns  noise buffering off. The  current noise is left  alone, but
+	 the noise buffer is cleared of any remain noises to make.
+
+  BX = 10:
+	 This  turns all  current noise  and sound  processing off.  All current
+	 noises  and sounds  are turned  off, the  noise and  sound buffers  are
+	 cleared, and noise and sound buffering is disabled.
+
+  BX = 11:
+	 This enables all functions in the  graphics system and enters the Tandy
+	 1000  SL/TL's 640x200x16  color graphics  mode. It  also resets all the
+	 graphics variables to their default state.
+
+  BX = 12:
+	 This indicates whether the 640x200x16 color graphics mode functions are
+	 supported.
+
+  BX = 13:
+	 This enables all functions in the  graphics system and enters the Tandy
+	 1000's 160x200x16 color graphics mode.  It also resets all the graphics
+	 variables to their default state.
+
+COMMENTS:
+  See chapter 6 for the default values for the GRAFIX program.
+
+********************************************************************************
+
+TITLE:
+  Sound
+
+FUNCTION NUMBER:
+  129
+
+DESCRIPTION:
+  Generates a  sound with the  specified frequency, duration,  volume, and sound
+  channel.
+
+ENTRY VALUES:
+  AX = EE81
+  BX = Volume (0-15)
+	 0 is the quietest
+	 15 is the loudest
+  CX = Sound channel (0-2)
+	 Indicates which one of the three sound channels to use
+  SI = Frequency (110 - 32767)
+  DI = Duration (0-65535)
+	 Indicates the number of clock ticks the sound will last
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE81H	;Sound function
+	MOV	BX,10		;Set the volume
+	MOV	CX,0		;Set the sound channel
+	MOV	SI,800		;Set the frequency
+	MOV	DI,5		;Set the duration
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'ExtSound' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  Noise
+
+FUNCTION NUMBER:
+  130
+
+DESCRIPTION:
+  Generates a  periodic or white noise	sound using the specified  type, volume,
+  and duration.
+
+ENTRY VALUES:
+  AX = EE82
+  BX = Type (0-7)
+	 0-3 are periodic noises
+	 4-7 are white noises
+  CX = Volume (0-15)
+	 0 is the quietest
+	 15 is the loudest
+  DX = Duration (0-65535)
+	 This is the number of clock ticks the noise will last
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE82H	;Noise function
+	MOV	BX,1		;Set the type
+	MOV	CX,7		;Set the volume
+	MOV	DX,3		;Set the duration
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+  See the 'Noise' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  Delay
+
+FUNCTION NUMBER:
+  131
+
+DESCRIPTION:
+  Delays a program the specified number of clock ticks.
+
+ENTRY VALUES:
+  AX = EE83
+  BX = Duration (0-65535)
+	 This is the number of clock ticks the delay will last
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE83H	;Delay function
+	MOV	BX,8		;Set the duration
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+   See the 'Pause' function in chapter 2 for more information.
+
+********************************************************************************
+
+TITLE:
+  FastTimer
+
+FUNCTION NUMBER:
+  132
+
+DESCRIPTION:
+  Sets the speed of the 8253 timer chip.
+
+ENTRY VALUES:
+  AX = EE84
+  BX = Speed (2-256)
+	 This is the number of times greater the chip should operate.
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE84H	;Set 8253 timer chip speed function
+	MOV	BX,2		;Set the speed to twice it's normal rate
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+   See the  'FastTimer' function in chapter  2 for more information  on the 8253
+   timer chip.
+
+********************************************************************************
+
+TITLE:
+  ResetTimer
+
+FUNCTION NUMBER:
+  133
+
+DESCRIPTION:
+  Resets the 8253 timer chip to it's normal speed which is a setting of 1.
+
+ENTRY VALUES:
+  AX = EE85
+
+EXIT VALUES:
+  None
+
+EXAMPLE:
+	MOV	AX,0EE85H	;Reset 8253 timer chip speed function
+	INT	10H		;Call GRAFIX
+
+COMMENTS:
+   See the  'FastTimer' function in chapter  2 for more information  on the 8253
+   timer chip.
+
+********************************************************************************
+
+TITLE:
+  GetTimer
+
+FUNCTION NUMBER:
+  134
+
+DESCRIPTION:
+  Returns the current speed of the 8253 timer chip.
+
+ENTRY VALUES:
+  AX = EE86
+
+EXIT VALUES:
+  BX = Current speed of the 8253 timer chip.
+
+EXAMPLE:
+	MOV	AX,0EE86H	;Get 8253 timer chip speed function
+	INT	10H		;Call GRAFIX
+	MOV	[CurSpeed],BX	;Store current 8253 timer chip speed
+
+COMMENTS:
+   See the  'FastTimer' function in chapter  2 for more information  on the 8253
+   timer chip.
+
+********************************************************************************
+
+		      CHAPTER 4 - GRAFIX Utility Programs
+
+
+This chapter discusses TANDY11 and ADJMEM the two utility programs provided with
+the GRAFIX package.
+
+TANDY11:
+
+  Tandy corporation made 2 excellent computers in the Tandy 1000 SL and TL. They
+  had 2  things previous members  of the Tandy	1000 series family  didn't have,
+  digital  sound and  640x200x16 color	graphics. The  special 640x200x16  color
+  graphics mode was of special interest to  me since I have been programming the
+  320x200x16 color  graphics mode for  some time.  When  I got my  Tandy 1000 SL
+  Technical Reference Manual, I was shocked  that there wasn't even a mention of
+  this	special  video	mode.  There  was  documentation  for  the digital sound
+  interface, but not the 640x200x16 color graphics mode. I came across a program
+  that used this video mode and with DEBUG  I was able to see how to the program
+  accessed  it. This  limited information  enabled me  to figure  how the  video
+  memory was set up  and how to program the video system  registers to enter the
+  640x200x16 color  graphics mode. I was  now able to start  programming in this
+  special graphics mode.
+
+  The reason  I wrote this  program was that  all the other  video modes on  the
+  Tandy  1000  series  computers  are	supported  by  the  system  BIOS  (Basic
+  Input/Output	System), but  not the	640x200x16 color  graphics mode.  If the
+  system BIOS supports the video mode you want	to work in, then you have a full
+  set of  built in video  functions at your  disposal. These include  entering a
+  particular video mode, writing characters  to the screen, scrolling the screen
+  up  or down,	setting the  cursor  position,	etc. Without  them, you  have to
+  include that logic in every program  you write separately. Seeing this was not
+  the best situation to  say the least, I wrote a set  of BIOS routines that are
+  memory resident.  These can be called  just like any other  BIOS routine. They
+  effectively duplicate the functions included in Tandy's regular video BIOS. So
+  now  instead of  including scores  of  lines	of Assembler  code to  enter the
+  640x200x16 color graphics in every program you  write, you can simply do it in
+  2 lines of Assembly language like this:
+
+    MOV     AX,11	    ;Set up 640x200x16 color graphics mode
+    INT     10H		    ; ..
+
+  I'd say that was a lot easier, wouldn't  you. You can also do it from any high
+  level language like BASIC, C, or PASCAL as long as that language has access to
+  BIOS services on your computer. So now to have full access to this video mode,
+  you only  have to install this  program when you start  up your computer. Just
+  put the following command in your AUTOEXEC.BAT file:
+
+    TANDY11
+
+  The program verifies that the computer is a Tandy 1000 SL/TL before attempting
+  to install itself into memory.
+
+
+ADJMEM:
+
+  IBM compatible  computers other than the  Tandy 1000 use a  video adapter that
+  has the  video memory contained  on the adapter  itself. The Tandy  1000 video
+  adapter  uses  the  very  top  portion  of  DOS  memory  as video memory. (The
+  exceptions to this are the Tandy 1000  TX, TL, and TL/2 which have the ability
+  to add  an extra 128K of  memory which is then  used as the video  memory. The
+  full 640K of DOS memory is then available at all times)
+
+  The following table shows the memory requirements for each screen mode used on
+  the Tandy 1000:
+
+				       Memory	 Video
+  Mode #    Screen Mode     Colors    Required	 Pages
+  ------    -----------     ------    --------	 -----
+
+   0-1	     40x25 Text       16	16K	   8
+   2-3	     80x25 Text       16	16K	   4
+   4-5	  320x200 Graphics     4	16K	   8
+     6	  640x200 Graphics     2	16K	   8
+     8	  160x200 Graphics    16	16K	   8
+     9	  320x200 Graphics    16	32K	   4
+    10	  640x200 Graphics     4	32K	   4
+  * 11	  640x200 Graphics    16	64K	   2
+
+    * - Tandy 1000 SL/TL only supported through the use of the TANDY11 program
+
+  The video  pages for the  graphics mode are  based on reserving  128K of video
+  memory.  The Tandy  1000 has	the ability  to address  this much video memory.
+  Multiple  video pages  are useful  for high  performance animation. The GRAFIX
+  programming package supports multiple video pages.
+
+  The top 16K of  DOS memory is always protected by BIOS  at start-up. If one of
+  the  32K or  greater graphics  modes are   used that	area of  memory is  left
+  unprotected. This can result in a  hung computer if precautions are not taken.
+  Historically, when you protected that portion of memory the only way to get it
+  back	was  reboot  your  computer.  That  is	why  I	wrote  this  program. It
+  dynamically  protects that  extra memory  and then  allows you  to get it back
+  again.
+
+  The  following  batch  file  shows  how  you	could  protect the 32K of memory
+  necessary  while working  in BIOS  screen modes  9 or  10 and  then release it
+  again:
+
+    ECHO OFF
+    REM  Protect 32K of video memory
+    adjmem -16
+    REM  Run required application
+    program
+    REM  Release protected system memory
+    adjmem +16
+
+  Now, instead of  losing that memory while you are  developing your program you
+  can protect the memory and then release it again without having to reboot your
+  computer.
+
+  To use the program just type ADJMEM +### or ADJMEM -### to add or subtract the
+  desired K bytes from your Tandy 1000's memory. Here are some examples:
+
+    ADJMEM -16	    ;Protect 32K of the Tandy 1000's memory
+    ADJMEM +16	    ;Release 16K of the Tandy 1000's memory
+
+    ADJMEM -48	    ;Protect 64K of the Tandy 1000's memory
+    ADJMEM +48	    ;Release 48K of the Tandy 1000's memory
+
+    ADJMEM -112     ;Protect 128K of the Tandy 1000's memory
+    ADJMEM +112     ;Release 112K of the Tandy 1000's memory
+
+  The program accepts any value from -112K  to +112K validating that you are not
+  adding  or subtracting  more memory  than is	already necessary.  I wrote  the
+  program to accept this range of values to accommodate the Tandy 1000's ability
+  to address up to 128K of video  memory. The program verifies that the computer
+  is a	Tandy 1000 before attempting  to adjust the system  memory. If the Tandy
+  1000	has  a	128K  memory  expansion  option  installed,  no  memory  will be
+  protected.
+
+  I hope you find this program as useful  as I have. It can really come in handy
+  if you do a lot Tandy 1000 graphics  programming in one of the 32K video modes
+  or even the 64K mode on the Tandy 1000 SL/TL.
+
+	  CHAPTER  5 - Miscellaneous Details About The GRAFIX Package
+
+
+GRAFIX revision history:
+
+1.0 -  Initial release of GRAFIX.
+
+
+1.1 -  Added additional functions that allowed specifying the drawing color when
+       the  function was  called instead  of setting  the current  drawing color
+       first and then calling the function.
+
+       Optimized the following functions:
+	 $Point, $Line, DrawBox, Circle, Paint,  FillBox, and Put.
+	 $Line replaces the $PlotLine function from the previous release.
+
+
+2.0 -  Added support for the Tandy 1000's 160x200x16 color graphics mode.
+
+       Added support  for Tandy 1000  SL/TL 640x200x16 color  graphics mode with
+       the aid of the TANDY11 driver now supplied with the package.
+
+       The package now includes the ADJMEM program for dynamically adjusting the
+       Tandy 1000's  memory up or  down from the  command line or  a batch file.
+       This  can be  used to  protect the  video memory  only when necessary and
+       freeing it up again.
+
+       GRAFIX now verifies the computer is a Tandy 1000 series before installing
+       itself into memory.
+
+       Fixed a nasty bug in the Put procedure. Images transferred using the PSET
+       option on an even pixel address were not transferred properly.
+
+       Replaced Circle function. The old  function would cause unexpected divide
+       by zero errors and crash the computer.
+
+       Added  Ellipse function	for more  flexibility than  the Circle	function
+       could provide in drawing circular shapes.
+
+       Added  a host  XOR functions   for point  plotting, line  drawing, circle
+       drawing, box drawing, and box filling.
+
+       Added definable viewport. All  graphics functions except PrintString will
+       clip on the viewport boundaries.
+
+       Added  'GetScreen'  and	'PutScreen'  functions	for  ultra fast save and
+       restore of the video buffer.
+
+       Speeded up the majority of graphic functions by 2-3 times than in version
+       1.1.
+
+
+2.5 -  Added   video   paging	functions:   'SetActivePage',	'GetActivePage',
+       'SetDisplayPage', 'GetDisplayPage', and 'PageCopy'.
+
+       Rewrote sound and noise systems for better quality sound and performance.
+
+       Added  8253 timer  functions: 'FastTimer',  'ResetTimer', and 'GetTimer'.
+       The 'FastTimer'	function increases the	precesion of the  amount of time
+       sounds, noises, and delays will last.
+
+       Included new command line parameter /M  which can be used to indicate how
+       much  video  memory  should  be	protected  on  start-up. GRAFIX will now
+       protect	up  to	128K  of  video  memory.  Memory  protection  is skipped
+       automatically if the Tandy 1000 has a 128K memory expansion option.
+
+       Changed	'ADJMEM' program  to protect   up 128K	of video  memory. Memory
+       protection is skipped  automatically if the Tandy 1000  has a 128K memory
+       expansion option.
+
+       ADJMEM now verifies  the computer is a Tandy 1000  before it will attempt
+       to protect any memory.
+
+2.55 - Decrease memory useage of GRAFIX.COM by over 5,000 bytes.
+
+       Made minor updates to a few demo programs.
+
+--------------------------------------------------------------------------------
+
+The following are the default values for GRAFIX program:
+
+  Current X, Y position:  X = 0
+			  Y = 0
+
+  Current text position: Row = 1
+			 Column = 1
+
+  Viewport size for	 Minimum X = 0
+  160x200x16 mode:	 Minimum Y = 0
+			 Maximum X = 159
+			 Maximum Y = 199
+
+  Viewport size for	 Minimum X = 0
+  320x200x16 mode:	 Minimum Y = 0
+			 Maximum X = 319
+			 Maximum Y = 199
+
+  Viewport size for	 Minimum X = 0
+  640x200x16 mode:	 Minimum Y = 0
+			 Maximum X = 639
+			 Maximum Y = 199
+
+  Aspect ratio for	 Horizontal = 3
+  160x200x16 mode:	 Vertical = 5
+
+  Aspect ratio for	 Horizontal = 6
+  320x200x16 mode:	 Vertical = 5
+
+  Aspect ratio for	 Horizontal = 12
+  640x200x16 mode:	 Vertical = 5
+
+  Active page:		 0
+
+  Display page:		 0
+
+  Drawing color:	 1 (Blue)
+
+  Text color:		 15 (Light White)
+
+  Background color:	 0 (Black)
+
+  Graphics cursor:	 Off
+
+  Graphics cursor size:  Full
+
+  Sound buffering:	 Off
+
+  Noise buffering:	 Off
+
+--------------------------------------------------------------------------------
+
+The following list are the allowable  values for all graphics functions for each
+graphics mode:
+
+  160x200x16 Color Graphics Mode
+  ------------------------------
+    X		= 0 - 159
+    Y		= 0 - 199
+    Text Column = 1 -  20
+    Text Row	= 1 -  25
+    Color	= 0 -  15
+    Page number = 0 -	7
+
+  320x200x16 Color Graphics Mode
+  ------------------------------
+    X		= 0 - 319
+    Y		= 0 - 199
+    Text Column = 1 -  40
+    Text Row	= 1 -  25
+    Color	= 0 -  15
+    Page number = 0 -	3
+
+  640x200x16 Color Graphics Mode
+  ------------------------------
+    X		= 0 - 639
+    Y		= 0 - 199
+    Text Column = 1 -  80
+    Text Row	= 1 -  25
+    Color	= 0 -  15
+    Page number = 0 -	1
+
+--------------------------------------------------------------------------------
+
+Some final items:
+
+  GRAFIX by default will protect the top 32K of DOS memory when it is installed.
+  The default is 64K on a Tandy 1000 SL, SL/2, TL, or TL/2. The 'ADJMEM' section
+  in chapter  4 explains why this  is necessary. Memory is  not protected if the
+  Tandy 1000 is  a TX, TL, or TL/2  with a 128K memory expansion  option. Memory
+  protection can be skipped by installing GRAFIX with the /N option like this:
+
+    GRAFIX /N
+
+  You can specify the amount of video memory you want to protect by using the /M
+  option. This is useful if you want to protect more than 32K or 64K to do video
+  paging safely. The  /M option will accept any  value from 16K to 128K.  If you
+  wanted GRAFIX to protect 128K of video memory, just install GRAFIX like this:
+
+    GRAFIX /M128
+
+  The  GRAFIX programming  package represents  well over  2 years  of work on my
+  part. I released versions 1.0 and 1.1  not expecting anything in return for my
+  efforts. Version 2.0	and greater of this package is	quite a different story.
+  The entire  package has been rewritten  and expanded. I think  you will find a
+  dramatic  speed   increase  in  most	 of  the  graphics   functions	and  the
+  documentation  more  concise	and  easy  to  read.  I  am  now  asking  for  a
+  registration of $15.00 for the package.  This will enable me to keep improving
+  GRAFIX with  each new release.  Once you send  your registration, you  are not
+  required to register	again for any future release of  GRAFIX, except to cover
+  the cost of  an update diskette. If you  do decide to send a	registration, or
+  want an  update diskette please fill	out the REGISTER.DOC form  provided with
+  the package.
+
+  Since the  entire package has been  rewritten, I intend to  keep the assembler
+  source code copyrighted  from now on and is therefore  not being included with
+  the package starting with version 2.0.
+
+  Any comments or  suggestions you have on the GRAFIX  package should be sent to
+  the address at the  top of this document file or I can  be reached on GEnie as
+  A.ALBRECHT which is my electronic mail address.
+

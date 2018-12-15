@@ -1,0 +1,198 @@
+
+
+            Drawing Program for Tandy 1000 computer by Jeffrey Morris
+
+
+
+         This drawing program lets you draw a picture in 16 colors and
+         paint a picture in 256 colors. This program does not require
+         a joystick or a mouse or a touch pad or a light pen. You
+         select a drawing command by pressing a function key. The
+         command asks you questions such as "X and Y coordinates" or
+         "Drawing Color".  After you answer the questions, the command
+         does its job.  Here are the limits for questions:
+         X coordinates - 0 to 319
+         Y coordinates - 0 to 191
+         X radius - 0 to 319
+         Y radius - 0 to 319
+         Starting angle - 0 to 6.28 or -.001 to -6.28
+         Ending angle - 0 to 6.28 or -.001 to -6.28
+         Column - 1 to 40
+         Row - 1 to 24
+         Drawing color - 0 to 15
+         Painting color - 0 to 15 or $0000 to $FFFF
+         Border color - 0 to 15
+         Some questions ask you "Are you sure (Y/N)?". Press "Y" if
+         you want to go ahead or "N" if you change your mind. You can
+         press the [ENTER] key at any question if you change your
+         mind. You will need a Tandy 1000 computer with at least 256K
+         RAM and a color monitor. The "Print Picture" command requires
+         the "GRAPHICS.COM" file which comes with the computer. To
+         install the "GRAPHICS.COM" file, if you are in BASIC, type
+         "SYSTEM" at "OK" prompt and when you are at DOS prompt, type
+         "GRAPHICS" and answer the questions about which printer you
+         have. Here are how the drawing commands work.
+          
+         F1 - Free Draw - Lets you draw details such as door handles
+         for cars. You are asked for the X and Y coordinates of the
+         starting point and the drawing color. Here are how the keys
+         work:
+         ENTER - returns you to the drawing command prompt.
+         Q or 7 - draws up and left.
+         W or 8 - draws up.
+         E or 9 - draws up and right.
+         D or 6 - draws right.
+         C or 3 - draws down and right.
+         X or 2 - draws down.
+         Z or 1 - draws down and left.
+         A or 4 - draws left.
+         S or 5 - changes drawing color.
+          
+         F2 - Draw Line - Lets you draw a line on the graphic screen
+         between two points. After the first X and Y coordinates, you
+         can enter either relative or absolute coordinates. To enter
+         relative coordinates, precede coordinates with '+' or '-'
+         signs.
+          
+          
+          
+          
+          
+
+
+                                     Page 1
+
+
+
+
+
+            Drawing Program for Tandy 1000 computer by Jeffrey Morris
+
+
+
+         F3 - Draw Lines - Lets you draw many lines on the graphic
+         screen. After the first X and Y coordinates, you can enter
+         either relative or absolute coordinates. Press the ENTER key
+         when you are finished drawing the last line.
+          
+         F4 - Draw Frame - Lets you draw a frame on the graphics
+         screen. After the first X and Y coordinates, you can enter
+         either relative or absolute coordinates.
+          
+         F5 - Draw Box - Lets you draw a box on the graphics screen.
+         After the first X and Y coordinate, you can enter either
+         relative or absolute coordinates.
+          
+         F6 - Draw Circle - Lets you draw a circle on the graphic
+         screen. This command accepts absolute coordinates only.
+          
+         F7 - Draw Disc - Lets you draw a disc on the graphic screen.
+         This command accepts absolute coordinates only.
+          
+         F8 - Draw Arc - Lets you draw an arc on the graphic screen.
+         This command accepts absolute coordinates only. If you
+         precede the starting or ending angles with a '-' sign, the
+         command draws a line from the center to the radius of the
+         arc.
+          
+         F9 - Paint Object - Lets you paint an object on the graphic
+         screen. Be sure the border is closed and in one color. If you
+         precede the painting color with a '$' sign and type it in
+         four-digit hexadecimal, you can paint the object in 256
+         colors.
+          
+         F10 -This Menu -Displays the menu of drawing commands.
+          
+         SHIFT-F1 - Get Object - Lets you get an object so that you
+         can put it somewhere else on the graphic screen.  After the
+         first X and Y coordinates, you can enter relative or absolute
+         coordinates.
+          
+         SHIFT-F2 - Put Object -Lets you put the object you got on the
+         graphic screen. This command is useful for drawing circuit
+         boards.
+          
+         SHIFT-F3 - Type Characters - Lets you type characters on the
+         graphic screen. You are asked for the column, row, and color.
+         To type characters without erasing the background, add 128 to
+         the color number. Type a message on the screen using any
+         characters between ASCII 32 and ASCII 127.
+          
+         SHIFT-F4 - Erase Mistake - Lets you erase any mistake that
+         you make.
+          
+          
+          
+          
+
+
+                                     Page 2
+
+
+
+
+
+            Drawing Program for Tandy 1000 computer by Jeffrey Morris
+
+
+
+         SHIFT-F5 - Save Picture - Lets you save a graphic screen to
+         disk. You are asked for the filename. Do not add any
+         extensions because the program automatically adds '.PIC' to
+         the filename.
+          
+         SHIFT-F6 - Load Picture - Lets you load a graphic screen from
+         disk.
+          
+         SHIFT-F7 - Clear Screen - Lets you clear the graphic screen.
+          
+         SHIFT-F8 - Calculator - Lets you do simple math with a
+         calculator. Press the ENTER key to return to the drawing
+         command prompt.
+          
+         SHIFT-F9 - Return to BASIC - Lets you quit the BASIC drawing
+         program and return to BASIC.
+          
+         SHIFT-F10 - Print Picture - Lets you print out a graphic
+         screen on the printer.
+          
+         If you find the program useful, I suggest that you send me a
+         check for $10. You can make copies of the program and manual
+         and give them to other people. I wrote this program because I
+         could not find a good drawing program for my Tandy 1000
+         computer that does not require a joystick or a mouse or a
+         touch pad or a light pen that uses the graphics screen mode
+         of 320 X 200 in 16 colors.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                     Page 3
+
+
+

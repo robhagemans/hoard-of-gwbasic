@@ -1,0 +1,19 @@
+These are some GW-Basic programs to play music using the 3-voice chip on 
+the Tandy 1000's.  I found them on America Online.  Four of these would not 
+play as written on the 1000TL, so I debugged them.  Both the original and 
+the debugged versions are included:
+
+    BALLGAME.BAS        "Take Me Out to the Ballgame" (original)
+    BALLGAM2.BAS        "Take Me Out to the Ballgame" (debugged)
+    CRADLE.BAS          Lullabye tune
+    DIXIE.BAS           "Dixie"
+    DUELIN.BAS          "Duelling Banjos"
+    REGGAE.BAS          "Rudolph the Red Nosed Reindeer" (original)
+    REGGAE2.BAS         "Rudolph the Red Nosed Reindeer" (debugged)
+    ROK&ROLL.BAS        Rock 'n' roll tune (original)
+    ROK&ROL2.BAS        Rock 'n' roll tune (debugged)
+    SCHOOL.BAS          "School Days" (original)
+    SCHOOL2.BAS         "School Days" (debugged)
+
+jlh <tvdog@agate.net>
+

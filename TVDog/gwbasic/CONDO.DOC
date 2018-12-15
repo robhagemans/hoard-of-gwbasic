@@ -1,0 +1,49 @@
+Condo.Doc -- Documentation for Condo.bas.
+========================================
+
+Condo originated as a game to be run in the meager memory (4k) of a
+TRS-80 model I and has since evolved through a model III version,
+a nongraphics model 4 version, a graphics model 4 version, a talking
+model 4 version, and, finally, a Tandy 1000 version.  At each step,
+I added some enhancements but left the game itself alone.  Condo is
+an unrealistic real estate game.  I thought the idea was interesting,
+and set out to write a quick, short game as an 'experiment' and liked
+it so much (along with people I know) that it's evolved this far.
+
+  Condo can be played by from 1-10 players and a number of turns.
+Each player is color coded for easy recognition.  Each player starts
+with a given amount of money ($20,000) and may purchase the condo
+he is 'rolled'.
+  Each condo is randomly picked from a list of 20 sites, each with
+certain attributes.  Those sites are then randomly modified by a
+system of percentages to make it more interesting.  The categories
+are as follows:
+
+Storm - only sales are decreased for one turn
+Earthquake- structure engulfed
+Tornado - part of structure destroyed
+Flood - not many fish interested in rooms this time of year.
+
+  These categories allow you to determine whether or not you wish to
+purchase the property.
+  Insurance is the next category, and costs $7,000.  It will give back
+less, the same, or more than the cost of the condominium.  It is up
+to you to determine if you need it or not, and when.
+  Materials determine the durability of the structure.  Best quality
+will give you the best chance of weathering an earthquake, tornado,
+or storm.  Of course, the computer will only tell you about these
+things if you are actually damaged by them.
+  Inferior materials is a risky proposition, but sometimes an
+unavoidable one in the early parts of the game.  They are cheap, but
+increase your chances of floods, tornadoes and earthquakes.  Also,
+the dreaded inspectors may decide your buildings need repairs or
+to be demolished entirely.
+  Money will be continually earned by condos throughout the game, so
+the condo you buy on turn 1 will still be making money at turn 20.
+Once a condominium survives the first turn, it survives the game.
+  Everything else is self-explanatory.  Please feel free to contact me
+about any bugs, improvements, or modifications you would like 
+corrected or added.
+
+                                        Al Funk [71505,1277]
+

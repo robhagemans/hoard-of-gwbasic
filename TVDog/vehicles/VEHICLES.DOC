@@ -1,0 +1,66 @@
+
+
+
+
+
+
+                       Motor Vehicles by Jeffrey Morris
+          
+         There are two BASIC programs that will let you see pictures
+         of cars, trucks, and vans. One program draws pictures of
+         motor vehicles made in 1970. One program draws pictures of
+         motor vehicles made in 1925 and 1940. When you run either
+         program, you will see a list of motor vehicles. Type a number
+         next to the motor vehicle desired and type a number between 0
+         and 15 except 7 and 11 for the color desired. The color
+         numbers are:
+         0 - Black                     1 - Blue
+         2 - Green                     3 - Cyan
+         4 - Red                       5 - Magenta
+         6 - Brown                     7 - Light Gray
+         8 - Dark Gray                 9 - Light Blue
+         10 - Light Green              11 - Light Cyan
+         12 - Light Red                13 - Light Magenta
+         14 - Yellow                   15 - White
+         I hope that you will enjoy the programs.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

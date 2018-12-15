@@ -1,0 +1,35 @@
+November 15, 1990
+
+
+GRAFIX 2.5 contains the following enhancements:
+
+  Video paging is now supported for high performance animation.
+
+  GRAFIX and ADJMEM will now protect up to 128K of video memory.
+
+  The protection of video memory is  skipped automatically if the Tandy 1000 has
+  a 128K memory expansion option.
+
+  The sound  interface has been rewritten  to produce better quality  sounds and
+  noises.
+
+  The system  timer chip can  now be programmed  to produce sounds,  noises, and
+  delays that last less than 1/18th of a second.
+
+
+GRAFIX 2.55 contains the following enhancements:
+
+  Uses 5,000 less bytes of memory than GRAFIX 2.5.
+
+
+TANDY11 problem:
+
+  The TANDY11.COM program  that enables 640x200x16 color graphics  does not work
+  properly  on the  Tandy 1000	SL/2, TL/2,  and RL.  When the	640x200x16 color
+  graphics mode  is used, all graphic  modes except that one  are distorted. The
+  only two ways I have found to get  around the problem so far are to reboot the
+  computer or  go into DeskMate and  then exit again. The  program works fine on
+  the  Tandy 1000  SL and  TL. Until  the problem  is solved,  do one of the two
+  things mentioned to get  the other graphic modes to work again.  I will try to
+  correct the situation as soon as possible.
+

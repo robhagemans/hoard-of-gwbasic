@@ -1,0 +1,39 @@
+                                    TANPICS
+                  Some Doctor Who pictures for the Tandy 1000
+                              by Andrew Rossmann
+
+requirements:
+  MS-DOS 2.1 or later
+  At least 18K available memory
+  Standard built-in video
+
+   To view these pictures, just type TANPICS. This will start up a batch file 
+that lets you view each picture.
+
+   I originally found these pictures in simple CGA line drawing from a file 
+called WHOPICS.ARC. I converted them to Tandy format, then to PC Paintbrush's 
+PCX format. I used Pbrush to greatly enhance them. I then converted them back 
+to Tandy format for general use. (Programs like OPTIKS and PCRGB do not 
+properly understand the Tandy modes.)
+   I wrote the program TANLOAD to display these pictures. After the picture 
+is displayed, press any key to stop viewing it. When used in a batch file, it 
+returns an ERRORLEVEL of:
+    255 = Monochrome mode found (video mode 7)
+    254 = No filename given
+    253 = Unable to select Tandy video mode
+    252 = Couldn't read the file
+    251 = Not enough memory to run the program
+    250 = File is NOT in BASIC's BSAVE format
+    249 = File is NOT a graphic file (The segment is not &HB800)
+    248 = File is NOT Tandy graphic (Probably a 16K CGA picture)
+  247-1 = Couldn't open file, number is from DOS
+      0 = No errors
+
+Usage for TANLOAD: TANLOAD [/H] filename
+        /H = use the High Resolution mode (640x200, 4 color)
+  filename = The filename with any drive/path needed. The .TAN extension will 
+             be added automatically.
+
+   The program GETKEY simply returns whatever key you press as an ERRORLEVEL. 
+Lower case is converted to Upper case.
+

@@ -1,0 +1,507 @@
+ 
+                                   PIX 1000F
+
+
+    Pix1000 is a graphic paint program for the Tandy 1000. It runs in the 320
+  x 200, 16 color enhanced CGA mode that is only available on the Tandy 1000.
+
+    Pix1000 was written in Tandy/GW basic on a Tandy 1000 EX personal
+  computer. It should work on any of the Tandy 1000's running Tandy/GW basic.
+
+  To run the program the following files must be in the same directory with
+  BASIC.COM and BASICA.EXE;
+
+     PIX.BAT               a batch file that loads basic and runs PIX1000
+     PIX1000F.BAS          the basic program
+     TITLE.CLP             title clip loaded when run
+     COL.CLP               the color menu
+     MEN.CLP               the tool bar
+     FONT2.FNT             this font is loaded when run
+     FONT3.FNT             extra font
+
+  Type PIX and hit enter to start the program.
+
+
+             ---------------  USING THE PROGRAM  -----------------
+
+    When the program is started a title screen will appear while the program
+  loads it's menus. When ready the screen will go black and the tool bar will
+  appear across the top of the screen. It is now ready to go.
+
+    The program is controlled with either the keyboard or a joystick (the
+  self-centering kind works best). The program starts up in keyboard mode but
+  can be switched anytime to joystick control by pressing "J", and back to
+  keyboard by pressing "K". When in joystick mode you can switch between right
+  or left joystick being active by pressing "R" for right or "L" for left,
+  (left is the default).
+
+    Program control is basically as follows.
+
+    ACTION                    KEYBOARD                    JOYSTICK
+    ==============================================================
+    move cursor            numeric keypad                 stick
+                      (the 5 key will toggle the
+                      distance the cursor  moves
+                      from 1, 5, and 25 pixels)
+
+    select tool               "ENTER"                     button 1
+    select color              "ENTER"                     button 1
+
+  * make tool active          "ENTER"                     button 1 (hold down)
+    turn off tool             "ENTER"                     button 1 (release)
+
+ ** request color menu        "ESC"                       button 2
+*** request tool bar          "ESC"                       button 2
+
+    undo                      spacebar                    spacebar
+
+    full screen cross hair    " = "                       " = "
+
+      (when circle tool is selected and color menu is on screen)
+    + circle start angle      " , "                       " , "
+    - circle start angle      " < "                       " < "
+    + circle end angle        " . "                       " . "
+    - circle end angle        " > "                       " > "
+
+      (when paintbrush tool is selected and color menu is on screen)
+    toggle 3 brush sizes      " . "                       " . "
+
+      (when spray tool is selected and color menu is on screen)
+     toggle 3 brush sizes     " . "                       " . "
+     toggle 5 spray patterns  " , "                       " , "
+
+      (when in magnify mode)
+     select color             " , " and " . "             " , " and " . "
+
+     keyboard control         " K "                       " K "
+     joystick control         " J "                       " J "
+     right joystick           " R "                       " R "
+     left joystick            " L "                       " L "
+
+
+  * more detail on individual tools follows.
+ ** only on tools that require color selection.
+*** from color menu on tools that require color selection.
+
+
+The basic flow of the program is as follows;
+
+   Select a tool
+   Select a color  *
+   Use tool
+   Go back to color menu *
+   Go back to tool bar.
+
+* not all tools require a color choice.
+
+
+ ============================================================================
+                                     TOOLS
+ ============================================================================
+
+
+                                     CURVE
+
+   Select color.
+   Move cursor to where curve is to begin.
+   Press ENTER if in keyboard mode else BUTTON 1 if using joystick.
+   Move cursor to where curve is to end.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor until curve is the desired shape.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                     LINE
+
+   Select color.
+   Move cursor to where line is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor to where line is to end.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else hold down BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+                                      BOX
+
+   Select color.
+   Move cursor to where top left corner of box is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor until box is the desired size and shape.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+                                  FILLED BOX
+
+   Select color.
+   Move cursor to where top left corner of box is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor until box is the desired size and shape.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+                                    CIRCLE
+
+   Select color.
+   When circle tool is selected and color menu is on screen the circle can be
+   opened into an arc using these keys.
+
+    + circle start angle      " , "
+    - circle start angle      " < "
+    + circle end angle        " . "
+    - circle end angle        " > "
+
+   If the start or end angles are negative a radius is drawn from the center
+   to that point on the circle. A small circle on the bottom left of the color
+   menu is used to monitor the effects of varying these angles.
+
+   After selecting angles and color.
+   Move cursor to where the center of the circle is to be.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move horizontally to vary size
+   Move vertically to vary height/width ratio, (make ellipse)
+   Move until circle is the desired size and shape.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+                                 FILLED CIRCLE
+
+   Select color.
+   Move cursor to where the center of the circle is to be.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move horizontally to vary size
+   Move vertically to vary height/width ratio, (make ellipse)
+   Move until circle is the desired size and shape.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                   AREA FILL
+
+   Select fill color
+   Select border color
+   Move cursor within area to be filled, (area must be completely surrounded
+   by the selected border color or the fill color will leak out).
+   Press ENTER if in keyboard mode else BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                 FREEHAND DRAW
+
+   Select color.
+   Move cursor to where drawing is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor to draw.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                     PAINT
+
+   When paintbrush tool is selected and color menu is on screen 3 brush sizes
+   can be toggled by pressing " . "
+   After color and brush size are selected.
+   Move cursor to where painting is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor to paint.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                  SPRAY PAINT
+
+   When spray tool is selected and color menu is on screen,
+   toggle 3 brush sizes by pressing    " . "
+   toggle 5 spray patterns by pressing " , "
+   After color and brush size are selected.
+   Move cursor to where painting is to begin.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor to paint.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+
+   Spacebar to undo
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu, again for tool bar.
+
+
+                                     GET
+
+   The icon that looks like a clipboard with the letter G on it is the GET
+   tool. This tool is used to capture an area of the screen and either place
+   it on a clip screen for later use, save it to disk, or PUT elsewhere on the
+   work screen.
+
+   Move cursor to where top left corner of the area to be captured.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   Move cursor until box encloses the area to be captured.
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+   GET menu will appear
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   redo, once more for tool bar.
+
+   GET MENU
+
+   PSET             puts captured image as is on clip screen.
+   FLIP             vertically inverts image and places on clip screen.
+   MIRROR           horizontally inverts image and places on clip screen.
+   FLIP/MIRROR      flips and mirrors image onto clip screen.
+   REDUCE           reduces image by 1/4 onto clip screen
+   ENLARGE          enlarges image x 4 onto clip screen
+   SAVE             bsaves image to disk
+   PUT              stays on work screen in PUT mode. (see PUT)
+
+   Move pointer beside desired option.
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+   If any option except SAVE or PUT is selected clip screen will appear.
+   Move image to desired location on clip screen.
+   (note: if using enlarge option put image in an area of clip screen large
+   enough to hold 4 x size of image)
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+   Image will be placed on clip screen, work screen returned.
+
+   Repeat process or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   retrieve tool bar.
+
+   SAVE option:
+   Type path and press ENTER or just press ENTER if current path is valid.
+   Type name to save file as and press ENTER, (do not type extension, the
+   program gives the extension  .clp  to the saved image).
+
+   PUT option:
+   The work screen remains active and PUT tool is made active.
+!! See PUT.
+|
+|
+|                                     PUT
+|
+|  The icon that looks like a clipboard with the letter P on it is the PUT
+|  tool. The put tool is used to take an image off the clip screen and place
+|  it on the work screen.
+|  When PUT is selected the clip screen will appear.
+|  Move cursor to where top left corner of the area to be captured.
+|  Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+|  Move cursor until box encloses the area to be captured.
+|  Press ENTER if in keyboard mode else release BUTTON 1 if using joystick.
+|  Work screen appears.
+-> Press ESC if in keyboard mode else press BUTTON 2 if using joystick for PUT
+   option menu, again for tool bar.
+
+   PUT OPTIONS
+
+   PSET     \
+   OR        \
+   AND        > Try out these different put options to see their effects, or
+   XOR       /  read about them in the Tandy BASIC handbook.
+   PRESET   /
+
+   PATTERN     This option will evenly space the put image creating a pattern
+               effect.
+
+   (Pset is the default option.)
+
+   Move pointer beside desired option.
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+   Menu disappears.
+   Move image to desired location on screen.
+   Press ENTER if in keyboard mode else hold down BUTTON 1 if using joystick.
+   At this point the image can be used as a paint brush by moving around the
+   screen or,
+   Press ENTER if in keyboard mode else release BUTTON 1 if using joystick to
+   stop putting image.
+
+   Spacebar to undo or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for PUT
+   option menu, again for tool bar.
+
+
+                                    MAGNIFY
+
+   This tool allows pixel by pixel editing.
+   Move cursor until area to be edited is within white box.
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+   Screen will clear. Magnified image will appear at upper left of screen,
+   original at top right. Color selection bar at bottom left.
+
+   The active color is in the white box on the color bar.
+   Press  " , " or " . " to change active color.
+   Move white box in magnified image to desired pixel.
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick to
+   change pixel to active color.
+   When finished,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   return to work screen.
+
+   Spacebar to undo or,
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick to
+   repeat process or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   toolbar.
+
+
+                                     TEXT
+
+   From color menu, select color or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   text options menu, again to return to tool bar.
+
+   TEXT OPTIONS
+
+   + ANGLE       increase angle of text
+   - ANGLE       decrease angle of text (0-360 in steps of 5 degrees)
+   + SIZE        increase size of text
+   - SIZE        decrease size of text  (4-128 in steps of 4)
+   LOAD FONT     font2 is default, program comes with font2 and font3
+   WORK SCREEN   leave this menu and return to work screen
+
+   From text option menu, move pointer beside desired option.
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick to
+   select option or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to exit
+   text and return to tool bar.
+
+   From the work screen, move cursor to where text is to begin,
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+   Curser will disappear.
+   Type text,(a line at a time, backspace and carriage return not supported).
+   Press ENTER when done. Cursor reappears.
+   Repeat or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   color menu.
+   Select color or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick for
+   text options menu.
+   Select option or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   return to tool bar.
+
+   A program called EDIT.BAS is included for creating new fonts.
+
+
+                                      CLS
+
+   Clear screen options
+
+   CANCEL                   return to tool bar.
+   CLEAR WORK SCREEN        clear work screen and return to tool bar.
+   CLEAR CLIP SCREEN        clear clip screen and return to tool bar.
+
+   Move pointer beside desired option,
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick.
+
+
+                                     FILES
+
+   File Menu;
+
+   FILES                       directory of files on disk
+   SAVE SCREEN                 save the current work screen to disk
+   LOAD SCREEN                 load a *.pic file from disk
+   LOAD CLIP                   load a *.clp file from disk
+   DELETE FILE                 delete a file from disk
+   SWAP WRK & CLP              swap the work and clip screens
+   EXIT PIX1000                exit program
+
+   Move pointer beside desired option,
+   Press ENTER if in keyboard mode else press BUTTON 1 if using joystick to
+   select option or,
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   return to tool bar.
+
+   FILES
+   When this option is selected the word TYPE: will be displayed followed by
+   the current file extension. Press ENTER to keep the current extension or
+   type a new one and press ENTER, (eg; TYPE:pic).
+   Now the word PATH: will be displayed. Press ENTER to keep the current path
+   or type a new one and press ENTER, (eg; PATH:c:\mypics\).
+   The desired files are then displayed.
+
+   SAVE SCREEN
+   The word PATH: will be displayed. Press ENTER to keep the current path or
+   type a new one and press ENTER, (eg; PATH:c:\mypics\). Type the name of the
+   file to save and press enter.(Do not type in an extension. The program
+   gives all screen saves the extension "pic". All screen saves are in the
+   BSAVE format and can be loaded into other basic programs using the BLOAD
+   command.)
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   return to tool bar.
+
+   LOAD SCREEN
+   The word PATH: will be displayed. Press ENTER to keep the current path or
+   type a new one and press ENTER, (eg; PATH:c:\mypics\). Type the name of a
+   *.pic file to load and press enter.
+   Press ESC if in keyboard mode else press BUTTON 2 if using joystick to
+   return to tool bar.
+
+   LOAD CLIP
+   The word PATH: will be displayed. Press ENTER to keep the current path or
+   type a new one and press ENTER, (eg; PATH:c:\mypics\). Type the name of the
+   *.clp file to load and press enter.
+!! The program will go to the PUT mode from here, (see PUT).
+
+   DELETE
+   The word TYPE: will be displayed followed by the current file extension.
+   Press ENTER to keep the current extension or type a new one and press
+   ENTER, (eg; TYPE:pic). Now the word PATH: will be displayed. Press ENTER to
+   keep the current path or type a new one and press ENTER,
+   (eg; PATH:c:\mypics\).
+   Type name of file to be deleted press ENTER.
+
+   EXIT
+   Exits program, returns DOS prompt.
+
+==============================================================================
+
+   THIS PROGRAM IS FREE BUT........
+
+   This program is free for you to use and distribute, but donations are
+   appreciated. If you have any questions our comments you can write to me
+   at this address.
+
+                            Tom Luptowski
+                            23139 Harpergate
+                            Spring Tx. 77373
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
