@@ -1,0 +1,60 @@
+ASCII SCREEN SORT TEST REPORT
+GW-BASIC Version 3.22                    Test date: 10-01-2004
+Computer: ASUS P800 homebrew             Speed: 2.8 GHz
+
+1) SLOW SORT
+
+Items = 2000                 Finish = 10:34:19
+Comparisons = 1999000        Start  = 10:33:26
+Exchanges = 195131 
+Done in 53 seconds =  0 min 53 sec
+
+2) BUBBLE SORT
+
+Items = 2000                 Finish = 10:38:23
+Comparisons = 1996225        Start  = 10:34:26
+Exchanges = 997715 
+Done in 237 seconds =  3 min 57 sec
+
+3) SHAKER SORT
+
+Items = 2000                 Finish = 10:42:21
+Comparisons = 1323355        Start  = 10:38:30
+Exchanges = 988647 
+Done in 231 seconds =  3 min 51 sec
+
+4) DELAYED REPLACEMENT SORT
+
+Items = 2000                 Finish = 10:42:44
+Comparisons = 1999000        Start  = 10:42:29
+Exchanges = 1984 
+Done in 15 seconds =  0 min 15 sec
+
+5) INSERTION SORT
+
+Items = 2000                 Finish = 10:46:36
+Comparisons = 985804         Start  = 10:42:47
+Exchanges = 983805 
+Done in 229 seconds =  3 min 49 sec
+
+6) BINARY SORT
+
+Items = 2000                 Finish = 10:48:47
+Comparisons = 14141          Start  = 10:46:45
+Exchanges = 1993 
+Done in 122 seconds =  2 min 2 sec
+
+7) SHELL SORT
+
+Items = 2000                 Finish = 10:48:57
+Comparisons = 32855          Start  = 10:48:53
+Exchanges = 15869 
+Done in 4 seconds =  0 min 4 sec
+
+8) QUICKSORT
+
+Items = 2000                 Finish = 10:49:04
+Comparisons = 6787           Start  = 10:49:03
+Exchanges = 4005 
+Done in 1 seconds =  0 min 1 sec
+

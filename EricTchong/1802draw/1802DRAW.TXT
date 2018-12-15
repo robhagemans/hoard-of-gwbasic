@@ -1,0 +1,29 @@
+Twenty years ago I built my first computer. It was an COSMAC ELF II
+micro-computer which had only 256 bytes of RAM.
+One of the first program that I entered via the hexadecimal keyboard
+was the starship Enterprise graphics program.
+On the screen we were amazed at what we saw. A still picture on the
+screen. (Now we would get bored.)
+
+This gave me the idea to make the 1802draw.exe program. I use this to
+draw the good old starship. But the difference with the still picture
+is that it now travels across the screen.
+
+Procedure:
+	- make your picture with 1802draw.exe
+	- with 1802pic1.bas or 1802pic2.bas merge the 1802data.bas
+	- save the 1802pic1/2.bas under your new filename
+	- make an exe.file with QuickBasic 4.5
+
+There is no instructions how to use the program. But it's very simple
+and maybe if you want to add this to your program please feel free. I
+had that before but I did not like it.
+
+Use keys 1, 2 or 3 to change the way the picture appears and <Esc> to
+exit the program.
+
+Anyone knows how to turn this in an screen saver?
+
+Enjoy the nostalgia.
+
+Eric.

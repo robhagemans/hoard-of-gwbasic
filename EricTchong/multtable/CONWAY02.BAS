@@ -1,0 +1,56 @@
+10 ' conway02.bas - FreeWare 2005
+20 GOTO 60 ' begin
+30 SAVE "conway02.bas",A:LIST-60
+40 GOTO 520 ' wait for key
+50 GOTO 550 ' centered text
+60 SCREEN 9:CLS
+70 DEFINT A-K,S-Z:DEFSTR M,Q:Q=MKI$(0)
+80 RANDOMIZE 11:PROC=20
+90 SH=120:SV=90
+100 K=1:KMAX=1000:P=PROC/100
+110 WINDOW (2*SH-320,2*SV-240)-(2*SH+319,2*SV+239)
+120 M(1)="CONWAY idea from Hans Lauwerier"
+130 M(2)="GWBasic by Eric Tchong"
+140 M(3)="Press any key to pause and end program"
+150 M(4)="Press a key to start"
+160 FOR I=1 TO 4
+170  GOSUB 50:IF I=3 THEN PRINT
+180 NEXT:GOSUB 40:CLS
+190 LINE (-4,-3)-(4*SH+4,4*SV+3),9,B
+200 DIM U(SH,SV),V(SH,SV)
+210 ' begin design
+220 FOR I=1 TO SH-1
+230  FOR J=1 TO SV-1
+240   R=RND
+250   IF R<P THEN U(I,J)=1:LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF
+260  NEXT
+270 NEXT
+280 ' main
+290 WHILE K<KMAX AND INKEY$=""
+300  LOCATE 1,1:PRINT K
+310  FOR I=1 TO SH-1
+320   FOR J=1 TO SV-1
+330    S0=U(I,J):V(I,J)=S0
+340    S1=U(I-1,J-1)+U(I,J-1)+U(I+1,J-1)
+350    S2=U(I-1,J)+U(I+1,J)
+360    S3=U(I-1,J+1)+U(I,J+1)+U(I+1,J+1)
+370    S=S1+S2+S3
+380    IF S0=1 THEN IF S>3 OR S<2 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),0,BF:V(I,J)=0
+390    IF S0=0 AND S=3 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF:V(I,J)=1
+400   NEXT
+410  NEXT
+420 ' reset
+430  FOR I=1 TO SH-1
+440   FOR J=1 TO SV-1
+450    U(I,J)=V(I,J)
+460    IF U(I,J)=1 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF
+470   NEXT
+480  NEXT:K=K+1
+490 WEND:A$=INPUT$(1)
+500 SCREEN 0,0,0:CLS:END
+510 ' wait for key
+520 LSET Q=MKI$(0)
+530 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+540 ' centered text
+550 X=(80-LEN(M(I)))/2:PRINT TAB(X) M(I):RETURN
+

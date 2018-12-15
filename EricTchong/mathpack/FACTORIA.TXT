@@ -1,0 +1,59 @@
+Factorials from 1 to 508, listed 12-26-2005
+
+   10 ' factoria.bas - FreeWare 2006 - eric f. tchong
+   20 GOTO 70 ' begin
+   30 SAVE "factoria.bas",A:LIST-70
+   40 GOTO 480 ' wait for key
+   50 GOTO 510 ' text
+   60 GOTO 530 ' clear line
+   70 DIM A%(1156):DEFSTR M,Q:Q=MKI$(0)
+   80 M(1) ="LARGE FACTORIALS from 1 to 508"
+   90 M(2) ="Do you need a diskfile: <y/n> ?":CLS
+  100 FOR I=1 TO 2
+  110  GOSUB 50
+  120 NEXT:GOSUB 40:CLS
+  130 IF ASC(Q)=89 OR ASC(Q)=121 THEN CP=1 ELSE CP=0 ' CP = copy
+  140 IF CP THEN 150 ELSE 180
+  150 CLS:PRINT "Type a filename <12345678.txt> ? ";:LINE INPUT Z$
+  160 IF LEFT$(Z$,1)=" " THEN Z$=MID$(Z$,2):GOTO 160
+  170 OPEN "O",#1,Z$
+  180 CLS 
+  190 INPUT "Enter a whole number (0 - 508) ";N
+  200 IF N<>INT(N) OR N>508 THEN GOSUB 60:GOTO 190 ' clear line & return
+  210 IF N=0 THEN CLS:END
+  220 GOSUB 60
+
+  230 ' DG = digit, CR = carry
+  240 DG=1:CR=0
+  250 A%(1)=1
+  260 FOR I=2 TO N
+  270  FOR J=1 TO DG
+  280   A%(J)=A%(J)*I+CR
+  290   CR=INT(A%(J)/10)
+  300   A%(J)=A%(J)-10*CR
+  310  NEXT
+  320  IF CR>0 THEN C=INT(CR/10):DG=DG+1:A%(DG)=CR-10*C:CR=C:GOTO 320
+  330  CR=0
+  340 NEXT
+  350 Z=N:L=1
+  360 E=INT(Z/10):IF E<>0 THEN L=L+1:Z=E:GOTO 360
+  370 PRINT RIGHT$(STR$(N),L);"!= ";
+  380 IF CP THEN PRINT #1,RIGHT$(STR$(N),L);"!= ";
+  390 FOR I=DG TO 1 STEP -1
+  400  PRINT RIGHT$(STR$(A%(I)),1);
+  410  IF CP THEN PRINT #1,RIGHT$(STR$(A%(I)),1);
+  420 NEXT
+  430 PRINT:IF CP THEN PRINT #1,
+  440 PRINT DG;"digits":IF CP THEN PRINT #1,DG;"digits"
+  450 PRINT:IF CP THEN PRINT #1,
+  460 GOTO 190
+
+  470 ' wait for key
+  480 LSET Q=MKI$(0)
+  490 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  500 ' text
+  510 T=(31-LEN(M(I)))/2:PRINT TAB(T) M(I):RETURN
+
+  520 ' Clear previous line
+  530 PRINT CHR$(30);:PRINT STRING$(79,32):PRINT CHR$(30);:RETURN

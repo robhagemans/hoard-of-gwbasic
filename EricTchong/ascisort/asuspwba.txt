@@ -1,0 +1,59 @@
+ASCII SCREEN SORT TEST REPORT
+PowerBasic Version 3.2                   Test date: 10-01-2004
+Computer: ASUS P800 homebuilt            Speed: 2.8 GHz
+
+1) SLOW SORT
+
+Items = 2000                 Finish = 09:19:58
+Comparisons = 1999000        Start  = 09:19:55
+Exchanges = 195473 
+Done in 3 seconds =  0 min 3 sec
+
+2) BUBBLE SORT
+
+Items = 2000                 Finish = 09:20:11
+Comparisons = 1998054        Start  = 09:20:05
+Exchanges = 990621 
+Done in 6 seconds =  0 min 6 sec
+
+3) SHAKER SORT
+
+Items = 2000                 Finish = 09:20:24
+Comparisons = 1327478        Start  = 09:20:19
+Exchanges = 990621 
+Done in 5 seconds =  0 min 5 sec
+
+4) DELAYED REPLACEMENT SORT
+
+Items = 2000                 Finish = 09:20:32
+Comparisons = 1999000        Start  = 09:20:31
+Exchanges = 1990 
+Done in 1 seconds =  0 min 1 sec
+
+5) INSERTION SORT
+
+Items = 2000                 Finish = 09:20:45
+Comparisons = 992620         Start  = 09:20:41
+Exchanges = 990621 
+Done in 4 seconds =  0 min 4 sec
+
+6) BINARY SORT
+
+Items = 2000                 Finish = 09:21:08
+Comparisons = 14159          Start  = 09:21:05
+Exchanges = 1989 
+Done in 3 seconds =  0 min 3 sec
+
+7) SHELL SORT
+
+Items = 2000                 Finish = 09:21:14
+Comparisons = 32971          Start  = 09:21:14
+Exchanges = 15968 
+Done in 0 seconds =  0 min 0 sec
+
+8) QUICK SORT
+
+Items = 2000                 Finish = 09:21:22
+Comparisons = 6868           Start  = 09:21:22
+Exchanges = 4134 
+Done in 0 seconds =  0 min 0 sec

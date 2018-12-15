@@ -1,0 +1,19 @@
+Hello Roy;
+
+This little story illustrates the power of GW-BASIC. A boss asks his secretary if she could make a printout of the multiplication tables from 1 till 100.
+All data should be correct and nicely put in beautiful aligned rows and columns. And he would like to receive this printout at the end of the day. Well she really could finished this task as when surfing on the internet she found on this website the multi100.txt file which was made by GW-BASIC. She just used Word to convert this file into a document that she finished before the end of the day. Her boss could not believe his eyes and promised to raise her salary. Well that's what multi100.bas will do and may the world be happy with this little time saver. BTW a doc file is also included. Here a little preview of the tables 96 till 100.
+ 1 x 96 =  96   1 x 97 =  97   1 x 98 =  98   1 x 99 =  99   1 x 100 =  100  
+ 2 x 96 = 192   2 x 97 = 194   2 x 98 = 196   2 x 99 = 198   2 x 100 =  200  
+ 3 x 96 = 288   3 x 97 = 291   3 x 98 = 294   3 x 99 = 297   3 x 100 =  300  
+ 4 x 96 = 384   4 x 97 = 388   4 x 98 = 392   4 x 99 = 396   4 x 100 =  400  
+ 5 x 96 = 480   5 x 97 = 485   5 x 98 = 490   5 x 99 = 495   5 x 100 =  500  
+ 6 x 96 = 576   6 x 97 = 582   6 x 98 = 588   6 x 99 = 594   6 x 100 =  600  
+ 7 x 96 = 672   7 x 97 = 679   7 x 98 = 686   7 x 99 = 693   7 x 100 =  700  
+ 8 x 96 = 768   8 x 97 = 776   8 x 98 = 784   8 x 99 = 792   8 x 100 =  800  
+ 9 x 96 = 864   9 x 97 = 873   9 x 98 = 882   9 x 99 = 891   9 x 100 =  900  
+10 x 96 = 960  10 x 97 = 970  10 x 98 = 980  10 x 99 = 990  10 x 100 = 1000 
+Next is the trouble we may have converting arabic numbers to roman numerals and visa versa. Arabroma.bas does this and the arabromd.bas will even show you how the conversion of roman to arabic numerals takes place.
+And finally the second and final part on graphics. All in GW-BASIC but be careful with turtgrph.bas as this runs best in Quickbasic or PowerBasic as you will get a String too long message. The program assemles a string of maximum 2388 characters which is really to heavy for GW-BASIC. So if you like turtle graphics, julia, mandelbrot, mira fractals, the game of life then in this section you will be surprised to see that GW-BASIC is still the super hero.
+
+Enjoy,
+Eric

@@ -1,0 +1,21 @@
+Just finished a tantalizing game in GWBASIC. Zipfile contains exe, doc, bas, txt
+plus readeric.txt files..
+
+After surfing the internet, I found a very interesting game called
+The French Military Game. It was written in java language. There
+are different versions. One plays in expert mode and you can never win.
+Another starts in a simple mode and becomes smarter by eliminating
+bad moves. After a few games you can not win as the computer
+also becomes an expert.
+
+I decided to write it in simple GWBASIC. And I just keep it for the computer
+to play always randomly. Now even kids get a chance to win. And parents
+don't get stressed with this very popular educational game in French
+military circles during and after the Franco-Prussian war of 1870-1871.
+
+In another version I would like to implement the become smarter mode. For
+now it was a challenge to write it in random GWBASIC code.
+
+Have fun.
+
+Eric Tchong (serenata@setarnet.aw)

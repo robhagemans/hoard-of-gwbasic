@@ -1,0 +1,56 @@
+The Android Game with auto solver. June 26, 2004
+
+You are the curator of the Android Gallery!
+  In the Simple Game you have to clear the
+  Gallery ready for the exhibition. You do
+  this by using  your anti-android duster.
+  This will clear  an  occupied  frame but
+  unfortunately  frames  near  by  will be
+  reversed. Corner -Center-  Middle of row
+  each produce a different  but consistent
+  pattern of change."
+  In the Full Game you have to get all the
+  given frames occupied by Happy Androids.
+  They are not happy out of a frame.  [<>]
+
+  Type   a 's' for the Simple Game.
+  Type any key for the Full Version.
+
+  Do you want to enter your own
+  starting positions ? <y/n>";
+
+  <1> Player   selects the game
+  <2> Computer selects the game
+
+New menu:
+
+      L   = Learn game
+      A   = Auto solve
+      R   = Reboot game
+      N   = New  game
+      Esc = Exit game
+
+Pressing L shows you:
+   Type ---> 15895264
+   You  type 15895264 and the solution is processed.
+
+Pressing A shows you:
+                 Solution: 7412893827547
+Press any key to continue:
+
+Keep any key and the solution will automatically be processed
+without you having to type the numbers.
+
+L and A are only available with Simple and Full games. These keys are
+disabled when you have entered your own design, or when you start to
+solve the game.
+During the solving procedure the keys R, N and Esc are still active.
+
+The Esc key works as a panic button and terminates the program at any
+point in the game.
+
+Enjoy...
+Eric Tchong
+serenata@setarnet.aw
+
+

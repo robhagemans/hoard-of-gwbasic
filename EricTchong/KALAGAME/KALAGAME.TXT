@@ -1,0 +1,286 @@
+KalaGame FREEWARE 2004 - E. Tchong, listed 04-30-2004
+
+   10 ' Kalagame.bas FREEWARE 2004
+   20 GOTO 190 ' begin
+   30 SAVE "kalagame":LIST-170
+   40 GOTO 1040 ' print digits
+   50 GOTO 1150 ' draw board
+   60 GOTO 1300 ' keep your scores
+   70 GOTO 1370 ' display board numbers
+   80 GOTO 1500 ' illegal move
+   90 GOTO 1550 ' capture routine
+  100 GOTO 1640 ' end of a round
+  110 GOTO 2000 ' the computer moves
+  120 GOTO 2120 ' move indicators >>>
+  130 GOTO 2170 ' move indicators <<<
+  140 GOTO 2230 ' delay .0625
+  150 GOTO 2250 ' delay .08
+  160 GOTO 2280 ' help info
+  170 GOTO 2520 ' get key
+
+  180 ' Begin
+  190 DEFSTR Q:Q=MKI$(0)
+  200 CLS:KEY OFF:COLOR 10,0
+  210 RANDOMIZE TIMER
+  220 DIM A(14)
+  230 DEF FNRES(A,B)=A-(INT(A/B)*B)
+  240 D$=CHR$(219)
+  250 D2$=D$+D$:D3$=D2$+D$:D4$=D3$+D$:D5$=D4$+D$
+  260 A$(0)=D4$+" "+D2$+" "+D2$+" "+D4$
+  270 A$(1)=" "+D$+" "+D2$+"  "+D$+"  "+D$+" "+D3$
+  280 A$(2)=D3$+"  "+D5$+"  "+D3$
+  290 A$(3)=D3$+"  "+D4$+"  "+D4$
+  300 A$(4)=D$+" "+D2$+" "+D4$+"  "+D$+"  "+D$
+  310 A$(5)=D4$+"  "+D3$+"  "+D4$
+  320 A$(6)=D4$+"  "+D4$+" "+D4$
+  330 A$(7)=D4$+" "+D$+"  "+D$+"  "+D$+"  "+D$
+  340 A$(8)=D4$+" "+D5$+" "+D4$
+  350 A$(9)=D4$+" "+D4$+"  "+D4$
+  360 A$(10)=STRING$(15,32)
+
+  370 ' Main program
+  380 LOCATE 7,10:PRINT "THE GAME OF KALA"
+  390 LOCATE 9,10
+  400 PRINT "MAXIMUM NUMBER OF PIECES FOR END OF MATCH --> 0 exit ";
+  410 INPUT PS:IF PS=0 THEN 2560
+  420 LOCATE 9,10:PRINT STRING$(60,32)
+  430 LOCATE 9,10
+  440 PRINT "NUMBER OF PIECES (2 TO 5) TO BEGIN ---------> 0 exit ";
+  450 INPUT PN:IF PN=0 THEN 2560
+  460 IF PN>5 OR PN<2 THEN BEEP:GOTO 420
+
+  470 ' Initialize positions routine
+  480 FOR X=0 TO 13:A(X)=PN:NEXT
+  490 A(0)=0:A(7)=0
+  500 IF G=>1 THEN 620
+
+  510 ' Input player names
+  520 LOCATE 9,10:PRINT STRING$(60,32)
+  530 LOCATE 9,10
+  540 PRINT "PLAYER 1) <Enter for PLAYER  > ? ";:LINE INPUT N$(0)
+  550 IF N$(0)="" THEN N$(0)="PLAYER"
+  560 LOCATE 9,10:PRINT STRING$(60,32)
+  570 LOCATE 9,10
+  580 PRINT "PLAYER 2) <Enter for COMPUTER> ? ";:LINE INPUT N$(1)
+  590 IF N$(1)="" THEN N$(1)="COMPUTER"
+  600 CLS
+
+  610 ' Determine first move
+  620 I=INT(RND*2)
+  630 GOTO 670
+
+  640 ' Exchange players
+  650 IF I=1 THEN I=0 ELSE I=1
+
+  660 ' Draw board
+  670 GOSUB 50
+
+  680 ' Save scores
+  690 GOSUB 60
+
+  700 ' Input and compute moves
+  710 IF N$(1)="COMPUTER" AND I=1 THEN GOSUB 110 ' computer moves
+  720 LOCATE  8,10:PRINT STRING$(30,32)
+  730 LOCATE 14,10:PRINT STRING$(30,32)
+  740 LOCATE 14,10:PRINT "ENTER NUMBER OF PIT TO EMPTY."
+  750 GOSUB 170 ' get key
+  760 IF E=27 THEN 2560
+  770 LOCATE 14,10:PRINT STRING$(30,32)
+  780 IF E=80 OR E=112 THEN GOSUB 70 :GOTO 670     ' 80=P 112=p board numbers
+  790 IF E=72 OR E=104 THEN GOSUB 160:GOTO 670     ' 72=H 104=h help info
+  800 LOCATE 14,10:PRINT N$(I);" MOVES FROM PIT # ";W
+  810 M=VAL(Q)
+  820 IF M>6 OR M<1 THEN GOSUB 80 ' illegal move
+  830 IF I=1 THEN M=M+7
+  840 IF A(M)=0 THEN GOSUB 80
+  850 IF I=0 THEN GOSUB 120 ELSE GOSUB 130 ' >>> else <<<
+  860 D=FNRES(M+A(M),14)
+  870 A(M)=0
+  880 C=M
+  890 C=C+1
+  900 IF C>13 THEN C=0
+  910 A(C)=A(C)+1
+  920 IF C<>D THEN 890
+  930 GOSUB 50 ' draw board
+
+  940 ' Check for endgame
+  950 IF I=0 AND C>=7 OR I=1 AND C<=7 OR C=0 OR C=7 THEN 970
+  960 IF A(C)=1 AND A(14-C)=>1 THEN GOSUB 90 ' capture
+  970 IF A(1)+A(2)+A(3)+A(4)+A(5)+A(6)=0     THEN GOSUB 100 ' end of a round
+  980 IF A(8)+A(9)+A(10)+A(11)+A(12)+A(13)=0 THEN GOSUB 100
+
+  990 ' Check for repeat turn
+ 1000 IF C=0 OR C=7 THEN 1950
+
+ 1010 ' Next turn
+ 1020 GOTO 650
+
+ 1030 ' Digits print routine
+ 1040 IF N>9 THEN 1090
+ 1050 FOR P=1 TO 5
+ 1060  LOCATE V+P-1,F  :PRINT MID$(A$(N) ,(P-1)*3+1,3)
+ 1070  LOCATE V+P-1,F+4:PRINT MID$(A$(10),(P-1)*3+1,3)
+ 1080 NEXT:RETURN
+ 1090 D1=INT(N/10):D2=N-(10*D1)
+ 1100 FOR P=1 TO 5
+ 1110  LOCATE V+P-1,F  :PRINT MID$(A$(D1),(P-1)*3+1,3)
+ 1120  LOCATE V+P-1,F+4:PRINT MID$(A$(D2),(P-1)*3+1,3)
+ 1130 NEXT:RETURN
+
+ 1140 ' Draw the board
+ 1150 LOCATE 23,16:PRINT "< 'P' to see Pit Numbers 'H' FOR HELP >    ":V=9
+ 1160 F=1 :N=A(0):COLOR 14,0:GOSUB 40  ' print digits
+ 1170 F=70:N=A(7):COLOR 12,0:GOSUB 40
+ 1180 U=14:EQ=0
+ 1190 FOR ET=10 TO 60 STEP 10
+ 1200  U=U-1:EQ=EQ+1:F=ET
+ 1210  N=A(U):V=1 :COLOR 14,0:GOSUB 40 ' print digits
+ 1220  N=A(EQ):V=17:COLOR 12,0:GOSUB 40
+ 1230 NEXT:COLOR 10,0
+ 1240 IF I=0 THEN 1250 ELSE 1270
+ 1250 LOCATE 14,50:PRINT N$(0);"--->"
+ 1260 LOCATE 8,50 :PRINT STRING$(20,32):RETURN
+ 1270 LOCATE 8,50 :PRINT "<---";N$(1)
+ 1280 LOCATE 14,50:PRINT STRING$(20,32):RETURN
+
+ 1290 ' Keep scores
+ 1300 T1=0:T2=0
+ 1310 FOR ET=1 TO 6:T1=T1+A(ET):T2=T2+A(ET+7):NEXT
+ 1320 T1=T1+A(7):T2=T2+A(0)
+ 1330 LOCATE 12,10:PRINT N$(0);"'S SCORE=";T1
+ 1340 LOCATE 10,10:PRINT N$(1);"'S SCORE=";T2
+ 1350 RETURN
+
+ 1360 ' Display board numbers
+ 1370 LOCATE 15,1 :PRINT "KALA":LOCATE 15,70:PRINT "KALA"
+ 1380 LOCATE 14,50:PRINT STRING$(20,32)
+ 1390 U=7:EQ=0
+ 1400 FOR ET=10 TO 60 STEP 10
+ 1410  U=U-1:EQ=EQ+1:F=ET
+ 1420  V=1 :N=U:GOSUB 40 ' print digits
+ 1430  V=17:N=EQ:GOSUB 40
+ 1440 NEXT:COLOR 12,0
+ 1450 LOCATE 23,16:PRINT "< To Return To Game Board, Press A Key >  ":COLOR 10,0
+ 1460 GOSUB 170 ' get key
+ 1470 LOCATE 15,1:PRINT STRING$(73,32)
+ 1480 GOTO 1150
+
+ 1490 ' Illegal move routine
+ 1500 LOCATE 14,10:PRINT "ILLEGAL MOVE. PLEASE ENTER AGAIN!!!"
+ 1510 BEEP:GOSUB 150 ' delay .08
+ 1520 LOCATE 14,10:PRINT STRING$(35,32)
+ 1530 GOTO 670
+
+ 1540 ' Capture routine
+ 1550 COLOR 11,0
+ 1560 FOR TT=1 TO 10
+ 1570  LOCATE 11,35:PRINT "**CAPTURE**":GOSUB 140 ' delay .0625
+ 1580  LOCATE 11,35:PRINT "           ":GOSUB 140
+ 1590 NEXT:COLOR 10,0
+ 1600 IF I=1 THEN 1620
+ 1610 A(7)=A(C)+A(14-C)+A(7):A(C)=0:A(14-C)=0:GOTO 1150
+ 1620 A(0)=A(C)+A(14-C)+A(0):A(C)=0:A(14-C)=0:GOTO 1150
+
+ 1630 ' End of round routine
+ 1640 G=G+1:COLOR 11,0
+ 1650 FOR TT=1 TO 10 
+ 1660  LOCATE 16,20
+ 1670  PRINT "<<GAME IS OVER!  HIGH SCORE WINS!>>":GOSUB 140 ' delay .0625
+ 1680  LOCATE 16,20:PRINT STRING$(35,32):GOSUB 140
+ 1690 NEXT:COLOR 10,0
+ 1700 GOSUB 60 ' keep your scores
+ 1710 LOCATE 7,33:PRINT "ROUND";G
+ 1720 IF T1>T2 THEN N4$=N$(0) ELSE N4$=N$(1)
+ 1730 LOCATE 8,40 :PRINT N$(0);" ENDS WITH:";T1;"     "
+ 1740 LOCATE 8,10 :PRINT N$(1);" ENDS WITH:";T2;"     "
+ 1750 TS=T1+TS:TQ=T2+TQ
+ 1760 LOCATE 14,40:PRINT N$(0);" PIECES WON=";TS;"     "
+ 1770 LOCATE 14,10:PRINT N$(1);" PIECES WON=";TQ;"     ":COLOR 11,0
+ 1780 FOR TT=1 TO 10
+ 1790  LOCATE 23,16
+ 1800  PRINT N4$;" WON THIS ROUND OF THE GAME!!":GOSUB 140 ' delay .0625
+ 1810  LOCATE 23,16:PRINT STRING$(50,32);:GOSUB 140
+ 1820 NEXT
+ 1830 IF TS=>PS OR TQ=>PS THEN 1890
+ 1840 LOCATE 23,16:PRINT " TO PLAY ANOTHER ROUND, HIT <ENTER>":COLOR 10,0
+ 1850 GOSUB 170 ' get key
+ 1860 IF E=13 THEN 1870 ELSE 2560
+ 1870 K=0:CLS:GOTO 480
+
+ 1880 ' End of match routine
+ 1890 IF TS>TQ THEN N4$=N$(0) ELSE N4$=N$(1)
+ 1900 LOCATE 16,10:PRINT N4$;" HAS WON THE KALA MATCH!  CONGRATS!":COLOR 15,0
+ 1910 LOCATE 24,22:PRINT "FOR ANOTHER MATCH, PRESS <Y> ?";:COLOR 10,0
+ 1920 GOSUB 170 ' get key
+ 1930 IF E=89 OR E=121 THEN RUN ELSE 2560 ' 89=Y 121=y
+
+ 1940 ' Repeat turn routine
+ 1950 IF N$(1)="COMPUTER" AND I=1 THEN 2030
+ 1960 LOCATE 14,10:PRINT N$(I);", TAKE ANOTHER TURN!!"
+ 1970 GOSUB 140 ' delay .0625
+ 1980 GOTO 750
+
+ 1990 ' The computer's moves
+ 2000 LOCATE 8,10 :PRINT STRING$(30,32)
+ 2010 LOCATE 14,10:PRINT STRING$(42,32)
+ 2020 K=K+1
+ 2030 M=INT(RND*14)+1
+ 2040 IF K<3  AND M<11 THEN 2030
+ 2050 IF M=>1 AND M<=7 THEN 2030
+ 2060 IF A(M)=0 THEN 2030               ' M = 8..13
+ 2070 LOCATE 8,10:PRINT N$(1);" MOVES FROM PIT #";M-7
+ 2080 GOSUB 130 ' >>>
+ 2090 GOSUB 150 ' delay .08
+ 2100 GOTO 860
+
+ 2110 ' Move indicators routine           M = 1..6
+ 2120 COLOR 11,0
+ 2130 FOR TT=1 TO 10
+ 2140  LOCATE 16,M*10:PRINT ">>>":GOSUB 140 ' delay .0625
+ 2150  LOCATE 16,M*10:PRINT "   ":GOSUB 140
+ 2160 NEXT:COLOR 10,0:RETURN
+ 2170 COLOR 11,0
+ 2180 FOR TT=1 TO 10
+ 2190  LOCATE 6,70-(M-7)*10:PRINT "<<<":GOSUB 140 ' delay .0625
+ 2200  LOCATE 6,70-(M-7)*10:PRINT "   ":GOSUB 140
+ 2210 NEXT:COLOR 10,0:RETURN
+
+ 2220 ' Delay a little
+ 2230 START=TIMER+.0625:WHILE TIMER<START:WEND:RETURN
+ 2240 REM  DELAY 1/17 :RETURN  ' PowerBasic
+ 2250 START=TIMER+.08  :WHILE TIMER<START:WEND:RETURN
+ 2260 REM  DELAY 1/2  :RETURN  ' PowerBasic
+
+ 2270 ' Help info
+ 2280 CLS:EQ=20:COLOR 14,0
+ 2290 PRINT TAB(EQ)"               PLAYER '2'"
+ 2300 PRINT TAB(EQ)"        6   5   4   3   2   1"
+ 2310 PRINT TAB(EQ)" '2'"
+ 2320 PRINT TAB(EQ)"KALA                             ";:COLOR 12,0:PRINT "KALA"
+ 2330 PRINT TAB(EQ)"                                  '1'"
+ 2340 PRINT TAB(EQ)"        1   2   3   4   5   6"
+ 2350 PRINT TAB(EQ)"               PLAYER '1'":PRINT:COLOR 10,0:EQ=10
+ 2360 PRINT TAB(EQ)"The object of the game is for one player to accumulate as"
+ 2370 PRINT TAB(EQ)"many pips as possible on his side of the board and in his kala."
+ 2380 PRINT:PRINT TAB(EQ)"There are only three rules:"
+ 2390 PRINT TAB(EQ)"þ A repeat turn is earned when the last pip of any player's"
+ 2400 PRINT TAB(EQ)"  move lands in his kala."
+ 2410 PRINT TAB(EQ)"þ If a player's last pip lands in an empty pit on his side"
+ 2420 PRINT TAB(EQ)"  of the board, any pips in the pit directly opposite are"
+ 2430 PRINT TAB(EQ)"  captured and deposited in the captor's kala along with"
+ 2440 PRINT TAB(EQ)"  the capturing pip."
+ 2450 PRINT TAB(EQ)"þ Once a pip is placed in a kala, it remains there until"
+ 2460 PRINT TAB(EQ)"  the end of the round.":PRINT
+ 2470 PRINT TAB(EQ)"Press any key to continue..."
+ 2480 GOSUB 170 ' get key
+ 2490 CLS
+ 2500 RETURN
+
+ 2510 ' Get key pressed
+ 2520 LSET Q=MKI$(0)
+ 2530 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+ 2540 E=ASC(Q):RETURN
+
+ 2550 ' Exit
+ 2560 KEY 5,"kalagame.bas":KEY 6,CHR$(34)+",a":KEY ON
+ 2570 COLOR 7,0:CLS:END

@@ -1,0 +1,41 @@
+Hello Roy;
+
+This time I present first two brain teasers.
+In digfun02.bas the program will search for
+a nine-digit number using the digits 1-9,
+using each digit only once.
+The 9 digit number must be divisible by 9
+The first 8 digits must be divisible by 8
+The first 7 digits must be divisible by 7
+The first 6 digits must be divisible by 6
+The first 5 digits must be divisible by 5
+The first 4 digits must be divisible by 4
+The first 3 digits must be divisible by 3
+The first 2 digits must be divisible by 2
+Type a number if you want to see levels printed.
+<Enter> will skip levels print.
+Type a number to let the program search the number.
+Press <Enter> for YOU to solve this brain teaser.
+
+In digfungw.bas the program will search for 3 sets
+of 4 numbers that will add to 26 and will show this at
+the end of it's search in a map.
+Now this was an old program written in TRS-80 basic.
+It runs so slow that I thought that the listing was not
+correct. I converted it to GW-BASIC and compiled it with
+PowerBasic (digfungw.exe) and also in QuickBasic (digfunqb.exe)
+And the winner is of course PowerBasic. The digfun.bas
+is the TRS-80 basic listing for those who dare to run it
+on a TRS80 Model I or III machine. Nice to report to me
+how long it did to find the 3 sets. I did run it on my
+David Keil's emulator in top speed and it found the numbers
+in 42 minutes on a 2.4 GHZ PC.
+
+And the last program is a drawing machine that gives you to be
+a Rembrandt in pixels graphics in SCREEN one. Easy to use
+with source code in GW-BASIC and exe files. There are some demo
+txt files with those that I assembled as a humble Rembrandt.
+Have fun with these 3 new programs.
+
+Enjoy,
+Eric

@@ -1,0 +1,101 @@
+Mira fractals in GW-BASIC, listed 11-02-2005
+
+   10 ' miragw.bas - FreeWare 2005
+   20 GOTO 90 ' begin
+   30 SAVE "miragw.bas",A:LIST-90
+   40 GOTO 520 ' orbit 1
+   50 GOTO 610 ' orbit 2
+   60 GOTO 710 ' wait for key
+   70 GOTO 740 ' centered text
+
+   80 ' begin
+   90 DEFSTR M,Q:Q=MKI$(0):SCREEN  9:CLS
+  100 DIM COL%(15):DATA 0,2,10,10,4,4,12,12,12,14,14,14,15,15,15,15
+  110 FOR I=0 TO 15:READ COL%(I):NEXT
+  120 M(1)="MIRA generator idea from Hans Lauwerier"
+  130 M(2)="GWBasic by Eric Tchong"
+  140 M(3)="Press a key to return to this screen"
+  150 M(4)="Choose 1..2   -1 = stop program "
+  160 M(5)="Press a key"
+  170 M(6)="End of series 1"
+  180 M(7)="End of series 2"
+  190 FOR I=1 TO 4
+  200  GOSUB 70:IF I=2 OR I=3 THEN PRINT
+  210 NEXT
+  220 LOCATE 7,29:INPUT CH
+  230 IF CH=-1 THEN SCREEN 0,0,0:CLS:END
+  240 IF CH<1 OR CH>2 THEN 220
+
+  250 ' select
+  260 CLS:ON CH GOTO 280,770
+
+  270 ' series 1
+  280 WINDOW (-40,-30)-(40,30):A=.3                ' 1
+  290 X=7  :Y=0:P=2:GOSUB 40
+  300 X=-12:Y=0:P=2:GOSUB 40
+  310 X=-21:Y=0:P=2:GOSUB 40
+  320 I=5:GOSUB 70:GOSUB 60
+  330 CLS:A=-.05                                   ' 2
+  340 X=9.8:Y=0:P=1:GOSUB 40
+  350 X=20 :Y=0:P=4:GOSUB 40
+  360 X=15 :Y=0:P=2:GOSUB 40
+  370 X=2  :Y=0:P=4:GOSUB 40
+  380 X=18 :Y=0:P=2:GOSUB 40
+  390 X=25 :Y=0:P=6:GOSUB 40
+  400 X=7.5:Y=0:P=4:GOSUB 40
+  410 I=5:GOSUB 70:GOSUB 60
+  420 WINDOW (-32,-24)-(32,24)                     ' 3
+  430 CLS:A=.18
+  440 X=8  :Y=0:P=2:GOSUB 40
+  450 X=20 :Y=0:P=2:GOSUB 40
+  460 X=15 :Y=0:P=6:GOSUB 40
+  470 X=5.3:Y=0:P=2:GOSUB 40
+  480 X=9:Y=0:P=2:GOSUB 40
+  490 I=6:GOSUB 70:GOSUB 60
+  500 CLS:GOTO 190
+
+  510 ' orbit 1
+  520 C=2-2*A:KMAX=1000*P
+  530 W=A*X+C*X*X/(1+X*X)
+  540 FOR K=0 TO KMAX
+  550  PSET (X,Y)
+  560  Z=X:X=Y+W:U=X*X
+  570  W=A*X+C*U/(1+U):Y=W-Z
+  580 NEXT
+  590 RETURN
+
+  600 ' orbit 2
+  610 W=A*X+C*X*X/(1+X*X)
+  620 FOR K=0 TO KMAX
+  630  Z=X:X=B*Y+W:U=X*X
+  640  W=A*X+C*U/(1+U):Y=W-Z
+  650  L=POINT(D*X,D*Y)
+  660  L=1+L MOD 15
+  670  IF K>100 THEN PSET (D*X,D*Y),COL%(L)
+  680 NEXT
+  690 RETURN
+
+  700 ' wait for key
+  710 LSET Q=MKI$(0)
+  720 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  730 ' centered text
+  740 X=(80-LEN(M(I)))/2
+  750 PRINT TAB(X) M(I):RETURN
+
+  760 ' series 2
+  770 WINDOW (-320,-240)-(319,239):KMAX=50000!
+  780 A=-.48:B=.93 :C=2-2*A :D=20 :X=4:Y=0         ' 1
+  790 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  800 A=.31 :B=1   :C=2-2*A :D=5  :X=12:Y=0        ' 2
+  810 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  820 A=.32 :B=1   :C=2-2*A :D=16 :X=-5:Y=0        ' 3
+  830 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  840 A=-.4 :B=.99 :C=2-2*A :D=20 :X=4 :Y=0        ' 4
+  850 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  860 A=-.4 :B=1   :C=2-2*A :D=14 :X=4 :Y=0        ' 5
+  870 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  880 A=-.4 :B=1   :C=2-2*A :D=8  :X=20:Y=0        ' 6
+  890 GOSUB 50:I=5:GOSUB 70:GOSUB 60:CLS
+  900 A=-.2 :B=1   :C=2-2*A :D=14 :X=10:Y=0        ' 7
+  910 GOSUB 50:I=7:GOSUB 70:GOSUB 60:CLS:GOTO 190

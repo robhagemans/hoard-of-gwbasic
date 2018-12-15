@@ -1,0 +1,365 @@
+SCREEN sorts 2000 items, listed 10-01-2004
+
+   10  ' ascisort.bas - March 15, 2004 - FREEWARE 2004
+   20 GOTO 160 ' begin
+   30 SAVE "ascisort.bas":LIST-160
+   40 GOTO 870  ' generate a sample
+   50 GOTO 940  ' wait and save start time
+   60 GOTO 960  ' switchem
+   70 GOTO 1010 ' print @ to locate converter
+   80 GOTO 1030 ' calculate seconds
+   90 GOTO 1080 ' seconds to hours, minutes, seconds
+  100 GOTO 2410 ' show info
+  110 GOTO 2570 ' get info for ascii text file
+  120 GOTO 2740 ' is the filename correct?
+  130 GOTO 3030 ' init arcade string$
+  140 GOTO 3270 ' get key
+
+  150 ' begin
+  160 CLS:KEY OFF:Z=2000:NS=Z:RANDOMIZE TIMER:V=20:F=34
+  170 DEFSTR Q:Q=MKI$(0):RF$="n"
+  180 DIM A$(Z),S$(Z),SL(Z),SR(Z),EC$(13):GOSUB 130 ' init arcade
+  190 W=-1 ' W=-1 screen starts at 1,1
+  200 COLOR 13,0
+  210 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออออออออป"
+  220 PRINT "บ This program will send 2000 randomly selected     บ"
+  230 PRINT "บ ASCII characters ! = 33 to þ = 254 to the screen. บ"
+  240 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+  250 PRINT:COLOR 12,0
+  260 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออออออออป"
+  270 PRINT "บ After pressing any key the program starts to sort บ"
+  280 PRINT "บ the screen using one of the eight sort algorithms บ"
+  290 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+  300 PRINT:COLOR 11,0
+  310 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออออออออป"
+  320 PRINT "บ When finished, press any key to see the results ofบ"
+  330 PRINT "บ the sort routine in a tiny report on your screen. บ"
+  340 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+  350 PRINT:COLOR 10,0
+  360 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออออออออป"
+  370 PRINT "บ Do you want a report of these 8 sorting algorithmsบ"
+  380 PRINT "บ to be sent to your harddisk as an ASCII file <Y/n>บ"
+  390 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออออออออผ"
+  400 PRINT:COLOR 7,0
+  410 GOSUB 140 ' get Y/y 
+  420 IF ASC(Q)=89 OR ASC(Q)=121 THEN COPY=1 ELSE COPY=0
+  430 IF COPY THEN GOSUB 100
+
+  440 ' begin main program
+  450 CLS:COLOR 13,0
+  460 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออป"
+  470 PRINT "บ * A S C I I  -   S C R E E N  -  S O R T *  บ"
+  480 PRINT "บ *  (C)  Eric F. Tchong - March 15, 2004  *  บ"
+  490 PRINT "บ *           serenata@setarnet.aw         *  บ"
+  500 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออผ"
+  510 PRINT:COLOR 12,0
+  520 PRINT "ษอออออออออออออออออออออออออออออออออออออออออออออป"
+  530 PRINT "บ     1) Slow sort                            บ"
+  540 PRINT "บ     2) Bubble sort                          บ"
+  550 PRINT "บ     3) Shaker sort                          บ"
+  560 PRINT "บ     4) Delayed Replacement sort             บ"
+  570 PRINT "บ     5) Insertion sort                       บ"
+  580 PRINT "บ     6) Binary sort                          บ"
+  590 PRINT "บ     7) Shell sort                           บ"
+  600 PRINT "บ     8) Quick sort                           บ"
+  610 PRINT "บ     9) Exit program                         บ"
+  620 PRINT "ศอออออออออออออออออออออออออออออออออออออออออออออผ"
+  630 PRINT:COLOR 11,0
+  640 PRINT "ษออออออออออออออออออออออออออออออป"
+  650 PRINT "บ        Which choice ?        บ"
+  660 PRINT "ศออออออออออออออออออออออออออออออผ"
+  670 COLOR 10,0
+
+  680 ' arcade subroutine
+  690 LSET Q=MKI$(0)
+  700  WHILE CVI(Q)=0
+  710  FOR U=1 TO 13
+  720   LOCATE V,F:PRINT EC$(U)
+  730   T=TIMER+.00625:WHILE TIMER<T:WEND
+  740  NEXT
+  750  MID$(Q,1)=INKEY$:IF CVI(Q)=0 THEN 760
+  760  WEND
+  770 CH=VAL(Q):IF CH<1 OR CH>9 OR CH<>INT(CH) THEN 690
+  780 COLOR 7,0:IF CH=9 THEN CLS:GOTO 3300
+  790 CLS:NE=0:NC=0:GOSUB 40 ' generate a sample
+
+  800 ' save data and send to the screen
+  810 FOR K=1 TO NS:A$(K)=S$(K):Z=W+K:GOSUB 70:PRINT A$(K);:NEXT
+
+  820 ' go sort subroutine
+  830 ON CH GOSUB 1410,1110,1490,1630,1740,1960,1830,2230
+  840 LOCATE 20,1 :PRINT "Resort original list (y/n)"
+  850 GOSUB 140:RF$=Q:GOTO 450
+
+  860 ' sample Generation
+  870 IF ASC(RF$)=110 OR ASC(RF$)=78 THEN 880 ELSE 920 ' n N
+  880 S=33:E=254
+  890 FOR K=1 TO NS
+  900  S$(K)=CHR$(S+INT(RND*(E+1-S)))              ' ascii table 33 to 254
+  910 NEXT
+  920 RETURN
+
+  930 ' wait for any key
+  940 GOSUB 140:B1$=TIME$:RETURN
+
+  950 ' switch two items
+  960 Z=W+I:GOSUB 70:PRINT A$(J);
+  970 Z=W+J:GOSUB 70:PRINT A$(I);
+  980 NE=NE+1
+  990 TEMP$=A$(I):A$(I)=A$(J):A$(J)=TEMP$:RETURN  ' swap
+
+ 1000 ' convert print@ to locate subroutine - p43ec
+ 1010 D=INT(Z/80)+1:E=(D-1)*80:E=(Z-E)+1:LOCATE D,E:RETURN
+
+ 1020 ' calculate seconds past
+ 1030 B2$=TIME$                                   ' save finish time
+ 1040 B$=B1$:GOSUB 90:H1$=H$:M1$=M$:S1$=S$
+ 1050 B$=B2$:GOSUB 90:H2$=H$:M2$=M$:S2$=S$
+ 1060 H1=VAL(H1$):M1=VAL(M1$):S1=VAL(S1$):H2=VAL(H2$):M2=VAL(M2$):S2=VAL(S2$)
+ 1070 NW=(H2*3600)+(M2*60)+S2:BG=(H1*3600)+(M1*60)+S1:DN=NW-BG:GOTO 1090
+ 1080 H$=MID$(B$,1,2):M$=MID$(B$,4,2):S$=MID$(B$,7,2):RETURN
+ 1090 MN=INT(DN/60):SEC=DN MOD 60:RETURN
+
+ 1100 ' bubble sort
+ 1110 GOSUB 50                                    ' wait & save start time
+ 1120 R=1
+ 1130 TEST=0
+ 1140 FOR I=1 TO NS-R
+ 1150  J=I+1:NC=NC+1                              ' comparisons counter
+ 1160  IF A$(I)>A$(J) THEN TEST=1:GOSUB 60        ' switchem
+ 1170 NEXT:R=R+1:IF TEST=1 THEN 1130
+
+ 1180 ' job done
+ 1190 GOSUB 80                                    ' calculate seconds
+ 1200 GOSUB 140
+ 1210 CLS:LOCATE 12,1
+ 1220 ON CH GOTO 1230,1240,1250,1260,1270,1280,1290,1300
+ 1230 PRINT "1) SLOW SORT":GOTO 1310
+ 1240 PRINT "2) BUBBLE SORT":GOTO 1310
+ 1250 PRINT "3) SHAKER SORT":GOTO 1310
+ 1260 PRINT "4) DELAYED REPLACEMENT SORT":GOTO 1310
+ 1270 PRINT "5) INSERTION SORT":GOTO 1310
+ 1280 PRINT "6) BINARY SORT":GOTO 1310
+ 1290 PRINT "7) SHELL SORT":GOTO 1310
+ 1300 PRINT "8) QUICK SORT"
+ 1310 LOCATE 14,1 :PRINT "Items ="NS      
+ 1320 LOCATE 14,25:PRINT "Finish = ";B2$
+ 1330 LOCATE 15,1 :PRINT "Comparisons ="NC
+ 1340 LOCATE 15,25:PRINT "Start  = ";B1$
+ 1350 LOCATE 16,1 :PRINT "Exchanges ="NE
+ 1360 LOCATE 16,25:PRINT "Done in";DN;"seconds"
+ 1370 LOCATE 16,50:PRINT " = ";MN;"min";SEC;"sec."
+ 1380 IF COPY THEN GOSUB 110
+ 1390 RETURN
+
+ 1400 ' slow sort
+ 1410 GOSUB 50                                    ' wait & save start time
+ 1420 FOR I=1 TO NS-1
+ 1430  FOR J=I+1 TO NS
+ 1440   NC=NC+1                                   ' comparisons counter
+ 1450   IF A$(I)>A$(J) THEN GOSUB 60              ' switchem
+ 1460  NEXT
+ 1470 NEXT:GOTO 1190                              ' done
+
+ 1480 ' shaker sort
+ 1490 GOSUB 50                                    ' wait & save start time
+ 1500 LINKS=2:RECHTS=NS
+ 1510 FOR PTR=RECHTS TO LINKS STEP -1
+ 1520  I=PTR-1:J=PTR:NC=NC+1
+ 1530  IF A$(I)>A$(J) THEN S=PTR:GOSUB 60         ' switchem
+ 1540 NEXT
+ 1550 LINKS=S+1
+ 1560 FOR PTR=LINKS TO RECHTS
+ 1570  I=PTR-1:J=PTR:NC=NC+1
+ 1580  IF A$(I)>A$(J) THEN S=PTR:GOSUB 60         ' switchem
+ 1590 NEXT
+ 1600 RECHTS=S-1
+ 1610 IF LINKS>RECHTS THEN 1190 ELSE 1510         ' done or loop back
+
+ 1620 ' delayed replacement sort
+ 1630 GOSUB 50                                    ' wait & save start time
+ 1640 J=0:R=0:I=0
+ 1650 I=I+1:IF I=NS THEN 1190                     ' done
+ 1660 J=I:R=J+1
+ 1670 NC=NC+1                                     ' comparisons counter
+ 1680 IF A$(R)>=A$(J) THEN 1690 ELSE J=R
+ 1690 R=R+1:IF R<=NS THEN 1670
+ 1700 IF I=J THEN 1650
+ 1710 GOSUB 60                                    ' switchem
+ 1720 GOTO 1650
+
+ 1730 ' insertion sort
+ 1740 GOSUB 50                                    ' wait & save start time
+ 1750 FOR LP=2 TO NS
+ 1760  RP=LP
+ 1770  I=RP-1:J=RP:NC=NC+1                        ' comparisons counter
+ 1780  IF A$(I)<=A$(J) THEN 1810
+ 1790  GOSUB 60                                   ' switchem
+ 1800  RP=RP-1:GOTO 1770
+ 1810 NEXT:GOTO 1190                              ' done
+
+ 1820 ' shell sort
+ 1830 GOSUB 50                                    ' wait & save start time
+ 1840 GAP=NS
+ 1850 GAP=INT(GAP/2)
+ 1860 IF GAP=0 THEN 1190                          ' done
+ 1870 P=NS-GAP:H=1
+ 1880 I=H
+ 1890 J=I+GAP:NC=NC+1                             ' comparisons counter
+ 1900 IF A$(I)<=A$(J) THEN 1930
+ 1910 GOSUB 60                                    ' switchem
+ 1920 I=I-GAP:IF I>=1 THEN 1890
+ 1930 H=H+1:IF H>P THEN 1850
+ 1940 GOTO 1880
+
+ 1950 ' binary sort
+ 1960 GOSUB 50                                    ' wait & save start time
+ 1970 FOR LP=2 TO NS
+ 1980  X1=1:X2=LP
+ 1990  X3=X1+INT((X2-X1)/2):NC=NC+1               ' comparisons counter
+ 2000  IF A$(LP)<A$(X3) THEN 2030
+ 2010  IF A$(LP)>A$(X3) THEN 2050
+ 2020  X2=X3
+ 2030  IF X2=X3 THEN 2070
+ 2040  X2=X3:GOTO 1990
+ 2050  IF X1=X3 THEN 2070
+ 2060  X1=X3:GOTO 1990
+ 2070  I=X2:DF=0
+ 2080  FOR RP=LP TO X2+1 STEP -1
+ 2090   DF=DF+1
+ 2100  NEXT
+ 2110  IF DF=0 THEN 2210
+ 2120  H$=A$(LP)
+ 2130  FOR RP=LP TO X2+1 STEP -1
+ 2140   LSET A$(RP)=A$(RP-1)                      ' lset avoids garbage
+ 2150   Z=W+(RP-1):GOSUB 70:PRINT " ";            ' collection
+ 2160   Z=Z+1     :GOSUB 70:PRINT A$(RP);
+ 2170  NEXT
+ 2180  A$(X2)=H$
+ 2190  Z=W+I  :GOSUB 70:PRINT A$(I);              ' binary switch
+ 2200  NE=NE+1
+ 2210 NEXT:GOTO 1190                              ' done
+
+ 2220 ' quick sort
+ 2230 GOSUB 50                                    ' wait & save start time
+ 2240 S=1:SL(1)=0:SR(1)=NS
+ 2250 LINKS=SL(S):RECHTS=SR(S):S=S-1
+ 2260 LP=LINKS:RP=RECHTS:MV$=A$((LP+RP)/2)
+ 2270 IF A$(LP)<MV$ THEN LP=LP+1:GOTO 2270
+ 2280 IF MV$<A$(RP) THEN RP=RP-1:GOTO 2280
+ 2290 NC=NC+1                                     ' comparisons counter
+ 2300 IF LP<=RP THEN 2310 ELSE 2340
+ 2310 I=LP:J=RP:IF A$(I)=A$(J) THEN 2330
+ 2320 GOSUB 60                                    ' switchem
+ 2330 LP=LP+1:RP=RP-1
+ 2340 IF LP>RP THEN 2350 ELSE 2270
+ 2350 IF LP<RECHTS THEN S=S+1:SL(S)=LP:SR(S)=RECHTS
+ 2360 RECHTS=RP
+ 2370 IF LINKS>=RECHTS THEN 2380 ELSE 2260
+ 2380 IF S=0 THEN 1190                            ' done
+ 2390 GOTO 2250
+
+ 2400 ' get info for the ascii text file
+ 2410 CLS
+ 2420 LINE INPUT "Enter a DOS filename ........ ? ";G$
+ 2430 IF G$="" THEN PRINT:GOTO 2420
+ 2440 GOSUB 120
+ 2450 IF NG=0 THEN NG=1:PRINT "Not good.":PRINT:BEEP:GOTO 2420
+ 2460 OPEN "O",#1,G$:PRINT
+ 2470 INPUT "Name  of your computer ...... ";CMP$:PRINT
+ 2480 IF LEN(CMP$)>30 THEN PRINT "Name < 31 characters ...":PRINT:GOTO 2470
+ 2490 INPUT "Speed of your computer ...... ";MHZ$
+ 2500 PRINT #1, "ASCII SCREEN SORT TEST REPORT"
+ 2510 PRINT #1, "GW-BASIC Version 3.22";
+ 2520 PRINT #1, TAB(42) "Test date: ";DATE$
+ 2530 PRINT #1, "Computer: ";CMP$;
+ 2540 PRINT #1, TAB(42) "Speed: ";MHZ$
+ 2550 RETURN
+
+ 2560 ' more info for the ascii text file
+ 2570 PRINT #1,""
+ 2580 ON CH GOTO 2590,2600,2610,2620,2630,2640,2650,2660
+ 2590 PRINT #1, "1) SLOW SORT":GOTO 2670
+ 2600 PRINT #1, "2) BUBBLE SORT":GOTO 2670
+ 2610 PRINT #1, "3) SHAKER SORT":GOTO 2670
+ 2620 PRINT #1, "4) DELAYED REPLACEMENT SORT":GOTO 2670
+ 2630 PRINT #1, "5) INSERTION SORT":GOTO 2670
+ 2640 PRINT #1, "6) BINARY SORT":GOTO 2670
+ 2650 PRINT #1, "7) SHELL SORT":GOTO 2670
+ 2660 PRINT #1, "8) QUICK SORT"
+ 2670 PRINT #1,""
+ 2680 PRINT #1, "Items ="NS;:PRINT #1,TAB(30) "Finish = ";B2$
+ 2690 PRINT #1, "Comparisons ="NC;:PRINT #1, TAB(30) "Start  = ";B1$
+ 2700 PRINT #1, "Exchanges ="NE
+ 2710 PRINT #1, "Done in";DN;"seconds = ";MN;"min";SEC;"sec"
+ 2720 RETURN
+
+ 2730 ' test for a valid dos filename
+ 2740 L=LEN(G$):DP=0:IF L>12 THEN 3010
+ 2750 FOR X=1 TO L
+ 2760  Z=ASC(MID$(G$,X,1))
+ 2770  IF Z<33 OR Z>127 THEN 3010
+ 2780  IF Z=34 OR Z=42 OR Z=43 OR Z=44 OR Z=47 OR Z=58 OR Z=59 OR Z=60 OR Z=61 THEN 3010
+ 2790  IF Z=62 OR Z=63 OR Z=91 OR Z=92 OR Z=93 OR Z=94 OR Z=124 OR Z=126 OR Z=127 THEN 3010
+ 2800 NEXT
+ 2810 FOR X=1 TO L
+ 2820  IF MID$(G$,X,1)<>"." THEN 2830 ELSE DP=1 
+ 2830 NEXT 
+ 2840 IF DP=1 THEN DP=0:GOTO 2860
+ 2850 IF L>8 THEN 3010
+ 2860 FOR X=1 TO L 
+ 2870  IF MID$(G$,X,1)="." THEN DP=DP+1:IF DP>1 THEN 3010
+ 2880 NEXT 
+ 2890 FOR X=1 TO L 
+ 2900  Z=ASC(MID$(G$,X,1))
+ 2910  IF Z=46 AND X=1 THEN 3010
+ 2920  IF Z=46 AND X=2 AND L>5  THEN 3010
+ 2930  IF Z=46 AND X=3 AND L>6  THEN 3010
+ 2940  IF Z=46 AND X=4 AND L>7  THEN 3010
+ 2950  IF Z=46 AND X=5 AND L>8  THEN 3010
+ 2960  IF Z=46 AND X=6 AND L>9  THEN 3010
+ 2970  IF Z=46 AND X=7 AND L>10 THEN 3010
+ 2980  IF Z=46 AND X=8 AND L>11 THEN 3010
+ 2990 NEXT
+ 3000 NG=1:RETURN
+ 3010 NG=0:RETURN
+
+ 3020 ' arcade by Eric Tchong
+ 3030 EF$=CHR$(4)
+
+ 3040 '        12345                           12345
+ 3050 EC$(1) = "฿฿฿฿฿ "+EF$+" ÜÜÜÜÜ" : EC$(2) = " ฿฿฿฿฿"+EF$+"ÜÜÜÜÜ "
+ 3060 REM                   ABCDE                         ABCDE
+
+ 3070 '          12345                           12345
+ 3080 EC$(3) = "  ฿฿฿฿ÛÜÜÜÜ  "      : EC$(4) = "   ฿฿ÛÛÛÜÜ   "
+ 3090 REM            ABCDE                         ABCDE
+
+ 3100 '            12345                           12345
+ 3110 EC$(5) = "    ÛÛÛÛÛ    "      : EC$(6) = "   ÜÜÛÛÛ฿฿   "
+ 3120 REM          ABCDE                         ABCDE
+
+ 3130 '              12345                                12345
+ 3140 EC$(7) = "  ÜÜÜÜÛ฿฿฿฿  "      : EC$(8) = " ÜÜÜÜÜ"+EF$+"฿฿฿฿฿ "
+ 3150 REM        ABCDE                         ABCDE
+
+ 3160 '                     12345             A             1234
+ 3170 EC$(9) = "ÜÜÜÜÜ "+EF$+" ฿฿฿฿฿" :EC$(10) = "ÛÜÜÜ  "+EF$+"  ฿฿฿Û"
+ 3180 REM      ABCDE                          BCDE             5
+
+ 3190 '        BA             123             CBA             12
+ 3200 EC$(11)= "ÛÛÜ   "+EF$+"   ฿ÛÛ" :EC$(12) = "ÛÛ฿   "+EF$+"   ÜÛÛ"
+ 3210 REM      CDE             54             DE             543
+
+ 3220 '        DCBA             1
+ 3230 EC$(13)= "Û฿฿฿  "+EF$+"  ÜÜÜÛ"
+ 3240 REM      E             5432
+ 3250 RETURN
+
+ 3260 ' get key
+ 3270 LSET Q=MKI$(0)
+ 3280 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+ 3290 ' exit friendly
+ 3300 IF COPY THEN CLOSE #1
+ 3310 KEY 5,"ascisort.bas":KEY 6,CHR$(34)+",a":KEY ON:END

@@ -1,0 +1,107 @@
+Demo roman numerals by Eric Tchong, listed 10-30-2005
+
+   10 ' arabromd.bas - FreeWare 2005
+   20 GOTO 80 ' begin
+   30 SAVE "arabromd.bas",A:LIST-80
+   40 GOTO 300 ' arabic to roman
+   50 GOTO 500 ' roman to arabic
+   60 GOTO 800 ' center text
+   70 GOTO 930 ' print using
+   80 DIM T(7,7),L(7),F(13),FC$(13):DEFSTR M,Q:Q=MKI$(0)
+   90 M(1)="ROMAN NUMERALS idea from GEORGE STEWART"
+  100 M(2)="Demo Version by Eric Tchong"
+  110 M(3)="SELECT:    "
+  120 M(4)=" <1> Arabic to Roman"
+  130 M(5)=" <2> Roman to Arabic"
+  140 M(6)=" <3> Quit           "
+  150 M(7)="Enter 1, 2, or 3"
+  160 FOR TR=1 TO 7:FOR TC=1 TO 7:READ T(TR,TC):NEXT:NEXT
+  170 FOR TC=1 TO 7:READ L(TC) :NEXT
+  180 FOR N=1 TO 13:READ F(N)  :NEXT
+  190 FOR N=1 TO 13:READ FC$(N):NEXT:C$="MDCLXVI":L$(6)="######":L$(4)="####"
+  200 CLS
+  210 FOR I=1 TO 7
+  220  GOSUB 60:IF I=2 OR I=6 THEN PRINT
+  230 NEXT
+  240 LOCATE 9,49:INPUT CH
+  250 IF CH<1 OR CH>3 THEN 240
+  260 IF CH=3 THEN CLS:END ELSE CLS
+  270 ON CH GOSUB 40,50
+  280 GOTO 200
+
+  290 ' arabic to roman
+  300 N$="":PRINT
+  310 PRINT "Your Arabic number ? ";
+  320 PRINT "<Enter for menu>"
+  330 INPUT N$:IF N$="" THEN RETURN
+  340 N=VAL(N$):R=N:IF N>250000! THEN 300
+  350 IF N<=0 OR N<>INT(N) THEN 460
+  360 R$="":FL=1:PRINT
+  370 NT=N-F(FL)
+  380 IF NT<0 THEN 420 ELSE GOSUB 70
+  390 R$=R$+FC$(FL):PRINT "  ";R$;
+  400 N=NT:PRINT
+  410 GOTO 370
+  420 FL=FL+1
+  430 IF FL<=13 THEN 370
+  440 PRINT:PRINT R;"= ";R$
+  450 GOTO 300
+  460 PRINT "Can't convert that value."
+  470 PRINT "Enter a positive whole number."
+  480 GOTO 300
+
+  490 ' roman to arabic
+  500 N$="":PRINT:PRINT "Your Roman number ? <Enter for menu>"
+  510 INPUT N$:IF N$="" THEN RETURN
+  520 TL=0:F=0:PL=4:PC=1:OC=1:D=1:RC=0
+  530 F$=MID$(N$,D,1):CC=INSTR(1,C$,F$):IF CC=0 THEN 700
+  540 CL=L(CC)
+  550 IF CC<>PC THEN RC=1
+  560 IF CC=PC  THEN RC=RC+1
+  570 IF RC>3 AND CC<>1 THEN 730
+  580 IF F=1 AND CL>=PL THEN 750
+  590 V=T(PC,CC):IF V=0 THEN 750
+  600 TL=TL+V
+  610 IF CC>=PC THEN 640
+  620 IF L(OC)<=PL THEN 750
+  630 F=1:CL=L(PC):GOTO 650
+  640 F=0
+  650 PL=CL:OC=PC:PC=CC:D=D+1
+  660 IF D>LEN(N$) THEN 680
+  670 GOTO 530
+  680 PRINT " ";TL:GOTO 500
+
+  690 ' invalid character
+  700 PRINT "Invalid character found: '";F$; "'"
+  710 PRINT "Use only (M,D,C,L,X,V,I)":GOTO 500
+
+  720 ' too many
+  730 PRINT "Too many "; F$; "'s in a row. Limit is 3.":GOTO 500
+
+  740 ' invalid character sequence
+  750 PRINT "Invalid character sequence:"
+  760 PRINT N$:IF D=1 THEN 780
+  770 FOR SA=1 TO D-1:PRINT " ";:NEXT
+  780 PRINT "^":GOTO 500
+
+  790 ' centered text
+  800 X=(80-LEN(M(I)))/2:PRINT TAB(X) M(I):RETURN
+
+  810 ' data
+  820 DATA 1000, 500, 100, 50, 10, 5, 1
+  830 DATA  0,   0,   100, 50, 10, 5, 1
+  840 DATA  800, 300, 100, 50, 10, 5, 1
+  850 DATA  0,   0,   0,   0,  10, 5, 1
+  860 DATA  0,   0,   80,  30, 10, 5, 1
+  870 DATA  0,   0,   0,   0,  0,  0, 1
+  880 DATA  0,   0,   0,   0,  8,  3, 1
+  890 DATA 4, 3, 3, 2, 2, 1, 1
+  900 DATA 1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1
+  910 DATA M, CM, D, CD, C, XC, L, XL, X, IX, V, IV, I
+
+  920 ' print using
+  930 PRINT USING L$(4);FL;
+  940 PRINT USING L$(6);NT;:PRINT " =";
+  950 PRINT USING L$(6);N;:PRINT " -";
+  960 PRINT USING L$(6);F(FL);
+  970 RETURN

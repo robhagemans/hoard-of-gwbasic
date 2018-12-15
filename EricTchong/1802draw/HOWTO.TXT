@@ -1,0 +1,31 @@
+1802 DRAW PROGRAM BY ERIC F. TCHONG
+PROCEDURE:
+	- make your picture with 1802draw.exe
+        - start GWbasic and LOAD "1802pic1.bas" or "1802pic2.bas"
+        - Execute the merge command: merge "1802data.bas"
+	- save the 1802pic1/2.bas under a new filename
+	- make an exe.file with QuickBasic 4.5
+
+PICTURE screen (64x22):
+                            position
+Horizontal  1 <-----------------------------------> 64
+Vertical
+line 1
+..
+line 22
+
+HOW TO DRAW your picture:
+Up, Down,
+Left, Right cursor keys - move pixel
+                    Tab - line draw
+                  Space - draw or erase
+                    C/c - clear screen
+                   Home - line 1, pos 1
+                    End - end of line (line 1..22 pos 64)
+                    Esc - exit program
+                    
+HOW TO USE:
+With the moving picture you use only the keys 1, 2, 3 to get
+different views.
+The <Esc> key will quit the program...
+

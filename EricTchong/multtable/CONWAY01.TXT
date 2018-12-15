@@ -1,0 +1,65 @@
+Game of Life - traffic light, listed 11-05-2005
+
+   10 ' conway01.bas - FreeWare 2005
+   20 GOTO 60 ' begin
+   30 SAVE "conway01.bas",A:LIST-60
+   40 GOTO 550 ' wait for key
+   50 GOTO 580 ' centered text
+   60 SCREEN 9: CLS
+   70 DEFINT A-Z:DEFSTR M,Q:Q=MKI$(0)
+   80 SH=20:SV=15:K=0:KMAX=8  ' was 16
+   90 WINDOW (3*SH-320,3*SV-240)-(3*SH+319,3*SV+239)
+  100 DIM U(SH,SV),V(SH,SV)
+
+  110 ' traffic light
+  120 DATA 0,0,1,0,0
+  130 DATA 0,1,0,1,0
+  140 DATA 1,0,0,0,1
+  150 DATA 0,1,0,1,0
+  160 DATA 0,0,1,0,0
+  170 M(1)="CONWAY idea from Hans Lauwerier"
+  180 M(2)="GW-BASIC by Eric Tchong"
+  190 M(3)="This program ends after 8 key presses"
+  200 M(4)="Press a key to start"
+  210 FOR I=1 TO 4
+  220  GOSUB 50:IF I=3 THEN PRINT
+  230 NEXT:GOSUB 40:CLS
+  240 LINE (-4,-3)-(6*SH+4,6*SV+3),9,B
+  250 FOR J=SV/2+2 TO SV/2-2 STEP -1
+  260  FOR I=SH/2-2 TO SH/2+2
+  270   READ U(I,J)
+  280   IF U(I,J)=1 THEN LINE (6*I-1,6*J-1)-(6*I+1,6*J+1),10,BF
+  290  NEXT
+  300 NEXT
+
+  310 ' main
+  320 WHILE K<KMAX
+  330  FOR I=1 TO SH-1
+  340   FOR J=1 TO SV-1
+  350    S0=U(I,J):V(I,J)=S0
+  360    S1=U(I-1,J-1)+U(I,J-1)+U(I+1,J-1)
+  370    S2=U(I-1,J)+U(I+1,J)
+  380    S3=U(I-1,J+1)+U(I,J+1)+U(I+1,J+1)
+  390    S=S1+S2+S3
+  400    IF S0=1 THEN IF S>3 OR S<2 THEN LINE (6*I-1,6*J-1)-(6*I+1,6*J+1),0,BF:V(I,J)=0
+  410    IF S0=0 AND S=3 THEN LINE (6*I-1,6*J-1)-(6*I+1,6*J+1),10,BF:V(I,J)=1
+  420   NEXT
+  430  NEXT
+
+  440 ' reset
+  450  FOR I=1 TO SH-1
+  460   FOR J=1 TO SV-1
+  470    U(I,J)=V(I,J)
+  480    IF U(I,J)=1 THEN LINE (6*I-1,6*J-1)-(6*I+1,6*J+1),10,BF
+  490   NEXT
+  500  NEXT
+  510  K=K+1:LOCATE 1,1:PRINT K:A$=INPUT$(1)
+  520 WEND
+  530 SCREEN 0,0,0:CLS:END
+
+  540 ' wait for key
+  550 LSET Q=MKI$(0)
+  560 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  570 ' centered text
+  580 X=(80-LEN(M(I)))/2:PRINT TAB(X) M(I):RETURN

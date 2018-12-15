@@ -1,0 +1,23 @@
+GIANT DIGITAL CLOCK - Freeware 2004, listed 08-05-2004
+
+   10 ' bigclock.bas - GIANT DIGITAL CLOCK - Freeware
+   20 GOTO 50 ' begin
+   30 SAVE "bigclock",A:LIST-50
+   40 GOTO 180 ' init F1
+   50 CLS:SCREEN 2:KEY OFF:GOSUB 40
+   60  PRINT CHR$(11);:T$=LEFT$(TIME$,8):PRINT T$:LOCATE 5,1
+   70  FOR Y=0 TO 7
+   80   FOR Q=0 TO 1
+   90    PRINT
+  100     FOR X=0 TO 38 '  horizontal dots
+  110      IF POINT(X,Y) THEN PRINT STRING$(2,219); ELSE PRINT "  ";
+  120     NEXT
+  130   NEXT
+  140  NEXT
+  150 LOCATE 24,37:PRINT "F1 to exit";
+  160 GOTO 60
+
+  170 ' init F1
+  180 ON KEY(1) GOSUB 200:KEY(1) ON
+  190 RETURN
+  200 CLS:SCREEN 0:KEY 1,"LIST":END:RETURN

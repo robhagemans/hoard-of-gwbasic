@@ -1,0 +1,128 @@
+Patterns in GW-BASIC, listed 11-01-2005
+
+   10 ' patterns.bas
+   20 GOTO 100 ' begin
+   30 SAVE "patterns.bas",A:LIST-100
+   40 GOTO 420  ' wait for key
+   50 GOTO 450  ' centered text
+   60 GOTO 840  ' graphics
+   70 GOTO 900  ' cross
+   80 GOTO 1110 ' graphics 2
+
+   90 ' begin
+  100 DEFSTR M,Q:Q=MKI$(0):SCREEN 9:CLS ' locals QB Screen 12
+  110 DIM COL(6):DATA 1,9,4,12,2,14
+  120 FOR I=1 TO 6:READ COL(I):NEXT
+  130 M(1)="PATTERNS Generator idea from Hans Lauwerier"
+  140 M(2)="GWBasic by Eric Tchong"
+  150 M(3)="Choose 1..4 ? -1 = end program"
+  160 M(4)="Number from 1 to 999 <0 = menu>"
+  170 M(5)="Number from 100 to 10000 <0 = menu>"
+  180 FOR I=1 TO 3
+  190  GOSUB 50:IF I=2 THEN PRINT
+  200 NEXT
+  210 LOCATE 5,37:INPUT CH
+  220 IF CH=-1 THEN SCREEN 0,0,0:CLS:END
+  230 IF CH<1 OR CH>4 THEN 210
+  240 ON CH GOTO 260,480,650,940
+
+  250 ' patterns 1 - dots
+  260 CLS:WINDOW (-320,-240)-(319,239):N=50
+  270 I=4:GOSUB 50:LOCATE 2,40             ' QB Locate 2,39
+  280 INPUT C:CLS
+  290 IF C=0 THEN SW=1:GOTO 310
+  300 IF C<1 OR C>999 THEN 270
+  310 FOR I=-N TO N
+  320  FOR J=-N TO N
+  330   X=I/N:Y=J/N
+  340   Z=(1-X*X)*(1-Y*Y)
+  350   IF INT(C*Z) MOD 2=0 THEN PSET (3*I,-3*J)
+  360  NEXT
+  370 NEXT
+  380 LINE (-3*N-10,-3*N-10)-(3*N+10,3*N+10),,B
+  390 GOSUB 40:IF SW=1 THEN SW=0:CLS:GOTO 180
+  400 CLS:GOTO 270
+
+  410 ' wait for key
+  420 LSET Q=MKI$(0)
+  430 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  440 ' centered text
+  450 X=(80-LEN(M(I)))/2
+  460 PRINT TAB(X) M(I):RETURN
+
+  470 ' patterns 2 - mini squares
+  480 CLS:WINDOW (-.5,-.3)-(1.5,1.2):R=32  ' rows and columns
+  490 I=5:GOSUB 50:LOCATE 2,40             ' QB Locate 2,39
+  500 INPUT C:CLS
+  510 IF C=0 THEN 180
+  520 IF C<1 OR C>10000 THEN 490
+  530 FOR I=0 TO R
+  540  LINE (0,I/R)-(1,I/R):LINE (I/R,0)-(I/R,1)
+  550 NEXT
+  560 FOR I=1 TO R
+  570  FOR J=1 TO R
+  580   X=-1/(2*R)+I/R:Y=-1/(2*R)+J/R
+  590   Z=INT(C*4*X*Y*(1-X)*(1-Y))
+  600   IF Z MOD 2=0 THEN PAINT (X,Y)
+  610  NEXT
+  620 NEXT
+  630 GOSUB 40:CLS:GOTO 490
+
+  640 ' patterns 3 - cross
+  650 CLS:WINDOW (-320,-240)-(319,239)
+  660 N1=40:N2=30:R=5:D=6:H=3:B=10:C=500
+  670 I=4:GOSUB 50:LOCATE 2,40             ' QB Locate 2,39
+  680 INPUT C:CLS
+  690 IF C=0 THEN SW=1:GOTO 710
+  700 IF C<1 OR C>999 THEN 670
+  710 FOR I=0 TO N1
+  720  FOR J=0 TO N2
+  730   IF I/N1>J/N2 THEN L=I*N2 ELSE L=J*N1
+  740   COL=9+INT(B*L/(N1*N2)) MOD 7
+  750   IF I=N1 OR J=N2 THEN COL=15
+  760   X=I/N1:Y=J/N2
+  770   Z=(1-X*X)*(1-Y*Y)
+  780   IF INT(C*Z) MOD R=0 THEN GOSUB 60 ' graphics
+  790  NEXT
+  800 NEXT
+  810 GOSUB 40:IF SW=1 THEN SW=0:CLS:GOTO 180
+  820 CLS:GOTO 670
+
+  830 ' graphics
+  840 X=D*I :Y=-D*J:GOSUB 70 ' cross
+  850 X=D*I :Y=D*J :GOSUB 70
+  860 X=-D*I:Y=-D*J:GOSUB 70
+  870 X=-D*I:Y=D*J :GOSUB 70
+  880 RETURN
+
+  890 ' cross
+  900 PSET (X-H,Y-H),COL:LINE -(X+H,Y+H),COL
+  910 PSET (X-H,Y+H),COL:LINE -(X+H,Y-H),COL
+  920 RETURN
+
+  930 ' patterns 4 - color
+  940 CLS:WINDOW (-320,-240)-(319,239):N=32
+  950 I=4:GOSUB 50:LOCATE 2,40             ' QB Locate 2,39
+  960 INPUT C:CLS
+  970 IF C=0 THEN SW=1:GOTO 990
+  980 IF C<1 OR C>999 THEN 950
+  990 LINE (-5*N-5,-5*N-5)-(5*N+5,5*N+5),,B
+ 1000 FOR I=0 TO N
+ 1010  FOR J=0 TO N
+ 1020   P1=5*I:P2=-5*I:E1=5*J:E2=-5*J
+ 1030   X=I/N:Y=J/N
+ 1040   Z=(1-X*X)*(1-Y*Y)
+ 1050   L=1+INT(C*Z) MOD 6:GOSUB 80 ' graphics 2
+ 1060  NEXT
+ 1070 NEXT
+ 1080 GOSUB 40:IF SW=1 THEN SW=0:CLS:GOTO 180
+ 1090 CLS:GOTO 950
+
+ 1100 ' graphics 2
+ 1110 W=COL(L)
+ 1120 LINE (P1-2,E1-2)-(P1+2,E1+2),W,BF
+ 1130 LINE (P1-2,E2-2)-(P1+2,E2+2),W,BF
+ 1140 LINE (P2-2,E1-2)-(P2+2,E1+2),W,BF
+ 1150 LINE (P2-2,E2-2)-(P2+2,E2+2),W,BF
+ 1160 RETURN

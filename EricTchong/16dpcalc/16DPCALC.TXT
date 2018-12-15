@@ -1,0 +1,150 @@
+16 Digits Giant Calculator - FREEWARE, listed 06-08-2004
+
+   10  ' 16dpcalc.bas
+   20 GOTO 110 ' begin
+   30 SAVE "16dpcalc":LIST-100
+   40 GOTO 730 ' print key inputs
+   50 GOTO 850 ' display digits and symbols
+   60 GOTO 890 ' select characters
+   70 GOTO 1110 ' some info
+   80 GOTO 1170 ' fix accuracy in gw-basic and quickbasic
+   90 GOTO 1260 ' get key input
+
+  100 ' Begin
+  110 KEY OFF:DEFDBL A,E,N,Z:COLOR 14,1,1:CLS:V=6
+  120 M1$="12345679":M2$="63":OP$="*"
+
+  130 ' 1-5
+  140 A$(1)="  € ":B$(1)="ﬂﬂ€ ":C$(1)="ﬂﬂ€ ":D$(1)="€ € ":E$(1)="€ﬂﬂ "
+  150 A$(2)="  € ":B$(2)="€ﬂﬂ ":C$(2)="ﬂﬂ€ ":D$(2)="ﬂﬂ€ ":E$(2)="ﬂﬂ€ "
+  160 A$(3)="  € ":B$(3)="€‹‹ ":C$(3)="‹‹€ ":D$(3)="  € ":E$(3)="‹‹€ "
+
+  170 ' 6-0
+  180 F$(1)="€ﬂﬂ ":G$(1)="€ﬂ€ ":H$(1)="€ﬂ€ ":I$(1)="€ﬂ€ ":J$(1)="€ﬂ€ "
+  190 F$(2)="€ﬂ€ ":G$(2)="  € ":H$(2)="€ﬂ€ ":I$(2)="ﬂﬂ€ ":J$(2)="€ € "
+  200 F$(3)="€‹€ ":G$(3)="  € ":H$(3)="€‹€ ":I$(3)="‹‹€ ":J$(3)="€‹€ "
+
+  210 ' + - * /
+  220 K$(1)="    ":L$(1)=" ‹  ":M$(1)="    ":N$(1)="‹ ‹ ":O$(1)=" ﬂ  "
+  230 K$(2)="    ":L$(2)="ﬂ€ﬂ ":M$(2)="ﬂﬂﬂ ":N$(2)="‹ﬂ‹ ":O$(2)="ﬂﬂﬂ "
+  240 K$(3)="  ‹ ":L$(3)="    ":M$(3)="    ":N$(3)="    ":O$(3)=" ﬂ  "
+
+  250 ' D ˚
+  260 P$(1)="€ﬂ‹ ":V$(1)="  €ﬂ"
+  270 P$(2)="€ € ":V$(2)="€ € "
+  280 P$(3)="€‹ﬂ ":V$(3)=" ﬂ  ":GOSUB 70
+
+  290 ' Get first number
+  300 GOSUB 90:T=T+1
+  310 IF K$=CHR$(13) AND EC=0 THEN Z$=M1$:N1$=M1$:GOSUB 40:K$=OP$:GOTO 410
+  320 EC=1:IF K$=CHR$(13) AND N1$="." THEN T=T-1:GOTO 300
+  330 IF K$=CHR$(13) THEN K$=OP$:GOSUB 50:V=10:Z$=M2$:M1$=N1$:N2$=M2$:GOSUB 40:GOTO 560
+  340 IF K$="." AND T=17 THEN T=T-1:GOTO 300
+  350 IF K$="." AND DP=0 THEN DP=1:GOTO 400
+  360 IF K$="+" OR K$="-" OR K$="*" OR K$="/" OR K$="v" THEN 410
+  370 IF DP=0 AND T=17 THEN T=T-1:GOTO 300
+  380 IF DP=1 AND T=18 THEN T=T-1:GOTO 300
+  390 IF ASC(K$)<48 OR ASC(K$)>57 THEN T=T-1:GOTO 300
+  400 N1$=N1$+K$:Z$=N1$:OH=1:GOSUB 40:GOTO 300
+  410 IF K$="v" AND OH=0 THEN Z$=M1$:N1$=M1$:GOSUB 50:GOSUB 80:GOTO 610
+  420 IF K$="v" AND OH=1 THEN GOSUB 50:GOSUB 80:GOTO 610
+  430 GOSUB 50
+
+  440 ' Get second number
+  450 V=10:Z$="":DP=0:T=0:EC=0
+  460 GOSUB 90:T=T+1
+  470 IF K$=CHR$(13) AND EC=0 THEN Z$=M2$:N2$=M2$:GOSUB 40:GOTO 560
+  480 EC=1:IF K$=CHR$(13) THEN 560
+  490 IF K$="." AND T=17 THEN T=T-1:GOTO 460
+  500 IF K$="." AND DP=0 THEN DP=1:GOTO 540
+  510 IF DP=0 AND T=17 THEN T=T-1:GOTO 460
+  520 IF DP=1 AND T=18 THEN T=T-1:GOTO 460
+  530 IF ASC(K$)<48 OR ASC(K$)>57 THEN T=T-1:GOTO 460
+  540 N2$=N2$+K$:Z$=N2$:GOSUB 40:GOTO 460
+
+  550 ' Calculate
+  560 A1=VAL(N1$):A2=VAL(N2$):IF A2=0 AND OP$="/" THEN CLS:GOTO 670
+  570 IF OP$="+" THEN Z=A1+A2 ELSE IF OP$="-" THEN Z=A1-A2
+  580 IF OP$="*" THEN Z=A1*A2 ELSE IF OP$="/" THEN Z=A1/A2
+  590 IF OP$="v" THEN GOSUB 80
+
+  600 ' Display results
+  610 V=14:Z$=STR$(Z):L=LEN(Z$):IF L>18 THEN L=18
+  620 FOR K=2 TO L:F=73-(L*4)+4*(K-1):LOCATE V,F:PRINT "‹‹‹‹":NEXT
+  630 COLOR 12,1,1:V=16:GOSUB 40:COLOR 14,1,1
+  640 GOSUB 90:IF K$="" THEN 640 ELSE CLS
+  650 IF K$="q" OR K$="Q" THEN 1300
+  660 IF K$=" " THEN 680
+  670 V=6:GOSUB 70:T=1:M1$="":M1$=Z$:M2$=N2$:N1$="":N2$="":DP=0:EC=0:OH=0:GOTO 310
+  680 V=6:GOSUB 70:T=0:Z$=N1$:GOSUB 40:M1$=N1$:M2$=N2$:N1$="":N2$="":DP=0:EC=0:OH=0
+  690 GOSUB 90
+  700 IF K$="+" OR K$="-" OR K$="*" OR K$="/" OR K$="v" THEN N1$=M1$:GOTO 410
+  710 GOTO 690
+
+  720 ' Print entries
+  730 L=LEN(Z$):SW=0:IF L>18 THEN O=18 ELSE O=L
+  740 FOR K=1 TO L
+  750  IF MID$(Z$,K,1)=" " THEN 830 ' suppress leading zero
+  760  IF MID$(Z$,K,1)="." THEN N=11:GOTO 810
+  770  IF MID$(Z$,K,1)="+" THEN N=12:GOTO 810
+  780  IF MID$(Z$,K,1)="-" THEN N=13:GOTO 810
+  790  IF MID$(Z$,K,1)="D" THEN N=16:GOTO 810
+  800  N=VAL(MID$(Z$,K,1)):IF N=0 THEN N=10
+  810  IF K>18 THEN O=L-18:SW=SW+1:V=21:F=73-(O*4)+4*(SW-1):GOSUB 60:GOTO 830
+  820  F=73-(O*4)+4*(K-1):GOSUB 60                        ' print first line
+  830 NEXT:RETURN
+
+  840 ' Display digits or symbols
+  850 IF K$="+" THEN N=12 ELSE IF K$="-" THEN N=13
+  860 IF K$="*" THEN N=14 ELSE IF K$="/" THEN N=15
+  870 IF K$="v" THEN N=17
+  880 OP$=K$:F=74
+  890 FOR P=1 TO 3
+  900  LOCATE V+P-1,F
+  910  ON N GOSUB 
+        930,940,950,960,970,980,990,1000,1010,1020,1030,1040,1050,1060,1070,1080,1090
+  920 NEXT:RETURN
+  930 PRINT A$(P):RETURN ' 1
+  940 PRINT B$(P):RETURN ' 2
+  950 PRINT C$(P):RETURN ' 3
+  960 PRINT D$(P):RETURN ' 4
+  970 PRINT E$(P):RETURN ' 5
+  980 PRINT F$(P):RETURN ' 6
+  990 PRINT G$(P):RETURN ' 7
+ 1000 PRINT H$(P):RETURN ' 8
+ 1010 PRINT I$(P):RETURN ' 9
+ 1020 PRINT J$(P):RETURN ' 0
+ 1030 PRINT K$(P):RETURN ' .
+ 1040 PRINT L$(P):RETURN ' +
+ 1050 PRINT M$(P):RETURN ' -
+ 1060 PRINT N$(P):RETURN ' *
+ 1070 PRINT O$(P):RETURN ' /
+ 1080 PRINT P$(P):RETURN ' D
+ 1090 PRINT V$(P):RETURN ' ˚ 
+
+ 1100 ' Some info
+ 1110 COLOR 15,1,1
+ 1120 PRINT "‹€‹ ﬂ‹ﬂ  16 DIGITS DOUBLE-PRECISION CALCULATOR * Eric F. Tchong * ARUBA"
+ 1130 PRINT " ﬂ  ﬂ ﬂ"
+ 1140 PRINT "ﬂﬂﬂ ‹˛ﬂ  + - * /    v = ˚,   <Enter> = MR,   Esc = Exits the calculator"
+ 1150 COLOR 14,1,1:RETURN
+
+ 1160 ' Correct Quick-, GwBasic
+ 1170 IF N1$="9999999999999999"  THEN Z=99999999.99999999#:RETURN
+ 1180 IF N1$="99999999.99999999" OR N1$=" 99999999.99999999" THEN Z=9999.999999999999#:RETURN
+ 1190 IF N1$="9999.999999999999" OR N1$=" 9999.999999999999" THEN Z=99.99999999999999#:RETURN
+ 1200 IF N1$="99.99999999999999" OR N1$=" 99.99999999999999" THEN Z=9.999999999999999#:RETURN
+ 1210 IF N1$="0" THEN Z=0:RETURN
+ 1220 N=VAL(N1$):Z=SQR(N)
+ 1230 E=Z:Z=(N/Z+Z)/2:IF Z<>E THEN 1230
+ 1240 RETURN
+
+ 1250 ' Get key input
+ 1260 K$=INKEY$:IF K$="" THEN 1260
+ 1270 IF K$=CHR$(27) THEN 1300
+ 1280 RETURN
+
+ 1290 ' Exit
+ 1300 SCREEN 0,0,0:CLS
+ 1310 KEY 5,"16dpcalc.bas":KEY 6,CHR$(34)+",a"
+ 1320 KEY ON:END

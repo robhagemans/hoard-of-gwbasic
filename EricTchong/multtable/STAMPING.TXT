@@ -1,0 +1,155 @@
+Stamp fractals in GW-BASIC, listed 11-03-2005
+
+   10 ' stamping.bas - FreeWare 2005
+   20 GOTO 120 ' begin
+   30 SAVE"stamping.bas",A:LIST-120
+   40 GOTO 590  ' wait for key
+   50 GOTO 620  ' centered text
+   60 GOTO 720  ' graphics 1
+   70 GOTO 840  ' graphics 2
+   80 GOTO 890  ' graphics 3
+   90 GOTO 1170 ' graphics 4
+  100 GOTO 1300 ' graphics 5
+
+  110 ' begin
+  120 DEFSTR M,Q:Q=MKI$(0):SCREEN  9:CLS
+  130 DIM X(4,6),Y(4,6):E(1)=3:E(2)=3:E(3)=4:E(4)=6
+  140 DATA 1,-3,1,-1,3,-1,1,3,1,1,3,1
+  150 DATA -3,-1,-1,-1,-1,1,-3,1,-1,-3,-1,-2,0,-2,0,2,-1,2,-1,3
+  160 FOR K=1 TO 4
+  170  FOR L=1 TO E(K)
+  180   READ X(K,L),Y(K,L)
+  190  NEXT
+  200 NEXT
+  210 M(1)="STAMPS & TRUCHET idea from Hans Lauwerier"
+  220 M(2)="GWBasic by Eric Tchong"
+  230 M(3)="Press any key to return to this screen"
+  240 M(4)="Choose 1..3   -1 = stop program "
+  250 M(5)="tile in normal phase"
+  260 M(6)="Assemble a number from 1,2,3,4"
+  270 M(7)="Choose 1..4  < 0 to menu>"
+  280 FOR I=1 TO 4
+  290  GOSUB 50:IF I=2 OR I=3 THEN PRINT
+  300 NEXT
+  310 LOCATE 7,29:INPUT CH
+  320 IF CH=-1 THEN SCREEN 0,0,0:CLS:END
+  330 IF CH<1 OR CH>3 THEN 310
+  340 CLS:ON CH GOTO 360,650,940
+
+  350 ' tile in normal phase
+  360 I=5:GOSUB 50
+  370 WINDOW (-8,-6)-(8,6)
+  380 FOR I=-3 TO 3:LINE (I,-3)-(I,3),4:NEXT
+  390 FOR J=-3 TO 3:LINE (-3,J)-(3,J),4:NEXT
+  400 FOR K=1 TO 4
+  410  PSET (X(K,1),Y(K,1))
+  420  FOR L=2 TO E(K)
+  430   LINE -(X(K,L),Y(K,L))
+  440  NEXT
+  450 NEXT:A$=INPUT$(1):CLS
+
+  460 ' other tiles
+  470 WINDOW (-18,-16)-(110,80)
+  480 I=7:GOSUB 50
+  490 LOCATE 2,33:INPUT CH
+  500 IF CH=0 THEN CLS:GOTO 280
+  510 IF CH<1 OR CH>4 THEN 490
+  520 CLS:ON CH GOTO 530,540,550,560
+  530 S(0)=0:S(1)=0:S(2)=0:S(3)=0:CLS:PRINT"0 0 0 0":GOTO 570
+  540 S(0)=1:S(1)=2:S(2)=3:S(3)=4:CLS:PRINT"1 2 3 4":GOTO 570
+  550 S(0)=4:S(1)=3:S(2)=2:S(3)=1:CLS:PRINT"4 3 2 1":GOTO 570
+  560 S(0)=3:S(1)=2:S(2)=4:S(3)=1:CLS:PRINT"3 2 4 1":GOTO 570
+  570 LINE (-3,-3)-(93,69),,B:GOSUB 60:GOSUB 40:CLS:GOTO 480
+
+  580 ' wait for key
+  590 LSET Q=MKI$(0)
+  600 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  610 ' centered text
+  620 X=(80-LEN(M(I)))/2
+  630 PRINT TAB(X) M(I):RETURN
+
+  640 ' stampx
+  650 WINDOW (-18,-16)-(110,80)
+  660 LINE (-3,-3)-(93,69),,B
+  670 LINE (-5,-5)-(95,71),,B
+  680 S(0)=3:S(1)=2:S(2)=4:S(3)=1:GOSUB 60
+  690 PAINT (3,3)
+  700 GOSUB 40:CLS:GOTO 280
+
+  710 ' graphics 1
+  720 FOR J=0 TO 11
+  730  FOR I=0 TO 15
+  740   X=6*I:Y=6*J
+  750   IF J MOD 2=0 THEN W=0 ELSE W=2
+  760   IF I MOD 2=1 THEN W=W+1
+  770   S=S(W)
+  780   IF S=1 OR S=2 THEN P=1 ELSE P=-1
+  790   IF S=1 OR S=4 THEN R=1 ELSE R=-1
+  800   IF S=1 OR S=3 THEN GOSUB 70 ELSE GOSUB 80
+  810  NEXT
+  820 NEXT:RETURN
+
+  830 ' graphics 2
+  840 FOR K=1 TO 4
+  850  PSET (X+P*X(K,1),Y+R*Y(K,1))      ' x x y y
+  860  FOR L=2 TO E(K):LINE -(X+P*X(K,L),Y+R*Y(K,L)):NEXT
+  870 NEXT:RETURN
+
+  880 ' graphics 3
+  890 FOR K=1 TO 4
+  900  PSET (X+P*Y(K,1),Y+R*X(K,1))      ' x y y x
+  910  FOR L=2 TO E(K):LINE -(X+P*Y(K,L),Y+R*X(K,L)):NEXT
+  920 NEXT:RETURN
+
+  930 ' truchet
+  940 CLS:PI=4*ATN(1):WINDOW (-320,-240)-(319,239)
+  950 RANDOMIZE 222
+  960 R=10:N=10:P=2*N*R
+  970 LINE (-P,-P)-(P,P),,B
+  980 FOR I=-N TO N-1
+  990  FOR J=-N TO N-1
+ 1000   X0=2*R*I+R:Y0=2*R*J+R
+ 1010   IF RND<.5 THEN GOSUB 90 ELSE GOSUB 100
+ 1020  NEXT
+ 1030 NEXT:GOSUB 40 ' pause
+ 1040 FOR I=-N TO N
+ 1050  FOR J=-N TO N
+ 1060   IF (I+J) MOD 2 = 0 THEN 1130
+ 1070   X=2*R*I:Y=2*R*J
+ 1080   IF I=-N THEN X=X+1
+ 1090   IF I=N THEN X=X-1
+ 1100   IF J=-N THEN Y=Y+1
+ 1110   IF J=N THEN Y=Y-1
+ 1120   PAINT (X,Y)
+ 1130  NEXT
+ 1140 NEXT
+ 1150 GOSUB 40:CLS:GOTO 280
+
+ 1160 ' graphics 4
+ 1170 X=X0-R:Y=Y0-R
+ 1180 FOR K=0 TO 9
+ 1190  T=K*10*PI/180
+ 1200  U=X+R*COS(T):V=Y+R*SIN(T)
+ 1210  IF K=0 THEN PSET (U,V) ELSE LINE -(U,V)
+ 1220 NEXT
+ 1230 X=X0+R:Y=Y0+R
+ 1240 FOR K=0 TO 9
+ 1250  T=(180+K*10)*PI/180
+ 1260  U=X+R*COS(T):V=Y+R*SIN(T)
+ 1270  IF K=0 THEN PSET (U,V) ELSE LINE -(U,V)
+ 1280 NEXT:RETURN
+
+ 1290 ' graphics 5
+ 1300 X=X0+R:Y=Y0-R
+ 1310 FOR K=0 TO 9
+ 1320  T=(90+K*10)*PI/180
+ 1330  U=X+R*COS(T):V=Y+R*SIN(T)
+ 1340  IF K=0 THEN PSET (U,V) ELSE LINE -(U,V)
+ 1350 NEXT
+ 1360 X=X0-R:Y=Y0+R
+ 1370 FOR K=0 TO 9
+ 1380  T=(270+K*10)*PI/180
+ 1390  U=X+R*COS(T):V=Y+R*SIN(T)
+ 1400  IF K=0 THEN PSET (U,V) ELSE LINE -(U,V)
+ 1410 NEXT:RETURN

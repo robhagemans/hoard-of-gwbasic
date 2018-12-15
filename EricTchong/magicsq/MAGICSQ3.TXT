@@ -1,0 +1,37 @@
+Generates and saves 3x3 Magic Squares by Eric Tchong, listed 01-16-2005
+
+   10 ' magicsq3.bas - FreeWare 2005 - Eric Tchong
+   20 GOTO 60
+   30 SAVE"magicsq3",A:LIST-60
+   40 GOTO 300 ' clear line
+   50 GOTO 320 ' get key
+   60 KEY OFF:CLS:DEFSTR Q:Q=MKI$(0)
+   70 DEFDBL M,N,S
+   80 PRINT "This program generates a 3x3 magic square":PRINT
+   90 PRINT "Save results in an ascii diskfile <y/n> ?"
+  100 GOSUB 50:CLS
+  110 IF ASC(Q)=89 OR ASC(Q)=121 THEN COPY=1 ELSE COPY=0:GOTO 140
+  120 LINE INPUT "Enter a DOS filename ? ";Z$
+  130 OPEN "O",#1,Z$:CLS
+  140 INPUT "Enter a number 12..99999999 <0=exit> ";N
+  150 IF N=0 THEN CLS:END
+  160 IF N<12 OR N>99999999# THEN GOSUB 40:GOTO 140
+  170 IF N=12 THEN S=0:GOTO 180 ELSE S=(N-12)/3
+  180 GOSUB 40
+  190 M(1)=S+7:M(2)=S+0:M(3)=S+5
+  200 M(4)=S+2:M(5)=S+4:M(6)=S+6
+  210 M(7)=S+3:M(8)=S+8:M(9)=S+1
+  220 PRINT:PRINT "Magic square sum =";N:PRINT
+  230 IF COPY THEN PRINT #1,"":PRINT #1,"Magic square sum =";N:PRINT #1,""
+  240 FOR T=1 TO 9
+  250  PRINT M(T);" ";:IF COPY THEN PRINT #1,M(T);" ";
+  260  IF T/3=INT(T/3) THEN PRINT:IF COPY THEN PRINT #1,""
+  270 NEXT:PRINT:IF COPY THEN PRINT #1,""
+  280 GOTO 140
+
+  290 ' clear line
+  300 PRINT CHR$(30);:PRINT STRING$(79,32):PRINT CHR$(30);:RETURN
+
+  310 ' get key
+  320 LSET Q=MKI$(0)
+  330 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN

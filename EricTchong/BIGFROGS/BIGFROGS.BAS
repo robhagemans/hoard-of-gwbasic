@@ -1,0 +1,103 @@
+10 ' bigfrogs.bas - FREEWARE 2004
+20 GOTO 120
+30 SAVE "bigfrogs":LIST-100
+40 GOTO 610 ' blank screen
+50 GOTO 670 ' print yellow or red frog
+60 GOTO 730 ' @ to locate converter
+70 GOTO 750 ' print numbers 1-9
+80 GOTO 870 ' print left frogs
+90 GOTO 920 ' print right frogs
+100 GOTO 970 ' wait for key
+110 ' Begin
+120 DEFSTR Q:Q=MKI$(0)
+130 DIM P(9):KEY OFF:COLOR 15,0
+140 B1$="лл лл":B2$=" олн ":C1$="ллллл":C2$="л   л":A$="      "
+150 ' Instructions
+160 GOSUB 70:LOCATE 15,21
+170 PRINT "Reverse blocks 1-4 with blocks 6-9."
+180 LOCATE 16,21:PRINT "You may slide or jump one block."
+190 LOCATE 18,21:PRINT "Press a key to start the puzzle."
+200 GOSUB 100 ' get key input
+210 ' Init block positions + move counter
+220 FOR F=1 TO 4
+230  P(F)=1:P(F+5)=-1
+240 NEXT:P(5)=0:C=0
+250 GOSUB 70:LOCATE 1,17:PRINT "FROGS"
+260 LOCATE 5,17:PRINT "s = stop   r = repeat"
+270 LOCATE 3,17:PRINT STRING$(20," "):LOCATE 3,17:PRINT "From?"
+280 ' Accept user's input for move and validate
+290 GOSUB 100 ' get key input
+300 IF E=27 THEN 1010
+310 IF E=0 THEN 290 ELSE F=VAL(Q)
+320 LOCATE 3,22:PRINT F:LOCATE 3,28:PRINT "To?";
+330 IF E=82 OR E=114 THEN 220 ELSE IF E=83 OR E=115 THEN 1010
+340 GOSUB 100 ' get key input
+350 IF E=0 THEN 340 ELSE T=VAL(Q)
+360 LOCATE 3,31:PRINT T:LOCATE 17,17:PRINT STRING$(30," "):C=C+1
+370 LOCATE 5,49:PRINT C:IF ABS(T-F)>2 THEN 400
+380 IF T=0 OR F=0 THEN 400
+390 IF T-F=0 OR P(T)=1 OR P(T)=-1 THEN 400 ELSE 410
+400 C=C-1:BEEP:LOCATE 17,17:PRINT "Illegal move - try again":GOTO 270
+410 IF ABS(T-F)>1 THEN 460
+420 ' Move is a slide
+430 S=F:X=716:GOSUB 40       ' blank
+440 S=T:GOSUB 50:GOTO 500    ' print
+450 ' Move is a jump
+460 S=F:X=716:GOSUB 40:X=524:GOSUB 50  ' blank & print 524=716-(3*64)
+470 GOSUB 40:S=T:GOSUB 50
+480 GOSUB 40:X=716:GOSUB 50
+490 ' Check for end of game
+500 P(T)=P(F):P(F)=0:S=0:T=0
+510 FOR F=1 TO 4:S=S+P(F):T=T+P(F+5):NEXT
+520 IF S=-4 AND T=4 AND C=24 THEN 590
+530 IF S=-4 AND T=4 THEN LOCATE 15,17:PRINT "Done in";C;"steps!!!" ELSE 270
+540 LOCATE 16,17:PRINT "It can be done in 24 steps..."
+550 ' Replay
+560 LOCATE 17,17:PRINT "Try again? <y/n>"
+570 GOSUB 100 ' get key input
+580 IF E=78 OR E=110 THEN 1010 ELSE 220
+590 LOCATE 15,17:PRINT "Done in exactly 24 steps!!!":BEEP:GOTO 560
+600 ' Blank screen where move was made from
+610 L=X+6*(S-1):GOSUB 60:PRINT A$
+620 FOR P=1 TO 2
+630  L=L-64:GOSUB 60:PRINT A$
+640 NEXT
+650 RETURN
+660 ' Prints yellow or red frog
+670 L=X+6*(S-1):GOSUB 60
+680 IF P(F)=1 THEN COLOR 14,0:GOSUB 80 ELSE COLOR 12,0:GOSUB 90
+690 COLOR 15,0
+700 TQ=TIMER+.0625:WHILE TIMER<TQ:WEND
+710 RETURN
+720 ' Print @ to Locate subroutine
+730 V=INT(L/64)+1:Z=(V-1)*64:Z=(L-Z)+1:LOCATE V,Z:RETURN
+740 ' Print numbers 1-9
+750 CLS
+760 FOR F=0 TO 8
+770  L=781+6*F:GOSUB 60:PRINT " "+CHR$(F+49)+" "
+780 NEXT
+790 ' Prints blocks
+800 FOR F=0 TO 3
+810  COLOR 14,0:L=716+6*F:GOSUB 60:GOSUB 80 ' yellow
+820  COLOR 12,0:L=746+6*F:GOSUB 60:GOSUB 90 ' red
+830  COLOR 15,0
+840 NEXT
+850 RETURN
+860 ' Left frogs
+870 PRINT B1$
+880 L=L-64:GOSUB 60:PRINT B2$
+890 L=L-64:GOSUB 60:PRINT B1$
+900 RETURN
+910 ' Right frogs
+920 PRINT C1$
+930 L=L-64:GOSUB 60:PRINT C2$
+940 L=L-64:GOSUB 60:PRINT C1$
+950 RETURN
+960 ' Get key pressed
+970 LSET Q=MKI$(0)
+980 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+990 E=ASC(Q):RETURN
+1000 ' Exit
+1010 KEY 5,"bigfrogs.bas":KEY 6,CHR$(34)+",a":KEY ON
+1020 COLOR 7,0:CLS:END
+

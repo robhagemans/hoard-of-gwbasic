@@ -1,0 +1,114 @@
+10  ' gcdlcm2.bas - FreeWare
+20 GOTO 100 ' begin
+30 SAVE "gcdlcm2":LIST-100
+40 GOTO 710 ' done in x steps
+50 GOTO 790 ' print lcm
+60 GOTO 820 ' count length
+70 GOTO 850 ' draw line
+80 GOTO 930 ' print intermediate results
+90 GOTO 970 ' get key
+100 CLS:KEY OFF
+110 PRINT "*****************************"
+120 PRINT "*  GREATEST COMMON DIVISOR  *"
+130 PRINT "*   LEAST COMMON MULTIPLE   *"
+140 PRINT "*       1 .. 9999999        *"
+150 PRINT "*      Eric F. Tchong       *"
+160 PRINT "*    serenata@setarnet.aw   *"
+170 PRINT "*  FreeWare -  August 2004  *"
+180 PRINT "*****************************"
+190 DEFSTR Q:Q=MKI$(0):DEFDBL K:M1=240:M2=64
+200 PRINT:PRINT "  Save to a diskfile? <y/n>"
+210 GOSUB 90:CLS ' Y y
+220 IF ASC(Q)= 89 OR ASC(Q)=121 THEN COPY=1:GOTO 230 ELSE COPY=0:GOTO 270
+230 LINE INPUT "Enter your output DOS file? ";Z$
+240 IF LEFT$(Z$,1)=" " THEN Z$=MID$(Z$,2):GOTO 240 ' Remove spaces
+250 OPEN "O",#1,Z$
+260 ' Get first number
+270 INPUT "1st Number -1 exit ";DT :IF DT >9999999! THEN 270
+280 IF DT=-1 THEN 1000 ELSE IF DT=0 THEN DT=M1
+290 ' Get second number
+300 INPUT "2nd Number -1 exit ";DL :IF DL >9999999! THEN 300
+310 IF DL=-1 THEN 1000 ELSE IF DL=0 THEN DL=M2
+320 ' Visual GCD routine
+330 IF DT<DL THEN SWAP DT,DL
+340 DQ=INT(DT/DL):PRINT:M1=DT:M2=DL:T=0
+350 M=DL:N=DT
+360 ' Get Greatest Common Divisor in N
+370 WHILE M:N=N-M*INT(N/M):SWAP M,N:T=T+1:WEND
+380 ' Get Least Common Divisor
+390 K=DT/N*DL
+400 ' Reduce factors
+410 A=DL/N:B=DT/N:SW=0:L=1:EC=1
+420 PRINT TAB(L)"";DL;"/";DT;"/";DQ;
+430 IF COPY THEN PRINT #1,TAB(L)"";DL;"/";DT;"/";DQ;
+440 ' Print reduced factors
+450 PRINT TAB(39) DL;"/";DT;"=";A;"/";B
+460 IF COPY THEN PRINT #1,TAB(39) DL;"/";DT;"=";A;"/";B:GOTO 490 ELSE 490
+470 SW=0:L=1:GOSUB 80
+480 ' Calculate length of DT
+490 Z=DT:GOSUB 60:LDT=L
+500 ' Calculate length of DL
+510 Z=DL:GOSUB 60:LDL=L
+520 ' Calculate length of TU
+530 TU=DL*DQ:Z=TU:GOSUB 60:LTU=L
+540 IF SW=0 THEN LC=LDL+LDT+4 ELSE LC=LC+LDT+3
+550 IF EC=1 THEN GOSUB 40 ELSE PRINT TAB(LC-LTU) TU:IF COPY THEN PRINT #1,TAB(LC-LTU) TU
+560 P=LC-LDT+1:L=LDT:GOSUB 70              ' Draw a line
+570 IF EC=1 THEN GOSUB 50                  ' LCM = 960
+580 A=DT-TU:IF A=0 THEN 670
+590 ' Calculate length of DT-TU
+600 Z=A:GOSUB 60:LA=L
+610 L=LC-LA:DT=DL:DL=A:DQ=INT(DT/DL)
+620 ' Go to the left and continue
+630 IF L>60 THEN 470 ELSE GOSUB 80         ' Print DL / DT / DQ
+640 ' Continue if GCD not found
+650 SW=1:GOTO 490
+660 ' End as A=0
+670 PRINT TAB(LC)"0"
+680 IF COPY THEN PRINT #1, TAB(LC)"0":PRINT #1,""
+690 PRINT:GOTO 270                         ' Go for new numbers
+700 ' Done in x steps...
+710 PRINT TAB(LC-LTU);TU;:PRINT TAB(40);"GCD =";N;"in";
+720 IF T=1 THEN PRINT " 1 step" ELSE PRINT T;"steps"
+730 IF COPY THEN 750 ELSE 770
+740 ' Send to diskfile
+750 PRINT #1,TAB(LC-LTU);TU;:PRINT #1,TAB(40);"GCD =";N;"in";
+760 IF T=1 THEN PRINT #1, "1 step" ELSE PRINT #1,T;"steps"
+770 RETURN
+780 ' Print LCM
+790 PRINT TAB(40);"LCM =";K:IF COPY THEN PRINT #1,TAB(40);"LCM =";K
+800 EC=0:RETURN
+810 ' Count length of digits
+820 L=1
+830 E=INT(Z/10):IF E<>0 THEN L=L+1:Z=E:GOTO 830 ELSE RETURN
+840 ' Draw line
+850 IF EC=1 THEN 890
+860 PRINT TAB(P)"";:PRINT STRING$(L,"Ä")
+870 IF COPY THEN PRINT #1,TAB(P)"";:PRINT #1,STRING$(L,"-")
+880 RETURN
+890 PRINT TAB(P)"";:PRINT STRING$(L,"Ä");
+900 IF COPY THEN PRINT #1,TAB(P)"";:PRINT #1,STRING$(L,"-");
+910 RETURN
+920 ' Print intermediate results
+930 PRINT TAB(L)"";DL;"/";DT;"/";DQ
+940 IF COPY THEN PRINT #1,TAB(L)"";DL;"/";DT;"/";DQ
+950 RETURN
+960 ' Get key
+970 LSET Q=MKI$(0)
+980 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+990 ' End nicely
+1000 KEY 5,"gcdlcm2.bas":KEY 6,CHR$(34)+",a":KEY ON:IF P$="j" THEN CLOSE #1
+1010 CLS
+1020 ' Example in this program
+1030 ' DL / DT  / DQ
+1040 ' 64 / 240 / 3                             64 / 240 = 4 / 15
+1050 ' TU   192                                 GCD = 16 in 3 steps
+1060 '      ---                                 LCM = 960
+1070 '       48 / 64 / 1      DL / DT / DQ
+1080 '            48               TU
+1090 '            --               --
+1100 '            16 / 48 / 3      DL / DT / DQ
+1110 '                 48               TU
+1120 '                 --               --
+1130 '                  0                0
+

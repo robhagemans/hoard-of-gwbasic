@@ -1,0 +1,1137 @@
+10 ' fraction.bas - April 21, 2004 - Freeware
+20 GOTO 240 ' begin
+30 SAVE "fraction"
+40 LIST-220
+50 GOTO 1990 ' search for GCD
+60 GOTO 2080 ' scan operation * / + -
+70 GOTO 2990 ' analyse +
+80 GOTO 4510 ' analyse -
+90 GOTO 5800 ' wait key pressed
+100 GOTO 5820 ' get key input
+110 GOTO 7340 ' calculate length and exact position
+120 GOTO 7790 ' print numerators   + -
+130 GOTO 7890 ' print denominators + -
+140 GOTO 8020 ' count digits
+150 GOTO 8060 ' draw fraction lines ÄÄÄ ---
+160 GOTO 8870 ' print numerators   * /
+170 GOTO 8960 ' print denominators * /
+180 GOTO 9080 ' get final answer
+190 GOTO 9200 ' help info
+200 GOTO 10610 ' scan repeating decimal input
+210 GOTO 10880 ' clear line
+220 GOTO 10940 ' scan fraction input
+230 ' begin
+240 DEFDBL G,T,N,Z,E,M
+250 DEFSTR Q
+260 Q=MKI$(0)
+270 M1$="8"
+280 M2$="2"
+290 M3$="5"
+300 M4$="3"
+310 M5$="1"
+320 M6$="4"
+330 M7$="2.708(3)"
+340 G(8)=8
+350 T(8)=2
+360 N(8)=5
+370 RP=0
+380 K$="+"
+390 O$(1)=" x"
+400 O$(2)=" :"
+410 O$(3)=" +"
+420 O$(4)=" -"
+430 KEY OFF
+440 CLS
+450 PRINT "**************************************"
+460 PRINT "* FOUR FUNCTION FRACTIONS CALCULATOR *"
+470 PRINT "*       Programmed in GW-BASIC       *"
+480 PRINT "*    Compiled with PowerBasic 3.2    *"
+490 PRINT "*          by Eric F. Tchong         *"
+500 PRINT "*        serenata@setarnet.aw        *"
+510 PRINT "*               ARUBA                *"
+520 PRINT "*   (C) May 1992  -  Freeware 2004   *"
+530 PRINT "**************************************"
+540 PRINT
+550 PRINT "For instructions: press <Yy> ?"
+560 GOSUB 100 ' get key input
+570 IF F=89 OR F=121 THEN CLS:GOSUB 190 ' help info
+580 CLS
+590 PRINT "For a diskfile:   press <Yy> ?"
+600 GOSUB 100 ' get key input
+610 IF F=89 OR F=121 THEN COPY=1 ELSE COPY=0
+620 IF COPY THEN 630 ELSE 690
+630 CLS
+640 PRINT "Enter a DOS filename ? ";
+650 LINE INPUT Z$
+660 IF LEFT$(Z$,1)=" " THEN Z$=MID$(Z$,2):GOTO 660
+670 OPEN "O",#1,Z$
+680 ' select chain or variabel calculation
+690 CLS
+700 PRINT "1. Chain    calculation"
+710 PRINT "2. Variabel calculation"
+720 PRINT "3. Convert a repeating decimal"
+730 PRINT "4. Exit this program .."
+740 PRINT
+750 INPUT "Choose 1, 2, 3, or 4 ";A
+760 CLS
+770 IF A<1 OR A>4 THEN CLS:GOTO 690
+780 IF A=4 THEN 9920
+790 IF A=3 THEN RP=1:GOTO 9990 ' repeating decimal
+800 ' display intermediate or final results only
+810 PRINT "1. Display final results only."
+820 PRINT "2. Display intermediate and final results."
+830 PRINT
+840 INPUT "Choose 1 or 2 ";B
+850 CLS
+860 IF B<1 OR B>2 THEN CLS:GOTO 810
+870 ' empty strings = recall memory, 0 = return to menu
+880 FOR X=0 TO 7
+890  G(X)=0 ' G(X) = whole number
+900  T(X)=0 ' T(X) = numerator
+910  N(X)=1 ' N(X) = denominator
+920 NEXT
+930 IF RP=1 THEN 9990 ' repeating decimal
+940 IF N(8)=1 THEN T(8)=0
+950 IF A=1 THEN M1$=STR$(G(8)):M2$=STR$(T(8)):M3$=STR$(N(8))
+960 COLOR 7,0
+970 PRINT
+980 ' get first fraction
+990 LINE INPUT "1) W.N/D 0 menu ? ";B1$
+1000 IF B1$="0" THEN 690
+1010 B$=B1$
+1020 GOSUB 220 ' scan fractional input
+1030 IF NG=0 THEN 990
+1040 G1$=G$
+1050 T1$=T$
+1060 N1$=N$
+1070 IF G1$="" AND T1$="" THEN G1$=M1$:T1$=M2$:N1$=M3$:GOTO 1120
+1080 IF G1$="0" THEN CLS:GOTO 690
+1090 M1$=G1$
+1100 M2$=T1$
+1110 M3$=N1$
+1120 G$=""
+1130 T$=""
+1140 N$=""
+1150 PRINT "   + - * /      ? ";K$
+1160 ' obtain operation
+1170 GOSUB 100 ' get key input
+1180 IF F=13 THEN LSET Q=K$:GOSUB 60:GOTO 1260 ' * / + -
+1190 IF F=42 THEN C=1:GOTO 1260 ' *
+1200 IF F=47 THEN C=2:GOTO 1260 ' /
+1210 IF F=43 THEN C=3:GOTO 1260 ' +
+1220 IF F=45 THEN C=4:GOTO 1260 ' -
+1230 IF F<42 OR F>47 OR F=44 OR F=46 THEN 1240
+1240 PRINT CHR$(30);"   What ??"
+1250 GOTO 1170
+1260 K$=Q
+1270 PRINT CHR$(30);"   + - * /      ? ";K$
+1280 ' get second fraction
+1290 LINE INPUT "2) W.N/D        ? ";B2$
+1300 B$=B2$
+1310 GOSUB 220 ' scan fractional input
+1320 IF NG=0 THEN 1290
+1330 G2$=G$
+1340 T2$=T$
+1350 N2$=N$
+1360 IF G2$="" AND T2$="" THEN G2$=M4$:T2$=M5$:N2$=M6$:GOTO 1400
+1370 M4$=G2$
+1380 M5$=T2$
+1390 M6$=N2$
+1400 G$=""
+1410 T$=""
+1420 N$=""
+1430 ' save first & second fraction
+1440 G(0)=VAL(G1$)
+1450 T(0)=VAL(T1$)
+1460 N(0)=VAL(N1$)
+1470 G(1)=VAL(G2$)
+1480 T(1)=VAL(T2$)
+1490 N(1)=VAL(N2$)
+1500 PRINT
+1510 ' reduce fractions 4/8 = 1/2, 10/5 = 5/1
+1520 TN=T(0)
+1530 NN=N(0)
+1540 GOSUB 50    ' search GCD
+1550 T(0)=T(0)/GCD
+1560 N(0)=N(0)/GCD  ' reduce
+1570 TN=T(1)
+1580 NN=N(1)
+1590 GOSUB 50    ' search GCD
+1600 T(1)=T(1)/GCD
+1610 N(1)=N(1)/GCD  ' reduce
+1620 ' numerator > denominator 7 8/5 = 8 3/5
+1630 IF T(0)>N(0) THEN G(0)=G(0)+INT(T(0)/N(0)):T(0)=T(0)-INT(T(0)/N(0))*N(0)
+1640 IF T(1)>N(1) THEN G(1)=G(1)+INT(T(1)/N(1)):T(1)=T(1)-INT(T(1)/N(1))*N(1)
+1650 ' 3 3/3 = 4
+1660 IF T(0)=N(0) THEN G(0)=G(0)+1:T(0)=0:N(0)=1
+1670 IF T(1)=N(1) THEN G(1)=G(1)+1:T(1)=0:N(1)=1
+1680 ' T1 = 2 + 8 * 5 = 42   8 2/5
+1690 ' T2 = 1 + 3 * 4 = 13   3 1/4
+1700 T1=T(0)+G(0)*N(0)
+1710 T2=T(1)+G(1)*N(1)
+1720 ' if zero go module 1 + -
+1730 IF G(1)=0 AND T(1)=0 AND C=1 THEN G(2)=0:N(2)=1:COLOR 14,0:GOTO 5890
+1740 ' select * / + -
+1750 ON C GOTO 1770,1860,2900,4260
+1760 ' start multiplication solving
+1770 COLOR 14,0
+1780 TN=T1*T2         ' TN = 42 * 13 = 546
+1790 NN=N(0)*N(1)     ' NN =  5 *  4 = 20
+1800 GOSUB 180        ' get final answer
+1810 IF B=1 THEN 1940 ' go display final answer
+1820 GOSUB 2120       ' analyse *
+1830 ' modules 1, 2, 3, 4 * /   module 1 + -
+1840 ON V GOTO 8110,8300,8490,8680,5890
+1850 ' start division solving
+1860 COLOR 15,0
+1870 IF G(1)=0 AND N(1)=1 THEN PRINT "Division by zero":GOTO 880
+1880 TN=T1*N(1)       ' TN = 42 *  4 = 168
+1890 NN=N(0)*T2       ' NN =  5 * 13 = 65
+1900 GOSUB 180        ' get final answer
+1910 IF B=1 THEN 1940 ' go display final answer
+1920 GOTO 1820        ' analyse /
+1930 ' final results only
+1940 G(2)=G(8)
+1950 T(2)=T(8)
+1960 N(2)=N(8)
+1970 GOTO 5890
+1980 ' search for GCD
+1990 M=TN
+2000 N=NN
+2010 WHILE M
+2020 N=N-M*INT(N/M)
+2030 SWAP M,N
+2040 WEND
+2050 GCD=N
+2060 RETURN
+2070 ' scan operation * / + -
+2080 IF K$="*" THEN C=1 ELSE IF K$="/" THEN C=2
+2090 IF K$="+" THEN C=3 ELSE IF K$="-" THEN C=4
+2100 RETURN
+2110 ' analyse if the * or / problem is of the V=1,2,3,4 or 5 form
+2120 IF C=1 THEN 2140 ELSE 2200
+2130 ' multiplication
+2140 T(2)=G(0)*N(0)+T(0)
+2150 T(3)=G(1)*N(1)+T(1)
+2160 N(3)=N(1)
+2170 N(2)=N(0)
+2180 GOTO 2260
+2190 ' division
+2200 T(2)=G(0)*N(0)+T(0)
+2210 N(3)=G(1)*N(1)+T(1)
+2220 T(3)=N(1)
+2230 N(2)=N(0)
+2240 GOTO 2260
+2250 ' process * / problem
+2260 TN=T(2)
+2270 NN=N(3)
+2280 GOSUB 50 ' search GCD
+2290 GCD1=GCD
+2300 TN=T(3)
+2310 NN=N(2)
+2320 GOSUB 50 ' search GCD
+2330 GCD2=GCD
+2340 IF GCD1=1 AND GCD2=1 THEN 2570
+2350 ' reduce fractions
+2360 T(4)=T(2)/GCD1
+2370 N(5)=N(3)/GCD1
+2380 N(4)=N(2)/GCD2
+2390 T(5)=T(3)/GCD2
+2400 T(6)=T(4)*T(5)
+2410 N(6)=N(4)*N(5)
+2420 IF T(6)<N(6) THEN 2720
+2430 '    10 x 1/2   = 5   1 25/66 x 30 6/13 = 42
+2440 ' 3 5/7 ö 1 6/7 = 2   6 4/11  ö 10/11   = 7
+2450 IF N(6)=1 THEN 2460 ELSE 2510
+2460 G(7)=T(6)
+2470 V=4
+2480 RETURN
+2490 ' 12 2/45 x 7 3/8 = 88 149/180
+2500 ' 2 3/26  ö 1 5/6 = 1 2/13     3/4 ö 5/8 = 1 1/5   
+2510 G(7)=INT(T(6)/N(6))
+2520 T(7)=T(6)-G(7)*N(6)
+2530 N(7)=N(6)
+2540 V=4
+2550 RETURN
+2560 ' can not reduce fractions
+2570 T(4)=T(2)*T(3)
+2580 N(4)=N(2)*N(3)
+2590 ' 2 x 1/5 = 2/5   3/4 ö 2 = 3/8
+2600 IF T(0)=T(2) AND N(0)=N(2) AND T(1)=T(3) AND N(1)=N(3) THEN 2850
+2610 IF T(4)<N(4) THEN 2620 ELSE 2660
+2620 V=1
+2630 RETURN
+2640 ' 3 x 2 = 3/1 x 2/1 = 6/1 = 6   5 7/9 x 6 8/11 = 38 86/99
+2650 ' 999 ö 6 1/2 = 153 9/13        7 3/4 ö 2 1/3 = 3 9/28
+2660 G(5)=INT(T(4)/N(4))
+2670 T(5)=T(4)-G(5)*N(4)
+2680 N(5)=N(4)
+2690 V=2
+2700 RETURN
+2710 ' 4 1/2 ö 45 = 1/10   2 4/9 ö 3 2/3 = 2/3
+2720 IF T(0)=T(2) AND N(0)=N(2) AND T(1)=T(3) AND N(1)=N(3) THEN 2760
+2730 V=3
+2740 RETURN
+2750 ' 2/5 x 7/24 = 1/5 x 7/12 = 7/60   2/5 x 3/4 = 1/5 x 3/2 = 3/10
+2760 T(2)=T(4)
+2770 T(3)=T(5)
+2780 T(4)=T(6)
+2790 N(2)=N(4)
+2800 N(3)=N(5)
+2810 N(4)=N(6)
+2820 V=1
+2830 RETURN
+2840 ' 7/8 x 3/4 = 21/32  2/5 x 1/19 = 2/95
+2850 T(2)=T(4)
+2860 N(2)=N(4)
+2870 V=5
+2880 RETURN
+2890 ' start addition solving
+2900 COLOR 11,0
+2910 TN=T1*N(1)+T2*N(0) ' TN = 42 * 4 + 13 * 5 = 233
+2920 NN=N(0)*N(1)       ' NN = 5 * 4 = 20
+2930 GOSUB 180          ' get final answer
+2940 IF B=1 THEN 1940   ' go display final answer
+2950 GOSUB 70           ' analyse +
+2960 ' modules 1, 2, 3, 4, 5 + -   module 8 +
+2970 ON V GOTO 5890,6080,6260,6440,6620,880,880,7160
+2980 ' analyse if the + problem is of the V=1,2,3,4,5 or 8 form
+2990 IF T(0)=0 OR T(1)=0 THEN 3500
+3000 IF N(0)=N(1) AND T(0)+T(1)<N(0) THEN 3500
+3010 IF N(0)=N(1) AND T(0)+T(1)=N(0) THEN 3660
+3020 IF N(0)=N(1) AND T(0)+T(1)>N(0) THEN 3760
+3030 ' 17 1/6 + 4 1/3 = 17 1/6 + 4 2/6 = 21 3/6 = 21 1/2
+3040 TN=N(0)
+3050 NN=N(1)
+3060 GOSUB 50 ' search GCD
+3070 G(2)=G(0)
+3080 G(3)=G(1)
+3090 G(4)=G(2)+G(3)
+3100 LCM=N(0)/GCD*N(1)
+3110 T(2)=LCM/N(0)*T(0)
+3120 T(3)=LCM/N(1)*T(1)
+3130 T(4)=T(2)+T(3)
+3140 N(2)=LCM 
+3150 N(3)=N(2)
+3160 N(4)=N(3)
+3170 TN=T(4)
+3180 NN=N(4)
+3190 GOSUB 50 ' search GCD
+3200 IF GCD<>1 AND T(4)<N(4) THEN 3210 ELSE 3280
+3210 G(5)=G(4)
+3220 T(5)=T(4)/GCD
+3230 N(5)=N(4)/GCD
+3240 V=5
+3250 RETURN
+3260 ' 5 3/4 + 5 1/8 = 5 6/8  + 5 1/8  = 10 7/8
+3270 ' 8 2/5 + 3 1/4 = 8 8/20 + 3 5/20 = 11 13/20
+3280 IF T(4)<N(4) THEN 3290 ELSE 3330
+3290 V=4
+3300 RETURN
+3310 '  2 2/3 + 7 3/4 = 2 8/12 + 7 9/12 = 9 17/12 = 10 5/12
+3320 ' 14 2/3 + 2 5/6 = 14 4/6 + 2 5/6  = 16 9/6  = 17 3/6 = 17 1/2
+3330 G(5)=G(4)+INT(T(4)/N(4))
+3340 T(5)=T(4)-(INT(T(4)/N(4))*N(4))
+3350 N(5)=N(4)
+3360 TN=T(5)
+3370 NN=N(5)
+3380 GOSUB 50 ' search GCD
+3390 IF GCD<>1 THEN 3420
+3400 V=5
+3410 RETURN
+3420 G(6)=G(5)
+3430 T(6)=T(5)/GCD
+3440 N(6)=N(5)/GCD
+3450 V=8
+3460 RETURN
+3470 ' 5 + 1 1/2 = 6 1/2   6 3/7 + 2 2/7 = 8 5/7   6 3/7 + 2 = 8 3/7
+3480 '   1/78 + 3 7/78 =  3 8/78 =  3 4/49
+3490 ' 7 1/78 + 3 7/78 = 10 8/78 = 10 4/39
+3500 IF N(0)<N(1) THEN N(2)=N(1) ELSE N(2)=N(0)
+3510 IF N(0)=N(1) THEN N(2)=N(0)
+3520 G(2)=G(0)+G(1)
+3530 T(2)=T(0)+T(1)
+3540 TN=T(2)
+3550 NN=N(2)
+3560 GOSUB 50 ' search GCD
+3570 IF GCD<>1 THEN 3600
+3580 V=1
+3590 RETURN
+3600 G(3)=G(2)
+3610 T(3)=T(2)/GCD
+3620 N(3)=N(2)/GCD
+3630 V=2
+3640 RETURN
+3650 ' 7/9 + 2/9 = 9/9 = 1   3 1/2 + 2 1/2 = 5 2/2 = 6
+3660 G(2)=G(0)+G(1)
+3670 G(3)=G(2)+1
+3680 T(2)=T(0)+T(1)
+3690 T(3)=0
+3700 N(2)=N(1)
+3710 N(3)=1
+3720 V=2
+3730 RETURN
+3740 '    7/8 + 5/8    = 12/8    = 3/2   = 1 1/2
+3750 ' 99/152 + 99/152 = 198/152 = 99/76 = 1 23/76
+3760 G(2)=0
+3770 G(3)=0
+3780 IF G(0)=0 AND G(1)=0 THEN 3790 ELSE 3920
+3790 T(2)=T(0)+T(1)
+3800 N(2)=N(1)
+3810 TN=T(2)
+3820 NN=N(2)
+3830 GOSUB 50 ' search GCD
+3840 T(3)=T(2)/GCD
+3850 N(3)=N(2)/GCD  ' reduce
+3860 G(4)=INT(T(3)/N(3))
+3870 T(4)=T(3)-(G(4)*N(3))
+3880 N(4)=N(3)
+3890 V=3
+3900 RETURN
+3910 ' 7 7/11 + 8 8/11 = 15 15/11 = 16 4/11
+3920 G(2)=G(0)+G(1)
+3930 T(2)=T(0)+T(1)
+3940 N(2)=N(1)
+3950 TN=T(2)
+3960 NN=N(2)
+3970 GOSUB 50 ' search GCD
+3980 IF GCD<>1 THEN 4170
+3990 G(3)=G(2)+INT(T(2)/N(2))
+4000 T(3)=T(2)-(INT(T(2)/N(2))*N(2))
+4010 N(3)=N(2)
+4020 TN=T(3)
+4030 NN=N(3)
+4040 GOSUB 50 ' search GCD
+4050 IF GCD=1 THEN 4060 ELSE 4110
+4060 T(4)=0
+4070 N(4)=0
+4080 V=2
+4090 RETURN
+4100 '
+4110 G(4)=G(3)
+4120 T(4)=T(3)/GCD
+4130 N(4)=N(3)/GCD ' reduce
+4140 V=3
+4150 RETURN
+4160 ' 2 5/6 + 4 5/6 = 6 10/6 = 6 5/3 = 7 2/3
+4170 G(3)=G(2)
+4180 T(3)=T(2)/GCD
+4190 N(3)=N(2)/GCD ' reduce
+4200 G(4)=G(3)+INT(T(3)/N(3))
+4210 T(4)=T(3)-(INT(T(3)/N(3))*N(3))
+4220 N(4)=N(3)
+4230 V=3
+4240 RETURN
+4250 ' start subtraction solving
+4260 COLOR 10,0
+4270 T1=T(0)+G(0)*N(0)
+4280 T2=T(1)+G(1)*N(1)
+4290 TN=T1*N(1)-T2*N(0)
+4300 IF TN<0 THEN 4430  ' go swap
+4310 ' 3 1/2 - 3 1/2 = 0
+4320 IF TN=0 THEN G(2)=0:T(2)=0:N(2)=1:GOTO 5890
+4330 T1=T(0)+G(0)*N(0)  ' T1 = 2 + 8 * 5 = 42   8 2/5
+4340 T2=T(1)+G(1)*N(1)  ' T2 = 1 + 3 * 4 = 13   3 1/4
+4350 TN=T1*N(1)-T2*N(0) ' TN = 42 * 4 - 13 * 5 = 103
+4360 NN=N(0)*N(1)       ' NN = 5 * 4 = 20
+4370 GOSUB 180          ' get final answer
+4380 IF B=1 THEN 1940   ' go display final answer
+4390 GOSUB 80           ' analyse -
+4400 ' modules 1, 2, 3, 4, 5 + -   modules 6, 7 -
+4410 ON V GOTO 5890,6080,6260,6440,6620,6800,6980
+4420 ' change if subtraction is negative
+4430 SWAP M1$,M4$
+4440 SWAP G(0),G(1)
+4450 SWAP M2$,M5$
+4460 SWAP T(0),T(1)
+4470 SWAP M3$,M6$
+4480 SWAP N(0),N(1)
+4490 GOTO 4320
+4500 ' analyse if the - problem is of the V=1,2,3,4,5,6 or 7 form
+4510 IF N(0)=N(1) AND T(0)>T(1) THEN 5560
+4520 IF T(0)=T(1) AND N(0)=N(1) THEN 5740
+4530 IF N(0)=N(1) AND T(0)<T(1) THEN 5070
+4540 ' 10 1/2 - 2 = 8 1/2
+4550 IF T(1)=0 THEN 4560 ELSE 4620
+4560 G(2)=G(0)-G(1)
+4570 T(2)=T(0)
+4580 N(2)=N(0)
+4590 V=1
+4600 RETURN
+4610 ' 
+4620 IF T(0)=0 THEN 5290
+4630 IF G(0)=0 AND G(1)=0 THEN V=4
+4640 TN=N(0)
+4650 NN=N(1)
+4660 GOSUB 50 ' search GCD
+4670 LCM=N(0)/GCD*N(1)
+4680 G(2)=G(0)
+4690 T(2)=LCM/N(0)*T(0)
+4700 N(2)=LCM
+4710 G(3)=G(1)
+4720 T(3)=LCM/N(1)*T(1)
+4730 N(3)=N(2)
+4740 G(4)=G(2)-G(3)              
+4750 N(4)=N(3)
+4760 IF T(2)>T(3) THEN T(4)=T(2)-T(3):TN=T(4):NN=N(4):GOTO 5480
+4770 IF V=3 AND T(2)>T(3) THEN T(4)=T(2)-T(3):GOTO 5410
+4780 '  5 3/4 - 1 7/8 = 5 6/8 - 1 7/8 = 4 14/8 - 1 7/8 = 3 7/8
+4790 G(4)=G(2)-1
+4800 T(4)=T(2)+N(2)
+4810 G(5)=G(3)
+4820 T(5)=T(3)
+4830 N(5)=N(4)
+4840 G(6)=G(4)-G(5)
+4850 T(6)=T(4)-T(5)
+4860 N(6)=N(5)
+4870 TN=T(6)
+4880 NN=N(6)
+4890 GOSUB 50 ' search GCD
+4900 IF GCD=1 AND T(6)<N(6) THEN 4910 ELSE 4950
+4910 V=6
+4920 RETURN
+4930 ' 6 7/8 - 2 1/4 = 6 7/8 - 2 2/8 = 4 5/8
+4940 '   1/4 -   1/5 =  5/20 -  4/20 = 1/20
+4950 IF GCD=1 AND T(6)>N(6) THEN 4960 ELSE 5010
+4960 G(4)=G(2)-G(3)
+4970 T(4)=T(2)-T(3)
+4980 V=4
+4990 RETURN
+5000 ' 6 3/4 - 2 11/12 = 6 9/12 - 2 11/12 = 5 21/12 - 2 11/12 = 3 10/12 = 3 5/6
+5010 G(7)=G(6)
+5020 T(7)=T(6)/GCD
+5030 N(7)=N(6)/GCD ' reduce
+5040 V=7
+5050 RETURN
+5060 ' 8 1/3 - 4 2/3 = 7 4/3 - 4 2/3 = 3 2/3
+5070 G(2)=G(0)-1
+5080 T(2)=T(0)+N(0)
+5090 N(2)=N(0)
+5100 G(3)=G(1)
+5110 T(3)=T(1)
+5120 N(3)=N(1)
+5130 G(4)=G(2)-G(3)
+5140 T(4)=T(2)-T(3)
+5150 N(4)=N(3)
+5160 TN=T(4)
+5170 NN=N(4)
+5180 GOSUB 50 ' search GCD
+5190 IF GCD=1 THEN 5200 ELSE 5230
+5200 V=4
+5210 RETURN
+5220 ' 4 1/8 - 5/8 = 3 9/8 - 5/8 = 3 4/8 = 3 1/2
+5230 G(5)=G(4)
+5240 T(5)=T(4)/GCD
+5250 N(5)=N(4)/GCD ' reduce
+5260 V=5
+5270 RETURN
+5280 ' 100 - 20 1/3 = 99 3/3 - 20 1/3 = 79 2/3
+5290 G(2)=G(0)-1
+5300 T(2)=N(1)
+5310 N(2)=T(2)
+5320 G(3)=G(1)
+5330 T(3)=T(1)
+5340 N(3)=N(2)
+5350 G(4)=G(2)-G(3)
+5360 T(4)=T(2)-T(3)
+5370 N(4)=N(3)
+5380 V=4
+5390 RETURN
+5400 '
+5410 TN=T(4)
+5420 NN=N(4)
+5430 GOSUB 50 ' search GCD
+5440 IF GCD=1 THEN 5450 ELSE 5480
+5450 V=3
+5460 RETURN
+5470 ' 7 5/18 - 5 1/9 = 7 5/18 - 5 2/18 = 2 3/18 = 2 1/6
+5480 GOSUB 50 ' search GCD
+5490 IF GCD=1 THEN 4770
+5500 T(5)=T(4)/GCD
+5510 N(5)=N(4)/GCD
+5520 G(5)=G(4)
+5530 V=5
+5540 RETURN
+5550 ' 6 3/7 - 4 2/7 = 2 1/7
+5560 G(2)=G(0)-G(1)
+5570 T(2)=T(0)-T(1)
+5580 N(2)=N(1)
+5590 TN=T(2)
+5600 NN=N(2)
+5610 GOSUB 50 ' search GCD
+5620 IF GCD=1 THEN 5630 ELSE 5660
+5630 V=1
+5640 RETURN
+5650 ' 7 3/10 - 4 1/10 = 3 2/10 = 3 1/5
+5660 G(3)=G(2)
+5670 T(3)=T(2)/GCD
+5680 N(3)=N(2)/GCD ' reduce
+5690 G(4)=0
+5700 T(4)=0
+5710 V=2
+5720 RETURN
+5730 ' 10 1/2 - 2 1/2 = 8
+5740 G(2)=G(0)-G(1)
+5750 T(2)=0
+5760 N(2)=1
+5770 V=1
+5780 RETURN
+5790 ' wait for key pressed
+5800 PRINT
+5810 PRINT "Press any key to continue ..."
+5820 LSET Q=MKI$(0)
+5830 WHILE CVI(Q)=0
+5840 MID$(Q,1)=INKEY$
+5850 WEND
+5860 F=ASC(Q)
+5870 RETURN
+5880 ' module 1 + -
+5890 IF G(1)=0 AND T(1)=0 AND N(1)=1 THEN SW=1
+5900 D=2
+5910 GOSUB 110 ' calculate length and exact position
+5920 GOSUB 120     ' print numerators + -
+5930 FOR X=0 TO D
+5940  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 5960
+5950  IF G(X)=0 THEN 5980
+5960  PRINT G(X);
+5970 IF COPY THEN PRINT #1, G(X);
+5980  IF T(X)=0 OR N(X)=1 THEN 6020
+5990  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6000  L=LF(X)
+6010  GOSUB 150    ' draw fraction lines
+6020  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6030  IF X=1 THEN PRINT " =";: IF COPY THEN PRINT #1, " =";
+6040 NEXT
+6050 GOSUB 130     ' print denominators + -
+6060 GOTO 880
+6070 ' module 2 + -
+6080 D=3
+6090 GOSUB 110
+6100 GOSUB 120
+6110 FOR X=0 TO D
+6120  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 6140
+6130  IF G(X)=0 THEN 6160
+6140  PRINT G(X);
+6150 IF COPY THEN PRINT #1, G(X);
+6160  IF T(X)=0 OR N(X)=1 THEN 6200
+6170  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6180  L=LF(X)
+6190  GOSUB 150
+6200  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6210  IF X=1 OR X=2 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+6220 NEXT
+6230 GOSUB 130
+6240 GOTO 880
+6250 ' module 3 +
+6260 D=4
+6270 GOSUB 110
+6280 GOSUB 120
+6290 FOR X=0 TO D
+6300  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 6320
+6310  IF G(X)=0 THEN 6340
+6320  PRINT G(X);
+6330 IF COPY THEN PRINT #1, G(X);
+6340  IF T(X)=0 OR N(X)=1 THEN 6380
+6350  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6360  L=LF(X)
+6370  GOSUB 150
+6380  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6390  IF X=1 OR X=2 OR X=3 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+6400 NEXT
+6410 GOSUB 130
+6420 GOTO 880
+6430 ' module 4 + -
+6440 D=4
+6450 GOSUB 110
+6460 GOSUB 120
+6470 FOR X=0 TO D
+6480  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 6500
+6490  IF G(X)=0 THEN 6520
+6500  PRINT G(X);
+6510 IF COPY THEN PRINT #1, G(X);
+6520  IF T(X)=0 OR N(X)=1 THEN 6560
+6530  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6540  L=LF(X)
+6550  GOSUB 150
+6560  IF X=0 OR X=2 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6570  IF X=1 OR X=3 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+6580 NEXT
+6590 GOSUB 130
+6600 GOTO 880
+6610 ' module 5 + -
+6620 D=5
+6630 GOSUB 110
+6640 GOSUB 120
+6650 FOR X=0 TO D
+6660  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 6680
+6670  IF G(X)=0 THEN 6700
+6680  PRINT G(X);
+6690 IF COPY THEN PRINT #1, G(X);
+6700  IF T(X)=0 OR N(X)=1 THEN 6740
+6710  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6720  L=LF(X)
+6730  GOSUB 150
+6740  IF X=0 OR X=2 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6750  IF X=1 OR X=3 OR X=4 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+6760 NEXT
+6770 GOSUB 130
+6780 GOTO 880
+6790 ' module 6 -
+6800 D=6
+6810 GOSUB 110
+6820 GOSUB 120
+6830 FOR X=0 TO D
+6840  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 6860
+6850  IF G(X)=0 THEN 6880
+6860  PRINT G(X);
+6870 IF COPY THEN PRINT #1, G(X);
+6880  IF T(X)=0 OR N(X)=1 THEN 6920
+6890  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+6900  L=LF(X)
+6910  GOSUB 150
+6920  IF X=0 OR X=2 OR X=4 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+6930  IF X=1 OR X=3 OR X=5 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+6940 NEXT
+6950 GOSUB 130
+6960 GOTO 880
+6970 ' module 7 -
+6980 D=7
+6990 GOSUB 110
+7000 GOSUB 120
+7010 FOR X=0 TO D
+7020  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 7040
+7030  IF G(X)=0 THEN 7060
+7040  PRINT G(X);
+7050 IF COPY THEN PRINT #1, G(X);
+7060  IF T(X)=0 OR N(X)=1 THEN 7100
+7070  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+7080  L=LF(X)
+7090  GOSUB 150
+7100  IF X=0 OR X=2 OR X=4 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+7110  IF X=1 OR X=3 OR X=5 OR X=6 THEN PRINT" =";:IF COPY THEN PRINT #1, " =";
+7120 NEXT
+7130 GOSUB 130
+7140 GOTO 880
+7150 ' module 8 +
+7160 D=6
+7170 GOSUB 110
+7180 GOSUB 120
+7190 FOR X=0 TO D
+7200  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 7220
+7210  IF G(X)=0 THEN 7240
+7220  PRINT G(X);
+7230 IF COPY THEN PRINT #1, G(X);
+7240  IF T(X)=0 OR N(X)=1 THEN 7280
+7250  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+7260  L=LF(X)
+7270  GOSUB 150
+7280  IF X=0 OR X=2 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+7290  IF X=1 OR X=3 OR X=4 OR X=5 THEN PRINT" =";:IF COPY THEN PRINT #1, " =";
+7300 NEXT
+7310 GOSUB 130
+7320 GOTO 880
+7330 ' calculate length of numerators
+7340 FOR X=0 TO D
+7350  Z=T(X)
+7360  GOSUB 140 ' count digits
+7370  LT(X)=L
+7380 NEXT
+7390 ' calculate length of denominators
+7400 FOR X=0 TO D
+7410  Z=N(X)
+7420  GOSUB 140 ' count digits
+7430  LN(X)=L
+7440 NEXT
+7450 ' calculate length of whole numbers and space of one fraction
+7460 FOR X=0 TO D  ' numerator > denominator ?
+7470  IF LT(X)>LN(X) THEN LF(X)=LT(X) ELSE LF(X)=LN(X)
+7480 NEXT
+7490 FOR X=0 TO D
+7500  Z=G(X)
+7510  GOSUB 140 ' count digits
+7520  LG(X)=L
+7530  IF G(X)=0 THEN LB(X)=LF(X):GOTO 7560
+7540  LB(X)=LG(X)+LF(X)+1
+7550  IF N(X)=1 THEN LB(X)=LB(X)-1
+7560 NEXT
+7570 ' calculate exact positions of the numerators
+7580 B(0)=LB(0)-LT(0)
+7590 B(1)=LB(0)+LB(1)-LT(1)+3
+7600 B(2)=LB(0)+LB(1)+LB(2)-LT(2)+6        ' module 1
+7610 B(3)=LB(0)+LB(1)+LB(2)+LB(3)-LT(3)+9  ' module 2
+7620 B(4)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)-LT(4)+12       ' module 3 + 4
+7630 B(5)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)-LT(5)+15 ' module 5
+7640 B(6)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)+LB(6)-LT(6)+18       ' module 6 + 8
+7650 B(7)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)+LB(6)+LB(7)-LT(7)+21 ' module 7
+7660 ' calculate exact positions of the denominators
+7670 O(0)=LB(0)-LN(0)
+7680 O(1)=LB(0)+LB(1)-LN(1)+3
+7690 O(2)=LB(0)+LB(1)+LB(2)-LN(2)+6        ' module 1
+7700 O(3)=LB(0)+LB(1)+LB(2)+LB(3)-LN(3)+9  ' module 2
+7710 O(4)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)-LN(4)+12       ' module 3 + 4
+7720 O(5)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)-LN(5)+15 ' module 5
+7730 O(6)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)+LB(6)-LN(6)+18       ' module 6 + 8
+7740 O(7)=LB(0)+LB(1)+LB(2)+LB(3)+LB(4)+LB(5)+LB(6)+LB(7)-LN(7)+21 ' module 7
+7750 ' 10 3/4 + - 0 = 10 3/4
+7760 IF SW=1 THEN B(2)=B(2)+1:O(2)=O(2)+1:SW=0
+7770 RETURN
+7780 ' print numerators + -
+7790 FOR X=0 TO D
+7800  IF C=1 AND V=4 AND T(X)>0 THEN 7820
+7810  IF T(X)=0 OR N(X)=1 THEN 7840
+7820  PRINT TAB(B(X)+1)T(X);
+7830 IF COPY THEN PRINT #1, TAB(B(X)+1)T(X);
+7840 NEXT
+7850 PRINT
+7860 IF COPY THEN PRINT #1, "" 
+7870 RETURN
+7880 ' print denominators + -
+7890 PRINT
+7900 IF COPY THEN PRINT #1, ""
+7910 FOR X=0 TO D
+7920  IF C=1 AND V=4 AND T(X)>0 THEN 7940
+7930  IF N(X)=1 THEN 7960
+7940  PRINT TAB(O(X)+1)N(X);
+7950 IF COPY THEN PRINT #1, TAB(O(X)+1)N(X);
+7960 NEXT
+7970 PRINT
+7980 PRINT
+7990 IF COPY THEN PRINT #1, :PRINT #1, ""
+8000 RETURN
+8010 ' count the digits of the number
+8020 L=1
+8030 E=INT(Z/10)
+8040 IF E<>0 THEN L=L+1:Z=E:GOTO 8030 ELSE RETURN
+8050 ' draw lines as big as the fraction is
+8060 PRINT TAB(P+2)"";
+8070 PRINT STRING$(L,"Ä");
+8080 IF COPY THEN PRINT #1, TAB(P+2)"";:PRINT #1, STRING$(L,"-");
+8090 RETURN
+8100 ' module 1 * /
+8110 D=4
+8120 GOSUB 110 ' calculate length and exact position
+8130 GOSUB 160     ' print numerators * /
+8140 FOR X=0 TO D
+8150  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 8170
+8160  IF G(X)=0 THEN 8190
+8170  PRINT G(X);
+8180 IF COPY THEN PRINT #1, G(X);
+8190  IF T(X)=0 THEN 8230
+8200  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+8210  L=LF(X)
+8220  GOSUB 150    ' draw fraction lines
+8230  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+8240  IF X=1 OR X=3 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+8250  IF X=2 THEN PRINT O$(1);:IF COPY THEN PRINT #1, O$(1);
+8260 NEXT
+8270 GOSUB 170     ' print denominators * /
+8280 GOTO 880
+8290 ' module 2 * /
+8300 D=5
+8310 GOSUB 110
+8320 GOSUB 160
+8330 FOR X=0 TO D
+8340  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 8360
+8350  IF G(X)=0 THEN 8380
+8360  PRINT G(X);
+8370 IF COPY THEN PRINT #1, G(X);
+8380  IF T(X)=0 THEN 8420
+8390  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+8400  L=LF(X)
+8410  GOSUB 150
+8420  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+8430  IF X=2 THEN PRINT O$(1);:IF COPY THEN PRINT #1, O$(1);
+8440  IF X=1 OR X=3 OR X=4 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+8450 NEXT
+8460 GOSUB 170
+8470 GOTO 880
+8480 ' module 3 * /
+8490 D=6
+8500 GOSUB 110
+8510 GOSUB 160
+8520 FOR X=0 TO D
+8530  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 8550
+8540  IF G(X)=0 THEN 8570
+8550  PRINT G(X);
+8560 IF COPY THEN PRINT #1, G(X);
+8570  IF T(X)=0 THEN 8610
+8580  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+8590  L=LF(X)
+8600  GOSUB 150
+8610  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+8620  IF X=2 OR X=4 THEN PRINT O$(1);:IF COPY THEN PRINT #1, O$(1);
+8630  IF X=1 OR X=3 OR X=5 THEN PRINT " =";:IF COPY THEN PRINT #1, " =";
+8640 NEXT
+8650 GOSUB 170
+8660 GOTO 880
+8670 ' module 4 * /
+8680 D=7
+8690 GOSUB 110
+8700 GOSUB 160
+8710 FOR X=0 TO D
+8720  IF G(X)=0 AND T(X)=0 AND N(X)=1 THEN 8740
+8730  IF G(X)=0 THEN 8760
+8740  PRINT G(X);
+8750 IF COPY THEN PRINT #1, G(X);
+8760  IF T(X)=0 THEN 8800
+8770  IF LT(X)>LN(X) THEN P=B(X) ELSE P=O(X)
+8780  L=LF(X)
+8790  GOSUB 150
+8800  IF X=0 THEN PRINT O$(C);:IF COPY THEN PRINT #1, O$(C);
+8810  IF X=2 OR X=4 THEN PRINT O$(1);:IF COPY THEN PRINT #1, O$(1);
+8820  IF X=1 OR X=3 OR X=5 OR X=6 THEN PRINT" =";:IF COPY THEN PRINT #1, " =";
+8830 NEXT
+8840 GOSUB 170
+8850 GOTO 880
+8860 ' print numerators * /
+8870 FOR X=0 TO D
+8880  IF T(X)=0 THEN 8910
+8890  PRINT TAB(B(X)+1)T(X);
+8900 IF COPY THEN PRINT #1, TAB(B(X)+1)T(X);
+8910 NEXT
+8920 PRINT
+8930 IF COPY THEN PRINT #1, ""
+8940 RETURN
+8950 ' print denominators * /
+8960 PRINT
+8970 IF COPY THEN PRINT #1, ""
+8980 FOR X=0 TO D
+8990  IF T(X)=0 THEN 9020
+9000  PRINT TAB(O(X)+1)N(X);
+9010 IF COPY THEN PRINT #1, TAB(O(X)+1)N(X);
+9020 NEXT
+9030 PRINT
+9040 PRINT
+9050 IF COPY THEN PRINT #1, "":PRINT #1, ""
+9060 RETURN
+9070 ' solve fraction problem
+9080 IF NN=TN THEN G(8)=1 :N(8)=1:RETURN
+9090 IF TN=0  THEN G(8)=0 :N(8)=1:RETURN
+9100 IF NN=1  THEN G(8)=TN:N(8)=1:RETURN
+9110 IF TN/NN=INT(TN/NN) THEN G(8)=TN/NN:N(8)=1:RETURN
+9120 GOSUB 50 ' search GCD
+9130 TN=TN/GCD
+9140 NN=NN/GCD ' reduce
+9150 G(8)=INT(TN/NN)
+9160 T(8)=TN-G(8)*NN
+9170 N(8)=NN
+9180 RETURN
+9190 ' help info
+9200 PRINT"THIS PROGRAM SHOWS YOU THE COMPLETE SOLUTION OF FRACTIONS"
+9210 PRINT"If you don't need a diskfile, type <N/n> or press <Enter>"
+9220 PRINT
+9230 PRINT"1) W.N/D ? 8.2/5  or press <Enter> "
+9240 PRINT"+ - * /  ? +      or press <Enter> "
+9250 PRINT"2) W.N/D ? 3.1/4  or press <Enter> "
+9260 PRINT
+9270 PRINT"By pressing 3 times <Enter> you will automatically get"
+9280 PRINT
+9290 PRINT"                    2         1"
+9300 PRINT"the solution of  8 ÄÄÄ  +  3 ÄÄÄ  ?"
+9310 PRINT"                    5         4"
+9320 PRINT
+9330 GOSUB 90
+9340 CLS ' wait key
+9350 PRINT "   2         1"
+9360 PRINT "8 ÄÄÄ  -  3 ÄÄÄ  = ?    press <Enter> - <Enter>"
+9370 PRINT "   5         4"
+9380 PRINT
+9390 PRINT"1) W.N/D ? <Enter>
+9400 PRINT"+ - * /  ? -
+9410 PRINT"2) W.N/D ? <Enter>"
+9420 PRINT
+9430 PRINT "To see the product  press <Enter> * <Enter>"
+9440 PRINT
+9450 PRINT"1) W.N/D ? <Enter>
+9460 PRINT"+ - * /  ? *
+9470 PRINT"2) W.N/D ? <Enter>"
+9480  PRINT
+9490 PRINT "To see the quotient press <Enter> / <Enter>"
+9500 PRINT
+9510 PRINT"1) W.N/D ? <Enter>
+9520 PRINT"+ - * /  ? /
+9530 PRINT"2) W.N/D ? <Enter>"
+9540 PRINT
+9550 GOSUB 90
+9560 CLS ' wait key
+9570 PRINT"W = Whole integer number"
+9580 PRINT". = To separate number from the fraction"
+9590 PRINT"N = Numerator"
+9600 PRINT"/ = Fraction bar"
+9610 PRINT"D = Denominator"
+9620 PRINT
+9630 PRINT"    7"
+9640 PRINT"12 ÄÄÄ  Enter this as follows: 12.7/8 <Enter> "
+9650 PRINT"    8                            ³"
+9660 PRINT"                                 ³"
+9670 PRINT"Notice the dot . >>ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
+9680 PRINT
+9690 PRINT"    3"
+9700 PRINT"   ÄÄÄ  Enter: .3/4 <Enter> "
+9710 PRINT"    4"
+9720 PRINT
+9730 PRINT
+9740 PRINT"This program memorizes your fractions!"
+9750 PRINT"For quick results just type <Enter> + - * / <Enter>"
+9760 PRINT
+9770 PRINT"Enter a 0 (zero) to return to the menu"
+9780 GOSUB 90
+9790 CLS ' wait key
+9800 PRINT "Enter Repeating Decimals like these examples:"
+9810 PRINT
+9820 PRINT ".(6) .(24) .(09) .(36) .(26) .(142857) .(456) .(3)"
+9830 PRINT
+9840 PRINT ".7(6)  .70(8)  .08(09)  .21(456)  .654(69)  .13(7)"
+9850 PRINT
+9860 PRINT "2.708(3)  7.12(3)  4.23(138)  12.45.(67)  7.05(04)"
+9870 PRINT
+9880 GOSUB 90
+9890 CLS
+9900 RETURN
+9910 ' exit
+9920 IF COPY THEN CLOSE
+9930 KEY 5,"fraction.bas"
+9940 KEY 6,CHR$(34)+",a"
+9950 KEY ON
+9960 CLS
+9970 END
+9980 ' repeating decimal to fraction
+9990 PRINT
+10000 COLOR 7,0
+10010 B=2
+10020 LINE INPUT "Repeating decimal 0 menu ? ";B1$
+10030 IF B1$="0" THEN B1$=M7$:RP=0:CLS:GOTO 690
+10040 IF B1$="" THEN B1$=M7$
+10050 B$=B1$
+10060 GOSUB 200
+10070 IF NG=0 THEN 10020
+10080 RT=LEN(T$)
+10090 RN=LEN(N$)
+10100 M7$=B$
+10110 GOSUB 210 ' clear line
+10120 IF G$="" AND T$=""  THEN 10160
+10130 IF G$="" AND T$<>"" THEN 10280
+10140 GOTO 10310
+10150 ' case 1  .(6) .(23) .(90) .(456) .(142857)
+10160 G1$=N$
+10170 T1$=""
+10180 N1$="1"
+10190 G2$=""
+10200 FOR C=1 TO RL
+10210 G2$=G2$+"9"
+10220 NEXT
+10230 T2$=""
+10240 N2$="1"
+10250 C=2
+10260 GOTO 10490
+10270 ' case 2  .4(5) .70(8) .08(09) .21(456)
+10280 G1$=""
+10290 GOTO 10320
+10300 ' case 3  2.708(3) 7.12(3) 4.23(13) 1.5(20)
+10310 G1$=G$
+10320 Z=1
+10330 FOR C=1 TO RT
+10340 Z=Z*10
+10350 NEXT
+10360 N1$=STR$(Z)
+10370 T1$=T$
+10380 G2$=""
+10390 T2$=N$
+10400 DN$=""
+10410 FOR C=1 TO RN
+10420 DN$=DN$+"9"
+10430 NEXT
+10440 FOR C=1 TO RT
+10450 DN$=DN$+"0"
+10460 NEXT
+10470 N2$=DN$
+10480 C=3
+10490 IF C=3 THEN COLOR 11,0
+10500 IF C=2 THEN COLOR 15,0
+10510 PRINT B$;" = ";
+10520 IF COPY THEN PRINT #1,B$; " = ";
+10530 M1$=G1$
+10540 M2$=T1$
+10550 M3$=N1$
+10560 M4$=G2$
+10570 M5$=T2$
+10580 M6$=N2$
+10590 GOTO 1440
+10600 ' scan repeating decimal input
+10610 L=LEN(B$)
+10620 CD=0
+10630 CL=0
+10640 CR=0
+10650 CN=0
+10660 IF LEFT$(B$,1)="(" OR LEFT$(B$,1)=")" THEN 10880 ' (1234   )654
+10670 IF RIGHT$(B$,1)="." THEN 10880 ' 123.
+10680 FOR I=1 TO L
+10690  Z=ASC(MID$(B$,I,1))
+10700  IF Z=46 THEN CD=CD+1 ' check .
+10710  IF Z=40 THEN CL=CL+1 ' check (
+10720  IF Z=41 THEN CR=CR+1 ' check )
+10730  IF Z>58 THEN CN=CN+1 ' check : to ~
+10740 NEXT
+10750  IF CD=0 OR CD>1 OR CL>1 OR CR>1 OR CN>0 THEN 10880
+10760 FOR I=1 TO L
+10770  IF MID$(B$,I,2)="()" THEN 10880
+10780 NEXT
+10790 FOR I=1 TO L
+10800  IF MID$(B$,I,1)="." THEN G$=MID$(B$,1,I-1):W=I+1
+10810  IF MID$(B$,I,1)="(" THEN T$=MID$(B$,W,I-W):N$=MID$(B$,I+1,L)
+10820 NEXT
+10830  IF RIGHT$ (N$,1)<>")" THEN 10880
+10840  IF RIGHT$ (N$,1)= ")" THEN RL=LEN(N$)-1:N$=LEFT$(N$,RL)
+10850 NG=1
+10860 RETURN
+10870 ' clear line
+10880 NG=0
+10890 PRINT CHR$(30);
+10900 PRINT STRING$(79,32)
+10910 PRINT CHR$(30);
+10920 RETURN
+10930 ' scan fraction input
+10940 L=LEN(B$)
+10950 CD=0
+10960 CL=0
+10970  IF LEFT$(B$,1)="/" OR RIGHT$(B$,1)="/"  THEN 10880 ' /1234 6541/
+10980  IF RIGHT$(B$,1)="0." THEN 10880 ' 0.
+10990  IF RIGHT$(B$,1)="." THEN 10880 ' 123.  .2356/4789
+11000 FOR I=1 TO L
+11010  Z=ASC(MID$(B$,I,1))
+11020  IF Z<46 OR Z>57 THEN 10880 ' <space to -> or <: to þ>
+11030  IF MID$(B$,I,1)="/" THEN 11230 ' /.
+11040  IF MID$(B$,I,1)="." THEN 11290 ' ./
+11050 NEXT
+11060 FOR I=1 TO L
+11070  Z=ASC(MID$(B$,I,1))
+11080  IF Z=46 THEN CD=CD+1:IF CD=0 OR CD>1 THEN 10880 '...
+11090  IF Z=47 THEN CL=CL+1:IF CL=0 OR CL>1 THEN 10880 '///
+11100 NEXT
+11110  IF CL=1 AND CD=0 THEN 10880 ' check 123/789
+11120  IF CD=1 AND CL=0 THEN 10880 ' check .123
+11130 FOR I=1 TO L
+11140  IF MID$(B$,I,1)="." THEN G$=MID$(B$,1,I-1):W=I+1
+11150  IF MID$(B$,I,1)="/" THEN T$=MID$(B$,W,I-W):N$=MID$(B$,I+1,L)
+11160 NEXT
+11170 IF T$="" THEN G$=B$:N$="1"
+11180 IF T$="0" THEN 10880 ' 1.0/7  .0/7
+11190 IF N$="0" THEN 10880 ' .23/0
+11200 NG=1
+11210 RETURN
+11220 ' check /1. /12. /123.45   23/1234.567
+11230 EC=I+1
+11240 FOR I=EC TO L
+11250  IF MID$(B$,I,1)="." THEN 10880
+11260 NEXT
+11270 GOTO 11060
+11280 ' check ./   123./56
+11290 EC=I+1
+11300 IF MID$(B$,I,1)="/" THEN 10880
+11310 GOTO 11060
+11320 ' basic fractions calculations!
+11330 ' 7 1/3  + 1 1/2 = 22/3  +  3/2 =  44/6  +   9/6  =  53/6  = 8  5/6
+11340 ' 3 5/12 - 1 7/8 = 41/12 - 15/8 = 328/96 - 180/96 = 148/96 = 1 13/24
+11350 ' 5 1/3  x 8 2/5 = 16/3  x 42/5 = 672/15  = 44 4/5
+11360 ' 8/15 ö 9 4/5 = 98/15 x 5/49 = 490/735 = 2/3
+

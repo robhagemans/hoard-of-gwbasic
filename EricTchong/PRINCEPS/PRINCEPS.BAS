@@ -1,0 +1,170 @@
+10 ' (C) July 1993 princeps.bas - FREEWARE  2004
+20 GOTO 110 ' begin
+30 SAVE "princeps":LIST-90
+40 GOTO 1040 ' display digits
+50 GOTO 1160 ' print lamp
+60 GOTO 1170 ' print ˛
+70 GOTO 1400 ' display the puzzle
+80 GOTO 1460 ' wait key pressed
+90 GOTO 1500 ' print string$
+100 ' begin
+110 DEFSTR M,Q:Q=MKI$(0)
+120 KEY OFF:COLOR 14,1,1:CLS
+130 ' 1-4
+140 A$(1)=" ‹€  ":B$(1)=" ﬂﬂ€ ":C$(1)=" ﬂﬂ€ ":D$(1)=" ‹ € "
+150 A$(2)="  €  ":B$(2)=" €ﬂﬂ ":C$(2)=" ﬂﬂ€ ":D$(2)=" €‹€ "
+160 A$(3)=" ‹€‹ ":B$(3)=" €‹‹ ":C$(3)=" ‹‹€ ":D$(3)="   € "
+170 ' 5-8
+180 E$(1)=" €ﬂﬂ ":F$(1)=" €ﬂﬂ ":G$(1)=" ﬂﬂ€ ":H$(1)=" €ﬂ€ "
+190 E$(2)=" ﬂﬂ€ ":F$(2)=" €ﬂ€ ":G$(2)="  €  ":H$(2)=" €ﬂ€ "
+200 E$(3)=" ‹‹€ ":F$(3)=" €‹€ ":G$(3)="  €  ":H$(3)=" €‹€ "
+210 ' Lamp
+220 I$(1)=" ‹ﬂ‹ ":I$(2)="€   €":I$(3)="€   €":I$(4)=" ﬂ‹ﬂ "
+230 I$(5)=" €€€ ":J$(1)="     ":J$(2)=J$(1):J$(4)=J$(1)
+240 J$(5)=J$(1):J$(3)="  ﬂ  "
+250 ' Initialize solutions and messages
+260 DIM S(170)
+270 FOR A=1 TO 170:READ B:S(A)=B:NEXT
+280 DIM M(26)
+290 M(1)="The"
+300 M(2)="P R I N C E P S"
+310 M(3)="P U Z Z L E"
+320 M(4)="Assemble the first"
+330 M(5)="all-electronic puzzle"
+340 M(6)="by James W. Cuccia"
+350 M(8)="Spring  Edition"
+360 M(7)="1973 Popular Electronics Experimenter's Handbook"
+370 M(9)="This computer version is designed in GwBasic 3.23"
+380 M(10)="and compiled in PowerBasic 3.2"
+390 M(11)="by Eric F. Tchong - San Nicolas - Aruba"
+400 M(12)="There are eight lights and eight keys <1 to 8>."
+410 M(13)="The point of the Princeps Puzzle then is to get the lights"
+420 M(14)="turned off again by pressing the appropriate keys."
+430 M(15)="It takes 170 pushes of one key or another in the proper sequence"
+440 M(16)="to get all the lights off."
+450 M(17)="The overall logic circuit controls the lamps so"
+460 M(18)="that lamp <1> can be turned on or off at any time."
+470 M(19)="To change the condition of any other lamp,"
+480 M(20)="the lamp immediately preceding the one to be changed must be ON"
+490 M(21)="and all other lamps preceding that one must be OFF."
+500 M(22)="Press <Esc> to quit the puzzle... <any key> to reset..."
+510 M(23)="If you can not solve the puzzle then find the secret key,"
+520 M(24)="so that you can Single Step through the solution."
+530 M(25)="Search this key and enjoy the clear-cut rules of logic."
+540 M(26)="Press any key to continue...":LOCATE 4,1
+550 ' Tell a little story
+560 FOR I=1 TO 11
+570  GOSUB 90:IF I=3 OR I=6 OR I=8 THEN PRINT
+580 NEXT
+590 PRINT:I=26:GOSUB 90:GOSUB 80:CLS:LOCATE 4,1
+600 FOR I=12 TO 21
+610  GOSUB 90:IF I=12 OR I=14 OR I=16 OR I=18 THEN PRINT
+620 NEXT
+630 PRINT:I=26:GOSUB 90:GOSUB 80:CLS:LOCATE 8,1
+640 FOR I=22 TO 26
+650  GOSUB 90:IF I=22 OR I=24 OR I=25 THEN PRINT
+660 NEXT
+670 PRINT:GOSUB 80
+680 ' Display the puzzle
+690 GOSUB 70
+700 ' Get players choice
+710 LOCATE 5,1:PRINT "Choose? "
+720 GOSUB 80
+730 IF F=27 THEN 1650        ' esc
+740 IF F=38 THEN 1280        ' & secret key
+750 IF F=0  THEN 720 ELSE K=VAL(Q):LOCATE 5,8:PRINT K
+760 IF K>8 THEN 720
+770 IF K<1 THEN 1190
+780 ' Here is the logic
+790 IF K=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+800 IF K=2 THEN IF A(1)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+810 IF K=3 THEN IF A(1)=0 AND A(2)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+820 IF K=4 THEN IF A(1)=0 AND A(2)=0 AND A(3)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+830 IF K=5 THEN IF A(1)=0 AND A(2)=0 AND A(3)=0 AND A(4)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+840 IF K=6 THEN IF A(1)=0 AND A(2)=0 AND A(3)=0 AND A(4)=0 AND A(5)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+850 IF K=7 THEN IF A(1)=0 AND A(2)=0 AND A(3)=0 AND A(4)=0 AND A(5)=0 AND A(6)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+860 IF K=8 THEN IF A(1)=0 AND A(2)=0 AND A(3)=0 AND A(4)=0 AND A(5)=0 AND A(6)=0 AND A(7)=1 THEN IF A(K)<>1 THEN A(K)=1:GOTO 890 ELSE A(K)=0:GOTO 890
+870 T=T-1
+880 ' Turn the lamps ON or OFF
+890 V=15
+900 FOR N=1 TO R
+910  F=2+9*(N-1)
+920  IF A(N)=1 THEN GOSUB 50 ELSE GOSUB 60
+930 NEXT
+940 IF SW=1 THEN 1250
+950 ' Check if puzzle solved
+960 L=0:FOR X=1 TO 8:L=L+A(X):NEXT
+970 T=T+1:LOCATE 5,61:PRINT "Step:";T  ' Display each step
+980 IF L=0 THEN 990 ELSE 710
+990 LOCATE 6,1:PRINT "Congratulations... done in";T;"steps."
+1000 LOCATE 7,1:PRINT "Do you want to puzzle again? <y/n>"
+1010 GOSUB 80
+1020 IF F=89 OR F=121 THEN T=0:GOTO 690 ELSE 1650 ' 89=Y 121=y
+1030 ' Displays digits
+1040 FOR P=1 TO 3:LOCATE V+P-1,F
+1050  ON N GOSUB 1070,1080,1090,1100,1110,1120,1130,1140
+1060 NEXT:RETURN
+1070 PRINT A$(P):RETURN ' 1
+1080 PRINT B$(P):RETURN ' 2
+1090 PRINT C$(P):RETURN ' 3
+1100 PRINT D$(P):RETURN ' 4
+1110 PRINT E$(P):RETURN ' 5
+1120 PRINT F$(P):RETURN ' 6
+1130 PRINT G$(P):RETURN ' 7
+1140 PRINT H$(P):RETURN ' 8
+1150 ' Paint a lamp or ˛
+1160 FOR P=1 TO 5:LOCATE V+P-1,F:PRINT I$(P):NEXT:RETURN ' Lamp
+1170 FOR P=1 TO 5:LOCATE V+P-1,F:PRINT J$(P):NEXT:RETURN ' ˛
+1180 ' Player wants to reset
+1190 LOCATE 6,1:PRINT "Do you want to reset the puzzle? <y/n>"
+1200 GOSUB 80
+1210 IF F=89 OR F=121 THEN T=0:GOTO 690 ' 89=Y 121=y
+1220 LOCATE 6,1:PRINT STRING$(40,32)
+1230 GOTO 710
+1240 ' Continue the show
+1250 T=T+1:LOCATE 5,61:PRINT "Step:";T ' Display each step
+1260 GOTO 1320
+1270 ' Show it to them
+1280 GOSUB 70
+1290 LOCATE 22,1:PRINT STRING$(40,32)
+1300 ' Single step
+1310 SW=1:ST=0:T=0:LOCATE 5,1:PRINT "Press a key to single step..."
+1320 ST=ST+1:IF ST=171 THEN 1360
+1330 GOSUB 80
+1340 IF F=27 THEN 1650
+1350 K=S(ST):GOTO 790
+1360 LOCATE 19,12:PRINT "Press <Esc> to quit...      Any other key to continue..."
+1370 GOSUB 80
+1380 IF F=27 THEN 1650 ELSE T=0:GOTO 690
+1390 ' Display the puzzle
+1400 CLS
+1410 R=8:FOR K=1 TO R:A(K)=1:NEXT
+1420 V=10:FOR N=1 TO R:F=2+9*(N-1):GOSUB 40:NEXT
+1430 V=15:FOR N=1 TO R:F=2+9*(N-1):GOSUB 50:NEXT
+1440 RETURN
+1450 ' Get key pressed
+1460 LSET Q=MKI$(0)
+1470 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+1480 F=ASC(Q):RETURN
+1490 ' Print text centered
+1500 X=(80-LEN(M(I)))/2:PRINT TAB(X) M(I)
+1510 RETURN
+1520 ' Solutions 170 steps
+1530 DATA 2,1,4,1,2,1,3,1,2,1,6
+1540 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5
+1550 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,8
+1560 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5
+1570 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,6
+1580 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5
+1590 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,7
+1600 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5
+1610 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,6
+1620 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1,5
+1630 DATA 1,2,1,3,1,2,1,4,1,2,1,3,1,2,1
+1640 ' Exit
+1650 KEY 5,"princeps.bas":KEY 6,CHR$(34)+",a"
+1660 KEY ON:SCREEN 0,0,0:CLS:END
+1670 ' This program verified with my electronic Princeps Puzzle.
+1680 ' Eric F. Tchong  - N.C.C. 49 I  - Aruba  -  July 30, 1993
+1690 ' Redesigned date: July 12, 2003 - Freeware April 30, 2004
+

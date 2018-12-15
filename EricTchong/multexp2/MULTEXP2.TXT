@@ -1,0 +1,183 @@
+Multiprecision Multiplication - FREEWARE, listed 06-08-2004
+
+   10  ' multexp2.bas - FREEWARE 2004
+   20 GOTO 130 ' begin
+   30 SAVE"multexp2.bas":LIST-130
+   40 GOTO 790  ' init sum
+   50 GOTO 910  ' group of 3
+   60 GOTO 970  ' add 000 with spacing
+   70 GOTO 1120 ' draw lines
+   80 GOTO 1170 ' print results
+   90 GOTO 1330 ' count characters
+  100 GOTO 1390 ' get key input
+  110 GOTO 1440 ' test for a valid number
+
+  120 ' begin
+  130 CLS:U=400:T=200:P$="n":KEY OFF:DEFSTR Q:Q=MKI$(0)
+  140 DIM A$(U),B$(U),C$(U),D$(U),E$(U),F$(U),A(T),B(T),C(T),D(T)
+  150 DEF FN L(X)=INT(X/1000000!):DEF FN M(X)=INT((X-FN L(X)*1000000!)/1000)
+  160 DEF FN R(X)=X-FN L(X)*1000000!-FN M(X)*1000
+  170 PRINT "************************************************"
+  180 PRINT "* MULTI-DIGIT PRECISION MULTIPLICATION PROGRAM *"
+  190 PRINT "*         FOR GW-BASIC - FREEWARE 2004         *"
+  200 PRINT "*            Use only whole numbers            *"
+  210 PRINT "*            <Enter>  quits program            *"
+  220 PRINT "************************************************"
+  230 PRINT:PRINT
+  240 PRINT "Save results in multexp2.asc diskfile: [y/n] ?"
+  250 GOSUB 100
+  260 IF EC=89 OR EC=121 THEN COPY=1 ELSE COPY=0
+  270 IF COPY THEN OPEN "O",#1,"multexp2.asc"
+  280 CLS:PRINT"Do you wish to ..."
+  290 PRINT"(1)-----Multiply two numbers"
+  300 PRINT"(2)-----Exponentiate"
+  310 PRINT"(3)-----Compute a factorial"
+  320 PRINT"(4)-----Stop" : PRINT :PRINT "1, 2, 3 or 4 ? ";
+  330 GOSUB 100:IF CH<1 OR CH>4 THEN 280
+  340 CLS
+  350 ON CH GOTO 370,580,690,1540
+
+  360 ' Multiply two numbers
+  370 PRINT"Do you wish to..."
+  380 PRINT"(1)-----Multiply two numbers"
+  390 PRINT"(2)-----Use product as the multiplicand"
+  400 PRINT"(3)-----Use a constant":PRINT:PRINT "1, 2 or 3 ? ";
+  410 GOSUB 100:IF CH<1 OR CH>3 THEN CLS:GOTO 370
+  420 CLS
+  430 ON CH GOTO 440,440,440
+  440 INPUT"Multiplicand -1=menu ";VN$:IF VN$="-1" THEN 280
+  450 GOSUB 110:IF NG=0 THEN NG=1:GOTO 440 ELSE A$=VN$
+  460 INPUT"Multiplier   -1=menu ";VN$:IF VN$="-1" THEN 280
+  470 GOSUB 110:IF NG=0 THEN NG=1:GOTO 460 ELSE B$=VN$
+  480 PRINT:IF LEN(A$)<LEN(B$) THEN SWAP A$,B$
+  490 M1$=A$:M2$=B$:M$=M1$:GOSUB 90:LA=EQ:M$=M2$:GOSUB 90:LB=EQ
+  500 A$=M1$:B$=M2$:GOSUB 40:LC=LEN(C$):M3$=F$:M4$=C$ 'F$=12345 C$=12 345
+  510 L=(LC-LA)+1:M$=M1$:GOSUB 80:PRINT :IF COPY THEN PRINT #1,""
+  520 L=(LC-LB)+1:M$=M2$:GOSUB 80:PRINT " x":IF COPY THEN PRINT #1, " x"
+  530 GOSUB 70:PRINT C$:PRINT:IF COPY THEN PRINT #1, C$:PRINT #1,""
+  540 ON CH GOTO 440,550,560
+  550 A$=M3$:GOTO 460
+  560 A$=M1$:GOTO 460
+
+  570 ' Exponentiation mods February 26, 2001
+  580 INPUT"Base          ";L$:IF VAL (L$)=0 THEN 280
+  590 B$=L$:A$=L$
+  600 INPUT"Highest power ";B9:IF B9=0 THEN 280
+  610 PRINT:PRINT "POWER";TAB(10);"VALUE";TAB(30)"BASE ";L$
+  620 IF COPY THEN PRINT #1, "POWER";TAB(10);"VALUE";TAB(30)"BASE ";L$
+  630 FOR I9=2 TO B9:GOSUB 40
+  640  PRINT I9;TAB(10);C$:IF I9/10=INT(I9/10) THEN PRINT
+  650  IF COPY THEN PRINT #1, I9;TAB(10);C$:IF I9/10=INT(I9/10) THEN PRINT #1,""
+  660  B$=F$:A$=L$
+  670 NEXT:PRINT:IF COPY THEN PRINT #1,"" :GOTO 580 ELSE GOTO 580
+
+  680 ' Factorial
+  690 B$="1":INPUT"Highest factorial ";N8:IF N8=0 THEN 280
+  700 PRINT
+  710 FOR I8=1 TO N8:PRINT I8;"!=";
+  720  IF COPY THEN PRINT #1, I8;"!=";
+  730  A$=STR$(I8):GOSUB 40:PRINT C$
+  740  IF COPY THEN PRINT #1, C$
+  750  B$=F$
+  760 NEXT
+  770 PRINT:IF COPY THEN PRINT #1,"" :GOTO 690 ELSE GOTO 690
+
+  780 ' init sum
+  790 EQ=0:C(0)=0:D(0)=0:C(1)=0
+  800 FOR K=1 TO 200:C(K)=0:D(K)=0:NEXT:L=0:S6=0:GOSUB 50:L1=L2:U1=U2
+  810 FOR K=1 TO U1:A(K)=B(K):NEXT:D$=" ":G$=" ":E$=" ":A$=B$
+  820 FOR K=1 TO 200:C(K)=0:D(K)=0:NEXT:L=0:S6=0:GOSUB 50
+  830 FOR I=1 TO U1
+  840  FOR J=1 TO U2:C(I+J)=C(I+J)+A(I)*B(J):NEXT
+  850 NEXT:S=U1+U2
+  860 FOR K=2 TO S+1:D(K-1)=FN R(C(K))+FN M(C(K-1))+FN L(C(K-2)):NEXT
+  870 FOR K=1 TO S:D(K)=D(K)+FN M(D(K-1)):NEXT
+  880 FOR K=1 TO S:D(K)=FN R(D(K)):NEXT
+  890 FOR K=1 TO S:GOSUB 60:NEXT:RETURN
+
+  900 ' group of 3
+  910 L2=LEN(A$):X=INT(L2/3):Y=3*X-L2:IF Y=0 THEN U2=X ELSE U2=X+1
+  920 FOR K=1 TO U2:W=L2-3*K+1:IF W<=0 THEN W=1
+  930  Z=L2-3*(K-1):IF Z>3 THEN Z=3
+  940  B(K)=VAL(MID$(A$,W,Z))
+  950 NEXT:RETURN
+
+  960 ' add 000 with spacing
+  970 X=D(S+1-K):S6=X+S6:IF S6=0 THEN RETURN
+  980 D$=STR$(X)
+  990 IF X>99 THEN 1070
+ 1000 IF X>9 THEN 1050
+ 1010 IF X>0 THEN 1030
+ 1020 G$=" 000":E$="000":GOTO 1080
+ 1030 IF EQ=0 THEN G$=D$:E$=RIGHT$(G$,1) ELSE G$=" 00"+RIGHT$(D$,1):E$=RIGHT$(G$,3)
+ 1040 GOTO 1080
+ 1050 IF EQ=0 THEN G$=D$:E$=RIGHT$(G$,2) ELSE G$=" 0"+RIGHT$(D$,2):E$=RIGHT$(G$,3)
+ 1060 GOTO 1080
+ 1070 G$=D$:E$=RIGHT$(G$,3)
+ 1080 IF EQ=0 THEN 1090 ELSE 1100
+ 1090 C$=G$:F$=E$:EQ=1:RETURN
+ 1100 C$=C$+G$:F$=F$+E$:RETURN
+
+ 1110 ' draw lines
+ 1120 L=LEN(C$):PRINT STRING$(L,"Ä")
+ 1130 IF COPY THEN PRINT #1, STRING$(L,"-")
+ 1140 RETURN
+ 1150 GOSUB 100:RETURN
+
+ 1160 ' print results
+ 1170 PRINT TAB(L)"";
+ 1180 Z$="":FOR J=LEN(M$) TO 1 STEP -1:Z$=Z$+MID$(M$,J,1):NEXT
+ 1190 IF LEN(Z$)/3<>INT(LEN(Z$)/3) THEN PRINT " ";:EQ=EQ+1
+ 1200 FOR J=LEN(Z$) TO 1 STEP -1
+ 1210  IF J/3=INT(J/3) THEN PRINT " ";:EQ=EQ+1
+ 1220  PRINT MID$(Z$,J,1);:EQ=EQ+1
+ 1230 NEXT
+
+ 1240 ' send to diskfile
+ 1250 IF COPY THEN 1260 ELSE RETURN
+ 1260 PRINT #1, TAB(L)"";
+ 1270 IF LEN(Z$)/3<>INT(LEN(Z$)/3) THEN PRINT #1, " ";
+ 1280 FOR J=LEN(Z$) TO 1 STEP -1
+ 1290  IF J/3=INT(J/3) THEN PRINT #1, " ";
+ 1300  PRINT #1, MID$(Z$,J,1);
+ 1310 NEXT:RETURN
+
+ 1320 ' count characters
+ 1330 EQ=0:IF LEN(M$)/3<>INT(LEN(M$)/3) THEN EQ=EQ+1
+ 1340 FOR J=LEN(M$) TO 1 STEP -1
+ 1350  IF J/3=INT(J/3) THEN EQ=EQ+1
+ 1360  EQ=EQ+1
+ 1370 NEXT:RETURN
+
+ 1380 ' get key input
+ 1390 LSET Q=MKI$(0)
+ 1400 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+ 1410 CH=VAL(Q):EC=ASC(Q)
+ 1420 RETURN
+
+ 1430 ' Test for a valid number
+ 1440 L=LEN(VN$):TC=0
+ 1450 IF LEFT$(VN$,1)="0" AND L>1 THEN NG=0:PRINT:BEEP:RETURN
+ 1460 IF VN$="" THEN 1540
+ 1470 FOR X=1 TO L
+ 1480  Z=ASC(MID$(VN$,X,1)):IF MID$(VN$,X,1)="." THEN TC=2:GOTO 1500
+ 1490  IF Z<48 OR Z>57 THEN NG=0:PRINT:BEEP:RETURN
+ 1500 NEXT
+ 1510 IF TC>1 THEN NG=0:PRINT:BEEP:RETURN
+ 1520 NG=1:RETURN
+
+ 1530 ' exit
+ 1540 IF COPY THEN CLOSE #1
+ 1550 KEY 5,"multexp2.bas":KEY 6,CHR$(34)+",a":KEY ON:CLS
+
+ 1560 ' **************************************************
+ 1570 ' *                ACCURACY PLUS:                  *
+ 1580 ' *        MULTIPRECISION  MULTIPLICATION          *
+ 1590 ' *               BY BRUCE BARNETT                 *
+ 1600 ' * PROGRAM ORIGINALLY WRITTEN IN NORTHSTAR BASIC  *
+ 1610 ' *      CONVERTED TO TRS-80 LEVEL II BASIC        *
+ 1620 ' *               BY ERIC F. TCHONG                *
+ 1630 ' * JANUARY 6 1985 - FROM COMPUTERS IN MATHEMATICS *
+ 1640 ' *     Rewritten for GWBASIC April 9, 2004        *
+ 1650 ' **************************************************
+ 1660 ' Compile only with QuickBasic 4.5

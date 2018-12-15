@@ -1,0 +1,154 @@
+10 ' tetris05.bas - FreeWare 2005 - Eric F. Tchong
+20 GOTO 120
+30 SAVE"tetris05",A:LIST-120
+40 GOTO 980  ' left  arrow move block
+50 GOTO 1000 ' rotate block
+60 GOTO 1030 ' right arrow move block
+70 GOTO 1050 ' adjust rotate
+80 GOTO 1120 ' print block
+90 GOTO 1140 ' blank block
+100 GOTO 1160 ' stats + empty line(s)
+110 GOTO 1320 ' get key
+120 SCREEN 0,1:WIDTH 40:KEY OFF:COLOR 12,0
+130 CLS:CLEAR:DEFINT A-Z:E$=CHR$(219):DEFSTR Q:Q=MKI$(0)
+140 PRINT "**************************************"
+150 PRINT "*       Tetris Gold is written       *"
+160 PRINT "*          in GW-BASIC 3.23          *"
+170 PRINT "* by Dutch programmer Sjoerd Verweij *"
+180 PRINT "*  Eric Tchong fixed the typo's and  *"
+190 PRINT "*    remodeled the source listing.   *"
+200 PRINT "**************************************":COLOR 15:PRINT
+210 PRINT "  ";CHR$(27);" = move left     ";CHR$(26);" = move right"
+220 PRINT "  ";CHR$(25);" = move down     ";CHR$(24);" = rotate block"
+230 PRINT "  Spacebar = drop block    P = pause"
+240 PRINT "       Esc = the panic button"
+250 PRINT:COLOR 11
+260 PRINT "  Press any key to start the game...":GOSUB 110:CLS:COLOR 15
+270 PRINT "Score",,,,"Line",," 0",,"Next",,,,,,,,,,"Level",," 0"
+280 ' print vertical bars
+290 FOR I=1 TO 23
+300  LOCATE I,13:PRINT E$;:COLOR 0
+310  PRINT STRING$(12,E$);:COLOR 15
+320  PRINT E$;
+330 NEXT
+340 PRINT " Stats","TETRIS Gold ";STRING$(14,E$);" FreeWare 2005";
+350 READ N ' N=7
+360 DIM P$(N,4),R(N,4,4,4),EQ(N),H(N,4),B(N,4),A(24),M(N),F$(3),D(3),C(4)
+370 ' initialize data values
+380 FOR I=1 TO 3:READ F$(I),D(I):NEXT ' double 150 triple 300 tetris 900
+390 FOR I=1 TO 4:READ C(I):NEXT ' C(I) 28  219  29  31
+400 FOR H=1 TO N
+410  READ W$:EQ(H)=LEN(W$)/16
+420  FOR I=1 TO EQ(H)
+430   READ K$
+440   RANDOMIZE-TIMER*RND
+450   FOR G=1 TO LEN(K$)
+460    P$(H,I)=P$(H,I)+CHR$(C(VAL(MID$(K$,G,1)))) ' assemble 19 shapes
+470   NEXT
+480   FOR J=1 TO 4
+490    IF (INSTR(MID$(W$,(I-1)*16+(J-1)*4+1,4),"1")>0) THEN H(H,I)=H(H,I)+1
+500    FOR K=1 TO 4
+510     C$=MID$(W$,(I-1)*16+(J-1)*4+K,1)
+520     R(H,I,J,K)=VAL(C$)
+530     IF C$="1" AND B(H,I)<K THEN B(H,I)=K
+540    NEXT
+550   NEXT
+560  NEXT
+570 NEXT
+580 T#=1.5:RANDOMIZE-TIMER:B1=5
+590 ' main program
+600 B=B1:X=2:Y=6:S=1:GOSUB 90          ' blank block
+610 B2=B:B1=INT(RND*N)+1:B=B1:GOSUB 80 ' print block
+620 B=B2:Y=0:X=20
+630 SC!=SC!+EQ(B)*INT(RND*15)          ' increase score
+640 COLOR 15:LOCATE 2,1:PRINT SC!;:M(B)=M(B)+1
+650 IF M(B)/5=M(B)\5 AND M(B)<100 THEN COLOR B:LOCATE 23-M(B)/5,B+27:PRINT E$;
+660 ' get players move
+670 Y=Y+1:T1!=TIMER:GOSUB 80           ' print block
+680 WHILE T1!+T#>TIMER ' Z=9 end or spacebar Z=4 Esc
+690  Z$=INKEY$:IF LEN(Z$)>1 THEN Z=ASC(RIGHT$(Z$,1))-70 ELSE Z=ASC(Z$+CHR$(0))-23
+700  IF Z=9 THEN O=0:U=S:W=X:V=Y-1:WHILE O=0:V=V+1:GOSUB 70:WEND:Y=V-1:T1!=T1!-3
+710  IF Z=10 THEN T1!=T1!-3 ' down arrow move
+720  IF Z=5 THEN GOSUB 40 ELSE IF Z=2 THEN GOSUB 50 ELSE IF Z=7 THEN GOSUB 60
+730  IF Z=4 THEN 960 ' Esc to exit immediately (the boss is watching you)
+740  IF Z=57 OR Z=89 THEN GOSUB 110 ' pause to relax
+750 WEND
+760 U=S:V=Y+1:W=X:GOSUB 70:IF O=0 THEN 670 ' go next move
+770 ON (Y>1)+1 GOTO 920 ' game over!
+780 GOSUB 80 ' print block
+790 FOR I=0 TO H(B,S)-1
+800  FOR J=0 TO B(B,S)-1
+810   A(Y+I)=A(Y+I)+R(B,S,I+1,J+1)*(2^(X+J-14))
+820  NEXT
+830 NEXT:M=0
+840 FOR H=Y TO 23
+850  IF A(H)=4095 THEN GOSUB 100:M=M+1:SC!=SC!+INT(RND*100)
+860 NEXT:IF M<2 THEN 600
+870 COLOR 15:LOCATE 15,1:PRINT F$(M-1); ' double, triple, tetris
+880 SC!=SC!+D(M-1):NU!=TIMER            ' 150,    300,    900,   bonus
+890 WHILE TIMER<NU!+1.25:WEND
+900 LOCATE 15,1:PRINT SPC(10);:GOTO 600 ' go main program
+910 ' game over
+920 SOUND 2000,2
+930 LOCATE 19,1:COLOR 14,0:PRINT "Game over!
+940 LOCATE 20,1:PRINT "Try again?":I$=INPUT$(1)
+950 IF I$="y" OR I$="Y" THEN RUN
+960 COLOR 7,0:SCREEN 2:SCREEN 0:CLS:END
+970 ' left arrow move block
+980 U=S:V=Y:W=X-1:GOSUB 70:X=X+(O=0):GOSUB 80:RETURN
+990 ' rotate block
+1000 U=S+1:IF U>EQ(B) THEN U=1
+1010 V=Y:W=X:GOSUB 70:S=-(O=0)+(S AND (S<EQ(B) OR O=1)):GOSUB 80:RETURN
+1020 ' right arrow move block
+1030 U=S:V=Y:W=X+1:GOSUB 70:X=X-(O=0):GOSUB 80:RETURN
+1040 ' adjust rotate
+1050 GOSUB 90:O=-(W>27-B(B,S))-(W<14)
+1060 FOR I=0 TO H(B,U)-1
+1070  FOR J=0 TO B(B,U)-1
+1080  IF R(B,U,I+1,J+1)=1 AND SCREEN(V+I,W+J,1)>0 THEN O=1
+1090  NEXT
+1100 NEXT:RETURN
+1110 ' print colored block
+1120 COLOR B:LOCATE Y,X:PRINT P$(B,S);:COLOR 15:RETURN
+1130 ' blank block
+1140 COLOR 0:LOCATE Y,X:PRINT P$(B,S);:COLOR 15:RETURN
+1150 ' stats + empty line(s)
+1160 D=D+1
+1170 FOR I=H TO 2 STEP-1:A(I)=A(I-1)
+1180  FOR J=14 TO 25:LOCATE I,J
+1190   COLOR SCREEN(I-1,J,1):PRINT E$;
+1200  NEXT
+1210 NEXT:SOUND 1000,1:LOCATE 4,1:COLOR 15:PRINT D;
+1220 IF D/20=D\20 THEN T#=T#*.7:SOUND 2000,2:L=L+1:LOCATE 11,1:PRINT L
+1230 ON (L>3 AND D/15=D\15)+1 GOTO 1300
+1240 FOR I=2 TO 23
+1250  FOR J=14 TO 25:LOCATE I,J
+1260   COLOR SCREEN(I+1,J,1):PRINT E$;
+1270  NEXT:A(I)=A(I+1)
+1280 NEXT:SOUND 100,1:COLOR 0
+1290 LOCATE 23,14:IF L<8 THEN PRINT STRING$(12,E$);
+1300 RETURN
+1310 ' get key
+1320 LSET Q=MKI$(0)
+1330 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+1340 ' data
+1350 DATA 7,DOUBLE,150,TRIPLE,300,TETRIS,900,28,219,29,31
+1360 DATA 1100110000000000,2243322
+1370 DATA 11110000000000001000100010001000,2222,2432432432
+1380 DATA 0100111000000000100011001000000011100100000000000100110001000000
+1390 DATA 12433222,243224332,2224332,1243322432
+1400 DATA 1110100000000000110001000100000000101110000000001000100011000000
+1410 DATA 22243332,22432432,1124333222,24324322
+1420 DATA 1110001000000000010001001100000010001110000000001100100010000000
+1430 DATA 222432,1243243322,243222,224332432
+1440 DATA 01101100000000001000110001000000,122433322,24322432
+1450 DATA 11000110000000000100110010000000,224322,12433224332
+1460 ' In october 1992 Mr. Sjoerd Verweij published a GW-BASIC listing
+1470 ' of this game. Unfortunately it did not work due to bugs. I left this
+1480 ' program untouched for many years until I saw the game "BLOKKEN" on
+1490 ' BVN television (Is a combined Dutch/Belgium TV on the cable). It looks
+1500 ' familiar to this tetris game but more in a quiz form. The last few weeks
+1510 ' I started to fix the good old source listing. After hours of debugging
+1520 ' I streamlined the listing and ended up in one of the best game written in
+1530 ' GW-BASIC by Mr. Sjoerd Verweij. Thanks - March 5, 2005
+

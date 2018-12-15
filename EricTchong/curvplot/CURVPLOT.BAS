@@ -1,0 +1,208 @@
+10  ' curvplot.bas
+20 GOTO 60 ' begin
+30 SAVE "curvplot.bas",A:LIST-60
+40 GOTO 1950 ' print string$
+50 GOTO 2010 ' get key
+60 ON ERROR GOTO 2050
+70 DEFSTR Q:Q=MKI$(0)
+80 SCREEN 2:KEY OFF:CLS:GOTO 1830
+90 CLS
+100 PRINT "ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿"
+110 PRINT "³** CURVE PLOTTER MENU **³"
+120 PRINT "ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ"
+130 PRINT " 1) Astroid
+140 PRINT " 2) Bernoulli
+150 PRINT " 3) Bowditch Curves
+160 PRINT " 4) Caridioid
+170 PRINT " 5) Cartsian Plane
+180 PRINT " 6) Curves
+190 PRINT " 7) Hypocycloid
+200 PRINT " 8) Rhodonea
+210 PRINT " 9) Computer Spirograph
+220 PRINT " 0) Exit this program":PRINT
+230 PRINT "Enter your choice (1-9) ?"
+240 CH$=INKEY$:IF CH$="" THEN 240 ELSE CH=VAL (CH$)
+250 IF CH=0 THEN SCREEN 0:CLS:GOTO 2070
+260 IF CH<1 OR CH>9 THEN 230
+270 ON CH GOTO 290,410,540,740,920,1100,1250,1490,1640
+280 ' astroid
+290 CLS
+300 INPUT "Value 1-26 ";A:IF A=0 THEN 90
+310 EQ=4*A*19/20+.1
+320 FOR X=-EQ TO EQ STEP 4*A/20
+330  FOR XX=X TO 0 STEP -X/10
+340   Y=(1-XX/X)*SQR(16*A^2-X^2)
+350   PSET(320+2.4*XX,100+Y)
+360   PSET(320+2.4*XX,100-Y)
+370  NEXT
+380 NEXT
+390 GOSUB 50:GOTO 300
+400 ' bernouli
+410 CLS
+420 PI=3.14159
+430 INPUT "Scale factor 1-65 ";S:IF S=0 THEN 90
+440 A=1:B=1
+450 FOR I=0 TO B*2*PI STEP 2*PI/90
+460  X1=COS(I)/(1+SIN(I)^2)
+470  Y1=X1*SIN(I)
+480  X=320+4.9*S*X1
+490  Y=100-2.3*S*Y1
+500  PSET(X,Y)
+510 NEXT
+520 GOSUB 50:GOTO 430
+530 ' bowditch
+540 PI=3.14159
+550 CLS:PRINT "Examples:"
+560 PRINT "Scale factor   2    10    11   12"
+570 PRINT "Constant A    .75   .4    .8   .67"
+580 PRINT "Constant B     0    .75    2    2.8"
+590 PRINT "Constant C    .8    1     .9   .7":PRINT
+600 INPUT "Scale factor ";S
+610 IF S=0 THEN 90
+620 INPUT "Constant A   ";A
+630 INPUT "Constant B   ";B
+640 INPUT "Constant C   ";C:CLS
+650 FOR I=0 TO 10*PI STEP 2*PI/90
+660  X1=SIN(A*I+B)
+670  Y1=C*SIN(I)
+680  X=320+4.9*S*X1
+690  Y=100-2.3*S*Y1
+700  PSET(X,Y)
+710 NEXT
+720 GOSUB 50:GOTO 550
+730 ' cardioid
+740 CLS
+750 PI=3.14159:CLS
+760 INPUT "Size of fixed circle 1-38 ";A:IF A=0 THEN 90
+770 FOR I=-PI TO PI STEP 2*PI/180
+780  X1=A*COS(I)
+790  Y1=A*SIN(I)
+800  PSET(320+2.2*X1,100+Y1)
+810 NEXT
+820 FOR J=-PI TO PI STEP 2*PI/20
+830  XO=A*COS(J):YO=A*SIN(J)
+840  R=SQR((XO+A)^2+YO^2)
+850  FOR K=-PI TO PI STEP 2*PI/90
+860   X=XO+R*COS(K):Y=YO+R*SIN(K)
+870   PSET(320+2.2*X,100+Y)
+880  NEXT
+890 NEXT
+900 GOSUB 50:GOTO 760
+910 ' cartsian
+920 PI=3.14159
+930 CLS:PRINT "Examples:"
+940 PRINT "Scale factor   2  2  3   2.8  3  6    12  14"
+950 PRINT "Constant A     5  9  10  7    9  7.2  2   8 "
+960 PRINT "Constant B     1  2  3   2    3  4.6  64  3 ":PRINT
+970 INPUT "Scale factor ";S
+980 IF S=0 THEN 90
+990 INPUT "Constant A   ";A
+1000 INPUT "Constant B   ";B:CLS
+1010 FOR I=0 TO B*2*PI STEP 2*PI/90
+1020  X1=(A-B)/B*COS(I)+COS((A-B)/B*I)
+1030  Y1=(A-B)/B*SIN(I)-SIN((A-B)/B*I)
+1040  X=320+4.9*S*X1
+1050  Y=100-2.3*S*Y1
+1060  PSET(X,Y)
+1070 NEXT
+1080 GOSUB 50:GOTO 930
+1090 ' curves
+1100 PI=3.14159
+1110 CLS:PRINT "Examples:"
+1120 PRINT "Scale factor 10  40  49  8    7    10"
+1130 PRINT "Constant     2   4   3   3.5  7.1  6 ":PRINT
+1140 INPUT "Scale factor ";S
+1150 IF S=0 THEN 90
+1160 INPUT "Constant     ";A:CLS
+1170 FOR I=0 TO 4*PI STEP 2*PI/180
+1180  R=COS(A*I) ' this line is change for other polar curves
+1190  X=320+4.9*S*R*COS(I)
+1200  Y=100-2.3*S*R*SIN(I)
+1210  PSET(X,Y)
+1220 NEXT
+1230 GOSUB 50:GOTO 1110
+1240 ' hypocycl
+1250 PI=3.14159
+1260 CLS:PRINT "Examples:"
+1270 PRINT "Scale factor 2  2  12  2.8  3  6    1 "
+1280 PRINT "Constant A   5  9  10  7    9  7.2  16"
+1290 PRINT "Constant B   1  2  3   2    3  4.6  2 ":PRINT
+1300 INPUT "Scale factor ";S
+1310 IF S=0 THEN 90
+1320 INPUT "Constant A   ";A
+1330 INPUT "Constant B   ";B:CLS
+1340 FOR I=0 TO B*2*PI STEP 2*PI/90
+1350  FOR J=1 TO 2
+1360   IF J=1 THEN 1400
+1370   X1=A/B*COS(I)
+1380   Y1=A/B*SIN(I)
+1390   GOTO 1420
+1400   X1=(A-B)/B*COS(I)+COS((A-B)/B*I)
+1410   Y1=(A-B)/B*SIN(I)-SIN((A-B)/B*I)
+1420   X=320+4.9*S*X1
+1430   Y=100-2.3*S*Y1
+1440   PSET(X,Y)
+1450  NEXT
+1460 NEXT
+1470 GOSUB 50:GOTO 1260
+1480 ' rhodonea
+1490 PI=3.14159
+1500 CLS:PRINT "Examples:"
+1510 PRINT "Scale factor 9  9  5  10  10  8    40"
+1520 PRINT "Constant     3  4  4  6   5   3.5  4  ":PRINT
+1530 INPUT "Scale factor ";S
+1540 IF S=0 THEN 90
+1550 INPUT "Constant     ";A:CLS
+1560 FOR I=0 TO 4*PI STEP 2*PI/180
+1570  R=COS(A*I) ' this line is changed for other polar curves
+1580  X=320+4.9*S*R*COS(I)
+1590  Y=100-2.3*S*R*SIN(I)
+1600 PSET(X,Y)
+1610 NEXT
+1620 GOSUB 50:GOTO 1500
+1630 ' varicurv
+1640 RANDOMIZE TIMER
+1650 N=7*RND(0):T=INT(RND*4)+1
+1660 S=INT(RND*6)+1
+1670 CLS:PRINT "Press <0> to return to menu"
+1680 PI=3.14159
+1690 FOR I=0 TO 6*PI STEP 2*PI/90
+1700  ON T GOTO 1710,1720,1740,1750
+1710  X1=N*COS(I)+COS(N*I):GOTO 1730
+1720  X1=N*COS(I)-COS(N*I)
+1730  Y1=N*SIN(I)-SIN(N*I):GOTO 1770
+1740  R=3+2*COS(N*I):GOTO 1760
+1750  R=5*SIN(N*I)
+1760  X1=R*COS(I):Y1=R*SIN(I)
+1770  X=320+49/S*X1:Y=100+23/S*Y1
+1780  PSET(X,Y)
+1790 NEXT
+1800 PRINT "N = ";N;" S = ";S;" T = " ;T
+1810 GOSUB 50:IF ASC(Q)=48 THEN 90 ELSE GOTO 1640 ' 48 = 0
+1820 S=S+1:RESUME 1670
+1830 A$="ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿":Z=  0:GOSUB 40
+1840 A$="³ CURVE PLOTTER FOR HI-RES SCREENS ³":Z= 64:GOSUB 40
+1850 A$="³          David R. Cecil          ³":Z=128:GOSUB 40
+1860 A$="³      TRS-Basic  to GW-BASIC      ³":Z=192:GOSUB 40
+1870 A$="³               by                 ³":Z=256:GOSUB 40
+1880 A$="³          Eric F. Tchong          ³":Z=320:GOSUB 40
+1890 A$="³         FREEWARE ** 2004         ³":Z=384:GOSUB 40
+1900 A$="³       serenata@setarnet.aw       ³":Z=448:GOSUB 40
+1910 A$="³ ** Press any key to continue **  ³":Z=512:GOSUB 40
+1920 A$="ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ":Z=576:GOSUB 40
+1930 GOSUB 50:GOTO 90
+1940 ' print A$ at locate Z
+1950 K1=LEN(A$)
+1960 FOR K=1 TO K1
+1970  E=Z+K:GOSUB 1990:PRINT MID$(A$,K,1);
+1980 NEXT:RETURN
+1990 V=INT(E/64)+1:F=(E-(V-1)*64)+1:LOCATE V,F:RETURN
+2000 ' get key
+2010 LSET Q=MKI$(0)
+2020 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+2030 CLS:PRINT "<Enter> to quit or type new value:":RETURN
+2040 ' error trap
+2050 RESUME NEXT
+2060 ' end nicely
+2070 KEY 5,"curvplot.bas":KEY 6,CHR$(34)+",a":KEY ON
+

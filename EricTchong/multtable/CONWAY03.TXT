@@ -1,0 +1,56 @@
+Game of Life - random cells, listed 11-05-2005
+
+   10 ' conway03.bas - FreeWare 2005 evolution of the R pentomino
+   20 GOTO 60 ' begin
+   30 SAVE "conway03.bas",A:LIST-60
+   40 GOTO 470 ' wait for key
+   50 GOTO 500 ' centered text
+   60 DEFINT A-L,S-Z:SH=120:SV=90:K=0:KMAX=1200
+   70 DEFSTR M,Q:Q=MKI$(0):SCREEN 9
+   80 WINDOW (2*SH-320,2*SV-240)-(2*SH+319,2*SV+239)
+   90 DIM U(SH,SV),V(SH,SV):DATA 0,1,1,1,1,0,0,1,0
+  100 M(1)="CONWAY idea from Hans Lauwerier"
+  110 M(2)="GWBasic by Eric Tchong"
+  120 M(3)="Press any key to pause and end program"
+  130 M(4)="Press a key to start"
+  140 FOR I=1 TO 4
+  150  GOSUB 50:IF I=3 THEN PRINT
+  160 NEXT
+  170 GOSUB 40:CLS:LINE (-4,-3)-(4*SH+4,4*SV+3),9,B
+  180 FOR J=SV/2+1 TO SV/2-1 STEP -1
+  190  FOR I=SH/2-1 TO SH/2+1
+  200   READ U(I,J)
+  210   IF U(I,J)=1 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF
+  220  NEXT
+  230 NEXT
+
+  240 ' main
+  250 WHILE K<KMAX AND INKEY$=""
+  260  FOR I=1 TO SH-1
+  270   FOR J=1 TO SV-1
+  280    S0=U(I,J):V(I,J)=S0
+  290    S1=U(I-1,J-1)+U(I,J-1)+U(I+1,J-1)
+  300    S2=U(I-1,J)+U(I+1,J)
+  310    S3=U(I-1,J+1)+U(I,J+1)+U(I+1,J+1)
+  320    S=S1+S2+S3
+  330    IF S0=1 THEN IF S>3 OR S<2 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),0,BF:V(I,J)=0
+  340    IF S0=0 AND S=3 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF:V(I,J)=1
+  350   NEXT
+  360  NEXT 
+
+  370 ' reset
+  380  FOR I=1 TO SH-1
+  390   FOR J=1 TO SV-1
+  400    U(I,J)=V(I,J)
+  410    IF U(I,J)=1 THEN LINE (4*I-1,4*J-1)-(4*I+1,4*J+1),10,BF
+  420   NEXT
+  430  NEXT:K=K+1:LOCATE 1,1:PRINT K
+  440 WEND:GOSUB 40
+  450 SCREEN 0,0,0:CLS:END
+
+  460 ' wait for key
+  470 LSET Q=MKI$(0)
+  480 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  490 ' centered text
+  500 X=(80-LEN(M(I)))/2:PRINT TAB(X) M(I):RETURN

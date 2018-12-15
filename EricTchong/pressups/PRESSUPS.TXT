@@ -1,0 +1,255 @@
+The game of PressUps FREEWARE, listed 06-06-2004
+
+   10  ' Pressups.bas - Freeware 2004
+   20 GOTO 110
+   30 SAVE "pressups":LIST-110
+   40 GOTO 1350 ' set X1 Y1
+   50 GOTO 1940 ' print block B$
+   60 GOTO 2000 ' print block C$
+   70 GOTO 2060 ' hit any key
+   80 GOTO 2100 ' print @ to locate converter
+   90 GOTO 2120 ' delay a little
+  100 GOTO 2140 ' get key input
+  110 KEY OFF:COLOR 7,0
+  120 RANDOMIZE TIMER:DEFSTR Q,S:Q=MKI$(0)
+  130 CLS:DIM A$(8,8),A(7,7),S(8):F$="COMPUTER"
+
+  140 ' Get the players name
+  150 INPUT"Input your name";E$:IF E$="" THEN E$="YOU"
+  160 IF LEN(E$)>9 THEN CLS:PRINT"Keep your name down to 9 letters !":GOTO 150
+
+  170 ' Creates playing board in memory
+  180 Z$=CHR$(178):B$=CHR$(219):C$=Z$+Z$+Z$+Z$:B$=B$+B$+B$+B$:D$=CHR$(254):L$="    "
+  190 FOR I=0 TO 8:A$(0,I)=L$:A$(8,I)=L$:A$(I,0)=L$:A$(I,8)=L$:NEXT
+  200 FOR I=1 TO 7
+  210  FOR J=1 TO 7
+  220   A(I,J)=9+((J-1)*7)+(((I*2)*64)-64)
+  230   IF J=1 OR J=7 THEN 270
+  240   IF I=1 OR I=7 THEN 260
+  250   A$(I,J)=D$+CHR$(I+48)+CHR$(J+48)+D$:GOTO 280
+  260   A$(I,J)=B$:GOTO 280
+  270   A$(I,J)=C$
+  280  NEXT
+  290 NEXT
+  300 A$(1,1)=D$+CHR$(49)+CHR$(49)+D$	' 11
+  310 A$(1,7)=D$+CHR$(49)+CHR$(55)+D$	' 17
+  320 A$(7,1)=D$+CHR$(55)+CHR$(49)+D$	' 71
+  330 A$(7,7)=D$+CHR$(55)+CHR$(55)+D$	' 77
+  340 IF W=1 THEN 420
+  350 CLS
+  360 PRINT"Remember - do not use the <enter> key":PRINT
+  370 PRINT"If you get into trouble - just enter (H) for Help !":PRINT
+  380 PRINT"Do you want instructions ?":PRINT
+  390 GOSUB 100
+  400 IF ASC(Q)=89 OR ASC(Q)=121 THEN 1580
+
+  410 ' Draws board on screen
+  420 CLS:COLOR 15,0
+  430 FOR I=1 TO 7
+  440  FOR J=1 TO 7
+  450   IF J=1 OR J=7 THEN 480
+  460   IF I=1 THEN COLOR 15,0:E=A(I,J)-64:GOSUB 80:PRINT I*10+J:COLOR 13,0
+  470   IF I=7 THEN COLOR 15,0:E=A(I,J)+64:GOSUB 80:PRINT I*10+J:COLOR 13,0
+  480   IF I=1 OR I=7 THEN 510
+  490   IF J=1 THEN COLOR 15,0:E=A(I,J)-4 :GOSUB 80:PRINT I*10+J:COLOR 14,0
+  500   IF J=7 THEN COLOR 15,0:E=A(I,J)+5 :GOSUB 80:PRINT I*10+J:COLOR 14,0
+  510   E=A(I,J):GOSUB 80:PRINT A$(I,J):COLOR 15,0
+  520  NEXT
+  530 NEXT:COLOR 15,0
+  540 LOCATE 1,2:PRINT E$:LOCATE 1,58:PRINT F$
+  550 LOCATE 2,3:PRINT P :LOCATE 2,61:PRINT C
+  560 IF B=0 THEN 740
+
+  570 ' Checks for end of game
+  580 IF A$(X1-1,Y1-1)=L$ AND A$(X1-1,Y1)=L$ AND A$(X1-1,Y1+1)=L$ AND A$(X1,Y1+1)=L$ 
+        AND A$(X1+1,Y1+1)=L$ AND A$(X1+1,Y1)=L$ AND A$(X1+1,Y1-1)=L$ AND A$(X1,Y1-1)=L$ 
+        THEN 590 ELSE 620
+  590 IF P=C THEN LOCATE 17,17:PRINT "Tie Game                     ":GOTO 650
+  600 IF C>P THEN LOCATE 17,17:PRINT "The computer won !           ":GOTO 650
+  610 IF P>C THEN LOCATE 17,17:PRINT "Congrats! You won!           ":GOTO 650
+  620 IF P=10 THEN 610
+  630 IF C=10 THEN 600
+  640 GOTO 740
+  650 LOCATE 18,17:PRINT "Another game ?"
+  660 GOSUB 100
+  670 IF ASC(Q)=78 OR ASC(Q)=110 THEN 2180 ELSE 690 ' 78=N , 110=n
+
+  680 ' Init a new game
+  690 B=0:N=0:P=0:C=0:W=1
+  700 FOR I=0 TO 8:FOR J=0 TO 8:A$(I,J)="":NEXT:NEXT
+  710 FOR I=0 TO 7:FOR J=0 TO 7:A(I,J)=0  :NEXT:NEXT
+  720 FOR I=0 TO 8: S(I)="":NEXT:X1=0:Y1=0:GOTO 190
+
+  730 ' Move routine - checks for illegal move
+  740 X$=INKEY$:I=I+1:IF I=30 THEN I=0
+  750 IF I>20 THEN LOCATE 17,23:PRINT "Your move?":E=A(X1,Y1):GOSUB 80:PRINT S(N):GOTO 780
+  760 LOCATE 17,23:PRINT "                       "
+  770 E=A(X1,Y1):GOSUB 80:PRINT "     "
+  780 LOCATE 1,2:PRINT E$:IF X$="H" OR X$="h" THEN 1490 ELSE IF X$="" THEN 740 
+        ELSE X=ASC(X$)-48:LOCATE 17,37:PRINT X;
+  790 Y$=INKEY$:I=I+1:IF I=30 THEN I=0
+  800 IF I>20 THEN LOCATE 17,23:PRINT "Your move?":E=A(X1,Y1):GOSUB 80:PRINT S(N):GOTO 820
+  810 IF Y$="H" OR Y$="h" THEN 1490 
+        ELSE LOCATE 17,23:PRINT "          ":E=A(X1,Y1):GOSUB 80:PRINT "     "
+  820 IF Y$="" THEN 790 ELSE Y=ASC(Y$)-48:LOCATE 17,38:PRINT Y;
+  830 IF B=0 THEN 850
+  840 IF X>X1+1 OR X<X1-1 OR Y>Y1+1 OR Y<Y1-1 THEN 900
+  850 B=1:IF X>7 OR X<1 OR Y>7 OR Y<1 THEN 900
+  860 IF A$(X,Y)=L$ THEN 900
+  870 IF A$(X,Y)=B$ THEN P=P+1
+  880 IF A$(X,Y)=C$ THEN C=C+1
+  890 E=A(X1,Y1):GOSUB 80:PRINT L$:A$(X,Y)=L$:E=A(X,Y):GOSUB 80:PRINT L$:GOTO 910
+  900 LOCATE 17,23:PRINT "Illegal move          ":DELAY=1/2:GOSUB 90:GOTO 740
+  910 IF P>9 THEN 610 ELSE IF C>9 THEN 600
+  920 LOCATE 2,61:PRINT C:LOCATE 2,2:PRINT P 
+  930 X9=X:Y9=Y
+  940 S(1)=A$(X9-1,Y9-1):S(2)=A$(X9-1,Y9):S(3)=A$(X-1,Y+1)  :S(4)=A$(X9,Y9+1)
+  950 S(5)=A$(X9+1,Y9+1):S(6)=A$(X9+1,Y9):S(7)=A$(X9+1,Y9-1):S(8)=A$(X9,Y9-1)
+  960 FOR N=1 TO 8
+  970  IF S(N)=L$ THEN 980 ELSE 1000
+  980 NEXT:GOTO 590
+
+  990 ' Computer's move logic
+ 1000 IF X=2 AND Y=2 AND A$(1,2)=B$ AND A$(2,1)=C$ AND LEFT$(A$(1,1),1)=D$ THEN N=1:GOTO 1330
+ 1010 IF X=2 AND Y=6 AND A$(1,6)=B$ AND A$(2,7)=C$ AND LEFT$(A$(1,7),1)=D$ THEN N=3:GOTO 1330
+ 1020 IF X=6 AND Y=2 AND A$(6,1)=C$ AND A$(7,2)=B$ AND LEFT$(A$(1,7),1)=D$ THEN N=7:GOTO 1330
+ 1030 IF X=6 AND Y=6 AND A$(6,7)=C$ AND A$(7,6)=B$ AND LEFT$(A$(7,7),1)=D$ THEN N=5:GOTO 1330
+ 1040 FOR N=1 TO 8
+ 1050  IF S(N)=L$ THEN 1110
+ 1060  GOSUB 40:W=X1*10+Y1:V=X*10+Y
+ 1070  IF W=22 AND A$(1,1)=L$ THEN 1330
+ 1080  IF W=26 AND A$(1,7)=L$ THEN 1330
+ 1090  IF W=66 AND A$(7,7)=L$ THEN 1330
+ 1100  IF W=62 AND A$(7,1)=L$ THEN 1330
+ 1110 NEXT
+ 1120 IF V=77 AND A$(7,6)=B$ AND A$(6,6)=L$ THEN N=8:GOTO 1330
+ 1130 IF V=71 AND A$(7,2)=B$ AND A$(6,2)=L$ THEN N=4:GOTO 1330
+ 1140 IF V=11 AND A$(1,2)=B$ AND A$(2,2)=L$ THEN N=4:GOTO 1330
+ 1150 IF V=17 AND A$(1,6)=B$ AND A$(2,6)=L$ THEN N=8:GOTO 1330
+ 1160 FOR N=1 TO 8
+ 1170  IF S(N)=L$ THEN 1190
+ 1180  IF S(N)=C$ THEN 1330
+ 1190 NEXT
+ 1200 FOR N=1 TO 8
+ 1210  IF LEFT$(S(N),1)=D$ THEN 1230
+ 1220 NEXT:GOTO 1280
+ 1230 FOR I=1 TO 10
+ 1240  N=INT(RND*8)+1:GOSUB 40:IF X1=2 OR X1=6 THEN 1260
+ 1250  IF LEFT$(S(N),1)=D$ THEN 1330
+ 1260 NEXT
+ 1270 N=INT(RND*8)+1:IF LEFT$(S(N),1)<>D$ THEN 1270 ELSE 1330
+ 1280 FOR N=1 TO 8
+ 1290  IF S(N)=L$ THEN 1310
+ 1300  IF S(N)=B$ THEN 1330
+ 1310 NEXT
+ 1320 GOTO 590
+ 1330 GOSUB 40:GOTO 1450
+
+ 1340 ' Adjust X1, Y1
+ 1350 ON N GOTO 1360,1370,1380,1390,1400,1410,1420,1430
+ 1360 X1=X-1:Y1=Y-1:GOTO 1440
+ 1370 X1=X-1:Y1=Y  :GOTO 1440
+ 1380 X1=X-1:Y1=Y+1:GOTO 1440
+ 1390 X1=X  :Y1=Y+1:GOTO 1440
+ 1400 X1=X+1:Y1=Y+1:GOTO 1440
+ 1410 X1=X+1:Y1=Y  :GOTO 1440
+ 1420 X1=X+1:Y1=Y-1:GOTO 1440
+ 1430 X1=X  :Y1=Y-1:GOTO 1440
+ 1440 RETURN
+ 1450 IF A$(X1,Y1)=C$ THEN C=C+1:LOCATE 2,2:PRINT P:LOCATE 2,61:PRINT C
+ 1460 IF A$(X1,Y1)=B$ THEN P=P+1
+ 1470 A$(X1,Y1)=L$:GOTO 560
+
+ 1480 ' Help module
+ 1490 CLS:LOCATE 8,23:PRINT "You rang ?":DELAY=1/2:GOSUB 90:CLS
+ 1500 PRINT"Would you like ...":PRINT"(I) instructions"
+ 1510 PRINT"(B) board redrawn with same positions":PRINT"(N) new game"
+ 1520 GOSUB 100
+ 1530 IF ASC(Q)=73 OR ASC(Q)=105 THEN 1580 ' 73=I, 105=i
+ 1540 IF ASC(Q)=66 OR ASC(Q)=98  THEN 420  ' 66=B,  98=b
+ 1550 IF ASC(Q)=78 OR ASC(Q)=110 THEN RUN  ' 78=N, 110=n
+ 1560 GOTO 1520
+
+ 1570 ' Instruction module
+ 1580 CLS:GOSUB 50:LOCATE 4,17:PRINT "Your score one point when one of"
+ 1590 LOCATE 5,17:PRINT "the ÛÛÛÛ blocks is played.":GOSUB 70:GOSUB 60
+ 1600 LOCATE 7,17:PRINT "The computer scores  when one of"
+ 1610 LOCATE 8,17:PRINT "the ²²²² blocks is played.":GOSUB 70:COLOR 15,0
+ 1620 LOCATE 10,17:PRINT D$;"52";D$;"   ";D$;"53";D$;"   ";D$;"54";D$;
+ 1630 PRINT "   ";D$;"55";D$;"   ";D$;"56";D$
+ 1640 LOCATE 11,17:PRINT "The þ  þ blocks are neutral"
+ 1650 LOCATE 12,17:PRINT "and do not score for either.":GOSUB 70
+ 1660 CLS:GOSUB 50:GOSUB 60
+ 1670 LOCATE 4,17:PRINT "When you play a piece ..."
+ 1680 LOCATE 5,17:PRINT "it disappears."
+ 1690 FOR I=2 TO 6:E=A(1,I):GOSUB 80:PRINT L$:DELAY=1/5:GOSUB 90:NEXT
+ 1700 FOR I=2 TO 6:E=A(I,7):GOSUB 80:PRINT L$:DELAY=1/5:GOSUB 90:NEXT
+ 1710 GOSUB 70:LOCATE 7,17:PRINT "When the computer plays a block,"
+ 1720 LOCATE 8,17:PRINT "it flashes ... until you play." 
+ 1730 A$=INKEY$:I=I+1:IF I=30 THEN I=0
+ 1740 IF I>20 THEN E=A(4,1):GOSUB 80:PRINT C$ ELSE E=A(4,1):GOSUB 80:PRINT L$ 
+ 1750 IF A$="" THEN 1730
+ 1760 CLS:GOSUB 50:LOCATE 4,17:PRINT"This is important ...you or"
+ 1770 LOCATE  5,17:PRINT "the computer may play any block"
+ 1780 LOCATE 6,17:COLOR 15,0:PRINT "þ  þ,";:COLOR 13,0:PRINT " ÛÛÛÛ,";
+        :COLOR 14,0:PRINT " or ²²²².":COLOR 13,0 ' alt 254, 219, 178
+ 1790 LOCATE  7,17:PRINT "However, the block played must be"
+ 1800 LOCATE  8,17:PRINT "adjacent to the one played.":GOSUB 70
+ 1810 LOCATE 10,17:PRINT "Finally ..."
+ 1820 LOCATE 11,17:PRINT "if either you or the computer is"
+ 1830 LOCATE 12,17:PRINT "unable to move, the game ends,"
+ 1840 LOCATE 13,17:PRINT "And whoever is ahead wins.":GOSUB 70
+ 1850 CLS:LOCATE 4,17:PRINT"If this does not happen then"
+ 1860 LOCATE  5,17:PRINT "whoever gets 10 points first"
+ 1870 LOCATE  6,17:PRINT "is the winner !"
+ 1880 LOCATE  8,17:PRINT "If you have a problem just ask"
+ 1890 LOCATE  9,17:PRINT "for (H) Help."
+ 1900 LOCATE 11,17:PRINT "You start the game by selecting"
+ 1910 LOCATE 12,17:PRINT "any neutral block." 
+ 1920 GOSUB 70:GOTO 420
+
+ 1930 ' Print block B$
+ 1940 COLOR 13,0
+ 1950 FOR I=2 TO 6
+ 1960  E=A(1,I):GOSUB 80:PRINT B$
+ 1970  E=A(7,I):GOSUB 80:PRINT B$
+ 1980 NEXT:RETURN
+
+ 1990 ' Print block C$
+ 2000 COLOR 14,0
+ 2010 FOR I=2 TO 6
+ 2020  E=A(I,1):GOSUB 80:PRINT C$
+ 2030  E=A(I,7):GOSUB 80:PRINT C$
+ 2040 NEXT:RETURN
+
+ 2050 ' Hit a key
+ 2060 LOCATE 16,26:PRINT"<Hit any key>"
+ 2070 GOSUB 100
+ 2080 RETURN
+
+ 2090 ' Print @ to locate converter
+ 2100 Z=INT(E/64)+1:F=(Z-1)*64:F=(E-F)+1:LOCATE Z,F:RETURN
+
+ 2110 ' Delay routine
+ 2120 BEGIN=TIMER:WHILE TIMER<BEGIN+DELAY:WEND:RETURN
+
+ 2130 ' Get key input
+ 2140 LSET Q=MKI$(0)
+ 2150 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+ 2160 RETURN
+
+ 2170 ' Exit
+ 2180 COLOR 7,0:CLS
+ 2190 KEY 5,"pressups.bas":KEY 6,CHR$(34)+",a"
+ 2200 KEY ON:END
+
+ 2210 ' Adapted from a TRS-80 basic listing
+ 2220 '       Softside - Jan 1981 - Page 31
+ 2230 '     Sept 30, 1984 by Eric F. Tchong
+ 2240 '                               ARUBA
+ 2250 ' -----------------------------------
+ 2260 '                   P R E S S   U P S
+ 2270 '                 Carl & Ellen Weaver
+ 2280 '                 15638 Horace Street
+ 2290 '            Granada Hills, CA. 91344
+ 2300 ' -----------------------------------

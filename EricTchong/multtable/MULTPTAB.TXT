@@ -1,0 +1,83 @@
+Multiplication tables from 1 to 100, listed 10-30-2005
+
+   10  ' multptab.bas - FreeWare 2005
+   20 GOTO 120 ' begin
+   30 SAVE "multptab.bas",A:LIST-120
+   40 GOTO 350 ' tables  1..90 
+   50 GOTO 480 ' tables 91..100
+   60 GOTO 640 ' wait for key
+   70 GOTO 670 ' centered text
+   80 GOTO 700 ' 1..90 part 1
+   90 GOTO 710 ' 1..90 part 2
+  100 GOTO 730 ' 91..100 part 1
+  110 GOTO 740 ' 91..100 part 2
+  120 CLS:KEY OFF:TW$="##":DR$="###":VI$="####":DEFSTR M,Q:Q=MKI$(0)
+  130 M(1)="MULTIPLICATION TABLES from 1 to 100"
+  140 M(2)="GW-BASIC by Eric F. Tchong"
+  150 M(3)="FREEWARE 2005"
+  160 M(4)="To exit type -1 "
+  170 M(5)="Do you need a diskfile: <y/n> ?"
+  180 FOR I=1 TO 5
+  190  GOSUB 70:IF I=3 THEN PRINT
+  200 NEXT:GOSUB 60:CLS ' wait
+  210 IF ASC(Q)=89 OR ASC(Q)=121 THEN CP=1 ELSE CP=0
+  220 IF CP THEN 230 ELSE 270
+  230 CLS:PRINT "Type a filename <12345678.txt> ? ";:LINE INPUT Z$
+  240 IF LEFT$(Z$,1)=" " THEN Z$=MID$(Z$,2):GOTO 240
+  250 OPEN "O",#1,Z$:CLS
+
+  260 ' get table
+  270 INPUT "Table 1..91  <-1=stop> ";S:E=S
+  280 IF S=-1 THEN CLS:CLOSE #1:END
+  290 IF S<1 OR S>91 THEN 270
+  300 IF S=91 THEN 450 ' special case
+
+  310 ' tables 1..90
+  320 FOR P=1 TO 2
+  330  GOSUB 40:S=E+5:PRINT:IF CP THEN PRINT #1,
+  340 NEXT:GOTO 270
+  350 FOR I=1 TO 10
+  360  FOR T=S TO S+4
+  370   PRINT USING TW$;I;:PRINT " x ";:PRINT USING TW$;T;
+  380   IF CP THEN GOSUB 80
+  390   PRINT " = ";:PRINT USING DR$;I*T;:PRINT "  ";
+  400   IF CP THEN GOSUB 90
+  410  NEXT:PRINT:IF CP THEN PRINT #1,
+  420 NEXT
+  430 RETURN
+
+  440 ' tables 91..100
+  450 FOR P=1 TO 2
+  460  GOSUB 50:S=E+5:PRINT:IF CP THEN PRINT #1,
+  470 NEXT:GOTO 270
+  480 FOR I=1 TO 10
+  490  FOR T=S TO S+4
+  500   PRINT USING TW$;I;:PRINT " x ";
+  510   IF CP THEN PRINT #1,USING TW$;I;:PRINT #1," x ";
+  520   IF T>99 THEN PRINT USING DR$;T;:IF CP THEN GOSUB 100
+  530   IF T>99 THEN 550
+  540   PRINT USING TW$;T;:IF CP THEN PRINT #1,USING TW$;T;
+  550   PRINT " = ";:IF CP THEN PRINT #1," = ";
+  560   IF T>99 THEN PRINT USING VI$;I*T;:PRINT "  ";:IF CP THEN GOSUB 110
+  570   IF T>99 THEN 600
+  580   PRINT USING DR$;I*T;:PRINT "  ";
+  590   IF CP THEN PRINT #1,USING DR$;I*T;:PRINT #1,"  ";
+  600  NEXT:PRINT:IF CP THEN PRINT #1,
+  610 NEXT
+  620 RETURN
+
+  630 ' wait for key
+  640 LSET Q=MKI$(0)
+  650 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  660 ' centered text
+  670 X=(80-LEN(M(I)))/2
+  680 PRINT TAB(X) M(I):RETURN
+
+  690 '  1..90  part 1 & 2
+  700 PRINT #1,USING TW$;I;:PRINT #1," x ";:PRINT #1,USING TW$;T;:RETURN
+  710 PRINT #1," = ";:PRINT #1,USING DR$;I*T;:PRINT #1,"  ";:RETURN
+
+  720 ' 91..100 part 1 & 2
+  730 PRINT #1,USING DR$;T;:RETURN
+  740 PRINT #1,USING VI$;I*T;:PRINT #1,"  ";:RETURN

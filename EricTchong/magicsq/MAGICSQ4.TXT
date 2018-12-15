@@ -1,0 +1,40 @@
+Magic Squares 4X4 FreeWare 2005 by Eric Tchong, listed 01-23-2005
+
+   10 ' magicsq4.bas - FreeWare 2005 - eric tchong
+   20 GOTO 60 ' begin
+   30 SAVE"magicsq4",A:LIST-60
+   40 GOTO 270 ' clear line
+   50 GOTO 290 ' get key
+   60 CLS:KEY OFF:DEFDBL E,M,N,S:DIM MN(16), SN(16):DEFSTR Q:Q=MKI$(0)
+   70 FOR X=1 TO 16:READ MN(X):NEXT
+   80 PRINT "This program generates a 4x4 Magic Square":PRINT
+   90 PRINT "Save results in an ascii diskfile <y/n> ?"
+  100 GOSUB 50:CLS
+  110 IF ASC(Q)=89 OR ASC(Q)=121 THEN COPY=1 ELSE COPY=0:GOTO 140
+  120 LINE INPUT "Enter a DOS filename ? ";Z$
+  130 OPEN "O",#1,Z$:CLS
+  140 INPUT "Number 30 to 99999999 [0=exit] ";N
+  150 IF N=0 THEN CLS:END
+  160 IF N<30 OR N>99999999# THEN GOSUB 40:GOTO 140
+  170 GOSUB 40:N$=STR$(N):L=LEN(N$)
+  180 E=(N-30)/4:PRINT
+  190 FOR X=1 TO 16:SN(X)=MN(X)+E:NEXT
+  200 PRINT "Magic square of";N:PRINT
+  210 IF COPY THEN PRINT #1,"Magic square of";N:PRINT #1,""
+  220 FOR X=1 TO 16
+  230  PRINT SN(X);" ";:IF COPY THEN PRINT #1,SN(X);" ";:GOTO 240 ELSE 240
+  240  IF X/4=INT(X/4) THEN PRINT:PRINT:IF COPY THEN PRINT #1,"":PRINT #1,""
+  250 NEXT:GOTO 140
+
+  260 ' clear line
+  270 PRINT CHR$(30);:PRINT STRING$(79,32):PRINT CHR$(30);:RETURN
+
+  280 ' get key
+  290 LSET Q=MKI$(0)
+  300 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  310 ' 4x4 data
+  320 DATA  0, 14, 13,  3
+  330 DATA 11,  5,  6,  8
+  340 DATA  7,  9, 10,  4
+  350 DATA 12,  2,  1, 15

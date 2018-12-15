@@ -1,0 +1,37 @@
+10 ' factsrch.bas - FreeWare 2006 - eric f. tchong
+20 GOTO 60 ' begin
+30 SAVE "factsrch.bas",A:LIST-60
+40 GOTO 330 ' wait for key
+50 GOTO 360 ' text
+60 DIM A%(5000):DEFSTR M,Q:Q=MKI$(0)
+70 M(1) ="Search for perfect triangles"
+80 M(2) ="Examples of perfect triangles:"
+90 M(3) ="Digits       4   9  16  36  81  121  169  225  441  529  576  625"
+100 M(4) ="Factorials   7  12  18  32  59   81  105  132  228  265  284  304"
+110 CLS:LOCATE 2,1
+120 FOR I=1 TO 4
+130  GOSUB 50:IF I=1 THEN PRINT
+140 NEXT:GOSUB 40:CLS
+150 FOR N=7 TO 1000
+160 ' DG = digit,  CR = carry
+170   DG=1:CR=0
+180   A%(1)=1
+190   FOR I=2 TO N
+200    FOR J=1 TO DG
+210     A%(J)=A%(J)*I+CR
+220     CR=INT(A%(J)/10)
+230     A%(J)=A%(J)-10*CR
+240    NEXT
+250    IF CR>0 THEN C=INT(CR/10):DG=DG+1:A%(DG)=CR-10*C:CR=C:GOTO 250
+260    CR=0
+270   NEXT:EC=DG:IF SQR(EC)=INT(SQR(EC)) THEN 280 ELSE 290
+280   PRINT N ; EC
+290 NEXT
+300 PRINT:PRINT "End of search N = ";N-1
+310 PRINT "Press any key to exit this program":GOSUB 40:CLS:END
+320 ' wait for key
+330 LSET Q=MKI$(0)
+340 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+350 ' text
+360 T=(80-LEN(M(I)))/2:PRINT TAB(T) M(I):RETURN
+

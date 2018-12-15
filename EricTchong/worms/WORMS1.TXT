@@ -1,0 +1,152 @@
+Game of worms in Screen 1, listed 12-08-2005
+
+   10 ' worms1.bas - Eric F. Tchong - FreeWare 2005
+   20 GOTO 120 ' begin
+   30 SAVE "worms1.bas",A:LIST-120
+   40 GOTO 1170 ' print@ to locate
+   50 GOTO 1210 ' get key
+   60 GOTO 1270 ' centered text
+   70 GOTO 1290 ' delay
+   80 GOTO 1310 ' delay shoot
+   90 GOTO 1330 ' slower
+  100 GOTO 1360 ' faster
+
+  110 ' begin
+  120 CLS:RANDOMIZE TIMER:SCREEN 1 ' locals
+  130 DEFDBL S:DEFINT I,X,Y,F,P,R:DEFSTR M,Q:Q=MKI$(0)
+  140 F2=2:DIM M(22):CLS:SP=20000
+  150 M(1) =">>>*** W O R M S ***<<<"
+  160 M(2) ="Try to score as high as possible,"
+  170 M(3) ="by moving the worm without hitting"
+  180 M(4) ="any obstacles. You may shoot"
+  190 M(5) ="10 times with your spacebar."
+  200 M(6) ="Here are your commando keys:"
+  210 M(7) =CHR$(24)+"   Up   "
+  220 M(8) =CHR$(25)+"   Down "
+  230 M(9) =CHR$(27)+"   Left "
+  240 M(10)=CHR$(26)+"   Right"
+  250 M(11)="Spacebar to shoot"
+  260 M(12)="You better go to sleep"
+  270 M(13)="Gosh, not so good"
+  280 M(14)="Please give up, it's a mess"
+  290 M(15)="Maybe after much training"
+  300 M(16)="Looks like your first time"
+  310 M(17)="You are improving"
+  320 M(18)="Not bad for a beginner"
+  330 M(19)="Very good, keep up the good work"
+  340 M(20)="Super, do join a champions club"
+  350 M(21)="GAME OVER !"
+  360 M(22)="Press Esc to end any key to restart"
+  370 FOR I=1 TO 11
+  380  GOSUB 60:IF I=1 OR I=5 OR I=11 THEN PRINT
+  390 NEXT
+  400 LOCATE 15,16:INPUT "Level ";L
+
+  410 ' draw board
+  420 CLS:F3=0:SH=0
+  430 FOR I=0 TO 319:PSET(I,0):PSET(I,199):NEXT
+  440 FOR I=1 TO 198:PSET(0,I):PSET(319,I):NEXT
+  450 X=INT(RND*75)+26:X0=X:Y=INT(RND*30)+9:Y0=Y
+  460 IF L=0 THEN 600 ' skip blocks
+  470 I1=INT(RND*5)+1 ' random 1..5
+  480 FOR I=1 TO L*I1:E=INT(RND*1022)+1:GOSUB 40:PRINT CHR$(219);:NEXT
+  490 I1=INT(RND*3)+1 ' random 1..3
+  500 FOR I=1 TO L*I1
+  510  I2=INT(RND*957)+1
+  520  E=I2   :GOSUB 40:PRINT CHR$(219);
+  530  E=I2+1 :GOSUB 40:PRINT CHR$(219);
+  540  E=I2+2 :GOSUB 40:PRINT CHR$(219);
+  550  E=I2+64:GOSUB 40:PRINT CHR$(219);
+  560  E=I2+65:GOSUB 40:PRINT CHR$(219);
+  570  E=I2+66:GOSUB 40:PRINT CHR$(219);
+  580 NEXT
+
+  590 ' commands
+  600 LSET Q=MKI$(0)
+  610  WHILE CVI(Q)=0
+  620   GOSUB 850 ' movement
+  630   MID$(Q,1)=INKEY$:D=ASC(Q):IF CVI(Q) THEN 640
+  640  WEND
+  650 IF CVI(Q)=19200 THEN X1=-1:Y1=0 :F2=1 ' left arrow
+  660 IF CVI(Q)=19712 THEN X1=1 :Y1=0 :F2=2 ' right arrow
+  670 IF CVI(Q)=18432 THEN X1=0 :Y1=-1:F2=3 ' up arrow
+  680 IF CVI(Q)=20480 THEN X1=0 :Y1=1 :F2=4 ' down arrow
+  690 IF D=32 THEN 750  ' spacebar
+  700 IF D=27 THEN 1150 ' exit
+  710 IF D=83 OR D=115 THEN GOSUB 1330 ' slower
+  720 IF D=70 OR D=102 THEN GOSUB 1360 ' faster
+  730 GOTO 600
+
+  740 ' spacebar pressed
+  750 P=X:R=Y:R0=Y:P0=X:SH=SH+1:ON F2 GOTO 800,810,820,830
+  760 IF SH>10 THEN GOTO 600
+  770 PSET(P,R):P0=P0+P1:R0=R0+R1:GOSUB 80 ' fast erase
+  780 IF P0=0 OR P0=319 OR R0=0 OR R0=199 THEN PSET(X,Y):PRESET(P,R):GOSUB 80:GOTO 600
+  790 PRESET(P,R):P=P0:R=R0:GOSUB 80:GOTO 770
+  800 P1=-1:R1=0 :GOTO 760
+  810 P1=1 :R1=0 :GOTO 760
+  820 P1=0 :R1=-1:GOTO 760
+  830 P1=0 :R1=1 :GOTO 760
+
+  840 ' movement
+  850 X0=X0+X1:Y0=Y0+Y1:F1=0
+  860 IF POINT(X0,Y0) THEN X0=X:Y0=Y:F1=F1+1:GOTO 880
+  870 X=X0:Y=Y0:PSET(X,Y):F3=F3+1:GOSUB 70:RETURN
+  880 IF INT(RND*2)+1=2 THEN 950
+  890 IF F1>10 THEN 1010
+  900 ON F2 GOTO 910,920,930,940
+  910 X1=1 :Y1=0:Y0=Y0-1:F2=2:GOTO 860
+  920 X1=-1:Y1=0:Y0=Y0-1:F2=1:GOTO 860
+  930 X1=0 :Y1=1:X0=X0-1:F2=4:GOTO 860
+  940 X1=0:Y1=-1:X0=X0-1:F2=3:GOTO 860
+  950 ON F2 GOTO 960,970,980,990
+  960 X1=1 :Y1=0:Y0=Y0+1:F2=2:GOTO 860
+  970 X1=-1:Y1=0:Y0=Y0+1:F2=1:GOTO 860
+  980 X1=0 :Y1=1:X0=X0+1:F2=4:GOTO 860
+  990 X1=0:Y1=-1:X0=X0+1:F2=3:GOTO 860
+
+ 1000 ' game over
+ 1010 CLS:I=21:GOSUB 60 ' game over
+ 1020 LOCATE 2,14:PRINT "SCORE =";F3:PRINT
+ 1030 IF F3<50   THEN I=12:GOTO 1120
+ 1040 IF F3<100  THEN I=13:GOTO 1120
+ 1050 IF F3<300  THEN I=14:GOTO 1120
+ 1060 IF F3<600  THEN I=15:GOTO 1120
+ 1070 IF F3<900  THEN I=16:GOTO 1120
+ 1080 IF F3<1500 THEN I=17:GOTO 1120
+ 1090 IF F3<3000 THEN I=18:GOTO 1120
+ 1100 IF F3<4000 THEN I=19:GOTO 1120
+ 1110 I=20
+ 1120 GOSUB 60:PRINT
+ 1130 I=22:GOSUB 60:PRINT
+ 1140 GOSUB 50:IF ASC(Q)=27 THEN 1150 ELSE CLS:GOTO 400
+ 1150 SCREEN 2:SCREEN 0,0,0:CLS:END
+
+ 1160 ' print@ to locate
+ 1170 V=INT(E/40)+1:Z=(V-1)*40:Z=(E-Z)+1
+ 1180 IF V>25 THEN V=25 ELSE IF Z>40 THEN Z=40
+ 1190 LOCATE V,Z:RETURN
+
+ 1200 ' Get key pressed
+ 1210 LSET Q=MKI$(0)
+ 1220 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND
+ 1230 IF ASC(Q)=83 OR ASC(Q)=115 THEN GOSUB 90 :GOTO 1210 ' slower
+ 1240 IF ASC(Q)=70 OR ASC(Q)=102 THEN GOSUB 100:GOTO 1210 ' faster
+ 1250 RETURN
+
+ 1260 ' centered text -  screen 2
+ 1270 T=(40-LEN(M(I)))/2:PRINT TAB(T) M(I):RETURN
+
+ 1280 ' delay
+ 1290 FOR EC=1 TO SP:NEXT:RETURN
+
+ 1300 ' delay shoot
+ 1310 FOR EC=1 TO 5000:NEXT:RETURN
+
+ 1320 ' slower
+ 1330 SP=SP+500:IF SP=70500! THEN SP=70000!
+ 1340 RETURN
+
+ 1350 ' faster
+ 1360 SP=SP-500:IF SP=-500 THEN SP=0
+ 1370 RETURN

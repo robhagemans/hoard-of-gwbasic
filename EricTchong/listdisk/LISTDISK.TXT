@@ -1,0 +1,224 @@
+ListDisk GOLD - FreeWare, listed 06-11-2004
+
+   10 ' Lister, to list BASIC program saved in ,A format. FREEWARE June 2004
+   20 GOTO 80 ' begin
+   30 SAVE"listdisk.bas":LIST-70
+   40 GOTO 1650 ' get numeric parameter
+   50 GOTO 1690 ' none specified
+   60 GOTO 1710 ' get key
+
+   70 ' Begin
+   80 DEFINT A-Z:DEFSTR Q:Q=MKI$(0):CLS:KEY OFF
+   90 ON ERROR GOTO 0
+
+  100 ' Announce us
+  110 COLOR 14,0
+  120 PRINT " ‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹‹"
+  130 PRINT "€                                                        €"
+  140 PRINT "€ A Lister for GwBasic programs:  saved in ASCII format. €"
+  150 PRINT "€ File is listed to screen and saved as a txt disk-file. €"
+  160 PRINT "€ Edit and print the file with your super wordprocessor. €"
+  170 PRINT "€                                                        €"
+  180 PRINT " ﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂﬂ "
+  190 PRINT:COLOR 13,0
+  200 PRINT "      …ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕª"
+  210 PRINT "      ∫ Left  Margin is fixed at 1                 ∫"
+  220 PRINT "      ∫ Right Margin is set   at 94 ( 80 .. 132 )  ∫"
+  230 PRINT "      ∫ Enter filename: extension .bas is optional ∫"
+  240 PRINT "      »ÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕÕº"
+  250 PRINT:COLOR 12,0
+  260 PRINT "             ⁄ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒø"
+  270 PRINT "             ≥ Press any key to continue... ≥"
+  280 PRINT "             ¿ƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒƒŸ"
+  290 GOSUB 60:CLS
+  300 DIM PREFER$(20):TODAY$=DATE$:COLOR 7,0:FILES "*.bas"
+
+  310 ' Set initial parameters.
+  320 LMGN=1:RMGN=94:BMGN=5:LNSPA=1:PGLEN=66
+  330 FLNM$="":HEADER$="":INDENT$=SPACE$(8)
+
+  340 ' Define F-keys.
+  350 KEY 1,"Preview"+CHR$(13)
+  360 KEY 2,"Rt margin at :"
+  370 KEY 3,"Files"+CHR$(13)
+  380 KEY 4,"Exit"+CHR$(13)
+  390 KEY 5,"Single spaced"+CHR$(13)
+  400 KEY 6,"Double spaced"+CHR$(13)
+  410 KEY 7,"P'gram name: "
+  420 KEY 8,"Header: "
+  430 KEY 9,"Review"+CHR$(13)
+  440 KEY 10," Begin"
+  450 KEY ON:LOCATE 23,1
+
+  460 ' Call attention to F-keys.
+  470 ARROW$=STRING$(20,"-"):COLOR 0,11
+  480 PRINT ARROW$;
+  490 PRINT " Use F-keys to set the listing format ";:COLOR 11,0:PRINT ARROW$
+  500 RESTORE:FOR I=0 TO 9:READ FKEY$(I):NEXT
+  510 DATA Pr,Rt,Fi,Ex,Si,Do,P',He,Re," B"
+
+  520 ' Set up list of preferred breakpoints. 0 to 13 Sites.
+  530 FOR IP=0 TO 20:READ Z$:PREFER$(IP)=Z$:NEXT:IP=IP-1
+  540 DATA " ELSE ", " THEN ", ": ", " PRINT "    : ' 0  1  2  3
+  550 DATA " IF ", "  '", " OR ", " AND ",  ";"   : ' 4  5  6  7  8
+  560 DATA "=", " ", "+", "*", ","                : ' 9  10 11 12 13
+  570 DATA "", "", "", "", "", "", ""             : ' 14 15 16 17 18 19 20
+
+  580 ' Loop for adjusting runtime parameters.
+  590 LINE INPUT Z$
+  600 FOR I=0 TO 9
+  610  IF LEFT$(Z$,2)=FKEY$(I) THEN 630
+  620 NEXT:GOTO 590
+  630 ON I+1 GOTO 650,660,690,900,730,740,760,710,920,1020
+
+  640 ' Preview, Right margin-setting routine, list files
+  650 COLOR 12,0:PRINT"Press <Esc> to exit screen listing":COLOR 11,0:SW=0:GOTO 1030
+  660 GOSUB 40:RMGN=NUMBA
+  670 IF RMGN <80 OR RMGN>132 THEN BEEP:PRINT "Use only a value from 80 to 132...":RMGN=94
+  680 PRINT:GOTO 590
+  690 PRINT:FILES "*.bas":GOTO 590
+
+  700 ' Establish page header.
+  710 HEADER$=MID$(Z$,9):GOTO 590
+
+  720 ' Single- or double-space output.
+  730 LNSPA=1:GOTO 590
+  740 LNSPA=2:GOTO 590
+
+  750 ' Get name of program to be listed.
+  760 FLNM$=MID$(Z$,13)
+  770 IF LEFT$(FLNM$,1)=" " THEN FLNM$=MID$(FLNM$,2):GOTO 770
+  780 ET=LEN(FLNM$):FLNM2$="":EC$=""
+  790 FOR I=1 TO ET
+  800  EC$=MID$(FLNM$,I,1):IF EC$="." THEN 850
+  810  FLNM2$=FLNM2$+EC$
+  820 NEXT
+
+  830 ' Save filename as a txt file
+  840 FLNM$= FLNM2$ + ".bas"
+  850 FLNM2$=FLNM2$ + ".txt"
+
+  860 ' If there's no header yet, fake it with the file name.
+  870 IF HEADER$="" THEN HEADER$=CHR$(34)+FLNM$+CHR$(34)
+  880 GOTO 590
+
+  890 ' Exit Lister
+  900 FLNM$="Listdisk.bas":CLS:GOTO 1740
+
+  910 ' Display the current parameters.
+  920 PRINT:PRINT"Left  margin at";LMGN
+  930 PRINT "Right margin at";RMGN:PRINT
+  940 IF LNSPA=2 THEN PRINT "Double"; ELSE PRINT "Single";
+  950 PRINT " line spacing"
+  960 PRINT "Program name: ";: IF FLNM$="" THEN GOSUB 50 ELSE PRINT FLNM$
+  970 PRINT "Header: ";: IF HEADER$="" THEN GOSUB 50 ELSE PRINT HEADER$
+  980 PRINT
+  990 GOTO 590
+
+ 1000 ' Check parameters before actually trying to list the program.
+ 1010 ' List to screen or disk
+ 1020 SW=1
+ 1030 LNLEN=RMGN-LMGN+1
+
+ 1040 ' Open the disk file, complain if not possible to do it.
+ 1050 ON ERROR GOTO 1610
+ 1060 OPEN FLNM$ FOR INPUT AS #1
+ 1070 IF SW=1 THEN OPEN "O",#2,FLNM2$
+ 1080 ON ERROR GOTO 0
+
+ 1090 ' Title the first page with the header and -if available- the date.
+ 1100 PRINT
+ 1110 PRINT    TAB(LMGN); HEADER$;:PRINT    ", listed "; TODAY$
+ 1120 IF SW=1 THEN 1130 ELSE 1140
+ 1130 PRINT #2,TAB(LMGN); HEADER$;:PRINT #2,", listed "; TODAY$
+ 1140 PRINT:IF SW=1 THEN PRINT #2,""
+
+ 1150 ' Get the next BASIC line, quit if end of file.
+ 1160 PGNUM=1:LNCNT=3
+ 1170 IF EOF(1) THEN CLOSE:GOTO 590
+ 1180 LINE INPUT #1, DISK$:IF DISK$="" THEN 1180
+
+ 1190 ' Right-justify the line number.
+ 1200 DISK$=SPACE$(6-INSTR(DISK$," "))+DISK$
+
+ 1210 ' CMNTSW governs the blank line ahead of comment lines.
+ 1220 IF MID$(DISK$,7,1)<>"'" THEN CMNTSW=0
+
+ 1230 ' Break the BASIC line into printer lines.
+ 1240 FOR J=0 TO 9
+ 1250  IF CMNTSW=0 AND MID$(DISK$,7,1)="'" THEN LN$(J)="":J=J+1:CMNTSW=1
+
+ 1260 ' It's easy if the whole line fits at once.
+ 1270  IF LEN(DISK$)<=LNLEN THEN LN$(J)=DISK$:GOTO 1440
+
+ 1280 ' Else, check for preferred breakpoints.
+ 1290  FOR K=0 TO IP
+ 1300   SITE=0:K$=PREFER$(K)
+ 1310   HISITE=SITE: IF SITE<13 THEN SITE=13  ' 13 was 9 before
+ 1320   SITE=INSTR(SITE+1,DISK$,K$)
+ 1330   IF SITE>0 AND SITE<=LNLEN THEN 1310
+ 1340   IF HISITE=0 THEN 1350 ELSE 1360
+ 1350  NEXT K
+ 1360  IF HISITE=0 THEN HISITE=LNLEN
+
+ 1370 ' HISITE now points to the rightmost, best breakpoint.
+ 1380 ' Split the line there and indent all but the first one.
+ 1390  LN$(J)=LEFT$(DISK$,HISITE)
+ 1400  DISK$=MID$(DISK$,HISITE+1)
+ 1410  DISK$=INDENT$+DISK$
+ 1420 NEXT J
+
+ 1430 ' If the first BASIC line is a comment, then skip blank line
+ 1440 IF CMNTSW=1 AND LNCNT=3 THEN Z=1 ELSE Z=0
+ 1450 IF Z=1 AND J=0 THEN Z=0
+
+ 1460 ' Everything is guaranteed to fit. Print it all.
+ 1470 FOR L=Z TO J
+ 1480  LNCNT=LNCNT+1
+ 1490  PRINT    TAB(LMGN); LN$(L):IF SW=1 THEN PRINT #2,TAB(LMGN); LN$(L)
+ 1500  IF LNSPA=2 THEN LNCNT=LNCNT+1:PRINT:IF SW=1 THEN PRINT #2,""
+ 1510 NEXT
+
+ 1520 ' Pressing <Esc> exits screen list
+ 1530 IF SW=1 THEN 1170
+ 1540 GOSUB 60:IF ASC(Q)=27 THEN CLOSE:PRINT:SW=0:GOTO 590
+
+ 1550 ' Cycle again
+ 1560 GOTO 1170
+
+ 1570 ' The operator-alert for an off-line printer
+ 1580 PRINT:BEEP:PRINT "The line printer isn't ready. Check it...":PRINT
+ 1590 PRINT:GOTO 1620
+
+ 1600 ' The operator-alert for a lack of disk data:
+ 1610 CLOSE:PRINT:BEEP:PRINT "The file ";FLNM$; " can not be found..."
+ 1620 PRINT "Press any key to restart..."
+ 1630 GOSUB 60:RUN
+
+ 1640 ' Subroutine to decode a numeric parameter input.
+ 1650 NUMBA=VAL (MID$(Z$,15))
+ 1660 IF NUMBA=0 THEN BEEP:PRINT "<< Number required >>"
+ 1670 RETURN
+
+ 1680 ' Subroutine to note the lack of a file or a header.
+ 1690 COLOR 0,11:PRINT " None specified  ";:COLOR 11,0:PRINT :RETURN
+
+ 1700 ' Get key pressed
+ 1710 LSET Q=MKI$(0)
+ 1720 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+ 1730 ' Orderly exit. Reset the printer & F-keys, then exit.
+ 1740 PRINT:BEEP:CLOSE:KEY OFF:COLOR 7,0
+ 1750 KEY 1,"LIST ":KEY 2,"RUN"+CHR$(13):KEY 3,"LOAD"+CHR$(34)
+ 1760 KEY 4,"SAVE"+CHR$(34):KEY 5,FLNM$:KEY 6,CHR$(34)+",a"
+ 1770 KEY 7,"TRON"+CHR$(13):KEY 8,"TROFF"+CHR$(13)
+ 1780 KEY 9,"KEY ":KEY 10,"SCREEN 0,0,0"+CHR$(13)
+ 1790 KEY ON:KEY LIST:PRINT:END
+
+ 1800 ' Program by Paul F. Doering - Creative Computing, Sept 1982
+ 1810 ' Program originally written for a cassette-based IBM PC & Epson MX-80
+ 1820 ' Rewritten for PC computers by Eric F. Tchong - Aruba - April 13, 1992
+ 1830 ' List to screen & disk - March 11, 2003
+ 1840 '
+ 1850 ' ----> You will get a  FOR without NEXT error  if you
+ 1860 '       do not use K and J in NEXT K and NEXT J <-----

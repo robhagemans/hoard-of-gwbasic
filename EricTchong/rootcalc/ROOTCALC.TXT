@@ -1,0 +1,82 @@
+The Nth root of a number calcualtor - FreeWare, listed 09-07-2004
+
+   10  ' rootcalc.bas - FreeWare 2004
+   20 GOTO 70 ' begin
+   30 SAVE "rootcalc.bas",A:LIST-70
+   40 GOTO 600 ' get key
+   50 GOTO 630 ' test correct input
+
+   60 ' begin
+   70 CLS:KEY OFF:DEFSTR Q:Q=MKI$(0):DEFDBL D,M:M$="123456":N=3
+   80 PRINT "This program will extract the Nth Root of a positive number."
+   90 PRINT "<Enter> memorizes your Number: or Root:":PRINT
+  100 PRINT"Number: -1 = exit ? 123456"
+  110 PRINT"Root:   -1 = exit ? 3     ":PRINT
+  120 PRINT" 3 û 123456 = 49.79327984674048":PRINT
+  130 PRINT"Number: -1 = exit ? <Enter>"
+  140 PRINT"Root:   -1 = exit ? 6     ":PRINT
+  150 PRINT" 6 û 123456 = 7.056435349859055":PRINT
+  160 PRINT "Save results to a disk file? <y/n>"
+  170 GOSUB 40:CLS ' Y y
+  180 IF ASC(Q)=89 OR ASC(Q)=121 THEN COPY=1:GOTO 190 ELSE COPY=0:GOTO 230
+  190 LINE INPUT "Enter a DOS filename? ";Z$
+  200 IF LEFT$(Z$,1)=" " THEN Z$=MID$(Z$,2):GOTO 200 ' remove spaces
+  210 OPEN "O",#1,Z$
+
+  220 ' get number
+  230 CLS
+  240 INPUT "Number: -1 = exit ";G$:IF G$="" THEN G$=M$ ELSE M$=G$
+  250 GOSUB 50:IF NG=0 THEN NG=1:GOTO 240
+  260 DN=VAL(G$):IF DN>9999999999999999# THEN 240
+
+  270 ' get root
+  280 INPUT "Root:   -1 = exit ";R:IF R=-1 THEN 720
+  290 IF R=0 THEN R=N ELSE N=R
+  300 IF R<>INT(R) THEN PRINT "Integer only":GOTO 280
+  310 IF R=2 THEN R$=" û "
+  320 IF R>2 THEN R$=STR$(R)+" û "
+  330 IF DN=9999999999999999# AND R=2 THEN GOTO 470
+  340 IF DN=9999999999999999# AND R=4 THEN GOTO 500
+  350 IF DN=9999999999999999# AND R=8 THEN GOTO 530
+  360 IF DN=9999999999999999# AND R=16 THEN GOTO 560
+
+  370 ' double precision root subroutine
+  380 D=DN^(1/R):PRINT
+  390 FOR T=1 TO 3: DM=1
+  400  FOR V=1 TO R-1:DM=DM*D:NEXT
+  410  D=D-D/R+DN/R/DM
+  420 NEXT
+  430 PRINT R$;G$" =";D:PRINT
+  440 IF COPY THEN PRINT #1,R$;G$" =";D:PRINT #1,""
+  450 GOTO 240
+
+  460 ' fix inaccuracies in Quick- and GW-BASIC
+  470 PRINT:PRINT R$;G$;" = 99999999.99999999":PRINT
+  480 IF COPY THEN PRINT #1,R$;G$;" = 99999999.99999999":PRINT #1,""
+  490 GOTO 240
+  500 PRINT:PRINT R$;G$;" = 9999.999999999999":PRINT
+  510 IF COPY THEN PRINT #1,R$;G$;" = 9999.999999999999":PRINT #1,""
+  520 GOTO 240
+  530 PRINT:PRINT R$;G$;" = 99.99999999999999":PRINT
+  540 IF COPY THEN PRINT #1,R$;G$;" = 99.99999999999999":PRINT #1,""
+  550 GOTO 240
+  560 PRINT:PRINT R$;G$;" = 9.999999999999999":PRINT
+  570 IF COPY THEN PRINT #1,R$;G$;" = 9.999999999999999":PRINT #1,""
+  580 GOTO 240
+
+  590 ' get key
+  600 LSET Q=MKI$(0)
+  610 WHILE CVI(Q)=0:MID$(Q,1)=INKEY$:WEND:RETURN
+
+  620 ' test for correct input
+  630 L=LEN(G$)
+  640 IF LEFT$(G$,1)="0" AND L>1 THEN 710
+  650 IF G$="-1" THEN 720
+  660 FOR X=1 TO L
+  670  Z=ASC(MID$(G$,X,1)):IF MID$(G$,X,1)="." THEN 690
+  680  IF Z<48 OR Z>57 THEN 710
+  690 NEXT
+  700 NG=1:RETURN
+  710 NG=0:RETURN
+  720 CLS:IF COPY THEN CLOSE #1
+  730 KEY 5,"rootcalc.bas":KEY 6,CHR$(34)+",a":KEY ON

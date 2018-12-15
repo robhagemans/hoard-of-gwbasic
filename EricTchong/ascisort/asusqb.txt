@@ -1,0 +1,59 @@
+ASCII SCREEN SORT TEST REPORT
+Quickbasic Version 4.5                   Test date: 10-01-2004
+Computer: ASUS P800 homebrew             Speed: 2.8 GHz
+
+1) SLOW SORT
+
+Items = 2000                 Finish = 09:14:12
+Comparisons = 1999000        Start  = 09:14:02
+Exchanges = 196492 
+Done in 10 seconds =  0 min 10 sec
+
+2) BUBBLE SORT
+
+Items = 2000                 Finish = 09:14:47
+Comparisons = 1995259        Start  = 09:14:17
+Exchanges = 978524 
+Done in 30 seconds =  0 min 30 sec
+
+3) SHAKER SORT
+
+Items = 2000                 Finish = 09:15:32
+Comparisons = 1313341        Start  = 09:15:04
+Exchanges = 978524 
+Done in 28 seconds =  0 min 28 sec
+
+4) DELAYED REPLACEMENT SORT
+
+Items = 2000                 Finish = 09:15:49
+Comparisons = 1999000        Start  = 09:15:44
+Exchanges = 1982 
+Done in 5 seconds =  0 min 5 sec
+
+5) INSERTION SORT
+
+Items = 2000                 Finish = 09:16:21
+Comparisons = 980523         Start  = 09:15:55
+Exchanges = 978524 
+Done in 26 seconds =  0 min 26 sec
+
+6) BINARY SORT
+
+Items = 2000                 Finish = 09:16:50
+Comparisons = 14184          Start  = 09:16:27
+Exchanges = 1995 
+Done in 23 seconds =  0 min 23 sec
+
+7) SHELL SORT
+
+Items = 2000                 Finish = 09:17:40
+Comparisons = 33864          Start  = 09:17:39
+Exchanges = 16831 
+Done in 1 seconds =  0 min 1 sec
+
+8) QUICK SORT
+
+Items = 2000                 Finish = 09:17:50
+Comparisons = 6799           Start  = 09:17:50
+Exchanges = 4036 
+Done in 0 seconds =  0 min 0 sec
