@@ -1,0 +1,44 @@
+10 REM g-calc.bas
+12 CLS
+15 PRINT "                 CENTRIFUGE ACCELERATION (and 'g') CALCULATOR"
+16 PRINT
+17 PRINT "                             By Phillip K. Bigelow"
+20 PRINT:PRINT:PRINT "                         MENU":PRINT
+30 PRINT "      d = do a calculation     f = footnotes     x = exit"
+40 H$=INPUT$(1)
+50 IF H$="d" THEN 100
+60 IF H$="x" THEN SYSTEM
+62 IF H$="f" THEN 300
+100 PRINT:PRINT:INPUT "What is the radius of rotation (in METERS) ", R
+110 PRINT:PRINT:INPUT "What is the rate of spin, in revolutions per minute (RPM)  ", X
+120 LET Q=X/60
+130 LET J=Q*2*3.1415926#
+140 LET A=(J^2)*R
+143 PRINT:PRINT
+145 CLS:PRINT "==================================================================="
+150 PRINT:PRINT "                          RESULTS":PRINT
+160 PRINT "Acceleration at";X;"RPM and at";R;"meters radius of rotation =";A;"meters per second per second (m/sec^2)."
+170 PRINT:PRINT
+180 LET B=A/9.80665
+190 PRINT "g =";B
+200 PRINT"==================================================================="
+210 PRINT:PRINT:INPUT "press (enter) or (return) to return to Main Menu ",Y$
+220 GOTO 12
+230 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+300 CLS:PRINT "              The Equation"
+310 PRINT:PRINT
+320 PRINT "The equation is:  a = (w^2) * r"
+330 PRINT:PRINT "Where a = acceleration (in meters per second per second)."
+331 PRINT "This is the value you are seeking.":PRINT
+334 PRINT "Where w = is rotation in radians per second (converted from revolutions"
+335 PRINT "per minute by the computer algorithm).":PRINT
+340 PRINT "Where r = the radius of rotation (in meters), measured from the center"
+341 PRINT "of rotation outward to the desired radius.":PRINT
+350 PRINT:PRINT "The value of 'g' is simply the acceleration (a) divided by"
+351 PRINT "9.80665 meters per second per second.  Value 'g' is unit-less."
+355 PRINT "This calculator can be used to determine g for laboratory"
+356 PRINT "centrifuges, or it can be used to determine g for rotating"
+357 PRINT "space habitats ('artificial gravity')."
+360 PRINT:PRINT:PRINT:INPUT "Press (return) or (enter) to return to main menu ",P$
+370 GOTO 12
+

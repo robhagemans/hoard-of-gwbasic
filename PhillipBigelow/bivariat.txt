@@ -1,0 +1,187 @@
+1 CLS:PRINT "          BIVARIAT - a statistics program for X and Y data"
+2 PRINT"                            by Phillip K. Bigelow":PRINT:PRINT
+3 PRINT:PRINT
+15 PRINT "Press (enter) to continue":INPUT OOO
+20 CLS:INPUT "Do you want to load data from disk (y/n) ";Y$
+21 IF Y$="y" THEN 22 ELSE 42
+22 FILES: INPUT "Load which file (.plt extension) ";E$
+23 OPEN E$ FOR INPUT AS #1: INPUT #1,A:INPUT #1,E$:INPUT #1,P$
+24 DIM B(A):DIM BB(A):FOR PP=1 TO A
+25 INPUT #1, B(PP):INPUT #1, BB(PP):NEXT PP:CLOSE
+26 GOTO 130
+42 CLS:PRINT "ENTER A FILE NAME"
+43 PRINT "(This name will also be the name of the saved data file)"
+45 INPUT "Please use .plt as the file extension. ";E$
+50 PRINT
+60 INPUT "How many number sets do you need to analyze"; A
+81 INPUT "Is this the whole population (P) or a sample (S) of the population";P$
+84 OPTION BASE 1
+85 DIM B(A):DIM BB(A)
+90 PRINT "Please type in the data."
+95 PRINT "Press (return) after each number."
+96 PRINT"******"
+100 FOR PP=1 TO A
+101 PRINT "X";PP;"=":INPUT B(PP): PRINT "Y";PP;"=":INPUT BB(PP)
+102 PRINT"******"
+103 NEXT PP
+130 PRINT "                              MENU"
+131 PRINT "(see)=see data. (c)=change data. (r)=range of data. (stat)=do statistics."
+132 PRINT " (h)=help. (q)=quit.":INPUT MU$
+133 CLS:IF MU$="q" THEN 6000
+134 IF BM$="y" THEN 6000
+135 IF MU$="see" THEN 155
+136 IF MU$="c" THEN 141
+137 IF MU$="stat" THEN 180
+138 IF MU$="h" THEN 650
+139 IF MU$="r" THEN 700
+140 IF MU$="" THEN 130
+141 INPUT "Change what data number";UI
+142 PRINT "The old value is";B(UI);",";BB(UI)
+143 INPUT "What is the new X-value";ZZ:LET B(UI)=ZZ
+144 INPUT "What is the new Y-value";YY:LET BB(UI)=YY
+145 PRINT "In order to re-run the statistics, you must exit the program"
+146 PRINT "and restart the program."
+147 INPUT "Any more changes (y/n)";JT$:IF JT$="y" THEN 141
+149 GOTO 130
+155 PRINT "The X-Y data sets are..."
+160 FOR PP=1 TO A
+161 PRINT "data#";PP;"=";"(";B(PP);",";BB(PP);")":NEXT PP
+162 GOTO 130
+180 PRINT "Computing....Please wait....":LET XT=0
+181 FOR PP=1 TO A
+182 LET XT=XT+B(PP)
+183 NEXT PP
+184 LET XA=XT/A
+190 LET YT=0
+191 FOR PP=1 TO A
+192 LET YT=YT+BB(PP)
+193 NEXT PP
+194 LET YA=YT/A
+195 LET AF=YA
+200 LET T1=0
+201 FOR PP=1 TO A
+202 LET T1=T1+(B(PP)-XA)*BB(PP)
+203 NEXT PP
+300 LET T2=0
+301 FOR PP=1 TO A
+302 LET T2=T2+(B(PP)-XA)^2
+303 NEXT PP
+305 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+310 LET BF=T1/T2
+311 REM ********************************************************************
+312 REM calculate correlation coefficient here.
+313 LET T3=0
+314 FOR PP=1 TO A
+315 LET T3=T3+(B(PP)-XA)*(BB(PP)-YA)
+316 NEXT PP
+317 LET T4=0
+318 FOR PP=1 TO A
+319 LET T4=T4+(B(PP)-XA)^2
+320 NEXT PP
+321 LET T5=0
+322 FOR PP=1 TO A
+323 LET T5=T5+(BB(PP)-YA)^2
+324 NEXT PP
+325 LET RR=T3/(SQR(T4*T5))
+326 REM ********************************************************************
+327 REM calculation of standard deviation of x
+328 REM if a sample of the population...
+329 DIM C(A)
+330 FOR PP=1 TO A
+331 LET C(PP)=(XA-B(PP))^2
+332 NEXT PP
+333 FOR PP=1 TO A
+334 LET K=K+C(PP)
+335 NEXT PP
+336 LET MM=SQR(K/(A-1))
+340 REM or, if whole population represented....
+341 LET LL=SQR(K/A)
+342 REM ********************************************************************
+343 REM calculate standard deviation of y
+344 DIM D(A)
+345 FOR PP=1 TO A
+346 LET D(PP)=(YA-BB(PP))^2
+347 NEXT PP
+348 FOR PP=1 TO A
+349 LET KK=KK+D(PP):NEXT PP:LET NN=SQR(KK/(A-1)):LET JJ=SQR(KK/A)
+350 CLS:PRINT "************************************************************"
+351 PRINT " FILE NAME= ";E$
+352 PRINT "***                                                  ***"
+353 PRINT " n=";A
+354 IF P$="p" THEN PRINT" Sample type: BIASED (whole population represented)":PRINT:PRINT
+355 IF P$="s" THEN PRINT" Sample type: UNBIASED (sample of population)":PRINT:PRINT
+356 PRINT " Average X= ";XA;" Average Y= ";YA
+357 PRINT " The linear regression equation is:"
+359 LET BBB=AF-(BF*XA):PRINT " Y= ";BBB;"+";"(";BF;"*";"x)"
+360 PRINT " Correlation coefficient (r)=";RR
+361 IF P$="s" THEN PRINT" UNBIASED Standard Deviation of X=";MM
+362 IF P$="p" THEN PRINT" BIASED Standard Deviation of X=";LL
+363 IF P$="s" THEN PRINT" UNBIASED Standard Deviation of Y=";NN
+364 IF P$="p" THEN PRINT" BIASED Standard Deviation of Y=";JJ
+400 PRINT "***                                                   ***"
+401 PRINT:PRINT " *********************************************************"
+430 PRINT:PRINT"***Results have been automatically saved to your current folder***"
+431 PRINT:GOTO 6000
+650 PRINT "               HELP"
+651 PRINT "The regression equation is in the form Y=mX+b"
+652 PRINT "where m=slope and b= Y axis intercept."
+653 PRINT "where b=average value of all Y values."
+654 PRINT "where m=SUM (small (xi)*Y(i))/SUM (small x(i)^2)."
+655 PRINT "where small x(i)= original value X(i)-average of all X's.":print
+656 PRINT "r= correlation coefficient. An r value close to +1 or -1 means"
+657 PRINT "a high LINEAR relationship. An r value close to 0 means a low"
+658 PRINT "linear relationship (large scatter)."
+659 PRINT:PRINT
+661 GOTO 130
+699 REM **********************************************************
+700 INPUT "Do you want the range for X (x) values or for Y (y) values";TH$:IF TH$="y" THEN 850
+701 INPUT "Enter low end (inclusive) of desired X-range";LE
+702 INPUT "Enter high end (inclusive) of desired X-range";HE
+703 INPUT "Do you want an itemization of these data (y/n)";V$:PRINT "***********************************************"
+704 LET CT=0
+705 FOR PP=1 TO A
+706 IF LE=<B(PP) AND B(PP)=<HE THEN 800
+707 NEXT PP
+750 PRINT "The total number of X-value data between";LE;"and";HE;"inclusive is";CT
+751 PRINT "*******************************************************************"
+752 INPUT "any more ranges";LL$:IF LL$="y" THEN 701 ELSE 130
+800 LET CT=CT+1:IF V$="y" THEN PRINT "data #";PP,:IF PP=A THEN 750
+801 GOTO 707
+850 INPUT "Enter low end (inclusive) of desired Y-range";LY
+851 INPUT "Enter high end (inclusive) of desired Y-range";HY
+852 INPUT "Do you want an itemization of these data (y/n)";V$
+853 PRINT "***********************************************************************"
+855 LET QQ=0
+856 FOR PP=1 TO A
+857 IF LY=<BB(PP) AND BB(PP)=<HY THEN 900
+858 NEXT PP
+865 PRINT:PRINT "The total number of Y-value data between";LY;"and";HY;"inclusive is";QQ
+870 PRINT "*************************************************":INPUT "any more ranges";LO$:IF LO$="y" THEN 850 ELSE 130
+871 INPUT "any more ranges";LO$:IF LO$="y" THEN 850 ELSE 130
+900 LET QQ=QQ+1:IF V$="y" THEN PRINT "data #";PP,:IF PP=A THEN 865
+901 GOTO 858
+6000 OPEN E$ FOR OUTPUT AS #1:PRINT #1,A:PRINT #1,E$:PRINT #1,P$
+6001 FOR PP=1 TO A:PRINT #1,B(PP);:PRINT #1,BB(PP):NEXT PP
+6005 PRINT #1,"******************************************************"
+6010 PRINT #1,"File Name = ";E$
+6015 PRINT #1," n =";A
+6016 IF P$="p" THEN PRINT #1," Sample type: BIASED (whole population represented)"
+6017 PRINT #1," "
+6018 IF P$="s" THEN PRINT #1," Sample type: UNBIASED (sample of population)"
+6019 PRINT #1, " "
+6020 PRINT #1," Average X =";XA;" Average Y = ";YA:PRINT #1," "
+6025 PRINT #1," The linear regression equation is:"
+6030 LET BBB=AF-(BF*XA):PRINT #1," Y= ";BBB;"+";"(";BF;"*";"x)"
+6035 PRINT #1," Correlation coefficient (r)=";RR
+6040 IF P$="s" THEN PRINT #1," UNBIASED Standard Deviation of X=";MM
+6045 IF P$="p" THEN PRINT #1," BIASED Standard Deviation of X=";LL
+6050 IF P$="s" THEN PRINT #1," UNBIASED Standard Deviation of Y=";NN
+6055 IF P$="p" THEN PRINT #1," BIASED Standard Deviaion of Y=";JJ
+6060 PRINT #1," "
+6075 PRINT #1,"*****************************************************"
+7000 CLOSE
+7001 print "Exit to system/Windows (x)"
+7002 input "or run the program again [type r (enter), then type run]";JH$
+7003 If JH$="r" then end
+7004 If JH$="x" then system
+

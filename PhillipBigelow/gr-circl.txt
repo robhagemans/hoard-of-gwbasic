@@ -1,0 +1,204 @@
+0 REM "gr-circl.bas"
+1 CLS:PRINT "                GREAT CIRCLE ROUTE DISTANCE CALCULATOR":PRINT
+2 PRINT "                       written by Phillip K. Bigelow":PRINT:PRINT
+3 REM This is all done in DEGREES, not radians.  Therefore new functions must be added to GWBASIC.
+4 REM Great circle distance = Arccos [ Cos[a1] Cos[b1] Cos[a2] Cos[b2] + Cos[a1] Sin[b1] Cos[a2] Sin[b2] + Sin[a1] Sin[a2] ] /360 * 2Pi * r
+5 PRINT:PRINT:PRINT"                                Menu"
+6 PRINT "Find a Great Circle distance <g>, Find the antipode of a locality <a>,"
+7 PRINT "Find the rotational velocity for a particular latitude <v>, Read footnotes <r>, Exit to system/Windows <x>"
+8 PRINT:PRINT:GG$=INPUT$(1)
+9 IF GG$="g" THEN 15
+10 IF GG$="v" THEN 1600
+11 IF GG$="a" THEN 6000
+12 IF GG$="x" THEN SYSTEM ELSE 841
+15 PRINT:PRINT "Enter lat. and long. in degrees and parts of a degree (example: 35.5012)"
+16 PRINT "(Minutes and seconds are forbidden).":PRINT:PRINT "POINT #1"
+20 INPUT "Enter Lat. of the 1st point (enter S. lats. as NEGATIVE)";A1#
+30 INPUT "Enter Long. of the 1st point (enter W. longs. as NEGATIVE)";B1#:PRINT:PRINT "POINT #2"
+40 INPUT "Enter Lat. of the 2nd point (enter S. lats. as NEGATIVE)";A2#
+41 INPUT "Enter Long. of the 2nd point (enter W. longs. as NEGATIVE)";B2#
+45 PRINT:PRINT:PRINT
+46 IF ABS(A1#)=<20 AND ABS(A2#)=<20 THEN 55
+47 IF ABS(A1#)=>70 AND ABS(A2#)=>70 THEN 60
+50 LET R#=6371#:GOTO 90
+55 LET R#=6378.14#:GOTO 90
+60 LET R#=6356.912#:GOTO 90
+90 LET PI#=3.14159265359#
+110 LET Q#=180#/3.14159265359#
+150 REM The left side of the equation is the NEW function (in degrees)
+160 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+170 REM FNSIND = Sin (in degrees)
+180 REM FNCOSD = COS (in degrees)
+190 REM FNTAND = TAN (in degrees)
+200 REM FNASIND = ARCSIN (IN DEGREES)
+210 REM FNACOSD = ARCCOSIN (IN DEGREES)
+220 REM FNATAND = ARCTANGENT (IN DEGREES)
+230 REM
+240 REM
+250 REM          HERE ARE THE CONVERSION EQUATIONS
+251 REM
+290 DEF FNSIND#(A1#)=SIN(A1#/Q#)
+295 DEF FNSIND#(B1#)=SIN(B1#/Q#)
+296 DEF FNSIND#(A2#)=SIN(A2#/Q#)
+297 DEF FNSIND#(B2#)=SIN(B2#/Q#)
+298 REM
+299 REM
+300 DEF FNCOSD#(A1#)=COS(A1#/Q#)
+310 DEF FNCOSD#(B1#)=COS(B1#/Q#)
+320 DEF FNCOSD#(A2#)=COS(A2#/Q#)
+330 DEF FNCOSD#(B2#)=COS(B2#/Q#)
+331 REM
+332 REM
+500 DEF FNASIND#(A1#)=Q#*ATN(A1#/SQR(1-A1#*A1#))
+510 DEF FNASIND#(B1#)=Q#*ATN(B1#/SQR(1-B1#*B1#))
+520 DEF FNASIND#(A2#)=Q#*ATN(A2#/SQR(1-A2#*A2#))
+530 DEF FNASIND#(B2#)=Q#*ATN(B2#/SQR(1-B2#*B2#))
+541 REM
+600 DEF FNACOSD#(A1#)=90#-FNASIND#(A1#)
+610 DEF FNACOSD#(B1#)=90#-FNASIND#(B1#)
+620 DEF FNACOSD#(A2#)=90#-FNASIND#(A2#)
+630 DEF FNACOSD#(B2#)=90#-FNASIND#(B2#)
+640 DEF FNACOSD#(N#)=90#-FNASIND#(N#)
+645 REM
+800 LET N#=FNCOSD#(A1#)*FNCOSD#(B1#)*FNCOSD#(A2#)*FNCOSD#(B2#)+FNCOSD#(A1#)*FNSIND#(B1#)*FNCOSD#(A2#)*FNSIND#(B2#)+FNSIND#(A1#)*FNSIND#(A2#)
+810 LET M#=FNACOSD#(N#)
+820 LET GCD#=(M#/360#)*2*PI#*R#:GOTO 900
+830 REM
+840 REM
+841 CLS:PRINT "                FOOTNOTES":PRINT:PRINT "1) The Great Circle program uses double precision math, which is REQUIRED"
+842 PRINT "in order to give accurate results for points separated by very small distances.":PRINT
+843 PRINT "2) The Earth has a different radius at the poles than it has at the equator."
+844 PRINT "Therefore, depending on the points chosen, the program will use the average"
+845 PRINT "radius of the earth (6371 KM), the radius at the equator (6378.140), or"
+846 PRINT "the radius at the poles (6356.912)."
+847 PRINT "The program uses the equatorial radius ONLY if BOTH the latitudes of point #1"
+848 PRINT "and point #2 are within 20 degrees north or south of the equator.  The"
+849 PRINT "program uses the radius at the poles when the latitudes of points #1 and #2"
+850 PRINT "are within 20 degrees of EITHER of the poles."
+851 PRINT "In all other cases, the average value for earth's radius is used.":PRINT
+852 PRINT "3) For very long distances, round-off the answer to the nearest whole kilometer."
+853 PRINT "For short distances, the answer is probably good to a tenth of a KM (at best).":PRINT "Press any key to continue reading footnotes":PRINT:JH$=INPUT$(1):CLS
+854 PRINT "4) There is one known bug in Great Circle Distance program.  Under certain"
+855 PRINT "conditions (where points #1 and #2 are separated by exactly 180 degrees), the"
+856 PRINT "program will generate an `overflow' error or a `division by zero' error."
+857 PRINT "This does not occur in all of those instances, and as long as an error isn't"
+858 PRINT "generated, then the answer is accurate.":PRINT
+859 PRINT "5) An ANTIPODE is a point on a sphere (Earth) that is exactly opposite another"
+860 PRINT "point on that sphere.  A straight line drawn through center of the"
+861 PRINT "sphere (Earth) will connect the two points."
+880 PRINT:INPUT "Press <enter> to go back to main menu.",RY$
+890 GOTO 1
+900 PRINT "**************************RESULT*****************************":PRINT "The Great Circle Distance is";GCD#;"Kilometers":PRINT
+910 IF ABS(A1#)=<20 AND ABS(A2#)=<20 THEN 930
+920 IF ABS(A1#)=>70 AND ABS(A2#)=>70 THEN 940
+925 GOTO 950
+930 PRINT "The radius of the Earth at the equator was used in the calculation."
+935 GOTO 1000
+940 PRINT "The radius of the Earth at the poles was used in the calculation."
+945 GOTO 1000
+950 PRINT "The average radius of the Earth was used in the calculation."
+955 GOTO 1000
+1000 PRINT "*************************************************************":PRINT:PRINT:PRINT
+1100 PRINT"                               Menu"
+1200 PRINT "Do another calculation <press any key except X>; OR exit to System/Windows <x>"
+1300 A$=INPUT$(1):IF A$<>"x" THEN 1:IF A$="x" THEN END
+1400 SYSTEM
+1401 REM
+1402 REM
+1403 REM
+1404 REM
+1405 REM
+1600 REM Begin rotational velocity calculations here
+1610 REM c=2*pi*r, therefore r=c/[2*pi]
+1670 CLS:PRINT "LATITUDE DISTANCE CALCULATOR / ROTATIONAL VELOCITY CALCULATOR": PRINT:PRINT "What latitude would you like to study (in degrees and parts of a degree)."
+1671 INPUT "(example: 43.094). (minutes and seconds are forbidden)   ";X:PRINT:PRINT "*********************************RESULTS***********************************":PRINT
+1675 LET Y=ABS(X)
+1676 IF Y=<20 THEN 1680
+1677 IF Y>20 AND Y<70 THEN 2000
+1678 IF Y=>70 THEN 3000
+1679 REM Begin low-latitude calculation here
+1680 PRINT:LET C=2*(20037.52-(222.6393*Y))
+1690 CLS:PRINT:PRINT"RESULTS":PRINT:PRINT "The small circle distance around the Earth following latitude ";X;"degrees is";C;"Kilometers."
+1700 REM compute approximate perpendicular distance to rotation axis
+1710 PRINT:LET R=C/(2*3.14159265#)
+1720 PRINT "The perpendicular distance from latitude ";X;"degrees to the earth's axis of rotation is";R;"Kilometers."
+1730 PRINT:PRINT
+1740 LET VK=C/23.93443
+1750 PRINT "Rotational velocity of the Earth at latitude ";X;"degrees"
+1751  PRINT "=";VK;"Kilometers per hour."
+1755 LET VQ=(VK/60)/60
+1756 PRINT "= (";VQ;"kilometers per second )."
+1760 LET VM=VK*.62136
+1770 PRINT "= (";VM;"miles per hour )."
+1771 PRINT:PRINT:PRINT "NOTE: the radius of the Earth at the equator was used in this calculation.":GOTO 5000
+1798 REM
+1799 REM
+2000 REM Begin mid-latitude calculation here
+2001 LET C=2*(20015.09-(222.3899*Y))
+2002 CLS:PRINT:PRINT "RESULTS":PRINT:PRINT "The small circle distance around the Earth following latitude "X; "degrees is";C;"Kilometers."
+2003 PRINT:LET R=C/(2*3.14159265#)
+2004 PRINT "The perpendicular distance from latitude ";X;"degrees to the earth's axis of rotation is";R;"Kilometers."
+2005 PRINT:PRINT
+2006 LET VK=C/23.93443
+2007 PRINT "Rotational velocity of the Earth at latitude ";X;"degrees"
+2008 PRINT "=";VK;"Kilometers per hour."
+2009 LET VQ=(VK/60)/60
+2100 PRINT "= (";VQ;"Kilometers per second )."
+2110 LET VM=VK*.62136
+2120 PRINT "= (";VM;"miles per hour )."
+2130 PRINT:PRINT "NOTE: the average radius of the Earth was used in this calculation.":GOTO 5000
+2980 REM
+2990 REM
+3000 REM Begin high-latitude calculation here
+3100 LET C=2*(19970.82-(221.898*Y))
+3200 CLS:PRINT:PRINT "RESULTS":PRINT:PRINT "The small circle distance around the Earth following latitude "X; "degrees is";C;"Kilometers."
+3300 PRINT:LET R=C/(2*3.14159265#)
+3400 PRINT "The perpendicular distance from latitude ";X;"degrees to the earth's axis of rotation is";R;"Kilometers."
+3500 PRINT:PRINT
+3600 LET VK=C/23.93443
+3700 PRINT "Rotational velocity of the Earth at latitude ";X;"degrees"
+3800 PRINT "=";VK;"Kilometers per hour."
+3900 LET VQ=(VK/60)/60
+4000 PRINT "= (";VQ;"Kilometers per second )."
+4100 LET VM=VK*.62136
+4200 PRINT "= (";VM;"miles per hour )."
+4300 PRINT:PRINT "NOTE:  the radius of the Earth at the poles was used in this calculation."
+5000 PRINT:PRINT "***************************************************************************":PRINT"                               Menu"
+5100 PRINT "Do another calculation <press any key except X>; OR exit to System/Windows <x>"
+5200 A$=INPUT$(1):IF A$<>"x" THEN 1:IF A$="x" THEN END
+5300 SYSTEM
+6000 REM compute antipode here
+6010 CLS
+6011 PRINT "                     ANTIPODE":PRINT
+6012 PRINT "A program to compute the antipode of any latitude and longitude on Earth"
+6013 PRINT "              Written by Phillip Bigelow":PRINT:PRINT:PRINT
+6014 PRINT "Enter data in degrees and parts of a degree (example: 34.075) (minutes":PRINT "and seconds are forbidden)":PRINT:PRINT
+6015 INPUT "Enter latitude of site (enter southern lats. as NEGATIVE)    ";A
+6020 INPUT "Enter longitude of site (enter western longs. as NEGATIVE)   ";B
+6030 PRINT:PRINT:PRINT:PRINT "**************************RESULTS******************************"
+6035 PRINT
+6040 IF A<0 THEN 6100
+6050 IF A=0 THEN 6110
+6060 IF A>0 THEN 6120
+6100 LET Q=-A:PRINT "Latitude of antipode=",Q;"degrees N":GOTO 6180
+6110 PRINT "Latitude of antipode=",A;"degrees":GOTO 6180
+6120 PRINT "Latitude of antipode=",A;"degrees S":GOTO 6180
+6121 REM
+6122 REM
+6123 REM
+6124 REM
+6180 IF A=90 THEN PRINT "Longitude is undefined at the poles":PRINT:GOTO 6599
+6181 IF A=-90 THEN PRINT "Longitude is undefined at the poles":PRINT:GOTO 6599
+6190 IF B<0 THEN 6300
+6199 IF B=0 THEN PRINT "Longitude of antipode = 180 degrees":GOTO 6599
+6200 IF B>0 THEN 6400
+6202 PRINT "Longitude of antipode=",L;"degrees W":PRINT:GOTO 6599
+6210 PRINT "Longitude of antipode=",L;"degrees E":PRINT:GOTO 6599
+6220 PRINT "Longitude of antipode=",L;"degrees E":PRINT:GOTO 6599
+6300 LET B=-B:LET L=180-B:GOTO 6220
+6400 LET L=180-B:GOTO 6202
+6599 PRINT "***************************************************************":PRINT
+6600 PRINT "                             MENU"
+6610 PRINT "Do another calculation <press any key except X>; OR exit to System/Windows <x>"
+6620 A$=INPUT$(1):IF A$<>"x" THEN 1 ELSE SYSTEM
+

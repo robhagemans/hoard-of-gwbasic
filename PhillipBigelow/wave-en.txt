@@ -1,0 +1,43 @@
+1 REM "wave-en.bas"
+5 CLS
+10 PRINT "   Photon Wavelength to Energy (eV) Conversion Program"
+15 PRINT "                    by Phillip K. Bigelow"
+20 PRINT:PRINT:PRINT
+30 PRINT "                             MENU"
+40 PRINT:PRINT
+50 PRINT "Convert wavelength into eV <w>    Convert eV into wavelength <e>"
+51 PRINT:PRINT "                           Exit <x>"
+60 PRINT
+65 LET B$=INPUT$(1)
+75 IF B$="w" THEN 90
+80 IF B$="e" THEN 500
+81 IF B$="x" THEN SYSTEM
+85 GOTO 5
+90 CLS:INPUT "What is the wavelength of the photon (in Angstroms)  ";A
+100 LET C=(A*(10^-8))
+110 LET H=29979245800#/C
+120 LET EJ=(6.63*(10^-34))*H
+130 LET EV=EJ*(6.242*(10^18))
+140 PRINT:PRINT
+150 CLS:PRINT "******************************************************":PRINT "                           RESULTS":PRINT
+160 PRINT "The energy of a";A;"Angstrom photon is";EV;"eV"
+161 PRINT
+162 PRINT "******************************************************":PRINT
+165 GOTO 30
+170 REM
+180 REM
+190 REM
+200 REM
+210 REM Copyright Hell Creek Life, Phillip Bigelow 2009
+500 CLS:INPUT "What is the energy of the photon (in eV)  ";E
+600 LET J=E/(6.242*(10^18))
+700 LET H =J/(6.63*(10^-34))
+800 LET W=29979245800#/H
+850 PRINT:PRINT
+880 CLS:PRINT "******************************************************":PRINT "                           RESULTS":PRINT
+900 PRINT "The wavelength of a";E; "eV photon is ";W;"cm"
+1100 PRINT "                           "," (";W/(1*(10^-8));"Angstroms )"
+1200 PRINT
+1201 PRINT "******************************************************":PRINT
+1210 GOTO 30
+

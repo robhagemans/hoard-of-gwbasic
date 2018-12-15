@@ -1,0 +1,24 @@
+1 REM eventti.bas
+2 CLS: PRINT"           EVENT TIMER PROGRAM":PRINT"           By Phillip K. Bigelow":PRINT:DIM B$(1000):DIM D$(1000):PRINT"Program counts up to 1000 events":PRINT
+3 PRINT"What are you counting <file name with less than 8 letters, with .txt extension>":INPUT E$:CLS:PRINT"INSTRUCTIONS: Time and date recorded when any key (other than  x) is pressed":PRINT:PRINT"Press <s> to activate timer."
+4 S$=INPUT$(1):IF S$="s" THEN 5 ELSE 4
+5 LET C$=DATE$:LET T$=TIME$:CLS:PRINT"TIMER IS ON, but an event has not yet been counted!!":PRINT
+8 PRINT"     press any key (other than  x) to record the first event":PRINT:PRINT"     press   x   to end the count"
+9 PRINT:FOR I=1 TO 1000
+10 A$=INPUT$(1)
+20 IF A$="x" THEN 50:IF A$="" THEN 10 ELSE 30
+30 PRINT I;"Event at",DATE$,:PRINT TIME$,"(to end count, press  x)":LET B$(I)=DATE$:LET D$(I)=TIME$
+35 LET N=N+1
+40 NEXT I
+50 OPEN E$ FOR OUTPUT AS #1:PRINT #1,"FILE NAME = ";E$
+51 IF A$="x" THEN LET UU$=TIME$:IF A$="x" THEN LET VV$=DATE$:IF A$="x" THEN PRINT #1,"Start of timing =",C$,T$:PRINT #1,"End of timing =",DATE$,TIME$:IF A$="x" THEN PRINT #1,"Total number of counted events =";N:PRINT #1, "Each event is listed below:
+52 FOR I=1 TO N
+53 PRINT #1,I,B$(I),:PRINT #1,D$(I)
+54 NEXT I
+55 CLOSE
+56 PRINT:PRINT "Your data has been automatically saved to the current folder on your":PRINT "hard drive with the .txt file name of:",E$
+57 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+60 PRINT "Press any key to exit to system/Windows"
+70 D$=INPUT$(1)
+100 SYSTEM
+

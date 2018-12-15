@@ -1,0 +1,53 @@
+1 REM "timer.bas"
+2 OUT 1020,0
+3 CLS
+6 PRINT
+19 PRINT "                     TIMER/ALARM CLOCK program":PRINT "                        by Phillip K. Bigelow":PRINT:PRINT
+20 PRINT "The current date and time is",DATE$,TIME$:PRINT:PRINT
+21 PRINT "                            MENU":PRINT "Set alarm only for time (t); or set alarm for both the date and time (d);":PRINT "Read how the serial output works (s); Check status of serial port (c);  Exit to Windows (x)":JH$=INPUT$(1)
+22 IF JH$="d" THEN 99
+23 IF JH$="x" THEN SYSTEM
+24 IF JH$="s" THEN 600
+25 IF JH$="c" THEN 800
+26 CLS:PRINT:PRINT "The current time is",TIME$:PRINT:PRINT "Set timer to beep at what time (xx:yy:zz format) (single digits"
+27 INPUT "must be preceeded by a `0'. Use semicolins between numbers)    ";T$:PRINT:PRINT:PRINT "Timer has started!"
+30 LET X=1
+60 IF TIME$=T$ THEN OUT 1020,2:BEEP:BEEP:BEEP:BEEP:BEEP:PRINT:PRINT:PRINT:PRINT "Timer finished at",T$,"on",DATE$:PRINT:PRINT:GOTO 161
+70 GOTO 30
+99 CLS:PRINT:PRINT "                  SET ALARM FOR BOTH THE DATE AND THE TIME":PRINT:PRINT"The current date and time is",DATE$,TIME$:PRINT
+100 PRINT:PRINT "STEP #1: Set timer to beep on what DATE (xx-yy-zzzz format) (single digits"
+110 INPUT "must be preceeded by a `0'.  Use dashes between numbers)    ",D$
+120 PRINT:PRINT "STEP #2: Set timer to beep at what TIME (xx:yy:zz format)(use semicolins":INPUT "between numbers  ",T$
+130 PRINT:PRINT:PRINT "Timer has started!  To cancel, press (Ctrl) and (Pause) keys simultaneously."
+140 LET X=1
+150 IF TIME$=T$ AND DATE$=D$ THEN OUT 1020,2:BEEP:BEEP:BEEP:BEEP:BEEP:PRINT:PRINT:PRINT "Timer finished at",T$,"on",D$:PRINT:PRINT:GOTO 161
+160 GOTO 140
+161 PRINT "Press `c' to continue":JH$=INPUT$(1)
+162 IF JH$="c" THEN 200 ELSE 161
+200 CLS:LET PORTNUM%=INP(1020):PRINT "Decimal value of port (COM 2) currently is";PORTNUM%:PRINT "DB-9 serial plug pin #7 is set 'high' (LED should be 'on')":PRINT:PRINT "press any key to return to main menu":JH$=INPUT$(1)
+202 GOTO 1
+205 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+600 CLS:PRINT "      SERIAL PORT OUTPUT (assumes COM 2 and a 9-pin DB-9 serial plug)"
+610 PRINT "I have included an (optional) rudimentary serial port output for":PRINT "the timer.  When the program starts, it sets pin #7 of the DB-9 plug 'LOW'."
+640 PRINT "If an LED is connected across pins #7 & #5, the LED will NOT light.
+650 PRINT "But when the timer program has finished, it beeps and"
+660 PRINT "sets pin #7 to the 'HIGH' state, which lights up the LED."
+661 PRINT "Pin #7 stays in its 'HIGH' state until the computer program is restarted.":PRINT
+670 PRINT "You can easily make an LED DB-9 serial plug (wiring is":PRINT "different for a DB-25 connector).  It takes a minimal"
+680 PRINT "amount of electronics know-how, and only a minute of soldering time."
+681 PRINT "This 9-pin LED plug is then plugged into the back of your computer"
+682 PRINT "(this only applies to the OLDER PCs).  If your computer is newer"
+683 PRINT "and doesn't have a serial connection, you can"
+684 PRINT "purchase a USB-to-serial adapter that will allow you to"
+685 PRINT "plug older serial devices (including your LED plug) into the USB port."
+690 PRINT "This LED can then be 'opto-coupled' to a relay to turn ON or turn OFF"
+700 PRINT "any type of external device."
+710 PRINT:PRINT "When the timer/alarm session is restarted, the program"
+720 PRINT "automatically resets pin #7 to its 'LOW' state.":PRINT
+760 PRINT "Press any key to return to the Main Menu.":JQ$=INPUT$(1)
+761 GOTO 1
+800 CLS:LET PORTNUM%=INP(1020):PRINT "Decimal value of serial port (COM 2) is currently set at:";PORTNUM%:PRINT
+801 IF PORTNUM%=0 THEN PRINT "DB-9 serial plug output pin #7 is currently set LOW (LED should be off)"
+802 PRINT "Press any key to return to the Main Menu.":JP$=INPUT$(1)
+803 GOTO 1
+

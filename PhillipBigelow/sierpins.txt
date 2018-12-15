@@ -1,0 +1,87 @@
+5 REM "sierpins.bas"
+6 SCREEN 0:WIDTH 80
+7 CLS:PRINT "                 Sierpinski's Triangle"
+8 PRINT "    One example of the graphically-ordered nature of chaos":PRINT "             (using throws of a gaming die)
+9 PRINT:PRINT "               written by Phillip K. Bigelow":PRINT:PRINT
+10 PRINT "                           MENU":PRINT
+11 PRINT "<r>=run the demo    <f>=read about chaos and Sierpinski's Triangle    <x>=exit"
+12 LET JK$=INPUT$(1):IF JK$="r" THEN 100
+13 IF JK$="f" THEN 3047
+14 IF JK$="x" THEN SYSTEM
+100 PRINT:INPUT "How many rolls of the die do you want to throw (350000 is optimum)"  ; NN
+110 print:print:print "To save the diagram after it has plotted, hold down the ALT key"
+120 print "and press the PRINT SCREEN key. This will save it to your clipboard.":print "After you exit to Windows, PASTE the image into your favorite image processor."
+130 print:input "Press RETURN or ENTER to proceed with the plotting  ";g$
+210 KEY OFF:CLS:SCREEN 7:COLOR 1, 15
+220 REM
+236 REM
+237 REM
+238 REM This triangle _IS_ equalateral.
+254 REM
+255 COLOR 1, 15
+258 REM
+259 REM
+260 REM draw the triangle.
+261 PSET (1,197)
+270 DRAW "r200"
+280 LINE (101, 24)-(201, 197)
+351 LINE (1, 197)-(101, 24)
+352 COLOR 12, 15:CIRCLE (203, 197), 2:CIRCLE(203, 197), 1
+353 COLOR 10, 15:CIRCLE (101, 22), 2:CIRCLE (101, 22), 1:COLOR 9, 15:CIRCLE (1, 198), 2:CIRCLE (1, 198), 1:COLOR 1, 15
+358 REM
+359 REM
+521 REM
+593 REM
+594 PRINT "   Sierpinski's Triangle"
+595 REM Here is the "seed" point
+596 LET X=151:LET Y=110.5
+597 FOR Z=1 TO NN
+598 RANDOMIZE TIMER
+599 LET U%=INT(RND*3)+1
+601 IF U%=1 THEN 850
+602 IF U%=2 THEN 910
+603 IF U%=3 THEN 1010
+850 CIRCLE ((X+1)/2, (Y+197)/2), 0
+851 PSET ((X+1)/2,(Y+197)/2)
+852 LET X=(X+1)/2
+853 LET Y=(Y+197)/2
+854 GOTO 2000
+910 CIRCLE ((X+101)/2, (Y+24)/2), 0
+911 PSET ((X+101)/2, (Y+24)/2)
+912 LET X=(X+101)/2
+913 LET Y=(Y+24)/2
+914 GOTO 2000
+1010 CIRCLE ((X+201)/2,(Y+197)/2), 0
+1011 PSET ((X+201)/2,(Y+197)/2)
+1012 LET X=(X+201)/2
+1013 LET Y=((Y+197)/2)
+1014 GOTO 2000
+2000 NEXT Z
+2001 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+3000 COLOR 1, 15
+3001 INPUT "Done. Press `enter' to clear screen ",J$
+3002 GOTO 6
+3047 SCREEN 0:WIDTH 80:CLS:PRINT "             FOOTNOTES/INSTRUCTIONS":PRINT "You can plot-out Sierpinski's Triangle by hand, but it"
+3048 PRINT "will take you a long time before any of the structure becomes"
+3049 PRINT "apparent.  Nonetheless, here is the proceedure:"
+3050 PRINT "- Obtain one (1) gaming die and paint its opposite faces"
+3051 PRINT "in three different colors.  Two opposing faces could be"
+3052 PRINT "colored red, two other opposing faces colored green, and"
+3053 PRINT "the last two opposing faces colored blue (ignore the dots on the die)."
+3054 PRINT "- Draw a triangle on a piece of paper.  Place a green dot"
+3055 PRINT "at one apex of the triangle, a blue dot at another apex,"
+3056 PRINT "and a red dot at the third apex."
+3057 PRINT "-Take a pencil and place a dot anywhere inside the triangle.  It can be"
+3058 PRINT "at any randomly-chosen locality inside the triangle. This is the `seed' point."
+3059 PRINT "-Now, roll the die.  If a green side comes up, then,"
+3060 PRINT "using a ruler, measure half-way between the dot that you placed in"
+3061 PRINT "the triangle and the green apex on the triangle.":PRINT "Place a pencil dot at this half-way point."
+3062 PRINT "-Roll the die again.  If red comes up, then measure half-way between the SECOND"
+3063 PRINT "point and the red apex of the triangle.  Place a dot at this half-way point."
+3065 PRINT "-Continue rolling the die and placing dots until you see the pattern"
+3066 PRINT "form. Always use the LAST dot that you plotted as your new `seed' point."
+3067 PRINT "Of course, an easier way to do this is to let your computer do all"
+3068 PRINT "of the work for you.  That is the purpose of this BASIC program."
+3069 INPUT "Press `RETURN' key or the `ENTER' key to return to the menu  ",G$
+3070 GOTO 6
+

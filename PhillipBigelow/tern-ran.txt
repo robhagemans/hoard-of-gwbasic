@@ -1,0 +1,139 @@
+1 REM "tern-ran.bas"
+6 CLS
+10 SCREEN 0: WIDTH 80: PRINT "    TERNARY DIAGRAM RANDOM NUMBER PLOTTING PROGRAM": PRINT "         An example of a Monte Carlo Simulation": PRINT "               By Phillip K. Bigelow": PRINT : PRINT
+13 PRINT : PRINT:PRINT
+14 PRINT "                   MENU"
+15 PRINT "<m> Run the Monte Carlo Simulation     <f> footnotes      <x> Exit"
+16 LET R$=INPUT$(1)
+17 IF R$="m" THEN 21
+18 IF R$="f" THEN 2010
+19 IF R$="x" THEN SYSTEM
+21 PRINT:PRINT:INPUT "How many points do you want to plot "; OP
+22 KEY OFF: CLS : SCREEN 7: COLOR 1, 15
+254 REM
+258 REM
+259 PRINT "Plotting the data,  Please wait..."
+260 REM draw the triangle.
+261 LOCATE 25, 27
+262 PRINT "3"
+263 LOCATE 1, 1
+264 LOCATE 3, 13
+265 PRINT "2"
+266 LOCATE 1, 1
+267 LOCATE 23, 1
+268 PRINT "1":LOCATE 3, 1
+269 PSET (1, 197)
+270 DRAW "r200"
+280 LINE (101, 24)-(201, 197)
+351 LINE (1, 197)-(101, 24)
+352 REM
+353 LET WT = 0
+355 RANDOMIZE TIMER
+356 LET X% = INT(RND * 200)
+357 LET Y% = INT(RND * 200)
+358 LET Z% = INT(RND * 200)
+359 LET T = X% + Y% + Z%
+360 IF T = 0 THEN 1000
+536 LET D1 = (X% / T) * 173.153
+537 LET D2 = (Y% / T) * 173.153
+538 LET D3 = (Z% / T) * 173.153
+541 REM
+542 REM
+543 REM
+544 REM compute the coordinates of the 1st value
+545 LET D1A = D1 * .8650311293#: REM gives the length of line A of triangle
+546 LET CD1A = 151 - D1A: REM gives the corrected coordinates of A
+547 LET D1B = SQR((D1) ^ 2 - (D1A) ^ 2): REM gives the length of line B of triangle
+548 LET CD1B = 110.5 + D1B: REM gives the corrected coordinates of B
+551 REM
+552 REM
+553 REM
+554 REM compute the coordinates of the 2nd value
+555 LET CD2B = 197 - D2: REM gives the corrected coordinates of B
+556 REM
+558 REM
+559 REM
+560 REM Copyright Hell Creek Life, Phillip Bigelow 2009
+561 REM compute the coordinates of the 3rd value
+562 LET D3B = D3 * .5017181932#: REM gives length of line B of triangle
+563 LET CD3B = 110.5 + D3B: REM gives the corrected coordinates of B
+564 LET D3A = SQR((D3) ^ 2 - (D3B) ^ 2): REM gives the length of line A of triangle
+565 LET CD3A = 51 + D3A: REM gives the corrected coordinates of A
+568 REM
+569 REM
+570 REM
+576 REM Plot the ternary point
+577 IF CD1A < CD2A AND CD1B < CD2B THEN 600
+578 IF CD1A > CD2A AND CD1B < CD2B THEN 600
+579 IF CD1A > CD2A AND CD1B > CD2B THEN 700
+580 IF CD1A < CD2A AND CD1B > CD2B THEN 800
+581 REM
+582 REM
+583 REM
+600 LET ADJ = CD2B - CD1B
+601 LET OPP = ADJ * .57735
+602 LET PP = CD1A + OPP
+603 COLOR 12, 15: CIRCLE (PP, CD2B), 0
+604 GOTO 1000
+700 LET ADJ = CD1B - CD2B
+701 LET OPP = ADJ * .57735
+702 LET PP = CD1A - OPP
+703 COLOR 12, 15: CIRCLE (PP, CD2B), 0
+704 GOTO 1000
+800 LET OPP = CD1B - CD2B
+820 LET ADJ = OPP / .57735
+830 LET PP = CD1A - ADJ
+840 COLOR 12, 15: CIRCLE (PP, CD2B), 0
+1000 LET WT = WT + 1
+1050 IF WT = OP THEN 2001
+1075 GOTO 355
+1080 LINE (101, 197)-(51, 110.5)
+1081 LINE (101, 197)-(151, 110.5)
+1082 LINE (51, 110.5)-(151, 110.5)
+2001 COLOR 1, 15
+2005 INPUT "done", A$:GOTO 6
+2010 CLS:PRINT "         MONTE-CARLO SIMULATIONS":PRINT "This is an example of what is called a 'Monte-Carlo simulation'."
+2020 PRINT "A Monte-Carlo simulation uses artificially-generated random"
+2030 PRINT "data in place of real data obtained from, say, an experiment."
+2040 PRINT "The random artificial data are then compared to the real data"
+2050 PRINT "to see if the real data show structure, or if the real data"
+2060 PRINT "appear random (in other words, if the real data look like the"
+2080 PRINT "Monte-Carlo data).  Monte-Carlo data should show a random pattern when"
+2090 PRINT "they are plotted on a graph, but this is not always the"
+2100 PRINT "case.  It depends on how the data are graphed."
+2110 PRINT "The ternary diagram that this program generates"
+2120 PRINT "will show a NON-random pattern if you choose to plot only"
+2130 PRINT "a few thousand points, but if you instead tell the program"
+2140 PRINT "to plot 6 million points, then the entire triangle will eventually"
+2141 PRINT "fill up with dots, indicating that the data are indeed random."
+2150 PRINT "I am not sure why the Monte-Carlo data show a preference for"
+2155 PRINT "the middle of the diagram (with the regions near the vertices"
+2156 PRINT "showing fewer data points).  Yet, if you plot only a couple thousand"
+2157 PRINT "points, the non-uniform distribution of dots becomes clear."
+2161 PRINT "The tendency of dots to congregate in the middle part of the diagram may be"
+2162 PRINT "an indication that the BASIC compiler's random number generator is"
+2163 PRINT "not efficiently generating truely random numbers. I just don't know."
+2165 PRINT:INPUT "press <enter/return> to continue reading ",G
+2170 CLS:PRINT "Here is how this program works:"
+2180 PRINT "First, a random number function in the program generates"
+2190 PRINT "three random numbers. These random numbers are then normalized"
+2200 PRINT "to 100% (in other words, the generated numbers 1, 1, 8"
+2210 PRINT "become 10%, 10%, 80%."
+2215 PRINT "Therefore, a single point on the diagram has a composition of:"
+2216 PRINT "10% is of composition #1 (lower-left vertex), 10% is of composition #2"
+2217 PRINT "(top vertex), and 80% is of composition #3 (lower-right vertex)."
+2220 PRINT "These three percentages are then plotted on the ternary graph"
+2222 PRINT "as a single point."
+2228 PRINT "Then another set of three random numbers are generated"
+2229 PRINT "and their normalized percentages are plotted, etc.  To orient you,"
+2230 PRINT "understand that each vertex of the triangle represents 100%, and the"
+2240 PRINT "opposite side to each vertex represents 0%  If you are a geologist, you"
+2250 PRINT "will immediately recognize the triangular diagram.  It is used for ternary"
+2260 PRINT "plots of point counts."
+2265 PRINT:INPUT "press <enter/return> to finish reading footnotes ",G
+2266 CLS:PRINT:PRINT " How to copy the graphics image to your clipboard: wait until the program"
+2267 PRINT "says DONE, then hold down the ALT key while pressing the PRINT SCREEN key."
+2268 PRINT "After you have exited to Windows, then PASTE the image into your favorite image processor."
+2270 PRINT:PRINT:INPUT "press <enter/return> to return to the menu ",G
+2280 GOTO 1
+

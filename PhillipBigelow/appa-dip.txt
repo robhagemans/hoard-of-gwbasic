@@ -1,0 +1,116 @@
+1 CLS:PRINT "     A CALCULATOR TO FIND THE TRUE DIP OF A BED FROM ITS APPARENT DIP":PRINT"                          By Phillip K. Bigelow":PRINT:PRINT
+5 PRINT "                       MENU"
+6 PRINT "Do a calculation (c), Read footnotes (r), exit to system/Windows (x)"
+7 A$=INPUT$(1):IF A$="c" THEN 10
+8 IF A$="r" THEN 400
+9 IF A$="x" THEN SYSTEM ELSE 1
+10 PRINT:PRINT:INPUT "What is the apparent dip of the bed    ",AD
+20 INPUT "What is the strike of the bed (use northern azimuth, not quadrant)   ",B
+25 IF B<270 AND B>90 THEN 27
+26 GOTO 30
+27 CLS:BEEP:PRINT "Input ERROR: Use only northern azimuth values.  Please re-enter data":PRINT:GOTO 20
+30 INPUT "What is the strike of the outcrop wall (use N. azimuth, not quadrant)   ",W
+35 IF W<270 AND W>90 THEN 37
+36 GOTO 40
+37 CLS:BEEP:PRINT "Input ERROR:  Use only northern azimuth values. Please re-enter data":PRINT:GOTO 30
+40 REM AD = apparent dip
+41 REM TD = true dip
+42 REM
+43 REM
+46 IF B<=90 AND W<=90 THEN 50
+47 IF B>=270 AND W>=270 THEN 60
+48 IF B<=90 AND W>=270 THEN 70
+49 IF B>=270 AND W<=90 THEN 80
+50 LET G=B-W
+51 LET H=W-B
+52 GOTO 100
+60 LET G=B-W
+61 LET H=W-B
+62 GOTO 100
+63 REM
+64 REM
+70 REM
+71 LET Q#=180/3.14159265359#
+72 LET B2=B+180
+73 LET W2=W-180
+74 LET WW=W2-B
+75 LET XX=B2-W2
+76 IF WW<XX THEN 276
+77 IF XX<WW THEN 277
+78 REM
+79 REM
+80 REM
+81 LET Q#=180/3.14159265359#
+82 LET B2=B-180
+83 LET W2=W+180
+84 LET YY=B2-W
+85 LET ZZ=W2-B2
+86 IF YY<ZZ THEN 278
+87 IF ZZ<YY THEN 279
+88 REM
+89 REM
+90 REM
+100 REM Add new Trig. functions (lets you use DEGREES)
+105 LET Q#=180/3.14159265359#
+125 REM
+130 REM
+131 REM Define SIN for degrees
+132 REM Sin (in degrees) of X = SIN(X/Q#)
+153 REM
+154 REM
+155 REM Define TAN for degrees
+156 REM TAN (in degrees) of X = TAN(X/Q#)
+161 REM
+162 REM
+170 REM Define ARCTAN for degrees
+190 REM ARCTAN (in degrees) of X = Q#*ATN(X)
+192 REM
+193 REM
+200 REM True dip angle = InverseTAN [TAN (apparent dip angle)/SIN (angle
+201 REM between the strike of the bed and the strike direction of the
+202 REM outcrop wall)].
+203 REM
+204 REM
+210 IF B>=W THEN 250 ELSE 275
+250 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(G/Q#)):GOTO 300
+275 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(H/Q#)):GOTO 300
+276 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(WW/Q#)):GOTO 300
+277 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(XX/Q#)):GOTO 300
+278 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(YY/Q#)):GOTO 300
+279 LET TD=Q#*ATN(TAN(AD/Q#)/SIN(ZZ/Q#)):GOTO 300
+280 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+300 PRINT:PRINT:PRINT "                  RESULT":PRINT "The true dip angle is";TD;"degrees":PRINT:PRINT
+350 PRINT "Calculate another true dip (y/n) (`n' will exit to system/Windows)":JH$=INPUT$(1)
+351 IF JH$="y" THEN 1
+352 IF JH$="n" THEN SYSTEM
+353 CLS:GOTO 350
+400 CLS:PRINT "                 FOOTNOTES"
+410 PRINT "This program computes the true (actual) dip angle of a rock bed"
+420 PRINT "if you know the following: 1) the strike (azimuth) of the bed (usually"
+430 PRINT "observed by climbing to the top of the outcrop and looking for traces of"
+440 PRINT "the strike line); 2) the `apparent dip' angle of the bed (directly"
+450 PRINT "measured off the face of a VERTICAL rock outcrop or a VERTICAL"
+460 PRINT "rock cut, such as a highway road cut); and 3) the strike"
+470 PRINT "(azimuth) of the VERTICAL face of the outcrop or road cut"
+475 PRINT "on which the apparent dip angle is observed."
+480 PRINT: PRINT "press any key to continue reading":A$=INPUT$(1)
+490 CLS:PRINT "The equation used in the algorithm is from page 522 of Billings, M.P. 1972."
+500 PRINT "STRUCTURAL GEOLOGY, third edition, Prentice Hall, Englewood"
+510 PRINT "Cliffs, New Jersey, 606p.  ISBN 0-13-853846-8"
+520 PRINT
+530 PRINT "The equation (rewritten) is:"
+540 PRINT "True Dip angle = ARCTAN [TAN(apparent dip angle)/SIN(angle between"
+550 PRINT "the strike of the bed and the strike of the outcrop wall)]."
+555 PRINT:PRINT "REQUIREMENTS: 1) You MUST input the strike values in"
+556 PRINT "degrees AZIMUTH, not quadrant degrees.  Example: Okay = 350,"
+557 PRINT "NOT Okay = N10W.  2) You MUST input the strike values as northern values."
+560 PRINT "Example:  Okay = 290, NOT Okay = 110.  Okay = 75, NOT Okay = 255."
+570 PRINT "3) The outcrop face (or road cut) where the apparent dip is"
+575 PRINT "observed MUST be vertical (or very close to vertical)."
+576 PRINT:PRINT "The intersection of two strike lines will create two"
+577 PRINT "acute angles and two obtuse angles.  The program automatically"
+578 PRINT "uses the smaller (acute) angle in the computations, which"
+579 PRINT "gives the correct answer."
+580 PRINT:PRINT
+600 PRINT "Press any key to return to main menu":A$=INPUT$(1):GOTO 1
+

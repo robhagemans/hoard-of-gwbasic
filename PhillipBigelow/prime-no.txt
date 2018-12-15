@@ -1,0 +1,41 @@
+0 REM "prime-no.bas"
+1 CLS : PRINT "          PRIME NUMBER TESTING PROGRAM"
+2 PRINT "               by Phillip Bigelow"
+3 PRINT : PRINT : PRINT : PRINT "This program can test numbers from one through 16 digits long."
+4 PRINT "(testing numbers of 17 digits or more gives unreliable results due to":PRINT "round-off error)":PRINT:PRINT "Note: The computer will appear to hang when large numbers"
+5 PRINT "are tested."
+6 PRINT "Don't let the long delay upset you! The program is working!"
+9 PRINT "Very large numbers can require a few hours to a few days to test.": PRINT : PRINT
+10 PRINT : INPUT "What is the number that you want to test";Q#
+11 CLS
+12 PRINT "Program is now running...To stop program, hold down the Ctrl key while pressing the Pause key"
+14 PRINT : PRINT : PRINT "Testing number"; Q#;"         Please wait.":IF Q#>9999999999999999# THEN 200
+15 PRINT : PRINT : PRINT
+16 LET B$=TIME$
+17 LET X#=2#
+20 LET Y#=Q#/X#
+21 IF Q#=1 THEN 50
+22 IF Q#=2 THEN 50
+34 IF Y#=INT(Y#) THEN CLS:IF Y#=INT(Y#) THEN PRINT "--------------------------RESULTS-------------------------"
+35 IF Y#=INT(Y#) THEN PRINT "The number"; Q#; "is NOT prime": PRINT
+36 IF Y#=INT(Y#) THEN PRINT "divisible by", X#
+38 IF Y#=INT(Y#) THEN 52
+39 IF Y#=INT(Y#) THEN 100
+41 LET X#=X#+1
+42 IF X#>INT((Q#/2)+1) THEN 50
+45 GOTO 20
+50 CLS:PRINT "-------------------------RESULTS--------------------------"
+51 PRINT "YOU HAVE A WINNER!", Q#; "IS A PRIME NUMBER!!!"
+52 PRINT "Calculation began at = ";B$
+53 PRINT "Calculation ended at = ";TIME$
+54 PRINT "----------------------------------------------------------"
+55 PRINT
+56 IF Y#=INT(Y#) THEN 39
+57 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+100 PRINT "                MENU":PRINT "Test another number (t), or exit to system/Windows (x)":JH$=INPUT$(1)
+101 IF JH$="t" THEN 1
+102 IF JH$="x" THEN SYSTEM
+103 CLS:GOTO 100
+200 PRINT:PRINT:BEEP:BEEP:BEEP:PRINT "Error: GWBASIC/QBASIC cannot accurately determine whether a number"
+201 PRINT "over 16 digits is a prime number.  Please choose another number to test.":GOTO 10
+

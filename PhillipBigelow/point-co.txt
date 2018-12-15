@@ -1,0 +1,277 @@
+1 REM point-co.bas
+100 CLS
+200 PRINT " Sedimentary Rock Point Count Tabulation Program"
+300 PRINT " by Phillip K. Bigelow"
+400 PRINT:PRINT
+424 PRINT "Press `h' to see the HELP file. Otherwise, press (return)":PRINT:PRINT
+425 H$=INPUT$(1)
+426 IF H$="h" THEN 30000
+450 PRINT:PRINT:PRINT:PRINT:PRINT:PRINT "                 INSTRUCTIONS"
+500 PRINT "1) Cut out a labeled paper template that will fit over your computer"
+600 PRINT "keyboard (you will be using ONLY keys Z - comma AND keys W - P)."
+610 PRINT "(or, instead of a template, you can paste labeled stickers to the keys)."
+700 PRINT "The order of computer key labeling is as follows:":PRINT
+720 PRINT "BOTTOM ROW (keys `Z' - comma): Qm, K, P, Qp, Lv, Cement, Pore Space, Ls.":PRINT
+800 PRINT "TOP ROW (keys `W' - `P'): matrix, muscovite, biotite, hornblende,"
+810 PRINT "pyroxene, olivene, opaques, `other', and Unknown."
+820 PRINT
+825 PRINT "(totaling 17 grain categories).":PRINT:PRINT
+850 PRINT "2) The 'other'('o') category can include: Detrital chlorite, pumpellyite,"
+855 PRINT "glauconite, epidote tourmaline, or any other mineral that is in your sample."
+856 PRINT "Optional: After pressing the key representing `other', you can further break"
+857 PRINT "down this category with hash marks on paper (but you MUST also press the"
+858 PRINT "`o' key on the computer, so that these grains will be included in the total)."
+859 PRINT:PRINT "3) If the computer gives a short beep, it means you pressed a forbidden key."
+860 PRINT "It also beeps (longer) when the point count is completed.":PRINT
+861 INPUT "Enter sample number (8 letters max. Add `.txt' after the name) ",SN$
+865 INPUT "How many points do you want to count ";LQ
+870 CLS:PRINT:PRINT:PRINT "Let's Begin! Tabulation begins when you press your first mineral key."
+880 LET RT=0
+900 X$=INPUT$(1)
+950 LET RT=RT+1
+951 CLS:PRINT "running point total =";RT:PRINT"To cancel the count, press (Ctrl) and (Pause) keys simultaneously."
+1000 IF X$="z" THEN 3000
+1100 IF X$="x" THEN 4000
+1200 IF X$="c" THEN 5000
+1300 IF X$="v" THEN 6000
+1400 IF X$="b" THEN 7000
+1500 IF X$="n" THEN 8000
+1600 IF X$="m" THEN 9000
+1700 IF X$="," THEN 9500
+1800 IF X$="w" THEN 10000
+1900 IF X$="e" THEN 11000
+1950 IF X$="r" THEN 12000
+1955 IF X$="t" THEN 13000
+1960 IF X$="y" THEN 13030
+1965 IF X$="u" THEN 13050
+1967 IF X$="i" THEN 13060
+2050 IF X$="o" THEN 14000
+2060 IF X$="p" THEN 13079
+2061 REM Copyright Hell Creek Life, 2009 Phillip Bigelow
+2070 BEEP:PRINT "You made a typing error!  Re-enter the last point":LET RT=RT-1:GOTO 900
+3000 IF ZZ>0 THEN 3002
+3001 LET ZZ=1:GOTO 3010
+3002 LET ZZ=ZZ+1
+3010 PRINT "last point counted = Qm":IF RT=LQ THEN 15001
+3020 GOTO 900
+4000 IF XX>0 THEN 4002
+4001 LET XX=1:GOTO 4010
+4002 LET XX=XX+1
+4010 PRINT "last point counted = K":IF RT=LQ THEN 15001
+4020 GOTO 900
+5000 IF CC>0 THEN 5002
+5001 LET CC=1:GOTO 5010
+5002 LET CC=CC+1
+5010 PRINT "last point counted = P":IF RT=LQ THEN 15001
+5020 GOTO 900
+6000 IF VV>0 THEN 6002
+6001 LET VV=1:GOTO 6010
+6002 LET VV=VV+1
+6010 PRINT "last point counted = Qp":IF RT=LQ THEN 15001
+6020 GOTO 900
+7000 IF BB>0 THEN 7002
+7001 LET BB=1:GOTO 7010
+7002 LET BB=BB+1
+7010 PRINT "last point counted = Lv":IF RT=LQ THEN 15001
+7020 GOTO 900
+8000 IF NN>0 THEN 8002
+8001 LET NN=1:GOTO 8010
+8002 LET NN=NN+1
+8010 PRINT "last point counted = Cement":IF RT=LQ THEN 15001
+8020 GOTO 900
+9000 IF MM>0 THEN 9002
+9001 LET MM=1:GOTO 9010
+9002 LET MM=MM+1
+9010 PRINT "last point counted = Pore space":IF RT=LQ THEN 15001
+9020 GOTO 900
+9500 IF LK>0 THEN 9502
+9501 LET LK=1:GOTO 9510
+9502 LET LK=LK+1
+9510 PRINT "last point counted = Ls":IF RT=LQ THEN 15001
+9520 GOTO 900
+10000 IF WW>0 THEN 10002
+10001 LET WW=1:GOTO 10010
+10002 LET WW=WW+1
+10010 PRINT "last point counted = Matrix":IF RT=LQ THEN 15001
+10020 GOTO 900
+11000 IF EE>0 THEN 11002
+11001 LET EE=1:GOTO 11010
+11002 LET EE=EE+1
+11010 PRINT "last point counted = Muscovite":IF RT=LQ THEN 15001
+11020 GOTO 900
+12000 IF RRR>0 THEN 12002
+12001 LET RRR=1:GOTO 12010
+12002 LET RRR=RRR+1
+12010 PRINT "last point counted = Biotite":IF RT=LQ THEN 15001
+12020 GOTO 900
+13000 IF TT>0 THEN 13002
+13001 LET TT=1:GOTO 13010
+13002 LET TT=TT+1
+13010 PRINT "last point counted = Hornblende":IF RT=LQ THEN 15001
+13020 GOTO 900
+13030 IF YY>0 THEN 13032
+13031 LET YY=1:GOTO 13036
+13032 LET YY=YY+1
+13036 PRINT "last point counted = Pyroxene":IF RT=LQ THEN 15001
+13037 GOTO 900
+13050 IF UU>0 THEN 13052
+13051 LET UU=1:GOTO 13058
+13052 LET UU=UU+1
+13058 PRINT "last point counted = Olivene": IF RT=LQ THEN 15001
+13059 GOTO 900
+13060 IF II>0 THEN 13062
+13061 LET II=1:GOTO 13068
+13062 LET II=II+1
+13068 PRINT "last point counted = Opaque": IF RT=LQ THEN 15001
+13069 GOTO 900
+13075 IF PP>0 THEN 13079
+13076 LET PP=1:GOTO 13083
+13079 IF PP>0 THEN 13081
+13080 LET PP=1:GOTO 13083
+13081 LET PP=PP+1
+13083 PRINT "last point counted = Unknown Mineral":IF RT=LQ THEN 15001
+13084 GOTO 900
+14000 IF OO>0 THEN 14002
+14001 LET OO=1:GOTO 14010
+14002 LET OO=OO+1
+14010 PRINT "last point counted = `other'":IF RT=LQ THEN 15001
+14020 GOTO 900
+15001 PRINT "--------------------------------":PRINT " Sample number = ";SN$:PRINT "Qm =";ZZ,"K =";XX,"P =";CC
+15002 BEEP:BEEP:BEEP:BEEP:BEEP:BEEP:BEEP:BEEP:BEEP:BEEP
+15004 PRINT "Qp =";VV,"Lv =";BB,"Ls=";LK,"Cement =";NN
+15007 PRINT "Pore space =";MM,"Matrix =";WW,"Muscovite =";EE
+15010 PRINT "Biotite =";RRR,"Hornblende =";TT,"Pyroxene =";YY
+15014 PRINT "Olivene =";UU,"Opaques =";II,"Other =";OO,"Unknowns =";PP
+15017 PRINT "-------------------------------"
+15030 PRINT "Count Total =";RT
+16000 PRINT "TERNARY PERCENTAGES OF MAJOR FRAMEWORK GRAINS (read across)"
+16050 LET T1=ZZ+VV:LET T2=XX+CC:LET T3=BB+LK
+16060 LET T4=T1+T2+T3
+16063 IF T4=0 THEN LET QT=0
+16064 IF T4=0 THEN LET F=0
+16065 IF T4=0 THEN LET L=0
+16066 IF T4=0 THEN PRINT "Q-F-L     Q = 0","F = 0","L = 0"
+16067 IF T4=0 GOTO 17050
+16070 LET QT=(T1/T4)*100:LET FT=(T2/T4)*100:LET L=(T3/T4)*100
+17000 PRINT "Q-F-L     Q = ";QT,"F = ";FT,"L = ";L
+17050 LET T5=ZZ:LET T6=CC:LET T7=XX
+17060 LET T8=T5+T6+T7
+17063 IF T8=0 THEN LET QM=0
+17064 IF T8=0 THEN LET P=0
+17065 IF T8=0 THEN LET K=0
+17066 IF T8=0 THEN PRINT "Qm-P-K    Qm = 0","P = 0","K = 0"
+17067 IF T8=0 GOTO 18050
+17070 LET QM=(T5/T8)*100:LET P=(T6/T8)*100:LET K=(T7/T8)*100
+18000 PRINT "Qm-P-K    Qm = ";QM,"P = ";P,"K = ";K
+18050 LET T9=ZZ:LET T10=XX+CC:LET T11=BB+VV+LK
+18060 LET T12=T9+T10+T11
+18063 IF T12=0 THEN LET QMM=0
+18064 IF T12=0 THEN LET FF=0
+18065 IF T12=0 THEN LET LT=0
+18066 IF T12=0 THEN PRINT "Qm-F-Lt Qm = 0","F = 0","Lt = 0"
+18067 IF T12=0 GOTO 19010
+18070 LET QMM=(T9/T12)*100:LET FF=(T10/T12)*100:LET LT=(T11/T12)*100
+19000 PRINT "Qm-F-Lt   Qm = ";QMM,"F = ";FF,"Lt = ";LT
+19010 LET T20=VV+BB+LK
+19011 IF T20=0 THEN LET VVV=0
+19012 IF T20=0 THEN LET BBB=0
+19013 IF T20=0 THEN LET LKK=0
+19014 IF T20=0 THEN PRINT "Qp-Lv-Ls  Qp = 0","Lv = 0","Ls = 0"
+19015 IF T20=0 GOTO 19250
+19016 LET VVV=(VV/T20)*100
+19017 LET BBB=(BB/T20)*100
+19018 LET LKK=(LK/T20)*100
+19019 PRINT "Qp-Lv-Ls  Qp = ";VVV,"Lv = ";BBB,"Ls = ";LKK
+19250 IF XX+CC=0 THEN PRINT "P/F Ratio = ";"not applicable in this case.":GOTO 20500
+19500 LET PF=CC/(CC+XX)
+20000 PRINT "P/F Ratio = ";PF
+20500 LET PO=((NN+MM)/RT)*100
+21000 PRINT "Total Porosity (Pore Space plus Cement)= ";PO;"%"
+21500 LET PR=(MM/RT)*100
+22000 PRINT "Remnant Porosity (Total Porosity minus Cement) = ";PR;"%"
+22500 PRINT:PRINT:PRINT "Your data and results have been saved to the current folder on your hard drive"
+22550 PRINT "under the file name ";SN$:PRINT:PRINT
+23000 OPEN SN$ FOR OUTPUT AS #1:PRINT #1,"                        Sample # ";SN$
+23500 PRINT #1,"Qm = ";ZZ;"   (";(ZZ/LQ)*100;"% )"
+23501 PRINT #1,"K = ";XX;"   (";(XX/LQ)*100;"% )"
+23502 PRINT #1,"P = ";CC;"   (";(CC/LQ)*100;"% )"
+23503 PRINT #1,"Qp = ";VV;"   (";(VV/LQ)*100;"% )"
+23504 PRINT #1,"Lv = ";BB;"   (";(BB/LQ)*100;"% )":PRINT #1,"Ls= ";LK;"   (";(LK/LQ)*100;"% )"
+23505 PRINT #1,"Cement = ";NN;"   (";(NN/LQ)*100;"% )"
+23506 PRINT #1,"Pore Space = ";MM;"   (";(MM/LQ)*100;"% )"
+23507 PRINT #1,"Matrix = ";WW;"   (";(WW/LQ)*100;"% )"
+23508 PRINT #1,"Muscovite = ";EE;"   (";(EE/LQ)*100;"% )"
+23509 PRINT #1,"Biotite = ";RRR;"   (";(RRR/LQ)*100;"% )"
+23510 PRINT #1,"Hornblende =";TT;"   (";(TT/LQ)*100;"% )"
+23511 PRINT #1,"Pyroxene =";YY;"   (";(YY/LQ)*100;"% )"
+23512 PRINT #1,"Olivene =";UU;"   (";(UU/LQ)*100;"% )"
+23513 PRINT #1,"Opaques =";II;"   (";(II/LQ)*100;"% )"
+23514 PRINT #1,"`Other' =";OO;"   (";(OO/LQ)*100;"% )"
+23515 PRINT #1,"Unknown =";PP;"   (";(PP/LQ)*100;"% )"
+23516 PRINT #1,"------------------------------"
+23530 PRINT #1,"Count Total =";RT;"   (100%)":PRINT #1,""
+23540 PRINT #1," TERNARY PERCENTAGES OF MAJOR FRAMEWORK GRAINS (read across)"
+23541 PRINT #1,"---------------------------------------------------------------"
+23560 PRINT #1,"Q-F-L        Q =";QT,"F =";FT,"L =";L
+23561 PRINT #1,"---------------------------------------------------------------"
+23570 PRINT #1,"Qm-P-K       Qm =";QM,"P =";P,"K =";K
+23571 PRINT #1,"---------------------------------------------------------------"
+23580 PRINT #1,"Qm-F-Lt      Qm =";QMM,"F =";FF,"Lt =";LT
+23581 PRINT #1,"---------------------------------------------------------------"
+23586 PRINT #1,"Qp-Lv-Ls     Qp =";VVV,"Lv =";BBB,"Ls =";LKK
+23587 PRINT #1,"---------------------------------------------------------------"
+23590 IF XX+CC=0 THEN PRINT #1,"P/F Ratio = ";"not applicable in this case."
+23591 IF XX+CC>0 THEN PRINT #1,"P/F Ratio = ";PF
+23600 PRINT #1,"Total Porosity [Pore Space (void space) plus Cement]= ";PO;"%"
+23620 PRINT #1,"Remnant Porosity [Total Porosity minus Cement] = ";PR;"%"
+24000 CLOSE
+24020 INPUT "Press (enter)", MV$:GOTO 30059
+30000 PRINT "                    HELP FILE / GLOSSARY"
+30010 PRINT "Qm: All sand-size monocrystalline quartz grains, or composite quartz grains":PRINT "with subcrystals sand-size or larger."
+30011 PRINT "This category EXCLUDES polycrystalline quartz such as chert and chalcedony.":PRINT
+30012 PRINT "K: Potassic feldspar grains. These grains stain yellow when"
+30013 PRINT "etched and then immersed in sodium cobaltinitrite solution.":PRINT
+30014 PRINT "P: Calcic and sodic feldspar grains. Amaranth dye will stain grains that are":PRINT "high in calcium. Sodium feldspars will not take a stain.":PRINT
+30016 PRINT "Qp: All polycrystalline quartz grains with subcrystals less than sand-size."
+30017 PRINT "Includes chert, chalcedony, agate, microcrystalline vein quartz, and opal.":PRINT
+30018 PRINT "Lv: Volcanic rock grains with internal components smaller than sand size.":PRINT
+30019 PRINT "Ls: Sedimentary rock grains (mudstone, shale, or siltstone) with internal":PRINT "components smaller than sand size."
+30020 PRINT "But if the cross hairs land on a sand-size constituent within a Lithic grain,"
+30021 PRINT "then that constituent MUST be counted as the constituent. The sub-grains under"
+30022 PRINT "the cross hairs must be SMALLER than sand-size in order to be counted as `Lv' or `Ls'.":PRINT:INPUT "Press (enter) to continue",C
+30023 PRINT:PRINT:PRINT "Cement: Any authogenic mineral that is found between framework"
+30024 PRINT "grains. Calcite, iron oxides, clays, zeolites, chlorite"
+30025 PRINT "and pyrite, even quartz and feldspar, are a few examples of cement.":PRINT
+30026 PRINT "Pore Space: Void (air) space between grains.":PRINT
+30027 PRINT "Matrix: Any DEPOSITED sediment, smaller than sand-size,"
+30028 PRINT "that exists between framework grains. Matrix cannot be"
+30029 PRINT "authogentic.":PRINT
+30030 PRINT "Opaques: Any detrital mineral grain that is opaque to"
+30031 PRINT "transmitted light. As it turns out, most opaque minerals"
+30032 PRINT "are heavy minerals, such as magnetite, ilmenite, pyrite,"
+30033 PRINT "etc.":PRINT
+30034 PRINT "Other: Any detrital framework grain type that doesn't fall into"
+30035 PRINT "the main categories. You must customize this category for your"
+30036 PRINT "own particular project, as sandstone composition can vary greatly,"
+30037 PRINT "particularly with the more uncommon minerals. After pressing the"
+30038 PRINT "`o' key, hand-tabulate by subcategories (use paper and pencil).":PRINT:INPUT "Press (enter) to continue",C
+30039 PRINT:PRINT "Unknown: Any mineral that cannot be identified.":PRINT
+30040 PRINT "Q-F-L: Ternary percentages of Q (monocrystalline quartz +"
+30041 PRINT "polycrystalline quartz), F (K+P), and L (Lv+Ls). Used in ternary diagrams.":PRINT
+30042 PRINT "Qm-P-K: Ternary percentages of Qm (monocrystalline quartz),"
+30043 PRINT "P (plagioclase feldspar), and K (potassium feldspar). Used in ternary diagrams.":PRINT
+30044 PRINT "Qm-F-Lt: Ternary percentages of Qm (monocrystalline quartz),"
+30045 PRINT "F (P+K), and both non-durable and durable lithic grains"
+30046 PRINT "(Qp+Lv+Ls). Used in ternary diagrams.":PRINT
+30047 PRINT "P/F Ratio: The ratio of plagioclase feldspar grains to"
+30048 PRINT "all feldspar grains in the sample. This ratio gives clues"
+30049 PRINT "to the composition of the source rock(s) (e.g., the"
+30050 PRINT"`provenance' of the sediment in your sample)":PRINT
+30051 PRINT "Total Porosity: The percentage of void space + Cement between framework grains.":PRINT
+30052 PRINT "Remnant Porosity: The portion of the pore space not occupied by"
+30053 PRINT"cement. In other words, the percentage of only the void space between framework grains.":PRINT
+30057 PRINT "Return to Main Menu? (y/n)":LET J$=INPUT$(1)
+30058 IF J$="y" THEN 450
+30059 PRINT "Are you done for today? (y/n)":LET K$=INPUT$(1):IF K$="n" THEN 450 ELSE 30060
+30060 SYSTEM
+
