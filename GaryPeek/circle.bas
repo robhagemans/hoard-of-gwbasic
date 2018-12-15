@@ -1,0 +1,41 @@
+10 SCREEN 9
+20 CLS:KEY OFF:FOR A=1 TO 10:KEY A,"":NEXT A
+25 LINE(0,0)-(639,349),15,B
+30 X=320:Y=175:RADIUS=228:STARTDEG=0:ENDDEG=360:ASPECT=1:COLOUR=12:CENTER=0
+35 GOSUB 6000
+40 FOR A=0 TO 360
+50 STARTDEG=A:ENDDEG=A
+60 COLOUR=14
+70 X=320:Y=175:RADIUS=225:ASPECT=1:CENTER=1
+80 GOSUB 6000
+90 STARTDEG=A:ENDDEG=A
+100 COLOUR=0
+110 X=320:Y=175:RADIUS=225:ASPECT=1:CENTER=1
+120 GOSUB 6000
+130 NEXT A
+140 LIST -1000
+5850 REM *********************************************************************
+5860 REM ------------------- DRAW AN ARC OR CIRCLE ---------------------------
+5870 REM
+5880 REM This subroutines allows you to draw an arc or a circle with the
+5890 REM start and end points specified in degrees rather than ratios of "PI".
+5900 REM Aspect multiplier: SCREEN 9=.7291667, 2=.4166667, 1=.8333334
+5910 REM
+5920 REM enter with - X,Y=center co-ordinates
+5930 REM              RADIUS=radius of the arc or circle
+5940 REM              STARTDEG=starting point in degrees from 0 to 360
+5950 REM              ENDDEG=ending point in degrees from 0 to 360
+5960 REM              ASPECT=aspect ratio; 1=circle, <1=WIDER, >1=TALLER
+5970 REM              COLOUR=colour of arc or circle
+5980 REM              CENTER=1 for line(s) to the center of the arc
+5990 REM
+6000 STARTCURVE=7.853951-(STARTDEG*1.745329E-02):REM 7.853983
+6010 IF STARTCURVE>6.283186 THEN STARTCURVE=STARTCURVE-6.283186
+6020 ENDCURVE=7.853951-(ENDDEG*1.745329E-02)
+6030 IF ENDCURVE>6.283186 THEN ENDCURVE=ENDCURVE-6.283186
+6040 ASP=ASPECT*.7291667
+6050 IF CENTER=1 THEN ENDCURVE=-ENDCURVE
+6060 IF CENTER=1 THEN STARTCURVE=-STARTCURVE
+6070 CIRCLE(X,Y),RADIUS,COLOUR,ENDCURVE,STARTCURVE,ASP
+6080 RETURN
+
