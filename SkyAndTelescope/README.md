@@ -1,4 +1,6 @@
-BASIC programs from _Sky & Telescope Magazine_  ==============================================
+BASIC programs from _Sky & Telescope Magazine_
+==============================================
+
 
 http://www.skyandtelescope.com/astronomy-resources/basic-programs-from-sky-telescope/
 
