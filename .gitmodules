@@ -1,0 +1,3 @@
+[submodule "TheProgramOfTheMonth"]
+	path = TheProgramOfTheMonth
+	url = https://github.com/ttsiodras/TheProgramOfTheMonth.git
