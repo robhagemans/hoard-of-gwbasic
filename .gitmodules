@@ -1,3 +1,21 @@
 [submodule "TheProgramOfTheMonth"]
 	path = TheProgramOfTheMonth
 	url = https://github.com/ttsiodras/TheProgramOfTheMonth.git
+[submodule "StarTrek_BASIC"]
+	path = StarTrek_BASIC
+	url = https://github.com/jacklh9/StarTrek_BASIC.git
+[submodule "korenvliet"]
+	path = korenvliet
+	url = https://github.com/henck/korenvliet.git
+[submodule "Digger"]
+	path = Digger
+	url = https://github.com/nav9/Digger.git
+[submodule "HistoricalGWBASICPrograms"]
+	path = HistoricalGWBASICPrograms
+	url = https://github.com/mbirth/gwbasic.git
+[submodule "Analysis"]
+	path = Analysis
+	url = https://github.com/ElPasoTubeAmps/Analysis.git
+[submodule "RetroBasicCode"]
+	path = RetroBasicCode
+	url = https://github.com/yoann-darche/RetroBasicCode.git
