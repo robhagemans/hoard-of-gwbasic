@@ -1,0 +1,110 @@
+
+
+RealFun:  Real & Complex Math Libraries for QuickBASIC
+COMPLIST.TXT
+
+        Compfun.lib:  Alphabetic Function Listing
+
+
+Fun/Sub     No.   S/D    Comments
+
+acos         1     s     inverse cosine, radians
+acosd        1     s     inverse cosine, degrees
+acosh        1     s     inverse hyperbolic cosine
+amax         2     s     maximum
+amin         2     s     minimum
+amod         2     s     modulo, floating point
+asin         1     s     inverse sine, radians
+asind        1     s     inverse sine, degrees
+asinh        1     s     inverse hyperbolic sine
+atan         2     s     inverse tangent, radians, quadrant specific
+atand        2     s     inverse tangent, degrees, quadrant specific
+atanh        1     s     inverse hyperbolic tangent
+atnd         1     s     inverse tangent, degrees, non-quadrant specific
+cabs         3     s     magnitude
+cacos        4     s     complex inverse cosine
+cacosh       4     s     complex inverse hyperbolic cosine
+casin        4     s     complex inverse sine
+casinh       4     s     complex inverse hyperbolic sine
+catan        4     s     complex inverse tangent
+catanh       4     s     complex inverse hyperbolic tangent
+ccart        4     s     polar to rectangular coordinates
+ccartd       4     s     polar to rectangular coordinates, degrees
+ccos         4     s     complex cosine
+ccosh        4     s     complex hyperbolic cosine
+cdabs        3     d     magnitude
+cdacos       4     d     complex inverse cosine
+cdacosh      4     d     complex inverse hyperbolic cosine
+cdasin       4     d     complex inverse sine
+cdasinh      4     d     complex inverse hyperbolic sine
+cdatan       4     d     complex inverse tangent
+cdatanh      4     d     complex inverse hyperbolic tangent
+cdcart       4     d     polar to rectangular coordinates
+cdcartd      4     d     polar to rectangular coordinates, degrees
+cdcos        4     d     complex cosine
+cdcosh       4     d     complex hyperbolic cosine
+cddiv        6     d     divide
+cdexp        4     d     exponentiation
+cdiv         6     s     divide
+cdlog        4     d     logarithm
+cdmod        6     d     complex modulo
+cdmult       6     d     multiply
+cdpolar      4     d     rectangular to polar coordinates
+cdpolard     4     d     rectangular to polar coordinates, degrees
+cdpower      6     d     raise complex number to complex power
+cdsin        4     d     complex sine
+cdsinh       4     d     complex hyperbolic sine
+cdtan        4     d     complex tangent
+
+cdtanh       4     d     complex hyperbolic tangent
+cexp         4     s     exponentiation
+clog         4     s     logarithm
+cmod         6     s     complex modulo
+cmult        6     s     multiply
+cosd         1     s     cosine, degrees
+cosh         1     s     hyperbolic cosine
+cpolar       4     s     rectangular to polar coordinates
+cpolard      4     s     rectangular to polar coordinates, degrees
+cpower       6     s     raise complex number to complex power
+csin         4     s     complex sine
+csinh        4     s     complex hyperbolic sine
+ctan         4     s     complex tangent
+ctanh        4     s     complex hyperbolic tangent
+dacos#       1     d     inverse cosine, radians
+dacosd#      1     d     inverse cosine, degrees
+dacosh#      1     d     inverse hyperbolic cosine
+dasin#       1     d     inverse sine, radians
+dasind#      1     d     inverse sine, degrees
+dasinh#      1     d     inverse hyperbolic sine
+datan#       2     d     inverse tangent, radians, quadrant specific
+datand#      2     d     inverse tangent, degrees, quadrant specific
+datanh#      1     d     inverse hyperbolic tangent
+datnd#       1     d     inverse tangent, degrees, non-quadrant specific
+dcosd#       1     d     cosine, degrees
+dcosh#       1     d     hyperbolic cosine
+dmax#        2     d     maximum
+dmin#        2     d     minimum
+dmod#        2     d     modulo, floating point
+dnearint     4     d     nearest integer, returns long integers
+drpower      5     d     raise complex number to real power
+dsind#       1     d     sine, degrees
+dsinh#       1     d     hyperbolic sine
+dtand#       1     d     tangent, degrees
+dtanh#       1     d     hyperbolic tangent
+nearint      4     s     nearest integer, returns short integers
+rpower       5     s     raise complex number to real power
+sind         1     s     sine, degrees
+sinh         1     s     hyperbolic sine
+tand         1     s     tangent, degrees
+tanh         1     s     hyperbolic tangent
+
+
+Notes:
+- Fun/Sub refers to the function or subprogram name.  Items that deal with
+        real numbers are functions (DECLARE FUNCTON); those that deal with
+        complex numbers are subprograms (DECLARE SUB).
+- No. refers to the number of arguments in the calling and declaration
+        statements.
+- S/D refers to the precision of the arguments and return values:  s = single-
+        precision, d = double-precision.
+

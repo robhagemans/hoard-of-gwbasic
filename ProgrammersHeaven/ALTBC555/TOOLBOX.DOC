@@ -1,0 +1,4631 @@
+
+      Assembly-Language Toolbox for QuickBASIC/VisualBASIC DOS
+      ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                         By Christy Gemmell
+
+The Assembly-Language Toolbox started life, five years ago, as a simple
+collection of useful routines for adding zip to my QuickBASIC programs.
+They weren't just pretty faces however. In order to qualify, the Toolbox
+routines had to work reliably with real-life commercial applications, the
+ones on which my living depended. This made for pretty tough testing, but
+those which did survive were, in consequence, fast, robust and, above all,
+able to do the job. They are, in fact, doing so in Accountants and Stock-
+broker's offices, all over my native Great Britain.
+
+A colleague uploaded a copy of the Toolbox onto a local BBS (Electronic
+Bulletin Board) and suddenly I started getting letters and phone calls
+from complete strangers asking for a copy of the latest version. Nearly
+everyone who called had suggestions of their own, remarking; "You know, if
+only the Toolbox had this, it would be really good...".
+
+Wherever practicable, the good ideas (and some were brilliant) were turned
+into assembler code and added to the collection. Almost before I realised
+what was happening, the Assembly-Language Toolbox was on the Shareware
+circuit and being used by programmers in Europe, the USA, Canada,
+Australia and Japan. By December 1990 it had gone through four 'official'
+releases and a dozen or more unofficial ones.
+
+Release Five comes in two flavours; one for QuickBASIC 4 and the other for
+Microsoft's BASIC 7 Professional Development System. The QB4 version
+covers QuickBASIC 4.0, 4.5 and BASIC 6 while the PDS version is compatible
+with BASIC 7, 7.1 and Extended QuickBASIC (QBX). In either version the
+routines are provided both as stand-alone libraries and as Quick Libraries
+for use in the programming environment.
+
+With the advent of Microsoft's VisualBASIC for DOS, I have introduced
+a third version of the Toolbox, designed specifically for this compiler.
+ALTVBDOS Release 1.00 includes all the routines from ALTQUICK ver 5.50, 
+repackaged for VisualBASIC for DOS.
+
+Using the Toolbox is easy. All the routines are written to look like
+standard QuickBASIC SUB programs and FUNCTION procedures. All you have to
+do is choose the ones you want to use in your current program and paste
+the appropriate DECLARE statements (a full set is provided) into the
+source code. If you need to output large quantities of text to the screen
+at high speed, for example, just copy the following line from ALTQUICK.DEF.
+
+DECLARE SUB FastPrint (BYVAL Row%, BYVAL Col%, Text$, BYVAL Attribute%)
+
+Then, if you are running in the QuickBASIC environment, you should load
+the Quick Library with the command:
+
+    QB yourprog.bas /L altvbdos.qlb
+
+Thereafter you can call FastPrint, exactly as you would any other
+QuickBASIC SUB program, for example like this:
+
+    FastPrint 25, 34, "Hello World!", 48
+
+which will print 'Hello World!' in the middle of the 25th screen row
+displaying it in black characters on a cyan background (if you have a
+colour monitor). Notice that, since a DECLARE statement has been used, you
+don't need to place parentheses around the argument list and that even the
+CALL statement is unneccessary. Used in this way, Toolbox routines become
+actual extensions to the QuickBASIC language.
+
+The same DECLARE statements can still be used when you compile your
+programs from the DOS command line. In this case, however, you must link
+the compiled program to ALTQUICK.LIB, the stand-alone library, with
+something like this:
+
+    LINK yourprog,,,altquick.lib;
+
+The QuickBASIC Linker will only extract, from ALTQUICK.LIB, those modules
+which are explicitly named by DECLARE statements in the source file. This
+ensures that your programs are not burdened with unneccessary code.
+
+Toolbox routines do not require the BASIC runtime module to be present.
+You can use them to produce completely stand-alone application programs
+which can be distributed commercially.
+
+As its name implies, the core routines in the Assembly-Language Toolbox
+are written in pure Intel 80x86 assembler. Because of this they are small,
+efficient and blindingly fast. Moreover, since any internal variables are
+stored in a routine's own code segment, your program does not have to
+share any of it's precious data space with the library.
+
+Christy Gemmell                                             January 1993
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+The ShareWare version of the Assembly-Language Toolbox for QuickBASIC is
+provided, free of charge, to any QuickBASIC programmer who can find a use
+for it. You are encouraged to copy it, upload it to Electronic Bulletin
+Boards or pass it on to friends, provided only that you make no charge for
+doing so and that all the files on the disk are preserved intact. You may
+include Toolbox routines in your own programs, for private use, without 
+payment to the author. If you intend to use the Toolbox in programs for
+distribution or for resale commercially then you must register.
+
+The Professional version of the Toolbox, available to Registered Users,
+comes complete with all the source code, object modules for building your
+own custom libraries and many additional features. Hotline support is also
+included, at no extra charge.
+
+ÄÄÄÄÄRegistration and SupportÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+U.K. and Europe:        œ30.00 (including postage and packing)
+                        
+Christy Gemmell         Apt 13, Beckville Building
+                        17 Glebe Street
+                        Leicester LE2 0JR
+                        United Kingdom
+                        
+                Tel:    (044)-0533-540720
+                Email:  christy.gemmell@almac.co.uk
+
+U.S.A. and Canada:      $47.50 (Including shipping)
+
+James Kreyling          CPC Consulting Company
+                        1217 Crescent Dive
+                        Smithfield, Va. 23430
+                        U.S.A.
+
+                Tel:    (804)-357-9190 (Voice and FAX)
+or from Club-PC BBS:    (804)-357-0357 (8-N-1)
+
+Note:   When ordering the Toolbox please specify if for QuickBASIC 4.5,
+        BASIC 7.1 PDS or VB DOS and the floppy disk format you require.
+
+ÄÄÄÄÄAbout the authorÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+Christy Gemmell, the author of this package, is also major author of the
+definitive textbook on QuickBASIC programming, the QuickBASIC BIBLE, which
+is published by Microsoft Press, in association with the Waite Group, at
+œ24.95 ($27.95 US) ISBN 1-55615-262-0. Selected as Computer Book of the
+Month by Jerry Pournelle in the March 1991 issue of BYTE, its thousand
+pages are packed with information, tips and example programs which you
+wont find anywhere else.  Look out for it in your local bookstore.
+
+The Assembly-Language Toolbox for QuickBASIC is used by thousands of
+programmers in Great Britain, Europe, the USA and Canada, Australasia and
+Japan, to build fast and powerful QuickBASIC programs. It has been shown
+at COMDEX and was featured in the November 1990 issue of BYTE magazine.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+                TOOLBOX FUNCTIONS AND PROCEDURES
+
+This is a full, alphabetical, listing of the routines in the Assembly
+Language Toolbox which can be called directly by QuickBASIC programs>
+
+ANSI
+
+Detects if the ANSI console driver is installed or not
+
+DECLARE FUNCTION Ansi% ()
+
+Returns TRUE (-1) if ANSI.SYS is installed or zero (FALSE) if not. 
+
+Many third-party console drivers such as AVATAR and ANSIPLUS will
+also acknowledge their presence through this call.
+
+
+ATTRIB
+
+This function returns the directory attributes of the specified file.
+
+DECLARE FUNCTION Attrib% (FileSpec$)
+
+FileSpec$ is the name of the file whose directory entry is to be tested.
+You should include the full pathname (including drive letter if necessary)
+if the file is not in the current directory.
+
+The returned attribute value is bit-encoded as follows:
+
+   Bit     Meaning (if set)
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    0      Read-only     (file is Read/Write if zero)
+    1      Hidden
+    2      System
+    3      Volume label
+    4      Subdirectory
+    5      Archive
+    6      Not used
+    7      Shareable     (Novell Networks only)
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+The ToolBox procedures; HIDE, SECURE and SHARE (see below) can be used to
+modify the attributes of a file.
+
+
+ATTRIBUTE
+
+Converts standard MS-DOS foreground and background COLOR values into
+their equivalent display attribute number.
+
+DECLARE FUNCTION Attribute% (BYVAL Fore%, BYVAL Back%)
+
+Legal values:    Fore% = 0 - 31
+                 Back% = 0 - 15
+
+The Assembly-Language Toolbox provides several routines which allow  your
+QuickBASIC programs to write text directly to the display with an
+attribute which you supply. For an explanation of display attributes, see
+the topic file COLOURS.HLP supplied with the Assembly-Language Toolbox
+demonstration program.
+
+Note that the QuickBASIC COLOR statement only allows values of 0-7 for
+background colours. Toolbox display routines, however, accept the full
+range, using values of 8-15 to produce blinking or high-intensity
+background colours. See BLINKING (below) for a routine which allows
+you to select between these two modes.
+
+
+BACKFILL
+
+This procedure changes the display attributes of the characters contained
+within the screen rectangle you specify, without overwriting the text
+itself.
+
+DECLARE SUB BackFill (BYVAL R%, BYVAL C%, BYVAL H%, BYVAL W%, BYVAL A%)
+
+R% = Top-left row of the rectangle to be coloured.
+C% = Top-left column of the rectangle.
+H% = Height of the rectangle in rows.
+W% = Width of the rectangle in columns.
+A% = Display attribute to use for colouring.
+
+
+BARMENU
+
+Creates and operates a menu orientated horizontally on the screen row
+specified. The calling program must supply :
+
+Row%        =   The screen row on which the menu bar will appear.
+Atr%        =   The display attribute or colour for the menu bar.
+Opt%        =   Number of options available for selection.
+Menu$()     =   String array containing selection list. Menu$(0) should
+                be set to a string of ASCII characters, corresponding to
+                the initial or key letter of each option in the list.
+                Insert a space at the appropriate position of an option
+                to be disabled. In the remaining option strings an
+                ampersand '&' indicates that the next character is the
+                Hotkey to be highlighted for that option.
+Bar%        =   The menu selection to be highlighted on entry into the
+                procedure.
+Nxt%        =   If set, this flag just causes the menu to be refreshed
+                without pausing for a selection from the user. This is
+                used to handle presses on the Right or Left Arrow keys
+                in the Pull-Down Menu procedure.
+Ctx%        =   If set, this flag indicates that context-sensitive help
+                is available, in which case ...
+Tpc$        =   The root name of the Topic file to be displayed if the
+                user presses <F1> for help. The current selection number
+                is appended to this to produce the actual filename.
+
+                eg, if Tpc$ = "CONFIG" and Bar% = 3
+                
+                HelpMate (see TOOLBOX.DOC) will look for a Topic file
+                named CONFIG3.HLP.
+Mouse%      =   If set, this flag indicates that a mouse is installed
+                and can be used to make selections.
+HotKeys%    =   If set, this flag allows hotkeys to go directly to a
+                selection without you having to press <ENTER> as well.
+
+DECLARE SUB BarMenu (Row%, Atr%, Opt%, Menu$(), Bar%, Nxt%, Ctx%,_
+                     Topic$, Mouse%, HotKeys%)
+
+On completion the procedure returns with the following variable set:
+
+Bar%        =   Number of selection made by user. If zero then the
+                <Escape> key was pressed to abort the procedure
+                without making a selection.
+
+VERMENU (see below) is a similar procedure which operates a vertically
+orientated point-and-shoot type menu.
+
+See the source code of DEMON.BAS, the Toolbox demonstration program, for
+examples of BARMENU and VERMENU in use.
+
+
+BINDEC
+
+Translates a string of binary digits to their long integer decimal
+equivalent.
+
+DECLARE FUNCTION BinDec& (Binary$)
+
+
+BITSHL
+
+Shifts all the bits of a long-integer number the specified number
+of places to the left.  This effectively multiplies the number by
+2 ^ the number of places.
+
+DECLARE SUB BitShl (Number&, Count%)
+
+Number& =   The 32-bit number to be shifted 
+            (-2147483648 to 2147483647)
+Count%  =   The number of places to be shifted (1-31)
+
+
+BITSHR
+
+Shifts all the bits of a long-integer number the specified number
+of places to the right.  This effectively divides the number by
+2 ^ the number of places.
+
+DECLARE SUB BitShr (Number&, Count%)
+
+Number& =   The 32-bit number to be shifted 
+            (-2147483648 to 2147483647)
+Count%  =   The number of places to be shifted (1-31)
+
+
+BITRESET
+
+Clears the specified bit (0-15) of the integer number supplied.
+
+DECLARE SUB BitReSet (Number%, Bit%)
+
+
+BITSET
+
+Sets the specified bit (0-15) in the integer number supplied to 1.
+
+DECLARE SUB BitSet (Number%, Bit%)
+
+
+BITTEST
+
+Returns logical TRUE (-1) if the bit (0-15) of Number% is set and FALSE
+(zero) if the bit is clear.
+
+DECLARE FUNCTION BitTest% (Number%, Bit%)
+
+
+BLINKING
+
+Toggles between blinking and high-intensity background colours
+
+DECLARE SUB Blinking (BYVAL Switch%)
+
+Switch% = 0         Turn background blink off/enable high intensity
+                    background colours.
+
+        = non-zero  Enable background blinking/disable high intensity
+                    background colours
+
+The QuickBASIC COLOR statement only recognises values of 0-7 for its'
+second parameter. Unlike the foreground, you cannot select blinking or
+high-intensity colours for the display backgound. The screen attribute
+parameter used with Toolbox routines such as FASTPRINT, however, do
+permit a background colour component in the range 0-15.
+
+Normally, values between 8-15 will produce blinking backgrounds, but
+BLINKING allows you to turn the the blink off, forcing the background
+colour into high intensity mode. With blinking disabled you can use
+the full range of colours which are available to the foreground.
+
+See ATTRIBUTE (above) for a function that calculates display attributes
+from the foreground and background colours you supply
+
+Note:   This routine only works on systems with EGA, VGA and MCGA
+        display adaptors. Users of CGA adaptors, however, can get
+        the same effect by using the statement:  OUT &H3D8, 9
+
+If you turn blinking off, remember to re-enable it before your program
+ends. Otherwise high-intensity backgrounds will remain in effect until
+another program resets the video card or you switch your computer off.
+        
+
+BOOTDRIVE
+
+Returns the drive number from which the system was booted.
+
+DECLARE FUNCTION BootDrive% ()
+
+Drives are numbered using 1=A:, 2=B: etc.
+
+This function is only supported under DOS 4.0 and later.
+
+
+CAPITAL
+
+Converts all alphabetic characters in a string to lower-case,
+except for the first character of each word, which is forced
+to upper-case.
+
+DECLARE FUNCTION CapItal$ (Original$)
+
+This function is designed for use in printing address labels
+and can correctly identify and format proper surnames like
+'McLaughlin'.
+
+
+CAPSLOCK
+
+Toggles CAPS LOCK on or off or, alternatively, reads the current CAPS LOCK
+key setting.
+
+DECLARE FUNCTION CapsLock% (BYVAL Switch%)
+
+Switch% = 0  Turns CAPS LOCK off
+        = 1  Turns CAPS LOCK on
+
+Any other value just returns the current CAPS status as a logical value
+where -1 (TRUE) means that CAPS LOCK is on and 0 (FALSE) means that CAPS
+LOCK is off.
+
+
+CDROM
+
+Reports the presence of a CD-ROM drive in the system.
+
+DECLARE FUNCTION CDRom% ()
+
+This function returns zero (logical FALSE) if no CD drive is installed,
+otherwise it returns the CD-ROM's drive number (1=A:, 2=B: etc).
+
+This function is only supported under DOS 4.0 and later.
+
+
+CGACOPY
+
+Copies a CGA screen to or from a user-supplied string.
+
+DECLARE SUB CgaCopy (BYVAL Switch%, Buffer$)
+
+SWITCH%     Direction of copy   0 = copy screen to string
+                                1 = copy string to screen
+
+BUFFER$     String variable to hold the screen image, must be at least
+            16384 characters long or the call will fail. 
+
+Note:       If you are using QuickBASIC 4 or 4.5, do not pass a fixed-
+            length string to this routine. Only variable-length strings
+            will work safely.
+
+The QuickBASIC PCOPY statement is very useful for storing screen pages in
+memory, so that they can be kept out of sight until needed. Unfortunately
+it only works in text modes or, on computers with EGA or VGA video cards,
+in SCREEN modes 7 to 12. This routine, on the other hand, works only in
+the CGA display modes (SCREENs 1 and 2), it provides a useful alternative
+to the PCOPY statement for use with medium-resolution screens.
+
+See also MCGACOPY for a version that can be used with SCREEN 13 displays.
+
+
+CARDTEST
+
+Performs an invalidity check on Visa and Mastercard credit card numbers.
+This function does not, of course, check to see that credit card account 
+is valid or in funds, it merely tests to see if the number supplied is a
+permissable Visa or Mastercard number and may be used as a precaution 
+against miskeying.  If the card number is permissable logical TRUE (-1) 
+is returned. If not a zero value (logical FALSE) is returned.
+
+DECLARE FUNCTION CardTest% (CardNumber$)
+
+CardNumber$ is a string of ASCII numerals representing the card number.
+Spaces and non-numeric characters are ignored. This function works both
+with 16-digit Visa and Mastercard numbers and with 13-digit Visa numbers.
+
+Note:   Since the algorithm used by this function is confidential, no
+        source code is supplied in the professional toolbox version.
+
+
+CGASCROLL
+
+Scrolls a rectangular portion of a SCREEN 1 (320 x 200 4-colour) display
+four pixels to the left or to the right, wrapping the pixels which are 
+scrolled out at the end round to the beginning again.
+
+DECLARE SUB CgaScroll (BYVAL xLoc%, BYVAL yLoc%, BYVAL xPixels%,_
+                       BYVAL yPixels%, BYVAL Direction%)                 
+
+XLOC%       The horizontal (X) co-ordinate of the top-left corner of
+            the rectangle to be scrolled.
+
+YLOC%       The vertical (Y) co-ordinate of the top-left corner of
+            the rectangle to be scrolled.
+
+XPIXELS%    The width (in pixels) of the rectangle to be scrolled.
+
+YPIXELS%    The height (in pixels) of the rectangle to be scrolled.
+
+DIRECTION%  The direction in which the rectangle contents are to be
+            scrolled (0 = Left, 1 = Right).
+
+Co-ordinates are in the ranges:  X >= 0 <= 319, Y >= 0 <= 199
+
+X co-ordinates are aligned to the nearest byte (1 byte = 4 pixels).
+
+
+CGATEXT
+
+Writes characters to the screen in the 320 x 200 4-colour graphics mode.
+
+DECLARE SUB CgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                     BYVAL Attr%, BYVAL Scale%)
+
+This routine provides a convenient way of displaying text in SCREEN 1
+without having to bother about loading external font files. It uses the
+standard ROM-BIOS character definition tables built into your display
+adaptor, but allows you to scale them up to eight times normal size and to
+specify any combination of foreground and background colours.
+
+XLOC%       The horizontal co-ordinate of the top left hand pixel
+            from which the text will begin (0 - 319)
+
+YLOC%       The vertical co-ordinate of the top left hand pixel
+            from which the text will begin (0 - 199)
+
+TEXT$       The string of text to be displayed (up to 63 characters).
+
+ATTR%       The colour (or display attribute in monochrome modes) to
+            be given to the text. This is calculated by the formula:
+
+            Colour% = (Background% * 256) + Foreground%
+
+            Foreground and Background values are in the range 0 - 3
+
+SCALE%      The character size of the text to be displayed. This ranges
+            from 1 to 8, where 1 is standard 40-column text and where 8
+            multiplies the character size by eight on both the horizontal
+            and vertical axes.
+
+CGATEXT can handle both byte-aligned and non byte-aligned characters. The
+x, y co-ordinates you supply do not need to correspond to a row, column
+character cell in SCREEN 0, the alphanumeric mode. The complete ASCII set
+is supported, but to display foreign symbols and box-drawing characters on
+a CGA adaptor you must have the DOS GRAFTABL utility loaded.
+
+Since CGATEXT does not support clipping, to ensure a clean display you
+must ensure that the text to be output fits within the current screen
+boundaries.
+
+See also VGATEXT for displaying characters in SCREENs 7-12 and MCGATEXT
+for displaying characters in SCREEN 13.
+
+
+CENTRE
+
+Centres the string supplied within an empty string of specified width.
+
+DECLARE FUNCTION Centre$ (Text$, MaxWidth%)
+
+This function is called by the VERMENU routine (see below) to centre the
+title of a pull-down menu within the window it refers to.
+
+
+CHECKPRINTER
+
+This procedure checks if the specified parallel printer is ready and
+on-line. If so, it returns immediately with Ready% set to -1 (TRUE), if
+not, CHECKPRINTER displays the message 'PRINTER NOT READY' on the bottom
+row of the screen and waits for the operator to correct the problem and
+press a key.
+
+If the user presses <Escape>, the procedure returns with Ready% set to
+zero (FALSE). Any other keystroke causes it to go back and test the
+printer again. CHECKPRINTER will not return until either the printer is
+ready for output, or the <Escape> key is pressed.
+
+DECLARE SUB CheckPrinter (Prntr%, Ready%)
+
+Prntr% is the number of the parallel printer to test (1 = LPT1: etc).
+
+Example:    CheckPrinter 1, Ready%              ' Test LPT1:
+            IF NOT Ready% THEN
+               STOP
+            ELSE
+               LPRINT Stuff$
+            END IF 
+
+
+CIPHER
+
+This routine requires that you supply two strings of characters. The first
+is the text to be encrypted, and the second is one or more keywords which
+are used to encipher the text. Thereafter, the text cannot be decrypted
+until you supply the same key string again.
+
+DECLARE SUB Cipher (Text$, KeyWord$)
+
+The encryption algorithm XORs (eXclusive ORs) the key string with string
+to be encrypted. This allows you to reverse the procedure and decrypt the
+text, simply by calling the routine a second time.
+
+See the source code for DEMON.BAS, the ToolBox demonstration program, for
+an example using CIPHER.
+
+
+CLEAREND
+
+Blank spaces of the display attribute specified are printed, starting at
+the current cursor position and continuing to the end of the line or,
+optionally, to the end of the screen.
+
+DECLARE SUB ClearEnd (BYVAL Switch%, BYVAL Attr%)
+
+Switch%   0 = clear to the end of the line.
+          1 = clear to the end of the screen.
+
+Attr%     display attribute (1 - 255). If zero is specified then the
+          attribute of the character under the cursor is used.
+
+Example:  ClearEnd 1, 0
+
+Clears from the current cursor position to the bottom of the screen. The
+area cleared takes the background colour of the character under the
+cursor. The cursor, itself, is not updated.
+
+
+CONCEAL
+
+Toggles the Hidden bit of the specified file's directory entry, making it
+visible or invisible to directory listings.
+
+DECLARE SUB Conceal (BYVAL Switch%, FileSpec$)
+
+If SWITCH% = 1 the file is hidden (regardless of whether it is currently
+visible or not), any other value makes the file visible. FileSpec$ is the
+name of the file to be hidden or unhidden. It can include a drive letter
+and directory path but must be an explicit pathname, wildcard characters
+are not allowed.
+
+Note:   This routine was originally called HIDE in the QuickBASIC and
+        PDS Toolboxes. It has been changed because HIDE is a reserved
+        word in VisualBASIC DOS
+
+
+CPU
+
+This function checks to see what type of microprocessor is installed in
+the computer in which the current program is running.
+
+No calling parameters are required.
+
+DECLARE FUNCTION Cpu% ()
+
+The following processors can be identified by their return values :
+
+ 86 = Intel 8086          88 = Intel 8088         188 = Intel 80188        
+186 = Intel 80186        286 = Intel 80286        386 = Intel 80386
+-86 = Intel 80C86        -88 = Intel 80C88         20 = NEC   V20
+ 30 = NEC   V30
+
+486 = Intel 80486  included but not yet tested (lend us yours?).
+
+This function is provided mainly for interest, although it can be used as
+an indication of how long a particular task will take to run. All of the
+Toolbox routines, in fact, are processor-independent and can be used on
+all types of IBM-PC, AT, PS/2 and compatible machines
+
+
+CURTAINS
+
+This routine clears the display screen to the background colour specified
+by Attribute%. It differs from CLS in that the blanked-out area expands
+from a series of columns, giving the effect of a set of louvered blinds or
+curtains being closed. The Speed% parameter controls how quickly the
+routine runs, larger values making the curtains close more slowly.
+
+DECLARE SUB Curtains (BYVAL Speed%, BYVAL Attribute%)
+
+Try this example for a fancy effect:
+
+FOR I% = 255 TO 0 STEP -16: Curtains 40, I%: NEXT
+
+This procedure calls the DELAY routine (see below). This ensures that the
+speed value you specify will produce the same result on computers with any
+type of processor or clock speed.
+
+
+DATEINPUT
+
+Accepts and verifies date input in a Reverse Video entry panel, all the
+usual editing keys are supported and entry is terminated by either a
+Carriage Return or one of several special function keys (see below).
+
+DECLARE FUNCTION DateInput$ (Default$, Context%, Topic$, HotKey%)
+
+Default$    =  default string which can be accepted by just pressing
+               the <Enter> key.
+Context%    =  set TRUE if context-sensitive help is available, in
+               which case ... 
+Topic$      =  name of the HELP Topic file to display whenever the
+               <F1> key is pressed. 
+HotKey%     =  If entry is terminated by anything other than the
+               <Enter> key, this variable will contain an explanatory
+               return code ..
+
+Return Codes:   1  =  <Escape> abort entry returning a null string
+                2  =  <F2>     repeat previous entry for this field
+                3  =  <Up Arr> pressed, move to previous field 
+                4  =  <Dn Arr> pressed, move to next field
+                5  =  <Pg Up>  pressed, move to top of screen
+                6  =  <Pg Dn>  pressed, move to end of screen
+
+Editing Keys:   <L.Arrow>   =  Move cursor one character to the left
+                <R.Arrow>   =  Move cursor one character to the right
+                <Home>      =  Move cursor to first character of field
+                <End>       =  Move cursor to last character of field
+                <Ctrl End>  =  Clear from current cursor position to
+                               the end of the entry field.
+                <BackSpace> =  Replace character under cursor with a
+                               blank space and move cursor one character
+                               to the left.
+                <F1>        =  pop up on-line HELP screen.
+
+DATEINPUT is designed to be used as part of a full-screen data-entry
+system. Your program can examine the return code to determine whether
+the operator wishes to terminate entry or move forwards or backwards
+between entry fields.
+
+See also the REVINPUT function for a similar, more general-purpose,
+data-entry routine.
+
+
+DAYNUMBER
+
+Convert a date in the form DD/MM/YYYY to a long integer. The values
+returned are valid with dates in the range 1/3/1900 - 31/12/2099.
+
+DECLARE FUNCTION DayNumber& (BYVAL Dy%, BYVAL Mnth%, BYVAL Yr%)
+
+See the INTERVAL function (below) for a method of calculating the number
+of days between two Julian dates.
+
+
+DAYSBETWEEN
+
+Calculates the number of days between two dates, supplied as strings in
+the format DD/MM/YYYY. The function will provide accurate results when
+supplied with dates between 01/01/1901 and 31/12/2099.
+
+DECLARE FUNCTION DaysBetween& (Date1$, Date2$)
+
+See the INTERVAL function for a method of calculating the number of
+days between two Julian dates.
+
+
+DECBIN
+
+Translates a decimal number to an equivalent string of binary digits.
+
+DECLARE FUNCTION DecBin$ (Decimal&)
+
+
+DELAY
+
+This procedure is like the QuickBASIC SLEEP statement, except that it
+allows you to specify an interval in milliseconds instead of just whole
+seconds. The delay will be exactly the same on a 4.77 MHz original PC as
+it would be on the latest 33-MHz 80486 machine.
+
+DECLARE SUB Delay (BYVAL MilliSeconds%)
+
+See the PAUSE routine (below) for a similar procedure which allows you to
+specify a delay in PC clock ticks.
+
+
+DISABLEPRTSC
+
+This routine simply sets the Print Screen Busy flag at low-memory address
+0040:0100 (Hex) so that any requests for the screen to be printed are
+ignored. Use this to prevent a careless operator from hanging-up the
+program by pressing <Prt Scrn> when the printer is off-line.
+
+No calling parameters are required.
+
+DECLARE SUB DisablePrtSc ()
+
+Don't forget to use ENABLEPRTSC (see below) to re-enable this key
+otherwise it will remain disabled even after your program ends.
+
+
+DISKREADY
+
+Tests if there is readable media in the floppy diskette drive specified. 
+
+DRIVE% is the number of the diskette drive to be tested and is either
+zero (drive A:) or 1 (drive B:).
+
+DECLARE FUNCTION DiskReady% (BYVAL Drive%)
+
+This function returns a non-zero value if a readable diskette is in the
+drive, and zero (logical FALSE) if unable to read from the drive.
+
+If the floppy disk in the drive specified is ready then the number that
+is returned is the Media Descriptor Byte, a value which indicates the
+type of diskette mounted, where:
+
+      240   F0h  =  3.5"  2-sided, 18 sector
+      249   F9h  =  3.5"  2-sided, 9 sector or
+                    5.25" 2-sided, 15 sector
+      252   FCh  =  5.25" 1-sided, 9 sector
+      253   FDh  =  5.25" 2-sided, 9 sector
+      254   FEh  =  5.25" 1-sided, 8 sector
+      255   FFh  =  5.25" 2-sided, 8 sector             
+
+DISKREADY only tests if the drive can be read from. It will not detect
+if the diskette in the drive is write-protected.
+
+
+DISPLAYMODE
+
+Reads the current video display mode using the IBM ROM-BIOS numbering
+system.
+
+DECLARE FUNCTION DisplayMode% ()
+
+No calling parameters are required. Depending on the type of display
+adaptor installed, the function may return one of the following values:
+
+Mode    Resolution      Mode     Colours    Remarks
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+  0     40 x 25         text        16      No colour burst
+  1     40 x 25         text        16      
+  2     80 x 25         text        16      No colour burst
+  3     80 x 25         text        16
+  4     320 x 200       graphics     4
+  5     320 x 200       graphics     4      No colour burst
+  6     640 x 200       graphics     2
+  7     80 x 25         text         2      Monochrome display only  
+  8     160 x 200       graphics    16      PCjr & Tandy 1000 only  
+  9     320 x 200       graphics    16      PCjr & Tandy 1000 only
+ 10     640 x 200       graphics     4      PCjr & Tandy 1000 only
+ 13     320 x 200       graphics    16      EGA & VGA
+ 14     640 x 200       graphics    16      EGA & VGA
+ 15     640 x 350       graphics     2      Monochrome EGA & VGA
+ 16     640 x 350       graphics    16      EGA & VGA
+ 17     640 x 480       graphics     2      VGA only
+ 18     640 x 480       graphics    16      VGA only
+ 19     320 x 200       graphics   256      VGA & MCGA      
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+The SCREENMODE function (see below) can be used to return the equivalent
+QuickBASIC SCREEN number.
+
+
+DISPLAYPAGE
+
+All video cards except the Monochrome Display Adaptor (MDA) are capable of
+switching between two or more pages of display memory. This function
+returns the number of the active video page, use the QuickBASIC SCREEN
+statement to select the page you require.
+
+No calling parameters are required.
+
+DECLARE FUNCTION DisplayPage% ()
+
+The page number returned can be a value between 0 and 7, depending upon
+the current video mode and the amount of display memory installed.
+
+Note:       all Toolbox routines which write directly to the screen will
+            automatically detect and send their output to the currently
+            active display page.
+
+
+DOSBOX
+
+Restricts output directed to the console device to within the limits of
+the rectangular screen area you specify. Also allows you to specify the
+colour or display attribute of such output. When used in conjunction
+with the QuickBASIC SHELL command, this effectively lets you run DOS
+commands and programs in a window.
+
+DECLARE SUB DOSBox (BYVAL Switch%, BYVAL Y1%, BYVAL X1%, BYVAL Y2%,_
+                    BYVAL X2%, BYVAL Attr%)
+
+Arguments:  Switch%     1 = turn on output redirection  
+                        0 = turn off output redirection
+
+            Y1%         Top-left row of screen rectangle
+
+            X1%         Top-left column of screen rectangle
+            
+            Y2%         Bottom-right row of screen rectangle
+            
+            X2%         Bottom-right column of screen rectangle
+            
+            Attr%       Display attribute given to output.
+            
+This routine takes over the DOS internal 'FAST PUTCHAR' routine at
+Interrupt INT 29H which is called whenever DOS writes a character to
+the standard output device (the screen). You must remember to turn
+off any redirection, before your program ends, or the computer which
+it is running on will crash.
+
+DOSBOX will only work properly with SHELLed programs which send screen
+output to standard output. All DOS internal and external commands do
+this as standard. Programs which write direct to video memory, however,
+and those which switch the display to graphics mode will behave
+unpredictablly when run from a DOSBOX SHELL.
+
+For an example of how to use DOSBOX in action, see the source code for
+the SHELL to DOS option in the Exit menu of DEMON.BAS, the Toolbox
+demonstration program.
+
+
+DOSVERSION
+
+Gets the current Operating System (DOS) version. The version is returned
+as a string in the form "3.20" (for DOS 3.2).
+
+No calling parameters are required.
+
+DECLARE FUNCTION DosVersion$ ()
+
+The correct version will be returned, even under DOS 5.0 with SETVER
+set to report otherwise.
+
+
+DWPRINT
+
+Sends the text supplied, to the printer, as a string of double-width
+characters. Output begins at the current print position and can,
+optionally, append a carriage-return/linefeed to take the print head to
+the beginning of a new line when finished.
+
+DECLARE SUB DwPrint (BYVAL Prntr%, Buffer$, BYVAL NewLine%)
+
+Arguments:  Prntr%      the parallel port output is to be sent to
+                        (1 = LPT1:, 2 = LPT2:, etc.).
+            Buffer$     the string of text to be printed.
+            NewLine%    set this to a non-zero value if you want 
+                        to move to a new line after printing.
+
+The routine restores the previous print style or font before it returns
+and does not effect subsequent output to the printer, using the QuickBASIC
+LPRINT or PRINT # statements.
+
+Note:       The version of this routine stored in the Toolbox
+            library is for EPSON compatible printers. If you have
+            an IBM graphics printer or ProPrinter, then you should
+            rebuild your libraries, using either the PRINTIBM.OBJ
+            or PRINTPRO.OBJ object module in place of PRINTEPS.OBJ.
+
+
+EMPRINT
+
+Sends the text supplied, to the printer, as a string of emphasised
+characters. Output begins at the current print position and can,
+optionally, append a carriage-return/linefeed to take the print head to
+the beginning of a new line when finished.
+
+DECLARE SUB EmPrint (BYVAL Prntr%, Buffer$, BYVAL NewLine%)
+
+Arguments:  Prntr%      the parallel port output is to be sent to
+                        (1 = LPT1:, 2 = LPT2:, etc.).
+            Buffer$     the string of text to be printed.
+            NewLine%    set this to a non-zero value if you want 
+                        to move to a new line after printing.
+
+The routine restores the previous print style or font before it returns
+and does not effect subsequent output to the printer, using the QuickBASIC
+LPRINT or PRINT # statements.
+
+Note:       The version of this routine stored in the Toolbox
+            library is for EPSON compatible printers. If you have
+            an IBM graphics printer or ProPrinter, then you should
+            rebuild your libraries, using either the PRINTIBM.OBJ
+            or PRINTPRO.OBJ object module in place of PRINTEPS.OBJ.
+
+
+EMSERROR
+
+Returns the code number of the last error which occurred during a
+call to the Expanded Memory Manager. If zero is returned, then no
+errors have occurred.
+
+No calling parameters are required.
+
+DECLARE FUNCTION EmsError% ()
+
+Here is a list of possible error codes and their meanings:
+
+128  Internal error in EMM software     146  Source and target overlap
+129  Malfunction in EMS hardware        147  Illegal region length
+130  Memory manager busy                148  Region overlap
+131  Invalid handle                     149  Offset outside logical page
+132  Function not defined               150  Region length > 1MB
+133  No more handles available          151  Cannot exchange overlap
+134  Error in mapping context           152  Memory types undefined
+135  Not enough pages exist             153  Not used
+136  Not enough pages available         154  ARS not supported
+137  Cannot allocate zero pages         155  ARS currently allocated
+138  Page not allocated to handle       156  ARS not zero
+139  Illegal physical page number       157  ARS not allocated
+140  Save state area full               158  DMA channels not supported
+141  Save of mapping context failed     159  Illegal DMA channel
+142  Restore of mapping context failed  160  No handle for this name
+143  Subfunction parameter not defined  161  Name already exists
+144  Attribute type not defined         162  Memory address wrap
+145  Feature not supported              163  Invalid pointer
+
+250  EMM not installed*                 251  LIM 4.0 required*
+
+*    Toolbox error codes.
+
+The descriptions are, of necessity, abbreviated. For more information 
+consult your EMS hardware manual or see:
+
+Advanced MS-DOS Programming     by David Duncan     Microsoft Press
+
+
+EMSFRAME
+
+Returns the segment address of the EMS page frame.
+
+No calling parameters are required.
+
+DECLARE FUNCTION EmsFrame% ()
+
+The Page Frame is the area of conventional memory into which logical
+expanded memory pages are mapped. Under LIM 3.2 it is a contiguous
+block of 64RAM, divided into four 16K physical pages, located some-
+where between segments A000 and F000 Hex, but LIM 4.0 allows you to
+reserve additional 16K pages, wherever available memory exists. In
+either system you can rely on 4 consecutive 16K pages and this
+function returns a pointer to the first of them.
+
+
+EMSGET
+
+Copies up to 64KB of data from expanded memory, starting at the
+logical page supplied, to an address in conventional memory.
+
+DECLARE SUB EmsGet (BYVAL Segment%, BYVAL Offset%, BYVAL Length%,_
+                    BYVAL Page%, BYVAL Handle%, Done%)
+
+Arguments:  Segment%  = segment address of target block to which
+                        data should be copied.
+            Offset%   = offset address, within target segment, to
+                        which data should be copied.
+            Length%   = length, in bytes (up to 64KB), of data to
+                        be copied. 
+            Page%     = logical EMS page holding the beginning of
+                        the data. If the block of data is bigger
+                        than 16KB, then copying will continue from
+                        subsequent pages until all the data has 
+                        been moved.
+            Handle%   = the EMS handle to which the page(s) have
+                        been allocated. This should be obtained by
+                        a previous call to the EMSRESERVE procedure
+                        (see below).
+            Done%     = a flag to hold the result of the operation.
+                        If the data was copied successfully, it is
+                        set to -1 (logical TRUE) on return. If zero
+                        (logical FALSE) is returned, the data was
+                        not copied successfully. In this case, you
+                        should make a call to the EMSERROR function
+                        to find out why.
+
+If the target structure, to which the data is to be copied, is an
+array, you should specify its address by supplying the VARSEG and
+VARPTR of the first element. Be sure, however, that you do not copy
+a block of data bigger than the array size, otherwise you may 
+overwrite other variables, probably with disastrous results. 
+
+See the EMSPUT procedure (below) for a means of copying data into
+logical expanded memory pages.
+
+
+EMSMAP
+
+Map a logical expanded memory page to a physical page in the EMS
+Page Frame, making it accessible to your program.
+
+DECLARE SUB EmsMap (BYVAL Handle%, Physical%, Logical%)
+
+Arguments:  Handle%   = the EMS handle to which the logical page has
+                        been allocated. This will have been obtained
+                        by a previous call to the EMSRESERVE routine
+                        (see below).
+            Physical% = the number of the physical page to map
+                        (in the range 1 to 4).
+            Logical%  = the number of the logical page to be mapped
+                        (in the range from 1 to the number of pages
+                        allocated to Handle%).
+
+For most applications, the EMSGET and EMSPUT procedures will be more
+useful, since they perform all the necessary mapping for you while
+moving data to and from expanded memory. If, however, you need to
+manipulate small quantities of data in expanded memory, use this
+routine to switch the relevant page into conventional memory, and
+the FARPEEK and FARPOKE utilities (see below) to examine or change
+the data itself.
+
+
+EMSOWNED
+
+Returns the number of logical pages of EMS memory that have been
+allocated to the handle specified.
+
+DECLARE FUNCTION EmsOwned% (BYVAL Handle%)
+
+
+EMSPAGES
+
+Returns either the total number of EMS pages in the system, or the
+total number of free (unallocated) pages.
+
+DECLARE FUNCTION EmsPages% (BYVAL Switch%)
+
+Argument:   Switch% = 1  return number of unallocated pages.
+                      0  return total number of pages in system.
+
+
+EMSPRESENT
+
+Tests whether the Expanded Memory System driver has been installed
+
+No calling parameters are required.
+
+DECLARE FUNCTION EmsPresent% ()
+
+Returns:    -1  (logical TRUE) if EMS driver is installed.
+             0  (logical FALSE) if EMS driver is not installed.
+
+Note:       This function just checks that the EMS driver is in
+            memory and that the EMS interrupt vector is directed
+            to it, it does not test if the driver is active. Use
+            the EMSVERSION function (see below) to test this. If
+            the driver responds to that function, it can be safely
+            assumed to be active.
+
+
+EMSPUT
+
+Copies up to 64KB of data to expanded memory, starting at the
+logical page supplied, from an address in conventional memory.
+
+DECLARE SUB EmsPut (BYVAL Segment%, BYVAL Offset%, BYVAL Length%,_
+                    BYVAL Page%, BYVAL Handle%, Done%)
+
+Arguments:  Segment%  = segment address of source block from which
+                        data is to be copied.
+            Offset%   = offset address, within target segment, from
+                        which data is to be be copied.
+            Length%   = length, in bytes (up to 64KB), of data to
+                        be copied to expanded memory. 
+            Page%     = logical EMS page to hold the beginning of
+                        the data. If the block of data is bigger
+                        than 16KB, then copying will continue onto
+                        subsequent pages until all the data has 
+                        been moved.
+            Handle%   = the EMS handle to which the page(s) have
+                        been allocated. This should be obtained by
+                        a previous call to the EMSRESERVE procedure
+                        (see below).
+            Done%     = a flag to hold the result of the operation.
+                        If the data is copied successfully, it will
+                        be set to -1 (logical TRUE) on return. If
+                        zero (logical FALSE) is returned, the data
+                        was not copied successfully. In this case,
+                        you should make a call to the EMSERROR
+                        function to find out why.
+
+If the source structure, from which the data is to be copied, is an
+array, you should specify its address by supplying the VARSEG and
+VARPTR of the first element. You can also copy data from absolute
+addresses in memory to EMS, to copy the contents of the text screen,
+for example, to EMS logical page 2, use the command:
+
+    EmsPut &HB800, 0, 4000, 3, Handle%, Done%
+
+This assumes that your computer has a colour monitor. If you have a
+monochrome display, substitute &HB000 for the segment address.
+
+See the EMSGET procedure (above) for a means of retrieving data from
+extended memory.
+
+
+EMSRELEASE
+
+Free-up all the pages previously allocated to this handle, and make
+them available to other processes.
+
+DECLARE SUB EmsRelease (BYVAL Handle%)
+
+You should release all the EMS pages which have been allocated to
+handles owned by your program, before the program terminates. If
+this is not done, these pages will not be available to subsequent
+programs which may start up and will remain locked until the system
+is rebooted.
+
+
+EMSREQUEST
+
+Asks for one or more logical pages of expanded memory to be made
+available to your program.
+
+DECLARE SUB EmsRequest (BYVAL Pages%, Handle%)
+
+Arguments:  Pages%  = number of EMS pages to reserve.
+
+            Handle% = if successful, this variable will hold the
+                      number of the EMS handle which controls the
+                      allocated pages. If unsuccessful, Handle%
+                      will be set to zero on return, in which case
+                      you should call the EMSERROR function (above)
+                      to see what went wrong.
+
+You must use this handle in all subsequent calls to the Expanded
+Memory Manager which refer to these particular pages.
+
+Before calling this procedure, it is a good idea to make a call to
+the EMSPAGES function (see above) to see how many pages are free.
+
+
+EMSRESIZE
+
+Changes the number of pages allocated to an EMS handle.
+
+DECLARE SUB EmsReSize (BYVAL Handle%, Pages%)
+
+Arguments:  Handle% = a valid EMS handle to which logical expanded
+                      memory pages have already been allocated.
+
+            Pages%  = the new number of pages to be allocated to
+                      this handle.
+
+On return, Pages% will hold the actual number of pages that are
+now allocated to the handle. If this is different from the number
+of pages requested, then an error has occurred and you should call
+the EMSERROR function (see above) to check what happened.
+
+You can request a number of pages less than or greater than the
+number previously allocated to the handle.
+
+Note:       This facility is only available with LIM 4.0 EMS and
+            above.
+
+
+EMSVERSION
+
+Returns the LIM version number of the Expanded Memory Manager.
+
+No calling parameters are required.
+
+DECLARE FUNCTION EmsVersion% ()
+
+The number returned is a decimal integer where 32 represents LIM 3.2
+and 40 represents LIM 4.0. If zero is returned, then an error has
+occurred and you should call the EMSERROR function (see above) to
+find out what happened. Use the EMSPRESENT function (also above) to
+test that the EMM driver has, in fact, been installed.
+
+
+ENABLEPRTSC
+
+This routine clears the Busy flag at low-memory address 0040:0100 (Hex) so
+that print-screen requests can be executed. Use it to cancel the effect of
+the DISABLEPRTSC procedure (above).
+
+No calling parameters are required.
+
+DECLARE SUB EnablePrtSc ()
+
+
+ENPRINT
+
+Sends the text supplied, to the printer, as a string of enhanced
+characters. Output begins at the current print position and can,
+optionally, append a carriage-return/linefeed to take the print head to
+the beginning of a new line when finished.
+
+DECLARE SUB EnPrint (BYVAL Prntr%, Buffer$, BYVAL NewLine%)
+
+Arguments:  Prntr%      the parallel port output is to be sent to
+                        (1 = LPT1:, 2 = LPT2:, etc.).
+            Buffer$     the string of text to be printed.
+            NewLine%    set this to a non-zero value if you want 
+                        to move to a new line after printing.
+
+The routine restores the previous print style or font before it returns
+and does not effect subsequent output to the printer, using the QuickBASIC
+LPRINT or PRINT # statements.
+
+Note:       The version of this routine stored in the Toolbox
+            library is for EPSON compatible printers. If you have
+            an IBM graphics printer or ProPrinter, then you should
+            rebuild your libraries, using either the PRINTIBM.OBJ
+            or PRINTPRO.OBJ object module in place of PRINTEPS.OBJ.
+
+
+EXPLODE
+
+Clear a screen rectangle explosively. This as an alternative to the
+SCROLL routine listed below.
+
+DECLARE SUB Explode (BYVAL Y1%, BYVAL X1%, BYVAL Y2%, BYVAL X2%,_
+                     BYVAL Attr%, BYVAL Speed%)
+
+Arguments:  Y1%         =  Upper-left row of rectangle to be cleared
+            X1%         =  Upper-left column of rectangle
+            Y2%         =  Lower-right row of rectangle
+            X2%         =  Lower-right column of rectangle
+            Attr%       =  Display attribute or colour that rectangle
+                           should be cleared to 
+            Speed%      =  Speed (in milliseconds) of explosion.
+
+The panel is cleared, starting at the centre point, and progressively
+moving outwards until the defined borders are reached. This gives the
+impression of the clear area exploding onto the screen.
+
+This routine is called, internally, by the POPUP window function (see
+below) whenever Zoom is specified.
+
+
+FARPEEK
+
+Reads a byte of data from anywhere in conventional memory.
+
+DECLARE FUNCTION FarPeek% (BYVAL Segment&, BYVAL Offset&)
+
+Arguments:  Segment&  = address of memory segment containing the byte
+                        to be read.
+            Offset&   = offset address, within the segment of the 
+                        byte to be read.
+
+Returns:    The contents of the byte specified as an integer value
+            in the range 0 to 255.
+
+Note:       parameters are passed as LONG integers to save you the
+            hassle of having to convert argument values over 32767
+            to negative signed integers. Do not use values greater
+            than 65535, however, or the most significant word will
+            be ignored and the address converted to Modulus 65536.
+
+Using QuickBASIC's PEEK function to examine data which lies outside
+of DGROUP is a pain. You also have to use DEF SEG to set the segment
+required and then to reset it afterwards. This function allows you to
+read bytes, directly, from anywhere in the 1 megabyte of addressable
+RAM space your computer contains.
+
+The FARPOKE procedure (below) complements FARPEEK by allowing you to
+write a byte of data anywhere in the 1MB addressable PC workspace.
+
+See also PEEKWORD and POKEWORD which allow you to read from and write
+to memory, two bytes at a time.
+
+Note:       If you have an Intel 286, 386 or 486-based computer with
+            the Microsoft HIMEM.SYS driver loaded, you can even use
+            FARPEEK to read from the first 64KB of Extended Memory.
+            Setting the segment to &HFFFF and an offset in the range
+            &H10 to &HFFFF allows you access up to 65520 bytes of
+            memory ABOVE the normal 1MB limit.
+
+
+FARPOKE
+
+Writes a byte of data to anywhere in conventional memory.
+
+DECLARE SUB FarPoke (BYVAL Segment&, BYVAL Offset&, BYVAL Byte%)
+
+Arguments:  Segment&  = address of memory segment containing the byte
+                        to be written to
+            Offset&   = offset address, within the segment of the 
+                        byte to be written.
+            Byte%     = the value (0 to 255) to be written to the
+                        specified byte.
+
+Note:       addresses are passed as LONG integers to save you the
+            hassle of having to convert argument values over 32767
+            to negative signed integers. Do not use values greater
+            than 65535, however, or the most significant word will
+            be ignored and the address converted to Modulus 65536.
+
+Using QuickBASIC's POKE function to write to memory which is outside
+of DGROUP is a pain. You also have to use DEF SEG to set the segment
+you want and then to set it back again afterwards. This function lets
+you write bytes, directly, anywhere in the 1 megabyte of addressable
+RAM space your computer contains.
+
+The FARPEEK procedure (above) complements FARPOKE by allowing you to
+read a byte of data from anywhere in the 1MB of addressable memory.
+
+See also PEEKWORD and POKEWORD which allow you to read from and write
+to memory, two bytes at a time.
+
+
+FASTPRINT
+
+This procedure can be used to display a string of text directly to video
+memory. It is much  faster than the normal DOS services and does not
+update the cursor.
+
+DECLARE SUB FastPrint (BYVAL Row%, BYVAL Col%, Message$, BYVAL Attr%)
+
+Row%        is the row where printing is to start.
+Col%        is the column where printing is to start.
+Message$    is the string of text to be printed.
+Attr%       is the video attribute given to the text.
+
+Row% and Col% follow the QuickBASIC convention of numbering screen rows
+and columns with Row = 1, Column = 1 being at the top-left corner of the
+display. The maximum value for Row% depends on the capabilities of the
+video adaptor installed and is determined by the last WIDTH statement.
+Normally it is 25 but may extend to 43 (EGA) or even 50 rows (VGA).
+Maximum columns may be either 40 or 80 (the default).
+
+If multiple screen pages are being used, FASTPRINT will correctly identify
+the active one and output to the proper video address.
+
+Note:       if an attribute of -1 is specified, the output string takes
+            the colour or attribute already set into that portion of the
+            screen where the string is printed.
+            
+Thanks to John Turnbull of Macclesfield for this suggestion.
+            
+
+FILEDATE
+
+Gets or sets the date and time of the specified file as is displayed in
+directory listings.
+
+DECLARE SUB FileDate (BYVAL Switch%, DateTime$, FileSpec$)
+
+Switch%     if set to a value of 1, changes the date and time of the file
+            to the parameters specified in DateTime$. Any other value
+            returns the date and time that the file was last written to
+            in DateTime$
+
+DateTime$   A string of at least 17 characters in length. If setting the
+            date and time of a file, this must be written in a standard
+            UK date/time format, ie:
+
+            "DD/MM/YY HH:MM:SS"
+
+            If you are reading the date and time, it is not necessary to
+            pre-format the string, as the function will do it for you. The
+            string must be of sufficient length to hold the returned date
+            and time, however, or the procedure will fail.
+
+FileSpec$   A string holding the pathname of the file to be examined or
+            changed. It can include the drive letter and directory path
+            were appropriate, but must be an explicit pathname. Wildcard
+            characters are not allowed. Maximum length is 64 characters.
+
+The procedure will fail if the file does not exist or is not on the path
+specified. Also, since the file is actually opened by the procedure, there
+must be at least one free DOS file handle available when you call it.
+
+You cannot change the date and time of a file which has been flagged as
+readonly or, on a network, is owned by another program.
+
+
+FILESIZE
+
+This function will return the size of the file specified in bytes, or, if
+more than one match is found, the total size of all such files. If a size
+of zero is returned, no matching file exists (at least not in the
+directory specified).
+
+DECLARE FUNCTION FileSize& (FileSpec$)
+
+The filename can include a directory path and may be ambiguous, using the
+wildcard characters '*' and '?'.
+
+Note:   In previous versions of the Toolbox this function was called
+        SIZEOF. In MASM 6, however, SIZEOF is now a reserved word so the
+        name has had to be changed.
+
+
+FINDFILE
+
+This function can be used to locate a particular file in any drive or
+directory of the current system. Supply it with a pathname or an ambiguous
+filespec and it will display a list of all matching files from which the
+user can select the one required by highlighting it with the cursor arrow
+keys. The function returns the full pathname of the file selected or a
+null string if <ESC> was pressed.
+
+DECLARE FUNCTION FindFile$ (FileSpec$, Attr%, Mouse%)
+
+FileSpec$   =  Pathname of file to be located. It can include a drive
+               letter and the filename may be ambiguous if you use the
+               wildcard characters '*' or '?'.
+
+Attr%       =  The display attribute for the file selection box if more
+               than one match is expected. If Attr% = 0 the function
+               uses the default of inverse video with a 3-dimensional
+               sculptured look.
+
+Mouse%      =  set this to TRUE (non-zero) if mouse support is required.
+
+On entry, FILESPEC$ should contain the name of the file to be located. If
+the filespec is ambiguous, the program presents a directory listing, in a
+popup window, of all files which match and allows the operator to select
+the actual one required. If the pathname is explicit, FindFile just checks
+if it actually exists. On return FILESPEC$, will contain the full pathname
+of the selected file, or a null string if it was not located (or the
+<Escape> key was pressed).
+
+
+FLOPPYDRIVES
+
+This function returns the number of installed diskette drives in the
+current computer system.
+
+DECLARE FUNCTION FloppyDrives% ()
+
+No calling parameters are required.
+
+
+FREESPACE
+
+You must supply the drive number of the diskette or fixed-disk which you
+want to test (1 = drive A:, 2 = drive B:, etc). Pass a value of zero to
+test the currently-logged or default drive. The amount of free space is
+returned in bytes.
+
+DECLARE FUNCTION FreeSpace& (BYVAL DriveNo%)
+
+Note:       The return value will not be reliable if the drive being
+            tested has an extended DOS partition which contains more
+            than 32MB of free space.
+
+
+GAMESPORT
+
+This function checks to see if the host computer is fitted with an adaptor
+for joysticks or a games paddle.
+
+No calling parameters are required.
+
+DECLARE FUNCTION GamesPort% ()
+
+Returns logical TRUE (-1) if a games adaptor is present or FALSE (0) if no
+games adaptor is fitted.
+
+
+GETFLAG
+
+The MIXED-LANGUAGE Toolbox includes a pair of functions which give you
+access to the INTRA-APPLICATION COMMUNICATION AREA (IAC), an area of
+memory which has been reserved, by DOS, so that programs can communicate
+with each other. The IAC is 16 bytes long and is located, in low RAM at
+addresses 0000:04F0 - 04FF (Hex). Once set, an IAC flag retains it's value
+until you reset it or the computer is rebooted.
+
+This function returns the value of one of the IAC flag bytes (1 to 16).
+
+DECLARE FUNCTION GetFlag% (Flag%)
+
+You can set the current setting of a particular IAC flag byte with the
+SETFLAG function.
+
+Since QuickBASIC programs, compiled with the /O switch to run stand-alone,
+cannot pass variables to chain modules, you can use this feature to
+implement a limited form of parameter passing.
+
+
+GRAPRINT
+
+This routine simply serves as a function despatcher for the various
+graphics text procedures, which can also be called directly. It is
+intended to be called from programs which must run under a variety of
+video adaptors, transferring control to the proper routine for the current
+video mode. The calling program must supply appropriate parameters,
+however.
+
+DECLARE SUB GraPrint (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                      BYVAL Attr%, BYVAL Scale%)
+
+GRAPRINT provides a convenient way of displaying text in any of the EGA,
+VGA and MCGA graphics modes (SCREENs 7-13) as well as the 320 x 200 pixel
+4-colour CGA mode (SCREEN 1) without having to bother about loading
+external font files. It uses the standard character definition tables
+built into your display adaptor, but allows you to scale them up to eight
+times normal size and to specify any combination of foreground and
+background colours supported by the current video mode.
+
+XLOC%       The horizontal co-ordinate of the top left hand pixel
+            from which the text will begin
+
+YLOC%       The vertical co-ordinate of the top left hand pixel
+            from which the text will begin
+
+TEXT$       The string of text to be displayed (up to 63 characters).
+
+ATTR%       The colour (or display attribute in monochrome modes) to
+            be given to the text. This is calculated by the formula:
+
+            Colour% = (Background% * 256) + Foreground%
+
+            The GRATTRIB function (see below) will perform this
+            calculation for you, automatically, using the foreground
+            and background values you supply.
+
+            Foreground and Background values are in the ranges used
+            by the current video mode (eg. 0 - 15 for SCREEN 9). The
+            actual colours displayed depend upon your current PALETTE
+            settings.
+
+            Note:   supplying a value of -1 for background prevents
+                    background pixels from being changed at all. This
+                    allows text to be blended more naturally into a
+                    complex graphics display, it is not supported in
+                    320 x 200 4-colour mode, however.
+
+SCALE%      The character size of the text to be displayed. This ranges
+            from 1 to 8, where 1 is standard 80-column text (40-column
+            in SCREEN 7) and 8 multiplies the character size by eight
+            on both the horizontal and vertical axes.
+
+GRAPRINT can handle both byte-aligned and non byte-aligned characters. The
+x, y co-ordinates you supply do not need to correspond to a row, column
+character cell in SCREEN 0, the alphanumeric mode. The complete extended
+ASCII character set is supported, including foreign symbols and box-
+drawing characters (computers with CGA adaptors must have GRAFTBL loaded
+to access characters above ASCII 127, however).
+
+Since GRAPRINT does not support clipping, to ensure a clean display you
+must ensure that the text to be output fits within the current screen
+boundaries.
+
+See also CGATEXT for displaying characters in SCREEN 1, MCGATEXT for
+displaying characters in SCREEN 13 and VGATEXT for displaying text in
+the EGA and VGA video modes (SCREENs 7-12).
+
+
+GRATTRIB
+
+Calculate display attribute for graphics modes, given the foreground
+and background colours required.
+
+DECLARE FUNCTION GrAttrib% (ForeGround%, BackGround%)
+
+GRATTRIB calculates the attribute value which controls the foreground and
+background colours of characters displayed using the GRAPRINT, CGATEXT,
+MCGATEXT and VGATEXT procedures. It translates them using the formula:
+
+    Attribute% = (BackGround% * 256) + ForeGround%
+
+Make sure that you use foreground and background colour values appropriate
+to the SCREEN mode currently in use.
+
+The ATTRIBUTE function provides a similar service for use with text mode
+screens
+
+
+HANDLES
+
+Returns the number of file handles available in the System File Table
+
+DECLARE FUNCTION Handles% ()
+
+The number returned by this function is equivalent to the value given
+to the FILES = statement in your CONFIG.SYS script. Note that the first
+five of these handles are reserved for DOS's internal use.
+
+
+HELPMATE
+
+This routine provides a context-sensitive on-line Help facility for your
+QuickBASIC programs.
+
+DECLARE SUB HelpMate (BYVAL Colour%, Title$, BYVAL Context%, Topic$)
+
+Colour%   is the display attribute to be given to the Help window. If a
+          value of zero is passed, HELPMATE uses default colours which
+          are Black on Cyan for colour screens and inverse video for a
+          monochrome display.
+
+Title$    is an optional Title for the Help window. If one is supplied
+          it must be no longer than 48 characters so that it can be
+          easily centered in the top row of the window. If Title$ is a
+          null string, HELPMATE uses its' own name as a default.  
+
+Context%  is the context-sensitive flag. If set to 1, then the routine
+          attempts to load the file specified by ...
+
+Topic$    A legal DOS filename (up to 8 characters without extension),
+          specifying the name of the Topic file to be displayed. 
+          HelpMate automatically appends the extension '.HLP'.  
+
+If Context% is not set, (or Topic$ is a null string), then the routine
+displays a list of topics, from which you can make your own selection.
+
+If Context% is set, HELPMATE will display the first page of the Topic file
+specified, otherwise it begins by  overlaying the current screen with a
+popup window in which is listed those HELP topics available.
+
+The first topic in the list is highlighted and you can move the highlight
+around the menu with the arrow keys Highlight the topic you want, then
+press the <RETURN> key. The first page of that topic will be displayed in
+the HELP window.
+
+Page backwards and forwards through the file using the <PG UP> and <PG DN>
+keys. If you page past the end of the file you will be returned to the
+topic list, where you can either select another topic, or press <ESC> to
+return to the QuickBASIC program. On return, the original screen and all
+current variables are restored, intact, and program execution will
+continue with the statement following the procedure call.
+
+By default, the Toolbox Help system looks for its topic files in a sub-
+directory called HELP, beneath the currently-logged directory. You can,
+however, direct it to look elsewhere for files by setting a HELP variable
+in the DOS environment table
+
+e.g.  SET HELP=C:\BASIC\TOOLBOX\HELP
+
+Alternatively, you can use the QuickBASIC ENVIRON statement within your
+program, to point HELPMATE to the appropriate pathname. Remember, though,
+that this method only remains in effect as long as the current program is
+running and that there must be enough environment space available to hold
+the HELP directory pathname.
+
+A set of example Topic files, for use with the demonstration program,
+DEMON.EXE is supplied with the Assembly-Language ToolBox. You can make
+your own, using any Word Processor or Text Editor which can output plain
+ASCII text (EDLIN will do). If you do so, bear in mind that the HelpMate
+window's maximum page size is 16 rows of 55-column text. The maximum
+number of pages in any one file is 256.
+
+                             TIP
+
+When displaying the list of available Topics, HelpMate searches the
+current HELP directory for files with the extension .HLP. However, since
+there is only room for 60 such filenames to be displayed in the menu
+window, any files in excess of this number will be not be listed and are,
+hence, inaccessible. You can, however, read any number of Context-
+sensitive topic files since these are named explicitly in the call to
+HelpMate which loads them. They need not, therefore, appear in the Topic
+list.
+
+If your application needs to provide a large number of Topic files, it is
+a good idea to hide those which are context-sensitive from normal
+directory searches (you can use the Toolbox Hide function to do this).
+This will not prevent these files from being loaded when called, but it
+does prevent them from appearing in the Topic list which gives you more
+room for those general-purpose topic files which are selected by the user.
+
+Note:       The \HELP directory on the ToolBox distribution disk
+            contains a number of these hidden files for use by the
+            demonstration program DEMON.EXE.
+
+
+HIBYTE
+
+Returns the value contained in the Most Significant Byte (MSB) of a
+two-byte integer. This is effectively the same as dividing the
+number by 256.
+
+DECLARE FUNCTION HiByte% (BYVAL Number%)
+
+See LOBYTE for a function which returns the Least Significant Byte
+(LSB) of an integer.
+
+
+HIWORD
+
+Returns the value contained in the Most Signifant Word (MSW) of a
+four-byte long integer. This is effectively the same as dividing the
+number by 65536.
+
+DECLARE FUNCTION HiWord% (BYVAL Number&)
+
+See LOWORD for a function which returns the Least Significant Word
+(LSW) of a long integer.
+
+
+INFORM
+
+Displays the message supplied in a dialogue box and waits for the user to
+press the <ENTER> key before restoring the screen to its' previous state.
+
+DECLARE SUB Inform (BYVAL Row%, Message$, BYVAL Attr%, BYVAL Mouse%)
+
+ROW%        The top row of the dialogue box when it is displayed. The
+            box is automatically centered within this row, which may be
+            adjusted so that it remains within the screen boundaries.
+
+MESSAGE$    A string of text comprising the message to be displayed. It
+            must be no longer than 40 characters otherwise it will be
+            truncated to fit inside the display panel.
+
+ATTR%       The display attribute or colour to be given to the dialogue
+            box. If an argument of zero is supplied, the box is displayed
+            in cyan with a black foreground (colour monitors) or reverse
+            video (monochrome monitors). On colour displays the message
+            text always has a white foreground, no matter what attribute
+            is specified.
+
+MOUSE%      Should be set to TRUE (-1) or FALSE (0) to indicate if a
+            mouse is available for use. If available, the operator can
+            respond by clicking the left mouse button while the cursor is
+            positioned on the radio button.     
+
+This procedure is nearly identical to the MISTAKE routine (below) which is
+designed for displaying error messages.
+
+
+INT2E
+
+Provides an interface to the MS-DOS kernel interrupt 2E (hex) service
+which is sometimes called the 'Back Door to the Command Processor'.
+
+DECLARE SUB Int2E (DosCmd$)
+
+DosCmd$ can contain any legal MS-DOS command including the name of an
+external program to be executed. 
+
+INT2E is an alternative to the SHELL command already provided by
+QuickBASIC. It has one advantage, however, in that many commands are
+passed directly to the MS-DOS kernal instead of to a secondary copy
+of the command processor. For example a SET command passed to INT2E
+will set a string in the MS-DOS master environment instead of the
+current program's local environment. Master environment variables
+are preserved when the program terminates and are available to any
+subsequent programs which may be started up.
+
+If the command you pass is the name of an external command or if it
+requires COMMAND.COM to be loaded then you must make sure that there
+is enough memory available for it to be executed. You can free-up
+memory by using QuickBASIC's SETMEM function with the appropriate
+negative value.
+
+Be aware that the INT 2Eh service is not documented or supported by
+Microsoft and successful operation cannot be guaranteed. If the
+procedure fails due to there being insufficient memory or for some 
+other reason, no error message will be returned. For this reason,
+the SHELL statement is usually to be preferred for accessing MS-DOS
+functions, since this can be trapped for errors.
+
+Note that INT2E will only work with genuine versions of Microsoft
+MS-DOS or IBM PC-DOS. It will not work under DR-DOS, Norton NDOS or
+versions of 4DOS prior to 4.0.
+
+
+INTERVAL
+
+Calculate the number of days between two dates supplied as long integer
+Julian numbers. You can use the DAYNUMBER function (see above) to turn
+dates in normal numeric format into Julian numbers and NUMBERDAY (below)
+to convert them back again.
+
+DECLARE FUNCTION Interval& (First&, Second&)
+
+This function always returns a positive value, regardless of whether the
+first argument is lower or greater than the second.
+
+
+ISDIR
+
+This routine tests to see if the supplied string is the name of a
+directory. To do this a local error handler is established to trap any
+run-time errors and an attempt is made to change to the directory
+specified in TEST$. If an error occurs then ISDIR% is set to Boolean FALSE
+(zero), otherwise TRUE (-1) is returned.
+
+DECLARE FUNCTION IsDir% (Test$)
+
+ISDIR is used by the FINDFILE function when searching for files on another
+drive or directory.
+
+
+ITPRINT
+
+Sends the text supplied, to the printer, as a string of italic characters.
+Output begins at the current print position and can, optionally, append a
+carriage-return/linefeed to take the print head to the beginning of a new
+line when finished.
+
+DECLARE SUB ItPrint (BYVAL Prntr%, Buffer$, BYVAL NewLine%)
+
+Arguments:  Prntr%      the parallel port output is to be sent to
+                        (1 = LPT1:, 2 = LPT2:, etc.).
+            Buffer$     the string of text to be printed.
+            NewLine%    set this to a non-zero value if you want 
+                        to move to a new line after printing.
+
+The routine restores the previous print style or font before it returns
+and does not effect subsequent output to the printer, using the QuickBASIC
+LPRINT or PRINT # statements.
+
+Note:       The version of this routine stored in the Toolbox
+            library is for EPSON compatible printers. If you have
+            an IBM graphics printer or ProPrinter, then you should
+            rebuild your libraries, using either the PRINTIBM.OBJ
+            or PRINTPRO.OBJ object module in place of PRINTEPS.OBJ.
+
+
+KEYFLAGS
+
+Returns a 16-bit unsigned number which is bit-encoded with the current
+status of the CTRL, ALT, INSERT and other keyboard control keys.
+
+No calling parameters are required.
+
+DECLARE FUNCTION KeyFlags% ()
+
+The BITTEST function (see below) can be used to isolate individual bits of
+the returned value. Their meanings are as follows:
+
+ F E D C B A 9 8 7 6 5 4 3 2 1 0   Bits
+ÚÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄ¿
+³0³0³0³0³0³0³0³0³0³0³0³0³0³0³0³0³  Meaning if set
+ÀÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÙ
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÁÄ  Left & Right SHIFT keys pressed
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄ  CTRL key pressed
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄ  ALT key pressed
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄ  SCROLL LOCK active
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄ  NUM LOCK active
+ ³ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄ  CAPS LOCK active
+ ³ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  INSERT key status
+ ³ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  Left CTRL key pressed
+ ³ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  Left ALT key pressed
+ ³ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  SYS REQ key pressed
+ ³ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  PAUSE (or CTRL-NUM LOCK) active 
+ ³ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  SCROLL LOCK pressed
+ ³ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  NUM LOCK pressed
+ ³ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  CAPS LOCK pressed
+ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  INSERT key pressed
+
+See the CAPSLOCK, NUMLOCK and SCRLOCK functions for a method of setting or
+reading the status of specific control keys.
+
+
+KEYFLUSH
+
+This procedure flushes the keyboard type-ahead buffer and discards any
+keystrokes which have not yet been processed.
+
+No calling parameters are required.
+
+DECLARE SUB KeyFlush ()
+
+Note:       KEYFLUSH may not work properly if you have installed
+            keystroke enhancement software which moves the type-ahead
+            buffer to another location in memory. It DOES work with
+            command-line buffers like IBM's DOSEDIT, however.
+
+
+KEYIN
+
+Similar to the QuickBASIC INKEY$ function, except that it waits for a
+keypress instead of returning at once if none is available.
+
+No calling parameters are required.
+
+DECLARE FUNCTION KeyIn% ()
+
+The function returns a numeric value between 0 and 255 which represents
+the ASCII code of the key pressed. If one of the function keys (F1 to F12)
+or a special key such as PAGEUP or one of the cursor arrows is pressed,
+then a negative value is returned. Converting this number to its absolute
+equivalent produces the scan code of the key.
+
+Example:  KeyPress% = KeyIn%
+          IF KeyPress% < 0 THEN
+             ScanCode% = ABS(KeyPress%)
+          ELSE
+             AsciCode% = KeyPress%
+          END IF
+
+See the ASCICODE topic for a list of ASCII codes and their equivalent
+printable characters. The SCANCODE topic lists the scan codes returned by
+the various function and control keys.
+
+The KEYIN function will recognise if one of the new 101/102 extended
+keyboards is being used and return the correct scan codes for the extra
+keys such as F11 and F12.
+
+
+KEYSTAT
+
+This function tests to see if a keystroke is waiting to be read. It does
+not read or remove the keystroke from the typeahead buffer, use KEYIN% or
+INKEY$ to do this.
+
+No calling parameters are required.
+
+DECLARE FUNCTION KeyStat% ()
+
+KEYSTAT returns -1 (logical TRUE) if a keystroke is waiting to be
+collected or 0 (logical FALSE) if the typeahead buffer is empty.
+
+
+LASTWORD
+
+Extracts the last word from a string.
+
+DECLARE FUNCTION LastWord$ (Source$)
+
+This function extracts the last complete word from a string of
+text and replaces its characters, in the source string, with blank
+spaces. The length of the source string is not altered. LASTWORD
+can be called repeatedly to extract each word until SOURCE$ is 
+empty.
+
+Example:
+
+' LASTEST.BAS
+'
+    DECLARE FUNCTION LastWord$ (Last$)
+
+    CLS
+    Source$ = "   The moving finger writes and, having writ..  "
+
+    LOCATE 10, 1
+    PRINT TAB(30); "<"; Source$
+   
+    DO
+       A$ = LastWord$(Source$)
+       PRINT "["; A$; "]"; TAB(30); "<"; Source$
+    LOOP UNTIL A$ = ""
+    PRINT
+END
+
+See also NEXTWORD (below) which succesively extracts the first word
+from a supplied string.
+
+
+LEGALNAME
+
+This function returns TRUE or FALSE to indicate if the filespec passed to
+it is legal. To do this, each character in the string is compared with a
+set of illegal characters. If none are found a further check is made to
+ensure there are no more than eight characters in the name and three in
+the extension.
+
+FUNCTION LegalName% (FileSpec$)
+
+
+LINEUP
+
+Returns a string representation of a numeric value. If COMMA% is TRUE
+(non-zero) then the string has commas inserted between every group of
+three digits to the left of the decimal. If LENGTH% is non-zero then the
+resulting string is left padded with spaces to produce a string of the
+required length. If CURRENCY$ is not null, the character it contains will
+be prefixed to the returned string.
+
+DECLARE FUNCTION LineUp$ (Num#, Places%, Comma%, Length%, Currency$)
+
+
+LOBYTE
+
+Returns the value contained in the Least Significant Byte (LSB) of a
+two-byte integer. This is effectively the remainder obtained after
+dividing the number by 256 (Number% MOD 256).
+
+DECLARE FUNCTION LoByte% (BYVAL Number%)
+
+See HIBYTE for a function which returns the Most Significant Byte
+(MSB) of an integer.
+
+
+LONGDATE
+
+This function accepts a three-part numeric date and transcribes it into
+a string containing the date in words. This includes the day of the week,
+which is obtained by calling DOS's internal time and date services. DOS
+is also used to check for an invalid date.
+
+DECLARE FUNCTION LongDate$(Dy%, Mnth%, Yr%)
+
+LONGDATE returns a null string if the arguments passed evaluate to an
+illegal date (eg 29/2/1989).
+
+
+LONGEST
+
+Returns the longest word of a string.
+
+DECLARE FUNCTION Longest$ (Source$)
+
+This function scans the supplied string of text and returns the
+longest complete word from it. If more than one word is of that
+length, LONGEST returns the first word which meets this criterion.
+If SOURCE$ is null or contains only blank spaces, LONGEST will
+return a null string.
+
+The word is not removed from the original string.
+
+
+LOWORD
+
+Returns the value contained in the Least Significant Word (LSW) of a
+four-byte long integer. This is effectively the remainder obtained
+after dividing the number by 65536 (Number% MOD 65536).
+
+DECLARE FUNCTION LoWord% (BYVAL Number&)
+
+See HIWORD for a function which returns the Most Significant Word
+(MSW) of a long integer.
+
+
+LPTSWAP
+
+This procedure swaps the port addresses of the two printer channels
+specified so that, for example, all output targeted to LPT1: will actually
+be sent to LPT4:, and vice-versa.
+
+DECLARE SUB LptSwap (BYVAL Prntr1%, BYVAL Prntr2%)
+
+Prntr1% and Prntr2% are both numeric values in the range 1 - 4, where
+1 = LPT1:, 2 = LPT2:, etc.
+
+Note:       any changes made using LPTSWAP will remain in effect 
+            even after your program is finished.
+
+
+MASTRENV
+
+Gets a pointer to the segment of the DOS Master Environment.
+
+DECLARE FUNCTION MastrEnv% ()
+
+The QuickBASIC ENVIRON and ENVIRON$ routines allow you to read or set
+variables in the copy of the environment which DOS attaches to your
+program when it starts up. However, because this is only a copy, any
+changes you make to environment variables are lost when the current
+program shuts down. If you want any changes made to variables to be
+passed on to subsequent programs, then you need to make them to DOS's
+Master Environment, which is maintained in low memory.
+
+This function uses an undocumented interrupt service to obtain the
+address of the first Memory Control Block (MCB) and then follows the
+chain until the Master Environment segment is located. If it fails
+to find it, then a value of zero is returned.
+
+Once the Master Environment segment is found, your are responsible
+for reading or making any changes to it. Use the FARPEEK and FARPOKE
+routines for this, but proceed with caution. Any changes you make
+will remain in effect until the host computer is rebooted.
+
+
+MATCH
+
+Returns the starting position of a string of characters within
+a larger string.
+
+DECLARE FUNCTION Match% (Start%, Search$, Pattern$)
+
+Call with:  Start%   = character position in search string to
+                       start searching from
+            Search$  = String to search
+            Pattern$ = String expression to search for 
+
+Returns:    Position of first character of Pattern$ in Search$
+            (0 if Pattern$ is not found)
+
+Wildcards:  #   match any numeric character
+            !   match any alphabetic character
+            ?   match any character
+
+            \   indicates that the next character in the string
+                to search for is literal, not a wildcard.
+
+This function is similar to INSTR but allows the use of wildcards. It is
+based on the MATCH function provided by Digital Research's C-BASIC.
+
+
+MATHSCHIP
+
+Checks to see if a floating-point maths co-processor is installed in the
+system. 
+
+No calling parameters are required.
+
+DECLARE FUNCTION MathsChip% ()
+
+MATHSCHIP returns 0 (logical FALSE) if no co-processor is available. A
+non-zero value indicates that a co-processor is available and, in this
+case, the function will attempt to identify it. Possible return values
+are:
+
+     87 =   Intel 8087
+    287 =   Intel 80287
+    387 =   Intel 80387 (or 80486 with built-in maths processor)
+
+Waitek and other models return the same values as their Intel equivalents.
+
+
+MCGACOPY
+
+Copies an MCGA screen to or from a user-supplied dynamic array.
+
+DECLARE SUB McgaCopy (BYVAL Switch%, BYVAL Segment%, BYVAL Offset%)
+
+SWITCH%     Direction of copy   0 = copy screen to string
+                                1 = copy string to screen
+
+SEGMENT%    Segment address of storage array.
+
+OFFSET%     Offset address of storage array.          
+
+ARRAY       Dynamic INTEGER or LONG integer array to hold the screen
+            image. It must contain at least 64000 bytes of storage
+            (32000 elements for INTEGER or 16000 for LONG) or the
+            routine will fail, with possibly disastrous results.
+
+Note:       It is not enough just to pass the name of the storage
+            array to MCGACOPY. You must explicitly name the element
+            where screen storage is to start, eg:
+
+            DIM ScreenArray(1 TO 32000) AS INTEGER
+            SCREEN 13
+                .
+            draw some stuff
+                .
+            McgaCopy 0, VARSEG(ScreenArray(1)), VARPTR(ScreenArray(1))
+
+
+The QuickBASIC PCOPY statement is very useful for storing screen pages in
+memory, so that they can be kept out of sight until needed. Unfortunately
+it only works in text modes or, on computers with EGA or VGA video cards,
+in SCREEN modes 7 to 12. This routine, on the other hand, works only in
+the MCGA display mode (SCREEN 13), it provides a useful alternative to the
+PCOPY statement for use with medium-resolution 256-colour screens.
+
+See CGACOPY for a version that can be used with SCREEN 1 and 2 displays.
+
+
+MCGASCROLL
+
+Scrolls a rectangular portion of a SCREEN 13 (320 x 200 256-colour)
+display one pixel to the left or right, wrapping those pixels which are
+scrolled out at the end round to the beginning again.
+
+DECLARE SUB McgaScroll (BYVAL xLoc%, BYVAL yLoc%, BYVAL xPixels%,_
+                        BYVAL yPixels%, BYVAL Direction%)                 
+
+XLOC%       The horizontal (X) co-ordinate of the top-left corner of
+            the rectangle to be scrolled.
+
+YLOC%       The vertical (Y) co-ordinate of the top-left corner of
+            the rectangle to be scrolled.
+
+XPIXELS%    The width (in pixels) of the rectangle to be scrolled.
+
+YPIXELS%    The height (in pixels) of the rectangle to be scrolled.
+
+DIRECTION%  The direction in which the rectangle contents are to be
+            scrolled (0 = Left, 1 = Right).
+
+Co-ordinates are in the ranges:  X >= 0 <= 319, Y >= 0 <= 199
+
+
+MCGATEXT
+
+Writes characters to the screen in the 320 x 200  256-colour graphics
+mode (SCREEN 13).
+
+DECLARE SUB McgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                      BYVAL Attr%, BYVAL Scale%)
+
+This routine provides a convenient way of displaying text in SCREEN 13
+without having to bother about loading external font files. It uses the
+standard character definition tables built into your display adaptor, but
+allows you to scale them up to eight times normal size and to specify any
+combination of foreground and background colours.
+
+XLOC%       The horizontal co-ordinate of the top left hand pixel
+            from which the text will begin (0 - 319).
+
+YLOC%       The vertical co-ordinate of the top left hand pixel
+            from which the text will begin (0 - 199).
+
+TEXT$       The string of text to be displayed (up to 63 characters).
+
+ATTR%       The colour (or display attribute in monochrome modes) to
+            be given to the text. This is calculated by the formula:
+
+            Colour% = (Background% * 256) + Foreground%
+
+            Foreground is in the range (0 - 255) and Background (0 - 64).
+            The actual colours displayed depend upon your current PALETTE
+            settings.
+
+            Note:   supplying a value of -1 for background prevents
+                    background pixels from being changed at all. This
+                    allows text to be blended more naturally into a
+                    complex graphics display.
+
+SCALE%      The character size of the text to be displayed. This ranges
+            from 1 to 8, where 1 is standard 40-column text and where 8
+            multiplies the character size by eight on both the horizontal
+            and vertical axes.
+
+The complete extended ASCII character set is supported, including foreign
+symbols and box-drawing characters.
+
+Since MCGATEXT does not support clipping, to ensure a clean display you
+must ensure that the text to be output fits within the current screen
+boundaries.
+
+See also CGATEXT for displaying characters in SCREEN 1 and VGATEXT for
+displaying characters in SCREENs 7-12.
+
+
+MEDIA
+
+Gets or sets the volume label and/or serial number of the specified
+disk drive. Also returns the file system (FAT) type. This procedure
+only works with DOS 5.0 or greater.
+
+DECLARE SUB Media (Set%, Drive$, Volume$, Serial$, FileSy$)
+
+Set%    =   FALSE (zero) Get media information.
+            TRUE (non-zero) Set media information.
+Drive$  =   The drive letter of the disk to be processed. A colon
+            may be included although it is not necessary. If Drive$
+            is a null string then the default, currently-logged, 
+            drive is assumed.
+Volume$ =   The disk volume label (maximum 11 characters). If this
+            is a null string and Set% = TRUE, then the existing label
+            is not changed. To blank out an existing volume label,
+            fill Volume$ with at least one ASCII space character,
+Serial$ =   The disk serial number (8 hexadecimal characters). If
+            this is a null string and Set% = TRUE, then the existing
+            serial number is not changed. When setting a new serial
+            number do not include the intervening colon.
+FileSy$ =   The file system in use on the specified drive. Under DOS 5
+            this is either 12-bit or 16-bit FAT. Provided for information
+            only, you cannot change it except by reformatting the drive.
+
+Note that the Volume Label is the one written that is written into the
+Boot Record when the disk is formatted and is not necessarily the same
+as the one set or returned by the DOS LABEL command.
+
+
+MISTAKE
+
+Displays the error message supplied in a dialogue box and waits for the
+operator to press the <ENTER> key before returning, restoring the screen
+to its' previous state.
+
+DECLARE SUB MisTake (BYVAL Row%, Message$, BYVAL Attr%, BYVAL Mouse%)
+
+ROW%        The top row of the dialogue box when it is displayed. The
+            box is automatically centered within this row, which may be
+            adjusted so that it remains within the screen boundaries.
+
+MESSAGE$    A string of text comprising the error message to be displayed.
+            It must be no longer than 40 characters otherwise it will be
+            truncated to fit inside the display panel.
+
+ATTR%       The display attribute or colour to be given to the dialogue box.
+            If an argument of zero is supplied, the box is displayed with
+            bright yellow foreground on a red background (colour monitors)
+            or in reverse video (monochrome monitors). On colour displays the
+            message text is always given a white foreground, no matter what
+            attribute is specified.
+
+MOUSE%     Should be set to TRUE (-1) or FALSE (0) to indicate if a
+            mouse is available for use. If available, the operator can
+            respond by clicking the left mouse button while the cursor is
+            positioned on the radio button.     
+
+This routine is a special case of the INFORM dialogue box procedure (see
+above) which can be used for any general-purpose messages which require an
+acknowledgement from the operator.
+
+
+MOUSEBORDER
+
+Sets the maximum and minimum boundaries for mouse movement, both
+horizontally and vertically.
+
+DECLARE SUB MouseBorder (BYVAL x1%, BYVAL y1%, BYVAL x2%, BYVAL y2%)
+
+This routine defines a screen rectangle into which the mouse cursor
+is confined. x1% - y1% are the pixel co-ordinates of the upper-left
+corner and x2% - y2% the pixel co-ordinates of the lower-right. If
+the upper-left co-ordinates are greater than the lower-right then
+the two sets of values will be swapped.
+
+If the current mouse pointer is outside the defined rectangle, then
+it will be moved inside it.
+
+
+MOUSEHIDE
+
+Make the mouse cursor invisible. 
+
+DECLARE SUB MouseHide ()
+
+
+MOUSEINIT
+
+Initialises the mouse driver and returns the driver status. Also hides
+the mouse cursor if it was previously visible.
+
+DECLARE FUNCTION MouseInit% ()
+
+Returns TRUE (-1) if mouse support is available or FALSE (0) if not.
+
+
+MOUSEMICKEY
+
+Read mouse motion counters.
+
+Return the number of horizontal and vertical mickeys moved since the
+last mouse function call.
+
+DECLARE SUB MouseMickey (horizontal%, vertical%)
+
+The returned values represent the net mouse pointer displacement since
+this routine was last called. A positive number indicates movement to
+the right or downward. Negative values indicate travel to the left or
+upwards. One mickey is approximately 1/200" of mouse movement.
+
+
+MOUSENOW
+
+Returns the current state of the mouse.
+
+DECLARE SUB MouseNow (leftButton%, rightButton%, xMouse%, yMouse%)
+
+If leftButton% or rightButton% are TRUE (-1) than that button is
+currently being pressed, otherwise they are set to FALSE (0).
+xMouse% and yMouse% contain the current horizontal and vertical 
+pixel co-ordinates of the mouse pointer.
+
+
+MOUSEPRESSLEFT
+
+Returns the mouse state at the last press of the left button.
+
+DECLARE SUB MousePressLeft (leftCount%, xMouse%, yMouse%)
+
+leftCount% returns the number of presses that have been made on the 
+left mouse button since this routine was last called. xMouse% and
+yMouse% contain the horizontal and vertical pixel co-ordinates of
+the mouse pointer at the last button press (left or right).
+
+Calling this procedure resets the left button press counter to zero.
+
+
+MOUSEPRESSRIGHT
+
+Returns the mouse state at the last press of the right button.
+
+DECLARE SUB MousePressRight (rightCount%, xMouse%, yMouse%)
+
+rightCount% returns the number of presses that have been made on the 
+right mouse button since this routine was last called. xMouse% and
+yMouse% contain the horizontal and vertical pixel co-ordinates of
+the mouse pointer at the last button press (left or right).
+
+Calling this procedure resets the right button press counter to zero.
+
+
+MOUSEPUT
+
+Sets the mouse cursor position.
+
+DECLARE SUB MousePut (BYVAL xMouse%, BYVAL yMouse%)
+
+xMouse% and yMouse% are the horizontal and vertical pixel co-ordinates
+of the screen location where the mouse pointer is to be moved. This
+position is adjusted, if necessary, to lie within the limits specified
+by a previous call to MOUSEBORDER (see above).
+
+
+MOUSERELLEFT
+
+Returns the mouse state at the last release of the left mouse button.
+
+DECLARE SUB MouseRelLeft (leftCount%, xMouse%, yMouse%)
+
+leftCount% returns the number of times the left mouse button has been
+released since this procedure was last called. xMouse% and yMouse%
+contain the horizontal and vertical pixel co-ordinates of the mouse
+pointer at the last button release (left or right).
+
+Calling this routine resets the left button release counter to zero.
+
+
+MOUSERELRIGHT
+
+Returns the mouse state at the last release of the right mouse button.
+
+DECLARE SUB MouseRelRight (rightCount%, xMouse%, yMouse%)
+
+rightCount% returns the number of times the right mouse button has been
+released since this procedure was last called. xMouse% and yMouse%
+contain the horizontal and vertical pixel co-ordinates of the mouse
+pointer at the last button release (left or right).
+
+Calling this routine resets the right button release counter to zero.
+
+
+MOUSERESTORE
+
+Restores the mouse pointer to the position and state that was in
+effect at the previous call to MOUSESAVE (see below).
+
+DECLARE SUB MouseRestore ()
+
+
+MOUSESAVE
+
+Saves the current mouse pointer state and screen location in an
+internal buffer.
+
+DECLARE SUB MouseSave ()
+
+The MOUSERESTORE procedure (see above) can be used to restore
+the mouse pointer state.
+
+
+MOUSESHOW
+
+Makes the mouse cursor visible.
+
+DECLARE SUB MouseShow ()
+
+
+MOUSESPEED
+
+Sets the mouse mickeys to pixels ratio.
+
+DECLARE SUB MouseSpeed (BYVAL horizontal%, BYVAL vertical%)
+
+Sets the number of mickeys that are equivalent to 8 screen pixels for
+horizontal and vertical mouse movement. One mickey is approximately
+1/200" of physical mouse motion.
+
+
+MOUSEWARP
+
+Set the double-speed threshold.
+
+DECLARE SUB MouseWarp (BYVAL threshold%)
+
+Defines the threshold for doubling the speed of mouse pointer travel.
+The threshold% value is supplied in mickeys/second (default = 64).
+Doubling of pointer speed can be effectively disabled by setting the
+threshold to a very large value (such as 32,767).
+
+
+NETTEST
+
+This function is used to detect if the program which calls it is running
+under a Novell Network. It can be used to decide if file or record locking
+is required.
+
+No calling parameters are required.
+
+DECLARE FUNCTION NetTest% ()
+
+Returns -1 (logical TRUE) if the Network shell is present and 0 (logical
+FALSE) if not. Note that the function cannot distinguish between programs
+running on a local or network drive under NetWare.
+
+The SHARING function (below) provides similar information for file-sharing
+using DOS's SHARE.EXE program.
+
+
+NEXTWORD
+
+Extracts the first word from a string.
+
+DECLARE FUNCTION NextWord$ (Source$)
+
+This function extracts the first complete word from a string of
+text and replaces its characters, in the source string, with blank
+spaces. The length of the source string is not altered. NEXTWORD
+can be called repeatedly to extract each word until SOURCE$ is 
+empty.
+
+Example:
+
+' NEXTEST.BAS
+'
+    DECLARE FUNCTION NextWord$ (Last$)
+
+    CLS
+    Source$ = "   The moving finger writes and, having writ..  "
+
+    LOCATE 10, 1
+    PRINT TAB(30); "<"; Source$
+   
+    DO
+       A$ = NextWord$(Source$)
+       PRINT "["; A$; "]"; TAB(30); "<"; Source$
+    LOOP UNTIL A$ = ""
+    PRINT
+END
+
+See also LASTWORD (above) which succesively extracts the last word
+from a supplied string.
+
+
+NUMBERDAY
+
+Splits a Julian date number into day, month and year and also returns the
+day of the week as a number between 0 and 6 (0 = Sunday etc..)
+
+DECLARE FUNCTION NumberDay% (Number&, Dy%, Mnth%, Yr%)
+
+
+NUMLOCK
+
+Toggles NUM LOCK on or off or, alternatively, reads the current NUM LOCK
+key setting.
+
+DECLARE FUNCTION NumLock% (BYVAL Switch%)
+
+Switch% = 0  Turns NUM LOCK off
+        = 1  Turns NUM LOCK on
+
+Any other value just returns the current NUM status as a logical value
+where -1 (TRUE) means that NUM LOCK is on and 0 (FALSE) means that NUM
+LOCK is off.
+
+
+PANEL
+
+This procedure is used to produce rectangular boxes, upon the video
+display, of various shapes and colours. The calling program should supply
+the row/column co-ordinate of the top, left-hand corner of the required
+panel, its height in rows and width in columns. You should also specify
+the display attribute that the panel will be displayed in and the border
+style to frame it with.
+
+DECLARE SUB Panel (Row%, Col%, Rows%, Cols%, Border%, Attr%)
+
+Panels can be drawn with the following border styles:
+
+ÚÄÄÄ¿         ÉÍÍÍ»         ÖÄÄÄ·        ÕÍÍÍ¸
+³ 1 ³         º 2 º         º 3 º        ³ 4 ³
+ÀÄÄÄÙ         ÈÍÍÍ¼         ÓÄÄÄ½        ÔÍÍÍ¾
+
+This version of the Toolbox allows you to use PANEL to draw boxes with
+a sculptured, three-dimensional look. Do this by adding a multiple of
+four to the border style you want. Legal values are.....
+
+Border%       Description
+
+ 5 - 8        Draws box in high relief with light appearing to come 
+              from the upper left of the screen.
+
+ 9 - 12       Draws box in low relief with light coming from upper
+              left. This makes the box appear to be recessed.
+
+13 - 16       Draws box in high relief with light coming from upper
+              right of screen.
+
+17 - 20       Draws box in low relief with light coming from upper
+              right of screen.
+
+Any other value draws the panel without a border.
+
+Example:
+
+' PANLTEST.BAS
+'
+    DECLARE SUB Panel (Row%, Col%, Rows%, Cols%, Border%, Attr%)
+
+    CLS
+    Colour% = 112: Protrude% = 5: Depress% = 9
+    Panel 5, 25, 14, 30, Protrude%, Colour%
+    Panel 7, 27, 3, 26, Depress%, Colour%
+    Col% = 27
+    FOR I% = 1 TO 3
+        Panel 11, Col%, 2, 8, Protrude%, Colour%
+        Panel 13, Col%, 2, 8, Protrude%, Colour%
+        Panel 15, Col%, 2, 8, Protrude%, Colour%
+        Col% = Col% + 9
+    NEXT I%
+    Panel 13, 36, 2, 8, Depress%, Colour%
+END
+
+Although the boxes drawn by PANEL resemble popup windows, you cannot
+restore the screen contents overwritten by a box once it has been drawn.
+See the POPUP and SHUTUP routines, however, for a full windowing
+system which does preserve the display.
+
+
+PARALLELPORTS
+
+This function checks how many hardware printer ports are available. It
+does not check to see if an actual printer is connected to each of them,
+use the PRINTEST or PRINTERSTAT functions (see below) to obtain this
+information.
+
+No calling parameters are required.
+
+DECLARE FUNCTION ParallelPorts% ()
+
+
+PARKHEADS
+
+Parks the heads of each fixed disk drive in the system onto the last
+cylinder of the disk, preparatory to powering off.
+
+DECLARE SUB ParkHeads ()
+
+This routine only works reliablly on AT class computers and above.
+Using it on an XT may simply cause the computer to 'hang', without
+parking the heads.
+
+
+PAUSE
+
+This routine is used to generate machine-independent timing loops. It
+simply pauses until the specified number of clock ticks have elapsed.
+
+DECLARE SUB Pause (BYVAL Ticks%)
+
+There are 18.2 clock ticks per second on all PCs, no matter what the
+processor or processor speed.
+
+
+PEEKWORD
+
+Reads a long integer value from two consecutive bytes of memory.
+
+DECLARE FUNCTION PeekWord& (BYVAL Segment&, BYVAL Offset&)
+
+Arguments:  Segment&  = address of memory segment containing the data
+                        to be read.
+            Offset&   = offset address, within the segment of the 
+                        two bytes to be read.
+
+Returns:    contents of the two consecutive bytes in the form of a
+            long integer value in the range (0 to 65535). 
+
+Note:       parameters are passed as LONG integers to save you the
+            hassle of having to convert argument values over 32767
+            to negative signed integers. Do not use values greater
+            than 65535, however, or the most significant word will
+            be ignored and the address converted to Modulus 65536.
+
+            If you supply an offset address of 65535 (0FFFFh) which
+            would cause the second byte to cross a segment boundary,
+            only the lower byte is read and returned as a value
+            between (0 - 255).
+
+Using QuickBASIC's PEEK function to examine data which lies outside
+of DGROUP is a pain. You also have to use DEF SEG to set the segment
+required and then to reset it afterwards. This function allows you to
+read data, directly, from anywhere in the 1 megabyte of addressable
+RAM space your computer contains. It also reads two adjacent bytes of
+data from the address supplied and converts them to a single integer.
+
+The PC architecture follows the Intel convention of storing 'words'
+(two-byte values) with the Least Significant part in the lower byte
+(LSB) and the Most Significant (MSB) in the higher byte. Since each
+byte can only hold 256 possible values (0 to 255), an integer which
+has a range of from 0 to 65535 (unsigned) is stored in consecutive
+bytes with the MSB being considered the number of times it can be
+divided by 256 and the LSB being the remainder of this division. The
+number 1000, for example would be stored in memory as follows:
+
+                         LSB              MSB
+                 ÚÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄ¿ ÚÄÂÄÂÄÂÄÂÄÂÄÂÄÂÄ¿
+1000 (decimal) = ³1³1³1³0³1³0³0³0³ ³0³0³0³0³0³0³1³1³
+                 ÀÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÙ ÀÄÁÄÁÄÁÄÁÄÁÄÁÄÁÄÙ
+
+                 1000 MOD 256 = 232   1000 \ 256 = 3
+
+To convert the two bytes back to a single integer again, you would
+use the formula: 
+
+                        x = (MSB * 256) + LSB 
+
+or, in our example:     x = 3 * 256 + 232 = 1000
+
+PEEKWORD makes this conversion for you automatically, all you have to
+do is supply the address and it returns the contents of the two bytes
+in long integer format.
+
+The POKEWORD procedure (below) complements PEEKWORD by allowing you
+to write a word of data anywhere in the 1MB addressable PC workspace.
+
+See also FARPEEK and FARPOKE which allow you to read from and write
+to far memory, one byte at a time.
+
+
+PERCENTBOX
+
+Opens and maintains a popup window which displays a percentage value
+as a horizontal bar.
+
+DECLARE SUB PerCentBox (BYVAL Switch%, Message$, BYVAL Attr%,_
+                        BYVAL PerCent%)
+
+Arguments:  Switch%   = 1  open percentage box window
+                      = 2  maintain percentage bar
+                      = 3  close percentage box
+                      
+            Message$  = an optional message which is centred in the
+                        percentage box window (Switch% = 1).
+                        
+            Attr%     = display colour or attribute for percentage
+                        box window and text. If Attr% = 0 attribute
+                        defaults to 48 (Black on Cyan) for colour
+                        adaptors and 112 (Reverse) for monochrome.
+                        (used only with Switch% = 1)
+                        
+            PerCent%  = an integer value between 0 and 100 which
+                        controls the length of the percentage bar.
+                        (used only with Switch% = 2)            
+
+Here is another useful little routine for Toolbox users. It pops up a
+window in which is displayed a percentage bar, illustrating how much
+of the current process has been completed. Use it, during lengthy
+operations, to reassure an operator that the program is not 'hanging',
+or to indicate how much longer there is to go.
+
+The Percentage Box window is popped up, centered, on the screen. It
+recognises 43 and 50 line displays and will adjust itself accordingly.
+Only one Percentage Box can be open at a time, although other windows
+and dialogue boxes may be opened and closed while it is present. Be
+careful not to overlap the Percentage Box with other windows, though.
+
+
+PICKLIST
+
+Allows the user to select from a list of items in a popup window.
+
+DECLARE SUB PickList (Selected%, Title$, Array() AS STRING, Attr%, Mouse%)
+
+Title$          The text to be displayed as the title of the
+                selection box.
+
+Array()         An array of variable-length strings containing the
+                text items to be selected from.
+
+Attr%           The display attribute to be given to the selection
+                box. If zero the default of reverse video is used.
+
+Mouse%          If TRUE (non-zero) mouse support is enabled. If 
+                FALSE (zero) only the keyboard may be used to make 
+                selections.
+
+Selected%       On return this variable contains the subscript
+                number of the string element selected.
+
+This routine is similar to FINDFILE (above) which uses a picklist to
+enable the user to select from a list of files.
+
+
+POKEWORD
+
+Writes an integer value into two consecutive bytes of memory.
+
+DECLARE SUB PokeWord (BYVAL Segment&, BYVAL Offset&, BYVAL Word&)
+
+Arguments:  Segment&  = address of memory segment containing the
+                        location to be written to
+            Offset&   = offset address, within the segment of the 
+                        two bytes to be set.
+            Word&     = the value to set in memory. It must be a
+                        value in the range 0 to 65535.
+
+The data is written in standard Intel format, with the Most
+Significant part of the number (MSB) being written into the higher
+of the two bytes.
+
+Note:       if you supply an offset address of 65535 (0FFFFh) which
+            would cause the second byte to cross a segment boundary,
+            only the lower, least significant, byte (LSB) is written.
+
+            Parameters are passed as LONG integers to save you the
+            hassle of having to convert argument values over 32767
+            to negative signed integers. Do not use values greater
+            than 65535, however, or the most significant word will
+            be ignored and the address converted to Modulus 65536.
+
+The PEEKWORD procedure (above) complements POKEWORD by allowing you
+to read a word of data from anywhere in the 1MB of addressable PC
+memory.
+
+See also FARPEEK and FARPOKE which allow you to read from and write
+to far memory, one byte at a time.
+
+
+POPUP
+
+This is the Toolbox popup window generator. What are Windows?  Well if
+you've used the QuickBASIC environment at all then you've used Windows.
+When you press <ALT><F> to bring down the File Menu, the list of options
+presented there is in a window. Notice how any characters which were
+concealed when the File Menu appeared, are restored, intact, after you've
+made your choice. Windows are areas of the screen which are used to hold
+transient data and messages to the user. They make the most of the limited
+display space available and remove the need to constantly rebuild the
+screen, each time your program communicates with the world.
+
+Properly  presented, windows can give the illusion of multi-tasking, even
+on single-processor machines like the IBM-PC.
+
+Nowadays, no program worth its' salt can be without a window of some kind.
+If YOUR program is going to stand out amongst all the others, however,
+they've got to be done professionally. Windows must appear instantly and
+vanish, just as quickly, when no longer required. They must be as large or
+as small as is necessary, for the data which you need to display, and you
+should have a plentiful supply, for all the circumstances that your
+program might encounter. BASIC, unfortunately, is just not fast enough to
+meet all these requirements.
+
+Looks like it'll have to be Assembly-Language again ...
+
+DECLARE SUB PopUp (BYVAL Row%, BYVAL Col%, BYVAL Hght%, BYVAL Wdth%,_
+                   BYVAL Attr%, BYVAL Brdr%, BYVAL Shdw%, BYVAL Zoom%)
+
+Opens a popup window at the screen location specified.
+
+Where:    P1%  is the top-left row co-ordinate
+          P2%  is the top-left column co-ordinate
+          P3%  is the height (in rows) of the window
+          P4%  is the width (in columns) of the window
+          P5%  is the display attribute or colour
+          P6%  is the border style (0 = no border)
+          P7%  is the shadow switch (0 = no shadow)
+          P8%  is the zoom switch (0 = no zoom)
+
+The first four parameters specify the size of the window and the location
+on the screen at which it will appear. Border styles are as follows:
+
+ÚÄÄÄÄ¿
+³ 1. ³    Single-lined box all round the window
+ÀÄÄÄÄÙ
+ÉÍÍÍÍ»
+º 2. º    Double-lined box all round the window
+ÈÍÍÍÍ¼
+ÕÍÍÍÍ¸
+³ 3. ³    Single vertical, double horizontal
+ÔÍÍÍÍ¾
+ÖÄÄÄÄ·
+º 4. º    Single horizontal, double vertical
+ÓÄÄÄÄ½
+ÑÍÍÍÍÑ
+³ 5. ³    Single-lined box all round the window
+ÔÍÍÍÍ¾
+ËÍÍÍÍË
+º 6. º    Double-lined box all round the window
+ÈÍÍÍÍ¼
+ÂÄÄÄÄÂ
+³ 7. ³    Single vertical, double horizontal
+ÔÍÍÍÍ¾
+ÒÄÄÄÄÒ
+º 8. º    Single horizontal, double vertical
+ÓÄÄÄÄ½
+
+Border styles 5 through 8 are particularly suitable for use with pull-
+down menus, descending from a horizontal bar.
+
+The SHADOW switch (Parameter 7), can be used to add a black shadow beneath
+your window, Giving it a three dimensional effect. Setting P7% to 1 puts
+solid shadow on the left-hand side. Setting P7% to 2 puts it on the right.
+values of 3 and 4 in P7% will display transparant shadow to the left or
+right, respectively, any other value prevents shadow.
+
+Setting Parameter 8 to a non-zero value will cause the window to ZOOM onto
+the screen.  What this means is that, starting at a point source,
+successively larger versions of the window will be drawn until it is the
+size required. The value you supply sets the interval, in milliseconds,
+between iterations and is used to control the speed at which the window
+explodes onto the screen. 
+
+To preserve compatibility with programs written for use with previous
+versions of the Toolbox, a value of 1 in parameter 8 sets the default
+delay of 20 milliseconds per iteration. At this speed, which is constant
+on PCs with all types of microprocessor, the process is extremely fast
+and impressive, and adds a very professional touch to your programs. 
+
+Before a window is opened, the display area below it is copied to an
+internal buffer, from where it will be eventually restored when the window
+is closed. This buffer has a capacity of 8 KiloBytes, the equivalent of
+two full screens. To calculate the storage required for a particular
+window, use the formula:
+
+Bytes = ((Height in rows * Width in columns) * 2) + 6
+
+(add one row to the height and one column to the width if you specify
+shadow)
+
+The window area needs to be multiplied by 2 since each screen character
+takes two bytes of memory, for itself and its attribute code. The odd six
+bytes are required for the storage of buffer pointers. The window buffer
+works as a LIFO (Last In First Out) stack, so that the last window opened
+is the first one to be removed. You can close the current window with the
+statement:
+
+ShutUp -1
+
+To put text inside a window, use the FASTPRINT routine (see above). You
+can clear all or part of an open window with SCROLL (see below).
+
+
+PRINTERSTAT
+
+DECLARE FUNCTION PrinterStat% (BYVAL Prntr%)
+
+This function tests the current status of the parallel printer specified.
+The value returned is tested as follows :
+
+   Bit     Wanted    Meaning
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    7        1       Printer not busy (0 = busy)
+    6        0       Printer acknowledges
+    5        0       Out-of-paper
+    4        1       This printer selected
+    3        0       I/O error
+    2        0       Not used
+    1        0       Not used
+    0        0       Time-out occurred
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+   90 Hex  144 (Decimal)
+
+Specify the printer to be tested as a number between 1 and 4, where 1 =
+LPT1:, 2 = LPT2:, etc.
+
+Note:       Some printers also set the acknowledgement bit. If so, the
+            value returned will be 208 (D0 Hex) instead of 144.
+
+
+PRINTEST
+
+This is a simplified version of the PRINTERSTAT function (above). It
+returns a logical value to indicate whether the specified printer is ready
+(TRUE = -1) or not (FALSE = 0).
+
+DECLARE FUNCTION PrinTest% (BYVAL Prntr%)
+
+Specify the printer to be tested as a number between 1 and 4, where 1 =
+LPT1:, 2 = LPT2:, etc. The function will only work with parallel printers.
+
+
+PRINTSET
+
+Most modern printers have a variety of useful styles and fonts which you
+can select by setting dip switches or sending the appropriate control
+codes from the computer. Unfortunately this is not always convenient,
+especially when you are in the middle of a program and have to duck out to
+set up the proper print size. PRINTSET offers a solution to this problem
+in the form of a pull-down menu which allows you to select from a range of
+printer features, using the 'point-and-shoot' method.
+                                                    
+DECLARE SUB PrintSet (BYVAL Row%, BYVAL Col%, BYVAL Attr%, BYVAL Prntr%)
+
+Where:  Row%     = Row number of the top left-hand corner of the menu
+                   window.
+        Col%     = Column number of the top left-hand corner of the menu
+                   window. 
+        Attr%    = the display attribute or colour which is given to the
+                   menu window.
+        Prntr%   = the printer number (i.e. 1 = LPT1, 2 = LPT2 etc).
+
+If you supply a value of zero for the Attr% argument, the menu window will
+take the colour or attribute of the character which will be overlaid by
+the top left corner of the window, when it appears. If this character is
+also a single or double-lined horizontal bar (ASCII 196 or 205), the
+border of the menu will be automatically adjusted to blend in with this
+line, allowing you to produce the appearance of a pulldown menu.
+
+Note:       Although the Toolbox package contains copies of this module
+            configured for different types of printer, only one version
+            of PrintSet may be in the library at any one time.
+
+            PRINTEPS.OBJ is for Epson printers
+            PRINTIBM.OBJ is for IBM Grahics printers
+            PRINTPRO.OBJ is for IBM Proprinters
+
+
+PROGNAME
+
+Returns the full filespec of the current program.
+
+DECLARE FUNCTION ProgName$ ()
+
+DOS appends the full pathname of the currently-executing program to
+the end of the copy of the environment it gives to it. This function
+searches for the pathname string and returns it to the caller.
+
+
+RAMDISK
+
+Many disk-intensive processes, such as file sorting, will run much faster
+when performed on a ramdisk. In such cases, use this function to test if a
+ramdisk is available and the FREESPACE function (above) to see if it has
+enough space for the job required. Don't forget to copy your data back to
+a physical drive afterwards, or you will lose it when you power off.
+
+RAMDISK searches the system drive table and examines the device driver for
+each block device to see if it is a ramdisk. If one is detected, the
+function returns the ASCII value of the drive letter associated with it
+(eg 68 = D:). If no ramdisk is present, a value of zero is returned. If
+more than one ramdisk is present in the system, only the first one is
+reported on.
+
+No calling parameters are required.
+
+DECLARE FUNCTION RamDisk% ()
+
+RAMDISK will work reliably with all versions of Microsoft's RAMDRIVE and
+IBM's VDISK. However it has not been tested with any of the more esoteric
+virtual disk products, and may not correctly identify some of these.
+
+
+RAND
+
+Returns a random number. This differs from QuickBASIC's RND function in
+that RAND returns an integer and you can specify the range for this value.
+
+DECLARE FUNCTION Rand% (BYVAL Lower%, BYVAL Higher%)
+
+Lower% and Higher% are the upper and lower limits for the random number
+to be returned. If Lower% is greater than Higher% then the arguments will
+be transposed.
+
+
+REBOOT
+
+Resets the computer.
+
+DECLARE SUB ReBoot (BYVAL Switch%)
+
+Switch% = zero      Cold boot
+          non-zero  Warm boot
+
+This routine performs a complete system reboot with (in the case of
+a cold boot) a full memory test. Execution of any processes still in
+memory is, of course, terminated.
+
+If the host system uses any form of disk cacheing, it would be a good
+idea to close and flush any open file buffers before using this routine.
+See the QuickBASIC RESET statement for information about doing this. 
+
+
+REDIRECT
+
+This routine is intended to be used in conjunction with the QuickBASIC
+SHELL command. It redirects standard output from a shelled program or
+command to the null device, a printer or a file.
+
+DECLARE SUB ReDirect (BYVAL Switch%, FileSpec$)
+
+Arguments:  Switch%     The device output is to be directed to
+
+                    1   the NULL device (output is discarded)
+                    2   the printer device (make sure it's on)
+                    3   the filename specified.
+                    0   turn off redirection
+
+            FileSpec$   The full pathname (including drive letter if
+                        necessary) of the file to which output should
+                        be redirected. If it does not already exist,
+                        it will be created. Otherwise it will be
+                        truncated to zero length before output begins.
+                        
+Output redirection will only work on child programs and shelled DOS
+commands. QuickBASIC uses its' own output routines and will ignore
+any such device redirection.
+
+
+RESEED
+
+Reinitialises the random number seed used by the RAND function (above).
+
+DECLARE SUB ReSeed (BYVAL Seed&)
+
+Note that the argument passed is a LONG integer. This enables you to use
+the value which is returned by the QuickBASIC TIMER function, eg:
+
+    ReSeed TIMER
+
+Note that the Toolbox random number seed is not the same as the one used
+internally by QuickBASIC. You cannot, therefore, start a new sequence of
+QB's RND values by using RESEED nor can you use RANDOMIZE to reinitialise
+the sequence for RAND.
+
+
+REVINPUT
+
+Accepts user input in a Reverse Video entry panel, all the usual editing
+keys are supported and entry may be terminated by either a carriage-return
+or one of several special function keys (see below).
+
+DECLARE FUNCTION RevInput$ (Max%, Visible%, Default$, Legal$, Ctx%, Topic$,_
+                            Mask%, HotKey%)
+
+Max%         =  maximum number of characters which can be accepted.
+Visible%     =  maximum number of characters which are visible on the
+                display. If non-zero and less than Max%, this is the
+                actual size of the data-entry panel.
+    Note:       the data-entry panel will scroll, if necessary, to
+                ensure that the current character position is always
+                visible.      
+Default$     =  default string which can be accepted by just pressing
+                the <Enter> key.
+Legal$       =  a string of legal characters which are acceptable for
+                input. If a null string is passed then all printable
+                characters will be accepted. 
+Ctx%         =  set TRUE if context-sensitive help is available, in
+                which case ... 
+Topic$       =  name of the HELP Topic file to display whenever the
+                <F1> key is pressed. 
+Mask%        =  if TRUE (non-zero) prevents the characters entered from
+                being echoed to the display. Instead an asterisk (*) is
+                displayed for each character position although the entry
+                string itself is unaffected. Use this for passwords.
+HotKey%      =  If entry is terminated by anything other than the
+                <Enter> key, this variable will contain an explanatory
+                return code ..
+
+Return Codes:   1  =  <Escape> abort entry returning a null string
+                2  =  <F2>     repeat previous entry for this field
+                3  =  <Up Arr> pressed, move to previous field 
+                4  =  <Dn Arr> pressed, move to next field
+                5  =  <Pg Up>  pressed, move to top of screen
+                6  =  <Pg Dn>  pressed, move to end of screen
+                7  =  A hotkey was supplied and used. The calling
+                               program takes appropriate action.
+
+                You can specify any key as the hotkey by setting your
+                own value in HotKey% before calling REVINPUT. This
+                number can either be the ASCII code of any standard
+                key or the SCAN code (as a negative value) of one of
+                the function keys. Set HotKey% to zero to turn off
+                keyboard trapping (except for keys 1-6 above).            
+
+Editing Keys:   <L.Arrow>   =  Move cursor one character to the left
+                <R.Arrow>   =  Move cursor one character to the right
+                <Home>      =  Move cursor to first character of field
+                <End>       =  Move cursor to last character of field
+                <Ctrl End>  =  Clear from current cursor position to
+                               the end of the entry field.
+                <Insert>    =  Toggle between Insert and Overtype modes
+                <Delete>    =  Delete character under the cursor.
+                <BackSpace> =  Replace character under cursor with a
+                               blank space and move cursor one character
+                               to the left.
+                <F1>        =  pop up on-line HELP screen.
+
+REVINPUT is designed to be used as part of a full-screen data-entry
+system. Your program can examine the return code to determine whether the
+operator wishes to terminate entry or move forwards or backwards between
+entry fields.
+
+See also the DATEINPUT function for a keyboard routine specially designed
+to ask the operator for a date!!!!
+
+
+ROOTNAME
+
+Extracts the root filename from a full directory pathname.
+
+DECLARE FUNCTION RootName$ (Path$, Extension%)
+
+Path$       the full directory pathname of the file in question. This
+            string can include the drive letter followed by a colon.
+
+Extension%  If TRUE (non-zero) the returned filename will include the
+            filename extension (if any). If FALSE (zero) the extension
+            part is trimmed off.
+
+
+ROUND
+
+Rounds a double-precision number to the number of decimal places required
+and returns it as a string.
+
+DECLARE FUNCTION Round$ (Number#, Places%)
+
+
+SALUTE
+
+DECLARE FUNCTION Salute$ (Original$)
+
+This function strips all but the first and last words from a string
+and capitalises the first letter of each remaining word. This produces
+a string suitable for use as the salutation of a letter.
+
+
+SCREENDUMP
+
+Copies the contents of the current screen (text mode only) to the line
+printer, just as if the operator had pressed the <Prt Scrn> key.
+
+No calling parameters are required.
+
+DECLARE SUB ScreenDump ()
+
+Includes support for 43 and 50-line screens on EGA and VGA adaptors.
+
+This routine will not work if screen print has previously been disabled by
+a call to the DISABLEPRTSC routine (see above) or if the parallel printer
+at LPT1: is not ready.
+
+
+SCREENMODE
+
+This function calls ROM-BIOS to check the current video mode and then
+converts the returned value to the equivalent QuickBASIC SCREEN number.
+It can detect the Hercules 720 x 348 graphics mode (SCREEN 3) and the new
+Olivetti 640 x 400 mode (SCREEN 4) as well as the Tandy 1000 and PCjr CGA
+modes (SCREENs 5 & 6) which are not supported by QuickBASIC.  Other
+unsupported graphics modes return a value of -1.
+
+No calling parameters are required.
+
+DECLARE FUNCTION ScreenMode% ()
+
+
+SCREENROWS
+
+Returns the height of the current screen, in rows, as set by the last
+WIDTH statement (default = 25).
+
+No calling parameters are required.
+
+DECLARE FUNCTION ScreenRows% ()
+
+The number returned may be 25, 43 or 50, depending on the capabilities of
+your display adaptor.
+
+
+SCREENWIDTH
+
+Returns the width of the current screen, in columns, as set by the last
+WIDTH statement.
+
+No calling parameters are required.
+
+DECLARE FUNCTION ScreenWidth% ()
+
+Possible return values are 40 and 80 (default = 80).
+
+
+SCRLOCK
+
+Toggles SCROLL LOCK on or off or, alternatively, reads the current SCROLL
+LOCK key setting.
+
+DECLARE FUNCTION ScrLock% (BYVAL Switch%)
+
+Switch% = 0  Turns SCROLL LOCK off
+        = 1  Turns SCROLL LOCK on
+
+Any other value just returns the current SCROLL status as a logical value
+where -1 (TRUE) means that SCROLL LOCK is on and 0 (FALSE) means that the
+SCROLL LOCK is off.
+
+
+SCROLL
+
+Scrolls the contents of a screen rectangle a specified number of lines or
+columns in the direction indicated, blank spaces of the background colour
+specified are scrolled in to replace them.
+
+DECLARE SUB Scroll (BYVAL Dir%, BYVAL Y1%, BYVAL X1%, BYVAL Y2%,_
+                    BYVAL X2%, BYVAL Units%, BYVAL Attr%)
+
+Dir%        =  Scroll direction (0 = down, 1 = up, 2 = left, 3 = right).
+Y1%         =  Top-left row of rectangle to be scrolled.
+X1%         =  Top-left column of rectangle.
+Y2%         =  Bottom-right row of rectangle.
+X2%         =  Bottom-right column of rectangle
+Units%      =  Number of rows or columns to scroll.
+Attr%       =  Display attribute of blank spaces scrolled in.
+
+Notes:      This routine will work in all graphics modes as well as on
+            the text screen. When scrolling the graphics screen up or
+            down, however, the attribute value must be calculated in a
+            different way:
+
+            On 320 x 200 4-colour and 640 x 200 2-colour displays the
+            attribute represents a 1-byte pixel pattern, which is
+            equivalent to 8 pixels in 2-colour (SCREEN 2) mode and 4
+            pixels in 4-colour (SCREEN 1) mode. This pixel pattern is
+            replicated through all the blank lines scrolled in.
+
+            In all other EGA, VGA and MCGA display modes, ATTR% is
+            the colour value for each pixel in the blanked lines.
+
+            Scrolling sideways in graphics modes, using this routine,
+            does not provide sufficiently fine movement for animation
+            effects, but see the CGASCROLL and MCGASCROLL procedures
+            (above) for a more precise alternative.
+
+
+SECURE
+
+Toggles bit zero of the specified file's directory entry, making it either
+Read-only or Read/Write.
+
+DECLARE SUB Secure (BYVAL Switch%, FileSpec$)
+
+If SWITCH% = 1 the file is made Read-only (regardless of whether it can be
+currently written to or not), any other value makes the file Read/Write.
+FILESPEC is the name of the file to be hidden or unhidden. It can include
+a drive letter and directory path but must be an explicit pathname,
+wildcard characters are not allowed.
+
+
+SERIALPORTS
+
+This function checks how many serial ports are available, it does not
+check to see if devices are connected to any of them.
+
+No calling parameters are required.
+
+DECLARE FUNCTION SerialPorts% ()
+
+
+SETFLAG
+
+This routine is used to set  one of the sixteen system flags to a value of
+between 0 and 255. These flags are situated in the Intra-Application
+Communications area, an area reserved by DOS for user programs to signal
+to each other. FLAG% is the flag number (1-16), VALUE% is the value you
+want to set.
+
+DECLARE SUB SetFlag (Flag%, Setting%)
+
+You can read the current setting of a particular IAC flag byte with the
+GETFLAG function.
+
+
+SHARE
+
+Toggles bit seven of the specified file's directory entry, making it
+either Shareable or Non-shareable. This routine will only work when the
+program which calls it is running under a Novell Network.
+
+DECLARE SUB Share (BYVAL Switch%, FileSpec$)
+
+If SWITCH% = 1 the file is made Shareable (regardless of whether it can be
+currently used by other programs or not), any other value makes the file
+Non-shareable. FILESPEC is the name of the file to be shared. It can
+include a drive letter and directory path but must be an explicit
+pathname, wildcard characters are not allowed.
+
+
+SHARING
+
+Reports if SHARE.EXE, the MS-DOS file sharing support module, is installed
+in memory. No calling parameters are required.
+
+DECLARE FUNCTION Sharing% ()
+
+If SHARE is installed the function returns a value of -1 (logical TRUE),
+otherwise zero (logical FALSE) is returned.
+
+Note:   for some reason this function does not return reliable results
+        when called in the QuickBASIC environment, although it works
+        fine in stand-alone programs. Does QB[X] disable SHARE then?
+        
+The NETTEST function (above) returns similar information for file sharing
+under a Novell Network.
+
+
+SHUTUP
+
+Closes the last window opened by the POPUP window procedure (see above)
+and restores the contents of the screen below it.
+
+DECLARE SUB ShutUp (BYVAL Speed%)
+
+The Speed% parameter is a delay in milliseconds. If greater than zero
+it produces the effect of imploding the storage buffer contents onto the
+screen, making the window appear to vanish into a point source.
+
+
+SORTFILE
+
+expects the user to supply the name of the file to be sorted. The file,
+itself, must be fixed length and its name can include a drive letter and
+directory pathname. The logical record length of the file must also be
+supplied, along with the start position and length of the field which the
+file is to be sorted on.
+
+The procedure returns with Done% set to -1 (logical TRUE), if the sort
+completed successfully, or to zero (logical FALSE) if an error occurred.
+
+DECLARE SUB SortFile (PathName$, OffSet%, FieldLen%, RecordLen%, Done%)
+
+The program first checks the size of the file and the amount of free disk
+space to see if the it can be sorted in memory, this requires space for
+two copies of the file on disk. If it is too large, the file is sorted in
+place so that no extra disk space is required. Using this method, which is
+far slower, the file may be of any size up to 4 Gigabytes.
+
+Note:       If, when sorting in place on disk, SORTFILE detects that there
+            is a Ramdisk installed with enough free space to hold the file
+            that is being sorted, the program will copy and sort the file
+            there. This is much faster than a conventional disk sort, but
+            still not as fast as sorting directly in memory.
+
+Programs calling this routine must have at least two unused file buffers
+available (i.e. no more than thirteen files must be already open).
+
+
+SOUNDEX
+
+Gets the phonetic equivalent of a string. This function returns a long
+integer which represents the 'sound' of a string of text using the SOUNDEX
+phonetic conversion algorithm. It can be used in 'fuzzy' searches, for
+example, to scan a database for an individual when you are not sure of the
+exact spelling of their surname. When searching for SMITH, for instance,
+SOUNDEX would also match SMYTH and SMYTHE.
+
+DECLARE FUNCTION Soundex& (Text$)
+
+Note that the initial letter of the search string must exactly match the
+initial letter of the target. GAMMELL and CAMMEL will return different
+values when passed to SOUNDEX. Note also that the function will only
+convert the first word of the string, translation stops at the first
+blank space.
+
+
+SPLITNAME
+
+Parses a string containing the full or postal name of a person and
+extracts the TITLE, INITIALS and SURNAME from it.
+
+DECLARE SUB SplitName (Source$, Title$, Initial$, SurName$)
+
+Most commonly used titles (eg MR, MRS, MISS, MS) are correctly
+identified and seperated out.
+
+
+SPOOLER
+
+Gets the installed state of the DOS print spooler, PRINT.COM, so that a
+program can check if it is safe to submit files to the print queue.
+
+No calling parameters are required.
+
+DECLARE FUNCTION Spooler% ()
+
+Returns:    -1  if spooler is installed
+             0  if spooler is not installed
+
+
+SPOOLDELETE
+
+Deletes one or more files from the current print queue.
+
+FileSpec$ should include the full pathname of the file to be deleted from
+the print queue. It can be ambiguous, using the DOS wildcard characters
+'*' and '?', allowing you to cancel the processing of a range of files
+with a single command.
+
+DECLARE SUB SpoolDelete (FileSpec$)
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+SPOOLFLUSH
+
+Deletes all files from the current print queue and terminates output to
+the printer.
+
+No calling parameters are required.
+
+DECLARE SUB SpoolFlush ()
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+SPOOLLIST
+
+Returns the pathname of a file in the current print queue.
+
+SPOOLLIST can only be used while printing is suspended after a call to the
+SPOOLSUSPEND function (see below) has been made.
+
+Buffer$ must be preset to a length of at least 64 bytes for the routine to
+work, although you do not have to fill it with spaces first.  When called,
+immediately after printing has been suspended, SPOOLLIST will return, in
+Buffer$, the pathname of the first file in the spooler print queue.
+
+Further calls will return the names of subsequent files in the queue until
+a string of blank spaces indicates that all entries have been read.
+
+DECLARE SUB SpoolList (Buffer$)
+
+The following example demonstrates how SPOOLLIST, SPOOLSUSPEND and
+SPOOLRESTART can be used in a QuickBASIC program.
+
+    CONST FALSE = 0, TRUE = NOT FALSE
+
+    Buffer$ = STRING$(64, "*")
+
+    Status% = SpoolSuspend%
+    PRINT "Spooler suspended, status is"; Status%
+    PRINT "Files in print queue are ...": PRINT
+    Done% = FALSE: Number% = 1
+    DO
+        SpoolList Buffer$
+        IF Buffer$ = SPACE$(64) THEN
+           Done% = TRUE
+        ELSE
+           PRINT Number%, Buffer$
+           Number% = Number% + 1
+       END IF
+    LOOP UNTIL Done%
+    CALL SpoolReStart
+END
+
+Use SPOOLRESTART (see below) to resume printing after it has been
+suspended for a listing of the queue contents to be made.
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+SPOOLRESTART
+
+Re-enables output of spooled files to the printer after it has been
+suspended for a status check or for the queue contents to be listed.
+
+No calling parameters are required.
+
+DECLARE SUB SpoolReStart ()
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+SPOOLSUBMIT
+
+Submits a file for processing by the DOS print spooler. 
+
+FileSpec$ should contain the full pathname of the file to be printed and
+should be no longer than 64 characters. Wildcard characters are not
+allowed. If found, the file will be added to the end of the current print
+queue.
+
+DECLARE SUB SpoolSubmit (FileSpec$)
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+SPOOLSUSPEND
+
+Suspends output from the DOS print spooler and reports if an error has
+been encountered. Printing is suspended until you use the SPOOLRESTART
+procedure (see above) to resume output. 
+
+No calling parameters are required.
+
+DECLARE FUNCTION SpoolSuspend% ()
+
+Returns:     0 = no errors
+             1 = invalid function
+             2 = file not found
+             3 = path not found
+             4 = too many open files
+             5 = access denied
+             8 = queue full
+             9 = spooler busy
+            12 = name too long
+            15 = invalid drive    
+
+SPOOLLIST (see above), which returns the pathnames of files in the print
+queue, can only be called while the spooler is suspended.
+
+Note:       This function will only work if PRINT.COM, the DOS print
+            spooler has been installed. You can use the SPOOLER
+            function (see above) to check if PRINT.COM is available.
+
+
+STATUSLINE
+
+This procedure displays the message supplied on the bottom line of the
+display, prompts the user for a keypress, waits until it is received and
+then returns, restoring the screen to its former state. The  ASCII value
+of the keypress is returned in the variable that you assign to the
+function.
+
+DECLARE FUNCTION StatusLine% (Message$)
+
+Note:       StatusLine will recognise if an EGA or VGA is installed and
+            will correctly locate itself if the screen is in 43 or 50-
+            line mode.
+
+
+STRINGSCAN
+
+This routine searches a variable-length string array for the string
+specified, returning the element number it occupies if found.
+
+DECLARE FUNCTION StringScan% (Trgt$, BYVAL Size%, BYVAL Strt%, BYVAL Addr%)
+
+Arguments:  Trgt$ = target string to be searched for.
+            Size% = number of array elements to be searched.
+            Strt% = array element to start searching at.
+            Addr% = address of start element (the VARPTR value).  
+                     
+See also the STRINGSORT routine (below) for a fast method of sorting a
+variable-length string array.
+
+
+STRINGSORT
+
+This procedure can sort a string array into ascending or descending order,
+very quickly indeed.
+
+DECLARE SUB StringSort (BYVAL Dir%, BYVAL Size%, BYVAL Addr%)
+
+Arguments:  Dir%    = sort direction (0 = ascending, 1 = descending).
+            Size%   = number of elements to sort.
+            Addr%   = VARPTR of element to start sorting from.
+
+Note:       This routine now works perfectly with Extended QuickBASIC
+            far string arrays, provided that the range of elements to
+            sort are contained within a single 64K segment. If the
+            array extends over more than one segment then no sorting
+            will be performed at all.
+
+For an example of fast string sorting and searching, see the source code
+for DEMON, the Toolbox demonstration program.
+
+
+STRIPQUOTES
+
+Strips quotation marks and commas from a string which is to be
+written to a comma-delimited ASCII file.
+
+DECLARE FUNCTION StripQuote$ (Source$)
+
+All double quote characters (") found in SOURCE$ are replaced
+with single quotes (') and all commas replaced by blank spaces.
+The length of the string is unchanged.
+
+
+STUFFBUFFER
+
+Stuffs a string of up to fifteen keystrokes into the keyboard typeahead
+buffer. These keystrokes will then be read by subsequent INPUT or INKEY
+statements or passed to DOS when the program ends.
+
+DECLARE SUB StuffBuffer (Buffer$)
+
+Buffer$ is the string of ASCII characters to be placed in the keyboard
+buffer. A maximum of fifteen characters may be used, any extra ones will
+be ignored. 
+
+If the string is a command to be executed by DOS when your program
+terminates, it should include a trailing carriage-return. For example,
+the following command will clear the screen and display a directory
+listing:
+
+StuffBuffer "CLS" + CHR$(13) + "DIR" + CHR$(13)
+
+Any previously unread keystrokes will be flushed from the buffer by 
+this routine.
+
+
+TEMPFILE
+
+Creates a temporary file with a user-specified attribute
+
+DECLARE FUNCTION TempFile$ (BYVAL FlAttr%)
+
+Argument:   FileAttr%   the directory attribute to be given to the
+                        temporary file. Possible values are:
+                        
+                    0   Normal
+                    1   Read-only
+                    2   Hidden
+                    4   System
+
+The temporary file is created, with the attribute you specify and a
+unique filename, in the current directory and its full pathname
+(excluding drive letter) is returned by the function. Your program is
+responsible for opening it and all subsequent processing. It will not
+be automatically deleted when the program ends.
+
+
+TEXTVAL
+
+Returns the numeric value of a string of text.
+
+DECLARE FUNCTION TextVal& (Text$)
+
+This function takes a string of text and returns a long integer
+which is its numeric equivalent. Only ASCII numerals and letters
+are considered significant and lowercase text evaluates to the same
+values as uppercase.
+
+
+TRUENAME
+
+Returns the true pathname of a file which has been JOINed or SUBSTituted
+to another directory or drive. 
+
+DECLARE FUNCTION TrueName$ (FileName$)
+
+Pass this function the name of a file and it will return its' fully
+expanded pathname (including drive letter). If the file has been 
+JOINed or SUBSTituted to another path (or has been assigned a special
+drive letter on a Network) the actual location will be returned.
+
+If the file does not exist or there is any error in the pathname you
+pass to this function, a null string will be returned.
+
+Wildcards '*' and '?' can be used in the source pathname.
+
+This function is only supported under DOS 3.3 or later.
+
+
+ULPRINT
+
+Sends the text supplied, to the printer, as a string of underlined
+characters.  Output begins at the current print position and can,
+optionally, append a carriage-return/linefeed to take the print head to
+the beginning of a new line when finished.
+
+DECLARE SUB UlPrint (BYVAL Prntr%, Buffer$, BYVAL NewLine%)
+
+Arguments:  Prntr%      the parallel port output is to be sent to
+                        (1 = LPT1:, 2 = LPT2:, etc.).
+            Buffer$     the string of text to be printed.
+            NewLine%    set this to a non-zero value if you want 
+                        to move to a new line after printing.
+
+The routine restores the previous print style or font before it returns
+and does not effect subsequent output to the printer, using the QuickBASIC
+LPRINT or PRINT # statements.
+
+Note:       The version of this routine stored in the Toolbox
+            library is for EPSON compatible printers. If you have
+            an IBM graphics printer or ProPrinter, then you should
+            rebuild your libraries, using either the PRINTIBM.OBJ
+            or PRINTPRO.OBJ object module in place of PRINTEPS.OBJ.
+
+
+UNPAD
+
+Removes multiple spaces from a string, making sure that no word
+in a string of text has more than one blank space between it.
+
+DECLARE FUNCTION UnPad$ (Text$, Length%)
+
+Text$       the string of text to be processed.
+
+Length%     on return, holds the length of the string after
+            processing.
+
+Leading and trailing spaces are also trimmed.
+
+
+VERIFY
+
+This function opens a dialogue box, centered at the screen row specified,
+in which is displayed a prompt supplied by the caller. The routine adds a
+further Y/N prompt, and then waits for a keypress. Only <Y/N> responses
+(in upper or lower case) are accepted and the value that is returned
+evaluates to Boolean TRUE (-1), if a Y(es) response was entered, and
+Boolean FALSE (0) if the reply was N(o). The screen is restored to its
+previous state on exit from the function.
+
+DECLARE FUNCTION Verify% (BYVAL Default%, BYVAL Row%, Prompt$,_
+                          BYVAL Attr%, BYVAL Mouse%)
+
+DEFAULT%    Specifies the radio button to be highlighted as the default
+            response on entry into the function. Pressing <Return> or
+            clicking the left mouse button without moving the pointer
+            will produce the specified response. If DEFAULT% is set to
+            one the YES button is highlighted. Any other value highlights
+            the NO button. 
+
+ROW%        The top row of the dialogue box when it is displayed. The
+            box is automatically centered within this row, which may be
+            adjusted so that it remains within the screen boundaries.
+
+PROMPT$     A string of text comprising the message to be displayed. It
+            must be no longer than 40 characters otherwise it will be
+            truncated to fit inside the display panel.
+
+ATTR%       The display attribute or colour to be given to the dialogue box.
+            If an argument of zero is supplied, the box is displayed with
+            bright white text on a blue background (colour monitors) or in
+            reverse video (monochrome monitors).
+
+MOUSE%      should be set to TRUE (-1) or FALSE (0) to indicate if a mouse
+            is installed and can be used to respond.    
+
+Notes:      The user can respond, either by pressing the <Y> or <N> keys
+            or by using <TAB> to highlight the appropriate radio button
+            and then pressing <RETURN>. 
+
+Mouse support has now been added, enabling the operator to respond by
+clicking the mouse cursor on the appropriate radio button.
+
+
+VERMENU
+
+Displays and operates a pulldown menu, allowing the user to select from
+the list of options displayed in the menu window. 
+
+DECLARE SUB VerMenu (Row%, Col%, Attr%, Bdr%, Opts%, Title$, Menu$(),_
+                     Choice%, Nxt%, Bar%, Ctx%, Tpc$, Mouse%, HotKeys%)
+
+Expects:  Row%, Col%    screen co-ordinates of top-left corner of the
+                        window containing the menu.
+          Attr%         display attribute given to menu window.
+          Bdr%          Border style (1 - 8, 0 = no border). see the
+                        WINDOWS documentation for a list of styles.
+          Opts%         Number of options provided by menu.
+          Title$        Title for the menu, if null string then no
+                        title is displayed.
+          Menu$()       Text for options list. 
+                        MENU$(0) should contain a list of Hotkey
+                        characters, one for each option. Insert a space
+                        at the appropriate position if an option is to
+                        be disabled. A hash character '#' in Menu$(0)
+                        will replace the option at that position with
+                        a horizontal line seperator.
+                        In the remaining option strings an ampersand '&'
+                        indicates that the next character is the Hotkey
+                        to be highlighted for that option. The Hotkey
+                        character should be the same as the one in the
+                        appropriate position of Menu$(0)
+          Ctx%          If set, this indicates that context-sensitive
+                        help is available, in which case ...
+          Tpc$          The root name of the Topic file to be displayed
+                        if the user presses <F1> for help. The current
+                        menu number and selection number are appended to
+                        this to produce the actual filename, eg where:
+                        
+                        Tpc$ = "CONFIG"     Bar% = 2    Choice% = 5
+                        
+                        HELPMATE (see TOOLBOX.DOC) looks for a Topic
+                        file named CONFIG25.HLP.
+
+                        (Note that Bar% is automatically set if you are
+                        using this function in conjunction with BARMENU.
+                        if not, Bar% defaults to zero and HELMATE expects
+                        CONFIG05.HLP to be the appropriate TOPIC file.)
+                        
+          Mouse%        If set, this flag indicates that a mouse is
+                        installed and can be used to make selections.
+          HotKeys%      If set, this flag allows hotkeys to go directly
+                        to a selection without the user having to press
+                        <ENTER> as well.
+
+Returns:  Choice%       Number of selection made by user. If zero then
+                        the user pressed <ESC> to abort without making
+                        a selection.
+          Nxt%          Set TRUE if the user pressed the left or right
+                        arrow key to move sideways to another menu, in
+                        which case ....
+          Bar%          is incremented or decremented accordingly.
+
+The BARMENU procedure provides a similarly featured menu which is
+orientated horizontally.
+
+See the source code for DEMON.BAS, the Toolbox demonstration program, for
+an example of VERMENU (and BARMENU) in use.
+
+
+VGADIM
+
+Allows a program running on a computer fitted with VGA to dim or brighten
+the display intensity.
+
+DECLARE SUB VGADim (BYVAL Intensity%)
+
+Intensity% is a number in the range -63 to +63 which sets the brightness
+of the screen relative to the default value (zero).
+
+
+VGALOAD
+
+Loads EGA, VGA and MCGA screens into video memory from disk. This is an
+alternative to the QuickBASIC BLOAD statement which cannot be used with
+the higher-resolution graphics displays provided by SCREEN modes 7 to 13.
+
+DECLARE SUB VGALoad (File$)
+
+FILE$ must be a legal DOS filename, including extension, drive letter and
+directory path where appropriate.
+
+Note:       The screen image must have been previously written to a disk
+            file using the VGASAVE procedure (see below) and should have
+            the same resolution as that provided by the current SCREEN.
+
+
+VGAPAN
+
+Sets the display window co-ordinates for EGA, VGA and MCGA screens.
+
+This procedure sets the origins of display window within the video display
+buffer used by the EGA, VGA and MCGA adaptors.  Normally this is at the
+top left-hand corner of the graphics image, but by changing co-ordinates
+you can pan the display through video memory, to create some interesting
+animation effects.
+
+DECLARE SUB VGAPan (BYVAL X%, BYVAL Y%)
+
+See the source code to DEMON, the Toolbox demonstration program for an
+example using VGAPAN.
+
+
+VGASAVE
+
+Saves EGA, VGA and MCGA screens from video memory to disk. 
+
+The normal QuickBASIC BLOAD and BSAVE statements only work properly with
+text and CGA graphics screens. This routine allows you to do the same
+with higher-resolution graphic displays in SCREEN modes 7 to 13.
+
+DECLARE SUB VGASave (File$)
+
+FILE$ must be a legal DOS filename, including the extension, drive letter
+and directory path where appropriate.
+
+A companion procedure, VGALOAD (see above) is provided to allow you to
+retrieve the graphics image from disk, and restore it to the screen.
+
+See the source code to DEMON, the Toolbox demonstration program for an
+example using VGALOAD and VGASAVE.
+
+
+VGATEXT
+
+Writes characters to the screen in EGA and VGA graphics modes.
+
+DECLARE SUB VgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                     BYVAL Attr%, BYVAL Scale%)
+
+This routine provides a convenient way of displaying text in any of the
+EGA and VGA graphics modes (SCREENs 7-12) without having to bother about
+loading external font files. It uses the standard character definition
+tables built into your display adaptor, but allows you to scale them up to
+eight times normal size and to specify any combination of foreground and
+background colours supported by the current video mode.
+
+XLOC%       The horizontal co-ordinate of the top left hand pixel
+            from which the text will begin
+
+YLOC%       The vertical co-ordinate of the top left hand pixel
+            from which the text will begin
+
+TEXT$       The string of text to be displayed (up to 63 characters).
+
+ATTR%       The colour (or display attribute in monochrome modes) to
+            be given to the text. This is calculated by the formula:
+
+            Colour% = (Background% * 256) + Foreground%
+
+            Foreground and Background values are in the ranges used
+            by the current video mode (eg. 0 - 15 for SCREEN 9). The
+            actual colours displayed depend upon your current PALETTE
+            settings.
+
+            Note:   supplying a value of -1 for background prevents
+                    background pixels from being changed at all. This
+                    allows text to be blended more naturally into a
+                    complex graphics display.
+
+SCALE%      The character size of the text to be displayed. This ranges
+            from 1 to 8, where 1 is standard 80-column text (40-column
+            in SCREEN 7) and 8 multiplies the character size by eight
+            on both the horizontal and vertical axes.
+
+VGATEXT can handle both byte-aligned and non byte-aligned characters. The
+x, y co-ordinates you supply do not need to correspond to a row, column
+character cell in SCREEN 0, the alphanumeric mode. The complete extended
+ASCII character set is supported, including foreign symbols and
+box-drawing characters.
+
+Since VGATEXT does not support clipping, to ensure a clean display you
+must ensure that the text to be output fits within the current screen
+boundaries.
+
+See also CGATEXT for displaying characters in SCREEN 1 and MCGATEXT for
+displaying characters in SCREEN 13.
+
+
+VIDEOMODE
+
+Checks the video system capabilities of the host computer.
+
+DECLARE SUB VideoMode (Colour%, MaxRes%, VideoRam%)
+
+This function calls ROM-BIOS to check the type of display adaptor which is
+installed in the host system. Three variables are supplied which, on
+return, provide the following information:
+
+COLOUR%   -1 = Colour adaptor   Indicates the presence of a colour
+           0 = Monochrome       monitor in EGA systems. Returns -1
+                                for CGA, even if a mono monitor is
+                                bring used.
+MAXRES%    highest SCREEN       Highest resolution graphics screen
+           resolution           which can be set. Is equivalent to
+                                QuickBASIC SCREEN numbers. MDA can
+                                only use SCREEN 0, CGA 0, 1 and 2
+                                N.B. MaxRes% = 10 indicates an EGA
+                                with mono monitor. This means that
+                                SCREEN 9 can NOT be used.
+VIDEORAM%  in kilobytes         Amount of dedicated display memory
+                                installed. 
+                                MDA = 4K, CGA = 16K, EGA = 64-256K
+
+
+WINDOWSUP
+
+All this function does is return the number of active windows currently
+popped up. This count is incremented once by every successful call to 
+POPUP (see above) and decremented once by every call to SHUTUP.
+
+DECLARE FUNCTION WindowsUp% ()
+
+Thanks to Chris Bridges of PASCAL Electronics for suggesting this.
+
+
+WINMODE
+
+Returns the current Windows mode.
+
+DECLARE FUNCTION WinMode% ()
+
+If your program is running in a DOS session under Microsoft Windows,
+this function will return the mode that Windows is running in:
+
+1 = Real Mode       2 = Standard Mode       3 = Enhanced Mode
+
+Zero (FALSE) is returned if Windows is not running.
+
+This function only recognises Windows version 3 or later.
+
+
+WINVER
+
+Returns the current Windows version.
+
+DECLARE FUNCTION WinVer% ()
+
+If your program is running in a DOS session under Microsoft Windows,
+this function will return the version of Windows that is running:
+
+Zero (FALSE) is returned if Windows is not running.
+
+The Major and Minor version numbers are returned in the upper and lower
+bytes, respectively, of the returned value. You can extract then using
+this method: 
+
+W% = WinVer%: IF W% THEN Major% = W% \ 256: Minor% = W% MOD 256
+
+Alternatively you can extract them using the Toolbox HIBYTE and LOBYTE
+functions (see above).
+
+This function only recognises Windows version 3 or later.
+
+
+WKDAY
+
+This function is used to determine the day of the week for a given date.
+It does this by temporarily resetting the system date to the one supplied,
+reading the day from DOS, and then restoring the old date. The weekday is
+returned as a number between 0 and 6, signifying Sunday through Saturday.
+
+DECLARE FUNCTION WkDay% (BYVAL Dy%, BYVAL Mnth%, BYVAL Yr%)
+
+Note:   The year value should be supplied as a 4-digit number between
+        1981 and 2099.
+
+In previous versions of the Toolbox this function was called WEEKDAY.
+It has been changed to avoid conflict with the VisualBASIC for DOS
+function of the same name.
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+EXTRA ROUTINES FOR QB4
+
+The following functions and procedures are only included in the version of
+the Toolbox intended for QuickBASIC 4.x and BASIC 6. They are omitted from
+the later version because the Extended QuickBASIC language provided with
+the BASIC 7 Professional Development System includes new statements and
+functions that render them unneccessary. Well they say that imitation IS
+the sincerest form of flattery!
+
+
+CHANGEDIR
+
+This procedure changes the current directory to the one specified by the
+pathname supplied. If a drive letter is included in the argument, the
+routine also changes the current drive.
+
+DECLARE SUB ChangeDir (PathName$)
+
+Microsoft have now added CHDIR and CHDRIVE statements to QBX, the new
+Extended QuickBASIC supplied with BASIC 7. Since these statements make
+CHANGEDIR redundant, it is not provided with the BASIC 7 Toolbox.
+
+
+FINDFIRST
+
+This routine sets the Disk Transfer Address to point to a local buffer and
+then attempts to find a match for the file specified in WildCard$. If one
+or more matches are found, the filename of the first matching file (minus
+directory path), is stuffed into the second string argument. If no match
+is found, this string is filled with blank spaces.
+
+DECLARE SUB FindFirst (Attr%, WildCard$, Match$)
+
+WildCard$ can contain an ambiguous filename, using the wildcard characters
+* and ?, in which case FINDFIRST will only find the first matching file.
+To obtain the names of any subsequent matches, use the FINDNEXT function
+(see below).
+
+Match$ must be at least twelve characters long to hold the returning
+filename and extension. You do not need to clear the string first as the
+function does that for you, automatically.
+
+Normally, only visible files with full read\write access are found, but
+you can extend this to search for hidden, read-only or system files as
+well by setting the Attr% parameter to the appropriate attribute value.
+
+   Attr% = 0   Visible read\write
+           1   Read-only files
+           2   Hidden files
+           4   System files
+
+Do not use the FILESIZE function while searching for files with FINDFIRST
+and FINDNEXT. Since both routines relocate the DOS Disk Transfer Address
+during operation, this may lead to a conflict which will cause your
+program to lose track of one or more open files. You should, in any case,
+always use the RESETDTA routine to restore the Disk Transfer Address after
+FINDFIRST/FINDNEXT is completed.
+
+The DIR$ function which Microsoft have added to Extended QuickBASIC (QBX)
+provides a built-in FINDFIRST/FINDNEXT service which makes the Toolbox
+routines redundant. They are, therefore, omitted from the BASIC 7 version.
+
+
+FINDNEXT
+
+Finds successive matches of an ambiguous filename after a previously
+successful call to FINDFIRST (see above). You can call it repeatedly
+until a blank string is returned in Match$, in which case there are
+no more files to be found.
+
+DECLARE SUB FindNext (Match$)
+
+Match$ must be at least twelve characters long to hold the returning
+filename and extension. It does not have to be cleared first, since the
+routine does this for you, automatically.
+
+Do not make use the FILESIZE function while searching for files with
+FINDFIRST and FINDNEXT. Since both routines relocate the DOS Disk Transfer
+Address during operation, this may lead to a conflict which will cause
+your program to lose track of one or more open files. You should, in any
+case, always use the RESETDTA routine to restore the Disk Transfer Address
+after FINDFIRST/FINDNEXT is completed.
+
+The DIR$ function which Microsoft have added to Extended QuickBASIC (QBX)
+provides a built-in FINDFIRST/FINDNEXT service which makes the Toolbox
+routines redundant. They are, therefore, omitted from the BASIC 7 version.
+
+
+GETDIR
+
+This procedure writes the pathname of the currently logged directory into
+the string supplied by the caller. The user can specify what drive to
+return the directory for, or default to the current drive.
+
+DECLARE SUB GetDir (Drive%, Path$)
+
+This routine expects two arguments to be passed to it. The first is an
+integer which specifies the drive to look at :
+
+0 = default drive, 1 = drive A:, 2 = drive B:, etc.
+
+the second argument is a string which will hold the path of the directory
+returned by DOS. The string must be at least 64 bytes long to hold the
+information. If it were not, the function might overwrite other variables
+in the program data space, with unpredictable results. The returned path-
+name does not include the drive identifier or a leading '\' and is
+terminated by a null (0) byte. if the current directory is the root
+directory, therefore, the first byte of the string will be an ASCII zero,
+not a null string.
+
+The CURDIR$ function which Microsoft have added to Extended QuickBASIC
+(QBX) allows you to obtain the current directory path and drive, making
+GETDIR redundant. It is, therefore, omitted from the BASIC 7 version of
+the Assembly Language Toolbox.
+
+
+GETDRIVE
+
+This function returns the number of the currently-logged drive.
+
+No calling parameters are required.
+
+DECLARE FUNCTION GetDrive% ()
+
+Values returned are in the series 0 = A:, 1 = B:, 2 = C:, etc.
+
+The CURDIR$ function which Microsoft have added to Extended QuickBASIC
+(QBX) allows you to obtain the current directory path and drive, making
+GETDRIVE redundant. It is, therefore, omitted from the BASIC 7 version of
+the Assembly Language Toolbox.
+
+
+RESETDTA
+
+This procedure must always be called by your program after the FINDFIRST
+and FINDNEXT functions have been used. It restores the Disk Transfer
+Address to its default value originally set by QuickBASIC.
+
+No calling parameters are required.
+
+DECLARE SUB ReSetDTA ()
+
+
+SETDRIVE
+
+This function changes the currently-logged drive to the one specified by
+the calling program (0 = A:, 1 = B:, etc.).
+
+DECLARE SUB SetDrive (Drive%)
+
+Since BASIC 7 has now introduced the CHDRIVE statement which performs the
+same task, SETDRIVE is only supported in the version of the Toolbox
+supplied to QuickBASIC 4 users.
+
+WAITASEC
+
+System-independent pause for a specified number of seconds. The delay will
+still be the same, whether you have an original IBM-PC or an AT with the
+latest Intel i486 processor running at 66MHz.
+
+DECLARE SUB WaitaSec (Seconds!)
+
+This is an alternative to the SLEEP statement, for people who still use
+QuickBASIC 4.0
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+ASSEMBLY-LANGUAGE TOOLBOX INTERNAL FUNCTIONS
+
+The following functions and procedures are used internally by Toolbox
+routines. Assembly-Language programmers may also call them when adding
+routines of their own, provided the appropriate object modules are linked
+to their program at runtime.
+
+
+FLAGS
+
+Sets or gets the current status of individual flags in the Intra-
+Application Communications area (IAC), a 16-byte block of RAM reserved, by
+DOS, for signalling between applications programs.
+
+Three parameters must be passed on the stack, they are:
+
+        1)  Switch%     0 = get flag,   1 = set flag
+        2)  Flag%       the offset into the IAC flag table (0 to 15)
+        3)  Setting%    the value to be set into the specified byte
+                        of the flag table (if Switch% = 1).
+
+This example code fragment sets letter 'A' (ASCII 65) into flag 8 (byte 9)
+of the IAC area.
+
+            .model  medium              ; Required for QuickBASIC
+
+            extrn   Flags: far          ; Public name of called routine
+
+            .code                       ; Define code segment
+
+            mov     ax,1                ; Set a flag byte
+            push    ax                  ; Pass it on the stack
+            mov     ax,8                ; Flag number 8
+            push    ax                  ; Pass it on the stack
+            mov     ax,'A'              ; Value to set
+            push    ax                  ; Pass it on the stack
+            call    Flags               ; Call the function
+
+You must still push three parameters onto the stack even if you are only
+reading a flag setting. In this case the third argument will be ignored.
+
+The setting of the specified IAC flag is returned in the lower byte of the
+AX register (AL). All other registers are preserved.
+
+
+GETVERSION
+
+This function checks the version of DOS under which the host computer is
+currently running.
+
+            extrn   GetVersion: far
+
+The following register values may be returned:
+
+    AL      = Major Version       (MS-DOS 3.2 = 3, etc.)
+    AH      = Minor Version       (MS-DOS 3.2 = 20, etc.) 
+                            
+GETVERSION can be called directly from QuickBASIC, in which case only the
+Major and Minor version numbers returned in AX are available.
+
+Note:   This function returns the correct version number even under
+        DOS 5.x with SETVER configured to return a different number.
+
+
+HIDECURSOR
+
+Makes the cursor invisible. No parameters are required or returned.
+
+            extrn   HideCursor: far
+
+This method ORs the byte value of the cursor start line with 32 (20 Hex)
+which, on all standard video adaptors, turns off the cursor while
+preserving its display characteristics. You can use the SHOWCURSOR
+routine (see below) to restore the cursor to its previous state.
+
+Note:       HIDECURSOR can be called directly from QuickBASIC but, since
+            the LOCATE statement provides an alternative means of turning
+            off the cursor, it is not necessary.
+
+
+SCREENADDRESS
+
+Calculate screen address from a pair of row/column co-ordinates.
+
+            extrn   ScreenAddress: far
+
+Given the row/column column co-ordinate of a character on the screen, this
+function returns the segment:offset address of that character in video
+memory. The address is correctly adjusted to the start of the the
+currently active display page, but no check is made to ensure that the
+co-ordinates supplied are within the actual screen bounds.
+
+Input:      AL      = Row co-ordinate of character (0 = row 1).
+            AH      = Column co-ordinate of character (0 = column 1).
+
+Output:     ES:DI==>  Address in video display buffer of the
+                      character cell specified.
+            DX      = CRT status register port address.
+
+It is assumed that a previous call has been made to the VIDEOTYPE function
+(see below), to determine the screen width, the port address of the CRT
+status register and the correct video display segment. 
+
+
+SCREENCOPY
+
+Copy a character and attribute from the video display to a buffer at the
+address specified.
+
+            extrn   ScreenCopy: far
+
+If the 'snow prevention' flag is set, this routine waits until the
+beginning of the next CRT horizontal retrace period before reading data
+from the display. This is necessary only on machines fitted with a Colour
+Graphics Adaptor (CGA) which may suffer from glitches or screen snow if
+data is copied from the screen while the video buffer is being refreshed.
+
+Input:      DS:SI==>    Address of the screen location from which
+                        the data is to be copied. 
+            ES:DI==>    Address of the buffer into which the data
+                        is to be copied.
+            DX =        Port address of CRT status register.
+
+Output:     SI and DI   Updated to point to next buffer locations.
+            AX          destroyed.
+
+It is assumed that a previous call has been made to the VIDEOTYPE function
+(see below), to determine the screen width, the port address of the CRT
+status register and the correct video display segment. VIDEOTYPE also sets
+an internal 'snow-prevention' flag if the host machine has a CGA display
+adaptor installed. This activates a routine which synchronises direct
+video reads and writes to the CRT vertical retrace period, preventing
+interference on the display.
+
+
+SCREENREAD
+
+Read a character and attribute from the display.
+
+            extrn   ScreenRead: far
+
+This procedure is similar to SCREENCOPY (see above), except that the word
+is simply loaded into AX instead of being copied into a buffer.
+
+Input:      DS:SI==>    address, in the video display buffer, from
+                        where the data is to be read
+            DX =        port address of the CRT status register.
+
+Output:     AL =        character at the specified address
+            AH =        display attribute given to character
+            DI          updated to point to the next word address
+
+It is assumed that a previous call has been made to the VIDEOTYPE function
+(see below), to determine the screen width, the port address of the CRT
+status register and the correct video display segment. VIDEOTYPE also sets
+an internal 'snow-prevention' flag if the host machine has a CGA display
+adaptor installed. This activates a routine which synchronises direct
+video reads and writes to the CRT vertical retrace period, preventing
+interference on the display.
+
+
+SCREENWRITE
+
+Output a character and attribute to the video display.
+
+            extrn   ScreenWrite: far
+
+If the 'snow prevention' flag is set, this routine waits until the
+beginning of the next CRT horizontal retrace period before writing data to
+the display. This is necessary only on machines fitted with a Colour
+Graphics Adaptor (CGA) which may suffer from glitches or screen snow if
+data is written to the screen while the video buffer is being refreshed.
+
+Input:      ES:DI==>    Address in the video display buffer where
+                        the data is to be written. 
+            DX =        Port address of CRT status register.
+            AL =        Character to output.
+            AH =        Display attribute to set
+
+Output:     DI          Updated to point to next output address.
+
+It is assumed that a previous call has been made to the VIDEOTYPE function
+(see below), to determine the screen width, the port address of the CRT
+status register and the correct video display segment. VIDEOTYPE also sets
+an internal 'snow-prevention' flag if the host machine has a CGA display
+adaptor installed. This activates a routine which synchronises direct
+video reads and writes to the CRT vertical retrace period, preventing
+interference on the display.
+
+
+SHOWCURSOR
+
+Makes the cursor visible. No parameters are required or returned.
+
+            extrn   ShowCursor: far
+
+This method ANDs the byte value of the cursor start line with 31 (1F Hex)
+which, restores the cursor after being made invisible by the HIDECURSOR
+routine (see above).
+
+Note:       SHOWCURSOR can be called directly from QuickBASIC but, since
+            the LOCATE statement provides an alternative means of turning
+            the cursor on and off, it is not needed in high-level code.
+
+
+VIDEO
+
+Video equipment check. This function returns information about the active
+display adaptor installed in the host system.
+
+            extrn   Video: far
+
+No input parameters are required, on return AX should be examined for the
+following values:
+    
+        AL = type of video adaptor installed
+
+             1 = MDA   - Monochrome Display Adaptor
+             2 = CGA   - Colour Graphics Adaptor
+             3 = HGC   - Hercules Graphics Card
+             4 = HGC+  - Hercules Graphics Card Plus
+             5 = HIC   - Hercules InColour Card
+             6 = EGA   - Extended Graphics Adaptor
+             7 = PGA   - Professional Graphics Adaptor (IBM PS/2)
+             8 = VGA   - Video Graphics Array
+             9 = MCGA  - MultiColour Graphics Adaptor  (IBM PS/2)
+
+        AH  (bits 0-6) = size of display memory in 16K blocks
+                         (0 = <16K, 1 = 16K, 2 = 32K, etc.)
+            (bit 7)    = type of display monitor in use
+                         (0 = colour, 1 = monochrome) 
+
+
+VIDEOTYPE
+
+Collects information about the current video display and sets various
+internal flags.
+
+            extrn   VideoType: far
+
+The correct video display segment and CRT status port addresses are
+determined for the current system and, if necessary, the internal 'snow'
+prevention flag is set.
+
+Input:      nothing
+
+Output:     AL =    Current display mode
+            AH =    Screen width in columns
+            BL =    Screen height in rows
+            BH =    Active display page
+
+You should make a preliminary call to this function before using any of
+the other internal routines which directly access video memory.
+
+
+WRITEBYTE
+
+Output a byte of data to video memory.
+
+            extrn   WriteByte: far
+
+This procedure is similar to ScreenWrite, above, except that only a single
+byte is written. It is used by the BackFill routine to reset the display
+attribute of a character, without changing the character itself.
+
+Input:      ES:DI==>    address, in the video display buffer, where
+                        the byte is to be written.
+            DX =        port address of the CRT status register.
+            AL =        the byte value to be written.
+
+Output:     DI          updated to point to the next byte address
+
+It is assumed that a previous call has been made to the VIDEOTYPE function
+(see above) to determine the screen width, the port address of the CRT
+status register and the correct video display segment. VIDEOTYPE also sets
+an internal 'snow-prevention' flag if the host machine has a CGA display
+adaptor installed. This activates a routine which synchronises direct
+video reads and writes to the CRT vertical retrace period, preventing
+interference on the display.
+
+
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+

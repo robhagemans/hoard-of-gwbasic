@@ -1,0 +1,38 @@
+Short : SPRITE Version 2.0, 256 color image editor for Qbasic
+Type  : Shareware Utility/ Qbasic Programming source
+Uploader : TimTruman@aol.com 
+Replaces : NONE
+
+
+Sprite is a full featured image editor utility that can make 
+adding colorfull detailed images to Qbasic(r) possible. Sprite 
+utilizes Mode 13 (320x200x256) and can edit multiple images at 
+once up to 64 X 64 pixels in 256 colors. Because SPRITE can 
+display and save multiple images at once, it is ideally suited 
+for developing graphics for programs that require numerous small 
+images, like those that are found in games.
+ 
+SPRITE has an extensive array of editing tools that help make 
+creating images quickly and easily. Pen, line, circle, box, 
+fill, moves, flips, scaling, rotation, animation, re-sizing,
+color editing and loading PCX files, are all part of 
+SPRITEs aresonal. 
+
+Creating images is only part of the story, though. Qbasic 
+programs need a fast way to load and display images. 
+SPRITE saves its files using the Qbasic statement BSAVE. 
+Its counter statement BLOAD is the fastest file function 
+Qbasic offers. Sprites are BLOADed into programs then displayed 
+using the PUT graphics statement. PUT is the fastest graphic 
+primitive statement provided in Qbasic and makes fast animation 
+possible. The included Qbasic Demo programs demonstrate loading 
+and displaying images, animating images and other useful concepts. 
+ 
+Sprite also has features that make combining several sprite 
+files, even files that contain images of different sizes, 
+possible. If you have used an ealier version of SPRITE you know 
+that there was no way to combine images from multiple sprite files. 
+Now SPRITE has a function 'COPY FROM' that allows you to 'COPY' 
+any image from another sprite file regardless of its image size.
+
+SPRITE 2.0 is shareware. Documentation sprite.txt.

@@ -1,0 +1,11 @@
+@echo off
+describe add4dos.bat "adds 4DOS descriptions for LibWiz"
+describe catalog.txt "catalog for Tom Hanlin software"
+describe files.lst "list of files included with LibWiz"
+describe libwiz.doc "Library Wizard (BASIC lib manager) docs"
+describe libwiz.exe "Library Wizard (BASIC lib manager)"
+describe libwiz.new "new info about Library Wizard"
+describe libwizu.exe "Library Wizard .INF creation helper"
+describe register.txt "order form for Tom Hanlin software"
+describe unlib.exe "copy all .OBJs from .LIB to disk"
+describe where.bbs "where to find Tom Hanlin by modem"

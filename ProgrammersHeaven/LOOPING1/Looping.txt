@@ -1,0 +1,71 @@
+	Hello, my name is Dr. COM WIZ. I am also a QBasic fanatic and I 
+am willing to share my knowlege with others just like me. Look for
+more of my tutorials at ProgrammersHeaven.com later on.
+        Today's tutorial focuses on looping. The following keywords will be reviewed:
+                      
+   1. FOR    2. NEXT   3. DO   4. LOOP     5. CIRCLE    6. SOUND
+	
+
+	First of all, what is looping? No, it does not have anything to do with making loops on a screen, although it can be used to do so. Loopig basicly means that the computer must follow instructions more than once. You can make it do what you want it to do for as many times as you want the computer to do it. For example, this is a simple loop using the DO...LOOP block:
+(The lines are numbered just for the ones that use BASIC and not QBasic)
+
+10 DO                  'starts the loop
+20 PRINT "I'm learning how to loop and you can't stop me!"
+30 BEEP
+40 LOOP                ' "Loop" tells the computer to start again from                         '  "Do"
+
+ Note: You can use apostrophes for description purposes. Anything after it is disregarded and the computer says nothing about it. Look for more tutorials by me about this and REM statements.
+
+ 	This loop will continue for ever and ever until you hold the "Ctrl+Break" key combination. Do so to return to your command window,
+the place you typed the program in.
+	What if you want to loop until until a pre-determined key is pressed? Well, you can do just about anything with QBasic. This is how you do it:
+
+10 DO WHILE INKEY$ = " "      'looping condition                  
+20 PRINT "Press space bar to stop the madness! " 
+30 BEEP
+40 LOOP
+
+	We use INKEY$ to tell the computer to keep looping until a key is pressed. In this case, it's " ", or space bar. Fill the quotation marks with one character(one letter or one number) to subsitute the space bar. Leave the quotes blank to stand for all keys.  
+	There is also another kind of loop that only loops a number of times. This loop is very powerful and can be used for decreasing and increasing variables. It's called FOR...NEXT loop and it goes a little something like this:
+
+10 FOR num = 1 TO 100
+20 PRINT "I've been looping "; num ;" times!"
+30 NEXT num
+
+	This loop informs the computer to loop until the varible "num" equals 100. It also displays it's current value in the PRINT statement. 
+Note: If varibles are printed between statements, they must have a semicolon (;) on each side.
+ 
+	That's pretty simple. Almost too simple. Let's get deeper with FOR...NEXT. If you never used it before, you'll like it now. I mentioned earlier that FOR ... NEXT can be used to increase or decrease variables over a period of time. I first learned to use FOR...NEXT with sound effects in QBasic and you will, too. here's how:
+
+10 FOR note = 100 to 500 STEP 2 
+20 SOUND note, .5 
+30 NEXT note
+
+	The variable "note" stands for how high the note should go. It starts as 100 hundred then rises to 500. The STEP command allows you to let the computer know that you want it to count by 2's. The higher the STEP number after, the more it skips, and the faster it goes. Moving on...
+	I like graphics and so do you. We can use FOR...NEXT to create some simple graphical affects. An opening and closing circle is simple enough, right? Before you read on to my program, think of how you would make it happen, then compare your guess to my program and see how effective you  think you are.
+	Are you done guessing? Good! Now check this out:
+
+10 SCREEN 1                          'graphics screen mode
+15 DO WHILE INKEY$ = ""
+20 FOR radius = 1 to 100
+30 CIRCLE (160 , 100), radius , 2    '2 is the color code for purple
+40 NEXT radius
+50
+60 FOR radius = 100 TO 1 STEP -1
+70 CIRCLE (160 , 100), radius , 0    '0 is the color code for black
+80 NEXT radius
+90 LOOP                              'Back to DO
+
+	This very simple. The radius of each circle is larger than the last, making it look like an openig circle. In the second FOR...NEXT loop, STEP -1 lets the computer know that the value of the variable "num" decreases by 1. Thus, it makes a black circle over the purple circle and the black circle's radius gets smaller and smaller, making it look like it's closing. This pattern repeats until you press a key. 	This is just too simple. In my next tutorial, I'll have more advanced loops, making graphical output look more attractive and exiting. I'll also make a tutorial teaching you how to use variables to create full-lengthed complete programs for tohers to use and not just to look at. I'll leave you with some excersizes to test what you know.
+
+     1. Make a program that has rising and falling sound affects when a circle gets larger an smaller.
+Note: you can use the FOR...NEXT variable in more than on case. In my QBasic interpreter, all sound must be eather 0 or higher tan 50.
+     2. Make a program that displays every number between 100 and 200 counting by 5's.
+
+Do I use too many big words? Too much talking and not enough coding? What do you think about my tutorial? Let ProgrammersHeaven.com know or let me know by e-mail : DrCOMWIZ@aol.com	
+	
+	I've enclosed in this file my creation. One of 14 screen savers that I have made. The codes are fully described and all you have to do is drag to your QBasic interpreter (or compiler) and run it. Don't forget to read it first and guess what it does exactly. It's not bad for a thirteen year-old-programmer.
+
+               This has been,
+                         Dr. COM WIZ
+P.S. Thank you and good night.    

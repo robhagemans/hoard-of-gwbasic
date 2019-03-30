@@ -1,0 +1,40 @@
+
+EBBS-PC v1.5x Packing List:
+
+*.              - ascii files - menu's, id, info, nulom, ob, cb, etc.
+*.ans           - ansi files  - menu's, id, info, etc.
+
+
+EBBS     BAT    - use this to run ebbs, set up environ var's, etc.
+EBBSBACK BAT    - example event backup batch file
+EVENT    BAT    - midnight event batch file
+UPDATE   BAT    - updates userfile data from v1.45 to v1.5x
+
+TRASH    CAN    - full of undesirable logon text
+
+EBBSCFG  DAT    - ebbs configuration file - edit this!
+
+FILE_ID  DIZ    - bbs description file
+
+EBBS     DOC    - small but informative doc file
+FEATURES DOC    - quick list of features
+ORDER    DOC    - order form
+PACKING  DOC    - this file
+QUIKSTRT DOC    - how to get ebbs going REAL quick
+WHEREBBS DOC    - my contact/ebbs support bbs info
+
+EBBS-PC  EXE    - main ebbs program file
+MAKEDIRS EXE    - makes all dirs required for ebbs
+UFMAINT  EXE    - event bat userfile maintenance
+UFPACK   EXE    - event bat userfile compactor
+UPDUF    EXE    - userfile updating util
+XFDATE   EXE    - adjusts v1.45 xfer dats to new v1.5x format
+XFMAINT  EXE    - event sort/pack xfer files util
+
+XFER     HLP    - basic online xfer section help
+
+UFSORT   PBC    - user sort module
+
+ERRCODES PB3    - list of pb30 common error codes
+
+EXAMPLE  TXT    - example text file - move to \ebbs\text

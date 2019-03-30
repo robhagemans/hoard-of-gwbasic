@@ -1,0 +1,97 @@
+PLEASE READ THIS PAGE CAREFULLY.  It gives important ordering information.
+Truly, I'm not doing this just to torture you!  Take a moment and look.
+
+Registration of a library entitles you to receive a disk or disks containing
+the latest version of that library, complete with full source code and
+documentation files.  Registration entitles you to receive updates for $10 at
+any time you choose to upgrade.
+
+A collection of other useful libraries and utilities will also be sent to you
+upon registration.  See the CATALOG.TXT file for descriptions.  The items
+mentioned in CATALOG.TXT are representative and are subject to updates or
+replacement by other items.  If you require low-density disks, the number of
+items may be reduced in order to fit on a reasonable number of disks.
+
+All checks must be in U.S. funds drawn on U.S. banks.  Sorry, checks drawn on
+foreign banks are no longer accepted-- it takes them too long to clear and
+there is a large surcharge, so they just aren't worth it to me.  If you are
+in another country, consider using an international money order.
+
+For PBClone, and PBClone only, credit card orders are now accepted through
+the fine offices of the Public (software) Library.  If you wish to register
+PBClone by MC, Visa, or American Express, call PsL at 1-800-2424-PSL or FAX
+them at 1-713-524-6398.  These numbers are for ORDERS ONLY.  For questions
+about credit card orders, call PsL at 1-713-524-6394.  You can also mail
+credit card orders to PsL at: P.O. Box 35705, Houston TX 77235-5705.  FOR
+FASTER SERVICE, remember that PBClone is item #10387.
+
+Orders for upgrades or other products, as well as technical questions or
+comments, should be directed to me at the address listed on the next page.
+The Public (software) Library only processes credit card orders for PBClone
+and is not responsible for any other services related to my software.  For
+ANYTHING NOT DIRECTLY RELATED TO ORDERING PBClone by credit card, WRITE ME
+DIRECTLY or call a BBS listed in WHERE.BBS-- PsL only processes credit card
+orders for me, nothing more.
+
+Please allow 3-4 weeks for delivery.  While I try to process registrations as
+quickly as possible, I employ a mail drop in order to maintain a permanent
+address, and this imposes an unavoidable delay.
+
+Prices may change.  In specific, PBClone and PBWiz will rise from $25 to $35
+as of January 1, 1993.  Other changes may take place at later dates.  If your
+copy of this document is more than a year old, please write for current
+prices or check your local BBSes for a newer version.
+
+   M A I L   T O        Thomas G. Hanlin III
+   ---------------->    3544 E. Southern Ave. #104
+                        Mesa, AZ 85204
+
+
+
+                                           Price Ea.     Qty        Amount
+ +--------+------------------------------+-----------+----------+-------------+
+ | SAMPLE | Sampler (FREE with any lib)  |           |          |             |
+ |        |    see CATALOG.TXT for list  |   $ 5.00  |     1    |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | ASMWIZ | Assembly Wizard's Library    |           |          |             |
+ |        |    for ASM programmers       |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | BASWIZ | BASIC Wizard's Library       |           |          |             |
+ |        |    for QuickBASIC & BASCOM   |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PASWIZ | Pascal Wizard's Library      |           |          |             |
+ |        |    for Quick & Turbo Pascal  |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PBCLON | PBClone Library              | 1992 ONLY |          |             |
+ |        |    for QuickBASIC & BASCOM   |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PBWIZ  | PowerBASIC Wizard's Library  | 1992 ONLY |          |             |
+ |        |    for Spectra's PowerBASIC  |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | Postage and Handling                                         |             |
+ |   *** ONLY ADD POSTAGE IF OUTSIDE THE U.S. ***       $ 4.00  |             |
+ +--------------------------------------------------------------+-------------+
+ |                                                              |             |
+ |   T O T A L   E N C L O S E D                                |             |
+ +--------------------------------------------------------------+-------------+
+
+ Mailing address:
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+
+ ***---> Disk type:  [  ] 360K    [  ] 720K    [  ] 1.2M    [  ] 1.44M  <---***
+
+
+
+
+
+ Please list any suggestions or comments on the back of this page.  Your
+ suggestions are most welcome and I do pay attention to them.
+

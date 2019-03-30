@@ -1,0 +1,53 @@
+        
+        
+        If you wish to send a copy of MANUAL.DOC to your printer (34 
+        pages) type:
+        
+        A:>COPY MANUAL.DOC PRN 
+        
+        To run the demonstration programs you must:
+        
+        (1): Have an IBM PC/XT/AT/386 or compatible,  plus Microsoft 
+             QuickBASIC 4.x or Visual Basic for MS-DOS.  Most of the 
+             demo programs require a graphics mode;  you may need to  
+             change  SCREEN 12  to another  graphics mode  that your 
+             hardware is capable of displaying.
+
+        IMPORTANT!     
+        ==========
+             
+             If you are not using QuickBASIC 4.0 - 4.5  see "Getting 
+             started" on page 2  of the manual  before trying to run 
+             the demo  programs.  I have  tested this  library using 
+             QuickBASIC 4.5 and Visual Basic for MS-DOS Professional,
+             and everthing seems to work fine.  This library has not  
+             been tested with BASIC 7x,  so if you  are  using  this 
+             version and run into a problem, please let me know so I 
+             can correct it.
+        
+        (2): Start the QuickBASIC editor by typing QB/L MLIBN
+             
+        
+        (3): You are ready to load and run the demos.
+             NOTE:  these demos are very simple little  programs and 
+             do not show all the routines contained in MLIB.
+
+        MLIB v2.2 (demo version) distributed file list.
+        ------------------------------------------------------------
+       
+        README         - This file.
+        MANUAL.DOC     - Documentation.
+        MLIB.INC       - Include file.
+        MLIBN.LIB      - Link library (near string support only).
+        MLIBF.LIB      - Link library (far string support only).
+        MLIBN.QLB      - Quick library (near string support only).
+        CVT2DATA.BAS   - Convert bit mask to BASIC data statments.
+        VIEWSHP.BAS    - View the different shapes in DEMO.SHP.
+        DEMO1.BAS      - MLIB demo programs.
+        DEMO2.BAS      -  "
+        DEMO3.BAS      -  "
+        DEMO4.BAS      -  "
+        DEMO.SHP       - Contains pointer shapes.
+        ORDER.FRM      - Contains the order form.
+        ------------------------------------------------------------
+

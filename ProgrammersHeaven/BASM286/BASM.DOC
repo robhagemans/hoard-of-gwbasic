@@ -1,0 +1,1142 @@
+   ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+ÚÄÄ´ BASM!  The BASIC to 80286 Assembly Language Compiler ÃÄÄÄÄ´  ShareWare  ÃÄ¿
+³  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÙ ³
+³                                                                              ³
+³  BASM translates a BASIC-like language to 80286 assembly language source.    ³
+³                                                                              ³
+³  The assembly language that BASM produces was designed and tested to compile ³
+³  without modification using Borland's Turbo Assembler versions 1.01 & 3.2    ³
+³  and Microsoft's Macro Assembler version 4.00.                               ³
+³                                                                              ³
+³                        Try BASM free for 30 days...                          ³
+³                                                                              ³
+³      If you like it, please send $25.00 cash, check or money order to:       ³
+³                  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿                    ³
+³                  ³             Kevin Diggins            ³                    ³
+³                  ³       10707 E. Quarterline Rd.       ³                    ³
+³                  ³   Apache Junction, Arizona  85220    ³                    ³
+³                  ³       United States of America       ³                    ³
+³                  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´                    ³
+³                  ³  Internet:   zardoz@aztec.asu.edu    ³                    ³
+³                  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                    ³
+³                                                                              ³
+³        Registered users will receive future upgrades free by mail!           ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³   BASM is a powerful 80286 assembly code generator.  It can create stand     ³
+³   alone programs or you can use it to help optimize programs using your      ³
+³   favorite programming language.                                             ³
+³                                                                              ³
+³                                                                              ³
+³                                                                              ³
+³                BASM version 3.0 runs on 286 or higher CPU's.                 ³
+³                                                                              ³
+³                                                                              ³
+³                                                                              ³
+³    BASM was written using PowerBASIC version 3.0.  The source code can be    ³
+³    licensed for personal use for $100.00                                     ³
+³                                                                              ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+
+
+
+                          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´   D I S C L A I M E R  ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ                           ³
+³                                                                              ³
+³         The user accepts all risk and responsibility for any damages         ³
+³         resulting directly or indirectly from the use of this program        ³
+³         and/or the code it creates.                                          ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+ÕÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¸
+³                 Upgrading from a previous version of BASM ?                  ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³  Users of earlier releases of BASM will see many improvements in Version 3:  ³
+³  Amoung the many inprovements:                                               ³
+³                                                                              ³
+³  The BASM compiler is smaller than ever, requiring less memory to run.       ³
+³  Supports Nested $INCLUDE statements                                         ³
+³  Additional Compiler Directives ( meta-statements )                          ³
+³  Larger Source Buffer                                                        ³
+³  Faster compiles                                                             ³
+³  Exe and Com files are smaller and faster than ever before!                  ³
+³                                                                              ³
+³  Over 100 built-in functions                                                 ³
+³  Dynamic Memory Allocation                                                   ³
+³  Code optimized for 80286                                                    ³
+³  New loop control                                                            ³
+³  Improved output file format                                                 ³
+³  And many other enhancements...                                              ³
+³                                                                              ³
+³  Be sure to read this DOC file to learn about changes made from earlier      ³
+³  versions.  Some statements have changed that are incompatible with the      ³
+³  earlier releases of BASM.  The changes will be minor but worth the effort.  ³
+ÔÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¾
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ U S A G E ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³   BASM is a command line program.  To compile a BASIC program, type...       ³
+³                                                                              ³
+³                           BASM filename [.bas]                               ³
+³                                                                              ³
+³ The filename MUST end in .BAS but need not be specified on the command line  ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³   To compile a program named TEST.BAS using TASM and TLINK, you would use:   ³
+³                                                                              ³
+³                                BASM  Test                                    ³
+³                                TASM  Test                                    ³
+³                                TLINK Test                                    ³
+³                                                                              ³
+³           That's all there is to it!  TEXT.EXE is now ready to run.          ³
+³                                                                              ³
+³        If you are generating code for a .COM file then you would use:        ³
+³                                                                              ³
+³                                BASM    Test                                  ³
+³                                TASM    Test                                  ³
+³                                TLINK   Test  /t                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+                             ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                             ³ CODE GENERATION ³
+                             ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+       BASM can generate assembly code files for the following MODELS:
+
+
+       (*)  TINY MODEL
+            All CODE and DATA are contained in a single 64K segment.  Using
+            this model produces the smallest and fastest programs possible.
+            This model produces .COM files when compiled.
+
+       (*)  SMALL MODEL
+            Program can have 64k of code, 64k of data, and 64k of stack space.
+            This model produces .EXE files when compiled.
+
+
+       BASM produces the assembly code for the entire program.  Unlike many
+       compilers, BASM writes only the code necessary to run your program.
+
+                 This keeps your program size as small as possible.
+
+
+
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Learning to use BASM ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³  BASM comes with many sample input files.  These samples show off some of    ³
+³  the powerful features of BASM.  Take time to look these over.  BASM is not  ³
+³  a full blown implementation of the BASIC programming language.  However,    ³
+³  as you will see in the sample programs, there is a strong resemblance.      ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+
+  ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+  ³                            The BASM Language                             ³
+  ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+  Like many computer languages, BASM programs contain Statements, Functions,
+  Compiler Directives, Program Control Mechanisms, Logic control, Variables
+  and Constants.
+
+  Unlike many, however, BASM is not as sophisticated when it comes to parsing
+  the source input file.  BASM is a 2 pass compiler.  Pass 1 is a preprocess
+  phase where BASM reads in your program and any $INCLUDE'd files and acts
+  upon certain statements.  Pass 2 is the compilation phase.
+
+  BASM disregards commas, semi-colons, parenthesis and brackets.  There is
+  no need to use them at all.  BASM parses EVERYTHING from LEFT to RIGHT.
+  This means that there is NO precedence other than order of entry.  Consider
+  these 2 statements:
+
+                              a = ( 1 + 2 ) * 3    ...  This equals 9
+                              a = 1 + ( 2 * 3 )    ...  This equals 7
+
+  BASM will evaluate BOTH expressions to 9.  In other words ... BASM does not
+  use parenthetical or algebraic precedence.
+
+
+        Passing functions to functions is not supported.  For example:
+
+              Not supported:    a$ = UCASE$ (LTRIM$ (a$) )
+
+              BASM supports:    a$ = UCASE$(a$)
+                                a$ = LTRIM$(a$)
+
+
+      Passing expressions to functions is not supported.  For example:
+
+              Not supported:    a$ = mid$( a$, a + 1, 5)
+
+              BASM supports:    tmp = a + 1
+                                 a$ = mid$(a$,tmp,5)
+
+
+      Expressions may not contain user defined functions. For example:
+
+              Not supported:    z = MyFunc(a,b,c) + 1 + 2 + q
+
+              BASM supports:    z = MyFunc(a,b,c)
+                                z = z + 1 + 2 + q
+
+  Comparisons (IF-THEN-ELSE-END IF) can only be formed of variables & constants.
+  This means comparisons may not contain expressions.  For example:
+
+  Not Supported:       IF A$ + B$ = "Hello World" THEN END
+
+  BASM Supports:       Tmp$ = A$ + B$
+                       IF Tmp$ = "Hello World" THEN END
+
+              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+              ³ BASM also supports the multi-line forms ..³
+              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+Example 1:                     IF a$ = "True" then
+                                  PRINT "Oh, yeah"
+                                  PRINT "Goodbye"
+                               END IF
+
+
+Example 2:                     IF a$ = "True" then
+                                  PRINT "Oh, yeah"
+                               ELSE
+                                  PRINT "Oh, no!"
+                               END IF
+
+
+
+  BASM has 4 data types: String Variables, String Constants, Numeric Variables
+  and Numeric Constants.  All BASM Numbers are 16 bit SIGNED integers which
+  have a value range of -32768 to +32767.
+
+  Regular string variables default to 80 bytes and 1 termination byte.  This
+  can be overridden with the $STRING compiler directive, explained later. BASM
+  follows the ASCIIZ convention for manipulating strings.  That means that all
+  strings are terminated with ascii character zero.
+
+  BASM supports single-dimension arrays ( See section on using arrays )
+
+  All variables are assumed to be global (SHARED) unless explicitly declared
+  LOCAL or STATIC within a SUB or FUNCTION.
+
+  Global, Local & Static variables permanently reside in the data segment.
+  BASM does not support DYNAMIC variables.  That is, all variable space is
+  allocated at compile time and not from the stack or heap.  You can, however,
+  allocate a block of memory using the ALLOC function.
+
+  Disk I/O is limited to sequential file access.  You may read/write numeric
+  and string constants and variables to and from ascii files.
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ $ASM                                                                         ³
+³                                                                              ³
+³   This metastatement simplifies including assembly language in your BASIC    ³
+³   source code.  Simply sandwich your inline assembler between two $ASM       ³
+³   statements and BASM does the rest!  Note that comments following assembler ³
+³   statements MUST begin with the ; character and not the ' character.  There ³
+³   is a very good reason for this... everything identified as an ASM command  ³
+³   is passed to the final assembly file untouched.  This means you can use    ³
+³   all the toys available in the assembler that you're using!                 ³
+³                                                                              ³
+³                                                                              ³
+³  Example:                                                                    ³
+³                                                                              ³
+³         $Asm                                                                 ³
+³            Add AX,255           ;This eliminates the need to preface each    ³
+³            Mov BX,AX            ;line of assembler with the ASM keyword.     ³
+³         $Asm                                                                 ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ $COM                                                                         ³
+³                                                                              ³
+³   This directive controls the generation of code that ultimately produces a  ³
+³   .COM program.  All code and data must fit in a single 64k segment.  You    ³
+³   may need the EXE2COM utility in addition to your assembler and linker to   ³
+³   create an executable .COM file when compiling under this model.            ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ $EXE                                                                         ³
+³                                                                              ³
+³   This directive controls the generation of code that ultimately produces a  ³
+³   .EXE program.  You get 64k for code, 64k for data, and up to 64k of stack. ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³           Limitations on the use of BASM in producing COM programs           ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³   (1)         You cannot use the SEG assembly pseudo-op or any code that     ³
+³               results in relocatable items in the object file.  In other     ³
+³               words, all addresses must be determined at compile time and    ³
+³               not resolved by the DOS loader at runtime.                     ³
+³                                                                              ³
+³   (2)        All CODE and DATA must fit within a single 64k segment.         ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ $INCLUDE "filename.ext"                                                      ³
+³                                                                              ³
+³  This directive merges source code in another file with the main file.  You  ³
+³  can use this directive as many times and in as many places as you desire.   ³
+³                                                                              ³
+³  $INCLUDE FileNames DO NOT have to end with a file extension of .BAS         ³
+³                                                                              ³
+³  Starting with BASM version 3, $INCLUDE statements can be nested.  The only  ³
+³  limitation on the level of nesting is the total number of available DOS     ³
+³  FileHandles available on your system.  This is controlled with the          ³
+³                                                                              ³
+³               "FILES =" statement in your CONFIG.SYS file.                   ³
+³                                                                              ³
+³  Example:      ? "This is file 1"                                            ³
+³                $INCLUDE "File2.bas"      ' File2.bas $INCLUDE's File3.bas    ³
+³                $INCLUDE "File4.bas"                                          ³
+³                ? "More code from file 1"                                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³  $COMMENT                                                                    ³
+³                                                                              ³
+³   This allows you to add comment blocks without alot of hassle.  Each        ³
+³   comment block begins and ends with $COMMENT appearing on it's own line.    ³
+³   For example:                                                               ³
+³                                                                              ³
+³   $Comment                                                                   ³
+³                                                                              ³
+³        This is a long rambling comment which holds no inherent value.        ³
+³        Here is another worthless collection of words                         ³
+³        And yet another!                                                      ³
+³                                                                              ³
+³   $Comment                                                                   ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ $STACK  size                                                                 ³
+³                                                                              ³
+³   This metastatement allows you to increase the size of the stack.  The      ³
+³   default size for .EXE files is 256 bytes.  If your program uses alot       ³
+³   of nested GOSUB's or if any of your SUB's are recursive then you should    ³
+³   increase the size of the stack appropriately.  In most cases, the default  ³
+³   size is adequate.                                                          ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ $SOURCE on,off   Controls the generation of BASIC source lines. This command ³
+³                  can be used selectively & repeatedly in your BASIC program. ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ $STRING  size                                                                ³
+³                                                                              ³
+³   Sets the default string size in your program.  By default, BASM sets       ³
+³   aside 81 bytes for each simple string variable, 80 for the string & 1      ³
+³   terminator byte. The minimum size will never be less than 81 bytes.        ³
+³                                                                              ³
+³ [ Note ]  BASM uses up to 5 work strings for various operations, therefore   ³
+³    if you specify a size of 1000 bytes, 5000 bytes may be needed by some     ³
+³    of the string functions.  This is controlled automatically.  $STRING is   ³
+³    meant to only be used ONCE in any program, as it has a global effect.     ³
+³                                                                              ³
+³   You can override the default string size by using the DIM statement.  For  ³
+³   example, if $STRING was set to 99, you could allocate a string variable    ³
+³   to 1000 bytes by using the statement:  DIM MyString$ * 1000.  Don't forget ³
+³   BASM strings are null terminated so you may need to add an extra byte.     ³
+³                                                                              ³
+³   Any string functions used MUST be able to process your longest string.     ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ $UNDEFINE (Basm Function Name)                                               ³
+³                                                                              ³
+³  This metastatement instructs BASM to remove a built-in BASM function name   ³
+³  from it's list of built-in functions.  This gives you the ability to define ³
+³  your own version of a built-in function.                                    ³
+³                                                                              ³
+³  This is also quite handy when used with the DECLARE statement when linking  ³
+³  to object or library modules created using BASM. $UNDEFINE will be extended ³
+³  in a future version of BASM to allow for the removal of BASM statements.    ³
+³                                                                              ³
+³                    Example:  $UNDEFINE abs                                   ³
+³                                                                              ³
+³                              function abs(a)                                 ³
+³                                if a<0 then                                   ³
+³                                  abs=a*(-1)                                  ³
+³                                  exit function                               ³
+³                                else                                          ³
+³                                  abs = a                                     ³
+³                                end if                                        ³
+³                              end function                                    ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Compiler Directive ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ DECLARE    SUB        MySub      (parm1,parm2,..parmN)                       ³
+³ DECLARE    FUNCTION   MyFunction (parm1,parm2,..parmN)                       ³
+³                                                                              ³
+³ DECLARE tells BASM that the SUB or FUNCTION and the associated params        ³
+³         exist in a separate file.  BASM will push the params from right      ³
+³         to left ( C-style ) and will code the appropriate call.  BASM        ³
+³         places EXTRN statements near the end of the ASM listing.  The        ³
+³         SUB or FUNCTION must have been declared as PUBLIC in the remote      ³
+³         file.  The remote file can be either an .OBJ file or a .LIB file     ³
+³         as appropriate for your assembler and linker toolset.  BASM assumes  ³
+³         the datatypes are either Integers or NEAR Pointers to ASCIIZ strings ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Built-in Functions ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³  Keyword         Example                                                     ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³  DIR$           a$=dir$("*.bas",0)                                           ³
+³  TIME$          a$=time$                                                     ³
+³  DATE$          a$=date$                                                     ³
+³  COMMAND$       a$=command$                                                  ³
+³  CURDIR$        a$=curdir$                                                   ³
+³  UCASE$         a$=ucase$(a$)                                                ³
+³  LCASE$         a$=lcase$(a$)                                                ³
+³  MID$           a$=mid$(a$,start,count)                                      ³
+³  MID$           Mid$(a$,b)=b$            B$ is overlayed on a$ at position B ³
+³  LEFT$          a$=left$(a$,count)                                           ³
+³  RIGHT$         a$=right$(a$,count)                                          ³
+³  TRIM$          a$=trim$(a$)                                                 ³
+³  LTRIM$         a$=ltrim$(a$)                                                ³
+³  RTRIM$         a$=rtrim$(a$)                                                ³
+³  EXTRACT$       a$=extract$(main$,match$)                                    ³
+³  REMOVE$        a$=remove$(main$,match$)                                     ³
+³  REPEAT$        a$=repeat$(a$,count)                                         ³
+³  SPACE$         a$=space$(size)                                              ³
+³  VERIFY         a=verify(main$,match$)                                       ³
+³  CHR$           a$=chr$(a)                                                   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Built-in Functions ( continued ) ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³  Keyword         Example                                                     ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³  STR$           a$=str$(a)      (returns  Signed  integers  -32768 to 32767) ³
+³  USTR$          a$=ustr$(a)     (returns Unsigned integers       0 to 65535) ³
+³  BIN$           a$=bin$(Byte)           returns BYTE's BIN representation    ³
+³  HEX$           a$=hex$(Int)            returns INT's  HEX representation    ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³  ALLOC          a=alloc(z)        Allocate Memory     See section on memory  ³
+³  ASC            a=asc(a$)         Returns ASCII code of 1st letter in a$     ³
+³  ASC2           a=Asc2(a$,index)  Returns the Ascii code of index in a$      ³
+³  ABS            a=abs(a)          Returns the absolute value of a            ³
+³  BIN2DEC        a=bin2dec(a$)     Returns the decimal equivalent of a binary ³
+³  CODESEG        a=codeseg label   Returns the SEGMENT of the label specified ³
+³  CODEPTR        a=codeptr label   Returns the OFFSET  of the label specified ³
+³  GETKEY         a=getkey          Returns a unique keycode for each keypress ³
+³  INSTR          a=instr(a$,b$)    Returns B$ position within a$, else 0      ³
+³  VAL            a=val(a$)         Returns decimal equivalent of a$           ³
+³  LEN            a=len(a$)         Returns the string length of a$            ³
+³  SGN            a=sgn(a)          Returns -1 | 0 | 1 depending on sign of a  ³
+³  EOF            a=eof             Returns -1 if last file read was at end    ³
+³  ERR            a=err             Returns the last DOS extended error number ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Built-in Functions ( continued ) ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³  Keyword         Example                                                     ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³  AND            a=a and b         Bitwise and                                ³
+³  OR             a=a or  b         Bitwise or                                 ³
+³  XOR            a=a xor b         Bitwise xor                                ³
+³  NOT            a=a not b         Bitwise not                                ³
+³  POW            a=pow(x,y)        Returns x to the power of y     ( a=x^y )  ³
+³  INSTAT         a=instat          Returns -1 if a key was pressed, else 0    ³
+³  VIDEOCARD      a=videocard       Detects & returns either &HB000 or &HB800  ³
+³  CPUID          a=cpuid           Returns 0,1,2,3,4 if 8086/186/286/386/486  ³
+³  RND            a=rnd             Returns a pseudo-random # between 0 & 255  ³
+³  RANDOM         a=random(x)       Returns a pseudo-random # between 0 & x    ³
+³  TICKS          a=ticks           Returns a clock count between 0 and 255.   ³
+³  VARSEG         a=varseg(var)     Returns the data segment of a VARiable     ³
+³  VARPTR         a=varptr(var)     Returns the offset (address) of VARiable   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Disk Related Statements ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ OPEN           Filename For Mode as Handle { mode =input | output | append } ³
+³ CLOSE          [handle]                                                      ³
+³ FLUSH          [handle]                                                      ³
+³ KILL           FileName$                                                     ³
+³ CHDRIVE        DriveNumber    (0=A,1=B,2=C,...)                              ³
+³ CHDIR          SubDirName$                                                   ³
+³ MKDIR          SubDirName$                                                   ³
+³ RMDIR          SubDirName$                                                   ³
+³ NAME           OldFileName$ as NewFileName$                                  ³
+³ PRINT #        var1, var2,..,varN[;]  Where var is either string or numeric  ³
+³ INPUT #        var1, var2,..,varN     Where var is either string or numeric  ³
+³ LINE INPUT #   $                      Where $ is any String Variable         ³
+³ EOF            Returns 1 if the last disk read signaled end of file          ³
+³ DIR$           Returns FileNames based on search mask and file attributes    ³
+³ CURDIR$        Returns the current directory on the current drive            ³
+³ GET$           Handle,Count,Variable$      where file is open for INPUT      ³
+³ PUT$           Handle,String$              where file is open for OUTPUT     ³
+³ GETCHAR        Handle,byte,byte,...        where file is open for INPUT      ³
+³ PUTCHAR        Handle,byte,byte,...        where file is open for OUTPUT     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ NOTE:                                                                        ³
+³      File handles MUST be constants, not variables.  GET$ & PUT$ provide     ³
+³      BINARY access to files, but the file must already have been opened      ³
+³      for either INPUT or OUTPUT respectively.  Be aware that because BASM    ³
+³      strings are terminated with ascii 0, PUT$ will be limited in it's       ³
+³      use with binary files. For this reason, GETCHAR & PUTCHAR are included  ³
+³      to allow reading & writing ANY character to a file.  PUTCHAR is trapped ³
+³      with the ERR variable.  GETCHAR returns -1 if end of file is reached.   ³
+³                                                                              ³
+³           GET$ sets EOF to logical true if the end of file is reached.       ³
+³                                                                              ³
+³ Example:           Open "MYFILE" For Input As 1                              ³
+³                    Get$ 1,5,a$       'read 5 bytes into a$                   ³
+³                    Get$ 1,9,b$       'read 9 bytes into b$                   ³
+³                    Close 1                                                   ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Text Screen Input/Output Statements and Functions ]ÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ Command                                         Comments                     ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ CLS                                Clears the screen to background color     ³
+³ PRINT (or ?)  variant or constant, variant or constant ...                   ³
+³ INPUT  prompt$,variant  [;]        [;] is optional to suppress cr/lf         ³
+³ POS                                Returns the current cursor col position   ³
+³ CSRLIN                             Returns the current cursor row position   ³
+³ LOCATE  y,x [,0 or 1 ]             Sets the cursor for the next write        ³
+³ COLOR  (foreground,background)     Sets the foreground & background colors   ³
+³ FGCOLOR                            Returns the current foreground color      ³
+³ BGCOLOR                            Returns the current background color      ³
+³ FRAME  (x1,y1,x2,y2)               Draws a frame in the default colors       ³
+³ CHANGEATTR (X,Y,Count,Fg,Bg)       Quickly repaint a portion of the screen   ³
+³ VIDEOCARD                          Returns either &HB000 or &HB800           ³
+³                                                     Mono     Color           ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Text Screen Input/Output Statements and Functions ]ÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ Command                                         Comments                     ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ GETSCREEN   Var                    Save copy of 80x25 text screen to Var     ³
+³ PUTSCREEN   Var                    Restores 80x25 text screen from Var       ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³                                                                              ³
+³    When using the GETSCREEN & PUTSCREEN Commands, you must first ALLOCate a  ³
+³    variable to 4000 bytes.  For example:                                     ³
+³                                                                              ³
+³                      MyVar = ALLOC(4000)                                     ³
+³                         GetScreen MyVar          < --- saves the screen      ³
+³                             .                                                ³
+³                             .                                                ³
+³                             .                                                ³
+³                         PutScreen MyVar          < --- restores the screen   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄ[ Graphic Screen Input/Output Statements and Functions ]ÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³   SCREEN 0        ... color text mode                                        ³
+³   SCREEN 2        ... 320x200x04  graphics         cga,ega,vga               ³
+³   SCREEN 7        ... 320x200x16  graphics         cga,ega,vga               ³
+³   SCREEN 8        ... 640x200x16  graphics         ega,vga                   ³
+³   SCREEN 9        ... 640x350x16  graphics         ega,vga                   ³
+³   SCREEN 10       ... 640x350x02  graphics         ega,vga mono              ³
+³   SCREEN 11       ... 640x480x02  graphics         ega,vga mono              ³
+³   SCREEN 12       ... 640x480x16  graphics         ega,vga                   ³
+³   SCREEN 13       ... 320x200x256 graphics         ega,vga                   ³
+³                                                                              ³
+³   PSET   (column,row,color)                        plot a dot                ³
+³   POINT  (X,Y)                                     returns color of a pixel  ³
+³   LINE   (column1,row1,column2,row2,color)         draw a line               ³
+³   CIRCLE (X,Y,Radius,Numerator,Denominator,Color)  draw a circle             ³
+³          where Numerator & Denomerator represent the aspect ratio.           ³
+³  ***   NOTE   ***                                                            ³
+³                                                                              ³
+³  Only display page zero is automatically supported by BASM.  Of course,      ³
+³  you can modify the .ASM code easily enough if you know what you're doing.   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Program Control Statements ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ DO  - EXIT LOOP  -  LOOP                                                     ³
+³ FOR - NEXT - STEP - EXIT FOR                                                 ³
+³ REPEAT - END REPEAT                                                          ³
+³ IF  - THEN - ELSE - END IF                                                   ³
+³ SUB - EXIT SUB - END SUB                                                     ³
+³ GOTO  labelname                                                              ³
+³ GOSUB labelname                                                              ³
+³ RETURN                                                                       ³
+³ FUNCTION - EXIT FUNCTION - END FUNCTION                                      ³
+³ CALL  SubName [parameters]                       { CALL is optional }        ³
+³ SELECT - CASE - END SELECT                                                   ³
+³ WHILE -EXIT WHILE- WEND                                                      ³
+³ END  [optional DOS Errorlevel value]                                         ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Special purpose statements ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ SHELL     [CommandLine$]            Executes a child process or DOS command  ³
+³ REPLACE   Match$ WITH Replace$ IN Main$                                      ³
+³ SWAP      Var1, Var2   LIMITATION: Vars must be the same type.               ³
+³ DELAY     Seconds      LIMITATION: Seconds must be > 0 and < 3600 = 1 hr     ³
+³ ASM       Use assembly language op & pseudo-ops in your BASIC program.       ³
+³ BEEP      Makes a beep sound for about 1/2 second                            ³
+³ MOVEMEM   Moves a specified number of bytes           See section on memory  ³
+³ RELEASE   Frees a previously allocated memory block   See section on memory  ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³ DIM           Allocate memory for strings & arrays    See section on arrays  ³
+³ ARRAY SORT    Sorts a string array                    See section on arrays  ³
+³ ARRAY INSERT  Insert an element in a string array     See section on arrays  ³
+³ ARRAY DELETE  Delete an element in a string array     See section on arrays  ³
+³ SCAN          Search a string array for a match       See section on arrays  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Math Operators ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ +             a = b + c                     integer addition                 ³
+³ -             a = b - c                     integer subtraction              ³
+³ *             a = b * c                     integer multiplication           ³
+³ /             a = b / c                     integer division                 ³
+³                                                                              ³
+³ AND           a = b AND c                   bitwise operation                ³
+³ OR            a = b OR  c                   bitwise operation                ³
+³ XOR           a = b XOR c                   bitwise operation                ³
+³ NOT           a = b NOT c                   bitwise operation                ³
+³                                                                              ³
+³ MOD           a = b MOD c                   remainder of integer division    ³
+³ INCR          incr a [,constant or var]     increments a variable            ³
+³ DECR          decr a [,constant or var]     decrements a variable            ³
+³ SHL           shl  a [,constant or var]     mul a var by a power of 2        ³
+³ SHR           shr  a [,constant or var]     div a var by a power of 2        ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Dynamic Memory Allocation ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ BASM v.3.0 provides you with three new powerful functions for dealing with   ³
+³ memory: ALLOC, RELEASE, and MOVEMEM.  These routines work equally well in    ³
+³ EXE and COM programs.                                                        ³
+³                                                                              ³
+³  NewSegment = ALLOC (1000)      ' NewSegment contains the SEGMENT of the     ³
+³               ÄÄÄÄÄ             ' Dynamic Memory allocated at RUNTIME!       ³
+³                                 ' ALLOC returns zero if not enough memory    ³
+³                                                                              ³
+³                                                                              ³
+³  RELEASE NewSegment             ' Give back the memory to DOS at runtime     ³
+³  ÄÄÄÄÄÄÄ                                                                     ³
+³                                                                              ³
+³                                                                              ³
+³                                                                              ³
+³  MOVEMEM  FromSegment,FromOffset,ToSegment,ToOffset, Count                   ³
+³  ÄÄÄÄÄÄÄ                                                                     ³
+³                                                                              ³
+³                                                                              ³
+³  *** Check out the sample program named MEMORY.BAS to learn more about it!   ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Other Memory Manipulation Commands ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³                                                                              ³
+³ Def seg = &Hb000    sets the color card for use with peek & poke statements  ³
+³ Def seg             sets your program's data segment as the default segment  ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³                                                                              ³
+³ Peek (offset)              example:    a=peek(b)       byte size operation   ³
+³ Poke offset,value          example:    poke c,d        byte size operation   ³
+³                                                                              ³
+ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+³                                                                              ³
+³ Peeki (offset)             example:    a=peeki(b)      Word size operation   ³
+³ Pokei offset,value         example:    pokei c,d       Word size operation   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Using Arrays ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ Storing and retrieving information in and from arrays is supported but is    ³
+³ implemented in a non-conventional way.  Arrays are allocated using the DIM   ³
+³ statement.  For example:                                                     ³
+³                                                                              ³
+³ DIM Names$(21,100)   allocates 2000 bytes =  (100 names at 20 chars each)    ³
+³                                                                              ³
+³ REMEMBER: Strings need a null byte terminator (20 for data, 1 terminator)    ³
+³     Arrays can only be accessed as shown in the following examples:          ³
+³                                                                              ³
+³                          A$(a) = "This is a test"                            ³
+³                          B$    = A$(b)                                       ³
+³                          Q(c)  = 125                                         ³
+³                          Q(d)  = B                                           ³
+³                                                                              ³
+³ What is unique to BASM is that array access must be simple.  That is, you    ³
+³ may not combine functions with array access.  You can only assign simple     ³
+³ strings, numbers or variables.  For example:                                 ³
+³                                                                              ³
+³       Not Supported        A$ = UCASE$(B$(1))                                ³
+³       BASM Supports        A$ = B$(1)                                        ³
+³                            A$ = UCASE$(A$)                                   ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Using Arrays continued ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                                                                              ³
+³ BASM allows you to override the default string length using the DIM keyword. ³
+³                                                                              ³
+³ DIM MyVar$ * 1000      allocates 1001 bytes for the simple variable MyVar$.  ³
+³                        BASM automatically adds one byte for the terminator.  ³
+³                                                                              ³
+³  BASM supports LOCAL array's and variables.  When you use DIM LOCAL in a     ³
+³  SUB or FUNCTION, BASM will transform their definitions into local scope.    ³
+³                                                                              ³
+³  This means these variables and arrays will be seen only within that block.  ³
+³                                                                              ³
+³  Example: SUB MySub               ' Start SUB definition                     ³
+³           DIM LOCAL a(10)         ' a ten element integer array              ³
+³           DIM LOCAL a$(10,10)     ' a 10 element string array of 10 char's   ³
+³           DIM LOCAL b$ * 500      ' a custom string of 500 char's            ³
+³              :                    ' more instructions                        ³
+³           END SUB                 ' End SUB definition                       ³
+³                                                                              ³
+³              BASM would change these variable names to:                      ³
+³                               L_Mysub_A                                      ³
+³                               L_Mysub_A$                                     ³
+³                               L_Mysub_b$                                     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³    BASM supports several useful commands for manipulating string arrays:     ³
+³                                                                              ³
+³ ARRAY SORT   A$(),5         Sort the first 5 elements of A$()                ³
+³ ARRAY INSERT A$(3),MaxNum   Shifts element 3 to MaxNum down & null's A$(3)   ³
+³ ARRAY DELETE A$(3),MaxNum   Shifts element 3 to MaxNum up & zeros A$(MaxNum) ³
+³ a = SCAN   a$(),b$,MaxNum   Searchs A$() for B$ up to element MaxNum         ³
+³                                                                              ³
+³                                                                              ³
+³ When BASM allocates space for a string array, it assumes a BASE of zero.     ³
+³ This means, for example, if you have DIM A$(10,10) then BASM reserves space  ³
+³ for 11 elements, 0 to 10.  Another note to keep in mind about the actual     ³
+³ array space is that BASM prefixes the actual string space with 2 bytes that  ³
+³ indicate the high and low byte's of a word that describes the unit length    ³
+³ of the array.  For example, if you have a DIM a$(10,10) then BASM creates    ³
+³ the following data line:                                                     ³
+³                                                                              ³
+³                            A$ db 0,10,110 DUP (0)                            ³
+³                                                                              ³
+³                A$  ... is the symbol name                                    ³
+³                 0  ... is the high byte of the unit length                   ³
+³                10  ... is the low  byte of the unit length                   ³
+³                110 ... is the actual string space, initialized to 0          ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³ Another consideration when using arrays with BASM is that the DATA space is  ³
+³ allocated as un-initialized.  This is a good news - bad news scenario.  The  ³
+³ good news is that the resulting EXE program can be very small depending on   ³
+³ the assembler and linker that you are using.  ( TASM and TLINK do this.)     ³
+³ The bad news is that random information will probably be contained in the    ³
+³ array space when the program starts up.  The easiest way to initialize the   ³
+³ space that your arrays use is with a simple loop.  For example:              ³
+³                                                                              ³
+³                                                                              ³
+³ DIM Buffer$(20,100)      'create space for 100 strings, each 20 bytes long   ³
+³                                                                              ³
+³ FOR A = 1 to 100                                                             ³
+³  Buffer$(A) = ""         'clear out each string                              ³
+³ NEXT                                                                         ³
+³                                                                              ³
+³ This procedure is not necessary in all cases but it helps to guarantee that  ³
+³ subtle bugs will not creep into your program.                                ³
+³                                                                              ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ             Technical Notes               ÄÄÄÄÄÄÄÄÄÄÄÄÄ     ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+    * Error trapping is limited to those caught and reported to DOS through
+      the use of the DOS extended error routine.  The most likely non-DOS
+      error you will encounter will be memory overwrites.  Be sure to specify
+      an appropriate $STRING size when planning your memory requirements when
+      using string variables.
+
+    * Most syntax checking is left to the assembler.  Most assemblers alert
+      you to where an error occurred in the assembly file.  By leaving the
+      $SOURCE compiler directive enabled in BASM, you can quickly locate the
+      offending statement and then correct the BASIC program's code.
+
+    * Compound statements separated by a colon are not supported.  Each
+      line can contain no more than 255 tokens ( constants, functions,
+      operators ).  This should be more than adequate in most cases.
+
+    * Boolean logic in loops and IF-THEN test is limited to the NOT function
+      and explicit values (constants and variables).  This is because BASM
+      converts the expression into a simple true/false statement during the
+      preprocess phase.  This is not a major problem and is easily worked
+      around with a little extra logic.
+      For example: BASM converts "WHILE 1" to  "IF 1 = 1"
+                   BASM converts "IF NOT A" to "IF A = 0"
+                   BASM converts "WHILE NOT 1" to "IF 1 <> 0"
+
+    * ASM statements MUST use the ; character and not the ' character to
+      set off any remarks.  Your compiler should report when and where you
+      forget to follow this convention.
+
+    * Numeric and string arrays and string variables MUST be initialized before
+      referencing them, otherwise errors or crashes are likely.  BASM sets
+      these DataTypes as uninitialized so that the resulting COM or EXE
+      file can be as small as possible.
+
+    * BASM preprocesses your BASIC program by translating some high level
+      constructs like WHILE-WEND, SELECT-CASE into simpler constructs using
+      DO-LOOP's and IF-THEN test's.  Therefore, when you view the generated
+      assembly file, some of the commented BASIC lines will not be the same
+      as those appearing in the BASIC program.
+
+    * Do-Loops, If-Then's, For-Next, and Repeat-End Repeat loops can each
+      be nested 256 levels deep.
+
+    * User FUNCTIONS may be called just like SUB's.  The return value is
+      discarded in such cases.
+
+    * All Parameters to user defined functions and subs are passed by
+      value and follow the C-calling convention; that is, parameters are
+      pushed onto the stack from right to left.  BASM takes care of cleaning
+      up the stack by popping the arguments off the stack.  The following
+      snippet is an example of this:
+
+                     Call MyFunc (a,b,c)
+                     :
+                     :
+                     MyFunc Proc Near
+                     Push BP
+                     Mov Bp,SP
+                     Mov Ax,[BP][04]   ; parameter a
+                     Add Ax,[BP][06]   ; parameter b
+                     Add Ax,[BP][08]   ; parameter c
+                     :
+                     :
+                     Pop BP
+                     Ret 6             ;2 bytes per argument
+                     Endp MyFunc
+
+
+
+
+
+
+
+
+
+
+
+
+    Another aspect to be aware of is that BASM pushes Integer Variables by value
+    and pushes Strings by reference.  This means that you can alter the contents
+    of string parameters that are passed to user defined subs and functions but
+    you CAN NOT alter the contents of Integer parameters.
+
+
+
+
+
+
+
+
+
+
+
+    * One way BASM optimizes your program's size is by watching for duplicate
+      string constants.  This means if your program has several statements
+      like:
+                             a$ = "1234567890"
+                             b$ = "1234567890"
+                             c$ = "1234567890"
+
+    BASM will allocate data space for "1234567890" only once.  This only
+    works for string data which matches identically to at least one other
+    constant.
+
+
+    * RECURSION:  BASM supports recursion ONLY within SUBS.  Recursive
+      FUNCTIONS will be implemented in a future version.
+
+
+    * BASM allows you to access passed parameters directly when using
+      the ASM keyword.  For example...
+
+                       Function Sum (A,B)
+                       asm mov ax,[bp][04]  ;A
+                       asm add ax,[bp][06]  ;B
+                       End Function
+
+
+
+
+
+
+      BASM uses a GLOBAL variable named $STRFUNC for all user defined STRING
+      function return values.
+
+      BASM uses the value in the AX register for all of it's function returns.
+      For example, if you wrote the following function...
+
+                             Function Add (a,b)
+                             Add = a+b
+                             End function
+
+        The sum of a + b would be returned in the AX register.
+
+
+
+
+
+
+
+
+
+      * BASM supports the EXIT FUNCTION construct, however, if you want to
+        exit with a return value of zero you MUST always explicitly set it
+        by assigning the function name with zero.  For example:
+
+
+                                   FUNCTION MyFunc
+                                        .
+                                        .
+                                        .
+                                   MyFunc = 0
+                                   EXIT FUNCTION
+                                        .
+                                        .
+                                        .
+                                   MyFunc = 1
+                                   EXIT FUNCTION
+                                        .
+                                        .
+                                   MyFunc = 2
+                                   END FUNCTION
+
+
+
+
+ * LOCAL Variables
+
+
+        BASM changes the name of your local variables as follows:
+
+
+        Example:      SUB Test
+                      LOCAL apples
+
+
+      BASM changes APPLES to L_TEST_APPLES.  Because you cannot have two
+      SUBS or FUNCTIONS with the same name, this has the effect of creating
+      a unique variable name.  When accessing LOCAL variables with the ASM
+      instruction, you must code the LOCAL variable following this method.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ[ Error Checking ]ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+ ³                                                                            ³
+ ³    BASM achieves much of it's speed and small size by the absence of error ³
+ ³    checking code.  This gives you, the programmer, more power.  But with   ³
+ ³    this power comes the added responsibility of writing safe code.         ³
+ ³                                                                            ³
+ ³  * The following lists some of the possible extended Dos error values      ³
+ ³    returned by the ERR function.  The error codes are shown in decimal.    ³
+ ³                                                                            ³
+ ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+
+ CODE           ERROR
+
+  01    function number invalid
+  02    file not found
+  03    path not found
+  04    too many open files (no handles available)
+  05    access denied
+  06    invalid handle
+  07    memory control block destroyed
+  08    insufficient memory
+  09    memory block address invalid
+  10    environment invalid (usually >32K in length)
+  11    format invalid
+  12    access code invalid
+  13    data invalid
+  15    invalid drive
+  16    attempted to remove current directory
+  17    not same device
+  18    no more files
+  19    disk write-protected
+  20    unknown unit
+  21    drive not ready
+
+
+ CODE           ERROR
+
+  22    unknown command
+  23    data error (CRC)
+  24    bad request structure length
+  25    seek error
+  26    unknown media type (non-DOS disk)
+  27    sector not found
+  28    printer out of paper
+  29    write fault
+  30    read fault
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ Credits:
+
+ Turbo Assembler (TASM) and Turbo Link (TLINK) are products of Borland Intl.
+
+ Microsoft Macro Assembler is a product of Microsoft Corp.
+
+ PowerBASIC is a product of PowerBASIC, Inc.

@@ -1,0 +1,9 @@
+EBBS-PC v1.5x QuickStart:
+
+UNZIP into C:\EBBS
+Run MAKEDIRS
+Edit EBBSCFG.DAT
+Make sure DSZ/GSZ are in your path
+Run EBBS.BAT file
+
+

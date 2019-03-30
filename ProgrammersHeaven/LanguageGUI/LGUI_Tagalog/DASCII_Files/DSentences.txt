@@ -1,0 +1,2313 @@
+@0062
+Who Would You Like To Speak To?           
+                                          
+I Will Say You [Called]                   
+                                          
+[He] Is [Out]                             
+                                          
+[She] Will Be Back In About [Five Minutes]
+                                          
+Who {Shall I Say} Is [Calling]?           
+                                          
+I Will Phone You Back In [Five Minutes]   
+                                          
+[She] Is Not Here                         
+                                          
+[She] Wants To Speak To You               
+                                          
+Have You Got A Message?                   
+                                          
+[TOM] Wants To Speak To You               
+                                          
+Can You Repeat That                       
+                                          
+Who [Called]                              
+                                          
+[Who] Is [This]?                          
+                                          
+I Will Phone You Later                    
+                                          
+Phone Me If Anything Happens              
+                                          
+There Were [Three] Calls [Last Night]     
+                                          
+What Did [You / I] Say?                   
+                                          
+What Number Are You Calling?              
+                                          
+What Did [TOM] Say?                       
+                                          
+[He] Went Out                             
+                                          
+I Would Like To Speak To [TOM]            
+                                          
+Could I Speak To [TOM] Please?            
+                                          
+Answer The [Phone]                        
+                                          
+Wait A Moment                             
+                                          
+Has Anyone Called?                        
+                                          
+When Will [He] Return?                    
+                                          
+I Will Look For [Her]                     
+                                          
+[TOM] Wants To Speak To You               
+                                          
+He Said He Will [Phone] You Tomorrow      
+                                          
+I Do Not Know When [She] Will Arrive      
+                                          
+I Am Sorry To Keep You Waiting            
+                                          
+I Will Just Call Again                    
+                                          
+What Time Will [She] Return?              
+                                          
+I Think [He] Will Return At [Three]       
+                                          
+I Will Try Again Later                    
+                                          
+You Call [TOM]                            
+                                          
+[She] Is On The Toilet                    
+                                          
+[She] Is In The Bathroom                  
+                                          
+You Call [A Doctor]                       
+                                          
+Good [Morning]                            
+                                          
+[TOM] Called You                          
+                                          
+Good [Afternoon]                          
+                                          
+Slow Your Words                           
+                                          
+I Am Learning TAGALOG                     
+                                          
+He Said He Will [See] You Tomorrow        
+                                          
+Phone Me {Again} Later                    
+                                          
+No Thank You                              
+                                          
+I Do Not Know                             
+                                          
+Could I Use Your Phone?                   
+                                          
+Thank You Very Much                       
+                                          
+She Does Not Know                         
+                                          
+Good [Evening/Night]                      
+                                          
+They Do Not Know                          
+                                          
+Is [TOM] There?                           
+                                          
+We Do Not Know                            
+                                          
+[I] Said...                               
+                                          
+[She] Said...                             
+                                          
+What Did [They] Say?                      
+                                          
+I Will Find Out If [She] Is Here/<In>     
+                                          
+He Said He Will Just Call Again Later     
+                                          
+Were There Any Other Messages?            
+                                          
+He Said He Will [Visit] You Tomorrow      
+                                          
+*
+@0108
+Have You [Met] [TOM Bloxy] <Already>?     
+                                          
+Who Is [That]?                            
+                                          
+Do You Know [TOM / Him]?                  
+                                          
+We Went To The Same [School]              
+                                          
+What Are You Doing?                       
+                                          
+How Is [Everything With You]?             
+                                          
+They Are Both Well                        
+                                          
+And You, Everything Fine <With You>?      
+                                          
+How Are [Your Parents]?                   
+                                          
+It Has Been Nice Talking To You           
+                                          
+I Live At Number                          
+[Twenty Three], [Bloxy]-[Street/Way/Road].
+I Cannot                                  
+                                          
+Where Do You Live, [TOM]?                 
+                                          
+See You [Another Day]                     
+                                          
+How Are You?                              
+                                          
+See You [On Monday]                       
+                                          
+I Am Fine                                 
+                                          
+What Have You Been Doing?                 
+                                          
+Have You [Seen] [TOM]?                    
+                                          
+See You [Later]                           
+                                          
+How Old Are You?                          
+                                          
+I Am [Twenty Eight]                       
+                                          
+See You [Tomorrow]                        
+                                          
+My [Name] Is [TOM]                        
+                                          
+What Is Your [Job/Work]?                  
+                                          
+Goodbye                                   
+                                          
+What Is Your [Name]?                      
+                                          
+I Am A [Teacher]                          
+                                          
+Do You Live With Your [Family]?           
+                                          
+Who Are [They]?                           
+                                          
+See You [Again]                           
+                                          
+[He] Is [TOM]                             
+                                          
+What Is The [Name] Of Your [Uncle]?       
+                                          
+[She] Is A [Teacher]                      
+                                          
+Who Is [He]?                              
+                                          
+I Am Going To Visit My [Friend]           
+                                          
+Your [TAGALOG] Is Excellent/Very Good     
+                                          
+What Is Your Opinion On/Of [???]?         
+                                          
+Studying [TAGALOG] Is                     
+[Easy / Difficult]                        
+What Part Of [Nottingham] Are You From?   
+                                          
+I Am From [Sherwood]                      
+                                          
+Is [London] A Big City?                   
+                                          
+I Live In [Bristol]                       
+                                          
+See You [Soon]                            
+                                          
+How Do You Do                             
+                                          
+Are You A Friend Of [TOM's]?              
+                                          
+There Is [TOM Bloxy]                      
+                                          
+[TOM], This Is [JILL] And [SUE]           
+                                          
+[TOM], Have You Met [SUE]?                
+                                          
+Do You Find [TAGALOG] Difficult?          
+                                          
+[That] Is [TOM]                           
+                                          
+I Do Not Understand                       
+                                          
+[This] Is [TOM]                           
+                                          
+What Part Of [England] Are You From?      
+                                          
+I Am From [Nottingham]                    
+                                          
+I Am Not                                  
+                                          
+How Long Have You Been [Here]?            
+                                          
+Where Do You Live Now?                    
+                                          
+How Long Have You Been [There]?           
+                                          
+I Have Been [Here] For [Two]-[Days]       
+                                          
+I Think [This Is Beautiful]               
+                                          
+I Have Been [There] For [Two]-[Days]      
+                                          
+I Am Living/Staying With [Some Friends]   
+                                          
+Do [They] Still Live In [Bloxy] [Street]? 
+                                          
+At Number [Forty Six]                     
+                                          
+Is [She] [Married]?                       
+                                          
+Would You Like To [See] [My] [???]?       
+                                          
+Is Your [Brother] [Married]?              
+                                          
+What [You] Said Is                        
+[Uncalled For/Not Needed]                 
+[Uncle] [TOM] Is [Coming]                 
+                                          
+[Mother] [Went] To [London]               
+                                          
+What Is [Good Morning] In TAGALOG?        
+                                          
+[Mother] Is [Going] To [London]           
+                                          
+[His]-[Father] Is [Drunk]                 
+                                          
+[TOM's] [Father] Is [Drunk]               
+                                          
+[My] [Father] Is [Drunk]                  
+                                          
+I Will Not [Leave] / I Am Not [Leaving]   
+                                          
+[My] [Father] Is [Drunk]                  
+                                          
+I Have Been Here For [Two Hours]          
+                                          
+[TOM] Is [My] [Uncle]                     
+                                          
+My [Uncle] Has Been [Dead] A [Long Time] /
+My [Uncle] [Died] A [Long Time] Ago       
+[He] Is [My] [Uncle]                      
+                                          
+[Your] [Mother] Is [Going] To [London]    
+                                          
+[TOM] [Went Over There] [A While Ago]     
+                                          
+[TOM] [Went There] [A While Ago]  (Near)  
+                                          
+[Your] [Mother] [Came Here] [Yesterday]   
+                                          
+What Would You Like Me To Say?            
+                                          
+[TOM's] [Son] Is [Rude]                   
+                                          
+How Do You Say....[???]?                  
+                                          
+I Have Been Married For [Two Years]       
+                                          
+I Do Not Know Who He Is                   
+                                          
+I Know His Name                           
+                                          
+I Know His Uncle                          
+                                          
+I Gave A Party                            
+For My Friend                             
+[They Are / I Am] Giving A Party          
+[On Sunday / For My Son]                  
+SUE Is Greeting The Guests                
+                                          
+She Is My Guest                           
+                                          
+Thank You For Coming                      
+                                          
+Please Come Again                         
+                                          
+Goodbye. Until Next Time                  
+                                          
+Would You Like A Cigarette?               
+                                          
+No Thank You. I Do Not Smoke              
+                                          
+I Like The PHILIPPINES                    
+                                          
+Do You Have A Match?                      
+                                          
+Nice To See You Again                     
+                                          
+Why Don't You Come With Me?               
+                                          
+I Have To Meet Someone                    
+                                          
+Do You Work                               
+On A Saturday?                            
+*
+@0061
+[Twice] A Week                            
+                                          
+What Is The Time Now?                     
+                                          
+It Is Time                                
+                                          
+Is It Time?                               
+                                          
+One O'Clock                               
+                                          
+Half Past One                             
+                                          
+[Two] O'Clock                             
+                                          
+Half Past [Two]                           
+                                          
+[Twenty Five] To [Two]                    
+                                          
+[Twenty] To [Two]                         
+                                          
+[Quarter] To [Two]                        
+                                          
+[Ten] To [Two]                            
+                                          
+[Five] To [Two]                           
+                                          
+What Is The Date Today?                   
+                                          
+[Yesterday] Was [3rd/Third August]        
+                                          
+At [Four O'Clock] [Tomorrow] [Morning]    
+                                          
+It Could Be The [9th/Ninth]               
+Or [10th/Tenth]                           
+[Saturday] Was The [8th/Eighth]           
+                                          
+Today Is [Monday]                         
+                                          
+Today Is The [5th/Fifth]                  
+                                          
+It Is Nearly [Two O'Clock]                
+                                          
+[My] [Watch] Is [Fast]                    
+                                          
+What Time Do You Have, [TOM]?             
+                                          
+When Can You And I See Each Other?        
+                                          
+What Are You Doing On [Monday]?           
+                                          
+Will You Be Busy?                         
+                                          
+I Will See You At [Two O'Clock]           
+                                          
+Is That The Correct [Time]?               
+                                          
+I Will See You At [Ten] Past [Two]        
+                                          
+I Checked It This Morning                 
+                                          
+[I] Must [Hurry]                          
+                                          
+What Time Will You Return?                
+                                          
+[I] Was Born In [London] On               
+[August 15, 1954]                         
+I Will See You At [Half] Past [Two]       
+                                          
+What Are You Doing [This]-[Weekend]?      
+                                          
+I Will Return {Around/About/After}        
+[Half Past Five]                          
+[Christmas] Is In [December]              
+                                          
+[Yesterday] Was [Wednesday]               
+                                          
+[TOM / She / I] Was Born In [August]      
+                                          
+I [Awake] At [Dawn]                       
+                                          
+What Is Your [Date Of Birth]?             
+                                          
+It Is Time To Go                          
+                                          
+[Her] [Birthday] Is On <The>              
+[August 4th/Fourth]                       
+This Year,                                
+[He] Will Be [Eighty] Years Old.          
+[We] [Need To] [Hurry].                   
+The [Train] Is Leaving.                   
+Wait A Moment/<Minute>                    
+                                          
+[He] Arrived Five Minutes [Late]          
+                                          
+[They] Were [Late] For [Class]            
+                                          
+[I] Am [Late] {For/On The [Train]}        
+                                          
+It Was Still [Early] When [TOM] Arrived   
+                                          
+It Was [Midnight] When [She] [Arrived]    
+                                          
+What Is A Good Time To Go There?          
+                                          
+You [Should] Go There On [Monday]         
+                                          
+[You Should Not] Go There On <A> Saturday 
+                                          
+[Do Not] Go There On <A> [Monday]         
+                                          
+[We Do Not] Go There On <A> [Tuesday]     
+                                          
+[Five] Past [Two]                         
+                                          
+[Ten] Past [Two]                          
+                                          
+[Quarter] Past [Two]                      
+                                          
+[Twenty] Past [Two]                       
+                                          
+[Twenty Five] Past [Two]                  
+                                          
+*
+@0025
+Have You Heard The Weather Forecast?      
+                                          
+The Weather Is [Cold / Hot]               
+                                          
+What Is The Weather Like Outside?         
+                                          
+The Wind Was Strong [Last Night]          
+                                          
+Rain Today                                
+                                          
+There Were Only Showers [Yesterday]       
+                                          
+We Could/May Have A Storm/Typhoon         
+                                          
+The Wind At The [Door] Is Strong          
+                                          
+The [Night] Is Dark                       
+                                          
+[Last Night] Was [Cold / Hot]             
+                                          
+The Weather Is [Freezing]                 
+                                          
+She Has A [Green] Umbrella                
+                                          
+The Wind Is Strong                        
+                                          
+The Sky Is [Blue / Dark]                  
+                                          
+I Cannot [See Through] The Fog            
+                                          
+I [Hear] [Thunder]                        
+                                          
+The Wind In The [Morning] Is [Cold]       
+                                          
+The Weather Is Beautiful [Today]          
+                                          
+The Weather Is [Windy / Raining]          
+                                          
+It Has Been Raining Since [Yesterday]     
+                                          
+It Is Not Too [Hot]                       
+                                          
+What Will The Weather Be Like Tomorrow?   
+                                          
+It Is [Thundering]                        
+                                          
+How Is The Weather?                       
+                                          
+It Will Become                            
+[Cloudy / Humid / Foggy / Windy]          
+*
+@0048
+That Is Near Here                         
+                                          
+[Bloxy Street] Is On The [First Right]    
+                                          
+How Can/Do I Get To [London]?             
+                                          
+What [Train] Goes To [London]?            
+                                          
+That Is [Behind] The [Bank]               
+                                          
+Where Is {The Place} [Manila]?            
+                                          
+That Is Near The [Church]                 
+                                          
+How Far Is {The Place} London From Here?  
+                                          
+Where Is The [Post-Office]?               
+                                          
+That Is [Next To] The [Bank]              
+                                          
+Is There A [Bank] Near Here?              
+                                          
+Is The [Bus Terminal] Far From Here?      
+                                          
+Her [Friend] Comes From The               
+[East] Of [London]                        
+That Is [In Front] Of The [Bank]          
+                                          
+[That Man] Is From The [East]             
+                                          
+[They] Went To The [North]                
+                                          
+[TOM] Is From The [South]                 
+                                          
+The [Front Of The House] Is [Yellow]      
+                                          
+That Is [Near] The [Bank]                 
+                                          
+[He] Went Ahead Of [Us]                   
+                                          
+Behind The [Door]                         
+                                          
+That Is On The Other Side Of Town         
+                                          
+That Is {About} Ten Miles From Here       
+                                          
+You Can Get There By [Bus]                
+                                          
+That Is {Could Be} One Mile From Here     
+                                          
+From [Here]. You Can [Ride/Take] A [Bus], 
+If You Like.                              
+How Much Is The Train Fare                
+{To London}?                              
+Where Does The [Bus] Leave From?          
+                                          
+The Distance Of [My House] [To His] Is    
+[Four Metres]                             
+The [Bus] Leaves From [Bloxy Street]      
+                                          
+Excuse Me Please.                         
+I Am Looking For [Bloxy Street]           
+The Distance Of [My House] [To His]       
+Could Be [One Mile]                       
+That Is [Opposite] The [Bank]             
+                                          
+You [Turn Left / Turn Right]              
+At The [First Corner]                     
+That Is Parallel To [This Street]         
+                                          
+Do You See                                
+That [Car / Shopping Centre]?             
+That Is Not Far From [Here]               
+                                          
+The Distance Of [TOM's] House [To Ours] Is
+[One Mile]                                
+And Then Continue Up [Bloxy Street]       
+                                          
+There Are Plenty Of Banks On Bloxy Street 
+                                          
+Cross Over To The Other Side              
+                                          
+The Distance Of [Her] House [To Mine]     
+Could Be [One Mile]                       
+And Then You Will Come To                 
+[Bloxy Street / A Junction]               
+That Is Next To The [Church]              
+                                          
+Do You Know Where The [Museum] Is?        
+                                          
+Where Is The [Toilet]?                    
+                                          
+I Am Looking For A                        
+[Bank / Car Park]                         
+You Take Bus Number [Seven]               
+                                          
+*
+@0046
+[We] Rent A [Flat]                        
+                                          
+I Pay [Five Pounds] {A Month} /           
+I Am Paying [Five Pounds] {A Month}       
+How Much Do You Wish To                   
+[Keep / Spend / Use]?                     
+Is [Food] Expensive Here?                 
+                                          
+The [Car] [She] Bought Was/Is [Cheap]     
+                                          
+I Buy [Rice] [Every Month]                
+                                          
+You Count [Five Pounds]                   
+                                          
+Do You Sell [Stamps / Vegetables]?        
+                                          
+[The Nurse] Is Earning [Five Pounds]      
+{A Day}                                   
+<The> [Food] Is Quite Cheap Here          
+                                          
+She Is [Studying] At My Expense           
+                                          
+Have You Finished Your [Money]?           
+                                          
+How Much Is [Their] Expense [Each Month]? 
+                                          
+[TOM] Is Earning [Five Pounds]            
+{A Day}                                   
+<The> [Meat] Is Quite Expensive {Here}    
+                                          
+Where Did You Buy That?                   
+                                          
+We Sell [Stamps] / We Are Selling [Stamps]
+                                          
+How Much Is [SUE] Earning {A Day}?        
+                                          
+This Was Only Cheap                       
+                                          
+Are We Going Shopping?                    
+                                          
+Some [Things] Are [Cheap]                 
+                                          
+I Bought This In [London]                 
+                                          
+Where Did You Buy Those [Trousers]?       
+                                          
+I Have No Money                           
+                                          
+The Price Of That One Is [Five Pounds]    
+                                          
+What Is The Price Of Your [Guitar]?       
+                                          
+I Gave Her [One Pound]                    
+                                          
+I Bought A [Book]                         
+                                          
+[SUE] Bought A [Book]                     
+                                          
+I Bought Them In [London]                 
+                                          
+Did You Buy Some [Cake]?                  
+                                          
+My Opinion Is [That Is Not Too Expensive] 
+                                          
+How Much Is This [Magazine]?              
+                                          
+Do I Pay Here?                            
+                                          
+How Much Each?                            
+                                          
+You Pay At That Cashier                   
+                                          
+[Three Pounds] [A Box / Each]             
+                                          
+How Much Is The Price Of [Perfume]?       
+                                          
+You Count Your [Money]                    
+                                          
+Not Too Expensive                         
+                                          
+How Much [Money] Do You {Still} Have?     
+                                          
+Lend Me [Five Pounds]                     
+                                          
+I Wish To [Keep] [Five Pounds]            
+                                          
+Give Me [Five Pounds]                     
+                                          
+I Will Buy A/Some/The [Coffee]            
+                                          
+Have You Got Enough Money?                
+                                          
+*
+@0081
+What Shall [We] Have To Eat?              
+                                          
+The Food Smells Good                      
+                                          
+I Like [Meat]                             
+                                          
+It Is Called [Happy Restaurant]           
+                                          
+You Try The [Food]                        
+                                          
+Do You Like [Italian] Food?               
+                                          
+I Will Ask For A [Knife and Fork]         
+                                          
+How Is The Food?                          
+                                          
+It [Tastes / Smells] Delicious            
+                                          
+Would You Like Some {More} [Rice]?        
+                                          
+What Is That?                             
+                                          
+Please Pass The [Rice]                    
+{[TOM] / To [TOM]}                        
+What Would You Like [To Drink]?           
+                                          
+That Is [Cauliflower]                     
+                                          
+Just Water, Thank You                     
+                                          
+Can You Give Me Some [Rice]               
+                                          
+The [Meat] Is Tasty                       
+                                          
+Here Is The [Salt And Pepper]             
+                                          
+Did You Enjoy The [Food]?                 
+                                          
+Please Pass <Me> The [Salt]               
+                                          
+Please Give Me Some {More} [Peas]         
+                                          
+Just/Only A Little                        
+                                          
+Lets Have [Coffee] [Now]                  
+                                          
+Would You Like [Milk And Sugar]?          
+                                          
+This [Cake] Lacks [Sugar]                 
+                                          
+What Do You Need?                         
+                                          
+Who Would Like [Soup]?                    
+                                          
+[We] Like That                            
+                                          
+I Would, Thanks                           
+                                          
+[I] Am Not Hungry                         
+                                          
+Have You Finished Your [Food]?            
+                                          
+Can/Could I [Eat / Drink] {Now}?          
+                                          
+[I] Like That                             
+                                          
+Is The [Food] Ready <Now>?                
+                                          
+I Will Just Have A Coffee                 
+                                          
+[I] Am Hungry                             
+                                          
+[They] Like That                          
+                                          
+[They] Are Hungry                         
+                                          
+The [Food] Is Ready <Now>                 
+                                          
+Could I Have {More} [Coffee / Tea]?       
+                                          
+What Would You Like To [Eat]?             
+                                          
+Do You Have Milk With Your Coffee?        
+                                          
+[We] Are Hungry                           
+                                          
+Is It Ready Now?                          
+                                          
+No Milk And With Sugar                    
+                                          
+What Would You Like?                      
+                                          
+This Looks [Beautiful]                    
+                                          
+[She] Is Hungry                           
+                                          
+[She] Likes That                          
+                                          
+[This] Is [Hot]                           
+                                          
+[They] Are Eating {[Sandwiches]}          
+                                          
+[He] Drinks [Lemon Juice] [Every Morning] 
+                                          
+Have You Got Enough Food? (Present Tense) 
+Have You Had Enough Food? (Past Tense)    
+There Are More [Sandwiches] Remaining/Left
+                                          
+This Is Plenty, Thanks                    
+                                          
+Are There Anymore [Sandwiches] Remaining? 
+                                          
+Can You Give Me [One More/Another]        
+[Glass] Of [Lemon Juice]?                 
+Please Give Me A [Glass] Of [Water]       
+                                          
+What Kind Of Food Do You Like?            
+                                          
+There Is One On [Bloxy Street]            
+                                          
+I Like [Filipino] Foods                   
+                                          
+That Is My [Favourite] Food               
+                                          
+Is There A Good [French] Restaurant Here? 
+                                          
+[He] Eats [Bacon And Eggs]                
+In The [Morning]                          
+[I] Eat [Bacon] {At [Breakfast]}          
+                                          
+[TOM] Is Forbidden To Eat [Cabbage]       
+                                          
+I Like [Chicken] [Once]-[A Week]          
+                                          
+Put Some [Milk] In My [Coffee]            
+                                          
+[I] Drink [Coffee] {In The [Morning]}     
+                                          
+I Would Like To Eat [Rice]                
+                                          
+I Like [Grapefruit] {Very Much}           
+                                          
+[I] Like (Love/Really Like) [Mango]       
+                                          
+[She] Has Not Eaten Yet                   
+                                          
+Give [Me] A [Portion] Of Your [Orange]    
+                                          
+The [Chicken] Is [Delicious] To [Eat]     
+                                          
+[She] Has No Appetite                     
+                                          
+[We] Eat [Fresh] [Vegetables]             
+                                          
+[TOM] Eats [Corn Flakes] In The [Morning] 
+                                          
+The [Baby] Is Eating {[Baby Food]}        
+                                          
+We Are Going To Eat Now                   
+                                          
+You Taste It First                        
+                                          
+*
+@0058
+Beat Two Eggs For The Cake                
+                                          
+Can You [Pick Up] The [Plates]?           
+                                          
+[We / I] Do Not Have [Salt]               
+                                          
+What Do You Want Me To Do?                
+                                          
+[She] Broke A [Cup]                       
+                                          
+[He] Drank Some [Wine]                    
+                                          
+Can You [Prepare] The [Plates]?           
+                                          
+Does Anyone Have <Any> [Coffee]?          
+                                          
+Have [We] Got [Salt]?                     
+                                          
+Fry The Fish                              
+{Until [<It Is> Golden-Brown]}            
+Cook These [Vegetables]                   
+                                          
+The [Rice] Is Cooked                      
+                                          
+Cook Some [Rice]                          
+                                          
+I Do Not Eat [Meat]                       
+                                          
+Do You Have Something To Put The [Milk]   
+Into?                                     
+Do You Have [Coffee]?                     
+                                          
+Cook/Boil The [Rice]                      
+                                          
+Can You [Wash] The [Plates]?              
+                                          
+Grind The [Pepper]                        
+                                          
+I Would Like To Eat [Rice]                
+                                          
+Can You [Pack] The [Plates]?              
+                                          
+Cook The [Rice] [Good/Well]               
+                                          
+I Do Not Want [Her] To [Starve]           
+                                          
+Stew The [Meat]                           
+                                          
+Please Peel The [Potatoes] For [Me]       
+                                          
+What Are [We] Going To [Eat]              
+{For [Dinner/Supper]}?                    
+Please Boil Some [Water] For [Us]         
+                                          
+Cook The Rice At [Five O'Clock]           
+                                          
+Can You Slice The [Onions / Cheese]?      
+                                          
+Boil Your [Egg]                           
+                                          
+[He] Spilt The [Milk]                     
+                                          
+Wipe Your [Lips] With A [Serviette]       
+                                          
+What Shall [We] Have To Eat?              
+                                          
+The [Food] Is Ready Now                   
+                                          
+Can You [Collect] The [Plates]?           
+                                          
+[I] Have No [Pepper] Grinder              
+                                          
+Just/Only A Little                        
+                                          
+Please Pass The [Rice]                    
+{[TOM] / To [TOM]}                        
+The [Jones's] Do Not Eat [Pork]           
+                                          
+We Ate Chicken At Dinner/Supper           
+                                          
+Is The [Food] Ready Now?                  
+                                          
+What Would You Like?                      
+                                          
+Give [Him] A Piece Of Your [Bread]        
+                                          
+Can You Give Me Some [Sugar]              
+                                          
+This Is Plenty, Thanks                    
+                                          
+Have You Got Enough Food? (Present Tense) 
+Have You Had Enough Food? (Past Tense)    
+Please Pass <Me> The [Salt]               
+                                          
+You Make A [Cake]                         
+                                          
+They Made A/Some [Cake]                   
+                                          
+Please Give Me Some {More} [Peas]         
+                                          
+What Do You Need?                         
+                                          
+Is It Ready Now?                          
+                                          
+The [Fish] [She] Bought Is Stale          
+                                          
+Throw Away The [Rotten Cake]              
+                                          
+The [Cake] Is [Rotten / Fresh]            
+                                          
+The [Fish] Is Stale                       
+                                          
+The Food Is On The Table                  
+                                          
+The [Fish] [Stinks / Has A Bad Smell]     
+                                          
+*
+@0025
+What Do [We / You] Need?                  
+                                          
+Did You Buy Some [Cake]?                  
+                                          
+[I] Need [Eggs] {For [My] [Cake]}         
+                                          
+[We] Can Buy [Coffee] At The [Shop/Store] 
+                                          
+What Else Do [We / You] Need?             
+                                          
+[Potatoes] Are One Pound A [Kilo]         
+                                          
+Do [We] Need <Any> [Eggs]                 
+                                          
+Do You Need Anything?                     
+                                          
+[SUE] Went To The [Market / Market Place] 
+                                          
+The [Eggs] Are Over There                 
+                                          
+Buy Some [Eggs] At The [Shop/Store]       
+                                          
+These [Fruits] Look Nice And Fresh        
+                                          
+These Are Not [Ripe]                      
+                                          
+Can You Buy Some [Eggs]                   
+From The [Shop/Store / Market]            
+[Eggs] Are Expensive {Now}                
+                                          
+Do You Need To Buy [Bread]?               
+                                          
+Food Is Expensive {Nowadays/These Days}   
+                                          
+[We] Need [Eggs] And [Bacon]              
+{For [Breakfast]}                         
+Do You Need <Any> [Cigarettes]?           
+                                          
+Can You Buy [Me]                          
+[One/A/An [Egg] / Some [Bread]]?          
+[TOM] Needs [Cigarettes]                  
+                                          
+Do [We / You] Need Anything Else?         
+                                          
+I {Also} Need To Buy {Some} [Meat]        
+                                          
+What About [Soap]?                        
+                                          
+[We] Already Have [Soap]                  
+                                          
+*
+@0053
+[Is She / Are They] [Leaving]?            
+                                          
+Where Are You Going?                      
+                                          
+[TOM] Is There                            
+                                          
+[I] Am Leaving [In A Few Minutes]         
+                                          
+Come Along With [Us] / Join [Us]          
+                                          
+All Of Them Are [Leaving]                 
+                                          
+Do Not [Leave]                            
+                                          
+[I] Am [Leaving] {[Tomorrow]}             
+                                          
+Where Are [We] Going?                     
+                                          
+I Am Going To Work                        
+                                          
+Come On [Sunday]                          
+                                          
+Where Is [TOM]?                           
+                                          
+Why Are You [Leaving] {[So Soon]}?        
+                                          
+Come Here                                 
+                                          
+Where Are [You All] Going?                
+                                          
+Go Ahead                                  
+                                          
+Do Not [Return/Go Back]                   
+                                          
+Wait For [Me] At The [Shop/Store]         
+                                          
+Come Down And Join [Us]                   
+                                          
+Wait For [Me]                             
+                                          
+Do Not Leave Yet                          
+                                          
+Go To The [Door]                          
+                                          
+I Can Go With Her To The [Circus]         
+                                          
+Do Not Enter/Go In                        
+                                          
+Do Not Leave Until I Arrive               
+                                          
+Go Down                                   
+                                          
+When Will [TOM] Return From               
+[America / The Shop/Store]?               
+[I] Shall Arrive At [Five] In The         
+[Afternoon]                               
+Wait For [TOM]                            
+                                          
+[I] Am Leaving [Soon/Shortly]             
+                                          
+[I] Told [Her] [To Wait]                  
+                                          
+Wait [Downstairs / Upstairs]              
+                                          
+Stay Awhile                               
+                                          
+I Do Not Know When [He] Will [Arrive]     
+                                          
+When Are You Returning? (To This Country?)
+                                          
+[She] Will Arrive [Soon / Tomorrow]       
+                                          
+When Are You Leaving?                     
+                                          
+[He] Came/Arrived Shortly After You Left  
+                                          
+[I] Will Return [Tomorrow / Soon/Shortly] 
+                                          
+[I] Am Leaving [Tomorrow]                 
+                                          
+I Am Going To The [Shop/Store]            
+                                          
+When Is [He] [Leaving / Returning]?       
+                                          
+[TOM] Was Able To Leave/Get Away          
+                                          
+You Might Not {Go}                        
+                                          
+You Might Not {Join}                      
+                                          
+You Might Not {Join Me/Go With Me}        
+                                          
+Where Have You Been (Familiar)            
+                                          
+Where Have You Been (With Respect)        
+                                          
+How Are You Going? / How Will You Go?     
+                                          
+When Did You Arrive?                      
+                                          
+Do You Know If/When He Will Return?       
+                                          
+We Shall Go Where You Like                
+                                          
+When You Leave, I Shall Go With You       
+                                          
+*
+@0024
+Have You Read This [Magazine]?            
+                                          
+What News Is In The [Newspaper]?          
+                                          
+[TOM / He] Is Reading {The Newspaper}     
+                                          
+I've [Seen / Looked At / Read / Finished] 
+That Already                              
+What [Is She / Are You / Am I] Reading?   
+                                          
+You Write To [TOM]                        
+                                          
+I Need [A Pen And Paper]                  
+                                          
+Can I Borrow Your [Pen]?                  
+                                          
+Can You See Alright?                      
+                                          
+Sign The [Letter]                         
+                                          
+I Am Reading/<I Read> {[A Lot Of]}        
+[Books / Bloxy Books]                     
+[She] Wrote A [Letter / Poem]             
+                                          
+Did You Receive My [Letter]?              
+                                          
+The [Book] {I Am Using} Is Only Borrowed  
+                                          
+[I] Read The [First] [Chapter]            
+{Of Her Book}                             
+Have You Read The [Magazine]?             
+                                          
+From What I Read, That Is Not True        
+                                          
+I Am Writing                              
+                                          
+He Read To [TOM] and [SUE]                
+                                          
+Please Read Me A [Story]                  
+                                          
+Please Write Your Name                    
+                                          
+Please Take My [Letter] To The Post Office
+                                          
+Sign                                      
+[This {Paper} / These {Papers}]           
+Sign                                      
+[That {Paper} / Them/Those {Papers}]      
+*
+@0045
+That [Woman] Is Talkative                 
+                                          
+What Did [They] Say?                      
+                                          
+[SUE] Said [She] Has [Eaten] <Already>    
+                                          
+Tell [TOM] To Go With You                 
+                                          
+You Speak In [English]                    
+                                          
+Tell Me Your [Name]                       
+                                          
+What Did You Say?                         
+                                          
+[Your] [Mother] Is Talkative              
+                                          
+[She] Said...                             
+                                          
+<Please> Talk To Your [Mother]            
+{If You Can}                              
+Do Not [Shout At / Tell] [Me / Her]       
+                                          
+Listen {To The [Music]}                   
+                                          
+We Seen/Found [Him]                       
+                                          
+Shout At [SUE]                            
+                                          
+[She] Entered Silently                    
+                                          
+Be Quiet                                  
+                                          
+It Is Noisy / There Is A Lot Of Noise     
+[Outside / In Their [House]]              
+Did You Hear The [Bell]?                  
+                                          
+[He] Is Hard Of Hearing                   
+                                          
+Can You Smell The [Food]?                 
+                                          
+[TOM's] [Baby] Is A Cry-Baby              
+                                          
+You Taste It First                        
+                                          
+It [Tastes / Smells] Delicious            
+                                          
+Look There, [TOM]                         
+                                          
+Look For [My] [Book]                      
+                                          
+Look Up [His Name] In The [Directory]     
+                                          
+[She] Has A [Soft / Sweet] Voice          
+                                          
+Do Not Touch                              
+{[Their / SUE's] [Things]}                
+I Feel A [Pain] On The [Neck]             
+                                          
+Can I See Your [Letter]?                  
+                                          
+I Believe/Think....                       
+[He Is Reading / They Are Coming]         
+[She] Speaks/Talks Very Loud              
+                                          
+I Saw Him, When I Was In                  
+[London / The Shop/Store]                 
+[I] Said...                               
+                                          
+Did You Hear What She Said?               
+                                          
+He Cried {Because Of [You / Me]}          
+                                          
+I Saw [SUE] At The [Market] {Yesterday}   
+                                          
+The Baby Is Talking/<Talks>               
+                                          
+That Is/Was Also My Opinion/Idea          
+                                          
+Were You Looking For Me?                  
+                                          
+[What / Who] Are You Looking For?         
+                                          
+I Was Looking For You                     
+[Last Night / At Lunch Time]              
+I Do Not [Remember / Know]                
+                                          
+Don't You Remember {[Her / TOM]}?         
+                                          
+Remember The Date {Of [Her] [???]}        
+                                          
+*
+@0025
+<You> Wake Up At [Four]                   
+                                          
+You Sleep On The [New Sofa]               
+                                          
+[SUE] Wants To Sleep For A While          
+                                          
+[TOM] Slept Well [Last Night]             
+                                          
+[SUE] Is Asleep                           
+                                          
+[TOM] Is Taking A Nap                     
+                                          
+The Baby Is Sleeping                      
+                                          
+Do Not Wake [Her] {Until [Four]}          
+                                          
+[TOM] Was Awake When I [Arrived]          
+                                          
+Wake Up Early Tomorrow                    
+                                          
+<You> Wake Me Up Also                     
+                                          
+[She] Wakes Up At [Six In The Morning]    
+                                          
+Wake [Him / Me] Up {At Five}              
+                                          
+[TOM Is / I Am] Tired                     
+                                          
+[TOM] Is Sleepless                        
+                                          
+[They] Get Up At [Six In The Morning]     
+                                          
+[I] Slept On The [Sofa] Last Night        
+                                          
+[He] Wakes Up Early                       
+                                          
+I Am Going To Bed Now                     
+                                          
+Wake Me Up If There Are Any Calls         
+                                          
+[You / You All] Look Tired                
+                                          
+<The> Children Should Sleep Early         
+                                          
+He Is Snoring                             
+                                          
+Wake Up!                                  
+                                          
+Go To Sleep <Now>                         
+                                          
+*
+@0041
+Did You Hear The [Bell / Door]?           
+                                          
+Knock On The Door {Before You Enter}      
+                                          
+Mop The Floor                             
+                                          
+[Open / Clean] The/{Your} Window          
+                                          
+[My] [Hands] Are [Dirty]                  
+                                          
+[Close / Lock] The/{Your} [Door]          
+                                          
+Sweep The Floor {Before You Leave}        
+                                          
+I Have A Bath Every Day                   
+                                          
+[She / TOM] Has [A Letter]                
+                                          
+I Have [Two] [Letters] Already            
+                                          
+There Is No Hot Water                     
+                                          
+The Door Cannot Be Opened                 
+                                          
+Bring Me The [Broom]                      
+                                          
+I Am Going To [Close] The [Window]        
+                                          
+You Need To Lock The [Door]               
+                                          
+The Lock {Of His Room} Cannot Be Opened   
+                                          
+The [Room] Is [Clean]                     
+                                          
+I Lost My Key                             
+                                          
+Is [TOM] At Home?                         
+                                          
+I Lost The Key To My [Flat]               
+                                          
+There Is A [Pencil] In The [Living Room]  
+                                          
+[She] Is In The [Garden]                  
+                                          
+When Did [She] Leave The House?           
+                                          
+[TOM] Received [A Letter]                 
+                                          
+When Will [He] Return?                    
+                                          
+[I] Am On/In The Toilet                   
+                                          
+What Is [She] Doing?                      
+                                          
+I Am In The [Kitchen] {Cooking}           
+                                          
+[I] Am Going [Downtown]                   
+                                          
+[She] Has Gone To [Work]                  
+{With [TOM]}                              
+I Am Going To [Wash] The [Window]         
+                                          
+[He] Is Going To [Work]                   
+                                          
+Who Did You Go With?                      
+                                          
+[I] Went With [TOM]                       
+                                          
+Who With?                                 
+                                          
+Are You Staying At Home                   
+                                          
+I Have A Lot To Do                        
+                                          
+What Are You Going To Do [This Afternoon]?
+                                          
+I Am Going To [Clean] The [Window]        
+                                          
+I Am Going To [Open] The [Window]         
+                                          
+[She] Has Gone To [Work]                  
+{With Her [Friend]}                       
+*
+@0022
+[She] Is Wearing A {Beautiful} [Red Dress]
+                                          
+[That] [Skirt] Is Beautiful, [SUE]        
+                                          
+Is Your [Dress] [New / Old]?              
+                                          
+The [Colour] Suits You                    
+                                          
+Can You [Iron / Sew] My [Shirt], Please?  
+                                          
+Where Did You Buy Those [Trousers]        
+                                          
+Where Did You Buy Those [Slippers]        
+                                          
+Where Did You Buy That                    
+                                          
+I Know How To [Iron] [Clothes]            
+                                          
+[TOM's] [Clothes] Are [Clean]             
+                                          
+[TOM] Has [Plenty] [To Sew/Of Sewing]     
+                                          
+There Is Some [Dirt] On Her [Dress]       
+                                          
+Please Mend My [Shoe]                     
+                                          
+Fix Your Hair                             
+                                          
+What Are You Going To Wear?               
+                                          
+Wear The Yellow Dress                     
+                                          
+That Is Old                               
+                                          
+I Have Nothing To Wear                    
+                                          
+Wear Your New Dress                       
+                                          
+I Shall Wear My BLOXY Dress               
+                                          
+I Like The BLOXY Dress                    
+                                          
+Please Get My Dress                       
+                                          
+*
+@0011
+[SUE] Is A Member Of The Church Choir     
+                                          
+[They] Were Married In The [Church]       
+                                          
+[His] [Sister] Is Dying                   
+                                          
+Many People Went To The Cemetery          
+                                          
+Is [She] [Married]?                       
+                                          
+[They] Sang During The Ceremony           
+                                          
+[They] Have A Group Prayer [Later Tonight]
+                                          
+[TOM] Is {Still} A Bachelor               
+                                          
+Love God Above All Others                 
+                                          
+[SUE] Is {Still} A Spinster               
+                                          
+Remove Your [Hat]                         
+{Before You [Enter]} {The [Church]}       
+*
+@0066
+Have You Got A [Car]?                     
+                                          
+Tomorrow Is A [Public Holiday]            
+                                          
+Have You Been To [America]?               
+                                          
+I Went There Last Year                    
+                                          
+I Had A [Beautiful/Great Time]            
+                                          
+I Was Only There For [Two Weeks]          
+                                          
+I Went To [L.A] {And San Francisco}       
+                                          
+I {Still} Have Not Been <Yet>             
+                                          
+[It / Tomorrow] Is The [Chinese] New Year 
+                                          
+How Did You Like It There?                
+                                          
+Where Are You [Staying / Stopping]?       
+                                          
+All The [Shops/Stores] Are Closed         
+                                          
+What Places Did You Visit/Go To?          
+                                          
+I Am Going To [New York] [Next Year]      
+                                          
+I Stayed With My [Younger/est] [Sister]   
+                                          
+He Lives/Is Living In [Los Angeles]       
+                                          
+[My] [Uncle] Lives In [New York]          
+                                          
+Are You Enjoying It Here?                 
+                                          
+I Stayed With A [Friend]                  
+                                          
+Can You Speak [French]?                   
+                                          
+It Is Always Crowded With Traffic Here    
+                                          
+I Am Staying [With Some Friends]          
+                                          
+What Is That {Big} {New} Building?        
+                                          
+I Am Staying [At The [Plaza] Hotel]       
+                                          
+It Is Beautiful To See From Here          
+                                          
+Would You Like To Buy Anything?           
+                                          
+That Is The [Bloxy] Building              
+                                          
+We Will Stop At The [Utility Shop]        
+                                          
+Happy Journey / Have A Nice Journey/Trip  
+                                          
+I Would Like To Buy A [Film]              
+{For My [Camera]}                         
+That Is Our [Public Library]              
+                                          
+Where Do We Buy The [Tickets]             
+                                          
+Hurry Up!                                 
+                                          
+It Is Leaving [Early/Soon / Now / Later]  
+                                          
+You Can Buy Your [Film] There             
+                                          
+The [Ticket Office] Is Over There         
+                                          
+[It / That] Leaves From Platform Five     
+                                          
+Can You [Lower] The Window.               
+I Am Hot                                  
+Good. We Are Leaving                      
+                                          
+Here Comes The Guard                      
+                                          
+Is There A [Restaurant] On The [Train]?   
+                                          
+What Is Wrong With [The Car / Your Car]?  
+                                          
+From Here, Where Is The [Hotel]?          
+                                          
+In The Front Of The [Car]                 
+                                          
+What Time Do We Arrive At                 
+[Bloxy Station]?                          
+I Said [Hurry Up / Slow Down]             
+                                          
+We Should Arrive At [Five Thirty]         
+                                          
+Can I Sit Here?                           
+                                          
+I Said [Stand Up / Sit Down]              
+                                          
+What Time Do We Leave                     
+[Bloxy Station]?                          
+The Seat Is Free / Nobody Is Sitting There
+                                          
+I Am Going To/Into [Town]                 
+                                          
+I Am Also Going There                     
+                                          
+Do/Are You Come From [Bloxy]?             
+                                          
+I Was Born There                          
+                                          
+I Work <Just> Outside [Bloxy]             
+                                          
+We Are Stopping                           
+                                          
+Do You Know Anyone In [Blox]?             
+                                          
+How Can I Get There?                      
+                                          
+Where Do You Want To Go?                  
+                                          
+You Can Ride (Take) A [Taxi]              
+                                          
+What Time Is The [Flight]?                
+                                          
+Have You Got Everything? /                
+Have You Forgotten Anything?              
+Here We Are                               
+                                          
+You Still Have Plenty Of Time             
+                                          
+Tomorrow Is An [Holiday]                  
+                                          
+*
+@0038
+Do You Know....                           
+What The [Movie] Is About?                
+Do You Have Any Hobbies?                  
+                                          
+I Am Collecting Stamps / I Collect Stamps 
+                                          
+Can You See <Alright>?                    
+(When someone is blocking your view, etc) 
+It Is {A} {[Big]}                         
+{[Stamp] Collection}                      
+I {Also} Like {To Listen To} Music        
+                                          
+What Are Your Hobbies?                    
+                                          
+[Gambling] Is [TOM's] Hobby               
+                                          
+I Am {Still} A Beginner {Only}            
+                                          
+Listen To The Music                       
+                                          
+Is Your [Stamp] Collection [Big]?         
+                                          
+Do You Like [To Swim]?                    
+                                          
+I Like [Tennis] The Best                  
+                                          
+Do You Like [To Dance / To Run]?          
+                                          
+I Play A Lot Of Sport                     
+                                          
+I Like/Am Interested In [Classical Music] 
+                                          
+I Also Like [To Swim]                     
+                                          
+Do You Know How [To Swim]?                
+                                          
+Are You Interested In [Sport]?            
+                                          
+What Sport Do You Like Best?              
+                                          
+[She] Does Not Know How To Swim           
+                                          
+[Tennis] Is [Very Popular]                
+                                          
+We Do Not Play [Tennis] /                 
+We Are Not Playing [Tennis]               
+I Listen To The [Radio] Every Night       
+                                          
+Yes, I Love It                            
+                                          
+Do You Often Listen To <The> [Radio]?     
+                                          
+They Are [Swimming / Playing Tennis]      
+                                          
+I Do Not Gamble / I Am Not Gambling       
+                                          
+Is She Playing [Mah-Jong]? /              
+Does She Play [Mah-Jong]?                 
+Gamble With Your [???]                    
+                                          
+He Shuffled The Cards                     
+                                          
+Shuffle The Cards {Before Playing}        
+                                          
+Teach [Me / Her] The Game/Sport           
+                                          
+TOM's Card {Number} Is Four               
+                                          
+All The Odd Numbers Have Gone (Finished)  
+                                          
+The Winner {Of The Game} Is TOM           
+                                          
+I Lost                                    
+                                          
+I Am Losing                               
+                                          
+*
+@0033
+I Had An Accident [Yesterday]             
+                                          
+[She] Needs [Help]                        
+                                          
+I Wear [Eyeglasses]                       
+                                          
+This/It Is [Broken]                       
+                                          
+What Happened?                            
+                                          
+Are You [Frightened]                      
+                                          
+I Have A [Sore Throat / Backache]         
+                                          
+The Baby Is Healthy                       
+                                          
+How Did This/It Happen?                   
+                                          
+Has Your [Wound] Healed Yet?              
+                                          
+She Has A Dry Cough                       
+                                          
+I Have A [Headache / Sore Tooth]          
+                                          
+[His] [Arm] Is Broken                     
+                                          
+This/It Was Not My Fault                  
+                                          
+He Has A [Wound] On His [Leg]             
+                                          
+Clean The Wound                           
+                                          
+You Call [A Doctor / TOM]                 
+                                          
+Dab The Wound With A Piece Of Cotton      
+                                          
+[SUE] Has A Cold                          
+                                          
+The Wound Is Clean                        
+                                          
+I Need A Piece Of Cloth                   
+                                          
+[She] Is [Deaf]                           
+                                          
+[Their / His] [Father] Is Ill             
+                                          
+I Am [Ill / Healthy]                      
+                                          
+[Blox-Cure] Is {Also} A Medicine For      
+[Coughs And Colds]                        
+Are You [Hurt]?                           
+                                          
+[She] Needs [Bandages]                    
+                                          
+Are You [Shocked]?                        
+                                          
+[TOM] Is [Deaf]                           
+                                          
+Are You [Injured]?                        
+                                          
+You Might Be Sick                         
+                                          
+The Illness Of TOM Is [???]               
+                                          
+SUE Is Sick/Ill                           
+                                          
+*
+@0057
+What Is Your Name?                        
+                                          
+[You Are / She Is] [Very Beautiful]       
+                                          
+Are You [TOM]?                            
+                                          
+Slow Your Words                           
+                                          
+I Am Learning TAGALOG                     
+                                          
+Do You Know [TOM / Her]?                  
+                                          
+Are You Coming <Along>?                   
+                                          
+Is [The Woman / She] Beautiful?           
+                                          
+Would You Like To See A Movie?            
+                                          
+Why Is She [Angry / Crying]?              
+                                          
+Shall We Meet In The Afternoon?           
+                                          
+[TOM] Is Married To [SUE]                 
+                                          
+Would You Like To [See] [My] [???]?       
+                                          
+Is [He / Your Brother] Married?           
+                                          
+Do You Understand?                        
+                                          
+It Is Up To You                           
+                                          
+Never Mind                                
+                                          
+Alright/Okay                              
+                                          
+She Does Not Understand [English]         
+                                          
+You Speak In [English]                    
+                                          
+Tell Me Your [Name]                       
+                                          
+What Did You Say?                         
+                                          
+Is [She] [Very Ugly / Ugly]?              
+                                          
+[He] Is Ugly                              
+                                          
+Happy [Valentines / Birthday], [SUE]      
+                                          
+I Miss You                                
+                                          
+See You [On Monday]                       
+                                          
+I Am Fine                                 
+                                          
+How Old Are You?                          
+                                          
+See You [Tomorrow]                        
+                                          
+I Am [Twenty Eight]                       
+                                          
+My [Name] Is [TOM]                        
+                                          
+I Am A [Teacher]                          
+                                          
+What Is Your Job?                         
+                                          
+Do You Live With Your [Family]?           
+                                          
+Your [TAGALOG] Is Excellent/Very Good     
+                                          
+What Part Of [Nottingham] Are You From?   
+                                          
+What Time Do You Have?                    
+                                          
+When Can You And I See Each Other?        
+                                          
+I Am From [Sherwood]                      
+                                          
+How Do You Do / How Are You?              
+                                          
+What Are You Doing On [Monday]?           
+                                          
+Will You Be Busy?                         
+                                          
+                                          
+                                          
+I Will See You At [Two O'Clock]           
+                                          
+Yes / No                                  
+                                          
+                                          
+                                          
+What Are You Doing [This]-[Weekend]?      
+                                          
+                                          
+                                          
+{Please} Give Me A [Kiss!]                
+                                          
+She Loves [Him / TOM]                     
+                                          
+TOM Is My [Lover]                         
+                                          
+My Lover Is [Drunk]                       
+                                          
+TOM Is A                                  
+[Faithful Lover / Idiot]                  
+Her Attitude {On [???]} Is                
+Not Good                                  
+She Tried To Seduce                       
+[Him / TOM / His Friend]                  
+She Seems To Be [Ordinary]                
+                                          
+*
+@0084
+Whose [???] Is This?                      
+                                          
+Get Permission                            
+                                          
+I Cannot Remember                         
+                                          
+[SUE] Has A Loud [Mouth]                  
+                                          
+I Do Not Agree {With You}                 
+                                          
+I Agree                                   
+                                          
+I Do Not Know (As In: Clueless)           
+                                          
+I Do Not                                  
+                                          
+What Is It/This?                          
+                                          
+What Do You Want? / What Would You Like?  
+                                          
+This Is My [???]                          
+                                          
+That [???] Is Mine                        
+                                          
+My [???] Is [???]                         
+                                          
+Put The [???] Under The [Table]           
+                                          
+How Many [???] Have You Got?              
+                                          
+I Have Two [??? s]                        
+                                          
+Give That To Me / Give Me That            
+                                          
+They Are Waiting For You                  
+                                          
+That Is Your [???]                        
+                                          
+The [???] Is Yours                        
+                                          
+The [???] Is For You                      
+                                          
+That Is My [???]                          
+                                          
+Give This To Him                          
+                                          
+Which Is Your Coffee?                     
+                                          
+[We / I] Saw That                         
+                                          
+[We / I] Saw [Somebody]                   
+                                          
+[We / I] Saw A [Dog]                      
+                                          
+I Know                                    
+                                          
+I Know Nothing                            
+                                          
+Do Not Interfere                          
+                                          
+I Am Not {Going to the [Market]}          
+                                          
+You Are Early                             
+                                          
+You Are Late                              
+                                          
+What For?                                 
+                                          
+What Is Your Decision?                    
+                                          
+You Decide                                
+                                          
+What Is Your Mother's Decision?           
+                                          
+Am I [Late]?                              
+                                          
+What Is [TOM's] Decision?                 
+                                          
+[I] Am Feeling Hot                        
+                                          
+Six Years Already/Now                     
+                                          
+Do You Have?/Have You Got?  (I.e The Item 
+Just Passed To Everyone - E.g  A Ticket)  
+Is This/It [Broken]?                      
+                                          
+Well! (As In: I Am Surprised/Shocked)     
+                                          
+How Did [You / They] Do That?             
+                                          
+Can You Look After My [Flowers]           
+{While I Am Away}?                        
+What Program Is On {Tonight}?             
+                                          
+I Am Ready Now                            
+                                          
+Is [This] [New]?                          
+                                          
+Where Would You Like To Sit?              
+                                          
+Can You Look After My [Baby]              
+{While I Am Away}?                        
+Please Give This To [TOM]                 
+                                          
+I [Believe / Think]....He Is Reading      
+                                          
+Can I Help You?                           
+                                          
+I Think This Is - A - ???                 
+                                          
+Do You Know....What The [Movie] Is About? 
+                                          
+Where Do You Want To Go?                  
+                                          
+Why Are You Going To/<Into>               
+[Town / The Shop/Store]?                  
+What's Yours?                             
+                                          
+Nothing Much Really                       
+                                          
+Not So                                    
+                                          
+I Do Not Know If....                      
+                                          
+I Do Not Know (In an Ignorant sort of way)
+                                          
+I Do Not Like (What has been Offered)     
+                                          
+Once In A While                           
+                                          
+Never Mind                                
+                                          
+It Is Up To You                           
+                                          
+No More                                   
+                                          
+Don't (Do Not)                            
+                                          
+Wait (As In: Hold Your Horses!)           
+                                          
+Be Quick/Hurry Up                         
+                                          
+Later On                                  
+                                          
+Go On <Then>                              
+                                          
+Okay                                      
+                                          
+What A Pity/Shame                         
+                                          
+It/That Is Enough/Correct                 
+                                          
+Is It True?                               
+                                          
+Maybe / Who Knows                         
+                                          
+Say What You Like                         
+                                          
+Just There                                
+                                          
+Happy Christmas                           
+                                          
+Happy Birthday                            
+                                          
+Happy Easter                              
+                                          
+Happy Greetings / Congratulations         
+                                          
+*
+@0121
+From [There]. You Can Ride A [Bus]        
+                                          
+All The [Pharmacies] Are Closed           
+                                          
+I [Believe / Think]....They Are Coming    
+                                          
+This Is A [TOM Bloxy] [Movie]             
+                                          
+Do You <Know How To> [Drive / Smoke]?     
+                                          
+We Have An Appointment At [Four]          
+                                          
+Do I Make Many Mistakes?                  
+                                          
+You Made A Mistake                        
+                                          
+There Is A [Wildlife] Program At [Seven]  
+                                          
+What Is The Title?/What Is It Called?     
+                                          
+<You> Accompany Your Mother               
+                                          
+Give (Pass) [One Pound] To Your Mother    
+                                          
+What Is Your Belief/Opinion/Idea/Estimate?
+                                          
+What Is The Program {On Channel Two}?     
+                                          
+I Have Been To The [Shops/Stores]         
+                                          
+What He Said Was A Joke Only              
+                                          
+[TOM] Is Hesitating {To Leave}            
+                                          
+[TOM] Is Not At Fault                     
+                                          
+His/Her Uncle Is Not At Home              
+                                          
+We Need A [Couch] At Home                 
+                                          
+Because Of [TOM], [SUE] Did Not Go        
+                                          
+What Excuse Did [TOM] Give?               
+                                          
+[She] Offered To Help Him                 
+                                          
+How Much Is His Offer?                    
+                                          
+That Is The [???] I Was Talking About     
+                                          
+I Have A Friend Leaving Tomorrow          
+                                          
+Put Down (Lower) The/{Your} [Knife]       
+                                          
+<You> Raise/Lift The/{Your} [Chair]       
+                                          
+[SUE] Has {[Good]} News                   
+                                          
+Forget The [???]!                         
+                                          
+[We] Have A {[New]} [Car]                 
+                                          
+[SUE] Went To The [Shop/Store]            
+                                          
+When Is [SUE's] [Party / Birthday]        
+                                          
+I Forgot My [???]                         
+                                          
+Leave If/When You Want <To>               
+                                          
+Why Did She [Come Here / Call (Phone)]?   
+                                          
+That Is Their Book                        
+                                          
+Their House Is Big                        
+                                          
+Is This My Coffee?                        
+                                          
+<You> Give That To [Me / Them]            
+                                          
+<You> Give Them The Tickets               
+                                          
+The Price Then Was Five Pounds            
+                                          
+The President Then Was [TOM BLOXY]        
+                                          
+Where Are Your [Books]?                   
+                                          
+What Are Your [Names]?                    
+                                          
+Who Are You?                              
+                                          
+Do Not Be Angry With [Her]                
+                                          
+[TOM] Is As [Bad/Wicked/Evil] As [SUE]    
+                                          
+Let Us Dance                              
+                                          
+Forget The Past                           
+                                          
+My Pocket Has A Hole In It                
+                                          
+Have Your Hair Cut                        
+                                          
+[SUE's] Hair Is [Curly / Red] Now         
+                                          
+I Found/Saw A Piece Of Glass In The Rice  
+                                          
+{I Think} [SUE] Is [False] (A Bullster!!) 
+                                          
+They Opened The Door                      
+                                          
+They Are Playing [Cards / Music]          
+                                          
+The/{My} [Holiday / Vacation] Is/Has      
+Nearly Finished                           
+[TOM] Received A [Warning]                
+                                          
+There Is The Money You Were Looking For   
+                                          
+[SUE] Has Five [Sons]                     
+                                          
+[TOM] Has A Big [Family]                  
+                                          
+The House Is Big                          
+                                          
+Which Is Your [Daughter/Son]?             
+                                          
+Would You Like To Dance, [SUE]?           
+                                          
+I Know What You Know                      
+                                          
+[TOM] Is Similar To [SUE]                 
+                                          
+What Is Wrong With [The Car / Your Car]?  
+                                          
+Yes, I Have A [Baby Boy]                  
+                                          
+All The Shops/Stores And Schools          
+Are Closed                                
+Do You Have Any [Children]?               
+                                          
+I Have Been Married For [Six Months]      
+                                          
+[SUE] Was Given A Table By Her Mother     
+                                          
+They Have A Big Kitchen                   
+                                          
+Are You [Married]?                        
+                                          
+Are You [Married], [TOM]?                 
+                                          
+Try To Borrow [TOM's] [Book]              
+                                          
+She Lives [Close To The Bridge]           
+                                          
+Her/His House Is Near                     
+                                          
+[We] Know Our Neighbours                  
+                                          
+Our House Has [Three]-[Bedrooms]          
+                                          
+[TOM] Has A [Round Table]                 
+                                          
+I Would Like To Sit [In The Middle]       
+                                          
+I Would Like To Sit [At The Front]        
+                                          
+I Would Like To Sit [At The Back]         
+                                          
+[We] Can Give You [Seventy Pounds]        
+{A [Week]}                                
+What Is Wrong With You? / What Is Wrong?  
+                                          
+Your [Feet] Stink                         
+                                          
+Can You Look Over My [Papers]?            
+                                          
+She Plays The [Violin]                    
+                                          
+He Is {Still} A [Virgin]                  
+                                          
+Her Door Is [Violet]                      
+                                          
+It Is [TOM's] Birthday On Saturday        
+                                          
+Make A Wish                               
+                                          
+Are You From [Manila]?                    
+                                          
+The [Book] Is Ours                        
+                                          
+This Is Our House                         
+                                          
+This Has Four [Bedrooms]                  
+                                          
+Here Is Where My Sister Lives             
+                                          
+Have You Finished [School]?               
+                                          
+You Are A [Idiot]                         
+                                          
+All Of You Are [Idiots]                   
+                                          
+He Is An [Idiot]                          
+                                          
+Their Family Is [Humble/Poor]             
+                                          
+I Am Busy/Occupied Preparing              
+{For The [Fiesta]}                        
+<You> Accompany Your Mother               
+                                          
+I Gave Five Pounds {Contribution}         
+{For The [???]}                           
+We Shall Help The/Those People            
+                                          
+That [Cake] Is Mine                       
+                                          
+My [Pencil] Is [Lost]                     
+                                          
+You Persuade Her/Him {To Buy [A Car]}     
+                                          
+[TOM] Is Wasting Paper                    
+                                          
+What Is [Her] Ambition {In Life}?         
+                                          
+[TOM] Has Some Doubt                      
+                                          
+You Should Not {Bite Your [Nails]}        
+                                          
+I Am Sorry To [Wake] You                  
+                                          
+I Am Sorry To [Trouble] You               
+                                          
+I Am Sorry To [Interrupt] You             
+                                          
+[That] Picture Was Taken At/In            
+[The Philippines]                         
+It Is Prohibited To Enter                 
+                                          
+Do You Have A/An [Appointment]?           
+                                          
+*
+

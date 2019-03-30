@@ -1,0 +1,280 @@
+This file contains various words that have not been put into the TAGALOG
+Files, because of any of the following reasons....
+
+ * I do not class most of the words as Vital for a Beginner - The main
+   Tagalog words should be good enough to start you off with.
+
+ * I class most of the words as more aimed at Conversation than aimed
+   at Beginners.
+
+ * Some are just words that were not put into the main TAGALOG Files when I
+   began writing LGUI and the TAGALOG Files.
+
+ Note: Unless a word is marked Adj (Adjective), Vrb (Verb), Prn (Pronoun),
+       Adv (Adverb) or Conj (Conjunction) it is to be taken as a Noun.
+
+
+******************************************
+**  NATIONALITY  Related Various Nouns  **
+******************************************
+African                                   
+Aprikano                                  
+American                                  
+Amerikano                                 
+Australian                                
+Ostralyano                                
+Chinese                                   
+Intsik        Insik                       
+English                                   
+Ingles                                    
+Filipino                                  
+Pilipino                                  
+French                                    
+Pranses                                   
+German                                    
+Aleman                                    
+Greek                                     
+Griyego       Grego                       
+Indian                                    
+Bumbay                                    
+Indonesian                                
+Indunisyan                                
+Italian                                   
+Italyano                                  
+Japanese                                  
+Hapon                                     
+Jew                                       
+Hudyo                                     
+Korean                                    
+Koreano                                   
+Malay/Malaysian                           
+Malayo                                    
+Mexican                                   
+Mehikano                                  
+Russian                                   
+Ruso                                      
+Spanish                                   
+Kastila                                   
+Swiss                                     
+Swiso                                     
+Vietnamese                                
+Byetnamis                                 
+******************************************
+* OCCUPATION/WORK  Related Various Nouns *
+******************************************
+Bill/Debt Collector                       
+Kubrador                                  
+Clerk                                     
+Klerk         Kawani                      
+Porter                                    
+Kargador                                  
+Foreman                                   
+Kapatas                                   
+Musician                                  
+Musikero/Musikera                         
+A Band Of Musicians                       
+Musiko                                    
+Pianist                                   
+Piyanista                                 
+Salesman                                  
+Ahente                                    
+Shop Keeper                               
+Tindero/Tindera                           
+Road Sweeper                              
+Kaminero/Kaminera                         
+Dressmaker                                
+Modista                                   
+Employee                                  
+Empleado/Empleada                         
+******************************************
+***         MISCELLANEOUS WORDS        ***
+******************************************
+Tie (Clothes)                             
+Kurbata                                   
+Pillow Case                               
+Punda                                     
+Mirror                                    
+Salamin                                   
+Ceiling                                   
+Kasame                                    
+Downstairs                                
+Ibaba         Silong                      
+Toilet                                    
+Kasilyas                                  
+Wall                                      
+Dingding                                  
+Can Opener                                
+Abrelata                                  
+Hoe                                       
+Asarol                                    
+Plane                                     
+Katam                                     
+Corner (Street Corner)                    
+Kanto                                     
+Triangle                                  
+Pahilis                                   
+Jump                                      
+(Vrb) Talon                               
+Full                                      
+Puno                                      
+Bitter                                    
+Mapait                                    
+Candle                                    
+Kandila                                   
+Empty/Nothing                             
+(Adj) Walang Laman                        
+Void/Ineffective                          
+(Adj) Walang Bisa                         
+Wrist                                     
+Pupulsuhan                                
+Lighter (Cigarette Lighter)               
+Panindi       Pansindi                    
+Shorts (Clothes)                          
+Korto                                     
+Pregnant                                  
+Buntis                                    
+(Adj) Unfaithful                          
+Di Matapat    Taksil                      
+Faithful                                  
+(Adj) Matapat                             
+Unable To Read                            
+(Adj) Di Makabasa                         
+Unable To Write                           
+(Adj) Di Makasulat                        
+Help                                      
+(Vrb) Tulong                              
+(Vrb) Helping                             
+Tumutulong    Nakatutulong                
+Complaint                                 
+Reklamo                                   
+Bottle                                    
+Bote                                      
+Coward                                    
+(Adj) Duwag                               
+Disaster/Accident                         
+Sakuna                                    
+Depth                                     
+Lalim                                     
+Deep                                      
+(Adj) Malalim                             
+To Deepen/To Make Deep                    
+(Vrb) Laliman                             
+Grey                                      
+Abuhin                                    
+When                                      
+(Conj) Kapag                              
+Pot (For Cooking)                         
+Palyok                                    
+Leaf                                      
+Dahon                                     
+Root (Of Plant)                           
+Ugat                                      
+Coat                                      
+Amerikana     Sobretodo                   
+Ash           (Ash Tray)                  
+Abo           (Abuhan)                    
+Pope                                      
+Papa                                      
+Player                                    
+Manlalaro                                 
+Maghapon                                  
+(Adv) All Day Long                        
+To Set The Table                          
+(Vrb) Maghain                             
+Product                                   
+Yari                                      
+Made Of/Manufactured/Finished             
+(Adj) Yari                                
+To Finish/To Make                         
+(Vrb) Yariin                              
+Pond                                      
+Lawa                                      
+Pool (Swimming)                           
+Sapa                                      
+Plot (Storyline)                          
+Balangkas                                 
+Playground                                
+Palaruan                                  
+Playmate                                  
+Kalaro                                    
+Intention                                 
+Hangarin      Balak                       
+(Vrb) Discuss                             
+Kausapin      Magtalo                     
+(Vrb) To Stop Crying                      
+Magtahan      Tahan                       
+Discover                                  
+(Vrb) Matuklasan                          
+(Vrb) Disappoint                          
+Biguin        Mabigo                      
+Unemployed                                
+Walang Trabaho                            
+Feather                                   
+Balahibo                                  
+Feelings                                  
+Damdamin                                  
+Toilet Paper                              
+Papel Ng Kasilyas                         
+This Year                                 
+Sa Taong Ito                              
+Next Year                                 
+Sa Susunod Na Taon                        
+Dancer                                    
+Mananayaw                                 
+Northeast                                 
+Hilagang Silangan                         
+Northwest                                 
+Hilagang Kanluran                         
+Southeast                                 
+Tumog Silangan                            
+Southwest                                 
+Tumog Kanluran                            
+Northward                                 
+Pahilaga                                  
+Southward                                 
+Patumog                                   
+Eastward                                  
+Pasilangan                                
+Westward                                  
+Pakanluran                                
+Roasted                                   
+(Vrb) Inihaw                              
+Expect                                    
+(Vrb) Asahan                              
+Tears                                     
+Luha                                      
+Street                                    
+Kalye                                     
+Tray                                      
+Bandeha                                   
+Mechanical                                
+(Adj) Yaring Makina                       
+Insurance                                 
+Siguro                                    
+Fat                                       
+Taba          Mataba                      
+Stand                                     
+Tumayo                                    
+Smart                                     
+(Adj) Matalino                            
+Tight                                     
+(Adj) Hapit   Mahigpit                    
+Tighten                                   
+(Vrb) Higpitan                            
+Sing                                      
+(Vrb) Kumanta                             
+Kneel                                     
+Lumuhod                                   
+Mix                                       
+(Vrb) Ihalo                               
+To Stir                                   
+(Vrb) Haluin                              
+To Push                                   
+(Vrb) Itulak                              
+To Soak                                   
+(Vrb) Ibabad                              
+Steam                                     
+(Vrb) Pasingawan                          
+Dip                                       
+(Vrb) Ilubog                              
+

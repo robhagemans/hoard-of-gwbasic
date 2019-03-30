@@ -1,0 +1,213 @@
+Questions & Answers
+BULLET v1.03, 22-Apr-93 (BLTQ13)
+
+Q: What is BULLET?
+
+A: BULLET is a library of program modules that together let the programmer
+   develop and create software that can manage huge amounts of data on
+   disk using the industry-standard DBF data file format. It also uses high-
+   speed b-tree index files to manage keyed data file access.
+
+
+Q: What compiler is BULLET for?
+
+A: BULLET can be used by nearly all DOS compilers. It's written entirely in
+   assembly language. Because of this, it does not require any particular
+   programming language or compiler vendor. The 4 requirements are listed
+   in the !WHATIS.TXT file.
+
+
+Q: Why do I need BULLET when all I need to handle are small amounts of data?
+
+A: BULLET can deal with a database as small as 1 record or as large as several
+   million. While your current needs may be small, your future needs are bound
+   to expand. BULLET can work with you now, and later, even if you switch
+   development platforms by moving to another compiler. And BULLET is fast,
+   it can deal with a database with millions of records as easily as it can
+   with just a few.
+
+
+Q: But b-tree stuff, isn't that hard?
+
+A: Everything associated with maintaining the database, its data files and its
+   index files, is done behind-the-scenes by BULLET. You just specify how the
+   data record is to look by specifying the number of fields, their lengths and
+   types, and then specify how you want your index files to be based.
+
+
+Q: So how do I design my data record?
+
+A: You probably have a pretty good idea, already. A good way to determine what
+   should go into a database is what you want to come out of it. For example,
+   if you're doing a mailing list program, you'll want to have at least the
+   name, perhaps broken into first name and last. Also you'll need the mailing
+   address--4 lines is usually enough, so you'll want 4 separate address line
+   fields. Then there's the State and ZIP, possibly even country. That's the
+   minimum. It would look something like this:
+
+   FIRSTNAME field of 15 characters; LASTNAME field of 19 characters; ADDR1
+   field of 34 characters, ADDR2, ADDR3, ADDR4 as ADDR1; State field of 2
+   characters, and ZIP a field of 5 (or 9 if ZIP+4) characters. You could
+   specify the ZIP as a numeric field if you wanted.
+
+   You'll notice that the longest field is 34 characters. Why? Because most
+   mailing labels are 3.5 inches, about 34 characters across. Since the first
+   name and last are usually put on the same line, their total should be 34.
+
+   You'll probably want to add more fields like telephone number, last time
+   written to, oh, just about anything that you'd think would be important to
+   know. There you go, you've just designed your data record.
+
+
+Q: Then what?
+
+A: Then decide how you need to access this data. You'll want to access it at
+   least by name, so one index you'll want is on the name. While you could
+   specify the entire name be used as a key, say LASTNAME+FIRSTNAME, this is
+   a bit of overkill. Instead, you may want to use just a portion of the name.
+   A good candidate would be SUBSTR(LASTNAME,1,5)+SUBSTR(FIRSTNAME,1,1). This
+   sets up a key that's only 6 bytes long. The first method, using all the
+   name, would be 34 bytes long. By keeping your keys short you'll keep your
+   index files small and your index performance high. And yes, you can also
+   mix numeric field types with character field types in your key expressions.
+
+
+Q: But what if I have two or more names that are identical, or very similar
+   but have these parts of the names the same?
+
+A: BULLET lets you specify if your index files allow only unique key entries or
+   whether duplicate keys are permitted. When keying on a name you should have
+   your index file allow duplicate keys. What BULLET does is number these
+   identical keys by adding a suffix to each key (called an enumerator). This
+   enumerator allows the index algorithm to treat each key as a different key.
+   If you search the index for all matches in the first 6 characters of the
+   key (the enumerators will always be different) these similar names will
+   be found in consecutive order. To find out if the key you've just accessed
+   is the actual person you had in mind, you'd scan the data record associated
+   with that key for other information, such as middle initial, address,
+   anything that would make that person recognizable from another with a
+   similar key. If it isn't what you're looking for, get the next key and data
+   record, and so on until the first 6 characters of the key no longer are the
+   6 you're looking for.
+
+
+Q: So I've got my data record designed and also my primary index file. What
+   else should I do?
+
+A: Now that the database is designed most of the "unknown" is taken care of.
+   What comes next depends on how you, yourself, program. What I often do
+   next is detail exactly what I want the output to be. That way, I've got
+   the front and the back and just need to do the middle. The middle is where
+   the fun's at. You'll be amazed at just how few of your in-the-middle coding
+   is spent on managing the database. BULLET takes care of all the little
+   details. You just need to give it the data and tell it what to do with
+   it. Or you tell it what to get and it comes back with what you requested.
+   You then do whatever you want with that data.
+
+
+Q: I've looked at the header file and it sure has a lot of commands. You're
+   telling me that this is simple?
+
+A: Yes. Once you've created your data and index files, those mid-level
+   routines are not often used. Almost everything you do in your in-the-middle
+   coding will use the high-level routines. The InsertXB and UpdateXB routines
+   handle adding new or changing existing data, and the GetFirstXB, GetNextXB,
+   etc., routines handle getting the data. 90% of the time these are the
+   routines your program will be using.
+
+
+Q: What about all those packs? How can I keep them straight?
+
+A: The good thing about modern programming langauges is that they let you
+   build reusable code. The ideal way to use BULLET is to build reusable
+   code objects in your programming langauge of choice and hide the down-and-
+   dirty aspects of dealing with the various packs in those objects. For
+   example, a create key routine could be written once and that object used
+   for all your other programming projects:
+
+      DECLARE FUNCTION CreateNewIndex% (filen$, kx$, kflags%, XBlink%)
+
+      FUNCTION CreateNewIndex(filename$, kx$, keyflags, XBlink)
+
+      DIM CKP AS CreateKeyPack
+      DIM TmpFile AS STRING * 80
+      DIM TmpExp AS STRING * 136
+
+      TmpFile = filename$ + CHR$(0)
+      TmpExp = kx$ + CHR$(0)
+
+      CKP.Func = CreateKXB
+      CKP.FilenamePtrOff = VARPTR(TmpFile)
+      CKP.FilenamePtrSeg = VARSEG(TmpFile)
+      CKP.KeyExpPtrOff = VARPTR(TmpExp)
+      CKP.KeyExpPtrSeg = VARSEG(TmpExp)
+      CKP.XBlink = XBlink
+      CKP.keyflags = keyflags
+      CKP.CodePageID = -1
+      CKP.CountryCode = -1
+      CKP.CollatePtrOff = 0
+      CKP.CollatePtrSeg = 0
+      stat = BULLET(CKP)
+      CreateNewIndex = stat
+
+      END FUNCTION
+
+   The TmpFile and TmpExp were used in this QuickBASIC example so that the
+   string data is assigned to a fixed-length string. VARSEG/VARPTR operate
+   on fixed-length strings identically in both BASIC 7 and QuickBASIC 4.5.
+   If you want to forgo this compatibility you could use a var-len string
+   and the BASIC SADD() function instead of VARPTR. I find using the
+   temporary fixed-length strings just as easy since a CHR$(0) needs to
+   be appended to the string in any case. And they are temporary strings--
+   as soon as the CreateNewIndex() routine exits, the memory assigned to the
+   Tmp strings is released.
+
+   So, once you write this create index object, you can reuse it over and
+   over again without needing to recode it every time. Just a simple
+
+   stat = CreateNewIndex(filename$,keyexpression$,keyflags,XBlink)
+
+   is all you need to put in your in-the-middle code. Oh, the key expression,
+   keyflags, and XBlink are all explained under CreateKXB in CZ.
+
+
+Q: I think I'm getting the hang of it. What's next?
+
+A: Jump in and start coding. You may want to look over, maybe even print out,
+   one of the example programs. The BB_CAI10.BAS is straight forward, try
+   that. If you have any questions, just pop-up CZ. It's all in there.
+
+
+Q: Sounds good. But, tell me, what is the first thing I'm likely to muff?
+
+A: Nothing serious. Just make sure that your record structure in memory
+   reserves the first byte for the delete tag. Also, make sure that the field
+   descriptors you assigned when you created the data file match your in-memory
+   structure, i.e., if you've created a data file (using CreateDXB) with say, 3
+   fields, each 25 characters long, make sure that your in-memory structure is
+   also 3 fields, each 25 characters:
+
+      TYPE ExampleRecordTYPE
+      tag AS STRING * 1
+      Field1 AS STRING * 25
+      Field2 AS STRING * 25
+      Field3 AS STRING * 25
+      END TYPE
+
+   Note: it is allowable to alias your physical fields but the total length
+   must match the total length of the DBF data record. (Alias meaning that
+   instead of using Field1 AS STRING * 25, you use Field1a AS STRING 13 and
+   Field1b AS STRING 12. Be sure you know what you're doing!--the IDEMO.BAS
+   program uses this technique (not in the strict sense of alias) by using a
+   single 4000-byte in-memory record since it can't know beforehand what
+   structure a random DBF file has.)
+
+   Also, the transaction routines (InsertXB, UpdateXB, ReindexXB, and the
+   LockXBs) return a transaction index rather than a completion code. Be sure
+   to check the documentation for the routines.
+
+Q: I'm off.
+
+A: So am I, but be sure to...
+
+   ...Read the manual! Until you do you can't take full advantage of BULLET.

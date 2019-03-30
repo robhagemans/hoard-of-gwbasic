@@ -1,0 +1,54 @@
+                        QBasic Crossword Puzzle
+
+       (c) copyright 1995 by Molnar \ Kucalaba Productions
+
+                Programmed entirely by Luke Molnar
+        
+       Thanks for downloading QBasic Crossword Puzzle!
+
+ This program is a mouse compatible crossword puzzle, as you may have 
+already guessed. This is similar to QBasic Pieces, which you have
+hopefully already downloaded. If so, you'll notice that QBasic Pieces
+has a much nicer interface, but this was made 3 months ago, and it
+was only 30,528 bytes uncompiled. If you encounter problems with the
+clues showing up, the only thing you can do is run the mouse around
+in the square until the clue pops up, but it should run fine.
+
+
+     The two sound bites were made by some dude named LittleBug.
+
+**********************List of needed files*************************
+
+1) Enter.M-K
+2) Leave.M-K
+3) Puzzle.EXE
+4) Puzzle.DAT
+5) Puzzle.TXT (what you're reading)
+
+*******************************************************************
+
+*********The newest additions to the M\K QBasic Library************
+
+1) Ambush at South Range 2 : An excellent game, esp for QBasic, in
+which your control a little dude and you like, blow up the school
+after you "take care of" the teachers. Load \ Save feature, Sound
+Blaster effects, and involving game play. Download today!
+
+2) QBasic Pieces : Another excellent game, the second in the series of
+fully mouse controlled games. This program is very addictive, with
+5 puzzles each with 150 pieces and Load Save option. This also includes
+a hall of fame that stores your fastest times. Another great game.
+
+3) QBasic GRFX Demo : This graphics demo, utilizing our new graphics
+saving method, displays pictures of real people and digitized artwork.
+Each picture is loaded in about 2-3 seconds, and displayed pixel by pixel.
+In the future watch for scaling and cropping effects.
+
+4) Andross 2 : Space shooting game, with music as good if not better than
+any QBasic program available on AOL. Details sketchy, though look for
+well animated characters and arcade-style play.
+
+*******************************************************************
+
+
+

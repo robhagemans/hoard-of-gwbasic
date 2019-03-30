@@ -1,0 +1,7 @@
+Name: READBAS.ARC
+Keywords: BASIC, TOKENS, READ
+
+Description: Read BASIC files saved in tokenized format without 
+having to load into BASICA.  You may also re-direct output to a 
+file or printer.
+

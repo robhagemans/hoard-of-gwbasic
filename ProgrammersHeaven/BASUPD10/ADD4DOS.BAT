@@ -1,0 +1,10 @@
+@echo off
+describe add4dos.bat "add 4DOS descriptions for BasUpd"
+describe basupd.bi   "declarations for the BasUpd library"
+describe basupd.doc  "documentation for the BasUpd library"
+describe basupd.lib  "BasUpd LINK library (QB 4.5 version)"
+describe basupd.qlb  "BasUpd Quick library (QB 4.5 version)"
+describe catalog.txt "catalog of other Hanlin software"
+describe file_id.diz "description of BasUpd for BBSes"
+describe packing.lst "list of BasUpd files (this list)"
+describe where.bbs   "BBSes with the latest Hanlin software"

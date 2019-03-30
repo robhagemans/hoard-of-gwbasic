@@ -1,0 +1,193 @@
+           
+                ULTMKJ.TXT --- The Comprehensive Help Guide to
+
+                       The Ultimate MKJ Player v2.0
+                        
+                             ...and also...
+
+                            The MKJ Sound FAQ
+
+             Information last updated on : December 15th, 1996
+       The Ultimate MKj Player last updated on : December 15th, 1996
+
+ 
+   This document will provide answers to some commonly asked questions, or
+    at least probable questions.  For basic help, read the Help...Contents
+    section of the Ultimate MKJamz Player v2.0.  Don't email us and ask
+     a question that appears on here.  Repeat.  Don't email us and ask
+    a question that appears on here.  Now that that has been said, someone
+         will inevitably ask us a question that appeared on here.
+ 
+ I.  General Questions
+
+  Q.)  What is MKJamz?
+  A.)  MKJamz (please forgive the stupid name) is a file format designed
+       for QBasic programmers who want MIDI-like music in their programs.
+       The earliest version of MKJamz was completed sometime around August
+       of 1996.
+
+  Q.)  Where can I get MKJ songs?
+  A.)  Right now, the best (and only to our knowledge) place to download
+       MKJ songs is our FTP or WWW sites.  They are both listed under the
+       Help...Support section.
+
+  Q.)  What can MKJamz do for ME?
+  A.)  It can play nice music for you to listen to.  Also, you can easily
+       play MKJs WITHIN YOUR VERY OWN PROGRAM!  Just copy all of those
+       routines that are available in the MKJamz programmers kit, and plug
+       'em into your program.  You'll be playing nice little songs in no
+       time, at the same quality as professional (hah!) players like the 
+       Ultimate MKJ Player.  You can even put them into your games.  However,
+       we aren't saying this is a cure-all multimedia solution for your
+       programs.  All the code is in QBasic SUB form, so it has it's
+       disadvantages.  But, we are using MKJs in some of our future games
+       like "Pieces 2" and the already available "Pong Mania v2.0".
+
+  Q.)  How do I make my own MKJ songs?
+  A.)  Visit our FTP or WWW sites and download the MKJAMZ.ZIP file, located
+       in the graphics and sound kit.  It contains a large amount of source
+       code and is highly commented.  Knowledge of the PLAY syntax helps.
+
+  Q.)  It's too hard to make MKJ songs.  When is a decent composer going to
+       be made?
+  A.)  We are working on one similar to the note layout in the Ultimate MKJ
+       player, but for now the MKJamz kit will have to do.  If you don't
+       like it, then put each note frequency directly into the buffer your-
+       self.
+   
+   Q.)  I want to play MIDIs.  Can you send me MIDI code or give me any
+        general MIDI info?
+   A.)  No, we can't.  Go to that x2ftp site and download the documents on
+        MIDIs.  Don't ask us for the x2ftp site URL.  It's probably
+        x2ftp.oulu.fi .  Just don't email us and ask about MIDIs, if
+        we get MIDI code it will be in the /examples/ directory of our
+        FTP site.
+ 
+  Q.)  I think MKJs suck.  Where can I channel my ignorance?
+  A.)  As long as it ain't to us, we don't care.  
+
+  Q.)  How do I play WAVs?
+  A.)  There is WAV code on our FTP site.
+
+  Q.)  What's up with no true percussive instruments in MKJamz?
+  A.)  As soon as we receive (or find) adequate documentation, we'll add
+       those.  We've tried, but we only got a drum sound like 1 time out
+       of 25 attempts.  Also, we're putting that off because it would likely
+       require a bunch of additional code and format modifications, and
+       we're really pretty content with the state of MKJs.
+
+ II.  Ultimate MKJamz Player v2.0 Questions
+
+   Q.)  What's the difference between v1.1 and v2.0?  They look the same to
+        me.
+   A.)  The major change is the new File...Open interface, which is light
+        years beyond the old one.  You now get a Windows-like dialogue box
+        which makes finding MKJ files 100 times easier.  It also has keyboard
+        support.  We would like to thank Mark K Kim (MarkKKim@aol.com) for 
+        lending us his various routines to detect the directories, files, 
+        etc.  The other difference, which is explained more in depth
+        later on, is that the songs load *fast*.  
+
+   Q.)  Are those the only changes?
+   A.)  Nope!  Due to popular demand, percussive instruments have now been 
+        added to MKJamz.  All MKJamz with a version of 1.11 or higher support
+        percussive instruments.  For a short little example of these, play
+        the POSSUM.MKJ file that came with the Ultimate MKJ Player v2.0.
+
+   Q.)  I can't get it to work, and the problem is related to my sound card.
+        (or lack thereof)
+   A.)  Well, past versions were very limited in terms of sound card i/o 
+        configurations supported, but version 1.1 will scan through the
+        most probable base ports and check if your card is there.  If it
+        finds it, it displays a short message telling you your baseport.
+        The range is from 210h to 280h; it checks 210h, then 220h, then
+        230h, etc.  Personally, we've never seen a card other than 220h.
+   
+   Q.)  Are there any features that I am not aware of?
+   A.)  You might not have noticed the command line feature.  It takes a
+        file name from the command line optionally.  Therefore, you could
+        type 
+        
+        c:\> ultmkj  c:\windows\heart.mkj
+        
+        and it would load up and start playing c:\windows\heart.mkj.  This
+        may not seem useful, but it is.  You see, you can associate all MKJ
+        files with ULTMKJ.EXE and then, throughout windows, if you double
+        click on any MKJ file it will automatically start playing through
+        ULTMKJ.EXE.
+   
+   Q.)  What's up with the new, faster MKJ loader?
+   A.)  Well, we remembered that QBasic likes to change the data that 
+        our crude far-pointers point to, and that is what we think was
+        causing all of the trouble.  Yes, that's right, we managed to
+        shift the blame nicely off of ourselves and onto someone else.
+        If you recall, all previous versions of the Ultimate MKJamz Player
+        took forever to load a song, and we had a super-fast routine that
+        for some reason crashed our computers all the time.  Well, we rolled
+        up our sleeves and in about 2 minutes we fixed everything. (maybe)
+
+   Q.)  Sometimes the music gets screwed up.  Why?
+   A.)  This can happen for any number of reasons, but, if you are on
+        at least a 486dx33, which most of you probably are, the one
+        time the music gets really off track is when you keep pulling
+        down all of the menus.  It takes a bit of time to draw up the
+        menus, that's why it screws up the music.  Also, when we say
+        486dx33, that's just because it's the worst computer than we
+        got a chance to test this on.
+
+   Q.)  What good is the DOS Shell?
+   A.)  Well, with the new File...Open module, not much.  But, you never know
+        when a nice DOS shell will come in handy...for example, you could see
+        how many times you can run The Ultimate MKJamz Player from within
+        itself!  You can run other Sound Blaster programs and see how screwed
+        up you can get the Ultimate MKJ Player to sound!  The excitement never
+        ends!
+
+   Q.)  How do I Mute or Solo a channel?
+   A.)  To mute a channel, click on the box with the red circle above the
+        channel you want to mute.  It will then turn green, signifying that
+        the channel is muted.  To un-mute it, just click it again.  To solo
+        a channel, do the same thing but click on a box besides Solo and not
+        Mute.  Soloing is basically muting every channel except one, and that
+        is reflected by having each channel muted except the channel you
+        selected to solo.  To un-solo, and, in effect, un-mute everything,
+        click the solo-ed channel again.
+
+   Q.)  How come when I try to make the song go faster, it instead turns into
+        crap?
+   A.)  Because that feature does not work 100% of the time.  If you don't
+        it, don't use it.  The slow-down feature probably has the same
+        problem.  It's funny because it works well it our other player.
+        In version 2.0 it seems to work a little better.
+  
+   Q.)  I really screwed up the song by making it go really fast and muting
+        half the channels.  How do I reset a song?
+   A.)  Click on the "Stop" icon at the bottom of the screen.
+
+   Q.)  What are those dumb smiling faces for?
+   A.)  Those 2 smiling faces represent the volume.  The guy is "happy" if
+        the volume is cranked all the way up.  To change the volume, click 
+        and drag on the little bar in-between them.  As a special treat,  
+        you even get to watch their faces change as you change the volume.
+        We know y'all love to see stuff like that, but please, try to 
+        contain your elation.
+
+   Q.)  I think this player sucks.  Please tell me there is another player.
+   A.)  You're in luck.  There are currently 3 other signifigant players
+        that we are aware of.  They are : 
+        
+        Projammer V1.1 By Turbo Systems Software
+        http://members.aol.com/roadbustr/homepage/tss.htm
+        email : tssoft1@aol.com
+
+        The Offical MKJ Player v2.0 By M \ K Productions
+        http://members.aol.com/mkwebsite/index.html
+        email : blood225@aol.com
+
+        Slam Jamz by Aura Software
+        WWW site undetermined
+        email : asoftds@aol.com
+
+        We encourage you to download all of those players, and, in general, 
+        get more involved with the whole MKJamz family.
+

@@ -1,0 +1,11 @@
+Short : QB Matrix 1.0, Full featured Tetris variant for Qbasic
+Type  : Programming source
+Uploader : TimTruman@aol.com
+Replaces : None
+
+A great version of the classic Tetris for Qbasic. Described as clean,
+smooth and very playable. Select Level, Handicap, Slam and Sound
+Options on graphical options screen. Keeps top 15 scores allowing player
+to enter names or phrases to taunt other players. Uses mode 13. Will
+run on any machine with a VGA, floppy drive and Qbasic for DOS. Commented
+source code. Documentation : QBMATRIX.TXT ,MATRIX.TXT

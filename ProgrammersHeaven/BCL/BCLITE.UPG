@@ -1,0 +1,198 @@
+
+
+
+
+    ³³Û³³³Û³³ GRAFTech's
+    ³³Û³³³Û³³ BARCODES-LITE Developers Library
+    ³³Û³³³Û³³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ³³Û³³³Û³³ The Next Generation Of Business Software
+
+
+
+
+         BARCODES-LITE is the shareware edition of GRAFTechs commerically
+    successful BARCODES-PLUS Developers Library.  Providing many of the
+    features of BARCODES-PLUS, BARCODES-LITE gives users with the ability
+    to enter the world of bar coding through the shareware marketing
+    channels and try before they buy to make sure BARCODES-LITE will meet
+    the demands of their particular needs.
+
+         However, your applications may require bar codes or graphics of a
+    more advanced nature.
+
+         GRAFTech has the solution.  BARCODES-PLUS Developers Library
+    provides the printer drivers to print the same high quality bar codes
+    found in BARCODES-LITE, with additional symbologies plus the ability to
+    print PCX graphic images.
+
+
+         BARCODES-PLUS Highlights . . .
+
+
+         Versatility, with support for over 300 different dot matrix,
+    inkjet, paintjet and laser printers, including Epson, Hewlett-Packard,
+    IBM, Okidata, Panasonic and compatibles without the need for
+    specialized graphic capability.
+
+         Flexibility, the binary data stream output can be directed to a
+    printer, data file or non-formatting print spooler.
+
+         Power, selectable features include print densities, heights,
+    headers (human readable characters), complete error checking and
+    automatic check digit calculation and return.  And, the black and white
+    PCX image print feature provides the finishing touch to any document
+    when logos, scanned images, pictures and drawings are added.
+
+         Speed, with uniquely optimized graphic routines BARCODES-PLUS can
+    easily handle printers faster than 1,200lpm.
+
+         Simplicity, the single call user interface makes integration fast
+    and easy.  In fact, many users tell us they printed their first bar
+    coded document within 60 minutes from opening the box.
+
+         Portability, the 12 separate versions no available allows for easy
+    migration without starting over.
+
+         And, BARCODES-PLUS can be integrated with many popular languages,
+    4-GL's or database manager's that have 'C' or BASIC function call
+    support.
+
+         BARCODES-PLUS retail price is $ 350.00 but for registered users of
+    BARCODES-LITE you can upgrade to BARCODES-PLUS for only $ 200.00.
+
+
+
+
+
+
+
+
+
+    ³³Û³³³Û³³ GRAFTech's
+    ³³Û³³³Û³³ BARCODE-BLOBS Bar Code Storage Facility
+    ³³Û³³³Û³³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ³³Û³³³Û³³ The Next Generation Of Business Software
+
+
+
+
+    BARCODES-LITE vs BARCODES-PLUS
+
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³ Feature                             ³ BARCODES-LITE ³ BARCODES-PLUS ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ UPC Version A                       ³     Yes       ³     Yes       ³
+    ³ UPC Version E                       ³     Yes       ³     Yes       ³
+    ³ UPC/EAN/IAN 8                       ³     Yes       ³     Yes       ³
+    ³ UPC/EAN/IAN 13                      ³     Yes       ³     Yes       ³
+    ³ Interleaved 2 of 5 - Commercial     ³     Yes       ³     Yes       ³
+    ³ Interleaved 2 of 5 - Variable       ³     Yes       ³     Yes       ³
+    ³ Code 39 - No Check Digit            ³     Yes       ³     Yes       ³
+    ³ Code 39 - With Check Digit          ³     Yes       ³     Yes       ³
+    ³ Industrial 2 of 5 - No Check Digit  ³     Yes       ³     Yes       ³
+    ³ Industrial 2 of 5 - With Check Digit³     Yes       ³     Yes       ³
+    ³ Code 128 - Series A                 ³     Yes       ³     Yes       ³
+    ³ Code 128 - Series B                 ³     No        ³     Yes       ³
+    ³ Code 128 - Series C                 ³     No        ³     Yes       ³
+    ³ USPS POSTNET - 5 Digit              ³     No        ³     Yes       ³
+    ³ USPS POSTNET - 9 Digit              ³     No        ³     Yes       ³
+    ³ USPS POSTNET - 11 Digit             ³     No        ³     Yes       ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Prints PCX Graphic Images           ³     No        ³     Yes       ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Supports 100+ Dot Matrix Printers   ³     Yes       ³     Yes       ³
+    ³ Supports 200+ Compatible DM Printers³     Yes       ³     Yes       ³
+    ³ Supports HP Laser Jet Printers      ³     No        ³     Yes       ³
+    ³ Supports HP Paint/Ink Jet Printers  ³     No        ³     Yes       ³
+    ³ Supports Compatible Laser Printers  ³     No        ³     Yes       ³
+    ³ Supports PCX Graphic Image Output   ³     No        ³     Yes       ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Callable From C or BASIC Programs   ³     No        ³     Yes       ³
+    ³ Automatically Calculates Check Digit³     Yes       ³     Yes       ³
+    ³ Selectable Printer Image Density    ³     Yes       ³     Yes       ³
+    ³ Selectable Bar Code Heights         ³     Yes       ³     Yes       ³
+    ³ Selectable Bar Code Headers         ³     Yes       ³     Yes       ³
+    ³ Programmable Print Positioning      ³     Yes       ³     Yes       ³
+    ³ Print Text and Graphics On Same Line³     Yes       ³     Yes       ³
+    ³ Returns Error Codes                 ³     Yes       ³     Yes       ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Version for DOS                     ³     Yes       ³     Yes       ³
+    ³ Version for OS/2 2.0                ³     No        ³     Yes       ³
+    ³ Version for SCO Unix                ³     No        ³     Yes       ³
+    ³ Version for SCO Xenix               ³     No        ³     Yes       ³
+    ³ Version for IBM AIX RS6000          ³     No        ³     Yes       ³
+    ³ Version for AT&T Unix               ³     No        ³     Yes       ³
+    ³ Version for BBxPROGRESSION/4        ³     No        ³     Yes       ³
+    ³ Network Compatible                  ³     No        ³     Yes       ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+
+
+
+
+
+
+    ³³Û³³³Û³³ GRAFTech Development Corporation
+    ³³Û³³³Û³³ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+    ³³Û³³³Û³³ Post Office Box 851228
+    ³³Û³³³Û³³ Westland  MI  USA  48185-6328
+    ³³Û³³³Û³³ 517/487-2780
+
+    ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+    ³                  BARCODES-PLUS UPGRADE ORDER FORM                   ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³       Company Name:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³     Street Address:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³    Mailing Address:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³     City/State/Zip:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Contact Name/Title:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³   Telephone Number:                                                 ³
+    ÃÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Quantity ³ Description                        ³  Price  ³ Extension ³
+    ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄ´
+    ³          ³ BARCODES-PLUS Developers Library   ³ $200.00 ³           ³
+    ÃÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ DESIRED  ³ Sales Tax (Michigan Orders Add 4%)           ³           ³
+    ³ FORMAT   ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄ´
+    ³          ³ Shipping and Handling (US $ 6.00)            ³           ³
+    ³ [] 3 1/2 ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄ´
+    ³    (720) ³ Shipping and Handling (NON-US $ 25.00)       ³           ³
+    ³ [] 5 1/4 ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÄÄÄÄÄÄÄÄÄÄÄ´
+    ³    (360) ³ Total (Amount Enclosed)                      ³           ³
+    ÃÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄ´
+    ³              BARCODES-PLUS System(Language) Selection               ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ [] DOS(VBDOS 1.0)                [] OS/2 2.0(IBM C)                 ³
+    ³ [] DOS(MS-Quick C 2.5)           [] IBM AIX RISC/6000 3.1.5(C)      ³
+    ³ [] DOS(MS-C 6.0)                 [] SCO Unix 3.2.4(C)               ³
+    ³ [] DOS(MS-C 7.0)                 [] AT&T Unix 3.2.2(C)              ³
+    ³ [] DOS(Borland Turbo C++ 3.0)    [] SuperDOS 5.0(Business Basic)    ³
+    ³ [] OS/2 1.3(MS-C 6.0)            [] BASIS BBxPROGRESSION/4          ³
+    ÃÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ´
+    ³ Please make check payable and mail to:  GRAFTech                    ³
+    ³ All orders payable in US Dollars Only                               ³
+    ³ Michigan orders which do not include sales tax or whose purchaser   ³
+    ³   does not have an exemption certificate on file will be shipped    ³
+    ³   C.O.D. tax and C.O.D. charges collect                             ³
+    ³ Import taxes, custom and duty charges and other import charges are  ³
+    ³   the sole responsibility of the recipient and must be paid by the  ³
+    ³   recipient upon delivery or when due                               ³
+    ³ Pre-Authorized P.O.'s and C.O.D.'s accepted (US delivery addresses) ³
+    ³ Site licensing and developer licensing available, contact GRAFTech  ³
+    ³ BARCODES-PLUS is a trademark of GRAFTech Development Corporation    ³
+    ³ All other trademarks and servicemarks are the sole property of      ³
+    ³   their respective owners                                           ³
+    ³ PCX file print capability not available for AT&T or SuperDOS        ³
+    ³ SCO Xenix version available please contact GRAFTech                 ³
+    ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+
+

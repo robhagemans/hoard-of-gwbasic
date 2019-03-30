@@ -1,0 +1,11 @@
+     This BASIC program graphically demonstrates the method of solving mazes
+given by Basem A. Nayfeh in "Cellular Automata for Solving Mazes" in the
+February 1993 issue of Dr. Dobb's Journal.  Basically, dead end rooms are
+sealed off until there are no more.
+
+     When prompted, supply an 8 (or fewer character) random number seed.
+Different seeds will produce different mazes.  The mazes will have hexagonal
+rooms.  After a maze is completed, you will hear a beep.  Press any key to
+see the solution.  After the solution is displayed, you will hear a beep.
+Press any key to exit.
+

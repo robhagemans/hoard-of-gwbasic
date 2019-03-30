@@ -1,0 +1,49 @@
+
+FOR THE NEW BASIC PROGRAMMER
+
+     To make use of the ProWindows(tm) functions, you must first
+     create the proper libraries so that QB.EXE (or QBX.EXE) and
+     the BC.EXE command line compiler can access the functions.
+
+     First you are going to need a standard library.  A standard
+     library is something like an archive file (this program is
+     distributed as an archive) and it contains all the code and
+     data needed to make each function work.  Standard libraries
+     end with a ".LIB" file extension and are for the use of
+     LINK.EXE . These files are used only when creating stand-
+     alone programs (that do not require the QuickBASIC
+     environment), and when creating a "Quick Library".
+
+     A Quick Library has a ".QLB" file extension and is used only
+     by BASIC environment.  You can think of a Quick Library has a
+     cross between a standard library (LIB) and a TSR type
+     program.  QLB files are loaded into memory at the same time
+     BASIC is loaded and they are what gives you the instant
+     access to the ProWindows(tm) functions.
+
+     To create both types of libraries, we have included three (3)
+     batch (BAT) files that do it all for you.
+
+     MOUSE.BAT creates a library that supports mouse control of
+     the windows.  NOMOUSE.BAT does everything the above does
+     except it does not support mouse control.  SMALL.BAT make a
+     library that has window functions only (no mouse or event
+     support).
+
+     To load the QLB file into BASIC, enter:
+
+          QB /AH /L LITE              (for QuickBASIC)
+          QBX /AH /EA /L LITE         (for BASIC PDS 7)
+
+     One last thing.  If you get a LINK error when you run any of
+     the batch files, make sure that you are using the latest
+     and correct version of the LINK.EXE program.  We have
+     received plenty of calls from people who were trying to use
+     the QuickC linker and it plain doesn't work.
+
+     That's it!  If you need help, the instruction manual just
+     about covers everything.  If you still need a little nudge in
+     the right direction, contact our Product Support Service (See
+     SUPPORT.DOC).  Our staff is so darned friendly that we make
+     June Cleaver look like Freddy Krueger.
+

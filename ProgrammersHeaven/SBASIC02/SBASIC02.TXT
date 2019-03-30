@@ -1,0 +1,43 @@
+README file for SBASIC Version 0.2
+==================================
+Disclaimer:
+
+This is free software, and you are free to distribute
+it under certain circumstances. Read the included file
+GNU.LIC for more details. This software is provided 
+as-is, with no expressed or implied warranty or
+SUITABILITY or MERCHANTABILITY FOR A PARTICULAR
+PURPOSE.
+
+Description:
+
+This is a quick little beta BASIC interpreter.
+
+Currently only supports integers, and string constants.
+There are a few bugs...The biggest one is that you need
+an END statement to end the program. Fixed that one in
+a newer version but that one's not finished yet.
+
+This program is under the GNU license. For details read 
+the file GNU.LIC included in the package. The author can
+be contacted at:
+
+Recent Bug Fixes in V0.2:
+
+4.11.94: Fixed END bug. --JJB
+	 Added ELSE clause to IF...THEN statement  --JJB
+
+Contacting the Author:
+
+I can be reached at:
+Internet: jamesjb@csos.orst.edu
+
+Snail Mail:
+	James Bielman
+	1671 NW Highland Drive
+	Corvallis, OR 97330
+	USA
+
+Bug Reports/Comments/Large amounts of money appreciated.
+
+-=- James -=-

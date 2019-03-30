@@ -1,0 +1,384 @@
+         The Library Wizard's *BASIC Library Manager*    page 1
+         =------------------------------------------=
+                          Version 1.3
+
+     LIBWIZ  Copyright (c) 1991-1992  Thomas G. Hanlin III
+
+
+
+This is LIBWIZ, a collection of utilities for managing BASIC
+libraries.  It allows you to customize your libraries,
+selecting just the routines you want. As well as creating new
+libraries, LibWiz creates corresponding "include" files and
+(optionally) quick references of the routines in the library.
+
+LibWiz requires a special description file to work with a
+library.  My own libraries come complete with description files
+(BASWIZ as of v1.5, PBClone as of v1.4).  The LibWizU utility
+assists in creating description files for libraries which don't
+have them.  The UnLib utility allows you to extract all .OBJ
+files from a .LIB, since LibWiz needs to work with the .OBJs
+directly.
+
+The LIBWIZ collection is copyrighted and may be distributed
+only as long as all files are distributed together, with no
+added or deleted files.  The files may not be altered in any
+way.  Exceptions to these rules may be made at my discretion,
+but you must get written permission from me in advance.
+
+You use these utilities at your own risk.  They have been
+tested by me on my own computer, but I will not assume any
+responsibility for any problems which they may cause you.  If
+you do encounter a problem, please let me know about it, and I
+will do my best to verify and repair the error.
+
+                       Table of Contents                 page 2
+
+
+
+ Overview and Legal Info .................................. 1
+
+ The LIBWIZ Library Manager ............................... 3
+
+ The LIBWIZU .INF Maker ................................... 6
+
+ Merging Libraries ........................................ 7
+
+ Portability Notes ........................................ 8
+
+ Miscellaneous ............................................ 9
+
+                  The LIBWIZ Library Manager             page 3
+
+
+
+A library is a collection of routines, or partial programs,
+which can be used directly as if they were part of the language
+itself.  A library may be considered as a language extender.
+Since library routines can be written in a variety of
+languages, they may provide capabilities that are impossible
+using the target language alone.  Even if the routines do
+something that is within the capabilities of the target
+language, they are valuable in that they are already tested and
+provide a standardized approach to whatever they do.  The
+flexibility of libraries is a part of their power... and a
+problem!
+
+The sheer number and variety of libraries available for BASIC
+is staggering. Many libraries contain hundreds of different
+routines of all descriptions. Sifting out just the routines you
+need is a hassle.  It's rarely practical to combine entire
+libraries, either due the presence of routines by the same name
+in different libraries or simply due to memory limitations.  In
+fact, my shareware libraries BasWiz and PBClone have each grown
+too large for BASIC to deal with comfortably.
+
+LibWiz provides a solution.  It allows you to choose just the
+routines you want from a library, either individually or by
+category.  It resolves any interdependencies to make sure the
+library contains all the routines it needs to function.  As
+well as customizing the library itself, LibWiz creates new
+"quick reference" and "include" files.
+
+In order to do its stuff, LibWiz needs a ".INF" file which
+tells it about the library to be customized.  Appropriate files
+are included with the current versions of my own libraries.
+The LibWizU utility can be used to create .INF files for other
+libraries.  Aside from the .INF file, LibWiz needs to have
+access to all of the .OBJ files that make up the library.  If
+your library didn't come with the separate .OBJ files, you can
+usually extract them from the .LIB using UNLIB.EXE:
+
+   UNLIB LibName
+
+Note that I said "usually"!  On occasion, LIB refuses to
+recognize an object name that UNLIB specifies.  I've inspected
+the library in these cases and the object name appears
+correct.  I'm not sure why LIB doesn't cooperate.  The problem
+is uncommon, however, and you'll probably never run across it.
+
+                  The LIBWIZ Library Manager             page 4
+
+
+
+To use LibWiz, move to the directory which holds the .OBJ files
+and the .INF file for the library you wish to customize.  The
+syntax is:
+
+   LIBWIZ InfName LibName
+
+...where "InfName" is the name of the .INF file and "LibName"
+is the name of the desired .LIB library.  All files (except for
+LibWiz itself) must be in the same drive and directory.
+
+The option "/B" can be used to force a monochrome display,
+although LibWiz normally detects mono displays by itself.
+
+If you would like LibWiz to create a quick reference listing of
+the routines in the library, add "/R" to the command.
+
+I don't -think- any further instructions are needed, as picking
+the routines is a fairly simple process-- give it a go. If I've
+blundered in this regard, please let me know, and I'll try to
+provide more detailed instructions!
+
+When you are done, provided that you told LibWiz to go ahead
+and create a library, it will create a number of files: an
+"include" (.BI) file, a revised library info (.INF) file, and a
+library (.LIB) file, at a minimum.  If you specified /R, a
+quick reference (.REF) file will also be created.  LibWiz can
+also create a quick library (.QLB) file, but you must set an
+environment variable to tell it which QLB support library to
+use.  This is BQLB40 or BQLB41 for QuickBASIC 4.0 versions,
+BQLB45 for QuickBASIC 4.5, and QBXQLB for BASCOM/PDS.  The
+variable name is QLBNAME.  So, to have LibWiz create a .QLB for
+QuickBASIC 4.5, for example, you'd put this in your
+AUTOEXEC.BAT:
+   SET QLBNAME=BQLB45
+
+The files LibWiz generates will all start with the name you
+specified as "LibName".
+
+If LibWiz is unable to create a library, it will tell you so.
+In that case, the LIB response file (LIBWIZ$$.TMP) will be left
+on the disk instead of being deleted.  You can try the LIB
+command yourself at the command line, and the resulting error
+message(s) will give you some idea of what went wrong:
+   LIB @LIBWIZ$$.TMP
+
+In the case that a .QLB wasn't generated, chances are that you
+have an old version of LINK in your path, or the LIB
+environment variable wasn't set to tell LINK where to find the
+QLB support library.  You can find out by trying to create the
+.QLB yourself at the command line:
+   LINK libname.LIB/Q/SE:1024,libname.QLB,NUL,BQLB45;
+
+(use the appropriate QLB support library where it says BQLB45)
+
+                  The LIBWIZ Library Manager             page 5
+
+
+
+At the moment, LibWiz can handle up to 1,023 routines per
+library; up to 4 categories per routine; up to 255 categories
+total.
+
+If you are processing a large library, have patience!  LibWiz
+has a lot of work to do and may take a while to read and write
+all the files for a big library.  Don't panic!
+
+
+
+A few cautions on common problems with LINK:
+
+  If you get back a message like "/Q switch not recognized",
+  you have an old version of LINK somewhere in your path.  You
+  must use the LINK that came with your QuickBASIC or
+  BASCOM/PDS compiler to create the .QLB-- older versions of
+  LINK don't know what a .QLB is.  You may think you don't have
+  an old version of LINK, but if that's the error message,
+  there's an old LINK somewhere on your drive!
+
+  If you get back a message like "BQLB45 not found", you don't
+  have your LIB environment variable set to point to your BASIC
+  library area.  The LIB variable works kind of like PATH, but
+  it tells the computer where your .LIB files are located.
+  Include a SET LIB line in your AUTOEXEC.BAT, and you won't
+  have to worry about it again.  That might look something like
+  this, assuming your .LIB files are in C:\QB45\LIB:
+     SET LIB=C:\QB45\LIB
+
+                    The LIBWIZU .INF Maker               page 6
+
+
+
+The LibWiz library manager requires an .INF file to tell it
+about a library. This file specifies routine names, categories,
+object modules, declarations and descriptions.  If you don't
+have an .INF file for your library, the LibWizU utility will
+handle most of the work of creating it for you.
+
+To use LibWizU, move to the directory which holds the .OBJ
+files and .BI (declaration) file for your library.  Type:
+
+   LIBWIZU LibName
+
+...where LibName is the name of the .BI file.  After chugging
+through the declaration and object files, LibWizU will create
+an .INF file for the library.  It will also report on Public
+routines (routines listed in the declaration file, which are
+evidently intended for public use), Private routines (routines
+which can be accessed but are not in the declaration file and
+are assumed to be private for use by the public routines), and
+Orphans. Private routines will not be shown by LibWiz, but will
+be pulled into a library if needed by a public routine that was
+selected. Orphans are routines which are listed in the
+declaration file but which do not appear in the object files.
+If there are any orphans, ORPHAN.LST will contain their names.
+
+The .INF file created by LibWizU is not complete.  You must
+fill it in using a text editor.  A description for each routine
+is a good idea, though not strictly mandatory.  A description
+may be no longer than 70 characters.  Each routine must be in
+at least one category or it is assumed to be private.  A
+category can be as many as 16 characters.  A routine may be in
+up to four categories (list them on the same line, separated by
+spaces).
+
+Here's a sample entry for a routine (taken from PBCLONE.INF):
+
+Name: CLOCK
+Mod : CLOCK.OBJ
+Decl: DECLARE SUB Clock (BYVAL DisplayOn%)
+Type: Display Time
+Desc: Keep a clock displayed on the screen
+
+The entries are created in this order by default, but may be in
+any order as long as the "Name:" definition is first.  If you
+would like to enter comments into the file, use "Note:".  Such
+notes will be ignored by LibWiz.
+
+If you need information in the .BI file other than just
+DECLAREs, such as perhaps TYPE definitions, DEFINT or other
+statements, you must create an additional file with an .HDR
+(header) extension.  If LibWiz detects the file InfName.HDR, it
+will copy that file to LibName.HDR and "REM $INCLUDE" it in
+LibName.BI before the DECLAREs for the library.
+
+                       Merging Libraries                 page 7
+
+
+
+In order to combine two libraries, you must have both libraries
+in .LIB form.  A new, combined .LIB can be created with the
+LIB.EXE utility that comes with BASIC:
+
+   LIB NewLib,+LibOne.LIB+LibTwo.LIB;
+
+A combined .QLB can be created using LINK:
+
+   LINK LibOne.LIB+LibTwo.LIB/Q/SE:1024,NewLib.QLB,NUL,BQLB45;
+
+As noted earlier, you may need to use a different name than
+"BQLB45".  If you have QuickBASIC 4.0, it will be either
+"BQLB40" or "BQLB41".  If you have BASCOM/PDS ("Professional
+Development System"), it will be "QBXQLB".
+
+The /SE option is used to tell LINK it may have to deal with a
+lot more routines than it expected by default.  If you get an
+overflow error, there are too many routines to fit into the
+.QLB library.  Take some out.
+
+If both libraries have a routine by the same name, there will
+be a conflict. You can fix this by changing the name of the
+routine in one of the libraries. My ObjTool utility (available
+elsewhere) allows you to do this.
+
+ObjTool, like LibWiz and LibWizU, expects to deal with .OBJ
+files rather than with .LIB or .QLB files.  If you only have a
+.QLB library, there's nothing you can do about this.  If you
+have a .LIB library, however, you can use the LIB.EXE utility
+to remove .OBJ files from the library.
+
+When LIB gives you the "Operations" prompt, use:
+
+   *ObjName     to copy an .OBJ file from the library onto your disk
+   -ObjName     to delete an .OBJ from the library
+   +ObjName     to add an .OBJ to the library
+   -+ObjName    to update an .OBJ file in the library from your disk
+
+If you don't know the names of the .OBJ modules, ask LIB.  Just
+press <enter> when it asks for Operations, then give it the
+name of a file when it prompts for a "List file".  The
+resulting file will contain a list of the modules in the
+library and what routines are in each module.
+
+When combining libraries, don't forget to combine their .INF
+files as well! It takes no more than joining the two files:
+
+   COPY LibOne.INF+LibTwo.INF NewLib.INF
+
+You can join the .REF and .BI files the same way, or use LibWiz
+to generate new .REF and .BI files from the new .INF file.
+
+                       Portability Notes                 page 8
+
+
+
+Routines for BASIC compilers come in assorted variations.  The
+main category is the language used to write the routine: BASIC,
+assembly, or other (C, Pascal, Fortran).  Each of these is
+portable to a different degree.
+
+Routines written in BASIC will only work with the version of
+the compiler they were compiled under.  If the routine was
+compiled with QB 4.5, it will only work with programs that are
+also compiled with QB 4.5.
+
+Routines written in C, Pascal, or Fortran are compatible with
+QuickBASIC 4.0 to 4.5 and BASCOM 6.0 to 7.1.
+
+Routines written in assembly language are portable to varying
+extents.  Older routines are likely to be compatible only with
+QB 1.0 to 3.0 and BASCOM versions before 6.0.  More recent
+routines are likely to be compatible with QB 4.0 - 4.5 and
+BASCOM 6.0 - 7.1; in this case, they may or may not be
+compatible with older versions of these compilers, depending on
+the whim of the programmer.  The third level of compatibility
+includes BASCOM 7.0 - 7.1 and QBX: far string compatibility.
+This is not yet particularly common.
+
+It is possible to write assembly language routines that will
+work with all Microsoft-compatible BASIC compilers, from QB 1.0
+- QB 4.5, IBM BASCOM 1.0 - 2.0, MS BASCOM 5.35 - 7.1, and QBX.
+However, this is only possible if new features (like FUNCTIONs,
+LONG integers, huge arrays, and far strings) are ignored.
+
+The routines in my BasWiz and PBClone libraries, at least at
+the time I write this, are designed with the middle level of
+compatibility.  The assembly language routines will work with
+QB 4.0 - 4.5 and BASCOM 6.0 - 7.1 (including BASCOM "PDS", the
+Professional Development System, and its QBX environment). The
+routines in BASIC are compiled with QuickBASIC 4.5.  The
+registered versions of the libraries come with source code,
+allowing you to compile the .BAS files with your own compiler.
+This extends the range of the BASIC routines to the same level
+as the assembly routines.
+
+                         Miscellaneous                   page 9
+
+
+
+If you use the excellent DOS shell 4DOS, try the ADD4DOS batch
+file.  It makes descriptions of the LibWiz files available for
+the DIR command-- no more having to guess what a file is!
+
+Note that LibWiz places certain limitations on the valid
+routine names in order to make it possible to screen out names
+that are in BASIC's runtime libraries.  Names may not contain
+dollar signs, start with underscores, end with "QQ", or contain
+lowercase letters.  It is important to understand that BASIC
+normally converts routine names to uppercase and removes any
+type specifiers from function names, so BASIC is not normally
+capable of generating routine names that would break these
+restrictions (except for routines ending in QQ, of course).
+This is more of a caution for routines that may have been
+written in other languages, such as assembly or C.
+
+Due to these restrictions on the routine names, LibWiz will not
+work with some libraries (ones which violate the restrictions).
+This includes the commercial ProBas library from TeraTech
+(formerly from Hammerly Computer Services, Inc), among others.
+
+The LibWiz utilities were written using QuickBASIC 4.5 and
+routines from my BasWiz and PBClone libraries.
+
+Sampler disks are available from me for $5.00.  These disks
+contain the latest versions of many of my shareware and free
+works, including BasWiz, LibWiz, ObjTool and PBClone.  Please
+specify disk size.
+
+   Thomas G. Hanlin III
+   3544 E. Southern Ave. #104
+   Mesa, AZ 85204
+

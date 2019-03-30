@@ -1,0 +1,113 @@
+QB MATRIX Documentation
+Copyright 1996 Tim Truman
+
+------------
+Distribution 
+------------
+QB MATRIX may be freely distributed providing no changes are made
+to the program or it's support files. QB MATRIX may not be
+distributed compiled.
+
+------------
+Code Ripping
+------------
+Original functions and subroutines found in QB MATRIX may be used
+with permision from the author.
+
+-----------------
+Loading QB Matrix 
+-----------------
+To load the program from DOS type  QBASIC QBMATRIX  and press enter.
+Intructions on how to play are included in the first few pages of source
+code or you can read them below. If you want to skip reading the
+instructions and go right to the game type  QBASIC /RUN QBMATRIX
+and press enter.
+
+If your using QuickBasic 4.5 then Type QB QBMATRIX or QB /RUN QBMATRIX.
+
+Windows users can use the included PIF files to load the program.
+Use the File Manager and double click on the QBASIC.PIF file to run
+QBMATRIX in QBASIC or double click the QB45.PIF to load QBMATRIX into
+QuickBASIC 4.5.
+
+-----------------
+Playing QB Matrix
+-----------------
+
+-- Selecting play options 
+
+ After leaving the title screen an option screen will appear. Here's the
+ options availble. Press on the buttons to use them.
+ 
+ Slam Mode -     Setting slam mode will cause the piece in play
+                 to immediatly drop into position after pressing
+                 the down arrow key or the 2 key. Otherwise the
+                 down arrow key or key 2 on the numeric keypad must
+                 be held to drop the piece. Slam mode is best used
+                 after becomming familiar with the game.
+
+ Sound -         Allows you to turn off the sound effects so you
+                 won't disturb the boss.
+
+ Level -         The higher the selected level the faster the pieces
+                 will drop.
+
+ Handicap -      Selecting a handicap greater than zero will fill the
+                 bottom of the pit with random blocks up to the number
+                 of rows equal to the handicap value selected.
+
+ Play Matrix -   Start the game with the selected options.
+
+ Key usage during option screen:
+      /         - esc
+      8         - move cursor up
+   4  5  6      - move cursor left / press buttons / move cursor right
+      2         - move cursor down
+      Or use the arrow keys and space bar.
+
+
+-- How to play 
+
+    Get the falling pieces to fit the best you can within the
+    confines of the pit. When complete rows are formed they will
+    be cleared. This will make room for more pieces. When pieces land
+    on the very top row of the pit the game will be over.
+
+    Key usage during game :
+        /         - esc
+        8         - spin piece ccwise
+     4  5  6      - move piece left / spin piece cwise / move piece right
+        2         - move piece down
+    Ins   Del     - toggle slam mode / toggle sound
+    Or use the arrow keys and space bar.
+
+-- Scoring
+
+ Points are awarded every time a piece land in the pit. The points
+ recieved are calculated by the row the piece lands in and the current
+ level. Simply, the higher the piece lands and the higher the level
+ the more points that are added to the score.
+
+-- Entering a highscore 
+
+ QB Matrix keeps the top 15 highscores. If you have beaten one of them
+ a red blinking cursor will appear at your rank and you can enter a name
+ or phrase of up to 23 charaters in length. The keys respond like a reqular
+ text editor. Press enter when done.
+
+
+-----------------------------
+Ordering the Advanced Version
+-----------------------------
+
+For information on ordering the QuickBASIC 4.5 version with
+greatly enhanced features read the MATRIX.TXT file.
+
+Questions, comments or work related:
+AOL        - Tim Truman
+Compuserve - 74734,2203
+INTERNET   - TimTruman@aol.com
+
+
+Enjoy The Game!
+

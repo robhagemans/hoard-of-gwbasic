@@ -1,0 +1,214 @@
+∞∞∞    ±±±    ≤≤≤        €ﬂﬂﬂﬂ‹                       TM
+  ∞∞∞    ±±±    ≤≤≤      €    €                    ‹
+    ∞∞∞    ±±±    ≤≤≤    €    €  ‹‹‹   ‹‹‹‹   ‹‹   ‹
+      ∞∞∞    ±±±    ≤≤≤  €ﬂﬂﬂﬂ‹ €   €  €   € €  ﬂ  €
+    ∞∞∞    ±±±    ≤≤≤    €    € €   €  €   €  ﬂﬂ‹  €
+  ∞∞∞    ±±±    ≤≤≤      €‹‹‹‹ﬂ ﬂ‹‹‹ﬂ‹ €   € ﬂ‹‹ﬂ  €
+∞∞∞    ±±±    ≤≤≤
+                         The BASIC ANSI Library v1.11
+
+           €‹ ‹€ ‹ﬂﬂ‹ €‹   € €  € ‹ﬂﬂ‹ €
+           € ﬂ € €‹‹€ € ﬂ‹ € €  € €‹‹€ €
+           €   € €  € €   ﬂ€ ﬂ‹‹ﬂ €  € €‹‹‹
+                                                               
+
+Designed and programmed by Chris Walker.
+
+
+This document and all files included within the Bansi package are
+        (c) Copyright 1994 by Chris Walker
+                ALL RIGHTS RESERVED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+Bansi Library v1.11 short manual          (c) Copyright 1994 by Chris Walker
+                                                  ALL RIGHTS RESERVED
+-------------------------------------------------------------------------------
+Explanation:  This manual briefly summarizes the usage of each of the Bansi
+        commands.
+-------------------------------------------------------------------------------
+        Starting up the Bansi functions:
+
+        To load the Bansi library with QuickBasic, the command line is:
+
+        QB /lbansi <program to load>
+
+        Other languages are similar.
+
+        Inside the interpreter, you must include:
+
+        '$include:'bansi.bi'
+
+        into your file.  After that, you may go on into installation.
+
+        When you want to run a Bansi function, you must first (only once in
+a program) execute the BAInit command.
+
+        As of v1.1 of the Bansi library, the BAInit command is simply:
+
+BAInit
+
+        (No parameters)
+
+        Bansi Standard Commands - Work With The MS-DOS ANSI.SYS Driver.
+                                  (TESTED WITH)
+
+        ---------------------------
+        The Bansi Standard Commands
+        ---------------------------
+
+BAInit - Initialization sub, used to start routines.
+
+BABack$ Function - Returns the < Back string (0-79):
+        To Use this function, just use the command
+         PRINT #1,BABack$(1)
+        This would send the code for 1 back space to whatever was opened as
+        #1.  If you had #1 as the comm port, you would use this.  If you
+        just wanted to store it to a variable, you could use something like
+        this:
+         MyVar$=BABack$(20)
+        which would store the ANSI code for 20 back spaces in the variable
+        string MyVar$.
+
+BAClearScreen$ Function - Returns the Screen Clearing String.
+        To Use this function, just use the command
+         PRINT #1,BAClearScreen$
+        This would send the code for a CLS to whatever was opened as #1
+
+BAColor$ Function - Returns the Color String (0-31,0-7)
+        To Use this function, just use the command
+         PRINT #1,BAColor$(10,2)
+        This would send the code for a COLOR 10,2 to whatever was opened as
+        #1.  Valid numbers are (0-31 foreground,0 to 7 background).  Any other
+        parameters result in a white-on-black setting.
+
+BAColorString$ Function - Returns a String in Color!
+        To Use this function, just use the command
+         PRINT #1,BAColorString$("This is in color!","BlackBack")
+        This would send the string "This is in color!" to whatever was opened
+        as #1.  The text you enter does not matter, and the only limitation on
+        length is the length you can fit on one line of your program.  At the
+        present time, the only options are "" (nothing - color on color) or
+        "BlackBack" (color on black).  The color string can be somewhat hard
+        to read if the "BlackBack" option is not used.
+
+BADetect$ Function - Returns the ANSI detection string
+        To Use this function, just use the command
+         PRINT #1,BADetect$
+        This would send the code for ANSI detect to whatever was opened as
+        #1.  The ANSI return code from this would be something like:
+         (ESC)[12;1R
+        where 12 is the line and 1 is the column.
+
+BADown$ Function - Returns the v Down string (0-24).
+        To Use this function, just use the command
+         PRINT #1,BADown$(1)
+        This would send the code for 1 line down to whatever was opened as
+        #1.
+
+BAEraseLine$ Function - Returns the Line Clearing String.
+        To Use this function, just use the command
+         PRINT #1,BAEraseLine$
+        This would send the code to erase the current line to whatever was
+        opened as #1
+
+BAForward$ Function - Returns the > Forward string (0-79).
+        To Use this function, just use the command
+         PRINT #1,BAForward$(1)
+        This would send the code for 1 forward space to whatever was opened as
+        #1.
+
+BAMove$ Function - Returns the (Absolute Location) string (0-25,0-80).
+        To Use this function, just use the command
+         PRINT #1,BAMove$(10,5)
+        This would send the code to set the cursor at line 10, column 5.
+
+BAResPos$ Function - Returns the Restore Cursor Position string.
+        To Use this function, just use the command
+         PRINT #1,BAResPos$
+        This would send the code to restore the saved position to whatever was
+        opened as #1
+
+BASavPos$ Function - Returns the Save Cursor Position string.
+        To Use this function, just use the command
+         PRINT #1,BASavPos$
+        This would send the code to save the current position to whatever was
+        opened as #1
+
+BASetMode$ Function - Returns the Set Video Mode string.
+        To Use this function, just use the command
+         PRINT #1,BASetMode$(0)
+        This would send the code to set the video mode to whatever was opened
+        as #1.
+        The mode numbers are as follows:
+
+        0 = 40 x 25 black and white - composite monitors.
+        1 = 40 x 25 color.
+        2 = 80 x 25 black and white - composite monitors.
+        3 = 80 x 25 color.
+        4 = 320 x 200 color.
+        5 = 320 x 200 black and white - composite monitors.
+        6 = 640 x 200 black and white.
+        7 = Wrap at end of line.
+
+BAUp$ Function - Returns the ^ UP string (0-24).
+        To Use this function, just use the command
+         PRINT #1,BAUp$(1)
+        This would send the code for 1 line up to whatever was opened as
+        #1.
+
+*NOTE:  There are other commands included in this version of Bansi.  Check the
+WHATS.NEW text file for information on those.
+--------------
+        I realize that this manual is somewhat fuzzy.  In this new version of
+the Bansi library, I have added a number of functions.  
+        If anyone has more ANSI codes that they know of, please let me know.
+I might even be able to send you a free update version!
+--------------
+End of manual!

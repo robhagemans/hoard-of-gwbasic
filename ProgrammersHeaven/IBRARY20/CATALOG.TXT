@@ -1,0 +1,357 @@
+                     Thomas G. Hanlin III
+                  3544 E. Southern Ave. #104
+                        Mesa, AZ 85204
+
+
+
+This catalog lists files that are included on my Sampler disks.
+The Sampler is available for $5.00 ($1 + $4 p&h). This listing
+is representative, as items are added and removed over time. If
+you mention your interests when ordering, I will tailor your
+disks accordingly. Don't forget to specify disk size/capacity.
+
+Foreign orders must be by international money order, traveler's
+check, cash, or otherwise payable directly through a U.S. bank.
+
+The Sampler fee does not include any shareware registrations.
+You are still expected to register shareware you find useful.
+
+In most cases, registration of a product provides you with the
+ability to upgrade to later releases at a reduced rate, as well
+as some additional benefit. This is often in the form of full
+source code, in the case of programming tools and libraries.
+
+Prices listed do not include the $4 p & h (per order) fee.
+
+
+
+2MON: Utilities for dual-monitor systems. Free.
+
+   Utilities include a clock TSR which runs on the mono display,
+   a utility to clear the mono display, and a TSR which remaps
+   the PrintScreen key-- instead of going to the printer, it
+   copies the color display to the mono display.
+
+
+
+AABAS: Affordable Alternative BASIC Library. Shareware ($4).
+
+   This is a good library for people curious about the workings
+   of their computer, learning how to use libraries, or
+   interested in writing their own assembly language routines
+   for QuickBasic. It is a collection of scores of simple BIOS
+   and DOS-related routines written in assembly language. AABAS
+   is not as fancy as my other BASIC libraries, but it's quite
+   useful in its own right and a great learning tool.
+
+   Source code (MASM 6.0) provided on registration. Registered
+   owners may upgrade to later versions for $1.
+
+ASMWIZ: The Assembly Wizard's Library. Shareware ($25).
+
+   This is a library of over 175 routines for assembly language.
+   The library will work with A86, MASM, OPTASM, and TASM. Only
+   tiny model (.COM format) is supported. Routines include text
+   displays (machine-level, BIOS, and DOS), graphics (Hercules,
+   CGA, EGA, VGA), number base conversions, long integer math,
+   file matching and command-line parsing, pseudo-random number
+   generation, countdowns and delays, buffered file support with
+   critical error handling, environment scanning, ASCIIZ string
+   functions, keyboard support, mouse support, sound generation,
+   control over Break, loading of BSAVE-format files, and more.
+
+   Source code (MASM 6.0) provided upon registration. Registered
+   owners may upgrade to later versions for $10.
+
+
+
+BASUPD: BASIC Update Library. Free.
+
+   This library provides routines for QuickBasic 4.x which mimic
+   new functions and commands provided by other Microsoft BASIC
+   compilers, such as PDS 7.x and Visual Basic for DOS. These
+   include disk routines and a powerful selection of time and
+   date functions.
+
+   Full source code is included.
+
+BASWIZ: The BASIC Wizard's Library. Shareware ($35).
+
+   This is a library for Microsoft BASIC compilers: QuickBasic,
+   PDS, and VB/DOS. It contains an equation solver; far string
+   support (even for QuickBasic!); powerful file handling, with
+   buffering, critical error handling, and sharing support;
+   telecommunications for COM1-COM4; memory management and
+   pointers; a powerful virtual windowing system; a high-res
+   timer and delay system (accurate to milliseconds); more!
+
+   Extensive graphics support is built in. It handles all
+   standard modes: MDA, Hercules (no TSR needed), CGA, EGA, VGA,
+   SuperVGA (Tseng 4000 and VESA), Epson-compatible dot matrix
+   printers, and HP-compatible laser printers. Printer graphics
+   output can be previewed on the display. Special non-standard
+   VGA modes are included, providing up to 360x480 graphics in
+   256 colors on ordinary VGAs. Fonts, polygons, multi-colored
+   text-- it's all in here, and more.
+
+   BasWiz math support will handle even the most demanding
+   applications. It extends BASIC's own math and provides two
+   other alternatives: fraction math and BCD support. With BCD,
+   you can have up to 254 digits! This is no minimal four-
+   function BCD package, either. It includes a wide range of
+   support, including many trig functions, constants, and
+   conversions. Equally good for huge and tiny numbers.
+
+   Source code (MASM 6.0 and BASIC) provided on registration.
+   Registered owners may upgrade to later versions for $10. Well
+   over a megabyte of sources! Great learning tool.
+
+
+
+BCMD: Better Commands for MS-DOS and DR DOS. Shareware ($29.95).
+
+   BCMD is a set of new and improved DOS commands designed to
+   coexist with your existing DOS command processor for total
+   compatibility with your existing applications. New utilities
+   include calculators and calendars, keyboard enhancers, text
+   file processors, assorted filters, and the ability to attach
+   descriptions to files (NDOS and 4DOS compatible), among other
+   things. There are many improvements to existing DOS commands
+   as well. For example, the BCOPY command allows you to copy
+   many files to many locations, with exception specifications:
+
+      BCOPY (*.TXT *.DOC) (A: B:) /E README.*
+
+   This example copies all .TXT and .DOC files in the current
+   directory, except for README files, to both A: and B: drives.
+   You can also specify quiet mode, prompting for confirmation,
+   the desired case of filespecs, file attributes, "test" mode,
+   and much more. Similar capabilities are included in all
+   applicable commands. Help is available for each command by
+   using the /? switch, as well as through an online reference.
+
+   The current version, plus a free upgrade to the next version,
+   is provided on registration. Registered owners may upgrade to
+   later versions for $10.
+
+BPP: A BASIC PreProcessor. Free.
+
+   This utility provides a powerful meta-language for PDS,
+   QuickBasic, Visual Basic for DOS, PowerBASIC, and even the
+   QBASIC provided with DOS 5.0. It processes your code before
+   the compiler gets to it, allowing conditional compilation,
+   underscores within variable names, flexible "include" files
+   (which may even contain SUB and FUNCTION definitions), name
+   substitutions, and more. C programmers have had preprocessors
+   for years-- now there's one for BASIC too!
+
+
+
+EXECOM: EXE-to-COM converter. Free.
+
+   Like EXE2BIN, this utility converts .EXE files to .COM files.
+   It's smaller and faster, though, as well as offering a few
+   additional conveniences.
+
+   Source code (MASM) is included.
+
+
+
+EXETOOL: EXE Tool. Free.
+
+   This program examines .EXE files for validity and can tell
+   you whether the .EXE was designed for use with Microsoft
+   Windows. If the .EXE file is determined to be too long, as it
+   might be if you got it using an older file transfer protocol,
+   you are given the option of truncating it to the right size.
+
+
+
+IBRARY: Library for the ASIC compiler. Shareware ($8).
+
+   This library is for ASIC 4.0 and later versions. If you
+   haven't seen ASIC, it's a shareware BASIC compiler which
+   provides both command-line and editor/environment support. It
+   can produce .COM, .EXE, and .OBJ files. For more info about
+   ASIC, write its author:
+
+      David A. Visti
+      80/20 Software
+      P.O. Box 2952
+      Raleigh, NC 27602-2952
+
+   Ibrary contains over 200 routines which add to the ASIC
+   compiler. It provides support for the full range of color
+   graphics modes: SCREEN 1, 2, 7, 8, 9, 11, 12, 13, N0, and N1.
+   The latter two modes are special 256-color modes which
+   provide up to 360x480 on standard VGAs! A large set of math
+   extensions, equipment detection routines, mouse support, DOS
+   file and directory handling, cursor on/off/info, screen save
+   and restore, DOS output, string functions, keyboard shift and
+   toggle info, and other goodies.
+
+   A printed manual and source code for Ibrary (MASM 6.0)
+   provided on registration. Registered owners may upgrade to
+   later versions for $1.
+
+KEYCTL: Keyboard Control. Free.
+
+   For AT-class machines only (286, 386, 486, etc), this utility
+   allows you to speed up your keyboard (or make it less
+   sensitive for kids, etc). You can also swap the positions of
+   the CapsLock and Left Ctrl keys, useful for civilizing the
+   101-key "enhanced" keyboard.
+
+   Assembly language source code (MASM) is included.
+
+
+
+LIBWIZ: The Library Wizard's *BASIC Library Manager*. Free.
+
+   This is a management tool for handling and customizing BASIC
+   libraries. It allows ready creation of subsets of existing
+   libraries, automatically resolving any interdependencies for
+   you. Tools for updating and extracting from libraries are
+   also included.
+
+   LibWiz is strongly recommended for my BasWiz and PBClone
+   libraries, due to the vast number of routines involved.
+
+
+
+OBJTOOL: OBJ Tool. Shareware ($10).
+
+   This must be the ultimate tool for manipulating .OBJ files.
+   You can select files for inclusion or exclusion using
+   wildcards, time, date, and size comparisons, and even the
+   results of a search through the .OBJ file. View the file's
+   stats, rename publics, externals, and default libraries,
+   delete default libraries and languages, check for validity,
+   repair checksum errors-- ObjTool has it all. Useful for
+   reducing the size of libraries, resolving conflicting routine
+   names, patching .OBJs and just snooping around!
+
+   Registered owners may upgrade to later versions for $1.
+
+PASWIZ: The Pascal Wizard's Library. Shareware ($25).
+
+   This is a library for Turbo Pascal and compatibles. It
+   provides input handling (keyboard, mouse, and joystick),
+   music, BCD math, archive directories, string and math
+   enhancements, and other goodies.
+
+   The math routines provide a numeric expression evaluator
+   which allows you to convert equations into numbers at run
+   time. The math capabilities of Pascal have been expanded
+   significantly with new trig, inverse trig, hyperbolic trig,
+   and other functions. For the ultimate in numeric precision,
+   BCD math is also provided, allowing you to manipulate numbers
+   of up to 254 digits-- not just with the basic four functions,
+   but trig, square roots, factorials, constants with hundreds
+   of digits of precision, etc; formatted output can be done to
+   your specs. You can place the decimal point anywhere you
+   want, so this works equally well with very large and very
+   small numbers. String support includes compression,
+   encryption, fuzzy comparisons, and other goodies. The music
+   manager works like the BASIC PLAY language and BBS "ANSI
+   music". Archive routines allow getting full directory info
+   from .ARC, .ARJ, .LZH, .PAK, .ZIP, .ZOO, and self-extracting
+   .EXE archives.
+
+   Source code (MASM 6.0 and Pascal) provided on registration.
+   Registered owners may upgrade to later versions for $10.
+
+
+
+PBBACK: The PB Backwards-Compatible Library. Shareware ($25).
+
+   This library is like my PBClone library, but is compatible
+   with the full range of QuickBasic compilers: QB 1.0 - 4.5. It
+   is much easier to set up than PBClone but does not support
+   all newer compiler features and offers some 300 routines. See
+   the description for PBClone, below.
+
+
+
+PBCLON: The PBClone Library. Shareware ($35).
+
+   This is a library for Microsoft BASIC compilers: QuickBasic
+   4.x, BASCOM and PDS, and Visual BASIC for DOS. It is the
+   successor to my old ADVBAS library. With over 610 routines,
+   this library covers a little bit of everything: mouse and
+   joystick support, SoundBlaster, disk wrangling, string
+   mangling, keyboard input, equipment detection, graphics, a
+   wide variety of display management, directory searching, text
+   compression, viewing archive directories (.ARC, .ARJ, .EXE,
+   .LZH, .PAK, .ZIP, .ZOO), matrix math, dates, times and
+   countdowns, sorts, binary searches, graphics, and... well,
+   it's hard to describe such a collection other than to say
+   "it's probably in here"!
+
+   Source code (MASM 6.0 and BASIC) provided on registration.
+   Registered owners may upgrade to later versions for $10.
+   Nearly two megabytes of sources! Great learning tool.
+
+PBCWIN: The PBClone Windows Library. Shareware (1993: $19.95).
+
+   This is a DLL for use in programming for Microsoft Windows.
+   It is oriented specifically towards Visual Basic, but can be
+   used with other Windows languages that support DLLs if you
+   know what you're doing. There are 79 routines in the first
+   version, including bit manipulation, array initialization,
+   PEEK, POKE, and SWAP routines, checksums and CRCs, equipment
+   information, string testing, and more.
+
+   Source code (MS C 7.0) provided on registration. Registered
+   owners may upgrade to later versions for $10.
+
+
+
+PBWIZ: The PowerBASIC Wizard's Library. Shareware (1993: $25).
+
+   This is a library of over 325 routines for Spectra's
+   PowerBASIC 3.0 compiler. It includes archive viewing (for
+   ARC, ARJ, EXE, LZH, PAK, ZIP, ZOO), disk directory viewing,
+   256-color graphics modes (320x200 and 360x480 on any VGA,
+   more on SVGA or VESA), read and write .BMP pictures, mouse
+   and joystick and keyboard control, EMS and XMS memory access,
+   equipment detection, extended math and string routines, an
+   equation solver, ANSI emulation, SoundBlaster support, more.
+
+   Source code (MASM 6.0 and BASIC) provided on registration.
+   Registered owners may upgrade to later versions for $10.
+
+
+
+QBWIZ: The QuickBasic Wizard's Library. Free.
+
+   A collection of routines which allow you to access internal
+   variables for QuickBasic 4.x, BASCOM 6.x, and PDS 7.x. You
+   can retrieve the screen mode, display adapter type, DEF SEG
+   setting, I/O redirection status, current screen colors, and
+   many other useful values.
+
+
+
+TEXTRIS: A word game. Shareware ($7.95).
+
+   Textris is a little like Tetris and a little like Scrabble.
+   Random letters fall from the sky. Fit them together to make
+   words for points. Unused letters remain behind, cluttering
+   the arena until at last there is no space left to build new
+   words. Good spelling practice and addictive fun! Requires an
+   EGA, VGA or better display.
+
+   Dictionary editor provided upon registration. Registered
+   owners may upgrade to later versions for $1.
+
+VCLOCK: Video clock TSR. Free.
+
+   This tiny TSR provides a running display of the time. You may
+   specify screen position, 12 or 24 hours, whether to display
+   seconds, the colors to use, and other parameters. Two
+   versions are provided-- one for 8088 PCs and one for later
+   machines.
+
+   Source code (MASM) is included.
+

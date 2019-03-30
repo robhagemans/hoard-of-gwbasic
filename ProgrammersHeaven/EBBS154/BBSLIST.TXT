@@ -1,0 +1,21 @@
+
+BBSLIST.TXT should be copied to \EBBS\TEXT
+
+Here's a few of MY fav's:
+
+Title              AC/Number     Sysop           Notes          Software
+------------------------------------------------------------------------
+Cracker Barrell/CA 818-506-4617  Dave Allen      CBM/Misc       EBBS PC
+EBBS-HQ/CA         818-891-9350  Ed Parry        EBBS/Prging    EBBS-PC
+El Dorado/CA       818-980-3628  Lon De Cloedt   PC Misc.       EBBS PC+
+Murph Zone/CA      818-766-7669  Bruce Murphy    PC Misc.       EBBS PC+
+RiverBoat Adv.     818-888-3221  Glen Jones      PC/CBM/MISC    EBBS PC+
+
+NON EBBS/EBBS Plus
+------------------------------------------------------------------------
+Chess Hotline/CA   310-634-8549 Charles Rostedt Chess           WWIV
+Sleepy Hollow/CA   213-859-9334 Jim Fouch       BIG Echoes      PC Board
+YOUBYA/CA          818-989-0310 Alan Duboff     ALL Programming PC Board
+
+Ed Parry
+

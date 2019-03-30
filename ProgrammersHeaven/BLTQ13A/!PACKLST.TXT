@@ -1,0 +1,43 @@
+Packing list (shareware release)
+BULLET v1.03, 22-Apr-93 (BLTQ13)
+
+!README.TXT   start with this text file
+!README2.TXT  appnotes on return codes for transaction-based routines
+!WHATIS.TXT   description of BULLET
+!PACKLST.TXT  this file
+!Q&A.TXT      questions and answers
+!FIXES.TXT    history
+!ORDER.FRM    use this to place your order (very important!)
+_
+INSTALL.EXE   BULLET.LI_ installation program
+BULLET.LIB    BULLET.LIB library
+NOATEXIT.OBJ  _atexit stub module
+__
+CZ.COM        context-sensitive online help manager
+CZ.HLP        help file data for CZ.COM
+HLP2TXT.EXE   convert CZ.HLP to ASCII file suitable for editing/printing
+___
+BULLET.H      C header file
+BC_LAI10.C    C source code example
+____
+BULLET.BI     declares for QuickBASIC
+BB_LAI10.BAS  long-int add/reindex
+BB_LAA10.BAS  long-int add/reindex/attach (InsertXB test)
+BB_LAU10.BAS  long-int add/reindex/update (UpdateXB test)
+BB_LGK10.BAS  long-int add/reindex/get keys/get keys+records
+BB_LIN10.BAS  long-int insert key/recs (full InsertXB test)
+BB_CAI10.BAS  char & long-int key 2 index files add/reindex
+BB_CIN10.BAS  char & long-int key 2 index files (InsertXB transaction test)
+BB_CIU10.BAS  character & long-int key 2 index files (InsertXB/UpdateXB test)
+BB_RKL10.BAS  single-record lock test
+XB_SRC01.BAS  example routines
+_____
+IDEMO.BAS     browse interactive demo source (can use any .DBF)
+IDEMO.EXE     browse interactive demo EXE
+DBASE.DBF     sample .DBF data file (for IDEMO.EXE)
+ZWINDO.BI     declares for ZWINDO.OBJ for IDEMO.BAS
+ZWINDO.OBJ    object for IDEMO.BAS
+INTRPT2.OBJ   object for IDEMO.BAS
+______
+EZ_CREAT.BAS  example for building custom API, specifically EzCreateDXB()
+MONEY.BAS     example for converting floats to proper string types

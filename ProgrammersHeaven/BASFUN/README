@@ -1,0 +1,40 @@
+This package contains QuickBASIC (v 4.5) library files (.qlb and .lib) that
+extend QB's intrinsic functions for real and complex numbers.  The following
+files should be in this archive:
+
+     README         (this file)
+     REALFUNC.BAS   (QB source code for real function library)
+     REALFUN.QLB
+     REALFUN.LIB    (library files for real functions)
+     REALFUN.DOC    (documentation on real functions and library)
+     COMPFUNC.BAS   (QB source code for complex function library)
+     COMPFUN.QLB
+     COMPFUN.LIB    (library files for complex functions)
+     COMPFUN.DOC    (documentation on complex functions and library)
+
+The real library essentially extends QB to include standard FORTRAN functions.
+It also includes a modulo function that returns floating point values, and
+minimum and maximum functions.  These are all QB subprogram functions, ie, you
+need to include a 'DECLARE FUNCTION' statement in your program to use them.  
+
+The complex library allows you to handle complex numbers by either storing the
+real and imaginary parts, or the magnitude and phase.  Since a subprogram
+using complex numbers will in general need to return both parts of the answer,
+the functions were written as subprograms, ie, you need to include a 'DECLARE
+SUB' statement in your program.  The complex library is a superset of the real
+library, and includes cartesian-polar and polar-cartesian routines, division
+and multiplication, logs and exponentials, and the circular and hyperbolic
+trig functions.
+
+Both libraries have all routines in single and double precision.  The source
+code for all functions and subprograms is included.
+
+I release this into the public domain, and do so without warranty of any kind.
+Void where prohibited by law.  Not for internal consumption.  Your mileage
+may vary.
+
+Kerry Mitchell
+mitchell@acodkris.larc.nasa.gov
+lkmitch@gn.ecn.purdue.edu
+Compuserve 70152,1444
+

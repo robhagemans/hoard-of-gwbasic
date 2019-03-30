@@ -1,0 +1,50 @@
+    
+                           ADDITIONS TO DOCUMENTATION
+                         Compiler/Linker Assistant 1.22
+                          (C) 1990,1991 by Robin Duffy
+    
+         This text covers the changes to the program with this maintenance
+    release. Other information contained in L.DOC is still valid.
+    
+         To install LINKER on your system for the first time follow the
+    instructions for installation as outlined in L.DOC. Users of LINKER
+    earlier than version 1.2 should erase the old executable and help
+    files from disk, and replace them with these newer versions. If you
+    are using LINKER 1.2 you may just copy the new L.EXE on top of the old
+    one. The new program will automatically convert old data files from
+    any of the earlier version to the new format.
+    
+         There is a new command line switch for LINKER. The updated
+    command line looks like this:
+    
+                        L {/Q} {/R | /C | /CO filename}
+    
+         /Q, /R and /C all function as documented in L.DOC. The new
+    command line switch "/CO" tells LINKER to compile your source code
+    only and skip the linking process.
+    
+         When given with a data file name, the program will compile
+    modules in batch mode like the /C switch. If errors occur while
+    compiling, the DOS ERRORLEVEL is set to a value of 50 and the program
+    exits.  After all modules are compiled LINKER will skip the link call
+    and exit to DOS. If the switch is given without a data file name, the
+    program will start in full screen mode. Pressing the TAB key will
+    compile modules, then Linker will exit to the DOS prompt. When given
+    with the /r datafile parameter, Linker will read the data file and
+    start in full screen mode. Pressing TAB will compile the modules only
+    and exit to DOS.
+    
+         There are two special key presses you may use while editing text
+    on the data lines. ALT-C will clear the entire line of text and home
+    the cursor on that line. ALT-R will restore the previous contents of
+    the line provided you have not left the field. Once you leave a field
+    the previous contents are lost. These key presses have always been
+    present, but due to an oversight they had been omitted from the
+    documentation.
+    
+         I now have a 24 hour support BBS. The BBS number is (606) 561-5766.
+    I support 300 - 14,400 baud, v.32/v.42bis and MNP 2 - 5. Here you may
+    ask a question, tell me what you think, or get the latest version of all
+    my products.
+    
+                              END OF ADDITIONS

@@ -1,0 +1,658 @@
+The Graphics Factory
+Copyright (C) 1992 James A. Sausville
+All Rights Reserved
+
+I. INTRODUCTION
+---------------
+
+The Graphics Factory is a utility that allows you to create sets
+of graphics for use in your own basic programs. While intended for
+use with Quick Basic V4.5 , the graphics created by this program
+can be used by any version of basic that supports Microsoft
+compatible BLOAD and PUT graphics commands. To start the Graphics
+Factory, type GFACTORY at the DOS prompt.
+
+
+HARDWARE REQUIREMENTS
+
+The recommended minimum hardware configuration for the graphics
+factory is an IBM compatible with a 286 microprocessor and 640k
+of RAM. The program will run on XT compatibles, albeit rather
+slowly. The amount of free RAM required is approximately 571,648
+bytes. Please note that free RAM is the amount of memory available
+to a program after DOS, device drivers and TSR programs are loaded.
+You can check the amount of free RAM you have available by running
+the DOS check disk program. Type "CHKDSK" at the DOS prompt when
+you have your DOS disk in drive A:, or when you are logged into the
+DOS directory on your hard disk, to run this DOS program.
+
+
+SCREEN DESCRIPTION
+
+The large rectangle in the upper left corner of the screen is the
+editing window. All drawing and editing of the current image is
+performed in this window. The image in the editing window is a 6X
+magnification of the current image.
+
+The small rectangle in the center of the screen is the active frame.
+The current image is displayed normal size in the active frame. All
+changes made in the editing window are immediatly shown in the
+active frame.
+
+There are 48 storage frames located at the bottom of the screen.
+Graphic images you create can be stored in these frames. There are
+six pages of storage frames, only one of which is displayed on
+screen at a time.
+
+The line of text at the top left of the screen is the mode and
+message line. It displays the current drawing mode (dot,line,etc.)
+or the current active funtion (circle,box,etc.), along with
+instructions on what input may be required. Any text that appears
+in a window at the center of the screen supercedes any text that
+is on the mode line.
+
+Immediately below the mode line is the main menu. There are two
+columns of commands, each command preceded by a letter in brackets.
+Pressing the letter key indicated in brackets will activate the
+command (or function). Pressing the escape key [Esc] will cancel
+(abort) a function in progress and return you to the main menu.
+Mouse users may simply move the mouse cusor over the desired command
+and press the left mouse button to activate it.
+
+Below the menu is a status line that informs you of the current
+frame size and which page of graphics is currently diplayed (Active
+Page). Below the status line and above the active frame the current
+X and Y locations of the drawing cursor are displayed. This display
+allows more accurate placement of circles and other graphics.
+
+Below the status line and to the right of the active frame is the
+color palette. An arrow above the colors indicates the current
+drawing color. Keyboard users should press the [<] and [>] keys
+to change the drawing color. Mouse users should move the mouse cursor
+over the desired color and press the left mouse button to select it.
+
+
+II. SUMMARY OF COMMANDS
+-----------------------
+
+The commands are presented in the order they appear on the screen.
+Where necessary, separate instructions are provided for keyboard and
+Mouse users.
+
+[A] Animate Frames - This function allows you to define a series
+of frames as an animation sequence. The program displays the maximum
+number of frames you may include in the sequence on the mode line
+and prompts you to select the first frame. Keyboard users should
+use the cusor keys to move the flashing frame border to indicate
+the first frame, pressing [Enter] to select the frame. You may select
+a frame on a different storage page by pressing the [Tab] key to
+cycle through the storage pages.
+
+Mouse users should move the mouse cursor over the desired frame and
+press the left mouse button to select it. The storage pages may be
+cycled through by moving the mouse cursor over the "[Tab] Next Page"
+portion of the menu and pressing the left mouse button.
+
+The frame selected should appear in the active frame. The program
+will then prompt you for the next frame in the animation sequence.
+The same frame may be used as many times as desired in the sequence.
+Press [Esc] when you have finished selecting frames for the animation
+sequence. Mouse users may move the mouse cusor outside of the storage
+frames and press the left mouse button to end the selection.
+
+The animation sequence will now be displayed in the active frame.
+Press the [<] key to decrease the display rate and the [>] key to
+increase the display rate. Mouse users should move the mouse cursor
+over the "[<]" and "[>]" symbols above the color palette and press
+the left mouse button to change the display rate. Pressing the left
+mouse button when the cursor is anywhere else will end the display,
+as will pressing the [Esc] key.
+
+Next the program will ask if you want to save the animation sequence
+as a frame set. This allows the use of simple (but memory inefficient)
+animation, instead of the type shown in the example program
+"JACKDEMO.BAS". If you choose to save the sequence you will be
+prompted to enter the path (drive & directory) and file name you
+desire.
+
+[B] Frame Boundaries - Allows you to change the maximum width and
+height of your graphics. Any graphic in the active frame will be
+cropped (if necessary) to fit the new dimensions. A new right and
+bottom margin are set up inside of the editing window. No drawing
+or editing can take place outside these boundaries. You should
+normally set the size of your frames before you start drawing. When
+you load two sets of frames of different size the boundaries should
+be set to accomodate the larger frames.
+
+[C] Clear Active Page - Erases all of the graphics in the storage
+page currently displayed at the bottom of the screen.
+
+[D] Duplicate Frame - Will make an exact copy of one storage frame
+appear in another storage frame. Very useful for "experimenting" on
+a graphic without destroying the original. Simply select the frame
+to duplicate, and then select the frame to copy it to. Mouse users
+should select a frame by moving the mouse cursor over the desired
+frame and pressing the left mouse button. Keyboard users should
+use the cusor keys to move the flashing frame border to indicate
+the desired frame, pressing [Enter] to select it.
+
+[E] Erase Frame - Will erase the contents of the active frame.
+
+[F] Fill Area - Works just like the Quick Basic PAINT command. You
+are prompted to select a color to fill with. Mouse users should
+move the mouse cursor over the desired color and press the left
+mouse button. Keyboard users should press the [<] and [>] keys to
+move the indicator arrow to the desired color and press [Enter].
+
+Next you are asked to select the color the fill will terminate at.
+If, for example, you wanted to fill a red circle, red should be
+chosen as the color the fill should stop at. Choose this color in
+the same manner as you did before.
+
+Finally you will be asked to indicate where the fill will start.
+Move the mouse cursor to the desired area of the editing window
+and press the left mouse button, or use the cursor keys to move
+the editing cursor to the desired area and press [Enter].
+
+[G] Get Frame - Allows you to retrieve an image from the storage
+frames at the bottom of the screen and place it in the active frame.
+After pressing [G] to activate the command, keyboard users should
+use the cursor keys to move the flashing frame border to the desired
+frame, pressing [Enter] to select it.
+
+Mouse users can retrieve a frame by moving the mouse cursor over
+the storage frames and pressing the left mouse button, then by moving
+the mouse cursor to the specific frame and pressing the left mouse
+button again. (There is no need to press the [G] key or to "click"
+on the main menu to get a frame with the mouse!)
+
+[H] Horizontal Flip - Reverses the image from left to right.
+Activating the command a second time will flip the image back.
+
+[L] Load Frames - Opens the Load Frames sub-menu. When loading frames
+you are asked if you wish to search for files on the current path
+with the current file mask. The file path and file mask are used in
+the same way as MS-DOS uses them. The file path consists of the
+drive and directory you want to search for files. The file mask
+allows you to search for files that have a certain extension (such
+as *.BAS) or start with a certain letter (such as A*.*).
+
+After the path and mask are selected, the program will display all
+of the files it finds on the path that match the file mask. (Note:
+only the first 200 files will fit on the screen!) Keyboard users
+should type in the name of the file they wish to load and press
+[Enter]. Mouse users should move the mouse cursor over the name of
+the desired file and press the left mouse button.
+
+  [1] Load a Single Frame - A single image stored in a file by itself
+  may be loaded into the active frame. No palette or size information
+  is saved or loaded with a single frame. The frame size is reset to
+  48 x 32 when a single frame is loaded.
+
+  [2] Load a Set Sequentially - A set of frames will be loaded into
+  the storage pages in consecutive frames. The frames may load into
+  multiple storage pages. You select the first frame on any page
+  that the frames will begin loading into. Some caution must be
+  exercised as the frames will overwrite images that are stored in
+  the indicated frames.
+
+  [3] Load a Set Randomly - A set of frames is loaded into memory
+  and displayed, one at a time, in the active frame. You select
+  which frame in the storage pages each loaded frame will occupy.
+  
+  [4] Make a .SET File - In order to load a set of frames the Graphics
+  Factory a ".SET" file is required. When the Graphics Factory saves a
+  set of frames a ".SET" file is automatically created. This file
+  details the number of frames in the set, their dimensions, their size
+  (or their offset within the file) and the palette that was used to
+  create them.
+
+  This option allows you to attempt to create a ".SET" file for
+  graphics created by other software. If the graphics are saved in
+  standard memory imaged format (BSAVE/BLOAD), and the graphics have a
+  common offset within the file, it should be possible to create a
+  ".SET" file to load them.
+
+  If you choose to create a ".SET" file the program will prompt you
+  to enter the number of frames in the set and their x and y
+  dimensions. After the dimensions have been entered the program will
+  calculate the correct array size, which is used by the Graphics
+  Factory as the correct offset when it saves frames. Frames that
+  have been created by other means may be saved with a larger than
+  necessary offset. For example, I had a set of 30 x 13 frames that
+  should have been saved with an offset of 106, but had been saved
+  with and offset of 200. You have the option of using the current
+  palette in your file or entering palette data yourself.
+
+  [5] Turn Warnings On/Off - When you load a single frame or overlay
+  frames you will receive a warning that the active frame will be
+  erased. This can be usefull unless you are loading a large number
+  of single frames or using overlay frequently, in which case it can
+  be highly annoying. This option allows you to turn these warnings
+  on and off.
+
+[M] Move Image - Allows you to move the image in the active frame up,
+down, left or right. Keyboard users should press the cursor keys to
+move the image, pressing [Enter] to end. Mouse users should move the
+mouse cursor to a point just inside the edge of the editing window in
+the direction they want the image to move and press the left mouse
+button. Pressing the left mouse button when the mouse cursor is ouside
+of the editing window will end the function.
+
+[Tab] Next Page - There are six storage pages, only one of which is
+displayed on the screen at a time. Pressing the [Tab] key or pressing
+the left mouse button when the mouse cursor is over the "[Tab] Next
+Page " command will display the next storage page."
+
+[N] New Palette - Used to change the 16 availble colors on the
+palette. Keyboard users should use the [<] and [>] keys to move the
+indicator arrow to point at the desired color and then press [Enter].
+Use the [<] and [>] keys again to cycle through the 64 available
+colors, pressing [Enter] when done.
+
+Mouse users should select the color to change by moving the mouse
+cursor over the desired color and pressing the left mouse button.
+Then move the mouse cursor over the "[<]" and "[>]" symbols above
+the color palette and press the left mouse button to cycle through
+the available colors. Move the mouse cursor over the color you are
+changing and press the left mouse button again to finalize the color
+selection.
+
+[O] Overlay Frames - This function will allow two graphics in the
+storage frames to be merged, one on top of the other, to create a
+new graphic in the active frame. The bottom graphic is selected
+first, and then the graphic to be overlayed is chosen. If the warning
+messages are turned on you will be advised that the active frame
+will be erased. Any image in the active frame should be stored in
+the storage frames before using the overlay function. This is a
+non-destructive command as the original graphics are copied from
+the storage pages and not removed.
+
+[P] Put Frame - Moves the image in the active frame to a storage
+frame. Keyboard users should move the flashing frame border to
+indicate the desired storage frame and press [Enter].
+
+Mouse users can store a frame by moving the mouse cursor over the
+active frame and pressing the left mouse button. Then by moving the
+mouse cursor over the desired storage frame and pressing the left
+mouse button again. (There is no need to press the [P] key or to
+click on the "[P] Put Frame" area of the menu to put a frame with
+the mouse!)
+
+[Q] Quit to DOS - Exits the program and returns you to DOS. What
+else did you think it would do?
+
+[R] Rotate Image - The image in the active frame will be rotated 90
+degrees to the right. Rotate only works with images that are perfectly
+square. If an image is taller than it is wide or wider than it is tall
+the image will be cropped to make it square. For example, a 48 x 32
+image will be cropped to 32 x 32 before it is rotated. Please use the
+duplicate function to make a copy of your image before subjecting it
+to the rotate function.
+
+[S] Save Frames - Opens the Save Frames submenu. When you are saving
+frames you have the option to save on the current path or to set a new
+path. The save path is the same as an MS-DOS path (drive & directory).
+
+When the Graphics Factory saves a set of frames a ".SET" file is
+created. This is a file that details the number of frames in a set,
+their x and y dimensions, their size in integer arry elements (or
+their offset within the file - if different) and the palette used to
+create them. The ".SET" file is REQUIRED by the Graphics Factory to
+load a set of frames. The information in a .SET file can be loaded
+into your program along with the graphics (see the example program
+JACKDEMO.BAS and the section on using the graphics for details). A
+".SET" file is created automatically each time you save a set of
+frames. If you save a file named "GRAPHICS.XXX", the ".SET" file
+will be named "GRAPHICS.SET". You should not give two graphics files
+the same name with different extensions as this will cause the ".SET"
+files to overwrite each other (the names GRAPHICS.X1 and GRAPHICS.X2
+would cause this problem).
+
+It should be noted that once a set of frames is saved it may be loaded
+sequencially or randomly, regardless of how it was saved. The extensions
+".SET" (set file), ".PAL" (palette), and ".PAT" (pattern) should not be
+used for graphics filenames.
+
+  [1] Save a Single Frame - The active frame is saved to disk in
+  BSAVE/BLOAD format. No ".SET" file is created for a single frame and
+  no palette information is saved.
+
+  [2] Save a Sequential Frame Set - A set of frames is saved to disk
+  in the order they appear in the storage pages. The program will
+  inform you of the maximum number of frames that can be saved at the
+  current frame size. You are asked to indicate the starting and
+  ending frames (inclusive) in the sequence to be saved. The ending
+  frame may be on a differ page from the starting frame.
+
+  [3] Save a Random Frame Set - This option will save a set of frames
+  in the order that you choose. You may select any frame from any page
+  up to a maximum limit of 256 frames. The actual number of frames
+  that you may save is dependent on the current frame size. When you
+  choose this option a window will appear telling you the maximum
+  number of frames that may be saved.
+
+  [4] Show Save Calculations - Displays the maximum number of frames
+  that may be saved at the current frame size, the size of an integer
+  array needed to hold a single frame (at current frame size), and the
+  amount of disk space a single frame will take (in bytes).
+
+  [5] Turn Warnings ON/OFF - Performs the same function as it does on
+  the load frames submenu (see above).
+
+[V] Vertical Flip - Inverts the image in the active frame.
+
+[W] Wipe All Pages - Erases all storage frames on all six storage
+pages.
+
+[X] Exchange Frames - Allows you to switch the location of two
+frames on the SAME storage page. One of the frames may be a blank
+(empty) frame. Exchanging the location of two blank frames is an
+exercise in futility (Grin).
+
+[Z] Shapes & Things - This is the primary submenu for the Graphics
+Factory. The menu has a crowded appearance due to the fact that many
+of these functions were not a part of the original program design.
+
+Many of the functions on this menu require you to select reference
+points within the editing window. These points amy be selected as
+follows: Keyboard users should use the cursor keys to move the drawing
+cursor to the desired point, pressing [Enter] to select it. Mouse
+users should move the mouse cursor to the desired point and press the
+left mouse button. Mouse users may reposition the drawing cursor
+without making a selection by pressing the right mouse button instead.
+This allows you to use the X and Y position indicators for more
+accurate positioning of circles, etc. with the mouse.
+
+[1] Draw a Circle - Will draw a circle of the desired radius in the
+current drawing color. First select the center point of the circle.
+Then select a radius point along the horizontal or vertical axis. A
+circle will be drawn around the center point that will pass through
+the radius point.
+
+[2] Draw a Rectangle - Will draw a square or rectangle in the current
+drawing color. First select the upper left corner of the rectangle,
+then select its lower right corner.
+
+[3] Draw an Elipse - Will draw a circular shape in the current drawing
+color. First select the center point of the elipse, then select the
+horizontal radius point (x radius). After that select the vertical
+radius point (y radius). An elipse will be drawn around the center
+point passing through both radius points.
+
+[4] Dot Mode - This is the standard (default) drawing mode. When not
+in a function, pressing [Enter] (or the left mouse button) will make
+a dot of the current color appear under the drawing cursor (or under
+the mouse cursor if using a mouse). Pressing [Enter] again with the
+cursor in the same place (using the same drawing color) turns the dot
+back to the background color (color 0).
+
+[5] Line Mode - Allows you to draw lines in the editing window instead
+of turning single points to the current drawing color. After selecting
+this mode, all points selected in the editing window will be treated
+as pairs. The first point selected is one end of the line and the
+second point selected is other end. After the second point is selected
+a line will be drawn in the current drawing color.
+
+[6] Continuous Line Mode - All points selected are connected by a line
+to the previous point selected. This continues until the drawing mode
+is changed.
+
+[7] Inverse Image - Performs a logical inverse of the image in the
+active frame. Works just like the "preset" mode of the Quick Basic
+PUT graphics command. Color 0 and color 15 are switched, color 1 and
+color 14 are switched, etc. If you are unhappy with the result,
+choose the command again and the image will change back.
+
+[8] Inverse Program - The easy way to work on graphics with a light
+colored basckground. Changes the background color (color 0) to white
+and the text/border color (color 15) to black.
+
+[9] Change Color 15 - Color 15 is the color of all frame bounderies
+and text messages. It is usually set to white and cannot be changed
+with the "[N] New Palette" command. Caution should be used when
+changing this color as it can make the display unreadable.
+
+[0] Load/Restore Palette - Opens the palette sub-menu that allows you
+to save and load palettes as well as restore the default palette.
+
+    [1] Restore Default Palette - Changes the palette to the standard
+    MS-DOS/Quick Basic palette for screen mode 9 (EGA 640 x 350).
+
+    [2] Graphics Factory Palette - The palette I use most often. (It's
+    my program AND I'll include my own palette if I want to!)
+
+    [3] Save Current Palette - The current palette will be saved to
+    disk. You select a save path and a file name without an
+    extension. A ".PAL" extension will be added to the file name.
+
+    [4] Load Palette - Will load a saved palette. Lists all ".PAL"
+    files on the selected path.
+
+[A] Pattern Fill - Allows you to fill an area of the editing window
+with a user defined pattern.
+
+    [1] Create a Pattern - Works like the dot drawing mode. Select
+    colors as you normally would and create an 8 x 8 pattern in the
+    upper left corner of the editing window. The graphic in the active
+    frame will not be affected. After you have completed the pattern
+    you have the option to save it before proceeding with the fill.
+    Enter the save path and a filename without an extension. A ".PAT"
+    extension will be added to the filename.
+
+    As with the regular fill function you need to select the color
+    that the fill will terminate at, and a point to begin the fill.
+    
+    [2] Load a Fill Pattern - After selecting a path to search on, a
+    list of ".PAT" (pattern) files will be displayed. Select one of
+    the files and the fill will proceed as if you had created a new
+    pattern (see above). The palette that was used to create the
+    pattern is saved along with the pattern. If when the pattern is
+    loaded the current palette and the saved palette do not match,
+    you have the option of making the saved palette the current
+    palette.
+
+[B] Block Erase - Works the same as creating a rectangle, only the
+area indicated is erased. Simply select the upper left corner of the
+area to erase, followed by the lower left corner.
+
+[C] Cut & Paste
+[D] Copy & Stamp
+Both of these functions are identical, with one important exception.
+Cut & Paste will delete the area indicated, while Copy & Stamp will
+not.
+
+When you use these functions the color palette is temporarily replaced
+by a copy/paste buffer window. You indicate a rectangular area to be
+cut or copied by indicating its upper left and lower right corners.
+The area indicated will appear in the copy/paste buffer. Four cursors
+will appear indicating the size of your cut/copied area. Using the
+cursor keys or the right mouse button, reposition the cursors to
+indicate the new position of the cut/copied graphic (mouse users
+should keep in mind that they are controlling the upper left cursor
+with the mouse). When the cursors are positioned where the paste/stamp
+will occur, press enter or the left mouse button (keeping the mouse
+pointer on the upper left corner).
+
+During these functions, the Get Frame, Put Frame, and Next Page
+functions are still operational. Once you have an image in the
+copy/paste buffer it may be pasted (or stamped) as many times as you
+like, in as many graphics as you like.
+
+[E] Add Text - Allows you to add numbers, letters and some punctuation
+symbols to your graphics. First select a color for your text, then
+type in a string, 6 characters maximum. Four cursors will appear
+indicating the approximate size of the text. The size is only
+approximate due to the fact that the different letters have different
+heights  and widths. Position the cursors to stamp the text where you
+desire (see preceeding command summary). The text string may be
+stamped multiple times on a graphic.
+
+
+III. USING GRAPHIC FACTORY GRAPHICS IN YOUR OWN PROGRAMS
+--------------------------------------------------------
+
+The demo program JACKDEMO.BAS has been provided to give a simple
+example of how to use the graphics you create in your owm programs.
+This demo does not set new standards in graphic excellance, but is
+intended to show you the basics. This program was designed to be
+used with Quick Basic version 4.5, but it should work with any basic
+that supports Microsoft compatible BLOAD and PUT graphics statements.
+Other programming languages may be able to load and display the
+graphics. The graphics (and the .SET file) are saved in standard
+memory imaged (BSAVE) format to allow their loading with the BLOAD
+command.
+
+Please refer to the program listing as you read the following. After
+setting the screen mode (SCREEN 9 - EGA 640 x 350 16 color mode) the
+demo program loads the ".SET" file. It is not necessary to load the
+information in the ".SET" file as this information can be contained
+in your program itself. The ".SET" file contains information on the
+number of frames in the set, their X and Y dimentions, the number of
+integer array elements needed to store one frame (also used as the
+offset of the frames within the file), and the palette used to create
+the frames (16 colors), in that order. The palette information is
+stored in an integer array and the colors are set with the palette
+using command (PALETTE USING arrayname%). The information on the
+number of frames (NumFrames%) and their size (ELEMENTS%) are used to
+dimension an array to store the graphics - DIM JACK%(NumFrames% *
+ELEMENTS%). The graphics are then loaded using the BLOAD command.
+
+The animation sequence is stored in the string ANIM$. The two digit
+numbers in the string represent the frame to be displayed. The program
+simply displays the frames in the order they appear in the string.
+The animation in the Graphics Factory title screen was created in a
+similar way. (Note - All of the title screen graphics were quickly
+and easily created using the Graphics Factory itself!) The "PSET"
+option at the end of the PUT statement causes each new frame to
+completely overwrite the previous one, hence no erasing of the image
+is required.
+
+
+IV. ERRORS AND ERROR WINDOWS
+----------------------------
+
+Most of the errors that can occur in the Graphics Factory are the
+result of failed disk operations. A window will appear informing you
+that the operation has been halted and the error that occured. also
+included in this section are several non-error caution/information
+windows that may appear when sets of frames or patterns are loaded.
+The following is a list of possible errors, their causes, and a few
+solutions.
+
+FILE NOT FOUND ERROR - The file name you typed in was not located on
+the current disk or directory, or the file name was incorectly typed.
+Mouse users should use the mouse to select the file from the on screen
+directory and avoid this error entirely.
+
+WRONG FILE TYPE ERROR - All files loaded by the graphics factory must
+be memory imaged files (i.e. created by BSAVE). Attempting to load
+any other type of file (a text file for example) will cause this
+error.
+
+WRONG FILE SIZE ERROR - Pattern files, palette files, and ".SET" files
+all have specific sizes. Attempting to load a graphics file as a
+pattern, for example, will cause this error.
+
+Single frames created by Quick Basic programs can be loaded into the
+Graphics Factory provided they take up 779 bytes of disk space or less.
+Attempting to load a larger graphic will cause this error. The number
+at the bottom left of the error window is the size, in bytes, of the
+file you attempted to load.
+
+The ".SET" file contains information on the size of the graphics that
+is used to calculate how large the matching graphics file should be.
+If the ".SET" file and the graphics file do not match this error will
+occur.
+
+BLOAD TRANSFER CORRUPT - For some unknown reason some computers
+experience a data corruption with large BLOAD file transfers. I have
+no idea what causes this error. If this error occurs simply attemp
+to load the file a second (and possibly a third) time. If a file
+never loads correctly, the file (or the disk) is probably defective.
+
+One solution to the problem is to save and load graphics on floppy
+disks only, as the error seems confined to hard disk loads. (This
+will also prevent you from filling your hard disk with graphic files!)
+I suspect the problem lies in a hardware-software incompatibility,
+although I have no proof of this. The profile of one affected system
+is as follows: 286 AT compatible runnig at 12.5 MHZ, a 40MB IDE hard
+disk, using Disk Manager software as a hardware driver.
+
+If anyone knows the cause of this mysterious data corruption, or
+better yet has a solution, please drop me a line and let me know.
+
+DRIVE SPECIFIED DOES NOT EXIST - The drive or directory you specified
+for a load or save operation cannot be located by MS-DOS.
+
+INSUFFICIENT SPACE ON DRIVE X - There was not enough bytes free on the
+drive specified to save your file.
+
+FRAME SIZE MISMATCH - The size of the frames that you are loading is
+different than the current frame size. You have the option of setting
+the current frame size to match the loaded frames. When frames of
+different sizes are loaded at the same time frame size should be set
+to accomodate the larger frames.
+
+PATTERN PALETTE MISMATCH - The palette of a saved pattern is different
+than the current palette. You have the option of setting the current
+palette to match the pattern's palette.
+
+
+V. WHY I AM NOT (YET) AN ASP MEMBER
+-----------------------------------
+The ASP (Association of Shareware Professionals) is a fine
+organization attempting to make shareware the most viable method
+of software distribution possible. They have set policies of
+professional conduct and integrity that I stand behind 100%.
+I realize that indirectly I will benefit from their actions even
+though I am not a member.
+
+This software meets all ASP requirements with one major exception.
+During execution, this program will create a registration reminder
+screen (RRS) every 15 minutes. This screen (a window actually) is
+intended to remind you of your legal and moral obligation to register
+this software if you use it on a regular basis. The ASP guidelines
+state that such a RRS may appear only twice during the execution of
+a program. Since there is no way to determine how long this software
+will be used in a tryout session, the message may appear an infinite
+number of times.
+
+It should be noted that the RRS is abortable after 3 seconds (within
+ASP guidlines) and will not interupt any important program fuction.
+If you are in a sub-menu, drawing a circle, saving frames, etc. the
+RRS will wait until you return to the drawing mode before exection.
+If you use this software for less than 30 minutes you will only see
+the RRS twice anyway.
+
+the ASP's main concern is that the RRS will become another form of
+product crippling, a practice they are very much against. In general
+I agree with the ASP on this matter. I am also 100% certain that if
+this software were submitted to the ASP that my application for
+membership would be rejected.
+
+Someday (when I'm not working full time 6 days a week AND runnig a
+shareware business!) I will petition the ASP to review their policies.
+I am hoping that a compromise can be reached reguarding time
+dependent registration reminder screens.
+    
+
+VI. CONCLUSION
+--------------
+As of 9/21/92 the Graphics Factory has no known bugs or defects. If
+you happen to discover any, please let me know. Registered users are
+encouraged to write to me with suggestions for future updates of this
+software. This software is not currently published under a company
+name due to the fact that I have'nt much of a company - yet!
+
+Any of you who saw my previous shareware attempt, Battlefield, and
+thought it was a good idea with poor execution, well I agree. You
+may be happy to know that a major revision is under way. A mouse
+interface and a computer opponent are being added, and an auto
+generation feature is being added to the map editor.
+
+I hope other programmers who use Quick Basic will find this software
+to be as useful as I do. This software (and future versions of it)
+will be used to create the graphics for all my future strategy games.
+It is my intention to support this software for many years to come.
+

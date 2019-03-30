@@ -1,0 +1,726 @@
+                        BASIC GAME DESIGNERS' VGA LIBRARY
+
+
+
+
+INTRODUCTION
+
+This is a library of graphic functions, written in assembly language, that
+add a lot of speed and power to your QuickBASIC programs.  WARNING!  These
+functions will ONLY work in the VGA 256 color mode.  At present, the VGALIB
+supports the 320 x 200 mode, 320 x 240, and the 320 x 400 mode.  Soon,
+however, I plan to add support for SVGA modes...including 640x480 and
+800x600.  
+
+Almost all of the functions in my library have tested faster that their
+QuickBASIC equivalents and there are many functions in my library that aren't
+in BASIC.  After all, BASIC doesn't support anything better than 320x200.
+
+VGALIB library of functions were written especially with game programming in
+mind.  I have included a demo program that has samples of a couple different
+games... a 3-D adventure game, a scrolling game, etc.  The documented source
+code to the demo is available upon registration, as well as a small tutorial
+and hints file on how to write PC games.
+
+
+
+SHAREWARE?
+
+The VGA QLB file is shareware.  You may freely distribute it as long as it is
+not modified and that it is distributed with the following original,
+unmodified, unaltered files:
+
+     VGA     .QLB               The VGA QuickLibrary
+
+     3D      .EXE               Demo of 3-D adventure game
+     SCROLL  .EXE               Demo of Scrolling game
+
+     DECLARE .BAS               Declare statements for all the functions
+     DEMO    .BAS               Demo of graphic primitives
+
+     MANUAL  .DOC               This manual
+     REGISTER.DOC               Registration form
+     
+
+Feel free to use the QuickLibrary as much as you like.  It will allow you to
+use ALL of the functions in the run-time environment and allow you to "try
+before you buy."  That way, you can decide whether or not it will help you
+and whether you should buy it.
+
+I encourage all of you who are seriously interested in PC game/graphics
+programming to register.  
+
+Registered users will receive the latest version of the library (the .QLB
+file and the .LIB) and discounts on future revisions of the VGALIB, an
+updated manual, the source code and data files that make up the demo
+programs, other special programs not in the evaluation package, a small
+tutorial/hints file on programming PC games, a periodic game programmers
+newsletter, and my gratitude.  
+
+I have a lot of things planned for this library.  Just some of things I plan
+to do (if there is enough interest..ie. registered users) are as follows:
+
+
+     1)    Add support for 256 color SVGA modes, 640 x 400, 640 x 480, and
+           800x600 modes.
+
+     2)    Add support for using graphics primitives on the virtual screens. 
+           Being able to use LINE200, XLINE200, CIRCLE200, etc. on the virtual
+           screens.
+
+     3)    Add support for loading, saving and manipulating images in various
+           formats, including GIF, PCX, MAC, and others.
+
+     4)    Start a BBS dedicated to PC Game Programming with the current
+           version of my library available for registers users, as well as
+           forums about programming various types of games.  There will be a
+           technical support forum for my library where any questions you may
+           have can be answered by myself.
+
+But none of this will happen unless you register it.  I put a lot of money,
+research, and programming time into creating and testing this library.  And
+my wife put up with me through all of this without asking for a divorce -- so
+please register it or she won't let me come out with version 2.
+
+
+GETTING STARTED
+
+The first thing you should do is create a directory for the QuickLibrary and
+the demo program.  For example:
+
+MD \VGALIB
+
+Next, unzip the files into the directory and you're ready to go.  To start
+the demo, type DEMO at the prompt:
+
+C:\VGALIB>DEMO
+
+This will start the demo of the libraries features and some of the game
+programming genres (ie. 3-D Adventure games, Scrolling action games, etc.). 
+This also does a speed comparison between my graphic primitives and BASIC's
+functions.
+
+
+USING GRAPHICS FUNCTIONS IN THE QUICKBASIC ENVIRONMENT
+
+The VGA Library is written for QuickBASIC 4.x.  Although I have only tested
+it with QuickBASIC 4.5, it should work with any version 4.  The registered
+version will run with BASIC PDS 7.x as well.
+
+To use the VGA QuickLib (.QLB) in the QuickBASIC editor, you must start QB
+with the /L parameter followed by the path and name of the library.  For
+example:
+
+C:\QB45>QB /LC:\VGALIB\VGALIB.QLB
+
+This will cause QB to load the VGA graphics library into memory and allow you
+to access all of it's functions in the run-time environment.
+
+
+
+DECLARING THE SUBROUTINES
+
+All of the VGALIB commands are defined as subroutines.  You MUST declare any
+routines in be beginning of your program for them to work correctly.  If you
+do not declare the subroutines in your program, weird results may occur,
+including system lockup, garbled screen results, etc.
+
+The basic program DECLARE.BAS, which is included, has the necessary
+declaration statements for you to access all of the functions.
+
+
+
+THE LIBRARY
+
+The following is a list of the commands, calling syntax, and a brief
+description of what each command does and any of my own comments.
+
+In the 320x200 mode, you should only use the routines that end with the
+suffix 200 (ie. PSET200, LINE200, etc.) .  When in the 320x240 mode or the
+320x400 mode, please use only routines that end with 240 (ie. PSET240,
+LINE240, PUT240, etc.)
+
+Since I only added 320x240 and 320x400 support recently, some of the routines
+are slow but that will soon be remedied as I get more accustomed to the setup
+of the VGA memory in these extended modes.
+
+
+SET320x200
+
+     Syntax:          Call SET320x200 or
+                      SET320x200
+       
+     Description:     This routine uses the DOS Interrupt to set the screen
+                      into graphics mode.  It sets up graphics mode 13H, which
+                      is the 320 x 200 mode in 256 colors.
+
+                      WARNING!  If you use this command to switch to graphics
+                      mode, most of the QB graphics functions WILL NOT work
+                      because the QB SCREEN statement sets an internal QB
+                      variable that tells the QB environment which graphics
+                      mode it's in.  This subroutine DOES NOT set that variable
+                      so as far as QB is concerned...you're still in text mode. 
+                      CLS, LINE, PAINT, PSET, GET, PUT, and PRINT WILL NOT
+                      function when the SET320x200 is used.
+
+SET320x240
+
+     Syntax:          Call SET320x240 or
+                      SET320x240
+       
+     Description:     This routine uses the DOS Interrupt to set the screen
+                      into graphics mode.  It sets up graphics mode 13H, which
+                      is the 320 x 200 mode in 256 colors.  Then, it changes a
+                      few things around to give you 240 scan lines instead of
+                      200.  I won't go into specifics here.
+
+                      WARNING!  When you are in this mode, use only the
+                      commands that end in 240....(ie. PSET240, POINT240,
+                      LINE240, etc.)  Using the other commands will cause
+                      bizarre results.  As of this writing there is no support
+                      to PRINT text in either the 320x240 or the 320x400
+                      modes... that will be added shortly.
+
+SET320x400
+
+     Syntax:          Call SET320x400 or
+                      SET320x400
+       
+     Description:     This routine uses the DOS Interrupt to set the screen
+                      into graphics mode.  It sets up graphics mode 13H, which
+                      is the 320 x 200 mode in 256 colors.  Then, it changes a
+                      few things around to give you 400 scan lines instead of
+                      200.  Again, I won't go into specifics here.  Register if
+                      you want more details.
+
+                      WARNING!  When you are in this mode, use only the
+                      commands that end in 240....(ie. PSET240, POINT240,
+                      LINE240, etc.)  Using the other commands will cause
+                      bizarre results.  As of this writing there is no support
+                      to PRINT text in either the 320x240 or the 320x400
+                      modes... that will be added shortly.  The way the video
+                      memory is set up in the 320x240 and the 320x400 modes is
+                      identical so you can use the commands from the 240 mode
+                      in the 400 mode.
+
+SET80x25
+
+     Syntax:          Call SET80x25 or
+                      SET80x25
+       
+     Description:     This routine uses the DOS Interrupt to set the screen
+                      into text mode.
+
+                      Normally, when QB terminates a program, it automatically
+                      exits to text mode.  If you used the SET320x200 sub to
+                      set the graphics mode, then YOU must set text mode before
+                      the program terminates or you will drop the user to DOS
+                      in graphics mode. 
+
+
+PSET200
+
+     Syntax:          Call PSET200 (X%, Y%, Color%) or
+                      PSET200 X%, Y%, Color%
+
+     Description:     This routine will set individual pixels on the screen. 
+                      It will set the pixel at column X% and row Y% to what
+                      ever color is specified by the Color% variable. (See
+                      DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the PSET240 command, which has the identical
+                      syntax as the PSET200.
+
+POINT200
+
+     Syntax:          A%=PSET200 (X%, Y%) or
+                      
+     Description:     This routine will return the value of individual pixels
+                      on the screen.  POINT200 is almost identical to the BASIC
+                      Point function.
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the POINT240 function, which has the identical
+                      syntax as the PSET200.
+
+LINE200
+
+     Syntax:          CALL LINE200(X1%, Y1%, X2%, Y2%, Color%) or
+                      LINE200 X1%, Y1%, X2%, Y2%, Color%
+
+     Description:     Similar to QB's own LINE statement, the Line200 routine
+                      will draw a straight line between two points in the given
+                      color.  It is faster than the QB LINE statement. (See
+                      DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the LINE240 command, which has the identical
+                      syntax as the LINE200.
+
+XLINE200
+
+     Syntax:          CALL XLINE200 (X1%, Y1%, X2%, Y2%, Color%) or
+                      XLINE200 X1%, Y1%, X2%, Y2%, Color%
+
+     Description:     This routine is identical to the LINE200 routine above
+                      except it XORs the line on top of the existing
+                      background.  Consequently, if you XOR it back on, it will
+                      effectively erase itself, leaving the background
+                      unaffected.  This technique is often referred to as
+                      "rubberbanding."  (See DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  There is no XLINE  command for the 320x240
+                      mode & the 320x400 mode yet but it will be added shortly.
+
+
+BOX200     
+
+     Syntax:          CALL BOX200 (X1%, Y1%, X2%, Y2%, Color%) or
+                      BOX200 X1%, Y1%, X2%, Y2%, Color%
+
+     Description:     The BOX200 routine is very similar to the QB LINE command
+                      with the B option to create the outline of a box.  It
+                      create the outline of a box at the given coordinates.
+                      (See DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the Box240 command, which has the identical
+                      syntax as the Box200.
+
+BOXF200    
+
+     Syntax:          CALL BOXF200 (X1%, Y1%, X2%, Y2%, Color%) or
+                      BOXF200 X1%, Y1%, X2%, Y2%, Color%
+
+     Description:     The BOXF200 routine is very similar to the QB LINE
+                      command with the BF option to create the outline of a
+                      box.  It create the a box filled with the given color at
+                      the specified coordinates.  (See DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the BoxF240 command, which has the identical
+                      syntax as the BoxF200.
+
+CIRCLE200  
+
+     Syntax:          CALL CIRCLE200 (X%, Y%, Radius%, Color%) or
+                      CIRLCE200 X%, Y%, Radius%, Color%
+
+     Description:     This routine creates a circle who center is X%, Y% and
+                      whose radius is determined by the Radius% variable.  This
+                      creates only the circle outline, not a filled circle. 
+                      (See DEMO.EXE or DEMO.BAS)
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the Circle240 command, which has the identical
+                      syntax as the Circle200.
+
+GET200     
+
+     Syntax:          CALL GET200 (X1%, Y1%, X2%, Y2%, Array(Offset%)) or
+                      GET200 X1%, Y1%, X2%, Y2%, Array(Offset%)
+
+     Description:     Similar, but MUCH faster than BASIC's GET command, the
+                      GET200 routine will quickly copy an image from the screen
+                      to the an array.  The array must be previously
+                      dimensioned and can be either STATIC or DYNAMIC. 
+                      IMPORTANT!  DO NOT USE A CONVENTIONAL STRING ARRAY. 
+                      Doing so will cause unpredictable results.  You may
+                      however, use fixed length string arrays which you have
+                      created, or numeric arrays.
+
+                      The size of the array is calculated as follows:
+
+                           XDistance%  = ABS(X2% - X1%) + 1
+                           YDistance%  = ABS(Y2% - Y1%) + 1
+                           NumOfBytes% = XDistance% *YDistance% +10
+                           ArraySize% = NumOfBytes% \ ElementSize%
+
+
+                      ElementSize% depends on what type of array you are using.
+
+                           Type of Array         ElementSize% 
+
+                           Integer                    2
+                           Long Integer               4
+                           Single Precision           4
+                           Double Precision           8
+                           TYPE array                 Size TYPE
+        
+                      Other notes:  In the 320x240 mode & the 320x400 mode,
+                      there is not yet a GET command.  However, if you GET
+                      something using the GET200 command, you can use the
+                      PUT240 command to display it in the 320x240 & 32x400
+                      modes.
+
+PUT200
+
+     Syntax:          CALL PUT200 (X%, Y%, Array(Offset%), Operation%) or
+                      PUT256 X%, Y%, Array(Offset%), Operation%
+
+     Description:     Again, the PUT200 is a faster version of BASIC's PUT
+                      command. It will quickly display an image that was
+                      captured using the GET200 command.  The Operation%
+                      variable is a logical operation.  The logical operations
+                      supported are:
+
+
+                           0               PSET            The image in the
+                                                           array will overwrite
+                                                           anything on the
+                                                           screen.
+
+                           1               XOR             The image in the
+                                                           array will be XORed
+                                                           on to the screen.
+
+                           2               AND             The image in the
+                                                           array will be ANDed
+                                                           onto the screen.
+
+                           3               OR              The image in the
+                                                           array will be ORed
+                                                           onto the screen.
+                      
+                      Using the XOR logical operator, you can display an image
+                      on a complex background, and when you XOR it again it
+                      will disappear, restoring the original screen.  This is
+                      useful for some animation but causes flickering.
+
+                      Other notes:  In the 320x240 mode & the 320x400 mode, you
+                      may use the PUT240 command, which has the identical
+                      syntax as the PUT200, except that it does not yet support
+                      the logical operators...only the PSET option.  The syntax
+                      is the same except that you do not include a logical
+                      operator.
+
+
+TPUT200
+
+     Syntax:          CALL TPUT200 (X%, Y%, Array(Offset%)) or
+                      TPUT200 X%, Y%, Array(Offset%)
+
+     Description:     This is a special routine that I made myself.  It the
+                      Transparent PUT200 routine.  Like PUT200, the TPUT200
+                      routine quickly copy an image captured with the GET200
+                      command to the screen.  However, the TPUT200 routine WILL
+                      NOT copy any pixel in the array that is color 255.  This
+                      is similar to the movie/TV technique called "blue
+                      screening."  
+
+                      Other notes:  There is no TPUT command for the 320x240
+                      and 320x400 modes yet.  It should be done by time you
+                      register.
+
+RPUT200
+
+     Syntax:          CALL RPUT200 (X%, Y%, Array(Offset%)) or
+                      RPUT200 X%, Y%, Array(Offset%)
+
+     Description:     This is a special routine that I made myself.  It the
+                      Reverse PUT200 routine.  Like PUT200, the RPUT200 routine
+                      quickly copy an image captured with the GET200 command to
+                      the screen.  However, the RPUT200 routine reverses the
+                      image from left to right. 
+
+     
+                      Other notes:  There is no RPUT command for the 320x240
+                      and 320x400 modes yet.  It should be finished by time you
+                      register.
+
+
+VIRTUAL SCREENS
+
+That's it for the commands you might be used to.  The next series of the
+commands have to do with virtual screens.  And what is a virtual screen you
+might ask?  What you see on the monitor is called a active screen.  The
+active screen is lives in the memory on your display adapter.
+
+A virtual screen is a copy of the active screen that lives in RAM.  And
+because it is in RAM, we can do all sorts of neat things with it because
+we're not limited by the display adapter.  For instance, we can create a
+virtual screen that is LARGER than the active screen and then display only a
+part of it on the active screen.  This is a technique they often use in
+scrolling arcade games.
+
+Anyway, QB doesn't really allow you to work with virtual screens.  You can do
+it.  Or at least I did it.  But it was SO slow it was not practical. 
+Consequently, I came up with some assembler routines to do the dirty work for
+me with considerably speeded things up.
+
+Okay, that's it for the explanation.  There is more in the manual you get
+with the registered version.  Plus, the source code to SCROLL.EXE deals shows
+how to use virtual screens.
+
+
+
+CreateVirtualScreen   
+
+     Syntax:          CALL CreateVirtualScreen (Array(Offset%)) or
+                      CreateVirtualScreen X1%, Y1%, X2%, Y2%, Array(Offset%)
+
+     Description:     This command creates a virtual screen with the array that
+                      you specify.  
+
+                      Example:  CreateVirtualScreen 0, 0, 639, 479, Array(0) 
+                   
+                      That example creates a virtual screen that is 640 pixels
+                      wide by 480 pixels long.
+
+VGET
+
+     Syntax:          CALL VGET(Source(Off%)), X1%,Y1%,X2%, Y2%,Target(Off%)
+                      or VGET Source(Off%), X1%, Y1%, X2%, Y2%, Target(Off%)
+
+     Description:     This command is similar to the GET200 command, except
+                      that it captures a rectangular image off of a virtual
+                      screen.  
+
+                      Example:  VGET Source(0), 0, 0, 20, 20, Target(0)
+
+                      In the example, VGET would copy the image off the virtual
+                      screen that you created in Source() at coordinates 0,0 to
+                      20,20 into an array called Target().  You could then
+                      PUT200 the image in Target() on the active screen, or use
+                      on of the other commands.
+
+                      WARNING! This subroutine assumes a lot.  It assumes:
+                                
+                                1)    That there is a valid VIRTUAL SCREEN
+                                      created in the Source().
+
+                                2)    That the coordinates that you pass to it
+                                      are valid.
+
+                                3)    That Target() is dimensioned properly.
+                                      (See GET200)
+
+                      If any of these assumptions are not met, unpredictable
+                      results may occur.
+
+VPUT
+
+     Syntax:          CALL VPUT (Target(Offset%), X%, Y%, Image(Offset%)) or
+                      VPUT Target(Offset%), X%, Y%, Image(Offset%)
+
+     Description:     This is very similar to the PUT200 command, except that
+                      it PUTs images onto a virtual screen.  At present, it
+                      only supports the PSET option...no XOR, OR, AND options
+                      yet.
+
+                      Again this routine assumes that the Target() array
+                      contains EITHER a Virtual Screen or another image that
+                      you've captured with the GET200 command.
+
+VTPUT
+
+     Syntax:          CALL VTPUT (Target(Offset%), X%, Y%,Image(Offset%)) or
+                      VTPUT Target(Offset%), X%, Y%, Image(Offset%)
+
+     Description:     This is very similar to the VPUT command, except that it
+                      PUTs images onto a virtual screen using the "blue
+                      screening" technique.  (See TPUT200 for more)
+
+                      Again this routine assumes that the Target() array
+                      contains EITHER a Virtual Screen or another image that
+                      you've captured with the GET200 command.
+
+
+
+
+OTHER NEAT STUFF
+
+There are also some additional features that I've found useful for game
+programmers and graphics programmers alike.  They are small routines that
+allow you to use different fonts, routines to save/restore the VGA palette,
+and instructions on how to SAVE/RESTORE 256 Color Screens.  There will be
+more of these routines in future versions.  I plan to add support for loading
+& saving PCX, GIF, and other formats.  So look for future versions!
+
+
+SAVEPAL
+
+     Syntax:          CALL SAVEPAL (Target(Offset%))
+                      SAVEPAL Target(Offset%)
+
+     Description:     This subroutine saves the entire VGA color palette (all
+                      256 colors) into an array called Target().  The Target()
+                      array MUST have been previously dimensioned for at least
+                      768 bytes.  This is because the color palette contains
+                      three bytes (1 for green, blue, and red) for each color
+                      it saves.  So you need 256 * 3 (or 768) number of bytes
+                      to store the whole palette.
+
+                      Once you have use the SAVEPAL command to save the palette
+                      values into an array, you may use the following technique
+                      to save it to disk:
+
+                      DEFINT A-Z
+
+                      ' Integer arrays are 2 bytes per element so we need
+                      ' 768 / 2 elements...or 384.
+
+                      DIM Target(0 to 384)
+ 
+                      ' Save the palette values into the array
+                      SAVEPAL Target(0)
+
+                      ' Save the array to disk
+                      DEF SEG=VARSEG(Target(0))
+                      BSAVE "Test.PLT", VARPTR(Target(0)), 768
+                     DEF SEG
+                
+
+RESTOREPAL
+
+     Syntax:          CALL RESTOREPAL (Source(Offset%))
+                      RESTOREPAL Source(Offset%)
+
+     Description:     This subroutine restores  the entire VGA color palette
+                      (all 256 colors) from an array called Target().  The
+                      Source() array MUST have been previously dimensioned for
+                      at least 768 bytes and loaded with palette values.  
+
+                      Below is a small program to restore a palette that was
+                      saved using the SAVEPAL routine, and then BSAVEd to disk.
+
+                      DEFINT A-Z
+
+                      ' Integer arrays are 2 bytes per element so we need
+                      ' 768 / 2 elements...or 384.
+
+                      DIM Source(0 to 384)
+ 
+                      ' Load the array from disk
+                      DEF SEG=VARSEG(Source(0))
+                      BSAVE "Test.PLT", VARPTR(Source(0))
+                     DEF SEG
+
+                      ' Quickly restore the vga values
+                      RESTOREPAL Source(0)
+
+
+                      Other notes:  When used with the 320x240 or 320x400
+                      modes, you should use the RestorePal command AFTER you
+                      use the SET320x400/SET320x240 commands because the
+                      SET320x400/SET320x240 commands destroy the palette.
+
+SETFONT200
+
+     Syntax:          CALL SETFONT200 (FontArray(Offset%))
+                      SETFONT200 FontArray(Offset%)
+
+     Description:     The SETFONT200 routine will enable a special graphics
+                      font which has been loaded into FontArray().  This uses
+                      a DOS interrupt to quickly change the VGA font table. 
+                      The evaluation copy comes with two fonts -- a futuristic
+                      font and a old looking font.  (To load a font, see
+                      DEMO4.EXE or DEMO4.EXE)
+
+                      If you register you will receive a special character
+                      editor that will allow you to create your own fonts.
+
+PRINT200
+
+     Syntax:          CALL PRINT200 (X%,  Y%, Text$, Colr%)
+                      PRINT200 1, 1, "Hello", 14
+
+     Description:     The PRINT200 print a string to the screen when in the
+                      320x200 mode at the coordinates specified by X%, Y%.  The
+                      Colr% variable specifies the foreground and background
+                      colors (something you can't do with QB PRINT).
+
+                      Colr% = Background * 256 + Foreground
+
+
+OTHER UTILITY PROGRAMS
+
+There are a few utility programs that are included with the registered
+version that help you to use the some of the VGALIB functions better.  They
+are:
+
+     CHAREDIT.EXE     -    A small character editor for use with the
+                           SETFONT200 command.  It allows you to create as
+                           many 8 x 8 character fonts as your heart desires. 
+                           It saves fonts in BLOADable format to be used with
+                           the SETFONT200 command.
+
+     SPREDIT.EXE      -    When you register your copy of VGALIB, you will
+                           receive my own sprite editor which will allow you
+                           sprites/icons which you can later animate with the
+                           functions in VGALIB.
+
+
+
+
+OTHER BENEFITS
+
+I admit it.  Not ALL of my subroutines are faster than their BASIC
+counterparts.  But those that aren't are very close.  What I've tried to do
+is build a replacement library of graphics functions for BASIC that would
+allow you to totally avoid BASIC graphics library and cut down code size. 
+How much code size?  
+
+Well, if you don't use any of BASIC's graphics commands...including CLS,
+SCREEN, LINE, GET/PUT, PAINT, PRINT, etc...you can cut down the size of your
+compiled code by about 20K or so.  I compiled two programs (identical except
+that one used BASIC's graphics commands and the other used VGALIB
+equivalents).  The VGALIB program compiled to just over 10K (10,976), the
+BASIC program compiled to just over 30K (36,222).  Not a bad savings.  It
+leaves you more room for your own program code.
+
+Plus, VGALIB would make an EXCELLENT complement to Crescent's PDQ, since all
+of the functions and subs are made to work with integers.  With PDQ & VGALIB,
+you could conceivably compile graphics programs that were smaller and faster
+than "C" or Pascal programs.  Am I kidding?  No way.
+
+So start programming those games you've always wanted to make.  Register your
+copy of VGALIB today!
+
+
+
+AFTERWARD
+
+Ok, that's it for all the hype.  This is the real me talking.  
+
+I made VGALIB because I love to program games but I also love BASIC. And as
+you all know...BASIC has almost NO good graphics functions or the useful
+functions (GET/PUT) are slow and far from comprehensive.  
+
+I looked for a good graphics library for BASIC but it seems all the good ones
+only supported "C" or Pascal...not BASIC.  I saw a really nice sounding
+graphics library from Company A for $250.  I called and asked them before I
+bought it and they said "Yeah...yeah...it'll do all those things you
+want...and more!"  So, I ordered it.  And it came.
+
+The disks were in an envelope that had a sticker on it that basically said
+"OPEN THIS AND YOU CAN'T RETURN IT."  So here I am in a dilemma.  I can't
+find out if it does what they say unless I open it...and if I open it, and it
+doesn't do what I want...I can't return it.
+
+Finally I decided to go ahead and open it.  Needless to say...it didn't do
+half the things they said it would, the manual was cryptic and the phone
+support person (I called 6 times and always spoke to the same person) was
+rude at best.  So there I was, in the same spot as before, except out $250.
+
+That is why I am releasing my library (the QLB file at least) into Shareware. 
+So that you can try the graphics functions on your own system and see whether
+or not they are what you want.  If not, fine...you've lost nothing.  If so,
+all you have to do is register it and you're off and running.
+
+I do hope you register.  But if not, at least send in your comments.  Tell me
+if you see something you like...and PLEASE tell me if there's something you
+WOULD like.
+
+Send all comments, contributions, greeting cards, blank checks, etc. to:
+
+
+                             SCN Software Solutions
+                            1043 Main Street, Floor 2
+                             Emerald, PA  18080-1006
+
+
+Remember to make all checks or money orders payable to John or Tammy
+Cressman.  Thank you.
+

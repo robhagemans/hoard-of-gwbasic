@@ -1,0 +1,91 @@
+22-Apr-93 (MG)
+Issued 1.03.
+
+Bug with ReindexXB when followed up with InsertXB with a non-unique index
+file causing sporadic 201 error. Fixed.
+
+Huge model properly supported with Borland C/C++ compilers. See MEMCXB.ASM
+for more.
+
+CZ.HLP updated with new BBS support number and other minor changes. Shareware
+versions BLTQ13.ZIP and BLTC13.ZIP released.
+---
+
+24-Aug-92 (WS)
+Issued 1.02.
+
+Bug with CreateKeyXB (parsing the key expression) that would occur if making
+an EXE file from the environment. Would probably also occur if linking to
+other libraries if those libraries where place before BULLET.LIB on LINK's
+Libraries: prompt. Caused by using OFFSET DGROUP:kfKeyExpression--the DGROUP
+specifier was not intended since kfKeyExpression is used to compute the offset
+relative a dynamically allocated segment base, not DGROUPs base. Since LINK
+was making adjustments for DGROUP (some of it already having been used by
+those libraries appearing before) the key expression offset was not where it
+should have been (if BULLET.LIB was not first the first library specified)--
+--the parser was parsing thin air, resulting in error 240. Fixed.
+
+CZ.COM changes: CZ.COM consolidated with CZXT.COM. CZ now bumps InDOS flag on
+popup for MT environments. Keypad-plus key functions as keypad-enter. Keypad-5
+moves cursor to center of screen. The mouse is software reset at popup.
+
+Shareware release of C version of BULLET 1.02 (BLTC12.ZIP). BASIC version named
+BLTQ12.ZIP (formerly BULETQ10.ZIP). Only difference is the CZ.HLP file and the
+sample programs (or lack of in the case of BLTC12). Second shareware release
+for BLTQ12. First for BLTC12.  (Archive extensions may vary.)
+---
+
+21-Aug-92 (chh)
+Issued 1.01b.
+
+Added single-record locking to LockDataXB (and unlocking, of course). Requires
+that AP.RecNo be set to record number to lock. To lock the entire data file set
+AP.RecNo=0. Better still, use LockXB when locking more than a single record.
+See LockDataXB in CZ for more. For most purposes the LockXB full-region locks
+is the best way to go. Added BB_RKL10.BAS showing single-record locks in action.
+
+Made some changes to CZ.HLP. Also added HLP2TXT.EXE to strip off the index data
+at the front of CZ.HLP. Makes it easier to import into WPs or even print
+directly. Creates CZ.TX!. About 5800 lines with 20 or so blank lines at the end
+(filler lines).
+---
+
+28-July-92. (chh)
+Issued 1.01a.
+
+In ReadKHXB the cache buffer needed to be invalidated since the cache buffer
+is invalid once control is released/made available to another process.
+
+Added !README2 text file explaining value (status=) returned from
+transaction-based routines.
+---
+
+24-July-92. (BJ)
+Issued 1.01
+
+In PackRecordsXB, if the last physical record is the only record to be
+deleted, it won't. Fixed.
+
+In ReindexXB, the index cache buffer was not invalidated after reindex which
+means that a subsequent request may be satisfied from the invalid cache
+(causing spurious 224 errors from no longer existing data records). Fixed.
+
+CZ.HLP BULLET error 223 should be 224 (223 is the one reserved). Fixed.
+---
+
+23-July-92 ()
+
+Added CZXT.COM for PCs and early XTs. Popup text does not appear on the early
+machines. Fixed.
+---
+
+22-July-92. (CH)
+
+In OpenKXB, an invalid xbHandle link will return a negative 222 (-222). Fixed.
+
+CZ.HLP lists OpenPack.xbHandle as OpenPack.XBlink. xbHandle will be used.
+
+---
+
+16-June-92.
+Issued 1.00.

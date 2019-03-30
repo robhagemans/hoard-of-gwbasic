@@ -1,0 +1,364 @@
+=======================================================================
+			  Fast Parser v1.2
+	     Copyright (C) 1992, 1993 by Daniel Corbier
+			All rights reserved.
+=======================================================================
+
+
+Introduction
+============
+
+Fast Parser is a PowerBASIC library which allows math expressions to be
+created and evaluated during runtime.  It supports a number of built-in
+functions, operators, numerical notations, and modes.  Fast Parser is
+especially designed to run fast inside loops.  Expressions such as the
+following can be evaluated:
+
+5.19 + 2.3E+3 * x/(15.8792 + sin(pi)^2-length) + x mod 3
+
+(16 xor 27) and 255
+
+#h1fff + #haef and #b1010111
+
+
+Table of Symbols
+================
+
+Symbol   Equivalent   Description                       Example
+------   ----------   -----------                       -------
+( )                   Prioritizes an expression         5*(1+1) = 10
+
+^        **           Raised to the power of            4  ^  5 = 1024
+*                     Multiply by                       3  *  6 = 18
+/                     Divide by                         9  /  2 = 4.5
+%        MOD          Modulo                            7  %  4 = 3
++                     Add                               1  +  1 = 2
+-                     Subtract                          9  -  5 = 4
+
+>                     Greater than                      9  >  2 = 1
+<                     Less than                         7  <  4 = 0
+=        ==	      Equal test                        5  =  4 = 0
+>=       =>	      Greater or equal                  3  >= 3 = 1
+<=       =<	      Less or equal                   $3E  <= 9 = 0
+<>       !=	      Not Equal                   #b10101 <> 20 = 1
+
+NOT                   Bitwise 'not'                     not(15) = -16
+AND       &	      Bitwise 'and'              #b101 and #h1E = 4
+OR        |	      Bitwise 'or'                     13 or 6  = 15
+XOR		      Bitwise 'exclusive or'           9 xor 3  = 10
+EQV		      Bitwise 'equivalence'            6 eqv 9  = -16
+IMP		      Bitwise 'implication'            1 imp 5  = -1
+
+SIN                   Sine                              sin(pi) = 0
+COS                   Cosine                            cos(pi) = -1
+TAN                   Tangent                           tan(pi) = 0
+ASIN                  Arcsine                           asin(1) = 1.57079632
+ACOS                  Arccosine                        acos(-1) = 3.14159265
+ATAN      ATN         Arctangent                        atan(0) = 0
+
+SINH                  Hyperbolic sine                  sinh(16) = 4443055.26
+COSH                  Hyperbolic cosine                cosh(11) = 29937.0708
+TANH                  Hyperbolic tangent                tanh(1) = 0.76159415
+COTH                  Hyperbolic cotangent              coth(1) = 1.31303528
+SECH                  Hyperbolic secant                sech(14) = 1.66305E-6
+CSCH                  Hyperbolic cosecant              csch(34) = 3.4278E-15
+ASINH                 Hyperbolic arcsine               asinh(2) = 1.44363547
+ACOSH                 Hyperbolic arccosine             acosh(9) = 2.88727095
+ATANH                 Hyperbolic arctangent           atanh(.5) = 1.09861228
+ACOTH                 Hyperbolic arccotangent          acoth(7) = 0.14384103
+ASECH                 Hyperbolic arcsecant            asech(.3) = 1.87382024
+ACSCH                 Hyperbolic arccosecant           acsch(2) = 0.48121182
+
+ABS                   Absolute value                    abs(-8) = 8
+EXP                   e to the power of                  exp(3) = 20.0855369
+RND                   Random number                      rnd(1) = .968620060
+INT                   Truncate to an integer           int(6.8) = 6
+EXP2                  2 to the xth power               exp2(17) = 131072
+EXP10                 10 to the xth power              exp10(3) = 1000
+FACT                  Factorial                        fact(11) = 39916800
+LOG2                  Log base 2                       log2(19) = 4.24792751
+LOG10                 Log base 10                      log10(7) = .845098040
+LOG        LN         Natural log                       log(16) = 2.77258872
+SGN        SIGN       Sign of expression                sgn(-9) = -1
+SQR        SQRT       Square root                       sqr(64) = 8
+
+
+Order of Precedence
+===================
+
+Here is the precedence list from highest to lowest priority:
+
+Anything inside parenthesis is performed first  ( )
+Exponentiation					^
+Multiplication, division                        *, /
+Modulo                                          MOD
+Addition, subtraction                           +, -
+Relational operators                            <, >, >=, <=, =, <>
+AND
+OR, XOR (exclusive or)
+EQV (equivalence)
+IMP (implication)
+
+
+Numerical Notations
+===================
+
+The default numerical type is DECIMAL.  Binary, octal, and
+hexadecimal number types are also supported.  The latter types
+must be preceded by the  #  (number sign) symbol, and one of
+the letters "h", "b", or "o", for hexadecimal, binary, or octal
+in that respective order.  The $ sign for hexadecimal notation
+can be used as a shortcut.
+
+Exponential notation is also supported.  These are numbers followed
+by the letter E, and an exponent number.  For instance:  3.4E+5
+translates to 3.4*10^5, and 3.4E-5 translates to 3.4*10^(-5).
+
+Examples:
+---------
+
+#b110101110,   #o656,   #h1AE,   $1AE,   430,   4.3E2
+are all the same number.
+
+#b10101^2 * 5/$1EF + sin(5.8+2)*cos(#o302)-7E6  is a valid expression.
+
+
+Library Elements
+================
+
+Eval##( Expr$ )		Function
+    This evaluates an expression in one step.  It may be preferable
+    to use Evaluate##() for speed when inside a time-critical loop
+    where a variable in the expression changes values.  See the
+    Technical Notes for details on speed differences.
+
+VarName$()		Array
+    This array stores the names of variables you want Fast Parser to
+    recognize.  The variable names should follow the PB convention for
+    naming variables (except they do not need to be followed by numeric
+    type identifiers).  You may have up to 200 unique variable names
+    (subscripts 0 to 199).  It is not case-sensitive.  When assigning
+    variable names to the array VarName$(), make sure you start with
+    subscript 0, and add names consecutively.
+
+VarValue##()		Array
+    This array stores the values that correspond to the variable
+    names in VarName$().  VarValue##(0) matches VarName$(0),
+    VarValue##(1) matches VarName$(1), etc...  These values can
+    be changed at any time.
+
+EqParse%( Expr$ )	Function
+    This function parses the expression in Expr$, and returns a
+    pointer for that expression.  The returned value is the parameter
+    you should pass to the Evaluate##() function.  This method is more
+    efficient in time-critical loops where variables are being changed.
+    EqParse%() is usually outside the loop, and Evaluate##() inside the
+    loop.  Ex: Ptr% = EqParse%( "3+x^2" )
+
+Evaluate##( Ptr% )	Function
+    This returns the value for the parsed expression represented
+    by Ptr%.  It is generally preceded by changing some values in
+    VarValue##(), while inside a loop.  The difference between
+    Evaluate##() and Eval##() is mainly in speed.  Eval##() normally
+    parses an expression every time it is invoked, whereas Evaluate##()
+    evaluates an expression which is already parsed, making it much
+    faster in a repetitious situation.
+
+EqError%		Variable
+    This variable stores one of the following error numbers each
+    time Eval##() or EqParse%() is invoked:
+          0    No error
+          1    Undefined function
+          2    Mismatched parenthesis
+          3    Undefined variable
+          4    Invalid binary number
+          5    Invalid octal number
+          6    Invalid hexadecimal number
+          7    Factorial overflow
+          8    (not available)
+          9    Invalid expression
+	  10   Function definition space is full
+
+TrigMode( mode )	Sub
+    This sub changes the angle mode for trigonometric operations.
+	  1    Radian  (default)
+	  2    Degree
+          3    Gradient
+
+UserFunction( Eq$ )	Sub
+     This let's you define functions during runtime.  Only one
+     parameter is allowed, and that parameter must be "x".  For
+     instance, if you enter the following lines, then the cot()
+     and the inv() functions will be recognized in subsequent
+     expressions just like any other built-in function:
+
+     Call UserFunction( "cot(x) = cos(x) / sin(x)" )
+     MyEquation$ = "inv(x) = 1/x"
+     Call UserFunction( MyEquation$ )
+
+ReleaseLastEq()		Sub
+    Each time EqParse%() or UserFunction() is invoked, it adds some
+    instructions to a list which may eventually get filled.  Use this
+    function to remove the last user function or parsed expression
+    from memory.
+
+ReleaseEq()		Sub
+    When invoked, all functions defined with UserFunction() and
+    expressions parsed with EqParse%() are freed from memory.
+    This may be useful if EqError% returns 10.
+
+Bin##(n$), Oct##(n$), Hex##(n$)		Functions
+    These convert n$ from a binary, octal, or hexadecimal number into
+    a decimal number.
+
+MatchParenth%( parenthesis, text$ )	Function
+    This finds a matching parenthesis.  For instance, if
+    text$ = "3+(5/(4+8-(1+.5)*3+2.87)+7)-3"
+		  ^                 ^
+    MatchParenth%(6,text$)        returns 24
+
+
+Technical Notes
+===============
+
+o  The hex, binary, and octal notations are slightly different than in
+   PB.  Instead of the "&" symbol, Fast Parser recognizes the "#" symbol.
+   For instance, #b1011 is recognized instead of &b1011.
+
+o  Relational operators return a 1 (instead of -1) for true expressions,
+   and 0 for false ones.  For instance,  5 > 3 = 1, and 5 < 3 = 0.
+
+o  There are two .PBU files.  CALC21.PBU will work with PowerBASIC 2.1,
+   and CALC30.PBU will work with PB 3.0.  Change the $LINK statement in
+   CALC.INC to set the appropriate .PBU file.
+
+o  In order for it to run faster, compile your program with either
+   the floating point Procedure option, or NPX option, instead of
+   the Emulate option.
+
+o  When inside a loop, where a variable in your expression is changing
+   values, the program will run faster if you Use EqParse%() along with
+   Evaluate##(), instead of Eval##().  However, if you are only dealing
+   with one expression inside the loop, the Eval##() function will run
+   almost as fast, because the parsed expression is still in memory.
+
+o  There is a limit of 128 instructions (like +, -, *, etc...) which can
+   be used for defining functions & parsing expressions.  Every time
+   UserFunction() or EqParse%() is called, part of the instruction list
+   is filled.  If this happens, you can use ReleaseEq to release all
+   parsed expressions and user functions from memory.
+
+
+Distribution
+============
+
+Fast Parser can be freely distributed through BBSs, online services
+and other shareware collections.  No charge can be made for Fast Parser.
+However, you can charge a modest fee for the media it is stored in and
+shipment, as long as it is made clear that the user is not buying Fast
+Parser by paying this fee, and it is not placed in a public domain
+category.  The following files must all be present and unmodified
+when distributed:
+
+FASTPARS DOC         Documentation for Fast Parser
+CALC     INC         $INCLUDE file for Fast Parser.
+CALC21   PBU         Unit file compatible with PowerBASIC 2.1
+CALC30   PBU         Unit file compatible with PB 3.0
+EVAL     BAS         A sample expression evaluator using Eval##()
+XYPLOT   BAS         Plots the 2-D graph of equations given at runtime
+3DPLOT   BAS         Plots 3-D surfaces of equations given at runtime
+
+
+Registration
+============
+
+Fast Parser v1.2 is free for non-commercial personal use, and for
+writing shareware and freeware (excluding public domain) programs,
+as long as due credit is given (citing the use of Fast Parser by
+Daniel Corbier).  If you want to encourage me to continue writing
+shareware & freeware programs, a gift of $10 or any amount would
+be greatly appreciated.  It should be a check or money order in US
+funds (since it might cost more than $10 to change foreign currency).
+You may also mail cash in US dollars.
+
+IMPORTANT!!
+-----------
+Please be advised that the registration options from the previous
+version of Fast Parser are no longer supported, and the source code
+can no longer be purchased.  Also, please keep in mind that although
+Fast Parser v1.2 can be used free of charge, it is NOT public domain.
+
+
+Disclaimer
+==========
+
+The Fast Parser library is provided on an "as is" basis without warranty
+of any kind, expressed or implied.  The person using it bears all risk
+as to the quality and performance of the library.  The author will not
+be held liable for any special, incidental, consequential, direct or
+indirect damages due to any problem caused by this software.
+
+
+My Address
+==========
+
+Since Fast Parser can be used free of charge, I do NOT plan on
+supporting it in any special way.  This simply means that I'm not
+obliged to assist anyone in the use of Fast Parser.  However, I would
+like to hear suggestions, and know what kind of programs it is used
+in.  I can be reached at either of the following addresses:
+
+US Mail:  (note that this address is different from last year)
+	Daniel Corbier
+	571 NE 110th Terrace
+	Miami, FL  33161
+
+Internet:
+	corbier@andrews.edu
+
+Fidonet:
+	Daniel Corbier at 1:135/110 or 1:135/23
+
+Compuserve:
+	INTERNET:  corbier@andrews.edu
+
+I frequent the following BBSs quite often:
+
+Telcom Central   305-828-7909
+MACC             305-596-1854
+SOX              305-821-3317
+
+I occasionally frequent the PowerBASIC BBS.
+
+I read the following conferences regularly:
+
+Fido:  Shareware, ECPROG, Q-BASIC and more
+Internet:  alt.lang.basic, and various msdos & pc newsgroups
+
+
+New features in this version include:
+=====================================
+
+- Functions can be defined at runtime
+- Unary + and - are now supported
+- More trig functions
+- Hyperbolic functions
+- Relational & bitwise operators
+- Up to 200 variables can be defined
+- Exponential notation is accepted (like 5.3E+25)
+- Hex, binary, and octal notations
+- Support for PB 3.0
+- Extended precision
+
+
+Ultimate Calculator
+===================
+
+If you are interested in seeing a program which uses the Fast Parser
+library, please get a copy of Ucalc (Ultimate Calculator) from a BBS
+near you.  It has more examples, and will give you a better idea of
+how Fast Parser can be used.  The file name is UCALCxx.??? (where
+xx is the version, and ??? is ZIP, ARJ, SDN or another extention).
+In addition to the features in this library, Ucalc can also solve
+equations, and do numerical integrations & summations.
+

@@ -1,0 +1,136 @@
+
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+     
+                    BAS2SB - BASIC to Structured BASIC Converter
+     
+                                  (c)opyright 1988
+     
+                           International No-Bugs Software
+     
+                                Program Information
+       
+     
+     
+                                    INTRODUCTION
+     
+     
+              BAS2SB  automates many of the source code  re-formatting 
+              procedures  commonly performed when switching over  from 
+              BASICA  or  GW-BASIC  to the  new  generation  of  BASIC 
+              compilers (such as Turbo BASIC or QuickBASIC).
+     
+     
+              BAS2SB programs become much more comprehensible,  and as 
+              a  result,  much  simpler  to  convert  into  structured 
+              formats.   This will allow you to take full advantage of 
+              QuickBASIC or Turbo BASIC.
+     
+     
+              BAS2SB  uses a BASIC source code file (ASCII format)  as 
+              its  standard  input,  and  returns  a  newly  formatted 
+              program that includes:
+     
+                 1)     One statement per program line          
+                 2)     IF, THEN, ELSE Nested Indentation
+                 3)     END IF blocked structures
+                 4)     Removal of non-targeted line numbers
+                 5)     Replacement  of  targeted lines  with  either 
+                        program generated, or user-supplied labels
+     
+     
+     
+                                        NOTE
+     
+     
+              Don't expect to recognize your new programs immediately. 
+              BAS2SB  does  NOT alter variables or  actual  code,  but 
+              linear programs with meaningful line labels take time to 
+              adjust  to.   It is highly advisable to have a hard copy 
+              of  the  original (numbered) source code at  hand  while 
+              adding  mneumonic labels.  Each target line can then  be 
+              respresented  by  the function it  performs.   You  will 
+              probably  find  this approach is worth the  extra  time, 
+              since it must be performed only once.
+     
+       
+     
+     
+     
+                                    USING BAS2SB
+     
+     
+              BAS2SB  needs very little assistance in converting BASIC 
+              programs. Listed below are the only requirements:
+     
+                 1)  Program must be in ASCII format (save with ",A").
+                 2)  Program lines must NOT contain any line-feeds or
+                     other control characters. 
+                 3)  Program lines must not exceed 255 characters.
+                 4)  Program source file must have a .BAS extension.
+     
+     
+              BAS2SB   does  NOT  alter  the  original  source   file.  
+              Instead, another file with the extension .SBX is created 
+              that will run under QuickBASIC and Turbo BASIC.
+     
+     
+     
+     
+                                 OPERATIONAL NOTES
+     
+     
+              When  invoking  BAS2SB,  you  will  be  prompted  for  a 
+              filename.   Do  NOT include an extension - the only  one 
+              allowed is the default, .BAS.
+     
+              If  the  source file is located,  BAS2SB will  begin  to 
+              reformat  the  source  file  by  looking  at  each  line 
+              individually  and will present each target  line  number 
+              and a prompt for an optional label.
+     
+              When prompted, you may choose to:
+                 
+                 1)  Enter a line label (up to 20 Characters).
+     
+                 2)  Enter a RETURN. (BAS2SB will provide the label).
+     
+                 3)  Enter a period.  From that point forward,  BAS2SB 
+                     will provide target labels.
+     
+              The number listed on the LEFT side of the display is the 
+              source line number being examined.
+     
+              The  number (if any) on the RIGHT side of the display is 
+              the target line number that was found in a corresponding 
+              GOTO,  GOSUB,  THEN,  ELSE, etc.  Once a target has been 
+              labeled,  further  references  to  that target  will  be 
+              automatically replaced without user intervention.
+       
+     
+     
+     
+                                   ERROR TRAPPING
+     
+     
+              In  the case of ERL references,  BAS2SB will retain  the 
+              original  line number references in the newly  generated 
+              source  file.   This allows proper trapping through  the 
+              use of the IF ERL construct.
+     
+     
+                                    FINAL NOTE
+     
+              BAS2SB  performs no error checking.   Any BASIC  program 
+              that compiles correctly BEFORE conversion should compile 
+              correctly  AFTER  conversion.    BAS2SB  will  not   fix 
+              programs that do not run.

@@ -1,0 +1,847 @@
+
+DEFINT A-Z
+DECLARE FUNCTION Detect.JoyStick% ()
+DECLARE SUB Play.options ()
+DECLARE SUB HiScores ()
+DECLARE SUB SetDeff ()
+DECLARE SUB Level.Select ()
+DECLARE SUB Wait.Retrace ()
+DECLARE FUNCTION getkey$ ()
+DECLARE SUB Ambox (shcolor%, brcolor%)
+DECLARE SUB Fade.out (lit%, fade%)
+DECLARE SUB Rd.Palette.Register (index%)
+DECLARE SUB Wr.Palette.Register (index%, red%, green%, blue%)
+DECLARE SUB fade.in (lit%, fade%)
+DECLARE SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+DECLARE SUB centertext (setx%, mincolor%, maxcolor%, text$)
+DECLARE SUB Headquarters ()
+DECLARE SUB Input.save.files (subsel%)
+'$DYNAMIC
+      
+       REM */  set global Info variables   \*
+COMMON SHARED score%, lives%, Level%, difficlty%
+COMMON SHARED Gunsel%, SelShip%, kills%
+COMMON SHARED freeships%, joyenable%, delay!, Argv%, spr1%, spr2%
+
+TYPE almem
+ buffer AS STRING * 1
+END TYPE
+COMMON SHARED font()  AS almem
+ON ERROR GOTO Errorsub
+IF Argv% = 0 THEN ERROR 82 'Not To Be Run Manually
+'/SHELL "a:\"
+'SHELL "cd\spf"
+'CLOSE
+'REDIM font(9900) AS almem
+'OPEN "B", #1, "a:\spf\FONT.BMP"
+'FOR x = 1 TO 9900
+'GET #1, , font(x).buffer
+'NEXT
+'CLOSE
+
+REDIM SHARED getscr%(1 TO 30000)
+
+'DIM SHARED index%, red%, green%, blue%, pause
+SCREEN 13
+
+'TYPE allocmem2
+'    redp  AS INTEGER
+'    greenp  AS INTEGER
+'    bluep  AS INTEGER
+'END TYPE
+'REDIM SHARED RGB(256) AS allocmem2
+
+SCREEN 13
+WHILE INKEY$ <> "": WEND
+'FOR c% = 1 TO 256
+'Rd.Palette.Register c%
+'RGB(c%).redp = red%
+'RGB(c%).greenp = green%
+'RGB(c%).bluep = blue%
+'   NEXT c%
+Fade.out 0, 60
+CLS
+Argv% = 1
+CLOSE
+IF difficlty% = 0 THEN difficlty% = 1
+Headquarters
+SYSTEM
+
+NoLevel:
+SELECT CASE ERR
+CASE 53
+CLOSE
+IF Level% > 0 THEN RESUME Level
+RESUME NEXT
+Level:
+LINE (280, 30)-(40, 135), 0, BF
+settextxy 40, 40, 40, 48, "YOU HAVE NO MORE LEVELS "
+settextxy 50, 40, 40, 48, "TO GET ANTHER LEVELS"
+settextxy 60, 40, 40, 48, "PLEASE READ -ACGAME.EXE-"
+settextxy 80, 40, 40, 48, "PRESS ANY KEY TO RESET"
+settextxy 90, 40, 40, 48, "GAME TO THE FIRST LEVEL"
+WHILE getkey = "": WEND
+Level% = 0
+Level.Select
+CASE ELSE
+SaveError = ERR
+RESUME Unexpected:
+END SELECT
+SYSTEM
+
+Errorsub:
+SELECT CASE ERR
+CASE 53
+CLOSE
+RESUME NEXT
+CASE 52
+RESUME NEXT
+CASE 62
+RESUME NEXT
+CASE ELSE
+SaveError = ERR
+RESUME Unexpected:
+END SELECT
+SYSTEM
+
+
+
+FileError:
+SELECT CASE ERR
+CASE 54
+CLOSE
+RESUME NEXT
+CASE 53
+CLOSE
+RESUME NEXT
+CASE 52
+RESUME NEXT
+CASE 55
+RESUME NEXT
+CASE 62
+RESUME NEXT
+CASE ELSE
+SaveError = ERR
+RESUME Unexpected:
+END SELECT
+
+Unexpected:
+CLOSE
+WIDTH 80, 25
+ON ERROR GOTO ReadEnd
+errline$ = "Can Not Open Error Code File"
+OPEN "ERROR.COD" FOR INPUT AS #4
+DO
+INPUT #4, errline$
+IF VAL(MID$(errline$, 1, 2)) = SaveError THEN EXIT DO
+LOOP UNTIL (EOF(4))
+ReadEnd:
+CLOSE
+PRINT ""
+PRINT ""
+PRINT " Acclimate Computer Entertainment"
+PRINT " Unexpected Error : "; errline$
+PRINT " Ending Program."
+SYSTEM
+
+
+
+DATA "1","2","3","4","5","6","7","8","9","0","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ","-"
+
+SFILES:
+
+REM $STATIC
+SUB Ambox (shcolor%, brcolor%)
+
+FOR Y% = 0 TO 20
+FOR x% = 0 TO 100 STEP 2
+LINE (160 - x%, 100 - Y%)-(160 + x%, 100 + Y%), shcolor%, B
+             NEXT
+             NEXT
+FOR x% = 0 TO 98
+FOR dly = 1 TO 300: NEXT
+LINE (160 - x%, 100)-(160 + x%, 100), 0, BF
+LINE (160 - x%, 100)-(160 + x%, 100), brcolor%, B
+             NEXT
+FOR Y% = 0 TO 18
+FOR dly = 1 TO 700: NEXT
+LINE (160 - x%, 100 - Y%)-(160 + x%, 100 + Y%), 0, BF
+LINE (160 - x%, 100 - Y%)-(160 + x%, 100 + Y%), brcolor%, B
+             NEXT
+END SUB
+
+SUB centertext (setx%, mincolor%, maxcolor%, text$)
+strlen = LEN(text$) * 8
+calcu = 319 - strlen
+sety% = calcu \ 2
+settextxy setx%, sety%, mincolor%, maxcolor%, text$
+END SUB
+
+FUNCTION Detect.JoyStick
+
+Temp% = STICK(0)
+
+IF Temp% > 0 THEN
+   Detect.JoyStick = 1
+      ELSE
+       Detect.JoyStick = 0:
+      END IF
+ 
+
+END FUNCTION
+
+SUB fade.in (lit%, fade%)
+
+'Qbasic version of fade in palette
+
+'FOR cut% = 1 TO lit% STEP Fade%
+'FOR c% = 255 TO 0 STEP -1
+'Rd.Palette.Register c%
+'IF red% = 63 AND green% = 63 AND blue% = 63 THEN GOTO skip2
+'red% = red% + Fade%: IF red% > RGB(c%).redp THEN red% = RGB(c%).redp
+'green% = green% + Fade%: IF green% > RGB(c%).greenp THEN green% = RGB(c%).greenp
+'blue% = blue% + Fade%: IF blue% > RGB(c%).bluep THEN blue% = RGB(c%).bluep
+'Wait.Retrace
+'Wr.Palette.Register c, red%, green%, blue%
+'skip2:
+'        NEXT c%
+
+'             NEXT cut%
+
+'Use a small program write in C\C++ to fade in palette
+SHELL "FADEFX FADE_IN"
+
+     END SUB
+
+SUB Fade.out (lit%, fade%)
+
+
+'lit% = 64 - lit%
+'FOR cut% = 1 TO lit% STEP Fade%
+'FOR c% = 255 TO 0 STEP -1
+'Rd.Palette.Register c%
+'rx = red%
+'gx = green%
+'bx = blue%
+'IF red% = 0 AND green% = 0 AND blue% = 0 THEN GOTO skip
+'rx = rx - Fade%: IF rx < 0 THEN rx = 0
+'gx = gx - Fade%: IF gx < 0 THEN gx = 0
+'bx = bx - Fade%: IF bx < 0 THEN bx = 0
+'Wait.Retrace
+'Wr.Palette.Register c, rx, gx, bx
+'skip:
+       
+'        NEXT c%
+'             NEXT cut%
+SHELL "FADEFX FADE_OUT"
+
+
+           END SUB
+
+FUNCTION getkey$
+
+DIM ch AS STRING
+'get a Character form then keyboard
+WHILE INKEY$ <> "": WEND
+
+WHILE ch = ""
+      ch = INKEY$
+          WEND
+getkey = ch
+
+WHILE INKEY$ <> "": WEND
+
+
+END FUNCTION
+
+DEFSNG A-Z
+SUB Headquarters
+WHILE INKEY$ <> "": WEND
+Subheadq:
+LINE (300, 1)-(19, 191), 43, B
+LINE (301, 0)-(18, 192), 42, B
+LINE (290, 25)-(30, 145), 43, B
+centertext 10, 25, 28, "HEADQUARTERS"
+centertext 150, 25, 28, "NEXT MISSION"
+centertext 160, 25, 28, "SAVE MISSION"
+centertext 170, 25, 28, "LOAD MISSION"
+centertext 180, 25, 28, "QUIT TO DOS"
+
+WHILE INKEY$ <> "": WEND
+opt% = 1
+kps% = 0
+fade.in 60, 10
+DO: keyb$ = INKEY$
+IF keyb$ = CHR$(0) + "H" OR keyb$ = CHR$(0) + "P" THEN
+PLAY "MBL30o4AE":
+IF opt% = 1 THEN centertext 150, 25, 28, "NEXT MISSION"
+IF opt% = 2 THEN centertext 160, 25, 28, "SAVE MISSION"
+IF opt% = 3 THEN centertext 170, 25, 28, "LOAD MISSION"
+IF opt% = 4 THEN centertext 180, 25, 28, "QUIT TO DOS"
+IF keyb$ = CHR$(0) + "P" THEN opt% = opt% + 1: kps% = 0: IF opt% > 4 THEN opt% = 1
+IF keyb$ = CHR$(0) + "H" THEN opt% = opt% - 1: kps% = 0: IF opt% < 1 THEN opt% = 4
+WHILE INKEY$ <> "": WEND
+END IF
+
+IF opt% = 1 AND kps% = 0 THEN centertext 150, 42, 46, "NEXT MISSION": kps% = 1
+IF opt% = 2 AND kps% = 0 THEN centertext 160, 42, 46, "SAVE MISSION": kps% = 1
+IF opt% = 3 AND kps% = 0 THEN centertext 170, 42, 46, "LOAD MISSION": kps% = 1
+IF opt% = 4 AND kps% = 0 THEN centertext 180, 42, 46, "QUIT TO DOS": kps% = 1
+
+
+IF keyb$ = CHR$(13) AND opt% = 1 THEN PLAY "MBL43o1cb": Play.options: GOTO Subheadq:
+IF keyb$ = CHR$(13) AND opt% = 2 THEN PLAY "MBL43o1cb": subsel% = 1: CALL Input.save.files(subsel%)
+IF keyb$ = CHR$(13) AND opt% = 3 THEN PLAY "MBL43o1cb": subsel% = 2: CALL Input.save.files(subsel%)
+IF keyb$ = CHR$(13) AND opt% = 4 OR keyb$ = CHR$(27) THEN
+ PLAY "MBL43o1cb"
+ GET (282, 15)-(30, 183), getscr%
+ Ambox 1, 31
+ centertext 95, 25, 29, "QUIT GAME Y/N"
+ SELECT CASE UCASE$(getkey)
+ CASE "Y"
+    keyb$ = CHR$(27)
+  CASE ELSE
+    keyb$ = CHR$(255)
+     END SELECT
+      Fade.out 0, 10
+      PUT (30, 15), getscr%, PSET
+      fade.in 60, 10
+     
+       END IF
+LOOP UNTIL keyb$ = CHR$(27)
+CLS
+WIDTH 80, 25
+RUN "EXIT.BAS"
+SYSTEM
+
+
+END SUB
+
+SUB HiScores
+GET (282, 15)-(30, 185), getscr%
+LINE (282, 15)-(30, 185), 0, BF
+LINE (282, 15)-(30, 185), 32, B
+centertext 20, 32, 33, "TOP PLAYERS"
+settextxy 40, 50, 32, 33, "NAMES"
+settextxy 40, 125, 32, 33, "MISSION"
+settextxy 40, 220, 32, 33, "SCORES"
+
+OPEN "HSCORE.DAT" FOR INPUT AS #7
+FOR dat% = 0 TO 9
+IF EOF(7) THEN EXIT FOR
+SELECT CASE dat%
+CASE 0: INPUT #7, NAME00$, MSCP00$, SCORE00$
+CASE 1: INPUT #7, NAME01$, MSCP01$, SCORE01$
+CASE 2: INPUT #7, NAME02$, MSCP02$, SCORE02$
+CASE 3: INPUT #7, NAME03$, MSCP03$, SCORE03$
+CASE 4: INPUT #7, NAME04$, MSCP04$, SCORE04$
+CASE 5: INPUT #7, NAME05$, MSCP05$, SCORE05$
+CASE 6: INPUT #7, NAME06$, MSCP06$, SCORE06$
+CASE 7: INPUT #7, NAME07$, MSCP07$, SCORE07$
+CASE 8: INPUT #7, NAME08$, MSCP08$, SCORE08$
+CASE 9: INPUT #7, NAME09$, MSCP09$, SCORE09$
+   END SELECT
+            NEXT dat%
+
+CLOSE
+
+
+settextxy 65, 35, 25, 28, NAME00$
+settextxy 65, 145, 25, 28, MSCP00$
+settextxy 65, 220, 25, 28, SCORE00$
+settextxy 77, 35, 25, 28, NAME01$
+settextxy 77, 145, 25, 28, MSCP01$
+settextxy 77, 220, 25, 28, SCORE01$
+settextxy 89, 35, 25, 28, NAME02$
+settextxy 89, 145, 25, 28, MSCP02$
+settextxy 89, 220, 25, 28, SCORE02$
+settextxy 101, 35, 25, 28, NAME03$
+settextxy 101, 145, 25, 28, MSCP03$
+settextxy 101, 220, 25, 28, SCORE03$
+settextxy 113, 35, 25, 28, NAME04$
+settextxy 113, 145, 25, 28, MSCP04$
+settextxy 113, 220, 25, 28, SCORE04$
+settextxy 125, 35, 25, 28, NAME05$
+settextxy 125, 145, 25, 28, MSCP05$
+settextxy 125, 220, 25, 28, SCORE05$
+settextxy 137, 35, 25, 28, NAME06$
+settextxy 137, 145, 25, 28, MSCP06$
+settextxy 137, 220, 25, 28, SCORE06$
+settextxy 149, 35, 25, 28, NAME07$
+settextxy 149, 145, 25, 28, MSCP07$
+settextxy 149, 220, 25, 28, SCORE07$
+settextxy 161, 35, 25, 28, NAME08$
+settextxy 161, 145, 25, 28, MSCP08$
+settextxy 161, 220, 25, 28, SCORE08$
+settextxy 173, 35, 25, 28, NAME09$
+settextxy 173, 145, 25, 28, MSCP09$
+settextxy 173, 220, 25, 28, SCORE09$
+
+c$ = getkey
+
+Fade.out 0, 10
+PUT (30, 15), getscr%, PSET
+fade.in 60, 10
+
+END SUB
+
+DEFINT A-Z
+SUB Input.save.files (subsel%)
+GET (282, 15)-(30, 183), getscr%
+LINE (282, 15)-(30, 183), 0, BF
+LINE (282, 15)-(30, 183), 32, B
+IF subsel% = 1 THEN WRD$ = " SAVE MISSON"
+IF subsel% = 2 THEN WRD$ = " LOAD MISSON"
+centertext 20, 32, 33, WRD$
+settextxy 40, 50, 32, 33, "NAMES"
+settextxy 40, 125, 32, 33, "MISSION"
+settextxy 40, 220, 32, 33, "SCORES"
+col0% = 4
+col1% = 40
+EMPTY$ = "...EMPTY..."
+ON ERROR GOTO FileError
+WHILE NOT slot% >= 8
+slot% = slot% + 1
+SELECT CASE slot%
+CASE 1
+OPEN "SAVEGAME.001" FOR INPUT AS #1
+INPUT #1, NAME01$, MSCP01$, SCORE01$
+CASE 2
+OPEN "SAVEGAME.002" FOR INPUT AS #2
+INPUT #2, NAME02$, MSCP02$, SCORE02$
+CASE 3
+OPEN "SAVEGAME.003" FOR INPUT AS #3
+INPUT #3, NAME03$, MSCP03$, SCORE03$
+CASE 4
+OPEN "SAVEGAME.004" FOR INPUT AS #4
+INPUT #4, NAME04$, MSCP04$, SCORE04$
+CASE 5
+OPEN "SAVEGAME.005" FOR INPUT AS #5
+INPUT #5, NAME05$, MSCP05$, SCORE05$
+CASE 6
+OPEN "SAVEGAME.006" FOR INPUT AS #6
+INPUT #6, NAME06$, MSCP06$, SCORE06$
+CASE 7
+OPEN "SAVEGAME.007" FOR INPUT AS #7
+INPUT #7, NAME07$, MSCP07$, SCORE07$
+END SELECT
+CLOSE
+WEND
+slot% = 0
+CLOSE
+IF NAME01$ = "" THEN NAME01$ = EMPTY$: MSCP01$ = "00": SCORE01$ = "000000"
+IF NAME02$ = "" THEN NAME02$ = EMPTY$: MSCP02$ = "00": SCORE02$ = "000000"
+IF NAME03$ = "" THEN NAME03$ = EMPTY$: MSCP03$ = "00": SCORE03$ = "000000"
+IF NAME04$ = "" THEN NAME04$ = EMPTY$: MSCP04$ = "00": SCORE04$ = "000000"
+IF NAME05$ = "" THEN NAME05$ = EMPTY$: MSCP05$ = "00": SCORE05$ = "000000"
+IF NAME06$ = "" THEN NAME06$ = EMPTY$: MSCP06$ = "00": SCORE06$ = "000000"
+IF NAME07$ = "" THEN NAME07$ = EMPTY$: MSCP07$ = "00": SCORE07$ = "000000"
+settextxy 77, 35, 25, 28, NAME01$
+settextxy 77, 145, 25, 28, MSCP01$
+settextxy 77, 220, 25, 28, SCORE01$
+settextxy 89, 35, 25, 28, NAME02$
+settextxy 89, 145, 25, 28, MSCP02$
+settextxy 89, 220, 25, 28, SCORE02$
+settextxy 101, 35, 25, 28, NAME03$
+settextxy 101, 145, 25, 28, MSCP03$
+settextxy 101, 220, 25, 28, SCORE03$
+settextxy 113, 35, 25, 28, NAME04$
+settextxy 113, 145, 25, 28, MSCP04$
+settextxy 113, 220, 25, 28, SCORE04$
+settextxy 125, 35, 25, 28, NAME05$
+settextxy 125, 145, 25, 28, MSCP05$
+settextxy 125, 220, 25, 28, SCORE05$
+settextxy 137, 35, 25, 28, NAME06$
+settextxy 137, 145, 25, 28, MSCP06$
+settextxy 137, 220, 25, 28, SCORE06$
+settextxy 149, 35, 25, 28, NAME07$
+settextxy 149, 145, 25, 28, MSCP07$
+settextxy 149, 220, 25, 28, SCORE07$
+
+
+x% = 75: x1% = 85
+col0% = 4
+col1% = 40
+WHILE INKEY$ <> "": WEND
+DO: IKB$ = INKEY$
+LINE (35, x%)-(270, x1%), 4, B
+IF IKB$ = CHR$(0) + "P" THEN PLAY "MBL64AE": LINE (35, x%)-(270, x1%), 0, B: IF x% > 137 THEN x% = 75: x1% = 85 ELSE x% = x% + 12: x1% = x1% + 12
+IF IKB$ = CHR$(0) + "H" THEN PLAY "MBL64AE": LINE (35, x%)-(270, x1%), 0, B: IF x% < 77 THEN x% = 147: x1% = 157 ELSE x% = x% - 12: x1% = x1% - 12
+IF IKB$ = CHR$(13) AND x% = 77 - 2 THEN slot% = 1:
+IF IKB$ = CHR$(13) AND x% = 89 - 2 THEN slot% = 2:
+IF IKB$ = CHR$(13) AND x% = 101 - 2 THEN slot% = 3:
+IF IKB$ = CHR$(13) AND x% = 113 - 2 THEN slot% = 4:
+IF IKB$ = CHR$(13) AND x% = 125 - 2 THEN slot% = 5:
+IF IKB$ = CHR$(13) AND x% = 137 - 2 THEN slot% = 6:
+IF IKB$ = CHR$(13) AND x% = 149 - 2 THEN slot% = 7:
+IF IKB$ = CHR$(27) THEN PLAY "MBL43o1cb": GOTO ExitSAVE
+LOOP UNTIL IKB$ = CHR$(13)
+
+IF subsel% = 2 THEN
+CLOSE #1
+SELECT CASE slot%
+CASE 1
+OPEN "SAVEGAME.001" FOR INPUT AS #1
+CASE 2
+OPEN "SAVEGAME.002" FOR INPUT AS #1
+CASE 3
+OPEN "SAVEGAME.003" FOR INPUT AS #1
+CASE 4
+OPEN "SAVEGAME.004" FOR INPUT AS #1
+CASE 5
+OPEN "SAVEGAME.005" FOR INPUT AS #1
+CASE 6
+OPEN "SAVEGAME.006" FOR INPUT AS #1
+CASE 7
+OPEN "SAVEGAME.007" FOR INPUT AS #1
+END SELECT
+INPUT #1, NAME00$, MSCP00$, SCORE00$
+INPUT #1, score%
+INPUT #1, lives%
+INPUT #1, Level%
+INPUT #1, SelShip%
+INPUT #1, Gunsel%
+INPUT #1, difficlty%
+INPUT #1, Multipropose$
+CLOSE #1
+Ambox 1, 31
+settextxy 97, 120, 25, 28, "GAME LOADED"
+SLEEP 2
+END IF
+
+IF subsel% = 1 THEN
+LINE (35, x%)-(270, x1%), 0, BF
+Ambox 1, 31
+centertext 90, 25, 28, "ENTER YOUR NAME"
+DO: IKB$ = INKEY$
+ IF NOT IKB$ = "" THEN
+ gl% = LEN(GETNAME$)
+ IF gl% < 10 THEN
+ FOR d% = 1 TO 37
+ READ LETTER$
+ IF UCASE$(IKB$) = LETTER$ THEN GETNAME$ = GETNAME$ + LTRIM$(LETTER$): ytxt% = ytxt% + 8: EXIT FOR
+ NEXT
+ IF IKB$ = CHR$(32) THEN GETNAME$ = GETNAME$ + " ": ytxt% = ytxt% + 8
+ settextxy 105, 80, 25, 28, GETNAME$
+ END IF
+ IF IKB$ = CHR$(8) AND GETNAME$ > "" THEN gl% = LEN(GETNAME$): GETNAME$ = LEFT$(GETNAME$, gl% - 1): ytxt% = ytxt% - 8: LINE (80 + ytxt%, 100)-(200, 115), 0, BF
+ RESTORE
+ END IF
+ IF IKB$ = CHR$(27) THEN PLAY "MBL43o1cb": GOTO ExitSAVE
+ LOOP UNTIL IKB$ = CHR$(13)
+
+IF GETNAME$ <= "" THEN
+GOTO ExitSAVE
+END IF
+SELECT CASE slot%
+CASE 1
+OPEN "SAVEGAME.001" FOR OUTPUT AS #1
+CASE 2
+OPEN "SAVEGAME.002" FOR OUTPUT AS #1
+CASE 3
+OPEN "SAVEGAME.003" FOR OUTPUT AS #1
+CASE 4
+OPEN "SAVEGAME.004" FOR OUTPUT AS #1
+CASE 5
+OPEN "SAVEGAME.005" FOR OUTPUT AS #1
+CASE 6
+OPEN "SAVEGAME.006" FOR OUTPUT AS #1
+CASE 7
+OPEN "SAVEGAME.007" FOR OUTPUT AS #1
+END SELECT
+WRITE #1, GETNAME$, Level%, score%
+WRITE #1, score%
+WRITE #1, lives%
+WRITE #1, Level%
+WRITE #1, SelShip%
+WRITE #1, Gunsel%
+WRITE #1, difficlty%
+WRITE #1, Multipropose$
+
+CLOSE #1
+Ambox 1, 31
+settextxy 97, 120, 25, 28, "GAME SAVED"
+SLEEP 2
+END IF
+ExitSAVE:
+Fade.out 0, 10
+PUT (30, 15), getscr%, PSET
+fade.in 60, 10
+WHILE INKEY$ <> "": WEND  'clear keyboard buffer
+END SUB
+
+SUB Level.Select
+
+LINE (280, 30)-(40, 135), 0, BF
+IF Detect.JoyStick = 1 THEN
+settextxy 40, 40, 25, 28, "JOYSTICK DETECTED"
+settextxy 50, 40, 25, 28, "USE JOYSTICK Y/N"
+nx% = 70
+loopsub:
+SELECT CASE UCASE$(getkey)
+  CASE "Y"
+  settextxy 60, 40, 25, 28, "JOYSTICK ENABLE"
+  joyenable% = 1
+  CASE "N"
+  settextxy 60, 40, 25, 28, "JOYSTICK DISABLE"
+  joyenable% = 0
+  CASE ELSE
+  GOTO loopsub
+  END SELECT
+  ELSE
+  settextxy 40, 40, 30, 32, "NO JOYSTICK DETECTED"
+  nx% = 50
+  END IF
+IF Level% = 0 THEN Level% = 1
+settextxy nx%, 40, 25, 28, "LOADING LEVEL " + LTRIM$(STR$(Level%))
+
+SELECT CASE Level%
+CASE 1
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL01.QBF"
+CASE 2
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL02.QBF"
+CASE 3
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL03.QBF"
+CASE 4
+  ON ERROR GOTO NoLevel
+  CHAIN "LEVEL04.QBF"
+CASE 5
+  ON ERROR GOTO NoLevel
+  CHAIN "LEVEL05.QBF"
+CASE 6
+  ON ERROR GOTO NoLevel
+  CHAIN "LEVEL06.QBF"
+CASE 7
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL07.QBF"
+CASE 8
+  ON ERROR GOTO NoLevel
+  CHAIN "LEVEL08.QBF"
+CASE 9
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL09.QBF"
+CASE 10
+   ON ERROR GOTO NoLevel
+   CHAIN "LEVEL10.QBF"
+END SELECT
+END SUB
+
+DEFSNG A-Z
+SUB Play.options
+Fade.out 0, 10
+CLS
+LINE (300, 1)-(19, 191), 43, B
+LINE (301, 0)-(18, 192), 42, B
+LINE (290, 25)-(30, 145), 43, B
+centertext 10, 25, 28, "GAME OPTIONS"
+centertext 150, 25, 28, "HIGH SCORES"
+centertext 160, 25, 28, "DEFFICULTY"
+centertext 170, 25, 28, "START MISSION"
+centertext 180, 25, 28, "EXIT OPTIONS"
+WHILE INKEY$ <> "": WEND
+opt% = 1
+kps% = 0
+fade.in 60, 10
+DO: keyb$ = INKEY$
+IF keyb$ = CHR$(0) + "H" OR keyb$ = CHR$(0) + "P" THEN
+PLAY "MBL30o4AE":
+IF opt% = 1 THEN centertext 150, 25, 28, "HIGH SCORES"
+IF opt% = 2 THEN centertext 160, 25, 28, "DEFFICULTY"
+IF opt% = 3 THEN centertext 170, 25, 28, "START MISSION"
+IF opt% = 4 THEN centertext 180, 25, 28, "EXIT OPTIONS"
+IF keyb$ = CHR$(0) + "P" THEN opt% = opt% + 1: kps% = 0: IF opt% > 4 THEN opt% = 1
+IF keyb$ = CHR$(0) + "H" THEN opt% = opt% - 1: kps% = 0: IF opt% < 1 THEN opt% = 4
+WHILE INKEY$ <> "": WEND
+END IF
+
+IF opt% = 1 AND kps% = 0 THEN centertext 150, 42, 46, "HIGH SCORES": kps% = 1
+IF opt% = 2 AND kps% = 0 THEN centertext 160, 42, 46, "DEFFICULTY": kps% = 1
+IF opt% = 3 AND kps% = 0 THEN centertext 170, 42, 46, "START MISSION": kps% = 1
+IF opt% = 4 AND kps% = 0 THEN centertext 180, 42, 46, "EXIT OPTIONS": kps% = 1
+
+
+IF keyb$ = CHR$(13) AND opt% = 1 THEN PLAY "MBL43o1cb": HiScores
+IF keyb$ = CHR$(13) AND opt% = 2 THEN PLAY "MBL43o1cb": SetDeff
+IF keyb$ = CHR$(13) AND opt% = 3 THEN PLAY "MBL43o1cb": Level.Select
+IF keyb$ = CHR$(13) AND opt% = 4 OR keyb$ = CHR$(27) THEN
+ PLAY "MBL43o1cb"
+ GET (282, 15)-(30, 183), getscr%
+ Ambox 1, 31
+ centertext 95, 25, 29, "EXIT OPTION Y/N"
+ SELECT CASE UCASE$(getkey)
+ CASE "Y"
+    keyb$ = CHR$(27)
+  CASE ELSE
+    keyb$ = CHR$(255)
+     END SELECT
+      PUT (30, 15), getscr%, PSET
+      END IF
+
+LOOP UNTIL keyb$ = CHR$(27)
+Fade.out 0, 10
+CLS
+
+END SUB
+
+DEFINT A-Z
+SUB Rd.Palette.Register (index%)
+OUT &H3C6, &HFF
+OUT &H3C7, index%
+red% = INP(&H3C9)
+green% = INP(&H3C9)
+blue% = INP(&H3C9)
+END SUB
+
+DEFSNG A-Z
+SUB SetDeff
+
+GET (282, 15)-(30, 185), getscr%
+LINE (100, 50)-(219, 150), 0, BF
+LINE (100, 50)-(219, 70), 32, B
+LINE (100, 50)-(219, 150), 32, B
+centertext 58, 42, 46, "DEFFICULTY"
+centertext 90, 24, 27, "TRAINER"
+centertext 110, 24, 27, "ROOKIE"
+centertext 130, 24, 27, "VETERAN"
+savdeff% = difficlty%
+opt% = difficlty%
+kps% = 0
+DO: keyb$ = INKEY$
+IF keyb$ = CHR$(0) + "H" OR keyb$ = CHR$(0) + "P" THEN
+PLAY "MBL30o4AE":
+IF opt% = 1 THEN centertext 90, 24, 27, "TRAINER"
+IF opt% = 2 THEN centertext 110, 24, 27, "ROOKIE"
+IF opt% = 3 THEN centertext 130, 24, 27, "VETERAN"
+IF keyb$ = CHR$(0) + "P" THEN opt% = opt% + 1: kps% = 0: IF opt% > 3 THEN opt% = 1
+IF keyb$ = CHR$(0) + "H" THEN opt% = opt% - 1: kps% = 0: IF opt% < 1 THEN opt% = 3
+WHILE INKEY$ <> "": WEND
+END IF
+
+IF opt% = 1 AND kps% = 0 THEN centertext 90, 42, 46, "TRAINER": kps% = 1
+IF opt% = 2 AND kps% = 0 THEN centertext 110, 42, 46, "ROOKIE": kps% = 1
+IF opt% = 3 AND kps% = 0 THEN centertext 130, 42, 46, "VETERAN": kps% = 1
+
+IF keyb$ = CHR$(13) AND opt% = 1 THEN PLAY "MBL43o1cb": difficlty% = 1
+IF keyb$ = CHR$(13) AND opt% = 2 THEN PLAY "MBL43o1cb": difficlty% = 2
+IF keyb$ = CHR$(13) AND opt% = 3 THEN PLAY "MBL43o1cb": difficlty% = 3
+LOOP UNTIL keyb$ = CHR$(13)
+
+IF NOT difficlty% = savdeff% THEN
+   Level% = 1
+  score% = 0
+  freeships% = 0
+  lives% = 0
+  END IF
+
+Fade.out 0, 10
+PUT (30, 15), getscr%, PSET
+fade.in 60, 10
+
+END SUB
+
+DEFINT A-Z
+'This sub program print MDT_Font on to Screen
+'in mode 13h and while not work in anther modes
+SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+noise% = 1
+strlen = LEN(text$)
+'IF INSTR(1, text$, "\a") > 0 THEN a% = 1: strlen = strlen - 2: text$ = LEFT$(text$, strlen)
+setcolor% = mincolor%
+FOR readtext = 1 TO strlen
+char$ = MID$(text$, readtext, 1)
+
+IF char$ = "/" THEN fontx = 2: fonty = 116
+IF char$ = "\" THEN fontx = 12: fonty = 249
+IF char$ = "-" THEN fontx = 2: fonty = 102
+IF char$ = "%" THEN fontx = 2: fonty = 39
+IF char$ = "." THEN fontx = 2: fonty = 109
+IF char$ = "0" THEN fontx = 2: fonty = 126
+IF char$ = "1" THEN fontx = 2: fonty = 134
+IF char$ = "2" THEN fontx = 2: fonty = 142
+IF char$ = "3" THEN fontx = 2: fonty = 151
+IF char$ = "4" THEN fontx = 2: fonty = 159
+IF char$ = "5" THEN fontx = 2: fonty = 169
+IF char$ = "6" THEN fontx = 2: fonty = 177
+IF char$ = "7" THEN fontx = 2: fonty = 186
+IF char$ = "8" THEN fontx = 2: fonty = 195
+IF char$ = "9" THEN fontx = 2: fonty = 204
+IF char$ = "A" THEN fontx = 12: fonty = 10
+IF char$ = "B" THEN fontx = 12: fonty = 18
+IF char$ = "C" THEN fontx = 12: fonty = 26
+IF char$ = "D" THEN fontx = 12: fonty = 37
+IF char$ = "E" THEN fontx = 12: fonty = 46
+IF char$ = "F" THEN fontx = 12: fonty = 55
+IF char$ = "G" THEN fontx = 12: fonty = 64
+IF char$ = "H" THEN fontx = 12: fonty = 73
+IF char$ = "I" THEN fontx = 12: fonty = 80
+IF char$ = "J" THEN fontx = 12: fonty = 88
+IF char$ = "K" THEN fontx = 12: fonty = 97
+IF char$ = "L" THEN fontx = 12: fonty = 105
+IF char$ = "M" THEN fontx = 12: fonty = 115
+IF char$ = "N" THEN fontx = 12: fonty = 123
+IF char$ = "O" THEN fontx = 12: fonty = 133
+IF char$ = "P" THEN fontx = 12: fonty = 141
+IF char$ = "Q" THEN fontx = 12: fonty = 150
+IF char$ = "R" THEN fontx = 12: fonty = 160
+IF char$ = "S" THEN fontx = 12: fonty = 168
+IF char$ = "T" THEN fontx = 12: fonty = 178
+IF char$ = "U" THEN fontx = 12: fonty = 186
+IF char$ = "V" THEN fontx = 12: fonty = 196
+IF char$ = "W" THEN fontx = 12: fonty = 205
+IF char$ = "X" THEN fontx = 12: fonty = 214
+IF char$ = "Y" THEN fontx = 12: fonty = 222
+IF char$ = "Z" THEN fontx = 12: fonty = 231
+IF char$ = " " THEN fontx = 19: fonty = 285
+x& = setx% - fontx: Y& = sety% - fonty
+Read.Font.Data:
+   DEF SEG = VARSEG(font(1).buffer)
+   offset& = VARPTR(font(1).buffer)
+   FOR gx& = fontx TO fontx + 6
+   setcolor% = setcolor% + 1
+   IF setcolor% >= maxcolor% THEN setcolor% = mincolor%
+   FOR gy& = fonty TO fonty + 6
+   DEF SEG = VARSEG(font(1).buffer)
+   BYTE = PEEK(gx& * 320 + gy&)
+   IF NOT BYTE = 0 AND NOT BYTE = 255 THEN
+   GOTO Copy.To.Screen
+Return.To.Loop:
+   END IF
+   NEXT
+   NEXT
+   sety% = sety% + 8
+ 
+   NEXT
+   
+EXIT SUB
+
+Copy.To.Screen:
+   DEF SEG = &HA000
+   POKE x& * 320 + Y& + gx& * 320 + gy&, setcolor%
+   GOTO Return.To.Loop:
+   DEF SEG
+
+END SUB
+
+SUB Wait.Retrace
+
+WHILE NOT B% = 4
+B% = INP(&H3DA)
+         WEND
+
+WHILE NOT B% = 5
+B% = INP(&H3DA)
+         WEND
+
+END SUB
+
+SUB Wr.Palette.Register (index%, red%, green%, blue%)
+OUT &H3C6, &HFF
+OUT &H3C8, index%
+OUT &H3C9, red%
+OUT &H3C9, green%
+OUT &H3C9, blue%
+END SUB
+

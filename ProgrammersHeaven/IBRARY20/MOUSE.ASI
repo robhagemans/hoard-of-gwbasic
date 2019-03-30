@@ -1,0 +1,40 @@
+REM  +----------------------------------------------------------------------+
+REM  |                                                                      |
+REM  |         IBRARY  Copyright (c) 1993-1994  Thomas G. Hanlin III        |
+REM  |                                                                      |
+REM  +----------------------------------------------------------------------+
+
+
+   CALL SUB "MInit" Buttons
+   IF Buttons = 0 THEN
+      PRINT "No mouse installed"
+      END
+   ENDIF
+   CLS
+   PRINT "This simple demo just shows whether the left and/or right mouse buttons"
+   PRINT "are pressed, and turns off the text cursor. To exit the demo, press any"
+   PRINT "key on the keyboard."
+
+   CALL SUB "CursorInfo" Visible StartLine EndLine MaxLine
+   CALL SUB "SetCursor" 32 0
+MouseWatcher:
+   LOCATE 4, 1
+   CALL SUB "MLButton" IsDown
+   PRINT "Left button is ";
+   IF IsDown = 0 THEN
+      PRINT "not pressed"
+   ELSE
+      PRINT "PRESSED    "
+   ENDIF
+   CALL SUB "MRButton" IsDown
+   PRINT "Right button is ";
+   IF IsDown = 0 THEN
+      PRINT "not pressed"
+   ELSE
+      PRINT "PRESSED    "
+   ENDIF
+   K$ = INKEY$
+   IF K$ = "" THEN MouseWatcher:
+
+   CALL SUB "SetCursor" StartLine EndLine
+   END

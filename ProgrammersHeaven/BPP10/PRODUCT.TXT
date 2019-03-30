@@ -1,0 +1,103 @@
+This is a list of the libraries I have available.  These are shareware
+products which may often be found at your local BBS.  If you can't get them
+locally or wish to make sure you have the latest versions, sampler disks are
+available.  See CATALOG.TXT for a list of the files included on the sampler
+disks.  See REGISTER.TXT for an order form.
+
+The registered versions of each library come with full source code.  Assembly
+language source code is designed for MASM 6.0 and may require alteration to
+assemble with A86, OPTASM, TASM, or older versions of MASM.  BASIC source
+code is designed for QuickBASIC 4.0-4.5 or BASCOM ("PDS") 6.0-7.1.  Pascal
+source code is designed for Turbo Pascal 6.0 or Quick Pascal 1.0, but should
+compile with Turbo Pascal versions dating back to 5.0.
+
+
+
+ASMWIZ: The Assembly Wizard's Library
+
+   This is a library for assembly language.  The library will work with A86,
+   MASM, OPTASM, and TASM.  Only .COM files are supported.  Routines include
+   text displays (machine-level, BIOS, and DOS), graphics (Hercules, CGA,
+   EGA), number base conversions, long integer math, file matching and
+   command-line parsing, pseudo-random number generation, countdowns and
+   delays, buffered file support with critical error handling, environment
+   scanning, string functions, mouse support, sound generation, control over
+   Break, loading of BSAVE-format files, and more.
+
+
+
+BASWIZ: The BASIC Wizard's Library
+
+   This is a library for BASIC.  It contains a numeric expression evaluator,
+   so you can convert an equation into a number; far strings, so you'll never
+   see "Out of String Space" again (EMS is supported too!); powerful file
+   handling, with optional buffering and built-in critical error handling;
+   telecommunications support, including DTR control, carrier detection and
+   more for COM1 - COM4; pointers and memory management, giving BASIC the
+   capability for flexible data structures long enjoyed by C, Pascal and
+   Modula-2 programmers; a virtual windowing system that gives you much more
+   than just windows-- change the size, move 'em around, scroll a window
+   around on a huge virtual screen, all smoothly and at lightning speed-- the
+   BASWIZ demo program gives some hint of what you can do.  The virtual
+   windowing system is where BASWIZ really shines.  To the best of my
+   knowledge, there is no better text display management system for BASIC.
+
+   Graphics capabilities are also included.  Besides replacements for the
+   BASIC graphics support for CGA, EGA, VGA and Hercules modes (no TSR
+   needed), BASWIZ adds many new capabilities.  You can print text and
+   graphics screens on an Epson-compatible printer or treat the printer like
+   a graphics screen with a special set of text and graphics routines.  A
+   selection of fonts is available and can be displayed in any desired size.
+   A pseudo-graphics mode (80x50) is available for use on any display
+   adapter.  There are also two new VGA modes that will work on any
+   register-compatible VGA, which allow 320x400 or 360x480 resolution in 256
+   colors (compare that to the BASIC SCREEN 13 mode, with only 320x200)!
+   Detect the current display adapter, draw dots, lines, circles, ellipses,
+   regular polygons... it's all here, with detailed explanations and assorted
+   example programs.
+
+   Last but not least, the math routines.  These provide extensive math
+   support in three areas: new or faster routines for BASIC's existing math,
+   precision math using fractions, and the ultimate in numeric precision: BCD
+   math with up to 254-digit numbers.  Extensions to BASIC's existing math
+   include inverse trig and hyperbolic trig functions, the error function,
+   constants and conversions.  Fraction math is fairly limited at the moment,
+   supporting little more than the basic four functions.  BCD math includes
+   much more than such basics, though-- trig functions, square roots,
+   factorials, constants with hundreds of digits of precision, etc; formatted
+   output may be done to your specs.  You can place the decimal point
+   anywhere you want, so this is perfect whether you deal in very large or
+   very small numbers!
+
+
+
+PASWIZ: The Pascal Wizard's Library
+
+   This is a library for Pascal.  It provides high-powered math routines, new
+   string support, mouse management, music, BCD math, and other routines.
+
+   The math routines provide a numeric expression evaluator which allows you
+   to convert equations into numbers at run time.  The math capabilities of
+   Pascal have been expanded significantly with new trig, inverse trig,
+   hyperbolic trig, and other functions.  For the ultimate in numeric
+   precision, BCD math is also provided, allowing you to manipulate numbers
+   of up to 254 digits-- not just with the basic four functions, but trig,
+   square roots, factorials, constants with hundreds of digits of precision,
+   etc; formatted output can be done to your specs.  You can place the
+   decimal point anywhere you want, so this works equally well with very
+   large and very small numbers.  String support includes compression,
+   encryption, fuzzy comparisons, and other goodies.  The music manager works
+   like the BASIC PLAY language and BBS "ANSI music".
+
+
+
+PBCLON: The PBClone Library
+
+   This is a library for BASIC.  It is the successor to my old ADVBAS
+   library.  With over 400 routines and counting, this library covers a
+   little bit of everything: mouse support, disk wrangling, string mangling,
+   keyboard input, equipment detection, graphics, a wide variety of display
+   management, directory searching, text compression, viewing archive
+   .ARC/.LZH/.PAK/.ZIP directories, matrix math, dates, times and countdowns,
+   and... well, it's hard to describe such a collection other than to say
+   "it's probably in here"!

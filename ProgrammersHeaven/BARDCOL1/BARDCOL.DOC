@@ -1,0 +1,37 @@
+                          The Bard Collection
+                            PowerBASIC 2.1a
+
+  What is The Bard Collection?
+
+        The Bard Collection is group of routines for PowerBASIC 2.1a that I
+        have completely tested.  Better yet, it is the Source Code! to all
+        of those routines.
+        Many of these routines can also be found in .PBU form in PB Tools.
+
+        All machine langugage routines are converted using Rick Fothergill's
+        conversion program.
+
+        The source for all assembler files is included if available, and the
+        author (if known) of each routine is given credit, as well as where I
+        found the routine.
+
+        If you have a routine or group of routines you would like to add to
+        The Bard Collection, please contact me at 6438 Admiral Ave, Brooklyn
+        NY 11398 or on The Bard's Lair BBS at 718-381-3651.
+
+Important!!
+
+        Do not use any routines that you do not understand.  Many of the
+        assembly routines manipulate different parts of your computer, as
+        well as routines that use the CALL INTERRUPT statement.  These can
+        cause unkown problems with your computer if not used properly!
+
+        I take no responsibility for these routines, nor do I claim that they
+        will do what you need.  If you use them, you do so at your own risk!
+        Many of these routines are copyrighted by their respective authors
+        so permission from said author may be needed for you to use them.
+        This is your responsibility.  I include them only because I have
+        found them posted on public BBS's or in the Public Library's of CIS.
+
+                                                    Dave Navarro, Jr.
+

@@ -1,0 +1,109 @@
+
+     COMMON PB/VISION PROBLEMS AND QUESTIONS.
+     컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴�
+
+     If you get stuck while using PB/VISION(tm), this is the file to
+     consult.  If you don't find what your are looking for, please
+     consult the documentation section covering "Technical Support".
+     We're fun people to talk to so stay calm and give us a call.
+
+
+     PROBLEM:  All of a sudden your program starts having "Exception
+               #12" errors.
+
+     SOLUTION: This is caused by having too small of a stack and
+               occurs if you have deeply nested subroutines or
+               subroutines with a lot of local variables.  It can be
+               fixed by creating a larger stack with the $STACK
+               command (ie $STACK 8192).
+
+               Stack errors are the most common and hard to find bugs
+               on the planet.  Anytime you have a bug that you just
+               cannot explain, try increasing the size of the stack
+               with $STACK.  Not too big though.
+
+
+     PROBLEM:  When attempting to run any of the example programs or
+               tutorial programs,  PowerBASIC displays the message
+               "Error 519: Missing Declaration".
+
+     SOLUTION: From within PowerBASIC (PB.EXE), select the following
+               from the pulldown menu "Options|Compiler|Variable
+               Declarations". Select the "None" options to turn off
+               variable checking.
+
+
+     PROBLEM:  When resuming execution after hitting a breakpoint, the
+               mouse is dead.
+
+     SOLUTION: Apparently, PowerBASIC resets the mouse when it hits a
+               breakpoint, but doesn't restore it afterward.  Your
+               only option is to turn off PB.EXE's use of the mouse
+               under the "Options|Environment" menu.
+
+
+     PROBLEM:  The mouse cursor in PowerBASIC is garbled after ending
+               the program or hitting a breakpoint.
+
+     SOLUTION: This is a side effect of trying to to mix graphics in
+               text mode.  To avoid the problem, you should use the
+               text block cursor in the IDE, and switch to the
+               graphical mouse only in a compiled program.  See
+               APP.GRAPHICSMOUSE for more info.
+
+
+     PROBLEM:  If the program doesn't end normally, a lot of my screen
+               characters look funny?
+
+     SOLUTION: This is a side effect of "Graphics Mapping".  If your
+               program never reaches the APPCLOSE() routine, the video
+               card doesn't get reset.  There is _NO_ harm in this.
+               Everything on your screen should still be 100% readable
+               and after a day or so, you won't even notice it.  If it
+               really bothers you, set APP.GRAPHICSMODE to 0.
+
+
+     PROBLEM.  When I run one of my programs from the DOS command
+               line, a "registration notice" pops up at the end of the
+               program.
+
+     SOLUTION: PB/VISION(tm) LITE is distributed as shareware.  The
+               screen is only there to remind you of the fact, and it
+               only comes up when the program is compiled to an EXE.
+               It doesn't come up in the IDE because it would really
+               become a nuisance and cause you to think unkindly of
+               us.  The registered version does _not_ do this.
+
+
+     QUESTION. Is it true that you met Elvis while your were being
+               held captive by aliens from the planet Phernabulax?
+
+     ANSWER:   No.  That was blown completely out of proportion.  He
+               was just an Elvis impersonator.
+
+
+     PROBLEM:. After assigning a function with WININSTALLCODE() or
+               TIMERINSTALLCODE(), the computer freezes.
+
+     SOLUTION: Check to make sure that you formatted the function
+               correctly.  You can import templates for both from the
+               help system.  Press <CTRL-F1> until our help system
+               comes up.
+
+
+     PROBLEM:  Two cars are on a collision course on the Interstate.
+               Cars "A" and "B" are maintaining a constant of speed of
+               65 mph and 45 mph, respectively.
+
+               When the two cars are exactly 55 miles apart, a lonely
+               bored fly (on a caffeine binge) starts flying from car
+               "A" to car "B" at a steady speed of 92 mph.  When the
+               fly reaches car "B" it zips around and heads back
+               towards car "A".  It keeps going from car to car until
+               both cars collide.
+
+               How many miles did the fly travel before getting
+               squashed between the two colliding cars?
+
+     SOLUTION: Bwah-HAHAHAHAHAHAHA!  I'll never tell.
+

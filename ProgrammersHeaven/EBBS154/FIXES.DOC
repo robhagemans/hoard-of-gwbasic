@@ -1,0 +1,29 @@
+ 
+Started: 7-20-1993 - EBBS-PC v1.5x+ bug fix log
+ 
+07-20-1993: Bug - print formatting in Select Xfer routine.
+07-20-1993: Mod - KILL fi$ position for Deleting FILE_ID.DIZ files.
+07-21-1993: Fix - SUB SetBaud Fix - c$="DS0,CS0,RS0" to c$="CS,RS"
+07-26-1993: Mod - Increment version from 1.51 to 1.52.
+07-26-1993: Bug - SRCHKEY routine fixed - caused Error 63's sometimes.
+07-26-1993: Mod - integer division's from the / to the \ char.
+07-26-1993: Mod - Aborted zmodem uploads can now be resumed.
+07-26-1993: Bug - Aborted DL filename sometimes carried to UL filename.
+07-26-1993: Mod - Optimized UpdTimOn: Less code/same function.
+07-26-1993: Bug - Fixed max lines in write file routine.
+07-26-1993: Mod - Edit Line only changes FIRST match vice ALL matches.
+07-26-1993: Add - Global Edit - changes ALL matches in ALL lines.
+07-26-1993: Mod - Optimize UpCase lock line in Getline routine.
+07-26-1993: Mod - Updated EDM.ANS/EDM files to reflect Global Edit Option.
+07-26-1993: Fix - Fixed editor menu/save filename bug.
+07-27-1993: Fix - 7/26 SrchKey fix caused another bug! Fixed.
+08-07-1993: Mod - allow underscore in xfer filename's.
+09-26-1993: Mod - ufmaint module - delete 1 call/30 days ufile's
+10-02-1993: Mod - Readded MOVE MESSAGE command for Sysops.
+10-02-1993: Mod - Updated MRM files to reflect MOVE MSG option.
+10-02-1993: Mod - Removed the GLOBAL EDIT editor routine/command.
+10-02-1993: Mod - Removed GLOBAL EDIT option from EDM files.
+10-02-1993: Fix - Corrected local logon ufsort bug.
+ 
+Ed Parry
+ 

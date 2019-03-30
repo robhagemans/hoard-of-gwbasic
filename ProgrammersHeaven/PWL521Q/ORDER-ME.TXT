@@ -1,0 +1,60 @@
+         DSE SOFTWARE PUBLISHING - ProWindows(tm) PRODUCT ORDER FORM
+    ======================================================================
+
+    TO:                           FROM:
+                                  _________________________________________
+    DSE SOFTWARE PUBLISHING       Name
+    POST OFFICE BOX 96            _________________________________________
+    WILLITS, CA 95490-0096        Company (ONLY if ordering for a company)
+                                  _________________________________________
+    Voice: (707) 459-4358         Address
+    BBS: (707) 459-4484           ______________________  _____  __________
+    GEnie: "DSE.SOFTWARE"         City                    State  Zip
+                                  ______________________  _________________
+                                  Phone                   Fax            
+
+    ================= P R O D U C T S   R E Q U E S T E D =================
+
+    ORDER     DESCRIPTION                          PRICE    QTY   EXTENDED
+    -------   -----------------------------------  ------   ---   ---------
+    20300     LITE 5            QuickBASIC 4.5     $25.00   ___   _________
+    20301     LITE 5            BASIC PDS 7.1      $25.00   ___   _________
+    20400     PROFESSIONAL 3    QuickBASIC 4.5     $49.95   ___   _________
+    20401     PROFESSIONAL 3    BASIC PDS 7.1      $49.95   ___   _________
+    20402     PROFESSIONAL 3    QB 4.5 & PDS 7.1   $74.95   ___   _________
+ |> TECHREF   DOS Programmer's Technical Reference   5.00   ___   _________
+ |> UTILITY   Programmer Utilities and Info Disk     5.00   ___   _________
+ |> SHAREBK   The Shareware Book (Marketing Guide)   5.00   ___   _________
+ |
+ |> (*) See "EXTRAS.TXT" for more product and media size information.
+
+    Shipping and Handling (Indicate Below) ......................  ________
+    Sales Tax (CA. Residents add 7.25%) .........................  ________
+    Total Order (United States Funds ($US) Only) ................  ________
+
+    DISK SIZE  SHIPPING/HANDLING          SHIPPING REQUIREMENTS
+    ---------  -------------------------  ---------------------------------
+    [_] 5.25"  [_] US MAIL        $ 4.00  USA and Candda
+    [_] 3.50"  [_] PRIORITY MAIL  $ 5.50  USA (usually 2nd day delivery)
+               [_] OVERSEAS       $10.00  see "TERMS OF SALE"
+
+    ========================== CREDIT CARD ORDERS =========================
+
+    [ ] VISA         |> TOTAL ORDER : $__________ <- enter total order here
+    [ ] MASTERCARD   |> CARD HOLDER : _____________________________________
+                     |> CARD NUMBER : _____________________________________
+    EACH LINE MUST --|> EXPIRATION  : ___ / ___
+     BE FILLED IN  --|> SIGNATURE   : _____________________________________
+
+    ============================ TERMS OF SALE ============================
+
+    o  All checks must be drawn on a U.S. bank and in $US funds.
+
+    o  We accept purchase orders (net 30) from city, state, and federal
+       government agencies and Fortune 500 companies in the USA & Canada.
+       Purchase orders less than $100 subject to $5.00 processing fee.
+       ALL INVOICES NOT PAID WITHIN 30 DAYS OF BILLING WILL BE SUBJECT
+       TO A PENALTY FEE OF NO MORE THAN 15% OF THE UNPAID BALANCE. GRACE
+       PERIOD IS 7 DAYS.
+
+    o  Returned check fee: $300 (for insufficient funds) 

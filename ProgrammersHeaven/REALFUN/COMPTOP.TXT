@@ -1,0 +1,205 @@
+
+
+RealFun:  Real & Complex Math Libraries for QuickBASIC
+COMPTOP.TXT
+
+All the functions and subprograms included in the compfun library, organized
+by topic:
+
+        Minimum & Maximum (real only)
+Usage                           Inputs          Outputs         Notes
+z = amin(x, y)                  x, y; sp        z, sp           min of x, y
+z# = dmin(x#, y#)               x#, y#; dp      z#, dp          min of x#, y#
+z = amax(x, y)                  x, y; sp        z, sp           max of x, y
+z# = dmax(x#, y#)               x#, y#; dp      z#, dp          max of x#, y#
+
+        Cosine
+Usage                           Inputs          Outputs         Notes
+y = COS(x)                      x, sp           y, sp           x in radians
+y# = COS(X#)                    x#, dp          y#, dp          x# in radians
+y = cosd(x)                     x, sp           y, sp           x in degrees
+y# = dcosd(x#)                  x#, dp          y#, dp          x# in degrees
+call ccos(x, y, u, v)           x, y; sp        u, v; sp        complex
+call cdcos(x#, y#, u#, v#)      x#, y#; dp      u#, v#; dp      complex
+
+        Sine
+Usage                           Inputs          Outputs         Notes
+y = SIN(x)                      x, sp           y, sp           x in radians
+y# = SIN(X#)                    x#, dp          y#, dp          x# in radians
+y = sind(x)                     x, sp           y, sp           x in degrees
+y# = dsind(x#)                  x#, dp          y#, dp          x# in degrees
+call csin(x, y, u, v)           x, y; sp        u, v; sp        complex
+call cdsin(x#, y#, u#, v#)      x#, y#; dp      u#, v#; dp      complex
+
+        Tangent
+
+Usage                           Inputs          Outputs         Notes
+y = TAN(x)                      x, sp           y, sp           x in radians
+y# = TAN(X#)                    x#, dp          y#, dp          x# in radians
+y = tand(x)                     x, sp           y, sp           x in degrees
+y# = dtand(x#)                  x#, dp          y#, dp          x# in degrees
+call ctan(x, y, u, v)           x, y; sp        u, v; sp        complex
+call cdtan(x#, y#, u#, v#)      x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Cosine
+
+Usage                           Inputs          Outputs         Notes
+y = acos(x)                     x, sp           y, sp           y in radians
+y = acosd(x)                    x, sp           y, sp           y in degrees
+y# = dacos(x#)                  x#, dp          y#, dp          y# in radians
+y# = dacosd(x#)                 x#, dp          y#, dp          y# in degrees
+call cacos(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdacos(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Sine
+
+Usage                           Inputs          Outputs         Notes
+y = asin(x)                     x, sp           y, sp           y in radians
+
+y = asind(x)                    x, sp           y, sp           y in degrees
+y# = dasin(x#)                  x#, dp          y#, dp          y# in radians
+y# = dasind(x#)                 x#, dp          y#, dp          y# in degrees
+call casin(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdasin(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Tangent
+
+Usage                           Inputs          Outputs         Notes
+y = ATN(x)                      x, sp           y, sp           y in radians
+y = atnd(x)                     x, sp           y, sp           y in degrees
+z = atan(y, x)                  x, y; sp        z, sp           z in radians
+        use to determine proper quadrant of z
+z = atand(y, x)                 x, y; sp        z, sp           z in degrees
+        use to determine proper quadrant of z
+y# = ATN(X#)                    x#, dp          y#, dp          y# in radians
+y# = datnd(x#)                  x#, dp          y#, dp          y# in degrees
+z# = datan#(y#, x#)             x#, y#; dp      z#, dp          z in radians
+        use to determine proper quadrant of z#
+z# = datand#(y#, x#)            x#, y#; dp      z#, dp          z in degrees
+        use to determine proper quadrant of z#
+call catan(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdatan(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Hyperbolic Cosine
+Usage                           Inputs          Outputs         Notes
+y = cosh(x)                     x, sp           y, sp           real
+y# = dcosh(x#)                  x#, dp          y#, dp          real
+call ccosh(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdcosh(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Hyperbolic Sine
+Usage                           Inputs          Outputs         Notes
+y = sinh(x)                     x, sp           y, sp           real
+y# = dsinh(x#)                  x#, dp          y#, dp          real
+call csinh(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdsinh(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Hyperbolic Tangent
+Usage                           Inputs          Outputs         Notes
+y = tanh(x)                     x, sp           y, sp           real
+y# = dtanh(x#)                  x#, dp          y#, dp          real
+call ctanh(x, y, u, v)          x, y; sp        u, v; sp        complex
+call cdtanh(x#, y#, u#, v#)     x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Hyperbolic Cosine
+Usage                           Inputs          Outputs         Notes
+y = acosh(x)                    x, sp           y, sp           real
+y# = dacosh(x#)                 x#, dp          y#, dp          real
+call cacosh(x, y, u, v)         x, y; sp        u, v; sp        complex
+call cdacosh(x#, y#, u#, v#)    x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Hyperbolic Sine
+Usage                           Inputs          Outputs         Notes
+y = asinh(x)                    x, sp           y, sp           real
+
+y# = dasinh(x#)                 x#, dp          y#, dp          real
+call casinh(x, y, u, v)         x, y; sp        u, v; sp        complex
+call cdasinh(x#, y#, u#, v#)    x#, y#; dp      u#, v#; dp      complex
+
+        Inverse Hyperbolic Tangent
+Usage                           Inputs          Outputs         Notes
+y = atanh(x)                    x, sp           y, sp           real
+y# = datanh(x#)                 x#, dp          y#, dp          real
+call catanh(x, y, u, v)         x, y; sp        u, v; sp        complex
+call cdatanh(x#, y#, u#, v#)    x#, y#; dp      u#, v#; dp      complex
+
+        Modulo
+Usage                           Inputs          Outputs         Notes
+y = x MOD k%                    x, sp; k% int   y, sp           uses integer
+                                                                  base only
+y = amod(x, k)                  x, k; sp        y, sp           uses any base
+y# = x# MOD k%                  x, dp; k% int   y, dp           uses integer
+                                                                  base only
+y# = dmod(x#, k#)               x#, k#; dp      y#, dp          uses any base
+call cmod(x, y, xk, yk, u, v)   x, y, xk,       u, v; sp        complex base
+                                  yk; sp
+call cdmod(x#, y#, xk#, yk#,    x#, y#, xk#,    u#, v#; dp      complex base
+  u#, v#)                         yk#; dp
+call nearint(x, y, u%, v%)      x, y; sp        u%, v%; int     nearest integer
+                                                                  (u%, v%)
+call dnearint(x#, y#, u&, v&)   x#, y#; dp      u&, v&; long    nearest integer
+                                                                  (u&, v&)
+
+        Exponentiation & Logarithms
+Usage                           Inputs          Outputs         Notes
+y = EXP(x)                      x, sp           y, sp           real
+y# = EXP(x#)                    x#, dp          y#, dp          real
+call cexp(x, y, u, v)           x, y; sp        u, v; sp        complex
+call cdexp(x#, y#, u#, v#)      x#, y#; dp      u#, v#; dp      complex
+y = LOG(x)                      x, sp           y, sp           real
+y# = LOG(x#)                    x#, dp          y#, dp          real
+call clog(x, y, u, v)           x, y; sp        u, v; sp        complex
+call cdlog(x#, y#, u#, v#)      x#, y#; dp      u#, v#; dp      complex
+
+        Multiply & Divide (complex only)
+Usage                           Inputs          Outputs         Notes
+call cmult(x1, y1, x2, y2,      x1, y1, x2,     u, v; dp        (x1, y1) *
+  u, v)                           y2; sp                          (x2, y2)
+call cdmult(x1#, y1#, x2#,      x1#, y1#, x2#,  u#, v#; dp      (x1#, y1#) *
+  y2#, u#, v#)                    y2#; sp                         (x2#, y2#)
+call cdiv(x1, y1, x2, y2,       x1, y1, x2,     u, v; dp        (x1, y1) /
+  u, v)                           y2; sp                          (x2, y2)
+call cddiv(x1#, y1#, x2#,       x1#, y1#, x2#,  u#, v#; dp      (x1#, y1#) /
+  y2#, u#, v#)                    y2#; sp                         (x2#, y2#)
+
+        Powers (complex only)
+Usage                           Inputs          Outputs         Notes
+call rpower(x, y, p, u, v)      x, y, p; sp     u, v; sp        (x, y) to real
+                                                                  power p
+call cpower(x, y, px, py,       x, y, px,       u, v; sp        complex power
+
+  u, v)                           py; sp                          (px, py)
+call drpower(x#, y#, p#,        x#, y#, p#; dp  u#, v#; dp      real power p#
+  u#, v#)
+call cdpower(x#, y#, px#,       x#, y#, px#,    u#, v#; dp      complex power
+  py#, u#, v#)                    py#; dp                         (px#, py#)
+
+        Coordinate Conversion (complex only)
+Usage                           Inputs          Outputs         Notes
+cabs(x, y, r)                   x, y; sp        r; sp           magnitude
+cdabs(x#, y#, r#)               x#, y#; dp      r#; dp          magnitude
+cpolar(x, y, r, t)              x, y; sp        r, t; sp        rect to polar,
+                                                                  t in radians
+cpolard(x, y, r, t)             x, y; sp        r, t; sp        rect to polar,
+                                                                  t in degrees
+cdpolar(x#, y#, r#, t#)         x#, y#; dp      r#, t#; dp      rect to polar,
+                                                                  t in radians
+cdpolard(x#, y#, r#, t#)        x#, y#; dp      r#, t#; dp      rect to polar,
+                                                                  t in degrees
+ccart(r, t, x, y)               r, t; sp        x, y; sp        polar to rect,
+                                                                  t in radians
+ccartd(r, t, x, y)              r, t; sp        x, y; sp        polar to rect,
+                                                                  t in degrees
+cdcart(r#, t#,x#, y#)           r#, t#; dp      x#, y#; dp      polar to rect,
+                                                                  t in radians
+cdcartd(r#, t#, x#, y#)         r#, t#; dp      x#, y#; dp      polar to rect,
+                                                                  t in degrees
+
+Notes:
+- Functions listed in UPPER CASE are intrinsic to Quick BASIC, and are 
+        included here for completeness.
+- The abbreviation sp means single-precision, dp means double-precision.
+- Complex numbers are expressed as (x, y) in rectangular coordinates, where
+        x = real part and y = imaginary part.  In polar form, r is the
+        magnitude or radius, t = the angle (degrees or radians).
+

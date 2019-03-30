@@ -1,0 +1,24 @@
+    The following QuickBASIC 4.5 program will decompress and show most 256
+color GIF pictures. It works much faster compiled than from the QuickBASIC
+environment, but still, it is very slow compared to its machine language
+brothers.
+    The program was written for the 320x200x256 mode, but that can be easily
+changed. All of the pixels are plotted with one subroutine- the PLOT
+subprogram. (Don't forget to change the LINE (0,0)-(319,199),backgroung,BF
+to whatever resolution mode your changing it to. For instance, in screen 12
+you would change the (319,199) to (639,479).)
+    The program doesn't handle interlaced pictures- mainly because I was too
+lazy to implement it! Refer to the documentation for the GIF87a or GIF89a
+protocol for full information on the GIF protocol.
+
+(Note: The program also works fine with MS-DOS 5's QBASIC)
+
+    If you have any questions or complaints, then write/call me at:
+
+    Rich Geldreich
+    410 Market St.
+    Gloucester City, New Jersey 08030
+    (609)-456-0721
+    
+    December 22, 1991
+

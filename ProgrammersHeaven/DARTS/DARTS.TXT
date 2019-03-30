@@ -1,0 +1,8 @@
+Thank You for Downloading my Qbasic Darts collection. 
+The following zip archive contains 3 qbasic darts games 
+which to play you must extract from this zip file into 
+your Dos directory and load up in Qbasic. I hope you enjoy
+them. If you have any questions regarding my games please
+do not hesitate to E-mail, and if you do E-mail you can
+ask about the other great Qbasic projects which are under
+my development. 

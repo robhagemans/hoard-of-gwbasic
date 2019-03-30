@@ -1,0 +1,21 @@
+# SMALL BASIC V0.2 Copyright (C) 1994 James J. Bielman
+# Read GNU.LIC for licensing info
+# 
+# Makefile -- Modify to suit your system
+# set CC to your C compiler (i use gcc)
+CC=gcc
+
+# set your compiler options here
+CCOPTS=-g
+
+target: sbasic.exe
+
+# This step is needed for DJGPP
+sbasic.exe: sbasic
+	coff2exe -s /djgpp/bin/go32.exe sbasic
+
+sbasic: sbasic.o exparse.o
+	$(CC) $(CCOPTS) -o sbasic sbasic.o exparse.o
+
+.c.o:
+	$(CC) $(CCOPTS) -c $<

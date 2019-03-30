@@ -1,0 +1,1393 @@
+
+ The following routines are available for your use. DoorFrame itself does not
+use most of the routines so you may retain or delete them from DFRAME.LIB as
+you see fit (the ones DoorFrame uses are noted - DON'T DELETE THEM!). The
+library is modularized so if you don't CALL a routine in your code, it will
+not be included in the final .EXE file. Since these routines come from the
+PBClone library by Tom Hanlin, I have taken the liberty of including his
+descriptions of the routines.
+
+Name  : BigPrint             (Called by DoorFrame - DON'T DELETE!)
+Class : Display
+Level : BIOS
+
+As the name suggests, this routine displays text in large
+characters.  How large?  Eight times as high and as wide as
+normal!  Each "big character" will be composed of many
+normal-sized characters.  You may choose the normal character
+used to create the big characters (the default is a CHR$(219)
+solid block character, if you pass a null string here).
+
+You should avoid using CHR$(128) to CHR$(255) when in either of
+the CGA graphics modes, as many CGAs are unable to display
+these characters when in graphics mode.
+
+   BigPrint St$, FormCh$, Row%, Column%, Attr%
+
+St$       string to display in big characters
+FormCh$   character used to compose the big characters
+Row%      starting row
+Column%   starting column
+Attr%     color/attribute of big characters (see CalcAttr)
+          NOTE: This is a local only procedure. It will NOT be sent to the
+                remote computer!
+
+
+Name  : CalcAttr                (Called by DoorFrame - DON'T DELETE!)
+Class : Display
+Level : Any
+
+An attribute is a combination of the foreground and background colors in a 
+format which is used by all types of displays when in text mode. 
+
+Foreground colors are usually specified as 0-15, with backgrounds as 0-7.
+
+   CalcAttr Foreground%, Background%, Attr%
+
+Foreground%  foreground color
+Background%  background color
+-------
+Attr%        color "attribute"
+
+
+Name  : CalcDate             (Calculate Date)
+Class : Time
+Level : Any
+
+This routine calculates what the date will be a given number of
+days from now, either in the past or the future.  Actually, you
+may use any starting date, not just the current date.  An error
+code is returned if the starting date or resulting date are not
+valid.  Dates may not preceed January 1, 1900.
+
+CalcDate accepts the date in any standard form ("01/30/91" or
+"01-30-1991", for example) and returns its results in the same
+format.
+
+   CalcDate StartDate$, Days&, Direction%, NewDate$, ErrCode%
+
+StartDate$   starting date
+Days&        number of days from the current date (0 or more)
+Direction%   return future result (0) or past (nonzero)
+-------
+NewDate$     resulting date
+ErrCode%     whether the dates are valid (0 yes)
+
+
+Name  : CDROM
+Class : Disk / Equipment
+Level : DOS
+
+This routine tells you whether the Microsoft CD-ROM Extensions are installed.
+If so, it tells you what the letter of the first CD-ROM logical drive is and
+how many logical drives exist.
+
+Note: The CD-ROM installation check conflicts with the GRAPHICS.COM
+installation check for DOS 4.0, due to some screw-up at IBM or Microsoft.
+This may cause unexpected results.  I'm not yet sure whether DOS 5.0 is
+similarly afflicted.
+
+   FirstDrive$ = "x"
+   CDROM FirstDrive$, Drives%
+
+-------
+FirstDrive$   letter of the first logical drive (init to at least one space!)
+Drives%       number of logical drives available (0 if no CD-ROM is there)
+
+
+Name  : CheckDate            (Check Date validity)
+Class : Time
+Level : Any
+
+This routine checks a date to see if it is valid.
+
+   CheckDate MonthNr%, DayNr%, YearNr%, ErrCode%
+
+MonthNr%     month number (1-12)
+DayNr%       day number (1-31)
+YearNr%      year number (1900 on; years <100 assumed 1900s)
+-------
+ErrCode%     whether the date is valid (0 yes)
+
+
+Name  : CheckShare           (Check for SHARE)
+Class : Disk
+Level : DOS
+
+The CheckShare routine determines whether SHARE.EXE is active.
+This is particularly helpful before using the BASIC OPEN
+statement, which will fail if you request file sharing when
+it's not available.  The PBClone file routines handle such
+situations automatically, so CheckShare is not needed for them.
+
+   CheckShare ShareActive%
+
+-------
+ShareActive%   whether SHARE is active (0 if no)
+
+
+Name  : CheckShare2%         (Check for SHARE)
+Class : Disk
+Level : DOS
+
+The CheckShare2% function determines whether SHARE.EXE is active.  This is
+particularly helpful before using the BASIC OPEN statement, which will fail
+if you request file sharing when it's not available.  The PBClone file
+routines handle such situations automatically, so CheckShare2% is not needed
+for them.
+
+   ShareActive% = CheckShare2%
+
+-------
+ShareActive%   whether SHARE is active (0 if no)
+
+Name  : Cipher               (Cipher)
+Class : String
+Level : Any
+
+This is a very simple text encryption routine.  It isn't
+particularly hard to crack, but will provide a basic level of
+security for undemanding applications.  The same routine can be
+used either to encrypt or decrypt text.  The original text may
+contain any character; likewise, the resulting text.  This is
+not well suited for use with sequential files-- if such is
+required, see CipherP.
+
+I'd suggest using a long password composed of an unlikely
+string of characters, e.g. "#*@@!A^%x{.'".
+
+   Cipher St$, Password$
+
+St$        string to encrypt or decrypt
+Password$  password
+-------
+St$        encrypted or decrypted string
+
+
+Name  : CipherP              (Cipher Printable)
+Class : String
+Level : Any
+
+This is a very simple text encryption routine.  It isn't
+particularly hard to crack, but will provide a basic level of
+security for undemanding applications.  The same routine can be
+used either to encrypt or decrypt text.  The original text may
+contain any character below CHR$(128), as may the password.
+The resulting text will be printable, if bizarre (all
+characters will be above CHR$(127)), and may be used with
+sequential files.
+
+This routine is potentially less secure than the Cipher routine
+(see).
+
+I'd suggest using a long password composed of an unlikely
+string of characters, e.g. "#*@@!A^%x{.'".
+
+   CipherP St$, Password$
+
+St$        string to encrypt or decrypt
+Password$  password
+-------
+St$        encrypted or decrypted string
+
+Name  : DateA2R              (Date Actual to Relative)
+Class : Time
+Level : Any
+
+This routine converts an actual date to a relative date,
+expressed as a number of days.  This allows you to compare
+dates, find out what the date will be in a given number of days
+(or what it was a given number of days ago), see how many days
+passed between two dates, and so forth.
+
+I've frequently seen routines of this nature called "Julian
+date" routines. I'm not sure where that nomenclature
+originated, as it has nothing to do with the Julian calendar.
+Most of these routines rely on approximations through floating
+point math, and may or may not handle leap years and centuries
+appropriately.  The DateA2R routine takes no such shortcuts and
+may be relied upon to return accurate results.
+
+   DateA2R MonthNr%, DayNr%, YearNr%, RelDate&
+
+MonthNr%     month number (1-12)
+DayNr%       day number (1-31)
+YearNr%      year number (1900 on; years <100 assumed in 1900s)
+-------
+RelDate&     relative date
+
+
+Name  : DateN2S              (Date Numbers to String)
+Class : Time
+Level : Any / DOS
+
+Many of the PBClone routines return the date as a set of
+numbers.  This routine provides an easy way to convert those
+numbers into string form.  The date format used (year length
+and delimiter) will be based on the string which you pass to
+the routine.  For instance, "xx-xx-xxxx" will return a date
+like "11-26-1990", whereas "xx.xx.xxxx" would return
+"11.26.1990", and "xx/xx/xx" would return "11/26/90".
+
+If you pass zeroes for the MonthNr%, Day%, and Year% values,
+the current date will be returned in the format that you
+specified.
+
+The ProBas and PBClone versions of this routine do not work the
+same way in regards to the year.  ProBas assumed that any
+two-digit year was in the 1900s.  In contrast, PBClone assumes
+that years 80-99 should be converted to 1980-1999 and that 0-79
+should be converted to 2000-2079.
+
+   DateSt$ = "xx-xx-xxxx"
+   DateN2S MonthNr%, Day%, Year%, DateSt$
+
+MonthNr%  month
+Day%      day
+Year%     year
+-------
+DateSt$   date string.  Init to 8 or 10 chars (see above).
+
+
+Name  : DateR2A              (Date Relative to Actual)
+Class : Time
+Level : Any
+
+This is the opposite of the DateA2R routine-- it takes a
+"relative" date and converts it back to the usual form.
+
+   DateR2A MonthNr%, DayNr%, YearNr%, RelDate&
+
+RelDate&     relative date
+-------
+MonthNr%     month number (1-12)
+DayNr%       day number (1-31)
+YearNr%      year number (1900 on)
+
+
+Name  : DateS2N              (Date String to Numbers)
+Class : Time
+Level : Any
+
+Many of the PBClone routines need to be passed the date as a
+set of numbers. This routine provides an easy way to convert a
+date from string form into numbers.  You may use either
+"xx/xx/xx" or "xx-xx-xxxx" form to specify the date (the string
+length is important, but the delimiter and contents of the
+string are ignored).
+
+The ProBas and PBClone versions of this routine do not work the
+same way in regards to the year.  ProBas assumed that any
+two-digit year was in the 1900s.  In contrast, PBClone assumes
+that years 80-99 should be converted to 1980-1999 and that 0-79
+should be converted to 2000-2079.
+
+   DateS2N MonthNr%, Day%, Year%, DateSt$
+
+DateSt$   date string.  Init to 8 or 10 characters (see above).
+-------
+MonthNr%  month
+Day%      day
+Year%     year
+
+
+Name  : DelFile
+Class : Disk
+Level : DOS
+
+This works like the DOS DEL (or ERASE) command, although it does not allow
+wildcards.  The specified file is deleted.  Full path specifications are
+supported, including drive and subdirectory specs.
+
+   DelFile FileName$, ErrCode%
+
+FileName$   name of the file to delete
+-------
+ErrCode%    0 if no error, else DOS Error
+
+
+Name  : DriveSpace&
+Class : Disk
+Level : DOS
+
+This routine tells you how many bytes are free on a specified disk drive.
+
+   BytesFree& = DriveSpace&(Drive$)
+
+Drive$      letter of the drive to examine
+-------
+BytesFree&  free bytes on the specified drive, or -1 if bad drive or disk error
+
+
+Name  : DrvType              (Drive Type)
+Class : Disk
+Level : DOS 3.1+
+
+The DrvType routine tells you whether a specified drive is
+fixed or removeable, and whether it is local or remote (network
+drive).
+
+   DrvType Drive$, Removeable%, Remote%, ErrCode%
+
+Drive$       letter of the drive to examine
+-------
+Removeable%  whether the disk can be removed (0 if no)
+Remote%      whether this is a remote drive (0 if no)
+ErrCode%     error code: 0 if none, else bad DOS version
+
+Name  : Elapsed              (Elapsed time)
+Class : Time
+Level : Any
+
+This routine tells you the amount of time elapsed between a
+given starting time and ending time.  The difference between
+the times must be less than 24 hours for the results to be
+meaningful.
+
+   Elapsed TimeStart$, TimeStop$, TimeDiff$
+
+TimeStart$   starting time
+TimeStop$    ending time
+-------
+TimeDiff$    elapsed time
+
+Name  : EMSBuffer
+Class : Memory
+Level : BIOS
+
+EMSBuffer tells you how many bytes are needed to save the state of the EMS
+array routines.  Used in conjunction with EMSSave and EMSRest, it allows you
+to preserve EMS arrays across a CHAIN to another part of your program.
+
+   EMSBuffer Bytes%
+   EMSState$ = SPACE$(Bytes%)
+   EMSSave EMSState$
+
+-------
+Bytes%       bytes needed to save EMS array state
+
+Name  : EMSClose
+Class : Memory
+Level : BIOS
+
+The EMSClose routine is used when you are finished with an EMS array.  It
+frees the array handle and EMS memory for other uses.  If you don't close all
+EMS arrays before your program ends, the memory will be lost until the system
+is rebooted, so it is important to remember EMSClose.
+
+   EMSClose ArrayHandle%
+
+ArrayHandle%    handle of an EMS array
+
+
+Name  : EMSGet
+Class : Memory
+Level : BIOS
+
+This routine gets an element from an EMS array created by EMSOpen.  Element
+numbers start at 0.  Be sure to use the right numeric type for the array--
+for instance, if you opened the array for SINGLE precision, use "Value!".
+
+   EMSGet ArrayHandle%, ElementNr&, Value
+
+ArrayHandle%    handle of an EMS array
+ElementNr&      element number to get
+-------
+Value           value to get element into (must be correct type for array)
+
+
+Name  : EMSOpen
+Class : Memory
+Level : BIOS
+
+This routine allows you to open a block of EMS (expanded) memory which can
+then be accessed like a numeric array.  The array size is limited only by
+available EMS memory (use GetLIMM to find out how much is available).  You
+may specify any numeric type:
+
+    1   INTEGER
+    2   LONG or SINGLE
+    3   DOUBLE
+
+When the array is opened, you are returned an "array handle" which is used to
+access that array.  Access to the array is done via EMSGet and EMSPut.  When
+you are finished with the array, you must close it with EMSClose.
+
+As many as 25 EMS arrays can be in use at one time, subject to limitations
+which may be imposed by your EMS driver (each array requires one EMS handle).
+
+   EMSOpen Elements&, ElementType%, ArrayHandle%, ErrCode%
+
+Elements&       number of elements in array (like DIM size)
+ElementType%    numeric type of array (see above)
+-------
+ArrayHandle%    handle of an EMS array
+ErrCode%        whether an error occurred (0 no)
+
+
+Name  : EMSPut
+Class : Memory
+Level : BIOS
+
+This routine puts an element into an EMS array created by EMSOpen.  Element
+numbers start at 0.  Be sure to use the right numeric type for the array--
+for instance, if you opened the array for SINGLE precision, use "Value!".
+
+   EMSPut ArrayHandle%, ElementNr&, Value
+
+ArrayHandle%    handle of an EMS array
+ElementNr&      element number to set
+Value           value to set element to (must be correct type for array)
+
+
+Name  : EMSRest
+Class : Memory
+Level : BIOS
+
+This routine allows you to restore the state of the EMS array handler.  Used
+in conjunction with EMSBuffer and EMSSave, it allows you to preserve EMS
+arrays across a CHAIN to another part of your program.
+
+   EMSRest EMSState$
+
+EMSState$    saved EMS array state
+
+
+Name  : EMSSave
+Class : Memory
+Level : BIOS
+
+This routine allows you to save the state of the EMS array handler.  Used in
+conjunction with EMSBuffer and EMSRest, it allows you to preserve EMS arrays
+across a CHAIN to another part of your program.
+
+   EMSBuffer Bytes%
+   EMSState$ = SPACE$(Bytes%)
+   EMSSave EMSState$
+
+-------
+EMSState$    saved EMS array state
+
+
+Name  : EnhKbd
+Class : Input
+Level : BIOS
+
+By default, the PBClone routines assume an old-style keyboard is in use, for
+greatest compatibility.  EnhKbd allows you to turn on enhanced keyboard
+handling for the current generation of (usually) 101-key keyboards.  This
+allows access to the F11 and F12 function keys as well as codes for key
+combinations that used to be ignored, among other things.
+
+The KbdType or KbdType2% routine can be used to determine if an enhanced
+keyboard is available (recommended).
+
+Note that EnhKbd works by intercepting the BIOS keyboard handler.  All calls
+to the BIOS keyboard interrupt are converted from the old keyboard functions
+to the new ones.  YOU MUST DISABLE EnhKbd BEFORE YOUR PROGRAM ENDS, so it can
+restore the old setup.  Otherwise, the computer will most probably crash.
+
+   EnhKbd Enable%
+
+Enable%     turn on enhanced keyboard support (0 disable, else enable)
+
+
+Name  : EuropeDate           (European Date format)
+Class : Time
+Level : Any
+
+This routine takes a date in one of the American formats
+("MM/DD/YY" or "MM-DD-YYYY") and converts it to the European
+convention ("DD.MM.YY" or "DD.MM.YYYY").  The date is formatted
+according to a format string which provides the desired
+delimiter and year length, e.g. "##-##-##" specifies a
+delimiter of "-" and a year length of two digits.
+
+An error code is returned if the date is not valid.
+
+   EuropeDate DateSt$, Format$, Result$, ErrCode%
+
+DateSt$     date to format (month, day, year order)
+Format$     format for the date
+-------
+Result$     resulting date (day, month, year order)
+ErrCode     whether the date is valid (0 ok)
+
+
+Name  : Exist2%              (file Existence)
+Class : Disk
+Level : DOS
+
+Most versions of BASIC give you no way of seeing if a file
+exists before you try to OPEN it, so you end up taking your
+chances.  The Exist2% function allows you to test to see if the
+file exists beforehand.  It isn't really necessary for the
+PBClone file routines, which will return an appropriate error
+code, but it's an important safeguard when using the OPEN
+statement.
+
+The Exist2% routine does not support wildcards.  If you need
+that feature, try the FindFirstFx and FindNextFx routines
+instead.
+
+   Found% = Exist2%(FileName$)
+
+FileName$   name of the file to look for
+-------
+Found%      whether the file was found (0 if no)
+
+
+Name  : FormatDate           (Format Date)
+Class : Time
+Level : Any
+
+This is a highly flexible date formatting routine.  It accepts
+a date in one of the usual American formats ("03-22-1990",
+"03/22/90", or even "3/22/90") and converts it according to a
+format string.  This format string allows you to normalize the
+date, select a new delimiter, choose between two-digit and
+four-digit years, and even change the order from month/day/year
+to anything else.  An error code will be returned if the date
+is not valid.
+
+The format string can be as simple as "##/##/##", which
+specifies that the usual month/day/year order be used, with a
+delimiter of "/" and a two-digit year.  If you want to change
+the date order, you would need a format like "DD.MM.YYYY"
+instead.  For sorting or storage, you might want to convert the
+date to a plain number, using a format string like "YYYYMMDD".
+The result could then be converted to a LONG with the BASIC VAL
+function.
+
+   FormatDate DateSt$, Format$, Result$, ErrCode%
+
+DateSt$     date to format (month, day, year order)
+Format$     format for the date
+-------
+Result$     resulting date
+ErrCode     whether the date is valid (0 ok)
+
+
+Name  : FindFirstF           (Find First File)
+Class : Disk
+Level : DOS
+
+This is part of a set of routines included for compatibility
+with ADVBAS and ProBas.  A better solution may be found in
+FindFirstFx.
+
+The FindFirstF routine is used to find the first file that
+matches search parameters which you specify.  Various
+information about the file that matches (if any) can be
+retrieved by other routines.  See also FindNextF.
+
+The file name specified may contain a drive and subdirectory
+specification. Wildcards are also allowed.
+
+Possible search attributes are as follows:
+
+   Normal          0      (nothing special)
+   Hidden          2      file is "invisible"
+   System          4      special DOS system file
+   Subdirectory   16      subdirectory
+
+You can combine the attributes by adding them together.  All
+searches will match if any of the specified attributes are
+found, so if you're looking only for a specific attribute, you
+will need to test the results using GetAttrF.
+
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF,
+   GetTimeF, GetSizeFL
+
+   FindFirstF FileName$, Attr%, ErrCode%
+
+FileName$   name of file(s) for which to search
+Attr%       file attribute(s) to seek
+-------
+ErrCode%    error code (0 if no error, else no matching files)
+
+
+Name  : FindNextF            (Find Next File)
+Class : Disk
+Level : DOS
+
+This routine is for use after FindFirstF, to find any
+additional files which may match your search specifications.
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF,
+   GetTimeF, GetSizeFL
+
+   FindNextF ErrCode%
+
+-------
+ErrCode%    error code (0 if no error, else no matching files)
+
+Name  : Get4DOSv             (Get 4DOS Version)
+Class : Equipment
+Level : DOS
+
+The Get4DOSv routine returns the version of 4DOS being used.  It returns the
+results as two integers containing the major and minor version numbers. For
+instance, 4DOS 4.0 would return a major number of 4, minor 0.  If 4DOS is not
+installed, both version numbers will be zero.
+If you're not familiar with 4DOS, it's a terrific improved replacement for
+COMMAND.COM.  For more information, write JP Software Inc., P.O. Box 1470,
+Arlington MA 02174, or call your local BBS.
+
+   Get4DOSv MajorV%, MinorV%
+
+-------
+MajorV%   major part of the 4DOS version
+MinorV%   minor part of the 4DOS version
+
+Name  : GetattrF             (Get Attribute of File)
+Class : Disk
+Level : DOS
+
+The GetAttrF routine returns the attributes of a file matched
+by FindFirstF or FindNextF.
+   Normal          0      (nothing special)
+   Read Only       1      file can be read, but not written to
+   Hidden          2      file is "invisible"
+   System          4      special DOS system file
+   Subdirectory   16      subdirectory
+   Archive        32      (used by some backup utilities)
+You can see if a certain value is set using the AND operator:
+
+   IF Attr% AND 16 THEN PRINT "Subdirectory"
+
+Since the values are all powers of two, the AND operator makes
+for a convenient way of decoding the results.
+See also the ExplainFAttr$ function, which decodes the meanings
+of the attribute for you.
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF, GetTimeF, GetSizeFL
+
+   GetAttrF Attr%
+
+-------
+Attr%   attributes that are set
+
+Name  : GetDateF             (Get Date of File)
+Class : Disk / Time
+Level : DOS
+The GetDateF routine returns the date of a file matched by
+FindFirstF or FindNextF.
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF, GetTimeF, GetSizeFL
+
+   GetDateF MonthNr%, Day%, Year%
+
+-------
+MonthNr%    month
+Day%        day
+Year%       year
+
+Name  : GetDOSV                 (Called by DoorFrame - DON'T DELETE!)
+Class : Equipment
+Level : DOS
+
+The GetDOSV routine tells you what version of DOS you're using.  It returns
+the results as two integers containing the major and minor version numbers.
+For instance, MS-DOS 2.11 would return a major number of 2, minor 11.
+The OS/2 compatibility box returns version numbers beginning at 10.00.  For
+instance, OS/2 v1.1 returns 10.10 and OS/2 v2.0 returns 20.00.
+
+   GetDOSV MajorV%, MinorV%
+
+-------
+MajorV%   major part of the DOS version
+MinorV%   minor part of the DOS version
+
+Name  : Getdrv               (Get default Drive)
+Class : Disk
+Level : DOS
+
+This routine tells you the letter of the current default drive.
+
+   Drive$ = "x"
+   GetDrv Drive$
+
+-------
+Drive$    default drive letter.  Init to at least one character.
+
+Name  : GetDView
+Class : Miscellaneous
+Level : DOS
+The GetDView routine tells you what version of DESQview is loaded.  It
+returns the results as two integers containing the major and minor version
+numbers.  For instance, DESQview 2.0 would return a major number of 2 and a
+minor number of 0.  If DESQview is not loaded, zeroes are returned.
+
+See also GetTView, GetTVScreen, UpdTVScreen.
+
+   GetDView MajorV%, MinorV%
+
+-------
+MajorV%   major part of the DESQview version (0 if DESQview is not loaded)
+MinorV%   minor part of the DESQview version
+
+Name  : GetexecPath          (Get Execution Path of program)
+Class : Disk
+Level : DOS 3.0+
+This routine returns the full path of your program, i.e., the
+drive, subdirectory, and name of the program.  It does not rely
+on the current drive and subdirectory settings or look at the
+PATH setting-- DOS tells it directly.  This makes it an
+excellent way to find the program's "home" directory, where
+(hopefully) any data files associated with the program will
+also be stored.
+
+   SelfName$ = SPACE$(80)
+   GetExecPath SelfName$, SelfLen%
+   SelfName$ = LEFT$(SelfName$, SelfLen%)
+
+-------
+SelfName$   full path for current program.  Init to 80+ chars.
+SelfLen%    length of the full path spec.
+
+Name  : GetKbd
+Class : Input
+Level : Clone
+The GetKbd routine allows you to get the state of the four keyboard toggles:
+Insert, Caps lock, Num lock, and Scroll Lock.
+
+   GetKbd Insert%, Caps%, Num%, Scrl%
+
+-------
+Insert%    whether "insert" mode is on (0 if no)
+Caps%      whether "caps lock" is on (0 if no)
+Num%       whether "num lock" is on (0 if no)
+Scrl%      whether "scroll lock" is on (0 if no)
+
+
+Name  : GetKbd1
+Class : Input
+Level : Clone
+
+The GetKbd1 routine allows you to get the state of the four keyboard shift
+keys: Left shift, Right shift, Control and Alt.
+
+   GetKbd1 LShift%, RShift%, Control%, Alt%
+
+-------
+LShift%    whether the left shift key is depressed (0 if no)
+RShift%    whether the right shift key is depressed (0 if no)
+Control%   whether a control key is depressed (0 if no)
+Alt%       whether an alt key is depressed (0 if no)
+
+
+Name  : GetKbd2
+Class : Input
+Level : AT BIOS
+
+The GetKbd2 routine allows you to get the state of the six keyboard shift
+keys on an "enhanced" keyboard: Left shift, Right shift, Left Control, Right
+Control, Left Alt and Right Alt.
+
+Normally, the BIOS only lets you see one key at a time, which can be a
+barrier when you need more input.  This is a particular problem with action
+games and other real-time applications which have complex input requirements.
+Due to the special way the BIOS treats shift keys, GetKbd2 can tell if the
+the various shift keys are pressed simultaneously, allowing more flexibility.
+
+   GetKbd2 LShift%, RShift%, LCtrl%, RCtrl%, LAlt%, RAlt%
+
+-------
+LShift%    whether the left shift key is depressed (0 if no)
+RShift%    whether the right shift key is depressed (0 if no)
+LCtrl%     whether the left control key is depressed (0 if no)
+RCtrl%     whether the right control key is depressed (0 if no)
+LAlt%      whether the left alt key is depressed (0 if no)
+RAlt%      whether the right alt key is depressed (0 if no)
+
+
+Name  : GetLIMHandles
+Class : Memory
+Level : DOS
+
+Early Lotus/Intel/Microsoft expanded memory revisions provided a limited
+number of "handles" which could be used to access expanded memory-- often as
+few as 15 or so.  If your program uses expanded memory and the EMS driver is
+one of the older versions, you may want to make sure that enough handles are
+available.  This routine tells you how many handles are in use.
+
+Note that this routine expects an EMS driver to be installed.  If you can't
+be sure of that, use GetLIMM first to avoid an unpleasant surprise.
+
+   GetLIMHandles Handles%
+
+-------
+Handles%  number of EMS handles in use
+
+
+
+Name  : GetLIMM
+Class : Memory / Equipment
+Level : DOS
+
+This routine tells you how much expanded memory is installed.  If there is
+none, or if the EMS driver hasn't been installed, it returns zeroes.  You
+should use this routine before any other of the PBClone routines that access
+expanded memory, since the other routines expect EMS to be available.
+
+The results are returned in terms of EMS pages.  Each page is 16 kilobytes.
+
+   GetLIMM TotalPages%, FreePages%
+
+-------
+TotalPages%  number of EMS pages installed
+FreePages%   number of EMS pages available for use
+
+
+Name  : GetLIMV
+Class : Memory / Equipment
+Level : DOS
+
+The GetLIMV routine tells you the version of EMS driver that is being used.
+The version number is separated into major and minor parts.  For example, an
+EMS 3.1 driver would return a major number of 3 and minor number of 1.
+
+Note that this routine expects an EMS driver to be installed.  If you can't
+be sure of that, use GetLIMM first to avoid an unpleasant surprise.
+
+   GetLIMV MajorVer%, MinorVer%
+
+-------
+MajorVer%  major part of the EMS version number
+MinorVer%  minor part of the EMS version number
+
+
+Name  : GetNameF             (Get Name of File)
+Class : Disk
+Level : DOS
+
+The GetNameF routine returns the name of a file matched by
+FindFirstF or FindNextF.  The name will not contain a drive or
+subdirectory specification.
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF,
+   GetTimeF, GetSizeFL
+
+   FileName$ = SPACE$(12)
+   GetNameF FileName$, NameLen%
+   FileName$ = LEFT$(FileName$, NameLen%)
+
+-------
+FileName$   file name (init to at least 12 characters)
+NameLen%    length of file name
+
+
+Name  : GetsizeFL            (Get Size of File as Long)
+Class : Disk
+Level : DOS
+
+The GetSizeFL routine returns the size of a file matched by
+FindFirstF or FindNextF.
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF,
+   GetTimeF, GetSizeFL
+
+   GetSizeFL FileSize&
+
+-------
+FileSize&   file size
+
+
+Name  : Getsub               (Get default Subdirectory)
+Class : Disk
+Level : DOS
+
+The GetSub routine gets the current subdirectory on the default
+drive.  It does not put a backslash at the start of the
+subdirectory, so you should add this yourself.
+
+See also GetSub1, which is a more advanced version of this
+routine.
+
+   SubDir$ = SPACE$(64)
+   GetSub SubDir$, SubLen%
+   SubDir$ = "\" + LEFT$(SubDir$, SubLen%)
+
+-------
+SubDir$    name of the current subdirectory. Init to 64+ chars
+SubLen%    length of the subdirectory name
+
+
+Name  : GetSub1              (Get default Subdirectory)
+Class : Disk
+Level : DOS
+
+The GetSub1 routine gets the current subdirectory on a
+specified drive. Unlike GetSub, it places a backslash at the
+start of the name.  It also returns an error code, which allows
+you to see if there was a disk error.
+
+   SubDir$ = SPACE$(65)
+   GetSub1 Drive$, SubDir$, SubLen%, ErrCode%
+   SubDir$ = LEFT$(SubDir$, SubLen%)
+
+Drive$     letter of the drive to check
+-------
+SubDir$    name of the current subdirectory. Init to 65+ chars
+SubLen%    length of the subdirectory name
+ErrCode%   error code: 0 if no error, else DOS Error
+
+
+Name  : GetTimeF             (Get Time of File)
+Class : Disk / Time
+Level : DOS
+
+The GetTimeF routine returns the time of a file matched by
+FindFirstF or FindNextF.
+
+Routines in this series include:
+   FindFirstF, FindNextF, GetNameF, GetAttrF, GetDateF, GetTimeF, GetSizeFL
+
+   GetTimeF Hour%, Minute%, Second%
+
+-------
+Hour%      hour
+Minute%    minute
+Second%    second
+
+Name  : GetTView             (Get TopView)
+Class : Miscellaneous
+Level : BIOS
+
+This routine tells you whether TopView or a compatible multitasker (such as
+TaskView or DESQview) is loaded.
+See also GetDView, GetTVScreen, UpdTVScreen.
+
+   GetTView Installed%
+
+-------
+Installed%   whether a TopView-type multitasker is loaded (0 no)
+
+Name  : GetTVScreen          (Get TopView Screen address)
+Class : Display / Miscellaneous
+Level : BIOS
+
+GetTVScreen returns the address of the screen buffer used by a TopView-type
+multitasker.  This allows you to use direct screen access while remaining
+within the windows allocated to your program by the multitasker.
+
+You must tell the multitasker the address of the screen you would be writing
+to if the multitasker was not installed.  Specify a segment of &HB000 if
+using an MDA or Hercules, or a segment of &HB800 for CGA, EGA, MCGA or VGA.
+The offset should always be 0.  This is for use in text modes.
+
+The routine will return with the new segment and offset for you to use.
+These values can be used with any PBClone screen routine that accepts a
+segment and offset-- DQPrint and DXQPrint, for example.
+
+Note that not all TopView-compatible multitaskers will automatically update
+the screen from the buffer.  The UpdTVScreen routine allows you to force a
+screen update.
+See also GetDView, GetTView, UpdTVScreen.
+
+   GetTVScreen DSeg%, DOfs%
+
+DSeg%       segment of desired screen
+DOfs%       offset of desired screen
+-------
+DSeg%       segment of screen buffer
+DOfs%       offset of screen buffer
+
+
+Name  : KbdType
+Class : Input / Equipment
+Level : Clone
+
+This routine tells you if an enhanced (101-key) keyboard is available.
+
+KbdType differs from the ProBas routine of the same name in that it has
+additional error checking.  If it is not entirely sure that an enhanced
+keyboard is available, it plays safe and assumes there isn't one.  This
+avoids possible disaster on older PCs.
+
+   KbdType Enhanced%
+
+-------
+Enhanced%    whether keyboard is of the enhanced type (0 no)
+
+
+Name  : LClose
+Class : Memory
+Level : BIOS
+
+This routine closes a block of expanded memory that was opened for access by
+LOpen.  It is important to close the block when you are finished with it, to
+return it to the free memory pool.
+
+Routines in this suite include: LOpen, LGet, LPut, LClose.
+
+   LClose EMSHandle%
+
+EMSHandle%    handle of the expanded memory block
+
+
+Name  : LGet
+Class : Memory
+Level : BIOS
+
+This routine gets a block of data from expanded memory that was opened for
+access by LOpen.  The amount of data is specified in words; one word is the
+same as two bytes.  An integer takes up a word, long integers and single
+precision numbers require two words, and double precision numbers take four.
+
+Routines in this suite include: LOpen, LGet, LPut, LClose.
+
+   LGet EMSHandle%, DSeg%, DOfs%, Words%
+
+EMSHandle%    handle of the expanded memory block
+DSeg%         segment of place to store data
+DOfs%         offset of place to store data
+Words%        words to get from expanded memory
+
+
+Name  : LOpen
+Class : Memory
+Level : BIOS
+
+This routine opens a block of expanded memory for access.  The size of the
+block is specified in words; one word is the same as two bytes.  An integer
+takes up a word, long integers and single precision numbers require two
+words, and double precision numbers take four.  This allows you to store up
+to 64K in each EMS block that you open.
+
+Note that LOpen expects an EMS driver to be available.  If you are not
+certain on this point, use GetLIMM beforehand to make sure.
+
+Routines in this suite include: LOpen, LGet, LPut, LClose.
+
+   LOpen Words%, EMSHandle%, ErrCode%
+
+Words%        size of expanded memory block to allocate
+-------
+EMSHandle%    handle of the expanded memory block
+ErrCode%      error code (0 if no error)
+
+Name  : LPut
+Class : Memory
+Level : BIOS
+
+This routine puts a block of data into expanded memory that was opened for
+access by LOpen.  The amount of data is specified in words; one word is the
+same as two bytes.  An integer takes up a word, long integers and single
+precision numbers require two words, and double precision numbers take four.
+
+Routines in this suite include: LOpen, LGet, LPut, LClose.
+
+   LPut EMSHandle%, DSeg%, DOfs%, Words%
+
+EMSHandle%    handle of the expanded memory block
+DSeg%         segment of place from which to get data
+DOfs%         offset of place from which to get data
+Words%        words to put into expanded memory
+
+Name  : LRotate
+Class : String
+Level : Any
+
+Many years ago, I wrote one of the first terminal programs for the PC.  It
+died a horrible death when Qmodem came out... sigh.  This routine comes from
+that experience.  It rotates the characters in a string left once (e.g.,
+"ABCDE" becomes "BCDEA").  I used this in my routine to dial a list of BBSes,
+skipping to the next one if the current one was busy.
+
+LRotate can also be handy for things like scrolling a long message across the
+screen (you just PRINT LEFT$(Message$, 80); then delay a bit, LRotate and do
+it again).
+
+   LRotate St$
+
+St$     string to be rotated left once
+-------
+St$     string after being rotated left once
+
+
+Name  : NameCase                (Called by DoorFrame - DON'T DELETE!)
+Class : String
+Level : Any
+
+This routine provides a specialized uppercase/lowercase converter designed
+especially for names.  It converts the first letter in each word in a string
+to uppercase, with the rest of the word being converted to lowercase.
+
+See also NameCase2, the FUNCTION version of this routine.
+
+   NameCase St$
+
+St$         string to process
+-------
+St$         processed string
+
+
+Name  : NameCase2$           (Name Case)
+Class : String
+Level : Any
+
+This routine provides a specialized uppercase/lowercase
+converter designed especially for names.  It converts the first
+letter in each word in a string to uppercase, with the rest of
+the word being converted to lowercase.
+
+See also NameCase, the SUB version of this routine.
+
+   Result$ = NameCase2$(St$)
+
+St$         string to process
+-------
+Result$     processed string
+
+
+Name  : Processor
+Class : Equipment
+Level : Any
+
+Processor returns the type of processor (CPU) installed.
+
+Results are returned as follows:
+
+   0    NEC V20
+   1    8088 or 8086
+   2    80186
+   3    80286
+   4    80386 or 80486
+
+   Processor ProcType%
+
+-------
+ProcType%    type of CPU (see above)
+
+Name  : Retries
+Class : Disk
+Level : DOS 3.1+
+This routine allows you to adjust the handling of file-sharing errors.  When
+such an error occurs, DOS normally retries 3 times, with a wait of 1 between
+tries.  This allows temporary conditions, such as someone else using the file
+you want to access, to clear up.  In many cases, though, you may want to
+change this delay.  A shorter delay will improve response time, allowing your
+program to handle the error more quickly.  A longer delay may be more suited
+for a busy network, allowing the request to proceed after a reasonable
+waiting period.
+
+The delay period between each retry is unfortunately machine-dependent, i.e.,
+you will need larger delays on faster machines to achieve the same effect.
+This can only be considered a flaw in DOS.
+
+Note that shorter waiting periods will improve response time for your
+program, but may adversely affect the network.  Normally, you should use the
+longest waiting period with which you feel comfortable.
+
+   Retries Times%, WaitTime%
+
+Times%     number of times to retry if a file-sharing violation occurs
+WaitTime%  amount of time to delay between retries
+
+Name  : Reverse              (Reverse)
+Class : String
+Level : Any
+This little fellow reverses the order of the characters in a
+string.  It is one of the vital components of RInstr, but other
+than that I see no real use for it.  On the other hand, George
+Boole thought that Boolean logic was of solely theoretical
+interest, and yet without it there would be no computers. I
+leave it to you to find the earth-shattering possibilities of
+Reverse!
+
+   Reverse St$
+
+St$      string to be reversed
+-------
+St$      reversed string
+
+Name  : RInstr               (Reverse INSTR)
+Class : String
+Level : Any
+
+Like INSTR, this routine tells you the position of a substring
+within a string.  A "reverse" search is used, however-- whereas
+INSTR tells you the first match, RInstr tells you the last
+match.  Similarly, whereas INSTR will tell you that a null
+search string matches the main string at the first position,
+RInstr will match on the last position.  Of course, most of the
+time you won't be searching for a null string!
+
+   RInstr MainSt$, SeekSt$, Posn%
+
+MainSt$    string to search
+SeekSt$    string for which to search
+-------
+Posn%      position of substring within main string (0 no match)
+
+
+Name  : Sec2Time$            (Seconds to Time)
+Class : Time
+Level : Any
+This routine converts the number of seconds past midnight into
+a time string.
+
+   TimeSt$ = Sec2Time$(Seconds&)
+
+Seconds&   number of seconds past midnight
+-------
+TimeSt$    time string (TIME$ format)
+
+Name  : SetError
+Class : Miscellaneous
+Level : DOS
+
+The SetError routine allows you to set the "error level" to be returned by
+DOS when your program ends.  This is particularly handy for returning
+information to batch files.
+Note that SetError is best used just before your program ENDs, to avoid
+complications.
+
+   SetError ErrorLevel%
+
+ErrorLevel%   exit code to be returned by your program
+
+Name  : SetKbd
+Class : Input
+Level : Clone
+The SetKbd routine allows you to set the state of any of the four keyboard
+toggles: Insert, Caps lock, Num lock, and Scroll Lock.  You can give your
+input routines a professional touch by setting this toggles instead of making
+the user remember to do so.
+
+It's considered proper to restore the original keyboard toggles before your
+program exits, unless of course the purpose of the program is to leave the
+toggles in a particular state!  The GetKbd routine can be used in conjunction
+with SetKbd to do this.
+
+   SetKbd Insert%, Caps%, Num%, Scrl%
+
+Insert%    whether to turn on "insert" mode (0 if no)
+Caps%      whether to turn on "caps lock" (0 if no)
+Num%       whether to put the keypad into numeric mode (0 if no)
+Scrl%      whether to turn on "scroll lock" (0 if no)
+
+Name  : Subexist             (Subdirectory Existence)
+Class : Disk
+Level : DOS
+This routine lets you see if a given subdirectory actually
+exists.  This isn't really necessary for the PBClone file
+routines, which will return an appropriate error code, but it's
+a valuable safeguard when using the BASIC OPEN statement.
+
+   SubExist SubDir$, Found%
+
+SubDir$   name of the subdirectory to look for
+-------
+Found%    whether the subdirectory was found (0 if no)
+
+Name  : Time2Sec&            (Time to Seconds)
+Class : Time
+Level : Any
+
+This routine converts a time string into the number of seconds
+past midnight. This is convenient if you want to find the
+difference between two times or to calculate what time it will
+be after a given interval.
+
+   Seconds& = Time2Sec&(TimeSt$)
+
+TimeSt$    time string (TIME$ format)
+-------
+Seconds&   number of seconds past midnight
+
+Name  : TInstr               (Typed INSTR)
+Class : String
+Level : Any
+
+As you might guess from the "Instr" part of the name, this
+routine searches a string.  Instead of searching for a specific
+character or substring, though, it looks for a specific type of
+character-- letters, numbers, control codes, or whatever.  You
+can search for the first of a combination of types, too, which
+also allows searching for "anything but" a specific type.
+
+The character type code is specified by adding any of the
+following:
+
+    1    alphabetic
+    2    numeric
+    4    symbolic
+    8    control
+   16    graphics
+   32    space
+The TInstr routine is handy for parsing and cleaning up user
+input, among other uses.
+
+   TInstr St$, ChrType%, Place%
+
+St$          string to search
+ChrType%     type of character(s) to search for
+-------
+Place%       position of first char of desired type, or 0
+
+
+Name  : UnCalcAttr           (Undo Calculated Attribute)
+Class : Display
+Level : Any
+
+Many of the display routines in this library require an
+"attribute" rather than foreground and background colors.  An
+attribute is a combination of the foreground and background
+colors in a format which is used by all types of displays when
+in text mode.  The UnCalcAttr routine allows you to decode the
+original colors given the attribute.
+
+Foreground colors are usually specified as 0-31, with
+backgrounds as 0-7.
+
+   UnCalcAttr Foreground%, Background%, Attr%
+
+Attr%         color "attribute"
+-------
+Foreground%   foreground color
+Background%   background color
+
+Name  : UpdTVScreen          (Update TopView Screen)
+Class : Display
+Level : BIOS
+
+UpdTVScreen tells a TopView-compatible multitasker to update the screen using
+a specified screen buffer (use GetTVScreen to get the buffer location).  Some
+multitaskers will do this automatically, but some won't.  It's safe to use
+this routine either way.
+
+See also GetDView, GetTView, GetTVScreen.
+
+   UpdTVScreen DSeg%, DOfs%
+
+DSeg%       segment of screen buffer
+DOfs%       offset of screen buffer
+
+
+Name  : WinCheck             (Windows Check)
+Class : Equipment
+Level : BIOS
+
+The WinCheck routine tells you what version of Microsoft Windows is in use,
+if any.  It returns the results as two integers containing the major and
+minor version numbers.  For instance, Windows 3.0 would return a major number
+of 3, minor 0.  Windows/386 v2.x will be identified as 2.0.  If Windows is
+not running, 0.0 will be returned.  NOTE that this routine is not able to
+detect Windows 1.x versions!
+
+   WinCheck MajorV%, MinorV%
+
+-------
+MajorV%   major part of the Windows version
+MinorV%   minor part of the Windows version
+
+

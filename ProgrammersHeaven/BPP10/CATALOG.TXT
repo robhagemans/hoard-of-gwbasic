@@ -1,0 +1,78 @@
+                       =------------------------------=
+                       |     Thomas G. Hanlin III     |
+                       |  3544 E. Southern Ave. #104  |
+                       |        Mesa, AZ 85204        |
+                       =------------------------------=
+
+
+
+  This is a list of some of the software which I have written.  The entire
+  set will be sent to you if you register any one of the listed shareware
+  products, or you may order a set of disks for $5.00 (see REGISTER.TXT).
+  This does not include shareware registration fees, if any.  You are still
+  expected to register any shareware that you find useful.
+
+
+
+ASMWIZ14      The Assembly Wizard's Library, v1.4.  This is a collection of
+(shareware)   over 150 routines for programming in assembly language.  Sound
+              effects, parsing, advanced file support, mouse handling, string
+              functions, lightning screen I/O, 32-bit math, high-resolution
+              timers, graphics support and much more is provided.
+
+BASWIZ17      The BASIC Wizard's Library, v1.7.  This is a set of
+(shareware)   routines written in BASIC and assembly language for use with
+              the QuickBASIC and BASCOM compilers.  It provides a powerful
+              virtual windowing system, an expression evaluator, display
+              detection, far strings (no more running out of string space),
+              communications (includes COM3 and COM4), pointers, memory
+              management, graphics (MDA, HGA, CGA, EGA, MCGA, VGA, SuperVGA,
+              Epson printer), and math support (BCD, fractions, new trig
+              functions, and so on), among other things.  Requires LIBWIZ.
+
+BPP10         A BASIC Pre-Processor, v1.0.  This provides a powerful meta-
+              language for QuickBASIC, BASCOM (including "PDS"), and even the
+              QBASIC provided with DOS 5.0.  It processes your code before
+              the compiler gets to it, allowing conditional compilation,
+              underscores within variable names, flexible "include" files
+              (which may even contain SUB and FUNCTION definitions), name
+              substitutions, and more.  C programmers have had preprocessors
+              for years-- now there's one for BASIC as well!
+
+EXECOM12      EXECOM, v1.2.  Like EXE2BIN, this utility converts .EXE files
+              to .COM files.  It's smaller and faster, though, as well as
+              offering a few additional conveniences.
+
+EXETOOL       EXE Tool.  This program examines .EXE files for validity and
+              can tell you whether the .EXE was designed for use with
+              Microsoft Windows.  If the .EXE file is determined to be too
+              long, as it might be if you got it using an older file transfer
+              protocol, you are given the option of truncating it to the
+              right size.
+
+LIBWIZ11      The Library Wizard's *BASIC Library Manager*, a management tool
+              for handling and customizing BASIC libraries.  This is required
+              for my BASWIZ and PBClone libraries.
+
+OBJTOOL       OBJ Tool.  This program scans .OBJ files for the module name,
+(shareware)   public symbols, and external symbols.  It checks the .OBJ file
+              for validity.  OBJTOOL lets you change the names of public and
+              external symbols, which is especially useful if you have
+              several libraries which contain routines with conflicting
+              names, for example.
+
+PASWIZ10      The Pascal Wizard's Library, v1.0.  This is a set of
+(shareware)   routines written in Pascal and assembly language for use with
+              the Turbo Pascal and Quick Pascal compilers.  It includes an
+              expression evaluator, math support (BCD, new trig functions,
+              and so on), mouse handling, new string functions, music, et al.
+
+PBCLON16      The PBClone Library, v1.6.  This is a collection of over 400
+(shareware)   routines for QuickBASIC.  It is the successor to my old ADVBAS
+              library and to the commercial ProBas library.  Requires LIBWIZ.
+
+QBWIZ12       The QuickBASIC Wizard's Library, v1.2.  A collection of
+              routines which allow you to access internal variables for
+              QuickBASIC 4.0 - 4.5.  You can retrieve the screen mode,
+              display adapter type, DEF SEG setting, I/O redirection status,
+              current screen colors, and many other useful values.

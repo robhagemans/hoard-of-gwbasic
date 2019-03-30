@@ -1,0 +1,11 @@
+Filename  - beginner.hlp
+Size      - 68k
+Shareware - Yes
+Author    - Steven Salmon
+
+This is a windows helpfile which is aimed at teaching 
+you Microsoft's QBasic.  The helpfile includes 8 tutorials
+which cover basic programming techniques.  If you are 
+serious about learning Basic Programming and can't afford
+a book, then this is a cheap alternative.
+    

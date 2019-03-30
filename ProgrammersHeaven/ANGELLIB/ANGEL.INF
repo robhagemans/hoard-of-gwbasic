@@ -1,0 +1,561 @@
+Name: CHOOSEFILE
+Mod : CHOOSEFL.OBJ
+Decl: DECLARE FUNCTION ChooseFile$ (FileSpec$, Exclude$, ExtInfo%, ms%)
+Type: Disk Menus
+Desc: Select one file from a menu of choices. Req EZ-Windows
+
+Name: CHOOSEFILES
+Mod : CHOOSEFS.OBJ
+Decl: DECLARE FUNCTION ChooseFiles$ (FileSpec$, Exclude$, ExtInfo%, many%, ms%)
+Type: Disk Menus
+Desc: Select multiple files from a menu of choices. Req EZ-Windows
+
+Name: BACKUPMSG
+Mod : BUMSG.OBJ
+Decl: DECLARE SUB BackupMsg ()
+Type: Display
+Desc: Displays "subliminal" message to back-up data. Req EZ-Windows
+
+Name: BACKUPMETHOD
+Mod : BKMETHOD.OBJ
+Decl: DECLARE FUNCTION BackupMethod% (default%, ms%)
+Type: Menus
+Desc: Presents a menu of back-up methods. Req EZ-Windows
+
+Name: CALCATTR
+Mod : CALCATTR.OBJ
+Decl: DECLARE FUNCTION CalcAttr% (Fore%, Back%)
+Type: Display
+Desc: Turn Fore/Back colour codes into a single integer code
+
+Name: CHOOSECOUNTRY
+Mod : COUNTRY.OBJ
+Decl: DECLARE FUNCTION ChooseCountry% (Intl%, ms%)
+Type: Menus
+Desc: Present a menu of country choices.  Req EZ-Windows
+
+Name: CHOOSEFD
+Mod : FDD.OBJ
+Decl: DECLARE FUNCTION ChooseFD$ ()
+Type: Menus
+Desc: Presents a list of available disk drives.  Req EZ-Windows
+
+Name: CHOOSEPORT
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION ChoosePort% (Port%, ms%)
+Type: Menus Printer
+Desc: Presents a menu of printer ports (LPT1/LPT2/LPT3).  Req EZ-Windows
+
+Name: CHOOSEPTR
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION ChoosePtr% (iType$, PtrRec%, iPort%, ms%)
+Type: Menus Printer
+Desc: Presents a menu of printer choices.  Req PRINTER.DAT & EZ-Windows
+
+Name: CONTCAN
+Mod : CONTCAN.OBJ
+Decl: DECLARE FUNCTION ContCan% ()
+Type: Menus Display
+Desc: Puts "Continue" & "Cancel" messages on screen & waits for response
+
+Name: DATEFMT
+Mod : DATEFMT.OBJ
+Decl: DECLARE FUNCTION DateFmt$ (d%, m%, y%, Intl%)
+Type: String Date/Time
+Desc: Formats integer date values & returns a string for country setting
+
+Name: DATEVAL
+Mod : ANGEL.OBJ
+Decl: DECLARE FUNCTION DateVal% (TheDate$)
+Type: Date/Time Numeric
+Desc: Returns an integer number for a date string (for calculations)
+
+Name: DBFHEADER
+Mod : DBF.OBJ
+Decl: DECLARE SUB DBFHeader (FileName$, Field$(), reclen%, recs&, NoFields%)
+Type: DBF Disk
+Desc: Get header information from a DBF file including field names
+
+Name: DBFPICKFLD
+Mod : DBF.OBJ
+Decl: DECLARE FUNCTION DBFPickFld% (ulr%, ulc%, fld$(), ms%)
+Type: DBF Menus
+Desc: Menu of field choices for DBF file (use with DBFHeader) Req EZ-Windows
+
+Name: DBFSHOWFIELDS
+Mod : DBF.OBJ
+Decl: DECLARE SUB DBFShowFields (tr%, tc%, show%, fld$(), highlight%)
+Type: DBF Display
+Desc: Display a list of the DBF fields obtained from DBFHeader
+
+Name: DELAY
+Mod : ANGEL.OBJ
+Decl: DECLARE SUB Delay (Sec!)
+Type: Miscellaneous
+Desc: Delay for X! number of seconds (floating point number)
+
+Name: DRAWFDD
+Mod : DRAW.OBJ
+Decl: DECLARE SUB DrawFDD (Light%, iRow%, iCol%)
+Type: Display
+Desc: Draw a picture of a floppy disk drive.  Req EZ-Windows
+
+Name: DRAWHDD
+Mod : DRAW.OBJ
+Decl: DECLARE SUB DrawHDD (Light%, iRow%, iCol%, Msg$)
+Type: Display
+Desc: Display picture of hard disk drive.  Req EZ-Windows
+
+Name: DRVSPACE
+Mod : DRVSPACE.OBJ
+Decl: DECLARE SUB DrvSpace (Drive$, Total&, Free&, EC%)
+Type: Disk
+Desc: Get drive total and free space in bytes. Req PBClone.
+
+Name: ELAPSEDTIME
+Mod : ELAPSED.OBJ
+Decl: DECLARE SUB ElapsedTime (BegTime$, EndTime$, Hour%, Minutes%, Secs%)
+Type: Date/Time
+Desc: Returns elapsed time in integers & in a string
+
+Name: ERRSCN
+Mod : ANGEL.OBJ
+Decl: DECLARE SUB ErrScn (Number%, Module$)
+Type: Miscellaneous
+Desc: Displays a screen with the error number, module, and suggested action
+
+Name: ERRSOLVE
+Mod : ANGEL.OBJ
+Decl: DECLARE FUNCTION ErrSolve$ (Number%)
+Type: PRIVATE
+
+Name: ERRTEXT
+Mod : ANGEL.OBJ
+Decl: DECLARE FUNCTION ErrText$ (Number%)
+Type: PRIVATE
+
+Name: FKEYS
+Mod : FKEYS.OBJ
+Decl: DECLARE SUB FKeys (Keys$)
+Type: Display
+Desc: Displays function key settings near the bottom of the screen
+
+Name: FMTFDD
+Mod : FDD.OBJ
+Decl: DECLARE FUNCTION FmtFDD% ()
+Type: Disk
+Desc: Format FDD: Looks for & runs What Floppy Format? else uses DOS FORMAT
+
+Name: FONTDL
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION FontDL (FontFile$, pts%, Port%, FontNo%)
+Type: Printer
+Desc: Downloads a soft font to a PCL printer.  Req EZ-Windows
+
+Name: FROMFDD
+Mod : FDD.OBJ
+Decl: DECLARE FUNCTION FromFDD% (FileMask$, Method%)
+Type: Disk
+Desc: Restores a back-up from a floppy disk.  Req EZ-Windows
+
+Name: GETDATE
+Mod : GETDATE.OBJ
+Decl: DECLARE SUB GetDate (Day%, MonthNo%, Year%, Intl%, Row%, Col%, ms%, ExitKey$)
+Type: Date/Time
+Desc: Gets formatted date input from user according to country setting
+
+Name: GETFILENAME
+Mod : GETFILE.OBJ
+Decl: DECLARE FUNCTION GetFileName$ (InOut%, title$, Msg$, dflt$, ms%)
+Type: Input Disk
+Desc: Accepts file name with syntax checking in a window.  Req EZ-Windows
+
+Name: GETFONTINFO
+Mod : FONTINFO.OBJ
+Decl: DECLARE SUB GetFontInfo (File$, FontName$, PtSize%)
+Type: Printer
+Desc: Gets font information from a soft font file
+
+Name: GETNUM
+Mod : GETNUM.OBJ
+Decl: DECLARE FUNCTION GetNum$ (iRow%, iCol%, NumMask$, ONo$, ExitCode%)
+Type: Input
+Desc: Get formatted number using calculator-style input
+
+Name: GETVALIDPATH
+Mod : GETPATH.OBJ
+Decl: DECLARE SUB GetValidPath (Drv$, Path$, Msg$, ms%)
+Type: Input Disk
+Desc: Accepts drive/pathname w/syntax checking in a window. Req EZ-Windows
+
+Name: HELPINDEX
+Mod : HELP.OBJ
+Decl: DECLARE SUB HelpIndex (Topic$)
+Type: Menus Display
+Desc: Help window, reads *.HLP file, presents menu or text. Req EZ-Windows
+
+Name: INFORM
+Mod : INFORM.OBJ
+Decl: DECLARE FUNCTION Inform% (Row%, Col%, Wid%, iType%, ms%, snd%, Msg$)
+Type: Display
+Desc: Scrollable information window with mouse support.  Req EZ-Windows
+
+Name: INFORMFILL
+Mod : INFORM.OBJ
+Type: PRIVATE
+
+Name: ISCOLOUR
+Mod : ISCOLOUR.OBJ
+Decl: DECLARE FUNCTION IsColour% ()
+Type: Display
+Desc: Returns true if colour monitor, else false.  Req EZ-Windows
+
+Name: ISPATH
+Mod : ISPATH.OBJ
+Decl: DECLARE FUNCTION IsPath% (file$)
+Type: Disk
+Desc: Searches DOS PATH for a file name
+
+Name: MAX
+Mod : MINMAXI.OBJ
+Decl: DECLARE FUNCTION Max% (a%, b%)
+Type: Numeric
+Desc: Returns the larger of two integer values
+
+Name: MAXL
+Mod : MINMAXL.OBJ
+Decl: DECLARE FUNCTION MaxL& (a&, b&)
+Type: Numeric
+Desc: Returns the larger of two long integer values
+
+Name: MAXS
+Mod : MINMAXS.OBJ
+Decl: DECLARE FUNCTION MaxS! (a!, b!)
+Type: Numeric
+Desc: Returns the larger of two single-precision floating point numbers
+
+Name: MIN
+Mod : MINMAXI.OBJ
+Decl: DECLARE FUNCTION Min% (a%, b%)
+Type: Numeric
+Desc: Returns the smaller of two integer numbers
+
+Name: MINL
+Mod : MINMAXL.OBJ
+Decl: DECLARE FUNCTION MinL& (a&, b&)
+Type: Numeric
+Desc: Returns the smaller of two long integer numbers
+
+Name: MINS
+Mod : MINMAXS.OBJ
+Decl: DECLARE FUNCTION MinS! (a!, b!)
+Type: Numeric
+Desc: Returns the smaller of two single-precision floating point numbers
+
+Name: MONTHDAYS
+Mod : MODAYS.OBJ
+Decl: DECLARE FUNCTION MonthDays% (m%, y%)
+Type: Numeric Date/Time
+Desc: Returns the number of days in a certain month
+
+Name: OUTDEV
+Mod : OUTDEV.OBJ
+Decl: DECLARE FUNCTION OutDev$ (Port%, ms%)
+Type: Menus Printer
+Desc: Presents menu of output devices.  Req EZ-Windows
+
+Name: PARSEEXIT
+Mod : PARSEEK.OBJ
+Decl: DECLARE FUNCTION ParseExit% (ExitKey$, Row%, Col%)
+Type: Miscellaneous
+Desc: Returns row, column, and/or ASCII code from EZ-Windows GETFIELD
+
+Name: PARSEFSPEC
+Mod : PARSEF.OBJ
+Decl: DECLARE SUB ParseFSpec (TheName$, Drv$, Pathname$, TheName2$)
+Type: File
+Desc: Parse file name for drive/path/file elements
+
+Name: PCTDONE
+Mod : PCTDONE.OBJ
+Decl: DECLARE SUB PctDone (PercentDone%, title$)
+Type: Miscellaneous
+Desc: Displays "percent done" graph & erases when 100%   Req EZ-Windows
+
+Name: PRINTRPTMSG
+Mod : PTR.OBJ
+Decl: DECLARE SUB PrintRptMsg (Msg$)
+Type: Miscellaneous Display
+Desc: Window says report "...is printing. Esc to Cancel."  Req EZ-Windows
+
+Name: PTRREADY
+Mod : PTR.OBJ
+Decl: DECLARE FUNCTION PtrReady% (Port%)
+Type: Printer
+Desc: Check if printer is ready & displays message if not.  Req PBCLONE
+
+Name: REPL
+Mod : REPL.OBJ
+Decl: DECLARE FUNCTION Repl$ (St$, Target$, item$)
+Type: String
+Desc: Replaces part of a string with another string
+
+Name: QSORT
+Mod : QSORT.OBJ
+Decl: DECLARE SUB QSort (WorkSpc%(), SORT1$(), SORT2$(), NoDims%, NoItems%, SortField%)
+Type: Miscellaneous
+Desc: A public domain sort routine not written by me. See source code.
+
+Name: SAYOK
+Mod : SAYOK.OBJ
+Decl: DECLARE SUB SayOk (Row%, Col%, ms%)
+Type: Miscellaneous Display
+Desc: Displays "Ok" button & waits for CR or mouse click.  Req EZ-Windows
+
+Name: SEARCHPATH
+Mod : SRCHPATH.OBJ
+Decl: DECLARE FUNCTION SearchPath$ (FileName$)
+Type: Disk Miscellaneous
+Desc: Searches DOS path for file & returns full file name with path.
+
+Name: SELECTFONT
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION SelectFont% (action$, PtrNo%, ulr%, Ext$, SFdir$, ms%)
+Type: Printer Menus
+Desc: Menu of font choices for a printer.  Req PRINTER.DAT & EZ-Windows
+
+Name: SELECTFONTSIZE
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION SelectFontSize% (Font$, pts%, ms%)
+Type: Printer
+Desc: Accepts user input for font size in a window.  Req EZ-Windows
+
+Name: SELECTSOFTFONT
+Mod : PTRFONT.OBJ
+Decl: DECLARE FUNCTION SelectSoftFont$ (Path$, Ext$, ms%)
+Type: Printer
+Desc: Presents a list of soft fonts & gets user's selection. Req EZ-Windows
+
+Name: STRFMT
+Mod : STRFMT.OBJ
+Decl: DECLARE FUNCTION StrFmt$ (St$, Mask$, reverse%)
+Type: String
+Desc: Formats a string to a mask. Not very powerful, but rather small.
+
+Name: STRIPSYMBOLS
+Mod : STRFMT.OBJ
+Decl: DECLARE FUNCTION StripSymbols$ (St$)
+Type: String
+Desc: Strips symbols from a string leaving only alphabetics & numerics
+
+Name: TOFDD
+Mod : FDD.OBJ
+Decl: DECLARE FUNCTION ToFDD% (FileMask$, Method%)
+Type: Disk
+Desc: Backs up files matching a mask using a given method. Req EZ-Windows
+
+Name: TRIM
+Mod : TRIM.OBJ
+Decl: DECLARE FUNCTION Trim$ (a$)
+Type: String
+Desc: Strips leading & trailing spaces and trailing CHR$(0)s from a string
+
+Name: ZIPFMT
+Mod : ZIPFMT.OBJ
+Decl: DECLARE FUNCTION ZipFmt$ (TheZip$, Intl%)
+Type: String Date/Time
+Desc: Formats a zip code string according to country setting
+
+Name: ZTRIM
+Mod : TRIM.OBJ
+Decl: DECLARE FUNCTION zTrim$ (a$)
+Type: String
+Desc: Strips trailing CHR$(0)s from a string
+
+Name: DRAWBOX
+Mod : DRAW.OBJ
+Decl: DECLARE SUB DrawBox (tRow%, tCol%, bRow%, bCol%)
+Type: Display
+Desc: Draws a single-line box
+
+Name: MOUSE
+Mod : MOUSE.OBJ
+Decl: DECLARE SUB mouse (ax%, bx%, cx%, dx%, ms%)
+Type: Mouse
+Desc: EZ-Windows mouse routines (see EZ-Windows docs)
+
+Name: GETFIELD
+Mod : GETFIELD.OBJ
+Decl: DECLARE SUB getfield (v%, h%, lng%, mask$, FillChar%, attr%, eattr%, StartMode%, CursIns%, CursOv%, ms%, SoundOn%, default$, lin$, lastkey$)
+Type: Input
+Desc: EZ-Windows input routine (see EZ-Windows docs)
+
+Name: GETVIDEO
+Mod : WINDOMGR.OBJ
+Type: Private
+Desc: EZ-Windows
+
+Name: POPUPMENU
+Mod : POPUPMNU.OBJ
+Decl: DECLARE SUB popupmenu (header$, ulr%, ulc%, choices%, wdth%, item$(), wattr%, hiattr%, hdrattr%, shadow%, ms%, SoundOn%, slct%, seed%)
+Type: Menus
+Desc: EZ-Windows pop-up menu routine (see EZ-Windows docs)
+
+Name: POPWINDO
+Mod : POPWINDO.OBJ
+Decl: DECLARE SUB popwindo (title$, titlepos%, ulr%, ulc%, lrr%, lrc%, attr%, frame&, shadow%, snd%)
+Type: Display
+Desc: EZ-Windows window routine (see EZ-Windows docs)
+
+Name: PULLDOWN
+Mod : PULLDOWN.OBJ
+Decl: DECLARE SUB pulldown (menuline$, menurow%, menucol%, menuattr%, hotattr%, hiattr%, NVattr%, HiPos1%(), HiPos2%(), MaxSize%(), MaxItems%(), items$(), valid%(), toggle%(), ms%, clearafter%, seed%, shadow%, SoundOn%, menuslct%, itemslct%)
+Type: Menus
+Desc: EZ-Windows pull-down menu routine (see EZ-Windows docs)
+
+Name: QWIKPRT
+Mod : QWIKPRT.OBJ
+Decl: DECLARE SUB qwikprt (t$, y%, x%, attr%)
+Type: Display
+Desc: EZ-Windows fast output routine (see EZ-Windows docs)
+
+Name: RESTWINDO
+Mod : WINDOMGR.OBJ
+Decl: DECLARE SUB restwindo (arryseg%)
+Type: Display
+Desc: EZ-Windows routine
+
+Name: SAVEPOP
+Mod : WINDOMGR.OBJ
+Decl: DECLARE SUB savepop (title$, titlepos%, ulr%, ulc%, lrr%, lrc%, attr%, frame&, shadow%, snd%, bufseg%)
+Type: Display
+Desc: EZ-Windows routine
+
+Name: SCROLLMENU
+Mod : SCRLMENU.OBJ
+Decl: DECLARE SUB scrollmenu (header$, ulr%, ulc%, showitems%, wdth%, MaxItems%, item$(), wattr%, hiattr%, hdrattr%, shadow%, ms%, SoundOn%, slct%)
+Type: Menus
+Desc: EZ-Windows menu routine (see EZ-Windows docs)
+
+Name: SCROLLTAG
+Mod : SCRLTAG.OBJ
+Decl: DECLARE SUB scrolltag (header$, ulr%, ulc%, showitems%, wdth%, MaxItems%, item$(), option$, hipos%, wattr%, hiattr%, hdrattr%, keyattr%, shadow%, ms%, SoundOn%, tag%(), NumTagged%)
+Type: Menus
+Desc: EZ-Windows menu routine (see EZ-Windows docs)
+
+Name: TICKWAIT
+Mod : TICKWAIT.OBJ
+Decl: DECLARE SUB tickwait (n%)
+Type: Mouse
+Desc: EZ-Windows routine (see EZ-Windows docs)
+
+Name: VIDEO
+Mod : VIDEO.OBJ
+Decl: DECLARE SUB video (vid%)
+Type: Display
+Desc: EZ-Windows routine (see EZ-Windows docs)
+
+Name: BKSCROLL
+Mod : SCROLL.OBJ
+Decl: DECLARE SUB BkScroll (BYVAL TopRow%, BYVAL LeftCol%, BYVAL BottomRow%, BYVAL RightCol%, BYVAL Times%)
+Type: Display
+Desc: Scroll an area of the screen down (PBClone routine)
+
+Name: CHECKDSK
+Mod : CHEKDSK.OBJ
+Decl: DECLARE FUNCTION CheckDsk% (Drive$)
+Type: Disk
+Desc: See if a disk is ready to be accessed (PBClone routine)
+
+Name: CRITINIT
+Mod : CRITERR.OBJ
+Type: PRIVATE
+Desc: PBClone
+
+Name: CRITERROR
+Mod : CRITERR.OBJ
+Type: PRIVATE
+Desc: PBClone
+
+Name: CRITDONE
+Mod : CRITERR.OBJ
+Type: PRIVATE
+Desc: PBClone
+
+Name: DSCRREST
+Mod : DSCRREST.OBJ
+Decl: DECLARE SUB DScrRest (BYVAL DSeg%, BYVAL DOfs%, BYVAL Page%, BYVAL Fast%)
+Type: Display
+Desc: Restore a saved screen from an array (PBClone routine)
+
+Name: DSCRSAVE
+Mod : DSCRSAVE.OBJ
+Decl: DECLARE SUB DScrSave (BYVAL DSeg%, BYVAL DOfs%, BYVAL Page%, BYVAL Fast%)
+Type: Display
+Desc: Save a screen into an array (PBClone routine)
+
+Name: FILENAME
+Mod : CRITERR.OBJ
+Type: PRIVATE
+Desc: PBClone
+
+Name: SCROLL
+Mod : SCROLL.OBJ
+Decl: DECLARE SUB Scroll (BYVAL TopRow%, BYVAL LeftCol%, BYVAL BottomRow%, BYVAL RightCol%, BYVAL Times%)
+Type: Display
+Desc: Scroll an area of the screen up (PBClone routine)
+
+Name: SCRREST
+Mod : SCRREST.OBJ
+Decl: DECLARE SUB ScrRest (Array%(), Page%, Fast%)
+Type: Display
+Desc: Restore a saved screen (PBClone routine)
+
+Name: SCRSAVE
+Mod : SCRSAVE.OBJ
+Decl: DECLARE SUB ScrSave (Array%(), Page%, Fast%)
+Type: Display
+Desc: Save a screen to an array (PBClone routine)
+
+Name: FINDFIRSTMATCH
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFirstMatch (file$, fattr%, ExitCode%)
+Type: Disk
+Desc: QLib routine
+
+Name: FINDNEXTMATCH
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindNextMatch (ExitCode%)
+Type: Disk
+Desc: QLib routine
+
+Mame: FINDFILENAME
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFileName (file$, flen%)
+Type: Disk
+Desc: QLib routine
+
+Name: FINDFILEATTR
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFileAttr (fattr%)
+Type: Disk
+Desc: QLib routine
+
+Name: FINDFILEDATE
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFileDate (month%, day%, year%)
+Type: Disk
+Desc: QLib routine
+
+Name: FINDFILETIME
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFileTime (hour%, minute%, sec%)
+Type: Disk
+Desc: QLib routine
+
+Name: FINDFILESIZE
+Mod : FINDFILE.OBJ
+Decl: DECLARE SUB FindFileSize (lowword%, highword%)
+Type: Disk
+Desc: QLib routine
+

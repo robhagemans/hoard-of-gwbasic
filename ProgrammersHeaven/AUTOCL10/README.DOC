@@ -1,0 +1,34 @@
+AutoClock v1.0 - Digital Clock Routine For QuickBasic 4.5
+Written By Robert L. Folmer - Lightning Software 11/02/92
+---------------------------------------------------------
+
+AutoClock is a simple QuickBasic 4.5 routine that can be used as a sub
+routine or compiled and shelled to from your program. When run AutoClock
+places a digital clock centered on the screen and will abort if a key
+is pressed, the clock will continue to display the current time until
+the program is exited. The complete source code (about 9 lines) has been
+included along with the executable version. The archive should contain
+the following files:
+
+AUTOCLK.BAS - ASCII QuickBasic 4.5 source code for AutoClock
+AUTOCLK.EXE - Executable of AUTOCLK.BAS - to begin type AUTOCLK
+README.DOC  - This file!
+FILE_ID.DIZ - Imbedded description file
+DESC.SDI    - Imbedded description file
+
+When distributing AutoClock please be sure all of the above files have
+been enclosed.
+
+Although this routine is very small, it's an excellent programming example
+for using WHILE...WEND...DO...LOOP statements.
+
+NOTE: The program is setup to display in EGA mode 7, if using on any other
+      display adapter remember to change the "SCREEN" statement contained
+      in AUTOCLK.BAS.
+
+I am releasing this program into the public domain, you may freely copy,
+distribute and incorporate the routine in your own program so long that
+no fee is charged for the program itself. All questions and comments are
+welcome, you may contact me at my BBS (Bear Cat BBS) (404) 739-1216 24
+hours daily, or write to Lightning Software, P.O. Box 177, Lithia Springs,
+Ga 30057.

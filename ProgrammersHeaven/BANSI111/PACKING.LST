@@ -1,0 +1,29 @@
+
+ ‹ﬂﬂﬂﬂ‹              €  €                          €                €
+ €    €              € ﬁ›  ﬂ                       €      ﬂ         €
+ €‹‹‹‹ﬂ  ‹‹‹    ‹‹‹  €€ﬂ   €  ‹‹‹‹    ‹‹‹          €      €   ‹‹  ‹‹€‹‹
+ €      €   €  €     €€‹   €  €   €  €   €         €      €  €  ﬂ   €
+ €      €   €  €     € ﬁ›  €  €   €  €   €         €      €   ﬂﬂ‹   €
+ €      ﬂ‹‹‹ﬂ‹ ﬂ‹‹‹  €  €  €  €   €  ﬂ‹‹‹€         €‹‹‹‹  €  ﬂ‹‹ﬂ   ﬂ‹‹ﬂ
+                                         €
+                                     ﬂ‹‹‹ﬂ        for Bansi Library v1.11
+
+
+Included with Bansi v1.11 are the following:
+
+BANSI.BI      (The Bansi Include file)
+BANSI.DOC     (The Bansi Short Documentation)
+BANSI.INF     (LIBWIZ compatible .INF file)
+CATALOG.TXT   (Catalog)
+CREATE.EXE    (Create your Interpreter Library)
+DESC.SDI      (Description File)
+DISTRIB.TXT   (Distribution Sites)
+FILE_ID.DIZ   (Author's Description File)
+MANUAL.TXT    (Manual describing all the functions and subroutines)
+ORDER.FRM     (Order Form)
+PACKING.LST   (Packing List For Bansi)
+QBANSI.LIB    (The QuickBasic Bansi Library file)
+README.1ST    (The ReadMe 1st File)
+REGISTER.TXT  (The registration document)
+VBANSI.LIB    (The VB/DOS Bansi Library file)
+WHATS.NEW     (The update bulletin)

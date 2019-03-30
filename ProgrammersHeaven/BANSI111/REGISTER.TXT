@@ -1,0 +1,85 @@
+Bansi Library v1.11 REGISTRATION -- (c) Copyright 1994 by Chris Walker
+--------------------------------------------ALL RIGHTS RESERVED----------------
+
+    The registered version of Bansi is only $10.00 US!!!  With this, you get
+the latest version of Bansi and free registration of all future versions!
+
+    What do you get with the registered version of Bansi?  Well, you get:
+
+        1) You will be able to register ALL future versions of the Bansi
+           library just by obtaining the unregistered version and running the
+           CREATE utility.
+
+        2) I am planning some other libraries, including a new one that will
+           support ANSI and other graphics protocols.  The price to upgrade
+           to this will be the upgrade price for the library.
+
+        3) Mailings?  You may receive mailings about the latest Bansi (and
+           other) products and how to get a copy of them, including ordering
+           information.
+
+        4) Other utilities?  You may receive other helpful utilities, written
+           or just liked by me.
+
+    For multiple copy purchases, please make contact at the address below
+(note: these are welcome and encouraged by great discounts!!!).
+
+    If you do not register, I hope you will be thoroughly dissatisfied.  Just
+remember - you may not use the Bansi library in any program for distribution
+or use by others.  It is illegal.  This library is protected by state and
+federal copyright laws.
+
+    For other orders, please use the ORDER.FRM order form.  Thank you!
+
+Please send all orders, questions, or comments to:
+
+        Chris Walker
+        4345 East Greenwillow Lane
+        Idaho Falls, ID  83401-3722
+
+Thank you for registering!
+
+
+
+
+
+
+
+
+
+-------------------------------------------------------------------------------
+Bansi Library v1.11 Registration Form
+-------------------------------------------------------------------------------
+
+
+Name to be registered under (Max 40)   ________________________________________
+                               Characters
+
+Size of disk requested: { 3.5 , 5.25 }       ___________
+
+Type of disk requested: { 1.44 , 1.2 , 720 , 360 } ____________
+
+Telephone Number (Voice): __________________________
+
+{Optional} Telephone Number (Data): ___________________________
+
+        I am sending $10.00 ($8.00 registration + $2.00 shipping).  Please
+send me the newest version of the Bansi library and, at your option, other
+sample products.
+
+
+      Name:______________________________
+         Last, First                                      
+
+   Address:______________________________                  
+           Number, Street/P.O. Box                                        
+        
+   City, State, Zip Code____________________   ___    _______-______
+                        City                  State   Zipcode Extension
+
+
+
+
+Comments:   {These are VERY welcome}
+------------------------------------
+

@@ -1,0 +1,54 @@
+
+    Program name :  ProWindows(tm) LITE
+    Version num  :  5.20
+    Release .... :  11/15/92
+    Registration :  $25.00
+
+    Author ..... :  DSE Software Publishing
+    Address .... :  Post Office Box 96
+                    Willits, CA 95490-0096
+
+    Support .... :  1-707-459-4358
+    Orders ..... :  1-800-242-4775
+
+    อออออออออออออออออออออออ R E Q U I R E M E N T S ออออออออออออออออออ
+    r = minimum required   s = supported/optional    n = not supported
+    ออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+    Computer        Memory      Monitor     Printer       Input Device
+    (r) Any MSDOS   (_) <=128k  (r) Any     (r) Any       (r) any kybd
+    (_) PC/XT only  (_) <=256k  (_) CGA     (_) Dot Mtrx. (_) 12 fkeys
+    (_) 286/386     (_) <=512k  (_) EGA     (_) Laser     (s) Mouse
+    (_) 386 only    (r) <=640k  (_) VGA     (_) Graphics  (s) Joystick
+    (_) Laptop      (s) EMS___  (_) Herc    (_) Color     (_) Digitiz.
+    (_) __________  (s) EEMS__  (_) Mono    (_) Pin Feed  (_)
+
+    # Drives       Modem      Software       DOS         Experience
+    (s) 5.25"      (_)  300   (r) BASIC      (s) 2.x     (_) None
+    (s) 3.5" 720k  (_) 1200   (_) Windows    (s) 3.x     (_) Beginning
+    (s) 3.5" 1.4m  (_) 2400   (_) ________   (s) 4.x     (r) Moderate
+    (s) 1.2 meg    (_) 4800   (_) ________   (_) OS/2    (_) Expert
+    (s) Hard disk  (_) 9600   (_) ________   (_) ______  (_) _________
+
+    Other Requirements: Microsoft QuickBASIC 4.5 OR,
+                        Microsoft BASIC PDS 7.
+
+    ออออออออออออออออออออออ D E S C R I P T I O N อออออออออออออออออออออ
+
+    Purpose:  Provides BASIC programmers with an "event driven"
+              windowing user interface toolbox.
+
+    Features: LITE features mouse/software controlled overlapping
+              "virtual" windows.  Virtual windows can be larger than
+              the physical display.  Windows can be moved, hidden, re-
+              sized, and scrolled under mouse or software control.
+              The "window manager" uses "video recycling" (a technique
+              of using excess video RAM scratch memory) to increase
+              program speed and reduce memory requirements by up to
+              24K.  Being "Event driven", once a display has been
+              created, the whole thing can be managed with a single
+              function call.  Setup user defined "hot keys" that
+              bypass BASIC's clumsy internal events.  The "event
+              manager" informs the user when a window was modified
+              (moved, hidden, etc) or when a hot key or standard key
+              was pressed.  ShareWare price is $25.00.
+

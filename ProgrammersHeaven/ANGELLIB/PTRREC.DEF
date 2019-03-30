@@ -1,0 +1,74 @@
+TYPE LaserPtrRec
+	Model AS STRING * 30                    '    } First five items are
+	Code AS STRING * 6                      '    } the same for laser as
+	Init AS STRING * 15                     '    } well as dot matrix ptrs
+	ULon AS STRING * 5                      '    &d0D
+	ULoff AS STRING * 5                     '    &d@
+	Portrait AS STRING * 5
+	Landscape AS STRING * 5
+	Envelope AS STRING * 6
+	ManualFeed AS STRING * 5
+	HTab AS STRING * 5                           '(27) &a#H
+	VTab AS STRING * 5                           '(27) &a#V
+	Spare AS STRING * 16
+	END TYPE
+
+TYPE LaserFontRec
+	PtrCode AS STRING * 6
+	Name AS STRING * 35
+	Scalable AS INTEGER
+	Orientation AS STRING * 1                    'P or L or B (both)
+	SymSet1 AS STRING * 4                        'Esc (##U
+	SymSet2 AS STRING * 4                        'Esc )##U
+	Select1 AS STRING * 3                        'Esc (s
+	Select2 AS STRING * 3                        'Esc )s
+	Spacing AS STRING * 2                        'Fixed (0p) or Prop (1p)
+	Pitch AS STRING * 6                          '####v or ####h
+	Slant AS STRING * 2                          '0s or 1s (italic)
+	Weight AS STRING * 2                         '0b etc.
+	Number AS STRING * 5                         '####T or ##T
+	Spare AS STRING * 33
+	END TYPE
+
+TYPE DMPtrRec
+	Model AS STRING * 30                    '    } First three items are
+	Code AS STRING * 6                      '    }  the same for laser as
+	Init AS STRING * 15                     '    }  well as dot matrix ptrs
+	ULon AS STRING * 3
+	ULoff AS STRING * 3
+	BoldOn AS STRING * 2
+	BoldOff AS STRING * 2
+	Width AS INTEGER                        '    Carriage width, 10 or 15
+	LM AS STRING * 5
+	HTab AS STRING * 4
+	HalfLF AS STRING * 4
+	WideOn AS STRING * 3
+	WideOff AS STRING * 3
+	Scale AS STRING * 6                          'Set pitch for scalable fonts
+	PSon AS STRING * 3                           'Proportional spacing on
+	PSoff AS STRING * 3                          'Proportional spacing off
+	Draft AS STRING * 3
+	LQ AS STRING * 3
+	Spare AS STRING * 8
+	END TYPE
+
+TYPE DMFontRec
+	PtrCode AS STRING * 6
+	Name AS STRING * 35
+	CPI AS INTEGER                               '0=proportional, -1=scalable
+	Pts AS SINGLE                                'Pt size, for prop spaced
+	LPI AS INTEGER                               'Lines/inch
+	Select AS STRING * 16
+	Spare AS STRING * 43
+	END TYPE
+
+'Idea: Set up var to use Epson/IBM print mode combination tables, thus:
+'PrintModeCombos ÄÄ 0 = Not avail.
+'                   1 = Epson style
+'                   2 = IBM style
+
+' Dan Healy:
+' For what it does ... paid $85 for Avery LabelPro, WML is comparable!
+' Theirs does a little more but WML is 'up there'
+' Type in Zip & have it find it
+

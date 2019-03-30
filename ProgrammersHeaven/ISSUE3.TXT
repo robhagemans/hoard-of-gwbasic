@@ -1,0 +1,1696 @@
+						      /**\
+  --------[ T H E ]----------------------------------/8888\---------------
+   BBB    A    SSS   IIIII  X   X                   /888888\
+   B  B  A A  S   S    I     X X   CHRISTMAS       *88888888*   
+   BBB   AAA   SS      I      X                     /888888\
+   B  B A   A     S    I     X X       SPECIAL     *88888888*
+   BBB  A   A SSSS   IIIII  X   X                      ||    
+  ------------------------------------------------------------------------
+    THE CHRISTMAS BASIX - DECEMBER 25th by Peter Cooper of PECO Software
+  ------------------------------------------------------------------------
+	       Enquiries\support: peter@trenham.demon.co.uk  
+		    Articles: bmag@trenham.demon.co.uk
+
+  INTRODUCTION:
+
+  Well, the fanzine's made it into a third edition and a Christmas Special
+  one at that. That's good news. I think the fanzine has finally taken off! 
+  And yet good news again, take a look at the section 'Fanzine on the WEB!'
+  and get a mild suprise... ;-)
+  Ok, sorry, I've changed the contents page layout again. I thought they were 
+  a bit messy. All that ascii art was awful. The Web version may have PROPER 
+  art.. ;-)
+
+-------------------------------------------------------------------------------
+- CONTENTS PAGE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
+
+ SECTION ONE) - [SPECIALIZED ARTICLES]
+  - Part [a] ADVANCED\INTERMEDIATE STUFF
+    1) Binary Trees     The regular Wrox Press article     QBasic + upwards
+    2) All about ANSI   Title explains it all!             QBasic + upwards
+    3) Shareware Libs.  We continue our review of libs..   QuickBasic\PDS
+  - Part [b] NOVICE\BEGINNER STUFF
+    1) Basic Tutorials  Now into the second episode!       QBasic\PB
+
+ SECTION TWO) - [ALL LEVELS ARTICLES]
+    1) Useful sources   Places to get basic stuff on inet  Any
+    2) Mouse Programs   How to program the Mouse, simply!  QuickBasic\PDS
+
+ SECTION THREE) - [YOUR SHOUT!]
+    1) Q+A              Your questions\our answers         Any
+    2) PB vs QBasic     PowerBasic versus QBasic, hmm?     PB\QBasic
+    3) Your programs    All of your programs.. here!       Various
+	-    PCX viewer         - QBasic
+	-    TSR Maker program  - QBasic
+	-    Popup TSR          - PowerBasic
+	-    Festive Song       - snippet using play command - QBasic
+
+ SECTION FOUR) - [DETAILS ABOUT THE FANZINE]
+    1) How do you contribute?
+    2) How do you contact the author?
+    3) Credits
+    4) Fanzine on the WEB!
+    5) Last words + next month
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION ONE -----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Specialized articles:
+
+ This section is split into two parts. Part A is for the more advanced or
+ intermediate programmer in basic and Part B is more for the beginners of
+ BASIC. This sort of layout was something people wanted.
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART 1 - (The Regular Wrox Press article) ----------------
+-------------------------------------------------------------------------------
+
+ Here's a PowerBasic program for all of you PB users.. I wish I had it but
+ I spent my money on Turbo Pascal, bah... ;-)
+ 
+
+Binary Tree Search
+
+Earlier in the book we used a binary tree in the pyramidal sort to help order 
+an array.  The unordered keys of the array were partially sorted into a heap, 
+using HeapSort. In this section the order of the elements in the array is 
+already fixed, although not necessarily in order of the magnitude of the key. 
+What we have to do is assign these elements (for example, the characters of 
+a word) to the nodes of a binary tree, so that they are searchable. 
+
+Representing data in the form of a binary tree is convenient when you are 
+constantly adding new records, or deleting records or parts of records from 
+the array. But there is very little point in using the binary tree search on 
+a strictly ordered array, because changing one record would cause many others 
+to move, in order to retain the order.
+
+The binary tree we use here differs subtly from that used in the pyramid sort. 
+In the pyramid sort, the keys are ordered by magnitude, within each branch 
+traced from the root node. In the binary search tree an arbitrary node A(i) has
+a 'left' and a 'right' son, as before, but they are related by the following 
+conditions:
+
+A(L) < A(i);    A(R >= A(i)
+
+So a left son has a key of lesser magnitude than its father, while the right 
+son has a key of greater magnitude. This gives us a tree consisting of partially 
+ordered elements:
+ 
+		       node A (i)
+			  / \
+			 /   \
+			/     \
+		    left     right
+		  son A (L)  son A (R)
+
+The algorithm for building a tree, with the keys 14, 3, 27, 19, 5, 4, 1, 16 
+is as follows. The first key element, 14 in our case, is set as a root node. 
+The next value, 3, being less than 14, is inserted in the tree as the left 
+"son". Since 27 is greater than 14 it is inserted into the tree as the right 
+"son" of 14. The number 19 is bigger than 14, and so would normally be the 
+right "son" of 14. But we already have 27 in its place, so we go down another 
+level, and compare 19 to l be the left son of "27", and therefore one of 
+14's "grandsons".
+
+If you look at our next program \CHAP5\CH5_18.BAS (on the disk accompanying 
+the book) you'll find a sub-routine Tree which constructs a binary search 
+tree for the array TreeArray. Each record is a node of the tree. The variable 
+i, as the ordinal number, or index, of a record in the array, corresponds to 
+the number of the node. A record must contain the three fields used by the 
+sub-program: 
+
+Info            A key field of any type, e.g. String or Integer. 
+Left & Right    Integer type fields where the numbers of the nodes corresponding 
+		to the left and right sons are formed while the tree is being 
+		created. 
+
+The sub-routine fills the fields Left and Right according to the aforementioned 
+algorithm. Here is the subroutine that performs this task:
+
+SUB Tree
+
+  FOR i = 2 TO MaxRec   'i-number of a pass
+  q = 1 ' start value of the index of a mimimum key
+     DO
+       p = q
+       IF TreeArray(i).Info < TreeArray(p).Info THEN
+	    q = TreeArray(p).Left
+       ELSE
+	    q = TreeArray(p).Right
+       END IF
+     LOOP WHILE q
+     IF TreeArray(i).Info < TreeArray(p).Info THEN
+	TreeArray(p).Left = i
+     ELSE
+	TreeArray(p).Right = i
+     END IF
+  NEXT i
+END SUB
+
+The following Search subroutine sequentially compares the key KeyTree with 
+the key fields of the records. The index of a record (the node number) is 
+selected from the fields Left or Right depending on the result of the 
+comparison.
+
+SUB Search
+  PRINT
+  PRINT "         SEARCH ON THE TREE"
+  INPUT "Name of the city"; KeyTree
+  p = 1 ' start value of the index of the minimum key
+	DO
+	  IF KeyTree = TreeArray(p).Info THEN
+	    PRINT
+	    PRINT "        Search is successful"
+	    PRINT p; TreeArray(p).Info;
+	    PRINT " Year of foundation: "; TreeArray(p).Date;
+	    EXIT DO
+	  END IF
+	  IF KeyTree < TreeArray(p).Info THEN
+		 p = TreeArray(p).Left
+	  ELSE
+		 p = TreeArray(p).Richt
+	  END IF
+	LOOP WHILE p
+
+	IF p = 0 THEN
+	  PRINT "Record not found"
+	END IF
+END SUB
+
+We'll demonstrate how useful these sub-routines are with an example which 
+searches for the first chronicled mention of a city. The demo program 
+\CHAP\CH5_19.BAS (also on the disk with the book) uses the following sub-program
+together with the ones we've already described: 
+
+InArray inputs the unordered information about the cities from the DATA into 
+an array. PrintArray displays the values of the nodes (names of the cities) in 
+their tree order, and also the values of their left and right sons.
+
+The tree search algorithm can be used to our advantage for developing sub-
+-programs to add or remove records. We have seen in this section how, given 
+an array which will regularly have records added to it, or whose initial order 
+we want to keep, we can still order its keys by relative magnitude in order 
+to perform a binary tree search, and locate them quickly.
+
+
+That was from Wrox Press. They are a computer book publishing firm based in
+Birmingham UK.. If you want to contact Wrox Press then use snail mail to:
+
+   Editorial : Unit 16, 20 James Road, Tyseley, Birmingham, B28 0EE, UK
+
+Or in America you could try:
+
+   Marketing : 2710 W. Touhy, Chicago, Illinois, 60645, USA
+
+Or via the internet you can:
+
+   Internet  : adrians@wrox.com or try our Web site : WWW.WROX.COM
+
+Cool book. Learn how to program machine code in BASIC, loads of graphics stuff
+, program designing, programming the SB.... ;-) Great!
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART 2 - (All about ANSI - Ben Ashley) -------------------
+-------------------------------------------------------------------------------
+
+ This is all by Ben Ashley. He's at  ben@seacloud.demon.co.uk  if you want to
+ chat with him.
+
+	   A N S I   I N   A   Q B A S I C   T E R M I N A L
+	  ===================================================
+
+...is what many message headers in alt.lang.basic/comp.lang.basic.misc look
+like.  It is true, you can have ANSI.SYS installed, and simply open to CON:.
+Or SHELL "Type <mydoc>".  But you still have no real control over the process.
+
+The Program:
+
+The program which accompanys this article is a Basic-Ansi terminal package. 
+With it you can dial up BBS's etcetera, and have almost complete ANSI support.
+You can also do ASCII Send and ASCII Capturing (The ASCII Capturing bit will 
+also capture ANSI codes, so as you can keep all the funky ANSI artwork you see
+laying about the place!)
+
+What *is* ANSI?:
+
+ANSI, is an acronym for American National Standards Institute.  ANSI codes are
+an industry standard set of codes, which in this day and age are mainly used for
+controlling output on a remote computer.
+
+An Ansi code always takes the same format:
+
+(ESCAPE CODE'27')([)(Paramater list seperated by ';')(Alphabetical ANSI Code)
+
+And so a typical ANSI code will look like this:
+
+  (ESC)[33;1m
+
+The above code will turn the current text colour to yellow, and turn bold on.
+The Escape Code is simply ASCII Code 27. This is the code that is generated 
+when you press the Escape key, although text editors will not for some reason 
+include it in your document by pressing the escape key.  So in our BASIC 
+programs we have to resort to mundane things such as CHR$(27)!
+
+Programming It:
+
+When I first had the task of writing an ANSI terminal, back on my humble Amiga 
+I did actually see the whole thing as a foreboding deal.  But when you sit down 
+and look at the root of it all, it is infact quite simple.  It all boils down 
+to what most programmers have problems with.  And that is, not knowing exactly 
+what you want to do with the data.  When you have that on paper, the routine 
+can spring up in your head, sometimes almost immediately.  Well, it does for me 
+anyway.  Anyway, enough gibbering, lets have a look at the problem:
+
+1. There is a text string, which we wish to display on the screen.  It is not
+   a fixed length string.
+
+2. It may or may not contain ANSI codes.  The only marker for these, to
+   distinquish them from the rest of the text is CHR$(27)+"[".
+
+3. The end marker is an alphabetical character.
+
+Well the only thing we can do then, is output each character directly to the
+screen, in the current pen and paper colours until we hit a CHR$(27).  Then
+things get interesting.
+
+What we do when we hit that ESCAPE character, can be done in many different 
+ways.  We could search forward until we hit an alphabetical character and then 
+store the character as the code and the space between the '[' and the letter, 
+as the parameter list.  This seems the easiest and quickest in principle, but
+in actual fact there is a huge gaping problem.  Can you spot it?
+The answer is quite simple.  As the data is coming to us over the modem, there
+can be delays.  So in our string, we may not have a complete ANSI code.
+
+The other routine is reading it character by character (as my program does),
+simply place all characters into another string as they come in, until we hit
+an alphabetical character, which is then stored in another string.  Using
+this method, even if we receive an incomplete code the first time, parsing will 
+resume when more data comes in.  Nifty eh?
+
+When parsing is complete (denoted by the first occurence of an alphabetical
+character) we have two strings.  The first will contain our parameter list,
+with parameters seperated by the ';' character, and a 1 byte string containing
+the alphabetical code.
+
+What we want to do now is pull out the parameters.  Well, my terminal program
+searches through the 'info$' and pulls out each parameter one by one into an 
+array until there are no more.  Some ANSI codes do not require any parameters, 
+and so your program will need to check for this.  The following piece of code 
+shows how my terminal program rips the codes out of the 'info$' string.
+
+  current = 0
+  IF LEN(info$) > 0 THEN
+     REDIM param$(8)
+     DO
+	semi = INSTR(info$, ";")
+	IF semi > 0 THEN
+	   current = current + 1
+	   param$(current) = LEFT$(info$, semi - 1)
+	   info$ = MID$(info$, semi + 1, LEN(info$))
+	ELSE
+	   current = current + 1
+	   param$(current) = info$
+	   EXIT DO
+	END IF
+     LOOP
+  END IF
+
+Most 'newer' languages support REDIM PRESERVE.  This would allow you to have an 
+array which contains exactly the correct amount of elements to parameters.  As 
+you can see, this routine checks to see if this code *HAS* any parameters.  If 
+not, we don't bother trying to parse it!
+
+Lets have a look at some INPUT AND OUTPUT of this routine.
+
+INPUT : 33;1;2  INPUT : 2   INPUT : 32;40;1
+
+OUTPUT: 1. 33   OUTPUT: 2   OUTPUT: 1. 32
+	2. 1                        2. 40
+	3. 2                        3. 1
+
+Simple huh?
+
+Now we have our ANSI code, stored in 'code$'.  And we have an array of 
+parameters.  If we have used REDIM PRESERVE we should have an array with the 
+same amount of elements as codes.  If we have not, then we can use that 
+'current' variable.  When that DO..LOOP has finished, 'current' will hold the 
+total number of parameters it parsed.  If info$ was null, then 'current' will 
+be equal to zero.  This is correct.  If you have printed out the ANSI Terminal 
+listing and are looking at it now along with this document, then we are going 
+to 'GOSUB ansihandler' now.  This right down at the bottom of the listing!
+
+The first step is to avoid confusion later on, and make 'total = current'!
+Now, we simply to a SELECT...END SELECT block, with the criteria being code$.
+
+So what *does* each ANSI code do then?  Well have a look at some of the more
+common codes:
+
+'H','f' - Locates the cursor, requires two parameters. : ESC [ 3;3H
+
+'A'     - Moves the cursor up a line, or a parameter
+	  can be supplied to specify the number of
+	  lines to move up                             : ESC [2A / ESC [A
+
+'B'     - Moves the cursor down a line, or a parameter
+	  can be supplied to specify the number of
+	  lines to move down                           : ESC [2B / ESC [B
+
+'C'     - Moves the Cursor forwards a character, or a parameter
+	  can be supplied etcetera...                  : ESC [2C / ESC [C
+
+'D'     - Moves the Cursor backwards etc..             : ESC [2D / ESC [D
+
+'m'     - Changes the graphics mode.  This can have a variable number
+	  of parameters, allowing several graphics codes to be set in one
+	  ANSI code.
+
+		    3x - Foreground colour (30/31/32...37)
+		    4x - Background colour (40/41/42...47)
+		    0  - Reset Graphics mode
+		    1  - Bold On
+		    7  - Inverse Video On
+		    8  - Conceal On
+
+	  These codes therefore can take on images such as:
+ 
+	  ESC [33m / ESC [33;40;1m / ESC [0m
+
+	  Get the Idea?
+
+So, in our SELECT...END SELECT block we check for a match with each code.  On
+doing this, we then (if necessary) check the parameters.  For instance, lets
+have a look at the 'H','f' code which locates the cursor.  If no parameters are
+supplied to this code, the cursor position is moved to the home position, which
+is usually 1,1.  But in my terminal as I use VIEW PRINT, it is in fact X 1 Y 3.
+Remember 'total', holds the number of parameters which have been passed.
+
+   .   .   .
+   .   .   .
+   CASE "H","f"
+      If total = 0 THEN
+	 x = 1
+	 y = 1
+	 LOCATE y,x
+      ELSE
+	 y = VAL(Param$(1))
+	 x = VAL(Param$(2))
+	 LOCATE y,x
+      END IF
+   .   .   .
+   .   .   .
+
+The code for changing the colour is a little more complicated, but not much.
+Bascically we simply change the foreground / background colour accordingly
+based on what number was shoved through.  If you have a look at that section
+in the code (Denoted by the 'CASE "m"' in the Ansihandler:), you will see
+exactly what it does.  It is not a trivial task.
+
+
+Thats basically all there is to ANSI handling.  We get codes and interprete them
+using the language tools we have available to us.  We simply have to get into
+a state of mind whereby we know that 'm' stands for 'COLOR'!!  There are many
+more ANSI-codes, the list of which I have misplaced as of yesterday (good
+timing huh?).  I have left out, quite a fancy ANSI-code on the basis that the
+escape sequence for split-screen scrolling has escaped (har har) me.  This
+code is basically the equivalent to the VIEW PRINT statement in QBasic.  If
+anybody knows the code, or has a more complete list, perhaps they would be so
+kind as to E-Mail it to me so as I can implement it.  Many fancy BBS's and
+online games use Split-Screen scrolling.  Try listing file areas on a DLG run
+BBS without Split-Screen scrolling and you will be surprised!  But once I have
+the code, I think it can be implemented into the ANSI terminal program without
+much problem.
+
+So if you have any comments, queries, ANSI-lists, ideas or even death threats,
+please E-Mail me at "ben@seacloud.demon.co.uk".  I will be unable to reply to
+them before the 23rd of December though!
+
+Happy COMMunicating, and Happy Christmas...
+
+(ed note- if you're reading this then it should be past 23rd December, it's
+ actually 15th when I'm typing this but never mind...)
+
+ Now the accompanying program:  (sorry about the length but it's good!)
+
+' +----------------------------------------------------------------------+
+' |               ANSI Terminal - By Ben Ashley (C) 1995                 |
+' |               ======================================                 |
+' +----------------------------------------------------------------------+
+' ************************************************************************
+' Written especially for the alt.lang.basic/comp.lang.basic.misc FANZINE!!
+' ************************************************************************
+
+CLS
+COLOR 15: LOCATE 1, 1: PRINT "- ANSI Terminal program - ";
+COLOR 2: PRINT "Written by Ben Ashley for: ";
+COLOR 4: PRINT "the alt.lang.basic Fanzine!"
+COLOR 15: LOCATE 37, 1: PRINT "F1"; : COLOR 3: PRINT " Ascii Send ";
+COLOR 15: PRINT "F2"; : COLOR 3: PRINT " Ascii Capture ";
+COLOR 15: PRINT "F12"; : COLOR 3: PRINT " Exit ANSI Terminal";
+COLOR 14: LOCATE 2, 1: PRINT STRING$(80, CHR$(196))
+LOCATE 36, 1: PRINT STRING$(80, CHR$(196))
+VIEW PRINT 3 TO 35
+' ** Set Our ANSI Defaults & Flags **
+x = 1             ' Current X Position
+y = 3             ' Current Y Position
+savex = 0         ' Cursor Store
+savey = 0         ' Cursor Store
+foreground = 7    ' Logical Foreground Color
+background = 0    ' Logical Background Color
+bold = 0          ' Bold Flag
+reverse = 0       ' Inverse Flag
+concealed = 0     ' Concealed Flag
+ansistage = 0     ' What stage of ANSI PARSING are we at?
+tabsize = 3       ' How many spaces is a tab worth in our program?
+info$ = ""        ' This will store our ANSI parameters
+code$ = ""        ' This will store our ANSI code
+' ** Set up some other flags **
+asciisending = 0  ' If this value is true, we are sending ASCII Text
+asciicapture = 0  ' If this value is true, we are capturing text
+
+LOCATE y, x, 1: COLOR foreground, background
+
+ON ERROR GOTO errorhandler
+
+OPEN "COM2:9600,N,8,1" FOR RANDOM AS #1
+ DO
+      ' ** Send Keypresses to the Modem **
+  key$ = INKEY$
+  IF key$ >= "" THEN
+	' We check for Option Keys first, as we don't want to send the
+	' codes!  If it is not an option key, we send to the modem!
+     
+   IF LEFT$(key$, 1) = CHR$(0) THEN
+    SELECT CASE ASC(RIGHT$(key$, 1))
+	' Ascii Send
+
+	CASE 59
+	IF asciisending = 0 THEN
+	  VIEW PRINT 38 TO 39
+	  LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	  LOCATE 38, 1: INPUT "Filename to Send:"; file$
+	  OPEN file$ FOR INPUT AS #2
+	   IF ERR = 0 THEN
+	    asciisending = 1
+	    LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	    LOCATE 38, 1: PRINT "Now ASCII Sending.  Press F1 again to Stop"
+	   ELSE
+	    LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	    LOCATE 38, 1: PRINT "Error : Cannot Open File " + file$
+	   END IF
+	   VIEW PRINT 3 TO 35
+	   LOCATE y, x
+	ELSE
+	   asciisending = 0
+	   CLOSE #2
+	END IF
+	    ' Ascii Capture
+	CASE 60
+	 IF asciicapture = 0 THEN
+	  VIEW PRINT 38 TO 39
+	  LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	  LOCATE 38, 1: INPUT "Filename to capture to:"; file$
+	  OPEN file$ FOR OUTPUT AS #3
+	  IF ERR = 0 THEN
+	   asciicapture = 1
+	   LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	   LOCATE 38, 1: PRINT "Now ASCII Capturing.  Press F2 again to Stop"
+	  ELSE
+	   LOCATE 38, 1: PRINT STRING$(80, CHR$(32))
+	   LOCATE 38, 1: PRINT "Error : Cannot Open File " + file$
+	  END IF
+	  VIEW PRINT 3 TO 35
+	  LOCATE y, x
+	 ELSE
+	  asciicapture = 0
+	  CLOSE #3
+	END IF
+	       ' Quit
+	       CASE 134
+
+		  ' Close Open Files
+
+		  IF asciisending = 1 THEN CLOSE #2
+		  IF asciicapture = 1 THEN CLOSE #3
+		  VIEW PRINT 1 TO 48
+		  CLS
+		  EXIT DO
+	    END SELECT
+	 ELSE
+	    PRINT #1, key$;
+	 END IF
+      END IF
+
+      ' =================================
+      ' ** Data Received to the Screen **
+      ' =================================
+     
+      bytes = LOC(1)
+      IF bytes > 0 THEN
+	 receive$ = INPUT$(LOC(1), #1)
+
+	 ' ===============================
+	 ' ** Below is the ANSI Handler **
+	 ' ===============================
+
+   FOR f = 1 TO LEN(receive$)
+    SELECT CASE MID$(receive$, f, 1)
+    CASE CHR$(7)                     ' Beep
+     BEEP
+     CASE CHR$(8)                     ' Backspace
+     GOSUB backspace
+     CASE CHR$(9)                     ' Tab
+     GOSUB tabchar
+     CASE CHR$(10)                    ' LineFeed
+     GOSUB linefeed
+     CASE CHR$(12)                    ' FormFeed (CLS Basically)
+     CLS
+     x = 1: y = 3
+     CASE CHR$(13)                    ' Carriage Return
+     GOSUB carriagereturn
+     CASE CHR$(27)                    ' Escape Character
+     ansistage = 1
+     ' Clear variables for use on the code itself
+     info$ = ""
+     code$ = ""
+	  CASE ELSE
+		  IF ansistage = 1 THEN
+		     IF MID$(receive$, f, 1) = "[" THEN
+			ansistage = 2
+		     ELSE
+			' If we received an escape char and then not a left
+			' bracket, then we do not continue with ANSI parsing
+			ansistage = 0
+			IF concealed = 0 THEN
+			   LOCATE y, x: PRINT MID$(receive$, f, 1);
+			END IF
+			GOSUB cursorright
+		     END IF
+		  ELSE
+		     IF ansistage = 2 THEN
+			temp$ = MID$(receive$, f, 1)
+			  
+			' If our character is a letter, then that is the
+			' ANSI code, and we now have all the information
+			' we need to parse it.  Otherwise, all the info
+			' added to the info$ variable, which will in
+			' turn be parsed for each component.
+
+			IF ASC(temp$) >= 65 AND ASC(temp$) <= 122 THEN
+			   ansistage = 0
+			   code$ = temp$
+		       
+			   ' Parse Information String:
+
+			   current = 0
+			   IF LEN(info$) > 0 THEN
+			      REDIM param$(8)
+			      DO
+				 semi = INSTR(info$, ";")
+				 IF semi > 0 THEN
+				    current = current + 1
+				    param$(current) = LEFT$(info$, semi - 1)
+				    info$ = MID$(info$, semi + 1, LEN(info$))
+				 ELSE
+				    current = current + 1
+				    param$(current) = info$
+				    EXIT DO
+				 END IF
+			      LOOP
+			   END IF
+			
+			   ' Now we have the ANSI code and all the
+			   ' parameters which were parsed with it, nicely
+			   ' in an array.  Now all that is left to do
+			   ' is to act on it.
+
+			   GOSUB ansihandler
+
+			ELSE
+			   info$ = info$ + temp$
+			END IF
+		     ELSE
+			IF concealed = 0 THEN
+			   LOCATE y, x: PRINT MID$(receive$, f, 1);
+			END IF
+			GOSUB cursorright
+		     END IF
+		  END IF
+	    END SELECT
+	 NEXT f
+      ELSE
+	 receive$ = ""
+      END IF
+  
+      ' =====================================
+      ' ** Ascii Sending / Ascii Capturing **
+      ' =====================================
+
+      ' Ascii sending is simple.  If there is another line to be read from
+      ' the file, then we send it!
+
+      IF asciisending = 1 THEN
+	 IF NOT EOF(2) THEN
+	    LINE INPUT #2, temp$
+	    PRINT #1, temp$
+	 ELSE
+	    CLOSE 2
+	    asciisending = 0
+	 END IF
+      END IF
+
+      ' Capturing is just as simple.  If receive$ is not null, then we
+      ' write it to the file!
+
+      IF receive$ <> "" THEN
+	 IF asciicapture = 1 THEN
+	    PRINT #3, receive$;
+	 END IF
+      END IF
+   LOOP
+CLOSE 1
+END
+
+' =====================
+' ** Cursor Movement **
+' =====================
+
+cursorup:
+   y = y - 1
+   IF y < 3 THEN y = 3
+   LOCATE y, x
+RETURN
+
+
+cursordown:
+   y = y + 1
+   IF y > 35 THEN
+      y = 35
+      PRINT CHR$(13);
+   END IF
+   LOCATE y, x
+RETURN
+
+
+cursorleft:
+   x = x - 1
+   IF x < 1 THEN
+      x = 79
+      GOSUB cursorup
+   END IF
+RETURN
+
+
+cursorright:
+   x = x + 1
+   IF x > 79 THEN
+      GOSUB linefeed
+      GOSUB carriagereturn
+   END IF
+RETURN
+
+
+linefeed:
+   GOSUB cursordown
+RETURN
+
+
+carriagereturn:
+   x = 1
+   LOCATE y, x
+RETURN
+
+' =================
+' ** Other Stuff **
+' =================
+
+backspace:
+   GOSUB cursorleft
+RETURN
+
+
+tabchar:
+   FOR f = 1 TO tabsize
+      GOSUB cursorright
+   NEXT f
+RETURN
+
+
+' ==================
+' ** Ansi Handler **
+' ==================
+
+' The routine contained in the main loop simply rips the wanted bits out of
+' the code.  This is the action phase.  This subroutine will look at each
+' code and act on it accordingly.
+
+ansihandler:
+   total = current
+   SELECT CASE code$
+
+      ' Cursor Locate.  If No value is supplied ie '[H' then the cursor is
+      ' moved to the Home Position.  'f' is also used for this purpose.
+
+      CASE "H", "f"
+	 IF total = 0 THEN
+	    x = 1: y = 1
+	    LOCATE y, x
+	 ELSE
+	    x = VAL(param$(2))
+	    y = VAL(param$(1))
+	    LOCATE y, x
+	 END IF
+
+      ' Cursor Up
+
+      CASE "A"
+	 IF total = 0 THEN
+	    GOSUB cursorup
+	 ELSE
+	    FOR z = 1 TO VAL(param$(1)): GOSUB cursorup: NEXT z
+	 END IF
+
+      ' Cursor Down
+
+      CASE "B"
+	 IF total = 0 THEN
+	    GOSUB cursordown
+	 ELSE
+	    FOR z = 1 TO VAL(param$(1)): GOSUB cursordown: NEXT z
+	 END IF
+
+      ' Cursor Forewards
+
+      CASE "C"
+	 IF total = 0 THEN
+	    GOSUB cursorright
+	 ELSE
+	    FOR z = 1 TO VAL(param$(1)): GOSUB cursorright: NEXT z
+	 END IF
+
+      ' Cursor Backwards
+
+      CASE "D"
+	 IF total = 0 THEN
+	    GOSUB cursorleft
+	 ELSE
+	    FOR z = 1 TO VAL(param$(1)): GOSUB cursorleft: NEXT z
+	 END IF
+
+      ' Save Cursor Position
+
+      CASE "s"
+	 savey = y: savex = x
+
+      ' Restore Cursor Position
+
+      CASE "u"
+	 x = savex: y = savey
+	 LOCATE y, x
+
+      ' Erase Display
+
+      CASE "J"
+	 IF param$(1) = "2" THEN
+	    CLS
+	    x = 1
+	    y = 1
+	    LOCATE y, x
+	 END IF
+ 
+      ' Graphics Mode (Colours/Bold Text etc)
+
+      ' I am a bit confused here actually, as whilst I was looking through
+      ' the ANSI Standard, code 1 turns Bold On/8 Reverse On and 7 conceal
+      ' on.  The only way to turn an individual one off, is to send a code
+      ' 0 (reset).  I would have made them toggles, but then who am I to
+      ' change the ANSI standard??!!
+
+      CASE "m"
+
+	 ' Here we go through each parameter, acting upon it as necessary
+
+	 FOR z = 1 TO total
+	    SELECT CASE VAL(param$(z))
+
+	       ' All Attributes Off
+
+	       CASE 0
+		  bold = 0
+		  reverse = 0
+		  foreground = 7
+		  background = 0
+
+	       ' Bold On
+
+	       CASE 1
+		  IF bold = 0 THEN
+		     bold = 8
+		  END IF
+
+	       ' Reverse On
+
+	       CASE 7
+		  reverse = 1
+
+	       ' Concealed Mode (No Output)
+
+	       CASE 8
+		  concealed = 1
+	     
+	       ' Foreground Colours
+
+	       CASE 30
+		  foreground = 0
+	       CASE 31
+		  foreground = 4
+	       CASE 32
+		  foreground = 2
+	       CASE 33
+		  foreground = 6
+	       CASE 34
+		  foreground = 1
+	       CASE 35
+		  foreground = 5
+	       CASE 36
+		  foreground = 3
+	       CASE 37
+		  foreground = 7
+
+	       ' Background Colours
+
+	       CASE 40
+		  background = 0
+	       CASE 41
+		  background = 4
+	       CASE 42
+		  background = 2
+	       CASE 43
+		  background = 6
+	       CASE 44
+		  background = 1
+	       CASE 45
+		  background = 5
+	       CASE 46
+		  background = 3
+	       CASE 47
+		  background = 7
+	    END SELECT
+	      
+	    IF reverse = 0 THEN
+	       COLOR foreground + bold, background + bold
+	    ELSE
+	       COLOR background + bold, foreground + bold
+	    END IF
+
+	 NEXT z
+   END SELECT
+RETURN
+
+' ===================
+' ** Error Handler **
+' ===================
+
+errorhandler:
+   RESUME NEXT
+RETURN
+
+ Thanks for all that Ben. A great contribution everyone, eh?
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART 3 - (Shareware Programming Libraries) ---------------
+-------------------------------------------------------------------------------
+
+ I've had a low response to this... never mind. I got this great response!
+
+ 'I have a shareware library for PowerBASIC, versions 3.0b or higher.
+  That includes PowerBASIC 3.0b, 3.0c, 3.1 and 3.2.
+
+  The latest version of my library is called MAXLIB For PB v1.2a.
+  It provides simplified, "painless" access to EMS/XMS. 
+
+  To access XMS, MAXLIB provides an array-based interface, where the
+  the programmer may dimension 1-dimensional arrays of any fixed
+  length data type. Element length must be divisible by 2. The arrays
+  can have up to 64K-1 elements. Maximum element length is 32K.
+  MAXLIB provides a number of supporting functions for writing to
+  and reading from the arrays, finding UBOUND and LBOUND, etc. There 
+  are over twenty functions in the XMS array interface.
+
+  To access EMS, MAXLIB provides two interfaces. One of them is
+  array-based and is identical to the XMS interface. 
+
+  The other EMS interface is patterned after FOR BINARY disk file 
+  access. It allows the programmer to convert existing file-based code
+  so that it continues to use disk access, when EMS is not present
+  or full, but if EMS is available that code will automatically
+  and transparently transfer the file to EMS. The effect is 
+  identical to reading and writing files from a RAM disk - the 
+  data access speeds up tremendously. This interface has about
+  twenty-five functions.
+
+  MAXLIB has excellent documentation, and is guaranteed.
+
+  You can buy MAXLIB with or without source. Without source
+  it costs US$35 + s/h. With source it costs US$70 + s/h.'
+
+ I would review this if I had PB. Anyway, it sounds great! You wouldn't 
+ mind converting it to Microsoft Basics (QB45,PDS) would you? ;-)
+
+ If you wish to contact the author then he is Brian M and he can be reached
+ at:
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART B PART 1 - (Basic tutorial 2/5) ----------------------------
+-------------------------------------------------------------------------------
+
+ Hey, all you beginning BASIC programmers!
+ ___---~~~---___---~~~---___---~~~---___--
+
+ I said I'd make up for the shortness of my article last time and I hope my
+ effort in this issue does make up for it. Right, last issue I discussed 
+ the simple output command, PRINT and I went into variables a little bit but
+ I only gave you quick bits about variables so I'll go into more detail here
+ and I'll show you one or two new commands. Here goes!
+
+ VARIABLES
+ ---------
+
+ A variable is like a small box. Certain variables can be different sizes 
+ from other variables, just like boxes. Variables take only one type of
+ thing in each of them. For example a number variable can only take numbers
+ and a string (or text) variable could only take text. 
+ To be able to distinguish whether a variable is a number or a string
+ variable we place suffixes after the name which we want the variable to have.
+ After the name of a string variable we place a dollar sign ($) and after a
+ number variable we place a percent sign (%). Here are some examples:
+
+ number% = 1234
+ a$ = "hello there"
+ i% = 45
+ name$ = "mr. blobby"
+
+ All of these examples could be programmed in QBasic (or PowerBasic) without
+ any errors.
+
+ Now if we remember back you may be able to remember (from last issue) that
+ you can print variables using the PRINT command. The PRINT command is
+ followed by the name of the variable that you want to display. Look at this
+ example:
+
+ name$ = "mr. blobby"
+ print name$
+
+ If you ran this program then on the screen the name 'mr. blobby' would be
+ printed because print name$ is printing the text inside the name$ variable.
+ Geddit?
+
+ RECEIVING INPUT FROM THE KEYBOARD
+ ---------------------------------
+
+ In programs you don't want to just change variables using the editor and
+ then rerun the program to get results, you need something to place data
+ typed in on the keyboard into a variable. The command we can use to do this
+ is the INPUT command. After this command you place the name of the variable
+ you want to put the typed data into. For example:
+
+ PRINT "What is your name:"
+ INPUT a$
+ PRINT a$
+
+ This program asks for your name. You type it in and press ENTER and that
+ data is put into the a$ variable. This variable is then displayed onto
+ the screen.
+
+ IN CLOSING
+ ----------
+
+ For a beginner programmer this is the main fundamental part, getting used
+ to using variables and the basic commands like INPUT and PRINT. From now on
+ we can zoom into the cool world of BASIC!
+
+ Bye, 8-)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION TWO -----------------------------------------------------------------
+-------------------------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ All levels articles:
+
+ This is where general BASIC info is presented. People of different levels
+ (novice,advanced etc) can use this section to their benefit.
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART 1 - (Useful BASIC\programming sources on the net) ----------
+-------------------------------------------------------------------------------  
+ 
+ This section of the fanzine is dedicated to telling you where to get useful
+ BASIC programs and utilities.
+
+ FTP SITES:
+
+	FTP.ESKIMO.COM  -  at this ftp site you can get Tim Gerchmez's 
+			   toolboxes. 
+
+	SimTel Mirrors  -  you can get tonnes of Basic stuff here,
+			   look at 
+			   ftp.coast.net        (U.S.)
+			    /Simtel/msdos/basic 
+			    /Simtel/msdos/qbasic
+			   ftp.demon.co.uk      (U.K.) 
+			    /pub/simtel/msdos/basic   
+			    /pub/simtel/msdos/qbasic
+			   ftp.cdrom.com        (U.S.)
+
+			   Archives of the fanzine will be available on the
+			   SimTel Mirrors soon
+
+	ABC home page -    http://users.aol.com/mhscards/abc.html
+
+	PCGPE (Pc Games Programmers Encyclopedia) -
+			   this is a VERY VERY good set of text files about
+			   programming (not just games), learn about sound
+			   + grafix + mouse etc. VGood. 700k though.
+			   x2ftp.oulu.fi
+			    /pub/msdos/programming/gpe
+
+	General cool Basic site -
+			   filled with loads of cool stuff, i know. i've looked
+			   FTP SITE :    users.aol.com
+					 /blood225
+
+ If you know any others then please tell me and it'll be put in here!
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART 2 - (Programming the mouse) --------------------------------
+-------------------------------------------------------------------------------
+
+ This is programming the mouse by : peter@trenham.demon.co.uk
+
+ Programming the mouse in QBasic is a very tedious affair although it is 
+ possible but I cannot describe how to do it before this fanzine is meant
+ to be out! So I am going to explain how to program the mouse in QuickBasic
+ 4.5 and PDS 7.1.
+
+ To program the mouse we need to use interrupts. If you want a more indepth
+ view into these then you will have to read the section on 'Interrupts in
+ depth' next issue... patience...
+ 
+ To be able to use interrupts you need QuickBasic or PDS 7.1 (both from
+ Microsoft) and I think PowerBasic may also allow you to do this but I cannot
+ be sure. On top of that you need a 'QB.BI' or 'QBX.BI' file. You get QB.BI
+ with QuickBasic 4.5 and you get 'QBX.BI' with PDS 7.1. Substitute QBX.BI
+ in my programs for whatever your one is called. 
+
+ To start your program off you need to do this:
+
+ '$INCLUDE: 'qbx.bi'
+ Dim shared inregs as RegType
+ Dim shared outregs as RegType
+
+ SUB mousecommand (ax%,bx%,cx%,dx%)
+ inregs.ax = ax%
+ inregs.bx = bx%
+ inregs.cx = cx%
+ inregs.dx = dx%
+ CALL INTERRUPT (&H33,inregs,outregs)
+ END SUB
+
+ Now, we have the definitions set up and we have a subroutine that gives the
+ mouse driver commands. Beware, this subroutine does not return anything from
+ the mouse... try and figure out how to do it.. if you can't then you'll have
+ to keep reading. So now, what are the commands? Well here goes... here is
+ a list of some of the mouse commands:
+
+ AX = 00               (Reset Mouse)
+ AX = 01               (Show Mouse Pointer)
+ AX = 02               (Hide Mouse Pointer)
+ AX = 03               (Get Mouse position and button status)
+   - returned values:
+		in BX  =   0 no buttons down
+			   1 left button down
+			   2 right button down
+			   3 both buttons down
+		in CX = x position
+		in DX = y position
+
+ Right! Those commands should get anyone started! ;-) So lets add some more
+ to the main part of our program.
+
+ mousecommand 1,0,0,0
+
+ That line (when run) would display the mouse pointer onto the screen. Try it
+ out and see! Now, to do something useful with the mouse we would need to know
+ where on the screen it actually was. We can get the X and Y coords by using
+ AX = 03 (see the table above). So lets try this:
+
+ mousecommand 3,bx%,cx%,dx%
+ x% = cx%
+ y% = dx%
+ print x%,y%
+
+ Now if we try that then we see that the x and y co-ords are NOT DISPLAYED!!
+ Why? Well as I said earlier, the procedure does not return anything from the
+ mouse... so we need a bit of an adjustment to our procedure...
+
+ SUB mousecommand (ax%,bx%,cx%,dx%)
+ inregs.ax = ax%
+ inregs.bx = bx%
+ inregs.cx = cx%
+ inregs.dx = dx%
+ CALL INTERRUPT (&H33,inregs,outregs)
+ ax% = outregs.ax
+ bx% = outregs.bx
+ cx% = outregs.cx
+ dx% = outregs.dx
+ END SUB
+
+ Now if we try then we see it works! Et voila, you have a program that reads
+ the mouse once and then displays the coords on the screen. To have something
+ more useful we could use this code in the main section of the program:
+
+ mousecommand 1,bx%,cx%,dx%
+ DO
+ mousecommand 3,bx%,cx%,dx%
+ x% = cx%
+ y% = dx%
+ locate 1,1
+ print x%,y%
+ LOOP WHILE bx% <> 1
+
+ Try it and see how it works! Have fun with the mouse! 
+
+ Mail me if you wish to see anything else mousewise covered...
+ Cheers, 8-)
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------  
+- SECTION THREE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Your Shout:
+
+ Anything that is sent for use for the zine that doesn't fit into the other
+ chapters is here. It's where your questions and programs go unless they fit
+ into an article or if you actually write an article or tutor.
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART I - (Questions and Answers) ------------------------------
+-------------------------------------------------------------------------------  
+
+QUESTION: 
+BTW you wouldn't have and info on X, Y, or Zmodem would you? Code would
+be nice, but general specs will do. BASIC, C, PASCAL, or Asm for code will
+be fine. Thanx...
+  
+ANSWER:  
+Can anyone help this chap? He's John Woodgate and can be reached at:
+	john@nmr.sbay.org
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+QUESTION:
+Most public schools that I know of that teach BASIC use either QBasic,
+GW-BASIC or BASICA (very few of the latter I hope) because it is
+included in DOS and there is no extra cost to the school.  Commercial
+book publishers have books for those three, and Visual Basic as well,
+but none for PowerBasic.  I know, I'm searching for one for next
+school year. Do you know of any?
+
+ANSWER: 
+I don't know hardly anything about this sort of thing. Especially for 
+PowerBasic. Although, PowerBasic is compatable is QBasic and so any QBasic
+book should do. But is there any special book which covers the PowerBasic
+functions?
+
+For QBasic programmers I recommend the Revoloutionary Guide to QBasic which
+is due out at the end of January 1996. I've seen a bit and it's a really
+good book which satisfies experts appetite as well as beginners...
+
+Anyway, if you have an answer for the question then mail this man:
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+Thomas W. Cowderyy                      Of all of the things that I have lost,
+twcowde@rs6000.cmp.ilstu.edeu                   I miss my mind the most.      
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+
+(hmm.. not a very good turnout of questions this week, eh?)
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART II - (PowerBasic or QBasic) ------------------------------
+-------------------------------------------------------------------------------  
+
+			   POWERBASIC or QBASIC?
+
+ Now we can declare the final scores of this small battle (battle?-ed):
+
+			61.5% - Microsoft Basics 
+			38.5% - Power Basic
+
+ How did this happen? I thought PowerBasic would win although I understand
+ that MS Basics are more readily available (like QBasic) and their IDEs
+ are simpler to use. This is discussed in the following comment from a
+ reader.
+
+ So, some more views on the topic to close:
+
+'I vote for PowerBASIC if the object is to create fast executable code
+ with the minimum of fuss and bother.  Its debugging is really good and
+ language support is excellent.
+
+ I vote for QBASIC if the object is to learn to program in BASIC, because
+ it's free, and because its IDE is a little easier to work in than
+ PowerBASIC's.'
+
+ This was from Steve Legg at:  steve.legg@canrem.com  
+
+ This has been quite a nice healty vote and I thank all of you people who
+ decided to vote. It was appreciated 8-)
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART III - (Your Programs) ------------------------------------
+-------------------------------------------------------------------------------  
+
+Here are this fanzines special selection of programs:
+
+Firstly, a POWERBASIC TSR program....  I know that people have been looking
+for TSRs and how to code them so get your eyes on this!
+
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' Program Title: POPUP.EXE
+'     Copyright: Virtual Simulations 1995
+'        Author: AA v Zoelen
+' Last Modified: 04-12-1995
+'       Version: 1.0
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'   Description: Makes a TSR program. Everytime you want to use the QBOX
+'                SUB from the scrnunit of PowerBasic you have to figure
+'                out what value you need for the color attribute to get
+'                the right color. This TSR will help you with it to choose.
+'                PARTS OF THIS PROGRAM ARE TAKE FROM POPUP.TIP, ALSO
+'                INCLUDE IN PB31.
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'         Notes: ALT-A to activate and ! to unload the TSR again.
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'       History: 04-12-1995 First issue
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+
+$CPU 8086                 ' program works on any CPU
+
+$OPTIMIZE SPEED           ' make fastest possible executable
+$COMPILE EXE              ' compile to an EXE
+
+$DEBUG MAP OFF            ' turn off map file generation
+$DEBUG PBDEBUG OFF        ' don't include pbdebug support in our executable
+
+$LIB COM        OFF       ' turn off PowerBASIC's communications library.
+$LIB CGA        OFF       ' turn off PowerBASIC's CGA graphics library.
+$LIB EGA        OFF       ' turn off PowerBASIC's EGA graphics library.
+$LIB VGA        OFF       ' turn off PowerBASIC's VGA graphics library.
+$LIB HERC       OFF       ' turn off PowerBASIC's hercules graphics library.
+$LIB LPT        OFF       ' turn off PowerBASIC's printer support library.
+$LIB IPRINT     OFF       ' turn off PowerBASIC's interpreted print library.
+$LIB FULLFLOAT  OFF       ' turn off PowerBASIC's floating point support.
+
+$ERROR BOUNDS   ON        ' turn off bounds checking
+$ERROR NUMERIC  ON        ' turn off numeric checking
+$ERROR OVERFLOW ON        ' turn off overflow checking
+$ERROR STACK    ON        ' turn off stack checking
+
+$FLOAT PROCEDURE          ' use procedural floating point to optimize for
+			  ' machines without a co-processor
+
+$COM    0                 ' set communications buffer to nothing
+$STRING 4                 ' set largest string size at 1024-18 CHAR.
+$STACK  2048              ' let's use a 2k stack
+$SOUND  1                 ' smallest music buffer possible
+
+'$DIM ARRAY               ' force arrays to be pre-dimensioned before they
+			  '  can be used
+$DYNAMIC                  ' all arrays will be dynamic by default
+
+$OPTION CNTLBREAK OFF     ' don't allow Ctrl-Break to exit program
+
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'LINKED FILES
+$LINK "c:\programs\pb31\link\pb31.pbl"
+' This is the standard PB31 library that is include [should be created.]
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'INCLUDE FILES
+DECLARE SUB Qbox(BYVAL Row%, BYVAL Col%, BYVAL Rows%, BYVAL Cols%, BYVAL Attr AS BYTE)
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'CONSTANTEN
+Rev$        = "versie 1.0"      ' Current revision
+Title$      = "POPUP.EXE"       ' Max. 11 Char.
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+   Rows%   =  3
+   Cols%   =  5
+   Attr?   =  0
+	  FUNCTION SaveScreen$ PUBLIC
+	    REG 1, 15*256
+	    CALL INTERRUPT &H10
+	    IF Reg(1)  - (Reg(1)\256)  * 256  = 7  THEN Address=&HB000 _
+	    else Address=&HB800
+	    DEF SEG = ADDRESS
+	    SaveScreen$=PEEK$(0,4000)
+	    DEF SEG
+	  END FUNCTION
+
+	  SUB RestoreScreen(S$) PUBLIC
+	    REG 1, 15*256
+	    CALL INTERRUPT &H10
+	    IF Reg(1)  - (Reg(1)\256)  * 256  = 7  THEN Address=&HB000 _
+	    else Address=&HB800
+	    DEF SEG = Address
+	    POKE$ 0, S$
+	    DEF SEG
+	  END SUB
+
+	  PRINT "PowerBASIC TSR!  Press ALT-A to activate."
+	  PRINT "Type ! to unload TRS."
+
+	  Dummy& = SETMEM(-640000)
+	  Dummy& = SETMEM(100000)
+	  POPUP KEY CHR$(8,30,247)
+	  DO
+	     POPUP SLEEP USING EMS, "C:\TEMP\SWAP.$$$"
+	     O$ = SAVESCREEN$
+	     X% = CSRLIN: Y%=POS(0)
+
+	     CLS
+	     FOR T% = 1 TO 3
+	       FOR Row% = 1 TO 24 step 4
+		 FOR Col% = 1 TO 78 step 6
+		   CALL Qbox(Row%, Col%, Rows%, Cols%, Attr?)
+		   LOCATE Row% + 1, Col% + 1
+		   P$ = LTRIM$(RTRIM$(STR$(Attr?)))
+		   PRINT p$
+		   INCR Attr?
+		 NEXT
+	       NEXT
+
+	       WHILE INKEY$ = ""
+	       WEND
+	     NEXT
+
+	     CLS
+	     FOR Row% = 1 TO 12 step 4
+	       FOR Col% = 1 TO 42 step 6
+		 CALL Qbox(Row%, Col%, Rows%, Cols%, Attr?)
+		 LOCATE Row% + 1, Col% + 1
+		 P$ = LTRIM$(RTRIM$(STR$(Attr?)))
+		 PRINT p$
+		 INCR Attr?
+	       NEXT
+	     NEXT
+
+	     LOCATE 16,1
+	     PRINT " FIND COLOR !"
+	     PRINT Rev$
+	     PRINT
+	     PRINT " Author  : AA v Zoelen
+	     PRINT " Date    : 04 Dec. 1995
+	     PRINT " Copyright (c), 1995, Virtual Simulations, All rights reserved."
+	     PRINT " Type ! to unload TRS."
+
+	     A$ = ""
+	     WHILE A$ = ""
+	       A$ = INKEY$
+	     WEND
+
+	     RESTORESCREEN O$
+	     LOCATE X%, Y%
+
+	     IF A$ = "!" THEN
+	       PRINT "TSR unloaded..."
+	       END
+	     END IF
+
+
+	  LOOP
+
+Now lets move on to Steven Sensarns PCX file viewer. Just one limitation with
+this program. Your PCX files HAVE to be 320x200. It should be easy enough to
+change but don't ask me how! Ask Steven if you need to know... 
+
+E-Mail: txs53132@bayou.uh.edu     if you want to talk to him
+
+SCREEN 13
+CLS
+TYPE TH
+MAN AS STRING * 1
+VER AS STRING * 1
+ENC AS STRING * 1
+BIT AS STRING * 1
+XLS AS INTEGER
+YLS AS INTEGER
+XMS AS INTEGER
+YMS AS INTEGER
+HRE AS INTEGER
+VRE AS INTEGER
+COL AS STRING * 48
+RES AS STRING * 1
+PLA AS STRING * 1
+BYT AS INTEGER
+PAL AS INTEGER
+FIL AS STRING * 58
+END TYPE
+DIM H AS TH
+DIM DAT AS STRING * 1
+OPEN FILE$ FOR BINARY AS #1
+GET #1, 1, H
+C = 1
+Y = 1: X = 1
+WHILE C <= 64000
+GET #1, , DAT
+IF ASC(DAT) > 192 AND ASC(DAT) <= 255 THEN
+LPS = ASC(DAT) - 192
+GET #1, , DAT
+VALUE = ASC(DAT)
+WHILE LPS > 0
+PSET (X, Y), VALUE
+IF X = 320 THEN X = 1: Y = Y + 1 ELSE X = X + 1
+C = C + 1
+LPS = LPS - 1
+WEND
+ELSE
+VALUE = ASC(DAT)
+PSET (X, Y), VALUE
+IF X = 320 THEN X = 1: Y = Y + 1 ELSE X = X + 1
+C = C + 1
+END IF
+WEND
+GET #1, LOF(1) - 768, DAT
+FOR LPS = 0 TO 255
+GET #1, , DAT
+A = INT(ASC(DAT) / 4)
+GET #1, , DAT
+B = INT(ASC(DAT) / 4)
+GET #1, , DAT
+C = INT(ASC(DAT) / 4)
+SLOT = LPS
+GOSUB CHANGECOLOR
+NEXT LPS
+CLOSE
+END
+
+CHANGECOLOR:
+R& = A
+G& = B
+B& = C
+G& = G& * 256
+B& = B& * 65536
+RGB& = R& + G& + B&
+PALETTE SLOT, RGB&
+RETURN
+
+There is a version of this without the GOSUB stuff but it's a bit of a pain
+to cut and that so settle for this.. it works!
+
+Now let's go onto this great TSR maker. It doesn't do all the coding for you
+but it does get you going. It uses the DEBUG dos program so if you have that
+then off you go! Sorry for the delay in publishing this, Isaac...
+If you want to talk to him then just mail  isaac.grover@dinuba.com
+
+CLS
+COLOR 10, 0
+PRINT "TSRMaker by Isaac Grover"
+PRINT "Released into the public domain on 11 Dec. 1995"
+PRINT
+INPUT "Please enter the desired size of the TSR"; s!
+t! = INT(((s! - 1) / 25) - 5)
+t$ = STR$(t!)
+PRINT "Creating debug file..."
+COLOR 7, 0
+OPEN "MAKETSR.DBG" FOR OUTPUT AS #1
+PRINT #1, "F0 FFFF 0"
+PRINT #1, "NMAKETSR.COM"
+PRINT #1, "A100"
+PRINT #1, "MOV AX,3100"
+PRINT #1, "MOV DX," + t$
+PRINT #1, "INT 21"
+PRINT #1, CHR$(13)
+PRINT #1, "RCX"
+PRINT #1, "8"
+PRINT #1, "W"
+PRINT #1, "Q"
+CLOSE #1
+COLOR 10, 0
+PRINT "Making TSR..."
+COLOR 7, 0
+SHELL "debug < maketsr.dbg > nul"
+KILL "maketsr.dbg"
+CLS
+COLOR 10, 0
+PRINT "Your TSR has now been made."
+PRINT
+PRINT "Enjoy!"
+SYSTEM
+---end of program---
+
+
+
+Also from Isaac, we have a small tune.. Up On The Rooftop! ;-)
+
+CLS
+PRINT "Up On The Rooftop"
+PLAY "MNT200L4O3CL8CDL4C<AFAL2>CL4DDC<AG>CL2CL4CL8CDL4C<AFA"
+PLAY "L2>CL4DDC<AG>CL2<FL4A+A+L2>DL4CL8CCL2<AL4GGL2A+L4AL8>C"
+PLAY "CL2<FL4>CL8CDL4C<AA+>CL2DL4CL8CDCCL4<AG>CL2<F"
+SYSTEM
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART IV - (Survey Results) ------------------------------------
+-------------------------------------------------------------------------------
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION FOUR ----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ Details about the fanzine:
+
+  This section of the fanzine is the last. It covers topics such as how to get
+  in touch with the author,who contributed to the fanzine and my last words.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART I - (How do you contribute?) ------------------------------
+-------------------------------------------------------------------------------  
+
+ So how do you contribute?
+ All you have to do is e-mail all of your source code\articles and ideas to:
+
+		bmag@trenham.demon.co.uk  - with contributions and articles
+
+		peter@trenham.demon.co.uk - with enquiries, etc..
+
+ Anything you send really has to be under 100 lines long of course unless it's
+ super excellent. I will allow long things in the fanzine but could you make
+ an arrangement with me first? ;-) It'd be much appreciated.
+ Thanks.
+
+ BTW, I'm especially looking for VB stuff or reviews of programming languages.
+ Also, PowerBASIC stuff because the powerbasic readers have been moaning there
+ is nothing especially for them. Thanks. :-)
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART II - (How do you contact the author?) ---------------------
+-------------------------------------------------------------------------------  
+
+ If you want to ask me a question about BASIC or the fanzine then please e-mail 
+ to the support address and I'll be only too pleased to answer although please
+ understand that you may not get an instant reply because my local mailserver
+ may break down (not rare) or I may be busy with other things. I'll respond ASAP
+
+ If you have something to share with everyone then post onto the alt.lang.basic
+ or comp.lang.basic.misc newsgroups (I read the latter most). Make the subject 
+ good as I don't read a lot of the articles straight away because of the titles
+ although I do read most of them eventually.
+
+ I'm also trying to create a new BASIC newsgroup. It may be called:
+		alt.games.programming.basic
+ I need comments on this especially.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART III - (Credits) -------------------------------------------
+-------------------------------------------------------------------------------  
+
+Greets go to (in no real order) :
+
+   The people at Wrox Press again,
+    for contributing a super article to the fanzine this issue
+   
+   John Woodgate,
+    who is still contributing as well as ever and helping me on my project
+    UV1
+    (john@nmr.sbay.org - sorry I got this address wrong last issue)
+   
+   James Erickson,
+    who's cool... and is doing this WWW stuff for me (need I say more!)
+    (madamee@teleport.com)
+   
+   Everyone who completed the survey
+    I'm still implementing new features to make the fanzine better.
+   
+   Other people who wrote to me and who contributed code, gave me ideas or
+   helped in any way:
+    Ben Ashley
+    Matt Doss              - (made me decide to do the tutorials)
+    Douggie Green
+    Nick Blomstrand
+    Issac Grover
+ 
+ Remember that this fanzine relies on your contributions. Cheers, ;-)
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART IV - (Fanzine on the WEB!) --------------------------------
+-------------------------------------------------------------------------------  
+
+ If you don't like missing the fanzine and don't want to go around FTP sites
+ to look for it then it may soon be on the World Wide Web! 
+
+ James Erickson (madamee@teleport.com) has been offering to smarten up the
+ fanzine (smartening up?-ed) and place it on his www page. I'm still in talks
+ with him. You'll know the final result soon. ;-)
+
+ Also, I'm trying for a WWW page but my internet provider decides to charge
+ high rates for just a small fanzine... I'm talking with them, perhaps the
+ situation will change. 
+
+ I hope if this service becomes available then you'll like to use it!
+
+ ALSO---
+	The Fanzine will soon be available on the Simtel Mirror FTP sites. 
+ It's not there at the time of the writing but hopefully it'll be there for
+ January. I'll be publishing a list of sites and directorys then. (if it
+ gets on there by then :-) ). 
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART V - (Last Words+Next month) -------------------------------
+-------------------------------------------------------------------------------  
+
+ NEXT MONTH:
+	SPECIALIZED ARTICLES:
+		[Advanced\Intermediate]
+		Interrupts and how they can work for you
+		John Woodgates Disk buffering WAV player
+		[Novice]
+		Basic Tutorial 2/5
+	ALL LEVELS ARTICLES:
+		Programming the mouse
+	YOUR SHOUT:
+	
+	DETAILS ABOUT THE FANZINE:
+		How to contact us.
+		Rundown on the Jan 1996 fanzine.
+
+ Well, hopefully you'll see the next fanzine on Mon, 15th January. It'll be
+ posted on Sun, 14th January. 
+
+ Last words:

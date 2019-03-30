@@ -1,0 +1,110 @@
+PLEASE READ THIS PAGE CAREFULLY.  It gives important ordering information.
+Truly, I'm not doing this just to torture you!  Take a moment and look.
+
+Depending on the product, registration may be done in any of three ways.
+Some products can be registered through Public (software) Library, which
+accepts credit cards, or CompuServe, which bills your account, as well as
+directly through me (checks and money orders only).
+
+Registration of a product entitles you to receive a disk or disks containing
+the latest version of that product.  Full source code is provided with my
+programming libraries, but not with other products.  Registration entitles
+you to receive updates at reduced cost (typically about a third of the
+original registration price).  Update notices are mailed periodically.
+
+The Sampler includes a large collection of products, both free and shareware.
+It is included with any registration at no cost, or you may order it by
+itself.  See the CATALOG.TXT for a general description-- the items mentioned
+are representative and are subject to updates or replacement by other items.
+
+All checks must be in U.S. funds drawn on U.S. banks.  Sorry, checks drawn on
+foreign banks are no longer accepted-- it takes them too long to clear and
+there is a large surcharge, so they just aren't worth it to me.  If you are
+in another country, consider using an international money order.
+
+For AsmWiz, BasWiz, PasWiz, and PBClone, credit card orders are now accepted
+through the fine offices of the Public (software) Library.  If you wish to
+register by MC, Visa, or American Express, call PsL at 1-800-2424-PSL or FAX
+them at 1-713-524-6398. These numbers are for ORDERS ONLY.  For questions
+about credit card orders, call PsL at 1-713-524-6394.  You can also mail
+credit card orders to PsL at: P.O. Box 35705, Houston TX 77235-5705.  FOR
+FASTEST SERVICE, include the item number:
+   #10580  AsmWiz     #10581  BasWiz     #10582  PasWiz     #10387  PBClone
+
+Registration can also be done through CompuServe if you have an account
+there (GO SWREG to register).  Here are the registration I.D. numbers:
+   #207  AsmWiz     #206  BasWiz     #208  PasWiz     #74  PBClone
+   #209  PBWiz      #205  QBTiny
+
+Orders for upgrades or other products, as well as technical questions or
+comments, should be directed to me at the address listed on the next page.
+
+The Public (software) Library and CompuServe only process orders and are not
+responsible for any other services related to my software.
+
+Please allow 2-3 weeks for delivery if you mail registrations directly to
+me.  While I try to process registrations as quickly as possible, I employ a
+mail drop in order to maintain a permanent address, and this imposes an
+unavoidable delay.  Order through P(s)L or CompuServe for fastest service.
+
+PRICES CHANGE.  If your product is more than a year old, consider it dated.
+Write for current prices or check with one of the BBSes listed in WHERE.BBS
+for the current version.
+
+   M A I L   T O        Thomas G. Hanlin III
+   ---------------->    3544 E. Southern Ave. #104
+                        Mesa, AZ 85204
+
+
+
+                                           Price Ea.     Qty        Amount
+ +--------+------------------------------+-----------+----------+-------------+
+ | SAMPLE | Sampler (see CATALOG.TXT)    |           |          |             |
+ |        | *FREE WITH ANY REGISTRATION* |   $ 5.00  |     1    |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | APT    | A Programmer's Toolbox       |           |          |             |
+ |        |    for serious programmers   |  $ 45.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | ASMWIZ | Assembly Wizard's Library    | 1992 ONLY |          |             |
+ |        |    for asm programming       |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | BASWIZ | BASIC Wizard's Library       |           |          |             |
+ |        |    for QuickBASIC and PDS    |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PASWIZ | Pascal Wizard's Library      |           |          |             |
+ |        |    for Quick & Turbo Pascal  |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PBCLON | PBClone Library              | 1992 ONLY |          |             |
+ |        |    for QuickBASIC and PDS    |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | QBTINY | QBTiny shrinks your .EXEs    |           |          |             |
+ |        |    for QuickBASIC and PDS    |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PBWIZ  | PowerBASIC Wizard's Library  | 1992 ONLY |          |             |
+ |        |    for Spectra's PowerBASIC  |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | Shipping (only for addresses outside the U.S.A.)       $4.00 |             |
+ +--------------------------------------------------------------+-------------+
+ |                                                              |             |
+ |   T O T A L   E N C L O S E D                                |             |
+ +--------------------------------------------------------------+-------------+
+
+ Mailing address:
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+
+ ***---> Disk type:  [  ] 360K    [  ] 720K    [  ] 1.2M    [  ] 1.44M  <---***
+
+
+
+
+ Please list any suggestions or comments on the back of this page.  Your
+ suggestions are most welcome and I do pay attention to them.
+

@@ -1,0 +1,10 @@
+_words
+_wordu                  Adapted from routines by Randy Hyde
+_doublewords                      and others
+_doublewordu
+
+_crc16                  Adapted from routine by Chris Barrett
+
+_tty_str_direct         Parts taken from routines by Sidney J Kelly
+
+* All other code is written solely by rowan crowe. *

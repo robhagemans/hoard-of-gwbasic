@@ -1,0 +1,29 @@
+BPREP History                                                            6/22/91
+________________________________________________________________________________
+
+ 6/22/91 - Version 1.00  Beta - not released to public
+
+ 9/16/91 - Version 1.01       - first public release
+                                fixed conditional error reporting
+                                added nested conditionals to shareware version
+                                added nested include files to shareware version
+
+10/12/91 - Version 1.02       - bug fix release
+                                fixed error reporting of dangling conditional
+                                end directives.
+
+11/04/91 - Version 1.10       - bug fix release
+                                fixed memory problems, thanks to Holger
+                                Kraus for pointing this out.
+
+                                fixed problem with lockups when using
+                                undef with a previously undefined symbol
+                                thanks to Clinton Warren for this one
+
+03/01/92 - Version 2.00       - update
+                                fixed last memory bug !  will not run out
+                                of memory after 29 include files, thanks
+                                to Holger Kraus for reporting this one.
+
+                                added error file output option
+                                added command line constant definition

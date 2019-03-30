@@ -1,0 +1,88 @@
+To use the library of real functions, make sure the library is in the same
+directory as QuickBASIC.  Then, invoke QuickBASIC with the following command
+line (or something similar):
+
+     c:\qb45\qb/l realfun
+
+where is this case, the program is in the c:\qb45 directory.  Once the library
+is loaded, you will need to explicitly declare each function that you wish to
+use.  For example, to use the 'amod' function, put this line at the top of
+your program:
+
+     DECLARE FUNCTION amod! (x!, b!)
+
+and a similar one for any other functions you want to use from this library.
+The list of functions, their precision, and description, follows.
+
+
+          Library of Real Functions
+
+
+ function	          precision	     comments
+
+ amod! (x!, b!)     single         x modulo b.  x, b, amod all floating pt.
+ dmod# (x#, b#)     double           "       x#, b#, dmod# all floating pt.
+
+ amin! (x!, y!)     single         minimum of x and y
+ dmin# (x#, y#)     double           "
+
+ amax! (x!, y!)     single         maximum of x and y
+ dmax# (x#, y#)     double           "
+
+ sind! (x!)         single         sine of x, x in degrees
+ cosd! (x!)           "            cosine,        "
+ tand! (x!)           "            tangent,       "
+
+ dsind# (x#)        double         sine of x, x in degrees
+ dcosd# (x#)          "            cosine,        "
+ dtand# (x#)          "            tangent,       "
+
+ asin! (x!)         single         inverse sine of x, returns radians
+ acos! (x!)           "            inverse cosine,     "
+ ATN(x)               "            inverse tangent, (intrinsic to Quick-
+                                        BASIC), returns radians
+ atan! (y!, x!)       "            inverse tangent of y/x, correcting for
+                                        quadrant, returns radians
+
+ asind! (x!)        single         inverse sine of x, returns degrees
+ acosd! (x!)          "            inverse cosine,     "
+ atnd! (x!)           "            inverse tangent,    "
+ atand! (y!, x!)      "            inverse tangent of y/x, correcting for
+                                        quadrant, returns degrees
+
+ dasin# (x#)        double         inverse sine of x, returns radians
+ dacos# (x#)          "            inverse cosine,     "
+ ATN(x#)              "            inverse tangent, (intrinsic to Quick-
+                                        BASIC), returns radians
+ datan# (y#, x#)      "            inverse tangent of y/x, correcting for
+                                        quadrant, returns radians
+
+ dasind# (x#)       double         inverse sine of x, returns degrees
+ dacosd# (x#)         "            inverse cosine,     "
+ datnd# (x#)          "            inverse tangent,    "
+ datand# (y#, x#)     "            inverse tangent of y/x, correcting for
+                                        quadrant, returns degrees
+
+ sinh! (x!)         single         hyperbolic sine of x
+ cosh! (x!)           "            hyperbolic cosine
+ tanh! (x!)           "            hyperbolic tangent 
+
+ dsinh# (x#)        double         hyperbolic sine of x
+ dcosh# (x#)          "            hyperbolic cosine
+ dtanh# (x#)          "            hyperbolic tangent
+
+ asinh! (x!)        single         inverse hyperbolic sine of x
+ acosh! (x!)          "            inverse hyperbolic cosine
+ atanh! (x!)          "            inverse hyperbolic tangent
+
+ dasinh# (x#)       double         inverse hyperbolic sine of x
+ dacosh# (x#)         "            inverse hyperbolic cosine
+ datanh# (x#)         "            inverse hyperbolic tangent
+
+
+Note:  most of the trigonometric functions (regular and hyperbolic sine,
+cosine, and tangent) are not one-to-one, that is, more than one value of x
+will lead to the same functional value.  This makes it difficult to determine
+exactly which value of x to return with the inverse trig functions.  This has
+only been accounted for with the inverse tangent function (atan, atand, datan,
+datand); you are left to your own devices for the rest.

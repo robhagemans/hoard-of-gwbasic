@@ -1,0 +1,2407 @@
+                The PowerBASIC Wizard's Library
+                =-----------------------------=
+                          Version 1.7
+
+     PBWIZ  Copyright (c) 1991-1993  Thomas G. Hanlin III
+
+
+
+This is the PowerBasic Wizard's Library, a collection of BASIC
+and assembly language routines for use with PowerBasic 3.0 by
+Spectra Publishing. This collection is protected by copyright,
+but may be distributed according to the following conditions:
+
+   All PBWiz files must be distributed together in unmodified
+   form. No files may be removed or added.
+
+YOU USE THIS LIBRARY AT YOUR OWN RISK. It has been tested by me
+on my own computer, but I will not assume any responsibility for
+any problems which PBWiz may cause you. If you encounter a
+problem, please let me know about it, and I will do my best to
+verify and repair the error.
+
+Shareware is not free software. It operates on a "try before you
+buy" basis. It is expected that if you find PBWiz useful, you
+will register your copy. You may not use PBWiz routines in
+programs intended for distribution unless you have registered.
+
+Registration entitles you to receive the latest version of
+PBWiz, complete with full source code in assembly language and
+BASIC. The assembly code is designed for the MASM 6.0 assembler
+and may require modifications for use with other assemblers. See
+the ORDER.FRM file for ordering information.
+
+                       Table of Contents                  page 2
+
+
+
+ Synopsis and Legal Info .................................... 1
+
+ Table of Contents .......................................... 2
+
+ Overview ................................................... 3
+
+ Library Utilities .......................................... 4
+
+ ANSI emulation ............................................. 5
+
+ Archives ................................................... 6
+
+ Dates and Times ............................................ 8
+
+ Disk Directories ........................................... 9
+
+ Equipment Info ............................................ 11
+
+ Extended Math ............................................. 15
+
+ Graphics .................................................. 19
+
+ Joystick .................................................. 25
+
+ Keyboard .................................................. 26
+
+ Memory (EMS) .............................................. 30
+
+ Memory (XMS) .............................................. 33
+
+ Mouse Support ............................................. 35
+
+ SoundBlaster .............................................. 38
+
+ Strings ................................................... 41
+
+ Telecommunications ........................................ 44
+
+ Text-mode Video ........................................... 48
+
+ Credits ................................................... 52
+
+                           Overview                       page 3
+
+
+
+Any program that uses any of the PBWiz routines must DECLARE
+them appropriately. To make this easy, I've created a single
+file which contains all of the necessary declarations. Put the
+following line at the top of your program to use it:
+
+   $INCLUDE "pbwiz.inc"
+
+The DECLARE statements contained in the PBWIZ.INC file tell
+PowerBASIC how to behave when it runs into any PBWiz routines.
+Unfortunately, PowerBASIC assumes you actually need all of the
+DECLAREd routines in your program-- so, use this only for
+development, until you're sure which PBWiz routines are needed
+by the program. At that point, you can remove the $INCLUDE, and
+put in only the DECLAREs for the routines you actually use in
+your program. That will make your .EXE much smaller.
+
+The DECLAREs just tell PowerBASIC what routines to expect. You
+must also tell PowerBASIC where to find the routines:
+
+   $LINK "pbwiz.pbl"
+
+It is no longer necessary to $LINK each unit separately, since
+PowerBasic 3.0 provides true libraries. A library is nothing
+more or less than a collection of units. Instead of having to
+remember which routine is in which unit, you just put the unit
+in a library, and let the linker figure it out. Look, Ma-- no
+hands! The ability to use libraries adds terrific power to the
+BASIC language. But of course, you expect power of PowerBASIC!
+
+Note that $LINK is only used in your main program. If you write
+units which use PBWiz, you must include the appropriate DECLAREs
+in each unit, but not $LINK. The $LINK metacommand goes in the
+main program which makes use of the unit, not in the unit
+itself.
+
+                      Library Utilities                   page 4
+
+
+
+The PBLIB.EXE librarian that comes with PowerBASIC 3.0 provides
+most of the features you'd expect of a library utility. Its
+interactive design is convenient for light library handling. If
+you're using a serious library like PBWiz, however, you may find
+it inadequate. PBWiz comes with a set of utilities which extend
+PBLIB to be more useful with large libraries. These utilities
+act as a shell for PBLIB, feeding it appropriate values based on
+your input-- so they are perfectly compatible.
+
+If you wish to update a library with new versions of routines
+that are already in the library, use LIBUPD:
+
+   LIBUPD libname module
+
+Here, "libname" is the name of the library. The .PBL extension
+is optional. The "module" is the name of the object file (.OBJ
+or .PBU) to update. You may list multiple modules, separated by
+spaces, and the module name(s) may contain wildcards. LIBUPD
+will delete existing modules by that name (regardless of
+extension) from the library before adding the current version of
+the module to the library. If you don't specify a module
+extension, LIBUPD will use .OBJ if available, or .PBU otherwise.
+
+The LIBUPD utility can be used to add new modules to a library.
+However, if you are building a new library or are adding modules
+that you know are not already in an existing library, it is more
+efficient to use LIBADD, which works the same way:
+
+   LIBADD libname module
+
+You can also list the contents of a library in any of a number
+of ways, using LIBLIST:
+
+   LIBLIST libname switch
+
+The switch may come before or after the libname. Only one switch
+may be used at a time. The switch may be:
+
+   /EXTERNALS      list externals (routines the module needs)
+   /MODULES        list modules
+   /PUBLICS        list publics (routines the module provides)
+   /RAW            list the info that PBLIB gives, unchanged
+
+The switch may be abbreviated to as little as one character. If
+you choose /EXTERNALS or /PUBLICs, the result will be an
+alphabetized list, cross-referenced with the name of the module
+that contains the symbols. If you choose /MODULES, an
+alphabetized list of the names of the modules contained in the
+library will be provided. If you choose /RAW, you'll get the
+same results as you would by going directly through PBLIB.EXE.
+The name of the output file will be libname.LST.
+
+These utilities create temporary files before the final output.
+You will get faster results if you set an environment variable
+TEMP to point to a RAMdisk.
+
+                        ANSI Emulation                    page 5
+
+
+
+The ANSI emulator allows you to display text with ANSI codes
+without any need for ANSI.SYS or other ANSI drivers.  All you
+have to do is replace any PRINT statements with a call to the
+ANSI emulator:
+
+   PRINT St$;
+
+turns into
+
+   AnsiPrint St$
+
+Note that this does not include a carriage return and linefeed.
+If you want one, you'll have to add it explicitly:
+
+   St$ = St$ + CHR$(13) + CHR$(10)
+   AnsiPrint St$
+
+Other ASCII codes are supported as well, including CHR$(7)
+[bell], CHR$(8) [backspace], and CHR$(12) [formfeed].
+
+For a list of ANSI display codes, see your DOS manual or check
+with your local BBS.
+
+                           Archives                       page 6
+
+
+
+When I started in the microcomputer industry, there was a small
+variety of file archivers, all (more or less) compatible. They
+did not provide compression, which was relegated to another
+large selection of more-or-less compatible utilities. Then came
+SEA's ARC. It was very slow, but it did compression as well as
+archiving, and included CRC checks so you could know whether the
+files were intact. It swept the BBS scene in short order,
+becoming the new standard. A few other archivers competed on
+about a level footing, providing only minor variances on the ARC
+theme. Then SEA decided to sue one of their more successful
+competitors, Phil Katz (PKARC). The end result was PKZIP, which
+totally blew ARC away-- a useful hint to companies that choose
+to litigate instead of innovate. In the chaos resulting from the
+breaking of the former ARC standard, many other archivers came
+into being: ARJ, LZH, PAK, ZOO, et al.
+
+PBWiz helps resolve the confusion by providing a single set of
+routines which allow you to view the contents of archives in any
+of the above-mentioned formats: ARJ, LZH, PAK, ZIP, ZOO, and
+even the antique ARC protocol. It also handles self-extracting
+EXE files of the forms produced by ARJ, LHARC and ZIP2EXE. Only
+archive directories are provided at this time. Other formats
+will also be added as they arise. If you have details on the
+format of an archive that you'd like me to add to PBWiz, please
+send them my way.
+
+Viewing archive directories is handled in roughly the same
+fashion as you might view a DOS file directory. This makes it
+possible to treat an archive and a subdirectory in a similar
+manner, as long as the archive doesn't contain archives itself.
+
+Please note that the archive routines use OPEN FOR BINARY.
+Unfortunately, PowerBasic ignores OPTION BASE BINARY in
+subprograms, so it is necessary for you to include the following
+statement in your main program if you use the archive routines:
+
+   OPTION BASE BINARY 1
+
+This causes binary files to be numbered starting at 1, as is
+traditional for BASIC, rather than the peculiar 0 default that
+PowerBasic uses only for binary files. I'll add a set of file
+routines to PBWiz in the future, at which point this silliness
+can be dispensed with.
+
+When you're looking for the first file in an archive, use the
+FindFirstA function. You must specify the archive name and a
+file name. The archive name may include a drive and path
+specification, and does not need to have the archive extension.
+If you leave off the extension, FindFirstA will use the first
+archive it comes across that matches the rest of the
+specification. Note that the archive specification may not
+contain wildcards. In contrast, the search file name may not
+contain drive or path specs, but may contain wildcards.
+
+   FindFirstA Archive$, Filename$, ErrCode%
+
+                           Archives                       page 7
+
+
+
+If there are no files to be found, or if the archive
+specification was bad, an error code will be returned. If there
+was no error, there may well be more files to be found. You can
+find each of them with FindNextA:
+
+   FindNextA ErrCode%
+
+Of course, just finding a matching file doesn't do you much good
+unless you can retrieve information about it. You can use any of
+the following routines to provide information about a matched
+file:
+
+   Nam$ = GetNameA$
+   Dat$ = GetDateA$
+   Tim$ = GetTimeA$
+   CRC$ = GetCRCA$
+   StorageMethod$ = GetStoreA$
+
+   GetSizeA OriginalSize&, CurrentSize&
+
+When you're done viewing an archive, be sure to close it:
+
+   CloseA
+
+Let's try an example, to view all files in an archive:
+
+   $INCLUDE "pbwiz.inc"
+   $LINK "pbwiz.pbl"
+   ' set Archive$ to the name of an archive here!
+   FindFirstA Archive$, "*.*", ErrCode%
+   DO UNTIL ErrCode%
+      PRINT GetNameA$
+      FindNextA ErrCode%
+   LOOP
+   FCloseA
+
+This program fragment assumes that you have set Archive$ to the
+name of an archive. It might be convenient to set it to the
+command line for testing purposes:
+
+   Archive$ = UCASE$(LTRIM$(RTRIM$(COMMAND$)))
+
+                        Dates and Times                   page 8
+
+
+
+This unit allows you to validate and compare dates. It also
+provides the day of the week, given the date. Dates may not be
+before the year 1900. Date strings may be in the form "01/01/91"
+or "01-01-1991" (the delimiter is not significant and years may
+be two or four digits; two-digit years will be assumed to be in
+the 20th century).
+
+Let's start off with date validation. It's often important to
+know if a date entered into your program is a valid date.
+
+   IF GoodDate%(DateSt$) THEN PRINT "The date is valid."
+
+It can also be helpful to know on which day of the week a given
+date falls.
+
+   Day$ = WeekDay$(DateSt$)
+
+There are many useful things you can accomplish by turning a
+date into a number which represents that date (or vice versa).
+This allows you to compare two dates, which is important if you
+want to sort by date; find out what the date will be in a given
+number of days, or what it was some number of days ago; find the
+number of days between two dates; display a calendar; and so
+forth. This is easy to do with PBWiz:
+
+   DateNr& = Date2Num&(DateSt$)
+
+   DateSt$ = Num2Date$(DateNr&)
+
+The DateNr& represents the number of days since January 1, 1900.
+This is less than 65,535 for dates that go up to around the year
+2070 or so, so you may wish to store the dates in compressed
+two-byte form if your required range of dates is not that large:
+
+   CrunchDate% = CVI(LEFT$(MKL$(DateNr&), 2))
+
+This can be reversed simply:
+
+   DateNr& = CVL(MKI$(CrunchDate%) + STRING$(2, 0))
+
+Note that dates crunched this way are only useful for storage
+purposes, since the numbers greater than 32,767 are stored as
+negative numbers due to the signed integer format BASIC uses.
+You must uncompress them before doing any comparisons or date
+calculations. Still, for a savings of 50%, it may be worth the
+hassle to convert back and forth.
+
+                       Disk Directories                   page 9
+
+
+
+This unit lets you read disk directories and retrieve the same
+information the DIR command shows, plus the file attribute. A
+string buffer is used to allow recursive directory searching.
+
+When you're looking for the first file in a directory, use the
+FindFirstF function. You must provide a search filespec, which
+may contain a drive and path specification and use wildcards.
+You must also provide a search attribute, which may be any
+combination of the following added together:
+
+   Normal          0      (nothing special)
+   Read Only       1      file can be read, but not written to
+   Hidden          2      file is "invisible"
+   System          4      special DOS system file
+   Subdirectory   16      subdirectory
+   Archive        32      (used by some backup utilities)
+
+Note that you will always get all files that match any of your
+search specs. For example, if your search attribute was 18,
+you'd get normal files, hidden files, normal subdirectories and
+hidden subdirectories. If you want to be more specific, you will
+have to test the file attribute of the resulting file.
+
+You must provide a string buffer for the directory search
+routine. This buffer must be 64 characters long and should be
+initialized before each call to FindFirstF. By using different
+buffer strings, you can search more than one directory at a
+time, or perform recursive searches through directories.
+
+   Buffer$ = SPACE$(64)
+   FindFirstF Buffer$, Filename$, ErrCode%
+
+If there are no files to be found, or if the file specification
+was bad, an error code will be returned. If there was no error,
+there may well be more files to be found. You can find each of
+them with FindNextF:
+
+   FindNextF Buffer$, ErrCode%
+
+Of course, just finding a matching file doesn't do you much good
+unless you can retrieve information about it. You can use any of
+the following routines to provide information about a matched
+file:
+
+   FilAttr% = GetAttrF%(Buffer$)       ' file attribute
+   FilName$ = GetNameF$(Buffer$)       ' file name
+   FilDate$ = GetDateF$(Buffer$)       ' file date
+   FilSize& = GetSizeF&(Buffer$)       ' file size
+   FilTime$ = GetTimeF$(Buffer$)       ' file time
+
+                       Disk Directories                  page 10
+
+
+
+The file attribute can be most readily decoded with a series of
+ANDs. For example, to test for a subdirectory, you'd use:
+
+   IF FilAttr% AND 16 THEN PRINT "subdirectory"
+
+Let's put all these routines together and see what it takes to
+make a quick'n'dirty DIR-style utility.
+
+   $INCLUDE "pbwiz.inc"
+   $LINK "pbwiz.pbl"
+   SearchName$ = COMMAND$  ' get search spec from command line
+   Buffer$ = SPACE$(64)    ' set up buffer
+   FindFirstF Buffer$, SearchName$, SearchAttr%, ErrCode%
+   DO UNTIL ErrCode%
+      PRINT GetNameF$(Buffer$), GetSizeF&(Buffer$),
+      PRINT GetDateF$(Buffer$), GetTimeF$(Buffer$),
+      FilAttr% = GetAttrF%(Buffer$)
+      IF FilAttr% AND 1 THEN PRINT "Read Only  ";
+      IF FilAttr% AND 2 THEN PRINT "Hidden  ";
+      IF FilAttr% AND 4 THEN PRINT "System  ";
+      IF FilAttr% AND 16 THEN PRINT "Subdirectory  ";
+      IF FilAttr% AND 32 THEN PRINT "Backup  ";
+      PRINT
+      FindNextA ErrCode%
+   LOOP
+
+Doesn't take much, does it? Now you can add disk directory
+handling to your program with a bare minimum of effort!
+
+                        Equipment Info                   page 11
+
+
+
+The equipment unit gives you information about the computing
+environment. This includes both installed software and hardware.
+
+The first function allows you to determine if an "enhanced"
+keyboard (101-key) is installed. It may not be able to figure
+out what the keyboard is on some older not-quite-clone PCs, in
+which case it will take the safe way out and report that there
+is no enhanced keyboard. This function returns -1 if there is an
+enhanced keyboard present, 0 if not.
+
+   Enhanced% = KbdType%
+
+Want to know the type of processor (CPU) being used? Can do!
+
+   CPU% = Processor%
+
+The results will be reported as a number which can be decoded as
+follows:
+
+   0    NEC V20
+   1    8088 or 8086
+   2    80186
+   3    80286
+   4    80386
+   5    80486
+
+Maybe you'd like to check for a CD-ROM drive:
+
+   Drives% = CDROM%
+
+This tells you how many logical drives exist, if there is a
+CD-ROM available. If not, it will return 0. Note that the CD-ROM
+installation check conflicts with the GRAPHICS.COM installation
+check for DOS 4.0, due to some screw-up at IBM or Microsoft. I'm
+not yet sure whether DOS 5.0 is similarly afflicted.
+
+The number of floppy drives installed is retrieved like this:
+
+   Drives% = Floppies%
+
+                        Equipment Info                   page 12
+
+
+
+There may be up to four floppy drives in a system; however, the
+AT CMOS data area only directly supports two. This makes it easy
+to find out what kind of drives the first two are, but not the
+second two. Oh well, guess we'll have to settle for what we can
+get, right?
+
+   FloppyType Drive1, Drive2
+
+The results from FloppyType are returned as follows:
+
+   0    no drive
+   1    5 1/4"    360K
+   2    5 1/4"    1.2M
+   3    3 1/2"    720K
+   4    3 1/2"    1.44M
+
+Result codes of 5-7 are available, but not yet defined. One
+might guess that the 2.88M drive supported by DOS 5.0 will be
+drive type 5. Has anybody seen one of those puppies yet?
+
+New memory types sure have burgeoned over the years... expanded,
+extended, and now XMS. There are routines to check all of these:
+
+   BaseExt& = AllExtMem&     ' extended memory installed
+   NowExt& = GetExtM&        ' BIOS extended memory available
+
+   GetEMSm TotalPages%, FreePages%    ' expanded memory
+
+   GetXMSm LargestFree&, TotalFree&   ' XMS memory
+
+When you're dealing with extended memory, whether it be
+BIOS-type or using the XMS standard, the results are returned in
+kilobytes. Multiply 'em by 1024 to convert to bytes. When you're
+dealing with expanded memory (EMS), the results are in pages of
+16,384 bytes.
+
+I might note, by the way, that Microsoft seems to have
+intentionally crippled the XMS standard. It can only support a
+maximum of 64 megabytes. This may seem like a lot now, but I can
+remember when my first PC (a Compaq portable) was the awe of the
+neighborhood with 384K RAM! A few years down the road, the
+artificial limitations of XMS are going to be a nuisance.
+
+A few more routines to get the versions of the EMS and XMS
+drivers, if any:
+
+   GetEMSv MajorV%, MinorV%
+   GetXMSv MajorV%, MinorV%
+
+These return the major and minor version numbers as two separate
+integers. For example, EMS 4.0 would return major version 4,
+minor version 0.
+
+                        Equipment Info                   page 13
+
+
+
+It's nice to know a little about the operating environment. With
+the below routines, you can find out what the DOS version is;
+what version of 4DOS, if any, is in use; and whether Microsoft
+Windows is running.
+
+   GetDOSv MajorV%, MinorV%
+   Get4DOSv MajorV%, MinorV%
+   WinCheck MajorV%, MinorV%
+
+These return results as major and minor version numbers, as
+discussed on the previous page. The Get4DOSv and WinCheck
+routines return zeroes if 4DOS and Windows, respectively, are
+not available.
+
+There are a couple of curious features of GetDOSv to keep in
+mind. If the version is 10 or higher, you're running in OS/2
+compatibility mode. DOS version 10 is actually OS/2 1.0, version
+20 is OS/2 2.0, and so on. Secondly, if you're using DOS 5.0,
+the version reported may not be 5.0-- DOS 5.0 can be told to
+reply with a lower version number to allow some older software
+(which checks for a specific DOS version) to run properly.
+
+One final routine that should be of some value is the one that
+allows you to find out what kind of display is available. It
+tells you the specific adapter and whether the display is color
+or monochrome. There is one case in which it can be confused,
+however-- if the adapter is CGA, the display is assumed to be
+color, since there is no way for the computer to know any
+differently. So, although this routine provides a good idea of
+what is available, it would be a good idea to provide an option
+to tell the program that a monochrome display is attached.
+Microsoft normally uses "/B" for this purpose, so that might be
+a good standard to stick with.
+
+   GetDisplay Adapter%, Mono%
+   IF Mono% THEN
+      PRINT "Monochrome monitor"
+   ELSE
+      PRINT "Color monitor"
+   END IF
+   SELECT CASE Adapter%
+      CASE 1: PRINT "MDA"
+      CASE 2: PRINT "Hercules"
+      CASE 3: PRINT "CGA"
+      CASE 4: PRINT "EGA"
+      CASE 5: PRINT "MCGA"
+      CASE 6: PRINT "VGA"
+   END SELECT
+
+                        Equipment Info                   page 14
+
+
+
+Aside from some of the oldest semi-clones, it's possible to find
+out what sort of machine you're using by looking at a specific
+data byte. You can access this as follows:
+
+   Machine% = PCType%
+
+The result will need decoding. Here are some known values:
+
+   255   PC or XT
+   254   XT
+   253   PCjr
+   252   PC AT
+   251   XT
+   250   PS/2 Model 30
+   249   PC Convertible
+   248   PS/2 Model 70 or 80
+   154   Compaq Portable
+    45   Compaq Portable
+
+Likewise, all but some of the oldest semi-clones maintain a BIOS
+date value which tells you how old the BIOS ROM is. This can be
+retrieved with the following routine:
+
+   BIOSdate$ = PCDate$
+
+If your program is running on one of the rare old machines which
+don't maintain a valid BIOS date, this routine will return "No
+Date " instead of an actual date.
+
+As far as a program is concerned, DR DOS is essentially the same
+as MS-DOS. Still, it's always nice to know what sort of
+operating environment you have. You can find out whether your
+program is running under DR DOS with the following function:
+
+   IF DRDOS% THEN PRINT "It's DR DOS" ELSE PRINT "MS-DOS"
+
+The number of serial and parallel ports available can be readily
+obtained:
+
+   PRINT "Serial ports: "; CommPorts%
+   PRINT "Parallel ports: "; PrtPorts%
+
+                         Extended Math                   page 15
+
+
+
+The extended math unit provides an expression evaluator and
+extensions to BASIC's math. The math extensions include
+hyperbolic and inverse trig functions, a few handy constants,
+conversions, and more.
+
+The expression evaluator allows you to find the result of an
+expression contained in a string. Normal algebraic precedence is
+used, e.g. 4+3*5 evaluates to 19. The usual numeric operators
+(*, /, +, -, ^) are supported (multiply, divide, add, subtract,
+and raise to a power). Use of negative numbers is just fine, of
+course. Parentheses for overriding the default order of
+operations are also supported.
+
+You may use either a double asterisk ("**") or a caret ("^")
+symbols to indicate exponentiation.
+
+The constant PI is recognized, as are the following functions:
+   ABS    absolute value        INT    integer
+   ACOS   inverse cosine        LOG    natural log
+   ASIN   inverse sine          SIN    sine
+   ATAN   inverse tangent       SQR    square root
+   COS    cosine                TAN    tangent
+   FRAC   fraction
+
+Trig functions expect angles in radians.
+
+To evaluate an expression, you pass it to the evaluator as a
+string. You will get back either an error code or a
+single-precision result. Try this example to see how the
+expression evaluator works:
+
+   $STACK 8192
+   $INCLUDE "pbwiz.inc"
+   $LINK "pbwiz.pbl"
+   DO
+      INPUT "Expression? "; Expr$
+      IF LEN(Expr$) THEN
+         Evaluate Expr$, Result!, ErrCode%
+         IF ErrCode% THEN
+            PRINT "Invalid expression.  Error = "; ErrCode%
+         ELSE
+            PRINT "Result: "; Result!
+         END IF
+      END IF
+   LOOP WHILE LEN(Expr$)
+   END
+
+The expression evaluator uses recursion and requires more than
+the default amount of stack space, which is why the $STACK
+metacommand is used. See CALC.BAS for a working demo.
+
+                         Extended Math                   page 16
+
+
+
+The new math functions are pretty much self-explanatory, so I'll
+just list them here. General notes on assumptions and
+constraints are given at the end of this chapter.
+
+   Result! = ArcCosHS!(Nr!)       ' inverse hyperbolic cosine
+   Result! = ArcSinHS!(Nr!)       ' inverse hyperbolic sine
+   Result! = ArcTanHS!(Nr!)       ' inverse hyperbolic tangent
+   Result! = ArcCosS!(Nr!)        ' arc cosine (1 >= Nr >= -1)
+   Result! = ArcCotS!(Nr!)        ' inverse cotangent
+   Result! = ArcCotHS!(Nr!)       ' arc hyperbolic cotangent
+   Result! = ArcCscS!(Nr!)        ' inverse cosecant
+   Result! = ArcCscHS!(Nr!)       ' inverse hyperbolic cosecant
+   Result! = ArcSecS!(Nr!)        ' inverse secant
+   Result! = ArcSecHS!(Nr!)       ' inverse hyperbolic secant
+   Result! = ArcSinS!(Nr!)        ' arc sine   (1 >= Nr >= -1)
+   Result! = CeilS!(Nr!)          ' smallest integer >= Nr
+   Result! = Cent2Fahr!(Nr!)      ' centigrade to Fahrenheit
+   Result! = CosHS!(Nr!)          ' hyperbolic cosine
+   Result! = CotHS!(Nr!)          ' hyperbolic cotangent
+   Result! = CotS!(Nr!)           ' cotangent
+   Result! = CscHS!(Nr!)          ' hyperbolic cosecant
+   Result! = CscS!(Nr!)           ' cosecant
+   Result! = Deg2RadS!(Nr!)       ' convert degrees to radians
+   e! = eS!                       ' the constant "e"
+   Result! = ErfS!(Nr!)           ' error function
+   Result! = FactS!(Nr%)          ' factorial
+   Result! = Fahr2Cent!(Nr!)      ' Fahrenheit to centigrade
+   Result! = FloorS!(Nr!)         ' largest integer <= Nr
+   Result! = Kg2Pound!(Nr!)       ' convert kilograms to pounds
+   Pi! = PiS!                     ' the constant "pi"
+   Result! = Pound2Kg!(Nr!)       ' convert pounds to kilograms
+   Result! = Rad2DegS!(Nr!)       ' convert radians to degrees
+   Result! = SecHS!(Nr!)          ' hyperbolic secant
+   Result! = SecS!(Nr!)           ' secant
+   Result! = SinHS!(Nr!)          ' hyperbolic sine
+   Result! = TanHS!(Nr!)          ' hyperbolic tangent
+
+                         Extended Math                   page 17
+
+
+
+   Result# = ArcCosD#(Nr#)        ' arc cosine  (1 >= Nr >= -1)
+   Result# = ArcCosHD#(Nr#)       ' inverse hyperbolic cosine
+   Result# = ArcCotD#(Nr#)        ' inverse cotangent
+   Result# = ArcCotHD#(Nr#)       ' arc hyperbolic cotangent
+   Result# = ArcCscD#(Nr#)        ' inverse cosecant
+   Result# = ArcCscHD#(Nr#)       ' inverse hyperbolic cosecant
+   Result# = ArcSecD#(Nr#)        ' inverse secant
+   Result# = ArcSecHD#(Nr#)       ' inverse hyperbolic secant
+   Result# = ArcSinD#(Nr#)        ' arc sine    (1 >= Nr >= -1)
+   Result# = ArcSinHD#(Nr#)       ' inverse hyperbolic sine
+   Result# = ArcTanHD#(Nr#)       ' inverse hyperbolic tangent
+   Result# = CeilD#(Nr#)          ' smallest integer >= Nr
+   Result# = CosHD#(Nr#)          ' hyperbolic cosine
+   Result# = CotD#(Nr#)           ' cotangent
+   Result# = CotHD#(Nr#)          ' hyperbolic cotangent
+   Result# = CscD#(Nr#)           ' cosecant
+   Result# = CscHD#(Nr#)          ' hyperbolic cosecant
+   Result# = Deg2RadD#(Nr#)       ' convert degrees to radians
+   e# = eD#                       ' the constant "e"
+   Result# = ErfD#(Nr#)           ' error function
+   Result# = FactD#(Nr%)          ' factorial
+   Result# = FloorD#(Nr#)         ' largest integer <= Nr
+   Pi# = PiD#                     ' the constant "pi"
+   Result# = Rad2DegD#(Nr#)       ' convert radians to degrees
+   Result# = SecD#(Nr#)           ' secant
+   Result# = SecHD#(Nr#)          ' hyperbolic secant
+   Result# = SinHD#(Nr#)          ' hyperbolic sine
+   Result# = TanHD#(Nr#)          ' hyperbolic tangent
+
+                         Extended Math                   page 18
+
+
+
+   Result% = GCDI%(Nr1%, Nr2%)    ' greatest common denominator
+   Result% = RotateL%(Nr%, Count%) ' rotate left
+   Result% = RotateR%(Nr%, Count%) ' rotate right
+   Result% = ShiftL%(Nr%, Count%) ' shift left
+   Result% = ShiftR%(Nr%, Count%) ' shift right
+
+   Result& = GCDL&(Nr1&, Nr2&)    ' greatest common denominator
+   Result& = RotateLL&(Nr&, Count%) ' rotate left
+   Result& = RotateRL&(Nr&, Count%) ' rotate right
+   Result& = ShiftLL&(Nr&, Count%) ' shift left
+   Result& = ShiftRL&(Nr&, Count%) ' shift right
+
+The ceiling and floor functions are generally used in rounding.
+
+Like BASIC's trig functions, the PBWiz trig functions expect the
+angle to be in radians. Conversion functions are provided in
+case you prefer degrees.
+
+"Arc" and "inverse" are used interchangeably (e.g., an arc sine
+is the same as an inverse sine).
+
+Note that there is no ArcTanS! or ArcTanD# function for the
+simple reason that BASIC supplies an ATN function.
+
+Constants are expressed to the maximum precision available.
+
+If you are not familiar with variable postfix symbols, here's a
+brief summary:
+
+   Symbol   Meaning             Range (approximate)
+   ------   --------            -------------------------------
+     %      integer             +- 32767
+     &      long integer        +- 2 * 10^9
+     !      single precision    +- 1 * 10^38
+     #      double precision    +- 1 * 10^308
+
+See PowerBASIC's online help for further details.
+
+                       Graphics Support                  page 19
+
+
+
+I was rather surprised to find that PowerBASIC lacks support for
+one of the standard VGA modes-- SCREEN 13, the 320x200 256-color
+mode. I immediately decided to add support for that mode: dots,
+lines, boxes, polygons, and (of course) text. While I was at it,
+I thought I'd add support for a nonstandard VGA mode: 360x480 in
+256 colors. This mode will work on almost any plain VGA system,
+although it might not work on some older not-quite-compatible
+setups. SuperVGA modes are also supported for adapters based on
+the popular Tseng 4000 chip set and for any VESA-compatible
+SVGA.
+
+   13    320x200, 256 colors, 40x25 text, any VGA
+   N0    360x480, 256 colors, 45x60 text, almost any VGA
+   N5     ? x ? , 256 colors, ? x ? text, Tseng 4000 SVGA
+   GV     ? x ?,  ??? colors, ? x ? text, VESA compatibles
+
+The graphics routines all use the same nomenclature: a G,
+followed by a mode number, followed by the specific name. This
+generic naming convention is used so that this chapter can refer
+to all available modes. For example, if I say "G#Color" and
+you're using mode 13, you'd actually use "G13Color" in your
+program. Ok?
+
+There are some differences in how the various sets of graphics
+routines need to be initialized and shut down. I'll give you an
+outline of the differences here and follow it up with more
+detailed information in the case of the SVGA modes. The VESA
+SVGA mode, GV, should be handled like this:
+
+   GGVInit              ' initialize VESA handler
+   GGVMode ModeNr%      ' enter graphics mode
+   ' *** your main program goes here ***
+   GGVDone              ' exit graphics mode
+
+The Tseng 4000 SVGA mode, N5, also needs initialization. Its
+handling is closer to that of the other modes, however:
+
+   GN5Init ModeNr%, PixelsWide%, PixelsHigh%
+   GN5Mode 1            ' enter graphics mode
+   ' *** your main program goes here ***
+   GN5Mode 0            ' exit graphics mode
+
+For the other modes, no special initialization is required. You
+just use G#Mode with a non-zero value to enter graphics mode, or
+zero to restore text mode. The text mode is assumed to be the
+normal 80x25 color mode. If this would not be your choice, you
+can safely use the PowerBasic SCREEN statement to pick a mode
+that's more to your liking.
+
+                       Graphics Support                  page 20
+
+
+
+Here's an example for typical handling of one of the non-SVGA
+modes (in this case, mode 13):
+
+   G13Mode 1            ' enter graphics mode
+   ' *** your main program goes here ***
+   G13Mode 0            ' exit graphics mode
+
+The non-SVGA modes have their actual mode number built into the
+routines themselves. In the case of SVGA modes, the routines
+were designed for more flexibility, since SVGAs come in a wide
+variety of configurations.
+
+In the case of the Tseng 4000 modes, N5, you specify the BIOS
+mode number, along with the screen resolution, when setting up
+the routines. Only 256-color modes are supported. The BIOS mode,
+width, height, and amount of video memory required to support
+the mode may be any of the following:
+
+      &H2D     640 x 350    256k
+      &H2E     640 x 480    512k
+      &H2F     640 x 400    256k
+      &H30     800 x 600    512k
+      &H38    1024 x 768     1M
+
+In the case of the VESA modes, GV, you specify the VESA mode
+number when setting up the routines. To provide the greatest
+amount of flexibility, VESA modes are not predefined. Rather
+than picking a specific mode number, you ask VESA which modes
+are available on the current computer, and pick the mode that
+best suits your needs from the choices offered.
+
+First, it's wise to make sure VESA support is available:
+
+   VesaVersion MajorV%, MinorV%
+
+This routine returns the version number of the VESA driver,
+split into major and minor parts. If VESA isn't available, both
+numbers will be zero.
+
+Determining which VESA modes are available works something like
+scanning a disk or archive directory. You start by requesting
+the first mode. Any of a variety of functions can be used to
+find out the mode resolution and colors, whether it's a text or
+monochrome mode, and so forth. If the mode is unsuitable or
+you'd like to check further, you request the next mode number.
+It will return a mode of -1 if there are no more modes.
+
+A working demonstration of these routines is presented on the
+next page, and may also be found in the file VESAINFO.BAS.
+
+                       Graphics Support                  page 21
+
+
+
+   $INCLUDE "pbwiz.inc"
+   $LINK "pbwiz.pbl"
+   DEFINT A-Z
+
+   VesaVersion MajorV, MinorV
+   IF MajorV = 0 AND MinorV = 0 THEN
+      PRINT "Sorry, but you do not have VESA support."
+      END
+   END IF
+
+   VMode = VesaFindFirst
+   DO UNTIL VMode = -1
+      CLS
+      PRINT "VESA Mode : &H"; HEX$(VMode)
+      PRINT "Mode Type : ";
+      IF VesaIsText THEN PRINT "Text "; ELSE PRINT "Graphics ";
+      IF VesaIsMono THEN PRINT "(mono)" ELSE PRINT "(color)"
+      PRINT "Resolution:"; VesaScrWidth; "x"; VesaScrHeight;
+      IF VesaIsText THEN PRINT "chars" ELSE PRINT "pixels"
+      PRINT "Char Size :"; VesaChrWidth; "x"; VesaChrHeight
+      PRINT "Colors    :"; VesaColors&
+      PRINT
+      PRINT "-- press a key to view next available mode --"
+      VMode = VesaFindNext
+      DO
+      LOOP WHILE LEN(INKEY$)
+      DO
+         ky$ = INKEY$
+      LOOP UNTIL LEN(ky$)
+      IF ky$ = CHR$(27) OR ky$ = CHR$(3) THEN EXIT DO
+   LOOP
+   END
+
+
+
+The VESA mode information functions can be summarized, so:
+
+   VesaFindFirst%       get first available mode number
+   VesaFindNext%        get next available mode number
+
+   VesaIsMono%          whether mode is mono (-1 yes, 0 no)
+   VesaIsText%          whether mode is text (-1 yes, 0 no)
+
+   VesaScrHeight%       screen height (characters or pixels)
+   VesaScrWidth%        screen width (characters or pixels)
+
+   VesaChrHeight%       character font height (pixels)
+   VesaChrWidth%        character font width (pixels)
+
+   VesaColors&          colors (color numbers) in mode
+
+                       Graphics Support                  page 22
+
+
+
+One difference between BASIC and PBWiz is that, instead of each
+"draw" command requiring a color parameter as in BASIC, the
+PBWiz library provides a separate color command:
+
+   G#Color Foreground%, Background%
+
+The "foreground" color is used by all graphics routines. The
+background color is used by the G#Cls routine. Both foreground
+and background colors are used in by G#Write and G#WriteLn.
+
+Here is a list of the corresponding routines, first BASIC, then
+PBWiz (replace the "#" with the appropriate mode number):
+
+   ' get the color of a specified point
+   colour% = POINT(x%, y%)
+   colour% = G#GetPel%(x%, y%)
+
+   ' set the color of a specified point
+   PSET (x%, y%), colour%
+   G#Color colour%, backgnd%
+   G#Plot x%, y%
+
+   ' draw a line of a specified color
+   LINE (x1%, y1%) - (x2%, y2%), colour%
+   G#Color colour%, backgnd%
+   G#Line x1%, y1%, x2%, y2%
+
+   ' draw a box frame of a specified color
+   LINE (x1%, y1%) - (x2%, y2%), colour%, B
+   G#Color colour%, backgnd%
+   G#Box x1%, y1%, x2%, y2%, 0
+
+   ' draw a box of a specified color and fill it in
+   LINE (x1%, y1%) - (x2%, y2%), colour%, BF
+   G#Color colour%, backgnd%
+   G#Box x1%, y1%, x2%, y2%, 1
+
+   ' clear the screen and home the cursor
+   CLS
+   G#Cls
+
+   ' get the current cursor position
+   Row% = CSRLIN: Column% = POS(0)
+   G#GetLocate Row%, Column%
+
+   ' set the current cursor position
+   LOCATE Row%, Column%
+   G#Locate Row%, Column%
+
+   ' display a string without a carriage return and linefeed
+   PRINT St$;
+   G#Write St$
+
+   ' display a string with a carriage return and linefeed
+   PRINT St$
+   G#WriteLn St$
+
+                       Graphics Support                  page 23
+
+
+
+If you need to print a number rather than a string, just use the
+BASIC function STR$ to convert it. If you don't want a leading
+space, use this approach:
+
+   St$ = LTRIM$(STR$(Number))
+
+The PBWiz library has other routines which have no BASIC
+equivalent. One allows you to get the current colors:
+
+   G#GetColor Foreground%, Background%
+
+Circles and ellipses can be drawn with the Ellipse routine. This
+is similar to the BASIC CIRCLE statement. You specify the center
+of the ellipse (X,Y), plus the X and Y radius values:
+
+   G#Ellipse CenterX%, CenterY%, XRadius%, YRadius%
+
+A circle is an ellipse with a constant radius. So, to draw a
+circle, just set both radius values to the same value.
+
+As well as the usual points, lines, and ellipses, PBWiz also
+allows you to draw regular polygons: triangles, squares,
+pentagons, hexagons, and so on.
+
+   G#Polygon X%, Y%, Radius%, Vertices%, Angle!
+
+The X% and Y% values represent the coordinates of the center of
+the polygon. The Radius% is the radius of the polygon (as if you
+were fitting it into a circle). Vertices% is the number of
+angles (also the number of sides) for the polygon to have.
+Angle! specifies the rotation of the polygon, and is specified
+in radians.
+
+When it comes to 256-color graphics modes, PowerBasic provides
+no way to get or set the palette. The 256-color modes allow you
+to individually select the actual color to assign to a given
+color number. The modes are said to have 256 colors because you
+may use up to 256 at a time (numbered 0 to 255). You may choose
+the color for a given color number from a much larger palette--
+a bit under 262,144 colors, in fact. Color 0 is black by
+default, for example, but there's no reason you can't redefine
+it to mean pale turquoise. In order to do this, you must choose
+the proper color by blending three available colors-- red,
+green, and blue-- in varying amounts. Each may have an intensity
+from 0 (off) to 63 (bright). If you set both RED and BLUE to 32
+and GREEN to 0, for example, you'd get a medium purple color. It
+may take some experimentation to get just the color you want.
+Note that the intensities are finely graded: you are unlikely to
+see any difference between an intensity of 0 and an intensity of
+3 in a color, for example.
+
+                       Graphics Support                  page 24
+
+
+
+The basic routines for getting and setting palette colors are as
+follows. Remember that the color number may be 0-255, while each
+of the intensities can be 0-63.
+
+   GetPalRGB ColorNr%, RedValue%, GreenValue%, BlueValue%
+   SetPalRGB ColorNr%, RedValue%, GreenValue%, BlueValue%
+
+If you're not concerned with the actual intensity levels, you
+may find it more convenient to treat the color value as a unit,
+stored in a long integer. You can do that directly:
+
+   ColorValue& = GetPal& (ColorNr%)
+   SetPal ColorNr%, ColorValue%
+
+It's also easy enough to convert between the formats:
+
+   ColorValue& = JoinRGB (RedValue%, GreenValue%, BlueValue%)
+   SplitRGB ColorValue&, RedValu%, GreenValu%, BlueValue%
+
+The most obvious aspect of palettes is in the ability to select
+a set of colors suited to a specific application. When showing a
+picture of the sea, you might want mostly blues and greens, for
+instance. There are other implications in the ability to quickly
+change a color across the entire screen, however. It allows for
+simple animation, the ability to fade in or fade out, and other
+interesting effects. Let your imagination run loose and
+experiment a little! You'll be surprised by the power of palette
+manipulation.
+
+                           Joystick                      page 25
+
+
+
+There's little enough to say about the joystick. A PC may have
+up to two of them. Normally, a joystick has two buttons, and
+returns a pair of coordinates which describe the position in
+which it is being held. The coordinates vary depending on the
+individual joystick, the computer involved, and other factors,
+so it is wise to provide a calibration routine to customize your
+program for the joystick(s) involved.
+
+The FlightStick joystick has a dial for throttle control, which
+is available only in a one-joystick setup. The throttle value is
+returned as the Y coordinate of an imaginary second joystick.
+
+Coordinates (X, Y), where X is the horizontal and Y the vertical
+coordinate, range from around 0 to around 150 on my FlightStick.
+Since these values may vary significantly, however, they are
+returned as words.
+
+The state of the joystick buttons may be checked individually or
+all at once. If you need to know the state of multiple buttons,
+it is faster to do it all at once, but you may do it either way.
+
+   A1% = JButtonA1%     ' button 1 on 1st joystick
+   A2% = JButtonA2%     ' button 2 on 1st joystick
+   B1% = JButtonB1%     ' button 1 on 2nd joystick
+   B2% = JButtonB2%     ' button 2 on 2nd joystick
+
+   JButtons A1%, A2%, B1%, B2%    ' all buttons
+
+The joystick positions are handled internally by a rather
+unfortunate method involving a timer, due to the design of the
+joystick interface. IBM's early PC strategy was to do everything
+possible in software, which lead to rather inefficient joystick
+and CGA handling. In the case of the joystick, this makes it
+important to get all coordinates at once.
+
+   JPos AX%, AY%, BX%, BY%        ' all joystick positions
+
+Joystick support is handled through a set of BIOS routines which
+were added to the PC around 1985. These routines are not present
+in some of the oldest PCs.
+
+                       Keyboard Control                  page 26
+
+
+
+The keyboard is not a particularly exciting or glamorous device.
+In fact, we tend to forget about it except when it gets in the
+way. Sometimes it's a hardware problem-- squishy or clacking
+keys, or perhaps a commonly-used key placed in an out-of-the-way
+location. Then again, sometimes it's the software that's the
+problem. There are many aspects of keyboard control, not all of
+which are necessarily related to input. This unit will let you
+handle the keyboard in ways you may not have realized were
+possible. Better yet, it can help make keyboard control easier
+than the users of your programs dreamed possible.
+
+Let's start out with keyboard output. Yep, not input-- output.
+We can stuff up to 15 keys into the keyboard buffer. Why would
+we ever want to do this? Perhaps to allow your program to pop-up
+a TSR automatically, to start another program after your program
+ends, or for creating key macros. You can enter extended key
+codes (such as function keys) by using CHR$(0) before the scan
+code.
+
+   TypeIn St$
+
+The usual keyboard action is somewhat sluggish. We can make it a
+lot crisper by changing the key repeat rate and the delay before
+repeating begins. This will work on ATs, but not PC/XT systems.
+
+   SpeedKey RepDelay%, RepRate%
+
+The delay may be 0-3 (1 by default):
+
+   0      250 milliseconds
+   1      500 milliseconds
+   2      750 milliseconds
+   3        1 second
+
+The repeat rate may be 0-31 (11 by default). The larger the
+number, the slower the speed-- 0 is around 30 cps, and 31 is
+around 2 cps.
+
+I generally prefer to have the keyboard cranked up to full
+speed, using RepDelay% and RepRate% both set to zero. This may
+be a bit too zippy for some people. Experiment with it to see
+what you like best.
+
+Of course, there may be reasons to make keyboard repeat less
+sensitive instead! That might be a good idea in programs written
+for small children, for example. You can adjust the keyboard
+equally well in either direction.
+
+                       Keyboard Control                  page 27
+
+
+
+PowerBASIC allows you to control one of the keys which can
+interrupt your program, namely the Break key. There's another
+dangerous key which PBWiz allows you to control-- the PrtSc
+(PrintScreen) key. PrtSc may not seem like a hazard at first
+glance, but if it's pressed by accident with no printer ready,
+or in a graphics mode which PrtSc doesn't understand how to
+print, the results can be pretty messy. So, we let you turn it
+off or back on:
+
+   SetPrtSc PrtScON%
+
+Use 0 to turn it off or anything else to turn it back on. If you
+turn off PrtSc, you MUST remember to turn it back on again
+before your program ends! Otherwise, an interrupt vector will
+point into nowhere, causing probable chaos the next time PrtSc
+is pressed.
+
+Regardless of whether you've turned the PrtSc key off, you can
+print the screen yourself just as if PrtSc had been pressed:
+
+   PrintScreen
+
+Now here's a strange one for you. When IBM brought out the
+101-key keyboard, called the "enhanced" keyboard, they did
+something bizarre to the BIOS. They still allowed old keyboard
+calls to work, but they filtered out the new key codes so no one
+would see them. This made sure that no one would be able to use
+the capabilities of the "enhanced" keyboard without rewriting
+their programs. So, the keyboard has been around for years, and
+there are still few programs that even notice when you press
+F11. PowerBASIC v2.1 does not support the enhanced keyboard at
+all. Fortunately, PBWiz -does-. You can find out if an enhanced
+keyboard is installed with the KbdType% function, which is in
+the Equipment unit.
+
+If there is an enhanced keyboard installed, you can activate it
+like so:
+
+   SetEnhKbd Enhanced%
+
+With enhanced keyboard support activated, all key requests that
+used the old services are translated to the new services. So,
+SetEnhKbd affects INKEY$ and other BASIC functions as well as
+other PBWiz keyboard routines. Note that you MUST deactivate
+enhanced keyboard support before ending your program. Otherwise,
+an interrupt vector will point into nowhere, probably causing a
+crash on the next keypress!
+
+                       Keyboard Control                  page 28
+
+
+
+Speaking of INKEY$, I have a neat little function for you. It
+works like INKEY$, but it doesn't remove the key from the
+keyboard buffer:
+
+   ky$ = ScanKey$
+
+How is this handy? Well, let's suppose you're writing something
+that will work like the DIR or TYPE commands in DOS. It will
+display what may be a long listing, which you'd like to be able
+to pause with Ctrl-S or cancel with Ctrl-C. Trouble is, if you
+use INKEY$ and the user was using "type ahead" to store another
+command, you've just wiped out his command while looking for
+those control codes. With ScanKey$, you can check the key
+nondestructively.
+
+On the other hand, if you're about to request important input,
+you may not want to chance having it answered from results of
+the keyboard buffer-- could be that the user meant those keys
+for another purpose. In that case, it's a good approach to clear
+out the keyboard buffer just before the input:
+
+   ClearKbd
+
+No keyboard unit would be complete without a selection of
+routines to check the shift states and get or set the keyboard
+toggles. Let's start with the toggles, which are so called
+because they get toggled from one state to another:
+
+    PRINT "Caps Lock  : ";
+    IF CapsOn% THEN PRINT "ON" ELSE PRINT "OFF"
+    PRINT "Insert     : ";
+    IF InsertOn% THEN PRINT "ON" ELSE PRINT "OFF"
+    PRINT "Num Lock   : ";
+    IF NumOn% THEN PRINT "ON" ELSE PRINT "OFF"
+    PRINT "Scroll Lock: ";
+    IF ScrollOn% THEN PRINT "ON" ELSE PRINT "OFF"
+
+You can also turn the toggles off or on. It's courteous to
+restore the original toggle states once you end your program, so
+you might want to save the original values for that purpose.
+Then again, I guess that doesn't apply if your program is
+designed for the specific purpose of setting the toggles!
+
+   SetCaps CapsLock%
+   SetInsert InsertKey%
+   SetNum NumLock%
+   SetScroll ScrollLock%
+
+Does anyone actually use ScrollLock for anything? Just
+wondering...
+
+                       Keyboard Control                  page 29
+
+
+
+The shift keys are unique in many respects. They don't return
+codes that can be detected with INKEY$ or stuffed into the
+keyboard buffer; several can be pressed at the same time; and
+they don't repeat. You can detect 'em with PBWiz, at any rate:
+
+   IF AltPress% THEN PRINT "An ALT key is pressed."
+   IF CtrlPress% THEN PRINT "A CTRL key is pressed."
+   IF ShiftPress% THEN PRINT "A SHIFT key is pressed."
+
+   IF LAltPress% THEN PRINT "The LEFT ALT key is pressed."
+   IF LCtrlPress% THEN PRINT "The LEFT CTRL key is pressed."
+   IF LShiftPress% THEN PRINT "The LEFT SHIFT key is pressed."
+
+   IF RAltPress% THEN PRINT "The RIGHT ALT key is pressed."
+   IF RCtrlPress% THEN PRINT "The RIGHT CTRL key is pressed."
+   IF RShiftPress% THEN PRINT "The RIGHT SHIFT key is pressed."
+
+NOTE that LAltPress%, LCtrlPress%, RAltPress%, and RCtrlPress%
+are ONLY available for enhanced keyboards. They will not return
+useful results on older keyboards.
+
+                         Memory (EMS)                    page 30
+
+
+
+This unit provides support for expanded memory. It will work
+with older EMS and EEMS drivers as well as the current EMS 4.0
+standard, with the exception of one or two routines (as noted)
+which take advantage of new capabilities.
+
+Expanded memory may be present on any type of computer, from
+8088 PCs to 80486 ATs. It usually comes as a hardware board with
+a software driver for older machines; on ATs, it may be
+implemented using only a software driver which converts it from
+extended memory. Drivers have also been written which make a
+hard disk function as EMS memory. This broad range of use makes
+EMS support invaluable to programs which need extra memory. EMS
+can theoretically support up to 1 gigabyte of RAM, although the
+documented limit as of v4.0 was only 32 megabytes.
+
+Of course, the first thing you need to know is when dealing with
+EMS is whether any EMS memory actually exists:
+
+   IF EMSexists% THEN PRINT "EMS exists"
+
+The EMS version may also be retrieved:
+
+   EMSver MajorV%, MinorV%
+
+It would be a good idea to check the EMS version if you plan to
+use any features which are only available as of EMS 4.0, such as
+reallocation.
+
+Besides a mere existence and version checks, you will want to
+know how much EMS is available:
+
+   PRINT "Total EMS installed: "; EMStotal%
+   PRINT "Free EMS memory    : "; EMSfree%
+
+If you actually tried the above two lines, you would get a pair
+of values which don't seem to mean much. The trick is to
+multiply them by 16,384 to convert them to bytes. This is
+because EMS memory is always accessed in pages of 16k bytes
+each. Any time you are dealing with a quantity of EMS memory,
+the quantity will be specified as a number of pages.
+
+                         Memory (EMS)                    page 31
+
+
+
+Before we get into the mechanics of accessing EMS memory, I'd
+like to bring up an optional routine which can improve access
+speed. It should not be used if your program accesses EMS using
+routines other than the ones included here in PBWiz. If you only
+use these EMS routines, though, you will find that it makes some
+kinds of memory accesses faster. Use 0 for normal (slow) mode.
+Do not use optimization if you are using more than one EMS
+handle!
+
+   EMSopt Fast%
+
+Ok, let's get down to the nitty gritty. (Where did that
+expression come from, anyway?!) When you allocate EMS memory,
+you specify the number of pages you want, which must be at least
+1. If the allocation is successful, you are returned a "handle"
+which you can use to access the allocated memory. Otherwise, you
+get back an error code.
+
+   EMSopen Pages%, Handle%, ErrCode%
+
+There are a limited number of handles available under some EMS
+drivers. The EMS spec, as of v4.0, allowed for a maximum of 255
+handles, and it's not unusual for a driver to support only 20 or
+so. Bearing in mind that some of these handles may be used up by
+other applications, such as RAMdisks and caches, this really
+doesn't allow much leeway. Try to use as few handles as
+possible! You may well need to store multiple values in
+different areas of the memory allocated for a single handle,
+rather than allocating a new area of memory for each value.
+
+Suppose you find you need more memory than you first allocated?
+Or maybe less memory? Well, provided EMS 4.0 or later is in use,
+you can reallocate the block:
+
+   EMSresize Handle%, Pages%, ErrCode%
+
+There is no way to reallocate memory under older versions of
+EMS. About the best you could do in that case would be to
+allocate a new area of the desired size, copy over the relevant
+data from the old area, and then deallocate the original area.
+Of course, this assumes that there is enough memory available to
+hold both areas, at least temporarily.
+
+When you are finished using EMS, you must be sure to return the
+memory you allocated to the system. It is IMPORTANT to do this
+before ending your program. Otherwise, the memory you allocated
+will be "lost" until the next time you boot the computer. Return
+the memory for each handle as follows:
+
+   EMSclose Handle%
+
+                         Memory (EMS)                    page 32
+
+
+
+Hmmmm... we've covered EMS detection, status info, allocating
+memory, freeing memory, resizing memory... what's missing here?
+Ah! We haven't discussed how to actually access the memory!
+
+Accessing EMS memory is quite simple, but it involves a couple
+of steps. EMS is mapped into a 64k block in the low area of
+memory (the area under 1M, which can be directly accessed).
+Since a page is 16k, the EMS block can hold up to four pages at
+a time. To transfer data between normal memory and EMS memory,
+you must map the appropriate page(s) of EMS into the EMS block.
+This is done like so:
+
+    EMSmap Handle%, PPage%, VPage%
+
+The PPage% is the physical page, that is, the page number within
+the EMS block (0-3). The VPage% is the virtual page, which is
+the number of a page within the EMS memory associated with
+Handle%.
+
+Once you've mapped the desired virtual page into a physical
+page, it can be accessed using standard PowerBASIC memory
+commands, such PEEK$ and POKE$. First, set the segment:
+
+   DEF SEG=EMSseg&
+
+The offset within a page may be 0-16,383. To get the appropriate
+offset within the EMS block, you must add the offset of the page
+itself. This may be calculated as follows:
+
+   DataOffset& = OffsetWithinPage% + PageNumber% * 16384&
+
+One final note: for best compatibility, it would be good to
+avoid using physical page 3 (the last 16k of the EMS block).
+Some EMS drivers don't handle this page with complete accuracy,
+for technical reasons I'm not going to get into right now.
+
+                         Memory (XMS)                    page 33
+
+
+
+This unit provides support for XMS extended memory. It won't
+work with extended memory unless an XMS driver is present.
+
+Extended memory is only present in AT-class computers. It is not
+available on older PCs. An XMS driver must also be used. XMS
+drivers are included with MS-DOS 5.0 and Windows 3.0, among
+other things, so this is not a major limitation. XMS can address
+a maximum of 64 megabytes.
+
+The first thing to check is whether any XMS memory exists:
+
+   IF XMSexists% THEN PRINT "XMS exists"
+
+The XMS version may also be retrieved:
+
+   XMSver MajorV%, MinorV%
+
+The amount of XMS memory available may be reported in either of
+two different ways: total amount and largest available block.
+
+   PRINT "Total XMS free    : "; XMStfree&
+   PRINT "Largest free block: "; XMSlfree&
+
+XMS memory is manipulated in terms of 1,024 byte blocks, so the
+amount of free memory is reported in kilobytes. Any time you are
+dealing with a quantity of EMS memory, the quantity will be
+specified as a number of 1K blocks, except as otherwise noted.
+
+                         Memory (XMS)                    page 34
+
+
+
+When you allocate XMS memory, you specify the number of
+kilobytes that you want. This may be 0-65535, in theory. Dunno,
+I don't have 64M RAM <grin>. If the allocation is successful,
+you are returned a "handle" which you can use to access the
+allocated memory. Otherwise, you get back an error code.
+
+   XMSopen KBytes&, Handle%, ErrCode%
+
+There are a limited number of handles available, although the
+number can be controlled somewhat by a driver parameter. It's
+probably best to use as few handles as possible, to avoid
+running out. You may well want to store multiple values in
+different areas of the memory allocated for a single handle,
+rather than allocating a new area of memory for each value.
+
+Suppose you find you need more memory than you first allocated?
+Or maybe less memory? Just reallocate the block:
+
+   XMSresize Handle%, KBytes&, ErrCode%
+
+When you are finished using XMS, you must be sure to return the
+memory you allocated to the system. It is IMPORTANT to do this
+before ending your program. Otherwise, the memory you allocated
+will be "lost" until the next time you boot the computer. Return
+the memory for each handle as follows:
+
+   XMSclose Handle%
+
+To transfer data between normal memory and XMS memory, you must
+provide the segment and offset of the normal memory area (use
+the PowerBASIC functions VARSEG and VARPTR to find the address
+of a variable). The position within XMS memory is specified as a
+long-integer offset starting at zero.
+
+    XMSread Handle%, Posn&, Bytes&, DSeg%, DOfs%
+
+    XMSwrite Handle%, Posn&, Bytes&, DSeg%, DOfs%
+
+Note that the Bytes& to transfer must be an EVEN NUMBER. It is
+not restricted to 64k, however, so you can transfer a great deal
+of data with these routines.
+
+The XMS spec guarantees a "reasonable" number of interrupt
+windows during a transfer; however, it is possible that you
+might experience some communications dropouts if you do large
+transfers during high-speed telecommunications. If you are
+making heavy demands on the interrupt system, be sure to test
+your program carefully under maximum load conditions.
+
+A brief demo program is included which shows how to use XMS for
+holding arrays. The demo, XMSDEMO.BAS, shows a two-dimensional
+long integer array. This can be readily altered to support any
+data type composed of an even number of bytes.
+
+                         Mouse Support                   page 35
+
+
+
+The mouse unit provides full-featured mouse support. You can see
+if a mouse is available and how many buttons it has, get the
+cursor position (either the current position or the position at
+the last press or release of a specified button), set the cursor
+position, change the cursor, set the mouse range, get hardware
+information about the mouse, and so on.
+
+There are two unusual mouse modes to be aware of. One is text
+mode, which is mapped to a 640x200 virtual display. So, to
+convert the results to text format, you need to divide the
+cursor position by eight and add one. To convert from text
+format, subtract one and multiply by eight.
+
+The second unusual mode is 320x200 CGA mode, which is also
+mapped to 640x200. To convert the coordinates to this mode,
+divide X by two. To convert from this mode, multiply the X
+coordinate by two.
+
+All other modes use the actual display coordinates instead of a
+bizarro virtual screen. Why the peculiar CGA and text modes?
+Well, evidently Microsoft never thought there'd be any video
+adapters besides MDA and CGA, and decided to create a single
+virtual screen size that worked for all modes. Not a bad idea, I
+guess, but rather shortsighted. Oh well.
+
+One other nuisance that you may run into is that the mouse
+cursor can't be directly turned on or off. A "cursor visibility"
+count is maintained-- if the mouse cursor was turned on twice,
+you'll need to turn it off twice before it will actually
+disappear.
+
+Before using the mouse, you must initialize it. The
+initialization routine also checks to make sure that a mouse is
+installed and tells you how many buttons it has. It's best to
+initialize the mouse after setting the screen mode, so the mouse
+driver understands what mode you're using. Not all mouse drivers
+support all screen modes, but you can reasonably expect any
+current mouse driver to support MDA, CGA, EGA, and VGA. Hercules
+graphics mode is rarely supported, as it must be set through
+direct hardware access rather than the standard techniques, so
+the mouse driver has little way of knowing that you've changed
+the mode.
+
+The mouse routines will work equally well with two-button or
+three-button rodents. The middle button functions will return 0
+with two-button mice.
+
+                         Mouse Support                   page 36
+
+
+
+I won't go into great detail on these routines, because they're
+pretty much self-explanatory. The mouse is a fairly easy device
+to deal with.
+
+You can initialize the mouse driver like so:
+
+   Buttons% = MouseInit%
+
+This returns the number of mouse buttons available. If there is
+no mouse, zero will be returned. Initialize the mouse after
+setting the screen mode.
+
+You can make the mouse cursor visible or invisible. It will
+function just as well in either state. See the previous page for
+some quirks.
+
+   MouseShow       ' show the cursor
+   MouseHide       ' hide the cursor
+
+There are many ways to get the mouse cursor position. You can
+get the current position, the position at which the mouse was
+located when a particular button was pressed, or the position
+when a button was released. If you choose a past position, you
+can also find out how many presses or releases of the button
+have taken place since you last checked.
+
+   X% = MouseWhereX%              ' current X coordinate
+   Y% = MouseWhereY%              ' current Y coordinate
+
+   MouseLClick Count%, X%, Y%     ' left presses & posn
+   MouseMClick Count%, X%, Y%     ' middle presses & posn
+   MouseRClick Count%, X%, Y%     ' right presses & posn
+
+   MouseLRelease Count%, X%, Y%   ' left releases & posn
+   MouseMRelease Count%, X%, Y%   ' middle releases & posn
+   MouseRRelease Count%, X%, Y%   ' right releases & posn
+
+If you'd prefer to find out which buttons are currently pressed,
+no problem:
+
+   Pressed% = MouseLButton%  ' whether left button is pressed
+   Pressed% = MouseMButton%  ' whether middle button is pressed
+   Pressed% = MouseRButton%  ' whether right button is pressed
+
+Of course, you can also set the cursor location:
+
+   MouseLocate X%, Y%        ' set the mouse cursor position
+
+The mouse cursor range can be restricted to a given area of the
+screen. This area is expressed by giving the upper left corner
+and lower right corner of the rectangular area to which to
+restrict the cursor.
+
+   MouseWindow X1%, Y1%, X2%, Y2%      ' set mouse cursor range
+
+                         Mouse Support                   page 37
+
+
+
+There are a variety of cursor shapes available for graphics
+mode:
+
+    0    hourglass ("please wait, program is working" symbol)
+    1    pointing arrow (default)
+    2    pointing hand
+    3    crosshair
+    4    target (box in a box)
+    5    grabbing hand
+
+If you have ideas for more, let me know and I'll see what I can
+do. Cursor shapes are not unduly difficult to define.
+
+The cursor image is set like so:
+
+   MouseCursorG CursorNr%
+
+                          SoundBlaster                   page 38
+
+
+
+The SoundBlaster is one of the most popular sound boards around
+these days, despite an early hardware design which conflicts
+with standard parallel ports and a nearly complete absence of
+programming tools. Go figure.
+
+Anyway, in this here unit, we provide a range of support for the
+SoundBlaster SBSIM driver, and any other sound boards which
+provide drivers with the same functionality. You must load the
+SBSIM driver to use these routines-- just scoot over to your
+SoundBlaster directory and run SBSIM. It will probably give you
+a couple of error messages, which can be safely ignored. They
+refer to optional SoundBlaster capabilities which are probably
+not on your machine. You can test for successful installation
+with the routines in this unit.
+
+The first thing you must do is check whether the SBSIM driver is
+installed. This is done by checking the software interrupt used
+by the driver. If the number returned is zero, SBSIM is not
+installed. You probably won't need to know the actual interrupt
+number itself, but it's returned in case you want to use SBSIM
+in ways that aren't supported by PBWiz.
+
+   IntNr% = SBInt%
+
+SBSIM is actually a super-driver. It loads a number of other
+drivers, depending on the configuration of the sound board and
+the SBSIM.CFG file. Possible sub-drivers include an FM driver
+(.CMF files), disk and memory voice drivers (.VOC files), a MIDI
+driver (.MID files), and an auxiliary driver. You can check
+which drivers are available like so:
+
+   SBGetDrivers FM%, DskVoice%, MemVoice%, Auxiliary%, MIDI%
+
+The difference between the disk and memory voice drivers is that
+the disk voice driver can play a .VOC file directly, whereas the
+memory voice driver plays .VOC files that have been loaded into
+XMS memory. The auxiliary driver is not supported by the current
+version of PBWiz. The routine returns 0 if the driver is not
+installed, or -1 if it is.
+
+A similar routine can be used to detect which drivers are in use
+at the moment:
+
+   SBGetActive FM%, DskVoice%, MemVoice%, Auxiliary%, MIDI%
+
+The version of the SBSIM driver can be retrieved as well:
+
+   SBGetVer MajorV%, MinorV%
+
+Given a version of 1.20, this would return MajorV% = 1 and
+MinorV% = 20. The minor version number is generally not of much
+importance and is mostly useful for informational purposes.
+
+                          SoundBlaster                   page 39
+
+
+
+The volume level for various SBSIM devices can be retrieved or
+set for both stereo and mono SoundBlasters. Only the "left"
+speaker is active in the case of mono SoundBlasters.
+
+   SBGetVolume Source%, LeftVol%, RightVol%
+   SBSetVolume Source%, LeftVol%, RightVol%
+
+Sources may be any of the following:
+
+   0    master volume         4    line in
+   1    voice                 5    microphone
+   2    FM                    6    PC speaker
+   3    CD player
+
+There are several ways to set up the MIDI channel mapper. This
+is done like so:
+
+   SBMapMIDI MapNr%
+
+You may choose from the following mappers:
+
+   0    general mapper
+   1    basic mapper
+   2    extended mapper
+
+That pretty well covers the generic status routines. The rest of
+the SoundBlaster routines are concerned with actually playing
+sounds, and related functions such as pause and resume.
+
+Before playing a sound, you need to initialize the sound driver.
+You may choose to play a sound file directly from disk (in the
+case of .CMF, .VOC, and .MID files) or from memory (.VOC only).
+Although all sounds are played in the background and do not
+interfere with your program operation, you will get smoother
+response by loading .VOC files into XMS memory beforehand, if
+plenty of memory is available.
+
+You initialize a file to play directly from disk like so:
+
+   SBInitSrcFile DriverNr%, FileName$, ErrCode%
+
+The file name must include the extension. You may choose from
+the following drivers:
+
+   1    .CMF    FM synthesis
+   2    .VOC    disk voice
+   5    .MID    MIDI
+
+Remember, this only initializes the file to play. It does not
+actually start playing the sound. We'll get to that shortly.
+
+                          SoundBlaster                   page 40
+
+
+
+Files can also be loaded into XMS memory before playing, in the
+case of .VOC files only. A handle is returned which can later be
+used to identify the sound to play. Normally, you should set the
+handle to zero before calling the routine, which forces the
+routine to use the first available handle it can find. The real
+handle is returned to you.
+
+   SBLoadXMS FileName$, Handle%, ErrCode%
+
+In the case of sounds loaded into memory, the initialization is
+done as follows:
+
+   SBInitSrcXMS Handle%, ErrCode%
+
+When you have finished using a handle, be sure to free it, or
+the associated memory will be allocated until the computer is
+rebooted. Freeing a handle is easy:
+
+   SBFreeXMS Handle%
+
+You can check for the number of free handles as well:
+
+   Free% = SBFreeHandles%
+
+And, for that matter, see if a specific handle is free:
+
+   Free% = SBIsFree%(Handle%)
+
+Once the sound driver is initialized, you may start it playing,
+pause it, resume, check its status, or stop it:
+
+   SBPlay Driver%
+   SBPause Driver%
+   SBResume Driver%
+   SBStop Driver%
+   State% = SBStatus% (Driver%)
+
+The driver may be any of the following:
+
+   1   .CMF    FM synthesis
+   2   .VOC    disk voice
+   3   (XMS)   memory voice
+   5   .MID    MIDI
+
+Note that the status value is often -1 while a driver is playing
+and 0 while it isn't, but different status values may be
+embedded in the sound file. If your aim is to determine whether
+a sound is still playing, use SBGetActive instead of SBStatus%.
+
+See the PLAYVOC.BAS file for a demo of how these routines work
+together in practice.
+
+                            Strings                      page 41
+
+
+
+One of the true strengths of BASIC in general, and PowerBasic in
+particular, is its powerful string handling capability. I'd be
+remiss if I didn't provide extensions which improve it even
+further.
+
+The simplest of the PBWiz string routines may seem somewhat
+whimsical, but it has proven useful to me on several occasions
+in the past. It reverses the order of characters in a string.
+
+   Reverse St$
+
+One of the places this has come in useful is in searching a
+string from the end-- a reverse INSTR routine:
+
+   RInstr MainSt$, SubSt$, Posn%
+
+Rather than returning the first occurrence of a substring within
+a main string, it returns the last occurrence. Another handy
+string search allows you to search for various types of
+characters, rather than a specific substring:
+
+   TInstr MainSt$, Types%, Posn%
+
+The type(s) may be specified using any combination of the
+following. Just add them together.
+
+    1    alphabetic
+    2    numeric
+    4    symbolic
+    8    control
+   16    graphics
+   32    space
+
+Since you can search for any specific types, you can also
+readily invert the search to look for any characters that are
+NOT of a given type or types:
+
+   Types% = NOT Types%
+
+This gives you complete control. A typical use for TInstr might
+be to clean up user input and make sure that it's valid. It's
+also good for parsing.
+
+                            Strings                      page 42
+
+
+
+Another routine that is useful for cleaning up and parsing user
+input is called Crunch. It allows you to eliminate adjacent
+duplicates of a character or list of characters. One use for
+this, for instance, would be to eliminate repeated spaces,
+converting an input string from "*.* *.BAK /B" to a more
+manageable "*.* *.BAK /B".
+
+   Result$ = Crunch$(St$, CharList$)
+
+There are a pair of routines that you'll find valuable if you
+need to check the validity of a string. These are designed to be
+compatible with the Xmodem and Ymodem file transfer protocols,
+so you can use them for error checking in telecommunications as
+well.
+
+   Chk% = CheckSum% (St$)
+
+   CRC16 St$, HiCRC%, LoCRC%
+
+Another pair of string routines provide a simple encryption and
+decryption system for text. The method used is not particularly
+secure but are very fast and will be adequate for many purposes.
+As always, it helps to use a long and/or complex password.
+
+   Cipher St$, Password$          ' cipher (unprintable)
+   CipherP St$, Password$         ' cipher (printable)
+
+Both of these routines will encipher text on the first
+run-through and decipher on the second, so you can use the same
+routine either to encrypt or decrypt a message. They are
+different in one respect: the encrypted result of Cipher may
+contain control characters, so it can't be used in a plain
+sequential-access file. The CipherP routine does not allow use
+of extended ASCII characters (CHR$(128) - CHR$(255)), as it sets
+the high bit on each character after encrypting it. This causes
+the results of CipherP to be printable (and useful in
+sequential-access files), although they will look very strange.
+
+The strings are encrypted (or decrypted) in place. This provides
+a certain extra measure of security for encryption-- the
+original plaintext strings are not left floating around in
+memory where someone might see them.
+
+One function is as much a file manipulation routine as it is a
+string function. It allows you to compare a file name to a file
+pattern (which may contain wildcards) to see if they match. Only
+bare filespecs are supported-- you may not use drive or path
+specifications in the names.
+
+   IF MatchFile% (Pattern$, Filename$) THEN PRINT Filename$
+
+                            Strings                      page 43
+
+
+
+The MatchFile function can be used in creating your own
+DOS-style utilities: DIR, COPY, and so forth. Besides the usual
+"accept file if it matches" approach, it can also be used to
+implement the opposite: "exclude file if it matches." This gives
+you more flexibility than DOS itself supplies.
+
+The PowerBASIC compiler provides a very nice function called
+Extract$. This allows you to retrieve a substring running from
+the left side of a main string to a specified character
+delimiter. Not bad, but it might be handy to be able to grab a
+numbered substring from any part of a main string, and to be
+able to use a substring delimiter. For instance, you might load
+a record from a database which contains an address, where each
+line is delimited by a carriage return and linefeed. Rather than
+mucking around with Extract$, which really wasn't designed with
+that sort of thing in mind, you'd do better to use the PBWiz
+function called DelimExtract$:
+
+   SubSt$ = DelimExtract$(St$, Delimiter$, Index%)
+
+The index starts at 1 with the first substring. If you choose
+the index of a substring which doesn't actually exist, a null
+string will be returned.
+                     Telecommunications                 page 44
+
+
+
+This unit provides an assortment of low-level, buffered,
+interrupt-driven telecommunications services. It allows
+comprehensive control over communications, includes COM3 and
+COM4, and doesn't require error trapping. It won't fiddle with
+the DTR unless you tell it to do so. The major limitation is
+that you may use only a single comm port at a time.
+
+Before you can use communications, you must initialize the
+communications handler. If you didn't have PBWiz, you would
+probably use something like:
+
+   OPEN "COM1:2400,N,8,1,RS,CS,DS" AS #1
+
+With PBWiz, you do not have to set the speed, parity, and so
+forth. Communications will proceed with whatever the current
+settings are, unless you choose to specify your own settings.
+When you initialize the comm handler, you specify only the port
+number (1-4):
+
+   TCInit CPort%, ErrCode%
+
+When you are done with the telecomm routines, you must terminate
+them. In BASIC, this would look something like:
+
+   CLOSE #1
+
+With the PBWiz routines, though, you would use this instead:
+
+   TCDone
+
+The PBWiz "TCDone" does not drop the DTR, unlike BASIC's
+"CLOSE". This means that the modem will not automatically be
+told to hang up. With PBWiz, you have complete control over the
+DTR with the TCDTR routine. Use a value of zero to drop the DTR
+or nonzero to raise the DTR:
+
+   TCDTR DTRstate%
+
+You may set the speed of the comm port to any baud rate from
+1-65,535. If you will be dealing with comm programs that were
+not written using PBWiz, you may wish to restrict that to the
+more common rates: 300, 1200, 2400, 4800, 9600, 19200, 38400,
+and 57600.
+
+   TCSpeed Baud&
+
+                     Telecommunications                 page 45
+
+
+
+The parity, word length, and stop bits can also be specified.
+You may use 1-2 stop bits, 6-8 bit words, and parity settings of
+None, Even, Odd, Mark, or Space. Nearly all BBSes use settings
+of None, 8 bit words, and 1 stop bit, although you will
+sometimes see Even, 7 bit words, and 1 stop bit. The other
+capabilities are provided for dealing with mainframes and other
+systems which may require unusual communications parameters.
+
+When specifying parity, only the first character in the string
+is used, and uppercase/lowercase distinctions are ignored. Thus,
+using either "none" or "N" would specify that no parity is to be
+used.
+
+   TCParms Parity$, WordLength%, StopBits%
+
+If your program needs to be aware of when a carrier is present,
+it can check the carrier detect signal from the modem with the
+TCCarrier function. This function returns zero if no carrier is
+present:
+
+   IF TCCarrier% THEN
+      PRINT "Carrier detected"
+   ELSE
+      PRINT "No carrier"
+   END IF
+
+Suppose, though, that you need to know immediately when someone
+has dropped the carrier? It wouldn't be too convenient to have
+to spot TCCarrier functions all over your program! In that case,
+try the "ON TIMER" facility provided by BASIC for keeping an eye
+on things. It will enable you to check the carrier at specified
+intervals and act accordingly. Here's a brief framework for
+writing such code:
+
+   ON TIMER(30) GOSUB CarrierCheck
+   TIMER ON
+   ' ...your program goes here...
+CarrierCheck:
+   IF TCCarrier% THEN    ' if the carrier is present...
+      RETURN             ' ...simply resume where we left off
+   ELSE                  ' otherwise...
+      RETURN Restart     ' ...return to the "Restart" label
+   END IF
+
+To get a character from the comm port, use the TCInkey$
+function. This is available in byte and string flavors:
+
+   ch$ = TCInkey$
+   ch% = TCInkey0%
+
+                     Telecommunications                 page 46
+
+
+
+To send a string to the comm port, use TCWrite:
+
+   TCWrite St$
+
+If you are dealing strictly with text, you may want to have a
+carriage return and a linefeed added to the end of the string:
+
+   TCWriteLn St$
+
+If you'd like to know how many bytes are waiting in the input
+buffer or output buffer, there are functions which will tell
+you:
+
+   PRINT "Bytes in input buffer:"; TCInStat%
+   PRINT "Bytes in output buffer:"; TCOutStat%
+
+If you would like to clear the I/O buffers for some reason, you
+can do that too. The following routines clear the buffers,
+discarding anything which was waiting in them:
+
+   TCFlushIn
+   TCFlushOut
+
+If you're using a fast modem (9600 bps or greater), you should
+turn on hardware flow control for reliable communications:
+
+   TCFlowCtl (-1)
+
+To get some idea of how these routines all tie together in
+practice, see the MINITERM.BAS example program. It provides a
+tiny "dumb terminal" program to demonstrate the PBWiz comm
+handler. The modem to use is selected via command-line switch:
+
+   /COM1   use COM1
+   /COM2   use COM2
+   /COM3   use COM3
+   /COM4   use COM4
+
+By default, the MINITERM.BAS program will use COM1 at 2400 baud
+with no parity, 8 bit words and 1 stop bit. You can exit the
+program by pressing Alt-X.
+
+                     Telecommunications                 page 47
+
+
+
+
+A few notes on the ins and outs of telecommunications...
+
+The DTR signal is frequently used to control the modem. When the
+DTR is "raised" or "high", the modem knows that we're ready to
+do something. When the DTR is "dropped" or "low", the modem
+knows that we're not going to do anything. In most cases, this
+tells it to hang up or disconnect the phone line. Some modems
+may be set to ignore the DTR, in which case it will not
+disconnect when the DTR is dropped. Usually this can be fixed by
+changing a switch on the modem. On some modems, a short software
+command may suffice.
+
+The DTR is generally the best way to disconnect. The Hayes "ATH"
+command is supposed to hang up, but it doesn't work very well.
+
+The PBWiz comm handler makes sure the DTR is raised when TCInit
+is used. It does not automatically drop the DTR when TCDone is
+used, so you can keep the line connected in case another program
+wants to use it. If this is not suitable, just use TCDTR to drop
+the DTR. Your program must always use TCDone before it exits,
+but it need only drop the DTR if you want it that way.
+
+If you want to execute another program via SHELL, it is ok to
+leave communications running as long as control will return to
+your program when the SHELLed program is done. In that case, the
+input buffer will continue to receive characters from the comm
+port unless the SHELLed program provides its own comm support.
+The output buffer will likewise continue to transmit characters
+unless overruled.
+
+                        Text-mode Video                  page 48
+
+
+
+The graphical interface has become a "sexy" thing to have these
+days, but there are still many good reasons to work in text
+mode. It's relatively fast, it works on all monitors, and it's
+often the most appropriate choice. Graphics is overkill for many
+applications. Besides, you can't redirect graphics to a file or
+to the printer.
+
+Come to think of it, text displayed by the PRINT statement can't
+be redirected either. Fortunately, we can fix that. All it takes
+is sending the output through DOS:
+
+   DOSPrint St$         ' print to the current output device
+
+A nice thing about DOS output is that ANSI display codes will
+work if you have an ANSI driver (such as ANSI.SYS) installed. If
+you're working with existing text, such as captured output from
+a BBS or from an ANSI art program like TheDraw, you can just use
+the DOSPrint routine to handle it. If you're looking to do your
+own ANSI output, though, there's an easier way than looking up
+the individual codes and sending 'em out one at a time. The
+following routines send the appropriate ANSI codes to the
+current DOS output device:
+
+   DOSCls                    ' clear the screen
+   DOSColor Fore%, Back%     ' set the screen colors
+   DOSLocate Row%, Column%   ' set the cursor position
+
+The primary advantage of DOS output is that it can be
+intercepted. It normally goes to the screen, but you can
+redirect it to a file, printer, or comm port, among other
+things. You can also be sure that DOS output will work
+reasonably in a multitasking environment like DESQview or
+Windows, instead of messing up the screen. The disadvantage is
+that DOS output is fairly slow. It's great for command line
+utilities, but not if you plan to do any fancy screen work. For
+that, you probably want direct-access techniques.
+
+The direct screen access provided by PBWiz is rude, crude... and
+faster than a greased euphemism. It can't be redirected, doesn't
+handle control codes, and won't even update the cursor position.
+In return for this lack of amenities, it gives you two very
+valuable things: complete control and raw speed.
+
+                        Text-mode Video                  page 49
+
+
+
+The direct-access replacement for PRINT works like so:
+
+   XQPrint St$, Row%, Column%, Attr%
+
+Now, you might guess that St$ is the text to print, and Row% and
+Column% are where to print it. The Attr% may seem a bit more
+opaque. The Attr% is the color to use-- actually, both the
+foreground and background colors. These are combined into a
+single value because that's the way the display controller wants
+to see it. Remember, the emphasis here is on speed, not
+necessarily convenience! So how do you calculate an attribute
+given the foreground and background colors?
+
+   Attr% = CalcAttr% (Fore%, Back%)
+
+An Attr% value is never less than 0 or greater than 255-- it
+will fit into a single byte. That may be useful to know for
+storage purposes. In any event, keep the Attr% in mind, because
+we'll be seeing more of it in the future. By the way, you can
+unpack an attribute into foreground and background colors too,
+if need be:
+
+   UnCalcAttr Attr%, Fore%, Back%
+
+In addition to XQPrint, there is a routine which allows you to
+overlay existing text rather than replacing it. It skips blank
+spaces rather than putting them on the display.
+
+   XQPrintOver St$, Row%, Column%, Attr%
+
+The direct-access routines allow for one, and only one, option
+which might slow them down. The IBM CGA and some clone CGAs
+flicker horribly if you access their display memory directly.
+There is a software fix, but it slows the display down
+tremendously. Still, if your program is run on such a CGA,
+you'll want to stop the flickering. This may be done so:
+
+   AntiSnow Slow%       ' any nonzero value to stop flicker
+
+You should provide a command-line switch or configuration option
+to force anti-flicker support. Don't do it by default, as the
+slowdown is very noticeable.
+
+The "menu" approach has become the standard way of allowing a
+user to choose between various program options. There are many
+ways of designing a menu, but they almost always require a
+"highlight" to show the current choice. This highlight is
+generally handled by changing the color of the chosen item:
+
+   ReColorArea TopRow%, LftCol%, BotRow%, RtCol%, Attr%
+
+                        Text-mode Video                  page 50
+
+
+
+Pop-up windows have become ubiquitous. Naturally, PBWiz supports
+them too:
+
+   PopWindow TRow%, LCol%, BRow%, RCol%, Frame%,
+      Attr%, Grow%, Shade%, TFore%, Title$   ' use one line!
+
+The first four parameters specify the upper left corner and
+lower right corner of the window. The window frame, if any, is
+created just outside these coordinates. If you choose a shadow
+for a 3D effect, that will extend further outside the window.
+Keep this in mind if you want to save the part of the screen
+under the window... but we'll get to that! Let's see what
+options are available for the frame type:
+    0   no frame
+    1   single lines
+    2   double lines
+    3   single horizontal, double vertical lines
+    4   double horizontal, single vertical lines
+    5   block graphic lines
+
+These are the available shadows:
+   -3   transparent shadow on the right
+   -2   transparent shadow on the left
+   -1   solid black shadow on the left
+    0   no shadow
+   1+   shadow attribute (use CalcAttr) for a colored shadow
+
+Options for growing windows are as follows:
+   -1   grow as fast as possible
+    0   pop onto the screen
+   1+   grow with a specified delay in milliseconds
+        (15 works well for me)
+
+The TFore% parameter is the foreground color to use for the
+title (Title$), if any (use "" for no title).
+
+It is worth noting that the "milliseconds" value is only rather
+approximate. The delay is based on the video card, and is fairly
+similar on any computer system, but there will be a noticeable
+difference between (say) an XT with a CGA and a 486 with a VGA.
+Still, it's a useful delay-- if not really precise, it's at
+least fairly accurate, and it has a fine resolution. You can
+access this delay yourself:
+
+   DelayV MilliSeconds%
+
+                        Text-mode Video                  page 51
+
+
+
+I mentioned screen saves a bit earlier. With PBWiz, you can save
+any part of a screen, and restore it later to the same place or
+an entirely different area. This also offers the possibility of
+creating a screen image, storing it in a file, and reading it
+into your program, among other things. It works like this:
+
+   Scr$ = ScreenSave$ (TopRow%, LftCol%, BotRow%, RtCol%)
+
+   ScreenRestore Scr$, TopRow%, LftCol%
+
+It takes about 4K to store a full 80x25 text screen. The exact
+calculation is Bytes = Rows * Columns * 2 + 2, if you care to
+figure it out yourself. You can also take advantage of a PBWiz
+routine to handle it:
+
+   Bytes% = CalcSize% (TopRow%, LftCol%, BotRow%, RtCol%) + 2
+
+Finally, we are left with a series of routines which let you
+scroll (or clear) any part of the screen:
+
+   ScrollDown TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   ScrollLeft TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   ScrollRight TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   ScrollUp TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+
+If you attempt to scroll zero times, or more times than there
+are rows (or columns, depending on which way you scroll), the
+specified area of the screen will be cleared. The Attr% gives
+the color to use on the cleared area of the screen.
+
+                            Credits                      page 52
+
+
+
+I'd like to thank Dave Navarro for letting me in on the world of
+PowerBASIC. His help has been most valuable to me in many
+respects. Without him, this library would have taken much longer
+to get off the ground or would perhaps not even exist.
+
+I would also like to thank Spectra, publishers of PowerBASIC,
+for sending me the evaluation copy of PowerBASIC which led to my
+decision to write this library. I have also found their tech
+support to be outstanding and of great assistance.
+
+My thanks also to the good people who have registered PBWiz.
+You're the ones that make PBWiz happen.
+
+

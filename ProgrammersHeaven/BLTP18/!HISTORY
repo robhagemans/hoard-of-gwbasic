@@ -1,0 +1,81 @@
+Bullet History
+--------------
+Misc. info at end.
+
+---------
+10-Oct-94
+Issued 1.08a for PowerBasic 3.
+Bullet for PB3.
+
+---------
+18-Aug-94
+Issued 1.10.
+Bullet for Windows.
+
+--------------
+11-Feb-94 (AJ)
+Issued 1.08a.
+
+ReindexXB would fail with error 204 (empty file) on reindex attempt of a
+DBF with 0 physical records. This problem had been reported earlier but
+was overlooked.
+
+--------------
+04-Feb-94 (MG)
+Issued 1.08.
+
+Bug in PackRecordsXB where, if all records in an internal buffer were marked
+as deleted, the file would be truncated at start of buffer's position. This
+caused a -3 error (UNEXPECTED EOF since the DBF file is both read and written
+to by Bullet).
+-------------------------------------------------------------
+For previous BULLET history see the !HISTORY file in the ZIP.
+
+=========================
+Miscellaneous Info/Errata
+=========================
+1. Error 240
+2. Specifying a Binary Key Search Criterion
+3. Enumerator word specification
+
+------------
+1. Error 240
+
+That fieldname descriptors must be 0-filled is not in the CZ docs of the
+DOS C version.  You must 0-fill the fieldList.fieldname members or an
+error 240 will be returned if you attempt to index on one of the fields.
+.fieldname is an 11-byte field (10 usuable characters with byte 11 always=0):
+
+    :
+  fieldList[0].fieldname = "LASTN\0\0\0\0\0"; /* 5+5+\0=11 bytes */
+  fieldList[0].fieldtype = "C";
+    :
+
+See GetDescriptorXB in the CZ doc file for more.
+
+-------------------------------------------
+2. Specifying a Binary Key Search Criterion
+
+Use MKI$ or MKL$ to cast the binary value to a string.  For example:
+
+    DIM SHARED keybuffer AS STRING * 64
+      :
+    AP.keyptrOff = VARPTR(keybuffer)
+    AP.keyptrSeg = VARSEG(keybuffer)
+    'then use MKL$ to set the buffer with string type, as in
+    keybuffer = MKL$(5&)
+
+For C, the technique is the same.  For example:
+
+    char keybuffer[64];
+      :
+    AP.keyptr = keybuffer;
+    *((long *)keybuffer) = 5L;
+      :
+
+3.  The enumerator word attached to non-unique keys is a two-byte word
+    in high byte/low byte order.  The first such key is 00/00, with any
+    following exact matches to that key as 00/01, and so on.  Each key
+    root would have have its own enumerator series, so ABC\0\0, BCD\0\0,
+    and so on.
+--

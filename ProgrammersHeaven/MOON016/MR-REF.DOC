@@ -1,0 +1,1919 @@
+
+        *** PLEASE ALSO SEE READ.ME FOR FURTHER REFERENCE ***
+
+
+             ========================================
+             The general layout of a MoonRock program
+             ========================================
+
+--start of file--------------------------------------------
+BEGIN DEF
+
+  <def line(s)>      ' Special global compiler definitions
+
+BEGIN CODE
+
+  <code line(s)>     ' General code
+----------------------------------------------end of file--
+
+
+BEGIN DEF and BEGIN CODE are only required if you actually have extra
+definitions. MoonRock will happily assemble source with only general
+code, and no BEGIN lines.
+
+
+                        ====================
+                        Commands in DEF area
+                        ====================
+
+COMMON <var1> [, <var2> ... ]
+
+  Specifies which variables are COMMON, that is, shared between
+  subroutines. By default a variable is unique to that sub. Use COMMON
+  for global variables which need to be accessed from more than one sub.
+
+
+
+LANGUAGE <lang>
+
+  Defines the dependent language that this code will be called from.
+  Currently the supported languages are:
+
+     QUICKBASIC
+
+  This setting is only relevant if the commandline /L is specified.
+
+  See "Language dependent OBJ production" section for further
+  information.
+
+
+BUNDLE <name> <var1>, <var2> ...
+
+  Defines a bundle. This is a similar to a C struct or QuickBASIC type.
+
+  Bundle members are listed in order and their relevant type. For string
+  variables, the "absolute maximum" size needs to be specified, for
+  example a variable length Pascal string will actually occupy a
+  constant space on disk. A Pascal string of maximum length 10 would be
+  defined as:
+
+       Str$[10] Pascal
+
+  Note that the maximum length includes any terminators or length
+  bytes/words.
+
+  The type of string needs to be specified, and can be one of the
+  following:
+
+       Pascal  (byte length+string)
+       Null    (string+0)
+       MR      (word length+string)
+
+  A bundle definition must be on a single line, or, have a trailing "_"
+  at the end of the line to tell MRC to join the next line to it.
+
+  Some examples of bundle definitions:
+
+  bundle PKTHeader: OrigNode%, DestNode%, Year%, Month%, day%,_
+                    hour%, minute%, second%, Baud%, PKTType%,_
+                    OrigNet%, DestNet%, ProdCode1%, PassWord$[8] Null,_
+                    QOrigZone%, QDestZone%, AuxNet%, CWvalidation%,_
+                    ProdCode2%, CW%, OrigZone%, DestZone%,_
+                    OrigPoint%, DestPoint%, f1&
+
+  bundle Ezy: PrevReply%, NextReply%,_
+              StartPosi&, MsgLength&,_
+              DestNet1&, DestNet2&,_
+              OrigNet1&, OrigNet2&,_
+              Cost%,_
+              MsgAttr@, NetAttr@, ExtAttr@,_
+              Post&, Rcvd&,_
+              WhoTo$[36] Pascal,_
+              WhoFrom$[36] Pascal,_
+              Subject$[73] Pascal
+
+  NOTE: Currently strings are only supported when reading bundles from disk.
+  Attempts at writing bundles with strings will be succeed, but will
+  result in random junk characters being saved in place of the string.
+
+
+STRSEGSIZE <val>
+
+  This sets the size of the combined data/string segment, also known
+  generally as "dynamic" or "near" memory. If no STRSEGSIZE command is
+  present, a default of 32k is assumed. The maximum size that can be
+  allocated is 64k.
+
+  Examples:
+       strsegsize 1000      ' specified in bytes
+       strsegsize 48k       ' specified in K
+
+
+
+STACK <val>
+
+  Sets the size of the stack for the program. If no STACK command is
+  present, a default of 512 bytes is assumed. You would not normally
+  use this command.
+
+  Examples:
+       stack 1024
+       stack 2k
+
+
+
+SUB <name> [(parm1....parmN)]
+
+  Defines a subroutine. This must be identical to the subroutine
+  definition in the CODE area. The parameter list is optional. If any
+  mismatches are found later in the code either when calling the sub, or
+  in the sub itself, they will be reported as errors.
+
+  Examples:
+       sub PrintString (st$)
+       sub KillFile (SourceDir$, FileName$, Flag%)
+       sub OpenAndSeek (FileName$, Attrib%, Position&)
+       sub MySubroutine
+
+
+
+DIM [FAR | HUGE] <arrayname>'['<elements>']'
+
+  Dimensions an array for use later in your program. Array types
+  supported are word, doubleword, and string. Word and doubleword arrays
+  can be dimensioned in FAR or HUGE memory if need be; this will move
+  the array out of the communal 64k data segment into its own segment.
+  Far arrays add slightly more code overhead every time they are
+  accessed, so use the FAR option only if you need as much communal 64k
+  as possible. If you need arrays of more than 65535 bytes, 32767 words,
+  or 16384 doublewords then use the HUGE option as a last resort.
+
+  Examples of dimensioning:
+       dim a%[100]
+       dim far myarray@[10000]
+       dim myname$[5000]
+       dim far lo&[20]
+       dim huge bigarray&[100000]
+
+  Arrays are referenced like so:
+       a%[1]       ' constant element
+       a%[aptr%]   ' variable element
+
+  An array element may be used almost anywhere a normal variable can.
+
+  Currently array size must be specified at compile time. If debugging
+  code is included when compiling (/D switch) then array bounds checking
+  will be performed to ensure that an illegal element is not accessed.
+
+
+
+%CONSTANT
+
+  Constants are defined in the DEF area, and may be referenced
+  throughout the rest of the program. They can only be defined once, and
+  they are global.
+
+  The format of a constant definition is:
+
+       '%'<ConstantName> = <value>
+
+  Constants may also be evaluated with addition, subtraction,
+  multiplication, and division. Only numerical values and other
+  constants may be used. For example:
+
+       %MyConstant = 2
+       %AnotherConstant = %MyConstant + 3 * 2
+
+  %AnotherConstant is now equal to 10.
+
+  In the CODE area, constants may be used anywhere a normal numerical
+  value would be.
+
+
+
+SET
+
+  SET is a method of creating a contiguous set of constants. The format
+  is:
+
+       set = <start>, <const1>, <const2> ...
+
+  The value of <start> determines the starting value of the first
+  constant; each constant is then defined to one higher than the
+  previous constant. For example:
+
+       set = 51, %ConstOne, %AnotherConst, %YetAnotherConst
+
+  In the above example, %YetAnotherConst is defined as 53.
+
+
+
+POINTER [BYTE | WORD | DWORD] [NEAR | FAR | HUGE] <varname>'~'
+
+  Defines a pointer. A pointer is a low level device used to directly
+  access memory. In MoonRock, this can either be NEAR memory (MoonRock's
+  data segment -- default), FAR memory (any part of a far 64k segment)
+  or HUGE memory (any memory location between 0-1023k conventional).
+
+  The pointer size specifies the size of the memory location to
+  access: it can either be BYTE, WORD, or DWORD.
+
+  Examples:
+
+       pointer word myptr~               ' defaults to NEAR type
+       pointer byte far colour_screen~
+       pointer dword huge mybigptr~
+
+  A pointer variable type has the '~' suffix.
+
+  There are two types of pointer references. One where a pointer is
+  directly assigned a value (told where to point to), and one where a
+  pointer is used to retrieve or store data.
+
+  A pointer should be assigned a value before use, otherwise results
+  are unpredictable. Example:
+
+       colour_screen~ = 0b8000000h  ' colour text screen resides at
+                                 ' location b800:0000
+
+  The pointer is now ready for use, and can be accessed just like a
+  normal variable. A pointer *references* a memory location when it is
+  enclosed in square brackets:
+
+       [colour_screen~] = 65
+
+  This places the value "65" into the location that colour_screen~
+  points to (b800:0000h). In this case it would print the letter "A" in
+  the top left hand corner of the colour text screen. If you were to do
+  the following:
+
+       a% = [colour_screen~]
+
+  The value "65" would be placed into a%, since that is what we have
+  just saved at colour_screen~ (b800:0000h).
+
+  Pointer definitions are global over the entire source file. A pointer
+  cannot be redefined. Pointers may be added, subtracted, divided and
+  multiplied.
+
+  Pointers are an advanced method of accessing memory, and as such a
+  detailed explanation is beyond the scope of this section.
+
+
+
+#INCLUDE <filename>
+
+  Includes specified <filename> as if it was part of the main source.
+  Useful for constant definitions such as the MoonRock *.H header files,
+  or code which is common over several programs.
+
+  The current directory is first searched, then the directory pointed to
+  by the "MRINCLUDE" environment variable. From the DOS prompt, type:
+
+       set mrinclude=c:\apps\mr
+
+  ... change the path to suit your system. Note that there is no
+  trailing backslash.
+
+
+
+                =================================
+                Language dependent OBJ production
+                =================================
+
+MoonRock has the capability to interface directly to another language
+which provides a "shell" for it. Currently only QuickBASIC is supported.
+MoonRock functions cannot be called until they have been initialised by
+a special function call.
+
+In the BEGIN DEF area of your *MoonRock* source code, the following
+command must be present:
+
+LANGUAGE QuickBASIC
+
+At the beginning of your *QuickBASIC* source code you must DECLARE the
+MoonRock functions that you are going to call. One which must be
+declared is "<source_name>_INIT". For example, if the name of the
+MoonRock source file is HELLO.MOO, the QuickBASIC declaration would be:
+
+DECLARE FUNCTION MoonRockInit% ALIAS "HELLO_INIT"
+
+At the start of your QuickBASIC program you must call MoonRockInit% to
+initialise the MoonRock startup code. This needs to be done only once.
+MoonRockInit% returns -1 (success) or 0 (failure). Initialisation will
+fail if there is insufficient memory for MoonRock to allocate its data
+segment. If failure is returned, do not attempt to call any of the
+MoonRock subroutines.
+
+For each MoonRock SUB you have defined in your MoonRock source, you will
+also need to define it in your QuickBASIC source. The QuickBASIC format
+for defining functions and subs is "__<name>", for example MoonRock
+function "WriteDisk%" would be:
+
+DECLARE FUNCTION WriteDisk% ALIAS "__writedisk"
+
+MoonRock Sub "PrepareScreen" would be:
+
+DECLARE SUB PrepareScreen ALIAS "__preparescreen"
+
+If any parameters are passed, they must be of the same type between both
+MoonRock and QuickBASIC. If you are passing an integer (%) or long (&),
+you must use the BYVAL keyword in your QuickBASIC source. For example,
+if the MoonRock definition is:
+
+Sub CreateDir: (dirname$, attribute%)
+
+Then the definition in your QuickBASIC source file is:
+
+DECLARE SUB CreateDir (dirname$, BYVAL attribute%)
+
+Also, your MoonRock function can return a numerical value back to
+QuickBASIC. Use "return(value)" instead of just "return" at the end of
+your sub, for example:
+
+return     ' return 0
+return(1)  ' return 1
+return(a&) ' return value of a&
+
+Finally, all code in "main" is ignored for a language dependent compile.
+
+
+
+                            ==========
+                            Inline ASM
+                            ==========
+
+Simply preface source your line (in the CODE area) with '@'. This will
+be passed directly to the assembler. No error checking is performed at
+compile time.
+
+Variables may be referenced directly thus:
+
+        @mov    ax,word ptr ds:[a%]  ; load value of MoonRock a% into AX
+        @mov    si,word ptr ds:[s$]  ; load SI with pointer to MR s$
+
+Comments must be prefaced with a ';' character.
+
+
+                        ===================
+                        MoonRock data types
+                        ===================
+
+Referenced as   Commonly known as           Notes
+-------------   -------------------------   ------------------------------
+@               BYTE                        Signed. Range -128 to +127
+%               WORD or INTEGER             Signed. Range -32768 to +32767
+&               DOUBLEWORD or LONG          Signed. Range -2147483648 to
+                                                      +2147483647
+$               STRING
+^               BUNDLE or TYPE or STRUCT
+~               POINTER
+
+
+                        ==================
+                        MoonRock operators
+                        ==================
+
+=               Equal to
+<>              Not equal to
+>               Higher than
+<               Lower than
+>=              Higher than, or equal to
+<=              Lower than, or equal to
+
++               Addition
+-               Subtraction
+*               Multiplication
+/               Division (rounded)
+\               Division (integer)
+
+
+                ===============================
+                Moonrock commands and functions
+                ===============================
+
+Note: Keywords are shown in all upper case to aid readability. They may
+be upper or lower case in source code.
+
+--------------------------------------------------------------------------
+
+    command:      $OUTSTREAM
+    use:          $OUTSTREAM <drivername>
+    description:  Sets appropriate screen output driver.
+    notes:        Drivers available are:
+                    _tty_str_dos
+                       Default. Uses DOS INT 21h/AH=40h for writes. Writes
+                       are redirectable. Single colour only.
+                    _tty_str_bios
+                       Uses BIOS screen writes. Allows colour, cursor
+                       positioning, and CLS command.
+                    _tty_str_direct
+                       Uses direct screen writes. Allows colour, cursor
+                       positioning, CLS command, screensave/screenrestore
+                       commands. This driver requests a virtual screen
+                       shadow buffer if running under DESQview.
+
+--------------------------------------------------------------------------
+
+    command:      END SUB
+                  RETURN
+    use:          END SUB
+                  RETURN [ (<value>) ]
+
+    description:  Return from SUB.
+    notes:        <value> is only valid for language dependent SUBs
+                  (compiled with /L option).
+    examples:
+                  return
+                  return(a%)   ' Return value of a% to calling language
+    see also:     SUB
+    important:    For normal MoonRock programs, END SUB should be used
+                  in preference to RETURN, as RETURN will be used for a
+                  different purpose in a future version of the compiler.
+                  The current version of the compiler will report a
+                  warning if RETURN is used.
+
+--------------------------------------------------------------------------
+
+    command:      FOR
+                  TO
+                  NEXT
+    use:          FOR <variable> = <StartValue> TO <EndValue>
+                  ...
+                  NEXT
+    description:  Software loop. <variable> is initially given the value
+                  of <StartValue>. All code between 'for' and 'next' is
+                  executed; when 'next' is reached <variable> is
+                  incremented. If <variable> is lower than <EndValue>
+                  the loop continues.
+    example:
+                  for i% = 10 to 20
+                    print i%
+                  next
+
+--------------------------------------------------------------------------
+
+    command:      IF
+                  THEN
+                  ELSE
+                  ENDIF
+    use:          IF <evaluation> THEN
+                  ...
+                  [ELSE]
+                  ...
+                  ENDIF
+    description:  Conditional code execution. If <evaluation> is true,
+                  then all code between 'then' and 'else' or 'endif' is
+                  executed; otherwise code between 'else' and 'endif' is
+                  executed, if 'else' is present.
+    notes:        You may also include IF..THEN and the conditionally
+                  executed code on the same line. Successive IF..THEN
+                  statements may be "stacked" onto the same line.
+                  The general form is: IF <evaluation> THEN (conditional code)
+                  For this type of IF..THEN there is no ELSE or ENDIF
+                  command.
+
+    examples:
+                  ' Example 1.
+                  if a% = 2 then
+                    print "a% is 2"
+                  endif
+
+                  ' Example 2.
+                  if fexist("c:/command.com", 7) = TRUE then
+                    handle% = fopen("c:/command.com")
+                  else
+                    print "COMMAND.COM not found -- aborting.\n"
+                    end(1)
+                  endif
+
+                  ' Example 3.
+                  if a% <> 2 then print "a% is not 2!"
+                  if a% >= 2 then if a% <= 4 then print "a% between 2 and 4"
+
+--------------------------------------------------------------------------
+
+    command:      WHILE
+                  WEND
+    use:          WHILE <evaluation>
+                  ...
+                  WEND
+    description:  Conditional code loop. While <evaluation> is true,
+                  code between 'while' and 'wend' is executed.
+    example:
+                  while v& < 65000
+                    v& = v& + 100
+                  wend
+
+--------------------------------------------------------------------------
+
+    command:      END
+    use:          END [(<returnvalue>)]
+    description:  Ends execution and returns to DOS or calling program.
+                  If <returnvalue> is specified then this will be the
+                  errorlevel returned, otherwise errorlevel 0 will be
+                  returned.
+    examples:
+                  end
+                  end(1)   ' return errorlevel 1
+                  end(a%)  ' return errorlevel of value of a%
+
+--------------------------------------------------------------------------
+
+    command:      PRINT
+    use:          PRINT <String> [ + <String> ... ]
+    description:  Print string to current output stream. <String> may be
+                  a string constant (enclosed by double quotes), a
+                  string function, a string variable, or a numeric
+                  function.
+    notes:        If a "\" character is present in a string constant
+                  (enclosed by double quotes) then the following
+                  character(s) are evaluated for special escape
+                  sequences. Valid escape sequences are:
+
+                    \n    Newline (ASCII 13, ASCII 10)
+                    \g    BEL (ASCII 7 - beep)
+                    \0    NUL (ASCII 0)
+                    \r    Return character (ASCII 13)
+                    \h..  Where '..' is a 2 digit hex number
+                    \\    "\" character
+
+                  To print the literal "\" character, use two in
+                  sequence.
+    examples:
+                  print "Hello world!\n"
+                  print "Current value is " + v% + ". Is this correct? "
+                  print "Free far memory: " + freemem(2) + " bytes."
+
+--------------------------------------------------------------------------
+
+    command:      COLOUR
+    use:          COLOUR <foreground> [ , <background>]
+    description:  Set both or either foreground or background text
+                  colour.
+    notes:        "?" may be used in place of either <foreground> or
+                  <background> to denote no change in that field.
+    examples:
+                  colour 3
+                  colour fground%, bground%
+                  colour ?, bground%  ' do not change foreground colour
+
+--------------------------------------------------------------------------
+
+    command:      CALL
+    use:          CALL <subname> [(param1, ...)]
+    description:  Calls a SUBroutine (must be previously defined).
+    notes:        Parameters, if any, must be of the same type as the
+                  previous definition of the SUB in the BEGIN DEF area.
+                  A type mismatch error will result otherwise.
+    example:
+                  call WriteData (handle%, 1024, a$)
+
+--------------------------------------------------------------------------
+
+    command:      FCLOSE
+    use:          FCLOSE (<handle>)
+    description:  Close a previously opened file. <handle> is the file
+                  handle previously allocated when the file was opened.
+    notes:        Do not attempt to close handles 1-4.
+    example:
+                  fclose (handle%)
+
+--------------------------------------------------------------------------
+
+    function:     FPUT
+                  FGET
+    use:          FPUT (<handle>, <variable>)
+                  <variable> = FGET (<handle>)
+    description:  Get or put binary bytes to an open file.
+    notes:        Size of data written or read depends on the variable
+                  type passed:
+
+                        Data type     Example   Bytes read or written
+                        ---------     -------   ---------------------
+                             byte     bb@       1
+                     word/integer     fork%     2
+                  doubleword/long     free&     4
+                           string     hop$      length of string
+
+                  Internal DOS file handles 0-4 may be specified, but
+                  take care when doing so.
+    examples:
+                  fput (out%, buf$)
+                  fput (out%, Version@)
+                  a% = fget (handle%)
+
+--------------------------------------------------------------------------
+
+    command:      FSEEK
+    use:          FSEEK (<handle>, <position>)
+    description:  Seek to specified position in open file.
+    note:         The first byte of a file is at position 0.
+    example:
+                  fseek (h%, 1000)
+
+--------------------------------------------------------------------------
+
+    command:      FPRINT
+    use:          FPRINT (<handle>, <String> [ + <String> ... ])
+    description:  Print string to open file. <String> may be a string
+                  constant (enclosed by double quotes), a string
+                  function, a string variable, or a numeric function.
+    notes:        If a "\" character is present in a string constant
+                  (enclosed by double quotes) then the following
+                  character(s) are evaluated for special escape
+                  sequences. Valid escape sequences are:
+
+                    \n    Newline (ASCII 13, ASCII 10)
+                    \g    BEL (ASCII 7 - beep)
+                    \0    NUL (ASCII 0)
+                    \r    Return character (ASCII 13)
+                    \h..  Where '..' is a 2 digit hex number
+                    \\    "\" character
+
+                  To print the literal "\" character, use two in
+                  sequence.
+
+                  The entire line is evaluated before writing to the
+                  file, rather than writing each element discretely as
+                  with print.
+    examples:
+                  fprint(h%, "Hello, this file has a handle of " + h%)
+                  fprint(out%, "---------  " + day + ", " + date)
+
+--------------------------------------------------------------------------
+
+    command:      INPUT
+    use:          INPUT (<stringvar> [, <len> [, <fill> ]])
+    description:  Input a string from the keyboard.
+    notes:        Optional parameter <len> specifies the maximum length
+                  of the field to input. If this is not specified then
+                  the default length is 78.
+                  Optional parameter <fill> specifies the fill character
+                  to use to fill the input field, in ASCII (numerical)
+                  format. Some examples:
+
+                  Character    ASCII value
+                  ---------    -----------
+                  .            46
+                  ±            177
+                  ú            250
+                  The input command only supports strings. To input a
+                  number, use something like:
+
+                    input (tmpstr$)
+                    number% = val(tmpstr$)
+    examples:
+                  input (s$)
+                  input (s$, 20, 177)
+
+--------------------------------------------------------------------------
+
+    function:     HEX8
+    use:          HEX8 (<value>)
+    description:  Print <value> as a hexadecimal 8 bit number.
+    notes:        Value is padded to 2 digits with leading "0"
+                  characters if necessary.
+    example:
+                  print "Hex value is " + hex8(h@) + "\n"
+
+--------------------------------------------------------------------------
+
+    function:     HEX16
+    use:          HEX16 (<value>)
+    description:  Print <value> as a hexadecimal 16 bit number.
+    notes:        Value is padded to 4 digits with leading "0"
+                  characters if necessary.
+
+--------------------------------------------------------------------------
+
+    function:     HEX32
+    use:          HEX32 (<value>)
+    description:  Print <value> as a hexadecimal 32 bit number.
+    notes:        Value is padded to 8 digits with leading "0"
+                  characters if necessary.
+
+--------------------------------------------------------------------------
+
+    function:     UCASE
+                  LCASE
+    use:          UCASE (<str>)
+                  LCASE (<str>)
+    description:  Converts a string to all upper or all lower case.
+    example:
+                  cmd$ = lcase(cmd$)
+
+--------------------------------------------------------------------------
+
+    function:     LTRIM
+                  RTRIM
+    use:          LTRIM (<str>)
+                  RTRIM (<str>)
+    description:  Trim string of whitespace (characters below ASCII 33,
+                  "!" character) on either the right or left hand side.
+    example:
+                  cmd$ = ltrim(cmd$)
+
+--------------------------------------------------------------------------
+
+    function:     INKEY
+    use:          INKEY
+    description:  Returns a keypress as an integer value. Does NOT wait for
+                  input.
+    notes:        If there is no keypress currently available then a
+                  value of -1 will be returned.
+    example:
+                  k% = -1
+                  while k% = -1
+                    k% = inkey
+                  wend
+
+--------------------------------------------------------------------------
+
+    function:     AND
+                  OR
+                  XOR
+    use:          AND
+                  OR
+                  XOR
+    description:  Bitwise operations.
+
+                  AND      Bit1   Bit2       Result
+                           ----   ----       ------
+                              0      0            0
+                              0      1            0
+                              1      0            0
+                              1      1            1
+
+                  OR       Bit1   Bit2       Result
+                           ----   ----       ------
+                              0      0            0
+                              0      1            1
+                              1      0            1
+                              1      1            1
+
+                  XOR      Bit1   Bit2       Result
+                           ----   ----       ------
+                              0      0            0
+                              0      1            1
+                              1      0            1
+                              1      1            0
+    example:
+                  a% = b% xor 2 or v% and 0ffh
+
+--------------------------------------------------------------------------
+
+    function:     SHR
+                  SHL
+    use:          SHR <value>
+                  SHL <value>
+    description:  Bitwise shift left or right by <value> times.
+    example:
+                  v% = b% shr 5
+
+--------------------------------------------------------------------------
+
+    function:     FREEMEM
+    use:          FREEMEM (<number>)
+    description:  Returns size of available memory.
+    notes:        The following values are valid for <number>:
+
+                  Value     Returned
+                  --------  --------
+                  0         Total free near memory (64k max)
+                  1         Largest free near memory block
+                  2         Total free far memory
+
+                  Under DPMI the value returned for "Total free far
+                  memory" will be the amount of free memory that DPMI
+                  reports.
+    examples:
+                  print "Total free near memory:    " + freemem(0)
+                  print "Largest near memory block: " + freemem(1)
+                  print "Total free far memory:     " + freemem(2)
+
+--------------------------------------------------------------------------
+
+    function:     LEN
+    use:          LEN(<str>)
+    description:  Returns the length of given string.
+    example:
+                  l1% = len (in$)
+
+--------------------------------------------------------------------------
+
+    function:     TIMERTICK
+    use:          TIMERTICK
+    description:  Returns the number of ticks since midnight. There are
+                  approximately 18 ticks per second.
+    notes:        This can be used as a counter for scheduling periodic
+                  events.
+                  Returned precision is doubleword so you should use a
+                  doubleword/long variable to store the value in.
+    example:
+                  ti& = timertick
+
+--------------------------------------------------------------------------
+
+    constant:     TRUE
+    value:        -1
+
+--------------------------------------------------------------------------
+
+    constant:     FALSE
+    value:        0
+
+--------------------------------------------------------------------------
+
+    command:      FCREATE
+    use:          <variable> = FCREATE (<filename> [, <attr> ...] )
+    description:  Creates a new file and returns a handle.
+    notes:        If the file exists, it will be truncated to 0 bytes.
+                  Valid attributes are:
+
+                  readonly    File cannot be modified or deleted
+                  hidden      File is hidden from normal DIR listing
+                  system      File has system attribute set
+                  archive     File has archive attribute set
+                  shareable   File is shareable under NetWare
+
+                  The ARCHIVE attribute should be included with all
+                  FCREATE statements unless the application is special.
+    examples:
+                  h% = fcreate("MRC.ASM", archive)
+                  tmphandle% = fcreate("C:/TEMP/TMPFILE.$$$", hidden)
+
+--------------------------------------------------------------------------
+
+    command:      FOPEN
+    use:          <variable> = FOPEN (<filename> [,<mode> ... ])
+    description:  Opens an existing file and returns a handle.
+    notes:        Valid file modes are:
+
+                  readonly    Read from file only. Ignore writes
+                  writeonly   Write to file only. Ignore reads
+                  readwrite   Allow both reads and writes
+
+                  denynone    Sharing: allow all other tasks access
+                  denyall     Sharing: deny all other tasks all access
+                  denywrite   Sharing: deny writing for this file,
+                                       to other tasks
+                  denyread    Sharing: deny reading for this file,
+                                       to other tasks
+
+                  Default file mode is READWRITE and DENYNONE.
+
+                  If the file does not exist, and fopen is invoked with
+                  either WRITEONLY or READWRITE, then a new file will be
+                  created; otherwise a "File not found" runtime error
+                  results.
+
+                  If locking modes are specified and SHARE.EXE or its
+                  equivalent is not loaded, a runtime error may result.
+    examples:
+                  in% = fopen("MRC.CFG", readonly, denynone)
+                  tmpfile% = fopen("C:/TEMP/TMPFILE.$$$",writeonly,denyall)
+
+--------------------------------------------------------------------------
+
+    function:     FPOS
+    use:          <variable> = FPOS (<handle>)
+    descripton:   Returns current file pointer in open file.
+    notes:        The first byte in a file is at position 0.
+    example:
+                  posi& = fpos(inhandle%)
+
+--------------------------------------------------------------------------
+
+    function:     FNAME
+    use:          <variable> = FNAME (<handle>)
+    description:  Returns the corresponding filename of the given
+                  handle.
+    notes:        The filename returned is exactly the same as the one
+                  used to initially open the file.
+    example:
+                  f$ = fname(out%)
+
+--------------------------------------------------------------------------
+
+    function:     EXEC
+    use:          <variable> = EXEC (<progname>, <arguments>)
+    description:  Executes another program, returning to the MoonRock
+                  program afterwards.
+                  The errorlevel of the called program is returned and
+                  stored in <variable>.
+    notes:        When specifying paths, MoonRock may get backslash '\'
+                  characters confused with escape sequences. To avoid
+                  this, use two backslash characters in sequence.
+                  If the program to be executed is stored in a variable
+                  (perhap user entered), it is a good idea to use
+                  FTRUENAME to expand the filespec to a full path.
+    example:
+                  result% = exec ("C:\\DOS\\PKZIP.EXE", "-?")
+
+--------------------------------------------------------------------------
+
+    function:     FINDFIRST
+                  FINDNEXT
+    use:          FINDFIRST (<filespec>, <attr>)
+                  FINDNEXT
+    description:  Return filenames matching given filespec. Findfirst is
+                  called, and then findnext should be called until no
+                  more files are returned. A null string will be
+                  returned if no matching files are found.
+    notes:
+                  <attr> is a value formed from the following:
+
+                  hex  bit  meaning
+                  ---  ---  -------------------------------
+                  01h   0   Read only
+                  02h   1   Hidden
+                  04h   2   System
+                  08h   3   Volume label
+                  10h   4   Directory
+                  20h   5   Archive
+                  40h   6     --
+                  80h   7   File is shareable under NetWare
+
+                  Some operating systems such as NetWare are unable to
+                  "clear" previous findfirst tables until all matching
+                  files have been returned; eventually the number of
+                  available tables will be exhausted. It is a good idea
+                  to use findnext until no more matching files are
+                  returned, to circumvent this potential problem.
+
+                  The following extra information is available:
+
+                      FFBLK.Attr@   ' File attribute
+                      FFBLK.Time%   ' File time (DOS format)
+                      FFBLK.Date%   ' File date (DOS format)
+                      FFBLK.Size&   ' File size
+                      FFBLK.Name$   ' File name
+
+                  IMPORTANT: you must #include the file ffblk.h in the
+                  BEGIN DEF area when using these functions.
+    example:
+                  filename$ = findfirst("C:/*.*", 7)
+                  while filename$ <> ""
+                    print filename$ + "\n"
+                    filename$ = findnext
+                  wend
+
+--------------------------------------------------------------------------
+
+    function:     MGET
+    use:          <variable> = MGET (<offset> [, <segment>])
+    description:  Copy data from memory into a variable.
+    notes:        Size of data read depends on the variable type passed:
+
+                        Data type     Example   Bytes read
+                        ---------     -------   ----------
+                     word/integer     fork%     2
+                  doubleword/long     free&     4
+                           string     hop$      length of string
+
+                  If optional <segment> is specified then data will be
+                  pulled from that segment; otherwise the MoonRock data
+                  segment will be used.
+     examples:
+                  a% = mget(offset%) ' value of MR data seg is assumed here
+                  i& = mget(offset%, farseg%)
+
+--------------------------------------------------------------------------
+
+    function:     CMDLINE
+    use:          <variable> = CMDLINE
+    description:  Return parameters passed to your program on the DOS
+                  commandline.
+    notes:        See CMD.MOO for sample usage.
+    example:
+                  cmd$ = cmdline
+
+--------------------------------------------------------------------------
+
+    function:     CRC16
+    use:          <variable> = CRC16(<str>)
+    description:  Returns 16 bit Cyclic Reduncancy Check (CRC) of
+                  string.
+    notes:        CRCs are useful for detecting data corruption or
+                  change.
+                  See also hash1() and hash2() functions.
+    example:
+                  crcval% = crc16(buf$)
+
+--------------------------------------------------------------------------
+
+    function:     FARMALLOC
+    use:          <variable> = FARMALLOC (<size>)
+    description:  Allocates a far memory segment.
+    notes:        <size> can be anywhere between 1-65535 bytes. The
+                  amount actually allocated will be rounded up to the
+                  nearest paragraph (multiple of 16).
+    example:
+                  mysegment% = FARMALLOC (1024)  ' allocate 1024 bytes
+
+--------------------------------------------------------------------------
+
+    command:      FARMEMFREE
+    use:          FARMEMFREE (<pointer>)
+    description:  Frees previously allocated far memory.
+    notes:        DOS will free all allocated memory at the termination
+                  of your program, so you are not required to free
+                  everything before terminating. However, some DPMI
+                  implementations do not appear to free allocated memory
+                  when the process terminates.
+    example:
+                  farmemfree(ptr1%)
+
+--------------------------------------------------------------------------
+
+    function:     DATE
+                  DAY
+                  TIME
+    use:          DATE
+                  DAY
+                  TIME
+    description:  Return the current date, day name, or time.
+    notes:        Date is returned in dd-Mmm-yyyy format (eg: "12-Jul-1995")
+                  Day is returned in Ddd format (eg: "Sun")
+                  Time is returned in hh:mm:ss 24 hour format.
+
+                  The following extra information is available when the
+                  DATE function is used:
+
+                      DATEBLK.Day@
+                      DATEBLK.Month@
+                      DATEBLK.Year%
+
+                  The following extra information is available when the
+                  TIME function is used:
+
+                      TIMEBLK.Hour@
+                      TIMEBLK.Minute@
+                      TIMEBLK.Second@
+
+                  Note: The contents of the above variables are
+                  undefined if the functions have not been used.
+
+                  IMPORTANT: you must #include the file datetime.h in
+                  the BEGIN DEF area when using these functions.
+
+    example:
+                  print "Today is " + day + " " + date + ", " + time
+
+--------------------------------------------------------------------------
+
+    function:     REPSTR
+    use:          REPSTR(<str>, <count>)
+    description:  Makes <count> copies of <str>.
+    example:
+                  a$ = repstr ("Hello ", 5)
+                  ' Produces "Hello Hello Hello Hello Hello "
+
+--------------------------------------------------------------------------
+
+    function:     SINSTR
+    use:          <variable> = SINSTR(<str>, <set>)
+    description:  Finds first occurrence of any of the characters in <set>,
+                  in <str>.
+    notes:        See CMD.MOO for practical sample implementation.
+    example:
+                  firstparm% = sinstr(cmd$, " ,:;/")
+                  print left(cmd$, firstparm%)
+
+--------------------------------------------------------------------------
+
+    command:      FKILL
+    use:          FKILL (<filename>)
+    description:  Deletes (unlinks) specified filename.
+    example:
+                  fkill ("foobar.bak")
+
+--------------------------------------------------------------------------
+
+    function:     SPACE
+                  NULL
+    use:          SPACE(<count>)
+                  NULL(<count>)
+    description:  Generate string of <count> spaces (ASCII 32) or nulls
+                  (ASCII 0).
+    examples:
+                  a$ = null(20)
+                  c$ = f$ + space(10)
+
+--------------------------------------------------------------------------
+
+    function:     STR
+    use:          STR(<val>)
+    description:  Convert from numerical format to string format.
+    examples:
+                  s$ = str(val1%)
+                  a$ = "Value is " + str(v&)
+
+--------------------------------------------------------------------------
+
+    function:     SBYTE
+                  SWORD
+                  SDWORD
+    use:
+                  <variable> = SBYTE (<str>, <position>)
+                  <variable> = SWORD (<str>, <position>)
+                  <variable> = SDWORD (<str>, <position>)
+    description:  Gets a byte, word, or doubleword from a string.
+    notes:        This is not the same as the val() function. This takes
+                  a literal byte, word or doubleword from the string
+                  memory.
+    examples:
+                  c% = sbyte(cmd$, 1)  ' ASC(LEFT(cmd$, 1))
+                  c% = sword(a$, ptr%)
+
+--------------------------------------------------------------------------
+
+    function:     FEXIST
+    use:          <variable> = FEXIST (<filespec>, <fileattr>)
+    description:  Check of the existence of one or more files.
+    notes:        See FINDFIRST/FINDNEXT for list of valid file
+                  attributes.
+                  <filespec> may either be a filename or partial file
+                  specification with wildcards.
+                  TRUE is returned if at least one match is found.
+                  FALSE is returned if no matches are found.
+                  fexist is NetWare friendly and will correctly clear
+                  outstanding NCP tables.
+    example:
+                  if fexist("mrc.cfg", 7) = TRUE then
+                    handle% = fopen("mrc.cfg")
+                  endif
+
+--------------------------------------------------------------------------
+
+    function:     ASC
+    use:          ASC (<str>)
+    description:  Return the ASCII value of first character of string.
+    example:
+                  a$ = "Hello"
+                  a% = ASC(a$)  ' a% = 72 ('H') now
+
+--------------------------------------------------------------------------
+
+    function:     VAL
+    use:          VAL (<str>)
+    description:  Converts string to numerical variable.
+    example:
+                  a% = val(number$)
+
+--------------------------------------------------------------------------
+
+    function:     FTRUENAME
+    use:          FTRUENAME(<partial filespec>)
+    description:  Returns full path + filename of a partial file
+                  specification.
+    notes:        Can be used to determine full pathname when only
+                  partial information is available. Known as
+                  canonicalization.
+    example:
+                  a$ = ftruename("mrc.exe")
+
+--------------------------------------------------------------------------
+
+    function:     INSTR
+    use:          <variable> = INSTR (<str1>, <str2>)
+    description:  Finds first occurrence of <str2> within <str1>.
+    notes:        Returns 0 if no match found.
+                  Returns 0 if <str1> is empty.
+                  Returns 1 if <str2> is empty.
+    example:
+                  tmp$ = "Hi there. How are you today?"
+                  c% = instr(tmp$, "are")    ' c% = 15
+
+--------------------------------------------------------------------------
+
+    function:     MID
+    use:          MID(<str>, <position> [, <length>])
+    description:  Return middle or rest of a string.
+    notes:        If optional parameter <length> is omitted then the
+                  rest of the string starting from <position> is
+                  returned; otherwise only <length> characters are
+                  returned, or the rest of the string, whichever is
+                  less.
+    examples:
+                  print mid(a$, 10, 2)  ' Start from position 10,
+                                        ' return 2 characters
+
+                  print mid(a$, 10)     ' Start from position 10,
+                                        ' return rest of string
+
+--------------------------------------------------------------------------
+
+    function:     LEFT
+    use:          LEFT(<str>, <length>)
+    description:  Returns left part of string.
+    example:
+                  b$ = left(a$, 10)     ' Return left 10 characters of a$
+
+--------------------------------------------------------------------------
+
+    command:      CLS
+    use:          CLS
+    description:  Clears the screen.
+    notes:        Only available when _tty_str_bios or _tty_str_direct
+                  are selected as screen drivers.
+
+--------------------------------------------------------------------------
+
+    command:      MCURSOR
+    use:          MCURSOR (<x>, <y>)
+    description:  Positions cursor at location x, y.
+    notes:        Screen grid is 0-based, that is the upper left hand
+                  corner is 0,0.
+                  This command is only available when _tty_str_bios or
+                  _tty_str_direct are selected as screen drivers.
+
+--------------------------------------------------------------------------
+
+    command:      FARMEMRESIZE
+    use:          FARMEMRESIZE (<segment>, <size>)
+    description:  Resize existing far memory block.
+    notes:        This function returns a segment pointer which may
+                  differ from the original segment passed. If DOS cannot
+                  successfully resize the existing block, MoonRock will
+                  create a new block and will copy data to that block,
+                  and release the old block. Your program should be
+                  prepared for the possibility of a different segment
+                  being returned.
+                  <Size> may be between 1-65535 bytes.
+    example:
+                  farmemresize(useg%, 65200)
+
+--------------------------------------------------------------------------
+
+    command:      TIMESLICE
+    use:          TIMESLICE
+    description:  Relinquish current time slice.
+    notes:        This command is useful when running under
+                  multitaskers. If DESQview is detected, then DV
+                  timeslicing will be performed; if Windows/OS2
+                  "generic" timeslicing is detected, then that will be
+                  performed; otherwise DOS INT 28h "idle" interrupt will
+                  be called.
+                  The correct form of timeslicing is determined by
+                  MoonRock during runtime initialisation.
+                  This command should be used in loops where your
+                  program is otherwise doing very little work, such as
+                  waiting for a keypress.
+    example:
+                  k% = inkey
+                  while k% = -1     ' No key pressed
+                    timeslice       ' Give up time slice
+                    k% = inkey
+                  wend
+
+--------------------------------------------------------------------------
+
+    function:     CHR
+    use:          CHR (<value>)
+    description:  Creates a string with the character <value> in it.
+    example:
+                  a% = 65
+                  a$ = chr(a%)   ' a$ now contains "A"
+
+--------------------------------------------------------------------------
+
+    function:     HASH1
+                  HASH2
+    use:          <variable> = HASH1 (<str>)
+                  <variable> = HASH2 (<str>)
+    description:  Produces a "unique" 2 byte value from any length
+                  string. Can be used for manipulating large amounts of
+                  data quickly by use of hash tables.
+    notes:        hash1 and hash2 differ slightly in the algorithm used
+                  and will return totally different results. Use both
+                  for extra security against "hash clash".
+    example:
+                  a% = hash1(a$)
+
+--------------------------------------------------------------------------
+
+    function:     CODESEG
+                  DATASEG
+    use:          CODESEG
+                  DATASEG
+    description:  Returns current code segment or data segment,
+                  depending on function used.
+    notes:        These functions replace the pseudovariables "codeseg%"
+                  and "dataseg%" used in previous versions of MoonRock.
+                  Code segment (CS) the is segment of currently executing
+                  code.
+                  Data segment (DS) is MoonRock's data segment.
+
+--------------------------------------------------------------------------
+
+    function:     RAND
+    use:          RAND (<range>)
+    description:  Returns random number between 1 and <range>
+    notes:        <range> may be between 2 and 32767 for positive
+                  values returned.
+                  This function does not work well for low values of
+                  <range>. It is better to use a large number for
+                  <range> and scale (divide) the result.
+    examples:
+                  a% = rand(10000)       ' number between 1 and 10,000
+                  co% = rand(100) / 10   ' number between 1 and 10.
+
+--------------------------------------------------------------------------
+
+    function:     FLEN
+    use:          <variable> = FLEN (<handle>)
+    description:  Returns length of open file.
+    notes:        Use of a doubleword/long for <variable> is recommended
+                  unless you have prior knowledge that the file will be
+                  less than 32767 bytes in size.
+    example:
+                  s& = flen(handle%)
+
+--------------------------------------------------------------------------
+
+    function:     IS386
+    use:          IS386
+    description:  Checks for presence of a 386 or better processor.
+    notes:        Returns TRUE (-1) if the processor is a 386 or better;
+                  returns FALSE (0) if not.
+                  This replaces the pseudovariable "is386%" which was used in previous
+                  versions of MoonRock.
+                  This function should be used with source that will be
+                  compiled with the /3 (386+ code generation) option to
+                  abort if the processor is not capable of 386+
+                  instructions.
+
+    example:
+
+                  if is386 then
+                    print "You have a 386 or better; you're elite."
+                  else
+                    print "This program only works on 386+ processors."
+                    end(1)
+                  endif
+
+--------------------------------------------------------------------------
+
+    function:     RIGHT
+    use:          RIGHT(<str>, <length>)
+    description:  Returns right part of string.
+    example:
+                  b$ = right(a$, 10)    ' Return right 10 characters of a$
+
+--------------------------------------------------------------------------
+
+    function:     FOSINIT
+    use:          FOSINIT (<comport>)
+    description:  Initialise FOSSIL. Returns FOSSIL ID string for
+                  successful initialisation, or null "" string if
+                  failed.
+    notes:        FOSSIL may be initialised for "local" use if the
+                  comport specified is -1, any MoonRock FOSSIL functions
+                  called thereafter will be ignored.
+    example:
+                  fosid$ = fosinit(1)
+
+--------------------------------------------------------------------------
+
+    command:      FOSDEINIT
+    use:          FOSDEINIT
+    description:  De-initialise FOSSIL. Performs orderly cleanup and
+                  shutdown of the communications port. Should be used
+                  when operations on the communications port are
+                  complete.
+    notes:        This command is ignored if the FOSSIL was initialised
+                  to a "local" comport.
+
+--------------------------------------------------------------------------
+
+    command:      FOSTX
+    use:          FOSTX(<string>)
+    description:  Transmit string to output.
+    notes:        If the output buffer is full, this function waits
+                  until it empties before returning; while waiting
+                  timeslices are relinquished (see "timeslice" command)
+                  This command is ignored if the FOSSIL was initialised
+                  to "local" comport.
+    example:
+                  fostx("This is a string")
+
+--------------------------------------------------------------------------
+
+    command:      FOSFLUSH
+    use:          FOSFLUSH
+    description:  Flush output buffer
+    notes:        Flushes the serial output buffer. Any data still
+                  waiting to be transmitted is discarded.
+                  This command is ignored if the FOSSIL was initialised
+                  to "local" comport.
+
+--------------------------------------------------------------------------
+
+    function:     FOSCARRIER
+    use:          FOSCARRIER
+    description:  Check for presence of carrier detect (CD)
+    notes:        Returns TRUE (-1) if carrier is present, FALSE (0) if
+                  not.
+                  Returns TRUE (-1) if the FOSSIL was initialised to a
+                  "local" comport.
+    example:
+                  if foscarrier = FALSE then print "Carrier lost!"
+
+--------------------------------------------------------------------------
+
+    function:     FOSDATAWAITING
+    use:          FOSDATAWAITING
+    description:  Check for presence of data in the serial input buffer.
+    notes:        Returns TRUE (-1) if data is present, otherwise
+                  returns FALSE (0).
+                  Returns FALSE (0) if the FOSSIL was initialised to a
+                  "local" comport.
+    example:
+                  if datawaiting = TRUE then k% = fosgetchar
+
+--------------------------------------------------------------------------
+
+    function:     FOSGETCHAR
+    use:          FOSGETCHAR
+    description:  Get character from serial port without waiting.
+    notes:        Returns -1 if no character is available.
+                  Returns -1 if the FOSSIL was initialised to a "local"
+                  comport.
+
+--------------------------------------------------------------------------
+
+    command:      FLOCK
+                  FUNLOCK
+    use:          FLOCK (<handle>, <start>, <length>)
+                  FUNLOCK (<handle>, <start>, <length>)
+    description:  Locks or unlocks a file; denies or grants access to
+                  other processes accessing the file.
+    notes:        SHARE.EXE or equivalent support must be loaded.
+                  <start> specifies the start of the region you wish to
+                  lock or unlock; length specifies the length.
+                  To lock or unlock the entire file, use the following:
+
+                    flock(handle%, 0, 0FFFFFFFFh)
+                    funlock(handle%, 0, 0FFFFFFFFh)
+
+                  Where handle% is the handle of the file you wish to
+                  lock or unlock.
+                  An unlock start/region must match exactly the original
+                  lock start/region.
+    example:
+                  See LOCK.MOO for sample implementation.
+
+--------------------------------------------------------------------------
+
+    command:      DELAY
+    use:          DELAY (<ticks>)
+    description:  Delays specified number of clock 'ticks'
+    notes:        This delay is processor/speed independent and should
+                  be used in preference to software loops.
+                  Whilst in the delay loop, timeslices are relinquished
+                  (see "timeslice" command).
+                  There are approximately 18.2 ticks per second.
+                  The maximum number of ticks that can be specified is
+                  65535, which is approximately 60 minutes.
+    example:
+                  print "Now delaying 2 seconds..."
+                  delay(36)    ' Approx 2 seconds
+                  print "complete.\n"
+
+--------------------------------------------------------------------------
+
+    command:      FINPUT
+    use:          FINPUT (<handle>, <str>)
+    description:  Inputs a text line from an open file.
+    notes:        Line feeds are ignored.
+    example:
+                  finput(handle%, l$)
+                  print "The line is: " + l$
+
+--------------------------------------------------------------------------
+
+    function:     MYPATH
+    use:          MYPATH
+    description:  Returns path of the currently executing program.
+    notes:        This can be used to find configuration files if the
+                  program was not executed from the current directory.
+                  It is recommended that the value returned from MYPATH
+                  be canonicalized (expanded to full path) with the
+                  FTRUENAME function.
+    example:
+                  a$ = mypath   ' a$ now contains something like
+                                ' "C:\MR\MYPATH.COM"
+
+--------------------------------------------------------------------------
+
+    function:     GETENV
+    use:          GETENV(<name>)
+    description:  Returns the contents of the environment variable <name>.
+    notes:        A null string is returned if the environment variable
+                  is not found.
+                  The name of the variable is not case sensitive.
+    example:
+                  print getenv("PATH")
+
+--------------------------------------------------------------------------
+
+    function:     NEG
+    use:          NEG(<var>)
+    description:  Negate (two's complement) a number.
+    example:
+                  a% = 2
+                  print neg(a%)    ' prints -2
+
+--------------------------------------------------------------------------
+
+    function:     STRCCNT
+    use:          STRCCNT(<string>, <end>, <character>)
+    description:  Counts occurrences of character within a string.
+    notes:        <end> is the position pointer to scan TO in the
+                  string. If <end> is 0, then the entire string is
+                  scanned.
+                  <character> is specified in decimal ASCII form, eg a
+                  space is 32.
+    example:
+                  s$ = "ABCDEFGABCDEFGABCDEFGABCDEFG"  ' A=ASCII 65
+                  a% = strccnt(s$, 0, 65)              ' a% = 4
+
+--------------------------------------------------------------------------
+
+    function:     CINSTR
+    use:          CINSTR(<string>,<character>)
+    description:  Finds the first occurrence of character in a string.
+    notes:        <character> is specified in decimal ASCII form, eg: a
+                  space is 32.
+                  This is significantly faster than using instr() if you
+                  only need to search for a single character.
+    example:
+                  s$ = "ABCDEFG"       ' B=ASCII 66
+                  a% = cinstr(s$, 66)  ' a% = 2
+
+--------------------------------------------------------------------------
+
+    function:     HUGEMALLOC
+    use:          HUGEMALLOC(<size>)
+    description:  Allocates far memory of more than 64k.
+    notes:        <size> may be a numerical constant or variable.
+                  Returns a segment (word) value, except when used with
+                  a FAR or HUGE pointer.
+                  Memory allocated with HUGEMALLOC can be freed with
+                  FARMEMFREE.
+    example:
+                  myseg% = hugemalloc(400000)  ' allocate 400,000 bytes
+
+--------------------------------------------------------------------------
+
+    function:     VARPTR
+    use:          VARPTR(<var>)
+    description:  Returns the offset of a variable.
+    notes:        Useful for manipulation with pointers, equivalent to
+                  the "offset" ASM keyword.
+                  For numerical variables, varptr points directly to the
+                  location which holds the value; for string, it is a
+                  pointer to a pointer. In both cases, the value
+                  returned by varptr will remain constant throughout
+                  program execution.
+
+--------------------------------------------------------------------------
+
+    function:     STRPTR
+    use:          STRPTR(<var>)
+    description:  Returns the address (offset) of string variable
+                  contents.
+    notes:        This returns a pointer to the actual string contents.
+                  MoonRock strings are stored with a leading word size,
+                  then the string itself.
+                  While the value of varptr remains constant, strptr
+                  will change as the string is modified.
+
+--------------------------------------------------------------------------
+
+    command:      SOUNDON
+    use:          SOUNDON(<frequency>)
+    description:  Turns on the PC speaker and produces an audible sound.
+    notes:        <frequency> is the frequency measured in Hertz (Hz).
+                  soundoff must be used to turn off the sound.
+    example:
+                  soundon(440)   ' 440Hz
+                  delay(18)      ' pause 1 second
+                  soundoff       ' stop sound
+
+--------------------------------------------------------------------------
+
+    command:      SOUNDOFF
+    use:          SOUNDOFF
+    description:  Turns off the PC speaker after prior soundon command.
+
+--------------------------------------------------------------------------
+
+    function:     SGN
+    use:          SGN(<numvar>)
+    description:  Returns the sign of a numerical variable.
+                  If the variable is negative, then -1 is returned.
+                  If the variable is zero, then 0 is returned.
+                  If the variable is positive, then 1 is returned.
+
+--------------------------------------------------------------------------
+
+    command:      ATEXIT
+    use:          ATEXIT(<subname>)
+    description:  Adds a SUB to call when the program is terminated.
+    notes:        This is handy for cleanup routines at the termination
+                  of a program, for example, restoring of interrupt
+                  vectors.
+                  Up to 16 SUBs may be called at exit.
+                  The subroutines are called directly after a
+                  terminating END command, *or* after a runtime error
+                  occurs.
+                  If a runtime error occurs within a SUB that is called
+                  at exit, then the program will be aborted immediately
+                  with the error message:
+
+                  "Program error: exception occurred in _atexit"
+
+                  Care should be taken to try to avoid runtime errors in
+                  these SUBs.
+
+--------------------------------------------------------------------------
+
+    command:      PUSH
+                  POP
+    use:          PUSH <varname>
+                  POP <varname>
+    description:  Pushes (saves) or pops (restores) a variable to or
+                  from the stack.
+    notes:        These commands use the processor stack, which must be
+                  shared with the MoonRock program executing, and
+                  interrupt service routines. In some cases it may be
+                  necessary to use the STACK directive in the BEGIN DEF
+                  area to increase the allocated stack.
+                  The number of pushes and pops must be the same, and
+                  they must be in LIFO (Last In, First Out) order.
+                  Use these with care. Failure to correctly balance the
+                  stack may result in program or system crash.
+    example:
+                  ' This example saves two variables to the stack,
+                  ' changes them, then restores them from the stack.
+                  a% = 10
+                  b% = 50
+                  push a%  ' save a%
+                  push b%  ' save b%
+                  a% = 0   ' zero a%
+                  b% = 0   ' zero b%
+                  pop b%   ' restore b% -- note LIFO order
+                  pop a%   ' restore a%
+                  print "a% = " + a% + "\nb% = " + b%
+
+--------------------------------------------------------------------------
+
+    command:      SWAP
+    use:          SWAP <varname>, <varname>
+    description:  Directly swaps two variables in memory.
+    notes:        A functional diagram of swap is:
+                    var1 -> temp
+                    var2 -> var1
+                    temp -> var2
+                  Using swap instead of discrete code is marginally
+                  faster for numerical variables, and significantly
+                  faster for string variables.
+
+--------------------------------------------------------------------------
+
+    command:      CPUT
+    use:          CPUT (<xpos>, <ypos>, <character>)
+    description:  Writes specified character directly to the screen at
+                  co-ordinates <xpos> and <ypos>.
+    notes:        <character> is a number ranging from 0-255.
+                  This command is only available with the
+                  _tty_str_direct screen driver.
+                  When compiled with debugging (/D) option, range
+                  checking will be performed. If CPUT is passed a
+                  co-ordinate which is off the screen, an invalid
+                  function call error (#6) results.
+    example:
+                  cput(0, 0, 33) ' prints '!' in top left-hand corner
+
+--------------------------------------------------------------------------
+
+    function:     CGET
+    use:          CGET (<xpos>, <ypos>)
+    description:  Returns character and attribute at co-ordinates <xpos>
+                  and <ypos>.
+    notes:        The attribute is returned in the higher 8 bits; the
+                  character is returned in the lower 8 bits.
+                  For character only, use:
+                    tmp% = cget(x%, y%)
+                    tmp% = tmp% and 0FFh  ' tmp% contains character
+                  For attribute only, use:
+                    tmp% = cget(x%, y%)
+                    tmp% = tmp% shr 8     ' tmp% contains attribute
+                  This function is only available with the
+                  _tty_str_direct screen driver.
+                  When compiled with debugging (/D) option, range
+                  checking will be performed. If CGET is passed a
+                  co-ordinate which is off the screen, an invalid
+                  function call error (#6) results.
+
+--------------------------------------------------------------------------
+
+    command:      DRAWWINDOW
+    use:          DRAWWINDOW(<title>, <xpos>, <ypos>, <width>, <length>,
+                    <BarForeCol>, <BarBackCol>, <BorderForeCol>, <BodyCol>
+    description:  Draws a text window at given co-ordinates.
+    notes:        <Title> is a string which is displayed centred at the
+                  top of the window.
+                  <BarForeCol> and <BarBackCol> are the foreground
+                  and background colours of the window bar.
+                  <BorderForeCol> is the colour of the border.
+                  <BodyCol> is the colour (background) of the window
+                  text area.
+                  See WDEMO.MOO for an example of how to use DRAWWINDOW.
+
+--------------------------------------------------------------------------
+
+    command:      GOTO
+    use:          GOTO <label>
+    description:  Jumps unconditionally to the specified label.
+    notes:        Labels are alphanumeric, and have a colon ':' as a
+                  suffix.
+                  You should not use GOTO in to or out of a SUB, or
+                  between two SUBs.
+    example:
+                    print "One"
+                    goto fred
+                    print "Two"
+                    ' above line is never executed
+                  fred:
+                    print "Three"
+
+--------------------------------------------------------------------------
+
+    command:      SCREENSAVE
+                  SCREENRESTORE
+    use:          SCREENSAVE
+                  SCREENRESTORE
+    description:  Saves and restores current screen to and from the
+                  screen "stack".
+    notes:        The stack is a private buffer area maintained by these
+                  commands.
+                  A saved 80x25 screen consumes 4,000 bytes of far
+                  memory; this is freed when the screen is restored.
+                  Up to 16 screens may be placed on the stack; if too
+                  many saves or restores are attempted, an invalid
+                  function call runtime error will result.
+                  It is important that a screensave has a matching
+                  screenrestore elsewhere in the program flow.
+
+--------------------------------------------------------------------------
+
+    function:     XPOS
+                  YPOS
+    use:          XPOS
+                  YPOS
+    description:  Returns current X co-ordinate (XPOS) or Y co-ordinate
+                  (YPOS) of the text cursor.
+    example:
+                  xsave% = xpos   ' save X co-ord to variable xsave%
+                  ysave% = ypos   ' save Y co-ord to variable ysave%
+
+--------------------------------------------------------------------------
+
+    function:     GETSCREENSEG
+    use:          GETSCREENSEG
+    description:  Returns the current screen buffer segment.
+    notes:        At runtime initialisation the screen buffer will
+                  usually be either B000h (monochrome adapters) or B800h
+                  (colour adapters). Under DESQview this value may be
+                  different.
+                  This function, along with the setscreenseg command,
+                  can be used to implement double buffering for
+                  flicker-free screen updates.
+                  Can only be used with the _tty_str_direct driver.
+    example:
+                  screen_seg% = getscreenseg
+                  print "Screen buffer is located at "
+                  print hex16(screen_seg%) + ":0000\n"
+
+
+--------------------------------------------------------------------------
+
+    command:      SETSCREENSEG
+    use:          SETSCREENSEG(<seg>)
+    description:  Sets the current screen buffer segment
+    notes:        This command tells the _tty_str_direct driver to use
+                  another area of memory as the screen segment.
+                  This command, in conjunction with the getscreenseg
+                  command, can be used to implement double buffering for
+                  flicker-free screen updates.
+                  It is not necessary to restore the original screen
+                  buffer segment before termination of the program.
+                  This is an advanced function and should be used with
+                  care!
+    example:
+                  See WDEMO.MOO for an example of double buffering; when
+                  compiled with the !SMOOTH define it will use double
+                  buffering.
+
+--------------------------------------------------------------------------
+
+    function:     FREESTACK
+    use:          <variable> = FREESTACK
+    description:  Returns the amount of free stack space in bytes.
+    notes:        See also UNUSEDSTACK.
+
+--------------------------------------------------------------------------
+
+    function:     UNUSEDSTACK
+    use:          <variable> = UNUSEDSTACK
+    description:  Returns the amount of unused stack space in bytes.
+    notes:        The amount of unused stack space is the amount that
+                  has never been used, in other words, the minimum
+                  amount of stack space available in the most stack
+                  hungry part of the program.
+                  This function is useful for debugging and can show
+                  when the size of the stack (STACK parameter in BEGIN
+                  DEF area) may need to be increased.
+
+--------------------------------------------------------------------------
+
+    command:      MEMCOPY
+    use:          MEMCOPY(<src offset>, <dest offset>, <bytes>)
+    description:  Copies memory in MoonRock data segment from source to
+                  destination.
+    notes:        <bytes> is the number of bytes to copy, and can be
+                  between 1 and 65535.
+                  This is a NEAR copy.
+                  When compiled with the debug (/D) option, checking is
+                  performed to ensure that a segment overrun (processor
+                  exception #13) does not occur.
+    example:
+
+                  a$ = "Hello"   ' source
+                  b$ = "     "   ' destination
+                  print "b$ = '" + b$ + "'\n"
+                  memcopy(strptr(a$), strptr(b$), 7) ' a$ -> b$
+                  print "b$ = '" + b$ + "'\n"
+
+--------------------------------------------------------------------------
+
+    command:      FARMEMCOPY
+    use:          FARMEMCOPY(<src seg>, <src offset>, <dest seg>,
+                    <dest offset>, <bytes>)
+    description:  Copies memory between far segments.
+    notes:        The source and destination segment may be the same.
+                  <bytes> is the number of bytes to copy, and can be
+                  between 1 and 65535.
+                  When compiled with the debug (/D) option, checking is
+                  performed to ensure that a segment overrun (processor
+                  exception #13) does not occur.
+
+--------------------------------------------------------------------------
+
+    command:      FARMEMCOPYS
+    use:          FARMEMCOPYS(<src seg>, <dest seg>, <bytes>)
+    description:  Copies memory between far segments, offset assumed to
+                  be 0.
+    notes:        This is slightly faster and produces smaller code than
+                  FARMEMCOPY. Use this command if copying from and to
+                  whole segments (seg:0000).
+                  The source and destination segment may be the same.
+                  <bytes> is the number of bytes to copy, and can be
+                  between 1 and 65535.
+
+--------------------------------------------------------------------------
+
+    command:      MEMFARTONEAR
+    use:          MEMFARTONEAR(<src seg>, <src offset>, <dest offset>,
+                    <bytes>)
+    description:  Copies memory from a far segment to MoonRock's data
+                  segment.
+    notes:        <bytes> is the number of bytes to copy, and can be
+                  between 1 and 65535.
+                  When compiled with the debug (/D) option, checking is
+                  performed to ensure that a segment overrun (processor
+                  exception #13) does not occur.
+
+--------------------------------------------------------------------------
+
+    command:      MEMNEARTOFAR
+    use:          MEMNEARTOFAR(<src offset>, <dest seg>, <dest offset>,
+                    <bytes>)
+    description:  Copies memory from MoonRock's data segment to a far
+                  segment.
+    notes:        <bytes> is the number of bytes to copy, and can be
+                  between 1 and 65535.
+                  When compiled with the debug (/D) option, checking is
+                  performed to ensure that a segment overrun (processor
+                  exception #13) does not occur.
+
+--------------------------------------------------------------------------
+
+         *** PLEASE ALSO SEE READ.ME FOR FURTHER REFERENCE ***
+
+=== END OF REFERENCE ===
+

@@ -1,0 +1,30 @@
+IBRARY 2.0, 02/28/94:
+
+   This release adds scores of new routines, a new demo, and a
+   printed manual for registered owners. It features a complete
+   set of DOS directory and file handling services, control over
+   the cursor size and visibility, keyboard toggles, text screen
+   save/restore, convenient memory access, delays, new equipment
+   detection routines, and other goodies. More than 200 routines
+   in all!
+
+   All IBRARY routines which access the disk include built-in
+   critical error handling, so's to avoid having that nasty
+   "A>bort, R>etry, I>gnore, F>ail" prompt interrupt your
+   programs. Instead, critical errors cause an appropriate error
+   code to be returned, so you can process them normally.
+
+
+
+IBRARY 1.0, 04/23/93:
+
+   This is the initial release of the IBRARY library for ASIC,
+   with over 135 routines featuring DOS/ANSI console output,
+   graphics (modes 8, 11, 12, 13, N0, N1), time/date setting,
+   mouse support, joystick support, get/set VGA palette, bit
+   shifts and rotates, equipment information, STR$ without
+   leading blanks, access to BIOS and DOS interrupts, more.
+
+   Graphics modes N0 and N1 are nonstandard video modes which
+   provide for up to 360x480 in 256 colors on any standard VGA
+   or better setup.

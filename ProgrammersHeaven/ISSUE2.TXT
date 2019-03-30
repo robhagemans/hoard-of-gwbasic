@@ -1,0 +1,901 @@
+
+  --------[ T H E ]-------------------------------------------------------
+    BBBB    A   SSS   I X      X
+    B   B  A A  S  S  I  X    X          The BASIC Internet Fanzine
+    B   B  A A  S     I   XXXX           ==========================
+    BBBB  A   A  SSS  I   X  X
+    B   B AAAAA    S  I  X    X    Written by and updated by Peter Cooper
+    B   B A   A S  S  I X      X              of PECO Software 
+    BBBB  A   A  SSS  IX        X   
+  -------------------------------------------------------------------------
+       ISSUE NUMBER 2 OF THE NEW INTERNET BASIC FANZINE - DECEMBER 1995
+  -------------------------------------------------------------------------
+	       Enquiries\support: peter@trenham.demon.co.uk  
+		    Articles: bmag@trenham.demon.co.uk
+
+			OUT EARLY THIS MONTH!!!!!
+
+  INTRODUCTION:
+	Hi all!! I've had a great response to the first fanzine and loads
+  of new code snippets and also tutorials and articles galore! You've might
+  have noticed that the name of the fanzine has changed. It's now called
+  The Basix, although I still really call it the Basic Internet Fanzine.
+  I hope you enjoy this months offering. Please e-mail with a comment about
+  the fanzine. I need hints and tips on what you (the reader) want in the
+  fanzine. 
+	Thanks.
+
+ -NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-
+ LAST MINUTE CHANGES:
+ Sorry but our section on writing an interpreter and the article on line
+ algorithms have had to go this month due to the size of the fanzine. I
+ don't want to produce a massive fanzine because there might be someone who'll
+ have a moan about the fanzine and I don't want that do I? ;-)
+ -NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-NOTE-
+
+-------------------------------------------------------------------------------
+- CONTENTS PAGE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
+
+ Sorry about the changes in the structure this month but this is all to make
+ the fanzine better for you. These changes were suggested by various people.
+ 
+ SECTION ONE) - [SPECIALIZED ARTICLES]
+    |
+ [part a] - ADVANCED\INTERMEDIATE PROGRAMMERS
+	  |    |
+	  |    +----  i) Reading the CMOS (by John Woodgate)
+	  |    |
+	  |    +---- ii) Shareware Basic Libraries
+	  |    |
+	  |    +----iii) WAV\VOC\RAW File Player version 2.0
+	  |
+       [part b] - NOVICE\BEGINNER PROGRAMMERS
+		|
+		+----  i) Basic Tutorials (1/5)
+
+ SECTION TWO) - [ALL LEVELS ARTICLES]
+    |
+    +-----  i) Useful BASIC\programming sources on the internet
+    |
+    +----- ii) C vs. Basic (by Tim Gerchmez)
+
+ SECTION THREE) - [YOUR SHOUT!]
+    |
+    +-----  i) Questions and Answers
+    |
+    +----- ii) The ongoing Discussion: PowerBasic or QBasic
+    |
+    +-----iii) Your programs
+    |
+    +----- iv) Survey Results
+
+ SECTION FOUR) - [DETAILS ABOUT THE FANZINE]
+    |
+    +-----  i) How do you contribute?
+    |
+    +----- ii) How do you contact the author?
+    |
+    +-----iii) Credits
+    |
+    +----- iv) Last words + next month
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION ONE -----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Specialized articles:
+
+ This section is split into two parts. Part A is for the more advanced or
+ intermediate programmer in basic and Part B is more for the beginners of
+ BASIC. This sort of layout was something people wanted.
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART I - (Reading the CMOS - by John Woodgate) -----------
+-------------------------------------------------------------------------------
+
+ This article would have been impossible (a figure of speech) if it wasn't for  
+ John Woodgates help in writing the following snippets of code.
+
+ NOTE: this article really requires that you have Microsoft QuickBasic 4.5 or
+       PDS 7 (.1)
+
+ The first piece of code is to detect the amount of video memory inside your
+ PC. It would be a really useful program if the PC's bios actually reported
+ memory over 256k. This was a function for the early days when 256k of video
+ memory was a super large amount. Still, this program shows what sort of 
+ things can be done and how to do them.
+
+DECLARE FUNCTION VidMem% ()
+ 
+DEFINT A-Z
+FUNCTION VidMem%
+ 
+' Returns the amount of Video Memory
+' PC's BIOS only reports up to 256K, though.
+'------------------------------------------------------------------------
+ 
+DEF SEG = 0
+vm = PEEK(&H487)
+vm = Byte AND 96
+vm = vm \ 32
+vm = (vm + 1) * 64
+DEF SEG
+VidMem% = vm
+ 
+END FUNCTION
+ 
+ Next is a program which actually goes into all the details of different
+ things in your computer. It's a good program. Run it!
+
+' CMOS.BAS
+' Reads the contents of the CMOS
+'
+DEFINT A-Z
+ 
+DECLARE FUNCTION CMOSBattery% ()
+DECLARE FUNCTION BitOn% (Which%, IntVal%)
+DECLARE FUNCTION DriveType% (Drv%)
+DECLARE FUNCTION Hex2Bin$ (Hcs$)
+DECLARE FUNCTION TotalMem% ()
+CLS
+PRINT "CMOS Contents:"
+FOR i = 0 TO &H7F
+ OUT &H70, i
+ PRINT USING "\   \"; HEX$(INP(&H71));
+NEXT i
+PRINT " "
+PRINT "CMOS Battery State: ";
+IF CMOSBattery% THEN PRINT "Good" ELSE PRINT "Battery Dead"
+PRINT
+k% = DriveType%(1)
+PRINT "Drive A: ";
+IF k% = 0 THEN PRINT "None"
+IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
+IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
+IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
+IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
+k% = DriveType%(2)
+PRINT "Drive B: ";
+IF k% = 0 THEN PRINT "None"
+IF k% = 1 THEN PRINT "5"; CHR$(172); " 360K"
+IF k% = 2 THEN PRINT "5"; CHR$(172); " 1.2M"
+IF k% = 3 THEN PRINT "3"; CHR$(171); " 720K"
+IF k% = 4 THEN PRINT "3"; CHR$(171); " 1.44M"
+PRINT
+OUT &H70, &H19
+b% = INP(&H71)
+PRINT "Hard Disk 0 Type:";
+IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed"
+OUT &H70, &H1A
+b% = INP(&H71)
+PRINT "Hard Disk 1 Type:";
+IF b <> 0 THEN PRINT b% ELSE PRINT " Not Installed" 
+PRINT
+ 
+OUT &H70, &H15
+b% = INP(&H71)
+OUT &H70, &H16
+b1% = INP(&H71)
+PRINT "Base Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
+ 
+OUT &H70, &H17
+b% = INP(&H71)
+OUT &H70, &H18
+b1% = INP(&H71)
+PRINT "Extended Memory:"; RTRIM$(STR$(CVI(CHR$(b) + CHR$(b1%)))); "K"
+ 
+PRINT "Total System Memory:"; RTRIM$(STR$(TotalMem%)); "K"
+ 
+FUNCTION BitOn (Which, IntVal)
+   BitOn = 0
+   SELECT CASE Which
+      CASE 1: IF (IntVal AND 128) THEN BitOn = (-1)
+      CASE 2: IF (IntVal AND 64) THEN BitOn = (-1)
+      CASE 3: IF (IntVal AND 32) THEN BitOn = (-1)
+      CASE 4: IF (IntVal AND 16) THEN BitOn = (-1)
+      CASE 5: IF (IntVal AND 8) THEN BitOn = (-1)
+      CASE 6: IF (IntVal AND 4) THEN BitOn = (-1)
+      CASE 7: IF (IntVal AND 2) THEN BitOn = (-1)
+      CASE 8: IF (IntVal AND 1) THEN BitOn = (-1)
+      CASE 9: IF (IntVal AND (-32768)) THEN BitOn = (-1)
+      CASE 10: IF (IntVal AND 16384) THEN BitOn = (-1)
+      CASE 11: IF (IntVal AND 8192) THEN BitOn = (-1)
+      CASE 12: IF (IntVal AND 4096) THEN BitOn = (-1)
+      CASE 13: IF (IntVal AND 2048) THEN BitOn = (-1)
+      CASE 14: IF (IntVal AND 1024) THEN BitOn = (-1)
+      CASE 15: IF (IntVal AND 512) THEN BitOn = (-1)
+      CASE 16: IF (IntVal AND 256) THEN BitOn = (-1)
+   END SELECT
+END FUNCTION
+ 
+FUNCTION CMOSBattery%
+	OUT &H70, &HD
+	b% = INP(&H71)
+	c = BitOn%(1, b%)
+	CMOSBattery% = c
+END FUNCTION
+
+FUNCTION DriveType% (Drv%)
+	OUT &H70, &H10
+	b% = INP(&H71)
+	IF Drv% = 1 THEN 
+		t$ = LEFT$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(b%)))), 4)
+	ELSE
+		t$ = MID$(Hex2Bin$(LTRIM$(RTRIM$(HEX$(b%)))), 5, 4)
+	END IF
+	IF t$ = "0001" THEN DriveType% = 1
+	IF t$ = "0010" THEN DriveType% = 2
+	IF t$ = "0011" THEN DriveType% = 3
+	IF t$ = "0100" THEN DriveType% = 4
+END FUNCTION
+ 
+FUNCTION Hex2Bin$ (Hcs$)
+   Hcs$ = UCASE$(Hcs$)
+   lc = LEN(Hcs$)
+   FOR x = 1 TO lc
+      SELECT CASE MID$(Hcs$, x, 1)
+	 CASE "0"
+	    Out$ = Out$ + "0000"
+	 CASE "1"
+	    Out$ = Out$ + "0001"
+	 CASE "2"
+	    Out$ = Out$ + "0010"
+	 CASE "3"
+	    Out$ = Out$ + "0011"
+	 CASE "4"
+	    Out$ = Out$ + "0100"
+	 CASE "5"
+	    Out$ = Out$ + "0101"
+	 CASE "6"
+	    Out$ = Out$ + "0110"
+	 CASE "7"
+	    Out$ = Out$ + "0111"
+	 CASE "8"
+	    Out$ = Out$ + "1000"
+	 CASE "9"
+	    Out$ = Out$ + "1001"
+	 CASE "A"
+	    Out$ = Out$ + "1010"
+	 CASE "B"
+	    Out$ = Out$ + "1011"
+	 CASE "C"
+	    Out$ = Out$ + "1100"
+	 CASE "D"
+	    Out$ = Out$ + "1101"
+	 CASE "E"
+	    Out$ = Out$ + "1110"
+	 CASE "F"
+	    Out$ = Out$ + "1111"
+      END SELECT
+   NEXT
+   Hex2Bin$ = Out$
+END FUNCTION
+ 
+FUNCTION TotalMem%
+	OUT &H70, &H15
+	b% = INP(&H71)
+	OUT &H70, &H16
+	b1% = INP(&H71)
+	a1% = CVI(CHR$(b) + CHR$(b1%))
+	OUT &H70, &H17
+	b% = INP(&H71)
+	OUT &H70, &H18
+	b1% = INP(&H71)
+	a2% = CVI(CHR$(b) + CHR$(b1%))
+	TotalMem% = a1% + a2%
+END FUNCTION
+
+From John Woodgate/QTD (John@nmr.sbay.org)
+John has been the biggest external contributor to the fanzine and has been
+a great help in providing code and help. Cheers John. Keep up the good work.
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART II - (Shareware BASIC libraries) --------------------
+-------------------------------------------------------------------------------
+
+ The inclusion of this section was made by Tim Gerchmez and is a very good idea
+ in my opinion and this month we concentrate on PowerBASIC users so here goes:
+
+ Tims toolboxes and libraries are available at the following URL:
+ ftp://ftp.eskimo.com/u/f/future      
+
+ or, to put it another way, at ftp.eskimo.com in directory /u/f/future.
+ He will also respond to Email requests and send copies of his shareware
+ UUencoded or MIME encoded via email to anyone who asks. His email address
+ is   future@eskimo.com  .
+ 
+ Here are the ones available:
+
+ PBASMLIB.ZIP:
+ **PBASMLIB For PowerBASIC 3.0**
+ An all assembly-language toolbox for PowerBASIC 3.0, containing
+ hundreds of low level routines for MS-DOS, BIOS, mouse driver,
+ Soundblaster access and others. 
+ Shareware, $39.95 registration.
+
+ MNUSYS23.ZIP:
+  Menusys for PowerBASIC 3.0 Version 2.3 released 11/94-
+ A complete text-mode GUI toolbox for PowerBASIC 3.0 with support
+ libraries.  Includes pull-down menus, mouse support, online
+ help system, clock, calendar and calculator programs.
+ Shareware, $25.00.
+
+ POW.ZIP:
+ - POW! for PowerBASIC 3.0 -
+ An exciting new Soundblaster library for PowerBASIC 3.0,
+ written entirely in assembly language.  Includes over 40
+ flexible, powerful commands that utilize all of the
+ Soundblaster's capabilities.
+ Shareware, $29.95 + $5 S/H.
+
+ DOBI.ZIP:
+ -------------------------
+ DOBI Release 1.0
+ ~~~~~~~~~~~~~~~~
+ An all assembly language toolbox of low-level DOS
+ and BIOS routines for PowerBASIC 3.  Shareware,
+ $15.00 registration fee.
+ -------------------------
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART A PART III - (Wave Player 2) -------------------------------
+-------------------------------------------------------------------------------
+
+ John Woodgate saw my first pathetic attempt at a WAV\VOC\RAW player in the 
+ first issue and he had a go at improving it by adding a bit of disk buffering.
+ Very clever programmer. The code will be displayed next month.
+ I had a smart idea too. I decided to write a program that read the file into
+ memory and then played it. Good idea? 
+ It plays at the right speed like this on my machine. BTW,sorry about the
+ programming style. I'll tidy it up (eventually!). ;-)
+
+ NOTE: This program can only do WAV files up to 30k.
+
+' This is my second attempt at a WAVE player. It's still awful isn't it!!
+' At least it plays at the right speed
+
+'$DYNAMIC
+TYPE wave
+	byte AS STRING * 1
+END TYPE
+DIM SHARED w AS wave
+DIM a%(1 TO 30000)
+
+' START OF RESET SECTION
+CLS
+
+OUT &H226, 1: OUT &H226, 0
+DO
+x% = INP(&H22E)
+IF x% AND 128 THEN
+	x% = INP(&H22A)
+	IF x% = &HAA THEN
+		PRINT "reset!"
+		EXIT DO
+	END IF
+END IF
+LOOP
+
+' END OF RESET SECTION
+
+OPEN "c:\windows\tada.wav" FOR BINARY AS #1
+
+bpos% = 1
+FOR pos1% = 1 TO 15000 STEP 1
+GET #1, bpos%, wx%
+bpos% = bpos% + 2
+a%(pos1%) = wx%           
+NEXT pos1%
+CLOSE #1
+'
+DO
+' TURN SPEAKER ON
+DO
+x% = INP(&H22C)
+LOOP WHILE x% AND 128
+OUT &H22C, &HD1                                ' send speaker on code
+bpos% = 1
+FOR pos1% = 1 TO 15000
+OUT &H22C, &H10                                ' send
+f% = a%(pos1%)
+FOR delay% = 1 TO 2
+NEXT delay%
+OUT &H22C, f%                                  ' send no.
+NEXT pos1%
+LOOP
+CLOSE #1
+
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART B PART I - (Basic tutorial 1/5) ----------------------------
+-------------------------------------------------------------------------------
+
+ This is another new regular feature to appear in the fanzine. A set of 5 
+ tutorials is being written at this moment and one by one they'll be in
+ the fanzine so if you don't know any BASIC then here's your chance to learn!
+
+ Hi all!
+ I havn't got much room in this fanzine to do this so I better start straight
+ away.
+
+ I'm going to assume that all of you budding programmers have QBasic because
+ it makes a good start. All of the stuff I teach should be compatable with
+ PowerBasic so I think you should be ok.
+
+ PRINTING TO THE SCREEN
+ ======================
+
+ In BASIC we use a command called PRINT to display text and variables (more
+ on them later) to the screen. It's simple to use. To display text you can
+ use:
+
+ PRINT "hello,world"
+
+ If you want to display numerals or numeric expressions you can use:
+
+ PRINT 2+4+1-5          '(NOTE you would get the number 2)
+
+ You can display alphanumeric stuff like so:
+
+ PRINT "ABC123Can't you see?"
+
+ That should all be easy stuff to grasp. Oh, if you don't know how to use the
+ QBasic environment then please read the manual because I'm teaching BASIC 
+ and not how to use menus and the like. Sorry! ;-)
+
+ VARIABLES
+ =========
+
+ Simply, a variable is a memory store. You can store a number in a variable or
+ you can store a line of text. Learn from example:
+
+ a$ = "hello"
+
+ This would put the text 'hello' into a memory cell called a$
+ Or we could go:
+
+ a% = 1000
+
+ This would put the number 1000 into the a% box.
+
+ a% = 1000 * 2
+ print a%
+
+ This is more complicated. a% equals 1000*2 in this case and so that makes
+ 2000. Then the next line prints the contents of the variable a% to the screen,
+ which in this case is 2000. See?
+
+ I'm sorry about the shortness of this article but I have just been told that
+ the fanzine is a bit too long already so I've been ordered to stop. I'll
+ make up for the shortness next fanzine. Sorry. 
+
+ See yo!   DH
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------  
+- SECTION TWO -----------------------------------------------------------------
+-------------------------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ All levels articles:
+
+ This is where general BASIC info is presented. People of different levels
+ (novice,advanced etc) can use this section to their benefit.
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART I - (Useful BASIC\programming sources on the net) ----------
+-------------------------------------------------------------------------------  
+ 
+ This section of the fanzine is dedicated to telling you where to get useful
+ BASIC programs and utilities.
+
+ FTP SITES:
+
+	FTP.ESKIMO.COM  -  at this ftp site you can get Tim Gerchmez's 
+			   toolboxes. 
+
+	SimTel Echos    -  you can get tonnes of Basic stuff here,
+			   look at 
+			   ftp.coast.net        (america)
+			   /simtel/msdos/basic (qbasic is accepted)
+			   src.doc.ic.ac.uk     (england)
+			   /pub/packages/simtel-msdos/basic   (or)
+			   /pub/packages/simtel-msdos/qbasic
+
+	ABC home page -    http://users.aol.com/mhscards/abc.html
+
+	PCGPE (Pc Games Programmers Encyclopedia) -
+			   this is a VERY VERY good set of text files about
+			   programming (not just games), learn about sound
+			   + grafix + mouse etc. VGood. 700k though.
+			   x2ftp.oulu.fi
+			   (look for a games programmer directory called gpe)
+
+ I need more of this. This is basically all I have. Sorry for any confusion.
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART II - (C vs Basic) ------------------------------------------
+-------------------------------------------------------------------------------
+By Tim Gerchmez
+
+Note: Released to the Public Domain 16 November, 1995, for
+publication in the Basic Fanzine.
+
+As a BASIC programmer of 11 years (I started on the Commodore 64 in the mid 
+1980's) and as a beginning C programmer (currently taking classes in school 
+and just about to start an advanced C course), I would like to offer
+some opinions on the two languages.  It seems that many BASIC programmers who 
+learn C become snobs soon afterwards, claiming C is the only language worth 
+using, and cutting down BASIC mercilessly.  In fact, I have met very few C
+programmers who don't feel that C (or C++) is the best and only computer 
+language worth using, for just about every purpose.  So far, I have escaped 
+this trap, and such opinions seem ridiculous to me.  Every computer language 
+has a place, and Basic has a rich tradition and history in the programming 
+world.  What's more, BASIC has come a long way since those early days of the 
+1970s and 1980s.  It has, in most cases, become a compiled language with 
+programming constructs that equal or exceed those of C in power and usability.
+Basic remains easier to program in than C, easier to debug, easier to read 
+and easier to learn, while oftentimes equalling or exceeding C in the power 
+of its programming constructs and the speed and size of compiled code.
+
+My C instructor insists that each language should be used for what it was 
+originally intended for.  Thus, he claims that C should be used for applications 
+programming, while BASIC is good for beginners.  His argument, however, does
+not take into consideration the growth and development of computer languages.  
+It has a further flaw in that the original purpose for C was use in designing 
+and implementing operating systems (C was designed as a language to write a
+portable UNIX with), and thus is not always well-suited for writing high-level 
+applications with.  BASIC may have originally been created for beginners, but 
+it has grown into a programming language suitable for professional programmers.  
+I would not recommend BASIC to someone who wanted to write an operating system 
+(although theoretically it could be done with the more powerful versions of the
+compiled BASICs), but for just about any other purpose it is an ideal language 
+to use, in my opinion.  The C language itself definitely has its own tradition 
+and history, and it also has a strong place in the programming world, but it
+certainly is not the be-all and end-all of computer languages.  As BASIC 
+continues to improve in power, more people will begin to realize this fact.
+
+I recently took a job with an engineering and manufacturing company doing DOS 
+BASIC programming.  This company has compared the utility of the BASIC and C  
+languages.  They found that BASIC (PowerBASIC specifically) executes faster
+than C (I'm not sure which C compiler they used for their tests, however), and 
+is easier and quicker to use in developing applications (this is a given).  
+Thus, they do most of their in-house development in BASIC and assembly 
+language.
+
+I think that if more companies looked into the possibilities of BASIC, it would 
+gain rapidly in popularity. There are, however, certain forces that conspire 
+to keep C (and C++) the premier language for professional programmers. One of 
+them, somewhat ironically, is C's difficulty in reading and debugging.  This 
+tends to provide job security for C programmers, since oftentimes others have 
+great difficulty maintaining their code for them.  In order for a company to 
+upgrade its C programs, they have to retain the original programmer who wrote 
+them.
+
+The downsides of the BASIC language include wordiness (not a problem for all 
+people, but some prefer a more concise language), a certain difficulty in 
+linking in modules written in other languages (this situation is improving),
+and a general lack of programmer control as compared to other languages (this 
+has also improved tremendously).  The downsides of the C language include 
+sometimes excessive terseness, difficulty in reading and debugging, and
+difficulty in writing.  A good C program takes a long time to write and debug, 
+and can be difficult to understand by anyone other than the original programmer.  
+It seems to me that with the advancements BASIC has made, the downsides of
+C now exceed those of BASIC.  C has changed and grown very little since its 
+inception, whereas BASIC has improved tremendously.  Although BASIC is a 
+"higher-level" language than C, it has become almost as easy to link to routines
+written in other languages (like assembly language) as C has (this depends, of 
+course, on the compiler).  Thus, many of the advantages of C over BASIC have 
+disappeared.  If something ever happens to loosen C's stranglehold on the
+shrinkwrap software development market, I think we will see BASIC emerge as a 
+language used to write products released commercially to the public.  For now, 
+however, C and C++ continue to dominate this area of programming.
+
+The most powerful BASIC on the market today (this is arguable, however) is 
+probably PowerBASIC.  This language has grown to include many of the elements 
+of C (version 3.2 even includes pointers), and it retains the ease of use of
+the BASIC language.  PowerBASIC offers more data types than ANSI C does, and 
+it also offers such amenities as inline assembly language.  As it is my 
+language of choice for DOS programming, I can't help but include a short plug 
+for it here.
+
+As far as Windows programming goes, there are several choices available.  Visual 
+Basic, perhaps the most popular implementation of BASIC of all time, remains a 
+strong choice.  In the Windows environment, BASIC remains a strong contender 
+as a powerful language that allows fast application development.  VB is used 
+widely by many companies for in-house development, and there are even a few
+commercial applications that have been written in VB. What's more, Visual Basic 
+for Applications has been developed and added in to some of the most popular
+applications software written by Microsoft, thus providing the power and 
+programmability of BASIC to business applications.  Although many like to put 
+down Microsoft, the company has done much for the advancement of the BASIC
+language (Bill Gates, the president of Microsoft Corp, designed the original 
+MS BASIC).  Visual Basic has posed a real threat to the domination of C and C++ 
+as windows programming tools.  Although the programming paradigm of VB is 
+somewhat different than in other BASICs (it uses an event-driven and partially 
+object-oriented approach to programming), it retains all of the language 
+constructs of MS's other versions.
+
+To summarize, I feel that both BASIC and C are worthwhile languages to learn 
+and use.  However, the insufferable attitude of many C programmers can be a 
+real irritation.  In contrast, most BASIC programmers I have talked to are
+helpful, courteous, and respectful of the place of all computer languages.  
+Some BASIC programmers (beginners,particularly) seem somewhat in awe of C and 
+C++ programmers. I think it's time for this to change.  BASIC has grown up,
+and has acquired an important place in the programming world as a language 
+useful for hobbyists and professional programmers alike.
+
+* The author, Tim Gerchmez, has published several shareware
+toolboxes for PowerBASIC and QuickBASIC 4.5.  He can be
+contacted on the Internet at future@eskimo.com. *
+
+==  From the editors desk ==
+I entirely agree with Tims comments. That article is a very well written 
+one which puts the point across that C is not the only language for writing
+serious stuff. PowerBASIC has inline assembler and this means that you could 
+write basically anything in it. PDS 7 (.1) still stands up too.
+
+A great article. If anyone has any comments on this then please email either
+Tim or the fanzine. Thanks again, Tim.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------  
+- SECTION THREE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Your Shout:
+
+ Anything that is sent for use for the zine that doesn't fit into the other
+ chapters is here. It's where your questions and programs go unless they fit
+ into an article or if you actually write an article or tutor.
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART I - (Questions and Answers) ------------------------------
+-------------------------------------------------------------------------------  
+
+ E-mail your BASIC problems and get an answer (hopefully) :
+
+ Q - Why can't you make this fanzine into a mailing list?
+ A - I've contacted my internet provider and they have no facility for
+     mailing lists unless I run it direct from my machine and send the
+     stuff myself. I'm sorry but I cannot afford the phone bills to do
+     this. I have had another idea as a soloution.
+     A newsgroup will be created called  alt.games.programmer.basic soon.
+     This newsgroup was debated with many basic programmers and it is to be 
+     created soon and so if you want other fanzines they'll be there soon.
+     I'm sorry if you can't get the newsgroup. Just stick with comp.lang.basic
+     .misc
+
+ Q - I want to program a menu in my prog. How can I do this or get a library?
+ A - The toolbox author, Tim Gerchmez, has produced a MenuSys library for
+     QB 4.5 which allows you to produce menus in the language. 
+     I havn't checked it out yet but it should be as good as Tims other 
+     libraries which are of a high standard. Check out his libraries in
+     SECTION I PART A PART II of this fanzine.
+
+     Alternatively you could write something yourself. It's a simple program
+     to write (unless you're a beginner) if you've been programming for a 
+     year or two. Hopefully I'll have a program, next issue.
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART II - (PowerBasic or QBasic) ------------------------------
+-------------------------------------------------------------------------------  
+
+			   POWERBASIC or QBASIC?
+
+ The battle rages on. And here are the current scores:
+
+			64% - Microsoft Basics 
+			36% - Power Basic
+
+ Please send in your views on this.
+
+ I'm still taking votes on   bmag@trenham.demon.co.uk   but this will be the
+ last time I do this discussion so email me with what topics you would like
+ to see discussed and voted on.
+
+ Please make the subject 'VOTE' because my server got confused on one of the
+ votes.
+
+ I have had a comment on this:
+
+	I vote for PowerBasic if you want fast, clean code.
+	But, I vote for QBasic if you're a beginner and the IDE is far better.
+
+ Thanks for that.  
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART III - (Your Programs) ------------------------------------
+-------------------------------------------------------------------------------  
+
+ The following was sent in by John Rodgers for inclusion to the fanzine.
+ He can be contacted at  rodgers@gate.net  . It reads the date and time
+ from the TIME$ and DATE$ functions and sorts them out into nice neat tidy
+ strings. Being British, I would like to change the date bit to display it
+ as Day/Month/Year but I don't like changing peoples programs that they've
+ sent in so here goes:
+
+ 
+ CLS                  'subroutine to add the date and time to the view screen
+ t$ = TIME$
+ Hr = VAL(t$)
+ IF Hr < 12 THEN Ampm$ = " AM" ELSE Ampm$ = " PM"
+ IF Hr > 12 THEN Hr = Hr - 12
+ IF Hr = 0 THEN Hr = 12
+
+ prgTime$ = STR$(Hr) + RIGHT$(t$, 6) + Ampm$
+
+ IF Ampm$ = " AM" THEN                        ' convert prgTime$ to 5 characters
+	prTime$ = LEFT$(prgTime$, 5) + " AM"                'for AM
+ END IF
+
+ IF Ampm$ = " AM" AND VAL(LEFT$(prgTime$, 3)) >= 10 THEN ' convert prgTime$ to 6 characters
+	prTime$ = LEFT$(prgTime$, 6) + " AM"                'for PM after 10
+ END IF
+
+ IF Ampm$ = " PM" THEN                          ' convert prgTime$ to 5 characters
+	prTime$ = LEFT$(prgTime$, 5) + " PM"                 'for PM
+ END IF
+
+ IF Ampm$ = " PM" AND VAL(LEFT$(prgTime$, 3)) >= 10 THEN ' convert prgTime$ to 6 characters
+	prTime$ = LEFT$(prgTime$, 6) + " PM"               'for PM after 10
+ END IF
+ 'convert DATE to 8 characters
+ prDate$ = LEFT$(DATE$, 6) + RIGHT$(DATE$, 2)
+ IF VAL(LEFT$(prDate$, 2)) < 10 THEN
+	mo% = VAL(LEFT$(prDate$, 2))
+	mo$ = "0" + LTRIM$(STR$(mo%))
+	prDate$ = LTRIM$(mo$) + RIGHT$(prDate$, 6)
+ END IF
+ l = l + 1                               'locate and print new values
+ VIEW PRINT
+ COLOR 15
+ LOCATE 2, 2': PRINT TIME$
+ PRINT LTRIM$(prTime$); " "
+ LOCATE 2, 72: PRINT prDate$
+ COLOR 0, 7
+ SYSTEM
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART IV - (Survey Results) ------------------------------------
+-------------------------------------------------------------------------------
+
+ About two weeks ago, I started to survey readers of the fanzine on the
+ comp.lang.basic.misc newsgroup and I was very pleased with the response I
+ received. Thank you, all that participated.
+
+ I recieved excellent marks and the averages of everything added toghether
+ was 7.5 out of 10. That's covering everything. So I think I must be doing
+ something right. But, I am thinking of shortening the fanzine though because
+ I have not recieved many code segments. Remember, I'll take a look at anything
+ you think is good! Right, ;-)
+
+ The Wrox Press article was given a low grade overall and I'm saddened by
+ that although it wasn't the most interesting thing around. The company are
+ getting something more juicy for next issue. ;-)
+
+ Remember to buy their book 'The Revolutionary Guide to QBasic' when it comes
+ out. It's a great book spanning novice to advanced users.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION FOUR ----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ Details about the fanzine:
+
+  This section of the fanzine is the last. It covers topics such as how to get
+  in touch with the author,who contributed to the fanzine and my last words.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART I - (How do you contribute?) ------------------------------
+-------------------------------------------------------------------------------  
+
+ So how do you contribute?
+ All you have to do is e-mail all of your source code\articles and ideas to:
+
+		bmag@trenham.demon.co.uk  - with contributions and articles
+
+		peter@trenham.demon.co.uk - with enquiries, etc..
+
+ Anything you send really has to be under 100 lines long of course unless it's
+ super excellent. I will allow long things in the fanzine but could you make
+ an arrangement with me first? ;-) It'd be much appreciated.
+ Thanks.
+
+ BTW, I'm especially looking for VB stuff or reviews of programming languages.
+ Also, PowerBASIC stuff because the powerbasic readers have been moaning there
+ is nothing especially for them. Thanks. :-)
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART II - (How do you contact the author?) ---------------------
+-------------------------------------------------------------------------------  
+
+ If you want to ask me a question about BASIC or the fanzine then please e-mail 
+ to the support address and I'll be only too pleased to answer although please
+ understand that you may not get an instant reply because my local mailserver
+ may break down (not rare) or I may be busy with other things. I'll respond ASAP
+
+ If you have something to share with everyone then post onto the alt.lang.basic
+ or comp.lang.basic.misc newsgroups (I read the latter most). Make the subject 
+ good as I don't read a lot of the articles straight away because of the titles
+ although I do read most of them eventually.
+
+ I'm also trying to create a new BASIC newsgroup. It may be called:
+		alt.games.programming.basic
+ I need comments on this especially.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART III - (Credits) -------------------------------------------
+-------------------------------------------------------------------------------  
+
+ A very big thanks to (in no particular order) :
+
+   Tim Gerchmez,   
+    for writing a superb article on C vs Basic
+    (future@eskimo.com)
+   The people at Wrox Press,
+    for contributing a regular article to the
+    fanzine and letting me beta-test their book
+   John Woodgate,
+    who contributes as well as ever
+    (john@smr.bay.org)
+   James Erickson,
+    who writes some great stuff and gives me ideas all the time
+    (madamee@teleport.com)
+   Everyone who completed the survey
+    I'm going to try and implement some of the
+    changes for next fanzine
+   Other people who wrote to me and who contributed code, gave me ideas or
+   helped in any way:
+    Matt Doss
+    John Rodgers
+    Douggie Green
+    Nick Blomstrand
+    John Warner
+ 
+ Remember that this fanzine needs you, to contribute.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART IV - (Last Words+Next month) ------------------------------
+-------------------------------------------------------------------------------  
+
+ NEXT MONTH:
+	SPECIALIZED ARTICLES:
+		[Advanced\Intermediate]
+		Interrupts and how they can work for you
+		John Woodgates Disk buffering WAV player
+		[Novice]
+		Basic Tutorial 2/5
+	ALL LEVELS ARTICLES:
+		Programming the mouse
+	YOUR SHOUT:
+		PowerBasic vs QBasic (the final decision)
+		Your programs, tricks and hopefully stories.
+	DETAILS ABOUT THE FANZINE:
+		How to contact us.
+		Rundown on the Jan 1996 fanzine.
+
+ I'd be lying if I knew when exactly it was going to come out. It's either
+ 24th December or 1st January. Sorry for the vagueness.
+
+ Last words:
+	This is the end of the second fanzine and just as much work has gone
+ into it as the first one. I think people take to this fanzine because it is
+ personally written and not just a bundle of BASIC progs or just writing.
+ 
+ Any ideas about the fanzine can be posted to me at the following address:
+	peter@trenham.demon.co.uk
+ Any material for the Basic Fanzine:
+	bmag@trenham.demon.co.uk
+
+ Thank you for reading and I'm already writing the third fanzine. There will
+ definitely be a section on interrupts (it's been demanded by people who did
+ the survey). I need your program but especially tricks or funny basic stories.
+ Keep sending them all.
+
+ Do you want this fanzine to go out fortnightly, everyone? And do you want
+ it longer? Please, I need answers. 
+
+ Cheers, ;-)

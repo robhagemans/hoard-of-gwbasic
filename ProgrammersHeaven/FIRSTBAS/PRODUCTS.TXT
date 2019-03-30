@@ -1,0 +1,470 @@
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+                              About PowerBASIC 3.x
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+
+        We put the POWER in BASIC!
+
+        PowerBASIC Awarded PC Magazine's Editor's Choice
+
+        "BASIC developers who write DOS application expect the same
+        from their programming tools as anyone else does: powerful
+        language syntax, a high-productivity development environment,
+        a fast and efficient compiler, solid documentation, a good
+        selection of third-party tools, and intangibles such as the
+        vendor's dedication to the language and its user base.  These
+        are tough criteria, and almost every product we looked at came
+        up short.  But not PowerBASIC, Version 3.0.  Our Editor's
+        Choice in the DOS category, it delivered in almost every
+        regard."  PC MAGAZINE, SEPTEMBER 28, 1993.
+
+        Instant TSRs, built-in assembler, new data types, BCD
+        variables, direct array operations (sort, scan, insert,
+        delete), fast math, and many BASIC firsts make this the new
+        standard of comparison for BASIC compilers.
+
+        And PowerBASIC continues to improve with each release because
+        our development team listens to you, our customers. We respond
+        to your needs at every opportunity.  Our latest revision
+        offers even tighter, faster code, and the ability to create
+        add-on help files which integrate seamlessly into the
+        PowerBASIC IDE.
+
+        If you are a DOS BASIC programmer who wants your compiler to
+        continue to improve, PowerBASIC is clearly the upgrade choice.
+        PowerBASIC is nearly 100% compatible with Quick Basic syntax,
+        so the move up to PowerBASIC couldn't be easier.
+
+        Instant TSRs
+        ------------
+        Create TSRs in an instant with just five lines of code. A 600K
+        TSR can "pop-down" to a memory image of just 4K, with
+        automatic memory swapping to EMS or virtual disk.  TSRs can be
+        activated by practically any stimulus: a hot key, a timer,
+        inactivity, even a message from a foreground program. They can
+        be safely un-installed under internal program control, or by
+        external request.  Even BIOS keystroke stuffing is available.
+        In fact, multiple TSRs can activate each other repeatedly,
+        with two-way communication throughout.
+
+        Built-in Assembler
+        ------------------
+        Looking for even better performance?  The new built-in
+        Assembler may be just what you need.  For the first time, you
+        can write Assembler code and mix it with your PowerBASIC code
+        line by line.  Hand optimize the most critical sections for
+        absolute performance.  PowerBASIC handles all the details
+        automatically.  You can reference your variables, parameters,
+        labels and functions by name -- even debug at the CPU register
+        level in the expanded environment.
+
+        New Data Types
+        --------------
+        PowerBASIC offers 11 numeric data types, 3 string data types
+        then adds user-defined TYPES and UNIONS as well. There are
+        unsigned byte, word, and double word variables. Integers of
+        16, 32, and even 64 bits.  Single, double, and extended
+        precision floats.  Fixed and Floating-point BCD. Fixed, Flex
+        and Dynamic strings.  You can even map Flex strings into
+        dynamic structures; they're defined, created, and sized at
+        run-time for true database capability.
+
+        BCD Variables
+        -------------
+        Finally you can eliminate round-off errors, even those
+        associated with currency variables in other languages.  You
+        aren't forced to 4 decimal places.  Instead you make your
+        choice: from 0 to 18 digits.  And always with automatic
+        rounding to the precise level of your needs.  In PowerBASIC,
+        all BCD variables are implemented as scaled integers for fast
+        calculation.
+
+        Array Operations
+        ----------------
+        Built-in Array, Sort, Scan, Insert, and Delete, with optional
+        collate sequencing for international or special character
+        sets.
+
+        Fast Math
+        ---------
+        An optional procedural float package offers startling speed.
+        Without a numeric co-processor, it's 40% to 50% faster than
+        emulation.  Yet it still uses the '87 when available.  It's
+        IEEE-compatible, so you can intermix procedural, emulated, or
+        '87 specific code as needed.
+
+        BASIC Firsts
+        ------------
+        PowerBASIC was the first to offer both user-defined TYPES and
+        UNIONS, unlimited dynamic strings, a true handle-based string
+        memory manager.  There are code pointers (to any
+        sub/function/label), conditional compilation
+        ($IF/$ELSE/$ENDIF), even viewports for screen text display.
+        Then add Huge Arrays (greater than 64K), Absolute Arrays (at a
+        specific address), even EXIT FAR to allow multi-level
+        sub/function exit (beats the LONGJMP in C any day).
+        PowerBASIC 3.1 is the first BASIC to offer optional parameters
+        in your SUBs and FUNCTIONs, as well as 64 bit and unsigned
+        support in your radix values (&H, &B, &O)
+
+        Structure
+        ---------
+        Create BASIC programs with any level of structure desired.
+        Free-form or absolute, the choice is yours.  You can even
+        choose to require variable declaration before use.  Another
+        first for PowerBASIC.
+
+        Bit Operations
+        --------------
+        PowerBASIC offers a full complement of bit operations
+        including: SHIFT, ROTATE, TEST, SET, RESET, and TOGGLE. Even
+        implied bit arrays of up to 512K bits are supported.
+
+        Communications
+        --------------
+        Here's where PowerBASIC shines.  Serial port communication is
+        available for COM1 through COM4.  BAUD rates up to 115200.
+        Any combination of non-standard IRQ lines. Explicit control of
+        DTR, even after program termination. Automatic error detection
+        or masking is available, with optional flush of erroneous
+        data.
+
+        New IDE with Mouse Support
+        --------------------------
+        The new IDE supports a mouse when editing your source code for
+        marking blocks, cutting and pasting.  Use true compiled code
+        to develop and debug -- the same code as your .EXE file.  So
+        you'll never need to deal with a slow, threaded p-code
+        interpreter.  That means faster development, and the
+        elimination of subtle differences between interpreted and
+        compiled results.
+
+        Third Party Tools
+        -----------------
+        The most powerful and respected tool kits are available to
+        PowerBASIC users.  Libraries from companies like Crescent,
+        Cretive Software Alliance, Ansoft, and others make PowerBASIC
+        the most comprehensive BASIC compiler available today.  A
+        superb monthly newsletter (Basically Speaking from Information
+        Management Systems) offers timely advice and examples
+        specifically aimed at the PowerBASIC programmer.  In a
+        nutshell, with PowerBASIC, you'll never need to re-invent the
+        wheel.
+
+        Help and Support
+        ----------------
+        PowerBASIC includes extensive printed documentation -- close
+        to 700 pages of Programmer's Guide and Reference Guide. Then
+        the context-sensitive on-line help system puts further detail
+        right at your fingertips just when you need it most. Perfect
+        for the novice or the professional developer. Technical
+        support is available from our engineering staff by telephone,
+        mail FAX, BBS, or our POWERBASIC support forum on CompuServe.
+
+        System Requirements
+        -------------------
+        IBM(R) PC or compatible with two floppy disk drives, 640K of
+        RAM and DOS 3.0 or greater.
+
+
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+                 About the PowerBASIC Developer Kit for Windows
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+
+        PowerBASIC does Windows!
+        ------------------------
+
+        You've waited long enough -- patiently.  The PowerBASIC
+        Developer Kit for Windows (PBDK) takes a unique approach to
+        Windows programming.  Some language vendors insist that you
+        abandon your current code.  Abandon your procedural
+        programming skills.  Even abandon true executables for a slow
+        P-Code interpreter!
+
+        Well, we respectfully disagree!
+
+        The PBDK was built on these principles:
+
+        *  You have existing DOS BASIC code you wish to re-use under
+           Windows.
+        *  You've acquired procedural programming skills and wish to
+           use them where it's appropriate.
+        *  Windows may be slow -- don't make it slower with P-Code.
+           Native machine code here!
+
+        PBDK achieves all of this, then reaches even further.  For
+        compatibility with existing code, you can continue to link
+        industry standard object modules (OBJ), as well as newer
+        dynamic link libraries (DLL).  Any industry-standard DLL can
+        be used with the PBDK.  But truly unique is the ability to
+        run multiple programs concurrently, with true preemptive
+        multi-tasking!  That's right, you no longer have to settle
+        for just cooperative multitasking.  It never filled most real
+        needs anyway.  With the new PBDK, you can now create multiple
+        child tasks running in preemptive multitasking, synchronized
+        through semaphores and common-named memory.
+
+        For the first time, you can move DOS programs to Windows
+        quickly and easily, as you aren't forced to jump headlong
+        into event-driven programming!  With PBDK, the choice is
+        yours: procedural programming, event-driven methods, or even
+        a combination of the two styles.  The point is, we don't
+        believe that anyone should dictate programming methods to
+        you.  Not us.  Not any language publisher.  That's simply an
+        issue you need to decide for yourself, based upon your own
+        needs and your own resources.
+
+        Right about now, you're no doubt wondering just how easy it
+        really is to move a DOS program to the Windows environment.
+        You've probably heard horror stories from programmers who
+        worked and worked, only to finally abandon conversion
+        attempts.  I know you've heard them.  Hundreds of times.  We
+        all know of developers who were forced to rewrite entire
+        applications from scratch, just so they could adapt to a pure
+        event-driven model.  Now don't get me wrong, PBDK won't write
+        your code for you.  That's your job, as a programmer.  But it
+        will give you every tool you need.  It will let you retain
+        every line of code not related to the user interface.  And it
+        will retain the fast execution speed of native machine code!
+        So just how to you access the Windows interface?  It really
+        doesn't get much simpler.  Just look at this small example:
+
+            CALL MessageBox(0, "Stop using slow pcode!",_
+                            "Welcome to PBDK", mbIconStop, code%)
+
+        This single function call will create a message box with the
+        caption of "Welcome to PBDK".  It then displays a red
+        stop-sign icon, and the message "Stop using slow pcode!".
+        Lastly, it displays an "OK" push-button and waits for user
+        input.  Upon return, the variable code% will contain a value
+        to describe the user's actions.  That's all there is to it!
+
+        The PBDK includes over 350 functions to access Windows
+        resources like: dialog boxes, menus, controls, printing,
+        clipboard, DDE channels, MDI windows (Multiple Document
+        Interface), drag and drop, metafiles, graphic operations,
+        Windows memory, and much more.  However, you can use as few
+        as a dozen of these functions to write your first PBDK
+        application, adding more as your needs grow.  Even advanced
+        features are available to you, such as virtual screens,
+        owner draw combo and list boxes, self-resizeable controls and
+        much more.  PBDK applications still make full use of the
+        existing third party libraries for PB3, so there is no need
+        to abandon your toolkit investment.
+
+        The PBDK works in conjunction with PowerBASIC 3.1 (or later).
+        That means that you'll still be able to edit and debug your
+        applications from within the PB3 IDE, and retain the fast
+        execution speed of native machine code.  PBDK includes an
+        extensive online help system plus two volumes of printed
+        documentation (over 600 pages) with many examples and screen
+        shots.  Best of all, your PBDK applications are 100% royalty
+        free!
+
+        As a special bonus, if you order today, we'll even include a
+        full copy of the Symantec Resource Toolkit (a $199 value)
+        FREE OF CHARGE. This industry-standard toolkit will let you
+        design Dialog Boxes, Menus, Icons, and Bitmaps for your
+        applications interactively.
+
+        The PowerBASIC Developer Kit for Windows costs just $149.00
+        plus shipping.  You can order the PBDK today by calling toll
+        free at (800) 780-7707 or (408) 659-8000.  You can fax your
+        order to (408) 659-8008, or even mail it.  But whatever you
+        do, don't miss out.  The new PBDK is simply too good to pass
+        up.  As with all PowerBASIC products, there is a 30-day,
+        unconditional money-back guarantee.  How can you lose?  Please
+        contact us today!
+
+        System Requirements
+        IBM(R) PC or compatible with hard drive, 4 megabytes of
+        RAM, DOS 3.3 or greater, and Windows 3.1 or later.
+
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+                            PowerBASIC PB/Xtra
+                    Programmer's Reference Collection
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+
+               You asked for it?  You got it -- PB/Xtra II!
+               --------------------------------------------
+
+        More PowerBASIC source code than you every thought possible.
+        More than 200 megabytes on CDROM (less on 14-disk subset).
+        There's public domain source code, freeware, shareware
+        utilities and libraries, even commercial demos; all geared to
+        make your PowerBASIC programming faster, easier, more
+        productive.
+
+        Communications
+        --------------
+        How can I best use PowerBASIC's extensive communication
+        support? PB/Xtra has a complete BBS package, including source
+        code, that supports public message areas, private E-mail, file
+        transfers and even more.  Plus, if you need a terminal program
+        to dial out, you get a shareware library which supports 16
+        simultaneous ports, Xmodem, Ymodem, Ymodem-G and Zmodem file
+        transfers at speeds up to 115200 baud.
+
+        Graphics
+        --------
+        How do I use more graphics for business or game programming?
+        PB/Xtra gives you libraries and public domain source code for
+        Super VGA graphics, fonts, super-fast sprite animation, and
+        bitmap graphics display capabilities.
+
+        User Interfaces
+        ---------------
+        How about user interface code?  PB/Xtra has that covered as
+        well.  There's source code for graphic and text modes, menus,
+        dialog boxes, mouse handling, and much more.
+
+        Databases
+        ---------
+        Any database tools for PowerBASIC?  We've got freeware source
+        to fast B-Tree and Novell B-Trieve indexing and dBase database
+        access.
+
+        Programming Information
+        -----------------------
+        How can I improve my programming skills?  There's information
+        about BIOS and DOS interrupts, strategic memory maps of the
+        operating system, and even an introduction to assembler
+        programming.
+
+        Utilities
+        ---------
+        How about programming utilities?  Cross-referencing,
+        documentation processing, source code formatting, source code
+        printing and text file editing utilities are all in there.
+
+        Commercial Demos
+        ----------------
+        What third party toolkits are available for PowerBASIC?  We've
+        included demos of many of the most popular ones from vendors
+        like Genus Microprogramming, T.N.T. Software, Information
+        Management Systems, Creative Software Alliance, and many more.
+
+        Installer/Browser File Manager
+        ------------------------------
+        How to manage 200 megabytes of resources?  We've thought of
+        that, too. With the PB/Xtra Installer/Browser you won't wade
+        through cryptic file names. Instead you'll view a clear
+        description of each and every file in the collection.  Tag one
+        or a hundred; they're automatically installed file-by-file.
+
+        Much, Much More
+        ---------------
+        How much more can there be?  If that isn't enough, there's a
+        utility to convert QB source to the PowerBASIC dialect, others
+        for source code formatting, cross referencing, text editing,
+        accessing EMS/XMS memory, and file compression.  There's so
+        much more that it's impossible to list it all here.  Simply
+        put, PB/Xtra is the best collection of PowerBASIC resources to
+        be found anywhere.  And it's been carefully selected and
+        organized to make it easy for you to choose and use.  It's
+        just like having your own personal PowerBASIC BBS-In-A-Box!
+
+        System Requirements
+        -------------------
+        IBM(R) PC or compatible, 640k RAM, DOS 3.3 or later, CDROM
+        drive or 3.5 inch disk drive.
+
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+                            SoftCode for PowerBASIC
+                        An Automatic PB Code Generator!
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+
+        Here's exciting news for PowerBASIC programmers ... a brand
+        new version of the award winning SoftCode program generator.
+        Build professional code quicker and easier than ever!
+
+        Design your program screens.  Layout data entry screens.
+        Build complete menu structures.  Create indexed databases.
+        Even specify Hot-Keys to operate your program.  Then sit back
+        while SoftCode writes the PowerBASIC source code for you.
+
+        Visual Design Tools
+        -------------------
+        SoftCode comes with a complete set of visual design tools.
+        Starting with the Screen Designer and Application Outliner,
+        you visually build the basics of an application -- the screens
+        and menus.
+
+        Action Objects
+        --------------
+        Next, tell your application what to do by attaching Actions to
+        menu choices and Hot-Keys.  Then, add database, user
+        interface, and other operations automatically.  Piece by piece
+        you construct an application tailored to your needs.  Insert
+        as much custom code as you wish, or none at all.  Now, you're
+        ready to generate PowerBASIC source code.  Add a final
+        keystroke and the code's complete, ready to compile and
+        execute -- 100% PowerBASIC source code to do with as you
+        please.
+
+        Advanced Template Technology
+        ----------------------------
+        SoftCode is a Template-Based code generator.  Template
+        technology gives you precise control over the code generation
+        process.  You can customize the templates; even create your
+        own.  SoftCode creates code just the way you want it.
+
+        Generate 100% Source Code
+        -------------------------
+        Softcode handles any task: from a small "plug-in" module to a
+        complete menu-driven database application.  It never requires
+        external libraries. The Application Designer is simple to use,
+        yet generates powerful applications.  You can visually design
+        pull-down, pop-up and horizontal menus, pick lists, and
+        data-entry screens.
+
+        Bullet Proof Data Validation
+        ----------------------------
+        SoftCode lets you validate data by range, required characters,
+        file or list checking, pictures and more.  It even calculates
+        a field value based upon other fields and custom formulas.
+
+        Complete Database Operations
+        ----------------------------
+        SoftCode can add, edit, delete, copy, or search a record.  It
+        supports multiple indexes, user-switchable indexes, reindexing
+        and packing of data files.
+
+        FREE Add-Ons
+        ------------
+        Speed Screen(TM), is a screen display engine that lets you
+        display the screens created in SoftCode using special effects
+        like slides, pushes, pulls, explodes and more.  Use it to add
+        great special effects and emphasis to your programs.  When you
+        generate code with SoftCode, you can opt to have Speed Screen
+        support added automatically.  You can even add it to your
+        existing PowerBASIC applications.
+
+        QuickFonts(TM), offers 20 new fonts for DOS.  Use them with
+        any text-mode application running on a VGA/EGA monitor.
+
+        System Requirements
+        -------------------
+        PowerBASIC v3.1 or later, MS-DOS 3.3 or later, hard disk
+        drive.
+
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+                          Contacting PowerBASIC, Inc.
+様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様様
+
+        PowerBASIC, Inc.
+        316 Mid Valley Center
+        Carmel, CA  93923
+
+        (800) 780-7707 Orders Only
+        (408) 659-8000 Voice / International
+        (408) 659-8008 Fax
+        (408) 659-7401 BBS
+
+        CompuServe:               GO POWERBASIC; section 12
+                                  75300,1742; Sales
+                                  73621,2613; Marketing
+
+        Internet:                 info@powerbasic.com
+                                  sales@powerbasic.com
+
+        Word Wide Web:            http://www.powerbasic.com

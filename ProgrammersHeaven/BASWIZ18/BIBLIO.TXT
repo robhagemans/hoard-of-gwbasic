@@ -1,0 +1,85 @@
+This constitutes a bibliography of some of the references used in creating
+the BASWIZ library.  They are listed in no particular order.  I might note
+that many of these references contain incorrect information on one point or
+another and that they frequently contradict each other.  Such are the joys of
+assembly programming.  Comments reflect my personal opinions on the text.
+
+
+
+"Undocumented DOS: A Programmer's Guide to Reserved MS-DOS Functions and
+Data Structures".  1990.  Andrew Schulman, Raymond J. Michels, Jim Kyle, Tim
+Paterson, David Maxey, Ralf Brown.  Addison-Wesley Publishing Co., Inc.
+-- Useful for work that requires very low-level DOS handling.  Little new or
+   interesting for my purposes.  Overpriced.
+
+"The New Peter Norton Programmer's Guide to the IBM PC & PS/2".  2nd Ed,
+1988, by Peter Norton and Richard Wilton.  Microsoft Press.
+-- Often contains inadequate detail and is unusually error-prone.  Some of
+   the information is hard to find elsewhere, however.
+
+"COMPUTE!'s Mapping the IBM PC and PCjr".  1985, COMPUTE! Publications, Inc.
+-- An old but indispensable reference.  The memory map, port reference, and
+   low-level support chip information are very good.
+
+"Programmer's Guide to PC & PS/2 Video Systems".  1987, by Richard Wilton.
+Microsoft Press.
+-- A terrific reference on video from MDA to VGA.  The example program for
+   putting the Hercules adapter into graphics mode is rather buggy, though
+   (at least in my edition).
+
+"The Waite Group's MS-DOS Developer's Guide".  2nd Ed, 1989, by The Waite
+Group, Inc.  Howard W. Sams & Co.
+-- An excellent reference on all sorts of low-level programming.  TSRs,
+   video, numeric coprocessor, communications, and lots more is covered.
+
+"The MS-DOS Encyclopedia".  1988.  Microsoft Press.
+-- Encyclopedic it is.  Every serious assembly programmer should have a copy.
+   Covers DOS itself, DOS interrupts, TSRs, communications, lots of handy
+   articles by the best in the business.  The BIOS is ignored, however.
+
+"Disk Operating System Version 3.00 Operating Reference".  1984.  IBM Corp.
+-- Useful for getting the scoop as IBM sees it.  Good for clearing up
+   contradictions in other texts, but not particularly vital.  Way overpriced.
+
+"Practical Microcomputer Programming: The Intel 8080".  1976, by W. J.
+Weller, A. V. Shatzel, and H. Y. Nice.
+-- You'd think a book this dated would be handy for starting fires, hmmm?
+   In truth, it contains some very neat techniques that apply to modern
+   problems.  Keep it in mind when browsing that used book store!
+
+"Numerical Analysis with the TI 99/4A, Commodore 64, Apple II+/IIe and TRS-80
+Model I/III".  1984, by H. R. Meck.  Prentice-Hall, Inc.
+-- Another oldie-but-goodie, this book contains a large number of useful
+   numerical algorithms, complete with source code in BASIC.  Nicely written.
+
+"Bit-Mapped Graphics".  1990, by Steve Rimmer.  Windcrest Books (an imprint
+of Tab Books, which in turn is a division of McGraw-Hill, Inc).
+-- A quite decent text on various image formats, including .MAC, .PCX, .GIF
+   and others.  Source listings in C and assembly language.
+
+"How to Solve it by Computer".  1982, by R.G. Dromey, Prentice-Hall Inc.
+-- A fantastic book covering a little of everything: data structures,
+   sorting, pseudo-random numbers, and various numeric calculations.
+   Examples are frequently given in Pascal.  Very nice.
+
+"Numerical Analysis with the TI99/4A, Commodore 64, Apple II+/IIe and TRS-80
+ Model I/III".  1984, by H.R. Meck, Prentice-Hall Inc.
+-- A promising but irritating reference.  It covers a wide range of numerical
+   equations with implementations in BASIC.  However, the text is terse, the
+   BASIC code is ugly, and the examples make assumptions about the available
+   precision rather than relying on an error term.
+
+"Handbook of Chemistry and Physics". 42nd edition, 1960, The Chemical Rubber
+ Publishing Co.
+-- A thorough reference containing tables on just about everything.  I use it
+   primarily to doublecheck that the math functions are returning proper
+   results.  A good thing to have-- try library and college book sales.
+
+Programmer's Journal.  This magazine contains a wealth of technical
+information, most notably an ongoing EGA/VGA graphics column by Michael
+Abrash which is utterly superb.
+
+Hart & Cheney... a number of the math routines are derived from a C library
+that I came across.  This library contained no information as to author or
+origin, aside from frequent mention of "Hart & Cheney", apparently the
+reference from which the coefficients of the equations were derived.

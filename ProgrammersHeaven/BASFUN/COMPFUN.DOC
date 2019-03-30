@@ -1,0 +1,108 @@
+To use the library of complex functions, make sure the library is in the same
+directory as QuickBASIC.  Then, invoke QuickBASIC with the following command
+line (or something similar):
+
+     c:\qb45\qb/l compfun
+
+where is this case, the program is in the c:\qb45 directory.  Once the library
+is loaded, you will need to explicitly declare each function that you wish to
+use.  For example, to use the 'cabs' function, put this line at the top of
+your program:
+
+     DECLARE SUB cabs (x!, y!, z!)
+
+and a similar one for any other functions you want to use from this library.
+The complex library includes (as FUNCTIONS) all of the real library.  A list of complex functions, their precision, and description, follows.
+
+
+          Library of Complex Functions
+
+
+ function	               precision      comments
+
+ cabs (x!, y!, z!)           s          magnitude of (x,y), returned in z
+ cdabs (x#, y#, z#)          d            "
+
+ ccart (r!, t!, x!, y!)      s          from polar to rectangular coordinates,
+                                             in radians
+ cdcart (r#, t#, x#, y#)     d            "
+ ccartd (r!, t!, x!, y!)     s          from polar to rectangular coordinates,
+                                             in degrees
+ cdcartd (r#, t#, x#, y#)    d            "
+
+ cpolar (x!, y!, r!, t!)     s          from rectangular to polar coordinates,
+                                             in radians
+ cdpolar (x#, y#, r#, t#)    d            "
+ cpolard (x!, y!, r!, t!)    s          from rectangular to polar coordinates,
+                                             in degrees
+ cdpolard (x#, y#, r#, t#)   d            "
+
+ cmult (x1!, y1!, x2!, y2!, x3!, y3!)
+                             s          multiply:  (x1,y1)*(x2,y3) = (x3,y3)
+ cdmult (x1#, y1#, x2#, y2#, x3#, y3#)
+                             d            "
+ cdiv (x1!, y1!, x2!, y2!, x3!, y3!)
+                             s          divide:  (x1,y1)/(x2,y2) = (x3,y3)
+ cddiv (x1#, y1#, x2#, y2#, x3#, y3#)
+                             d            "
+
+ cexp (x1!, y1!, x2!, y2!)     s        (x2,y2) = exponential of (x1,y1)
+ cdexp (x1#, y1#, x2#, y2#)    d          "
+
+ clog (x1!, y1!, x2!, y2!)     s        (x2,y2) = natural log of (x1,y1)
+ cdlog (x1#, y1#, x2#, y2#)    d          "
+
+ csin (x1!, y1!, x2!, y2!)     s        (x2,y2) = sine of (x1,y1)
+ ccos (x1!, y1!, x2!, y2!)     s                  cosine
+ ctan (x1!, y1!, x2!, y2!)     s                  tangent
+
+ cdsin (x1#, y1#, x2#, y2#)    d        (x2,y2) = sine of (x1,y1)
+ cdcos (x1#, y1#, x2#, y2#)    d                  cosine
+ cdtan (x1#, y1#, x2#, y2#)    d                  tangent
+
+ casin (x1!, y1!, x2!, y2!)       s     (x2,y2) = inverse sine of (x1,y1)
+ cacos (x1!, y1!, x2!, y2!)       s               inverse cosine
+ catan (x1!, y1!, x2!, y2!)       s               inverse tangent
+
+ cdasin (x1#, y1#, x2#, y2#)      d     (x2,y2) = inverse sine of (x1,y1)  
+ cdacos (x1#, y1#, x2#, y2#)      d               inverse cosine
+ cdatan (x1#, y1#, x2#, y2#)      d               inverse tangent
+
+ csinh (x1!, y1!, x2!, y2!)       s     (x2,y2) = hyperbolic sine of (x1,y1)
+ ccosh (x1!, y1!, x2!, y2!)       s               hyperbolic cosine
+ ctanh (x1!, y1!, x2!, y2!)       s               hyperbolic tangent
+
+ cdsinh (x1#, y1#, x2#, y2#)      d     (x2,y2) = hyperbolic sine of (x1,y1)
+ cdcosh (x1#, y1#, x2#, y2#)      d               hyperbolic cosine
+ cdtanh (x1#, y1#, x2#, y2#)      d               hyperbolic tangent
+
+ casinh (x1!, y1!, x2!, y2!)      s     (x2,y2) = inv. hyp. sine of (x1,y1)
+ cacosh (x1!, y1!, x2!, y2!)      s               inv. hyp. cosine
+ catanh (x1!, y1!, x2!, y2!)      s               inv. hyp. tangent
+
+ cdasinh (x1#, y1#, x2#, y2#)     d     (x2,y2) = inv. hyp. sine of (x1,y1)
+ cdacosh (x1#, y1#, x2#, y2#)     d               inv. hyp. cosine
+ cdatanh (x1#, y1#, x2#, y2#)     d               inv. hyp. tangent
+
+
+Key:  The precision of each routine is given by 's' (single) or 'd' (double
+precision).  (x,y) represents a complex number with real part x and imaginary
+part y.  For the polar representation, r is the radius and t (theta) is the
+polar angle.  Generally, the inputs are the first arguments passed to the
+subprogram, and the outputs are the last arguments in the list.
+
+Note:  most of the trigonometric functions (regular and hyperbolic sine,
+cosine, and tangent) are not one-to-one, that is, more than one value of (x,y)
+will lead to the same functional value.  This makes it difficult to determine
+exactly which value to return with the inverse trig functions.  Only the
+principal value is computed in these routines, so that finding the inverse
+sine of the sine of (x,y) may not return you to (x,y):
+
+     DECLARE SUB casin(x1,y1,x2,y2)
+     DECLARE SUB csin(x1,y1,x2,y2)
+        ....
+     CALL csin(x1,y1,u,v)
+     CALL casin(u,v,x2,y2)
+
+At this point, depending on (x1,y1), the output (x2,y2) may not be the same
+as the input (x1,y1), because the complex sine is multi-valued.  Be warned.

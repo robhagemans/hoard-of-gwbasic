@@ -1,0 +1,174 @@
++-------------------+-------------------+ 
+| Guide to QB draw  | Lior Zur  10/4/97 |
+|                   |  zur@inter.net.il |
++-------------------+-------------------+
+| version 1.04                          |
++---------------------------------------+
+
+ My homepage for updates, Qb stuff, java online games and other goodies is:
+ 
+  http://www.geocities.com/SiliconValley/Heights/9246/
+
+
+*******************************  ATTENTION ! *******************************
+ To fix a bug, I put *out* the program part that alerts overwriting on file,
+ that's why you should be carefull when saving.
+*******************************  ATTENTION ! *******************************
+
+
+
+
+-============================================-
+                 Index
+-============================================-
+1.0 - General
+1.1 - Working with tools
+1.2 - How to change a color in the palette
+1.3 - Saving\loading palette
+1.4 - Palette's special functions
+1.5 - "File" menu (saving\loading images)
+1.6 - "Image" menu (special effects, filters, etc.)
+1.7 - "Edit" menu (doesn't work)
+1.8 - "Size" menu (size of image)
+1.9 - Warning for Win95 users
+2.0 - How to use the images for qbasic
+2.1 - 'License' for this freeware (just mention my name)
+2.2 - Contact information (You Israely ones)
+2.3 - Bugs I think fixed- (Report for if it's there, and win a credit)
+-============================================-
+
+
+
+1.0
+Working with QB draw is quite simple. Choose the color you want to use
+from the palette in the right bottom of the screen (left-click). 
+Then, choose one one of the 3 drawing tools: 
+- The point 
+- Full box 
+- Empty box 
+or one of the two others: 
+- The eye picker 
+- The mask tool.
+
+
+
+1.1
+To select a tool, left-click on it's image in the
+right side of the the zoom window.
+All the work takes place in the "zoom window":
+--------------------------------------------
+With point: just left-click, to draw a point. 
+With eye-picker: left-click to get the color from the image.
+With empty box: left-click and drag to create a box.
+With full box: left-click and drag to create a box.
+With mask creator: left-click and drag to create a mask.(select an area for
+                   the special effects)
+
+
+1.2
+To edit color in the palette, right-click on color, and then change the
+RGB values. Click on 'Yes' to keep the changes. 'No' to cancel.
+
+
+1.3
+To save\load palette: click on the 'palette options' button that is above the
+palette. Then choose one of the three options in the menu:
+1. to save a palette (enter a palette file name and click 'yes' on the massage
+   box that will appear.)
+2. to load a palette (enter a palette file name and click 'yes' on the massage
+   box that will appear.)
+3. to edit current color, as explained above.
+
+
+1.4
+Usage of the two buttons in the left of the palette:
+ 'copy color' - copies the current color to another place in the palette.
+                First, choose the color you want to copy. Click on 'copy
+                color', and then click on another color on the palette. To
+                cancel, click on 'cancel' on the massage box that will appear.
+ 'create gradient' - creates gradient from one color to another. Choose the     
+                first color for the gradient, click on 'create gradient' and
+                then click on the secend color. To cancel, click on the
+                'cancel' button on the massage box that will appear.
+
+
+1.5
+'File' menu usage:
+  New - to create new image.
+  Load - to load saved image. Enter a name of image, and click 'yes'.
+  Save As- to save your image. Enter a name of image, and click 'yes'.
+           In this version, the program will not alert overwriting file.
+           be carefull !
+  About - how ironic, but this doesn't even work.
+  Exit - to quit - click 'yes' on the massage box.
+
+
+1.6
+'Image' menu usage:
+  Load Gif   -to load a gif into your image. It loads both gif and palette.
+  Softness   -Makes the image soften. If you've selected mask, the effect will
+              be only inside the mask. If not, the effect will be on all the 
+              image.
+  Invert     -inverts the colors in the image. If you've selected mask, 
+              the effect will be only inside the mask. If not, the effect 
+              will be on all the image.
+  Make mask  -That doesn't work on this version. 
+  Change red   -decrease or increase the red color apearence on you image
+                If you've selected mask, the effect will be only inside  
+                the mask. If not, the effect will be on all the image.
+  Change blue  -Same as red, but with blue.             
+  Change green -Same as red, but with green.             
+  Brightness   -Decrease or increase the brightness on your image. If mask
+                selected, it will effect only on the mask.
+  Stretch      -This allow you to stretch the image for any size you choose.
+                Very useful. Change X and Y in the box, and press "Yes".
+
+1.7
+'Edit' menu usage -doesn't work on this version.
+
+
+1.8
+'Size' menu usage:
+  60 * 60 - changes the picture size automaticaly to maximum.
+  10 * 10 - changes the picture size automaticaly to minimum.
+  Change X and Y- lets you choose the size of image.
+
+
+1.9
+ Do not run the program in Windows95 (tm) in a box ! if you run it in DOS
+ shell, make sure you work in full screen mode.
+
+
+2.0
+ To use the images in Qbasic (that's why this program is for) open the
+ "QBDRAW.BAS" in qbasic. It should have inside all the info to open files.
+
+2.1
+ Your licence to use the program:
+ just kidding ! This program is free, and we encourge you to use it. However,
+ If you use this program to create images in your game, please give me a
+ credit - Lior Zur, Orion software. And if your game is really good, drop a 
+ line at: zur@inter.net.il
+ 
+ Also: If you disturb QBdraw in current or other versions, you must
+ disturb the whole ZIP file without making any changes. Also,
+ please add a link to my homepage or/and my e-mail address.
+ 
+
+2.2
+  Contact information:  (report for bugs, comments, suggestions etc.)
+    Lior Zur
+      2nd Hagana st.
+      Rehovot 76210
+
+  phone:  972-8-9450904    (inside Israel: 08-9450904)
+  e-mail: zur@inter.net.il
+ 
+  Homepage for Lior Zur and QBdraw:
+   http://www.geocities.com/SiliconValley/Heights/9246/
+
+2.3
+  Bug I think fixed: problems when quiting. If there is some problems,
+  contact now, and you'll win a credit in my homepage as a beta tester,
+  and You'll be able to get the UFO prize for your homepage(If you have one).
+  And thanx for Stewart Brown <sbrown@telusplanet.net> for contacting about bugs in program.

@@ -1,0 +1,260 @@
+BULLET Network Routines, Supplemental Information.        26-July-1993
+
+
+BULLET has nine network-related routines that you can use.  Each will
+be described in this document as will when/how to use them and a bit
+of background information.
+
+The BULLET network routines are:
+
+  1.  LockXB
+  2.  UnlockXB
+  3.  LockKeyXB
+  4.  UnlockKeyXB
+  5.  LockDataXB
+  6.  UnlockDataXB
+  7.  DriveRemoteXB
+  8.  FileRemoteXB
+  9.  SetRetriesXB
+
+Routines 7 through 9 are not discussed here.  The CZ documentation
+should be adequate for these.
+
+
+Glossary.
+---------
+
+BULLET fileset: Group of files related by their common AccessPack
+variable, AP().  A fileset contains 1 data file and from 1 to 32
+index files.
+
+Locking: Giving exclusive file access to one application.
+
+Unlocking: Releasing exclusive file access so other applications
+may perform a lock.
+
+Flush: Act of updating disk data with data that currently is stored
+only in memory.
+
+
+Background.
+-----------
+
+The purpose of locking/network access, in general, is to keep data in the
+fileset in a known state.  When only a single application access a data
+file the state will always be known since only that application can
+alter the state.  However, when multiple applications access a data
+file each application can alter the state without imforming the others
+of the new state.  To solve this problem, the locking of the data to a
+single application at any one time is done.  Thus giving an application
+exclusive access to the data, allowing it to alter its state, then to
+release the exclusive access (unlock) so that others can again access
+the data.
+
+A BULLET file is made up of both header and data portions.  The header
+describes the makeup of the file and may be changed by accesses to
+that file (adding records, reindexing, etc.).  The data is essentially
+just user-data (data records, key fields, etc.).  In order to properly
+access a file in a multi-access environment, both the data and header
+portions must always be in a known state.  This requires that, upon
+initial access (the lock), the current application's internal header
+information (internal BULLET data areas) be reloaded from the physical
+image on disk.  It also requires that any buffered data from previous
+accesses be discarded. All internal BULLET data structures are properly
+refreshed when a LockXB is called.  However, the application must also
+insure that any data that IT has retained from a previous access be
+discarded since it may no longer be valid.
+
+After a successful LockXB, the fileset is in a known state -- BULLET
+has reloaded its internal structures and is ready to operate.  At this
+time you can perform any file operation such as InsertXB, UpdateXB,
+ReindexXB, GetFirstXB, etc.  Deleting may also be performed but your
+application (logic) should first verify that the delete is valid --
+you don't want to delete a customer-record if the customer has
+outstanding invoices, etc.
+
+Once done with the operation, you should release the lock.  While the
+lock is in place, no other application may access the fileset, so it's
+best to get in, do what you need, and get out.  Don't keep a fileset
+locked unless you need to have exclusive access.  To release the
+fileset locked by LockXB, use UnlockXB.  This will reverse the actions
+of LockXB.  First, it flushes any BULLET data buffers, including
+updating the file headers on disk with the current state of the file.
+This is important since, while the data portion of a file is written
+essentially in real-time, the header portion remains in memory until
+an UnlockXB or until the file is closed (always! unlock files before
+closing them).  After the flush, the disk image matches that known
+state of the fileset of the application in control, and so BULLET
+unlocks the fileset. The fileset is now available to other
+applications.  When another application requires the fileset, it goes
+through the exact same procedure.
+
+Current versions of BULLET allow record locking in addition to file
+locking.  BULLET implements file locking by locking all bytes of a
+file, rather than by opening the file in an exclusive access mode.
+This permits BULLET to control access without the need to constantly
+open and close files with an exclusive access mode (though that is
+also available).  There are times, however, when exclusive access to
+the entire data file is not required, but rather only to a single record.
+By setting the AP(n).RecNo=RecordNumberToLock, the BULLET lock routines
+only lock that single record number in the data file, allowing other
+applications access to that data file.  Note that this mode -- record
+locking, does NOT reload the data file header*, it simply locks that
+one record preventing other applications from altering it.  For index
+files, the entire file is locked since the b-tree is one big, happy
+dataset, not independent data records as with the data file.  Note
+that since the header of the data file is not locked, you cannot
+perform any operations on the data file that would alter its state.
+If all you want to do is read and _hold_ a single record, you may want
+to use a record lock.  However, if you can get in and get out, perhaps
+setting a field in the record to hold with a flag, then the full
+LockXB() is the best solution (and recommended).
+
+*Future versions will reload the header, but not lock it. The programmer
+can use ReadDHXB to reload the data file header manually.
+
+The following is not a network-only concern, but is very important:
+
+One other thing that the programmer must be aware of is keeping index
+files in-sync with its associated data file.  If keys within an index
+file(s) are based on a data file, and if that data file is altered
+without also updating the index file(s), then that index file is no
+longer valid.  To ensure the index file(s) remain in-sync with its
+respective data file, use only the high-level access routines when
+adding or updating data (InsertXB and UpdateXB) and use an AccessPack
+(AP()) with _ALL_ related index files controlled from that one AP().
+Note that since Xbase-specs do not physically delete data records,
+one can DeleteRecordXB (but not DeleteKeyXB!) as often as one likes
+without invalidating the index files.  However, if there are records
+tagged as 'deleted' in a data file, and if that file is PackRecordsXB'ed,
+then all associated index files must be ReindexXB'ed, else the index
+file(s) contains, again, invalid key pointers.  It is the programmer's
+responsibility to ensure that index files remain in-sync with their
+data file.
+
+
+Routines.
+---------
+
+1.  LockXB
+----------
+
+LockXB is the highest-level lock function.  It coordinates the locking
+of an entire BULLET fileset with a single call and performs memory-
+buffer refresh of the respective file headers in the fileset.  LockXB
+is a combination of LockKeyXB and LockDataXB.  The process is:
+
+          F#=1, indexing first AP() pack.
+ Step 1.  Attempt to lock key file F#.
+ Step 2.  If success, read F# header, increment F#.
+
+          While success, and for each AP() index file, repeat
+          steps 1 & 2.
+
+          If any failure, undo previous locks performed by steps 1&2
+          and set RC = F# of failed lock.  Go to step 5.
+
+          If all index files successfully locked and headers loaded,
+          proceed to step 3:
+
+ Step 3.  Attempt to lock data file.
+ Step 4.  If success, read header.
+
+          If failure (including header load failure), undo lock
+          performed by step 3, if at all, and locks performed by
+          steps 1 & 2.  Set RC = F# (F# is equal to number of index
+          files locked in steps 1&2 _PLUS_ 1.  E.g., two index files
+          locked okay but data file failed to lock, RC=3.
+
+ Step 5.  If failure, RC (return code) is returned to the caller in
+          the ax register, or if called from a high-level langauge,
+          as the return code (e.g., as stat in stat = BULLET(AP(1))).
+          This return code is not the error code.  REPEAT, is not the
+          error code.  To obtain the _error_ code, use
+
+                ecode=AP(stat).Stat
+
+          If success, the RC (hence, stat) is 0.  There is no partial
+          success.  Either LockXB locks and loads everything, or it
+          fails.
+
+          Also note that the return code of the _ALL_ Lock() routines
+          differs from the other high-level access routines in that
+          it return code=0 always implies success.  See InsertXB() for
+          more.  (If CZ is loaded, just move the cursor onto InsertXB()
+          above and press the hotkey!)
+
+
+2.  UnlockXB
+------------
+
+UnlockXB is the highest-level unlock function.  It coordinates the
+unlocking of an entire BULLET fileset that was locked with LockXB
+with a single call and performs memory-buffer flushing of the
+repective file headers in the fileset.  UnlockXB is a combination of
+UnlockKeyXB and UnlockDataXB.  The process is:
+
+          F#=1, indexing first AP() pack.
+ Step 1.  Flush key file header F# to disk.
+ Step 2.  If success, unlock key file F#, increment F#.
+
+          While success, and for each AP() index file, repeat
+          steps 1 & 2.
+
+          If any failure, set RC = F# of failed unlock.  Go to step 5.
+          (Relocking is not attempted.  Programmer must manually
+          unlock remaining locks using UnlockKeyXB.)
+
+          If all index files successfully unlocked and headers flushed,
+          proceed to step 3:
+
+ Step 3.  Flush data file header to disk.
+ Step 4.  If success, unlock data file.
+
+          If failure (including header flush failure), set RC = F#
+          (F# is equal to number of index files unlocked in steps 1&2
+          _PLUS_ 1.  E.g., two index files unlocked okay but data file
+          failed to flush, RC=3.
+
+ Step 5.  If failure, RC (return code) is returned to the caller in
+          the ax register, or if called from a high-level langauge,
+          as the return code (e.g., as stat in stat = BULLET(AP(1))).
+          This return code is not the error code.  REPEAT, is not the
+          error code.  To obtain the _error_ code, use
+
+                ecode=AP(stat).Stat
+
+          If success, the RC (hence, stat) is 0.  There is partial
+          success with UnlockXB.  However, partial success implies
+          partial failure.  It is the programmer's responsibilty to
+          flush & unlock any failed unlocks.  It is unlikely that
+          a failure will occur with an UnlockXB operation, but be
+          aware of what must be done if it were to occur.
+
+
+3.  LockKeyXB
+-------------
+
+LockKeyXB is as LockXB but steps 1 & 2 only.  If success, proceed to
+step 5 rather than 3.
+
+
+4.  UnlockKeyXB
+---------------
+
+UnlockKeyXB is as UnlockXB but steps 1 & 2 only.  If success, proceed
+to step 5 rather than 3.
+
+
+5.  LockDataXB
+--------------
+
+LockDataXB is as LockXB but steps 3 & 4 only.
+
+
+6.  UnlockDataXB
+----------------
+
+UnlockDataXB is as UnlockXB but steps 3 & 4 only.
+
+<EOF>

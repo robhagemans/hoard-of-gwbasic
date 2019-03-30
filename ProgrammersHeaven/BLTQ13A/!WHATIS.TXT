@@ -1,0 +1,97 @@
+What is BULLET?
+BULLET v1.03, 22-Apr-93 (BLTQ13)
+
+If you've been wanting to create the ultimate database program, or just a simple
+mailing list to handle your holiday cards, BULLET is the programming library for
+you. BULLET is a library module for programmers developing in MS-DOS. What
+language you ask? Would you believe most any? That's right, BULLET is designed
+to operate as-is with most compilers* available for DOS (DOS 3.3 or above is
+required). This is possible because BULLET is written entirely in assembly
+langauge. Everything it needs it has built in, so no specific compiler run-time
+library is required. Your compiler simply needs to be able to:
+
+ 1. Perform a far call to an external routine using the Pascal calling
+    convention.
+ 2. Build a parameter pack, as in a C struct or BASIC TYPE, for example.
+ 3. Pass a single far pointer by value (of the parameter pack) to the external
+    routine.
+ 4. Accept a return integer value from the external routine (optional).
+
+BULLET uses high-speed b-tree indexes and the industry-standard DBF data file
+format to quickly and easily move data to and from disk. The BULLET API includes
+over 65 functions to perform tasks from low-level direct DOS file I/O to
+high-level transaction-based updates to network routines that let you control
+who has access to your files and when. National Language Support (NLS) is built
+into each key file. This allows you to properly sort mixed-case and/or foreign
+language alphabets. BULLET supports character keys up to 64 bytes as well as
+16-/32-bit integer keys (signed or unsigned). Index files specify if duplicate
+keys are allowed or whether unique keys are to be enforced. And although dBASE
+DBF data file compatiblility is standard, you can create non-standard DBF files,
+such as having fields contain binary data. Key expressions are specified using
+text, as in kx = "SUBSTR(Fieldname,1,10)+Fieldname+SUBSTR(Fieldname,10,3)". Keys
+may be composed of up to 16 separate fields, located anywhere within the record.
+
+The transaction nature of BULLET greatly simplifies what is required of the
+programmer. For example, let's say you have a 100,000-record data file with 12
+active index files and need to insert a new record. With BULLET, you simply
+build the data record and call the InsertXB routine. InsertXB adds the record to
+the data file, builds all 12 keys and inserts each into the appropriate index
+file. If an error occured, say, while inserting the 11th key, BULLET
+automatically backs-out all changes just made to the key files and data file. As
+another example, say, updating an exisiting data record, you'd make any
+modifications to the data record and call the UpdateXB routine. UpdateXB updates
+the record in the data file and automatically updates all 12 index files. If an
+error occured, say, with the 5th key, BULLET automatically backs-out all changes
+made to the key files and data file.  In addition, transaction-based network
+routines are available. These high-level lock/unlock routines also automatically
+handle the necessary reloading and flushing of file headers. And what  about
+performance? Read on.
+
+* BULLET has been tested and used successfully under QuickBASIC 4.5, BASIC 7.1
+  (w/QBX), Turbo C 2.0, and QuickC 2.50.
+
+
+BULLET is fast! The ReindexXB routine indexes your DBF data files in no time
+flat: that 100,000 record .DBF can be completely reindexed in under 30 seconds
+on a fast computer system. The InsertXB routine can add 1,000 new records and
+keys to that 100,000 record database at a rate of over 50 new inserts per
+second. This isn't inserting into an empty database, it's inserting into a
+database that's already 100,000 records large. UpdateXB can update
+1,000 records in that database at a rate of 20 updates/second. And what about
+access speed? How fast can you get to your data once it's in the database? Real
+fast! To access from first key to last all 100,000 keys takes less than
+25 seconds (4500+/sec). That shows how fast you can find keys. To access the
+keys and also access each data record associated with that key takes a bit
+longer. Accessing all 100,000 keys and records takes just over a minute
+(1400+/sec). This is in-order access. Incredible. And if you wanted to access
+from the last key to the first (reverse-order), the times are just as fast.
+What do you get with the BULLET package?
+
+ - The BULLET library module, 19K of code and static data space (small indeed)
+ - Sample programs in BASIC and C plus an interactive demo for browsing any DBF
+ - QuickBASIC .bi include and C .h header files
+ - Over 200K of documentation, source examples, and a tutorial, all online
+ - CZ, the 15K online, context-sensitive, hyper-text help manager
+ - Royalty-free use of BULLET in your programs
+
+Routines by category:
+
+SYSTEM: InitXB, ExitXB, AtExitXB, MemoryXB, BreakXB, BackupFileXB, StatHandleXB,
+GetExtErrorXB
+
+MID-LEVEL RECORD/KEY ACCESS: CreateDXB, OpenDXB, CloseDXB, StatDXB, ReadDHXB,
+FlushDHXB, CopyDHXB, ZapDHXB, CreateKXB, OpenKXB, CloseKXB, StatKXB, ReadKHXB,
+FlushKHXB, CopyKHXB, ZapKHXB, GetDescriptorXB, GetRecordXB, AddRecordXB,
+UpdateRecordXB, DeleteRecordXB, UndeleteRecordXB, PackRecordsXB, FirstKeyXB,
+EqualKeyXB, NextKeyXB, PrevKeyXB, LastKeyXB, StoreKeyXB, DeleteKeyXB,
+BuildKeyXB, CurrentKeyXB
+
+HIGH-LEVEL ACCESS: GetFirstXB, GetEqualXB, GetNextXB, GetPrevXB, GetLastXB,
+InsertXB, UpdateXB, ReindexXB
+
+NETWORK: LockXB, UnlockXB, LockKeyXB, UnlockKeyXB, LockDataXB, UnlockDataXB,
+DriveRemoteXB, FileRemoteXB, SetRetriesXB
+
+LOW-LEVEL DOS ACCESS: DeleteFileDOS, RenameFileDOS, CreateFileDOS,
+AccessFileDOS, OpenFileDOS, SeekFileDOS, ReadFileDOS, ExpandFileDOS,
+WriteFileDOS, CloseFileDOS, MakeDirDOS

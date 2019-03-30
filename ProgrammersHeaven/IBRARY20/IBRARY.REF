@@ -1,0 +1,201 @@
+CALL SUB "AllExtMem" AllExtMem&
+CALL SUB "AltPress" KeyState
+CALL SUB "CapsLock" Status
+CALL SUB "CDROM" CDROM
+CALL SUB "CommPorts" CommPorts
+CALL SUB "CtrlPress" KeyState
+CALL SUB "CursorInfo" Visible StartLine EndLine MaxLine
+CALL SUB "Delay" Seconds
+CALL SUB "Delay18th" SplitSeconds
+CALL SUB "DosCls"
+CALL SUB "DosColor" Foreground Background
+CALL SUB "DosInt" AX BX CX DX Flags
+CALL SUB "DosLocate" Row Column
+CALL SUB "DosPrint" St$
+CALL SUB "DrDOS" DrDOS
+CALL SUB "FClose" Handle
+CALL SUB "FCreate" FileName$ Attribute Handle ErrCode
+CALL SUB "FFlush" Handle ErrCode
+CALL SUB "FindFirstF" FileSpec$ Attr ErrCode
+CALL SUB "FindNextF" ErrCode
+CALL SUB "FLocate" Handle Posn&
+CALL SUB "FLock" Handle Posn& Bytes& ErrCode
+CALL SUB "Floppies" Floppies
+CALL SUB "FloppyType" FloppyType
+CALL SUB "FOpen" FileName$ OpenMode Sharing Handle ErrCode
+CALL SUB "FReadB" Handle Value Bytes ErrCode
+CALL SUB "FReadI" Handle Value Ints ErrCode
+CALL SUB "FReadL" Handle Value& Longs ErrCode
+CALL SUB "FReadS" Handle Value$ Bytes ErrCode
+CALL SUB "FSetEnd" Handle
+CALL SUB "FSetSize" Handle Bytes& ErrCode
+CALL SUB "FSetStart" Handle
+CALL SUB "FSize" Handle Bytes&
+CALL SUB "FUnlock" Handle Posn& Bytes& ErrCode
+CALL SUB "FWhere" Handle Posn&
+CALL SUB "FWriteB" Handle Value Bytes ErrCode
+CALL SUB "FWriteI" Handle Value Ints ErrCode
+CALL SUB "FWriteL" Handle Value& Longs ErrCode
+CALL SUB "FWriteS" Handle Value$ Bytes ErrCode
+CALL SUB "G11Box" X1 Y1 X2 Y2 Colour
+CALL SUB "G11Cls"
+CALL SUB "G11Color" Foreground Background
+CALL SUB "G11GetColor" Foreground Background
+CALL SUB "G11GetLocate" Row Column
+CALL SUB "G11GetPel" X Y Colour
+CALL SUB "G11Line" X1 Y1 X2 Y2
+CALL SUB "G11Locate" Row Column
+CALL SUB "G11Mode" Mode
+CALL SUB "G11Plot" X Y
+CALL SUB "G11Write" St$
+CALL SUB "G11WriteLn" St$
+CALL SUB "G12Box" X1 Y1 X2 Y2 Colour
+CALL SUB "G12Cls"
+CALL SUB "G12Color" Foreground Background
+CALL SUB "G12GetColor" Foreground Background
+CALL SUB "G12GetLocate" Row Column
+CALL SUB "G12GetPel" X Y Colour
+CALL SUB "G12Line" X1 Y1 X2 Y2
+CALL SUB "G12Locate" Row Column
+CALL SUB "G12Mode" Mode
+CALL SUB "G12Plot" X Y
+CALL SUB "G12Write" St$
+CALL SUB "G12WriteLn" St$
+CALL SUB "G13Box" X1 Y1 X2 Y2 Colour
+CALL SUB "G13Cls"
+CALL SUB "G13Color" Foreground Background
+CALL SUB "G13GetColor" Foreground Background
+CALL SUB "G13GetLocate" Row Column
+CALL SUB "G13GetPel" X Y Colour
+CALL SUB "G13Line" X1 Y1 X2 Y2
+CALL SUB "G13Locate" Row Column
+CALL SUB "G13Mode" Mode
+CALL SUB "G13Plot" X Y
+CALL SUB "G13Write" St$
+CALL SUB "G13WriteLn" St$
+CALL SUB "G8Box" X1 Y1 X2 Y2 Colour
+CALL SUB "G8Cls"
+CALL SUB "G8Color" Foreground Background
+CALL SUB "G8GetColor" Foreground Background
+CALL SUB "G8GetLocate" Row Column
+CALL SUB "G8GetPel" X Y Colour
+CALL SUB "G8Line" X1 Y1 X2 Y2
+CALL SUB "G8Locate" Row Column
+CALL SUB "G8Mode" Mode
+CALL SUB "G8Plot" X Y
+CALL SUB "G8Write" St$
+CALL SUB "G8WriteLn" St$
+CALL SUB "Get4DosV" MajorV MinorV
+CALL SUB "GetAttrF" FileAttr
+CALL SUB "GetCapsLock" Status
+CALL SUB "GetDateF" Month Day Year
+CALL SUB "GetDisplay" Adapter Mono
+CALL SUB "GetDosV" MajorV MinorV
+CALL SUB "GetDrive" Drive$
+CALL SUB "GetExtM" ExtM
+CALL SUB "GetEmsM" TotalPages FreePages
+CALL SUB "GetEmsV" MajorV MinorV
+CALL SUB "GetInsert" Status
+CALL SUB "GetNameF" FileName$
+CALL SUB "GetNumLock" Status
+CALL SUB "GetScrollLock" Status
+CALL SUB "GetSizeF" FileSize&
+CALL SUB "GetTimeF" Hour Minute Second
+CALL SUB "GetXmsM" BiggestFree TotalFree
+CALL SUB "GetXmsV" MajorV MinorV
+CALL SUB "GN0Box" X1 Y1 X2 Y2 Colour
+CALL SUB "GN0Cls"
+CALL SUB "GN0Color" Foreground Background
+CALL SUB "GN0GetColor" Foreground Background
+CALL SUB "GN0GetLocate" Row Column
+CALL SUB "GN0GetPel" X Y Colour
+CALL SUB "GN0Line" X1 Y1 X2 Y2
+CALL SUB "GN0Locate" Row Column
+CALL SUB "GN0Mode" Mode
+CALL SUB "GN0Plot" X Y
+CALL SUB "GN0Write" St$
+CALL SUB "GN0WriteLn" St$
+CALL SUB "GN1Box" X1 Y1 X2 Y2 Colour
+CALL SUB "GN1Cls"
+CALL SUB "GN1Color" Foreground Background
+CALL SUB "GN1GetColor" Foreground Background
+CALL SUB "GN1GetLocate" Row Column
+CALL SUB "GN1GetPel" X Y Colour
+CALL SUB "GN1Line" X1 Y1 X2 Y2
+CALL SUB "GN1Locate" Row Column
+CALL SUB "GN1Mode" Mode
+CALL SUB "GN1Plot" X Y
+CALL SUB "GN1Write" St$
+CALL SUB "GN1WriteLn" St$
+CALL SUB "GetPalRGB" ColorNr RedI GreenI BlueI
+CALL SUB "Insert" Status
+CALL SUB "JButtonA1" Pressed
+CALL SUB "JButtonA2" Pressed
+CALL SUB "JButtonB1" Pressed
+CALL SUB "JButtonB2" Pressed
+CALL SUB "JButtons" A1Pressed A2Pressed B1Pressed B2Pressed
+CALL SUB "JPos" AX AY BX BY
+CALL SUB "JoinBytes" HiByte LoByte Word
+CALL SUB "KbdInt" AX BX CX DX Flags
+CALL SUB "KbdType" Enhanced
+CALL SUB "LAltPress" KeyState
+CALL SUB "LCtrlPress" KeyState
+CALL SUB "LRotate" Number ShiftCount
+CALL SUB "LRotateL" Number ShiftCount
+CALL SUB "LShift" Number& ShiftCount
+CALL SUB "LShiftL" Number& ShiftCount
+CALL SUB "LShiftPress" KeyState
+CALL SUB "MCursorG" CursorNr
+CALL SUB "MHide"
+CALL SUB "MInit" Buttons
+CALL SUB "MLButton" IsPressed
+CALL SUB "MLClick" Clicks LastX LastY
+CALL SUB "MLocate" X Y
+CALL SUB "MLRelease" Releases LastX LastY
+CALL SUB "MMButton" IsPressed
+CALL SUB "MMClick" Clicks LastX LastY
+CALL SUB "MMRelease" Releases LastX LastY
+CALL SUB "MRButton" IsPressed
+CALL SUB "MRClick" Clicks LastX LastY
+CALL SUB "MRRelease" Releases LastX LastY
+CALL SUB "MShow"
+CALL SUB "MWhereX" X
+CALL SUB "MWhereY" Y
+CALL SUB "MWindow" X1 Y1 X2 Y2
+CALL SUB "NumLock" Status
+CALL SUB "NumProc" NumProcType
+CALL SUB "PCDate" PCDate$
+CALL SUB "PCType" PCType
+CALL SUB "PeekB" Segment Offset Value
+CALL SUB "PeekI" Segment Offset Value
+CALL SUB "PeekL" Segment Offset Value&
+CALL SUB "PeekS" Segment Offset Bytes Value$
+CALL SUB "PokeB" Segment Offset Value
+CALL SUB "PokeI" Segment Offset Value
+CALL SUB "PokeL" Segment Offset Value&
+CALL SUB "PokeS" Segment Offset Bytes Value$
+CALL SUB "PopWindow" TopRow LeftCol BottomRow RightCol FrameStyle Colour Title$
+CALL SUB "Processor" Processor
+CALL SUB "ProcSpeed" ProcSpeed
+CALL SUB "PrtPorts" PrtPorts
+CALL SUB "RAltPress" KeyState
+CALL SUB "RCtrlPress" KeyState
+CALL SUB "RRotate" Number ShiftCount
+CALL SUB "RRotateL" Number& ShiftCount
+CALL SUB "RShift" Number ShiftCount
+CALL SUB "RShiftL" Number& ShiftCount
+CALL SUB "RShiftPress" KeyState
+CALL SUB "ScrollLock" Status
+CALL SUB "ScrRest" Storage(1) ScrPage FastVideo
+CALL SUB "ScrSave" Storage(1) ScrPage FastVideo
+CALL SUB "SetCursor" StartLine EndLine
+CALL SUB "SetDate" Month Day Year
+CALL SUB "SetDrive" Drive$
+CALL SUB "SetPalRGB" ColorNr RedI GreenI BlueI
+CALL SUB "SetTime" Hour Minute Second
+CALL SUB "ShiftPress" KeyState
+CALL SUB "Sound" Frequency Duration
+CALL SUB "SplitWord" Word HiByte LoByte
+CALL SUB "StrNB" Number St$
+CALL SUB "VidInt" AX BX CX DX Flags
+CALL SUB "WinCheck" MajorV MinorV

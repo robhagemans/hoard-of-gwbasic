@@ -1,0 +1,18 @@
+The following files are included in the IBRARY package:
+
+   ADDFILE.BAT        batch file to add descriptions of IBRARY files
+   ASICMAKE.BAT       batch file to simplify command-line use of IBRARY
+   CATALOG.TXT        catalog of other Hanlin software
+   DEMO.ASI           source code for a brief IBRARY demo program
+   DEMO.EXE           executable version of the IBRARY demo program
+   DESC.SDI           short description of IBRARY for BBSes
+   FILE_ID.DIZ        long description of IBRARY for BBSes
+   IBRARY.DOC         documentation for the IBRARY library
+   IBRARY.LIB         IBRARY library
+   IBRARY.NEW         information about new additions and changes
+   IBRARY.REF         reference listing of all IBRARY routines
+   MOUSE.ASI          source code for a brief mouse demo
+   MOUSE.EXE          executable version of the mouse demo
+   ORDER.FRM          order form for IBRARY
+   PACKING.LST        list of files included with IBRARY (this list)
+   WHERE.BBS          BBSes where you can find the latest Hanlin software

@@ -1,0 +1,123 @@
+
+
+RealFun:  Real & Complex Math Libraries for QuickBASIC
+REALTOP.TXT
+
+All the functions and subprograms included in the realfun library, organized by
+topic:
+
+        Minimum & Maximum
+Usage                           Inputs          Outputs         Notes
+z = amin(x, y)                  x, y; sp        z, sp           min of x, y
+z# = dmin(x#, y#)               x#, y#; dp      z#, dp          min of x#, y#
+z = amax(x, y)                  x, y; sp        z, sp           max of x, y
+z# = dmax(x#, y#)               x#, y#; dp      z#, dp          max of x#, y#
+
+        Cosine
+Usage                           Inputs          Outputs         Notes
+y = COS(x)                      x, sp           y, sp           x in radians
+y# = COS(X#)                    x#, dp          y#, dp          x# in radians
+y = cosd(x)                     x, sp           y, sp           x in degrees
+y# = dcosd(x#)                  x#, dp          y#, dp          x# in degrees
+
+        Sine
+Usage                           Inputs          Outputs         Notes
+y = SIN(x)                      x, sp           y, sp           x in radians
+y# = SIN(X#)                    x#, dp          y#, dp          x# in radians
+y = sind(x)                     x, sp           y, sp           x in degrees
+y# = dsind(x#)                  x#, dp          y#, dp          x# in degrees
+
+        Tangent
+
+Usage                           Inputs          Outputs         Notes
+y = TAN(x)                      x, sp           y, sp           x in radians
+y# = TAN(X#)                    x#, dp          y#, dp          x# in radians
+y = tand(x)                     x, sp           y, sp           x in degrees
+y# = dtand(x#)                  x#, dp          y#, dp          x# in degrees
+
+        Inverse Cosine
+
+Usage                           Inputs          Outputs         Notes
+y = acos(x)                     x, sp           y, sp           y in radians
+y = acosd(x)                    x, sp           y, sp           y in degrees
+y# = dacos(x#)                  x#, dp          y#, dp          y# in radians
+y# = dacosd(x#)                 x#, dp          y#, dp          y# in degrees
+
+        Inverse Sine
+
+Usage                           Inputs          Outputs         Notes
+y = asin(x)                     x, sp           y, sp           y in radians
+y = asind(x)                    x, sp           y, sp           y in degrees
+y# = dasin(x#)                  x#, dp          y#, dp          y# in radians
+y# = dasind(x#)                 x#, dp          y#, dp          y# in degrees
+
+
+        Inverse Tangent
+
+Usage                           Inputs          Outputs         Notes
+y = ATN(x)                      x, sp           y, sp           y in radians
+y = atnd(x)                     x, sp           y, sp           y in degrees
+z = atan(y, x)                  x, y; sp        z, sp           z in radians
+        use to determine proper quadrant of z
+z = atand(y, x)                 x, y; sp        z, sp           z in degrees
+        use to determine proper quadrant of z
+y# = ATN(X#)                    x#, dp          y#, dp          y# in radians
+y# = datnd(x#)                  x#, dp          y#, dp          y# in degrees
+z# = datan#(y#, x#)             x#, y#; dp      z#, dp          z in radians
+        use to determine proper quadrant of z#
+z# = datand#(y#, x#)            x#, y#; dp      z#, dp          z in degrees
+        use to determine proper quadrant of z#
+
+        Hyperbolic Cosine
+Usage                           Inputs          Outputs         Notes
+y = cosh(x)                     x, sp           y, sp           real
+y# = dcosh(x#)                  x#, dp          y#, dp          real
+
+        Hyperbolic Sine
+Usage                           Inputs          Outputs         Notes
+y = sinh(x)                     x, sp           y, sp           real
+y# = dsinh(x#)                  x#, dp          y#, dp          real
+
+        Hyperbolic Tangent
+Usage                           Inputs          Outputs         Notes
+y = tanh(x)                     x, sp           y, sp           real
+y# = dtanh(x#)                  x#, dp          y#, dp          real
+
+        Inverse Hyperbolic Cosine
+Usage                           Inputs          Outputs         Notes
+y = acosh(x)                    x, sp           y, sp           real
+y# = dacosh(x#)                 x#, dp          y#, dp          real
+
+        Inverse Hyperbolic Sine
+Usage                           Inputs          Outputs         Notes
+y = asinh(x)                    x, sp           y, sp           real
+y# = dasinh(x#)                 x#, dp          y#, dp          real
+
+        Inverse Hyperbolic Tangent
+Usage                           Inputs          Outputs         Notes
+y = atanh(x)                    x, sp           y, sp           real
+y# = datanh(x#)                 x#, dp          y#, dp          real
+
+        Modulo
+Usage                           Inputs          Outputs         Notes
+y = x MOD k%                    x, sp; k% int   y, sp           uses integer
+
+                                                                  base only
+y = amod(x, k)                  x, k; sp        y, sp           uses any base
+y# = x# MOD k%                  x, dp; k% int   y, dp           uses integer
+                                                                  base only
+y# = dmod(x#, k#)               x#, k#; dp      y#, dp          uses any base
+
+        Exponentiation & Logarithms
+Usage                           Inputs          Outputs         Notes
+y = EXP(x)                      x, sp           y, sp           real
+y# = EXP(x#)                    x#, dp          y#, dp          real
+y = LOG(x)                      x, sp           y, sp           real
+y# = LOG(x#)                    x#, dp          y#, dp          real
+
+
+Notes:
+- Functions listed in UPPER CASE are intrinsic to Quick BASIC, and are 
+        included here for completeness.
+- The abbreviation sp means single-precision, dp means double-precision.
+

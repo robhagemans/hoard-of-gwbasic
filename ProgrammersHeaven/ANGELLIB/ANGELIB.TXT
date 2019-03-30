@@ -1,0 +1,3432 @@
+                                    ANGELIB for BC7/PDS                        i                                    ___________________
+
+
+
+
+
+                _|||||_  ||_  ||  _|||||_  |||||||  ||       ||  |||||||
+                ||   ||  |||_ ||  ||   ||  ||       ||       ||  ||    ||
+                ||   ||  ||||_||  ||       ||       ||       ||  ||    ||
+                |||||||  || ||||  || ||||  |||||    ||       ||  |||||||
+                ||   ||  || ||||  ||   ||  ||       ||       ||  ||    ||
+                ||   ||  ||  |||  ||   ||  ||       ||       ||  ||    ||
+                ||   ||  ||   ||   |||||   |||||||  |||||||  ||  |||||||
+
+
+
+                                         CONTENTS
+
+
+
+          I.    DISCLAIMER OF WARRANTY  . . . . . . . . . . . . . . . . . .    1
+
+          II.   COPYRIGHT . . . . . . . . . . . . . . . . . . . . . . . . .    1
+
+          III.  LICENSE . . . . . . . . . . . . . . . . . . . . . . . . . .    1
+
+          IV.   TECHNICAL SUPPORT (HOW TO REACH ME) . . . . . . . . . . . .    2
+                Official Distribution Bulletin Boards . . . . . . . . . . .    2
+
+          V.    INTRODUCTION  . . . . . . . . . . . . . . . . . . . . . . .    2
+
+          VI.   NOTES ABOUT THIS RELEASE  . . . . . . . . . . . . . . . . .    3
+
+          VII.  REGISTRATION  . . . . . . . . . . . . . . . . . . . . . . .    4
+                A. How To Order . . . . . . . . . . . . . . . . . . . . . .    5
+                B. Pricing  . . . . . . . . . . . . . . . . . . . . . . . .    5
+                INVOICE & REGISTRATION  . . . . . . . . . . . . . . . . . .    9
+
+          VIII. SYSTEM REQUIREMENTS . . . . . . . . . . . . . . . . . . . .   10
+
+          IX.   FILES WHICH MAKE UP ANGELIB . . . . . . . . . . . . . . . .   10
+
+          X.    USING ANGELIB . . . . . . . . . . . . . . . . . . . . . . .   11
+                Creating a QLB (Quick Library)  . . . . . . . . . . . . . .   11
+
+          XI.   REFERENCE . . . . . . . . . . . . . . . . . . . . . . . . .   12
+
+          XII.  USING PRINTER FUNCTIONS . . . . . . . . . . . . . . . . . .   49
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        1                                    ___________________
+
+
+
+
+          I.    DISCLAIMER OF WARRANTY
+
+                I use the routines in ANGELIB almost every day as I write                                      _______
+          software and I am regularly adding, enhancing, or fixing.  My software
+          will never be "done," and I hope that it gets better and better.  In
+          any case, I can't guarantee that it's perfect; in fact, I'll guarantee
+          that it's not.  By using this software and documentation ("ANGELIB")
+          you must accept this disclaimer of warranty:
+
+                ANGELIB is provided "as is" without any warranties or                _______
+          conditions, expressed or implied, including, but not limited to, those
+          concerning merchantability and fitness for a particular purpose.  By
+          using ANGELIB, you are expressly releasing the author, Angel Babudro,                _______
+          from any liability resulting from the use of this software and
+          documentation.  You must assume the entire risk of using ANGELIB.                                                                   _______
+
+
+          II.   COPYRIGHT
+
+                The author retains the copyright for all ANGELIB source code,                                                         _______
+          documentation, assorted files, and all libraries.  However, once
+          provided with registration from the author you may distribute any
+          program you write with the benefit of ANGELIB, in compiled form only,                                                _______
+          without royalties to the author.  You must have written consent from
+          the author prior to distributing ANGELIB source code in part or in                                           _______
+          whole, whether modified or in original form.
+
+
+          III.  LICENSE
+
+                1.  ANGELIB is being distributed as Shareware.  This library is                    _______
+          not free, although license is hereby granted for evaluation of the
+          Unregistered Edition for an unlimited time.
+
+                2. You may keep as many backup copies of ANGELIB as you wish.                                                          _______
+          The Registered Edition is limited to simultaneous use on the number of
+          computers indicated by your registration level.  The Unregistered
+          Edition may be used on any number of computers.  You may share ANGELIB                                                                         _______
+          with others in complete and unmodified form.  REGISTERED USERS may NOT
+          distribute the files ending in OBJ.
+
+                3. You MUST NOT charge any fee or receive any consideration for
+          distributing the ANGELIB files and you MUST NOT include ANGELIB with
+          another business transaction (e.g., a hardware sale) unless you have
+          express written consent from the copyright holder, Angel Babudro.  You
+          MAY charge a fee of not more than US$6 (six dollars) for the disk
+          and/or service of distribution.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        2                                    ___________________
+
+
+
+
+          IV.   TECHNICAL SUPPORT (HOW TO REACH ME)
+
+                If my wording is unclear or can't find some topic in here, give
+          me a holler and help me fix it or add it to the manual.  A letter or
+          BBS message is preferred (and less expensive for you).  Phone calls
+          are fine between 9am and 5pm Eastern Time as long as you are a
+          registered user or intend to become one.  I thank you for your help in
+          making this library better.
+
+                Sysops please read SYSOP.DOC for special deals.  Shareware
+          vendors please see VENDOR.DOC for distribution information.
+
+                I can be reached via the mail or BBS.  The bulletin boards below
+          should always have current versions of all my software and I will get
+          any messages left there for me.
+
+                Mail        Angel Babudro, "Organic Computer Wizardry",
+                            28 Mulberry Street, Clinton, NY  13323-1506,
+                            (315) 853-1070 Mon-Fri 9am-5pm Eastern Time
+
+                Official Distribution Bulletin Boards
+
+                On bulletin boards I use the first name "Angelo" since it avoids
+          gender confusion.  I go by either name, anyhow.
+
+          East Coast        Excalibur, Central NY (315) 736-3792 USR 14.4
+                            This is my local distribution board where you can
+                            always find the latest updates to all of my
+                            software.  I will get messages left here within a
+                            few days.  My software can be FREQed from this board
+                            via RBBS Net address A:954/401, FIDO Net address
+                            1:26501, or ICN Net 91:315/101.
+
+          West Coast        Researcher's BBS, So Cal (805) 949-8151 USR DS
+                            This is my west coast distribution board which is
+                            updated every 2-3 weeks with the latest versions of
+                            all my software.  Leave messages for me in
+                            conference #136 (Organic Software).
+
+                My software can also be found on many of the nations larger
+          bulletin boards, such as Exec-PC and Channel 1.
+
+
+          V.    INTRODUCTION
+
+                ANGEL.QLB is a "high level" BC7 library for developing business
+          applications, especially data base uses.  These are the routines I use
+          in developing my apps (with some help from three other shareware
+          libraries, most notably John Strong's EZ-Windows which is terrific).
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        3                                    ___________________
+
+
+
+
+                I put in the things that are simple but a pain to code every
+          time, like a "percent completed" bar graph in a window, and things
+          that are more complicated, such as a scrollable information window
+          with mouse support.  ANGELIB is written in BASIC.  Even though it's                               _______
+          not the "tightest" code of its kind I think you will find it very easy
+          to use.
+
+                Some of my routines trade flexibility for ease of use, like the
+          percentage graph which is always the same colour and at the same spot
+          on the screen.  This keeps things simple and provides built-in
+          consistency.  Just in case my ideas for standards aren't the same as
+          yours :) I have decided to offer the licensing of my source code.
+
+                Well, what more can I say?  I hope my library helps you to write
+          a bit better and faster.  If so maybe I'll see your registration in my
+          mail someday.
+
+
+          VI.   NOTES ABOUT THIS RELEASE
+
+                Every release fixes bugs found in previous releases and/or adds
+          a few new features.  Here are some notes about each release:
+
+          1.9a  Routines updated: SayOk, ChooseFile$/ChooseFiles$
+
+                Parameters modified:  GetValidPath$, IsPath%
+
+          1.9   Full LIB file is now included.  I was severly chastised by the
+                dBASIC Toolkit BBS' sysop for distributing "crippled" software. 
+                Sorry I never saw it that way before, and I find that I am in
+                agreement.  Now you can compile to EXE form, but if you want to
+                distribute and/or sell your software please register the
+                library.
+
+          1.8m  All printer & font routines have been updated to allow use on
+                networks using DOS SHARE.
+
+          1.8k  Routines updated: ErrScn, FileBackup, SelFont, SelFonts
+
+                Documentation corrected for HelpIndex
+
+          1.8j  I slaps myself inna face & says, "What was I thinking?" as I
+                    notice that StrFmt's parameters are in reverse order
+                    compared to every other similar function in the known
+                    universe.  Oops.  Mask & source strings have been swapped.
+
+                Fixed: ChoosePtr% (problem if over 16 printers), Inform%
+                    (highlight problem)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        4                                    ___________________
+
+
+
+
+                Parameters modified: HelpIndex
+
+                Routines dropped: BackupMethod%, ChooseCountry% - These simple
+                    menus are easy to create with John Strong's EZ-Windows, so I
+                    took them out to save space.
+
+                Documentation corrected: I forgot to update the documentation
+                    for some routines.  Now you can actually use InputDate,
+                    FileBackup%, FileRestore%, FileRestores%, FmtFDD%
+
+          1.8i  New routines: BarMenu%
+
+          1.8h  New routines:
+                ChooseFiles$ allows multiple file names to be chosen (whereas
+                    ChooseFile$ allows only one).
+                FileRestores% allows single or multiple files to be selected
+                    from a back-up copy.
+                GetFileNames$ allows more than one input file to be selected.
+                OutDevs$ is identical to OutDev$ but is for use with these other
+                    new routines (which all use a common routine from John
+                    Strong's EZ-Windows library).
+                GetFileDesc$ retrieves a file's long name from the DESCRIPT.*
+                    file
+
+                Renamed ToFDD% to FileBackup% and FromFDD% to FileRestore% - I
+                think these names are easier to remember.
+
+
+          VII.  REGISTRATION
+
+                Although I hope that you are so happy with ANGELIB that                                                           _______
+          registering will be reward enough in itself, but I think it's more fun
+          & exciting to get something new.  ANGELIB is the library I use for                                            _______
+          developing all of my applications, so it is constantly updated.  Your
+          registered version will be an up-to-the-minute copy.  Other benefits
+          of registration that come to my mind include:
+
+                1.  You'll get OBJ files so you can create your own custom
+                    libraries.  I use the EZ-Windows and PBClone libraries for
+                    some routines (why re-invent the wheel?), so you will need
+                    to get them if you want to create custom libraries.  Buying
+                    all three libraries will cost around $70 which is far less
+                    than most commercial packages.
+                2.  Within days you will get a library that would probably take
+                    so long to develop yourself that by the time you've done it
+                    you won't need it anymore
+                3.  You can order a printed & bound manual for $8
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        5                                    ___________________
+
+
+
+
+                4.  Technical support is possible! You can contact a real
+                    programmer who is 98% knowledgeable about the library
+                    (nobody's prefect) via mail, phone, or BBS
+                5.  You'll have helped one of the little guys - someone who
+                    isn't a huge corporation.  (Thank you...)
+
+                A.  How To Order
+
+                U.S. customers please send cash, check, or money order. 
+          Canadian customers please send cash or Canadian International Money
+          Order (CIMO).  Customers in other countries please send U.S. funds
+          drawn on a U.S. bank.  If you send cash use a "security" no-see-
+          through envelope and you may want to send it via Registered mail, too.
+
+                If you prefer to use a credit card, you can order ANGELIB from                                                                  _______
+          Public (software) Library with your MC, Visa, AmEx, or Discover card
+          by calling 800-242-4PsL (from overseas: 713-524-6394) or by FAX to
+          713-524-6398 or by CompuServe to 71355,470.  THESE NUMBERS ARE FOR
+          ORDERING ONLY.  I CANNOT be reached at those numbers.  To contact me
+          for information about dealer pricing, volume discounts, site
+          licensing, the status of shipment of the product, the latest version
+          number, or for technical information, call 315-852-6942 or write me at
+          28 Mulberry Street, Clinton, NY USA 13323-1506.  Shareware is "try
+          before you buy" so please understand that product returns are not
+          allowed.
+
+                When ordering from PsL ask for product #10799 and please note
+          that PsL will add $3 for shipping & handling to U.S. as well as
+          Canadian orders.
+
+                B. Pricing
+
+          Registration with Disk -- A single copy costs $25.  You will receive
+                the latest version of ANGELIB in LIB (so it can be merged with                                      _______
+                other libraries) and OBJ (to make custom libraries) formats. 
+                You will also receive notification of major updates.  At this
+                time, updates for registered users are $5 or send me a disk and
+                return postage (I'll re-use your envelope).  See below for
+                printed manuals.
+
+          Multiple Copies -- Each copy may be used on a single computer at a
+                time.  To ease the financial burden and thank you for being
+                honest, you may apply the following discounts when ordering more
+                than one copy:
+                2 to 5 copies                                       40% discount
+                Over 5 copies                                       50% discount
+
+          Site License -- Register a single copy of ANGELIB and purchase a site                                                    _______
+                license which allows you to make copies of the registered
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        6                                    ___________________
+
+
+
+
+                version for use on more than one computer owned by the same
+                business.  I would prefer that you order a registered copy and
+                Site License for each physical location of the same business,
+                but this is not required unless you would like to receive update
+                notices at each location.
+                   Up to 4 computers                             $30.00 per site
+                   Up to 10 computers                            $70.00 per site
+                   Up to 20 computers                           $125.00 per site
+                   Any number of computers                      $400.00 per site
+
+          Manuals -- I will print the latest version of the manual you are
+                reading right now (using Ventura Publisher and a laser printer)
+                and bind it.  I am offering this as a service to those who want
+                a printed, bound manual with their software.  Most of the cost
+                involved here is for materials and extra shipping costs. 
+                Remember that ASCII and WP documentation files are always on
+                disk and if you provide your printer model on the registration
+                form I will send you a file ready to print on your printer.
+                -  One copy                                                $8.00
+                -  Two or more copies                             $6.00 per copy
+
+          Source Code License - You may license the use of the source code for
+                ANGELIB for just $30.  Thereafter, updates will be available for                _______
+                $5 plus shipping.  Please note that I call routines from EZ-
+                Windows (by John Strong) and PBClone (by Tom Hanlin) in my
+                library (why re-invent their wheels?), so you will need to
+                register one or both of these to use some OBJs in creating
+                custom libraries.  I recommend both of them highly and will
+                gladly share unregistered versions of these with you - just ask.
+
+          Complimentary Registered Editions - I would like to give you a
+                complimentary registration if you will give me a bit of
+                marketing assistance:
+
+                1. Write a review of my software and post it on a bulletin
+                   board, send me a copy of it showing the BBS's header and the
+                   name and phone number of the BBS.  Just give me your honest
+                   praise and criticism in a decent review.  Your review will be
+                   most helpful to me if it mentions your best & worst-liked
+                   features and any ideas you have for improvement.  This will
+                   help me decide the future of ANGELIB and for that help I will                                                _______
+                   send you a complimentary registered disk.
+
+                2. It helps me to know which BBSs carry my software and the more
+                   the better, of course!  If you will upload a package to at
+                   least five public ("open") BBSs, send me their names and
+                   phone numbers and I'll send you a complimentary registered
+                   disk.  I would appreciate you uploading to time-share
+                   systems, private ("closed") BBSs, or part-time BBS, but
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        7                                    ___________________
+
+
+
+
+                   please do not use these to apply for a complimentary
+                   registered edition.  BTW: I use an HST 14.4 modem so it would
+                   be best if you provided me with BBSs which also use HSTs so I
+                   can hook-up at high speed.
+
+                3. If you are a consultant or other type of computer
+                   professional and your recommendation leads to one or more of
+                   your clients purchasing one of my packages, just send me a
+                   note with your client's registration or have them mention
+                   your name when they register.  I will send a complimentary
+                   registered edition or an update for every registration you
+                   get for me.  This is in lieu of a multiple copy discount; I
+                   intend it for consultants who choose not to deal with sales
+                   tax.
+
+                One complimentary registration per person or company.  A
+          complimentary registration is just like a paid one - you can upgrade
+          it with a site license, purchase manuals, etc.  It helps when you send
+          back disks to be re-used - even the envelopes can be re-used.  When
+          you order a complimentary registration please fill in the appropriate
+          blanks below PLUS the Invoice so I know what size disk you need, and
+          please send me a couple of dollar bills for shipping expenses. 
+          Thanks.
+
+                I will promise these complimentary offers until at least
+          12/31/93 - after that date please check with me first.
+
+
+
+                          COMPLIMENTARY REGISTRATION APPLICATION
+                                  Use until Dec. 31, 1993
+
+
+                                                             Date_______________
+
+                Please also fill in the Invoice on the following page (put $0
+          for the disk).  Include $2.00 for shipping within the U.S. or the
+          amount indicated for addresses outside the U.S.  Remember to order
+          printed manual(s) if you so desire.
+
+
+          (__) Review posted on (BBS name & number)________________________
+                Include a copy of the review, please. Thank you very much!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        8                                    ___________________
+
+
+
+
+          (__) I uploaded (archive name, like ANGEL18E.ARJ)__________________
+                to these five 24-hour public ("open") BBSs:
+
+             BBS Name              Phone Number/Modem Type  Sysop Name             ________              _______________________  __________
+
+          1_______________________ ________________________ _______________
+          2_______________________ ________________________ _______________
+          3_______________________ ________________________ _______________
+          4_______________________ ________________________ _______________
+          5_______________________ ________________________ _______________
+
+             These offers subject to withdrawal or change at any time without
+          notice.  All prices are subject to change without notice.  Bulletin
+          Board Sysops please see the file SYSOP.DOC for special pricing and
+          information; vendors & sysops please see VENDOR.DOC.
+
+                        Angel Babudro - "Organic Computer Wizardry"
+                        28 Mulberry Street   Clinton, NY 13323-1506
+                        (315) 853-6942 Mon-Fri 9am-5pm Eastern Time
+               (home phone; remember we're 3 hours later than Pacific coast)
+
+                          Please register the Shareware you keep.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                        9                                    ___________________
+
+
+
+
+                                                          INVOICE & REGISTRATION
+                                     Credit card orders see "How To Order" above
+
+          Your Name_____________________________________________________________
+
+          Company Name__________________________________________________________
+
+          Address_______________________________________________________________
+
+          ______________________________________________________________________
+
+          City___________________________ State/Prov________ Zip________________
+
+          Registration     Registration & disk: $25 x qty _____        $_______ 
+
+          Source Code      Source disk & license: $30 x qty _____       _______ 
+
+          Multiple/        2-4 disks -- deduct 40%
+          Wholesale        5 or more -- deduct 50%                     (_______)
+
+          Site License     Up to 4 CPUs add $30; Up to 10 add $70
+          (add to above)   Up to 20 add $125; Unlimited add $400        _______ 
+
+          Printed          One copy is $8, 2 or more are $6 each
+          Manuals          Qty _____ x $_____ each                      _______ 
+
+          Shipping &       Canada, AK, HI, VI, PR add $3 extra          _______ 
+           Expenses        Other countries add $9 per copy              _______ 
+
+                           ** T O T A L **                              _______ 
+
+
+          Disk size & quantity   [__] 3«"                   [__] 5¬"
+          Drive density          [__] Low (DD) required     [__] High (HD) okay
+          Extended densities     [__] FDFORMAT extended densities okay
+
+          Which version are you using now?_____________________________________
+
+          Where did you get it?________________________________________________
+
+
+          ANGELIB has been delivered to and accepted by customer.  Upon receipt          _______
+          of this paid invoice the latest Registered Edition disk and any
+          options chosen above will be sent.  Send U.S. funds or CIMO.  NYS
+          orders add local sales tax.  Mail this page with your cash (use
+          Registered mail), cheque or money order to Angel Babudro, 28 Mulberry
+          Street, Clinton, NY USA 13323-1506. Please allow 1-3 weeks. Thank you!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       10                                    ___________________
+
+
+
+
+          VIII. SYSTEM REQUIREMENTS
+
+                All you need is PC/MS-DOS 3.3 or later, PDS/BC 7.1, and a
+          computer.  You will need 200k to 500k of disk space for the files,
+          depending on which ones you decide to keep around.
+
+
+          IX.   FILES WHICH MAKE UP ANGELIB
+
+                The unregistered edition is made up of the following files:
+
+                ANGEL.LIB     The linker library to make EXE files (check
+                              MAKEQLB.BAT for help making a Quick Library)
+                ANGEL.BI      The include file, function & subroutine
+                              definitions
+                COLOURS.BI    Colour codes definitions, use is optional
+                FKEYS.BI      Function key definitions, use is optional
+                ANGEL.TXT     The ASCII text file of this document
+                ANGEL.WP      The WordPerfect file of this document (so you can
+                              format it for your printer)
+                QSORT.BAS     Source code to this public domain routine
+                FKEY.LST      Sample file for use with FKEYS routine
+                READ.ME       A file containing late-breaking news...  May or
+                              may not be part of the package you get
+                ORDER.FRM     Order form for all of my software
+                SYSOP.DOC     Sysop information
+                VENDOR.DOC    Disk vendors & Sysops: pricing, detailed
+                              description, and distribution information
+                COMPARE.EXE   A byte-by-byte file compare utility.  Displays in
+                              hex, decimal, and ASCII. Type COMPARE for help.
+                DUMP.EXE      Hex/octal/decimal file viewer. Type DUMP for help.
+
+                The registered edition also includes:
+
+                FAROBJ.EXE    Object modules for creating custom libraries
+                              (self-extracting archive)
+                MLIB.BAT      Sample batch file for creating custom libraries
+                              from OBJ modules.  I use it all the time to re-
+                              compile libraries during software development. 
+                              Allows OBJs to be anywhere you like rather than
+                              all in one directory
+                MLIB.LSP      Sample specification file for MLIB.BAT
+                ANGEL.INF     Object module information file for use with Tom
+                              Hanlin's LIBWIZ utility - this makes it MUCH
+                              easier to create your own custom libraries if
+                              you've never done it before.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       11                                    ___________________
+
+
+
+
+          X.    USING ANGELIB
+
+                Basically, just put the files wherever you want them and use the
+          INCLUDE meta-command to place the .BI definition files in your
+          programme (e.g., '$INCLUDE: 'Angel.bi' and '$INCLUDE: 'PtrRec.def'). 
+          Using the $INCLUDE file lets you call subroutines without the CALL key
+          word.
+
+                Creating a QLB (Quick Library)
+
+                If you want to use ANGEL.LIB routines in the QBX interactive
+          environment you need to make a file called ANGEL.QLB first.  To do
+          this just use the command:
+
+                link /qu angel.lib,angel.qlb,nul,qbxqlb;
+
+                If you get "Bad command or file name" you will need to supply
+          the drive and path containing the file LINK.EXE.
+
+                When you start QBX just use "QBX /L d:\path\ANGEL" (replacing
+          d:\path with your drive and pathname) - this will load the quick
+          library into memory so you can run the routines.  Please note that
+          it's a large library; if you have extended memory QBX will load some
+          of the library "high."  If you run out of memory with a large
+          programme I can only console you with the fact that most of my
+          software is too large to run in the QBX environment and the Microsoft
+          help-line wasn't even able to help me.
+
+                Rather than write a probably-lame demonstration programme to
+          show off ANGELIB's functions, I would like to suggest that you check                   _______
+          out my shareware from whence this library sprang:  What Mailing List?
+          (WML), What Vehicle History? (WVH), What Job Summary? (WJS), What
+          Floppy Format? (WFF), and What Tape Back-up (WTB).
+
+                Registered Edition users have individual OBJ files which can be
+          combined into custom libraries, even adding OBJs from other libraries
+          (such as EZ-Windows) or your own routines.  I find it easiest to make
+          a file, using an ASCII editor, which contains all of the names of the
+          OBJs I want in the library (see MLIB.LSP for a sample).  This file
+          contains one routine per line, preceded by a "+" and ending with a "&"
+          (which is what LIB requires since this file is passed directly to
+          LIB.EXE).  This makes it easy to recompile the library if you changed
+          some code or want to add or delete routines.
+
+                Another alternative for making your own libraries is to use Tom
+          Hanlin's LIBWIZ utility.  This makes things very easy since LIBWIZ is
+          smart enough to figure out if a routine requires others (for example,
+          the INFORM%() function requires several other routines) and will
+          include those other routines automatically.  The drawback to LIBWIZ is
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       12                                    ___________________
+
+
+
+
+          that it has no "save" feature so you have to select each module every
+          time (which can get a bit tedious if you have 50 modules or so).  If
+          you've never tried LIBWIZ you ought to at least check it out.  The
+          most current version I know of is LIBWIZ13.  To use it just enter
+          LIBWIZ ANGEL mylibname (where "mylibname" is your library's name).
+
+
+          XI.   REFERENCE
+
+                ANGELIB is made up of functions and subroutines.  Functions                _______
+          return a value to a variable - e.g., a% = CalcAttr(White, Blue) puts a
+          value in a% - whereas subroutines do not - e.g., BackUpMsg just prints
+          a message on the screen.
+
+                The general syntax of a function call is
+          var = Function(param1,param2,etc).  For a subroutine, the "formal"          _________________________________
+          syntax is "[CALL] subname(param1, param2, etc.)" although "CALL" is                     ____________________________________
+          not needed when you include ANGEL.BI in your code.
+
+                Subroutines do not yield any "result," but they often modify one
+          or more variables which are passed to them.  DBFHeader is a good
+          example of this.
+
+                The routines below each show their name at the left margin and a
+          sample calling sequence aligned with the right margin, under which is
+          the english explanation of the routine's purpose followed by the
+          definition of variables.
+
+
+          BackupMsg                                                    BackupMsg
+            Prints  what I think of  as a pseudo-subliminal reminder to back-up
+            your data  :)  A little reminder pops  onto the screen for a second
+            then the screen is cleared.
+
+            Pass            ____
+                 Nothing
+
+            Returns            _______
+                 Nothing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       13                                    ___________________
+
+
+
+
+          BarMenu%    opt% = BarMenu%(r%,c%,norm%,rev%,opts$(),seed%,getit%,ms%)
+            Displays  a horizontal bar menu and  waits for user's choice of the
+            options.
+
+            Pass            ____
+                 r%/c%       Row and column at which to begin displaying
+
+                 norm%/rev%  Normal   &   reverse   display   attributes   (via
+                             CalcAttr%)
+
+                 opts$()     String array containing choices
+
+                 seed%       Option  number  to  highlight initially  (normally
+                             "1")
+
+                 getit%      Flag to  get user's input:   If true routine waits
+                             for user  to select an option or press an extended
+                             key (e.g., an arrow,  PgUp, etc.) or ENTER or Esc.
+                             If  False,  the  routine  displays the  menu  then
+                             exits (which is  useful for displaying a bunch  of
+                             horizontal menus on a setup screen, for example).
+
+                 ms%         Mouse support (0=no, non-zero=yes)
+
+            Returns            _______
+                 Function    If getit%  is true, the  user's final keypress  is
+                             returned - ENTER  (13), Esc (27), or extended  key
+                             code (2nd byte of code).  If getit% is false  then
+                             the returned value is irrelevant.
+
+                 seed%       The number of the highlighted item, numbered  from
+                             left to right starting with one.
+
+
+
+
+          CalcAttr%                             attr% = CalcAttr% (Fore%, Back%)
+            For use with routines that need a single integer colour code.
+
+            Pass            ____
+                 Fore%       Foreground colour code
+
+                 Back%       Background colour code
+
+            Returns            _______
+                 Fore% + (Back% * 16)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       14                                    ___________________
+
+
+
+
+          ChooseFD$                                             fdd$ = ChooseFD$
+            This is a menu of available floppy disk drives.  The function:
+
+            1.   Checks the number of floppy disk drives
+
+            2.   If there is only one drive then "A:" is returned, otherwise
+
+            3.   A pop-up  menu of  floppy drives is  presented from  which the
+                 user may choose one or press Esc.
+
+            Pass            ____
+                 Nothing
+
+            Returns            _______
+                 Floppy disk  drive  letter followed  by a  colon, or  a  blank
+                 string if user presses Esc.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       15                                    ___________________
+
+
+
+
+          ChooseFile$         File$ = ChooseFile$(FSpec$,Exclude$,ExtInfo%,ms%))
+            Presents  a  scrollable  list  of files  in  a  window which  match
+            FileSpec$ (excluding Exclude$) and waits for user to choose one.
+
+            Pass            ____
+                 FSpec$      File specification  to include in  the list.   May
+                             include drive  and path name,  if necessary.   For
+                             example, "*.DAT" or "C:\DATA\*.DAT" are valid.
+
+                 Exclude$    File   specification  to  exclude  from  the  list
+                             (e.g., "*.bak").   Do  not put a drive  or path in
+                             this.
+
+                 ExtInfo%    Extended   Information   flag   &   record   size.
+                             Controls  display  of  extended information  (file
+                             size &  long description).   Set this variable  to
+                             zero  for no  extra file  information,  or to  the
+                             record size to show the number  of records in  the
+                             file  along with description (if a file DESCRIPT.*
+                             is  in  the directory  it  will be  used for  file
+                             descriptions).    To  show size  in  bytes  use  a
+                             record size of one.  If  negative information will
+                             be  in  DOS  Name/Size/Description   order.     If
+                             positive  Description/Name/Size   order  will   be
+                             displayed.
+
+                 ms%         Mouse support flag (true/false).
+
+            Returns            _______
+                 File name  chosen without  drive or path, or  null string ("")                                   _______
+                 if user presses Esc
+
+            Notes            _____
+                 If ExtInfo%  is non-zero,  font files *.SFP and  *.SFL will be
+            shown with  their font  names and  other files  will be shown  with
+            their size & any description.
+                 I  patterned the  format of  the DESCRIPT.*  file after  4DOS:
+            file name  followed by  a space  and up  to 40  characters for  the
+            description.  4DOS makes a hidden file, however.  ChooseFile$  will
+            only  read "normal" (not  hidden) files right now.   I'll soon have
+            it so ChooseFile$ will read hidden files, too.
+                 ChooseFile$()  uses the  EZ-Windows  routine ScrlMenu  and the
+            PBClone routines ScrSave & ScrRest.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       16                                    ___________________
+
+
+
+
+          ChooseFileS$             F$ = ChooseFileS$(Inc$,Exc$,Info%,many%,ms%))
+            Shows a scrollable  list of files in a  window which match Inc$ and
+            excluding Exc$ then waits for user to choose one or more.
+
+            Pass            ____
+                 Inc$        File specification  to include in  the list.   May
+                             include drive  and path name,  if necessary.   For
+                             example, "*.DAT" or "C:\DATA\*.DAT" are valid.
+
+                 Exc$        File   specification  to  exclude  from  the  list
+                             (e.g., "*.bak").   Do  not put a drive  or path in
+                             this.
+
+                 Info%       Extended   Information   flag   &   record   size.
+                             Controls  display  of  extended information  (file
+                             size &  long description).   Set this variable  to
+                             zero  for no  extra file  information,  or to  the
+                             record size to show the number  of records in  the
+                             file  along with description (if a file DESCRIPT.*
+                             is  in  the directory  it  will be  used for  file
+                             descriptions).    To  show size  in  bytes  use  a
+                             record size of one.  If  negative information will
+                             be  in  DOS  Name/Size/Description   order.     If
+                             positive  Description/Name/Size   order  will   be
+                             displayed.
+
+                 many%       True=Allow multiple picks, False=Just one
+
+                 ms%         Mouse support flag (true/false).
+
+            Returns            _______
+                 File names without drive or  path, or null string ("") if user                            _______
+                 presses Esc. Names are padded to length of 12.
+
+            Notes            _____
+                 This  routine ends  up  about  10k larger  than  ChooseFile$()
+            since it requires  an EZ-Windows routine (ScrlTag) which the  other
+            routine does not.  If your  programme already uses ScrlTag you will
+            only see a slight increase in your programme size  (about .5k) over
+            using ChooseFile$().  See ChooseFile$() for other notes.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       17                                    ___________________
+
+
+
+
+          ChoosePort%                      PtrPort% = ChoosePort%(default%, ms%)
+            Presents a pop-up menu of printer ports (LPT1, LPT2, and LPT3)  and
+            waits for user to pick one or press Esc.
+
+            Pass            ____
+                 default%    Default (current) printer port setting (1-3).
+
+                 ms%         Mouse support available: 0 = No, 1 = Yes
+
+            Returns            _______
+                 Port number (1-3) or zero if user presses Esc
+
+
+
+
+          ChoosePtr%      Ok% = ChoosePtr%(pType$, path$, PtrNo%, PtrPort%, ms%)
+            Presents a  pop-up menu  of  printer choices  from the  PRINTER.DAT
+            file.   If there are less than 15 choices (that is, all choices fit
+            inside the window), then the default (PtrNo%) will be highlighted.
+
+            Pass            ____
+                 pType$      Printer types to include in the menu:
+                             D = Dot matrix printers
+                             L = Laser printers
+                             B = Both
+
+                 path$       File  specification  for  PRINTER.DAT file.  path$
+                             may contain a  drive, path, and/or file name.   If
+                             no  file name  is given, PRINTER.DAT is  used.  If
+                             no  drive &  path are  given, the  current drive &
+                             path are used.
+
+                 PtrNo%      Record  number  of  currently  chosen  printer  in
+                             PRINTER.DAT
+
+                 ms%         0 = Keyboard only
+                             1 = Use mouse, too
+
+            Returns            _______
+                 pType$      Changed  to "D"  if dot  matrix  chosen or  "L" if
+                             laser printer chosen
+
+                 PtrNo%      PRINTER.DAT record number for the chosen printer
+
+                 PtrPort%    The port number selected for the  printer (LPT1 is
+                             1, LPT2 is 2, etc.) or zero if user presses Esc
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       18                                    ___________________
+
+
+
+
+          ContCan%                                                 i% = ContCan%
+            Displays  "Continue" and "Cancel" keys  at the bottom of the screen
+            and waits for response.
+
+            Pass            ____
+                 Nothing
+
+            Returns            _______
+                 TRUE (-1) if user presses Esc
+                 FALSE (0) if user presses Return (aka Enter)
+
+
+
+
+          DateFmt$                  FormattedDate$ = DateFmt$(d%, m%, y%, intl%)
+            I use this routine to print  the formatted date after getting input
+            from  the user.   You  can  "PRINT DateFmt$()" or  assign it  to  a
+            variable.  Use the ChooseCountry% menu to let the user set Intl%.
+
+            Pass            ____
+                 d%          Day on the month
+                 m%          Month number
+                 y%          Year (4-digits)
+                 Intl%       International formatting
+                             1 = USA (mm/dd/yyyy)
+                             2 = Canadian (dd-mm-yyyy)
+                             3 = USA & Cdn (dd MoName yyyy)
+                             4 = International (dd MoName yyyy)
+
+            Returns            _______
+                 Formatted date
+
+
+
+
+          DateVal%                                      dv% = DateVal%(TheDate$)
+            Converts  dates from 1992  to 2078  to an  integer number  for date
+            calculations.   For  example,  DateVal%(Date1$)  - DateVal%(Date2$)
+            would give  you the number  of days between the  two dates.   Years
+            prior to 1992 are converted to 1992.
+
+            Pass            ____
+                 TheDate$    Date formatted the same as BASIC's DATE$ function
+
+            Returns            _______
+                 Integer value based on the date
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       19                                    ___________________
+
+
+
+
+          DBFHeader             DBFHeader file$, Fld$(), reclen%, recs&, NoFlds%
+            Opens  .DBF  file FileName$  and returns  field names  in Field$(),
+            record length in  reclen%, number of records in  the file in recs&,
+            and number  of fields in NoFields%.   You can  then call DBFPickFld
+            to pick fields from the list.  See also DBFPickFld function.
+
+            Pass            ____
+                 file$       The DBF  file name, including  drive and path,  if
+                             necessary
+
+                 Fld$()      This array  must be initialized  prior to  calling
+                             DBFHeader  to  the  maximum  number of  fields  (I
+                             would suggest  setting it to  at least 50,  unless
+                             you know better).
+
+            Returns            _______
+                 Fld$()      The names of the fields.  The first field name  is
+                             in Field$(1), etc.
+
+                 reclen%     The file's record length
+
+                 recs&       The number of records on file
+
+                 NoFlds%     The number of fields
+
+
+
+
+          DBFPickFld%                 fld% = DBFPickFld%(iRow%, iCol%, field$())
+            Presents the list  of field names of a  .DBF file at and waits  for
+            user  to select one.   See also DBFHeader  which will fill field$()
+            with field names.
+
+                 iRow%       Top row of window
+
+                 iCol%       Left column of window
+
+                 field$()    Array containing field names from which to choose
+
+                 ms%         Mouse flag: 0 = no mouse, non-zero = use mouse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       20                                    ___________________
+
+
+
+
+          DBFShowFields       DBFShowFields row%, col%, show%, field$(), hilite%
+            Displays a  window filled  with field names  found in  the field$()
+            variable (which  can be  set via DBFHeader).   Field number hilite%
+            will  be highlighted and  placed in  the centre  of the  window (if
+            possible).
+
+            Pass            ____
+                 row%        Top screen row of window (box corner)
+                 col%        Top left corner of window
+                 show%       Number of fields to show in the window
+
+                 field$()    A  2-dimensional  array  field$(1-fieldnum,  0-2).
+                             field$(fieldnum,0) is the field name
+                             field$(fieldnum,1) is the field type
+                             field$(fieldnum,2) is the field length
+
+                             All you  need to do is dimension field$() and then
+                             pass it to DBFHeader which will  fill it with  the
+                             field specs.
+
+                             Note:  DBFHeader sets  field$(1,x) to  "None"  and
+                             this routine  also expects  field$(1,x) to be  the
+                             "None" field.
+
+                 hilite%     Indicates  the field  number to  highlight  on the
+                             screen (a value of zero highlights  nothing).  The
+                             first field  in the  window is  Max%(1,hilite%-5),
+                             so if  hilite%=1,2,3,4, or  5 the  first field  in
+                             the window is #1; if hilite%=6 the first  field is
+                             #2, etc.
+
+            Returns            _______
+                 Nothing
+
+
+
+
+          Delay                                                       Delay Sec!
+            Delays for Sec! seconds.  I use this for copyright messages, etc.
+
+            Pass            ____
+                 Sec!        Number of seconds to delay (floating point)
+
+            Returns            _______
+                 Nothing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       21                                    ___________________
+
+
+
+
+          DrawFDD                                   DrawFDD Light%, iRow%, iCol%
+            Draws a text picture of a floppy on the screen at iRow%,iCol%.   If
+            Light% is  TRUE (-1)  then the  light blinks  red (bright  white on
+            mono monitors), else it is white.
+
+            Pass            ____
+                 Light%      True if drive "light" is to blink, false if not
+
+                 iRow%       Top row of picture
+
+                 iCol%       Left column of picture
+
+            Returns            _______
+                 Nothing
+
+
+
+
+          DrawHDD                             DrawHDD Light%, iRow%, iCol%, Msg$
+            Similar  to DrawFDD but  draws a  text picture  of a hard  disk and
+            places the current drive (CURDRIVE) letter in the box.
+
+            Pass            ____
+                 Light%      True if drive "light" is to blink, else false
+
+                 iRow%       Top row of picture
+
+                 iCol%       Left column of picture
+
+                 Msg$        A  message up  to 20  characters  long to  display
+                             inside the  picture.  If  longer than  20 chars it
+                             will be truncated.
+
+            Returns            _______
+                 Nothing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       22                                    ___________________
+
+
+
+
+          DrvSpace                         DrvSpace (Drive$, Total&, Free&, EC%)
+            Returns total space and free space (in bytes) of drive Drive$.
+
+            Pass            ____
+                 Drive$      Disk drive letter (e.g., "C")
+
+            Returns            _______
+                 Total&      Total bytes are returned in this variable
+
+                 Free&       Free bytes are returned in this variable
+
+                 EC%         DOS error  code is  returned in  this variable  or
+                             zero if no error
+
+
+
+
+          ElapsedTime         ElapsedTime STime$, ETime$, Hour%, Minutes%, Secs%
+            Calculates elapsed time.
+
+            Pass            ____
+                 STime$      Starting  time  hh:mm:ss  (same  format  as  TIME$
+                             function)
+
+                 ETime$      Ending  time   hh:mm:ss  (same   format  as  TIME$
+                             function)
+
+            Returns            _______
+                 ETime$      Formatted elapsed time (hh:mm:ss)
+                 Hour%       Elapsed hours
+                 Minutes%    Elapsed minutes
+                 Secs%       Elapsed seconds
+
+            Example            _______
+                 S$ = TIME$              'Starting time
+                 (do whatever needs to be done)
+                 E$ = TIME$              'Ending time
+                 ElapsedTime S$, E$, H%, M%, S%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       23                                    ___________________
+
+
+
+
+          ErrScn                                        ErrScn ErrCode%, Module$
+            Presents  an  error  screen showing  error  number,  english  text,
+            possible solution, and module name.
+
+            Pass            ____
+                 ErrCode%    Error number
+
+                 Module$     Module name
+
+            Returns            _______
+                 Nothing
+
+
+
+
+          ErrSolve$                                            ErrSolve$ Number%
+            Prints  possible  solution  to  error  number  Number%.    Used  by
+            subroutine ErrScn.   Not  very extensive (to  save memory),  but it
+            sure beats no error handling...
+
+
+
+
+          ErrText$                                              ErrText$ Number%
+            Prints text of error Number%.  Used by ErrScn.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       24                                    ___________________
+
+
+
+
+          FileBackup%                      ec% = FileBackup%(FileMask$, Method%)
+            Asks for  user to  enter path (including  drive) on which  to store
+            the   back-up  (e.g.,  "A:\"   or  "\TEMP\BACKUPS")  then  backs-up
+            FileMask$ to drive Drive$ using Method%.
+
+            Pass            ____
+                 FileMask$   File  mask  to  include  in  restore  (e.g.,  *.*,
+                             *.DAT, OLD??.*, etc.)
+
+                 Method%     The method to use in making the back-up
+                             1 = DOS Copy
+                             2 = ARJ (req. a lot of free memory)
+                             3 = LHARC
+                             4 = PKZIP
+
+            Returns            _______
+                 0 = Completed
+                 1 = Cancelled
+                 2 = Bad file mask
+                 3 = No files matching file mask
+
+            Notes            _____
+                 Requires GetValidPath$() function (GETPATH.OBJ)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       25                                    ___________________
+
+
+
+
+          FileRestore%                    ec% = FileRestore%(FileMask$, Method%)
+            Menu of  floppy drives  then if  Method% is  2, 3, or  4 a  menu of
+            files matching  FileMask$ (user  can select  one to  restore).   If
+            Method%=1 all files matching FileMask$ are restored.
+
+            Pass            ____
+                 FileMask$   Files to restore (*.*, *.DAT, OLD??.*, etc.)
+
+                 Method%     The method to use in restoring
+                             1 = DOS Copy
+                             2 = ARJ (req. a lot of free memory)
+                             3 = LHARC
+                             4 = PKZIP
+                             Anything else = DOS Copy
+
+            Returns            _______
+                 0 = Completed
+                 1 = Cancelled
+                 2 = Bad file mask
+                 3 = No files matching file mask
+
+            Notes            _____
+                 Requires ChooseFile$() function (CHOOSEFL.OBJ).
+
+
+
+
+          FileRestores%                  ec% = FileRestores%(FileMask$, Method%)
+            Same  as FileRestore%() function  above except that user can select
+            one  or  multiple  files  to restore.    See  FileRestore%() for  a
+            description of the parameters.
+
+            Notes            _____
+                 Requires ChooseFileS$()  function (CHOOSEFS.OBJ).  Will add «k
+            to 10k to your code size over using FileRestore%().
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       26                                    ___________________
+
+
+
+
+          FKeys                                                      FKeys Keys$
+            Displays a list of function keys at the bottom of the screen.
+
+            Pass            ____
+                 Keys$       String of  keys  to be  displayed (e.g.,  "EPNQ").
+                             Plus sign  (+) is  a reserved character.   If  the
+                             first character  is a plus  sign followed by  two-
+                             digits, then the keys are placed  starting on that
+                             row.  For example, "+24EPNQ" would  place the keys
+                             on row 24/25, instead of the default rows 23/24.
+
+            Notes            _____
+
+            The file  FKEY.LST  is  seached  first  if it  is  in  the  current
+            directory, then  an internal list is  searched if the  keys are not
+            found.  The format of FKEY.LST ASCII file is:
+
+                 KeyCode$,KeyName$,KeyDesc$,XPos%
+
+            For example, a  line reading "C,Enter,Continue,51" would place  the
+            key  "Enter" (in  reverse  video)  and the  description  "Continue"
+            under  it at  column  51  whenever an  FKeys  "C"  is issued  in  a
+            program.  See the sample FKEY.LST file.
+
+            The routine scans the first screen row  at column 1 for the  colour
+            to use.
+
+            The keys "AacCFNoPQSsTtyn" are defined internally as follows:
+                 A - Up and Down arrows
+                 a - Up/Down/Right/Left arrows
+                 C - Esc = Cancel
+                 c - Enter = Continue
+                 N - PgDn = Next
+                 o - Enter = OK
+                 P - PgUp = Prev
+                 Q - Esc = Quit
+                 S - Enter = Select
+                 s - Esc = Stop
+                 T - TAB = Next
+                 t - BackTAB = Prev
+                 y - Enter = Yes
+                 n - Esc = No
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       27                                    ___________________
+
+
+
+
+          FmtFDD%                                                  ec% = FmtFDD%
+            Format floppy disks.
+
+            Pass            ____
+                 Nothing
+
+            Returns            _______
+                 TRUE if function completed
+                 FALSE if cancelled
+
+            Notes            _____
+                 It's easiest to give you an algorithm of the logic flow:
+
+                 Search DOS PATH for WFF.EXE (What Floppy Format?)
+                 If found, run it and exit
+                 How many drives does this computer have?
+                 If more than 1 present list
+                 Issue DOS command "FORMAT d:" and exit
+
+                 I always  put a  "Format Floppies" option  under my  File menu
+                 which  simply  does  "i% =  FmtFDD".   See  also  FromFDD% and
+                 ToFDD% functions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       28                                    ___________________
+
+
+
+
+          FontDL                          FontDL FontFile$, Pts%, Port%, FontNo%
+            Downloads  a  soft  font file  to a  laser  printer and  displays a
+            status window while doing so.
+
+            Pass            ____
+                 FontFile$   The full  file name, including  drive and path  if
+                             necessary,  of   the   soft   font  file   to   be
+                             downloaded.
+
+                 Port%       The port number (1-3) of the printer.
+
+                 FontNo%     PCL font number  to assign this font (e.g.,  400).
+                             Numbers  >128 are  generally best  to  use as  the
+                             lower numbers have  standard fonts which typically
+                             apply to them.
+
+            Returns            _______
+                 Pts%        The  point size of  the font  is returned  in this
+                             variable.
+
+            Example            _______
+                 ok% = FontDL%(FontFile$, Pts%, Port%, FontNo%)
+                 if ok% then
+                     PRINT #PrintFile%, chr$(27)+"("+ltrim$(str$(FontNo%))+"X"
+                     end if
+
+            Notes            _____
+                 The above  sequence selects FontNo% as  the primary font  (the
+                 '('  does  this).   To select  it  as the  secondary font  use
+                 chr$(27)+"("+ltrim$(str$(FontNo%))+"X"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       29                                    ___________________
+
+
+
+
+          GetDate                          GetDate d%, m%, y%, Intl%, Row%, Col%
+            Accepts date from keyboard at {Row%,Col%}  unformatted (no symbols,
+            just  numbers run  together).   Extended keys  (arrows, PgUp, etc.)
+            will  exit  plus  a mouse  button  push  or  the  Alt  key.   Intl%
+            determines the sequence of entry.
+
+            Pass            ____
+                 d%          Default  day (1-31),  zero to  use to-day's  date,
+                             negative to skip the day
+
+                 m%          Default  month number, zero to  use current month,
+                             negative to skip the month
+
+                 y%          Default  year  number  (4  digits),  zero  to  use
+                             current year, negative to skip the year
+
+                 Intl%       Country  setting   (1=US,  2=Cdn,   3=US  &   Cdn,
+                             4=Other)
+
+                 Row%        Screen row on which to get input
+
+                 Col%        Screen column in which to get input
+
+            Returns            _______
+                 d%, m%, and y% are set to user's input
+
+
+
+
+          GetFileDesc$                               desc$ = GetFileDesc$(file$)
+            Get a  file's description  (long name) from the  DESCRIPT.* file in
+            the current directory.
+
+            Pass            ____
+                 file$       DOS file  name.   You can specify a  drive & path,
+                             but  the current  directory will  be accessed  for
+                             the DESCRIPT.* file.
+
+            Returns            _______
+                 Description (long name) of the file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       30                                    ___________________
+
+
+
+
+          GetFileName$     afile$ = GetFileName$(InOut%, ttl$, msg$, dflt$, ms%)
+            Get  a file name  from user  in a  window, verify proper  format of
+            entry, and check status of file.
+
+            Pass            ____
+                 InOut%      Input or Output file?
+                             1 =  Input file  (file must  exist; error  message
+                             displayed if not) ('1' is for 'I'nput)
+                             0 = Output file  (checks that file does not exist;
+                             if file exists, presents a warning  that file will
+                             be over-written) ('0' is for 'O'utput)
+
+                 ttl$        Title of window
+
+                 msg$        Help  message displayed  on the  screen below  the
+                             file entry window
+
+                 dflt$       Default response
+
+                 ms%         Mouse flag (0=no mouse, non-zero=use mouse)
+                             Mouse cursor should be invisible (off)
+
+            Returns            _______
+                 Name of file, including drive and path (if entered)
+
+
+
+
+          GetFileNames$   files$ = GetFileNames$(InOut%, ttl$, msg$, dflt$, ms%)
+            Same as  GetFileName$ except  that user can  specify more  than one
+            input file.
+
+            Pass            ____
+                 InOut%      Input or Output file?
+                             1  = Single input file
+                             -1 = Multiple input files
+                             0  = Output file
+
+            Everything else is the same as GetFileName$() above.
+
+            Returns            _______
+                 Drive and  path (if entered) followed  by file name(s)  padded
+            to 12 spaces.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       31                                    ___________________
+
+
+
+
+          GetFontInfo                      GetFontInfo File$, FontName$, PtSize%
+            Provides name  &  size in  the header  of a  soft font  file.   Try
+            FontDL% on your laser for a demonstration of this.
+
+            Pass            ____
+                 File$       The name  of the  soft font,  including drive  and
+                             path, if necessary.
+
+            Returns            _______
+                 FontName$   The  long name  of the  font is  returned in  this
+                             variable, if present  (some fonts do not have  any
+                             name in the header)
+
+                 PtSize%     In  the font file's header  is a point size -- the
+                             integer  value   of  this  is  returned   (decimal
+                             chopped off).   Although this  should be the  real
+                             point size, it's possible for it to be wrong.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       32                                    ___________________
+
+
+
+
+          GetNum$       n$ = GetNum$(iRow%, iCol%, NumMask$, OrigNo$, ExitCode%)
+            Get formatted  numerical input  from user.   Screen colours  at the
+            specified  location will be inverted during input and restored upon
+            exit.
+
+            Pass            ____
+                 iRow%       Row at which to get input
+
+                 iCol%       Left column at which to get input
+
+                 NumMask$    Format  mask.   Valid  mask  characters  are pound
+                             (#),  dollar ($),  and  comma  (,); all  else  are
+                             literals (same  as PRINT  USING).  E.g.,  "#,###",
+                             "$$##.##" or "(###) ###-####".
+
+                 OrigNo$     Default number in string  form to avoid  numerical
+                             data type conflicts.   Can be integer or  floating
+                             point.
+
+            Returns            _______
+                 User's  entry as  a string  (use VAL  to  extract it  into the
+                 proper variable; for example, Cost@=VAL(A$) or Miles%=VAL(A$)
+
+                 ExitCode%   ASCII value  of key user pressed  to exit.   E.g.,
+                             Esc =  27.   If an extended  key (e.g.,  F4, PgUp,
+                             etc.) is used ExitCode% is negative.
+
+            Example            _______
+                 A$=GetNum$(15,30,"$$###.##",STR$(UnitPrice@),ExitCode%)
+
+                 In  the  above  example  an input  field  will  be created  at
+                 location (15,30).   The original  number, UnitPrice@, will  be
+                 formatted and  displayed using the  mask "$$###.##", then  the
+                 computer will  wait for the  user's input.   The key that  the
+                 user  presses  to  exit  the field  will  be  returned in  the
+                 variable ExitCode%.
+
+                 See FKEYS.BI for key definitions.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       33                                    ___________________
+
+
+
+
+          GetValidPath               GetValidPath Drv$, path$, Msg$, InOut%, ms%
+            Displays  Msg$ then asks user for  a valid path name, defaulting to
+            Drv$ and  Path$.  If path does not  exist and it  is being used for
+            output, user is asked if s/he wants to create it.
+
+            Pass            ____
+                 Drv$        Default drive (e.g., "C:")
+
+                 Path$       Default path (e.g., "\TEST\DIR")
+
+                 Msg$        Helpful message  to display on  the screen  (using
+                             Inform%)
+
+                 InOut%      1=Input/0=Output
+                             If  InOut%=0 will  prompt  to create  a  directory
+                             that does not exist.
+
+                 ms%         0=No mouse, 1=Use mouse
+
+            Returns            _______
+                 Drv$        Selected drive letter followed by a colon
+
+                 Path$       Selected path with trailing  foreslash (\)  (e.g.,
+                             "\TEST\DIR\")
+
+            Notes            _____
+                 The mouse must be initialized and visible to use  it.  To keep
+                 things simple  & save  stack space, the  windows are  at fixed
+                 positions (which also helps keep things consistent, too).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       34                                    ___________________
+
+
+
+
+          GoodbyeScreen          GoodbyeScreen Pkg$, Reg%, FirstUse$, TimesUsed%
+            Presents a  'goobye screen'  with which  I end  my programmes.   It
+            also has  my name on it... :)   When you  register ANGELIB you will
+            get a version which lets you put your copyright message on it.
+
+            Pass            ____
+                 Pkg$        Package abbreviation  (e.g., "WVH",  "WML", etc.).
+                             Should be a short name to fit properly in window.
+
+                 Reg%        Registration   flag,  true/false,   controls   the
+                             information displayed
+
+                 FirstUse$   Date of  first use.   Used to  calculate number of
+                             days package has been used.
+
+                 TimesUsed%  Number of times package has been used.
+
+            Returns            _______
+                 Nothing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       35                                    ___________________
+
+
+
+
+          HelpIndex                                  HelpIndex Topic$, FileSpec$
+            Displays a help index (menu) or a specific help screen.
+
+            Pass            ____
+                 Topic$      A  specific topic to look up (as  might be desired
+                             with context-sensitive help).   If blank an  index
+                             is presented in a scrollable menu.  Once the  user
+                             selects a topic, the help text  is displayed using
+                             the Inform% function.
+
+                 FileSpec$   The specification  for the help  file.  If  blank,
+                             "*.HLP" is used.   FileSpec$ may contain a  drive,
+                             path, and/or file name (wildcards okay).
+
+            Returns            _______
+                 Nothing.
+
+            Notes            _____
+
+            The help file is an ASCII text file which is arranged like this:
+
+            Topic #1+chr$(4)+Help information
+              more information at least one space from left
+              more help etc. etc.
+            Topic #2+chr$(4)+Help info...
+
+            Help  files may contain up to 100 topics.   The total length of the
+            help text for a single entry is limited to 99 lines with  a maximum
+            of  50 characters per line (roughly 4k of text).  Topics MUST begin
+            in column  one, additional  text MUST begin  AFTER column  1 (i.e.,
+            indent the help text at least one space).
+
+            The topic  may begin with a chr$(1) through  chr$(3) to indicate an
+            outline  level.      For  example,   you  might   have  FILE   then
+            chr$(1)+Open.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       36                                    ___________________
+
+
+
+
+          Inform%    ok% = Inform%(iRow%, iCol%, iWid%, iType%, ms%, snd%, Msg$)
+            Displays a scrollable information window containing up to  99 lines
+            of information.   Msg$ may be any  length.  The routine will  break
+            the message  into lines of  iWid% length  or less.   If the box  is
+            positioned too low on the screen, it will be adjusted upwards.
+
+            Pass            ____
+                 iRow%       Top row of window
+                 iCol%       Left column of window
+                 iWid%       Window width (in characters)
+
+                 iType%      Determines buttons (see below)
+                             0="Message" (no buttons)
+                             1="Note" (Ok button)
+                             2="Caution" (Ok/Cancel)
+                             3="Warning" (blinking) (Continue/Stop)
+                             4="Attention" (blinking) (Yes/No)
+
+                 ms%         Mouse support
+                             0 = No mouse
+                             1 = Mouse available
+                             99 = Reset mouse & use it, if available
+
+                 snd%        Sound: 0=None 1=Squeak 2=Tick 3=Beep
+                 Msg$        Message  to  display  in  the  window.    Will  be
+                             truncated at 99 lines, if necessary.
+
+            Returns            _______
+                 TRUE if user presses ENTER to exit
+                 FALSE if user presses ESC to exit
+
+            Notes            _____
+
+            All message  types except  zero restore  the screen on  exit.   Use
+            iType%=0  when you want to put  information on the screen and leave
+            it there, such as instructions on how to enter data.
+
+            The mouse should be turned OFF before calling Inform%
+
+            Custom Titles            _____________
+
+            A custom title  can replace the default.   Just place a title  plus
+            chr$(254) at  the start  of your message  (changed from  chr$(4) to
+            allow the code to be imbedded without the use of the CHR$ function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       37                                    ___________________
+
+
+
+
+          InformFill        InformFill Row%, Col%, BegLine%, WinSize%, MLines$()
+            Used by Inform% -- fills the window with text.
+
+
+
+
+          InputDate       InputDate Mo%, Dy%, Yr%, DtStr$, Row%, Col%, ExitCode%
+            Accepts a valid date.  Unlike GetDate, InputDate only supports  the
+            DD/MM/YYYY format and does not check for a mouse  button or the Alt
+            key  being  pressed.   However,  the  input  is  formatted  whereas
+            GetDate has all the numbers run together.
+
+            Pass            ____
+                 Mo%         Month number (1-12)
+                             Zero for current month
+                             -1 to skip month
+
+                 Dy%         Day number (1-31)
+                             Zero for current day
+                             -1 to skip day
+
+                 Yr%         Year number (4 digits)
+                             Zero for current year
+                             -1 to skip year
+
+                 r%/c%       Screen row & column at which to display/get date
+
+            Returns            _______
+                 DtStr$      Date string formatted MM/DD/YYYY.
+
+                 ExitCode%   Set to the key used to exit.
+
+            Example 1            _________
+                 M%=0: D%=0: Y%=0: row%=10: col%=20
+                 InputDate M%, D%, Y%, DtStr$, row%, col%, ExitCode%
+
+                 This will  get the  date at location {10,20}  using the system
+                 date as default.  Because InputDate is a BASIC subroutine,  it
+                 is not necessary to initialize DtStr$ before using it.
+
+            Example 2            _________
+                 M%=5: D%=-1: Y%=0: row%=10: col%=20
+                 InputDate M%, D%, Y%, DtStr$, row%, col%, ExitCode%
+
+                 This will get a  month and year at location {10,20}  using May
+                 and the system clock's year as default.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       38                                    ___________________
+
+
+
+
+          IsColour%                                               x% = IsColour%
+            Get adapter card type.
+
+            Pass            ____
+                 Nothing
+
+            Returns            _______
+                 True (-1) if colour adapter card, otherwise False (0).
+
+
+
+
+          IsPath%                             stat% = IsPath%(Pathname$, InOut%)
+            Checks validity  & extends  path.  If  directory is  being accessed
+            for output and does not exist, user is prompted to create it.
+
+            Pass            ____
+                 TheName$    Path name in the format [d:][\path\]
+                             If the drive or full path are  missing the current
+                             drive/path are inserted
+
+                 InOut%      1=Input/0=Output
+                             If  directory does  not  exist  and InOut%=0  then
+                             user will be prompted to create the directory
+
+            Returns            _______
+                 0 = Path not found/not created (suitable for Output)                                                              _
+                 1 = Path exists (suitable for Input)                                               _
+                 -1 = Bad path specification, or -2 = Other error
+
+                 TheName$    Contains the  fully extended  path name  including
+                             the drive  letter unless user  hit Esc when  asked
+                             permission to create the directory.
+
+            Example            _______
+            Assume the current path is C:\ugh\ and no directories under it.
+
+                 Path$ = "test": InOut% = 0
+                 stat% = IsPath%(Path$, InOut%)
+                 select case stat%
+                      case 0    'Path not found & not created (user hit Esc)
+                      case 1    'Path found, everything okay
+                      case is < 0  'Bad path specification or DOS error
+
+            Inform user that C:\ugh\test\  does not exist & ask to create.   If
+            "No" stat%=0 & Path$="test", else stat%=1 & Path$="C:\ugh\test\"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       39                                    ___________________
+
+
+
+
+          Max%                                           Highest% = Max%(A%, B%)
+            Returns the larger of the two integers
+
+
+
+
+          MaxL&                                         Highest& = MaxL&(A&, B&)
+            Returns the larger of two long integers.
+
+
+
+
+          MaxS!                                         Highest! = MaxS!(A!, B!)
+            Returns the larger of two single-precision floating point numbers.
+
+
+
+
+          Min%                                            Lowest% = Min%(A%, B%)
+            Returns the smaller of two integers.
+
+
+
+
+          MinL&                                          Lowest& = MinL&(A&, B&)
+            Returns the smaller of two long integers.
+
+
+
+
+          MinS!                                          Lowest! = MinS!(A!, B!)
+            Returns the smaller of two single precision numbers.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       40                                    ___________________
+
+
+
+
+          MonthDays%                                NoDays% = MonthDays%(M%, Y%)
+            Returns the number of days in month M% of year Y%.
+
+            Pass            ____
+                 M%          Month (1-12)
+                 Y%          Year (2 or 4 digits)
+
+            Returns            _______
+                 Number of days in the specified month
+
+            Example            _______
+                 MonthDays%(2,1992) returns 29
+
+
+
+
+          OutDev$                                    PDev$ = OutDev$(Port%, ms%)
+            Presents a menu of output devices: Screen, Printer, and Disk  File.
+            If Disk  File is  selected the  user is  prompted for  a file  name
+            (using  GetFileName$).   If Printer is selected  the routine checks
+            if the printer is on-line (that's  partly why Port% is needed)  and
+            returns the device  name as  "LPT1:", "LPT2:",  or "LPT3:"  (that's
+            also why Port% is needed).
+
+            Pass            ____
+                 Port%       Port number of printer (1, 2, or 3)
+
+                 ms%         Mouse support:  0=no, non-zero=yes
+
+            Returns            _______
+                 Device or file name
+
+
+
+
+          OutDevs$                                  PDev$ = OutDevs$(Port%, ms%)
+            Same  as   OutDev$  function,  but   for  use  with   ChooseFiles$,
+            FileRestore2%, GetFileNames$, and SelectSoftFonts% routines.
+
+            See OutDev$ function for details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       41                                    ___________________
+
+
+
+
+          ParseFSpec             ParseFSpec TheName$, Drv$, Pathname$, TheName2$
+            Searches file name for the drive, path, and NAME.EXT components.
+
+            Pass            ____
+                 TheName$    Full file name to parse
+
+            Returns            _______
+                 Drv$        Drive letter followed by a colon (if present)
+
+                 Pathname$   Path  name, beginning and  ending with a foreslash
+                             (\), if present
+
+                 TheName2$   FILENAME.EXT, if present
+
+            Notes            _____
+
+            Converts the  regular slash (/)  to a foreslash  (\), in case  user
+            enters the wrong one.
+
+            If  an invalid file name  is entered (for  example, more than eight
+            characters  in  the  name  or more  than  three  characters in  the
+            extension) then TheName2$ is returned as a blank string.
+
+            The  original file name, TheName$, is  not changed so that if there
+            is an error it can be given to the user for editing again.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       42                                    ___________________
+
+
+
+
+          PctDone                                       PctDone Percent%, title$
+            Displays a  graph of  percentage completion in  a small box  on the
+            screen. If  the process  takes longer than 20  seconds a count-down
+            timer will appear below the graph.
+
+            Pass            ____
+                 Percent%    Percentage to  draw on the  graph.  The first time
+                             PctDone is called a  small window is  drawn.  When
+                             Percent% is 100 the window is erased.
+
+                 title$      A  short title (10  chars max) to display over the
+                             progress bar.
+
+            Returns            _______
+                 Nothing
+
+            Notes            _____
+
+            You must  call PctDone with  100 to clear it  or the  next time you
+            call it it will think the window is still on the screen...
+
+            Example            _______
+                 For Sort%=0 to Y%
+                     if 100 * Sort% \ Y% < 100 then
+                         PctDone(100 * Sort% \ Y%,"Sorting")
+                         endif
+                     do something...
+                     next Sort%
+                 PctDone 100,""    'Close the window/reset the routine
+
+
+
+
+          PrintRptMsg                                           PrintRptMsg Msg$
+            Displays a window saying  "Printing "+Rpt$+" Press  Esc to cancel."
+            I use this on every report so I made it into a routine.
+
+            Example            _______
+                 Rpt$ = "Stock Status Report"
+                 PrintRptMsg Rpt$
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       43                                    ___________________
+
+
+
+
+          PtrReady%                                       ok% = PtrReady%(Port%)
+            Checks if printer on LPT[Port%] is on-line.
+
+            Pass            ____
+                 Port%       Printer port (1, 2, or 3)
+
+            Returns            _______
+                 TRUE if ready, FALSE if not
+
+            Notes            _____
+                 It doesn't matter whether or not you  have opened a channel to
+                 the printer before calling this routine.
+
+
+
+
+          QSort    QSort Wrk%(), Arr1$(), Arr2$(), NoDims%, NoItems%, SortField%
+            A good public domain sorting  method.  Used by ChooseFile$ to  sort
+            the file list.
+
+            See  the source code in QSORT.SUB.  This is  not my code -- I'm not
+            selling it, I just use it and pass it on to you...
+
+
+
+
+          Repl$                                cmd$ = Repl$(St$, Target$, Item$)
+            Replaces occurence of  Target$ in St$ with  Item$.  Good for  laser
+            printer codes.
+
+            Pass            ____
+                 St$         Complete string
+
+                 Target$     The part of St$ to be replaced
+
+                 Item$       The replacement for Target$
+
+            Returns            _______
+                 The modified string with trailing spaces & nulls truncated.
+
+            Example            _______
+                 Repl$("&a#V ","#","500") will return "&a500V"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       44                                    ___________________
+
+
+
+
+          SayOk                                            SayOk Row%, Col%, ms%
+            Puts an "Ok" button centred at position {Row%, Col%} and an  "Enter
+            /  Continue" message at the  bottom of the screen, flushes keyboard
+            buffer, then waits for mouse or keyboard to exit.
+
+            Pass            ____
+                 Row%        Row on which to place button
+                 Col%        Middle of button
+                 ms%         Use mouse support? (True/False)
+
+            Returns            _______
+                 Nothing
+
+            Notes            _____
+                 Scans screen at  {Row%-1, Col%} and inverts the colours  found
+            there -- the idea  being to make the button stand out from the lines
+            above it.
+                 If  ms% is non-zero (True)  then the mouse must be initialized
+            but invisible.
+
+
+
+
+          SearchPath$                                a$ = SearchPath$(FileName$)
+            Searches the DOS PATH environment variable for a file.
+
+            Pass            ____
+                 FileName$   Name of file for which to search  (file name only;
+                             no drive or path)
+
+            Returns            _______
+                 If file is found, DOS path with trailing foreslash (\)
+                 If file is not found, returns blank string ("")
+
+            Example            _______
+                 Assuming you have C:\ in your search path...
+
+                 A$ = SearchPath$("Config.sys")
+
+                 will set A$ = "C:\"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       45                                    ___________________
+
+
+
+
+          SelectFont%    ok% = SelectFont%(m$,path$,PtrNo%,Pts%,Ext$,SFdir$,ms%)
+            Displays  a scrollable list of soft fonts in a window and waits for
+            user to select  one or press Esc.   List  will show DOS file  name,
+            font  name (if present  in header)  and point  size (if  present in
+            header).
+
+            Pass            ____
+                 m$          Purpose  of  font,  displayed  at  top  of  window
+                             (e.g., "Printing", "Reports", "Titles", etc.)
+
+                 path$       File  specification  for  PRINTER.DAT file.  path$
+                             may contain a  drive, path, and/or  file name.  If
+                             no file  name is given,  PRINTER.DAT is  used.  If
+                             no drive  & path are  given, the  current drive  &
+                             path are used.
+
+                 PtrNo%      The printer's record number in PRINTER.DAT
+
+                 Ext$        Soft  font   file  extension   (e.g.,  "SFP"   for
+                             portrait fonts, "SFL" for landscape fonts)
+
+                 SFdir$      Default soft font directory (e.g., "C:\Fonts")
+
+                 ms%         Mouse support:  0=no mouse, 1=use mouse
+
+            Returns            _______
+                 Function returns font's  record number in PRINTER.DAT or  zero
+                 if user presses Esc
+
+                 m$          Changed  to soft font  file name  (including path)
+                             if soft font selected
+
+                 Pts%        Changed to point size if scalable font
+
+                 SFdir$      Soft font directory with any user modifications
+
+            Notes            _____
+                 Mouse must be initialized but turned OFF
+
+
+
+
+          SelectFonts%  ok% = SelectFonts%(m$,path$,PtrNo%,Pts%,Ext$,SFdir$,ms%)
+            Same as SelectFont%()  function except that it uses  ChooseFileS$()
+            (instead of ChooseFile$()).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       46                                    ___________________
+
+
+
+
+          SelectFontSize%             Pts% = SelectFontSize%(Font$, IsPts%, ms%)
+            This routine  gets the  user's choice  for font  size in a  window.
+            This routine  is called  whenever a  scalable font  is selected  in
+            SelectFont% (I don't ever use this routine directly).
+
+            Pass            ____
+                 Font$       The font  name  (for  displaying on  the  screen).
+                             For example, CG Times.
+
+                 IsPts%      Logical  flag  to indicate  whether point  size is
+                             needed  (versus   character  pitch).     If   true
+                             "points"  is   displayed;   otherwise  (if   zero)
+                             "character pitch" is displayed on screen.
+
+                 ms%         Mouse flag: 0=no mouse, 1=use mouse
+
+            Returns            _______
+                 Font size (integer) or zero if user presses Esc.
+
+            Notes            _____
+                 This  routine  is  called  by  SelectFont%.    Mouse  must  be
+            initialized but turned OFF (invisible cursor).
+
+
+
+
+          SelectSoftFont$              Font$ = SelectSoftFont$(Path$, Ext$, ms%)
+            This routine presents a scrollable list of soft fonts  in a window.
+            It  is called by  SelectFont% if  the user selects  a soft font (as
+            opposed to a font built into the printer).
+
+            Pass            ____
+                 Path$       Path to soft fonts
+
+                 Ext$        Extension to be included in the  list (e.g., "SFP"
+                             for portrait fonts)
+
+                 ms%         Mouse support (0=no, 1=yes)
+
+            Returns            _______
+                 Name of chosen font, including drive & path, if necessary.
+
+                 Path$       Path as modified by user
+
+            Notes            _____
+                 Uses ChooseFile$() function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       47                                    ___________________
+
+
+
+
+          SelectSoftFonts$            Font$ = SelectSoftFonts$(Path$, Ext$, ms%)
+            Same as SelectSoftFont$() except  this routine uses  ChooseFileS$()
+            instead of ChooseFile$().
+
+
+
+
+          StrFmt$                            ph$ = StrFmt$(Mask$, St$, reverse%)
+            Formats a  string according to a given mask.  I  use this to format
+            phone numbers, zip codes, etc.
+
+            Pass            ____
+                 Mask$       Mask (like PRINT USING masks)
+                 St$         String to format
+                 reverse%    Flag: if  TRUE formatting  is done  from right  to
+                             left; if  FALSE (0) formatting  is done from  left
+                             to right. TRUE is the most common setting.
+
+            Returns            _______
+                 Formatted string
+
+            Examples            ________
+                 a$ = StrFmt$("8052662574","(###) ###-####",-1)
+                 returns a$ = "(805) 266-2574"
+
+                 a$ = StrFmt$("2726893","(###) ###-####",-1)
+                 returns a$ = "(   ) 272-6893"
+
+                 a$ = StrFmt$("93551","#####-####",0)
+                 returns a$ = "93551-    "
+
+
+
+
+          StripSymbols$                               new$ = StripSymbols$(Old$)
+            This strips any  symbols from  a string of  numbers.   I use it  to
+            strip  the parenthesis, etc. from  phone numbers, etc.  Returns the
+            string St$ stripped of its parenthesis, dashes, and commas.
+
+            Example            _______
+                 a$ = StripSymbols$("(805) 272-4923")
+
+                 returns a$ = "8052724923"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       48                                    ___________________
+
+
+
+
+          Trim$                                                   b$ = Trim$(a$)
+            Trims  leading  & trailing  spaces  and trailing  chr$(0)'s from  a
+            string  (using LTRIM$/RTRIM$ will remove  spaces but not nulls).  I
+            use this to  test the length  of static  strings, which are  padded
+            with CHR$(0)'s.
+
+
+
+
+          ZipFmt$                                   a$ = ZipFmt$(TheZip$, Intl%)
+            Formats a zip code according to Intl% flag.
+
+            Pass            ____
+                 TheZip$     Unformatted Zip/Postal code
+
+                 Intl%       1 = USA
+                             2 = Canada
+                             3 = USA plus Canada
+                             4 = Canada plus USA
+                             5 = All others (no formatting)
+
+            Returns            _______
+                 Formatted zip
+                             USA -- #####-####
+                             Canada -- A#A #A#
+                             Other -- No formatting
+
+
+
+
+          zTrim$                                                 b$ = zTrim$(a$)
+            This  routine only trims trailing nulls [chr$(0)]  from the string.
+            Good for  trimming fixed-length file fields  which are padded  with
+            nulls when you don't want to remove any spaces  [chr$(32)] from the
+            string.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       49                                    ___________________
+
+
+
+
+          XII. USING PRINTER FUNCTIONS
+
+               In order to use the printer functions, you will need to include
+          the data structures definition file PtrRec.DEF in your source code. 
+          Place the line '$INCLUDE: 'PtrRec.DEF' near the beginning of your
+          code.
+
+               Next, you will need to dimension the variables to hold the
+          records.  I use both local and the global (common) variables; either
+          will work fine unless your programme is strapped for memory one way or
+          the other.  For local variables use DIM; to make the variables global
+          use DIM SHARED.  The record types are:
+
+               LaserPtrRec - Control codes which are not font-specific
+               LaserFontRec - Font-specific control codes
+               DMPtrRec - Dot matrix codes which are not font-specific
+               DMFontRec - Font-specific dot matrix control codes
+
+               The records are all the same length so that the single file,
+          PRINTER.DAT, can contain all four record types.  Laser printer records
+          start with a greater-than (>) sign (for example, ">Panasonic KX-
+          P4450").  Dot matrix printer records start with a dot (for example,
+          ".NEC P5300").  Both record types (dot matrix and laser) begin with a
+          Model field, so you can use a LaserPtrRec variable to read a dot
+          matrix record, then, if the Model begins with a period, re-read the
+          record as a DMPtrRec variable.
+
+               Here are the steps your programme will need to take to set
+          everything up:
+               1.  Use the ChoosePtr% function to get and save the user's
+                   choice for a printer
+               2.  Use SelectFont% to get the user's font choice(s).
+               3.  Save printer & font choices in a configuration file.
+               4.  Either at programme start-up or before printing read the
+                   printer control codes into memory.  For example:
+
+                   DIM SHARED Lz as LaserPtrRec
+                   DIM SHARED DM as DMPtrRec
+                   PtrFile% = FREEFILE
+                   OPEN HomePath$ + "Printer.DAT" FOR RANDOM ACCESS READ SHARED
+                       AS PtrFile% LEN = LEN(Lz)
+                   GET #PtrFile%, PtrRec%, Lz
+                   IF LEFT$(Lz.Model, 1) = "." THEN
+                     GET #PtrFile%, PtrRec%, DM
+                     END IF
+
+               5.  At programme start-up or before printing read the printer
+                   font codes into memory (like the example below)
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       50                                    ___________________
+
+
+
+
+          DIM LF as LaserFontRec
+          DIM DF as DMFontRec
+          ' Normally you would already have PtrFile% open from the
+          ' above routine (to read the printer codes).  If not, you
+          ' would need to open the file as in the above routine.
+          m$ = "Reports": Ext$ = "SFP"                     'Portrait fonts (SFP)
+          FontRec%=SelectFont%(m$, PtrRec%, Pts%, Ext$, SFdir$, ms%)
+          SELECT CASE FontRec%                                     'Check result
+               CASE 0                                       'User hit Escape key
+                 EXIT SUB
+               CASE -1                                     'User chose soft font
+                 PRINT #PrintFile%, zTrim$(Lz.Init);                'Reset laser
+                 Done% = FontDL(SFont$, FPts%, PtrPort%, 400)     'Download font
+                 IF NOT Done% THEN                             'User aborted download; flag routine as 'cancelled'
+                   EXIT FUNCTION or SUB
+                   END IF
+                 IF FPts% > 0 THEN                           'FontDL got a size?
+                     Fcpi% = 120 \ FPts%      'Cvt points to rough CPI for calcs
+                   ELSE                                     'No size in font hdr
+                     Fcpi% = 10                     'Assume 12pt/10cpi for calcs
+                   END IF
+                 PRINT #PrintFile%, CHR$(27); ")400X";       'Secondary, ID #400
+               CASE ELSE
+                 IF Ptr$ = "D" THEN                          'DOT MATRIX PRINTER
+                     GET #PtrFile%, FontRec%, DF
+                     PRINT #PrintFile%, zTrim$(DM.Init);                  'Reset
+                     PRINT #PrintFile%, zTrim$(DF.Select);          'Select font
+                     T$=Trim$(DM.HTab) + CHR$(2 * Fcpi) + CHR$(0)  'Set tab @ 2"
+
+                   ELSE                                           'LASER PRINTER
+                     GET #PtrFile%, FontRec%, LF
+                     PRINT #PrintFile%, zTrim$(LF.SymSet2);      'Make secondary
+                     PRINT #PrintFile%, zTrim$(LF.Select2);     'Use SymSet1 etc
+                     PRINT #PrintFile%, zTrim$(LF.Spacing);     'to make Primary
+                     IF VAL(LF.Pitch) = 0 THEN                   'Scalable font?
+                       PRINT #PrintFile%,LTRIM$(STR$(Pts%));         'Point size
+                       END IF                                '(from SelectFont%)
+                     PRINT #PrintFile%, zTrim$(LF.Pitch);      'Pitch select cmd
+                     PRINT #PrintFile%, zTrim$(LF.Slant);        'Upright/italic
+                     PRINT #PrintFile%, zTrim$(LF.Weight);       'Light/Med/Bold
+                     PRINT #PrintFile%, zTrim$(LF.Number);      'PCL font number
+                     IF RIGHT$(zTrim$(LF.Pitch), 1) = "h" THEN     'Mono-spaced?
+                         Fcpi% = VAL(LF.Pitch)                        'Store cpi
+                         FPts% = 120 \ temp1%       'Cvt cpi to rough pts if nec
+                       ELSE
+                         FPts% = VAL(LF.Pitch)                     'Store points
+                         Fcpi% = 120 \ TPts%        'Cvt pts to rough cpi if nec
+                       END IF
+                   END IF
+
+
+
+
+
+
+
+
+
+
+
+
+                                    ANGELIB for BC7/PDS                       51                                    ___________________
+
+
+
+
+               END SELECT
+          CLOSE #PtrFile%
+
+               Now you have the printer ready to go and you have the variables
+          Fcpi% and Fpts% to work with in calculating TAB locations, line
+          length, etc.
+
+               You will notice that I use zTrim$() rather than just printing a
+          variable.  This is because BASIC pads TYPE fields with nulls -
+          CHR$(0)'s.  The zTrim$() function removes CHR$(0)'s but leaves
+          trailing spaces (which may be part of the command string).
+
+               There are some things that you must know, such as that the pitch
+          command for a PCL (laser) printer ends in "h" if it is mono-spaced
+          (cpi) and "v" if it is proportionally-spaced (points).  Also, in
+          setting a TAB string in the above example I used the Epson-standard
+          which terminates the setting of TABs with a CHR$(0).  This is the best
+          solution I have come up with, and every printer I've seen in the past
+          five years uses Epson codes anyhow, so I figure this technique will
+          work 90% of the time or better.
+
+               You can make your own PRINTER.DAT file or modify the one supplied
+          just by using the PtrRec.DEF file.  Someday soon I will make a
+          programme for modifying the PRINTER.DAT file, but for now it will have
+          to be done manually.  I would really appreciate it if you would share
+          with me any new printers you install by sending me your modified
+          PRINTER.DAT file.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

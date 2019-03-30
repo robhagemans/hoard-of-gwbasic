@@ -1,0 +1,214 @@
+This is a list of some of the software which I have written.  This software,
+or a similar collection (things get added or removed over time) will be sent
+to you free if you register any of my shareware products, or you may order a
+set of disks for $5.00 (see REGISTER.TXT).  This does not include shareware
+registration fees, if any.  You are still expected to register any shareware
+that you find useful.
+
+The registered versions of each library come with full source code-- often a
+megabyte or more, providing an excellent learning opportunity for beginners
+and old pros alike.  Assembly language source code is designed for MASM 6.0
+and may require alteration to assemble with A86, OPTASM, TASM, or older
+versions of MASM.  BASIC source code is designed for QuickBASIC 4.0-4.5 or
+BASCOM ("PDS") 6.0-7.1, or for PowerBASIC 2.1, depending on the library.
+Pascal source code is designed for Turbo Pascal 6.0 or Quick Pascal 1.0, but
+should compile with Turbo Pascal versions dating back to 5.0.
+
+
+
+2MON: A collection of utilities for dual-monitor systems.  Free.
+
+Utilities include a clock TSR which runs on the mono display, a utility to
+clear the mono display, and a TSR which remaps the PrintScreen key-- instead
+of going to the printer, it copies the color display to the mono display.
+
+
+
+AABAS: The Affordable Alternative BASIC Library.  Shareware.
+
+This is a good library for people curious about the workings of their
+computer, learning how to use libraries, or interested in writing their own
+assembly language routines for QuickBASIC.  It is a collection of scores of
+simple BIOS and DOS-related routines written in assembly language.  AABAS is
+not as fancy as my other BASIC libraries, but it's quite useful in its own
+right and makes a great learning tool.  AABAS registration is only $8, which
+provides you with full source code.
+
+
+
+ASMWIZ: The Assembly Wizard's Library.  Shareware.
+
+This is a library for assembly language.  The library will work with A86,
+MASM, OPTASM, and TASM.  Only .COM files are supported.  Routines include
+text displays (machine-level, BIOS, and DOS), graphics (Hercules, CGA, EGA),
+number base conversions, long integer math, file matching and command-line
+parsing, pseudo-random number generation, countdowns and delays, buffered
+file support with critical error handling, environment scanning, string
+functions, mouse support, sound generation, control over Break, loading of
+BSAVE-format files, and more.
+
+
+
+BASWIZ: The BASIC Wizard's Library.  Shareware.  REQUIRES LIBWIZxx.ZIP.
+
+This is a library for QuickBASIC and BASCOM (including "PDS", the
+"Professional Development System").  It contains a numeric expression
+evaluator, so you can convert an equation into a number; far strings, so
+you'll never see "Out of String Space" again (EMS is supported too!);
+powerful file handling, with optional buffering and built-in critical error
+handling; telecommunications support, including DTR control, carrier
+detection and more for COM1 - COM4; pointers and memory management, giving
+BASIC the capability for flexible data structures long enjoyed by C, Pascal
+and Modula-2 programmers; a virtual windowing system that gives you much more
+than just windows-- change the size, move 'em around, scroll a window around
+on a huge virtual screen, all smoothly and at lightning speed-- the BASWIZ
+demo program gives some hint of what you can do.  The virtual windowing
+system is where BASWIZ really shines.  To the best of my knowledge, there is
+no better text display management system for BASIC.
+
+Graphics capabilities are also included.  Besides replacements for the BASIC
+graphics support for CGA, EGA, VGA and Hercules modes (no TSR needed), BASWIZ
+adds many new capabilities.  You can print text and graphics screens on an
+Epson-compatible printer or treat the printer like a graphics screen with a
+special set of text and graphics routines.  A selection of fonts is available
+and can be displayed in any desired size. A pseudo-graphics mode (80x50) is
+available for use on any display adapter.  There are also two new VGA modes
+that will work on any register compatible VGA, which allow 320x400 or 360x480
+resolution in 256 colors (compare that to the BASIC SCREEN 13 mode, with only
+320x200)! Also SuperVGA (Tseng chipset) support-- up to 1024x768 in 256
+colors. Detect the current display adapter, draw dots, lines, circles,
+ellipses, regular polygons... it's all here, with detailed explanations and
+assorted example programs.
+
+Last but not least, the math routines.  These provide extensive math support
+in three areas: new or faster routines for BASIC's existing math, precision
+math using fractions, and the ultimate in numeric precision: BCD math with up
+to 254-digit numbers.  Extensions to BASIC's existing math include inverse
+trig and hyperbolic trig functions, the error function, constants and
+conversions.  Fraction math is fairly limited at the moment, supporting
+little more than the basic four functions.  BCD math includes much more than
+such basics, though-- trig functions, square roots, factorials, constants
+with hundreds of digits of precision, etc; formatted output may be done to
+your specs.  You can place the decimal point anywhere you want, so this is
+perfect whether you deal in very large or very small numbers!
+
+
+
+BPP: A BASIC PreProcessor.  Free.
+
+This utility provides a powerful meta-language for QuickBASIC, BASCOM
+(including "PDS"), and even the QBASIC provided with DOS 5.0.  It processes
+your code before the compiler gets to it, allowing conditional compilation,
+underscores within variable names, flexible "include" files (which may even
+contain SUB and FUNCTION definitions), name substitutions, and more.  C
+programmers have had preprocessors for years-- now there's one for BASIC too!
+
+
+
+EXECOM: EXE-to-COM converter.  Free.
+
+Like EXE2BIN, this utility converts .EXE files to .COM files.  It's smaller
+and faster, though, as well as offering a few additional conveniences.
+Assembly language source code is included.
+
+
+
+EXETOOL: EXE Tool.  Free.
+
+This program examines .EXE files for validity and can tell you whether the
+.EXE was designed for use with Microsoft Windows.  If the .EXE file is
+determined to be too long, as it might be if you got it using an older file
+transfer protocol, you are given the option of truncating it to the right
+size.
+
+
+
+KEYCTL: Keyboard Control.  Free.
+
+For AT-class machines only (286, 386, 486), this utility allows you to speed
+up your keyboard (or make it less sensitive for kids, etc).  You can also
+swap the positions of the CapsLock and Left Ctrl keys, useful for civilizing
+the 101-key "enhanced" keyboard.  Assembly language source code included.
+
+
+
+LIBWIZ: The Library Wizard's *BASIC Library Manager*.  Free.
+
+This is a management tool for handling and customizing BASIC libraries.  It
+is required for my BASWIZ and PBClone libraries.
+
+
+
+OBJTOOL: OBJ Tool.  Shareware.
+
+This program scans .OBJ files for the module name, public symbols, and
+external symbols.  It checks the .OBJ file for validity.  OBJTOOL lets you
+change the names of public and external symbols, which is especially useful
+if you have several libraries which contain routines with conflicting names,
+for example.
+
+
+
+PASWIZ: The Pascal Wizard's Library.  Shareware.
+
+This is a library for Turbo Pascal and QuickPascal.  It provides high-powered
+math routines, new string support, mouse management, music, BCD math, and
+other routines.
+
+The math routines provide a numeric expression evaluator which allows you to
+convert equations into numbers at run time.  The math capabilities of Pascal
+have been expanded significantly with new trig, inverse trig, hyperbolic
+trig, and other functions.  For the ultimate in numeric precision, BCD math
+is also provided, allowing you to manipulate numbers of up to 254 digits--
+not just with the basic four functions, but trig, square roots, factorials,
+constants with hundreds of digits of precision, etc; formatted output can be
+done to your specs.  You can place the decimal point anywhere you want, so
+this works equally well with very large and very small numbers.  String
+support includes compression, encryption, fuzzy comparisons, and other
+goodies.  The music manager works like the BASIC PLAY language and BBS "ANSI
+music".
+
+
+
+PBCLON: The PBClone Library.  Shareware.  REQUIRES LIBWIZxx.ZIP.
+
+This is a library for QuickBASIC and BASCOM (including "PDS").  It is the
+successor to my old ADVBAS library.  With over 400 routines and counting,
+this library covers a little bit of everything: mouse support, disk
+wrangling, string mangling, keyboard input, equipment detection, graphics, a
+wide variety of display management, directory searching, text compression,
+viewing archive directories (.ARC/.ARJ/.LZH/.PAK/.ZIP/.ZOO), matrix math,
+dates, times and countdowns, sorts, binary searches, and... well, it's hard
+to describe such a collection other than to say "it's probably in here"!
+
+PBClone uses a low-level approach, giving you the greatest flexibility
+possible.  BasWiz uses a higher-level approach, giving you more power for
+less effort.  These libraries can be used separately or together.
+
+
+
+PBWIZ: The PowerBASIC Wizard's Library.  Shareware.
+
+This is a collection of units for Spectra's PowerBASIC compiler.  It includes
+archive viewing (for ARC, ARJ, LZH, PAK, ZIP, ZOO), 256-color graphics modes
+(320x200 and 360x480 on any ordinary VGA), mouse and keyboard control, EMS
+and XMS memory access, equipment detection, extended math and string
+routines, a numeric equation evaluator, and assorted other goodies.
+
+
+
+QBWIZ: The QuickBASIC Wizard's Library.  Free.
+
+A collection of routines which allow you to access internal variables for
+QuickBASIC 4.0 - 4.5.  You can retrieve the screen mode, display adapter
+type, DEF SEG setting, I/O redirection status, current screen colors, and
+many other useful values.
+
+
+
+VCLOCK: Video clock TSR.  Free.
+
+This tiny TSR provides a running display of the time.  You may specify screen
+position, 12 or 24 hours, whether to display seconds, the colors to use, and
+other parameters.  Two versions are provided-- one for 8088 PCs and one for
+later machines.  Assembly language source code is included.

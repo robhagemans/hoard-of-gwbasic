@@ -1,0 +1,37 @@
+
+
+
+
+
+         RealFun:  Real & Complex Math Libraries for QuickBASIC
+         REGISTER.TXT
+
+         I hope you find RealFun to be a quality product and useful
+         to you.  If you do, please register it.  There are 2
+         registration plans available to you, depending on your
+         needs:
+
+         1)  To register the freely distributable package, consisting
+         of:  RealFun and CompFun stand-alone and Quick-libraries, 4
+         demonstration programs, and disk-based documentation, please
+         send $25.00 to the address listed below.
+
+         2)  The enhanced package, consisting of:  the freely
+         distributable package, source code to the RealFun and
+         Compfun libraries, a printed tutorial on complex numbers and
+         the use of these libraries, and 10 more example programs,
+         can be obtained for $50.00.  Please indicate diskette format
+         (3.5" or 5.25") and density (DD or HD) when ordering.
+
+         Please send registration fees, in the form of a check or
+         money order, to:
+
+              Kerry Mitchell
+              Creative Imagery
+              1454 Todds Lane #A-25
+              Hampton, VA 23666
+
+         For a catalog of other mathematical software products,
+         please write to me at the above address.  Thank you again
+         for using RealFun!
+

@@ -1,0 +1,11 @@
+BASM286! The BASIC to 286 Assembly Compiler
+Written entirely in PowerBASIC v3.0
+BASM286 converts a BASIC-like language to
+pure MASM and TASM assembly language source
+code.  Creates stand alone .COM or .EXE's or
+use the code to optimize routines in other
+languages.  With large DOC file, 75 demos
+with generated .ASM, EXE and COM files for
+you to learn from.  SHAREWARE ( cheap! ) and
+PowerBASIC source code available for personal
+use.  Give it a try, it's alot of fun!

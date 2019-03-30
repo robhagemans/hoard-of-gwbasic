@@ -1,0 +1,289 @@
+                          BPP: A BASIC PreProcessor                     page 1
+                          =-----------------------=
+                                 Version 1.0
+
+               BPP  Copyright (c) 1991  Thomas G. Hanlin III
+
+
+
+BPP processes your BASIC source code before the BASIC compiler or interpreter
+does.  This allows it to handle new commands that can affect how the code is
+handled.  Among the capabilities provided are name substititions, conditional
+compilation, underscores in variable names, and "include" files with few
+limitations.  BPP will work with QuickBASIC, BASCOM (including "PDS", the
+Professional Development System), and QBASIC (the BASIC "interpreter" that
+comes with DOS 5.0 and Microsoft's "Learn BASIC Now").  BPP may well work
+with other BASIC versions too.
+
+If you've worked with C, you may be familiar with the power a preprocessor
+provides.  The current Turbo Pascal compiler also has limited preprocessor
+support.  For some reason, the idea hasn't yet crept into Microsoft's BASICs,
+so I decided to remedy that.  As I consider this a basic step in improving
+the state of the art in BASIC, this utility is free.  However, BPP is
+protected by copyright and may be distributed only if the following
+conditions are met:
+
+   1) No fee of over $10.00 may be charged for distribution.  This
+      restriction applies only to physical copies and is not meant to
+      prevent distribution by commercial telecommunication services.
+
+   2) All BPP files must be distributed together in original, unaltered
+      form.  This includes BPP.DOC, BPP.EXE, CATALOG.TXT, PRODUCT.TXT,
+      REGISTER.TXT, and WHERE.BBS.
+
+   3) These files must be distributed as an individual unit.  It may not be
+      included as a part of other archives, and no files may be added to it.
+      It may be included with other archives, however.  The main intent here
+      is to preserve the original integrity of my files.  NOTE that this
+      clause very specifically means that BBS sysops may not add advertising
+      files to BPP.  I do not wish to be a vehicle for "junk mail".
+
+You use this utility at your own risk.  It has been tested by me on my own
+computer, but I will not assume any responsibility for any problems which BPP
+may cause you.  If you do encounter a problem, please let me know about it,
+and I will do my best to verify and repair the error.
+
+If you like BPP, perhaps you might be interested in one of my shareware
+libraries for BASIC.  See the CATALOG.TXT, PRODUCT.TXT, and REGISTER.TXT
+files for more information.
+
+                              Table of Contents                         page 2
+
+
+
+ Overview and Legal Info ................................................ 1
+
+ General Usage Notes .................................................... 3
+
+ Language Information ................................................... 4
+
+ Some Suggested Uses .................................................... 6
+
+ Miscellaneous Notes .................................................... 7
+
+                           BPP: General Usage Notes                     page 3
+                           =----------------------=
+
+
+
+
+The BPP utility expects you to pass it at least a filename.  The default
+extension for the input file is ".B" and the default for the output file is
+".BAS".  The output file will have the same name as the input file, just a
+different extension.  If the output file already exists, you will be asked
+whether to overwrite it by default.  This can be overridden with command-line
+switches.
+
+Several options are available through command-line switches.  You may specify
+/O to always overwrite any existing .BAS file or /NO to never overwrite any
+existing .BAS file.  You may also define preprocessor variables as if they
+had been defined with a #DEFINE in your program, using /Dvarname.  This does
+not provide for giving a variable a specific value yet, just for defining it.
+
+Preprocessor Syntax:
+
+   BPP infile[.ext] [/option] [.../option]
+
+Command-line options may be placed at any point on the command line.  If one
+option conflicts with another, the last one listed will have precedence over
+any prior options.
+
+                          BPP: Language Information                     page 4
+                          =-----------------------=
+
+
+
+
+Preprocessor directives must always begin at the start of a line.  A pound
+sign is used to tell the preprocessor to expect a command.  I'll list the
+valid commands first, then explain a bit more about them.
+
+Command Format                        Example Usage
+=====================                 ===================================
+#                                     #
+#DEFINE varname value                 #DEFINE Hello PRINT "Hi there!"
+#ENDIF                                #ENDIF
+#ERROR message                        #ERROR Did we forget something?!
+#IFDEF varname                        #IFDEF PDS
+#IFNDEF varname                       #IFNDEF PDS
+#INCLUDE filename                     #INCLUDE BASWIZ.BI
+#PRAGMA pragmadef                     #PRAGMA extendvar
+#UNDEF varname                        #UNDEF PDS
+
+A "#" by itself has no meaning.  It can be used to help set off a section of
+preprocessor commands.
+
+The #DEFINE command is used to define a variable.  The value is optional and
+is only meaningful if you have enabled name replacement with the appropriate
+#PRAGMA.  A value may be either a string or a number.  Variables can be
+redefined at a later point in the program.  Variable names may be up to 32
+characters long, must start with a letter, and can contain both letters and
+digits.  Underscores can also be used within variable names if the proper
+#PRAGMA has been defined.  There are four special variables defined by the
+preprocessor itself:
+
+   __DATE__    the date at which processing started
+   __FILE__    the name of the file currently being processed
+   __LINE__    the current line number being processed in the current file
+   __TIME__    the time at which processing started
+
+The #ENDIF command is used to terminate a conditional block.  It's the
+command used to tell the preprocessor that it's reached the end of a block
+that was started by #IFDEF or #IFNDEF.
+
+The #ERROR command is used to halt the preprocessor.  On encountering an
+#ERROR command, the preprocessor halts, generating an error message with the
+current filename and line number.  You may optionally include an error
+message of your own as well.  This command is useful for debugging when you
+have a complex set of preprocessor instructions.
+
+                          BPP: Language Information                     page 5
+                          =-----------------------=
+
+
+
+
+An #IFDEF statement tells the preprocessor to handle the following lines only
+if a variable has been defined.  An #IFDEF block is terminated when the
+preprocessor reaches an #ENDIF command.  Nested #IFDEF blocks are allowed.
+
+The opposite of this is an #IFNDEF statement, which tells the preprocessor to
+handle the following lines only if a variable has NOT been defined.  An
+#IFNDEF block is terminated when the preprocessor reaches an #ENDIF command.
+Nested #IFNDEF blocks are allowed.
+
+The #INCLUDE command allows you to include the contents of a specified file
+in your program.  This is like the REM $INCLUDE metacommand supported by
+QuickBASIC and BASCOM (but not QBASIC), but does not mind if you include SUBs
+and FUNCTIONs in the include file.  Include files may be nested to a depth of
+about 14 (files are left open for quicker processing, so each nested include
+requires an additional file handle).  The extension ".BI" will be assumed if
+no extension is given.  If the include file can't be found in the default
+directory, the preprocessor will look in the directory specified by the
+INCLUDE environment variable, if any.  In other words, this works just like
+REM $INCLUDE, only better.
+
+The #PRAGMA statement turns various options on or off.  At the moment, there
+are two options:
+
+   EXTENDVAR     Allows you to use underscores (the "_" character) in the
+                 middle of variable names (both BASIC and preprocessor
+                 variables are affected).  Underscores will be stripped out
+                 by the preprocessor, so they're just for cosmetic value.
+
+   EXTENDPARSE   Enables name replacement (and in later versions of BPP,
+                 probably macros).  With name replacement, any occurrence of
+                 a preprocessor variable in your code is replaced by the
+                 value of the preprocessor variable.  This is powerful, but
+                 processing is much slower with this capability turned on.
+
+You can use "!" before an option to turn it off.  The defaults, if no #PRAGMA
+is used, are !EXTENDVAR and !EXTENDPARSE (both options are off).
+
+The #UNDEF command is used to undefine a variable.  A variable that has been
+undefined is treated as if doesn't exist from then on.  It can be redefined
+at a later point using #DEFINE.
+
+                           BPP: Some Suggested Uses                     page 6
+                           =----------------------=
+
+
+
+
+The #PRAGMA EXTENDVAR directive allows you to make your programs much more
+readable.  Instead of using a variable like GROSSADJUSTEDPROFIT, you can say
+GROSS_ADJUSTED_PROFIT, which gets the idea across much better.  Keep in mind
+that the underscores will be stripped out, however, so they will not serve to
+distinguish between two variables which have the same names except for the
+underscores.  The EXTENDVAR handling will not interfere with underscores that
+are in REM or DATA statements, are in a quoted string, or are at the end of a
+line (since the underscore represents a line continuation character in some
+versions of BASIC).
+
+The name replacement capability can make it easy to rearrange your program
+without actually having to modify it beyond a #DEFINE or two.  For instance,
+if you want to create a version of your program where all PRINTs are directed
+to the printer, you might say:
+
+#DEFINE PRINT LPRINT
+
+The conditional compilation can be very handy if your program may be compiled
+by different compilers.  With a simple #IFDEF or so, you can convert the
+program to take advantage of the features offered by a specific compiler (or
+to manage idiosyncracies of a specific compiler) by passing a /D define
+switch to BPP.  With BC 7.x ("PDS"), for example, you might want to use the
+built-in "END #" option to return an error code from your program.  With the
+QB 4.5 compiler, however, you'd have to use an external routine such as that
+provided by my PBClone library.  So, you might do something like this:
+
+' this would go at the top of the program
+#IFNDEF PDS
+   DECLARE SetError (BYVAL ErrorLevel%)
+#ENDIF
+
+' this would go at the end of the program
+#IFDEF PDS
+   END ErrorLevel%
+#ENDIF
+#IFNDEF PDS
+   SetError ErrorLevel%
+   END
+#END IF
+
+To create the proper .BAS file for BC 7.x, you'd say "BPP filename /dPDS".
+To create the proper .BAS file for QB 4.5, you'd say "BPP filename".
+
+These are just some ideas for you, of course.  There are many different ways
+to use the various preprocessor capabilities.
+
+                           BPP: Miscellaneous Notes                     page 7
+                           =----------------------=
+
+
+
+
+WARNING!  The BPP utility does not expect to have to deal with numeric
+constants in exponential format.  In other words, if you have enabled name
+translation, don't have numbers like "1.2E-10" in your program.  Having a
+letter in the middle of a number may confuse BPP.
+
+If you enable underscores in variable names, you may also use underscores in
+line labels (but not line numbers).  In fact, you may use them in FUNCTION
+and SUB names, BASIC statements, and anything else that follows the same
+format.  The values of preprocessor variables are immune to such treatment,
+since (if strings) they are treated as string constants.  Note that
+underscores may only be in the middle of names, not at the beginning or end
+of names.
+
+ATTENTION!  The rest of this page discusses features which are NOT yet in
+BPP.  They may well be added later if there is sufficient interest.
+
+The BPP utility gives you many of the capabilities of the full-fledged
+preprocessor defined in the ANSI C standard.  It follows the ANSI C
+conventions somewhat loosely-- after all, BASIC is not C, and should not be.
+BPP is not quite up to a good C preprocessor yet, but is more complete than
+the preprocessor provided with Turbo Pascal 6.0.
+
+The missing capabilities lie in two areas.  One area covers full #IF, #ELSE
+and #ELIF (else if) conditionals, complete with evaluation of conditional
+expressions.  For example, "#IF QBVER = 4.5" represents a simple conditional
+which might be supported in a more complete preprocessor.
+
+The other area is in macro handling, which is where a preprocessor can
+provide some serious extensions to a language.  Macro handling allows you to
+create routines that are not dependent on variable types, among other things.
+Suppose you wanted a MIN routine which would return the least of two values,
+regardless of whether you're dealing with strings, integers, single precision
+values, or whatever.  That could be done with a macro:
+
+#DEFINE MIN(a,b,c) IF a < b THEN c = a ELSE c = b
+
+There are additional capabilities that might be provided through various
+#PRAGMA options.  If you can think of any that might be useful, let me know.
+
+I hope to include these additional preprocessor capabilities in later
+versions of BPP as I find the time to do so.  Please feel free to write me
+about any suggestions or comments you might have.  If you have access to a
+modem, you can reach me most readily through the BBSes listed in WHERE.BBS.
+You can also write me directly at the address given in REGISTER.TXT.
+

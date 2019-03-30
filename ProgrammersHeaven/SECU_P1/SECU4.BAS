@@ -1,0 +1,40 @@
+start:
+PW$ = ""
+OPEN "c:\pw2.dat" FOR INPUT AS #1
+INPUT #1, PW$
+CLOSE #1
+
+SCREEN 9
+p$ = "": d = 6
+
+CLS
+COLOR 2
+LOCATE 3, 3: PRINT "ENTER PASSWORD"
+COLOR 4: LOCATE 5, 1
+FOR a = 1 TO 10
+DO
+Z$ = INKEY$
+LOOP UNTIL Z$ <> ""
+IF ASC(Z$) = 13 THEN GOTO con
+p$ = p$ + Z$
+PRINT "*";
+SOUND 500, 1
+NEXT a
+
+con:
+IF p$ = PW$ THEN GOTO na
+no:
+SOUND 500, 6: LOCATE 7, 3: PRINT "INVALID PASSWORD"
+DO: LOOP UNTIL INKEY$ <> ""
+GOTO start
+
+na:
+d = 0: IF d = 3 THEN RETURN
+SCREEN 9: COLOR 2: LOCATE 10, 3: PRINT "ACCESS IS GRANTED"
+SYSTEM
+END
+
+
+
+
+

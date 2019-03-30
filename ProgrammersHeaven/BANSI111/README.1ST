@@ -1,0 +1,49 @@
+          ÛßßÜ Ûßßß ÜßßÜ ÛßßÜ    ÛÜ ÜÛ Ûßßß    ÜßÛ   Üßßß ßßÛßß Û Û Û
+          ÛÜÜß ÛÜÜ  ÛÜÜÛ Û  Û    Û ß Û ÛÜÜ       Û    ßßÜ   Û   Û Û Û
+          Û  Û ÛÜÜÜ Û  Û ÛÜÜß    Û   Û ÛÜÜÜ    ÜÜÛÜÜ ÜÜÜß   Û   Ü Ü Ü
+
+Bansi v1.11 -- (c) Copyright 1994 by Chris Walker, ALL RIGHTS RESERVED
+ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+   To create a "Quick Library" for QB/VB-DOS, you must run the CREATE
+utility.  These are required for running the library inside the interpreter.
+
+   If, while inside the CREATE utility, you are creating the runtime library
+and your computer stops working, just press ENTER a few times until it comes
+back and exits the utility.  The BQLB45 or appropriate library should be in
+the directory specified in the QuickBasic QB.INI file.  To change this, go to
+the OPTIONS:SET PATH menu.  MAKE SURE THAT YOU SPECIFY THE CORRECT RUN-TIME
+library out of the options.
+  
+   You should also run this utility if you have just received your registered
+copy of Bansi or are upgrading to a new version.
+
+   You must execute the BAInit command before you execute any of the other
+commands.
+
+The command:
+'$include:'bansi.bi'
+Must be included in your program, so that the Bansi subs are known.  You may
+optionally include parts of the BANSI.BI file instead.
+
+   For registration of Bansi, see the REGISTER.TXT file.  This program is
+SHAREWARE and you are asked to help out a fellow programmer and send in $8.00
+as a registration.  (If you feel like sending more as a registration, feel
+free <g>).  Thanks!
+
+   For registration/ordering of other programs, see the CATALOG.TXT and
+ORDER.FRM files.
+
+   For info on all the Bansi commands and functions, see the MANUAL.TXT file.
+
+-------------------------------------------------------------------------------
+Bansi v1.11 Distribution Sites - via Modem or via FREQ.
+-------------------------------------------------------------------------------
+Sandman's Castle BBS
+SysOp:  James Miller (USA)
+(208)523-2194
+Available at 21.6k (USR only) or 14.4k  V.32
+FReq Magic Name: BANSI
+FidoNet 1:347/18
+-------------------------------------------------------------------------------
+

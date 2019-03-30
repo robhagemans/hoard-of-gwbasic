@@ -1,0 +1,49 @@
+So you've never used a library before and you want to know what gives?
+
+A library is a collection of routines, whether written in BASIC, assembly
+language, or some other language altogether.  It provides a convenient way to
+allow different programs to use the same sets of standard or special-purpose
+routines (subprograms or functions, in BASIC parlance).
+
+There are two forms of libraries for QuickBASIC.  The form with the extension
+".LIB" is for use with LINK, for creating stand-alone programs which do not
+require the QuickBASIC environment.  This sort of library can be made or
+manipulated using the LIB utility provided with QuickBASIC.  The form of
+library with the extension ".QLB" is for use in the QuickBASIC environment.
+It is created with LINK and (unfortunately) can't be manipulated at all.
+
+To use a QLB library, you specify the /L parameter when starting up QB:
+   QB /L BASWIZ
+You can optionally include the name of your program before the /L switch.
+
+To use a LIB library, you specify the name of the library when you LINK your
+program.  Either let LINK prompt you for the library or type something like
+this:
+   BC program/O;                       (or whatever)
+   LINK program/EX,,NUL,BASWIZ
+
+If you are in the QuickBASIC environment and direct the compiler to produce
+an .EXE file, it will automatically link the library for you if you started
+up QB with the /L option.
+
+Suppose you have more than one library that you wish to use?  Well, provided
+that you have both of the libraries in .LIB form, this presents no problem.
+To create a combined .LIB library, use the LIB utility to extract all of the
+.OBJ files from one .LIB and add them to the other one.  You can convert the
+new combined library to .QLB form by using a special LINK syntax:
+   LINK combined.LIB/Q,,NUL,BQLB45
+
+The last two digits of "BQLBxx" represent the version of the compiler that
+you have.  It doesn't necessarily match the formal version number, though, so
+you might just want to use DIR and see what the name of the file really is.
+BQLBxx.LIB is one of the files that comes with QuickBASIC.
+
+If you experience a LINK error, make sure that you're using the current
+version of LINK.  I've heard from many people who turn out to have the wrong
+version of LINK in their PATH somewhere... when LINK starts up, it will
+display its version number on the screen.  The version should be around 3.69
+as of QuickBASIC 4.5.  You must use the LINK that came with QuickBASIC-- the
+one that comes with Quick C is incompatible and the one that came with BASCOM
+6.0 (the one with two periods in the version number) has a few bugs.
+
+All clear?  No?!  Check your QuickBASIC manual for more information!

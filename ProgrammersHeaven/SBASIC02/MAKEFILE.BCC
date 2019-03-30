@@ -1,0 +1,9 @@
+# This is an example makefile for Borland C++
+# Please note that I can't test this, so no guarantees  :-)
+
+SBASIC.EXE: SBASIC.OBJ EXPARSE.OBJ
+	BCC SBASIC.OBJ EXPARSE.OBJ
+
+.C.OBJ:
+	BCC -c -G $<
+

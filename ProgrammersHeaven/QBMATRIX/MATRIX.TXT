@@ -1,0 +1,65 @@
+Matrix 2.1 is the enhanced version of QB Matrix and was written in
+QuickBasic 4.5. If has a great list of features and is only $2 dollars
+by e-mail!  Please read on ...
+
+Let's start with control. Matrix 2.1 can be played with a gamepad or
+mouse which can greatly improve scores and make higher levels much
+easier to conquer. Especially the gamepad because of the accurate
+control it provides. Also, having the mouse available makes option
+selection effortless.
+
+Matrix 2.1 allows game progress to be saved at any time. If things
+look like they have been going well save your current game. When things
+go bad start where you last saved. Up to five seperate games can be saved. 
+
+One of the neatest features of Matrix 2.1 is the ability to record your
+games. By pressing the record button on the options screen your game
+will be recorded piece by piece, move by move. When the game is over
+you can play it back! Learn from your mistakes. Or just relax and enjoy
+watching your game without the pressure you get from playing it. Better
+yet, show your friends how you beat thier highscores.
+
+Besides playing reqular Tetris, Matrix 2.1 plays scenerios. These are
+preconstruted games where the object is to clear pit of the blocks with
+an 'S' in them using the least amount of pieces as possible. The top
+five scores for each scenerio are displayed at games end. There are about
+12 scenerios included plus a scenerio editor so you can make your own.
+
+Matrix 2.1 has a host of other improvements. Different palettes can be
+loaded for colorfull effects, choose between piece styles, and so many
+other little enhancements that really add to the game. Extended levels
+for instance. Piece drop times between levels have been expanded so
+the game lasts a lot longer before it gets to difficult. A slide feature
+that lets you slide the piece a few seconds after it stops traveling
+before it 'locks' in. Great on higher levels. Bonus points are awarded
+for line clears. 100 for singles, 200 for doubles, 900 for triples and
+2500 for quads. New graphics have been added too. For instance there are
+about half of dozen different ways the pit get cleared before displaying
+the games total bonuses and time played. There is also a special bonus
+screen if get past level 14.
+
+One other thing before before the ordering info. Matrix 2.1 has cheat
+codes. You can stop the pieces from dropping. Execute line clears to
+get you out of trouble. And add points to your score at a whim! Cheats
+can be protected with a password so nobody can access them but you!
+
+
+If you would like a copy of the Matrix 2.1 source code, documentation
+and the compiled program, print out the ODRFRM.TXT file enclosed it
+with a $2 check or money order along with your e-mail address to :
+
+    Tim Truman
+    110 Homestead Ave
+    Spfld MA 01151
+
+If you would prefer postal delivery include another $2 dollars
+to cover the disk and postal expenses.
+
+ 
+If there are futher questions I can be reached at the following :
+AOL        - Tim Truman
+Compuserve - 74734,2203
+INTERNET   - TimTruman@aol.com
+
+
+

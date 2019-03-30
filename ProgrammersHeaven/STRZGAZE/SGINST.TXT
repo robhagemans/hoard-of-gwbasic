@@ -1,0 +1,115 @@
+Start of Transmission
+
+Starz Gaze - Instructions:
+
+Object:
+The object of Starz Gaze is to try and destroy the Alien
+Ship.
+
+==========================SHIPS=========================
+
+Alien Ship:
+===========
+	The Alien ship is the Red one, closest to the 
+top of the screen.
+
+As he moves from side to side, each time he gets to the
+end of the screen he will move down slightly.
+
+Whenever you hit him with one of your Lasers watch out
+for speeding shrapnel.
+
+Your Ship:
+==========
+	Your Ship is the Blue one in the middle of the 
+screen.
+
+You have to wait for your last laser to go off the
+screen before you can fire again.
+
+If you go to a far side you will appear on the oposite
+side.
+
+=========================Lives==========================
+
+In the Left, bottom hand corner of the screen are two
+lives indicators.
+The one in Blue = Your Lives Left.
+The one in Red  = Alien Lives left.
+
+The Alien ship is much more advanced than yours, this
+makes his lives much more higher than yours.
+
+If the Lives indicator reads 0 that does not mean the 
+level is finished - it means you are using your last
+life now. It also means nearly all systems are down and
+you may experience some problems controlling your ship.
+
+If the aliens lives are on 0 then the Alien Ship will
+start to plumit. He is sure to die, but if you hit him
+whilst he is free-falling you gain extra points.
+
+==========================Points========================
+
+Points are awarded when you have...
+	- managed to hit an Alien Ship
+	- completed a section
+	- completed a level
+
+Points are deducted when
+	- you are hit by anything
+	- each time the alien ship moves
+	- each time the alien ship moves down a level
+	
+==========================Levels========================
+	 
+As the levels progress the alien ship starts to move
+faster from side to side.
+In each level there is 4 sections...
+
+Section 1 - There is only you and the alien ship.
+Section 2 - White Stars start to try and take your
+	    attention away from the actuall game making
+	    it harder to determine where the Aliens
+	    Lasers and shrapnel are.
+Section 3 - Is the same but with the added distraction
+	    of Red stars too.
+Section 4 - Also has the other two colours and Green.
+
+=========================Controls=======================	
+If you want to move your ship left or right you only
+have to press the actuall key once, otherwise the game
+will stall.
+
+The default keys are:
+
+Left   = (Left Arrow)
+Right  = (Right Arrow)
+Fire   = (Space)
+
+You can change these controls if you wish in the
+"Ships Computer - Ship" Screen.
+
+
+==========================General=======================
+
+The indication of lives left for both ships is situated
+in the bottom left hand-corner. The blue colour is your
+lives and the red is the aliens lives.
+
+Next to those is the Section/Level, your score and the
+high score underneath.
+If at any time you are above the high score, your score
+will start to change colours.
+
+To quit the game press "Q"
+
+To turn the sound on or off you can press F1 on the Ship
+Screen.
+
+
+If there is anything else you need to know e-mail me at:
+
+al_interactive@compuserve.com
+
+End of Transmission...

@@ -1,0 +1,226 @@
+
+      ****** VERSION 1.52 PLAYS .WAV FILES (IN DOS AND WINDOWS) ******
+
+
+		     BasicBasic Version 1.52 Summary
+	  -------------------------------------------------------
+
+	  BasicBasic is a Basic Language Program Development System
+	  for DOS or Windows.  With it you can create programs to
+	  run under DOS or Windows.  BasicBasic is an easy way to
+	  develop small to medium size programs without regard for
+	  which environment they will run under.
+
+	  BasicBasic is a complete development system.  You can edit,
+	  compile and run your program from its own editor.  Both DOS
+	  and Windows systems are provided.
+
+	  BasicBasic supports most 'standard' Basic commands as well
+	  as many powerful statements unique to BasicBasic.  For
+	  instance BasicBasic allows you to load and display Bitmap
+	  graphic files with one statement--in DOS or Windows!
+
+
+	  NEW FEATURES FOR VERSION 1.52 include the following:
+
+	    - Play .WAV files in either DOS or Windows.  Get real sound!
+
+	    - Multiple font support in Windows AND DOS.
+
+	    - Graphics printing under Windows
+
+	    - CHILD windows under DOS and Windows
+
+	    - Handy MessageBox function
+
+	    - File and Record Locking
+
+
+	  Of course you get all the old features; including:
+
+
+	      - Integrated Editor in both DOS and Windows
+	      - DO Loops
+	      - User Procedures
+	      - User Functions
+	      - Assign your program an ICON
+	      - Ability to load and display bitmaps such as those created by
+		Windows Paint.
+	      - Ability to store screen to a bitmap file
+	      - Dialog boxes in DOS or Windows
+	      - Ability to examine/change current disk and directory
+	      - Ability to SHELL to another program. You can pass and receive
+		command strings.
+	      - SOUND command.
+	      - Menus in DOS or Windows.
+	      - Runtime module so you can DISTRIBUTE your programs
+		to others.
+	      - Graphics support
+	      - Button support
+	      - Random, Sequential, and Binary file support
+	      - Common memory
+	      - Serial Communications support under DOS or Windows
+	      - Chaining
+	      - Mouse support
+	      - Same EXE file runs under DOS or Windows.
+
+	  BasicBasic comes with editor, compiler, runtime libraries,
+	  documentation and a number of sample programs to help you get
+	  started.
+
+	  Here is a list of commands and statements that BasicBasic
+	  compiler version 1.52 recognizes.
+
+	  PROGRAM CONTROL
+	    CALL                            FUNCTION...END FUNCTION
+	    DECLARE                         GOSUB...RETURN
+	    DO...LOOP                       GOTO
+	    EXIT DO                         IF...THEN...ELSE...ENDIF
+	    EXIT FUNCTION                   STOP
+	    EXIT SUB                        SUB...END SUB
+	    FOR...NEXT                      SYSTEM
+
+	  SCREEN OUTPUT
+	    CLS                             PRINT
+	    CSRLIN                          PRINT USING
+	    LOCATE                          SCROLLAREA
+	    POS                             TAB
+
+	  KEYBOARD AND MOUSE INPUT
+	    INKEY$                          MOUSEON
+	    INPUT                           MOUSEX
+	    MOUSEB                          MOUSEY
+
+	  GRAPHICS
+	    BITMAPC                         PALETTE
+	    BITMAPH                         POINT
+	    CIRCLE                          PRESET
+	    COLOR                           PSET
+	    GET                             PUT
+	    LINE                            SCREEN
+	    LOADBITMAP                      STOREBITMAP
+	    PAINT
+
+	  STRING
+	    CHR$                            RIGHT$
+	    INSTR                           SPACE$
+	    LEFT$                           STR$
+	    LEN                             STRING$
+	    MID$                            UCASE$
+
+	  SOUND
+	    BEEP                            SOUND
+	    PLAYSOUND                       SNDDEV
+
+	  DIALOG
+	    DIALOG                          OPENFILEREAD
+	    DIALOG$                         OPENFILESAVE
+	    MESSAGEBOX
+
+	  MENU
+	    ADDSUBMENU                      MENUITEMON
+	    MAINMENU                        MENUITEMGRAY
+
+	  BUTTON
+	    CBUTTON                         DBUTTON
+	    CHECKOFF                        RADIOON
+	    CHECKON                         RADIOOFF
+
+	  PRINTER COMMANDS
+	    LPRINT
+	    LPRINT USING
+
+
+	  FILE INPUT/OUTPUT
+	    CHDIR                           LINE INPUT #
+	    CHDRIVE                         LOC
+	    CLOSE #                         LOCK
+	    DIR$                            LSET
+	    CURDIR$                         MKDIR
+	    EOF                             OPEN
+	    FIELD                           PRINT #
+	    GET #                           PUT #
+	    INPUT$                          RMDIR
+	    INPUT #                         UNLOCK
+	    KILL                            WRITE #
+
+	  DATA DEFINITION
+	    COMMON                          READ
+	    DATA                            RESTORE
+	    DIM
+
+	  ARITHMETIC
+	    ABS                             RAMDOMIZE
+	    ASC                             RND
+	    ATN                             SIN
+	    COS                             SQR
+	    FIX                             TAN
+	    INT                             VAL
+	    IRND
+
+	  DOS AND EXTERNAL COMMANDS
+	    CHAIN                           OSTYPE
+	    COMMAND$                        SHELL
+	    DATE$                           TIME$
+	    FREEMEM                         TIMER
+
+	  SCREEN WINDOW COMMANDS
+	    CREATEWINDOW                    SELECTWINDOW
+	    DESTROYWINDOW
+
+	  FONTS
+	    CREATEFONT                      FONT
+	    DLEN                            SELECTFONT
+	    FONT$
+
+	  SERIAL COMMUNICATIONS
+	    COMSTATI
+	    OPEN "COMn"
+
+	  SPECIAL MICROSOFT WINDOWS COMMANDS
+	    CREATEBITMAP                    PRINTCONTROL
+	    COPYBITS                        SELECTBITMAP
+	    ON CLOSE                        SELECTDISPLAY
+	    ON PAINT                        SELECTPRINT
+	    POSITION                        SELECTWINDOW
+					    STRETCHBITS
+
+	  MISCELLANEOUS
+	    LET
+	    REM
+	    SETERRLEVEL
+
+	  and the operators     +  -  /  *  \  ^  AND  OR  MOD
+
+
+	  The shareware version of BasicBasic is distributed in the
+	  file BB152.ZIP.  This file contains both DOS and Windows version.
+	  The shareware version will compile programs only up to about
+	  200 lines.  The registered version allows much bigger programs.
+
+	  SAVE! SAVE! SAVE! SAVE! SAVE! SAVE! SAVE! SAVE! SAVE! SAVE!
+
+	  Register before March 1, 1994 and we will send you the
+	  latest version of BasicBasic AND the next release when it
+	  is available.  TWO versions for the price of one!
+
+	  The registration fee is $30.00.  Why download?  Even after
+	  you have used up your free updates, you will receive advance
+	  notice and discounts on new versions as they come out.
+
+	  To register send $30.00 check or money order to:
+
+		      Mark Davidsaver
+		      213 S. Park Street
+		      PO Box 126
+		      Bishop Hill, Il  61419
+
+		      MC/Visa phone (309) 927-3303
+
+	  Illinois residents add $1.88 sales tax.
+	  Foreign orders: US funds only and add $5.00 air shipping.
+
+	  Please specify 3 1/2 or 5 1/4 (high density) disks.
+
+
+

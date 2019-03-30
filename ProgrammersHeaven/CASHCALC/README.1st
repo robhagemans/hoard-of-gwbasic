@@ -1,0 +1,12 @@
+			CASHCALC  v2.0 
+		      By Addison Babcock
+
+	*  What CASHCALC is
+	CASHCALC is a program that allows for easy, fast calculating of every possible combination of a given amount of money. 
+
+	*  How to use CASHCALC
+	Simply open CASHCALC in QBasic, Quick Basic or similar product and press Alt+F5. CASHCALC will then ask you how much money needs to be calculated. Enter this amount using your keyboard. It is recommended that you do not enter more than 1000 unless it is nessecary or you have a fast computer. CASHCALC will the ask you if you would like the results displayed on screen. Type N for no and Y for yes. If you select N, CASHCALC will run much faster and skip to the next question. If you select Y, CASHCALC will display EACH possible answer on your screen and will then ask you if you would like to pause for reviewing after each answer. Go through the same process for this option. After the display options are entered, CASHCALC will ask you if you would like to save the results to a file. Go through the same process once again. If you get an error after typing Y, try starting over but this time, do not press Enter. After all options are entered, CASHCALC will begin calculating. When it is done, the total amount of possibilities and calculations will be displayed.
+
+	*  Differences from 1.0
+	V2.0 allows for saving to a file.
+	V2.0 adds support for pennies.

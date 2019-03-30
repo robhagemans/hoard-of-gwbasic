@@ -1,0 +1,125 @@
+DEFINT A-Z
+DECLARE SUB centertext (setx%, mincolor%, maxcolor%, text$)
+DECLARE SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+
+'$DYNAMIC  'set arraies to dynamic to save memmory
+       REM */  set global Info variables   \*
+COMMON SHARED score%, lives%, level%, difficlty%
+COMMON SHARED Gunsel%, SelShip%, kills%
+COMMON SHARED freeships%, joyenable%, delay!, Argv%, spr1%, spr2%
+
+
+TYPE almem
+ buffer AS STRING * 1
+END TYPE
+COMMON SHARED font() AS almem
+
+'IF Argv% = 0 THEN WIDTH 80, 25: CLS : PRINT "Exit Qbasic and 'TYPE  LAUNCH'": SYSTEM
+
+SCREEN 13
+FOR x = 50 TO 205 STEP 3
+FOR y = 50 TO 160 STEP 3
+PSET (x, y), 135
+NEXT
+NEXT
+
+LINE (50, 50)-(205, 160), 17, B
+settextxy 70, 70, 42, 46, "CLEARED LEVEL" + STR$(level%)
+settextxy 74, 89, 42, 46, "DESTRUCTION" + STR$(kills%) + "%"
+settextxy 74, 110, 42, 46, "SCORE" + STR$(score%)
+settextxy 74, 130, 42, 46, "PRESS ANY KEY"
+kills% = 0
+level% = level% + 1
+
+WHILE INKEY$ <> "": WEND
+WHILE INKEY$ = "": WEND
+
+CHAIN "HEADQ.QBF"
+
+REM $STATIC
+SUB centertext (setx%, mincolor%, maxcolor%, text$)
+strlen = LEN(text$)
+calcu = 220 - strlen
+sety% = calcu \ 2
+settextxy setx%, sety%, mincolor%, maxcolor%, text$
+END SUB
+
+'This sub program print MDT_Font on to Screen
+'in mode 13h and while not work in anther modes
+SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+noise% = 1
+strlen = LEN(text$)
+'IF INSTR(1, text$, "\a") > 0 THEN a% = 1: strlen = strlen - 2: text$ = LEFT$(text$, strlen)
+setcolor% = mincolor%
+FOR readtext = 1 TO strlen
+char$ = MID$(text$, readtext, 1)
+stp% = 8
+IF char$ = "/" THEN fonty = 2: fontx = 116
+IF char$ = "\" THEN fonty = 12: fontx = 249
+IF char$ = "%" THEN fonty = 2: fontx = 39
+IF char$ = "." THEN fonty = 2: fontx = 109
+IF char$ = "0" THEN fonty = 2: fontx = 126
+IF char$ = "1" THEN fonty = 2: fontx = 134
+IF char$ = "2" THEN fonty = 2: fontx = 142
+IF char$ = "3" THEN fonty = 2: fontx = 151
+IF char$ = "4" THEN fonty = 2: fontx = 159
+IF char$ = "5" THEN fonty = 2: fontx = 169
+IF char$ = "6" THEN fonty = 2: fontx = 177
+IF char$ = "7" THEN fonty = 2: fontx = 186
+IF char$ = "8" THEN fonty = 2: fontx = 195
+IF char$ = "9" THEN fonty = 2: fontx = 204
+IF char$ = "A" THEN fonty = 12: fontx = 10
+IF char$ = "B" THEN fonty = 12: fontx = 18
+IF char$ = "C" THEN fonty = 12: fontx = 26
+IF char$ = "D" THEN fonty = 12: fontx = 37
+IF char$ = "E" THEN fonty = 12: fontx = 46
+IF char$ = "F" THEN fonty = 12: fontx = 55
+IF char$ = "G" THEN fonty = 12: fontx = 64
+IF char$ = "H" THEN fonty = 12: fontx = 73
+IF char$ = "I" THEN fonty = 12: fontx = 81
+IF char$ = "J" THEN fonty = 12: fontx = 88
+IF char$ = "K" THEN fonty = 12: fontx = 97
+IF char$ = "L" THEN fonty = 12: fontx = 105
+IF char$ = "M" THEN fonty = 12: fontx = 115
+IF char$ = "N" THEN fonty = 12: fontx = 123
+IF char$ = "O" THEN fonty = 12: fontx = 133
+IF char$ = "P" THEN fonty = 12: fontx = 141
+IF char$ = "Q" THEN fonty = 12: fontx = 150
+IF char$ = "R" THEN fonty = 12: fontx = 160
+IF char$ = "S" THEN fonty = 12: fontx = 168
+IF char$ = "T" THEN fonty = 12: fontx = 178
+IF char$ = "U" THEN fonty = 12: fontx = 186
+IF char$ = "V" THEN fonty = 12: fontx = 196
+IF char$ = "W" THEN fonty = 12: fontx = 205
+IF char$ = "X" THEN fonty = 12: fontx = 214
+IF char$ = "Y" THEN fonty = 12: fontx = 222
+IF char$ = "Z" THEN fonty = 12: fontx = 231
+IF char$ = " " THEN fonty = 19: fontx = 285
+x& = sety% - fonty: y& = setx% - fontx
+Read.Font.Date:
+   DEF SEG = VARSEG(font(1).buffer)
+   offset& = VARPTR(font(1).buffer)
+   FOR gx& = fonty TO fonty + 6
+   setcolor% = setcolor% + 1
+   IF setcolor% >= maxcolor% THEN setcolor% = mincolor%
+   FOR gy& = fontx TO fontx + 6
+   DEF SEG = VARSEG(font(1).buffer)
+   byte = PEEK(gx& * 320 + gy&)
+   IF NOT byte = 0 AND NOT byte = 255 THEN
+   GOSUB Copy.To.Screen
+   END IF
+   NEXT
+   NEXT
+   setx% = setx% + stp%
+   'IF a% = 0 THEN PLAY "MFL64o2c"
+   NEXT
+    'PLAY "MFL64o1cbc"
+EXIT SUB
+
+Copy.To.Screen:
+   DEF SEG = &HA000
+   POKE x& * 320 + y& + gx& * 320 + gy&, setcolor%
+   RETURN
+   DEF SEG
+END SUB
+

@@ -1,0 +1,1454 @@
+@0060
+Grandmother                               
+Grandfather                               
+Grandchild                                
+Grandparent/Ancestor                      
+Aunt                                      
+Uncle                                     
+Mother                                    
+Father                                    
+Daughter                                  
+Son                                       
+Sister                      Older Sister  
+Brother                     Older Brother 
+Mother In-Law                             
+Father In-Law                             
+Sister In-Law                             
+Brother In-Law                            
+Child                                     
+Godmother                                 
+Godfather                                 
+Family                                    
+Friend                                    
+Friendship                                
+Relative                                  
+Lover                                     
+Cousin                                    
+Fiancee/Bride                             
+Fiance/Groom                              
+Enemy (Opponent)                          
+Couple/Husband and Wife                   
+Single                                    
+Mother and Child                          
+Godchild                                  
+Father and Child                          
+Son or Daughter                           
+Married                                   
+Lady                                      
+Landlady                                  
+Landlord                                  
+Niece                                     
+Nephew                                    
+Brother and Sister                        
+Girl                                      
+Boy                                       
+Daughter In-Law                           
+Son In-Law                                
+Wife                                      
+Husband                                   
+Widow                                     
+Widower                                   
+Neighbour                                 
+Baby                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0036
+Tomorrow                                  
+Moment                                    
+Day                                       
+Date                                      
+Clock         (Alarm Clock)               
+Watch                                     
+Sunday                                    
+Monday                                    
+Tuesday                                   
+Wednesday                                 
+Thursday                                  
+Friday                                    
+Saturday                                  
+Minute                                    
+Time/Hour                                 
+Noon/Midday                               
+Morning                                   
+Afternoon                                 
+Evening/Night                             
+Week                                      
+Month                                     
+Year                                      
+Decade        (Century)                   
+Midnight                                  
+January                                   
+February                                  
+March                                     
+April                                     
+May                                       
+June                                      
+July                                      
+August                                    
+September                                 
+October                                   
+November                                  
+December                                  
+*
+@0154
+Food          Snack                       
+Fruit                                     
+Raisin                                    
+Pear                                      
+Grapefruit                                
+Pineapple                                 
+Banana                                    
+Grapes                                    
+Cherry                                    
+Lemon                                     
+Apple                                     
+Orange                                    
+Salad                                     
+Tomato                                    
+Potato                                    
+Sandwich                                  
+Bread                                     
+Butter                                    
+Vegetable                                 
+Pickle                                    
+Cucumber                                  
+Cabbage                                   
+Egg                                       
+Cheese                                    
+Onion                                     
+Lettuce                                   
+Carrot                                    
+Salt                                      
+Pepper                                    
+Vinegar                                   
+Flour                                     
+Corn                                      
+Wheat                                     
+Yeast                                     
+Peanut                                    
+Pie                                       
+Pea                                       
+Chestnuts                                 
+Coffee                                    
+Tea                                       
+Milk                                      
+Pure Juice                                
+Sugar                                     
+Water                                     
+Cream                                     
+Alcohol                                   
+Wine                                      
+Lard/Cooking Oil                          
+Cake                                      
+Oil                                       
+Garlic                                    
+Rice                                      
+Noodles                                   
+Glutinous (Sticky) Rice                   
+Meat                                      
+Pork (Baboy - Pig)                        
+Beef (Baka - Bull/Cow)                    
+Lamb (Tupa - Sheep)                       
+Bacon                                     
+Liver                                     
+Duck                                      
+Rabbit                                    
+Lobster                                   
+Pig                                       
+Turkey                                    
+Kidney                                    
+Ham                                       
+Stuffing                                  
+Chicken                                   
+Fish                                      
+Stew (As In - Meat)                       
+Sausage (Pork Sausage)                    
+Syrup                                     
+Coconut                                   
+Young Coconut                             
+Soup                                      
+Ginger                                    
+Yam                                       
+Radish                                    
+Spinach                                   
+Bamboo Shoots                             
+Bean Sprout                               
+Sweet Potato                              
+Pepper (As In: Red/Green Pepper)          
+Mushrooms                                 
+Bay Leaf                                  
+Paprika                                   
+Cinnamon                                  
+Milkfish                                  
+Pudding/Dessert                           
+Jam                                       
+Prunes                                    
+Jelly                                     
+Ice Cream                                 
+Ice                                       
+Rib                                       
+Bite                                      
+Cut                                       
+Slice                                     
+Drink/Something to Drink (Beverage)       
+Knead                                     
+Rinse                                     
+Burn/Scald                                
+Toast/Roast                               
+Appetite                                  
+Appetizer                                 
+Cleanliness                               
+Recipe                                    
+Heat                                      
+Lunch                                     
+Dinner/Supper                             
+Breakfast                                 
+Kitchen                                   
+Boiling                                   
+Starch                                    
+Hunger                                    
+Ingredient                                
+Left-Over                                 
+Ration                                    
+Refreshment                               
+Mixture                                   
+Dirt/Filth                                
+Mouthful                                  
+Soft/Tender                               
+Frying Pan                                
+Oven                                      
+Plate/Dish                                
+Cup                                       
+(Small) Saucepan                          
+Jug (Beaker)                              
+Tinfoil                                   
+Knife         (Blade)                     
+Fork                                      
+Spoon                                     
+Teaspoon                                  
+Tablecloth                                
+Cork                                      
+Spice                                     
+Stove                                     
+Glass         Bottle                      
+Ladle                                     
+Apron                                     
+Kettle                                    
+List                                      
+Cloth                                     
+Pilfered Goods                            
+Mildew/Mold   (Dew)                       
+Cover/Lid                                 
+Toothpick                                 
+Thirst                                    
+Chewing                                   
+Scissors                                  
+Flame         (Smoke)                     
+Fire                                      
+*
+@0079
+Where                                     
+Which                                     
+What                                      
+Whatever                                  
+Who                                       
+You/Thou                                  
+You (Plural or used Singular with Respect)
+You and I  (Used after the VERB)          
+And                                       
+I                                         
+I  (Used After the VERB)                  
+If/When                                   
+An/One                                    
+How                                       
+All                                       
+Everybody                                 
+Everything                                
+Needs/Necessity                           
+Say                                       
+She/He                                    
+He                                        
+She                                       
+But                                       
+But                                       
+Desire/Wish                               
+Her                                       
+His/Him                                   
+Because                                   
+Because Of                                
+Motive/Cause/Excuse                       
+My/Mine                                   
+Myself                                    
+Look                                      
+Than                                      
+To  (Hanggang - As In: From ? TO ?)       
+Yourself                                  
+Self/One's Own                            
+Your/Yours                                
+Your/Yours                                
+That (Near)                               
+That (Far)                                
+This                                      
+Our                                       
+Us                                        
+We  (Inclusive)                           
+We  (Exclusive)                           
+The                                       
+Their                                     
+Them                                      
+Any                                       
+Anybody/Anyone                            
+Anything                                  
+Anyhow                                    
+Anyway                                    
+Anywhere                                  
+Although/However/Even If - Etc            
+Whose                                     
+Your  (or YOU - Plural)                   
+They                                      
+Somebody                                  
+Someday                                   
+Another Day                               
+With                                      
+Might/Maybe                               
+Its                                       
+(Itself)                                  
+Like This     (Like That)                 
+There!/You See                            
+Hey! Come Here                            
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Servant/Maid                              
+President                                 
+Mayor                                     
+Head (As In: Head Teacher, The Boss, Etc) 
+Examiner                                  
+Auditor                                   
+Secretary                                 
+Tailor                                    
+Chef/Cook                                 
+Midwife                                   
+Housewife                                 
+Waiter                                    
+Manager                                   
+Sailor                                    
+Electrician                               
+Nurse                                     
+Doctor                                    
+Porter        (Door Porter)               
+Teacher       (Student/Pupil)             
+Gardener                                  
+Chauffer                                  
+Police                                    
+Caretaker                                 
+Worker/Labourer                           
+Butcher                                   
+Dentist                                   
+Plumber                                   
+Surgeon                                   
+Soldier                                   
+Lawyer/Attorney                           
+Comedian                                  
+Artist                                    
+Painter                                   
+Mechanic                                  
+Domestic/House Help                       
+Treasurer                                 
+Barber                                    
+Farmer                                    
+Fireman                                   
+Dustman                                   
+Cashier                                   
+Waitress                                  
+Writer        (Poet)                      
+*
+@0171
+Permission                                
+Ability                                   
+Surroundings/Environment                  
+With Reference To                         
+Companion                                 
+Eavesdrop                                 
+Another/Other                             
+Oneself                                   
+One at a Time                             
+Whole/Entire                              
+Answer                                    
+Answer To                                 
+What One Knows                            
+Knowledge                                 
+Language                                  
+Feeling at Home                           
+Duration                                  
+Maturity/Age                              
+Age                                       
+Guess/Prediction                          
+Luck                                      
+Good Looking Male                         
+Good Looking Female                       
+Opening/Vacancy                           
+Holiday                                   
+Public (As In: The Public - People)       
+Idea/Plan                                 
+Suggestion                                
+Pair                                      
+Manners                                   
+Meet                                      
+Noise                                     
+Dirt/Filth                                
+Dirt on the Face                          
+Movement                                  
+Piece                                     
+Dust                                      
+Search                                    
+Joke                                      
+The Past                                  
+Touch                                     
+Something Borrowed or Lent                
+Fat (As In: Fat Person)                   
+Space (Not the Sky)/Crack                 
+Decision                                  
+Gift                                      
+District                                  
+Victim                                    
+Gate Crasher                              
+Example                                   
+Doubt                                     
+Challenge                                 
+Moaning                                   
+Beating/Blow                              
+Fright/Shock                              
+Sin/Fault/Crime                           
+Haircut                                   
+Jealousy                                  
+Promise                                   
+Side  (As In: Take Somebody's Side)       
+Belief                                    
+Tie/Knot                                  
+Piece of Glass                            
+Air/Space                                 
+Good-Bye/Farewell                         
+Female Prostitute                         
+Remark                                    
+Simplicity                                
+Misfortune/Tragedy                        
+Forgiveness                               
+Fall                                      
+Novice                                    
+What One Expresses or Says                
+Odour/Smell                               
+Repulsive/Foul Smell                      
+Underweight                               
+Depth/Seriousness                         
+Picture/Image                             
+Distance                                  
+Bar/Pub/Drinking Place                    
+Liar                                      
+Nickname                                  
+Both Sides                                
+Importance                                
+Value/Price/Cost/Worth                    
+Corner                                    
+Twin                                      
+Threaten                                  
+Threat                                    
+Contribution/Help                         
+Repetition of a Word or Story             
+Repetition                                
+Owner                                     
+Appointment                               
+Life/Life Story                           
+Youngest/Pet Child                        
+Habit/Custom                              
+Crowd                                     
+Key                                       
+Bamboo                                    
+Entrance                                  
+Door Way                                  
+Message                                   
+Return (As In - Someone's Arrival)        
+Winner                                    
+Wish                                      
+Impact/Collision                          
+Sickness/Pain                             
+Baby                                      
+Headache                                  
+World                                     
+Pavement                                  
+Store (As In: Shop)                       
+Market (As In: The - Shopping - Market)   
+Country/Nation                            
+Stranger/Foreigner                        
+Town                                      
+Building                                  
+Bridge                                    
+Boat                                      
+Car/Coach/Bus                             
+City                                      
+Train                                     
+Village                                   
+Customer                                  
+Passenger                                 
+Driver                                    
+Vomit                                     
+Adviser                                   
+Fear                                      
+Traffic       Vehicle      Transportation 
+Hole                                      
+Wink                                      
+Tyre                                      
+Sightseeing                               
+Ride                                      
+Leak/Drip                                 
+Rest                                      
+Brakes                                    
+Engine                                    
+Tire                                      
+Wait                                      
+Meaning                                   
+Quantity/Great Amount or Great Number     
+Work                                      
+Occupation                                
+Occupation/Work                           
+Barbecue                                  
+Local                                     
+Job                                       
+Duty/Obligation                           
+Work Place/Factory                        
+Quality/Kind                              
+Second-Hand                               
+Reproduction/Fake/Counterfeit/Copied      
+Discipline                                
+Next                                      
+Danger                                    
+Mention                                   
+Person                                    
+In Person                                 
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0103
+Back                                      
+Eye                                       
+Eyebrow                                   
+Eyelashes                                 
+Eyeglasses                                
+Ear                                       
+Eardrum                                   
+Breath                                    
+Deaf                                      
+Blood                                     
+Asthma                                    
+Mouth                                     
+Moustache                                 
+Beard                                     
+Mouthful                                  
+Mouthpiece                                
+Noise                                     
+Bladder                                   
+Nose                                      
+Nostril                                   
+Leg                                       
+Arm                                       
+Knee                                      
+Head          (Forehead)                  
+Skull                                     
+Headache                                  
+Ankle                                     
+Foot                                      
+Feet                                      
+Toe                                       
+Footstep                                  
+Finger        (Fingernail)                
+Palm                                      
+Chest/Breast                              
+Cheek                                     
+Dimple                                    
+Chin                                      
+Jaw                                       
+Tooth/Teeth                               
+Thumb                                     
+Sneeze                                    
+Kick                                      
+Word                                      
+Conversation                              
+Thigh                                     
+Thought                                   
+Tongue                                    
+Touch                                     
+Neck                                      
+Hand                                      
+Lick                                      
+Nail                                      
+Stomach                                   
+Pelvis                                    
+Hair                                      
+Bruise                                    
+Big Belly                                 
+Body                                      
+Body Dirt                                 
+Sweat                                     
+Boil                                      
+Buttock                                   
+Feeling/Sensation                         
+Hearing                                   
+Lips                                      
+Heart                                     
+Heart Attack                              
+Health                                    
+Lungs                                     
+Kidney                                    
+Liver                                     
+Voice                                     
+Walk                                      
+Face                                      
+Look                                      
+Freckle                                   
+Scar                                      
+Waist                                     
+Anus                                      
+Rib                                       
+Shoulder                                  
+Kneecap                                   
+Wrinkle                                   
+Brain(s)                                  
+Hip                                       
+Wrist                                     
+Skin                                      
+Pulse                                     
+Upper Lip                                 
+Cough                                     
+Throat                                    
+Numbness                                  
+Saliva                      (Mucus)       
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0080
+Carefulness                               
+Good                                      
+Bad/Wicked                                
+Beauty                                    
+Like/Liking                               
+Dislike                                   
+Dislike For/To                            
+An expression of Dislike                  
+Upstairs/Raise                            
+Law                                       
+Whisper(s)                                
+Shouting at Each Other                    
+Shout/Cry                                 
+Cry/Sob                                   
+Cry Baby                                  
+Sobbing                                   
+Weeping                                   
+Laughter                                  
+Laugh                                     
+Smile                                     
+Hostess                                   
+Host                                      
+Nearness                                  
+Female/Woman                              
+Male/Man                                  
+Thank You                                 
+Length                                    
+Stop                                      
+Start/Beginning                           
+End                                       
+Error/Oversight                           
+I made a Mistake                          
+False                                     
+Happiness                                 
+Front                                     
+Back/Rear                                 
+Tail/Rear                                 
+Rear/Your Back                            
+After/Afterwards/And Then                 
+Before                                    
+Bottom                                    
+Outdoor/Doorway                           
+Inside/Interior                           
+Public                                    
+Top/On Top Of/Surface                     
+Arrival                                   
+Departure                                 
+Going                                     
+Health                                    
+Luck                                      
+Love                                      
+Loveliness                                
+Lover                                     
+Loved (Beautiful) One                     
+Love Affair                               
+Deep                                      
+Soft/Tender                               
+Riches                                    
+Use/Utility                               
+Useful                                    
+Useless                                   
+Down                                      
+Sensible Thought                          
+Idiot                                     
+Ignorant/Simple                           
+Weight                                    
+Forgetfulness                             
+Middle/Midst                              
+Unfortunate                               
+Fortunate                                 
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0046
+Mailbox/Letter Box                        
+Post-Office                               
+First Class                               
+Second Class                              
+Weight                                    
+Underweight                               
+Package/Bundle                            
+Parcel                                    
+Postage                                   
+Counter                                   
+Read (Done It)                            
+Read (Do It)                              
+Postman                                   
+Reply/Answer                              
+Mail/Post                                 
+Australia                                 
+America                                   
+Paper                                     
+Pencil                                    
+Pen                                       
+Town                                      
+Message                                   
+Address                                   
+The Place Where You Live                  
+Country                                   
+Title                                     
+City                                      
+Spelling                                  
+Name                                      
+Letter                                    
+Box                                       
+Wrap/Cover                                
+Stamp                                     
+Envelope                                  
+Ink                                       
+English                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0024
+Colour                                    
+Black                                     
+Red                                       
+White                                     
+Brown                                     
+Blue                                      
+Light Blue                                
+Yellow                                    
+Green                                     
+Silver                                    
+Gold                                      
+Pale                                      
+Pink                                      
+Violet                                    
+Orange                                    
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Weather                                   
+Climate                                   
+Rain                                      
+Rainy Season                              
+Cloud                                     
+Fog                                       
+Wind                                      
+Strong Breeze                             
+Breeze                                    
+Storm/Typhoon                             
+Whirlwind                                 
+Sunrise/Daylight                          
+Sunlight                                  
+Sunset/Sundown                            
+Winter                                    
+Summer                                    
+Autumn/Fall                               
+Sky                                       
+Moonlight                                 
+Moon                                      
+A Big Star                                
+Thunder                                   
+Shade                                     
+Shower/Drizzle                            
+Umbrella                                  
+Lightening                                
+Rainbow                                   
+Snow                                      
+Heat                                      
+Northeast Wind                            
+Raincoat                                  
+Light                                     
+Dark                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0025
+West                                      
+Left                                      
+North                                     
+Right                                     
+South                                     
+East                                      
+Front                                     
+Back/Rear                                 
+Rear                                      
+Before                                    
+Bottom                                    
+Top/On Top Of/Surface                     
+Forward                                   
+Backward                                  
+Turn                                      
+Beside                                    
+Between                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Church        (Chapel)      (Altar)       
+Parish                                    
+Priest                                    
+Mass                                      
+Burial/Funeral                            
+Death                                     
+Dead                                      
+Long Life/Long Live                       
+Catholic                                  
+Christian                                 
+Cemetery                                  
+Christmas                                 
+Coffin                                    
+Easter                                    
+Grave                                     
+Ceremony                                  
+Deceased                                  
+Song                                      
+Prayer                                    
+Group Prayer                              
+Baptism                                   
+Sin/Fault/Crime                           
+Choir                                     
+Faith                                     
+God                                       
+Fate                                      
+Wreath                                    
+Ghost                                     
+Religion                                  
+Heaven                                    
+Hell                                      
+Devil                                     
+Pulpit                                    
+Hope                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0054
+Clothes                                   
+Cloth/Clothes                             
+Dress                                     
+Iron                                      
+Gloves                                    
+Belt                                      
+Pants                                     
+Handkerchief                              
+Socks/Stockings                           
+Slippers                                  
+Shoes                                     
+Undershirt/Vest                           
+Shirt                                     
+Head Gear                                 
+Button                                    
+Collar                                    
+Shawl                                     
+Shawl/Neckerchief                         
+Sleeve                                    
+Cuff                                      
+Shorts                                    
+Pocket                                    
+Hat                                       
+Skirt                                     
+Cap                                       
+Raincoat                                  
+Sewing                                    
+Cotton                                    
+Trousers                                  
+Wool                                      
+Thread                                    
+Needle                                    
+Stitch (Mend)                             
+Silk                                      
+Something Worn                            
+Wearing The Best Clothes                  
+Leather                                   
+Perfume                                   
+Tie                                       
+Naked/No Clothing                         
+Necklace                                  
+Earrings                                  
+Hairnet                                   
+Hairpin                                   
+Pin                                       
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0117
+Zero 0                                    
+One  1                                    
+Two  2                                    
+Three  3                                  
+Four  4                                   
+Five  5                                   
+Six  6                                    
+Seven  7                                  
+Eight  8                                  
+Nine  9                                   
+Ten  10                                   
+Eleven  11                                
+Twelve  12                                
+Thirteen  13                              
+Fourteen  14                              
+Fifteen  15                               
+Sixteen  16                               
+Seventeen  17                             
+Eighteen  18                              
+Nineteen  19                              
+Twenty  20                                
+Twenty One  21                            
+Twenty Two  22                            
+Twenty Three  23                          
+Twenty Four  24                           
+Twenty Five  25                           
+Twenty Six  26                            
+Twenty Seven  27                          
+Twenty Eight  28                          
+Twenty Nine  29                           
+Thirty  30                                
+Thirty One  31                            
+Thirty Two  32                            
+Thirty Three  33                          
+Thirty Four  34                           
+Thirty Five  35                           
+Thirty Six  36                            
+Thirty Seven  37                          
+Thirty Eight  38                          
+Thirty Nine  39                           
+Forty  40                                 
+Forty One  41                             
+Forty Two  42                             
+Forty Three  43                           
+Forty Four  44                            
+Forty Five  45                            
+Forty Six  46                             
+Forty Seven  47                           
+Forty Eight  48                           
+Forty Nine  49                            
+Fifty  50                                 
+Fifty One  51                             
+Fifty Two  52                             
+Fifty Three  53                           
+Fifty Four  54                            
+Fifty Five  55                            
+Fifty Six  56                             
+Fifty Seven  57                           
+Fifty Eight  58                           
+Fifty Nine  59                            
+Sixty  60                                 
+Sixty One  61                             
+Sixty Two  62                             
+Sixty Three  63                           
+Sixty Four  64                            
+Sixty Five  65                            
+Sixty Six  66                             
+Sixty Seven  67                           
+Sixty Eight  68                           
+Sixty Nine  69                            
+Seventy  70                               
+Seventy One  71                           
+Seventy Two  72                           
+Seventy Three  73                         
+Seventy Four  74                          
+Seventy Five  75                          
+Seventy Six  76                           
+Seventy Seven  77                         
+Seventy Eight  78                         
+Seventy Nine  79                          
+Eighty  80                                
+Eighty One  81                            
+Eighty Two  82                            
+Eighty Three  83                          
+Eighty Four  84                           
+Eighty Five  85                           
+Eighty Six  86                            
+Eighty Seven  87                          
+Eighty Eight  88                          
+Eighty Nine  89                           
+Ninety  90                                
+Ninety One  91                            
+Ninety Two  92                            
+Ninety Three  93                          
+Ninety Four  94                           
+Ninety Five  95                           
+Ninety Six  96                            
+Ninety Seven  97                          
+Ninety Eight  98                          
+Ninety Nine  99                           
+One Hundred  100                          
+Two Hundred  200                          
+Three Hundred  300                        
+Four Hundred  400                         
+Five Hundred  500                         
+Six Hundred  600                          
+Seven Hundred  700                        
+Eight Hundred  800                        
+Nine Hundred  900                         
+One Thousand  1000                        
+One Million  1000000                      
+First                                     
+Second                                    
+Third                                     
+Fourth                                    
+Once                                      
+Twice                                     
+*
+@0029
+Money                       (Peso)        
+Coin                                      
+Deposit                                   
+Loan/Lend                                 
+Payment                                   
+Payment/Fee                               
+How Much/How Many                         
+How Many                                  
+How Much                                  
+Signature                                 
+Owner                                     
+Expense                                   
+Instalment                                
+Pawnshop                                  
+Value/Price/Cost/Worth                    
+Wallet                                    
+Jewellery                                 
+Bank                                      
+Debt/Credit                               
+Tax                                       
+Salary/Wages                              
+Receipt                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0099
+Torch                                     
+Landlord                                  
+Landlady                                  
+Wardrobe                                  
+Fireplace                                 
+Chimney                                   
+Candles                                   
+Visitor/Visit                             
+Property                                  
+Door                                      
+Doorbell                                  
+Table                                     
+Office/Reception Room                     
+Chair                                     
+Seat                                      
+Mirror                                    
+Dust Pan                                  
+Broom                                     
+Mat                                       
+Socket                                    
+Floor                                     
+Floor/Story (As In - A Building)          
+Roof                                      
+Wall                                      
+Upstairs                                  
+Picture/Image/Photograph                  
+Living Room                               
+Sofa/Settee                               
+Couch                                     
+Gate                                      
+Room          Compartment/Room            
+Closet/Type Of Small Room                 
+Cupboard                                  
+Window                                    
+Window Sill                               
+Curtain                                   
+Radiator                                  
+Electric Plug                             
+House                                     
+Home                                      
+Key                                       
+Downstairs                                
+Light Bulb                                
+Furniture                                 
+Meter                                     
+Cob-Web/Soot                              
+Tank          Water Tank                  
+Flow/Current of Water                     
+Ceiling                                   
+Bedroom                                   
+Bed                                       
+Bed Sheet/Blanket                         
+Pillow                                    
+Sleep                                     
+Snore                                     
+Dream                                     
+Dreams                                    
+Mattress                                  
+Pillow Case                               
+Sleeping Bag (Sack)                       
+Lock                                      
+Dining Room                               
+Radio                                     
+Television                                
+Telephone                                 
+Magazine                                  
+Bathroom                                  
+Bath                                      
+Soap                                      
+Toothbrush                                
+Towel                                     
+Shave                                     
+Moustache                                 
+Beard                                     
+Razor                                     
+Wash Basin/Sink                           
+Wash                                      
+Wash Day                                  
+Brush                                     
+Comb                                      
+Toilet                                    
+Shampoo                                   
+Shower                                    
+Naked/No Clothing                         
+Body                                      
+Body Dirt     Lava Rock/Luther            
+Sweat                                     
+Scales  (Means: Weighing/Bathroom Scales) 
+Light/Lamp                                
+Staircase     (Stair)                     
+Step                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0026
+Measurement                               
+Inch                                      
+Meter                                     
+Yard                                      
+Foot                                      
+Centimetre                                
+Litre                                     
+Feet                                      
+Ounce                                     
+Kilometre                                 
+Gallon                                    
+Kilo                                      
+Mile                                      
+Length                                    
+Width                                     
+Height                                    
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0035
+Author                                    
+Chalk                                     
+Art                                       
+Sentence                                  
+Page                                      
+Book                                      
+Paper                                     
+Pencil                                    
+Pen                                       
+Line (As In: A Verse)                     
+Word                                      
+Age                                       
+Full Stop                                 
+Tale/Story                                
+Poem                                      
+Number                                    
+Comma                                     
+Library                                   
+Character/Initial                         
+Paragraph                                 
+Chapter                                   
+Teacher                                   
+Student/Pupil                             
+Ink                                       
+Title                                     
+Proverb                                   
+School                                    
+Assignment                                
+Apostrophe                                
+Name                                      
+Subject/Topic                             
+Semicolon                                 
+                                          
+                                          
+                                          
+*
+@0047
+Animal                                    
+Pet                                       
+Insect                                    
+Reptile                                   
+Crab                                      
+Lobster                                   
+Lion                                      
+Snake                                     
+Snail                                     
+Tiger                                     
+Ant                                       
+Wasp                                      
+Cat                                       
+Dog                                       
+Bird          (Wing)                      
+Elephant                                  
+Horse                                     
+Sheep                                     
+Cow                                       
+Owl                                       
+Monkey                                    
+Chicken                                   
+Duck                                      
+Goose                                     
+Pig                                       
+Rabbit                                    
+Shrimp                                    
+Mouse/Rat                                 
+Spider                                    
+Pigeon                                    
+Oyster                                    
+Fish                                      
+Scorpion                                  
+Frog                                      
+Crow                                      
+Beetle                                    
+Mosquito                                  
+Wolf                                      
+Worm                                      
+Caterpillar                               
+Cockroach                                 
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0037
+Movie                                     
+Tennis                                    
+Playing Cards                             
+Sport/Game                                
+Dance                                     
+Song                                      
+Music                                     
+Sound                                     
+Musical Note                              
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0058
+Farm/Field                                
+River                                     
+Flag                                      
+Flagpole                                  
+Pole                                      
+Fire Engine   Fire          Flame         
+Hole/Burrow                               
+Flower                                    
+Flower Pot                                
+Bud of a Flower                           
+Ejaculation                               
+Patient                                   
+Athlete's Foot                            
+Blister                                   
+Bandage                                   
+Tool                                      
+Screwdriver                               
+Screw                                     
+Hammer                                    
+Saw                                       
+Sawdust                                   
+Nail                                      
+Spade                                     
+Garage                                    
+Garden                                    
+Garbage/Rubbish                           
+Rope                                      
+Fire Escape                               
+Ring (As In - Finger Ring)                
+Pride                                     
+Call (As In - A Telephone Call)/Name      
+Fence (As In - Garden Fence)              
+                                          
+Circle/Round                              
+Triangle                                  
+Square                                    
+Things                                    
+Edge/Rim                                  
+Wheel                                     
+Map                                       
+Whistle                                   
+Caress/Relieve Pain         (Caress)      
+Itch                                      
+Good-Bye/Farewell                         
+Payment/Tip                               
+Puberty (F)   Puberty (M)                 
+Sea                                       
+Secret                                    
+Bell                                      
+Size                                      
+Basket                                    
+Line                                      
+Line (As In: Lines/Drawing Lines)         
+Capital       (Capital City)              
+Island                                    
+Pharmacy                                  
+Fever                                     
+Pill                                      
+*
+

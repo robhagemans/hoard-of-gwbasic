@@ -1,0 +1,45 @@
+
+  ####  #####  #####       ****   ****  *     * *****  ** **    ***** *****
+ ##   # ##   # ##   #     **   * **   * **   ** **   * ** **    **    **   *
+ ##     ##   # ##   #     **     **   * *** *** **   * ** **    ****  **   *
+ ## ### #####  #####      **     **   * ** *  * *****  ** **    **    *****
+ ##   # ##   # ##         **   * **   * **    * **     ** **    **    **   *
+  ##### ##   # ##          ****   ****  **    * **     ** ***** ***** **   *
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ - Makes GRP files
+ - made in QB, so you can expirience slowness
+
+ Syntax:
+
+    GRPMAKE listfile grpfile
+
+ Where:
+
+    listfile  -  the list of files that will be in the GRP
+    grpfile   -  the GRP file that will be created
+
+
+  Listfiles
+~~~~~~~~~~~~~
+
+   Making of listfiles is very simple. You just type in the files that you
+ want to be in the GRP and let the compiler do the rest...
+
+
+
+______________________________________________________________________________
+                            W H A T ' S    N E W
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Version 1.01 (22/04/2000):
+ - fixed (hopefully) FilePos calculating
+ - fixed filename bug
+
+
+
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-EOF.-

@@ -1,0 +1,217 @@
+
+             ====== COMMON QUESTIONS BY ProWindows(tm) USERS ======
+
+         ------------------------------------------------------------------
+
+         QUESTION: When using the graphical mouse cursor, the mouse cursor
+                   in the QB or QBX editor looks funny.  And when appearing
+                   over some characters, there is a single pixel line at
+                   the right of the mouse cursor.  Why?
+
+         ANSWER:   1. To display the graphical mouse cursor, the mouse
+                   driver is tricked into thinking it is in a graphics
+                   mode.  Since the ProWindows(tm) code that keeps the
+                   mouse working right is not active when the program is
+                   not running, the mouse acts strange.
+
+                   For this reason, we recommend that you do not use the
+                   graphics mouse cursor during program development.  When
+                   you are ready to create the EXE file, then insert the
+                   graphics mouse module.
+
+                   2.  Because of the way VGA cards operate, some
+                   characters are 8 pixels wide and some are 9 pixels wide.
+                   The mouse driver can't handle both.  The only time you
+                   will see this line is when the cursor is over characters
+                   in the range of ASCII 176-178.  THIS IS INHERENT TO VGA
+                   CARDS ONLY AND DOES NOT AFFECT EGA CARDS.
+
+                   When your program is finished running, you should call
+                   the function ResetVideo() to re-map the characters to
+                   thier original state.
+
+         ------------------------------------------------------------------
+
+         QUESTION: Why does my program quit and print a "REGISTRATION
+                   ENCOURAGEMENT" error message?
+
+         ANSWER:   Then the version you have is our ShareWare version.  The
+                   ShareWare version works just like the registered version
+                   with the exception that you must call the Notice()
+                   routine within 60 seconds of calling the InitPro()
+                   routine.
+
+                   The Notice() routine displays a message reminding you of
+                   your obligation to register and pay for your copy if you
+                   decide to use it on a regular basis.
+
+         NOTE:     When you register, we will send you a disk that does not
+                   require the use of the Notice() routine.  Because of
+                   this, the library is smaller and generates smaller EXE
+                   files.
+
+         ------------------------------------------------------------------
+
+         QUESTION: When I try to run my program in the BASIC environment, I
+                   get a "SUBPROGRAM NOT DEFINED" message.  Why?
+
+         ANSWER:   In order to use an external (non BASIC) function, you
+                   must load them into BASIC.  This is done from the
+                   command line by entering (for our demos) :
+
+                        QB /AH /L lite.qlb          (for QuickBASIC)
+                        QBX /AH /EA /L lite.qlb     (for BASIC PDS 7)
+
+                   To be sure that you do not pass invalid parameters to a
+                   function, you must include the appropriate INCLUDE (.BI)
+                   file(s) in your BASIC source code.  To use ProWindows
+                   LITE functions, you would use:
+
+                        REM $INCLUDE : 'lite.bi'
+
+                   If it still does not work, go to the "Set Paths" under
+                   the "Options" menu in the QB.EXE (or QBX.EXE) and make
+                   sure that the "Include Path" points to the drive and
+                   directory where the ProWindows (.BI) files are.
+
+         ------------------------------------------------------------------
+
+         QUESTION: My programs are getting larger and i'm quickly running
+                   out of memory.  What do I do?
+
+         ANSWER:   ProWindows(tm) by default uses normal DOS memory to
+                   allocate it's video buffer.  This can easily consume up
+                   to 64K of memory.
+
+                   FEAR NOT!  "WMM.EXE" may be the solution.  The external
+                   "Window Memory Manager" attempts to convert other memory
+                   resources into video buffer memory.  WMM.EXE can convert
+                   expanded (EMS) or extended (XMS).  When used with
+                   "LOADHIGH" (DOS 5), "LOADHI" (QEMM), or similar utility,
+                   "upper memory" can also be converted.  This utility is
+                   included FREE with ProWindows(tm).
+
+         SEE ALSO  WMM.DOC
+
+         ------------------------------------------------------------------
+
+         QUESTION: Why does the mouse cursor disappear when I print text to
+                   a window or the screen?
+
+         ANSWER:   Unlike BASIC's built-in PRINT statements (which use BIOS
+                   calls, ProWindows print statements (which write directly
+                   to video RAM) are not aware of the mouse.  When printing
+                   text to a window, you should disable the mouse cursor,
+                   print the text, and then re-enable it.  Try:
+
+                        MouseCursorOff
+
+                        ' text printing function
+
+                        MouseCursorOn
+
+         ------------------------------------------------------------------
+
+         QUESTION: Is it true that you met Elvis during the time you were
+                   being held captive by group of aliens from the planet
+                   Kaplutis?
+
+         ANSWER:   No, he was just an impersonator.
+
+         ------------------------------------------------------------------
+
+         QUESTION: What do I do when LINK.EXE tells me I have "TOO MANY
+                   SEGMENTS"?
+
+         ANSWER:   Cry.  Just kidding!  LINK defaults to 128 segments.  The
+                   following example shows you how to increase the segments
+                   to 256 (but you can use higher or lower numbers):
+
+                        LINK /SE:256
+
+         ------------------------------------------------------------------
+
+         QUESTION: What can I do to make my EXE files smaller?
+
+         ANSWER:   The size of an EXE file is not necessarily related to
+                   how much memory the program will use.  A good portion of
+                   the EXE file contains the "header" and "relocation
+                   table".  The parts are NOT part of the program  and are
+                   NOT loaded.  They are just there to tell DOS how to load
+                   the program.
+
+                   When compiling from DOS, be sure to specify the '/EX'
+                   command when using LINK.EXE.  This reduces the file size
+                   by about 30%.
+
+                   When you register your copy of ProWindows(tm), we will
+                   include a free copy of two programs that will further
+                   reduce the size of an EXE file by about 50% (average).
+
+                   We are constantly making our libraries smaller and
+                   smaller.  As a registered user, you are entitled to FREE
+                   updates of the latest libraries (does not include major
+                   upgrades).  In the last 2 months, we have made changes
+                   that have netted a 35% reduction in the size of
+                   ProWindows(tm) programs.  We are not stopping there.
+
+         ------------------------------------------------------------------
+
+         QUESTION: What is "Video Recycling"?
+
+         ANSWER:   To maintain its high speed performance when manipulating
+                   windows, the Window Manager requires about 8K of memory
+                   as a "scratch pad".  In standard mode, this memory is
+                   allocated out of the VirMem%() array and conventional
+                   memory.
+
+                   With all the memory demands placed on the system by the
+                   BASIC IDE and your programs, you want to limit the size
+                   of your arrays by as much as possible.  This is the
+                   purpose of the VideoRecycle() routine.  It forces the
+                   Window Manager to use the unused memory of your
+                   CGA/EGA/VGA cards and frees up about 24K of memory.
+
+                   Now you can reduce the size of the VirMem%() array and
+                   still maintain a large number of windows.
+
+                   Please note that you should only use this routine during
+                   program development.  When creating a stand-alone EXE
+                   file, you should remove the command and increase the
+                   size of the VirMem%() array (typically to 32000).
+
+         ------------------------------------------------------------------
+
+         QUESTION: I just can't seem to get anything to work.  What am I
+                   doing wrong?
+
+         ANSWER:   For every complex problem, there is probably an easy
+                   solution.  If you get stuck, follow the next four steps:
+
+                        1).  Do not get mad or upset.
+                        2).  Take a couple of deep long breaths and relax.
+                        3).  Carefully read the file called "SUPPORT.DOC".
+                        4).  Contact DSE Technical Support in the manner
+                             easiest for you.  Remember: There is no such
+                             thing as a "dumb question".
+
+         ------------------------------------------------------------------
+
+         QUESTION: Two cars are on a collision course on the Interstate.
+                   Cars "A" and "B" are maintaining a constant of speed of
+                   65 mph and 45 mph, respectively.
+
+                   When the two cars are exactly 110 miles apart, a lonely
+                   bored fly (on a caffeine binge) starts flying from car
+                   "A" to car "B" at a steady speed of 92 mph.  When the
+                   fly reaches car "B" he zips around and heads back
+                   towards car "A".  He keeps going from car to car until
+                   both cars collide.
+
+                   How many miles did the fly travel before getting
+                   squashed between the two colliding cars?
+
+         ANSWER:
+
+         ------------------------------------------------------------------
+

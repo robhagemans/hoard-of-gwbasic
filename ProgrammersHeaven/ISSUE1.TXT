@@ -1,0 +1,832 @@
+
+  -------------------------------------------------------------------------
+    BBBB    A   SSS   I  CCCC
+    B   B  A A  S  S  I  C   C          The BASIC Internet Fanzine
+    B   B  A A  S     I  C              ==========================
+    BBBB  A   A  SSS  I  C
+    B   B AAAAA    S  I  C         Written by and updated by Peter Cooper
+    B   B A   A S  S  I  C   C               of PECO Software 
+    BBBB  A   A  SS   I  CCCC
+  -------------------------------------------------------------------------
+               Enquiries\support: peter@trenham.demon.co.uk  
+                    Articles: bmag@trenham.demon.co.uk
+
+  INTRODUCTION:
+        This is the promised first edition of the BASIC Internet Fanzine. 
+  I hope you'll find it useful in some way or another as the purpose of the
+  fanzine is to inform BASIC programmers of techniques,books,other peoples
+  BASIC tricks and more. If you have any comments on this fanzine then you
+  are invited to e-mail to the e-mail addresses above.
+
+-------------------------------------------------------------------------------
+- CONTENTS PAGE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
+
+ CONTENTS:
+        SECTION ONE) - [MAIN ARTICLES]
+                |
+                +-----  i) Knox Press - 'The Revoloutionary Guide to QBasic'
+                |
+                +----- ii) Ping Pong game source code
+
+        SECTION TWO) - [TEACHING ZONE]
+                |
+                +-----  i) Screen mode 13 and what you can do
+                |
+                +----- ii) Programming the SB card
+
+        SECTION THREE) - [YOUR SHOUT!]
+                |
+                +-----  i) Questions and Answers
+                |
+                +----- ii) The Discussion: PowerBasic or QBasic
+                |
+                +-----iii) Your programs
+
+        SECTION FOUR) - [DETAILS ABOUT THE FANZINE]
+                |
+                +-----  i) How do you contribute?
+                |
+                +----- ii) How do you contact the author?
+                |
+                +-----iii) Credits
+                |
+                +----- iv) Last words + next month
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION ONE -----------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Main Articles:
+
+ This first section contains the articles that people have wanted to put into 
+ this fanzine plus some forthcoming work from Knox Press and a beginners guide
+ to BASIC.
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART I - (Revoloutionary guide to QBasic) -----------------------
+-------------------------------------------------------------------------------
+
+Implementing a Stack in QBasic 
+------------------------------
+
+Before we write a program that involves a stack, we must first decide which 
+QBasic tools we'll use to implement it. Because we can manipulate the elements 
+quite straightforwardly with an array, this is perhaps the best choice for us 
+to make. However, we can only have a bounded stack now since the dimensions 
+of our array will limit the depth of the stack. 
+
+Let's see how a stack operates. The value of the function EmptyStack is True 
+if the stack is empty, otherwise it's False. The function OutStack pops an 
+element off the stack and takes its value. The procedure InStack (x) pushes 
+the element x onto the stack. An array STACK containing 100 elements is 
+allocated to hold the elements of the stack.  
+
+Here's our example for the bounded stack: 
+
+
+'  PROGRAM 6.1
+'  *******************************************
+'  * The Demonstration of a Bounded Stack  *
+'  *******************************************
+
+' The program firstly pushes NS sequential natural numbers
+' onto the stack, then pushes OS numbers from the stack and
+' outputs them onto the screen (NS and OS are defined by the user).
+
+DECLARE FUNCTION EmptyStack! ()
+DECLARE SUB InStack (X!)
+DECLARE FUNCTION OutStack! ()
+
+DIM SHARED DeepStack, TopStack
+
+CONST True = -1
+CONST False = NOT True
+
+'      ***  Initialization of the stack  ***
+DeepStack = 100 'defining the depth of the stack
+DIM SHARED Stack(DeepStack) 'defining the array for the stack
+TopStack = 0
+
+' ******* Demonstration of a Stack Operation *******
+CLS
+PRINT "Demonstration of a Bounded Stack"
+PRINT "         (stack's depth - 100)"
+PRINT
+INPUT "Number of elements to push onto the stack? "; NS
+
+'        *** Filling the Stack ***
+FOR I = 1 TO NS
+  CALL InStack(I)
+NEXT I
+
+'     *** Popping Elements from the Stack ***
+INPUT "Number of elements to pop from the stack? ", OS
+FOR I = 1 TO OS
+  IF NOT EmptyStack THEN
+    X = OutStack
+    PRINT X;
+  ELSE
+    PRINT : PRINT "Stack is empty! ";
+    PRINT I; "- th element cannot be retrieved."
+    EXIT FOR
+  END IF
+NEXT I
+END
+
+FUNCTION EmptyStack
+  IF TopStack = 0 THEN
+    EmptyStack = True
+  ELSE
+    EmptyStack = False
+  END IF
+END FUNCTION
+
+SUB InStack (X)
+  IF TopStack = DeepStack THEN
+    PRINT "Error: Stack is overfilled!"
+    STOP
+  ELSE
+    TopStack = TopStack + 1
+    Stack(TopStack) = X
+  END IF
+END SUB
+
+FUNCTION OutStack
+  IF TopStack = 0 THEN
+    PRINT : PRINT "Error: Stack is empty!"
+  STOP
+  ELSE
+    OutStack = Stack(TopStack)
+    TopStack = TopStack - 1
+  END IF
+END FUNCTION
+
+The code first asks you for the number of elements you want the stack to contain
+, and when it receives an answer ns, it fills the stack with the numbers 1 to 
+ns. If ns is greater than 100, you'll see a display of the overflow message 
+and the program will stop. Otherwise, you'll be asked how many elements you want 
+to pop off the stack and the retrieved elements will be output to the screen. 
+If you want more elements than the stack contains, after the last element is 
+retrieved a message will appear on the screen telling you that it's impossible 
+to pop the next element because there aren't any left in the stack.
+
+This sample was taken from the forthcoming book, `The Revolutionary 
+Guide to QBasic', published by Wrox Press, e-mail adrians@wrox.com or 
+check-out our web-page http://www.wrox.com/ for further details.
+
+Thanks to Wrox Press and Adrian Sill who is an editor for the book and will
+kindly donate articles to issues of the fanzine. This book looks and sounds
+good with not just beginners questions in it. It's THE book for the BASIC
+programmer. Thank you.
+
+-------------------------------------------------------------------------------
+- SECTION ONE PART II - (Ping Pong Source Code) -------------------------------
+-------------------------------------------------------------------------------
+
+ We don't know why but we all had a competition here to see who could write
+ a sort of PING-PONG game compatible with different screen modes in 30 mins.
+ Here's the result and it works.
+
+ (SMALL COMPETITION ALERT: If you can fit this into less lines of code or
+  improve it then you will be deemed a good basic programmer and don't use
+  colons to squash it up!)
+
+RANDOMIZE TIMER
+DIM SHARED vx%(1 TO 8), vy%(1 TO 8)
+vx%(1) = 0:vy%(1) = -1:vx%(2) = 1:vy%(2) = -1:vx%(3) = 1:vy%(3) = 0:vx%(4) = 1
+vy%(4) = 1:vx%(5) = 0:vy%(5) = 1:vx%(6) = -1:vy%(6) = 1:vx%(7) = -1:vy%(7) = 0
+vx%(8) = -1:vy%(8) = -1
+score% = 0:life% = 5
+redos:
+bx% = 48:by% = 30                              ' BALL X+Y START COORDS
+bbx% = 48
+bby% = 92
+SCREEN 13                                      ' CAN BE 12,9,7,10 etc..
+CLS                                            ' TRY IT!
+WINDOW SCREEN (-10, -10)-(110, 110)            ' MAP PIX RANGES TO ANY SCR.
+
+' DRAW THE ARENA
+
+LINE (0, 0)-(100, 100), 15, B:LINE (-2, -2)-(102, 102), 15, B
+PAINT (-1, -1), 15:LINE (0, 100)-(100, 100), 12 
+LINE (0, 0)-(100, 100), 15, B:LINE (0, 100)-(100, 100), 12
+
+d% = 5                          ' STARTING BALL DIRECTION , 5 is DOWN
+                                ' 1 is UP, 3 is RIGHT,4 is DOWN-RIGHT GEDDIT?
+LOCATE 1, 1
+PRINT "lives: "; life%
+DO
+LINE (ox%, oy%)-(ox% + 1, oy% + 1), 0, BF
+LINE (bx%, by%)-(bx% + 1, by% + 1), 14, BF
+ox% = bx%:oy% = by%
+bx% = bx% + vx%(d%):by% = by% + vy%(d%)
+LINE (bbx%, bby%)-(bbx% + 11, bby% + 1), 10, BF
+a$ = INKEY$
+IF a$ = "z" AND bbx% <> 2 THEN
+        LINE (bbx%, bby%)-(bbx% + 11, bby% + 1), 0, BF
+        'bbx% = bx% - 2
+        bbx% = bbx% - 2
+        LINE (bbx%, bby%)-(bbx% + 11, bby% + 1), 10, BF
+END IF
+IF a$ = "x" AND bbx% <> 88 THEN
+        LINE (bbx%, bby%)-(bbx% + 11, bby% + 1), 0, BF
+        bbx% = bbx% + 2
+        LINE (bbx%, bby%)-(bbx% + 11, bby% + 1), 10, BF
+END IF
+FOR delay = 1 TO 50
+NEXT delay
+' DETECTION OF WALLS ROUTINE
+IF POINT(bx% + 4, by%) = 15 THEN        ' hit right wall
+IF d% = 2 THEN d% = 8                   ' CHANGE DIRECTIONS
+IF d% = 4 THEN d% = 6
+IF d% = 3 THEN d% = 7
+GOTO ok1:
+END IF
+IF POINT(bx% - 2, by%) = 15 THEN        ' hit left wall
+IF d% = 8 THEN d% = 2                   ' CHANGE DIRECTIONS
+IF d% = 6 THEN d% = 4
+IF d% = 7 THEN d% = 4
+GOTO ok1:
+END IF
+IF POINT(bx%, by% - 2) = 15 THEN        ' hit top wall
+        IF d% = 1 THEN
+                g% = INT((10 - 1) * RND + 1)
+                IF g% > 8 THEN d% = 4
+                IF g% = 7 THEN d% = 6
+                IF g% < 7 THEN d% = 5
+                GOTO ok1:
+        END IF
+                g% = INT((10 - 1) * RND + 1)
+                IF g% > 7 THEN d% = 4
+                IF g% < 8 THEN d% = 6
+                GOTO ok1:
+GOTO ok1:
+END IF
+IF POINT(bx%, by% + 3) = 10 THEN        ' hit bat
+LINE (0, 0)-(100, 100), 15, B
+LINE (0, 100)-(100, 100), 12
+score% = score% + 50
+        IF d% = 5 THEN
+                g% = INT((10 - 1) * RND + 1)
+                IF g% > 8 THEN d% = 8
+                IF g% = 7 THEN d% = 2
+                IF g% < 7 THEN d% = 1
+                GOTO ok1:
+        END IF
+        IF d% = 4 THEN d% = 2: GOTO ok1:
+        IF d% = 2 THEN d% = 8: GOTO ok1:
+                g% = INT((10 - 1) * RND + 1)
+                IF g% > 5 THEN d% = 1
+                IF g% < 6 THEN d% = 2
+                GOTO ok1:
+GOTO ok1:
+END IF
+IF POINT(bx%, by% + 3) = 12 THEN        ' hit bottom wall
+IF life% = 1 THEN
+        SCREEN 0
+        WIDTH 80, 25
+        COLOR 7, 0
+        CLS
+        PRINT "Thanks for playing Peters PINGPONG"
+        PRINT "Score: "; score%
+        a$ = INKEY$
+        a$ = INPUT$(1)
+        SYSTEM
+END IF
+life% = life% - 1
+LOCATE 1, 1
+PRINT "lives: "; life%
+GOTO redos:
+END IF
+ok1:
+LOOP
+
+ I know it's very sloppy but for 30 mins it isn't too bad! Try and learn 
+ something from it or improve it! (shouldn't be too hard! :-) )
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION TWO -----------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Teaching Zone:
+
+ The second section is here to teach you Basic techniques and tricks and helps
+ you to use them in your programs. In this fanzine there are tutorials telling
+ you how to program fast graphics in screen mode 13 and what it it is and also
+ how to program a SB from Basic!
+ The BASIC these tutorials are in is MS PDS 7.1 and the code is compatable with 
+ QBasic. If the code is in a different version than QBasic then it is stated
+ clearly at the start.
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART I - (Screen mode 13 and what you can do) -------------------
+-------------------------------------------------------------------------------  
+
+ Hi. Have you ever wanted to write fast graphics routines but in BASIC? BASIC
+ is not really a language designed to do fast graphics but there are ways to
+ get around sluggish graphics systems. In this tutorial I am going to go into
+ how to draw pixels on a screen mode 13 screen in the small space of this
+ fanzine I have had allocated.
+ Screen mode 13 is what most fast graphics games used. I must say used because
+ the latest games such as TRANSPORT TYCOON and SIMCITY 2000 use high-res screens
+ a lot of the time. Games such as SF2 and DOOM still use the lower-res screens
+ though. To access screen 13 in QBasic is simple. Just use the following:
+
+  SCREEN 13
+  CLS
+
+ That'll get you a nice clean mode 13 screen and you can draw on it at pixel
+ 100,100 in color 56 using the PSET command as the following:
+
+  PSET (100,100),56
+
+ But if you use the previous to draw many pixels then it will be quite slow.
+ How can you make it faster?
+ The way to do it is write direct to the video memory. Hard? Nope.
+ Screen Mode 13 memory is arranged like the following:
+ bytes\/
+ +---+---+---+---+---+---+---+--- ...........................
+ | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8  goes on for 320 pixels --->
+ +---+---+---+---+---+---+---+--- ...........................
+ |321|322|333|334|335|336|337|338
+ +---+---+---+---+---+---+---+--- The last pixel on the screen is byte
+ |641|642|643|644|645|646|647|648 value 64000
+ ..............||................
+               \/
+     goes down for 200 pixels
+
+ Sorry about the ASCII graphics! :-)  Basically this all means that you can
+ write to pixel 2,2 by writing a colour value to byte number 322 (look on the
+ chart). The formula to convert an x,y value to a byte number is the following:
+                            b = x + ( y * 320 )
+
+ So if the x,y value are 100,100 then
+                            b = 100 + (100 * 320)
+                            b = 100 + 32000
+                            b = 32100
+ To write to that position the following code is needed:
+
+ x=100:y=100               ' can't be integers
+ poke x+(y*320),c%         ' c% is the color value
+
+ First though we need to define the segment to write to as the video memory.
+ We do this by DEFining the SEGment as &HA000. This makes:
+                               DEF SEG=&HA000
+ Now here is a full program:
+
+        DEF SEG=&HA000
+        SCREEN 13
+        CLS
+        PRINT "Graphics demo"
+        x = 100
+        y = 100
+        c% = 12
+        POKE x+(y*320),c%
+        SYSTEM
+
+ This program will draw a bright red pixel to position 100,100 on the screen.
+
+ BTW, you can't use integers as the positions for y values over 101 because
+ there is an overflow because of the math. Anyway around this without using
+ real numbers or long integers. They're so sloooow!
+
+ I know this tutorial has been brief but there is not much room in the fanzine!
+ Never mind. :-)
+
+-------------------------------------------------------------------------------
+- SECTION TWO PART II - (Programming the SB card) -----------------------------
+-------------------------------------------------------------------------------  
+
+ On the comp.lang.basic.misc and alt.lang.basic newsgroups there are regularly
+ questions like   ' How do program a SB from Basic? ' or 'How I detect an SB
+ port address' or 'WAV FILES: playing through SB?' etc.
+ This tute should address many of the problems faced by BASIC programmers.
+
+ PROGRAMMING THE SB
+ ==================
+
+ Programming the SB is quite simple but the timing is the hard bit so I'm
+ going into that in this tutorial. I'll just show you how to reset the card
+ , turn the speaker on and produce a square-wave tone.
+
+ The SB is controlled by a chip called the DSP (this is the Digital Sound
+ Processor) and this is what we use in this tutorial. Before we can send
+ raw data for the card to sound we need to reset the card.
+
+' START OF RESET SECTION
+
+OUT &H226, 1: OUT &H226, 0                      ' steps 1+2
+DO
+x% = INP(&H22E)                                 ' step 3
+IF x% AND 128 THEN                              ' step 4
+        x% = INP(&H22A)                         ' step 5
+        IF x% = &HAA THEN                       ' step 6
+                PRINT "reset!"
+                EXIT DO
+        END IF
+END IF
+LOOP
+
+ That bit of program will reset the card. Here is what it does:
+
+ 1 - Send a 1 to the reset port  (2x6h)   
+ 1a - wait 3 microseconds. basic is so slow that i havn't had to bother
+ 2 - Send a 0 to the reset port  (2x6h)   
+ 3 - Poll the data ready port (2xEh)
+ 4 - If the 7th bit is not set then goto 3
+ 5 - Poll the data port (2xAh)
+ 6 - If it returns h0AA then you're done otherwise go back to step 3
+
+ You should do this up to 100 times. If it doesn't work by then then the port 
+ address is wrong or the card is faulty.
+ (NOTE: where I put &H226 or &H22E is for a 220 based card. For a 240 they 
+        would be    &H246 or &H24E OK?)
+
+ OK. So now we've reset the thing but we still cannot send data because you
+ won't hear it! The speaker has not been turned on.
+ (The first time I programmed the SB, I didn't turn it on and I had to turn the
+  speakers full up to hear anything. I went mad to find the solution!)
+ The way we turn it on is to program the DSP with the hex byte D1. A sample
+ is shown below.
+ 
+' TURN SPEAKER ON
+DO
+x% = INP(&H22C)
+LOOP WHILE x% AND 128
+OUT &H22C, &HD1                                ' send speaker on code
+
+ Before the byte can be sent we have to check if the SB is ready to get it.
+ That's what the DO...LOOP does. So now the SBs speaker is on.
+
+ Now we can send raw data to the card. But before each byte is sent we need
+ to send 10 hex to tell the SB it is sound data we are doing.
+
+DO
+FOR g% = 100 TO 1 STEP -1                      ' START OF LOOP
+OUT &H22C, &H10                                ' send
+OUT &H22C, f%                                  ' send no.
+FOR aa% = 1 TO 100: NEXT aa%                   ' delay
+IF f% = 255 THEN f% = 0 ELSE f% = 255          ' alternate between 0 and 255
+NEXT g%                                        ' END OF LOOP
+LOOP
+
+The f% is the value that is the sound on the sound wave. BTW, if you want to
+play WAV,VOC or RAW files what you need to do is read a byte from the file
+each time and send it to the card after sending the &H10. More about that, in
+the next fanzine. (but you might work it out from I just said ,by then)
+
+Here's the full program that produces a tone by alternating from 0 to 255 and
+back. Change the aa% loop for a different pitched note.
+
+' START OF RESET SECTION
+
+OUT &H226, 1: OUT &H226, 0
+DO
+x% = INP(&H22E)
+IF x% AND 128 THEN
+        x% = INP(&H22A)
+        IF x% = &HAA THEN
+                PRINT "reset!"
+                EXIT DO
+        END IF
+END IF
+LOOP
+
+' END OF RESET SECTION
+
+
+' TURN SPEAKER ON
+DO
+x% = INP(&H22C)
+LOOP WHILE x% AND 128
+OUT &H22C, &HD1                                ' send speaker on code
+
+DO
+FOR g% = 100 TO 1 STEP -1                      ' START OF LOOP
+OUT &H22C, &H10                                ' send
+OUT &H22C, f%                                  ' send no.
+FOR aa% = 1 TO 100: NEXT aa%                   ' delay
+IF f% = 255 THEN f% = 0 ELSE f% = 255          ' alternate between 0 and 255
+NEXT g%                                        ' END OF LOOP
+LOOP
+
+ Hope that's useful.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION THREE ---------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Your Shout:
+
+ This is the part of the fanzine where your letters,views and ideas will be
+ published unless something is eligible for the other sections.
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART I - (Questions and Answers) ------------------------------
+-------------------------------------------------------------------------------  
+
+ E-mail your BASIC problems and get an answer (hopefully) :
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+QUESTION From    : John Woodgate 
+Answers  Reply-To: john@nmr.sbay.org
+
+1) - How do I access SB's speech driver?
+
+2) - How do I store a 1 meg file in mem and access it linerarly?
+
+3) - How do I parse a script command, such as:
+     a$ = MID$(LEFT$(t$, 10), ASC(RIGHT$(r$, 2)), VAL(MID$(s$, 3, 1))
+     I need to know what the final values of everything is, then execute the
+     command...
+
+4) - What is the extra seat for in my F16 model?
+
+ANSWER FROM     : Peter Cooper (peter@trenham.demon.co.uk)
+
+1)    I presume you mean the talker SBTALKER that Dr. Sbaitso (SB demo) uses.
+      To access the driver is very,very difficult without the SB Development
+      Kit. With that you can just type
+
+        STSAY "Hello, I'm talking"
+
+      Call Creative Labs for prices of the kit. I got mine at a computer rally
+      for 3pounds (about $6\7!)
+      There is a low-level way but it is near to impossible to do in BASIC.
+      If anyone wants the psuedo-code of how to do it then I'll be happy to
+      put it in the next fanzine or e-mail it. I'm currently working on the
+      problem in BASIC and if I get a finished program then it will be in
+      the next fanzine.
+
+2)    1MB? This is another impossibility unless you use XMS or EMS which
+      will be discussed in the next fanzines theme of 'Low level routines'
+
+3)    I don't quite understand but I think you may be trying to chop up a 
+      string and get values and bits of text from it. Lets say I have a 
+      string like:
+                        ABF1987J-L       and I wanted to get the two bits
+                                         of text and the number.
+        use this code:
+
+      arg1$ = left$(a$,3)
+      arg2% = val(mid$(a$,4,4))
+      arg3$ = right$(a$,3)
+
+      Or are you trying to write a sort of BASIC interpreter? I have some
+      experience in that and I'll be happy to help.
+
+4)    For a driver to put their laptop on!
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+QUESTION FROM      :   Various people (about 5)
+
+ Where do I get fanzines and when are they released?
+
+ANSWER FROM        :   Peter Cooper (peter@trenham.demon.co.uk)
+
+ The Basic FANZINE is available on the 12th of every month on the following 
+ newsgroups unless another day is stated (on the newsgroups):
+
+                alt.lang.basic
+                comp.lang.basic.misc
+
+ There is to be a PASCAL Fanzine released in December also. This will be on
+ the relevant PASCAL groups TBA.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+QUESTION FROM: Various
+
+ How can I play a WAV file from QBasic? You can't. Well not perfectly unless
+ you write a few hundred lines of code and spend a few hours. This question
+ was a last minute one and as such is quite a quick program using our original
+ SB reset program.
+
+TYPE wave
+        byte AS STRING * 1
+END TYPE
+DIM SHARED w AS wave
+' START OF RESET SECTION
+OUT &H226, 1: OUT &H226, 0
+DO
+x% = INP(&H22E)
+IF x% AND 128 THEN
+        x% = INP(&H22A)
+        IF x% = &HAA THEN
+                PRINT "reset!"
+                EXIT DO
+        END IF
+END IF
+LOOP
+' END OF RESET SECTION
+' TURN SPEAKER ON
+DO
+x% = INP(&H22C)
+LOOP WHILE x% AND 128
+OUT &H22C, &HD1                                ' send speaker on code
+OPEN "c:\windows\tada.wav" FOR BINARY AS #1
+bpos% = 1
+DO
+OUT &H22C, &H10                                ' send
+GET #1, bpos%, w.byte
+bpos% = bpos% + 6                               ' make digit higher for speed
+f% = ASC(w.byte)
+OUT &H22C, f%                                  ' send no.
+LOOP UNTIL EOF(1)
+CLOSE #1
+
+The quality is very very poor. You can only just hear the Windows TADA tune
+when you run this on my machine. Try compiling it if you have QuickBasic or
+PDS, it goes faster. BTW, try changing the bpos% increase variable to get a
+different sampling\play rate (different sound resoloutions)
+
+By next fanzine I'll have something 100 times better than this. Just you see.
+So get it then.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART II - (PowerBasic or QBasic) ------------------------------
+-------------------------------------------------------------------------------  
+
+ This is the big question. Which programming language does the beginner use?
+
+                           POWERBASIC or QBASIC
+
+ Your views are needed for this. I believe that QBasic is better because it's
+ cheaper (free) than PowerBasic but you really do have to pay to get quality 
+ and with PowerBasic you get a fast\good compiler. What do you think?
+
+ I'll take votes on   bmag@trenham.demon.co.uk   - A 'P' for Power or 'Q' for
+                                                   Q(uick)Basic
+ Please make the subject 'VOTE'
+
+ So far the totals rest at:
+
+ 66.6% - Microsoft BASICS - QBasic,QuickBasic,PDS 7.1
+ 33.3% - Power BASIC
+
+ BTW, I've only got 3 votes ATM.
+
+-------------------------------------------------------------------------------
+- SECTION THREE PART III - (Your Programs) ------------------------------------
+-------------------------------------------------------------------------------  
+
+ In this part of the zine you get to display your BASIC programs and functions.
+ You can send in tricks and tips for BASIC too!
+
+ Our first program ties in with our Teaching Zone article, Sound Blaster
+ setup. It was sent in by John Woodgate (john@nmr.sbay.org).
+
+DECLARE SUB DetectSB (IsThere%, CardType%, address%)
+' Call SUBROUTINE TO DETECT SB
+CLS
+DetectSB a%, b%, c%
+PRINT "Is there a card? ", a%
+PRINT "What type? ", , b%
+PRINT "What port address? ", HEX$(c%)
+
+DEFINT A-Z
+SUB DetectSB (IsThere%, CardType%, address%)
+ 
+FOR a = &H210 TO &H280 STEP &H10
+ OUT a + 6, 1
+ ts! = TIMER
+ DO: LOOP UNTIL TIMER - ts! >= .01
+ OUT a + 6, 0
+ tl! = TIMER
+ DO
+  tmp% = INP(a + 14)
+  Tmp2% = tmp% AND &H80
+  IF Tmp2% = 0 THEN EXIT DO
+ LOOP UNTIL TIMER - tl! >= .01
+ Tmp3% = INP(a + 10)
+ IF Tmp3% = &HAA THEN
+  IsThere% = -1: address% = a: GOSUB WhatKind: EXIT SUB
+ END IF
+ ts! = TIMER
+ DO: LOOP UNTIL TIMER - ts! >= .01
+NEXT
+EXIT SUB
+ 
+WhatKind:
+OUT a + 12, &HE1
+tl! = TIMER
+DO
+ tmp% = INP(a + 14)
+ Tmp2% = tmp% AND &H80
+ IF Tmp2% = 0 THEN EXIT DO
+LOOP UNTIL TIMER - tl! >= .01
+Tmp1% = INP(a + 10)
+Tmp2% = INP(a + 10)
+CardType% = Tmp1%
+RETURN
+END SUB
+
+The cardtype comes up as 4 for the AWE32. Could you test it on your SB? What
+are the numbers for SB2,SB16 or maybe even a GUS? e-mail answers please.
+Thanks for that John.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION FOUR ----------------------------------------------------------------
+-------------------------------------------------------------------------------  
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ Details about the fanzine:
+
+  This section of the fanzine is the last. It covers topics such as how to get
+  in touch with the author,who contributed to the fanzine and my last words.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART I - (How do you contribute?) ------------------------------
+-------------------------------------------------------------------------------  
+
+ So how do you contribute?
+ All you have to do is e-mail to:
+
+                bmag@trenham.demon.co.uk  - with contributions and articles
+
+                peter@trenham.demon.co.uk - with enquiries, etc..
+
+ Please make articles less than 100 lines long unless you've made special
+ arrangements with me of course. :-). In fact unless the article explains  
+ itself then it may be better to e-mail to the support address and tell me
+ what the article is about first.
+ Thank you.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART II - (How do you contact the author?) ---------------------
+-------------------------------------------------------------------------------  
+
+ If you want to ask me a question about BASIC or the fanzine then please e-mail 
+ to the support address and I'll be only too pleased to answer although please
+ understand that you may not get an instant reply because my local mailserver
+ may break down (not rare) or I may be busy with other things. I'll respond ASAP
+
+ If you have something to share with everyone then post onto the alt.lang.basic
+ or comp.basic.misc newsgroups (I read the latter most). Make the subject good
+ as I don't read a lot of the articles straight away because of the titles 
+ although I do read them eventually.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART III - (Credits) -------------------------------------------
+-------------------------------------------------------------------------------  
+
+ A very big thanks to:
+
+        John Woodgate   , who has contributed greatly
+        Adrian Sill     , from Wrox Press who has supported the fanzine and
+                          who has contributed from their forthcoming book
+                          and hopefully will do in the next fanzine
+        all the other people who have contributed and posted ideas
+
+ Remember that this fanzine needs you, to contribute.
+
+-------------------------------------------------------------------------------
+- SECTION FOUR PART IV - (Last Words+Next month) ------------------------------
+-------------------------------------------------------------------------------  
+
+ NEXT MONTH:
+        ARTICLES:
+                Possibly another Wrox Press article and a rundown on their
+                book.
+                Reversi game source code (if i get it finished)
+                WAV file player (better than the current crappy one)
+        TEACHING ZONE:
+                Writing a compiler\interpreter - PART 1 OF 4
+                Accessing low-level computer functions 
+                Drawing lines and the algorithms
+        YOUR SHOUT:
+                All of your news + views
+                A lowlevel CMOS reader program (in QBASIC!)
+        DETAILS ABOUT THE FANZINE:
+                How to contact us.
+                Rundown on the Jan 1996 fanzine.
+
+ Hopefully out for 12th December 1995.
+
+ Last words:
+
+        Well thanks for reading and I've hoped you've enjoyed this first
+ fanzine and even if you didn't it's going to get better as people send their
+ ideas in for entry into the fanzine. So get writing (or typing as the case
+ might be!) and send in articles,ideas and tips and tricks for the fanzine.
+ Everything is looked at and everyone gets a reply!
+
+ Any ideas about the fanzine can be posted to me at the following address:
+        peter@trenham.demon.co.uk
+ Any material for the Basic Fanzine:
+        basmag@trenham.demon.co.uk
+
+ Thank you for reading and I promise I've got tons more stuff for the second
+ fanzine. The next will have far more useful stuff in it. I'm snowed under
+ with peoples great programs! Keep sending them.

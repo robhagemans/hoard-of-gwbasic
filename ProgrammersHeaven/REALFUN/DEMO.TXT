@@ -1,0 +1,36 @@
+
+
+         RealFun:  Real & Complex Math Libraries for QuickBASIC
+         DEMO.TXT
+
+         Included in this package are 4 demonstration programs, so
+         that you can get a feel for how the libraries are used.  The
+         sources are stored in text mode so they can be accessed with
+         your favorite text processor (like 'more').  The executables
+         are stand-alone; they don't need any of the QuickBASIC
+         modules to run.
+
+         DEMOATAN shows how functions in REALFUN can compute the
+         inverse tangent, properly accounting for the quadrant in
+         which the angle lies.  QuickBASIC's inverse tangent
+         function, ATN, would give -0.7854 radians as the inverse
+         tangent of -1, whereas REALFUN would give you -0.7854, or
+         2.3562 radians, or -45 or 135 degrees, depending on what you
+         want.
+
+         DEMOTRIG runs through the gamut of the circular and
+         hyperbolic trigonometric functions, tabulating the different
+         values for different angles.
+
+         DEMOJUL displays a Julia set fractal on a 320 x 200 x 256
+         screen.  This program is slow, but is a powerful framework
+         for "rolling-your-own" fractals.  To interrupt the program,
+         hit any key.  The finished product is contained in
+         DEMOJUL.GIF.
+
+         DEMONEWT displays another type of fractal, that resulting
+         from applying Newton's method to the equation z^4 = 1. 
+         Again, this is not a quick program, but provides a framework
+         for developing your own fractals.  To stop the program in
+         mid-draw, hit any key.  The finished picture is NEWTON.GIF.
+

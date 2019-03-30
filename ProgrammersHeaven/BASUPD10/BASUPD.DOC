@@ -1,0 +1,260 @@
+      BASUPD  Copyright (c) 1992  Thomas G. Hanlin III
+
+                     BasUpd Library, v1.0
+
+                   for QuickBASIC 4.0 - 4.5
+
+
+
+This library provides a set of routines which mimic new
+commands in other Microsoft BASIC compilers, such as PDS 7.x
+and Visual Basic.  In effect, it updates your QuickBASIC
+compiler to take advantage of these new features.  This adds a
+little more life to good ol' QuickBASIC and keeps you in touch
+with the ever-evolving BASIC language.
+
+The included libraries are made for QuickBASIC 4.5.  If you are
+using one of the QuickBASIC 4.0, 4.0a, 4.0b releases, you must
+recompile the .BAS files and recreate the libraries.
+
+The BasUpd library is protected by copyright.  However, it may
+be distributed freely, provided that all files are included
+together in original condition-- that is, you may not add
+files, remove files, or alter files in the BasUpd library.
+
+BasUpd routines may be used in your program without royalties
+or licensing fees of any kind.
+
+If you find BasUpd useful, you may want to check out my other
+free and shareware products for BASIC languages.  These include
+a wide assortment of libraries, utilities, and other goodies.
+See WHERE.BBS for a list of BBSes which have my latest products
+or send $5 for a set of sampler disks to:
+
+   Thomas G. Hanlin III
+   3544 E. Southern Ave. #104
+   Mesa, AZ 85204
+
+The sampler fee is refundable towards any registration.  Please
+specify disk size.  Foreign orders must be by international
+money order in U.S. funds and must include $4 postage.
+
+                         Using BasUpd
+
+
+
+BasUpd is a library of BASIC and assembly language routines.
+To use BasUpd, you must start QB with the /L switch, telling it
+to load the BasUpd library.  For example:
+
+   QB program.bas /L BASUPD
+
+or
+
+   QB /L BASUPD
+
+If you compile from the command line, using BC, you must tell
+LINK to bring in the necessary routines from the BASUPD
+library.  For example:
+
+   BC program.bas/O;
+   LINK program.obj/EX,,NUL,BASUPD
+
+You also need to include a "metacommand" in your program which
+loads the DECLARE information for the functions.  The first
+line in your program should read something like this:
+
+   REM $INCLUDE: 'BASUPD.BI'
+
+That's really all there is to it.  Once loaded, these routines
+act just like part of the BASIC language.
+
+The BasUpd library provides you with almost all of the new
+BASIC functions from PDS 7.x and Visual Basic.  They are made
+to work as closely as possible to "the real thing".  This
+applies quite specifically to the time/date routines, which
+return the same "serial number" value as the equivalent PDS/VB
+routines.  So, if you move to one of these compilers, you will
+be able to use its functions instead of those in BasUpd with a
+minimum of fuss.
+
+Name: ChDrive
+
+This routine allows you to change the default drive.  The drive
+letter may be either uppercase or lowercase.  Only the first
+character of the string is examined, so it doesn't matter if
+you use a colon for the drive spec.
+
+   ChDrive Drive$
+
+
+
+Name: CurDir$
+
+This function returns the default subdirectory on the specified
+drive.  The drive letter may be either uppercase or lowercase.
+Only the first character of the string is examined, so it
+doesn't matter if you use a colon for the drive spec.  If you
+just want to specify the current drive, you can use a null
+string for the drive spec.
+
+   Subdir$ = CurDir$("C:")
+
+The result is a fully-specified path.  For instance, the above
+example might have returned something like "C:\BASUPD".
+
+
+
+Name: DateSerial#
+
+This function returns a "serial number" for a specified date.
+See the appendix for a discussion of time/date serial numbers.
+
+You may specify the year as 1753-2078, or as 0-178 (where 0 is
+assumed to mean 1900, and so forth).  It might be wise to
+restrict that to 0-99 instead of 0-178; while Microsoft's docs
+say that 0-178 works, their version actually generates an error
+if 100-178 is used.  The BasUpd version accepts the full 0-178
+range.
+
+   Serial# = DateSerial#(YearNr%, MonthNr%, DayNr%)
+
+Please note the unusual order of the parameters.  Also, be
+careful not to use "Year", "Month", or "Day" as variable names,
+since these are reserved words providing other time/date
+functions.
+
+
+
+Name: Day%
+
+This function returns the day corresponding to a specified
+time/date serial number.
+
+   DayNr% = Day%(Serial#)
+
+Name: Error$
+
+This function returns the error message associated with a
+specific error number.  This would most often be used as part
+of an error-trapping routine.  Note that the built-in BASIC
+function ERR tells you the current error number.
+
+   ErrorMsg$ = Error$(ErrorNumber%)
+
+
+
+Name: Hour%
+
+This function returns the hour corresponding to a specific
+time/date serial number.
+
+   HourNr% = Hour%(Serial#)
+
+
+
+Name: Minute%
+
+This function returns the minute corresponding to a specific
+time/date serial number.
+
+   MinuteNr% = Minute%(Serial#)
+
+
+
+Name: Month%
+
+This function returns the month corresponding to a specific
+time/date serial number.
+
+   MonthNr% = Month%(Serial#)
+
+
+
+Name: Now%
+
+This function returns a time/date serial number for the current
+time and date.
+
+   Serial# = Now%
+
+Name: Second%
+
+This function returns the second corresponding to a specific
+time/date serial number.
+
+   SecondNr% = Second%(Serial#)
+
+
+
+Name: TimeSerial#
+
+This function returns a "serial number" for a specified time.
+See the appendix for a discussion of time/date serial numbers.
+
+The hour is specified using 24-hour (military) time, with a
+range of 0-23 (midnight-11pm).
+
+   Serial# = TimeSerial#(HourNr%, MinuteNr%, SecondNr%)
+
+Be careful not to use "Hour", "Minute", or "Second" as variable
+names, since these are reserved words providing other time/date
+functions.
+
+
+
+Name: WeekDay%
+
+This function returns the day of the week corresponding to a
+specific time/date serial number.  This is returned as a number
+1-7, where 1 = Sunday, 2 = Monday, ..., 7 = Saturday.
+
+   WeekDayNr% = WeekDay%(Serial#)
+
+
+
+Name: Year%
+
+This function returns the year corresponding to a specific
+time/date serial number.
+
+   YearNr% = Year%(Serial#)
+
+                          Appendix A
+
+                   Time/Date Serial Numbers
+
+
+
+The new time and date routines are based on an encoded value
+called a "serial number" (Microsoft's choice, not mine).  This
+is a double-precision floating point value which may include
+either time or date information, or both.
+
+To decode a serial number, divide it into left and right parts
+at the decimal point.  The part to the left of the decimal
+represents the date.  The part to the right of the decimal
+gives the time.
+
+The date is specified in days, based on December 30, 1899.
+Dates before then will be negative.  Dates after then will be
+positive.  Years from 1753-2078 are supported.
+
+The time is specified as a number indicating how much of the
+day has been used.  The easiest way to calculate it is to
+convert the time to the number of seconds past midnight:
+
+   TimeNow# = (HourNr * 60 + MinuteNr) * 60 + SecondNr
+
+Divide this by the number of seconds in a day (86,400), and
+you've got the same number as used in a time/date serial
+number.
+
+The approach used to creating a time/date serial number means
+that you can use these numbers for comparison or sorting: a
+larger serial number will always indicate a later time/date
+than a smaller serial number.  Date manipulation is also
+possible by adding/subtracting days from the serial number,
+etc.  Date validation can be accomplished by converting a date
+to a serial number and back, then comparing the resulting
+year/month/day to the original.

@@ -1,0 +1,1454 @@
+@0060
+Lola                                      
+Lolo                                      
+Apo                                       
+Nuno                                      
+Tita          Tiya                        
+Tito                                      
+Ina           Nanay                       
+Tatay         Ama                         
+Anak Na Babae                             
+Anak Na Lalaki                            
+Kapatid Na Babae            Ate           
+Kapatid Na Lalaki           Kuya          
+Biyenang Babae                            
+Biyenang Lalaki                           
+Hipag                                     
+Bayaw                                     
+Bata                                      
+Ninang                                    
+Ninong                                    
+Mag-Anak      Pamilya       Angkan        
+Kaibigan                                  
+Pagkakaibigan                             
+Kamag-Anak                                
+Manliligaw                                
+Pinsan                                    
+Nobya                                     
+Nobyo                                     
+Kaaway        (Kabaka)                    
+Mag-Asawa                                 
+Nag-Iisa                                  
+Mag-Ina                                   
+Inaanak                                   
+Mag-Aama                                  
+Anak                                      
+May Asawa                                 
+Dalaga                                    
+Kasera                                    
+Kasero                                    
+Pamangking Babae                          
+Pamangking Lalaki                         
+Magkapatid                                
+Batang Babae                              
+Batang Lalaki                             
+Manugang Babae                            
+Manugang Lalaki                           
+Asawang Babae                             
+Asawang Lalaki                            
+Balong Babae                              
+Balong Lalaki                             
+Kapitbahay                                
+Sanggol                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0036
+Bukas                                     
+Sandali                                   
+Araw                                      
+Petsa                                     
+Relos         (Relos Na Panggising)       
+Rilos                                     
+Linggo                                    
+Lunes                                     
+Martes                                    
+Miyerkoles                                
+Huwebes                                   
+Biyernes                                  
+Sabado                                    
+Minuto                                    
+Oras                                      
+Tanghali      Tanghaling Tapat            
+Umaga                                     
+Hapon                                     
+Gabi                                      
+Linggo                                    
+Buwan                                     
+Taon                                      
+Sampung Taon  (Siglo)                     
+Hatinggabi                                
+Enero                                     
+Pebrero                                   
+Marso                                     
+Abril                                     
+Mayo                                      
+Hunyo                                     
+Hulyo                                     
+Agosto                                    
+Septiyembre                               
+Oktubre                                   
+Nobiyembre                                
+Disyembre                                 
+*
+@0154
+Pagkain       Merienda                    
+Prutas                                    
+Pasas                                     
+Peras                                     
+Dalandan                                  
+Pinya                                     
+Saging                                    
+Ubas                                      
+Seresa                                    
+Limon         Kalamanse     Dayap         
+Mansanas                                  
+Kahel                                     
+Ensalada      Kilawin                     
+Kamatis                                   
+Patatas                                   
+Sanwits                                   
+Tinapay                                   
+Mantikilya                                
+Gulay                                     
+Atsara                                    
+Pipino                                    
+Ripolyo                                   
+Itlog                                     
+Keso          Kisilyo                     
+Sibuyas       Lasuna                      
+Litsugas                                  
+Sanorya                                   
+Asin                                      
+Paminta                                   
+Suka                                      
+Harina                                    
+Mais                                      
+Trigo                                     
+Lebadura      Pampaalsa                   
+Mane/Mani                                 
+Pay                                       
+Gisantes                                  
+Kastaniyas                                
+Kape                                      
+Tsa                                       
+Gatas                                     
+Gata                                      
+Asukal        Matamis                     
+Tubig                                     
+Krema                                     
+Alkohol                                   
+Alak                                      
+Mantika                                   
+Bibingka      Mamon                       
+Langis                                    
+Bawang                                    
+Bigas         Kanin                       
+Pansit                                    
+Malagkit                                  
+Karne                                     
+Karneng Baboy                             
+Karneng Baka                              
+Karneng Tupa  Kordero                     
+Tusino                                    
+Atay                                      
+Pato                                      
+Kuneho                                    
+Ulang                                     
+Baboy                                     
+Pabo                                      
+Bato                                      
+Hamon                                     
+Palaman                                   
+Manok                                     
+Isda                                      
+Gisa                                      
+Langgonisa    (Batutay)                   
+Arnibal       Pulot                       
+Niyog                                     
+Buko                                      
+Sopas         Sabaw                       
+Luya                                      
+Tugi                                      
+Labanos                                   
+Kulitis                                   
+Labong                                    
+Toge                                      
+Kamote                                    
+Sile                                      
+Kabute                                    
+Laurel                                    
+Paminton                                  
+Kanela                                    
+Bangos                                    
+Himagas                                   
+Gulaman                                   
+Pruns                                     
+Halea                                     
+Sorbetes                                  
+Yelo                                      
+Tadyang                                   
+Kagat                                     
+Pungos                                    
+Hiwa                                      
+Inumin        Pampalamig                  
+Magmasa                                   
+Banlaw                                    
+Paso                                      
+Iihaw                                     
+Gana                                      
+Pampagana                                 
+Linis                                     
+Resipi                                    
+Init                                      
+Tanghalian    Pananghalian                
+Hapunan       Pananghalian                
+Agahan        Almusal      Almusalan      
+Kusina                                    
+Kulo                                      
+Gawgaw                                    
+Gutom                                     
+Sahog                                     
+Tira                                      
+Rasyon                                    
+Halu-Halo                                 
+Halo                                      
+Dumi                                      
+Subo                                      
+Malambot                                  
+Kawali                                    
+Hurno                                     
+Plato                                     
+Tasa                                      
+Kaserola                                  
+Galong        (Pitsel)                    
+Palara                                    
+Kutsilyo      (Talim)                     
+Tinidor       Panduro                     
+Kutsara                                   
+Kutsarita                                 
+Mantel        Tapete                      
+Tapon                                     
+Rikado                                    
+Kalan                                     
+Baso          Bote                        
+Sandok                                    
+Tapis         Epron                       
+Kaldero                                   
+Tala          Listahan                    
+Damit                                     
+Umit                                      
+Amag          (Hamog)                     
+Suklob                                    
+Palito                                    
+Uhaw                                      
+Nguya                                     
+Gunting                                   
+Ningas        (Usok)                      
+Sunog                                     
+*
+@0079
+(Prn) Nasaan  (Plr) Saan-Saan             
+Alin                                      
+(Prn) Ano     (Plr) Anu-Ano               
+Anuman        Anoman                      
+Sino                                      
+(Prn) Ikaw                                
+(Prn) Kayo                                
+(Prn) Kita                                
+At                                        
+(Prn) Ako                                 
+(Prn) Ko                                  
+Kung (Conj)                               
+(Prn) Isa                                 
+(Prn) Paano                               
+Lahat                                     
+Lahat ng Tao                              
+Lahat ng Bagay                            
+Kailangan                                 
+Sabi                                      
+(Prn) Siya                                
+(Prn) Siya Sa Lalaki                      
+(Prn) Siya Sa Babae                       
+Ngunit (Conj)                             
+Kundi (Prep)                              
+Nais          Nasa                        
+(Prn) Niya    Kaniya {Pambabae}           
+(Prn) {Ang} Kaniya {Panlalaki}            
+(Conj & Prep) Dahil {Sa}                  
+(Prep) Dahil Kay                          
+Dahilan                                   
+(Prn) Akin                                
+(Prn) Aking Sarili                        
+Tingin                                    
+Kaysa         Sa                          
+(Prep) Sa     Hanggang                    
+(Prn) Sarili Mo                           
+Sarili                                    
+(Prn) Iyo                                 
+(Singular) Inyo                           
+(Prn) Iyan                                
+(Prn) Iyon/Yaon                           
+(Prn) Ito                                 
+(Prn) Atin Amin Natin Namin               
+(Prn) {Sa} Amin     Para Sa Atin          
+(Prn) Tayo                                
+(Prn) Kami                                
+Ang  (Particle used before a Common Noun) 
+(Prn) Nila    Kanila                      
+(Prn) Kanila                              
+(Conj) Kahit                              
+(Prn) Kahit Sino                          
+(Prn) Kahit Ano                           
+(Prn) Paano Man                           
+(Prn) Kahit Paano                         
+(Prn) Kahit Saan                          
+(Conj) Bagaman                            
+(Prn) Nino                                
+(Prn & Plr)  Ninyo                        
+(Prn) Sila                                
+(Prn) Isang Tao                           
+Balang Araw                               
+Ibang Araw                                
+(Prep) Kalakip                            
+Baka (Used to express Doubt/Uncertainty)  
+Kaniya        Kanya         Nito          
+Kaniyang                                  
+Ganito        (Ganoon)  -  (Prns)         
+(Interj) Ayan                             
+Oy! Halika                                
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Alila                                     
+Presidente                                
+Alkalde                                   
+Pangulo                                   
+Tagasulit                                 
+Tagasuri                                  
+Kalihim                                   
+Sastre                                    
+Kusinero/Kusinera                         
+Hilot                                     
+Taong-Bahay                               
+Serbidor      Weyter                      
+Tagapangasiwa                             
+Mandaragat                                
+Elektrisista                              
+Nars                                      
+Mediko                                    
+Portero       (Bantay-Pinto)              
+Guro/Titser   (Mag-Aaral)                 
+Hardinero                                 
+Tsuper                                    
+Pulis         Pulisya                     
+Tagapag-Alaga                             
+Manggagawa                                
+Mamamatay-Hayop                           
+Dentista                                  
+Tubero        Plumero                     
+Maninistis                                
+Sundalo                                   
+Abugado                                   
+Komiko        Komikero                    
+Artista                                   
+Pintor                                    
+Mekaniko                                  
+Katulong                                  
+Ingat-Yaman                               
+Barbero                                   
+Magsasaka                                 
+Bombero                                   
+Basurero                                  
+Kahero        Kahera                      
+Serbidora     Weytres                     
+Manunulat     (Makata)                    
+*
+@0171
+Pahintulot                                
+Kaya                                      
+Paligid                                   
+Tungkol                                   
+Kasama                                    
+Makinig Nang Pasubok                      
+(Prn) Iba                                 
+(Prn) Sarili                              
+Isa-Isa                                   
+Buo                                       
+Sagot                                     
+Sagot Sa                                  
+Alam                                      
+Kaalaman                                  
+Wika                                      
+Wiling-Wili                               
+Tagal         Lawig                       
+Gulang                                    
+Edad          Gulang                      
+Hula                                      
+Suwerte       Kapalaran                   
+Magandang Lalaki                          
+Magandang Babae                           
+Bakante                                   
+Pista                                     
+Madla                                     
+Munukala                                  
+Mungkahi                                  
+Pareha                                    
+Modo                                      
+Pulong                                    
+Ingay                                     
+Dumi                                      
+Dungis                                    
+Galaw                                     
+Kapiraso                                  
+Alikabok                                  
+Rikisa                                    
+Biro                                      
+Lumipas                                   
+Hipo                                      
+Hiram                                     
+Taba                                      
+Puwang                                    
+Pasiya                                    
+Bigay                                     
+Purok                                     
+Biktima                                   
+Puslit                                    
+Halimbawa                                 
+Agam-Agam                                 
+Hamon                                     
+Halinghing                                
+Hambalos                                  
+Gulat                                     
+Kasalanan                                 
+Gupit                                     
+Panibugho                                 
+Pangako                                   
+Panig                                     
+Paniwala                                  
+Tali                                      
+Bubog                                     
+Himpapawid                                
+Paalam                                    
+Masamang Babae                            
+Puna                                      
+Kapayakan                                 
+Kapahamakan                               
+Kapatawaran                               
+Bagsak                                    
+Baguhan                                   
+Badya                                     
+Amoy                                      
+Baho                                      
+Kulang Sa Timbang                         
+Lalim                                     
+Larawan                                   
+Layo                                      
+Lasingan                                  
+Sinungaling                               
+Palayaw                                   
+Magkabila                                 
+Kahalagahan                               
+Halaga                                    
+Sulok                                     
+Kambal                                    
+Amba                                      
+Pagbabanta                                
+Abuloy/Ambag                              
+Ambil                                     
+Ulit                                      
+May-Ari                                   
+Tiyapan                                   
+Buhay                                     
+Bunso                                     
+Ugali         Asal                        
+Pulutong                                  
+Susi                                      
+Kawayan                                   
+Pasok                                     
+Pasukan                                   
+Mensahe                                   
+Balik                                     
+Nanalo                                    
+Ibig                                      
+Bunggo                                    
+Sakit                                     
+Sanggol                                   
+Sakit Ng Ulo                              
+Mundo                                     
+Bangketa                                  
+Tindahan                                  
+Palengke                                  
+Bansa                                     
+Banyaga                                   
+Bayan                                     
+Gusali                                    
+Tulay                                     
+Lunday                                    
+Kotse                                     
+Lunsod        Siyudad                     
+Tren                                      
+Baryo                                     
+Suki          Tagabili                    
+Pasahero      Sakay                       
+Pagmamaneho                               
+Suka                                      
+Tagapayo                                  
+Takot                                     
+Sasakyan                                  
+Butas                                     
+Kindat                                    
+Goma                                      
+Pagliliwaliw                              
+Sakay                                     
+Tulo                                      
+Pahinga                                   
+Preno                                     
+Makina                                    
+Pagod                                     
+Maghintay                                 
+Kahulugan                                 
+Dami                                      
+Trabaho                                   
+Hanapbuhay                                
+Gawa                                      
+Inihaw                                    
+Pampook                                   
+Gawain                                    
+Tungkulin                                 
+Gawaan                                    
+Uri                                       
+Nagamit Na    Segunda Mano                
+Huwad                                     
+Pasunod                                   
+Sunod                                     
+Panganib                                  
+Banggit                                   
+Tao                                       
+Katauhan                                  
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0103
+Likod                                     
+Mata                                      
+Kilay                                     
+Pilikmata                                 
+Salamin Sa Mata                           
+Taynga                                    
+Salamin Ng Taynga                         
+Hininga                                   
+Bingi                                     
+Dugo                                      
+Hika                                      
+Bibig                                     
+Bigote                                    
+Balbas                                    
+Sansubo                                   
+Bokilya                                   
+Ingay                                     
+Pantog                                    
+Ilong                                     
+Butas Ng Ilong                            
+Pata          Binti                       
+Baraso                                    
+Tuhod                                     
+Ulo           (Noo)                       
+Bungo                                     
+Sakit Ng Ulo                              
+Bukung-Bukong                             
+Paa                                       
+Mga Paa                                   
+Daliri Ng Paa                             
+Yabag                                     
+Daliri        (Kuko)                      
+Palad                                     
+Dibdib                                    
+Pisngi                                    
+Biloy                                     
+Baba                                      
+Panga                                     
+Ngipin                                    
+Hinlalaki                                 
+Bahin                                     
+Sipa                                      
+Salita                                    
+Usap                                      
+Hita                                      
+Isip                                      
+Dila                                      
+Hipo                                      
+Liig                                      
+Kamay                                     
+Dilaan                                    
+Kuko                                      
+Tiyan                                     
+Balakang                                  
+Buhok [Sa Ulo]                            
+Gasgas                                    
+Buyon                                     
+Katawan                                   
+Libag                                     
+Pawis                                     
+Bukol         Pigsa                       
+Pigi                                      
+Damdam                                    
+Pandinig                                  
+Labi                                      
+Puso                                      
+Atake Sa Puso                             
+Kalusugan                                 
+Baga                                      
+Bato                                      
+Atay                                      
+Tinig                                     
+Lakad                                     
+Mukha                                     
+Tingin                                    
+Pekas                                     
+Pilat                                     
+Baywang                                   
+Puwit                                     
+Tadyang                                   
+Balikat                                   
+Bayugo Ng Tuhod                           
+Kulubot                                   
+Utak                                      
+Balakang                                  
+Bisig                                     
+Balat                                     
+Pulso                                     
+Nguso                                     
+Ubo                                       
+Lalamunan                                 
+Manhid                                    
+Lura          Laway         (Uhog)        
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0080
+Ingat                                     
+Mabuti                                    
+Masama                                    
+Ganda                                     
+Gusto                                     
+Pag-Ayaw                                  
+Pag-Ayaw Sa                               
+Ayaw                                      
+Itaas                                     
+Batas                                     
+Bulong        Anas                        
+Sigawan                                   
+Sigaw                                     
+Iyak                                      
+Iyakin                                    
+Hikbi                                     
+Pananghoy                                 
+Tawanan       Halakhak      Halakhakan    
+Tawa          Tawanan       Halakhak      
+Ngiti         Nginsngis-Ngiti             
+Mayhanda      Babaing Maybisita           
+Mayhanda      Maybisita                   
+Lapit                                     
+Babae                                     
+Lalaki                                    
+Salamat                                   
+Haba                                      
+Hinto         Tigil                       
+Simula                                    
+Wakas                                     
+Mali                                      
+Nagkamali Ako                             
+Di-Totoo                                  
+Ligaya                                    
+Harap         Unahan        Bungad        
+Hulihan                                   
+Buntot                                    
+Likod                                     
+(Prep) Pagkatapos                         
+(Prep & Conj) Bago                        
+Ilalim                                    
+Labasan                                   
+Loob                                      
+Hayagan       Madla                       
+Ibabaw                                    
+Pagdating     Dating                      
+Alis                                      
+Pag-Alis                                  
+Kalusugan                                 
+Suwerte                                   
+Pag-Ibig                                  
+Kariktan                                  
+Manliligaw                                
+Sinta/Mutya                               
+Sintahan                                  
+Malalim                                   
+Malambot                                  
+Yaman                                     
+Gamit                                     
+Makabuluhan                               
+Walang Kabuluhan                          
+(Adv) Pababa                              
+Muni                                      
+Tanga                                     
+Tulala                                    
+Bigat                                     
+Limot                                     
+Gitna                                     
+Walang Suwerte                            
+May Suwerte                               
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0046
+Buson                                     
+Post-Opis     Tanggapan Ng Koreo          
+Sa Pangunahing Uri                        
+Sa Pangalawang Uri                        
+Bigat                                     
+Kulang Sa Timbang                         
+Balutan                                   
+Pakete        Parsela                     
+Bayad (Sa Pagpapadala)                    
+Hapag Tanggapan                           
+Basa                                      
+Basa                                      
+Kartero                                   
+Tugon         Pakli                       
+Koreo                                     
+Australya                                 
+Amerika                                   
+Papel                                     
+Lapis                                     
+Pluma                                     
+Bayan                                     
+Mensahe                                   
+Direksiyon                                
+Tinitirahan                               
+Bansa                                     
+Pamagat                                   
+Lunsod        Siyudad                     
+Ispeling                                  
+Pangalan                                  
+Sulat         Liham                       
+Kahon                                     
+Balot                                     
+Selyo         Tatak                       
+Sobre                                     
+Tinta                                     
+Ingles                                    
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0024
+Kulay                                     
+Itim          Ulikba                      
+Pula                                      
+Puti                                      
+Kayumanggi                                
+Asul                                      
+Bughaw                                    
+Dilaw                                     
+Luntian       Berde                       
+Pilak                                     
+Ginto                                     
+Putlain                                   
+Rosas                                     
+Lila                                      
+Dalandan                                  
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Panahon                                   
+Klema                                     
+Ulan                                      
+Tag-Ulan                                  
+Alapaap                                   
+Ulap                                      
+Hangin                                    
+Unos                                      
+Simoy                                     
+Bagyo                                     
+Buhawi                                    
+Pagsikat Ng Araw                          
+Liwanag Ng Araw                           
+Paglubog Ng Araw                          
+Taglamig                                  
+Tag-Araw                                  
+Taglagas                                  
+Langit                                    
+Liwanag Ng Buwan                          
+Buwan                                     
+Tala                                      
+Kulog                                     
+Lilim                                     
+Ambon                                     
+Payong                                    
+Kidlat                                    
+Bahaghari                                 
+                                          
+Init                                      
+Amihan                                    
+Kapote                                    
+Ilaw                                      
+Paglilihim                                
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0025
+Kanluran                                  
+Kaliwa                                    
+Hilaga                                    
+Kanan                                     
+Timog                                     
+Silangan                                  
+Harap         Unahan        Bungad        
+Hulihan                                   
+Likod                                     
+(Prep & Conj) Bago                        
+Ilalim                                    
+Ibabaw                                    
+Una Ang Likod                             
+Talikod                                   
+Pihit                                     
+(Prep) Sa Tabi Ng                         
+(Prep) Sa Gitna Ng                        
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0043
+Simbahan      (Kapilya)     (Dambana/Alta)
+Parokiya                                  
+Pari                                      
+Misa                                      
+Paglilibing   Libing                      
+Kamatayan                                 
+Patay                                     
+Mabuhay                                   
+Katoliko                                  
+Binyagan                                  
+Libingan                                  
+Pasko                                     
+Kabaong                                   
+Pasko Ng Pagkabuhay                       
+Hukay                                     
+Seremonya                                 
+Namatay                                   
+Awit          Kanta                       
+Dalangin                                  
+Dasal                                     
+Binyag                                    
+Kasalanan                                 
+Koro                                      
+Tiwala        Pananampalataya             
+Diyos                                     
+Talaga                                    
+Korona                                    
+Multo                                     
+Relihiyon                                 
+Langit                                    
+Impiyerno                                 
+Demonyo                                   
+Pulpito                                   
+Pag-Asa                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0054
+Saplot                                    
+Damit                                     
+Baro                                      
+Plantsa                                   
+Guwantes                                  
+Sinturon                                  
+Pantalon                                  
+Panyo                                     
+Medyas                                    
+Sinelas       Tsinelas                    
+Sapatos                                   
+Kamiseta                                  
+Kamisa-Dentro                             
+Putong                                    
+Butones                                   
+Kuwelyo                                   
+Panyulon                                  
+Alampay                                   
+Manggas                                   
+Punyos                                    
+Putot                                     
+Bulsa                                     
+Sumbrero                                  
+Saya                                      
+Gora                                      
+Kapote                                    
+Tahi                                      
+Bulak                                     
+Salawal                                   
+Lana                                      
+Sinulid                                   
+Karayom                                   
+Sulsi                                     
+Sutla         Seda                        
+Suot                                      
+Suot Na Pamburol                          
+Katad         Balat                       
+Pabango                                   
+Kurbata                                   
+Hubad                                     
+Kuwintas                                  
+Hikaw                                     
+[Lambat Sa] Buhok                         
+[Ipit Sa] Buhok                           
+Aspile                                    
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0117
+Sero                                      
+Isa                                       
+Dalawa                                    
+Tatlo                                     
+Apat                                      
+Lima                                      
+Anim                                      
+Pito                                      
+Walo                                      
+Siyam                                     
+Sampu                                     
+Labing-Isa                                
+LabinDalawa                               
+LabinTatlo                                
+Labing-Apat                               
+LabinLima                                 
+Labing-Anim                               
+LabinPito                                 
+LabinWalo                                 
+LabinSiyam                                
+Dalawampu                                 
+Dalawamput Isa                            
+Dalawamput Dalawa                         
+Dalawamput Tatlo                          
+Dalawamput Apat                           
+Dalawamput Lima                           
+Dalawamput Anim                           
+Dalawamput Pito                           
+Dalawamput Walo                           
+Dalawamput Siyam                          
+Tatlumpu                                  
+Tatlumput Isa                             
+Tatlumput Dalawa                          
+Tatlumput Tatlo                           
+Tatlumput Apat                            
+Tatlumput Lima                            
+Tatlumput Anim                            
+Tatlumput Pito                            
+Tatlumput Walo                            
+Tatlumput Siyam                           
+Apatnapu                                  
+Apatnaput Isa                             
+Apatnaput Dalawa                          
+Apatnaput Tatlo                           
+Apatnaput Apat                            
+Apatnaput Lima                            
+Apatnaput Anim                            
+Apatnaput Pito                            
+Apatnaput Walo                            
+Apatnaput Siyam                           
+Limampu                                   
+Limamput Isa                              
+Limamput Dalawa                           
+Limamput Tatlo                            
+Limamput Apat                             
+Limamput Lima                             
+Limamput Anim                             
+Limamput Pito                             
+Limamput Walo                             
+Limamput Siyam                            
+Animnapu                                  
+Animnaput Isa                             
+Animnaput Dalawa                          
+Animnaput Tatlo                           
+Animnaput Apat                            
+Animnaput Lima                            
+Animnaput Anim                            
+Animnaput Pito                            
+Animnaput Walo                            
+Animnaput Siyam                           
+Pitumpu                                   
+Pitumput Isa                              
+Pitumput Dalawa                           
+Pitumput Tatlo                            
+Pitumput Apat                             
+Pitumput Lima                             
+Pitumput Anim                             
+Pitumput Pito                             
+Pitumput Walo                             
+Pitumput Siyam                            
+Walumpu                                   
+Walumput Isa                              
+Walumput Dalawa                           
+Walumput Tatlo                            
+Walumput Apat                             
+Walumput Lima                             
+Walumput Anim                             
+Walumput Pito                             
+Walumput Walo                             
+Walumput Siyam                            
+Siyamnapu                                 
+Siyamnaput Isa                            
+Siyamnaput Dalawa                         
+Siyamnaput Tatlo                          
+Siyamnaput Apat                           
+Siyamnaput Lima                           
+Siyamnaput Anim                           
+Siyamnaput Pito                           
+Siyamnaput Walo                           
+Siyamnaput Siyam                          
+Isang Daan                                
+Dalawang Daan                             
+Tatlong Daan                              
+Apat Na Raan                              
+Limang Daan                               
+Anim Na Raan                              
+Pitong Daan                               
+Walong Daan                               
+Siyam Na Raan                             
+Isang Libo    Sanlibo                     
+Isang Milyon  Angaw                       
+Una                                       
+Ikalawa                                   
+Ikatlo                                    
+Ikaapat                                   
+Isang Beses                               
+Dalawang Beses                            
+*
+@0029
+Salapi        Kuwalta       (Piso)        
+Pera                                      
+Lagak                                     
+Pahiram                                   
+Bayad                                     
+Upa                                       
+(Prn) Gaano                               
+(Prn) Ilan                                
+(Prn) Magkano                             
+Lagda                                     
+May-Ari                                   
+Gugol                                     
+Hulog                                     
+Sanglaan                                  
+Halaga                                    
+Pitaka                                    
+Hiyas                                     
+Bangko                                    
+Utang                                     
+Buwis                                     
+Sahod                                     
+Resibo                                    
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0099
+Sulo                                      
+Kasero                                    
+Kasera                                    
+Aparador                                  
+Pausukan                                  
+Tubo                                      
+Kandila                                   
+Dalaw                                     
+Ari           Ari-Arian    Pag-Aari       
+Pinto                                     
+Timbre [Sa Pinto]                         
+Mesa                                      
+Tanggapan                                 
+Silya                                     
+Upuan                                     
+Salamin                                   
+Pandakot                                  
+Walis                                     
+Banig                                     
+Saket                                     
+Sahig                                     
+Palapag                                   
+Bubong                                    
+Pader                                     
+Itaas                                     
+Larawan                                   
+Salas         Bulwagan                    
+Supa                                      
+Higaan                                    
+Tarangkahan                               
+Kuwarto        Silid                      
+Maliit Na Silid-Bihisan                   
+Paminggalan                               
+Bintana       Durungawan                  
+Palababahan                               
+Kortina                                   
+Radiator                                  
+Plag Ng Koryente                          
+Bahay                                     
+Tahanan                                   
+Susi                                      
+Lupa                                      
+Bombilya                                  
+Muwebles      Kasangkapan (Items/Things)  
+Kontador                                  
+Agiw                                      
+Tangke        Tangke Ng Tubig             
+Agos                                      
+Kisame                                    
+Silid-Tulugan                             
+Kama                                      
+Kumot                                     
+Unan                                      
+Tulog                                     
+Hilik                                     
+Panaginip                                 
+Bungang-Tulog                             
+Kutson                                    
+Punda                                     
+Sako                                      
+Kandado                                   
+Silid Kainan                              
+Radyo                                     
+Telebisyon                                
+Telepono                                  
+Magasing                                  
+Banyo                                     
+Paligo        Ligo                        
+Sabon                                     
+Sepilyo Ng Ngipin                         
+Tuwalya                                   
+Ahit                                      
+Bigote                                    
+Balbas                                    
+Labaha                                    
+Palanggana                                
+Laba                                      
+Laba                                      
+Sipilyo                                   
+Suklay                                    
+Lababo                                    
+Gugo                                      
+Paligo                                    
+Hubad                                     
+Katawan                                   
+Libag                                     
+Pawis                                     
+Timbangan                                 
+Ilaw                                      
+Hagdanan      (Hagdan)                    
+Hakbang                                   
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0026
+Sukat                                     
+Pulgada                                   
+Metro                                     
+Yarda                                     
+Paa                                       
+Dali                                      
+Litro                                     
+Mga Paa                                   
+Onsa                                      
+Kilometro                                 
+Galon                                     
+Kilo                                      
+Milya                                     
+Haba          Kahabaan                    
+Lapad         Luwang                      
+Taas                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0035
+May-Akda                                  
+Tisa          Yeso                        
+Sining                                    
+Pangungusap                               
+Pahina                                    
+Aklat         Libro                       
+Papel                                     
+Lapis                                     
+Pluma                                     
+Taludtod                                  
+Salita                                    
+Gulang        Tanda                       
+Tuldok                                    
+Kuwento                                   
+Tula                                      
+Bilang                                    
+Kuwit                                     
+Aklatan                                   
+Letra                                     
+Talata                                    
+Kabanata                                  
+Guro                                      
+Mag-Aaral                                 
+Tinta                                     
+Pamagat                                   
+Salawikain                                
+Paaralan                                  
+Aralin        Takdang Aralin              
+Kudlit                                    
+Pangalan                                  
+Paksa                                     
+Tuldukuwit                                
+                                          
+                                          
+                                          
+*
+@0047
+Hayop                                     
+Alagang Hayop                             
+Kulisap                                   
+                                          
+Alimango                                  
+Ulang                                     
+Leon                                      
+Ahas                                      
+Suso                                      
+Tigre                                     
+Langgam                                   
+Putakti                                   
+Pusa                                      
+Aso                                       
+Ibon          (Pakpak)                    
+Elepante                                  
+Kabayo                                    
+Tupa                                      
+Baka                                      
+Kuwago                                    
+Unggoy                                    
+Manok                                     
+Pato                                      
+Gansa                                     
+Baboy                                     
+Kuneho                                    
+Hipon                                     
+Daga                                      
+Gagamba                                   
+Kalapati                                  
+Talaba                                    
+Isda                                      
+Alakdan                                   
+Palaka                                    
+Uwak                                      
+Uwang                                     
+Lamok                                     
+Lobo                                      
+Bulati        Uod                         
+Higad         Uod                         
+Ipis                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0037
+Sine          Pelikula                    
+Tenis                                     
+Baraha                                    
+Laro                                      
+Sayaw                                     
+Awit          Kanta                       
+Musika        Tugtugin                    
+Tunog                                     
+Nota                                      
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+                                          
+*
+@0058
+Bukid                                     
+Ilog                                      
+Bandila                                   
+Tagdan Ng Bandila                         
+Tikin                                     
+Bomba Sa Sunog    Sunog     Ningas        
+Lungga                                    
+Bulaklak                                  
+Paso                                      
+Buko                                      
+Panambit                                  
+Maysakit                                  
+Alipunga                                  
+Paltos                                    
+Benda                                     
+Kasangkapan                               
+Disturnilyador                            
+Turnilyo                                  
+Martilyo                                  
+Lagari                                    
+Pinaglagarian                             
+Pako                                      
+Pala                                      
+Garahe                                    
+Hardin        Halamanan                   
+Basura        Yagit                       
+Lubid                                     
+Takasan Sa Sunog                          
+Sinsing                                   
+Yabang                                    
+Tawag                                     
+Bakod                                     
+                                          
+Bilog                                     
+                                          
+Parisukat                                 
+Mga Kagamitan                             
+Gilid         Talim                       
+Gulong                                    
+Mapa                                      
+Pasiyok       Sutsot                      
+Haplos                      (Amo)         
+Galis                                     
+Paalam                                    
+Pabuya                                    
+Pagdadalaga   Pagbibinata                 
+Dagat                                     
+Lihim                                     
+Kampana                                   
+Laki                                      
+Buslo                                     
+Karera                                    
+Guhit                                     
+Kabisera      (Ulong-Lunsod)              
+Pulo                                      
+Parmasya                                  
+Lagnat                                    
+Pildoras                                  
+*
+

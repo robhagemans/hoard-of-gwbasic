@@ -1,0 +1,253 @@
+    컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+    An explanation of the development and future of MoonRock, by the author,
+    Rowan Crowe.
+    컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴
+
+    from: rowan@p1.f727.n635.z3.fidonet.org
+    date: 21 Jan 1996
+    time: 4:43am
+    newsgroups: comp.lang.basic.misc
+
+     * jeibisch@revolver.demon.co.uk writes on Friday January 19 1996
+
+    > I just downloaded the Basic-like compiler MoonRock and piddled about
+    > with a tiny test program (hello world type of thing). It looks good, I
+    > like the look and feel of it so far. Simple yet solid, etc.
+
+    It's still in the development stage, and has several quirks which
+    need to be worked around. But, once you're familiar with it, that's
+    not too much trouble.
+
+    > Rowan (author), could you give some details of your thinking behind
+    > it: what you expect it to be used for, its current limitations, future
+    > 'strategy', raison d'etre etc?
+
+    > Am posting rather than emailing as I expect this to be of interest to
+    > more people than just myself.
+
+    Sure.
+
+    Firstly, to explain a little further about MoonRock, here is the
+    FILE_ID.DIZ from the release archive:
+
+
+    ----begin FILE_ID.DIZ-------------------------------------------------
+    MoonRock is a BASIC-like language
+    with several extensions. Produces
+    small and tight executables.
+
+    Includes compiler, ArrowSoft
+    assembler, documentation and
+    sample programs.
+
+    Continuing development by the
+    author - Rowan Crowe at fidonet
+    3:635/727, or internet:
+    rowan@jelly.freeway.DIALix.oz.au
+
+     -- This version is FREEWARE --
+    ---------------------------------------------------end FILE_ID.DIZ----
+
+
+    I originally began work on MoonRock because I was dissatisfied with
+    the bloated executables that QuickBASIC and other MicroSoft BASICs
+    produce. Before I moved to the PC world in 1992, I had been coding
+    in 6502 ASM on a machine with typically less than 32k RAM, so I
+    could certainly appreciate the need for tight code. My only other
+    language was BASIC. This particular machine (BBC Model B 6502 2MHz
+    32K RAM) had an assembler embedded into the BASIC interpreter, which
+    allowed me to freely mix both languages.
+
+    As I gradually moved over to 80x86 assembly I became interested in
+    how compilers converted high level source into low level ASM or
+    machine code. I thought I would give it a try myself. When I
+    originally started MoonRock, I had little experience: I had never
+    written or designed a compiler, and did not know many fundamental
+    techniques. I had plenty of ideas. I made several mistakes along the
+    way, some that affect the direction the compiler has taken, but I've
+    certainly learnt a lot, too.
+
+    MoonRock has now been in development for over 15 months (the oldest
+    archive I have is dated 1st-Nov-1994). Over that time it has grown
+    significantly, both in power and internal complexity.
+
+    Currently there is only a single person (myself) involved in the
+    development of MoonRock, and it is done in my spare time.
+
+    Now for some more detail about MoonRock: the compiler translates a
+    BASIC-like source file into assembler source (ASM). This is then
+    assembled with an assembler such as MASM, TASM, A86, or ArrowSoft,
+    then finally linked to produce an executable (either COM or EXE).
+    Each ASM produced by MoonRock is entirely standalone and does not
+    need to be linked with external libraries: one of the oddities of
+    the compiler is that the library functions are *included* in the
+    output ASM file. This is not as silly as it sounds, because it means
+    that the code for the library functions can change dynamically from
+    compile to compile, depending on which switches or directives are
+    used. For example, if 386+ code generation is specified, then
+    several of the string handling libraries use MOVSD (move doubleword,
+    386+) instead of MOVSW.
+
+    MoonRock's code generation is of average to good quality. It uses
+    register based parameter passing to most internal functions and
+    procedures. Simple functions (such as ABS) are performed "inline" so
+    as not to add the overhead of calling a function. The compiler
+    provides simple optimisations such as not saving a register to a
+    memory address and then reloading it straight back (MicroSoft BASICs
+    are guilty of not doing this blatantly obvious optimisation).
+
+    The library functions themselves are, in their "release" form, as
+    tight as possible. When the debug switch is specified with the
+    compiler, extra hand-holding code is included into the functions to
+    catch potential errors. Thus, for debugging one can include the
+    necessary hand-holding, but a release compile will be free of the
+    extra size and loss of speed. The included ASM library contains
+    5,000+ lines of ASM.
+
+    Startup code is small. A program to print "Hello World" is 220 bytes
+    (compiled with MRC v0.15.b4 with switch "/-C"). The startup and
+    cleanup code also changes dynamically depending on commandline
+    switches.
+
+    Generally MoonRock executables will be compiled for smallest size.
+
+    Briefly, these are the features and limits of MoonRock:
+
+      + Small executable output generation ("Hello World" = 220 bytes)
+      + Syntax similar to BASIC
+      + Numerical arrays may be explicitly placed in FAR (64k seg limit)
+          or HUGE (>64k) memory, to free up data segment space
+      + Memory can be allocated by the programmer
+      + Limited support for pointers (under development)
+      + Can produce code to link with QuickBASIC code
+      + Supports BYTE size variable type
+      + Has screen drivers for DOS, BIOS, and direct screen writes
+      + Control characters can be embedded into string literals, eg:
+                print "Hello world\n\n"
+                    instead of:
+                print "Hello world" + chr$(13) + chr$(10) + chr$(13)
+                   + chr$(10)
+
+      - Floating point not yet supported
+      - Bracketing in evaluation not yet supported, eg:
+                a% = ((c% - 2) * d%) + 5
+        The evaluation must be done separately thus:
+                temp1% = c% - 2
+                temp2% = temp1% * d%
+                a% = temp2% + 5
+      - FUNCTIONs not yet supported
+      - Variables are limited to a single 64k segment, except for FAR
+          and HUGE byte, word and doubleword arrays
+      - Limit of 64k code+stack (similar to "SMALL" memory model)
+      - Graphics not yet supported
+
+
+    So much for the current version. A newer version is being developed,
+    this time in "native" MoonRock. It is far more powerful, for example
+    you can throw it this expression:
+
+    a% = c% * (5 + 3) - ((2 - d% + (e% * 3) * 5) + (c% * 2) + (e% - 2) - 3)
+
+    ... and it evaluates the brackets in the correct order.
+
+    It supports FUNCTIONs.
+
+    It has generally better code creation, and a post-optimiser which
+    makes use of available registers, to speed evaluation in the
+    compiled executable.
+
+    It is more reliable at catching compile-time (source code) errors.
+
+    It is much a much faster compiler, and is smaller (due to it being
+    compiled by MoonRock).
+
+
+    Basically (no pun intended), the newer version blows the old one out
+    of the water, and makes it look rather primitive. There are some
+    minor changes to the language elements, but I'll be including a
+    convertor. Some of the changes are already present in the current
+    version of MoonRock (for example, in the current version you can use
+    either END SUB or RETURN to mark the end of a subroutine block; in
+    the newer version RETURN will be used for something else).
+
+    The newer version is still under development, and will not be
+    released for several months, although Beta versions will be released
+    before then.
+
+    Finally, here is a simple MoonRock program which shows a listing of
+    the specified files. I have modified it slightly to make it more
+    readable.
+
+
+    ----
+
+    ' FF.MOO by Rowan Crowe
+
+    ' Demonstrates FINDFIRST/FINDNEXT functions.
+    ' Displays a simple directory listing.
+
+    ' Last modified 05-Jan-1996
+
+    BEGIN DEF
+
+      #INCLUDE ffblk.h
+
+      STRSEGSIZE 5k            ' We only need a small string seg for this.
+
+    BEGIN CODE
+
+
+    cmd$ = CMDLINE             ' get commandline
+    cmd$ = LTRIM(cmd$)         ' trim leading spaces
+    cmd$ = UCASE(cmd$)         ' convert to uppercase
+    IF cmd$ <> "" THEN
+      PRINT "  Filespec = '" + cmd$ + "'\n\n"
+      b$ = FINDFIRST (cmd$, 7)
+      WHILE b$ <> ""
+        fcount% = fcount% + 1
+        b$ = LCASE(b$) + SPACE(12)
+        PRINT LEFT(b$, 12) + "        "
+        b$ = FINDNEXT
+      WEND
+      IF fcount% > 0 THEN PRINT "\n\n"
+      PRINT "  " + fcount% + " file"
+      IF fcount% <> 1 THEN PRINT "s"
+      PRINT " found.\n"
+    ELSE
+      PRINT "Specify filespec in commandline.\n"
+    ENDIF
+    END
+
+    ----
+
+
+    Size of executable:
+
+    ff.com       1,694 bytes
+
+
+    Result of "ff *.exe":
+
+    ----
+      Filespec = '*.EXE '
+
+    dc.exe          lc.exe          mrc.exe         b1.exe
+    b.exe
+
+      5 files found.
+    ----
+
+
+    Available at ftp.juge.com/ibmmisc/moon014.zip
+
+    (moon015.zip soon to be released, so look for that first)
+
+
+    --
+    Rowan Crowe, author MoonRock
+    Fidonet:  3:635/727  or  3:635/727.1
+    Internet: rowan@p1.f727.n635.z3.fidonet.org
+                          or
+              rowan@jelly.freeway.DIALix.oz.au
+
+--------------------------------------------------------------------------

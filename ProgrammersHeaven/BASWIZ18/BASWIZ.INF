@@ -1,0 +1,3107 @@
+Name: ARCCOSD
+Mod : ARCCOSD.OBJ
+Decl: DECLARE FUNCTION ArcCosD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the inverse cosine of a number
+
+Name: ARCCOSHD
+Mod : ARCCOSHD.OBJ
+Decl: DECLARE FUNCTION ArcCosHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the inverse hyperbolic cosine of a number
+
+Name: ARCCOSHS
+Mod : ARCCOSHS.OBJ
+Decl: DECLARE FUNCTION ArcCosHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the inverse hyperbolic cosine of a number
+
+Name: ARCCOSS
+Mod : ARCCOSS.OBJ
+Decl: DECLARE FUNCTION ArcCosS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the inverse cosine of a number
+
+Name: ARCSIND
+Mod : ARCSIND.OBJ
+Decl: DECLARE FUNCTION ArcSinD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the inverse sine of a number
+
+Name: ARCSINHD
+Mod : ARCSINHD.OBJ
+Decl: DECLARE FUNCTION ArcSinHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the inverse hyperbolic sine of a number
+
+Name: ARCSINHS
+Mod : ARCSINHS.OBJ
+Decl: DECLARE FUNCTION ArcSinHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the inverse hyperbolic sine of a number
+
+Name: ARCSINS
+Mod : ARCSINS.OBJ
+Decl: DECLARE FUNCTION ArcSinS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the inverse sine of a number
+
+Name: ARCTANHD
+Mod : ARCTANHD.OBJ
+Decl: DECLARE FUNCTION ArcTanHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the inverse hyperbolic tangent of a number
+
+Name: ARCTANHS
+Mod : ARCTANHS.OBJ
+Decl: DECLARE FUNCTION ArcTanHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the inverse hyperbolic tangent of a number
+
+Name: BCDABS
+Mod : BCDABS.OBJ
+Decl: DECLARE FUNCTION BCDAbs$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the absolute value of a number
+
+Name: BCDADD
+Mod : BCDADD.OBJ
+Decl: DECLARE FUNCTION BCDAdd$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-BCD
+Desc: Add two numbers
+
+Name: BCDCOMPARE
+Mod : BCDCOMP.OBJ
+Decl: DECLARE FUNCTION BCDCompare% (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-BCD
+Desc: Compare two numbers
+
+Name: BCDCOS
+Mod : BCDCOS.OBJ
+Decl: DECLARE FUNCTION BCDCos$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the cosine of a number
+
+Name: BCDCOT
+Mod : BCDCOT.OBJ
+Decl: DECLARE FUNCTION BCDCot$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the cotangent of a number
+
+Name: BCDCSC
+Mod : BCDCSC.OBJ
+Decl: DECLARE FUNCTION BCDCsc$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the cosecant of a number
+
+Name: BCDDEG2RAD
+Mod : BCDD2R.OBJ
+Decl: DECLARE FUNCTION BCDDeg2Rad$(Nr AS STRING)
+Type: Numeric-BCD
+Desc: Convert from degrees to radians
+
+Name: BCDDIV
+Mod : BCDDIV.OBJ
+Decl: DECLARE FUNCTION BCDDiv$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-BCD
+Desc: Divide one number by another
+
+Name: BCDE
+Mod : BCDE.OBJ
+Decl: DECLARE FUNCTION BCDe$ ()
+Type: Numeric-BCD
+Desc: Return the exponential constant "e"
+
+Name: BCDFACT
+Mod : BCDFACT.OBJ
+Decl: DECLARE FUNCTION BCDFact$ (NumInt AS INTEGER)
+Type: Numeric-BCD
+Desc: Return the factorial of a number
+
+Name: BCDFORMAT
+Mod : BCDFORM.OBJ
+Decl: DECLARE FUNCTION BCDFormat$ (Nr AS STRING, HowToFormat%, RightDigits%)
+Type: Numeric-BCD
+Desc: Convert a number to a displayable string
+
+Name: BCDFRAC
+Mod : BCDFRAC.OBJ
+Decl: DECLARE FUNCTION BCDFrac$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the fractional part of a number
+
+Name: BCDINT
+Mod : BCDINT.OBJ
+Decl: DECLARE FUNCTION BCDInt$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the integer part of a number
+
+Name: BCDMUL
+Mod : BCDMUL.OBJ
+Decl: DECLARE FUNCTION BCDMul$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-BCD
+Desc: Multiply two numbers
+
+Name: BCDNEG
+Mod : BCDNEG.OBJ
+Decl: DECLARE FUNCTION BCDNeg$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Negate a number
+
+Name: BCDPI
+Mod : BCDPI.OBJ
+Decl: DECLARE FUNCTION BCDpi$ ()
+Type: Numeric-BCD
+Desc: Return the constant "pi"
+
+Name: BCDPOWER
+Mod : BCDPOWER.OBJ
+Decl: DECLARE FUNCTION BCDPower$ (Nr AS STRING, Power AS INTEGER)
+Type: Numeric-BCD
+Desc: Raise a number to a specified power
+
+Name: BCDRAD2DEG
+Mod : BCDR2D.OBJ
+Decl: DECLARE FUNCTION BCDRad2Deg$(Nr AS STRING)
+Type: Numeric-BCD
+Desc: Convert from radians to degrees
+
+Name: BCDSEC
+Mod : BCDSEC.OBJ
+Decl: DECLARE FUNCTION BCDSec$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the secant of a number
+
+Name: BCDSET
+Mod : BCDSET.OBJ
+Decl: DECLARE FUNCTION BCDSet$ (NumSt$)
+Type: Numeric-BCD
+Desc: Convert a string to a number
+
+Name: BCDSGN
+Mod : BCDSGN.OBJ
+Decl: DECLARE FUNCTION BCDSgn% (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the signum of a number
+
+Name: BCDSIN
+Mod : BCDSIN.OBJ
+Decl: DECLARE FUNCTION BCDSin$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the sine of a number
+
+Name: BCDSQR
+Mod : BCDSQR.OBJ
+Decl: DECLARE FUNCTION BCDSqr$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the square root of a number
+
+Name: BCDSUB
+Mod : BCDSUB.OBJ
+Decl: DECLARE FUNCTION BCDSub$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-BCD
+Desc: Subtract one number from another
+
+Name: BCDTAN
+Mod : BCDTAN.OBJ
+Decl: DECLARE FUNCTION BCDTan$ (Nr AS STRING)
+Type: Numeric-BCD
+Desc: Return the tangent of a number
+
+Name: CENT2FAHR
+Mod : CENT2FAH.OBJ
+Decl: DECLARE FUNCTION Cent2Fahr! (Nr AS SINGLE)
+Type: Numeric
+Desc: Convert from centigrade to Fahrenheit
+
+Name: COSHD
+Mod : COSHD.OBJ
+Decl: DECLARE FUNCTION CosHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the hyperbolic cosine of a number
+
+Name: COSHS
+Mod : COSHS.OBJ
+Decl: DECLARE FUNCTION CosHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the hyperbolic cosine of a number
+
+Name: COTD
+Mod : COTD.OBJ
+Decl: DECLARE FUNCTION CotD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the cotangent of a number
+
+Name: COTS
+Mod : COTS.OBJ
+Decl: DECLARE FUNCTION CotS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the cotangent of a number
+
+Name: CSCD
+Mod : CSCD.OBJ
+Decl: DECLARE FUNCTION CscD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the cosecant of a number
+
+Name: CSCS
+Mod : CSCS.OBJ
+Decl: DECLARE FUNCTION CscS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the cosecant of a number
+
+Name: DEG2RADD
+Mod : DEG2RADD.OBJ
+Decl: DECLARE FUNCTION Deg2RadD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Convert from degrees to radians
+
+Name: DEG2RADS
+Mod : DEG2RADS.OBJ
+Decl: DECLARE FUNCTION Deg2RadS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Convert from degrees to radians
+
+Name: ED
+Mod : ED.OBJ
+Decl: DECLARE FUNCTION ED# ()
+Type: Numeric-Double
+Desc: Return the exponential constant "e"
+
+Name: EGETBORDER
+Mod : EGETBORD.OBJ
+Decl: DECLARE FUNCTION EGetBorder% ()
+Type: Graphics-EGA
+Desc: Get the border color
+
+Name: EGETPALETTE
+Mod : EGETPAL.OBJ
+Decl: DECLARE FUNCTION EGetPalette% (BYVAL PalReg%)
+Type: Graphics-EGA
+Desc: Get a palette setting
+
+Name: ERFD
+Mod : ERFD.OBJ
+Decl: DECLARE FUNCTION ErfD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the error function of a number
+
+Name: ERFS
+Mod : ERFS.OBJ
+Decl: DECLARE FUNCTION ErfS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the error function of a number
+
+Name: ES
+Mod : ES.OBJ
+Decl: DECLARE FUNCTION ES! ()
+Type: Numeric-Single
+Desc: Return the exponential constant "e"
+
+Name: FACTD
+Mod : FACTD.OBJ
+Decl: DECLARE FUNCTION FactD# (Nr AS INTEGER)
+Type: Numeric-Double
+Desc: Return the factorial of a number
+
+Name: FACTS
+Mod : FACTS.OBJ
+Decl: DECLARE FUNCTION FactS! (Nr AS INTEGER)
+Type: Numeric-Single
+Desc: Return the factorial of a number
+
+Name: FAHR2CENT
+Mod : FAHR2CEN.OBJ
+Decl: DECLARE FUNCTION Fahr2Cent! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Convert from Fahrenheit to centigrade
+
+Name: FEOF
+Mod : FILEQ.OBJ
+Decl: DECLARE FUNCTION FEOF% (Handle%)
+Type: File
+Desc: See whether the end of the file has been reached
+
+Name: FGETDATE
+Mod : FGETDATE.OBJ
+Decl: DECLARE FUNCTION FGetDate$ (BYVAL Handle%)
+Type: File
+Desc: Get the date of a file
+
+Name: FGETERROR
+Mod : FGETERRO.OBJ
+Decl: DECLARE FUNCTION FGetError% (BYVAL Handle%)
+Type: File
+Desc: Get the error code associated with file routines
+
+Name: FGETLOCATE
+Mod : FGETLOCA.OBJ
+Decl: DECLARE FUNCTION FGetLocate& (BYVAL Handle%)
+Type: File
+Desc: Get the location of the file read/write pointer
+
+Name: FGETSIZE
+Mod : FGETSIZE.OBJ
+Decl: DECLARE FUNCTION FGetSize& (BYVAL Handle%)
+Type: File
+Desc: Get the size of a file
+
+Name: FGETTIME
+Mod : FGETTIME.OBJ
+Decl: DECLARE FUNCTION FGetTime$ (BYVAL Handle%)
+Type: File
+Desc: Get the time of a file
+
+Name: FRACABS
+Mod : FRACABS.OBJ
+Decl: DECLARE FUNCTION FracAbs$ (Nr AS STRING)
+Type: Numeric-Fraction
+Desc: Return the absolute value of a number
+
+Name: FRACADD
+Mod : FRACADD.OBJ
+Decl: DECLARE FUNCTION FracAdd$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-Fraction
+Desc: Add two numbers
+
+Name: FRACCOMPARE
+Mod : FRACCOMP.OBJ
+Decl: DECLARE FUNCTION FracCompare% (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-Fraction
+Desc: Compare two numbers
+
+Name: FRACDIV
+Mod : FRACDIV.OBJ
+Decl: DECLARE FUNCTION FracDiv$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-Fraction
+Desc: Divide one number by another
+
+Name: FRACFORMAT
+Mod : FRACFORM.OBJ
+Decl: DECLARE FUNCTION FracFormat$ (Nr AS STRING, HowToFormat AS INTEGER)
+Type: Numeric-Fraction
+Desc: Convert a number to formatted, displayable form
+
+Name: FRACMUL
+Mod : FRACMUL.OBJ
+Decl: DECLARE FUNCTION FracMul$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-Fraction
+Desc: Multiply two numbers
+
+Name: FRACNEG
+Mod : FRACNEG.OBJ
+Decl: DECLARE FUNCTION FracNeg$ (Nr AS STRING)
+Type: Numeric-Fraction
+Desc: Negate a number
+
+Name: FRACSET
+Mod : FRACSET.OBJ
+Decl: DECLARE FUNCTION FracSet$ (NumSt$)
+Type: Numeric-Fraction
+Desc: Convert a string to a number
+
+Name: FRACSGN
+Mod : FRACSGN.OBJ
+Decl: DECLARE FUNCTION FracSgn% (Nr AS STRING)
+Type: Numeric-Fraction
+Desc: Return the signum of a number
+
+Name: FRACSUB
+Mod : FRACSUB.OBJ
+Decl: DECLARE FUNCTION FracSub$ (Nr1 AS STRING, Nr2 AS STRING)
+Type: Numeric-Fraction
+Desc: Subtract one number from another
+
+Name: FREAD
+Mod : FREAD.OBJ
+Decl: DECLARE FUNCTION FRead$ (BYVAL Handle%, BYVAL Bytes%)
+Type: File
+Desc: Read a string from a file
+
+Name: FREADLN
+Mod : FREADLN.OBJ
+Decl: DECLARE FUNCTION FReadLn$ (BYVAL Handle%)
+Type: File
+Desc: Read a <CR><LF>-terminated string from a file
+
+Name: FSGET
+Mod : FARSTR.OBJ
+Decl: DECLARE FUNCTION FSGet$ (BYVAL Handle%)
+Type: FarString
+Desc: Get the value of a far string
+
+Name: GCDI
+Mod : GCDI.OBJ
+Decl: DECLARE FUNCTION GCDI% (BYVAL Nr1%, BYVAL Nr2%)
+Type: Numeric-Integer
+Desc: Return the greatest common denominator of two numbers
+
+Name: GCDL
+Mod : GCDL.OBJ
+Decl: DECLARE FUNCTION GCDL& (Nr1 AS LONG, Nr2 AS LONG)
+Type: Numeric-Long
+Desc: Return the greatest common denominator of two numbers
+
+Name: GETBFONT
+Mod : BFONT.OBJ
+Decl: DECLARE FUNCTION GetBFont% ()
+Type: Graphics
+Desc: Return the number of the current banner font
+
+Name: GETEMS
+Mod : GETEMS.OBJ
+Decl: DECLARE FUNCTION GetEMS% ()
+Type: Miscellaneous
+Desc: See how much expanded memory is available
+
+Name: GN0GETPEL
+Mod : GN0.OBJ
+Decl: DECLARE FUNCTION GN0GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Get the color of a pel
+
+Name: GN1GETPEL
+Mod : GN1.OBJ
+Decl: DECLARE FUNCTION GN1GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Get the color of a pel
+
+Name: GN5GETPEL
+Mod : GN5.OBJ
+Decl: DECLARE FUNCTION GN5GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-SVGA
+Desc: Get the color of a pel
+
+Name: GN2GETFONT
+Mod : GN2.OBJ
+Decl: DECLARE FUNCTION GN2GetFont% ()
+Type: Graphics-Printer
+Desc: Get the color of a pel
+
+Name: GN2GETPEL
+Mod : GN2.OBJ
+Decl: DECLARE FUNCTION GN2GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-Printer
+Desc: Get the color of a pel
+
+Name: GN4GETPEL
+Mod : GN4.OBJ
+Decl: DECLARE FUNCTION GN4GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-MDA
+Desc: Get the color of a pel
+
+Name: GN6GETBLOCK
+Mod : GN6.OBJ
+Decl: DECLARE FUNCTION GN6GetBlock% ()
+Type: Dual_Monitor
+Desc: Get the default character used for a pel
+
+Name: GN6GETCURSORSIZE
+Mod : GN6.OBJ
+Decl: DECLARE FUNCTION GN6GetCursorSize% ()
+Type: Dual_Monitor
+Desc: Get the current cursor size
+
+Name: G0GETBLOCK
+Mod : G0.OBJ
+Decl: DECLARE FUNCTION G0GetBlock% ()
+Type: Text
+Desc: Get the default character used for a pel
+
+Name: G1GETPEL
+Mod : G1GETPEL.OBJ
+Decl: DECLARE FUNCTION G1GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-CGA
+Desc: Get the color of a pel
+
+Name: G2GETPEL
+Mod : G2GETPEL.OBJ
+Decl: DECLARE FUNCTION G2GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-CGA
+Desc: Get the color of a pel
+
+Name: G3GETPEL
+Mod : G3.OBJ
+Decl: DECLARE FUNCTION G3GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-HGA
+Desc: Get the color of a pel
+
+Name: G7GETPEL
+Mod : G7.OBJ
+Decl: DECLARE FUNCTION G7GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-EGA
+Desc: Get the color of a pel
+
+Name: G8GETPEL
+Mod : G8.OBJ
+Decl: DECLARE FUNCTION G8GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-EGA
+Desc: Get the color of a pel
+
+Name: G9GETPEL
+Mod : G9.OBJ
+Decl: DECLARE FUNCTION G9GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-EGA
+Desc: Get the color of a pel
+
+Name: G10GETPEL
+Mod : G10.OBJ
+Decl: DECLARE FUNCTION G10GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-EGA
+Desc: Get the color of a pel
+
+Name: G11GETPEL
+Mod : G11.OBJ
+Decl: DECLARE FUNCTION G11GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Get the color of a pel
+
+Name: G12GETPEL
+Mod : G12.OBJ
+Decl: DECLARE FUNCTION G12GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Get the color of a pel
+
+Name: G13GETPEL
+Mod : G13.OBJ
+Decl: DECLARE FUNCTION G13GetPel% (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Get the color of a pel
+
+Name: KG2POUND
+Mod : KG2POUND.OBJ
+Decl: DECLARE FUNCTION Kg2Pound! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Convert kilograms to pounds
+
+Name: MGETCHR
+Mod : MGETCHR.OBJ
+Decl: DECLARE FUNCTION MGetChr$ (Ptr&)
+Type: Memory
+Desc: Get the character pointed to
+
+Name: MJOINPTR
+Mod : MJOINPTR.OBJ
+Decl: DECLARE FUNCTION MJoinPtr& (BYVAL TSeg%, BYVAL TOfs%)
+Type: Memory
+Desc: Convert an address from segment/offset notation to a pointer
+
+Name: PID
+Mod : PID.OBJ
+Decl: DECLARE FUNCTION PiD# ()
+Type: Numeric-Double
+Desc: Return the constant "pi"
+
+Name: PIS
+Mod : PIS.OBJ
+Decl: DECLARE FUNCTION PiS! ()
+Type: Numeric-Single
+Desc: Return the constant "pi"
+
+Name: POUND2KG
+Mod : POUND2KG.OBJ
+Decl: DECLARE FUNCTION Pound2Kg! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Convert from pounds to kilograms
+
+Name: POWER2I
+Mod : POWER2I.OBJ
+Decl: DECLARE FUNCTION Power2I% (BYVAL PowerOf2 AS INTEGER)
+Type: Numeric-Integer
+Desc: Return the specified power of two
+
+Name: POWER2L
+Mod : POWER2L.OBJ
+Decl: DECLARE FUNCTION Power2L& (BYVAL PowerOf2 AS INTEGER)
+Type: Numeric-Long
+Desc: Return the specified power of two
+
+Name: RAD2DEGD
+Mod : RAD2DEGD.OBJ
+Decl: DECLARE FUNCTION Rad2DegD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Convert from radians to degrees
+
+Name: RAD2DEGS
+Mod : RAD2DEGS.OBJ
+Decl: DECLARE FUNCTION Rad2DegS! (Nr AS SINGLE)
+Type: Numeric-Double
+Desc: Convert from radians to degrees
+
+Name: SECD
+Mod : SECD.OBJ
+Decl: DECLARE FUNCTION SecD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the secant of a number
+
+Name: SECS
+Mod : SECS.OBJ
+Decl: DECLARE FUNCTION SecS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the secant of a number
+
+Name: SINHD
+Mod : SINHD.OBJ
+Decl: DECLARE FUNCTION SinHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the hyperbolic sine of a number
+
+Name: SINHS
+Mod : SINHS.OBJ
+Decl: DECLARE FUNCTION SinHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the hyperbolic sine of a number
+
+Name: TANHD
+Mod : TANHD.OBJ
+Decl: DECLARE FUNCTION TanHD# (Nr AS DOUBLE)
+Type: Numeric-Double
+Desc: Return the hyperbolic tangent of a number
+
+Name: TANHS
+Mod : TANHS.OBJ
+Decl: DECLARE FUNCTION TanHS! (Nr AS SINGLE)
+Type: Numeric-Single
+Desc: Return the hyperbolic tangent of a number
+
+Name: TCCARRIER
+Mod : TCCARRIE.OBJ
+Decl: DECLARE FUNCTION TCCarrier% ()
+Type: Serial
+Desc: Return whether a carrier is detected
+
+Name: TCINKEY
+Mod : TC.OBJ
+Decl: DECLARE FUNCTION TCInkey$ ()
+Type: Serial
+Desc: Retrieve an incoming character
+
+Name: TCINSTAT
+Mod : TC.OBJ
+Decl: DECLARE FUNCTION TCInStat% ()
+Type: Serial
+Desc: See whether any characters are waiting to be retrieved
+
+Name: TCOUTSTAT
+Mod : TC.OBJ
+Decl: DECLARE FUNCTION TCOutStat% ()
+Type: Serial
+Desc: See whether any characters are waiting to be sent
+
+Name: WMENUPOPUP
+Mod : WMENUPU.OBJ
+Decl: DECLARE FUNCTION WMenuPopUp% (Handle%, PickList$(), HiFore%, LoFore%)
+Type: Window
+Desc: Do menu input via a pop-up window
+
+Name: BCDGETSIZE
+Mod : BCDSIZE.OBJ
+Decl: DECLARE SUB BCDGetSize (LeftDigits AS INTEGER, RightDigits AS INTEGER)
+Type: Numeric-BCD
+Desc: Get the current numeric precision available
+
+Name: BCDSETSIZE
+Mod : BCDSIZE.OBJ
+Decl: DECLARE SUB BCDSetSize (BYVAL LeftDigits%, BYVAL RightDigits%)
+Type: Numeric-BCD
+Desc: Set the numeric precision
+
+Name: BFONT
+Mod : BFONT.OBJ
+Decl: DECLARE SUB BFont (BYVAL FontNr%)
+Type: Graphics
+Desc: Set the banner font desired
+
+Name: EBLINK
+Mod : EBLINK.OBJ
+Decl: DECLARE SUB EBlink (BYVAL Blink%)
+Type: Graphics
+Desc: Switch between intense backgrounds and blinking modes
+
+Name: EBORDER
+Mod : EBORDER.OBJ
+Decl: DECLARE SUB EBorder (BYVAL Colour%)
+Type: Graphics
+Desc: Set the border color
+
+Name: EPALETTE
+Mod : EPALETTE.OBJ
+Decl: DECLARE SUB EPalette (BYVAL PalReg%, BYVAL Colour%)
+Type: Graphics
+Desc: Set a palette value
+
+Name: EVALUATE
+Mod : EVAL.OBJ
+Decl: DECLARE SUB Evaluate (Expression$, Result!, ErrCode%)
+Type: Numeric-Single
+Desc: Evaluate a numeric expression
+
+Name: FBLOCKREAD
+Mod : FBLOCKRE.OBJ
+Decl: DECLARE SUB FBlockRead (BYVAL Handle%, BYVAL Segm%, BYVAL Ofs%, BYVAL Bytes%)
+Type: File
+Desc: Read a block of data from a file
+
+Name: FBLOCKWRITE
+Mod : FBLOCKWR.OBJ
+Decl: DECLARE SUB FBlockWrite (BYVAL Handle%, BYVAL Segm%, BYVAL Ofs%, BYVAL Bytes%)
+Type: File
+Desc: Write a block of data to a file
+
+Name: FCLOSE
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FClose (Handle%)
+Type: File
+Desc: Close a file
+
+Name: FDATE
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FDate (Handle%, DateSt$)
+Type: File
+Desc: Set the date of a file
+
+Name: FDONE
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FDone ()
+Type: File
+Desc: Terminate the file-handling routines
+
+Name: FERROR
+Mod : FERROR.OBJ
+Decl: DECLARE SUB FError (BYVAL Handle%, BYVAL ErrCode%)
+Type: File
+Desc: Set the error code associated with the file routines
+
+Name: FFLUSH
+Mod : FFLUSH.OBJ
+Decl: DECLARE SUB FFlush (BYVAL Handle%)
+Type: File
+Desc: Flush a file to disk (force it to be updated)
+
+Name: FINIT
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FInit (Handles%, ErrCode%)
+Type: File
+Desc: Initialize the file-handling routines
+
+Name: FLOCATE
+Mod : FLOCATE.OBJ
+Decl: DECLARE SUB FLocate (BYVAL Handle%, Posn&)
+Type: File
+Desc: Set the location of the file read/write pointer
+
+Name: FOPEN
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FOpen (File$, FMode$, BufferLen%, Handle%, ErrCode%)
+Type: File
+Desc: Open a file for access
+
+Name: FSDONE
+Mod : FARSTRQ.OBJ
+Decl: DECLARE SUB FSDone ()
+Type: FarString
+Desc: Terminate the far string handler
+
+Name: FSINIT
+Mod : FARSTR.OBJ
+Decl: DECLARE SUB FSInit (BYVAL UseEMS%)
+Type: FarString
+Desc: Initialize the far string handler
+
+Name: FSSET
+Mod : FARSTRQ.OBJ
+Decl: DECLARE SUB FSSet (Handle%, St$)
+Type: FarString
+Desc: Assign a value to a far string
+
+Name: FTIME
+Mod : FILEQ.OBJ
+Decl: DECLARE SUB FTime (Handle%, TimeSt$)
+Type: File
+Desc: Set the time of a file
+
+Name: FWRITE
+Mod : FWRITE.OBJ
+Decl: DECLARE SUB FWrite (BYVAL Handle%, St$)
+Type: File
+Desc: Write a string to a file
+
+Name: FWRITELN
+Mod : FWRITELN.OBJ
+Decl: DECLARE SUB FWriteLn (BYVAL Handle%, St$)
+Type: File
+Desc: Write a string followed by a <CR><LF> to a file
+
+Name: GETDISPLAY
+Mod : GETDISP.OBJ
+Decl: DECLARE SUB GetDisplay (Adapter%, Mono%)
+Type: Miscellaneous
+Desc: Get the display type
+
+Name: GN0BANNER
+Mod : GN0BANNE.OBJ
+Decl: DECLARE SUB GN0Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-VGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN0BOX
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-VGA
+Desc: Draw a box
+
+Name: GN0CLS
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Cls ()
+Type: Graphics-VGA
+Desc: Clear the screen
+
+Name: GN0COLOR
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-VGA
+Desc: Set the colors
+
+Name: GN0ELLIPSE
+Mod : GN0ELLIP.OBJ
+Decl: DECLARE SUB GN0Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-VGA
+Desc: Draw a circle or ellipse
+
+Name: GN0GETCOLOR
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0GetColor (Foregnd%, Backgnd%)
+Type: Graphics-VGA
+Desc: Get the current colors
+
+Name: GN0GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB GN0GetLocate (Row%, Column%)
+Type: Graphics-VGA
+Desc: Get the cursor position
+
+Name: GN0LINE
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-VGA
+Desc: Draw a line
+
+Name: GN0LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB GN0Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-VGA
+Desc: Set the cursor position
+
+Name: GN0MODE
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Mode (BYVAL ModeNr%)
+Type: Graphics-VGA
+Desc: Switch between text and graphics mode
+
+Name: GN0PLOT
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Draw a dot
+
+Name: GN0POLYGON
+Mod : GN0POLY.OBJ
+Decl: DECLARE SUB GN0Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-VGA
+Desc: Draw a regular polygon
+
+Name: GN0WRITE
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0Write (St$)
+Type: Graphics-VGA
+Desc: Display text
+
+Name: GN0WRITELN
+Mod : GN0.OBJ
+Decl: DECLARE SUB GN0WriteLn (St$)
+Type: Graphics-VGA
+Desc: Display text followed by a <CR><LF>
+
+Name: GN1BANNER
+Mod : GN1BANNE.OBJ
+Decl: DECLARE SUB GN1Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-VGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN1BOX
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-VGA
+Desc: Draw a box
+
+Name: GN1CLS
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Cls ()
+Type: Graphics-VGA
+Desc: Clear the screen
+
+Name: GN1COLOR
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-VGA
+Desc: Set the colors
+
+Name: GN1ELLIPSE
+Mod : GN1ELLIP.OBJ
+Decl: DECLARE SUB GN1Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-VGA
+Desc: Draw a circle or ellipse
+
+Name: GN1GETCOLOR
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1GetColor (Foregnd%, Backgnd%)
+Type: Graphics-VGA
+Desc: Get the current colors
+
+Name: GN1GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB GN1GetLocate (Row%, Column%)
+Type: Graphics-VGA
+Desc: Get the cursor position
+
+Name: GN1LINE
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-VGA
+Desc: Draw a line
+
+Name: GN1LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB GN1Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-VGA
+Desc: Set the cursor location
+
+Name: GN1MODE
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Mode (BYVAL ModeNr%)
+Type: Graphics-VGA
+Desc: Switch between text and graphics modes
+
+Name: GN1PLOT
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Draw a dot
+
+Name: GN1POLYGON
+Mod : GN1POLY.OBJ
+Decl: DECLARE SUB GN1Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-VGA
+Desc: Draw a regular polygon
+
+Name: GN1WRITE
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1Write (St$)
+Type: Graphics-VGA
+Desc: Display text
+
+Name: GN1WRITELN
+Mod : GN1.OBJ
+Decl: DECLARE SUB GN1WriteLn (St$)
+Type: Graphics-VGA
+Desc: Display text followed by a <CR><LF>
+
+Name: GN2BANNER
+Mod : GN2BANNE.OBJ
+Decl: DECLARE SUB GN2Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-Printer
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN2BOX
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-Printer
+Desc: Draw a box
+
+Name: GN2CLS
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Cls ()
+Type: Graphics-Printer
+Desc: Clear the screen
+
+Name: GN2COLOR
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-Printer
+Desc: Set the colors
+
+Name: GN2DISPLAY
+Mod : GN2DISPL.OBJ
+Decl: DECLARE SUB GN2Display ()
+Type: Graphics-Printer
+Desc: Preview printer output on the screen
+
+Name: GN2ELLIPSE
+Mod : GN2ELLIP.OBJ
+Decl: DECLARE SUB GN2Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-Printer
+Desc: Draw a circle or ellipse
+
+Name: GN2FONT
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Font (BYVAL FontNr%)
+Type: Graphics-Printer
+Desc: Set the text font
+
+Name: GN2GETCOLOR
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2GetColor (Foregnd%, Backgnd%)
+Type: Graphics-Printer
+Desc: Get the current colors
+
+Name: GN2GETLOCATE
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2GetLocate (Row%, Column%)
+Type: Graphics-Printer
+Desc: Get the cursor position
+
+Name: GN2LINE
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-Printer
+Desc: Draw a line
+
+Name: GN2LOCATE
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-Printer
+Desc: Set the cursor position
+
+Name: GN2MODE
+Mod : GN2MODE.OBJ
+Decl: DECLARE SUB GN2Mode (ModeNr%)
+Type: Graphics-Printer
+Desc: Switch between text and graphics modes
+
+Name: GN2PLOT
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-Printer
+Desc: Draw a dot
+
+Name: GN2POLYGON
+Mod : GN2POLY.OBJ
+Decl: DECLARE SUB GN2Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-Printer
+Desc: Draw a regular polygon
+
+Name: GN2PRINT
+Mod : GN2PRINT.OBJ
+Decl: DECLARE SUB GN2Print (Device$)
+Type: Graphics-Printer
+Desc: Send the printer image to an Epson-compatible dot matrix printer
+
+Name: GN2PRINTL
+Mod : GN2PRINL.OBJ
+Decl: DECLARE SUB GN2PrintL (Device$)
+Type: Graphics-Printer
+Desc: Send the printer image to a HP-compatible laser printer
+
+Name: GN2WRITE
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2Write (St$)
+Type: Graphics-Printer
+Desc: Display text
+
+Name: GN2WRITELN
+Mod : GN2.OBJ
+Decl: DECLARE SUB GN2WriteLn (St$)
+Type: Graphics-Printer
+Desc: Display text followed by a <CR><LF>
+
+Name: GN4BANNER
+Mod : GN4BANNE.OBJ
+Decl: DECLARE SUB GN4Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-MDA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN4BOX
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-MDA
+Desc: Draw a box
+
+Name: GN4CLS
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Cls ()
+Type: Graphics-MDA
+Desc: Clear the screen
+
+Name: GN4COLOR
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-MDA
+Desc: Set the colors
+
+Name: GN4ELLIPSE
+Mod : GN4ELLIP.OBJ
+Decl: DECLARE SUB GN4Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-MDA
+Desc: Draw a circle or ellipse
+
+Name: GN4GETCOLOR
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4GetColor (Foregnd%, Backgnd%)
+Type: Graphics-MDA
+Desc: Get the current colors
+
+Name: GN4GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB GN4GetLocate (Row%, Column%)
+Type: Graphics-MDA
+Desc: Get the cursor position
+
+Name: GN4LINE
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-MDA
+Desc: Draw a line
+
+Name: GN4LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB GN4Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-MDA
+Desc: Set the cursor position
+
+Name: GN4MODE
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Mode (BYVAL ModeNr%)
+Type: Graphics-MDA
+Desc: Switch between text and graphics modes
+
+Name: GN4PLOT
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-MDA
+Desc: Draw a dot
+
+Name: GN4POLYGON
+Mod : GN4POLY.OBJ
+Decl: DECLARE SUB GN4Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-MDA
+Desc: Draw a regular polygon
+
+Name: GN4WRITE
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4Write (St$)
+Type: Graphics-MDA
+Desc: Display text
+
+Name: GN4WRITELN
+Mod : GN4.OBJ
+Decl: DECLARE SUB GN4WriteLn (St$)
+Type: Graphics-MDA
+Desc: Display text followed by a <CR><LF>
+
+Name: GN5BANNER
+Mod : GN5BANNE.OBJ
+Decl: DECLARE SUB GN5Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-SVGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN5BOX
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-SVGA
+Desc: Draw a box
+
+Name: GN5CLS
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Cls ()
+Type: Graphics-SVGA
+Desc: Clear the screen
+
+Name: GN5COLOR
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-SVGA
+Desc: Set the colors
+
+Name: GN5ELLIPSE
+Mod : GN5ELLIP.OBJ
+Decl: DECLARE SUB GN5Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-SVGA
+Desc: Draw a circle or ellipse
+
+Name: GN5GET
+Mod : GN5GET.OBJ
+Decl: DECLARE SUB GN5Get (X1%, Y1%, X2%, Y2%, Image%())
+Type: Graphics-SVGA
+Desc: Get a GET/PUT image
+
+Name: GN5GETCOLOR
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5GetColor (Foreground%, Background%)
+Type: Graphics-SVGA
+Desc: Get the current colors
+
+Name: GN5GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB GN5GetLocate (Row%, Column%)
+Type: Graphics-SVGA
+Desc: Get the cursor position
+
+Name: GN5GETRES
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5GetRes (MaxX%, MaxY%)
+Type: Graphics-SVGA
+Desc: Get the screen size in pixels
+
+Name: GN5INIT
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Init (BYVAL BIOSmode%, BYVAL MaxX%, BYVAL MaxY%)
+Type: Graphics-SVGA
+Desc: Initialize graphics info about a 256-color SuperVGA mode
+
+Name: GN5LINE
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-SVGA
+Desc: Draw a line
+
+Name: GN5LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB GN5Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-SVGA
+Desc: Set the cursor position
+
+Name: GN5MODE
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Mode (BYVAL Graphics%)
+Type: Graphics-SVGA
+Desc: Switch between text and graphics modes
+
+Name: GN5PLOT
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-SVGA
+Desc: Draw a dot
+
+Name: GN5POLYGON
+Mod : GN5POLY.OBJ
+Decl: DECLARE SUB GN5Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-SVGA
+Desc: Draw a regular polygon
+
+Name: GN5PUT
+Mod : GN5PUT.OBJ
+Decl: DECLARE SUB GN5Put (StartX%, StartY%, Image%())
+Type: Graphics-SVGA
+Desc: Display a GET/PUT image
+
+Name: GN5WRITE
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5Write (St$)
+Type: Graphics-SVGA
+Desc: Display text
+
+Name: GN5WRITELN
+Mod : GN5.OBJ
+Decl: DECLARE SUB GN5WriteLn (St$)
+Type: Graphics-SVGA
+Desc: Display text followed by a <CR><LF>
+
+Name: GN6BANNER
+Mod : GN6BANNE.OBJ
+Decl: DECLARE SUB GN6Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Dual_Monitor
+Desc: Display text of a specified size using graphics coordinates
+
+Name: GN6BOX
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Dual_Monitor
+Desc: Draw a box
+
+Name: GN6CLS
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Cls ()
+Type: Dual_Monitor
+Desc: Clear the screen
+
+Name: GN6COLOR
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Dual_Monitor
+Desc: Set the colors
+
+Name: GN6CURSORSIZE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6CursorSize (BYVAL ScanLines%)
+Type: Dual_Monitor
+Desc: Set the cursor size
+
+Name: GN6ELLIPSE
+Mod : GN6ELLIP.OBJ
+Decl: DECLARE SUB GN6Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Dual_Monitor
+Desc: Draw a circle or ellipse
+
+Name: GN6GETCOLOR
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6GetColor (Foregnd%, Backgnd%)
+Type: Dual_Monitor
+Desc: Get the current colors
+
+Name: GN6GETLOCATE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6GetLocate (Row%, Column%)
+Type: Dual_Monitor
+Desc: Get the cursor position
+
+Name: GN6GETPEL
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6GetPel (BYVAL X%, BYVAL Y%, Ch%, Fore%, Back%)
+Type: Dual_Monitor
+Desc: Get the color and character of a pel
+
+Name: GN6LINE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Dual_Monitor
+Desc: Draw a line
+
+Name: GN6LOCATE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Locate (BYVAL Row%, BYVAL Column%)
+Type: Dual_Monitor
+Desc: Set the cursor position
+
+Name: GN6MODE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Mode (BYVAL ModeNr%)
+Type: Dual_Monitor
+Desc: Switch between various text modes
+
+Name: GN6PLOT
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Plot (BYVAL X%, BYVAL Y%)
+Type: Dual_Monitor
+Desc: Draw a dot
+
+Name: GN6POLYGON
+Mod : GN6POLY.OBJ
+Decl: DECLARE SUB GN6Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Dual_Monitor
+Desc: Draw a regular polygon
+
+Name: GN6SETBLOCK
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6SetBlock (BYVAL Ch%)
+Type: Dual_Monitor
+Desc: Set the character used to form a pel
+
+Name: GN6WRITE
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6Write (St$)
+Type: Dual_Monitor
+Desc: Display text
+
+Name: GN6WRITELN
+Mod : GN6.OBJ
+Decl: DECLARE SUB GN6WriteLn (St$)
+Type: Dual_Monitor
+Desc: Display text followed by a <CR><LF>
+
+Name: G0BANNER
+Mod : G0BANNER.OBJ
+Decl: DECLARE SUB G0Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Text
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G0BOX
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Text
+Desc: Draw a box
+
+Name: G0CLS
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Cls ()
+Type: Text
+Desc: Clear the screen
+
+Name: G0COLOR
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Text
+Desc: Set the colors
+
+Name: G0ELLIPSE
+Mod : G0ELLIPS.OBJ
+Decl: DECLARE SUB G0Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Text
+Desc: Draw a circle or ellipse
+
+Name: G0GETCOLOR
+Mod : G0.OBJ
+Decl: DECLARE SUB G0GetColor (Foregnd%, Backgnd%)
+Type: Text
+Desc: Get the current colors
+
+Name: G0GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G0GetLocate (Row%, Column%)
+Type: Text
+Desc: Get the cursor position
+
+Name: G0GETPEL
+Mod : G0.OBJ
+Decl: DECLARE SUB G0GetPel (BYVAL X%, BYVAL Y%, Ch%, Fore%, Back%)
+Type: Text
+Desc: Get the color and character of a pel
+
+Name: G0LINE
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Text
+Desc: Draw a line
+
+Name: G0LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G0Locate (BYVAL Row%, BYVAL Column%)
+Type: Text
+Desc: Set the cursor position
+
+Name: G0MODE
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Mode (BYVAL ModeNr%)
+Type: Text
+Desc: Switch between various text modes
+
+Name: G0PLOT
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Plot (BYVAL X%, BYVAL Y%)
+Type: Text
+Desc: Draw a dot
+
+Name: G0POLYGON
+Mod : G0POLY.OBJ
+Decl: DECLARE SUB G0Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Text
+Desc: Draw a regular polygon
+
+Name: G0SETBLOCK
+Mod : G0.OBJ
+Decl: DECLARE SUB G0SetBlock (BYVAL Ch%)
+Type: Text
+Desc: Set the character used to form a pel
+
+Name: G0WRITE
+Mod : G0.OBJ
+Decl: DECLARE SUB G0Write (St$)
+Type: Text
+Desc: Display text
+
+Name: G0WRITELN
+Mod : G0.OBJ
+Decl: DECLARE SUB G0WriteLn (St$)
+Type: Text
+Desc: Display text followed by a <CR><LF>
+
+Name: G1BANNER
+Mod : G1BANNER.OBJ
+Decl: DECLARE SUB G1Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-CGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G1BORDER
+Mod : G1BORDER.OBJ
+Decl: DECLARE SUB G1Border (BYVAL Colour%)
+Type: Graphics-CGA
+Desc: Set the border color
+
+Name: G1BOX
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-CGA
+Desc: Draw a box
+
+Name: G1CLS
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Cls ()
+Type: Graphics-CGA
+Desc: Clear the screen
+
+Name: G1COLOR
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-CGA
+Desc: Set the colors
+
+Name: G1ELLIPSE
+Mod : G1ELLIPS.OBJ
+Decl: DECLARE SUB G1Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-CGA
+Desc: Draw a circle or ellipse
+
+Name: G1GETCOLOR
+Mod : G1.OBJ
+Decl: DECLARE SUB G1GetColor (Foregnd%, Backgnd%)
+Type: Graphics-CGA
+Desc: Get the current colors
+
+Name: G1GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G1GetLocate (Row%, Column%)
+Type: Graphics-CGA
+Desc: Get the cursor position
+
+Name: G1LINE
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-CGA
+Desc: Draw a line
+
+Name: G1LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G1Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-CGA
+Desc: Set the cursor position
+
+Name: G1MIRRORH
+Mod : G1MIRH.OBJ
+Decl: DECLARE SUB G1MirrorH (ImageA%(), ImageB%())
+Type: Graphics-CGA
+Desc: Make the mirror image of a GET/PUT image
+
+Name: G1MODE
+Mod : G1MODE.OBJ
+Decl: DECLARE SUB G1Mode (BYVAL ModeNr%)
+Type: Graphics-CGA
+Desc: Switch between text and graphics modes
+
+Name: G1PALETTEA
+Mod : G1PALETA.OBJ
+Decl: DECLARE SUB G1PaletteA (BYVAL PaletteNr%)
+Type: Graphics-CGA
+Desc: Choose a palette
+
+Name: G1PALETTEB
+Mod : G1PALETB.OBJ
+Decl: DECLARE SUB G1PaletteB (BYVAL PaletteNr%)
+Type: Graphics-CGA
+Desc: Choose a palette
+
+Name: G1PLOT
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-CGA
+Desc: Draw a dot
+
+Name: G1POLYGON
+Mod : G1POLY.OBJ
+Decl: DECLARE SUB G1Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-CGA
+Desc: Draw a regular polygon
+
+Name: G1WRITE
+Mod : G1.OBJ
+Decl: DECLARE SUB G1Write (St$)
+Type: Graphics-CGA
+Desc: Display text
+
+Name: G1WRITELN
+Mod : G1.OBJ
+Decl: DECLARE SUB G1WriteLn (St$)
+Type: Graphics-CGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G2BANNER
+Mod : G2BANNER.OBJ
+Decl: DECLARE SUB G2Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-CGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G2BOX
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-CGA
+Desc: Draw a box
+
+Name: G2CLS
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Cls ()
+Type: Graphics-CGA
+Desc: Clear the screen
+
+Name: G2COLOR
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-CGA
+Desc: Set the colors
+
+Name: G2ELLIPSE
+Mod : G2ELLIPS.OBJ
+Decl: DECLARE SUB G2Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-CGA
+Desc: Draw a circle or ellipse
+
+Name: G2GET
+Mod : G2GET.OBJ
+Decl: DECLARE SUB G2Get (X1%, Y1%, X2%, Y2%, Image%())
+Type: Graphics-CGA
+Desc: Get an image in GET/PUT format
+
+Name: G2GETCOLOR
+Mod : G2.OBJ
+Decl: DECLARE SUB G2GetColor (Foregnd%, Backgnd%)
+Type: Graphics-CGA
+Desc: Get the current colors
+
+Name: G2GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G2GetLocate (Row%, Column%)
+Type: Graphics-CGA
+Desc: Get the cursor position
+
+Name: G2LINE
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-CGA
+Desc: Draw a line
+
+Name: G2LOADMAC
+Mod : G2LODMAC.OBJ
+Decl: DECLARE SUB G2LoadMAC (File$, Image%(), StartRow%)
+Type: Graphics-CGA
+Desc: Display part of a .MAC file
+
+Name: G2LOADPCX
+Mod : G2LODPCX.OBJ
+Decl: DECLARE SUB G2LoadPCX (File$, Image%(), ErrCode%)
+Type: Graphics-CGA
+Desc: Load a .PCX file into a GET/PUT image
+
+Name: G2LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G2Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-CGA
+Desc: Set the cursor position
+
+Name: G2MIRRORH
+Mod : G2MIRH.OBJ
+Decl: DECLARE SUB G2MirrorH (ImageA%(), ImageB%())
+Type: Graphics-CGA
+Desc: Form the mirror image of a GET/PUT image
+
+Name: G2MODE
+Mod : G2MODE.OBJ
+Decl: DECLARE SUB G2Mode (BYVAL ModeNr%)
+Type: Graphics-CGA
+Desc: Switch betweeen text and graphics modes
+
+Name: G2PLOT
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-CGA
+Desc: Draw a dot
+
+Name: G2POLYGON
+Mod : G2POLY.OBJ
+Decl: DECLARE SUB G2Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-CGA
+Desc: Draw a regular polygon
+
+Name: G2PUT
+Mod : G2PUT.OBJ
+Decl: DECLARE SUB G2Put (X%, Y%, Image%())
+Type: Graphics-CGA
+Desc: Display a GET/PUT image
+
+Name: G2WRITE
+Mod : G2.OBJ
+Decl: DECLARE SUB G2Write (St$)
+Type: Graphics-CGA
+Desc: Display text
+
+Name: G2WRITELN
+Mod : G2.OBJ
+Decl: DECLARE SUB G2WriteLn (St$)
+Type: Graphics-CGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G3BANNER
+Mod : G3BANNER.OBJ
+Decl: DECLARE SUB G3Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-HGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G3BOX
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-HGA
+Desc: Draw a box
+
+Name: G3CLS
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Cls ()
+Type: Graphics-HGA
+Desc: Clear the screen
+
+Name: G3COLOR
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Color (BYVAL Foregnd%, BYVAL Backgnd%)
+Type: Graphics-HGA
+Desc: Set the colors
+
+Name: G3ELLIPSE
+Mod : G3ELLIPS.OBJ
+Decl: DECLARE SUB G3Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-HGA
+Desc: Draw a circle or ellipse
+
+Name: G3GETCOLOR
+Mod : G3.OBJ
+Decl: DECLARE SUB G3GetColor (Foregnd%, Backgnd%)
+Type: Graphics-HGA
+Desc: Get the current colors
+
+Name: G3GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G3GetLocate (Row%, Column%)
+Type: Graphics-HGA
+Desc: Get the cursor position
+
+Name: G3LINE
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-HGA
+Desc: Draw a line
+
+Name: G3LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G3Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-HGA
+Desc: Set the cursor position
+
+Name: G3MODE
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Mode (BYVAL ModeNr%)
+Type: Graphics-HGA
+Desc: Switch between text and graphics modes
+
+Name: G3PLOT
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-HGA
+Desc: Draw a dot
+
+Name: G3POLYGON
+Mod : G3POLY.OBJ
+Decl: DECLARE SUB G3Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-HGA
+Desc: Draw a regular polygon
+
+Name: G3WRITE
+Mod : G3.OBJ
+Decl: DECLARE SUB G3Write (St$)
+Type: Graphics-HGA
+Desc: Display text
+
+Name: G3WRITELN
+Mod : G3.OBJ
+Decl: DECLARE SUB G3WriteLn (St$)
+Type: Graphics-HGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G7BANNER
+Mod : G7BANNER.OBJ
+Decl: DECLARE SUB G7Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-EGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G7BOX
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-EGA
+Desc: Draw a box
+
+Name: G7CLS
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Cls ()
+Type: Graphics-EGA
+Desc: Clear the screen
+
+Name: G7COLOR
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-EGA
+Desc: Set the colors
+
+Name: G7GETCOLOR
+Mod : G7.OBJ
+Decl: DECLARE SUB G7GetColor (Foreground%, Background%)
+Type: Graphics-EGA
+Desc: Get the current colors
+
+Name: G7GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G7GetLocate (Row%, Column%)
+Type: Graphics-EGA
+Desc: Get the cursor position
+
+Name: G7ELLIPSE
+Mod : G7ELLIPS.OBJ
+Decl: DECLARE SUB G7Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-EGA
+Desc: Draw a circle or ellipse
+
+Name: G7LINE
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-EGA
+Desc: Draw a line
+
+Name: G7LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G7Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-EGA
+Desc: Set the cursor position
+
+Name: G7MODE
+Mod : G7MODE.OBJ
+Decl: DECLARE SUB G7Mode (BYVAL Graphics%)
+Type: Graphics-EGA
+Desc: Switch between text and graphics modes
+
+Name: G7PLOT
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Plot (BYVAL x%, BYVAL y%)
+Type: Graphics-EGA
+Desc: Draw a dot
+
+Name: G7POLYGON
+Mod : G7POLY.OBJ
+Decl: DECLARE SUB G7Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-EGA
+Desc: Draw a regular polygon
+
+Name: G7WRITE
+Mod : G7.OBJ
+Decl: DECLARE SUB G7Write (St$)
+Type: Graphics-EGA
+Desc: Display text
+
+Name: G7WRITELN
+Mod : G7.OBJ
+Decl: DECLARE SUB G7WriteLn (St$)
+Type: Graphics-EGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G8BANNER
+Mod : G8BANNER.OBJ
+Decl: DECLARE SUB G8Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-EGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G8BOX
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-EGA
+Desc: Draw a box
+
+Name: G8CLS
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Cls ()
+Type: Graphics-EGA
+Desc: Clear the screen
+
+Name: G8COLOR
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-EGA
+Desc: Set the colors
+
+Name: G8ELLIPSE
+Mod : G8ELLIPS.OBJ
+Decl: DECLARE SUB G8Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-EGA
+Desc: Draw a circle or ellipse
+
+Name: G8GETCOLOR
+Mod : G8.OBJ
+Decl: DECLARE SUB G8GetColor (Foreground%, Background%)
+Type: Graphics-EGA
+Desc: Get the current colors
+
+Name: G8GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G8GetLocate (Row%, Column%)
+Type: Graphics-EGA
+Desc: Get the cursor position
+
+Name: G8LINE
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-EGA
+Desc: Draw a line
+
+Name: G8LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G8Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-EGA
+Desc: Set the cursor position
+
+Name: G8MODE
+Mod : G8MODE.OBJ
+Decl: DECLARE SUB G8Mode (BYVAL Graphics%)
+Type: Graphics-EGA
+Desc: Switch between text and graphics modes
+
+Name: G8PLOT
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Plot (BYVAL x%, BYVAL y%)
+Type: Graphics-EGA
+Desc: Draw a dot
+
+Name: G8POLYGON
+Mod : G8POLY.OBJ
+Decl: DECLARE SUB G8Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-EGA
+Desc: Draw a regular polygon
+
+Name: G8WRITE
+Mod : G8.OBJ
+Decl: DECLARE SUB G8Write (St$)
+Type: Graphics-EGA
+Desc: Display text
+
+Name: G8WRITELN
+Mod : G8.OBJ
+Decl: DECLARE SUB G8WriteLn (St$)
+Type: Graphics-EGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G9BANNER
+Mod : G9BANNER.OBJ
+Decl: DECLARE SUB G9Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-EGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G9BOX
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-EGA
+Desc: Draw a box
+
+Name: G9CLS
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Cls ()
+Type: Graphics-EGA
+Desc: Clear the screen
+
+Name: G9COLOR
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-EGA
+Desc: Set the colors
+
+Name: G9ELLIPSE
+Mod : G9ELLIPS.OBJ
+Decl: DECLARE SUB G9Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-EGA
+Desc: Draw a circle or ellipse
+
+Name: G9GETCOLOR
+Mod : G9.OBJ
+Decl: DECLARE SUB G9GetColor (Foreground%, Background%)
+Type: Graphics-EGA
+Desc: Get the current colors
+
+Name: G9GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G9GetLocate (Row%, Column%)
+Type: Graphics-EGA
+Desc: Get the cursor position
+
+Name: G9LINE
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-EGA
+Desc: Draw a line
+
+Name: G9LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G9Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-EGA
+Desc: Set the cursor position
+
+Name: G9MODE
+Mod : G9MODE.OBJ
+Decl: DECLARE SUB G9Mode (BYVAL Graphics%)
+Type: Graphics-EGA
+Desc: Switch between text and graphics modes
+
+Name: G9PLOT
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Plot (BYVAL x%, BYVAL y%)
+Type: Graphics-EGA
+Desc: Draw a dot
+
+Name: G9POLYGON
+Mod : G9POLY.OBJ
+Decl: DECLARE SUB G9Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-EGA
+Desc: Draw a regular polygon
+
+Name: G9WRITE
+Mod : G9.OBJ
+Decl: DECLARE SUB G9Write (St$)
+Type: Graphics-EGA
+Desc: Display text
+
+Name: G9WRITELN
+Mod : G9.OBJ
+Decl: DECLARE SUB G9WriteLn (St$)
+Type: Graphics-EGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G10BANNER
+Mod : G10BANNE.OBJ
+Decl: DECLARE SUB G10Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-EGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G10BOX
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-EGA
+Desc: Draw a box
+
+Name: G10CLS
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Cls ()
+Type: Graphics-EGA
+Desc: Clear the screen
+
+Name: G10COLOR
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-EGA
+Desc: Set the colors
+
+Name: G10ELLIPSE
+Mod : G10ELLIP.OBJ
+Decl: DECLARE SUB G10Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-EGA
+Desc: Draw a circle or ellipse
+
+Name: G10GETCOLOR
+Mod : G10.OBJ
+Decl: DECLARE SUB G10GetColor (Foreground%, Background%)
+Type: Graphics-EGA
+Desc: Get the current colors
+
+Name: G10GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G10GetLocate (Row%, Column%)
+Type: Graphics-EGA
+Desc: Get the cursor position
+
+Name: G10LINE
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-EGA
+Desc: Draw a line
+
+Name: G10LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G10Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-EGA
+Desc: Set the cursor position
+
+Name: G10MODE
+Mod : G10MODE.OBJ
+Decl: DECLARE SUB G10Mode (BYVAL Graphics%)
+Type: Graphics-EGA
+Desc: Switch between text and graphics modes
+
+Name: G10PLOT
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Plot (BYVAL x%, BYVAL y%)
+Type: Graphics-EGA
+Desc: Draw a dot
+
+Name: G10POLYGON
+Mod : G10POLY.OBJ
+Decl: DECLARE SUB G10Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-EGA
+Desc: Draw a regular polygon
+
+Name: G10WRITE
+Mod : G10.OBJ
+Decl: DECLARE SUB G10Write (St$)
+Type: Graphics-EGA
+Desc: Display text
+
+Name: G10WRITELN
+Mod : G10.OBJ
+Decl: DECLARE SUB G10WriteLn (St$)
+Type: Graphics-EGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G11BANNER
+Mod : G11BANNE.OBJ
+Decl: DECLARE SUB G11Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-VGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G11BOX
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-VGA
+Desc: Draw a box
+
+Name: G11CLS
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Cls ()
+Type: Graphics-VGA
+Desc: Clear the screen
+
+Name: G11COLOR
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-VGA
+Desc: Set the colors
+
+Name: G11ELLIPSE
+Mod : G11ELLIP.OBJ
+Decl: DECLARE SUB G11Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-VGA
+Desc: Draw a circle or ellipse
+
+Name: G11GETCOLOR
+Mod : G11.OBJ
+Decl: DECLARE SUB G11GetColor (Foreground%, Background%)
+Type: Graphics-VGA
+Desc: Get the current colors
+
+Name: G11GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G11GetLocate (Row%, Column%)
+Type: Graphics-VGA
+Desc: Get the cursor position
+
+Name: G11LINE
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-VGA
+Desc: Draw a line
+
+Name: G11LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G11Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-VGA
+Desc: Set the cursor position
+
+Name: G11MODE
+Mod : G11MODE.OBJ
+Decl: DECLARE SUB G11Mode (BYVAL Graphics%)
+Type: Graphics-VGA
+Desc: Switch between text and graphics modes
+
+Name: G11PLOT
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Draw a dot
+
+Name: G11POLYGON
+Mod : G11POLY.OBJ
+Decl: DECLARE SUB G11Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-VGA
+Desc: Draw a regular polygon
+
+Name: G11WRITE
+Mod : G11.OBJ
+Decl: DECLARE SUB G11Write (St$)
+Type: Graphics-VGA
+Desc: Display text
+
+Name: G11WRITELN
+Mod : G11.OBJ
+Decl: DECLARE SUB G11WriteLn (St$)
+Type: Graphics-VGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G12BANNER
+Mod : G12BANNE.OBJ
+Decl: DECLARE SUB G12Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-VGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G12BOX
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-VGA
+Desc: Draw a box
+
+Name: G12CLS
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Cls ()
+Type: Graphics-VGA
+Desc: Clear the screen
+
+Name: G12COLOR
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-VGA
+Desc: Set the colors
+
+Name: G12ELLIPSE
+Mod : G12ELLIP.OBJ
+Decl: DECLARE SUB G12Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-VGA
+Desc: Draw a circle or ellipse
+
+Name: G12GETCOLOR
+Mod : G12.OBJ
+Decl: DECLARE SUB G12GetColor (Foreground%, Background%)
+Type: Graphics-VGA
+Desc: Get the current colors
+
+Name: G12GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G12GetLocate (Row%, Column%)
+Type: Graphics-VGA
+Desc: Get the cursor position
+
+Name: G12LINE
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-VGA
+Desc: Draw a line
+
+Name: G12LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G12Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-VGA
+Desc: Set the cursor position
+
+Name: G12MODE
+Mod : G12MODE.OBJ
+Decl: DECLARE SUB G12Mode (BYVAL Graphics%)
+Type: Graphics-VGA
+Desc: Switch between text and graphics modes
+
+Name: G12PLOT
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Draw a dot
+
+Name: G12POLYGON
+Mod : G12POLY.OBJ
+Decl: DECLARE SUB G12Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-VGA
+Desc: Draw a regular polygon
+
+Name: G12WRITE
+Mod : G12.OBJ
+Decl: DECLARE SUB G12Write (St$)
+Type: Graphics-VGA
+Desc: Display text
+
+Name: G12WRITELN
+Mod : G12.OBJ
+Decl: DECLARE SUB G12WriteLn (St$)
+Type: Graphics-VGA
+Desc: Display text followed by a <CR><LF>
+
+Name: G13BANNER
+Mod : G13BANNE.OBJ
+Decl: DECLARE SUB G13Banner (St$, X%, Y%, Xmul%, Ymul%)
+Type: Graphics-VGA
+Desc: Display text of a specified size using graphics coordinates
+
+Name: G13BOX
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Box (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%, BYVAL Fill%)
+Type: Graphics-VGA
+Desc: Draw a box
+
+Name: G13CLS
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Cls ()
+Type: Graphics-VGA
+Desc: Clear the screen
+
+Name: G13COLOR
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Color (BYVAL Foreground%, BYVAL Background%)
+Type: Graphics-VGA
+Desc: Set the colors
+
+Name: G13ELLIPSE
+Mod : G13ELLIP.OBJ
+Decl: DECLARE SUB G13Ellipse (CenterX%, CenterY%, XRadius%, YRadius%)
+Type: Graphics-VGA
+Desc: Draw a circle or ellipse
+
+Name: G13GET
+Mod : G13GET.OBJ
+Decl: DECLARE SUB G13Get (X1%, Y1%, X2%, Y2%, Image%())
+Type: Graphics-VGA
+Desc: Get a GET/PUT image
+
+Name: G13GETCOLOR
+Mod : G13.OBJ
+Decl: DECLARE SUB G13GetColor (Foreground%, Background%)
+Type: Graphics-VGA
+Desc: Get the current colors
+
+Name: G13GETLOCATE
+Mod : GGETLOC.OBJ
+Decl: DECLARE SUB G13GetLocate (Row%, Column%)
+Type: Graphics-VGA
+Desc: Get the cursor position
+
+Name: G13LINE
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Line (BYVAL X1%, BYVAL Y1%, BYVAL X2%, BYVAL Y2%)
+Type: Graphics-VGA
+Desc: Draw a line
+
+Name: G13LOCATE
+Mod : GLOCATE.OBJ
+Decl: DECLARE SUB G13Locate (BYVAL Row%, BYVAL Column%)
+Type: Graphics-VGA
+Desc: Set the cursor position
+
+Name: G13MODE
+Mod : G13MODE.OBJ
+Decl: DECLARE SUB G13Mode (BYVAL Graphics%)
+Type: Graphics-VGA
+Desc: Switch between text and graphics modes
+
+Name: G13PLOT
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Plot (BYVAL X%, BYVAL Y%)
+Type: Graphics-VGA
+Desc: Draw a dot
+
+Name: G13PUT
+Mod : G13PUT.OBJ
+Decl: DECLARE SUB G13Put (StartX%, StartY%, Image%())
+Type: Graphics-VGA
+Desc: Display a GET/PUT image
+
+Name: G13POLYGON
+Mod : G13POLY.OBJ
+Decl: DECLARE SUB G13Polygon (X%, Y%, Radius%, Vertices%, Angle!)
+Type: Graphics-VGA
+Desc: Draw a regular polygon
+
+Name: G13WRITE
+Mod : G13.OBJ
+Decl: DECLARE SUB G13Write (St$)
+Type: Graphics-VGA
+Desc: Display text
+
+Name: G13WRITELN
+Mod : G13.OBJ
+Decl: DECLARE SUB G13WriteLn (St$)
+Type: Graphics-VGA
+Desc: Display text followed by a <CR><LF>
+
+Name: MALLOCATE
+Mod : MEMORYQ.OBJ
+Decl: DECLARE SUB MAllocate (Bytes&, Ptr&, ErrCode%)
+Type: Memory
+Desc: Allocate a block of memory
+
+Name: MDEALLOCATE
+Mod : MEMORYQ.OBJ
+Decl: DECLARE SUB MDeallocate (Ptr&, ErrCode%)
+Type: Memory
+Desc: Deallocate (free) a block of memory
+
+Name: MFILL
+Mod : MFILL.OBJ
+Decl: DECLARE SUB MFill (Ptr&, BYVAL Value%, Bytes&)
+Type: Memory
+Desc: Fill a block of memory with a desired value
+
+Name: MMOVE
+Mod : MMOVE.OBJ
+Decl: DECLARE SUB MMove (FromPtr&, ToPtr&, Bytes&)
+Type: Memory
+Desc: Copy the contents of one block of memory to another
+
+Name: MPUTCHR
+Mod : MPUTCHR.OBJ
+Decl: DECLARE SUB MPutChr (Ptr&, Ch$)
+Type: Memory
+Desc: Put a character into a pointer location
+
+Name: MSPLITPTR
+Mod : MSPLITPT.OBJ
+Decl: DECLARE SUB MSplitPtr (Ptr&, TSeg%, TOfs%)
+Type: Memory
+Desc: Convert an address from a pointer to segment/offset form
+
+Name: SCREENSIZE
+Mod : SCRNSIZE.OBJ
+Decl: DECLARE SUB ScreenSize (Rows%, Columns%)
+Type: Miscellaneous
+Desc: Return the current text screen size
+
+Name: STARTXMODEMSEND
+Mod : TCSEND.OBJ
+Decl: DECLARE SUB StartXmodemSend (Handle%, Protocol$, Baud$, MaxRec%, Record%, EstTime$, ErrCode%)
+Type: Serial
+Desc: Start an Xmodem "send"
+
+Name: TCDONE
+Mod : TCQ.OBJ
+Decl: DECLARE SUB TCDone ()
+Type: Serial
+Desc: Terminate the serial communications handler
+
+Name: TCDTR
+Mod : TCDTR.OBJ
+Decl: DECLARE SUB TCDTR (BYVAL State%)
+Type: Serial
+Desc: Set the state of the DTR
+
+Name: TCFLUSHIN
+Mod : TC.OBJ
+Decl: DECLARE SUB TCFlushIn ()
+Type: Serial
+Desc: Flush the input buffer
+
+Name: TCFLUSHOUT
+Mod : TC.OBJ
+Decl: DECLARE SUB TCFlushOut ()
+Type: Serial
+Desc: Flush the output buffer
+
+Name: TCINIT
+Mod : TCQ.OBJ
+Decl: DECLARE SUB TCInit (Port%, InSize%, OutSize%, ErrCode%)
+Type: Serial
+Desc: Initialize the serial communications routines
+
+Name: TCPARMS
+Mod : TCQ.OBJ
+Decl: DECLARE SUB TCParms (Parity$, WordLength%, StopBits%)
+Type: Serial
+Desc: Initialize the serial port
+
+Name: TCSPEED
+Mod : TC.OBJ
+Decl: DECLARE SUB TCSpeed (Bps&)
+Type: Serial
+Desc: Set the "baud rate"
+
+Name: TCWRITE
+Mod : TC.OBJ
+Decl: DECLARE SUB TCWrite (St$)
+Type: Serial
+Desc: Write a string to the output buffer
+
+Name: TCWRITELN
+Mod : TC.OBJ
+Decl: DECLARE SUB TCWriteLn (St$)
+Type: Serial
+Desc: Write a string and a <CR><LF> to the output buffer
+
+Name: VGETPALETTE
+Mod : VGETPAL.OBJ
+Decl: DECLARE SUB VGetPalette (BYVAL PalReg%, Red%, Green%, Blue%)
+Type: Graphics-VGA
+Desc: Get palette settings
+
+Name: VPALETTE
+Mod : VPALETTE.OBJ
+Decl: DECLARE SUB VPalette (BYVAL PalReg%, BYVAL Red%, BYVAL Green%, BYVAL Blue%)
+Type: Graphics-VGA
+Desc: Set a palette value
+
+Name: WCLEAR
+Mod : VWS.OBJ
+Decl: DECLARE SUB WClear (BYVAL Handle%)
+Type: Window
+Desc: Clear a virtual screen
+
+Name: WCLOSE
+Mod : VWS.OBJ
+Decl: DECLARE SUB WClose (BYVAL Handle%)
+Type: Window
+Desc: Close a virtual screen
+
+Name: WCOLLAPSE
+Mod : WCOLLAPS.OBJ
+Decl: DECLARE SUB WCollapse (Handle%)
+Type: Window
+Desc: Close a virtual screen with a "collapsing" effect
+
+Name: WCOLOR
+Mod : WCOLOR.OBJ
+Decl: DECLARE SUB WColor (BYVAL Handle%, BYVAL Fore%, BYVAL Back%)
+Type: Window
+Desc: Set the colors for a virtual screen
+
+Name: WCONTROL
+Mod : WCONTROL.OBJ
+Decl: DECLARE SUB WControl (BYVAL Handle%, BYVAL DoControl%)
+Type: Window
+Desc: Set whether a virtual screen should interpret control codes
+
+Name: WCOPY
+Mod : WCOPY.OBJ
+Decl: DECLARE SUB WCopy (BYVAL FromHandle%, BYVAL ToHandle%)
+Type: Window
+Desc: Copy the contents of one virtual screen to another
+
+Name: WCURSOR
+Mod : VWS.OBJ
+Decl: DECLARE SUB WCursor (BYVAL Handle%, BYVAL CSize%)
+Type: Window
+Desc: Set the cursor size for a window
+
+Name: WDELCHR
+Mod : WDELCHR.OBJ
+Decl: DECLARE SUB WDelChr (BYVAL Handle%)
+Type: Window
+Desc: Delete a character from a virtual screen
+
+Name: WDELLINE
+Mod : WDELLINE.OBJ
+Decl: DECLARE SUB WDelLine (BYVAL Handle%)
+Type: Window
+Desc: Delete a row from a virtual screen
+
+Name: WDONE
+Mod : VWS.OBJ
+Decl: DECLARE SUB WDone ()
+Type: Window
+Desc: Terminate the virtual window handler
+
+Name: WEXPLODE
+Mod : WEXPLODE.OBJ
+Decl: DECLARE SUB WExplode (Handle%)
+Type: Window
+Desc: "Explode" a window onto the screen
+
+Name: WFIXCOLOR
+Mod : VWS.OBJ
+Decl: DECLARE SUB WFixColor (BYVAL Convert%)
+Type: Window
+Desc: Set whether to convert colors to be visible on a monochrome display
+
+Name: WFRAME
+Mod : WFRAME.OBJ
+Decl: DECLARE SUB WFrame (BYVAL Handle%, BYVAL Frame%, BYVAL Fore%, BYVAL Back%)
+Type: Window
+Desc: Set a window frame type
+
+Name: WGETADDRESS
+Mod : WGETADDR.OBJ
+Decl: DECLARE SUB WGetAddress (BYVAL Handle%, WSeg%, WOfs%)
+Type: Window
+Desc: Get memory address of a virtual screen
+
+Name: WGETCOLOR
+Mod : WGETCOLO.OBJ
+Decl: DECLARE SUB WGetColor (BYVAL Handle%, Fore%, Back%)
+Type: Window
+Desc: Get the current colors of a virtual screen
+
+Name: WGETCONTROL
+Mod : WGETCONT.OBJ
+Decl: DECLARE SUB WGetControl (BYVAL Handle%, DoControl%)
+Type: Window
+Desc: Get whether a virtual screen should interpret control codes
+
+Name: WGETCURSOR
+Mod : WGETCURS.OBJ
+Decl: DECLARE SUB WGetCursor (BYVAL Handle%, CSize%)
+Type: Window
+Desc: Get the cursor position of a virtual screen
+
+Name: WGETFRAME
+Mod : WGETFRAM.OBJ
+Decl: DECLARE SUB WGetFrame (BYVAL Handle%, Frame%, Fore%, Back%)
+Type: Window
+Desc: Get the frame type of a window
+
+Name: WGETLOCATE
+Mod : WGETLOCA.OBJ
+Decl: DECLARE SUB WGetLocate (BYVAL Handle%, Row%, Column%)
+Type: Window
+Desc: Get the cursor position within a virtual screen
+
+Name: WGETPLACE
+Mod : WGETPLAC.OBJ
+Decl: DECLARE SUB WGetPlace (BYVAL Handle%, Row%, Column%)
+Type: Window
+Desc: Get the display location of the upper left corner of a window
+
+Name: WGETSCROLL
+Mod : WGETSCRO.OBJ
+Decl: DECLARE SUB WGetScroll (BYVAL Handle%, AutoScroll%)
+Type: Window
+Desc: Get whether a virtual screen will autoscroll
+
+Name: WGETSHADOW
+Mod : WGETSHAD.OBJ
+Decl: DECLARE SUB WGetShadow (BYVAL Handle%, Shadow$, Fore%, Back%)
+Type: Window
+Desc: Get the shadow used by a window
+
+Name: WGETSIZE
+Mod : WGETSIZE.OBJ
+Decl: DECLARE SUB WGetSize (BYVAL Handle%, Rows%, Columns%)
+Type: Window
+Desc: Get the size of a window
+
+Name: WGETTITLE
+Mod : WGETTITL.OBJ
+Decl: DECLARE SUB WGetTitle (BYVAL Handle%, Title$, TLen%, Fore%, Back%)
+Type: Window
+Desc: Get the title of a window
+
+Name: WGETTOP
+Mod : VWS.OBJ
+Decl: DECLARE SUB WGetTop (Handle%)
+Type: Window
+Desc: Get the top window
+
+Name: WGETUFRAME
+Mod : VWS.OBJ
+Decl: DECLARE SUB WGetUFrame (BYVAL Frame%, FrameInfo$)
+Type: Window
+Desc: Get the definitions for a user-defined frame
+
+Name: WGETVIEW
+Mod : WGETVIEW.OBJ
+Decl: DECLARE SUB WGetView (BYVAL Handle%, Row%, Column%)
+Type: Window
+Desc: Get the upper left of where a window starts within a virtual screen
+
+Name: WGETVSIZE
+Mod : WGETVSIZ.OBJ
+Decl: DECLARE SUB WGetVSize (BYVAL Handle%, Rows%, Columns%)
+Type: Window
+Desc: Get the size of a virtual screen
+
+Name: WHIDDEN
+Mod : WHIDDEN.OBJ
+Decl: DECLARE SUB WHidden (BYVAL Handle%, Hidden%)
+Type: Window
+Desc: Get whether a window is visible or hidden
+
+Name: WHIDE
+Mod : WHIDE.OBJ
+Decl: DECLARE SUB WHide (BYVAL Handle%, BYVAL Hide%)
+Type: Window
+Desc: Set whether a window should be visible or hidden
+
+Name: WINIT
+Mod : VWSQ.OBJ
+Decl: DECLARE SUB WInit (Rows%, Columns%, ErrCode%)
+Type: Window
+Desc: Initialize the virtual window handler
+
+Name: WINPUT
+Mod : WINPUT.OBJ
+Decl: DECLARE SUB WInput (Handle%, Valid$, ExitCode$, ExtExitCode$, MaxLength%, St$, ExitKey$)
+Type: Window
+Desc: Input a string in a virtual screen
+
+Name: WINSCHR
+Mod : WINSCHR.OBJ
+Decl: DECLARE SUB WInsChr (BYVAL Handle%)
+Type: Window
+Desc: Insert a space in a virtual screen
+
+Name: WINSLINE
+Mod : WINSLINE.OBJ
+Decl: DECLARE SUB WInsLine (BYVAL Handle%)
+Type: Window
+Desc: Insert a blank line in a virtual screen
+
+Name: WLOCATE
+Mod : WLOCATE.OBJ
+Decl: DECLARE SUB WLocate (BYVAL Handle%, BYVAL Row%, BYVAL Column%)
+Type: Window
+Desc: Set the cursor position in a virtual screen
+
+Name: WOPEN
+Mod : VWSQ.OBJ
+Decl: DECLARE SUB WOpen (Rows%, Columns%, SRow1%, SCol1%, SRow2%, SCol2%, Handle%, ErrCode%)
+Type: Window
+Desc: Open a new window
+
+Name: WPLACE
+Mod : WPLACE.OBJ
+Decl: DECLARE SUB WPlace (BYVAL Handle%, BYVAL Row%, BYVAL Column%)
+Type: Window
+Desc: Set the upper left column of a window on the display
+
+Name: WSCROLL
+Mod : WSCROLL.OBJ
+Decl: DECLARE SUB WScroll (BYVAL Handle%, BYVAL AutoScroll%)
+Type: Window
+Desc: Set whether a virtual screen should autoscroll
+
+Name: WSHADOW
+Mod : WSHADOW.OBJ
+Decl: DECLARE SUB WShadow (BYVAL Handle%, Shadow$, BYVAL Fore%, BYVAL Back%)
+Type: Window
+Desc: Set the shadow for a window
+
+Name: WSIZE
+Mod : WSIZE.OBJ
+Decl: DECLARE SUB WSize (BYVAL Handle%, BYVAL Rows%, BYVAL Columns%)
+Type: Window
+Desc: Set the size of a window
+
+Name: WSNOW
+Mod : VWS.OBJ
+Decl: DECLARE SUB WSnow (BYVAL KillFlicker%)
+Type: Window
+Desc: Set whether to use display snow suppression (for some CGAs)
+
+Name: WTITLE
+Mod : WTITLE.OBJ
+Decl: DECLARE SUB WTitle (BYVAL Handle%, Title$, BYVAL Fore%, BYVAL Back%)
+Type: Window
+Desc: Set the title of a window
+
+Name: WTOP
+Mod : VWS.OBJ
+Decl: DECLARE SUB WTop (BYVAL Handle%)
+Type: Window
+Desc: Set the top window
+
+Name: WUPDATE
+Mod : VWS.OBJ
+Decl: DECLARE SUB WUpdate ()
+Type: Window
+Desc: Update the display from the virtual screens
+
+Name: WUSERFRAME
+Mod : VWS.OBJ
+Decl: DECLARE SUB WUserFrame (BYVAL Frame%, FrameInfo$)
+Type: Window
+Desc: Define a window frame type
+
+Name: WVIEW
+Mod : WVIEW.OBJ
+Decl: DECLARE SUB WView (BYVAL Handle%, BYVAL Row%, BYVAL Column%)
+Type: Window
+Desc: Set the upper left corner of a window within a virtual screen
+
+Name: WWRITE
+Mod : VWS.OBJ
+Decl: DECLARE SUB WWrite (BYVAL Handle%, St$)
+Type: Window
+Desc: Display text
+
+Name: WWRITELN
+Mod : VWS.OBJ
+Decl: DECLARE SUB WWriteLn (BYVAL Handle%, St$)
+Type: Window
+Desc: Display text followed by a <CR><LF>
+
+Name: XMODEMSEND
+Mod : TCSEND.OBJ
+Decl: DECLARE SUB XmodemSend (Handle%, Protocol$, MaxRec%, Record%, ErrCount%, ErrCode%)
+Type: Serial
+Desc: Continue an Xmodem "send"
+
+Name: ADDPAREN0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: BASEPORT
+Mod : TC.OBJ
+Type: PRIVATE
+
+Name: BCDADD1
+Mod : BCDADD1.OBJ
+Type: PRIVATE
+
+Name: BCDDIV1L
+Mod : BCDDIV1.OBJ
+Type: PRIVATE
+
+Name: BCDDIV1R
+Mod : BCDDIV1.OBJ
+Type: PRIVATE
+
+Name: BCDMUL1
+Mod : BCDMUL1.OBJ
+Type: PRIVATE
+
+Name: BCDSUB1
+Mod : BCDSUB1.OBJ
+Type: PRIVATE
+
+Name: BFONTROW0
+Mod : BFONT.OBJ
+Type: PRIVATE
+
+Name: BFONTROWS0
+Mod : BFONT.OBJ
+Type: PRIVATE
+
+Name: CHECKCOORD
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: CHECKSUM0
+Mod : CRC0.OBJ
+Type: PRIVATE
+
+Name: COMPLEMENT
+Mod : BCDSUB.OBJ
+Type: PRIVATE
+
+Name: CONSTANT0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: CRC0
+Mod : CRC0.OBJ
+Type: PRIVATE
+
+Name: CRITDONE
+Mod : CRITERRO.OBJ
+Type: PRIVATE
+
+Name: CRITERROR
+Mod : CRITERRO.OBJ
+Type: PRIVATE
+
+Name: CRITINIT
+Mod : CRITERRO.OBJ
+Type: PRIVATE
+
+Name: DOSV
+Mod : FINIT0.OBJ
+Type: PRIVATE
+
+Name: EXPR0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: FACTOR0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: FB2ATTR
+Mod : FB2ATTR.OBJ
+Type: PRIVATE
+
+Name: FCLOSE0
+Mod : FCLOSE0.OBJ
+Type: PRIVATE
+
+Name: FDATE0
+Mod : FDATE0.OBJ
+Type: PRIVATE
+
+Name: FDONE0
+Mod : FDONE0.OBJ
+Type: PRIVATE
+
+Name: FILE
+Mod : FINIT0.OBJ
+Type: PRIVATE
+
+Name: FINIT0
+Mod : FINIT0.OBJ
+Type: PRIVATE
+
+Name: FIXCOLORS
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: FIXPRECEDENCE0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: FONTADDR
+Mod : BFONT.OBJ
+Type: PRIVATE
+
+Name: FONTROWS
+Mod : BFONT.OBJ
+Type: PRIVATE
+
+Name: FOPEN0
+Mod : FOPEN0.OBJ
+Type: PRIVATE
+
+Name: FRACREDUCE
+Mod : FRACREDU.OBJ
+Type: PRIVATE
+
+Name: FSDONE0
+Mod : FARSTR.OBJ
+Type: PRIVATE
+
+Name: FSNEWBLOCK
+Mod : FARSTR.OBJ
+Type: PRIVATE
+
+Name: FSSET0
+Mod : FARSTR.OBJ
+Type: PRIVATE
+
+Name: FTIME0
+Mod : FTIME0.OBJ
+Type: PRIVATE
+
+Name: G0BOX
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0CLS
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0COLOR
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0GETCOLOR
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0GETPEL
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0LINE
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0MODE
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0PLOT
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0WRITE
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G0WRITELN
+Mod : G0.OBJ
+Type: PRIVATE
+
+Name: G1MIRRORH0
+Mod : G1MIRH0.OBJ
+Type: PRIVATE
+
+Name: G2MIRRORH0
+Mod : G2MIRH0.OBJ
+Type: PRIVATE
+
+Name: GN2MODE0
+Mod : GN2.OBJ
+Type: PRIVATE
+
+Name: GETBIT0
+Mod : GETBIT0.OBJ
+Type: PRIVATE
+
+Name: GETHANDLE
+Mod : GETHANDL.OBJ
+Type: PRIVATE
+
+Name: HAN2DESC
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: ISDIGIT0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: MALLOCATE0
+Mod : MEMORY0.OBJ
+Type: PRIVATE
+
+Name: MAXOFS
+Mod : MEMORY.OBJ
+Type: PRIVATE
+
+Name: MDEALLOCATE0
+Mod : MEMORY0.OBJ
+Type: PRIVATE
+
+Name: PARENSOK0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: PEEL
+Mod : FILEQ.OBJ
+Type: PRIVATE
+
+Name: READBUFFER
+Mod : READBUFF.OBJ
+Type: PRIVATE
+
+Name: SETBIT0
+Mod : SETBIT0.OBJ
+Type: PRIVATE
+
+Name: SPLITPTR
+Mod : MEMORY.OBJ
+Type: PRIVATE
+
+Name: TCDONE0
+Mod : TC.OBJ
+Type: PRIVATE
+
+Name: TCINIT0
+Mod : TC.OBJ
+Type: PRIVATE
+
+Name: TCINSTALLED
+Mod : TC.OBJ
+Type: PRIVATE
+
+Name: TCPARMS0
+Mod : TC.OBJ
+Type: PRIVATE
+
+Name: TERM0
+Mod : EVAL.OBJ
+Type: PRIVATE
+
+Name: TIMETICK
+Mod : TIMETICK.OBJ
+Type: PRIVATE
+
+Name: WGETMEM0
+Mod : WGETMEM0.OBJ
+Type: PRIVATE
+
+Name: WIN
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: WINIT0
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: WOPEN0
+Mod : VWS.OBJ
+Type: PRIVATE
+
+Name: ZEROFILL
+Mod : FILEQ.OBJ
+Type: PRIVATE

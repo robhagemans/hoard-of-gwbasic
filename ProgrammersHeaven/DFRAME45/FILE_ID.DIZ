@@ -1,0 +1,10 @@
+DoorFrame v4.5 Doors development library for
+QuickBasic 4.x. Has direct support for most
+BBS software, COM 0 - 15, up to 115K Baud,
+non-standard IRQ's, multi-nodes, music, high
+score bulletin, box and line drawing, ANSI
+and ASCII file send. Now supports multi-port 
+boards using a FOSSIL including PCBoard/M.
+Also detects and reports the presence of
+RIPscrip on the remote. A Livewire Program.
+

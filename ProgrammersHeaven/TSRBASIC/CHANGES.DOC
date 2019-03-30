@@ -1,0 +1,116 @@
+
+The following changes were made to TsrBasic, Version 2.0,
+to arrive at TsrBasic, Version 2.2. See the documentation
+for more information.
+
+
+1) TsrBasic was modified so that line numbers are no
+longer required on statements. This was done by adding
+NUMBER mode and NO NUMBER mode. In NUMBER mode, TsrBasic
+functions as it did in previous releases. This is the
+default. In NO NUMBER mode, line numbers are optional,
+and are only required on statements that are the target
+of a GOTO, GOSUB or RESUME.
+
+2) The -n command line option was added to start TsrBasic
+in NO NUMBER mode.
+
+3) The RENUM command was extended to switch between
+NUMBER mode and NO NUMBER mode. Entering RENUM 0 removes
+unnecessary line numbers from the program and enters NO
+NUMBER mode. Entering RENUM without an operand, or RENUM
+with a line number, adds line numbers back to the program
+and enters NUMBER mode. Note that loading a program without
+line numbers in NUMBER mode will cause the statements
+without line numbers to be executed immediately.
+
+--------------------------------------------------------
+
+The following changes were made to TsrBasic, Version 1.0,
+to arrive at TsrBasic, Version 2.0. See the documentation
+for more information.
+
+
+1) Graphics capabilities were added for CGA, EGA, VGA and
+Hercules compatible graphics adapters. They use a dynamic
+link library to conserve DOS memory when graphics functions
+are not in use.
+
+2) A new parameter was added to the SUSPEND statement to
+recall the interpreter after a period of keyboard inactivity.
+This can be used to implement screen savers in TsrBasic.
+
+3) The text window operations that were grouped under the
+SCREEN statement were broken out into separate statements and
+new capabilities were added. This improves performance and makes
+them easier to use. See the Text Windows section of the
+documentation for more information.
+
+4) The algorithm for drawing borders was changed so that
+the border is now considered part of the text window and is
+drawn inside the defined boundaries. As a result, it is now
+saved and restored with the savescreen and restorescreen
+statements.
+
+5) The internal table search algorithm was improved for
+faster compile times.
+
+6) The SHIFT and SORT statements were added to shift or sort
+one dimensional arrays.
+
+7) Error handling was improved and several new error messages
+were added. TsrBasic now issues a more informative error message
+when it detects the use of a reserved word (keyword) as a variable.
+
+--------------------------------------------------------
+
+The following bugs were fixed for TsrBasic, version 2:
+
+
+1) Undefined line number errors now refer to the correct
+source statement.
+
+2) The renum command handles comma as well as space in 
+the line number, increment specification.
+
+3) An error is raised if a factor is missing in an
+arithmetic expression.
+
+4) The print statement positions the cursor correctly.
+
+5) Error handler status is handled properly when an error
+handler executes an END instead of a RESUME.
+
+6) Executing a RUN command after a CLEAR command now works.
+
+7) Integer conversion for addition and subtraction of medium
+sized integers (larger than 65535) now works properly.
+
+8) Floating point exceptions such as divide by zero now raise
+a TsrBasic error.
+
+9) Better error messages are printed if a multiline IF
+statement is missing some of its keywords.
+
+10) For loops with unique control variables that are nested
+via subroutine calls now work.
+
+11) Factors to negative powers (such as 2^-2) are supported.
+
+12) Chained programs now make better use of the symbol
+table by reusing space left by non-COMMON symbols.
+
+13) Chained programs that had the "" string literal in common
+no longer report an uninitialized variable.
+
+14) The last immediate mode statement in files loaded
+from the command line or with the load statement is
+executed only once.
+
+15) The "Cannot unload TSR" error is raised on QUIT if another
+program has hooked into interrupts handled by TsrBasic.
+
+16) The internal handling of symbol table and data area
+overflows has been improved.
+
+

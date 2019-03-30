@@ -1,0 +1,11 @@
+Short : FX Version 1.0, Sound effects creator for Qbasic
+Type  : Shareware Utility/ Qbasic Programming source
+Uploader : TimTruman@aol.com 
+Replaces : SWFXV1.ZIP
+
+If your looking for an easy way to add sound to your Qbasic programs
+this may be your dream program. FX has a graphical interface that allows
+you to program the FM hardware on any sound card. No experiance necessary.
+Just click and listen ! Comes with Qbasic playback example programs and 
+a Qbasic game called Targets. FX requires a VGA, Mouse and sound card.
+FX requires registration to save sound effect files. Documentation :FX.TXT

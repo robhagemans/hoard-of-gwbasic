@@ -1,0 +1,522 @@
+'Sprite Shareware Documentation Version 2.0
+'Revised 4/29/97
+
+
+SPRITE 2.0 is shareware. This means that you can try it before 
+you buy it. SPRITE is fully functional except that only partial 
+sprite files can be saved. This does not effect using the 
+program. Images can still be saved and used by your Qbasic(r) 
+programs.
+
+SPRITE has an evaluation period of 15 Days. Should you
+find SPRITE useful beyond the evaluation period I ask that
+you please register the program. See "Registering SPRITE" below.  
+
+Thanks for supporting the shareware idea.
+
+
+-------------
+Distribution
+-------------
+ The shareware version of SPRITE may be freely distributed 
+ providing no changes are made to the program or its support 
+ files. The Shareware version of SPRITE should have the 
+ accompanying files:
+ 
+ SWSPV.EXE     - The shareware Sprite program.
+ ASCII.SPR     - Sample sprite file.
+ CAR.SPR       - Ditto
+ CATAPIL1.SPR  - Ditto
+ CHAR1.SPR     - Ditto
+ CREAPYI.SPR   - Ditto
+ EXAMPLES.SPR  - Ditto
+ SQEETER.SPR   - Ditto
+ TILE1.SPR     - Ditto
+ TILE2.SPR     - Ditto
+ NUMS1.SPR     - Ditto
+ SQEETER.PCX   - Sample PCX file
+ ANIMATE1.BAS  - Qbasic(r) example program.  
+ ANIMATE2.BAS  - Ditto
+ ANIMATE3.BAS  - Ditto
+ ANIMATE4.BAS  - Ditto
+ ANIMATE5.BAS  - Ditto
+ ASCII1.BAS    - Ditto 
+ ASCII1.BAS    - Ditto 
+ CREAPI.BAS    - Ditto
+ LOADSPR1.BAS  - Ditto
+ LOADSPR2.BAS  - Ditto
+ LOADSPR3.BAS  - Ditto
+ TILE1.BAS     - Ditto 
+ TILE2.BAS     - Ditto
+ SCORE.BAS     - Ditto
+ SCROLL1.BAS   - Ditto
+ SCROLL2.BAS   - Ditto
+ SPRITE.TXT    - This file.
+ ORDERFRM.TXT  - Order form for the full SPRITE program.
+
+ Vendors please contact me (see Technical support) if you
+ would like to distribute this program so I can make sure 
+ you have the most recent version, and keep you supplied 
+ with updates.
+
+-------------
+Introduction
+-------------
+ Thanks for downloading my program. You have the shareware
+ version of Sprite 2.0. 
+
+ Sprite is a full featured image editor utility that can make 
+ adding colorfull detailed images to Qbasic(r) possible. Sprite 
+ utilizes Mode 13 (320x200x256) and can edit multiple images at 
+ once up to 64 X 64 pixels in 256 colors. Because SPRITE can 
+ display and save multiple images at once, it is ideally suited 
+ for developing graphics for programs that require numerous small 
+ images, like those that are found in games.
+ 
+ SPRITE has an extensive array of editing tools that help make 
+ creating images quickly and easily. Pen, line, circle, box, 
+ fill, moves, flips, scaling, rotation, animation, re-sizing,
+ color editing and loading PCX files, are all part of 
+ SPRITEs aresonal. 
+
+ Creating images is only part of the story, though. Qbasic 
+ programs need a fast way to load and display images. 
+ SPRITE saves its files using the Qbasic statement BSAVE. 
+ Its counter statement BLOAD is the fastest file function 
+ Qbasic offers. Sprites are BLOADed into programs then displayed 
+ using the PUT graphics statement. PUT is the fastest graphic 
+ primitive statement provided in Qbasic and makes fast animation 
+ possible. The included Qbasic Demo programs demonstrate loading 
+ and displaying images, animating images and other useful concepts. 
+ 
+ Sprite also has features that make combining several sprite 
+ files, even files that contain images of different sizes, 
+ possible. If you have used an ealier version of SPRITE you know 
+ that there was no way to combine images from multiple sprite files. 
+ Now SPRITE has a function 'COPY FROM' that allows you to 'COPY' 
+ any image from another sprite file regardless of its image size.
+
+ I think you will find SPRITE easy to use as I do. I have made 
+ many games with the images made with this program. QBinvade and 
+ QBroids to name a few. If you would like copies of these 
+ programs visit my FTP site at: 
+
+ ftp.aol.members/TimTruman
+
+----------------
+Starting Sprite
+----------------
+
+ For DOS users, I recommend putting SWSPV1.EXE in a directory that
+ is specified in the path. This way the program can be started from 
+ whatever directory you are working in at the time and make it easy 
+ to edit the .SPR files you will be using in your programs. 
+ Type SWSPV1 to start the program or add a filename to start 
+ SPRITE and load the specified .spr file.  For example 
+ "SWSPV1 EXAMPLES".
+
+ For Win95 users it is easiest to make .SPR files registered. To 
+ do this just double click on any .SPR file. Win95 will ask what 
+ program to open the file with. Find and select SWSPV1.EXE. From 
+ then on clicking on any .SPR file will Run SPRITE and load the 
+ selected file.
+
+--------------------------
+Creating your first image
+--------------------------
+ Start Sprite without specifying a file name. A copyright box is 
+ displayed on startup. Click anywhere on the screen to remove it, 
+ and click again to remove the information box.(These are sprinkled 
+ throughout the program to help you use SPRITE in case you didn't 
+ read this first!)  The gray boxes left on the screen are the 
+ image frames. The upper left frame is frame 0, the next one to 
+ the right is 1 and so on. Remember this when accessing images 
+ with your programs. Also, the frames are sizable, but for now we 
+ will concentrate on creating an image. (see Using The Main Menu)
+
+ Click on a frame with left mouse button to display the Edit 
+ menu. All the edit menu options manipulate a frame in some 
+ way. But most options won't do anything until there is an image 
+ in the frame, so start by clicking on the'Edit' option. A new 
+ screen will be displayed containing a scaled up frame, an actual 
+ size frame, a color palette and a bunch of editing tools. First, 
+ select a color from the color palette by clicking on a color with 
+ the left mouse button. Then select a drawing tool, again using the 
+ left mouse button. (By the way all drawing functions use the left 
+ mouse button. Pressing the right mouse button will return the 
+ program to the Frame screen.) 
+
+ Here's the drawing tools do :
+
+ Pen  - Draws like a pen. Click on an area to color it. Hold the 
+        left mouse button(drag the mouse)and move the mouse to 
+        drag the pen.
+
+ Line - Drag the mouse from one point to another. Release the 
+        mouse when done.
+ 
+ Box  - Draws a box with it's corners defined by dragging the 
+        mouse. Release the mouse when done.
+
+ Circle - Draws a circle whose size is changeable by dragging 
+          the mouse. Release the mouse when done.
+
+ Solid Box - Same as box but solid.
+
+ Solid Circle - Same as circle but solid.
+
+ Fill - Fills an area with the currently selected color.
+
+ Undo - Un-does the last color edit.
+
+ Arrow left - Move the image left
+
+ Arrow up - Move the image up
+
+ Arrow right - Move the image right
+
+ Arrow down - Move the image down
+
+ Mask - Creates a mask of the image. 
+
+
+ Select an edit tool and try it out. When you have a image you 
+ would like to keep left click on the 'actual size frame' to 
+ return to the frame screen. Your image will be displayed in the 
+ frame originally clicked on. 
+
+ Now that you have an image you can use some of the other editing 
+ options. Click on your image again to display the Edit menu. 
+ Let's make some copies of your image in case it's get mutilated 
+ by accident. Select 'Copy' from the menu. This copies the image 
+ to the clipboard. Then, left click on an empty frame. Select 
+ 'Paste' and your image will be pasted in that frame. Make about 
+ four copies to be safe. You don't have to 'Copy' the image each 
+ time because 'Paste' uses the image currently in the clipboard. 
+ 
+ Know that you have your original image safe, left click again 
+ on one of the copies and try some of the different editing 
+ functions on them. Here's what they do although most are 
+ pretty self explanatory. (Load the EXAMPLES.SPR file to see 
+ examples of most functions.)
+
+ Undo      - Un-does last edit function to image except 'Edit'
+ Copy      - Copies the select frame to the clipboard
+ Edit      - Goes to editing screen
+ Paste     - Pastes an image from the clipboard  
+ Spaste    - Same as paste but has other special paste features  
+ Flipx     - Produces a mirror image 
+ Flipy     - Turns an image upside down
+ Zoom In   - Make the picture bigger 
+ Zoom Out  - Make the picture smaller
+ Squish x  - Like Zoom Out only it works on the x direction
+ Squish y  - Like Zoom Out only it works on the y direction
+ Strech x  - Like Zoom In only it works on the x direction
+ Stretch y - Like Zoom In only it works on the y direction
+ Turn 90   - Rotates an image 90 degrees
+ Rotate    - Rotates an image in the specified degrees
+ Color     - Displays color change screen
+ Animate   - Plays frames in sequence 
+ Resize    - Re-sizes all images to a new selectable smaller size
+
+
+
+ Now that you have created some masterpieces you'll surely want
+ to save them. Click the right mouse button to display the 
+ Main menu. Click on Save. Without holding the mouse buttons,
+ just move the mouse, drag the yellow outline over the images 
+ to be saved. Click the left mouse button and enter a name for 
+ the file. Press enter on the keyboard when finished. Your 
+ images are saved !
+ 
+ Note on saving images : 
+   This shareware version of sprite can only save the first four 
+   frames. Copy any sprites you want to save into these frames. 
+
+
+-------------------
+Using The Main Menu
+-------------------
+
+ As you already know, clicking the right mouse button 
+ displays the main menu and holds the key to saving your
+ images, but it has other interesting options too. 
+ Here's a breakdown of the Main menu options (Later each one is 
+ explained in more detail where necessary).
+
+
+ New               - Clears all images and resets the image size 
+                     specified using the 'Set Sprite Size' option 
+                     below
+ Load              - Load an existing sprite, PCX or palette file
+ Copy From         - Copy an image from an existing sprite file 
+ Save              - Save the current images to file
+ Set Sprite Size   - Set the working image size  
+ Show Current Size - Display the current working size
+ Set Cursor Color  - Set the editing cursor color
+ Quit              - Exits the SPRITE program
+
+
+ Details ...
+
+ Load :
+
+  (1) Loading a PCX file 
+
+  After selecting a PCX file to load a menu will appear with 
+  three options. You can :
+
+  (A) Use PCX Palette : Load the PCX file and use its palette. 
+  (B) Best Match      : Try and match the colors in the PCX 
+                        palette to the current palette.
+  (C) Don't Match     : Just load the PCX file using the current 
+                        palette. 
+  
+  Selecting (A)  will show the image in with it's original 
+  colors. Except for the first sixteen which are re-maped because 
+  SPRITE uses them for it's own colors. This may cause some 
+  noticeable  color abnormalities in the image. The PCX palette 
+  becomes the current working palette so you will have to reload 
+  any palette you were working with previously. Unless of course 
+  you want to use the PCX palette.
+ 
+  Select(B) and SPRITE will color match the palette information 
+  in the PCX file to the current palette as best as possible. 
+  The results will vary depending on the color selections of 
+  the current palette. I recommend using the DEFAULT palette. 
+  It has an adequate color range for good color matching results 
+  without having to resort to color editing. 
+  
+  
+  Selecting (C) will load the PCX file without using its palette 
+  or trying to match colors. It uses the current palette verbatim. 
+  The results can be interesting.
+
+
+  (2) Loading a Palette
+
+  Stick with the Default palette if you can. If you edit images 
+  with different palettes you will have to contend the color 
+  differences when incorporating images into your program. 
+  And believe me it gets pretty messy. On the other hand 
+  loading different palettes can create some interesting effects 
+  and may be necessary if you incorporate sprite saved PCX images 
+  into your programs that were unusable when color matched 
+  (This will be rare). 
+
+  Another useful purpose for using different palettes is to 
+  extend color selection. For instance you may want a screen that 
+  is primarily blue like the setup screens in WIN 95. The default
+  palette may not provide enough blues for a smooth transition 
+  found in such a background. You could load in a different 
+  palette for this screen and then load in another palette 
+  for the rest of the program. 
+
+  How do I make new palettes? When you load in a PCX picture 
+  and use it's palette you will be asked if you want to save the 
+  palette in a format sprite can use. Answer yes and it will be 
+  saved to the current working directory. Most paint programs 
+  allow you to edit palettes and support PCX file formats. So, 
+  you could make a PCX picture that has the colors you need and 
+  load it into Sprite.
+
+
+Copy From :
+
+  'Copy From' will grab an image the size of the current working 
+  size from another sprite file. Move the yellow highlighted box 
+  over the area you wish to copy and click the left mouse button. 
+  When you return to the original frame screen left click on a 
+  frame and select 'Paste' from the edit menu.
+
+Save :
+  
+  This unregistered version can only save the first four frames.
+  You will need to register for the ability to save all of the 
+  frames.
+
+
+Set Sprite Size :
+
+  'Set Sprite Size' allows you to determine the width and the 
+  height of the images to edit. After clicking on this function 
+  you will be prompted to enter a width and a height. Determining 
+  image size depends on the application. A shooting game, for 
+  instance, may use a fairly small sprite size because of the 
+  many images that must fit on the confines of the screen. An 
+  introduction screen may use a large image, a company logo, for 
+  example . It's all preference, of course, but read 
+  'Sprite Size Considerations' below for information regarding 
+  animation speed. After setting the sprite size select 'New' 
+  from the main menu. 
+ 
+Set Cursor Color :
+
+  'Set Cursor Color' sets the color of the editing cursor 
+  displayed on the edit screen. It may come in handy to change 
+  this value if your images contain a lot the same color as the 
+  cursor. Otherwise the cursor may become invisible.
+ 
+  
+
+--------------------------
+Sprite Size Considerations
+-------------------------- 
+ Think ahead! Depending on your application different images size
+ will be in order. Here's a few pointers.
+
+ First and most important, larger images take more time to move. 
+ The PUT statement in Qbasic (r) is fast but it is only so fast. 
+ Larger images take more time than smaller ones. The more 
+ animation a program requires, the smaller the image size should 
+ be. For instance, on a Pentium 90 Qbasic can animate about 
+ fifteen 10 x 10 sprites before screen shear occurs(images 
+ disappear). QuickBASIC 4.5 can handle almost twice that. 
+ Moral...use the smallest image size which provides an effective 
+ display. 
+ 
+ Tiling the screen is a great way to produce backgrounds, 
+ especially in an RPG type game. Creating a sprite size too big 
+ will reduce the effectiveness of the display. A good image size 
+ for tiling is about 16x16.(16 /320 = 20), about twenty tiles 
+ across the screen and twelve down. Keep in mind this is just a 
+ guideline. I have used images much larger for tiling. It all 
+ depends on what you need to accomplish. 
+
+ 
+---------------
+Sprite Hints
+---------------
+ 
+  Use that 'Copy' function:
+
+  (1) Make copies so you don't lose a good image. Sometimes 
+      several images can be made from an existing image.
+  
+  Rotating an image :
+   
+  (1) Make the image smaller than the frame. This will prevent 
+      edges from being clipped except when rotating or TURNing 
+      an image 90 degrees. 
+
+  (2) Larger images rotate better than smaller ones because 
+      they have more detail. 
+
+  (3) Make copies and experiment. Do I want a 30 or 40 degree 
+      rotation? Maybe a 35. Experiment to see what looks best but 
+      always make copies. Also, don't rotate an image 40 degrees 
+      then rotate the same one another 10 for 50 degrees. The 
+      image will become distorted. 
+
+  Rotating an image for 360 degree animation :
+
+  (1) Figure out how many rotations you need and make copies. 
+     Rotate each copy some degree (step) more than the last. The 
+     less degrees between rotated images the smoother they will 
+     look when animated. I usually find a 20 degree step per 
+     image (18 images) a good trade off between smoothness and 
+     file size when dealing with smaller sprite sizes. 
+       
+    
+  Palettes :
+
+   Use the Default palette for all your image editing. This will 
+   keep all your images color consistent and make copying images 
+   from different sprite files hassle free. It is also a good 
+   palette for color matching when loading PCX pictures. It will 
+   save you the headaches of major color editing. 
+
+
+  Using PCX pictures :
+
+    Being able to load PCX pictures opens up a lot of opportunity. 
+    Sprite can load 320 x 200 x 256 color pcx files. Most all 
+    paint and scanner utilities support this file type. For 
+    instance, the SPRITE file 'sqeeter.spr' was scanned and saved 
+    as a 256 color PCX. 
+
+    PCX pictures that are larger than the boundaries of the 
+    frames are clipped. Non 256 color pictures can be loaded, but 
+    the resulting colors can be unpredictable .
+
+    Before loading a PCX picture you intend to copy pieces from,  
+    you may find it best to use a sprite size of 64 x 64 
+    (unless you have purposely edited images in a PCX picture to 
+    fall between the frame lines of course). This way the PCX 
+    image is less likely to have frame lines dividing an area 
+    you want to copy. Save the image as a Sprite file and set 
+    your preferred sprite size. (Don't forget to select 'New' 
+    from the main menu.)  Now you can copy pieces of that file 
+    using 'Copy From' with the current sprite size. 
+
+
+-------------------
+Technical support 
+-------------------
+
+ Having trouble with SPRITE?  Registered or not let me know 
+ and I'll try to correct it. 
+
+ CompuServe :74734,2203
+ Internet   :TimTruman@aol.com
+ AOL        :TimTruman
+
+
+Visit my FTP site:
+------------------
+
+ftp.aol.members/TimTruman
+
+Download my best Qbasic programs and utilitys :
+
+FX Sound creator/editor for Qbasic. 
+  If you're like me you want sound effects that
+  sound excellent ,load easy and play in the background.
+  If you are then you want FX ! The code to play FX sounds is 
+  minimal. About 7 lines ! Fx makes sounds that play back using 
+  the FM hardware on any sound card ! Create an unlimited, 
+  interesting number of sound effects with an easy to use 
+  graphical interface! Never programmed a sound card? Don't worry 
+  FX takes care of all that. You just click , listen and add 'em 
+  to your program. If you're serious about adding sound to Qbasic 
+  check this program out.
+     
+
+QBmatrix 
+  A full featured 256 color tetris variation.
+  Included with "The Revolutionary Guide to Qbasic", by Wrox 
+  Press.
+
+QBdefend 
+  Classic defender for your Qbasic. 
+
+Qbroids 
+  Asteroids for Qbasic. Sprite graphics. Adlib sounds.
+
+
+
+Registering SPRITE
+------------------
+
+ Would you like the registered version of SPRITE so you can save 
+ all the frames ? This will be useful for a programs that require 
+ lots of pictures. 
+ 
+ Print out the ORDERFRM.TXT file and send with a check or money 
+ order to:
+
+ Tim Truman
+ 110 Homestead Ave.
+ Springfield, MA 01151
+ USA
+
+ SPRITE will be under constant improvement. If you would like to 
+ see a feature added or improved let me know. If you register, I 
+ will send you the next two revisions and any new example 
+ programs through e-mail at no charge. 
+
+ Thanks again, Happy SPRITEing.
+ 
+ Microsoft(r), Qbasic(r) and QuickBASIC(r) are registered 
+ trademarks of microsoft corporation.
+

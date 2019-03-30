@@ -1,0 +1,5 @@
+PB Error 1.0á2 - Error code text display
+utility for PowerBASIC 3.x programmers.
+Pass the error code on the command line
+and get a text description for it.
+Freeware by Dave Navarro, Jr.

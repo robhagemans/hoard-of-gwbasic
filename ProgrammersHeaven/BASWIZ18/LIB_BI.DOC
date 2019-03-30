@@ -1,0 +1,546 @@
+     LIB_BI.DOC  Copyright (c) 1992  Daniel M. Smith, Jr.
+
+              TOWARD LIBRARIES AND INCLUDE FILES
+
+
+
+This document consists of a basic tutorial on BASIC include
+files and libraries. It is included with my libraries by the
+kind permission of the author. The text has been edited for
+consistency with my existing documentation and includes minor
+alterations where I considered them helpful.
+   -- Thomas G. Hanlin III
+
+While the following might be considered mundane by experienced
+programmers, it's always nice to have a good foundation to
+begin building on.  With that in mind, the examples and
+discussion of topics will be in relatively layman terminology.
+To give you an excellent grasp of each idea presented, examples
+and step-by-step procedures will be given.  If you are using
+any version of QuickBASIC including QBX Professional
+Development System, the information presented here is
+applicable to all, although some versions may present specific
+problems regarding arguments and syntax. In fact, it is
+germaine to all higher level languages but specifically to the
+many forms of BASIC which is the language we are concerned
+about.
+
+Many routines have been developed by programmers to accomplish
+tasks within the BASIC environment. Some are simple, yet others
+are extremely complex, possibly requiring memory allocation,
+etc. Since these routines are already available why waste time
+trying to re-invent the wheel so to speak; include the ones you
+require into your program with the $INCLUDE Metacommand (hardly
+layman language, so let's take time right now to find out about
+this special terminology).
+
+Metacommands are special commands that are used to make your
+programs perform in a specific fashion. BASIC has three such
+commands; two ($DYNAMIC and $STATIC) which deal with allocation
+of dimensioned arrays and the $INCLUDE command which provides a
+means of incorporating external programs or routines into your
+programs. It specifically tells the compiler to stop processing
+the current program in favor of the program directed by the
+$INCLUDE Metacommand. When the included program ends, execution
+returns to the next line of the main program following the
+included routine.
+
+We are only concerned here with $INCLUDE since it is the means
+by which all external routines are usually made a part of the
+main program. There is a specific syntax required with all
+metacommands that needs to be emphasized; most curious is that
+these commands are always preceded by REM or the apostrophe
+character. The following is the correct syntax for $INCLUDE:
+
+   REM $INCLUDE: 'MyFile.BI'
+      or
+   ' $INCLUDE: 'MyFile.BI'
+
+More than one metacommand can be placed on the same line as
+long as they are separated by white space. The other two
+metacommands don't require an argument, so no colon (delimiter)
+is required when using them. Note that the above argument is
+enclosed by single quotation marks (apostrophes).
+
+What is a ".BI" file?  Nothing can be more frustrating than
+trying to figure out what constitutes an include file when you
+have never been near one before.  Forget trying to track it
+down in reference books!! Here it is in a nutshell and will
+save you a lot of time.
+
+First, it doesn't have to have the ".BI" extension at all, but
+that's the common extension used for BASIC Include files.
+Second, no SUB or FUNCTION programming statements are permitted
+in the file; and Third, include files must be in ASCII format.
+A ".BI" file then is simply the declaration statements
+identifying the external subroutine or function that you want
+to be included into the main program. The following syntax is
+what you could expect to find in a typical ".BI" file. Let's
+call it 'WINDO.BI'.
+
+The metacommand is:
+   REM $INCLUDE: 'WINDO.BI'
+
+The contents of the file might be:
+
+   DECLARE SUB Windo (TRow%, LCol%, BRow%, RCol%)
+   DECLARE SUB Colour (ForeGrd%, BackGrd%, Scrn%)
+   DECLARE SUB Border (Style%, Title$)
+   DECLARE SUB WritWin (FC%, BG%, Text$)
+   ' (etc)
+
+The list could go on to include other windowing capabilities
+such as saving the screen the window pops up on, restoring the
+screen when the window is closed, etc.  Whatever the routine or
+function you wish to include in your program requires a
+definition statement similar to the above in the ".BI" file.
+The actual program defined is, of course, located in a library
+of subroutines; you are only telling the program to expect
+these particular subroutines to be called elsewhere in the
+program. If it were not for the ".BI" file and the declarations
+contained therein, when the program reached the call to the
+subroutine a "SUBPROGRAM NOT DEFINED" error message would be
+encountered. Every subroutine and function must be defined
+either at the beginning of the main module or in the ".BI" file
+if it is to be called during program execution.  I should also
+point out here that all arguments (ie., those within the
+parentheses in the examples above) must be established in your
+program before you make the call to the external subroutine.
+The % arguments require integers and $ arguments require
+strings.
+
+Let's assume you have a key trapped that directs your program
+to a label called WIN. We would expect to find something like
+the following:
+
+   WIN:
+      TRow% = 8: LCol% = 20: BRow% = 18: RCol% = 60
+      BackGrd% = 2: ForeGrd% = 15: Scrn% = 0
+      Style% = 1: Title$ = "TEST WINDOW"
+
+Now that the parameters are established:
+
+   Border Style%, Title$
+   Colour ForeGrd%, BackGrd%, Scrn%
+   Windo TRow%, LCol%, BRow%, RCol%
+
+The parameters can be set when the function is used, for
+example:
+
+   LOCATE 10, 25
+   WritWin 14, 4, "This is only a test!"
+
+By the way, why use Colour instead of Color, or Windo instead
+of Window? Because COLOR and WINDOW are BASIC keywords! We
+can't use them, since they are already defined to mean
+something else. Sometimes you have to be careful with names.
+
+Declaration is not required for GOSUB, since you never have to
+pass any arguments explicitly.  The GOSUB statement is kind of
+a specialized version of GOTO, not a subroutine in the sense
+that a SUB or FUNCTION is.
+
+Hopefully, this will help you to a proper perspective of ".BI"
+files.
+
+NOW!! Here comes the big one. We will step through this very
+slowly because libraries are the backbone of programming. Each
+time a programmer prepares a method to accomplish a certain
+job, it becomes candidate for retention, since the same routine
+might be required again (either by himself or other persons who
+program in the same language).  These routines are normally
+placed in libraries. It could be a small library, or, if many
+routines have been created, it could be quite large. The term
+"library" is very appropriate, because (like books) routines
+can be removed from programming libraries and used when you
+need them, but do not need to be kept in your program when you
+don't. Much work and research go into solving specific tasks or
+coming up with better and more efficient ways of doing a
+particular job. Making these great routines available to others
+makes programming so much easier because you won't have to
+waste time trying to come up with the same routine again. Just
+extract it from the provided library and place in a new library
+you are going to use. Very easily said, but it takes
+considerable doing. This is exactly what we are going to
+examine now.
+
+We will step through the entire procedure for creating a new
+library exactly in the same order as you should every time you
+decide to use someone else's library routines. Please keep in
+mind that these instructions are given from a QuickBASIC
+viewpoint. With other versions of BASIC you will have to make
+substitutions or modifications in the syntax where required.
+
+First you must decide which routines you are going to need from
+the library. Make a list of the names of each routine on paper
+leaving room on the right for additional information.  You will
+realize the advantage of doing this shortly.
+
+Next, you must have a listing (.LST) file of the library to
+find out the specific module file the routine is located in.
+When .OBJ files are placed in libraries they no longer have an
+extension associated with them; they are merely modules within
+the library. However, when they are extracted (as we will see
+later) they are given the .OBJ extension once again by LIB.EXE
+which is the default. Programmers often place related routines
+in one module file within the library. If a routine exists in
+its own module file then extracting that module file will
+provide you with that particular routine; however if several
+routines exist in one module file you can't extract a specific
+routine you must extract the entire module file.  Therefore,
+just because we know the name of a routine does not necessarily
+give us access to that routine because it could be in a module
+file with an entirely different name. When you see your first
+listing file you will more readily discern what I mean. If the
+routines are contained in one library and the programmer has
+provided both ".QLB" and ".LIB" files you will not need a list
+file if you use the programmers libraries. Otherwise, if no
+listing (.LST) file exists for the library it will be necessary
+to create one.
+
+That brings us to our next step, creating a .LST file.
+
+LIB.EXE is the library management tool that comes with most of
+the versions of BASIC that include a compiler.  Some
+programmer's huge libraries may be too large for some older
+versions of LIB.EXE and if so the programmer will make you
+aware of that in his readme file or other documentation.
+QuickBASIC 4.5 and PDS/QBX 7.x seem quite up to tackling all
+library tasks. To create the .LST file enter:
+
+   LIB LIBRARY.LIB
+
+where LIBRARY.LIB is the name of the library requiring the
+listing file. The .LIB extension is not really required, since
+LIB.EXE knows it will be working with a .LIB file. NOTE:
+LIBRARY.LIB is always replaced with the actual name of a
+library in the following examples; xx in a QB .LIB file name is
+replaced with the actual number of your version.
+
+LIB.EXE and the library must be in the same directory. To make
+everything simple I usually create a special subdirectory for
+the library and copy LIB.EXE to it along with the library files
+I intend to use. Also copy LINK.EXE to the same subdirectory
+for future use. There will be quite a bit of activity in this
+directory; this will keep everything a little organized. If
+something goes wrong it's easy to identify the erroneous files
+and start over again without having to search for the files we
+created and maybe erase something inadvertantly.
+
+After pressing enter in example above you will see the following:
+
+   Operations:        press Enter to continue
+      Since we did not define any operation on the command line
+      LIB is prompting for direction; none is required at this
+      time.
+
+Next you see:
+
+   List file:         type LIBRARY.LST and press Enter
+      You can name the list file anything you wish but it would
+      be advisable to name it the same as the library to avoid
+      confusion.
+
+The .LST file will be created in the current subdirectory. You
+can use any text editor to view the file. It may be quite long
+so I would not use the DOS TYPE command except to redirect it
+to the printer. Make sure you have sufficient paper and that
+the printer is on and ready. To redirect the list file to
+printer, type the following:
+
+   TYPE LIBRARY.LST >PRN
+
+List files are in two columns. Each column has two text entries
+divided by dots. The left entry is the subroutine name; the
+right is the module file to which it belongs. Some module file
+names are really quite cryptic; also as mentioned before some
+have the same name as the subroutine. Related routines will
+probably be in a single module file.
+
+Using the example .BI file we looked at before, you might see
+this in the listing file of the library containing those
+subroutines.
+
+   WINDO...............wnd
+   COLOR...............wnd
+   BORDER..............wnd
+   WRITWIN..........writwn
+
+Please note that all of the above could have been in the same
+module or in all different modules. Notice also that the module
+file "writwn" is not spelled the same as the subroutine.
+Programmers may change the name of .OBJ files, sometimes just
+by abbreviating the name of the routine.
+
+Now that we have the .LST file we can really get down to work.
+First we must select the routines that will be needed for
+inclusion into the main program and identify the module(s) to
+which they belong. We will continue to use the WINDO example
+throughout this instruction.
+
+The next step is to copy the module files from the Library. The
+.LST file has shown us the names of the module files we need to
+make our imaginary window. We need to extract WND and WRITWN.
+Recall that when they are extracted they will be given the .OBJ
+extension by default.
+
+LIB.EXE can do this. Just type the following:
+
+   LIB LIBRARY.LIB  *WND.OBJ *WRITWN.OBJ
+
+The "*" tells LIB to copy the module files only.  The original
+modules will remain in the library.
+
+There are several operators that tell LIB what to do and I will
+briefly describe some here:
+
+   +   preceding the .OBJ file means add to library
+   -   preceding a module name removes it
+   -+  preceding a module removes original and replaces it with
+       the updated version. Be sure the new version is
+       available to LIB because removal action is always first
+       in order.
+
+There are more but the above gives ample ability to manipulate
+libraries. Consult your manual on others.
+
+After doing the above example, you would have all of the
+required .OBJ files in the current subdirectory.  You could
+verify their existence by typing DIR at the DOS prompt.  When
+there are more than a few .OBJ files, it may help to keep a
+notepad handy to keep track of them.
+
+If we needed .OBJ files from a second library we would again
+use LIB.EXE to extract those files from that particular
+library. There would then be .OBJ files from two different
+libraries; these can be easily combined into a new library
+specific to the needs of the main program.
+
+As mentioned before, QuickBASIC uses two types of Library
+files: the normal .LIB files at linking time and .QLB
+(QuickLibrary) files when programming in the QuickBASIC
+environment. Certainly you want to see your program run, if
+possible, prior to compiling an .EXE file so all bugs can be
+removed.  Notice I said "if possible". There may be occasions
+when running a program is not possible because of conflict with
+the environment.  If this should happen, you will have to
+create the .EXE file from the DOS command line or determine the
+cause of the conflict and correct it.  Refer to your QuickBASIC
+guide book for the proper syntax for BC and LINK. I will also
+describe them briefly after we create these new libraries.  If
+you do run into this type situation I suggest you get the rest
+of your program functioning the way it should; then make the
+.EXE file to check the end result. Then you can work with the
+sticky subroutine; any error subsequent to that would
+definitely suggest the problem is with that subroutine.
+
+So, a .QLB library is the first one we need to see how the
+program will function.  LINK.EXE will provide the means to do
+this job. LINK.EXE has a special switch (/Q) which tells the
+program to make the .QLB library. If the switch is omitted
+QuickBASIC will not be able to load the library when instructed
+to do so with the /L switch because of improper format.
+
+The following syntax for LINK will provide a .QLB library:
+
+   LINK /Q WND.OBJ WRITWN.OBJ, MYNEW.QLB,,BQLBxx.LIB;
+
+LINK.EXE will combine the .OBJ files into the new .QLB library
+using QuickBASICs provided library for support routines.
+Naturally if you were using some other version of BASIC you
+would use the library provided to support the specific
+environmental library. NOTE: When using the /L swith to load
+QuickBASIC only one .QLB file can be specified. This means one
+thing, ALL external routines must be in the same .QLB library.
+Also, .QLB libraries are not manageable as .LIB libraries are,
+therefore it is important to have identified all routines
+required prior to creating the .QLB library. If you forget one
+you will have to LINK all .OBJ files again to include the
+one(s) you forgot.  I should mention that it is possible to do
+these tasks within the QuickBASIC environment in which case
+.QLB libraries can be manipulated but only by changing the
+resulting library to a different name which basically means you
+are redoing everything again anyway. An advantage of this
+method is that the parallel .LIB file will be created at the
+same time. Consult your manual if you opt for this method.
+It is desirable to know how to do it from the command line.
+
+You should copy the .BI and .QLB file now to your program
+directory. The following syntax will make your new library
+available to the main program when you are ready to try the
+external routines.  It is assumed of course that you have
+entered the $INCLUDE metacommand into your program (preferably
+ahead of other DECLARE statements) and that subroutine arguments
+have been entered or will be entered before the call is made to
+a particular routine:
+
+   QB /L MYNEW.QLB
+
+or, if you wish to load the program at the same time:
+
+   QB YOURPROG /L MYNEW.QLB
+
+
+Your program is up and running now and you have presumably
+ironed out all the bugs and are ready to create the .EXE file.
+Whether it is a standalone executable or one requiring the run
+library your external routines must be supported by parallel
+.LIB files. These parallel files contain the same object code
+as the .QLB files but in entirely different format. If, when
+creating the .EXE file, these files are not found they will be
+omitted from the .EXE program. Hence a certain function may not
+work at all even though the rest of the program is perfect. For
+this reason it is always a very good idea to create the .LIB
+file at the same time you create the .QLB file. For purposes of
+illustration I will repeat the syntax for creating the .QLB
+file so that you may see both of these commands together and
+their relationship to each other:
+
+   LINK /Q WND.OBJ WRITWN.OBJ, MYNEW.QLB,,BQLBxx.LIB;
+
+and here is the command to create the parallel .LIB file:
+
+   LIB MYNEW.LIB+WND.OBJ+WRITWN.OBJ;
+
+LIB will create MYNEW.LIB in the current directory as the
+parallel file of MYNEW.QLB. It should be copied also to your
+program directory when it is created along with the .BI and
+.QLB files.
+
+The semicolon at the end of these commands tells LIB that no
+other directions are necessary. Omitting the semicolon will
+cause LIB to prompt you for additional information. Try it if
+you're curious. If you type LIB alone on the command line the
+program will prompt you for each entry. You are allowed 127
+characters on the command line, so if you have a considerable
+number of .OBJ files to list, using LIB alone on the command
+line is advisable, since you are not limited to the number of
+.OBJ files you can list. When you run out of space on the first
+line, just type an ampersand (&) at the end of the line and
+press Enter. The Operations prompt will be repeated and you can
+continue entering information.
+
+You can now create the .EXE version of your program. From
+within the QuickBASIC environment you determine the type of
+executable program you desire. BC will compile your program
+using defaults based on it's analysis of the program and
+automatically enter the LINK phase. If you choose an executable
+requiring the run time library LINK will use BRUNxx.LIB in
+conjunction with your .LIB file(s) to create the .EXE file.
+Advantages are smaller code which may be desirable with larger
+programs; disadvantages are slower execution and BRUNxx.LIB
+must be in the same directory or available to the program to
+provide support routines. If you choose the standalone
+executable version LINK will use BCOMxx.LIB and your .LIB
+file(s) to create the .EXE file.  Standalone executables are
+larger but run faster and are self- supporting. Additionally,
+using command line compiling and linking, certain options can
+be used to decrease program size depending on the requirements
+of your program. You must consult your manual for this
+information; they are usually .OBJ files that can be linked
+with your program to curtail specific unnecessary functions. To
+use these you MUST link from the command line.
+
+As I mentioned above, sometimes it may be necessary to create
+the .EXE file from the command line. In earlier versions of
+QuickBASIC it was advisable to do so since smaller .EXE files
+could be obtained. Version 4.5 seems to do fine; QBX 7.x is
+even better.
+
+First you must invoke the QuickBASIC Compiler (BC) to compile
+the program. The default syntax for QuickBASIC 4.x follows:
+
+For .EXE requiring run time support:
+
+   BC YOURPROG.BAS;
+
+For .EXE as a standalone program:
+
+   BC YOURPROG.BAS/O;
+
+You will need to add /E or /V if you use ON ERROR in your
+program-- BC will tell you if you forget.  Add /C:512 if you
+use communications, to set the comm buffer size.
+
+There are alternative methods which may be used and they are:
+
+   BC     (and answer the following prompts:
+
+      Source Filename: [.BAS]: YOURPROG.BAS
+      Object Filename: [YOURPROG.OBJ]:   press Enter
+      Source Listing: [NUL.LST]:    press Enter
+
+Result: all error messages will be printed on screen and may
+scroll out of sight.
+
+You may have many object files.  If you run out of space on a
+line, just type a plus (+) at the end and the prompt will be
+repeated on the next line.
+
+   BC YOURPROG.BAS;
+
+Result: all errors will be printed on screen and may scroll out
+of sight.
+
+   BC YOURPROG.BAS; >YOURPROG.ERR
+
+Result: all errors will be printed to a file in the current
+directory with name following ">". Redirection to the printer
+would be more functional and would not clutter up the directory
+as follows:
+
+   BC YOURPROG.BAS; >PRN
+
+Result: a printout of the errors which you can refer to while
+entering the proper operations which really means in the end
+you will be using one of the first two examples to tell the
+compiler what to do.
+
+It is possible to use the same switches as the compiler. When
+you reach your final compilation from within the environment,
+use the "MAKE EXE AND EXIT" function. The options used by the
+QB environment will remain on the screen.  Write them down and
+use those options (except the /T) when you must compile from
+the command line.  This method is not recommended, since QB
+uses a lot more options than is usually necessary, which
+results in your programs being larger and slower than need be.
+Still, it's an easy way to get running in a hurry.
+
+NOTE: Do not use /T since it turns off error messages and is
+only used by default within the QB environment because all
+possible errors have, presumably, been eliminated.
+
+When you have successfully created YOURPROG.OBJ you are ready
+to use the linker (LINK.EXE). Linking is pretty straightforward
+as you will see. The syntax is:
+
+   LINK YOURPROG.OBJ/EX;
+
+If you have multiple object files and libraries:
+
+   LINK YOURPROG.OBJ+ANY.OBJ/EX, YOURPROG.EXE, NUL, MYNEW.LIB;
+
+Again you are limited to 127 characters on the command line. It
+might be more convenient to just type:
+
+   LINK /EX   (the /EX option is desirable for optimization)
+
+and answer the following prompts:
+
+   Object Modules [.OBJ]: YOURPROG.OBJ+ANY.OBJ+NEXT.OBJ
+   Run File [YOURPROG.EXE]:        press Enter if no change
+   List File [NUL.MAP]:            press Enter for no map
+   Libraries [.LIB]: MYNEW.LIB+ANY.LIB
+
+If you run out of room on a line just type "+" at the end of
+the line and the specific prompt will be repeated.
+
+This was not intended to be a complete documentation of the
+special features of LIB.EXE, BC,EXE and LINK.EXE, but rather
+specific knowledge about common application of the programs
+with regards to BASIC programming and the use of third party
+subroutines therein.  Knowing how to manipulate libraries is an
+important investment of time for anyone considering creating
+programs no matter what particular language is used.  The
+knowledge gained is applicable to all.
+

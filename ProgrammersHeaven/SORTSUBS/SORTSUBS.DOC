@@ -1,0 +1,51 @@
+SortSubs
+(C) Copyright 1993 by Tim Gerchmez
+All Rights Reserved.
+Freeware - Distribute Freely
+----------------------------------
+
+        SortSubs is a handy utility for Spectra's PowerBASIC (all versions)
+and Borland's Turbo BASIC that sorts your program's SUBs and FUNCTIONs in
+alphabetical order, optionally letting you place dividers between each
+SUB or FUNCTION for readability.  SortSubs is written for PowerBASIC 3.0,
+but should be compilable under all versions of PowerBASIC.
+
+        To use SortSubs, just enter SORTSUBS at the command line.  You
+will be asked for the path to the directory containing the BASIC source
+code file you wish to sort.  To use the current directory, press ENTER alone
+at this prompt.  A directory of .BAS files (if any) in the selected directory
+will be presented, and you'll be prompted for a filename.  Enter the name
+of the program you wish to sort.  You'll also be asked if you wish to place
+dividers between SUBs/FUNCTIONs to increase program readability (answer Y
+for Yes or N for No).  SortSubs will then read through your program,
+organizing each SUB and FUNCTION in alphabetical order, and placing all
+non SUB/FUNCTION (main program) text toward the top of the program.  If you
+selected Yes for dividers, a dividing line ('-----) will be placed between
+each SUB and FUNCTION in the program.  SortSubs will rename the original
+program to PROGRAMNAME.BAK, and rewrite the "new" sorted file to the 
+original filename selected.
+
+        I wrote SortSubs for my own use because I was finding that my
+programs were becoming a jumble of SUBs and FUNCTIONs in no particular 
+order, and it was getting very difficult to find a given routine.  
+QuickBASIC automatically sorts routines in alphabetical order, but this 
+feature is missing from PowerBASIC.  SortSubs will make your programs
+much more readable, and make it a lot easier to find a particular routine
+by paging through the program text.
+
+        I'm releasing SortSubs as freeware, free for noncommercial use.
+Commercial (business) use of SortSubs requires a licensing fee (write to
+the address below for details).  If you find any bugs in SortSubs, PLEASE
+write me at the address below so I can fix them - I'd hate to be blamed
+for trashing anyone's programs <grin>.  Of course, I can take no liability
+for damages arising from the use of SortSubs - you use it entirely at
+your own risk.
+
+Tim Gerchmez
+12648 S.E. 81st Pl.
+Renton, WA  98056-9121
+
+Distributors: Distribute freely, no restrictions.
+
+QuickBASIC and PowerBASIC are trademarks of Microsoft
+Corp. and Spectra Publishing, respectively.

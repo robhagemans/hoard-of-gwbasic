@@ -1,0 +1,1296 @@
+
+
+
+               III   BBBB    RRRR     AAA    RRRR    Y   Y
+                I    B   B   R   R   A   A   R   R   Y   Y
+                I    B   B   R   R   A   A   R   R    Y Y
+                I    BBBB    RRRR    AAAAA   RRRR      Y
+                I    B   B   R R     A   A   R R       Y
+                I    B   B   R  R    A   A   R  R      Y
+               III   BBBB    R   R   A   A   R   R     Y
+
+               ===========================================
+
+                         A library for ASIC 4.0
+
+        IBRARY 2.0  Copyright (c) 1993-1994  Thomas G. Hanlin III
+
+                "Bringing you fine shareware since 1985"
+
+
+
+    This is IBRARY, a library of over 200 routines written in assembly
+    language for use with 80/20 Software's ASIC compiler. You will
+    need ASIC 4.00 or later and a linker to use IBRARY. An assembler
+    is not necessary. The IBRARY collection is copyrighted and may be
+    distributed only under the following conditions:
+
+       All IBRARY files must be distributed together as a unit.
+       No files may be altered, added, or deleted from this unit.
+       The assembly language sources must NOT be distributed.
+
+    YOU USE THIS LIBRARY AT YOUR OWN RISK. I have tested it on my own
+    computer, but I will not assume any responsibility for any
+    problems which IBRARY may cause you. If you do run into a problem,
+    please let me know about it, and I will do my best to verify and
+    repair it.
+
+    It is expected that if you find IBRARY useful, you will register
+    your copy. You may not use IBRARY routines in programs intended
+    for sale unless you have registered.
+
+    Registration gets you the latest version of IBRARY, complete with
+    full source code and printed manual, and the right to use IBRARY
+    routines in programs intended for sale. The assembly language code
+    is designed for MASM 6.0 and may require changes for use with
+    other assemblers. See the ORDER.FRM file for ordering information.
+
+    You can contact me by email at CompuServe 71151,3331 or Internet
+    71151.3331@compuserve.com, or write to:
+
+       Thomas G. Hanlin III
+       3544 E. Southern Ave. #104
+       Mesa, AZ 85204
+
+                           Table of Contents                 page 2
+
+
+
+     Synopsis and Legal Info .................................... 1
+
+     Table of Contents .......................................... 2
+
+     Overview ................................................... 3
+
+     Directory Services ......................................... 4
+
+     Equipment Info ............................................. 6
+
+     Extended Math ............................................. 10
+
+     Files ..................................................... 11
+
+     Graphics .................................................. 15
+
+     Interrupts ................................................ 18
+
+     Joystick .................................................. 19
+
+     Keyboard .................................................. 20
+
+     Memory PEEK/POKE........................................... 21
+
+     Mouse ..................................................... 22
+
+     Miscellaneous ............................................. 25
+
+                               Overview                      page 3
+
+
+
+    As of version 4.0, ASIC became a much more powerful language,
+    with the introduction of library support. A library is very like
+    an extension to a compiler. It provides capabilities which are
+    perhaps insufficiently general-purpose to add into the language
+    itself, but which may nonetheless be of use to many people.
+    Libraries let you customize a language to suit your particular
+    needs.
+
+    The routines in IBRARY are contained in a library file, which is
+    denoted by the extension .LIB. So, the IBRARY library is named
+    IBRARY.LIB. How you access this library depends on which version
+    of the compiler you use: ASIC.EXE or ASICC.EXE.
+
+    In the case of ASICC.EXE, the command to compile a program which
+    uses IBRARY looks something like this:
+
+       ASICC progname B/OBJ LIB=IBRARY LNK=C:\DOS
+
+    Here, "progname" is the name of the program to compile. When you
+    use a library, compilation turns into a multi-part process. ASIC
+    first turns your .ASI code into an .OBJ file. It then calls your
+    LINK.EXE program to combine the .OBJ file with the routines you
+    need from IBRARY.LIB, turning the result into an .EXE program.
+    In the above command line, the LNK=C:\DOS part tells ASIC that
+    it can find LINK.EXE in a directory called C:\DOS. You will need
+    to use the appropriate directory for your computer. Note that
+    LINK.EXE does not come with ASIC. It is provided with Microsoft
+    languages and many DOS versions, though. Borland also has a
+    linker, called TLINK.EXE.
+
+    IBRARY includes a batch file, ASICMAKE.BAT, to make all this
+    easier. You will need to modify it to have the appropriate LNK=
+    setting, but once that's done, you can simply type:
+
+       ASICMAKE progname
+
+    ...in order to compile and link your program.
+
+    In the case of the editor/environment, the initial setup is a
+    bit different. From the Compiler menu, pick Advanced Options.
+    From the Advanced Options menu, do the following:
+
+       choose .OBJ output file generation
+       set library name to IBRARY
+       set link path to wherever your LINK.EXE is (e.g., C:\DOS)
+
+    It's as easy as that! You are now set up to use libraries. A
+    good first test would be to compile the IBRARY quick demo,
+    cleverly entitled DEMO.ASI. Give it a try!
+
+                          Directory Services                 page 4
+
+
+
+    The directory service routines allow you to duplicate the basic
+    functionality of the DOS command, DIR. You can search for files
+    with wildcard filespecs and file attributes. For matching files,
+    you can get the filename, attributes, size, time, and date. The
+    two basic routines are FindFirstF, which is used to set the
+    search specifications and search for the first matching file,
+    and FindNextF, which is used to search for additional matches:
+
+       CALL SUB "FindFirstF" FileSpec$ Attr ErrCode
+       CALL SUB "FindNextF" ErrCode
+
+    The FileSpec$ may include a full path, with drive, subdirectory,
+    and filename with "*" and/or "?" wildcards. The attribute tells
+    what kinds of files you want to search for, and may be any of
+    the following, used individually or added together:
+
+       0    normal files
+       2    hidden files
+       4    system files
+       8    volume labels
+      16    subdirectories
+
+    Since normal files have an attribute of 0, they are always
+    included in the search. So, searching for an attribute of 6, for
+    example, would result in finding normal, hidden, and system
+    files (4 + 2 + 0 = 6). Labels are a bit different-- they are
+    only present in the root directory, so your search spec should
+    be "\*.*" (maybe with a drive spec) to search for a volume
+    label. When you search for a label, you "should" get only a
+    label in return, but some versions of DOS are buggy and return
+    normal files as well-- so you should check the attribute, just
+    as you would in any other kind of file search.
+
+    The ErrCode returned will be 0 until you run out of matches or
+    there is an error. An error code of 18 means you've run out of
+    matches, but (for most practical purposes) you can treat any
+    non-zero error code as meaning "no more matching files".
+
+    When ErrCode returns zero, you know you have a valid match. You
+    can get additional information about the resulting match, so:
+
+       CALL SUB "GetAttrF" FileAttr
+       CALL SUB "GetNameF" FileName$
+       CALL SUB "GetSizeF" FileSize&
+       CALL SUB "GetTimeF" Hour Minute Second
+       CALL SUB "GetDateF" Month Day Year
+
+    Remember that you need to set a compiler switch to use long
+    integers in ASIC-- see your ASIC docs for details. Note that the
+    filename will not contain a drive or path specification. Hours
+    are returned in 24-hour format (0-23, or midnight-11pm). Seconds
+    are rounded down to even numbers, due to the DOS storage format.
+
+                          Directory Services                 page 5
+
+
+
+    File attributes may be any or all of the following, added
+    together (the ZBIT function, provided by ASIC, will be useful in
+    decoding this info):
+
+       0    normal files
+       1    read-only files                bit 0
+       2    hidden files                   bit 1
+       4    system files                   bit 2
+       8    volume labels                  bit 3
+      16    subdirectories                 bit 4
+      32    archive files (back-up bit)    bit 5
+
+    Putting all this together, a simple program to display all of
+    the filenames in the current directory might look like this:
+
+       PRINT "Files in this directory:"
+       CALL SUB "FindFirstF" FileSpec$ Attr ErrCode
+       WHILE ErrCode = 0
+          CALL SUB "GetNameF" FileName$
+          PRINT FileName$
+          CALL SUB "FindNextF" ErrCode
+       WEND
+       PRINT "End of list"
+
+                            Equipment Info                   page 6
+
+
+
+    The equipment routines give you information about the computing
+    environment. This includes both installed software and hardware.
+
+    The first function allows you to determine if an "enhanced"
+    keyboard (101-key) is installed. It may not be able to figure
+    out what the keyboard is on some older not-quite-clone PCs, in
+    which case it will take the safe way out and report that there
+    is no enhanced keyboard. This routine returns -1 if there is an
+    enhanced keyboard present, 0 if not.
+
+       CALL SUB "KbdType" Enhanced
+
+    Want to know the type of processor (CPU) being used? Can do!
+
+       CALL SUB "Processor" CPUType
+
+    The results will be returned as a number which can be decoded as
+    follows:
+
+       0    NEC V20
+       1    8088 or 8086
+       2    80186
+       3    80286
+       4    80386
+       5    80486
+
+    The processor speed can also be determined, although the results
+    may not be exact, especially if multitasking is going on. Note
+    that it may take up to several seconds to determine the speed on
+    8088-class processors.
+
+       CALL SUB "ProcSpeed" MHz
+
+    You can also see whether a numeric coprocessor is installed, and
+    what kind it is. This is done by checking for the coprocessor
+    directly, rather than examining the BIOS setting or switches,
+    and is quite reliable.
+
+       CALL SUB "NumProc" NumProcType
+
+    The results will be returned as a number which can be decoded as
+    follows:
+
+       0    no coprocessor installed
+       1    8087
+       2    80287
+       3    80387
+
+    I expect that a 486DX chip will appear to have an 80387
+    coprocessor, so you should be able to tell the difference
+    between a 486SX and a 486DX by checking for a math chip. I
+    haven't been able to verify this, though-- let me know if you
+    can tell me for sure!
+
+                            Equipment Info                   page 7
+
+
+
+    The number of floppy drives installed is retrieved like this:
+
+       CALL SUB "Floppies" Drives
+
+    There may be up to four floppy drives in a system; however, the
+    AT CMOS data area only directly supports two. This makes it easy
+    to find out what kind of drives the first two are, but not the
+    second two. Oh well, guess we'll have to settle for what we can
+    get, right?
+
+       CALL SUB "FloppyType" Drive1 Drive2
+
+    The results from FloppyType are returned as follows:
+
+       0    no drive
+       1    5 1/4"    360K
+       2    5 1/4"    1.2M
+       3    3 1/2"    720K
+       4    3 1/2"    1.44M
+
+    Result codes of 5-7 are available, but not yet defined. One
+    might guess that the 2.88M drive supported by DOS 5.0 will be
+    drive type 5. Has anybody seen one of those puppies yet?
+
+    Maybe you'd like to check for a CD-ROM drive:
+
+       CALL SUB "CDROM" Drives
+
+    This tells you how many logical drives exist, if there is a
+    CD-ROM available. If not, it will return 0. Note that the CD-ROM
+    installation check conflicts with the GRAPHICS.COM installation
+    check for DOS 4.0, due to some screw-up at IBM or Microsoft.
+
+    You can get the letter of the current default drive, or set the
+    current default drive, with the following routines:
+
+       CALL SUB "GetDrive" Drive$
+       CALL SUB "SetDrive" Drive$
+
+    New memory types sure have burgeoned over the years... expanded,
+    extended, and now XMS. There are routines to check all of these:
+
+       REM get total extended memory installed
+       CALL SUB "AllExtMem" AllExt&
+
+       REM get BIOS extended memory installed
+       CALL SUB "GetExtM" BiosExt&
+
+       REM get expanded (EMS) memory installed
+       CALL SUB "GetEMSm" TotalPages FreePages
+
+       REM get XMS memory installed
+       CALL SUB "GetXMSm" BigFree& TotalFree&
+
+                            Equipment Info                   page 8
+
+
+
+    When you're dealing with extended memory, whether it be
+    BIOS-type or using the XMS standard, the results are returned in
+    kilobytes. Multiply 'em by 1024 to convert to bytes. When you're
+    dealing with expanded memory (EMS), the results are in pages of
+    16,384 bytes.
+
+    I might note, by the way, that Microsoft seems to have
+    intentionally crippled the XMS standard. It can only support a
+    maximum of 64 megabytes. This may seem like a lot now, but it'll
+    seem cramped soon enough. I remember when 640k seemed like an
+    empty football stadium, best used to make a 360k RAMdisk!
+
+    A few more routines to get the versions of EMS and XMS, if any:
+
+       CALL SUB "GetEMSv" MajorV MinorV
+       CALL SUB "GetXMSv" MajorV MinorV
+
+    These return the major and minor version numbers as two separate
+    integers. For example, EMS 4.0 would return major version 4,
+    minor version 0.
+
+    It's nice to know a little about the operating environment. With
+    the below routines, you can find out what the DOS version is;
+    what version of 4DOS, if any, is in use; and whether Microsoft
+    Windows is running.
+
+       CALL SUB "GetDOSv" MajorV MinorV
+       CALL SUB "Get4DOSv" MajorV MinorV
+       CALL SUB "WinCheck" MajorV MinorV
+
+    These return results as major and minor version numbers, as
+    discussed on the previous page. The Get4DOSv and WinCheck
+    routines return zeroes if 4DOS and Windows, respectively, are
+    not available.
+
+    There are a couple of curious features of GetDOSv to keep in
+    mind. If the version is 10 or higher, you're running in OS/2
+    compatibility mode. DOS version 10 is actually OS/2 1.0, version
+    20 is OS/2 2.0, and so on. Secondly, if you're using DOS 5.0,
+    the version reported may not be 5.0-- DOS 5.0 can be told to
+    reply with a lower version number to allow some older software
+    (which checks for a specific DOS version) to run properly.
+
+    Another routine that may be of some value is the one that allows
+    you to find out what kind of display is available. It tells you
+    the specific adapter and whether the display is monochrome or
+    color. There are two cases in which it can be confused, however.
+    If the adapter is CGA, the display is assumed to be color, since
+    there is no way for the computer to know any differently. Also,
+    some laptops lie about their mono VGA displays, and claim that
+    they're color. So, although this routine provides a good idea of
+    what is available, it would be a good idea to provide an option
+    to tell the program that a monochrome display is attached.
+    Microsoft normally uses "/B" for this purpose, so that might be
+    a good standard to stick with.
+
+                            Equipment Info                   page 9
+
+
+
+       CALL SUB "GetDisplay" Adapter Mono
+
+    This returns Mono = -1 for a monochrome display, or Mono = 0 for
+    a color display. The Adapter may be any of the following:
+
+       1    MDA
+       2    Hercules
+       3    CGA
+       4    EGA
+       5    MCGA
+       6    VGA
+
+    Aside from some of the oldest semi-clones, it's possible to find
+    out what sort of machine you're using by looking at a specific
+    data byte. You can access this as follows:
+
+       CALL SUB "PCType" PcType
+
+    The result will need decoding. Here are some known values:
+
+       255   PC or XT          250   PS/2 Model 30
+       254   XT                249   PC Convertible
+       253   PCjr              248   PS/2 Model 70 or 80
+       252   PC AT             154   Compaq Portable
+       251   XT                 45   Compaq Portable
+
+    Likewise, all but some of the oldest semi-clones maintain a BIOS
+    date value which tells you how old the BIOS ROM is. This can be
+    retrieved with the following routine:
+
+       CALL SUB "PCDate" PCDate$
+
+    If your program is running on one of the rare old machines which
+    don't maintain a valid BIOS date, this routine will return "No
+    Date " instead of an actual date.
+
+    As far as a program is concerned, DR DOS is essentially the same
+    as MS-DOS. Still, it's always nice to know what sort of
+    operating environment you have. You can find out whether your
+    program is running under DR DOS with the following function:
+
+       CALL SUB "DrDos" DrDos
+       IF DRDOS = 0 THEN
+          PRINT "MS-DOS"
+       ELSE
+          PRINT "DR DOS"
+       ENDIF
+
+    The number of serial and parallel ports available can be readily
+    obtained:
+
+       CALL SUB "CommPorts" CommPorts
+
+       CALL SUB "PrtPorts" PrtPorts
+
+                             Extended Math                  page 10
+
+
+
+    The extended math routines provide a number of simple binary
+    functions which operate on an integer as a stream of bits. You
+    may shift or rotate the bits in an integer by an arbitrary
+    amount in either direction.
+
+    Note that the normal ASIC integer has a length of 16 bits.
+
+       CALL SUB "LShift" Number ShiftCount
+
+       CALL SUB "RShift" Number ShiftCount
+
+       CALL SUB "LRotate" Number ShiftCount
+
+       CALL SUB "RRotate" Number ShiftCount
+
+    An identical set of routines is provided for long integers,
+    which have a length of 32 bits. You need to specify a compiler
+    option to use long integers, as explained in the ASIC manual.
+
+       CALL SUB "LShiftL" Number& ShiftCount
+
+       CALL SUB "RShiftL" Number& ShiftCount
+
+       CALL SUB "LRotateL" Number& ShiftCount
+
+       CALL SUB "RRotateL" Number& ShiftCount
+
+    For picking out specific bits, check out ASIC's extension to the
+    BASIC function set, ZBIT.
+
+                                 Files                      page 11
+
+
+
+    For sheer flexibility, it's hard to beat DOS file handling. It's
+    not always as convenient as BASIC file handling, but it offers
+    many compensating advantages. It allows up to 15 files to be
+    open at a time (or more, under some circumstances), instead of
+    ASIC's paltry 3. It provides binary access, allows you to read
+    large chunks of data at a time (even entire arrays!), and offers
+    both sequential and random-access techniques at once. IBRARY has
+    built-in critical error handling, so you can treat all errors
+    the same way (no fear of "R>etry, A>bort, I>gnore, F>ail?").
+
+    The IBRARY file routines are designed for binary files. You can
+    read text files too, of course-- all files are the same to DOS--
+    but there is no provision for stopping at a carriage return (or
+    control-Z, if you're dealing with CP/M-format text files). You
+    can interpret such yourself, if you wish. Additional routines
+    will be added to the next revision of IBRARY, of course.
+
+    When opening a file with IBRARY, you do not give it a file
+    number. Instead, IBRARY passes you back a file handle, if the
+    file was opened successfully. This file handle serves the same
+    purpose as a file number and is used to identify the file any
+    time you want to access it. It has an advantage over ASIC file
+    numbers in that you don't have to worry about whether you've
+    used a number before-- IBRARY will always give you a unique
+    handle for a successful open.
+
+    Files may be opened in either of two ways. FOpen opens an
+    existing file, and may include an open mode (read, write, or
+    read/write) and sharing mode (allowing network support). FCreate
+    creates a new file, or wipes out and recreates an existing file,
+    with a specified file attribute. Generally, you will want to
+    take one of two approaches:
+
+      1) If the file is expected to exist, try FOpen to open it. If
+      there is an error opening the file, you must decide whether to
+      abort the operation and tell the user "file not found" or to
+      create a new file with FCreate.
+
+      2) If you are creating a new file, you may wish to try FOpen
+      to see if the file exists. If FOpen succeeds, you should close
+      the file and prompt the user "File exists: overwrite? abort?"
+      and act accordingly. Also, although FCreate will create a
+      file, it does so in a mode which is not network-friendly.
+      Unless you are sure your program will never run on a network
+      or in a multitasking situation, you should immediately close a
+      file created by FCreate, and use FOpen to reopen it with the
+      appropriate sharing mode.
+
+    The FOpen and FCreate calls look like so:
+
+       CALL SUB "FOpen" FileName$ OpenMode Sharing Handle ErrCode
+       CALL SUB "FCreate" FileName$ Attribute Handle ErrCode
+
+                                 Files                      page 12
+
+
+
+    If the file is opened or created successfully, the ErrCode will
+    be zero, and a valid handle will be returned. You *MUST* close
+    such files with FClose when you are done with them, or they will
+    not be updated properly on disk, and your program will lose
+    access to the handle involved. Do not use FClose on a file if
+    the FOpen or FCreate call returned a non-zero ErrCode.
+
+    Note that there are five system handles which are provided to
+    every program. You can use these without having to open (or
+    close) them:
+
+       0   CON   stdin    standard input, normally the keyboard
+       1   CON   stdout   standard output, normally the display
+       2   CON   stderr   standard error, almost always display
+       3   AUX   stdaux   auxiliary device, generally COM1
+       4   PRN   stdprn   standard printer, generally LPT1
+
+    In fact, if you need more than the usual 15 handles available,
+    you can gain a few handles by closing these system handles. Do
+    not do this if your program relies on the device in question!
+    You can safely close AUX, though, since IBRARY uses the BIOS to
+    provide comm support, rather than DOS. You can probably also
+    close PRN without any problem (certainly if you don't use the
+    printer in your program). The CON handles should generally be
+    left alone, unless you're very sure of what you're doing.
+
+    For FOpen, the OpenMode may be one of the following, depending
+    on what you intend to do with the file:
+
+       0   Read
+       1   Write
+       2   Read and Write
+
+    Also for FOpen, you must choose an appropriate Sharing mode. You
+    should normally try to use a network mode, so your program will
+    work well on networks and under multitasking situations. IBRARY
+    is smart enough to ignore the network mode if your program is
+    run on a DOS version below 3.0, which doesn't support network
+    modes. A good general guideline is to use "deny write" (or
+    "exclusive" if you want to be really secure) on files you expect
+    to write to, and "deny none" on files you expect only to read.
+    The Sharing mode may be one of the following:
+
+       0   Normal       compatibility mode: no file sharing
+       1   Exclusive    no one else may access the file
+       2   Deny Write   no one else may write to the file
+       3   Deny Read    no one else may read from the file
+       4   Deny None    anyone else may read from or write to file
+
+                                 Files                      page 13
+
+
+
+    For FCreate, you may select a file attribute to apply to the
+    created file. This may be one or more of the following, added
+    together:
+
+       Normal          0      (nothing special)
+       Read Only       1      file can be read, but not written to
+       Hidden          2      file is "invisible"
+       System          4      special DOS system file
+
+    Don't use the System attribute unless you know what you're
+    doing. It is not appropriate for ordinary files. Files created
+    by FCreate are opened in Read and Write mode, with Normal
+    sharing. For best compatibility, you should close the file and
+    re-open it with FOpen, using an appropriate Sharing mode.
+
+    The FClose routine has been mentioned several times, because
+    it's important. If a file was opened successfully with FOpen or
+    FCreate, you *MUST* close it (when you're done with it) with
+    FClose, or the file may be left in an indeterminate state.
+
+       CALL SUB "FClose" Handle
+
+    If you are writing particularly important data, you may want to
+    make sure its information is committed to disk at periodic
+    intervals. Otherwise, a system crash or power failure could
+    cause loss of data due to DOS disk buffering. The FFlush routine
+    will make sure the current data is sent to disk. Note that
+    FFlush works with DOS alone. If an external disk cache is in
+    use, it may delay the disk update beyond DOS' control.
+
+       CALL SUB "FFlush" Handle ErrCode
+
+    If you are dealing with files that require heavy access by many
+    network nodes, the file-based locking supported by FOpen is
+    likely to be too crude. You can lock and unlock independent
+    areas of a file too-- but be careful. You must unlock all locks
+    in the reverse order you apply them, and using the exact same
+    parameters (like a stack: the last lock applied must be the
+    first lock to be removed). All locks *MUST* be removed before
+    you close a file, or the file is left in an indeterminate state
+    and may not be recoverable. Microsoft is vague in its warnings,
+    but it sounds like a good place to be careful...
+
+       CALL SUB "FLock" Handle Posn& Bytes& ErrCode
+       CALL SUB "FUnlock" Handle Posn& Bytes& ErrCode
+
+    Positions start at 1, the first byte. Remember that you need to
+    use a special switch to get ASIC to handle long integers-- see
+    the ASIC manual for details.
+
+                                 Files                      page 14
+
+
+
+    You may read a byte, integer, long, or string from a file.
+    Better yet, you may read an array of bytes, array of integers,
+    or array of longs from a file-- not arrays of strings, though,
+    due to the different format involved. In the case of single
+    values, pass the variable to the call. In the case of arrays,
+    pass the first element of the array to the call. Note that an
+    integer takes up two bytes, and a long integer takes up four.
+
+       CALL SUB "FReadB" Handle Value Bytes ErrCode
+       CALL SUB "FReadI" Handle Value Integers ErrCode
+       CALL SUB "FReadL" Handle Value& Longs ErrCode
+       CALL SUB "FReadS" Handle Value$ Bytes ErrCode
+
+    Of course, you can also write values, in much the same fashion:
+
+       CALL SUB "FWriteB" Handle Value Bytes ErrCode
+       CALL SUB "FWriteI" Handle Value Integers ErrCode
+       CALL SUB "FWriteL" Handle Value& Longs ErrCode
+       CALL SUB "FWriteS" Handle Value$ Bytes ErrCode
+
+    NOTE NOTE NOTE!!! The count variable (Bytes, Integers, or Longs,
+    depending on the routine) is RETURNED as well as being passed to
+    the routine-- it tells you how many bytes were actually written
+    or read, in case your entire request couldn't be processed.
+    Don't use constants for these values, since ASIC treats
+    constants somewhat like variables-- the constant would be
+    altered throughout your program!
+
+    Normally, when you read or write a value, the file pointer will
+    be updated to the next position, so you will read or write the
+    next area on subsequent calls. You can find out where the file
+    pointer is, so:
+
+       CALL SUB "FWhere" Handle Posn&
+
+    The file pointer can also be set to the start of the file, end
+    of the file, or a specified point in the file, so:
+
+       CALL SUB "FSetStart" Handle
+       CALL SUB "FSetEnd" Handle
+       CALL SUB "FLocate" Handle Posn&
+
+    And, finally, you can get the size of the file, or set the size
+    of the file:
+
+       CALL SUB "FSize" Handle Bytes&
+       CALL SUB "FSetSize" Handle Bytes& ErrCode
+
+    Being able to set the size of the file lets you trim off
+    unwanted material from the end of a file, or to expand a file in
+    advance of needing space (in order to improve the odds of
+    allocating contiguous disk space, for best speed).
+
+                               Graphics                     page 15
+
+
+
+    Much of the design of ASIC appears to be oriented on the notion
+    of creating the smallest possible programs. In that respect, it
+    is perhaps not surprising that ASIC doesn't include strong
+    graphics support. IBRARY provides support for EGA and VGA modes
+    which ASIC doesn't. A future version of IBRARY will include
+    advanced support for many more video modes.
+
+      Mode   Description
+      ====   ================================================
+        8    640x200,  16 colors, 80x25 text, EGA or better
+       11    640x480,   2 colors, 80x25 text, VGA or better
+       12    640x480,  16 colors, 80x25 text, VGA or better
+       13    320x200, 256 colors, 40x25 text, VGA or better
+       N0    360x480, 256 colors, 45x60 text, VGA or better
+       N1    320x400, 256 colors, 40x25 text, VGA or better
+
+    The graphics routines all use the same nomenclature: a G,
+    followed by a mode number, followed by the specific name. This
+    generic naming convention is used so that this chapter can refer
+    to all available modes. For example, if I say "G#Color" and
+    you're using mode 12, you'd actually use "G12Color" in your
+    program. Ok?
+
+    You just use G#Mode with a non-zero value to enter graphics
+    mode, or zero to restore text mode. The text mode is assumed to
+    be the normal 80x25 color mode. If you'd prefer to reset to
+    another mode, you can safely use the ASIC SCREEN statement to
+    pick setting that's more to your liking.
+
+    Typical handling of one of the non-SVGA modes (in this case,
+    mode 12) would go something like this:
+
+       CALL SUB "G12Mode" 1
+       REM *** your main program goes here ***
+       CALL SUB "G12Mode" 0
+
+                               Graphics                     page 16
+
+
+
+    One difference between ASIC and IBRARY is that, instead of each
+    "draw" command requiring a color parameter as in ASIC, IBRARY
+    provides a separate color command:
+
+       CALL SUB "G#Color" Foreground Background
+
+    The foreground color is used by all graphics routines. The
+    background color is used by the G#Cls routine. Both foreground
+    and background colors are used in by G#Write and G#WriteLn.
+
+    Here is a list of the corresponding routines, first ASIC, then
+    IBRARY (replace the "#" with the appropriate mode number):
+
+       REM get the color of a specified point
+       colour = POINT(x, y)
+       CALL SUB "G#GetPel" x y colour
+
+       REM set the color of a specified point
+       PSET (x, y), colour
+       CALL SUB "G#Color" colour, backgnd
+       CALL SUB "G#Plot" x y
+
+       REM clear the screen and home the cursor (if any)
+       CLS
+       CALL SUB "G#Cls"
+
+       REM get the current cursor position
+       Row = CSRLIN
+       Column = POS(0)
+       CALL SUB "G#GetLocate" Row Column
+
+       REM set the current cursor position
+       LOCATE Row, Column
+       CALL SUB "G#Locate" Row Column
+
+       REM display a string without a carriage return and linefeed
+       PRINT St$;
+       CALL SUB "G#Write" St$
+
+       REM display a string with a carriage return and linefeed
+       PRINT St$
+       CALL SUB "G#WriteLn" St$
+
+    If you need to print a number rather than a string, just use the
+    BASIC function STR$ to convert it. If you don't want a leading
+    space, you can use the IBRARY routine, StrNB:
+
+       CALL SUB "StrNB" Number St$
+
+                               Graphics                     page 17
+
+
+
+    The IBRARY library has other graphics routines which have no
+    ASIC equivalent. Here's a list:
+
+       REM get the current colors
+       CALL SUB "G#GetColor" Foreground Background
+
+       REM draw a line
+       CALL SUB "G#Line" x1 y1 x2 y2
+
+       REM draw a box (set filled = 0 for frame, = 1 to fill it)
+       CALL SUB "G#Box" x1 y1 x2 y2 filled
+
+       REM get a VGA palette value
+       CALL SUB "GetPalRGB" Colour RedI GreenI BlueI
+
+       REM set a VGA palette value
+       CALL SUB "SetPalRGB" Colour RedI GreenI BlueI
+
+
+    The most obvious aspect of palettes is in the ability to select
+    a set of colors suited to a specific application. When showing a
+    picture of the sea, you might want mostly blues and greens, for
+    instance. There are other implications in the ability to quickly
+    change a color across the entire screen, however. It allows for
+    simple animation, the ability to fade in or fade out, and other
+    interesting effects. Let your imagination run loose and
+    experiment a little! You'll be surprised by the power of palette
+    manipulation.
+
+                               Interrupts                   page 18
+
+
+
+    The interrupt routines give you access to some of the more
+    common BIOS and DOS interrupts, with a couple of convenience
+    features thrown in for good measure.
+
+    NOTE that these routines access the computer at a very low
+    level. If you don't know what you're doing or make a mistake,
+    you could cause serious trouble. Be warned!
+
+    Three routines are provided for accessing common interrupts.
+    They allow you to set the AX, BX, CX, and DX registers, and
+    return the new values of the same, plus the flags.
+
+       REM  access to INT 21h, the DOS function handler
+       CALL SUB "DosInt" AX BX CX DX Flags
+
+       REM  access to INT 10h, the BIOS video handler
+       CALL SUB "VidInt" AX BX CX DX Flags
+
+       REM  access to INT 16h, the BIOS keyboard handler
+       CALL SUB "KbdInt" AX BX CX DX Flags
+
+    Each of the 16-bit registers AX, BX, CX and DX can be divided in
+    half and accessed as 8-bit values: AH, AL, BH, BL, and so on. To
+    make it easier to work with the registers as either 8-bit or
+    16-bit quantities, IBRARY includes routines to split a 16-bit
+    word into two 8-bit bytes, and vice versa:
+
+       CALL SUB "SplitWord" Word HiByte LoByte
+
+       CALL SUB "JoinBytes" HiByte LoByte Word
+
+    The Flags value is a set of bit flags indicating the value of
+    the processor's flag register. Bit 0 contains the carry flag and
+    bit 6 contains the zero flag. There are a few other flags
+    involved, but you should never need to access them.
+
+                               Joystick                     page 19
+
+
+
+    The joystick routines allow you to read the positions and
+    buttons of up to two joysticks. If only one joystick is
+    attached, the results for the second joystick will usually be
+    meaningless. In the case of the FlightStick joystick, if only
+    one joystick is attached, the value for the Y position of the
+    second joystick will indicate the FlightStick throttle setting.
+
+    The joysticks are labeled "A" and "B" for these routines, where
+    "A" is the first joystick.
+
+    You can read the joystick buttons individually or all at once.
+    If speed is an issue, you should read the buttons all at once,
+    as this is considerably faster than reading them one at a time
+    (assuming you wish to read more than one button).
+
+       CALL SUB "JButtonA1" Pressed
+       CALL SUB "JButtonA2" Pressed
+       CALL SUB "JButtonB1" Pressed
+       CALL SUB "JButtonB2" Pressed
+
+       CALL SUB "JButtons" A1Pressed A2Pressed B1Pressed B2Pressed
+
+    The value returned will be -1 if the button is pressed or 0 if
+    it is not pressed.
+
+    You can also get the position of the joysticks. This is returned
+    as a pair of X,Y coordinates for each joystick. The starting and
+    ending positions depend on the individual joystick, game
+    adapter, and computer, so your program must calibrate itself to
+    the individual joystick. I find a range of about 5-140 on my
+    FlightStick; your mileage may vary.
+
+       CALL SUB "JPos" AX AY BX BY
+
+    Note that the joystick routines are BIOS-dependent. They will
+    not work on some of the oldest PCs (those made before 1983 or
+    thereabouts).
+
+                                Keyboard                    page 20
+
+
+    The keyboard routines provide you with information about the
+    current state of the keyboard shifts (left and right shift,
+    control, and alt keys) and toggles (caps lock, num lock, scroll
+    lock, and insert). They also allow you to set the state of the
+    keyboard toggles.
+
+    To get the state of the left shift, control, or alt keys, you'd
+    use one or more of the following:
+
+       CALL SUB "LShiftPress" KeyState
+       CALL SUB "LCtrlPress" KeyState
+       CALL SUB "LAltPress" KeyState
+
+    The corresponding routines for the right keys are:
+
+       CALL SUB "RShiftPress" KeyState
+       CALL SUB "RCtrlPress" KeyState
+       CALL SUB "RAltPress" KeyState
+
+    Finally, you can tell whether either set of shift, control, or
+    alt keys is pressed with these routines:
+
+       CALL SUB "ShiftPress" KeyState
+       CALL SUB "CtrlPress" KeyState
+       CALL SUB "AltPress" KeyState
+
+    The KeyState returned will be 0 if the key is not pressed, or -1
+    if it is. Please note that the results for LAltPress, RAltPress,
+    LCtrlPress, and RCtrlPress will not be meaningful with older AT
+    or XT keyboards. They require "enhanced" keyboard support. Older
+    keyboards only have a single set of Ctrl and Alt keys, anyway.
+
+    You can read the current state of the keyboard toggles, thus:
+
+       CALL SUB "GetCapsLock" ToggleState
+       CALL SUB "GetInsert" ToggleState
+       CALL SUB "GetNumLock" ToggleState
+       CALL SUB "GetScrollLock" ToggleState
+
+    The result will be 0 if the toggle is off, or -1 if it's on. You
+    can set the toggle state using the same conventions, so:
+
+       CALL SUB "CapsLock" Status
+       CALL SUB "Insert" Status
+       CALL SUB "NumLock" Status
+       CALL SUB "ScrollLock" Status
+
+    If you change the state of a keyboard toggle, the corresponding
+    keyboard LED will change as well, except on some of the oldest
+    keyboards (or, of course, on keyboards that lack status LEDs).
+    Note that it is good practice to save the original states and
+    restore them before your program ends-- unless the entire goal
+    of your program is to set the keyboard toggles to a desired
+    state! Otherwise, you're likely to mess up the user's keyboard
+    preferences.
+
+                           Memory PEEKs/POKEs               page 21
+
+
+    For direct memory access, nothing beats good ol' PEEK and
+    POKE... especially when they're extended to cover all common
+    variable types! IBRARY lets you read or write blocks of memory
+    ranging from bytes to strings.
+
+       REM read a byte from memory into an integer
+       CALL SUB "PeekB" Segment Offset Value
+
+       REM read an integer from memory
+       CALL SUB "PeekI" Segment Offset Value
+
+       REM read a long integer from memory
+       CALL SUB "PeekL" Segment Offset Value&
+
+       REM read up to 80 bytes from memory into a string
+       CALL SUB "PeekS" Segment Offset Bytes Value$
+
+       REM write a byte to memory from an integer
+       CALL SUB "PokeB" Segment Offset Value
+
+       REM write an integer to memory
+       CALL SUB "PokeI" Segment Offset Value
+
+       REM write a long integer to memory
+       CALL SUB "PokeL" Segment Offset Value&
+
+       REM write up to 80 bytes to memory from a string
+       CALL SUB "PokeS" Segment Offset Bytes Value$
+
+    Note that strings can handle only up to 80 bytes, due to an ASIC
+    limitation. Also, the results of PeekS may not be a normal ASIC
+    string, if it contains null characters (CHR$(0), which marks the
+    end of a traditional ASIC string). There is nothing wrong with
+    this, as such, but remember that the string ends at the first
+    CHR$(0) as far as ASIC is concerned-- so it won't see any
+    characters which come after the first CHR$(0).
+
+    For experimentation-- note that MDA video screens begin at
+    segment -20480, offset 0; color video screens begin at segment
+    -18432, offset 0. An 80x25 text-mode screen takes up 4000 bytes
+    in either case (80x25 characters + 80x25 color/attribute codes).
+    An assortment of useful information can be read from the BIOS
+    data area, which begins at segment 64, offset 0-- check your
+    local BBS for a good PEEK/POKE list! The old PEEKPOKE.TXT or the
+    MEMORY.LST file provided with the INTER##.ZIP files would be a
+    good place to start.
+
+                                 Mouse                      page 22
+
+
+    The mouse routines provide full-featured mouse support. You can
+    see if a mouse is available and how many buttons it has, get the
+    cursor position (either the current position or the position at
+    the last press or release of a specified button), set the cursor
+    position, change the cursor, set the mouse range, get hardware
+    information about the mouse, and so on.
+
+    There are two unusual mouse modes to be aware of. One is text
+    mode, which is mapped to a 640x200 virtual display. So, to
+    convert the results to text format, you need to divide the
+    cursor position by eight and add one. To convert from text
+    format, subtract one and multiply by eight.
+
+    The second unusual mode is 320x200 CGA mode, which is also
+    mapped to 640x200. To convert the coordinates to this mode,
+    divide X by two. To convert from this mode, multiply the X
+    coordinate by two.
+
+    All other modes use the actual display coordinates instead of a
+    bizarro virtual screen. Why the peculiar CGA and text modes?
+    Well, evidently Microsoft never thought there'd be any video
+    adapters besides MDA and CGA, and decided to create a single
+    virtual screen size that worked for all modes. Not a bad idea, I
+    guess, but rather shortsighted. Oh well.
+
+    One other nuisance that you may run into is that the mouse
+    cursor can't be directly turned on or off. A "cursor visibility"
+    count is maintained-- if the mouse cursor was turned on twice,
+    you'll need to turn it off twice before it will actually
+    disappear.
+
+    Before using the mouse, you must initialize it. The
+    initialization routine also checks to make sure that a mouse is
+    installed and tells you how many buttons it has. It's best to
+    initialize the mouse after setting the screen mode, so the mouse
+    driver understands what mode you're using. Not all mouse drivers
+    support all screen modes, but you can reasonably expect any
+    current mouse driver to support MDA, CGA, EGA, and VGA. Hercules
+    graphics mode is rarely supported, as it must be set through
+    direct hardware access rather than the standard techniques, so
+    the mouse driver has little way of knowing that you've changed
+    the mode.
+
+    The mouse routines will work equally well with two-button or
+    three-button rodents. The middle button functions will return 0
+    with two-button mice.
+
+                                 Mouse                      page 23
+
+
+
+    I won't go into great detail on these routines, because they're
+    pretty much self-explanatory. The mouse is a fairly easy device
+    to deal with, despite the quirks of Microsoft's driver.
+
+    You can initialize the mouse driver like so:
+
+       CALL SUB "MInit" Buttons
+
+    This returns the number of mouse buttons available. If there is
+    no mouse, zero will be returned. Initialize the mouse AFTER
+    setting the screen mode, so it knows what the screen is like.
+
+    You can make the mouse cursor visible or invisible. It will
+    function just as well in either state. See the previous page for
+    some quirks.
+
+       CALL SUB "MShow"
+       CALL SUB "MHide"
+
+    There are many ways to get the mouse cursor position. You can
+    get the current position, the position at which the mouse was
+    located when a particular button was pressed, or the position
+    when a button was released. If you choose a past position, you
+    can also find out how many presses or releases of the button
+    have taken place since you last checked.
+
+       REM current coordinates
+       CALL SUB "MWhereX" X
+       CALL SUB "MWhereY" Y
+
+       REM number of presses of a given button
+       REM and mouse position at last press
+       CALL SUB "MLClick" Count X Y
+       CALL SUB "MMClick" Count X Y
+       CALL SUB "MRClick" Count X Y
+
+       REM number of releases of a given button
+       REM and mouse position at last release
+       CALL SUB "MLRelease" Count X Y
+       CALL SUB "MMRelease" Count X Y
+       CALL SUB "MRRelease" Count X Y
+
+                                 Mouse                      page 24
+
+
+
+    If you'd prefer to find out which buttons are currently pressed,
+    no problem:
+
+       CALL SUB "MLButton" IsDown
+       CALL SUB "MMButton" IsDown
+       CALL SUB "MRButton" IsDown
+
+    Of course, you can also set the cursor location:
+
+       CALL SUB "MLocate" X Y
+
+    The mouse cursor range can be restricted to a given area of the
+    screen. This area is expressed by giving the upper left corner
+    and lower right corner of the rectangular area to which to
+    restrict the cursor.
+
+       CALL SUB "MWindow" X1 Y1 X2 Y2
+
+    There are a variety of cursor shapes available for graphics
+    mode:
+
+        0    hourglass ("please wait, program is working" symbol)
+        1    pointing arrow (default)
+        2    pointing hand
+        3    crosshair
+        4    target (box in a box)
+        5    grabbing hand
+
+    If you have ideas for more, let me know and I'll see what I can
+    do. Cursor shapes are not unduly difficult to define, although
+    it's technical enough so that I decided to avoid confusion by
+    leaving direct handling out of IBRARY.
+
+       CALL SUB "MCursorG" CursorNr
+
+                             Miscellaneous                  page 25
+
+
+
+    If there are not (yet) enough routines in a category to give
+    them their own classification, they come to roost here, in good
+    ol' Miscellaneous. At the moment, this consists of a string
+    routine and some DOS output routines.
+
+    The StrNB routine works like ASIC's built-in STR$ function, but
+    strips all leading blanks from the result. It works on plain
+    integers.
+
+       CALL SUB "StrNB" Number Result$
+
+    The DOS output routines allow you to send output to the default
+    DOS device-- normally the screen, although it can be redirected
+    by the user to another device or to a file. We start with a
+    generic PRINT replacement:
+
+       CALL SUB "DosPrint" St$
+
+    That sends a string to standard output. If you want a carriage
+    return and linefeed, you must add them yourself:
+
+       CrLf$ = CHR$(13) + CHR$(10)
+       St$ = St$ + CrLf$
+
+    The rest of the DOS output routines require ANSI.SYS or another
+    ANSI driver to be loaded. They send the appropriate ANSI codes
+    to standard output.
+
+       CALL SUB "DosCls"
+
+       CALL SUB "DosColor" Foreground Background
+
+       CALL SUB "DosLocate" Row Column
+
+    It's now possible to get and set the state of the cursor, too.
+    This is based on BIOS routines and is meant for use in text
+    mode. The size and shape of the cursor is given in scan lines,
+    which may range from about 8-16 depending on the display adapter
+    and the size of your character font (which is related to the
+    number of text rows on the screen).
+
+       CALL SUB "CursorInfo" Visible StartLine EndLine MaxLine
+
+    The VISIBLE variable will return zero if the cursor is not
+    visible. The others return scan lines, which start at zero and
+    end at whatever MAXLINE returns. You can set the cursor size and
+    shape with:
+
+       CALL SUB "SetCursor" StartLine EndLine
+
+    Use a value of 32 for STARTLINE to make the cursor invisible. If
+    you call SetCursor, you should also use CursorInfo, and set the
+    original cursor shape back before ending your program.
+
+                             Miscellaneous                  page 26
+
+
+
+    Ibrary supports simple pop-up windows, too. You select the upper
+    left corner and lower right corners of the window frame, a frame
+    type, the color to use, and a title. If you don't want a title,
+    just use a null string (""). Frame types may be any of:
+
+       0     no frame
+       1     single lines
+       2     double lines
+       3     single horizontal lines, double vertical lines
+       4     double horizontal lines, single vertical lines
+
+    The COLOUR value may include both foreground and background
+    colors, using the formula: Colour = Backgnd * 16 + Foregnd.
+
+       CALL SUB "PopWindow" TRow LCol BRow RCol Frame Colour Title$
+
+    You can save (or restore) an 80x25 text screen, for either a
+    mono or color display, with ScrSave and ScrRest. You'll need to
+    specify the first element of a 2000-element integer array, the
+    screen page (normally zero), and the video type (normally -1 for
+    top speed; use 0 only if you're working with a CGA display and
+    experience irritating "snow" during the save/restore.
+
+       CALL SUB "ScrSave" ScreenArray(1) PageNr FastVideo
+       CALL SUB "ScrRest" ScreenArray(1) PageNr FastVideo
+
+    Want to delay for a while? IBRARY provides rock-solid delay
+    routines that were designed to cope with multitasking and
+    crossing the midnight boundary-- areas which can often cause
+    havoc with homebrew delay routines. You can delay for a
+    specified number of seconds or eighteenths of seconds:
+
+       CALL SUB "Delay" Seconds
+       CALL SUB "Delay18th" SplitSeconds
+
+                             Miscellaneous                  page 27
+
+
+
+    While ASIC provides a perfectly useful SOUND statement, it's not
+    compatible with the one in Microsoft BASICs. This sound routine
+    works just like the MS BASIC version, with the exception of
+    taking a integer duration in 1/18th seconds.
+
+       CALL SUB "Sound" Frequency Duration
+
+    Useful frequencies run from around 50-4000. If you aim to make
+    music using this service, the following table may prove of some
+    use. You can move down an octave by halving the frequency for a
+    given note. About seven octaves are available on the usual PC
+    compatible.
+
+       Note     Frequency (highest octave)
+       =====    =========
+         A         3520
+       A#,B-       3714
+         B         3952
+         C         4186
+       C#,D-       4434
+         D         4698
+       D#,E-       4978
+         E         5274
+         F         5588
+       F#,G-       5920
+         G         6272
+       G#,A-       6644
+

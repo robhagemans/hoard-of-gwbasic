@@ -1,0 +1,782 @@
+
+                          HISTORY FILE FOR DOORFRAME
+                          ==========================
+
+ NOTE: Ted Freeman died on July 13, 1993 and had asked that I continue his
+       programs which I will be doing with the assistance of Chuck Valecek.
+       Support BBS will be The Livewire BBS (609) 235-5297 USR HST.
+       Thanks for your continued support via Livewire Doors.
+						Richard Paquette
+
+Version 4.5
+-----------
+(06-28-93)
+  Well, looks like DoorFrame has finally grown to big for it's britches!
+ Wondered how long it would take with all the new stuff I've been adding.
+ Have had reports of String Space Corrupt errors which means it's time to
+ trim it down a bit. Consequently I had to decide what to discard. It was
+ a hard decision but I decided to drop support for WWIV's CHAIN.TXT file.
+ This will probably upset a few people but I tried to pick something that
+ would affect the least amount of systems.
+ Again, DOORFRAME NO LONGER SUPPORTS WWIV AND CHAIN.TXT.
+
+(06-25-93)
+  Changed the way ENTER operates. Previously, it would accept any keystroke
+ and go on it's merry way. It now must actually receive an Enter key. This
+ change was made mainly for PCBoard/M. Although DoorFrame works flawlessly
+ with the vast majority of the systems running the M version, I have had a
+ couple of reports that on a few systems they are still getting 4 or 5
+ random characters at the start of the door. By using the ENTER subroutine
+ at the bottom of your opening screen, it should catch any extraneous
+ characters that should happen to pop up at the beginning (up to 80).
+
+  Added another variable (like we NEED another one!). Check4RIP% lets you
+ the programmer decide if you want to check for RIPscrip compatibility.
+ Obviously if your door doesn't send RIPscrip codes, you could care less
+ if the remote is RIP compatible or not. The default for Check4RIP% is 0
+ which does not check. If you do want to check for RIPscrip, populate the
+ variable with a non-zero value. You must assign this variable before calling
+ Detect.Ansi.
+
+Version 4.4
+-----------
+(06-17-93)  
+  DoorFrame will now recognize RIPscrip! There are two new variables
+ available, Rip% and Rip$. Rip% will be 0 if RIPscrip was not detected and
+ 1 if it was. Rip$ will contain the RIPscrip version number in the format
+ RIPSCRIPxxyyzz where xx = major version number, yy = minor version number
+ and zz = revision code. For example if the version number is v1.52.00 
+ Rip$ would contain RIPSCRIP015200.
+  The Graphics% variable is not adjusted in response to the presence or 
+ absence of RIPscrip.
+
+Version 4.3
+-----------
+(06-13-93)
+  Finally got this sucker to work with the PCBoard/M version! Although I
+ have no way of testing, it should also work with the Wildcat! IM software.
+ Maybe some of you Wildcatters can shoot me some feedback on whether it
+ does or not.
+  There is a trade-off involved (naturally!).  I still can't figure out
+ where the *'s are coming from so the only solution I could come up with was
+ to ignore any *'s. So if you have any In.Put statements that require an *
+ as a response, you will have to change it. This only applies when the /FD
+ (fossil driver) parameter is being used. When no fossil is being used, the
+ * is accepted like always.
+
+Version 4.2
+-----------
+(04-21-93)
+  Added the RIP color switch for Wildcat! systems. Color is now displayed if
+ either GR or RIP is detected in the Wildcat! DOOR.SYS file.
+
+(04-20-93)
+  When adding the addtional colors for the shadow in the Box.It routine, I
+ neglected to allow for Black as a color! Therefore, 0 now indicates a Black
+ shadow and -1 indicates no shadow is to be used.
+
+(04-18-93)
+  Added the Cipher routines from the PBClone library. These two routines
+  (Cipher and CipherP) allow simple text encryption/decryption with password
+  protection. Check the PBC-SUBS.DOC file for instructions on their use.
+
+(04-16-93)
+  Added the ClearBuffer routine. This routine allows you to clear either
+ the keyboard buffer, the communications input buffer, or both. Parameters 
+ are: 0 = Clear both, 1 = Clear comm. input only, 2 = Clear keyboard only.
+
+(04-13-93)
+  Added another parameter to the SendAnsi routine. The third parameter is
+ Inter% and indicates whether or not to disable the ability to interrupt
+ the ANSI file with the spacebar as it is displaying. 0 = Don't disable, 
+ 1 = Disable. The default is 0.
+
+(03-29-93)
+  Added support for PCBoard v15.0 Alias name. I added this because the
+ ALIAS$ variable was already in DoorFrame. I will not be adding the rest of
+ the new stuff from v15.0 as that would needlessly inflate the size of the
+ library to support only one system. (so don't ask!)
+
+Version 4.1
+-----------
+(03-25-93)
+  Well my tweaking of the DETECT.ANSI routine didn't work quite the way it
+ was intended to! Consequently it is back to the way it was before.
+
+(03-24-93)
+  When using the Box.It routine, you may now specify a background color to
+ be used for the Shadow% parameter. 0 = No Shadow, 1 - 7 = Background Color
+ for the Shadow.
+
+(03-20-93)
+  Fixed a problem with clearing the screen on the local display when in 
+ ASCII only mode.
+
+(03-14-93)
+  Tweaked the DETECT.ANSI routine a bit. Hopefully it will do away with
+ those non-ANSI messages when ANSI is actually there!
+
+Version 4.0
+-----------
+(02-25-93)
+  Well of course I had to screw something up when expanding the COM port
+ range! This only affected the DORINFOx.DEF systems but any COM port above
+ one got changed back to 1 which would usually result in a carrier lost
+ message.
+
+(02-09-93)
+  Finally got around to expanding the COM port range. DoorFrame now supports
+ COM 0 thru 15.
+
+Version 3.9
+-----------
+(01-12-93)
+  Silly me! When checking for the fossil driver parameter I neglected to put
+ the / in there. So it was checking for FD instead of /FD. That means if your
+ .CFG filename contained those 2 letters (as in dFDdemo!), it would pick that
+ up as the fossil parameter. Corrected now.
+
+(01-07-93)
+  That old problem with the time expired when the Display was toggled off
+ in PCBoard popped up again! Fixed one more time (gotta quit changing things).
+
+(01-03-93)
+  Removed the CLRSCRN during the INTIALIZE process so now clearing the
+ screen is up to you at the beginning of the door.
+
+(12-23-92)
+  Fixed a stupid error on my part in the SENDANSI routine. I was opening the
+ file as FIL but was closing FILE! So the open file handles would just stack
+ up everytime the routine was called.
+
+(12-12-92)
+  Added a new routine called SendAnsi. This routine is for true ANSI files
+ only! It sends the entire file non-stop. Pressing the Spacebar aborts the
+ file send. See the .DOC file for an explanation of accepted parameters.
+
+Version 3.8
+-----------
+(11-24-92)
+  Noticed that I had only allowed for a single digit when specifying a
+ non-standard IRQ. That has been changed to accept 2 digits.
+
+(11-19-92)
+  DoorFrame will now recognize the %pcbnode% and %wcnodeid% environment
+ variables when reading the path to the system file (1st line of the .CFG).
+ Some examples:
+    PCBoard: If USERS.SYS is located in C:\PCB\NODE1 directory, 
+       %pcbdrive%%pcbdir%\NODE%pcbnode%\USERS.SYS
+    Wildcat!: USERINFO.DAT located in C:\WC\NODE3 directory,
+       C:\WC\NODE%wcnodeid%\USERINFO.DAT
+    or if you SET the %pcbdrive% and %pcbdir% variables via the batch,
+       %pcbdrive%%pcbdir%\NODE%wcnodeid%\USERINFO.DAT
+
+(11-15-92)
+  Changed the code so that USERINFO.DAT is written automatically. Therefore
+ you no longer need to use the User.Info% variable. Also took the routine
+ out that writes DOOR.SYS when using USERINFO.DAT. Since WildCat! doesn't
+ read it back in, that was sorta useless. (Thanks Dennis!)
+
+(11-01-92)
+  DoorFrame now includes support for FOSSIL drivers!!! This means your Doors
+ will work with most multi-port boards. To activate the Fossil driver 
+ support, just include /FD on the command line when running the Door. 
+ For example: MYDOOR MYDOOR.CFG /FD
+ If no Fossil driver is available, DoorFrame will display a message to that
+ effect and exit gracefully.
+
+(10-24-92)
+  Some of you may have noticed a slow down in the Dis.Play command after the
+ color codes were added (~, `, @, ^, |, {, and }). Dis.Play now has an 
+ additional parameter (Codes%) that let's you specify whether or not you 
+ are using the color codes. If a particular Dis.Play statement doesn't use
+ the codes, place a 0 in the Codes% parameter and the routine that checks
+ for and strips those characters will be bypassed. Thus significantly
+ increasing the display speed.
+
+(10-23-92)
+  Added 2 more parameters to the In.Put command. These new parameters allow
+ you to specify a different color if you populate the Text$ parameter. Refer
+ to the docs for a full explanation.
+
+Version 3.7
+-----------
+(10-19-92)
+  Well, should have known I would screw something up! Sure enough I did on
+ the LastOn$ variable. In the USERS file, it is in the format YYMMDD and 
+ is converted to the MM-DD-YY format when read. I neglected to convert it
+ back when writing to the USERS file.
+
+(10-18-92)
+  Would you believe ... all this time DoorFrame has been reading info from
+ the PCBoard USERS file but hasn't been writing it! Actually, this would 
+ only affect a few of the variables. Anyway, that oversight has been
+ corrected. (Thanks Peter!)
+
+(10-10-92)
+  Had reports of conflicts when using non-standard IRQ's on Novell/Netware
+ systems. Seems Novell also uses the / character so something went screwy
+ somewhere. So I added the * (asterisk) which may be used instead of the /
+ in case of a conflict. In other words, /%IRQ% and *%IRQ% will both work
+ and are interchangeable.
+
+(09-23-92)
+  Fixed a bug when restoring the screen after Chat or Drop to DOS. It would
+ generate an illegal function call whenever it hit a blinking character.
+
+(09-22-92)
+  You now have the option of taking control after a carrier loss in case you
+ need to do some clean-up before recycling back to the BBS. BE VERY CAREFUL
+ with this one! Check the Docs under Miscellaneous Notes for an explanation.
+
+Version 3.6
+-----------
+(09-20-92)
+   Fixed a problem when using the new no-show option of In.Put. If you used
+  a Dis.Play statement with color codes immediately after that, it would
+  show the color codes rather than the color.
+
+(09-14-92)
+  The In.Put command now features word-wrap ability! If you put, for example,
+ 160 as the first parameter, it will wrap around at the nearest space when it
+ reaches column 80 on the screen. Backspacing also works over the word-wrap.
+
+  DoorFrame will now handle the 30-something line DOOR.SYS file as well as 
+ the 52-line one.
+
+  Corrected some errors in writing the SFDOORS.DAT file. Specifically the
+ COMPORT% and DAILY.BYTES.ALWD& variables.
+
+  Added 5 new parameters to the In.Put command. 
+      AutoCR% - Automatic Carriage Return. 0 = No, 1 = Yes
+      Text$   - Text to display (if any).
+      Xpos%   - X coordinate to print Text$
+      Ypos%   - Y coordinate to print Text$
+      Show%   - 0 = Don't display response, 1 = display response
+ For example:
+
+    In.Put 5, 0, 11, 0, 0, "", 0, 0, 1
+
+ would accept 5 characters but would not return until the user hits the
+ ENTER key. Conversely,
+
+    In.Put 5, 0, 11, 0, 1, "Well? ", 20, 1, 1
+
+ would accept 5 characters and automatically return from the routine. It will
+ also print 'Well? ' at location 20, 1 and the response would be displayed.
+ If you wanted a Hot Key and didn't want the response to show:
+
+    In.Put 1, 0, 11, 0, 1, "Y/N ", 20, 1, 0
+
+ would prompt for 'Y/N' but would not display the response. The variable
+ Response$ will still contain whatever was typed even though it didn't show
+ up on the screen.
+
+(09-11-92)  
+  Finally installed the screen restore when coming back from Chat or a Drop
+ to Dos. Been wanting to do that for months now! It will now put the screen
+ back like it was including anything typed at an In.Put prompt. If the caller
+ had entered anything before the interruption, that is restored and he can
+ pick up right where he left off!
+
+Version 3.5
+-----------
+(09-06-92)
+  Had a request to be able to turn off the Status lines at the bottom of the
+ screen so that has been installed. To blank out those 2 lines, set the
+ variable No.Status% = 1 and do a ClrScrn. Sorry but those 2 lines are still
+ not available for printing (that would mean changing half the routines in
+ DoorFrame!).
+
+(09-05-92)
+  Fixed an intermittent problem with the cursor jumping to the top left of
+ the screen when backspacing.
+
+(09-04-92)
+  Did some more code optimizing. The same door used below in v1.9 now compiles
+ to 117,476 for an additional reduction of 8K in the .EXE!
+
+  You should also notice a tremendous increase in the display speed. Using
+ a test program that printed 18 lines and contained the color codes around
+ each word, it took 24.50 seconds for v3.4 to finish. Version 3.5 did it in
+ 7.69 seconds. That's a speed increase of about 319%!
+
+  Added 2 new routines to the library. ClrMol clears in the middle of a line
+ for the number of specified columns. ClrSol clears from the specified X, Y
+ coordinates to the start of that line.
+
+(09-03-92)
+  Re-paged the docs to a maximum of 60 lines per page for laser printers.
+
+Version 3.4
+-----------
+(08-27-92)
+  Did some more optimizing of the code so your .EXE files should be a bit
+ smaller than with v3.3.  One of my doors compiled to 127,244 with v3.3 and
+ 125,510 with v3.4, so it knocked almost 2K off the final .EXE!
+
+  Fixed a problem which, in certain instances, would generate a 'Time
+ Expired' message when the local display was toggled off (F9).
+
+(08-24-92)
+  Added a bunch more routines from Hanlin's PBClone library. I'll leave you
+ the fun of discovering which ones. <G>
+
+  Deleted the BIOSINKEY and KEYPRESS routines since they are local keyboard
+ only routines.
+
+Version 3.3
+-----------
+(06-21-92)
+  Added support for TriBBS software. DoorFrame both reads and writes the
+ TRIBBS.SYS file.
+
+(06-15-92)
+  Added a new Back.Space routine. Syntax is: Back.Space Row%, Col%, Num%
+ Give it the row, column, and number of backspaces, the cursor will be
+ positioned at the last backspace so if the Col% = 20 and Num% = 5, the
+ cursor is left at column 16 (columns 20, 19, 18, 17, and 16 are erased).
+
+Version 3.2
+-----------
+(06-03-92)
+  Fixed an oversight dealing with the TimeAdjust% variable. The problem wasn't
+ with the variable itself but rather with the frequency of updating the Status
+ line (which was every 30 seconds). Now it will update after each Dis.Play
+ statement. So if you are adjusting the callers time right before leaving the
+ door, just Dis.Play a space or something immediately after using TimeAdjust%.
+
+(05-24-92)
+  Added the 'Last New Files Date' variable for those systems using Wildcat!'s
+ USERINFO.DAT. The variable name is LastScan$
+
+(05-20-92)
+  Finally added a feature that has been sorely needed. You may now run your
+ doors from the DOS command line. Syntax is MYDOOR LOCAL. DoorFrame will plug
+ in enough dummy variables to enable it to run without using a BBS file.
+ Since the .CFG file will not be opened when using LOCAL, you should bypass 
+ any access to the .CFG file. If you MUST read additional lines from the .CFG
+ then I would suggest not using the LOCAL option.
+
+(05-12-92)
+  Fixed a bug in the In.Put routine. Seems that the ASCII (or extended) SHIFT
+ code for H, K, M, and P are the same as the scan codes for the arrows! So it
+ was interpreting those 4 letters as arrow codes instead of the correct letter
+ codes. The routine now checks the value of SysopKeys% to determine if it is
+ a letter or an arrow. If SysopKeys% = 0, it's a letter, if SysopKeys% = 1,
+ it's an arrow. This means you must only set SysopKeys% = 1 when you want to
+ use the arrow keys since those 4 letters will also be interpreted as arrow
+ keys. If you are expecting alphabetic input, you will get some strange
+ results!
+
+(05-11-92)
+  Thought I had fixed it so no beeps were heard on the local but not so. It
+ is fixed now, fer sure, fer sure!
+
+(05-09-92)
+  Learned what the Extra Time field was for in SFDOORS.DAT (thanks Chuck).
+ Now if you utilize the TimeAdjust% variable, the Extra Time field in 
+ SFDOORS.DAT will be adjusted up or down accordingly.
+
+  Found out that Wildcat! looks for an Error Level of 1 when recycling so
+ DoorFrame now generates a DOS error level of 1 when running under Wildcat!
+ systems and error level 62 for all others (for now!).
+
+(05-05-92)
+  DoorFrame will now generate a DOS error level of 62. I understand that
+ GAP systems can use this to correctly recycle the BBS whenever someone logs
+ off from inside a door. Need some feedback on other systems please. 
+
+  Added a couple of needed variables that were omitted when writing the
+ PCBoard USERS.SYS file. The descrepancy would only show up when logging
+ off from within a door but the time used and last date on were not being
+ updated.
+
+(05-02-92)
+  Think I finally came up with a workable solution to get rid of the TIMER
+ routines which drives a math coprocessor up the wall. The trade-off is that
+ the status line will only be updated whenever input is required from the
+ caller.
+ 
+Version 3.1
+-----------
+(04-29-92)
+  Included with this version is the .BAS source for a door called DFDEMO. It
+ demonstrates some of the features of DoorFrame.  You may also want to use
+ it to pick up some tips on using some of the routines.  The EXINPUT.BAS and
+ DISPLAY.BAS files have been removed.
+
+(04-27-92)
+   Took me a whole day's work, but I dood it!  You may now use the color
+ codes as often as you wish when Dis.Playing a line. In addition the colors
+ and blinking are each independent of each other, so you can blink one, some,
+ all, or none! The % turns on the blinking for each set of codes.
+
+  Added a parameter to the ClrScrn routine. You may now clear the local and
+ remote screen in any background color you wish (0 - 7).
+
+  Did a bit more optimizing of the code and even with the new stuff added,
+ was able to reduce the size of .LIB by over 5K!   
+
+(04-24-92)
+  In an effort to cut down on the number of variables we have to deal with
+ (and hopefully cut down on memory requirements), I have combined the various
+ system variables (Pcboard%, WildCat%, etc.) into one. System.File% will take
+ their place. The value of System.File% will tell you which BBS file is being
+ used according to the following values:
+     1 = PCBOARD.SYS            2 = USERS.SYS           3 = DOOR.SYS
+     4 = CALLINFO.BBS           5 = CHAIN.TXT           6 = DORINFOx.DEF
+     7 = SFDOORS.DAT            8 = USERINFO.DAT        9 = GTUSER.BBS
+
+  Deleted the Num.Dl.Today% variable. Use DlToday& instead.
+
+(04-23-92)
+  Have been receiving reports of an Error 6 (overflow) when using DoorFrame
+ doors with the latest version of Spitfire.  Have been trying to locate an
+ actual SFDOORS.DAT file. Finally one of my users uploaded one to me (thanks
+ Aldo!). Lo and behold in the Downloads Per Day field there was 54,730! 
+ So to stave off any more problems like this, I have changed the DlPerDay%,
+ DlToday%, Downloads%, and Uploads% from INTEGER to LONG INTEGER.
+
+  Used that extra space from the ON KEY and added support for GT Power's
+ GTUSER.BBS file. The .CFG file for this one is a little different.  Since
+ the file doesn't provide the COM port or Node numbers, they must be added on
+ lines 5 and 6 of the .CFG file.
+
+(04-22-92)
+  Been reading how the ON KEY statement adds a lot of overhead to QB programs
+ so have been researching how to get rid of them. Lo and behold, I found this
+ neat little routine to do just that!  So all the ON KEY (and the associated
+ KEY statements) are gone.  This change also knocked almost 2K off the size
+ of the library.
+
+Version 3.0
+-----------
+(04-20-92)
+   Added the PCBoard Language extension parameter, LANGUAGE$, at the request
+ of one of our European users. (Thanks Peter!) This variable will contain the
+ extension of the language file, i.e.  .FRE for the French language. When
+ using the default language (whichever one that is), this variable will
+ contain 4 spaces.
+
+(04-17-92)
+  Added two new parameters to the BOX.IT routine. HFG% and HBG% now let's
+ you specify the foreground and background colors when using a Title$ on
+ your boxes.  Also added a check to see if Title$ is longer than the box.
+ This would generate an Illegal Function error previously. Your Title$ must
+ be at least 6 characters less than the width of the box. If it is longer
+ than that, the routine simply ignores the Title$.
+
+Version 2.9
+-----------
+(04-10-92)
+  Made some small changes in reading the PCBoard USERS file (nothing major).
+ Noticed that the callers first name variable was missing from DOOR.SYS,
+ USERINFO.DAT etc. so those have been added.
+
+(04-04-92)
+  Fixed a small error in the SEND command when displaying an ASCII file.
+ Seems it was reading from one file number and looking for the end of 
+ another which would either not display all the file or generate an INPUT
+ PAST END error.
+
+(03-29-92)
+  Reports have been surfacing from 486 owners concerning some possible
+ incompatibilities with the math coprocessors in those machines. Starting
+ with this version I am attempting to eliminate all floating point 
+ operations. Therefore all Single Precision (!) and Double Precision (#)
+ numbers have been changed to Long Integers (&). This mainly affects the
+ Hi.Score# variable and the various Upload/Download variables.  So if you use
+ any of these variables in your doors, you will need to change them.
+
+Version 2.8
+-----------
+(03-21-92)
+  DoorFrame doors may now make use of the IRQ environment variable. For
+ example, instead of DOOR DOOR.CFG /5 you can use DOOR DOOR.CFG /%IRQ%
+
+(03-19-92)
+  DoorFrame is now aware of the PCBoard environment variables %PCBDRIVE% and
+ %PCBDIR%. Although it is tranparent to you, the programmer, if it finds
+ those two variables on the first line of the .CFG file it will substitute
+ the correct drive and path.
+  Also fixed a small bug with the time remaining when using USERS.SYS. 
+
+Version 2.7
+-----------
+(03-07-92)
+  Fixed a small problem with the high score bulletin. If the bulletin was in
+ other than the current directory, the path for the graphics bulletin got
+ screwed up.
+
+  Added a new variable - Hi.Ascii% which allows you to accept ASCII values
+ from 128 to 255. This was added at the request of one of our European users
+ since some languages need to use those characters.  Hi.Ascii% = 1 will enable
+ this option. The default is zero (disabled).
+
+Version 2.6
+-----------
+(02-23-92)
+  One more time on the SEND routine! I was checking the first few characters
+ of a file for the CHR$(27) and if found just assumed that the file was all
+ ANSI. Not so! Seems there are 'hand-made' files out there that have the
+ color codes at the beginning of a line but no where else. So...... redid it
+ one more time (hopefully the last!).
+
+(02-21-92)
+  Optimized the code a bit and moved some routines from the main module to
+ the library.  Tested with just a two-line program and the size of the .EXE
+ went from 103,434 before optimizing to 81,310 after optimizing.  So that
+ should cut down on your file sizes a bit!
+
+(02-17-92)
+  NOTE: The parameters for the SEND routine have changed with this version!
+ The new syntax is SEND FileName$, YN%, Clr%  where Clr% is 0 (home cursor,
+ do not clear screen) or 1 (yes, clear screen).
+  Added a bunch more routines for programmer use. See the enclosed
+ PBC-SUBS.DOC for those.
+
+Version 2.5
+-----------
+(02-14-92)
+  Added a new routine, ClrEOL. This one will clear to the end of the line.
+ You can specify where to start clearing. Example:  ClrEOL 10, 10, 1
+ will do it's thing on row 10 and clear from column 10 to the end of the line
+ and color it blue. The parameters are Xpos, Ypos, Color. Enjoy!
+  Fixed a stupid mistake in the SEND routine. I open CONS: for printing to
+ the local screen and misspelled it CON! Funny thing is, it worked except 
+ when accessing across a network!
+  Added GetDView which returns the version of DESQview loaded or zeroes if
+ DESQview is not loaded.
+
+(02-10-92)
+  Think I finally got that pesky bug in the SEND routine when sending ANSI
+ screens fixed! Give it a workout and let me know if it screws up.
+  One quirk I found when using The Draw was when I saved the screen with
+ ALT-S it didn't transmit quite right. But when the same screen was saved
+ using ALT-B, the screen transmitted perfectly. So I would suggest using
+ ALT-B instead of ALT-S to save your ANSI screens.
+
+(02-09-92)
+  Had some reports of the Backspace locking systems in local mode. Did some
+ checking in the routine and the only thing I could find that could possibly
+ be the culprit was an IF NOT LocalUsr% statement. Since I have had some 
+ problems with NOT in the past, I changed that statement to IF LocalUsr% = 0.
+ Since I have been unable to duplicate the lockups on either of my systems,
+ I will have to depend on those who have to try this version and see if it
+ is fixed. Thanks in advance to those who respond!
+  BTW, new BBS number and address with this version.
+
+Version 2.4
+-----------
+(10-25-91)
+  Changed the second parameter on the IN.PUT routine from an integer to a
+ single precision number. This allows you to specify a waiting time of less
+ than 1 second. The minimum wait is now 1/18th of a second (.005 works
+ pretty well).
+
+(10-05-91)
+  Fixed an oversight in writing the Wildcat! 3.x USERINFO.DAT. Line 16
+ (DoorLogoff$) will now show "Y" if the caller logged off from the Door.
+
+(09-08-91)
+  You may now use the ARROW keys. DoorFrame now has an alternate set of keys
+ for the Level and Time adjustments. To switch these keys from the ARROW keys
+ to the alternate, use Sysopkeys% = 1 AFTER you call INITIALIZE. When you
+ have SysopKeys% set to 1, PgUp = add time, PgDn = subtract time, INSert =
+ add level, and DELete = subtract level. SysopKeys% defaults to 0 so doors
+ compiled with previous versions of DoorFrame will work as before.
+  When SysopKeys% = 1 pressing one of the arrow keys will return the
+ following in RESPONSE$:
+    Up Arrow    - RESPONSE$ = "UP"
+    Dn Arrow    - RESPONSE$ = "DOWN"
+    Left Arrow  - RESPONSE$ = "LEFT"
+    Right Arrow - RESPONSE$ = "RIGHT"
+
+(09-06-91)
+  Would you believe I left out the code for low-intensity white in the
+ DIS.PLAY routine! It has been added. (Thanks to Jerry Claxton for finding
+ that one!)
+  Added the ability to use low intensity colors when using the symbols in
+ the DIS.PLAY routine. To make a color low intensity just put a * in front
+ of the first symbol. Ex: *}text} displays 'text' in low intensity white.
+
+(08-30-91)
+  Changed the EXIT.DOOR "G" routine to allow logoffs on all systems, not just
+ PCBoard.
+  Changed the WildCat! 3.0 routines so that it DOES NOT automatically write
+ the USERINFO.DAT file. If you wish to write this file, set User.Info = 1
+ before calling EXIT.DOOR.
+
+Version 2.3 
+-----------
+(06-20-91)
+  Added support for WildCat! v3.0. This version of WildCat! no longer uses the
+ CALLINFO.BBS file. It now uses the 31-line version of DOOR.SYS and creates an
+ additional file called USERINFO.DAT. 
+
+(7-07-91)
+  They finally woke up at Mustang! Software and are now using the standard
+ 52-line DOOR.SYS like everyone else. This release adjusts for that. Just put
+ the path to USERINFO.DAT on line 1 of the .CFG file (instead of DOOR.SYS).
+ Make sure that DOOR.SYS is in the same directory as USERINFO.DAT!
+
+Version 2.2
+-----------
+(03-31-91)
+  Added support for non-standard IRQ numbers (other than IRQ3/IRQ4). See the
+ docs for info on how to implement this.
+
+Version 2.1 (03-23-91)
+----------------------
+  Modified the LINES routine. Now if you draw intersecting vertical and
+ horizontal lines, the appropriate character will be inserted where the
+ lines cross. For example, at the intersection of two double lines the
+ character Î would be printed.
+  Tweaked the MORE routine a little. It was doing a CR/LF after the prompt
+ so it wasn't getting erased because it was on the line above!
+  Also put in logic in the MORE and ENTER routines to restore the cursor to
+ it's position before the call.
+  Fixed a problem in DORINFOx.DEF where the Sysop names where being taken
+ from DORINFO instead of the configuration file. Also allowed for the fact
+ that the RBBS DORINFO has 13 lines instead of 12.
+  Still didn't have the DORINFOx.DEF quite right for RBBS. Hopefully it will
+ work as it should now (helps when you use the correct LINE INPUT statement).
+  One more time on DORINFO to fix the BBSSYS$. Also fixed a problem in
+ picking up the correct node number.
+
+Version 2.0 (02-02-91)
+----------------------
+  Fixed a problem with the backspace when the cursor was in columns 79 or
+ 80 (it wouldn't).
+  Enlarged the PRINT USING in the High Score Bulletin. It will now handle
+ scores up to 9,999,999,999.
+  Made DoorFrames internal error trapping available for those of you who
+ wish to utilize it instead of writing your own. All Basic errors are
+ trapped and will be written to DFRAME.ERR upon exiting the door.
+  Added support for WWIV's CHAIN.TXT file. DoorFrame both reads and writes
+ this file. It is untested as of this writing so watch it!
+  Added 2 more parameters to the IN.PUT routine. These are INTEGERS and
+ indicate the foreground and background colors for the input.
+  Updated the CALLINFO.BBS routine to read the newer 36 line format. It
+ will still handle the old 30 line format ok.
+  Added a parameter to the SHOW.BLT routine. This is a STRING and is
+ either "Y" or "N". The "Y" tells the routine to display the "Do you want
+ to see the Bulletin" prompt while "N" will bypass the prompt. If you have
+ an option on your door menu to view the bulletin, you would use "N" (why
+ ask them again!).
+
+Version 1.9 (12-31-90)
+----------------------
+  Fixed a bug when using the `, @, {, ^ etc. symbols. If one of these
+ symbols was entered at an IN.PUT prompt, the program would go bananas.
+  I had inadvertantly left out the ENTER prompt at the end of the SEND
+ routine so when someone brought it to my attention I belated added it.
+ Now I find that is the way some of you want it! So in order to satisfy
+ both camps, I have added a parameter to SEND. The syntax is now:
+   SEND (MSG$, YN%)   where YN% is an INTEGER. 0 = don't send the ENTER
+ prompt at the end, 1 = yes, use it. 
+  Added support for Spitfire's SFDOORS.DAT. DoorFrame both reads and writes
+ to this file.
+  Added the ability to log off from within the Door. However, this option is
+ for PCBoard systems only!
+  Added MAKE.BLT.CURRENT routine which posts current scores instead of the
+ highest scores attained.
+  Fixed a bug in the MAKE.BLT routines. It didn't take kindly to an extension
+ being included in the Bulletin filename!
+
+                         AND THAT'S IT FOR THIS YEAR!!
+
+Version 1.8 (12-16-90)
+----------------------
+  Added a few more subroutines for programmer convenience. These routines
+ will add some capabilities not found in QuickBasic. Routines added are:
+   DelFile, DrvSpace, GetDrv, GetExecPath, GetKbd, GetSub, NameCase,
+   RInstr, SetError, SetKbd and SubExist.
+  Fixed a problem with the ALLOWEDBYTES# variable (helps if you add it to
+ the DFRAME.INC file!).
+
+Version 1.7 (12-13-90)
+----------------------
+  Added support for PCBoard 14.5's USERS.SYS file! Since the bug reports
+ had started slacking off, thought I would introduce a few more 8-).
+  Added option for no border (spaces) in the BOX.IT routine.
+  Forgot to add an ENTER prompt after the last page in the SEND routine. 
+ Fixed now.
+  Had some reports of Security Levels higher than 32,767 so the LEVEL
+ variable has been changed from an INTEGER (%) to a LONG (&).
+  Took the Time Left warnings out. They only messed up the screen! So if 
+ you want to warn the caller when time gets low, you should check the
+ TIMELEFT% variable and display a message accordingly. 
+
+Version 1.6 (12-11-90)
+----------------------
+  Fixed a problem in the error handling routines. It will hopefully handle
+ errors better now and exit gracefully.
+  Fixed the 'keyboard timeout' problem when coming out of Chat mode.
+  Fixed another Chat mode problem where the lines on the remote screen
+ would overwrite when it reached line 23.
+  Optimized the library a bit. Cut about 13K off the size of the .LIB.
+  Added a check for DOS version. If the DOS version is less than 3.0 it
+ will display an error message and exit (DOS 3.0+ is required because the
+ files are opened in SHARED mode).
+
+Version 1.5 (11-30-90)
+----------------------
+  Finally got the midnight time problem fixed where the caller would get a
+ time expired message if he had logged on the BBS before midnight and 
+ entered the door after midnight.
+  Fixed an error when using DORINFOx.DEF. It worked fine as long as
+ DORINFOx.DEF was the only thing there but went screwy if you threw a path
+ at it.
+  When I added the options for color in the middle of a line of text, I
+ inadvertantly disabled the full-line blink. Now fixed.
+
+Version 1.4 (11-25-90)
+----------------------
+  Added some enhancements to the DIS.PLAY routine. By using special symbols,
+ selected text can be displayed in different colors (like BLUE, YELLOW, BLUE)
+ without having to use 3 DIS.PLAY statements. See the DOCS and DISPLAY.BAS
+ for a complete explanation.
+  Added the MODE% variable. Previously if you used DETECT.ANSI, the caller
+ would be switched to COLOR MODE automatically. With the MODE% variable, the
+ color will be on or off depending on the caller's BBS setting.
+  Modified the IN.PUT routine somewhat. It now requires 2 parameters to be
+ passed. The first parameter is the desired length of the input and the 
+ second is the length of time to wait for that input.
+
+Version 1.3 (11-20-90)
+----------------------
+  Added a time limit option to the IN.PUT routine. See EXINPUT.BAS for
+ and example on using it.
+  Fixed an 'oversight' in the OUT.PUT routine. Completely left out updating
+ the column position!
+  Made a correction in the centering routine. Now when you use centering
+ with a colored background, you don't get the colored line all the way
+ across the screen! Also, if you do an IN.PUT after a center it will be
+ properly positioned after the prompt instead of on the right edge.
+
+Version 1.2 (11-17-90)
+----------------------
+  Made the Keyboard Timeout configurable by the programmer. Before calling
+ INITIALIZE, populate TIMEOUT% with the number of seconds you want for
+ input. If you do not specify a TIMEOUT%, it will default to 5 minutes.
+ The minimum is 60 secs so anything less than that will be the default.
+  Added support for DORINFOx.DEF which now gives us QBBS, RBBS, and
+ Remote Access! (Note: This needs to be tested more. Any volunteers?)
+
+Version 1.1 (11-12-90)
+----------------------
+  Fixed a problem with the cursor positioning routines when the local display
+ was toggled off (it didn't work!).
+  Changed the BOX subroutine to BOX.IT to avoid a naming conflict with other
+ add-on packages for QB 4.5. (Crescent Software's for one).
+  Added support for CALLINFO.BBS so your doors will now run on Wildcat! 
+ systems without a converter!
+
+Version 1.0 (11-1-90)
+---------------------
+Initialize release.
+
+
+

@@ -1,0 +1,953 @@
+
+
+
+
+                                 QBserial version 3.20
+
+            Serial I/O Routines for QB 4.x, BC 7.x, VBDOS, & FOSSIL Drivers
+
+          This library will provide you with serial I/O communications
+          routines for use in QuickBASIC 4.x (with or without PDQ), the
+          Microsoft Basic Compiler 7.x Professional Development System, and
+          Visual Basic for DOS 1.x. No longer are you forced to use the poor
+          communications support provided by QB.  This program will allow you
+          to control 8250 and 16450 type communications ports (UARTS) at
+          speeds of up to 115200 baud. Communication ports 1 - 4, and non-
+          standard addresses are supported. You will no longer have problems
+          with the DTR signal. DTR is left in the same state it was in when
+          before you called this driver, or it can be controlled by your
+          program. The serial driver includes XON/XOFF and CTS/RTS
+          handshaking. Serial input is interrupt driven, using any IRQ you
+          specify (1 - 15), with incoming XOFF flow control (if enabled), or
+          RTS flow control (if enabled) to prevent overrunning the input
+          buffer. This is referred to as "Normal" mode. 
+
+          This driver also has a mode where it will operate with FOSSIL
+          drivers (INT 14h interface). Using FOSSIL mode allows you to use
+          virtually any type of communications hardware, since the type of
+          hardware accessed is dependant on the FOSSIL driver. This mode
+          requires that you have a FOSSIL driver loaded in advance. This is
+          referred to as "FOSSIL" mode.
+
+          The driver was written with Microsoft's C, and compiled with
+          version 6.0a of that compiler. This driver is useable with
+          QuickBASIC version 4.x, and Basic Compiler 6.x & 7.x PDS  (With or
+          without PDQ), and Visual Basic for DOS version 1.x. Basic Compiler
+          1.x, QuickBASIC 2.x, and 3.x are not supported by this driver. The
+          reason is that versions of QuickBASIC prior to 4.0 do not support
+          the extensive multi-language interface that QB4.x has (via the
+          DECLARE statement and Microsoft language extensions). Throughout
+          this manual QB will be used to refer to both QuickBASIC, the Basic
+          Compilers (6.x & 7.x PDS), and Visual Basic for DOS.
+
+          Before the driver can be used, the following INCLUDE statement must
+          be added to the beginning of your QB program:
+
+          '    $INCLUDE: 'qbserial.dec'
+
+          The declarations included by this statement specify all the entry
+          points into the serial driver. DO NOT change them or the driver
+          will not function.
+
+          Refer to the included sample programs SIMPLE.BAS, PCBDOOR.BAS, and
+          OFFHOOK.BAS. they use most of the calls described below.
+
+
+
+        QBSERIAL User Manual - V 3.20                              Page 1
+
+
+          Qbserial has two (2) modes of operation: Normal and FOSSIL. The
+          mode you operate in is specified in the OpenComm statement (The
+          FOS% parameter). In the following sections, where applicable, each
+          parameter will be explained as to how it operates in both Normal
+          and FOSSIL mode.
+
+                                  Port Initialization
+
+          OpenComm Port%, IRQ/Stat%, Wlen%, Parity%, Bits%, Baud&, HS%, FOS%
+
+          Parameter:     Port%
+
+          Normal:   If the specified port is 1 to 4, the driver opens that
+                    port. If you specify the port as ZERO (0) the driver
+                    enters "LOCAL" mode. This allows you to call the driver
+                    with data, but the driver won't send anything. This is
+                    useful when working with "doors". if you specify the port
+                    as any other value, QBserial will use that as the base
+                    address for the port. This allows you to work with non-
+                    standard I/O addresses. Note however that if you open a
+                    non-standard port, you must specify an IRQ value from 1
+                    to 15 - There is no default IRQ when used in this manner.
+
+          FOSSIL:   Unlike normal mode, "port" does not necessarily relate to
+                    a specific communications port or address. Using a "1"
+                    for a port value does NOT necessarily mean COM1. Also
+                    unlike QBserial's normal mode, a value other than 1 - 4
+                    does NOT refer to a base address of a UART.
+
+                    When using FOSSIL mode, "port" refers to a logical
+                    device. Port 0 is the first port of a FOSSIL device
+                    driver, Port 1 the second, and so on. When used with
+                    drivers such as X00.SYS (assuming you didn't remap the
+                    ports), port 0 refers to COM1, and port 1 refers to COM2.
+                    This will vary depending on the FOSSIL driver used and
+                    the device(s) referenced. In most cases it is determined
+                    when the FOSSIL driver is installed through some sort of
+                    configuration file (or command line options) that relates
+                    the physical devices to logical port numbers. However, in
+                    order to make the FOSSIL implementation as compatible as
+                    possible with "normal" mode, the port number passed will
+                    have a value of ONE (1) subtracted from it before
+                    referring to the actual FOSSIL port. Therefore to access
+                    the first port (port 0), you pass a 1 as you did with in
+                    normal mode. Internally, one (1) is subtracted so that
+                    port 0 is referenced. This makes the implementation or
+                    normal and FOSSIL modes totally transparent.
+
+                    Specifying a value of ZERO (0) for the port puts the
+                    driver in "local" mode. This is identical to normal mode.
+
+
+
+        QBSERIAL User Manual - V 3.20                              Page 2
+
+
+          Parameter:     IRQ/Stat%
+
+          Normal:   Specifies which interrupt to use with this port. If the
+                    value of IRQ% is ZERO (0), then the default IRQ values
+                    are used (COM1 & COM3 use IRQ4, COM2 & COM4 use IRQ3).
+                    This is what most applications will use. Specify an IRQ
+                    value of 1 through 15 when you want to use an IRQ value
+                    other than the default. Such as when you want to use
+                    IRQ15 with COM3. NOTE: Be careful when choosing an IRQ
+                    value other than the default. Most machines use some of
+                    the other IRQ inputs for other machine functions such as
+                    the Hard drive and system clock. QBserial DOES NOT chain
+                    the interrupt, it takes it over entirely. If you choose
+                    an IRQ that is used for something already, your machine
+                    will most certainly operate improperly.
+
+          FOSSIL:   No IRQ value is necessary in FOSSIL mode since all
+                    communications tasks are handled outside of QBserial. The
+                    IRQ used with a particular "port" will be determined at
+                    the time the FOSSIL driver is installed, probably through
+                    the same configuration method mentioned above.
+
+                    When using FOSSIL mode, this field is now Status. This is
+                    a value RETURNED to the programmer when OpenComm has
+                    completed. It indicates whether or not the FOSSIL driver
+                    initialized properly and is ready to perform
+                    communications tasks. A value of 1954h (HEX) or 6484
+                    (DECIMAL) indicates a successful initialization. ANY
+                    OTHER value indicates a initialization failure. You
+                    should terminate your program and inform the user of your
+                    program of the problem. Failures could result from the
+                    FOSSIL driver not being installed, or not installed
+                    properly. If you pass an invalid baud rate (see below),
+                    Status will be returned as a ZERO. Otherwise Status will
+                    be the actual value returned from the FOSSIL driver in
+                    response to initialization. These values other than
+                    1954h/6484 may offer a clue as to why the driver did not
+                    initialize. These "possible" values would be documented
+                    in the documentation for the FOSSIL driver.
+
+          Parameter:     Wlen%
+
+                    An integer specifying the word length of the serial data.
+                    It has a value of 7 or 8. Identical in both normal and
+                    FOSSIL modes.
+
+          Parameter:     Parity%
+
+                    An integer, 0 = NONE, 1 = ODD, 2 = EVEN. Identical in
+                    both normal and FOSSIL modes.
+
+
+
+        QBSERIAL User Manual - V 3.20                              Page 3
+
+
+          Parameter:     Bits%
+
+                    Specifies the number of Stop Bits on each serial
+                    character. Valid entries are: "1" for 1 Stop Bit, and "2"
+                    for 2 Stop Bits per character. Any other value will give
+                    1 Stop Bit. Identical in both normal and FOSSIL modes.
+
+          Parameter:     Baud&
+
+          Normal:   This is a LONG INTEGER representing the desired baud
+                    rate. Valid numbers are 0, 300, 1200, 2400, 4800, 9600,
+                    19200, 38400, 57600, and 115200. The value you send is
+                    NOT checked and I assume you could generate crazy baud
+                    rates if desired. 115200 is the absolute maximum rate
+                    that can be generated. If you specify a baud rate of ZERO
+                    then the serial port is used AS-IS. The rate, word
+                    length, & parity are NOT changed. This is useful for door
+                    operation since the port is already initialized at the
+                    proper settings when you get control.
+
+          FOSSIL:   Identical to normal mode with the exception being that
+                    the range of selectable baudrates is limited. This is
+                    limited by the current FOSSIL specification. The valid
+                    baud rates are: 0, 300, 1200, 2400, 4800, 9600, 19200,
+                    and 38400. If you pass a value other than one of these
+                    valid rates, the driver will not initialize and return a
+                    ZERO for status. In FOSSIL mode, if you specify a baud
+                    rate of ZERO (0), the Baudrate initialization call is not
+                    performed by OpenComm. This *SHOULD* have the same effect
+                    that normal mode does by not changing the baudrate, word
+                    length, & parity. However, since this is an undefined
+                    condition in the FOSSIL specification, there is no way of
+                    guaranteeing that the current settings will not be
+                    changed during initialization of the driver. If you want
+                    a 100% guarantee of the rate setting, you should provide
+                    a speed when you do an OpenComm. This is only being done
+                    for compatibility with Normal mode.
+
+          Parameter:     HS%
+
+                    An integer specifying the type of handshake you wish to
+                    use between the CPU and Modem (or destination device).
+                    Valid numbers are: 0 = NO handshake, 1 = XON/XOFF, 2 =
+                    CTS/RTS, 3 = XON/XOFF and CTS/RTS. Identical in both
+                    modes.
+
+          Parameter:     FOS%
+
+                    An integer that specifies which mode the driver will
+                    operate in. Zero (0) specifies "Normal" mode, and One (1)
+                    specifies "FOSSIL" mode.
+
+
+        QBSERIAL User Manual - V 3.20                              Page 4
+
+
+                                     Serial Output
+
+          To send a string of data out the serial port, you use the
+          "Transmit" call as follows:
+
+               Temp$ = "Transmit this..."
+               Transmit Temp$
+
+                    or
+
+               Transmit "Send this also...."
+
+          If you want to transmit single characters, you can use the
+          "WriteChar" function. Transmit calls WriteChar to send the actual
+          characters to the port. If you wish to use WriteChar, it has the
+          following format:
+
+               Status% = WriteChar(Char%)
+
+          Char% is the integer value of the character you want to send, it is
+          not a string. Status% is an integer returned by WriteChar, it is
+          NON-ZERO if the character was actually sent to the port, and ZERO
+          if the character was not sent. WriteChar will loop indefinitely on
+          CTS hold, XOFF hold, or Transmit Buffer Busy. These loops will exit
+          if carrier is lost in FULL or PARTIAL modes and return a ZERO
+          status% (This occurs in normal mode ONLY. What happens in FOSSIL
+          mode is undefined). WriteChar gives you more low level control of
+          the sending of characters, but you must send each character
+          separately and monitor its status.
+
+          The Transmit function monitors the status of its calls to WriteChar
+          and triggers QuickBASIC's User Event trap (UEVENT) if a carrier
+          loss occurs in FULL mode. The UEVENT trap (FULL mode) is used by
+          default. You can disable the use of this event trap in the event
+          you already use the UEVENT trap for something else (PARTIAL mode).
+          Therefore, by default, carrier loss detection in your program is
+          done with the ON UEVENT GOSUB/UEVENT ON statements. The example
+          programs show the use of this method. By default UEVENT is also
+          used for catching carrier loss on keyboard input. this is described
+          below.
+
+
+
+                                      Serial Input
+
+          Serial input is managed with three functions: DataWaiting,
+          ReadChar, & ClearInputBuffer. DataWaiting is used to test the input
+          buffer to see if any characters need to be read from it. ReadChar
+          is then called to get the characters. ClearInputBuffer flushes the
+          input buffer of any existing characters. Both example programs
+          contain a subroutine called "KeyboardInput" that demonstrates the
+          use of these calls. It also properly handles input from the local
+
+        QBSERIAL User Manual - V 3.20                              Page 5
+
+
+          and remote keyboards, and can be the routine you use in your
+          programs if you wish. Basically the procedure for reading the
+          remote keyboard (serial input) is as follows:
+
+               IF DataWaiting THEN
+                    C$ = CHR$(ReadChar)
+               END IF
+
+          The DataWaiting function also monitors the state of the carrier
+          detect signal and triggers, in FULL mode, the user event trap
+          (UEVENT) if carrier is lost. As you can see a singular trap routine
+          catches carrier loss on output as well as input. You will notice
+          that the "KeyboardInput" subroutine (in SIMPLE.BAS) loops using
+          DataWaiting, and as such, carrier is constantly checked while
+          waiting for input. If the ReadChar function is called when no data
+          is available (as indicated by DataWaiting) a NULL character is
+          returned.
+
+          In "Normal" mode, if XOFF/XON, CTS/RTS, or BOTH is enabled, then
+          the serial buffer will be protected from overfills. When the buffer
+          reaches 75% of capacity, an XOFF will be sent on the serial output
+          or RTS will be dropped. When the buffer empties out to 25% of
+          capacity, an XON will be sent or RTS raised. The capacity of the
+          input buffer is 2048 bytes. In FOSSIL mode, the threshold points
+          where flow control occurs and the buffer size, are determined by
+          the FOSSIL driver.
+
+
+                                 Carrier Detect Control
+
+          There are three modes of carrier detection: Full, Partial, & None.
+          Each has it own distinct use for a particular purpose. The driver
+          defaults to FULL carrier detection unless you change it. The
+          following call is used to change control modes:
+
+               CarrierDetect 0 [or] 1 [or] 2
+
+          Specifying a TWO (2) sets carrier detection to FULL. This is the
+          default mode. When a loss of carrier occurs while transmitting,
+          polling for input data, or sitting in a wait loop (XOFF/XON or
+          CTS), the driver will return to the calling program and trip the
+          UEVENT flag. Tripping the UEVENT flag causes Basic to go to the
+          User Event trap routine (providing ON UEVENT GOSUB/UEVENT ON has
+          been set up in the user program). You should use this mode only if
+          you want to use the UEVENT trap for carrier loss detection. You
+          cannot transmit data (with the Transmit function) in this mode if
+          there is no carrier. You can send characters in this mode with the
+          WriteChar function.
+
+          Specifying a ONE (1) sets carrier detection to PARTIAL. This mode
+          is similar to FULL with the exception that the UEVENT flag is not
+          tripped when carrier is lost. This mode should be used if UEVENT is
+
+        QBSERIAL User Manual - V 3.20                              Page 6
+
+
+          used for something else in your program, or you don't wish to
+          utilize UEVENT.
+
+          Specifying a ZERO (0) sets carrier detection to NONE. An example of
+          this mode would be where "plain Jane" serial I/O is required (such
+          as communicating with a "dumb" terminal). In this application there
+          are no modem handshake signals (3 wire EIA/RS-232). This mode can
+          also be used for talking to a modem when there is no carrier signal
+          present (such as dialing and initialization commands). The Transmit
+          and WriteChar routines will always transmit data in this mode with
+          or without carrier present. Carrier detection must be disabled in
+          this mode to prevent calls to Uevent and disable the no carrier
+          escape mechanisms built into the XON/XOFF loops. Important: If you
+          are using "Normal" mode, and you are using the XOFF/XON protocol,
+          with "CarrierDetect 0" set, and receive an XOFF while transmitting,
+          you will sit forever waiting for an XON. This is a normal
+          condition, with the exception that there is no escape from this
+          loop other than XON. If you are using "FOSSIL" mode, this action is
+          undefined.
+
+
+                           Carrier Loss Detection by Polling
+
+          As mentioned above, by default, the UEVENT trap is used to detect
+          when a loss of carrier occurs. There is also a function that allows
+          you to detect loss of carrier without using the UEVENT trap. While
+          I feel that using UEVENT is the simplest way to catch a carrier
+          loss in a program, it is possible that UEVENT might need to be used
+          by something else. This function is:
+
+               X% = CarrierLost
+
+          This function call allows to you to 'poll' for the state of
+          carrier. CarrierLost returns a NON-ZERO value when there is NO
+          carrier, and a ZERO when there IS carrier. CarrierLost is a real
+          time function, it returns the current carrier condition at the time
+          of the call. This allows you to code simple IF or DO loops to
+          detect loss:
+
+               IF CarrierLost THEN
+                    ..process carrier loss
+               END IF
+
+
+                                      Modem Status
+
+          NOTE:     This function ONLY works in Normal mode. It has no
+                    functional equivalent in FOSSIL mode.
+
+          The Modem Status register contains bits that convey information
+          about the Modem's current state, and what has happened since the
+          last status query. In most instances these bits will not be needed
+
+        QBSERIAL User Manual - V 3.20                              Page 7
+
+
+          for normal serial operations. This was added to provide additional
+          information about the device in use.
+
+          Normal Mode:
+
+               Modem Status Register:
+
+              7       6       5       4       3       2       1       0   Bit
+                                                                           
+             128     64      32      16       8       4       2       1    
+           Carrier  Ring   DataSet  Clear   Delta   Delta   Delta   Delta  
+           Detect  Signal   Ready  To Send   CD      RI      DSR     CTS   
+                                                                           
+
+          Bits 0 - 3 of this register report a change in the state of their  
+          respective RS-232 (signal) pins. A "1" in any of these bits means
+          that it's input has changed since last status read. Reading this
+          register clears bits 0 - 3. Bits 4 - 7 report the absolute state of
+          their respective RS-232 inputs (These bits are "real time").
+
+          To use this function, the Basic statement would be:
+
+               value% = ModemStatus
+
+          The value returned by ModemStatus depends on the particular bit(s)
+          set in the Modem Status register. The corresponding decimal weights
+          are listed in the boxes in the above figure. As an example, if you
+          were monitoring the register and looking for a Ring Indication, you
+          would be looking for a value of 64. NOTE: If you are looking for a
+          particular value, you must AND the value you wish to test against
+          what ModemStatus returns. So, if you were looking for a Ring
+          Indication, you would use:
+
+               St% = ModemStatus
+               if St% AND 64 then
+                    ... Ring detected
+
+
+                                                                           
+                       Program Termination                      
+
+          Since "OpenComm" seizes an interrupt vector, this vector needs to
+          be restored BEFORE your program ends. If you neglect to restore
+          this vector, you could be risking a crash. The routine used to
+          reset the vector is: CloseComm. Only use CloseComm if you specified
+          a port value in the OpenComm call (Normal or FOSSIL modes). If you
+          specified a port value of ZERO (Local mode) the interrupt vector is
+          NOT grabbed, and does not need to be reset. In Normal mode,
+          CloseComm resets any UART registers to their original value. In
+          FOSSIL mode, how the UART registers are left is undefined.
+
+
+
+        QBSERIAL User Manual - V 3.20                              Page 8
+
+
+
+                               Data Terminal Ready (DTR)
+
+          Everybody that has used QuickBASIC's OPEN COMn statement is very
+          familiar with the problems of the DTR signal. Apparently Microsoft
+          felt that DTR would never be needed after a program terminates.
+          Anybody who has ever tried to write a door, or chain from one
+          program to another has cursed this decision at some time during
+          their programs development. This driver handles the DTR with a
+          different view. When you close the comm channel the DTR signal is
+          left in the same state it was when you opened the comm channel. For
+          door applications, this is a must. 
+
+          A function call is provided however that allows your program to
+          control the DTR signal:
+
+          DTRcontrol 1 [or] 0           ' 0 = DTR OFF, 1 = DTR ON
+
+          Additionally when you use DTRcontrol to change the state of the DTR
+          signal it also instructs the driver to leave it this way when the
+          CloseComm function is called. Remember that the driver leaves DTR
+          the way it found it when OpenComm was called. If you used some
+          other method to change DTR after OpenComm was called, it would
+          automatically return to that original state when you called
+          CloseComm. Therefor only DTRcontrol should be used if you wish to
+          change the state of DTR. This appears to operate identically in
+          normal and FOSSIL modes.
+
+
+                                 Request To Send (RTS)
+
+          NOTE:     This function ONLY works in Normal mode. It has no
+                    functional equivalent in FOSSIL mode.
+
+          Request To Send (RTS) is a hardware flow control signal used to
+          tell the remote device to STOP sending data to us. Normally RTS is
+          set "on" and data will always flow (or the signal is ignored at the
+          remote end). With some communications programs RTS is used to
+          temporarily stop a modem from sending data while I/O is done to a
+          slow disk. This is especially true with high speed communications
+          where there is very little time between interrupts. This function
+          is independent of the automatic RTS flow control selected by
+          handshake 2 or 3 which tells the remote device to stop sending when
+          the input buffer is almost full. This function allows you to
+          manually control the state of RTS so you could, for instance, go
+          off and write the data somewhere without fear of loosing data.
+
+          RTScontrol 1 [or] 0           ' 0 = RTS OFF, 1 = RTS ON
+
+          When you use RTScontrol to change the state of the RTS signal it
+          also instructs the driver to leave it this way when the CloseComm
+          function is called. The driver leaves RTS the way it found it when
+
+        QBSERIAL User Manual - V 3.20                              Page 9
+
+
+          OpenComm was called. If you used some other method to change RTS
+          after OpenComm was called, it will automatically return to that
+          original state when you call CloseComm. Therefor only RTScontrol
+          should be used if you wish to change the state of RTS. This is
+          similar in the way DTRcontrol works.
+
+
+                                     Break Control
+
+          Some serial devices require a "Break" signal to tell them to "wake
+          up" from an idle state and begin communication. A Break is a
+          sustained serial low signal (or space) for a period longer than one
+          serial character time. To cause QBserial to send a Break signal,
+          use the following statement:
+
+          BREAKcontrol [1] or [0]            ' 0 = Normal, 1 = Break
+
+          Executing a "BREAKcontrol 1" statement causes the serial output
+          signal to enter the Break state. The output line will remain in
+          this state until a "BREAKcontrol 0" statement is executed. It is up
+          to the user to time the duration of the required break signal.
+          Using the following lines will give a Break signal of 1 second:
+
+               BREAKcontrol 1
+               SLEEP 1
+               BREAKcontrol 0
+
+
+                              Driver Version and Copyright
+
+          A function is available to access the drivers version and copyright
+          string. This would be used if you wish to display in your final
+          product the version of QBserial that your are using, and/or my
+          copyright along with yours. In order to access the copyright
+          string, the following lines should be added to your Basic program:
+
+                    X& = DriverCopyright
+                    WHILE (PEEK(X&))
+                         CP$ = CP$ + CHR$(PEEK(X&))
+                         X& = X& + 1
+                    WEND
+
+          This places the version/copyright string into string variable CP$.
+          This string may now be handled in whatever method you choose.
+
+
+                                 Crescent's PDQ Library
+
+          An object module for use with PDQ is also included. PDQ does not
+          support UEVENT, so all references to UEVENT in the text should be
+          ignored. You will need to do carrier checking by polling with the
+          CarrierLost function. If you use FULL mode and carrier is lost it
+
+        QBSERIAL User Manual - V 3.20                             Page 10
+
+
+          will operate the same way as PARTIAL mode. The only exception to
+          this is the Transmit function, which when in FULL or PARTIAL mode,
+          will not transmit data.
+
+
+
+                                        Linking
+
+          Since object modules are provided for QB4.x, BC7, VBDOS, and PDQ,
+          you will need to select the proper one to use for your program. The
+          file QBSER.OBJ should be used for programs compiled with
+          QuickBASIC. BC7SER.OBJ is to be used for programs compiled with BC7
+          PDS, and Visual Basic for DOS. QBSERPDQ.OBJ is for PDQ users.
+          Typical link command lines would look like this: (Please note that
+          your command lines will probably be different if you use additional
+          libraries to generate your code). The term "yourprog" is meant to
+          imply any code modules necessary for linking your project. This
+          could one .OBJ file, or many. Please note that compiling any
+          linking projects from within the QB/QBX/VBDOS development
+          environment(s) is not supported.
+
+
+          Link yourprog qbser;               (For QuickBASIC)
+
+          Link yourprog bc7ser;              (For BC7 PDS and Visual Basic)
+
+          Link yourprog qbserpdq acrtused;   (For PDQ)
+                                    ^
+                                          See note about acrtused.obj
+
+          NOTE:     In the past the file ACRTUSED.OBJ was required to be
+                    linked in when using the PDQ replacement libraries. This
+                    was necessary to satisfy a dummy external call. It
+                    appears that it may no longer be necessary to link with
+                    this file anymore. You should try linking without
+                    acrtused, and see if a link error occurs. If no error
+                    occurs, then you do not need to specify it.
+
+
+
+                                    Quick Libraries
+
+          If you wish to develop programs from within the environment, you
+          will first need to create a Quick library using one of the object
+          modules QBSER.OBJ, BC7SER.OBJ, or QBSERPDQ.OBJ. To create a Quick
+          lib for QuickBASIC 4.x, use the following Link command:
+
+               Link QBSER,,,BQLB4x/q
+
+          Where "BQLB4x" is one of the following: BQLB40.LIB, BQLB41.LIB, or
+          BQLB45.LIB. Use the one that came with your compiler. If you use
+          the wrong BQLB file you might get an "Invalid Format" error when
+
+        QBSERIAL User Manual - V 3.20                             Page 11
+
+
+          attempting to start QuickBASIC. QBSER.OBJ may also be added to
+          Quick Libraries containing other routines and OBJ's as well.
+
+          To create a Quick Library for use within QBX (BC7's environment)
+          use the following link command (IMPORTANT: be sure to use Link
+          v5.xx that came with BC7 or you will receive linking errors):
+
+               Link BC7SER,,,QBXQLB/q;
+
+          To create a Quick Library for use within Visual Basic's environment
+          (VBDOS) use the following link command (IMPORTANT: be sure to use
+          Linker that came with VBDOS or you will receive linking errors):
+
+               Link BC7SER,,,VBDOSQLB/q;
+
+          For PDQ, use the method for QB4.x, since you will be using the
+          built in run time routines built into the environment. You ONLY use
+          QBSERPDQ.OBJ when you link the EXEcutable file.
+
+          Remember too, that you can also add BC7SER.OBJ to Quicklibs
+          containing other routines.
+
+                                     Specifications
+
+          The following port addresses and default interrupts are used in
+          Normal mode:
+
+               Comm      Base Address        IRQ (Default)
+
+                1          3F8 hex            4
+                2          2F8 hex            3
+                3          3E8 hex            4
+                4          2E8 hex            3
+
+          Please read the section explaining the OpenComm function for
+          information on how to use addresses or IRQ's other than the
+          defaults.
+
+
+                                Registration and Support
+
+          QBserial is distributed as shareware. You may copy and distribute
+          it freely, as long as you do NOT modify it or add (or remove) any
+          files to it.
+
+          QBserial is not free software, and requires registration. There are
+          two classes of registration which are dependant upon use:
+          Commercial and Non-Commercial.
+
+          Registration of QBserial is $25 for non-commercial use. Non-
+          commercial uses are: Personal use, or use in another shareware
+          product such as doors and utilities where you allows others to try
+
+        QBSERIAL User Manual - V 3.20                             Page 12
+
+
+          the product first before buying and request a nominal registration
+          fee. Source code is available as an option for an additional $50.
+
+          Registration of QBserial for commercial use is $75. Commercial uses
+          are: Inclusion of QBserial into ANY product that is to be sold for
+          profit, or any use of this program in a business environment. Any
+          program that must be paid for in advance before the product is
+          delivered, or use in a corporate environment fits this category.
+          Commercial registration includes the source code for QBserial in C
+          (Microsoft C), if desired.
+
+          Please register your copy!
+
+          Software and Shareware distribution houses may charge a nominal
+          distribution and copying fee not to exceed $5.00. They may not sell
+          this program outright or ask you for the registration fee directly,
+          they must tell you that registration is required by the author.
+
+          If you have access to a BBS that is an ILink network member, you
+          can reach me in the respective Basic conferences. If you do not
+          have ILink access anywhere nearby, then you can always contact me
+          on the SailBoard BBS at the number listed below. I would prefer if
+          you contact me directly on the SailBoard however, as mail networks
+          aren't always as reliable as I'd like, and I have missed messages.
+          I'll do the best I can to help if you have questions. Bugs will be
+          tended to if required, and good suggestions tend to be implemented.
+
+
+                                      Source Code
+
+          The source code for QBserial is available. The source is available
+          by signing at the appropriate place on the registration form. The
+          source may be used for you own internal uses only. The source may
+          not be distributed by you to any other person, even if you make
+          changes to it. Nor can the resulting object code be sold or
+          distributed. Modifications can only be used in your end product,
+          and without any type of royalty. The source is available only after
+          you register QBserial. The license fee for the QBserial source code
+          is $50.00 for Non-Commercial users. Commercial users receive the
+          source as part of their registration fee if they desire it.
+
+                                      Jeff Sumberg
+                               Sysop of the SailBoard BBS
+                               Ringwood, NJ, 201-831-8152
+
+                                        [ or ]
+
+                                        Box 212
+                                  Ringwood, NJ, 07456
+
+
+
+
+        QBSERIAL User Manual - V 3.20                             Page 13
+
+
+                                    Acknowledgments
+
+          Thanks go out to Mark "Sparky" Herring for using these routines in
+          his highly successful Qmail door.
+
+          Thanks to Brent Yandell for using these routines in his PCBoard
+          File Viewer PCBFV and PCBFX programs.
+
+          Thanks to Mark Wilson for some very good ideas in version 2.0.
+          Thanks to Michael Conley for finding a real time sensitive
+          interrupt problem and for providing very useful information.
+          Thanks to Jeffrey Morley (author of ZipLab) for testing.
+
+
+                               Distribution File Contents
+
+           QBSER.OBJ     QBserial object module for use with QuickBASIC
+                         version 4.x.
+
+           QBSERPDQ.OBJ  QBserial object module for use with PDQ and
+                         QuickBASIC 4.x or PDQ with Basic Compiler 7.x (NEAR
+                         string model).
+
+           BC7SER.OBJ    QBserial object module for use with Basic Compiler
+                         6.x, Basic Compiler 7.x (NEAR or FAR string models),
+                         and Visual Basic for DOS.
+
+           ACRTUSED.OBJ  Dummy object module to satisfy an external reference
+                         when linking with PDQ files. May no longer be
+                         necessary. See Text.
+
+           OFFHOOK.BAS   Sample Basic program. Used to take modem off hook.
+                         References PCBoard data files for port info. Can
+                         also be used stand alone.
+
+           PCBDOOR.BAS   Very simple frame for creating a door in PCBoard.
+                         Should be used ONLY as a guide.
+
+           SIMPLE.BAS    Very simple "do nothing" program offering examples
+                         of how to call QBserial functions.
+
+           QBSERIAL.DEC  Function declarations for QBserial.
+
+           QBSERIAL.DOC  QBserial Documentation (this file).
+
+           READ.ME       Latest changes to QBserial.
+
+           REGISTER.FRM  QBserial Registration form. Please Register your
+                         copy.
+
+           FILE_ID.DIZ
+           DESC.SDI      BBS description files.
+
+        QBSERIAL User Manual - V 3.20                             Page 14
+
+
+
+                                 Changes and Revisions
+
+          06/09/89  1.0  Initial Release
+
+          06/21/89  1.1  Added carrier detection control. Calling program can
+                         turn detection off and on as desired. Necessary if
+                         data sending/receiving required if carrier isn't
+                         present.
+
+          09/01/89  1.2  Fixed a bug in Readchar where 'extended' characters
+                         (ASCII 128 to 255) were causing an Illegal Function
+                         Call in the CHR$() conversion (because they were
+                         being returned as negative numbers). Extended
+                         character may now be received properly. Added three
+                         new functions: CDtrap, CarrierLost, and DTRcontrol.
+
+
+          03/24/90  1.5  Added support for Basic Compiler 7.0 PDS and PDQ.
+                         Added sections to manual about Linking, Source code
+                         availability, and updated section on Quicklibs.
+                         Separate object files now supplied for QB, BC7, and
+                         PDQ.
+
+          05/01/90  1.6  Oops! PDQ users found out fast that I forgot to
+                         compile the PDQ module with stack checking removed.
+                         I also forgot to include ACRTUSED.OBJ to satisfy
+                         linking requirements. Sorry 'bout that! Released
+                         only as beta to those that needed it.
+
+          11/01/90  2.0  Added capability to specify non-standard port
+                         addresses and which IRQ to use when the port is
+                         opened. Removed CDtrap function. Created new carrier
+                         detection modes using the CarrierDetect function. (0
+                         = NONE, 1 = PARTIAL, 2 = FULL). Also added
+                         DriverCopyright function to allow program access to
+                         the driver version.
+
+          02/08/92  2.10 Added RTS flow control support. RTS will be used to
+                         control data coming in to QBserial when the
+                         handshake is set to 2 (CTS/RTS). Removed necessity
+                         for SERIAL.LIB library file by adding inline
+                         assembler that performed the routines that were
+                         previously included in that library. QBserial is now
+                         compiled with Microsoft C 6.0 which will give
+                         smaller, faster, and more efficient code than QuickC
+                         could generate. This is especially true in the
+                         interrupt area. Added new function RTScontrol, to
+                         allow program to control RTS line directly.
+                         Increased size of input buffer from 1024 to 2048
+                         bytes. Changed method in which interrupt controller
+                         mask bits were set & cleared. Corrected error found
+
+        QBSERIAL User Manual - V 3.20                             Page 15
+
+
+                         in documentation describing the function of
+                         CarrierDetect.
+
+          06/20/92  2.20 Added support for extended IRQs. QBserial now
+                         supports IRQ 8 - 15. Added a new sample program to
+                         the QBserial distribution package (OFFHOOK.BAS) to
+                         demonstrate usage of QBserial.
+
+          07/05/92  2.25 While experimenting with some programs of my own I
+                         found a some errors in the disabling of the IRQ
+                         masks on the Interrupt Controller when exiting from
+                         QBserial. The program has been changed so that if
+                         the IRQ you specify is already turned ON when
+                         OpenComm executes, QBserial will leave it ON when
+                         you do a CloseComm. In versions since 2.10, the IRQ
+                         mask was always turned OFF when CloseComm was
+                         executed. This caused other communications programs
+                         such as BBS's that don't reset the port when
+                         returning from QBserial to appear to "lock up" when
+                         they regained control.
+
+          11/01/92  3.00 Added the ability for QBserial to use FOSSIL
+                         drivers. Modified the OpenComm call to allow the
+                         programmer to specify which mode to operate in. The
+                         QBSERIAL.DEC file has changed and the one provided
+                         with this version MUST be used when upgrading to
+                         this version. Added new function: ModemStatus, to
+                         read the Modem Status register of the UART. This is
+                         a normal mode function only.
+
+          06/12/93  3.10 This version is a bug fix version. Several minor
+                         errors and omissions have been reported by users,
+                         and these have been corrected in this version. These
+                         include:
+                         - Modified the QBSERIAL.DEC file to allow Qbserial
+                         to work with Visual Basic for DOS. This is because
+                         of an unknown, undocumented change in the way
+                         DECLARE works in Visual Basic for DOS.
+                         - ClearInputBuffer did not work in FOSSIL mode.
+                         - Modified OpenComm to reset flow control flags,
+                         buffer pointers, etc. It was found that if a port
+                         was opened, used, closed, then opened again without
+                         program termination or chain from program to
+                         program, that the Flow Control mode would be wrong
+                         or inoperative. The input buffer also was not
+                         flushed when a port was opened. This was because
+                         initialization to these flags and pointers was only
+                         being done when the EXE was loaded, not during
+                         OpenComm. These are done within OpenComm.
+
+          09/01/93  3.20 Modified the OpenComm call to allow the programmer
+                         to specify the number of Stop Bits required (1 or 2)
+
+        QBSERIAL User Manual - V 3.20                             Page 16
+
+
+                         for communication. Important: The QBSERIAL.DEC file
+                         has changed and the one provided with this version
+                         MUST be used when upgrading to this version. Added a
+                         new function "BREAKcontrol" to allow the programmer
+                         to send Break signals to remote devices.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        QBSERIAL User Manual - V 3.20                             Page 17

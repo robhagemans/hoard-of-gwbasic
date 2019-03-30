@@ -1,0 +1,991 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    M c R a t                                    M c R a t
+                       Mouse Control Interface Subroutines
+                            for Quick Basic Version 4
+                         Version 1.0 - Released 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                    Contents                                    Contents                                    ________
+
+                    Introduction...........................3
+                    System Requirements....................3
+                    Acknowledgements.......................3
+                    Installation...........................4
+                    Running the Demo Program...............4
+                    Using the Mouse Interface..............5
+                         McRatCsr..........................6
+                         McRatInt..........................7
+                         McRatKey..........................8
+                         McRatLoc..........................9
+                         McRatPen.........................10
+                         McRatSet.........................11
+                         McRatWin.........................12
+                    Program Support.......................13
+                    Future Application Enhancements.......13
+                    Disclaimer of Warranty................14
+                    Distributions and Use License.........15
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        2
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+
+                                  INTRODUCTION                                  INTRODUCTION                                  ____________
+
+
+          Have you ever  wanted to make  use of a  mouse in the  Quick
+          Basic programs that you write?   What exactly do you have to
+          add to your existing programs to trap the mouse movement and
+          positions?   Is there an  easy way to add  mouse routines to
+          your existing programs?
+
+          Yes!  Introducing  "McRat" version  1.0 for MicroSoft  Quick
+          Basic version  4.   Give your  programs that  "professional"
+          appearance with a mouse interface.   The "McRat" subroutines
+          will make adding a mouse interface to your programs easy.
+
+
+                               SYSTEM REQUIREMENTS                               SYSTEM REQUIREMENTS                               ___________________
+
+
+                      MS-DOS or PC-DOS version 2.1 or later
+                            Mouse Hardware and Driver
+                         MicroSoft Quick Basic Version 4
+
+
+                                ACKNOWLEDGEMENTS                                ACKNOWLEDGEMENTS                                ________________
+
+
+                          - - Names and Trade Marks - -
+
+          o    MS-DOS (R) is a registered trade mark of MicroSoft
+               Corporation.
+          o    PC-DOS (R) is a registered  trade mark of Interna-
+               tional Business Machines.
+          o    Quick Basic is  a registered trade mark  of Micro-
+               Soft Corporation.
+
+                          - - Compiler and Hardware - -
+
+          The  "McRat" subroutines were  developed using the Microsoft
+          Quick Basic compiler and  MicroSoft Mouse (serial) hardware.
+          Standard DOS Interrupts  have been used for to implement all
+          mouse functions  and improve compatibility with  other mouse
+          hardware.
+
+
+
+
+
+                                        3
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+                                  INSTALLATION                                  INSTALLATION                                  ____________
+
+
+          The following is a suggested method for installing the McRat
+          libraries  and demo program.   Your installation  of the ap-
+          plication  my  differ based  on  your hardware  and software
+          setup, and the tools you use to maintain your system.
+
+          McRat ZIP file contents:
+
+               MCRAT.QLB    - McRat Quick Library for QB
+               MCRAT.LIB    - McRat Library for LINK
+               MCRAT.DOC    - McRat Documentation (this file)
+               MCRAT.REG    - McRat Registration
+               MCRATCOM.    - McRat subroutine common and declares
+               MCRATDEM.BAS - McRat Demo Program - Source Code
+               MCRATDEM.EXE - McRat Demo Program
+               PRINTDOC.BAT - Quick print for documentation
+
+          To install the McRat libraries, documentation, and demo: 
+
+               1.   Select  the  subdirectory  that contains
+                    your Quick Basic routines.
+               2.   Ensure that the McRat file  names do not
+                    conflict with existing files.
+               3.   UnZIP the McRat  files into the selected
+                    subdirectory.
+               4.   Run the  MCRATDEM program  to print  the
+                    documentation.
+
+
+                            RUNNING THE DEMO PROGRAM                            RUNNING THE DEMO PROGRAM                            ________________________
+
+          The McRat application  contains a demo program  (with source
+          code) that  will illustrate  how to  use some  of the  McRat
+          subroutines.  To run the demo:
+
+               1.   Change to the  subdirectory that contains the
+                    MCRATDEM program.
+               2.   Enter the command MCRATDEM at the DOS prompt.
+               3.   To select items  on the menu, move  the mouse
+                    cursor  to the  desired  item and  click  any
+                    button,  or  use  the   Tab  /  Shift-Tab  to
+                    highlight the item and press enter to select.
+               4.   To  return  to   the  menu   press  any   key
+                    (including mouse buttons).
+               5.   To Exit the program press the <Esc> key.
+
+
+                                        4
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+                            USING THE MOUSE INTERFACE                            USING THE MOUSE INTERFACE                            _________________________
+
+
+          With the McRat subroutines you can  add a mouse interface to
+          any text screen with a few easy steps.
+
+          1.   When ever you call one  of the McRat subroutines  check
+               the value of McRatComRC% after  the call has completed.
+               If  the  value  is  zero, the  subroutine  successfully
+               executed the request.   If the value is non  zero check
+               the "Exit  Errors"  for the  individual subroutines  to
+               determine the cause of the error.
+
+          2.   All data items used by the McRat subroutines are simple
+               signed integers.
+
+          3.   Include the BASIC  statements in  the MCRATCOM file  in
+               the  main  program.   These  statements will  setup the
+               \McRat\  common area  with the  arguments McRatComInt%,
+               McRatComCsr%,  McRatComPen%,  and  McRatComRC%.    Your
+               program should not modify this items at any time.  They
+               are status holders for the McRat subroutines.
+
+          4.   The  first  routine  that  any  program  must  call  is
+               "McRatInt". This  is the McRat  initialization process-
+               ing, and must be  called before any of the  other McRat
+               routines are invoked.
+
+          The  McRat   package  includes   both   the  Quick   Library
+          (MCRAT.QLB) to be use with Quick Basic, and the Link Library
+          (MCRAT.LIB) to be used with the LINK command.  See you Quick
+          Basic manuals for information on using libraries.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        5
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatCsr -- Define Mouse Cursor for text          McRatCsr -- Define Mouse Cursor for text          ________________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatCsr (CType%,Parm1%,Parm2%)
+
+          þ Arguments þ          þ Arguments þ
+
+          CType%    Set  this  item  to the  type  of  cursor  you are
+                    defining:  0=Software, 1=Hardware.
+
+          Parm1%    If the cursor  type is software the  character at-
+                    tribute value at the cursor position will be ANDed
+                    with this value.
+
+                    If the cursor type is  hardware the value of  this
+                    item must be set to the starting scan line for the
+                    cursor.
+          Parm2%    If the cursor  type is software the  character at-
+                    tribute value at the cursor position will be XORed
+                    with this value.
+                    If the cursor  type is hardware the value  of this
+                    item must be set  to the ending scan line  for the
+                    cursor.
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+           1  Invalid Parameter 1 Value
+           2  Invalid Parameter 2 Value
+
+          þ Remarks þ          þ Remarks þ
+
+          This subroutine can  be used to  control the type of  cursor
+          that will be displayed for  mouse movement.  If a cursor  is
+          not defined  the default cursor is inverse of the background
+          and foreground attributes.
+
+
+
+
+
+
+
+
+
+
+
+                                        6
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatInt -- Mouse Check and Initialization          McRatInt -- Mouse Check and Initialization          __________________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatInt (Ck%,Buttons%)
+
+          þ Arguments þ          þ Arguments þ
+
+          Ck%       The  subroutine will  set this  item to -1  if the
+                    mouse hardware and drive are located and the McRat
+                    initialization is successful.
+
+          Buttons%  The subroutine will set this item to the number of
+                    mouse buttons reported by the driver.
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Unexpected error during Mouse Initialization
+
+          þ Remarks þ          þ Remarks þ
+
+          The  McRatInt  subroutine must  be  called before  any other
+          McRat  subroutines.    This subroutine  will  check  for and
+          identify  the  mouse hardware,  reset  the mouse  driver and
+          hardware, and initialize  the mouse  common areas for  McRat
+          status.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        7
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatKey -- Get Mouse Key and Positions          McRatKey -- Get Mouse Key and Positions          _______________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatKey (Mk%,PRow%,PCol%,RRow%,RCol%)
+
+          þ Arguments þ          þ Arguments þ
+
+          Mk%       If a mouse  button was pushed the  subroutine will
+                    set this item to indicate which button was pushed:
+                    1=Right  Button,  2=Left Button,  3=Middle Button.
+                    If the mouse button was not pushed this  item will
+                    have a value of zero.
+
+          PRow%     The subroutine will set this item to the character
+                    row at the time the button was pushed.
+
+          PCol%     The subroutine will set this item to the character
+                    column at the time the button was pushed.
+
+          RRow%     The subroutine will set this item to the character
+                    row at the time the button was released.
+
+          RCol%     The subroutine will set this item to the character
+                    column at the time the button was released.
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+
+          þ Remarks þ          þ Remarks þ
+
+          Each time this subroutine is called it will check the status
+          of the mouse.  If the  mouse has not been active, processing
+          will return to the  main program and the Mk%  parameter will
+          be zero.   If the mouse button  has been pushed the location
+          of the mouse at the time the button was pushed will be saved
+          and the subroutine will  wait for the button to  be release.
+          When the button is release the location of the mouse will be
+          stored and control will be return to the main program.
+
+
+
+
+
+
+
+
+                                        8
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatLoc -- Set Mouse Cursor Position          McRatLoc -- Set Mouse Cursor Position          _____________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatLoc (Row%,Col%)
+
+          þ Arguments þ          þ Arguments þ
+
+          Row%      Set this  item to the  character row at  which the
+                    cursor is to be positioned.
+
+          Col%      Set this item to the character column at which the
+                    cursor is to be positioned.
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+           1  Invalid Row Parameter
+           2  Invalid Column Parameter
+
+          þ Remarks þ          þ Remarks þ
+
+          This subroutine will  move the mouse cursor to the character
+          row and column specified by "Row%" and "Col%".
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                        9
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatPen -- Toggle Mouse / Light Pen Emulation On and Off          McRatPen -- Toggle Mouse / Light Pen Emulation On and Off          _________________________________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatPen (I%)
+
+          þ Arguments þ          þ Arguments þ
+
+          I%        Set this item to value of zero to turn the Mouse /
+                    Light Pen emulation "OFF" or  to non zero value to
+                    turn the Mouse / Light Pen emulation "ON".
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+
+          þ Remarks þ          þ Remarks þ
+
+          This subroutine will turn the Mouse / Light Pen Emulation On
+          and Off.  While Light Pen Emulation is on the standard BASIC
+          commands for Light Pen trapping  and processing should work.
+          With the  MicroSoft  Mouse and  driver  that I  was  running
+          during  testing,  both mouse  buttons  had to  be  pushed to
+          register the light pen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       10
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatSet -- Toggle Mouse Cursor On and Off          McRatSet -- Toggle Mouse Cursor On and Off          __________________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatSet (I%)
+
+          þ Arguments þ          þ Arguments þ
+
+          I%        Set this item to  value of zero to turn  the mouse
+                    cursor  "OFF" or  to non  zero value  to turn  the
+                    mouse cursor "ON".
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+
+          þ Remarks þ          þ Remarks þ
+
+          This subroutine  will turn  displaying of  currently defined
+          Mouse Cursor On and Off.
+
+          Note:   The mouse cursor must be turn  off when ever you are
+          doing printing that may cause the  screen to scroll.  If you
+          do not turn the cursor off, the cursor display position will
+          scroll with the screen.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       11
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+          McRatWin -- Define Window for Mouse Cursor movement          McRatWin -- Define Window for Mouse Cursor movement          ___________________________________________________
+
+          þ Syntax þ          þ Syntax þ
+
+          CALL McRatWin (ULRow%,ULCol%,LRRow%,LRCol%)
+
+          þ Arguments þ          þ Arguments þ
+
+          ULRow%    Set this item to the  character coordinates of the
+                    Upper Left Row of the Window.
+
+          ULCol%    Set this item to the  character coordinates of the
+                    Upper Left Column of the Window.
+
+          LRRow%    Set this item to the  character coordinates of the
+                    Lower Right Row of the Window.
+
+          LRCol%    Set this item to the  character coordinates of the
+                    Lower Right Column of the Window.
+
+          þ Exit Errors þ          þ Exit Errors þ
+
+          -1  Mouse Not Installed
+           1  Invalid Upper/Left Row Parameter
+           2  Invalid Upper/Left Column Parameter
+           3  Invalid Lower/Right Row Parameter
+           4  Invalid Lower/Right Column Parameter
+
+          þ Remarks þ          þ Remarks þ
+
+          This subroutine will define the screen window to limit mouse
+          cursor movement.  The window will remain in effect until the
+          next call to McRatWin or McRatInt.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       12
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+                         PROGRAM SUPPORT AND INFORMATION                         PROGRAM SUPPORT AND INFORMATION                         _______________________________
+
+
+          Program  support  and  new  releases  will be  provided  via
+          electronic  mail  on my  bulletin  board,  or  you may  mail
+          reports to the  address below.   Please include the  release
+          number and the  date, time, and size of both  the ".QLB" and
+          ".LIB" files when all reports.
+
+                             -- BBS Support Line --
+
+          The Holistic BBS (Based on the Premise of Schrodinger's Cat)
+                                Lakewood, Calif.
+                                 (213) 531-3890
+                         24 hours a day / 7 days a week
+                          USRobotics HST 9600 available
+
+
+                              -- Mailing Address --
+
+                                Mark A. Mc Carthy
+                                  P.O. Box 1034
+                                Lakewood, Calif.
+                                   90714-1034
+
+
+                         FUTURE APPLICATION ENHANCEMENTS                         FUTURE APPLICATION ENHANCEMENTS                         _______________________________
+
+
+          This is release 1.x  of the application.  I know  that there
+          will be changes and fixes that will result in release 1.x+1.
+          Your input will help determine what changes are necessary to
+          improve the application.  If while  using McRat you have any
+          suggested enhancements  to the program,  documentation, etc.
+          please let me  know.  Every  consideration will be given  to
+          the reports on the application.
+
+          Depending  on the  success of  this release,  there will  be
+          future release.  Even  as I sit here coding I have a list of
+          "advanced" features  (including graphics support)  that will
+          be part of the version 2.  Again comments and ideas from you
+          will help shape the future of the McRat application.
+
+
+
+
+
+
+
+                                       13
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+                   DISCLAIMER OF WARRANTY AND LIMITED WARRANTY                   DISCLAIMER OF WARRANTY AND LIMITED WARRANTY                   ___________________________________________
+
+
+          By installing and running this software you are  agreeing to
+          become bound by the terms of this agreement.  If you  do not
+          agree to the terms  of agreement, DO NOT RUN  THIS SOFTWARE,
+          Delete or otherwise remove all  text, libraries, and execut-
+          able code  from  your system,  and  dispose of  any  printed
+          copies of the documentation or other items contained in this
+          package.
+
+          The McRat Mouse Interface libraries,  demo programs, and all
+          other materials, documentation, and  text provided with this
+          package are provided  "AS IS" WITHOUT WARRANTY OF  ANY KIND.
+          THE ENTIRE RISK  AS TO THE  RESULTS AND PERFORMANCE OF  THIS
+          APPLICATION ARE ASSUMED BY YOU.
+
+          ALL  WARRANTIES, either  express or implied,  as the  to the
+          fitness of  this application  for a  particular purpose,  or
+          information obtained  as a  result of  this application  ARE
+          DISCLAIMED.
+
+          IN NO EVENT  SHALL THE AUTHOR(s), THEIR  AGENTS, REPRESENTA-
+          TIVES, or  DISTRIBUTING SYSTEMS  BE LIABLE  FOR ANY  DAMAGES
+          WHATSOEVER (including without limitation damages for loss of
+          business profits,  business interruptions, loss  of business
+          information, legal cost,  and the like)  arising out of  the
+          use or inability to  use this application even if  they have
+          been informed of the possibility of such damages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       14
+
+
+
+
+
+
+
+
+
+
+
+
+                   McRat - Mouse Control Interface Subroutines
+                       Version 1.0 - Released on 03-25-89
+                   Copyright March, 1989 by Mark A. Mc Carthy
+
+
+
+
+
+
+
+
+
+                          DISTRIBUTION AND USE LICENSE                          DISTRIBUTION AND USE LICENSE                          ____________________________
+
+
+
+                          - - Distribution License - -
+
+          You  MAY COPY AND  ELECTRONICALLY DISTRIBUTE  THE UNMODIFIED
+          CONTENTS of The McRat Mouse Interface package as long as you
+          do not  sell or otherwise  profit from  the distribution  of
+          this product.
+
+          You  MAY NOT  COPY  AND  DISTRIBUTE  McRat  Mouse  Interface
+          package  FOR COMMERCIAL PURPOSES or PROFIT without the writ-
+          ten consent of the author(s) or their agents.
+
+
+
+                               - - Use License - -
+
+          You may install, use, and evaluate McRat Mouse Interface for
+          a period of not more then 15 days.
+
+          If, after  this evaluation period, you continue  to use this
+          application you  must complete  and return  the registration
+          form with the specified registration fees.
+
+          After you have registered the McRat Mouse Interface package,
+          you have the  unlimited right to  use the McRat routines  in
+          any program you develop.  You must also include notification
+          in  the program and/or documentation that the McRat routines
+          are being used.
+
+
+
+
+
+
+
+
+
+
+                                       15
+
+
+
+
+
+
+

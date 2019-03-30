@@ -1,0 +1,42 @@
+
+POW! Toolbox Disclaimer of Liability
+------------------------------------
+
+"This software is provided as-is.  There are no 
+warranties made, either expressed or implied."
+
+THE AUTHOR OF THIS SOFTWARE DISCLAIMS ALL WARRANTIES 
+RELATED TO THIS SOFTWARE, WHETHER EXPRESSED OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF 
+MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
+NEITHER THE AUTHOR OF THIS SOFTWARE (TIM GERCHMEZ) NOR 
+ANYONE ELSE WHO HAS BEEN INVOLVED IN THE CREATION, 
+PRODUCTION OR DELIVERY OF THIS SOFTWARE SHALL BE LIABLE 
+FOR ANY INDIRECT, CONSEQUENTIAL, OR INCIDENTAL DAMAGES
+ARISING FROM THE USE OR INABILITY TO USE THIS SOFTWARE, 
+EVEN IF THEY HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH 
+DAMAGES OR CLAIMS.  IN NO EVENT SHALL THE AUTHOR OF THIS 
+SOFTWARE'S LIABILITY FOR ANY DAMAGES EVER EXCEED THE PRICE 
+PAID FOR THE LICENSE TO USE THE SOFTWARE, REGARDLESS OF THE 
+FORM OF CLAIM.  THE PERSON(S) USING THE SOFTWARE BEARS ALL 
+RISK AS TO THE QUALITY AND PERFORMANCE OF THE SOFTWARE.  
+
+Some states do not allow the exclusion of the limit of 
+liability for consequential or incidental damages, so the 
+above limitation may not apply to you.  This agreement 
+shall be governed by the laws of the State of Washington 
+and shall inure to the benefit of the author of POW! and 
+any successors, administrators, heirs and assigns. Any 
+action or proceeding brought by either party against the 
+other arising out of or related to this agreement shall be 
+brought only in a STATE or FEDERAL COURT of competent 
+jurisdiction located in King County, Washington. The 
+parties hereby consent to in personam jurisdiction of 
+said courts.
+
+Use of the POW! Library and/or related routines in any 
+way constitutes implied agreement with the above conditions
+and disclaimer.
+
+                        ----------
+

@@ -1,0 +1,534 @@
+DEFINT A-Z
+DECLARE SUB Calcu.Score ()
+DECLARE SUB High.Score ()
+DECLARE FUNCTION getkey$ ()
+DECLARE SUB Ambox (shcolor%, brcolor%)
+DECLARE SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+DECLARE SUB centertext (setx%, mincolor%, maxcolor%, text$)
+
+'$DYNAMIC
+      
+       REM */  set global Info variables   \*
+COMMON SHARED score%, lives%, Level%, difficlty%
+COMMON SHARED Gunsel%, SelShip%, kills%
+COMMON SHARED freeships%, joyenable%, delay!, Argv%, spr1%, spr2%
+
+TYPE almem
+ buffer AS STRING * 1
+END TYPE
+COMMON SHARED font()  AS almem
+ON ERROR GOTO Error.Handler
+
+IF Argv% = 0 THEN WIDTH 80, 25: CLS : PRINT "TYPE  ACRUN": SYSTEM
+
+SCREEN 13
+WHILE INKEY$ <> "": WEND
+High.Score
+CLS
+centertext 90, 25, 28, "LOADING...."
+
+CHAIN "HEADQ.QBF"
+SYSTEM
+
+Error.Handler:
+SELECT CASE ERR
+CASE 53
+CLOSE
+RESUME NEXT
+CASE 52
+RESUME NEXT
+CASE 62
+RESUME NEXT
+CASE ELSE
+PRINT ERR
+END SELECT
+SYSTEM
+
+DATA "1","2","3","4","5","6","7","8","9","0","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"," ","-"
+
+REM $STATIC
+SUB Ambox (shcolor%, brcolor%)
+
+FOR Y% = 0 TO 20
+FOR X% = 0 TO 100 STEP 2
+LINE (160 - X%, 100 - Y%)-(160 + X%, 100 + Y%), shcolor%, B
+             NEXT
+             NEXT
+FOR X% = 0 TO 98
+FOR dly = 1 TO 300: NEXT
+LINE (160 - X%, 100)-(160 + X%, 100), 0, BF
+LINE (160 - X%, 100)-(160 + X%, 100), brcolor%, B
+             NEXT
+FOR Y% = 0 TO 18
+FOR dly = 1 TO 700: NEXT
+LINE (160 - X%, 100 - Y%)-(160 + X%, 100 + Y%), 0, BF
+LINE (160 - X%, 100 - Y%)-(160 + X%, 100 + Y%), brcolor%, B
+             NEXT
+END SUB
+
+SUB centertext (setx%, mincolor%, maxcolor%, text$)
+strlen = LEN(text$)
+Calcu = 220 - strlen
+sety% = Calcu \ 2
+settextxy setx%, sety%, mincolor%, maxcolor%, text$
+END SUB
+
+FUNCTION getkey$
+
+DIM ch AS STRING
+'get a Character form then keyboard
+WHILE INKEY$ <> "": WEND
+
+WHILE ch = ""
+      ch = INKEY$
+          WEND
+getkey = ch
+
+WHILE INKEY$ <> "": WEND
+
+
+END FUNCTION
+
+SUB High.Score STATIC
+LINE (282, 15)-(30, 183), 0, BF
+LINE (282, 15)-(30, 185), 32, B
+centertext 20, 32, 33, "TOP PLAYERS"
+settextxy 40, 50, 32, 33, "NAMES"
+settextxy 40, 125, 32, 33, "MISSION"
+settextxy 40, 220, 32, 33, "SCORES"
+
+OPEN "HSCORE.DAT" FOR INPUT AS #7
+FOR dat% = 0 TO 9
+IF EOF(7) THEN EXIT FOR
+SELECT CASE dat%
+CASE 0: INPUT #7, NAME00$, MSCP00$, SCORE00$
+CASE 1: INPUT #7, NAME01$, MSCP01$, SCORE01$
+CASE 2: INPUT #7, NAME02$, MSCP02$, SCORE02$
+CASE 3: INPUT #7, NAME03$, MSCP03$, SCORE03$
+CASE 4: INPUT #7, NAME04$, MSCP04$, SCORE04$
+CASE 5: INPUT #7, NAME05$, MSCP05$, SCORE05$
+CASE 6: INPUT #7, NAME06$, MSCP06$, SCORE06$
+CASE 7: INPUT #7, NAME07$, MSCP07$, SCORE07$
+CASE 8: INPUT #7, NAME08$, MSCP08$, SCORE08$
+CASE 9: INPUT #7, NAME09$, MSCP09$, SCORE09$
+   END SELECT
+            NEXT dat%
+CLOSE
+INTSCORE00% = VAL(LTRIM$(SCORE00$))
+INTSCORE01% = VAL(LTRIM$(SCORE01$))
+INTSCORE02% = VAL(LTRIM$(SCORE02$))
+INTSCORE03% = VAL(LTRIM$(SCORE03$))
+INTSCORE04% = VAL(LTRIM$(SCORE04$))
+INTSCORE05% = VAL(LTRIM$(SCORE05$))
+INTSCORE06% = VAL(LTRIM$(SCORE06$))
+INTSCORE07% = VAL(LTRIM$(SCORE07$))
+INTSCORE08% = VAL(LTRIM$(SCORE08$))
+INTSCORE09% = VAL(LTRIM$(SCORE09$))
+
+IF ABS(score%) >= ABS(INTSCORE00%) THEN NEWHS% = 1: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE01%) THEN NEWHS% = 2: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE02%) THEN NEWHS% = 3: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE03%) THEN NEWHS% = 4: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE04%) THEN NEWHS% = 5: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE05%) THEN NEWHS% = 6: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE06%) THEN NEWHS% = 7: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE07%) THEN NEWHS% = 8: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE08%) THEN NEWHS% = 9: GOTO InputName
+IF ABS(score%) >= ABS(INTSCORE09%) THEN NEWHS% = 10: GOTO InputName
+
+
+
+InputName:
+IF NOT NEWHS% = 0 THEN
+REDIM beindAmbox%(8000)
+GET (60, 80)-(260, 120), beindAmbox%
+
+Ambox 1, 31
+centertext 90, 25, 28, "ENTER YOUR NAME"
+DO: ikb$ = INKEY$
+ IF NOT ikb$ = "" THEN
+ gl% = LEN(NEWNAME$)
+ IF gl% < 10 THEN
+ FOR D% = 1 TO 37
+ READ LETTER$
+ IF UCASE$(ikb$) = LETTER$ THEN NEWNAME$ = NEWNAME$ + LTRIM$(LETTER$): ytxt% = ytxt% + 8: EXIT FOR
+ NEXT
+ IF ikb$ = CHR$(32) THEN NEWNAME$ = NEWNAME$ + " ": ytxt% = ytxt% + 8
+ settextxy 105, 80, 25, 28, NEWNAME$
+ END IF
+ IF ikb$ = CHR$(8) AND NEWNAME$ > "" THEN gl% = LEN(NEWNAME$): NEWNAME$ = LEFT$(NEWNAME$, gl% - 1): ytxt% = ytxt% - 8: LINE (80 + ytxt%, 100)-(200, 115), 0, BF
+ RESTORE
+ END IF
+ IF ikb$ = CHR$(27) THEN PLAY "MBL43o1cb": GOTO Exit.Input
+ LOOP UNTIL ikb$ = CHR$(13)
+
+
+
+SELECT CASE NEWHS%
+CASE 1
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NAME04$
+ NAME04$ = NAME03$
+ NAME03$ = NAME02$
+ NAME02$ = NAME01$
+ NAME01$ = NAME00$
+ NAME00$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = SCORE04$
+ SCORE04$ = SCORE03$
+ SCORE03$ = SCORE02$
+ SCORE02$ = SCORE01$
+ SCORE01$ = SCORE00$
+ SCORE00$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = MSCP04$
+ MSCP04$ = MSCP03$
+ MSCP03$ = MSCP02$
+ MSCP02$ = MSCP01$
+ MSCP01$ = MSCP00$
+ MSCP00$ = LTRIM$(STR$(Level%))
+CASE 2
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NAME04$
+ NAME04$ = NAME03$
+ NAME03$ = NAME02$
+ NAME02$ = NAME01$
+ NAME01$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = SCORE04$
+ SCORE04$ = SCORE03$
+ SCORE03$ = SCORE02$
+ SCORE02$ = SCORE01$
+ SCORE01$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = MSCP04$
+ MSCP04$ = MSCP03$
+ MSCP03$ = MSCP02$
+ MSCP02$ = MSCP01$
+ MSCP01$ = LTRIM$(STR$(Level%))
+
+
+CASE 3
+
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NAME04$
+ NAME04$ = NAME03$
+ NAME03$ = NAME02$
+ NAME02$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = SCORE04$
+ SCORE04$ = SCORE03$
+ SCORE03$ = SCORE02$
+ SCORE02$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = MSCP04$
+ MSCP04$ = MSCP03$
+ MSCP03$ = MSCP02$
+ MSCP02$ = LTRIM$(STR$(Level%))
+
+CASE 4
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NAME04$
+ NAME04$ = NAME03$
+ NAME03$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = SCORE04$
+ SCORE04$ = SCORE03$
+ SCORE03$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = MSCP04$
+ MSCP04$ = MSCP03$
+ MSCP03$ = LTRIM$(STR$(Level%))
+
+CASE 5
+ NAME09$ = NAME09$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NAME04$
+ NAME04$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = SCORE04$
+ SCORE04$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = MSCP04$
+ MSCP04$ = LTRIM$(STR$(Level%))
+CASE 6
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NAME05$
+ NAME05$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = SCORE05$
+ SCORE05$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = MSCP05$
+ MSCP05$ = LTRIM$(STR$(Level%))
+CASE 7
+ NAME09$ = NAME09$
+ NAME08$ = NAME07$
+ NAME07$ = NAME06$
+ NAME06$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = SCORE06$
+ SCORE06$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = MSCP06$
+ MSCP06$ = LTRIM$(STR$(Level%))
+
+CASE 8
+ NAME09$ = NAME08$
+ NAME08$ = NAME07$
+ NAME07$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = SCORE07$
+ SCORE07$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = MSCP07$
+ MSCP07$ = LTRIM$(STR$(Level%))
+
+CASE 9
+ NAME09$ = NAME08$
+ NAME08$ = NEWNAME$
+
+ SCORE09$ = SCORE08$
+ SCORE08$ = LTRIM$(STR$(score%))
+
+ MSCP09$ = MSCP08$
+ MSCP08$ = LTRIM$(STR$(Level%))
+
+CASE 10
+
+ NAME09$ = NEWNAME$
+ SCORE09$ = LTRIM$(STR$(score%))
+ MSCP09$ = LTRIM$(STR$(Level%))
+
+END SELECT
+
+CLOSE #7
+OPEN "HSCORE.DAT" FOR OUTPUT AS #7
+FOR dat% = 0 TO 9
+SELECT CASE dat%
+CASE 0: WRITE #7, NAME00$, MSCP00$, SCORE00$
+CASE 1: WRITE #7, NAME01$, MSCP01$, SCORE01$
+CASE 2: WRITE #7, NAME02$, MSCP02$, SCORE02$
+CASE 3: WRITE #7, NAME03$, MSCP03$, SCORE03$
+CASE 4: WRITE #7, NAME04$, MSCP04$, SCORE04$
+CASE 5: WRITE #7, NAME05$, MSCP05$, SCORE05$
+CASE 6: WRITE #7, NAME06$, MSCP06$, SCORE06$
+CASE 7: WRITE #7, NAME07$, MSCP07$, SCORE07$
+CASE 8: WRITE #7, NAME08$, MSCP08$, SCORE08$
+CASE 9: WRITE #7, NAME09$, MSCP09$, SCORE09$
+   END SELECT
+              NEXT
+Exit.Input:
+ PUT (60, 80), beindAmbox%, PSET
+       ERASE beindAmbox%
+       END IF
+settextxy 65, 35, 25, 28, NAME00$
+settextxy 65, 145, 25, 28, MSCP00$
+settextxy 65, 220, 25, 28, SCORE00$
+settextxy 77, 35, 25, 28, NAME01$
+settextxy 77, 145, 25, 28, MSCP01$
+settextxy 77, 220, 25, 28, SCORE01$
+settextxy 89, 35, 25, 28, NAME02$
+settextxy 89, 145, 25, 28, MSCP02$
+settextxy 89, 220, 25, 28, SCORE02$
+settextxy 101, 35, 25, 28, NAME03$
+settextxy 101, 145, 25, 28, MSCP03$
+settextxy 101, 220, 25, 28, SCORE03$
+settextxy 113, 35, 25, 28, NAME04$
+settextxy 113, 145, 25, 28, MSCP04$
+settextxy 113, 220, 25, 28, SCORE04$
+settextxy 125, 35, 25, 28, NAME05$
+settextxy 125, 145, 25, 28, MSCP05$
+settextxy 125, 220, 25, 28, SCORE05$
+settextxy 137, 35, 25, 28, NAME06$
+settextxy 137, 145, 25, 28, MSCP06$
+settextxy 137, 220, 25, 28, SCORE06$
+settextxy 149, 35, 25, 28, NAME07$
+settextxy 149, 145, 25, 28, MSCP07$
+settextxy 149, 220, 25, 28, SCORE07$
+settextxy 161, 35, 25, 28, NAME08$
+settextxy 161, 145, 25, 28, MSCP08$
+settextxy 161, 220, 25, 28, SCORE08$
+settextxy 173, 35, 25, 28, NAME09$
+settextxy 173, 145, 25, 28, MSCP09$
+settextxy 173, 220, 25, 28, SCORE09$
+c$ = getkey
+END SUB
+
+SUB Rd.Palette.Register (index%)
+OUT &H3C6, &HFF
+OUT &H3C7, index%
+red% = INP(&H3C9)
+green% = INP(&H3C9)
+blue% = INP(&H3C9)
+END SUB
+
+'This sub program print MDT_Font on to Screen
+'in mode 13h and while not work in anther modes
+SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+noise% = 1
+strlen = LEN(text$)
+'IF INSTR(1, text$, "\a") > 0 THEN a% = 1: strlen = strlen - 2: text$ = LEFT$(text$, strlen)
+setcolor% = mincolor%
+FOR readtext = 1 TO strlen
+char$ = MID$(text$, readtext, 1)
+
+IF char$ = "/" THEN fontx = 2: fonty = 116
+IF char$ = "\" THEN fontx = 12: fonty = 249
+IF char$ = "%" THEN fontx = 2: fonty = 39
+IF char$ = "-" THEN fontx = 2: fonty = 102
+IF char$ = "." THEN fontx = 2: fonty = 109
+IF char$ = "0" THEN fontx = 2: fonty = 126
+IF char$ = "1" THEN fontx = 2: fonty = 134
+IF char$ = "2" THEN fontx = 2: fonty = 142
+IF char$ = "3" THEN fontx = 2: fonty = 151
+IF char$ = "4" THEN fontx = 2: fonty = 159
+IF char$ = "5" THEN fontx = 2: fonty = 169
+IF char$ = "6" THEN fontx = 2: fonty = 177
+IF char$ = "7" THEN fontx = 2: fonty = 186
+IF char$ = "8" THEN fontx = 2: fonty = 195
+IF char$ = "9" THEN fontx = 2: fonty = 204
+IF char$ = "A" THEN fontx = 12: fonty = 10
+IF char$ = "B" THEN fontx = 12: fonty = 18
+IF char$ = "C" THEN fontx = 12: fonty = 26
+IF char$ = "D" THEN fontx = 12: fonty = 37
+IF char$ = "E" THEN fontx = 12: fonty = 46
+IF char$ = "F" THEN fontx = 12: fonty = 55
+IF char$ = "G" THEN fontx = 12: fonty = 64
+IF char$ = "H" THEN fontx = 12: fonty = 73
+IF char$ = "I" THEN fontx = 12: fonty = 80
+IF char$ = "J" THEN fontx = 12: fonty = 88
+IF char$ = "K" THEN fontx = 12: fonty = 97
+IF char$ = "L" THEN fontx = 12: fonty = 105
+IF char$ = "M" THEN fontx = 12: fonty = 115
+IF char$ = "N" THEN fontx = 12: fonty = 123
+IF char$ = "O" THEN fontx = 12: fonty = 133
+IF char$ = "P" THEN fontx = 12: fonty = 141
+IF char$ = "Q" THEN fontx = 12: fonty = 150
+IF char$ = "R" THEN fontx = 12: fonty = 160
+IF char$ = "S" THEN fontx = 12: fonty = 168
+IF char$ = "T" THEN fontx = 12: fonty = 178
+IF char$ = "U" THEN fontx = 12: fonty = 186
+IF char$ = "V" THEN fontx = 12: fonty = 196
+IF char$ = "W" THEN fontx = 12: fonty = 205
+IF char$ = "X" THEN fontx = 12: fonty = 214
+IF char$ = "Y" THEN fontx = 12: fonty = 222
+IF char$ = "Z" THEN fontx = 12: fonty = 231
+IF char$ = " " THEN fontx = 19: fonty = 285
+X& = setx% - fontx: Y& = sety% - fonty
+Read.Font.Date:
+   DEF SEG = VARSEG(font(1).buffer)
+   offset& = VARPTR(font(1).buffer)
+   FOR gx& = fontx TO fontx + 6
+   setcolor% = setcolor% + 1
+   IF setcolor% >= maxcolor% THEN setcolor% = mincolor%
+   FOR gy& = fonty TO fonty + 6
+   DEF SEG = VARSEG(font(1).buffer)
+   BYTE = PEEK(gx& * 320 + gy&)
+   IF NOT BYTE = 0 AND NOT BYTE = 255 THEN
+   GOSUB Copy.To.Screen
+   END IF
+   NEXT
+   NEXT
+   sety% = sety% + 8
+   'IF a% = 0 THEN PLAY "MFL64o2c"
+   NEXT
+    'PLAY "MFL64o1cbc"
+EXIT SUB
+
+Copy.To.Screen:
+   DEF SEG = &HA000
+   POKE X& * 320 + Y& + gx& * 320 + gy&, setcolor%
+   RETURN
+   DEF SEG
+
+END SUB
+
+SUB Wait.Retrace
+
+WHILE NOT B% = 4
+B% = INP(&H3DA)
+         WEND
+
+WHILE NOT B% = 5
+B% = INP(&H3DA)
+         WEND
+
+END SUB
+
+SUB Wr.Palette.Register (index%, red%, green%, blue%)
+OUT &H3C6, &HFF
+OUT &H3C8, index%
+OUT &H3C9, red%
+OUT &H3C9, green%
+OUT &H3C9, blue%
+END SUB
+

@@ -1,0 +1,46 @@
+
+EBBS-PC v1.5x Feature list - EBBS-PC by Ed Parry
+
+Quick list of EBBS-PC v1.5x feature's:
+
+1)  EBBS compiled with PowerBASIC v3.0 for ultimate speed.
+2)  Small, single module main source code avoids chaining delays.
+3)  Supports COM1 - COM4.
+4)  Support baud rates from 300 thru 115kbaud. (8N1)
+5)  Supports high speed modems.
+6)  Uses CTS/RTS flow control automatically if needed.
+7)  Offers 26 messages bases.
+8)  Offers 26 file transfer sections.
+9)  Supports standard X, Y and Zmodem protocols. (via DSZ/GSZ.)
+10) Offers Multi file batch downloading.
+11) Offers infinite/exclusive leveling.
+12) PowerBASIC v3.0C Source code is provided.
+13) EBBS Support system online 24 hour per day at 818-891-9350.
+14) Quick and easy to use line editor.
+15) Seperate EMAIL section. (Sysops cannot read mail.)
+16) Full text section. Menu can be Sysop designed.
+17) Full ANSI color/graphic's support.
+18) EBBS can be setup in minutes. No long preparations.
+19) Self maintaining message bases.
+20) Self maintaining userfile, xferfile's.
+21) Offers a TRUE midnight event for maintenance.
+22) Userfile searching is INSTANT due to binary tree search.
+23) Includes several midnight event maintenance modules.
+24) Keeps track of today/yesterday's stat's.
+25) Keeps a log of the last 150 callers.
+26) Keep's a log of all file transfers.
+27) Completely menu driven - EASY for User's AND Sysop(s).
+28) Online ANSI full screen editor.
+
+Plus gads more!
+
+Basically EBBS-PC is Super fast, super easy to setup, and super
+quick to setup.
+
+The best way to get good idea of what EBBS-PC offers, is to take
+5-10 minutes to set it up and check it out for yourself. EBBS is
+intuitively designed and menu driven. IE: Easy to check out with
+minimal doc reading, setup time, etc. (We ALL hate doc's!)
+
+Ed Parry
+

@@ -1,0 +1,165 @@
+REM  +----------------------------------------------------------------------+
+REM  |                                                                      |
+REM  |         IBRARY  Copyright (c) 1993-1994  Thomas G. Hanlin III        |
+REM  |                                                                      |
+REM  +----------------------------------------------------------------------+
+
+
+REM  ----- Tell 'em what we're about ----------------------------------------
+
+
+   CLS
+   CALL SUB "PopWindow" 0 0 17 72 1 31 "IBRARY"
+   COLOR 7, 1
+   LOCATE 2, 2
+   PRINT "This brief demo provides an example of how to use the IBRARY library,"
+   LOCATE 3, 2
+   PRINT "a large collection of routines written for use with 80/20 Software's"
+   LOCATE 4, 2
+   PRINT "ASIC compiler.  It shows the use of a few of the equipment detection"
+   LOCATE 5, 2
+   PRINT "routines included with Ibrary."
+
+
+REM  ----- Display processor type -------------------------------------------
+
+
+   LOCATE 7, 2
+   CALL SUB "Processor" ProcType
+   COLOR 14, 1
+   PRINT "Processor     : ";
+   COLOR 7, 1
+   IF ProcType = 1 THEN
+      PRINT "8088";
+   ELSE
+      ProcType = ProcType - 1
+      CALL SUB "StrNB" ProcType St$
+      PRINT "80";
+      PRINT St$;
+      PRINT "86";
+   ENDIF
+
+   CALL SUB "ProcSpeed" ProcSpeed
+   PRINT " at ";
+   CALL SUB "StrNB" ProcSpeed St$
+   PRINT St$;
+   PRINT " MHz"
+
+   LOCATE 8, 2
+   CALL SUB "NumProc" NumProcType
+   COLOR 14, 1
+   PRINT "Coprocessor   : ";
+   COLOR 7, 1
+   IF NumProcType = 0 THEN
+      PRINT "none"
+   ELSE
+      IF NumProcType = 1 THEN
+         PRINT "8087"
+      ELSE
+         CALL SUB "StrNB" NumProcType St$
+         PRINT "80";
+         PRINT St$;
+         PRINT "87"
+      ENDIF
+   ENDIF
+
+
+REM  ----- Display drive info -----------------------------------------------
+
+
+   LOCATE 9, 2
+   CALL SUB "GetDrive" Drive$
+   COLOR 14, 1
+   PRINT "Default drive : ";
+   COLOR 7, 1
+   PRINT Drive$;
+   PRINT ":"
+
+   LOCATE 10, 2
+   CALL SUB "Floppies" Floppies
+   COLOR 14, 1
+   PRINT "Floppy drives : ";
+   COLOR 7, 1
+   CALL SUB "StrNB" Floppies St$
+   PRINT St$
+
+
+REM  ----- Display video adapter type ---------------------------------------
+
+
+   LOCATE 11, 2
+   CALL SUB "GetDisplay" Adapter, Mono
+   tmp = Adapter * 4
+   tmp = tmp - 3
+   St$ = MID$("MDA HercCGA EGA MCGAVGA ", tmp, 4)
+   St$ = RTRIM$(St$)
+   IF Mono = 0 THEN
+      St$ = St$ + " on a color monitor"
+   ELSE
+      St$ = St$ + " on a monochrome monitor"
+   ENDIF
+   COLOR 14, 1
+   PRINT "Display       : ";
+   COLOR 7, 1
+   PRINT St$
+
+
+REM  ----- Display cursor status --------------------------------------------
+
+
+   LOCATE 12, 2
+   CALL SUB "CursorInfo" Visible, StartLine, EndLine, MaxLine
+   CALL SUB "StrNB" ProcType St$
+   COLOR 14, 1
+   PRINT "Program Cursor: ";
+   COLOR 7, 1
+   IF Visible = 0 THEN
+       PRINT "Invisible ";
+   ELSE
+       PRINT "Visible (lines ";
+       CALL SUB "StrNB" StartLine St$
+       PRINT St$;
+       PRINT "-";
+       CALL SUB "StrNB" EndLine St$
+       PRINT St$;
+       PRINT ") ";
+   ENDIF
+   CALL SUB "StrNB" MaxLine
+   PRINT "- Max Line ";
+   PRINT St$
+
+
+REM  ----- Display BIOS date ------------------------------------------------
+
+
+   LOCATE 13, 2
+   CALL SUB "PCDate" PCDate$
+   COLOR 14, 1
+   PRINT "ROM BIOS date : ";
+   COLOR 7, 1
+   PRINT PCDate$
+
+
+REM  ----- Display port info ------------------------------------------------
+
+
+   LOCATE 14, 2
+   CALL SUB "CommPorts" CommPorts
+   COLOR 14, 1
+   PRINT "COM ports     : ";
+   COLOR 7, 1
+   CALL SUB "StrNB" CommPorts St$
+   PRINT St$
+
+   LOCATE 15, 2
+   CALL SUB "PrtPorts" PrtPorts
+   COLOR 14, 1
+   PRINT "LPT ports     : ";
+   COLOR 7, 1
+   CALL SUB "StrNB" PrtPorts St$
+   PRINT St$
+
+REM  ----- Tidy up ----------------------------------------------------------
+
+
+   LOCATE 18, 2

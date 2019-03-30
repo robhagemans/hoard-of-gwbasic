@@ -1,0 +1,104 @@
+                
+POW! Toolbox Trial License
+--------------------------
+
+The POW! Toolbox is copyrighted, commercial software 
+being distributed under the shareware (try before you buy) 
+marketing concept.  It is not free software, nor is it in 
+the public domain.
+
+You are licensed to try POW! routines in your programs for 
+a period of 60 days (two months).  You may not distribute 
+programs that include POW! routines, either for pay or for 
+free, without first registering POW!.  If at the end of 60 
+days you decide not to register POW!, you should delete all 
+copies of the program, including all executable files that 
+contain POW! routines, and discontinue use.
+
+Registered users of POW! will receive the following 
+benefits:
+
+* The latest version of POW! on floppy disk (specify 
+  format, or 3 1/2", 1.44MB HD will be sent).  This 
+  includes all files that came with the shareware 
+  version, as well as the source code (see below).
+
+* Complete assembly language source code to POW! routines 
+  for ease of making modifications to the software.  This 
+  is a major benefit, and one that is not offered with many 
+  all assembly-language toolboxes.
+
+* License to use POW! routines in programs intended for 
+  distribution and/or sale, without payment of further 
+  fees or royalties.  This is guaranteed in writing along 
+  with your registered copy.
+
+* Prompt notification of and access to major updates to 
+  POW! for a negligible upgrade fee (currently $10.00 incl.
+  P&H, subject to future change).  Minor updates and bug 
+  fixes are always free with a postpaid disk mailer and 
+  floppy disk.
+
+* More demonstration programs, with tips and techniques on 
+  using POW! routines.
+
+* A collection of .VOC, .WAV and .CMF files for use with
+  POW! or for any other use you wish.
+
+* Technical support by mail and via the PowerBASIC BBS and 
+  any other online services frequented by the author (see 
+  the Bibliography section for an online reference)
+
+You may also receive other benefits in addition to those 
+stated above (which are guaranteed upon registration.  
+Note that this is not a warrantee of any kind, but a 
+guarantee of benefits upon payment of the registration fee.
+
+Commercial users of POW! must register and pay for their 
+copies of the program within 10 days of first use or their 
+license is withdrawn.  Site-license arrangements may be made 
+by contacting the author at the address given below.  Site-
+licensing contracts are negotiated on an individual basis.
+
+To register POW!, please send a check or money order for 
+$29.95, plus $5.00 shipping and handling ($34.95 total), to:
+
+Tim Gerchmez
+12648 S.E. 81st Pl.
+Renton, WA  98056-9121
+
+Use the form included in this package (REGISTER.FRM).  If 
+you don't, please don't forget to specify your FULL NAME, 
+ADDRESS, TELEPHONE NUMBER, and DISK FORMAT desired.
+
+Foreign registrants must pay with a check or cashier's check 
+DRAWN ON A U.S. BANK, or with U.S. dollars in cash.  Foreign 
+users are guaranteed the same registration benefits as domestic 
+users, including full technical support by mail.
+
+Questions or comments may also be directed to the author 
+at the above address.  Comments and/or questions from 
+unregistered users are welcomed.
+
+DISTRIBUTORS are hereby licensed to distribute POW! 
+freely, provided that all files included in the 
+shareware package are kept together and unaltered 
+(additional files may be added if necessary).  It's 
+recommended that you contact the author at the 
+address given above, so that program updates and 
+bug fixes can be sent to you.  For additional 
+details, see the file VENDOR.DOC included with 
+this package.
+
+BBS SYSOPS may distribute POW! freely, provided that 
+all files included in the archive package are kept 
+together and unaltered (additional files may be added).  
+It's recommended that you contact the author at the 
+address given above, so that program updates and bug 
+fixes can be sent or uploaded to you.  The POW! package 
+may be un-archived and re-archived using a different 
+archiving technique (suggested filenames are POW!.ZIP
+or POW!.ARJ), and posted freely on any kind of BBS 
+system.
+
+

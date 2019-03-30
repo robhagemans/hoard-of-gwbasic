@@ -1,0 +1,98 @@
+What's New in Bansi
+-------------------
+
+Bansi v1.11
+-----------
+Major change:  Bansi is now SHAREWARE.  For $10 (including shipping!), you
+will get the registered version of Bansi on a disk size of your choice.  See
+ORDER.FRM for more details.
+
+The CREATE utility has been changed around a bit.  This will probably be my
+last version of the Bansi library (or maybe there will be one or two more).
+I haven't worked on this library for almost a half a year and am getting a
+bit rusty with it.  If everything in this version isn't perfect, don't blame
+me! <g>  :)
+
+All BAX (Basic ANSI eXtended) commands have been deleted from this version of
+Bansi (and all future versions).  All commands in this library from now on
+will be fully compatible with ANSI.SYS, supplied with DOS, and will be
+compatible with most (if not all) ANSI terminal programs.
+
+This version of the Bansi library should be smaller and more compact than the
+previous version 1.10...  (But PROBABLY ISN'T!)
+
+Errors in documentation fixed and changed to reflect new changes or additions.
+
+Removed the color from the CREATE utility 8( - Cut down on size of archive by
+three or four kilobytes, probably.
+
+QBANSI.LIB is the QuickBasic Bansi Library.
+VBANSI.LIB is the VB/DOS (Visual Basic for DOS) Bansi Library.
+
+Bug Fixes:
+BAColorString$ now returns what it was passed if BAnsi is not initialized.  It
+also resets the color to 7,0 (default) when done.
+
+BAXClearScreen$ has been renamed to BAClearScreen2$.  Please note the change.
+
+Enhancements:
+BAColor$ function now returns up to 50% more compact code.
+
+Additions:
+BAColorToggle SubRoutine.  Usage: BAColorToggle {Option}
+                               Options: "ON","OFF","TOG"
+ "ON" will enable returns from Bansi color functions.  "OFF" will disable
+ returns from Bansi color functions, and "TOG" (or anything else for that
+ matter) will toggle from OFF to ON or from ON to OFF.
+
+BAIniToggle SubRoutine.  Usage:  BAIniToggle {Option}
+                             Options: "ON","OFF","TOG"
+ "ON" will enable the BAInit routine to display the opening message.  "OFF"
+ will disable the BAInit routine from displaying the opening message {only
+ available in registered version}, and "TOG" (or anything else for that
+ matter) will toggle from OFF to ON or from ON to OFF.
+
+BAInput Function.
+ Usage: Variable$=BAInput$(Length%, ForeGround%, BackGround%, Reserved%)
+ Where Length% is the length of the data to read in, ForeGround% is either a
+ number between 0 and 31 (foreground color) or out of that range (multiple
+ colors), BackGround% is a number between 0 and 7, and Reserved% is one of the
+ following:   1 = Do not echo answer to screen,
+              2 = Put `*'s instead, as a password-type thing.
+
+BAToggle SubRoutine.  Usage: BAToggle {Option} - Options: "ON","OFF","TOG"
+ "ON" will enable returns from Bansi functions.  "OFF" will disable returns
+ from Bansi functions, and "TOG" (or anything else for that matter) will
+ toggle from OFF to ON or from ON to OFF.
+
+Bansi v1.1
+----------
+New CREATE utility.  For CREATING you Quick Libraries and for registering your
+Bansi library after you obtain your registration file.
+
+Bansi is now for QuickBasic v4.5, PDS aka QuickBasic Extended aka BASCOM v7.1
+and Visual Basic for DOS v1.0 compilers.
+
+Bansi now includes MANY new routines:
+BAColorString$ Function - Returns a `String in Color' string.
+BAXAbsCol$ Function - Returns the Move to Absolute Column string.
+BAXClearScreen$ Function - Returns the Clear Screen string.
+BAXDelCharLeft$ Function - Returns the Delete Char(s) To Left string.
+BAXDelCharRight$ Function - Returns the Delete Char(s) To Right string.
+BAXDelLine$ Function - Returns the Delete Line(s) string.
+BAXEraseLine$ Function - Returns the Erase Line string.
+BAXForward$ Function - Returns the Cursor Forward string.
+BAXForwardTab$ Function - Returns the Forward Tabstop string.
+BAXInsLine$ Function - Returns the Insert Line(s) string.
+BAXInSpace$ Function - Returns the Insert Spaces string.
+BAXNextLine$ Function - Returns the Next Line(s) string.
+BAXPrevLine$ Function - Returns the Previous Line(s) string.
+BAXReport$ Function - Returns the Cursor Location Report string.
+
+Bansi v1.0
+----------
+Initial release!  ANSI library for QB programs!
+
+Bansi and all documents included are (c) Copyright 1994 by Chris Walker.
+                                        ALL RIGHTS RESERVED
+

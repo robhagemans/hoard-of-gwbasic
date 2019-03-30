@@ -1,0 +1,103 @@
+PLEASE READ THIS PAGE CAREFULLY.  It gives important ordering information.
+Truly, I'm not doing this just to torture you!  Take a moment and look.
+
+Registration of a library entitles you to receive a disk or disks containing
+the latest version of that library, complete with full source code and
+documentation files.  Registration entitles you to receive updates for $10 at
+any time you choose to upgrade.
+
+A collection of other useful libraries and utilities will also be sent to you
+upon registration.  See the CATALOG.TXT file for a description.  The items
+mentioned in CATALOG.TXT are representative and are subject to updates or
+replacement by other items.  See PRODUCT.TXT for more info on my libraries.
+
+All checks must be in U.S. funds drawn on U.S. banks.  Sorry, checks drawn on
+foreign banks are no longer accepted-- it takes them too long to clear and
+there is a large surcharge, so they just aren't worth it to me.  If you are
+in another country, consider using an international money order.
+
+
+
+*** ATTENTION!!!  New Service! ***
+
+    For PBClone, and PBClone only, credit card orders are now accepted
+    through the fine offices of the Public (software) Library.  If you wish
+    to register PBClone by MC, Visa, or American Express, call PsL at
+    1-800-2424-PSL or FAX them at 1-713-524-6398.  These numbers are for
+    ORDERS ONLY.  For questions about credit card orders, call PsL at
+    1-713-524-6394.  You can also mail credit card orders to PsL at:
+    P.O. Box 35705, Houston TX 77235-5705.  FOR FASTER SERVICE, remember that
+    PBClone is item #10387.
+
+    Orders for upgrades or other products, as well as technical questions or
+    comments, should be directed to me at the address listed on the next
+    page.  The Public (software) Library only processes credit card orders
+    for PBClone and is not responsible for any other services related to my
+    software.  For ANYTHING NOT DIRECTLY RELATED TO ORDERING PBClone by
+    credit card, WRITE ME DIRECTLY or call a BBS listed in WHERE.BBS-- PsL
+    only processes credit card orders, nothing more.
+
+
+
+
+        *****  Introducing PASWIZ, The Pascal Wizard's Library  ******
+
+   The shareware version of PasWiz comes with units for Turbo Pascal 6.0 and
+   Quick Pascal 1.0.  Full source code is provided on registration, allowing
+   use with other versions.  To help get PasWiz off to a good start, I'm
+   setting an introductory price of $25.00 (good throughout 1991).  This will
+   rise to $35.00 next year.
+
+   M A I L   T O        Thomas G. Hanlin III
+   ---------------->    3544 E. Southern Ave. #104
+                        Mesa, AZ 85204
+
+
+
+                                           Price Ea.     Qty        Amount
+ +--------+------------------------------+-----------+----------+-------------+
+ | SAMPLE | Sampler (FREE with any lib)  |           |          |             |
+ |        |    see CATALOG.TXT for list  |   $ 5.00  |     1    |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | ASMWIZ | Assembly Wizard's Library    |           |          |             |
+ |        |    for ASM programmers       |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | BASWIZ | BASIC Wizard's Library       |           |          |             |
+ |        |    for QuickBASIC & BASCOM   |  $ 35.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PASWIZ | Pascal Wizard's Library      | 1991 ONLY |          |             |
+ |        |    for Quick & Turbo Pascal  |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | PBCLON | PBClone Library              |           |          |             |
+ |        |    for QuickBASIC & BASCOM   |  $ 25.00  |          |             |
+ +--------+------------------------------+-----------+----------+-------------+
+ | Postage and Handling                                         |             |
+ |   *** ONLY ADD POSTAGE IF OUTSIDE THE U.S. ***       $ 4.00  |             |
+ +--------------------------------------------------------------+-------------+
+ |                                                              |             |
+ |   T O T A L   E N C L O S E D                                |             |
+ +--------------------------------------------------------------+-------------+
+
+ Mailing address:
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+        ______________________________________________
+
+
+ ***---> Disk type:  [  ] 360K    [  ] 720K    [  ] 1.2M    [  ] 1.44M  <---***
+
+ Which compiler(s) do you use on a regular basis?
+
+
+
+ Are you writing programs for MS Windows?
+       [  ] Yes    [  ] No    [  ] Not yet, maybe later    [  ] Never!
+
+ Please list any suggestions or comments on the back of this page.  Your
+ suggestions are most welcome and I do pay attention to them.
+

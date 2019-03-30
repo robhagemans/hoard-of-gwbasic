@@ -1,0 +1,1268 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          BARCODES-LITE Developers Library
+
+
+                                    USERS MANUAL
+
+
+
+                                    Version 1.0.0
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          GRAFTech Development Corporation
+                               Post Office Box 851228
+                            Westland  MI  USA  48185-6328
+                               VOX/FAX:  313/595-3180
+
+
+
+
+
+
+
+
+
+
+
+
+       BARCODES-LITE Developers Library
+
+       Version:  1.0.0
+
+       Published:  November, 1993
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       All Rights Reserved.  No part of this book may be reproduced or
+       transmitted in any form or by any means, electronic or mechanical,
+       including photocopying, recording or by any information storage and
+       retrieval system without the written permission from the publisher.
+
+       GRAFTech Development Corporation makes and you receive no warranties
+       or conditions, express, implied, statutory or in any communications
+       with you, and specifically disclaims any implied warranty of
+       merchantability or fitness for a particular purpose.
+
+       GRAFTech Development Corporation does not warrant that the operation
+       of the program will be uninterrupted or error free.
+
+       BARCODES-LITE is provided under the terms of a license agreement with
+       GRAFTech Development Corporation.
+
+       BARCODES-LITE is a trademark of GRAFTech Development Corporation.
+
+       All other trademarks and servicemarks are the property of their
+       respective owners and are used only for clarification purposes.
+
+
+
+                                    BARCODES-LITE
+                                Copyright (c) 1988-93
+                          GRAFTech Development Corporation
+                                 All Rights Reserved
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+                                  TABLE OF CONTENTS
+
+
+
+       Definition of Shareware.............................................1
+
+       Shareware Disclaimer - Agreement....................................1
+
+       Support Policy......................................................2
+
+       Registration Policy.................................................2
+
+       ASP Ombudsman Notice................................................3
+
+       Introduction........................................................4
+
+       Features............................................................4
+
+       Advantages..........................................................5
+
+       Compatibility.......................................................5
+
+       Documentation.......................................................5
+
+       Notices.............................................................5
+
+       Installation........................................................5
+
+       Operating BARCODES-LITE.............................................7
+
+            Microsoft BASIC Operating Procedure............................7
+            Microsoft BASIC Sample Function Call...........................9
+
+       Bar Code Symbologies...............................................10
+
+            UPC Version A.................................................10
+            UPC Version E.................................................11
+            UPC/EAN/IAN-13................................................12
+            UPC/EAN/IAN-8.................................................13
+            Interleaved 2 of 5 (STD)......................................13
+            Interleaved 2 of 5 (COMM).....................................14
+            CODE 39 (Code 3 of 9).........................................15
+            CODE 128 - Series "A".........................................16
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+       DEFINITION OF SHAREWARE
+
+
+            Shareware distribution gives users a chance to try software
+       before buying it.  If you try a Shareware program and continue using
+       it, you are expected to register.  Individual programs differ on
+       details -- some request registration while others require it, some
+       specify a maximum trial period.  With registration, you get anything
+       from the simple right to continue using the software to an updated
+       program with printed manual.
+
+            Copyright laws apply to both Shareware and commercial software,
+       and the copyright holder retains all rights, with a few specific
+       exceptions as stated below.  Shareware authors are accomplished
+       programmers, just like commercial authors, and the programs are of
+       comparable quality.  (In both cases, there are good programs and bad
+       ones!) The main difference is in the method of distribution.  The
+       author specifically grants the right to copy and distribute the
+       software, either to all and sundry or to a specific group.  For
+       example, some authors require written permission before a commercial
+       disk vendor may copy their Shareware.
+
+            Shareware is a distribution method, not a type of software.  You
+       should find software that suits your needs and pocketbook, whether
+       it's commercial or Shareware.  The Shareware system makes fitting your
+       needs easier, because you can try before you buy. And because the
+       overhead is low, prices are low also.  Shareware has the ultimate
+       money-back guarantee -- if you don't use the product, you don't pay
+       for it.
+
+
+       SHAREWARE DISCLAIMER - AGREEMENT
+
+
+            Users of BARCODES-LITE must accept this disclaimer of warranty:
+
+            BARCODES-LITE is supplied as is.  This author disclaims all
+       warranties, expressed or implied, including without limitation, the
+       warranties of merchantability and of fitness for any purpose. The
+       author assumes no liability for damages, direct or consequential,
+       which may result from the use of BARCODES-LITE.
+
+            BARCODES-LITE is a "shareware program" and is provided at no
+       charge to the user for evaluation.  Feel free to share it with your
+       friends, but do not give it away altered or as part of another system.
+       The essence of "user-supported" software is to provide micro computer
+       users with quality software without high prices, and yet to provide
+       incentives for programmers to continue to develop new products.  If
+       you find BARCODES-LITE useful and that you are continuing to use
+       BARCODES-LITE after a trial period of 30 days, you must make a
+       registration payment of $ 100.00 to GRAFTech.  The registration fee
+       will license one copy for use on any one computer at any one time.
+       You must treat this software just like a book.  An example is that
+       this software may be used by any number of people and may be freely
+
+                                       Page 1
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+       moved from one computer to another, so long as there is no possibility
+       of it being used at one location while it's being used at another.
+       Just as a book cannot be read by two different persons at the same
+       time.
+
+            Commercial users of BARCODES-LITE must register and pay for their
+       copies within 30 days of first use or their license is withdrawn.
+       Site-License agreements may be made by contacting GRAFTech.
+
+            Anyone distributing BARCODES-LITE for any kind of remuneration
+       must first contact GRAFTech at Post Office Box 851228, Westland  MI
+       USA  48185-6328, for authorization.  This authorization will be
+       automatically granted to distributors recognized by the (ASP) as
+       adhering to its guidelines for shareware distributors, and such
+       distributors may begin offering BARCODES-LITE immediately (However
+       GRAFTech must still be advised so that the distributor can be kept
+       up-to-date with the latest version of BARCODES-LITE.).
+
+            You are encouraged to pass a copy of BARCODES-LITE along to your
+       friends for evaluation.  Please encourage them to register their copy
+       if they find that they can use it.  All registered users will receive
+       a copy of the latest version of BARCODES-LITE.
+
+
+       SUPPORT POLICY
+
+
+            Registered users of BARCODES-LITE may contact GRAFTech at:
+
+                 GRAFTech Development Corporation
+                 Post Office Box 851228
+                 Westland  MI  USA  48185-6328
+                 or, Via CompuServe, Jess Schambers 75210,3335
+                 or, Via Telephone 517/487-2780 8am - 5pm M-F US EST
+
+            NOTE:  Telephone support is limited to users within the
+                   Continental United States and may not exceed a total of
+                   thirty minutes.
+
+
+       REGISTRATION POLICY
+
+
+            You may use BARCODES-LITE for a period not longer than thirty   
+       days following your first use, free of charge.  After thirty days, you
+       must register BARCODES-LITE with GRAFTech. The single user
+       registration fee is $ 100.00.
+
+            For your convenience, we have included a registration form in a
+       DOS Text File which may be completed and printed with any word
+       processor or text editor.  
+
+            Registration File Name:  BCLREG.FRM
+
+
+                                       Page 2
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+            After receipt of your registration form and payment, GRAFTech
+       will send you:
+
+            - Master Disks containing the latest version of BARCODES-LITE
+            - The complete basic source coding to BARCODES-LITE
+            - Printed Manual
+            - Promotional materials when available and while supplies last
+              (many of which contain discounts on computer hardware and
+              software)
+            - Upgrade notices as upgrades become available 
+
+
+       ASP OMBUDSMAN NOTICE
+
+
+            This program is produced by a member of the Association of   
+       Shareware Professionals (ASP).  ASP wants to make sure that the
+       shareware principle works for you.  If you are unable to resolve a
+       shareware problem with an ASP member by contacting the member
+       directly, ASP may be able to help.  The ASP Ombudsman can help you
+       resolve a dispute or problem with an ASP member, but does not provide
+       technical support for members products. 
+
+            Please write the ASP Ombudsman at:
+
+                 ASP Ombudsman
+                 545 Grover Road
+                 Muskegon  MI  USA  49442
+                 or, Via CompuServe:  ASP Ombudsman 70007,3536
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       Page 3
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+       INTRODUCTION
+
+
+            Since 1988, BARCODES-PLUS has been providing developers and end
+       users with the ability to produce high quality bar codes without the
+       need for expensive specialized bar code printers.
+
+            Today, BARCODES-PLUS is used by developers and end users around
+       the world.  More than simple cost effectiveness, these users recognize
+       the power and versatility of having portable bar code technology built
+       into their business applications.
+
+            Now GRAFTech has taken cost effective bar coding one step
+       further, by introducing BARCODES-LITE, with many of the features of
+       BARCODES-PLUS and one third the price.
+
+            Using the very same, easy to use, simplified call statements,
+       BARCODES-LITE will print virtually all the bar codes you'll ever need.
+       And, because we provide the complete source coding, you'll be able to
+       take BARCODES-LITE with you no matter what basic language or operating
+       system you use in the future.
+
+            BARCODES-LITE brings business graphics into the 21st century.
+
+            When you use BARCODES-LITE you will have the ability to use the
+       graphic printers you probably already own, change printers, add new
+       printers and use virtually every printer on your system without any
+       further investment in bar code technology.
+
+            No other software package or developers tool gives you this much
+       power.
+
+            BARCODES-LITE utilizes the standards established by:
+
+            - Uniform Codes Council (UCC)
+            - Automatic Identification Manufacturers (AIM)
+            - United States Department of Defense (DOD)
+            - American National Standards Institute (ANSI)
+            - Intermec Corporation
+            - International Article Numbering Association (EAN/IAN)
+            - Automotive Industry Action Group (AIAG)
+            - National Association of Electrical Distributors (NAED)
+
+       to give you the graphic edge you need to remain competitive in todays
+       graphical business environment.
+
+
+       FEATURES
+
+
+            - Support for hundreds of commonly used graphics printers
+            - Support of 9 different bar code symbologies
+            - Support of 3 different print densities
+            - Support of 3 different bar code headers types
+
+                                       Page 4
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+            - Support of 10 different print heights
+            - Check digits automatically calculated and returned to the 
+              calling program
+            - Complete error checking with error codes returned to the 
+              calling program
+            - Output in binary data stream so that output can be routed to 
+              print spoolers or data files for batch printing
+            - Simplified call arguments to speed integration
+
+
+       ADVANTAGES
+
+
+            BARCODES-LITE delivers high quality industry tested graphics on
+       todays most popular graphics printers, saving you thousands of dollars
+       in specialized bar coding equipment and even more in reduced
+       programming costs.
+
+
+       COMPATIBILITY
+
+
+            BARCODES-LITE was designed, developed and tested for use with the
+       IBM Family of Computers and Compatibles.
+
+
+       DOCUMENTATION
+
+
+            Although every effort has been made to make this documentation as
+       complete and accurate as possible, some features may change, be
+       deleted or be added to the actual programs, please check the sample
+       programs included on the distribution disks for the latest list of
+       features.
+
+
+       NOTICES
+
+
+            In an effort to provide you our users with the best possible
+       product, GRAFTech reserves the right to change specifications,
+       features, program structures and this documentation without notice.
+       Further, to provide our users with the greatest possible number of
+       supported printers and features, GRAFTech may update the actual
+       programs without making documentation changes until such time as a
+       formal product release is made. However, all features are explained
+       within the example programs provided on the distribution disks.
+
+
+       INSTALLATION
+
+
+            There are no hard disk requirements for BARCODES-LITE.
+
+
+                                       Page 5
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+            HOWEVER, WE STRONGLY RECOMMEND THAT YOU DO NOT USE THESE PROGRAMS
+       ON THEIR ORIGINAL DISTRIBUTION DISK(S).
+
+            THE ORIGINAL DISTRIBUTION DISK(S) HAVE BEEN WRITE PROTECTED FOR
+       YOUR PROTECTION.  WE STRONGLY RECOMMEND THAT YOU DO NOT REMOVE OR
+       DEACTIVATE THE WRITE PROTECTION DEVICE.  THE ORIGINAL DISTRIBUTION
+       DISK(S) SHOULD NEVER BE WRITTEN TO, FOR YOUR PROTECTION.
+
+            You should immediately make a backup copy of the BARCODESLITE
+       Distribution Disk(s) and store the original(s) in a safe place.
+       As systems very, please consult your system manual for instructions on
+       coping these programs.
+
+            BARCODES-LITE has no special disk or path requirements, however
+       we suggest you copy the programs to a hard disk if available, this
+       will also make it easier for you to use the library programs.
+
+            BARCODES-LITE is distributed in object file format.  Because of
+       different operating systems, languages, compilers, library managers
+       and calling procedures, we have not pre-built any libraries.
+       Therefore, you must build any required libraries. Otherwise, you may
+       access the object files directly, depending on your particular system
+       requirements.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       Page 6
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+       OPERATING BARCODES-LITE
+
+
+            The BARCODES-LITE Developers Library was designed to work as a
+       called sub-routine to your application programs.
+
+
+       Microsoft BASIC Operating Procedure
+
+
+            In Microsoft BASIC you place all BARCODES-LITE control
+       information into an argument variable called BCP.DATA$, place the
+       output device channel number into an argument variable called BCP.LUN
+       and call the BARCODES-LITE sub-routine.
+
+            BCP.DATA$ information layout
+
+            Informational Element              Field Locations
+
+            Printer Identification                  001-003
+
+              Code  Description
+
+              E01   Epson 9 Pin ESC/P
+              E02   Epson 24 Pin ESC/P2
+              I01   IBM Graphics
+              O01   Okidata OKIGRAPHICS
+
+            Print Density                           004-004
+
+              Code  Description
+
+                S   Single Density
+                D   Double Density
+                Q   Quad Density
+
+            Horizontal Spacing                      005-007
+
+              Code     Description                                           
+
+              000-132  Spaces at current cpi setting
+
+            Bar Code Height                         009-009
+
+              Code  Description
+
+                0   1 Line Height (no line feed and no header)
+                1   1 Line Height (with line feed)
+                2   2 Line Height (with line feed)
+                3   3 Line Height (with line feed)
+                4   4 Line Height (with line feed)
+                5   5 Line Height (with line feed)
+                6   6 Line Height (with line feed)
+                7   7 Line Height (with line feed)
+
+                                       Page 7
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+                8   8 Line Height (with line feed)
+                9   9 Line Height (with line feed)
+
+            Bar Code Header                         010-010
+
+              Code  Description
+
+                T   Print bar code header above bar code
+                B   Print bar code header below bar code
+                N   Do not print bar code header
+
+            Bar Code Symbology                      011-011
+
+              Code  Description
+         
+                1   Symbology UPC Version A
+                2   Symbology UPC Version E
+                3   Symbology UPC/EAN/IAN - 13
+                4   Symbology UPC/EAN/IAN - 8
+                5   Symbology Interleaved 2 of 5
+                6   Symbology Interleaved 2 of 5 - Variable
+                7   Symbology Code 3 of 9 - No check digit
+                8   Symbology Code 3 of 9 - Check digit
+                9   Symbology Code 128 - Series "A"
+
+            Bar Code Data                           012-039
+              (see specific bar code symbology for valid characters)
+
+            Bar Code Data Check Digit               040-040
+
+            CHECK DIGIT:  Calculated by BARCODES-LITE, automatically appended
+                          to the data to be encoded and returned to the
+                          calling program.
+
+            Bar Code Error Status Code              041-041
+
+              Code  Description
+
+                0   No error occured
+                1   Invalid printer identification selected
+                2   Invalid density selected
+                3   Invalid horizontal spacing selected
+                4   Invalid bar code height selected
+                5   Invalid bar code header selected
+                6   Invalid bar code symbology selected
+                7   Invalid bar code data characters selected
+                8   Invalid bar code data character length
+
+              NOTE:  The following are available only with source coding
+                     and compilers that support local error trapping.
+         
+                A   Device timeout
+                B   Device fault
+                C   Device out of paper
+
+                                       Page 8
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+                D   Device LUN not opened
+                E   Device I/O error
+                F   Device unavailable
+                G   Device communications buffer overflow
+                P   General printer fault occured
+                Z   Application error of unknown origin
+
+
+       Microsoft BASIC Sample Function Call
+
+
+            NOTE:  If you are using one of the parallel printer ports (i.e.
+                   LPT1) you must also set the width to 255 or continuous.
+
+            DECLARE SUB BARCODES.PLUS (BCP.DATA$, BCP.LUN)
+
+            BCP.LUN = 1
+            WIDTH "LPT1:", 255
+            OPEN "LPT1:BIN" FOR OUTPUT AS BCP.LUN
+
+            BCP.DATA$ = SPACE$(41)
+            MID$(BCP.DATA$, 1, 3) = "062"
+            MID$(BCP.DATA$, 4, 1) = "S"
+            MID$(BCP.DATA$, 5, 3) = "005"
+            MID$(BCP.DATA$, 9, 1) = "1"
+            MID$(BCP.DATA$, 10, 1) = "T"
+            MID$(BCP.DATA$, 11, 1) = "1"
+            MID$(BCP.DATA$, 12, 28) = "78211300054 "
+            MID$(BCP.DATA$, 40, 1) = " "
+            MID$(BCP.DATA$, 41, 1) = " "
+
+            PRINT BCP.LUN, "SOME USER APPLICATION TEXT      ";
+
+            CALL BARCODES.PLUS(BCP.DATA$, BCP.LUN)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       Page 9
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+       BAR CODE SYMBOLOGIES
+
+
+       BARCODES-LITE provides support for the following bar code symbologies:
+
+            - UPC Version A
+            - UPC Version E
+            - UPC/EAN/IAN-13
+            - UPC/EAN/IAN-8
+            - Interleaved 2 of 5 (STD)
+            - Interleaved 2 of 5 (COMM)
+            - CODE 39 (Code 3 of 9)
+            - CODE 128 - Series "A"
+
+
+       UPC Version A
+
+
+            UPC Version A, Regular Version, is a 12 data character fixed
+       length symbology.
+
+            The first or left most character is the number system character.
+
+            Number
+            System
+            Character     Description
+
+               0          Regular UPC codes (Version A and E).
+               1          Reserved for future use.
+               2          Random-weight items, such as meat and produce,
+                          symbol-marked at store level (Version A).
+               3          National Drug Code and National Health Related
+                          Items Code in current 10-digit code length
+                          (Version A).
+               4          For use without code format restriction and
+                          with check digit protection for instore
+                          marking of non-food items (Version A).
+               5          For use on coupons (Version A).
+               6          Regular UPC codes (Version A).
+               7          Regular UPC codes (Version A).
+               8          Reserved for future use.
+               9          Reserved for future use.
+
+            The next 10 characters are information characters. They consist
+       of a 5 digit manufacturers number followed by a 5 digit item/part
+       number (Regular UPC codes - Version A). The last or right most
+       character is the symbols check digit.
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the data to encode.
+
+            UPC Version A is the "0" sub-set of the UPC/EAN/IAN -13 bar code
+       symbology.
+
+
+                                       Page 10
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       UPC Version E
+
+
+            UPC Version E, is the zero suppression version of the UPC Version
+       A symbology.
+
+            The first or left most character is the number system character.
+       Only number system character "0" symbols can be zero suppressed.
+
+            The next 10 characters are information characters. They consist
+       of a 5 digit manufacturers number followed by a 5 digit item/part
+       number (Regular UPC codes - Version A).
+
+            Manufacturers numbers which end in 000, 100 or 200 and have part
+       numbers from 00000 to 00999 are eligible for zero suppression.
+
+            Manufacturers numbers which end in 300, 400, 500, 600, 700, 800
+       or 900 and have part numbers from 00000 to 00099 are eligible for zero
+       suppression.
+
+            Manufacturers numbers which end in 10, 20, 30, 40, 50, 60, 70, 80
+       or 90 and have part numbers from 00000 to 00009 are eligible for zero
+       suppression.
+
+            Manufacturers numbers which do NOT end in a zero and have part
+       numbers from 00005 to 00009 are eligible for zero suppression.
+
+            The last or right most character is the symbols check digit.
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the data to encode.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+
+                                       Page 11
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       UPC/EAN/IAN-13
+
+
+            UPC/EAN/IAN Version 13, Regular Version, is a 13 data character
+       fixed length symbology.
+
+            The first or left most character is the country of origin
+       indicator.  ("0" for North American manufacturer/vendor)
+
+            The next character is the number system character.
+
+            Number
+            System
+            Character     Description
+
+               0          Regular UPC codes (Version A and E).
+               1          Reserved for future use.
+               2          Random-weight items, such as meat and produce,
+                          symbol-marked at store level (Version A).
+               3          National Drug Code and National Health Related
+                          Items Code in current 10-digit code length
+                          (Version A).
+               4          For use without code format restriction and
+                          with check digit protection for instore
+                          marking of non-food items (Version A).
+               5          For use on coupons (Version A).
+               6          Regular UPC codes (Version A).
+               7          Regular UPC codes (Version A).
+               8          Reserved for future use.
+               9          Reserved for future use.
+
+            The next 10 characters are information characters. They consist
+       of a 5 digit manufacturers number followed by a 5 digit item/part
+       number (Regular UPC codes - Version A).
+
+            The last or right most character is the symbols check digit.
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the data to encode.
+
+            The valid character set
+
+            Decimal     ASCII
+
+
+                                       Page 12
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       UPC/EAN/IAN-8
+
+
+            UPC/EAN/IAN Version 8, Regular Version, is an 8 data character
+       fixed length symbology.
+
+            The first or left most character is the country of origin
+       indicator.  ("0" for North American manufacturer/vendor)
+
+            The next 6 characters are information characters. They consist of
+       manufacturers and item/part numbers.
+
+            The last or right most character is the symbols check digit.
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the data to encode.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       Interleaved 2 of 5 (STD)
+
+
+            Interleaved 2 of 5 is a variable length bar code.
+
+            Because of the interleaved structure of this bar code, there must
+       be an even number of characters.
+
+
+
+                                       Page 13
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+            The first or left most x (where x is an odd number of characters)
+       number of characters are informational characters.
+
+            The last or right most character is the symbols check digit.  The
+       check digit is calculated by BARCODES-LITE and added to the end of the
+       encoded data.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       Interleaved 2 of 5 (COMM)
+
+
+            Interleaved 2 of 5 (COMM) is a fixed length bar code. Because of
+       the interleaved structure of this bar code,  there must be an even
+       number of characters.
+
+            The first or left most character is a packaging indicator.
+
+            The valid entries are
+
+               0       Indicating that the item number on the carton is
+                       different from the item number on the inside
+                       cartons or items.
+               1-7     Indicating that the item number on the carton is
+                       the same as the item number on the inside cartons
+                       or items and may be used to indicate specific
+                       levels of packaging defined by the vendor.
+               8       Reserved for future use.
+               9       Indicates that the item is a variable quantity        
+                  item and that a trailer symbol will follow the
+                       core symbol.
+
+            The second data character is the country code/numbering system
+       character.  ("0" for North American manufacturer/vendor)
+
+            The next six data characters are the manufacturer/vendor number.
+
+            The next five data characters are the product/item number.
+
+            The last or right most character is the symbols check digit.
+
+                                       Page 14
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the encoded data.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+
+
+       CODE 39 (Code 3 of 9)
+
+
+            Code 3 of 9 is a variable length bar code.
+
+            Code 3 of 9 generally is used without the optional check digit.
+
+            If used with the optional check digit, the check digit is
+       calculated by BARCODES-LITE and added to the end of the encoded data.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               48         0
+               49         1
+               50         2
+               51         3
+               52         4
+               53         5
+               54         6
+               55         7
+               56         8
+               57         9
+               65         A
+               66         B
+               67         C
+               68         D
+               69         E
+               70         F
+               71         G
+               72         H
+               73         I
+               74         J
+
+                                       Page 15
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+               75         K
+               76         L
+               77         M
+               78         N
+               79         O
+               80         P
+               81         Q
+               82         R
+               83         S
+               84         T
+               85         U
+               86         V
+               87         W
+               88         X
+               89         Y
+               90         Z
+               45         -
+               46         .
+               36         $
+               47         /
+               43         +
+               37         %
+               32      [SPACE]
+
+
+       CODE 128 - Series "A"
+
+
+            Code 128 is a variable length bar code and requires a check digit
+       in all three series.
+
+            The check digit is calculated by BARCODES-LITE and added to the
+       end of the encoded data.
+
+            The valid character set
+
+            Decimal     ASCII
+
+               32      [SPACE]
+               33         !    
+               34         "    
+               35         #    
+               36         $    
+               37         %    
+               38         &    
+               39         '    
+               40         (    
+               41         )    
+               42         * 
+               43         + 
+               44         , 
+               45         -  
+               46         .  
+               47         /  
+
+                                       Page 16
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+               48         0  
+               49         1  
+               50         2  
+               51         3  
+               52         4  
+               53         5  
+               54         6  
+               55         7  
+               56         8  
+               57         9  
+               58         :  
+               59         ;  
+               60         <  
+               61         =  
+               62         >  
+               63         ?  
+               64         @  
+               65         A  
+               66         B  
+               67         C  
+               68         D  
+               69         E  
+               70         F  
+               71         G  
+               72         H  
+               73         I  
+               74         J  
+               75         K  
+               76         L  
+               77         M  
+               78         N  
+               79         O  
+               80         P  
+               81         Q  
+               82         R  
+               83         S  
+               84         T  
+               85         U  
+               86         V  
+               87         W  
+               88         X  
+               89         Y  
+               90         Z  
+               91         [  
+               92         \  
+               93         ]  
+               94         ^  
+               95         _  
+               96        NUL 
+               97        SOH 
+               98        STX 
+               99        ETX 
+              100        EOT 
+              101        ENQ 
+
+                                       Page 17
+
+
+                          BARCODES-LITE Developers Library
+                                 Users Documentation
+
+              102        ACK 
+              103        BEL 
+              104        BS  
+              105        HT  
+              106        LF  
+              107        VT  
+              108        FF  
+              109        CR  
+              110        SO  
+              111        SI  
+              112        DLE 
+              113        DC1 
+              114        DC2 
+              115        DC3 
+              116        DC4 
+              117        NAK 
+              118        SYN 
+              119        ETB 
+              120        CAN 
+              121        EM  
+              122        SUB 
+              123        ESC 
+              124        FS  
+              125        GS  
+              126        RS  
+              127        US  
+              128        FNC3
+              129        FNC2
+              130        SHIFT
+              131        CODE C
+              132        CODE B
+              133        FNC4
+              134        FNC1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                       Page 18

@@ -1,0 +1,260 @@
+DECLARE FUNCTION Detect.JoyStick% ()
+DEFINT A-Z
+DECLARE SUB Wait.Retrace ()
+DECLARE SUB Write.Palette (index%, red%, green%, blue%)
+DECLARE SUB load.pcx (PCX$, pal%)
+DECLARE SUB show.pcx ()
+DECLARE FUNCTION Loadfont% ()
+
+       REM */  set global Info variables   \*
+COMMON SHARED score%, lives%, level%, difficlty%
+COMMON SHARED Gunsel%, SelShip%, kills%
+COMMON SHARED freeships%, joyenable%, delay!, Argv%, spr1%, spr2%
+
+
+TYPE almem
+ buffer AS STRING * 1
+END TYPE
+
+COMMON SHARED font()  AS almem
+REDIM SHARED getscr%(1 TO 30000)
+
+TYPE allocmem
+   buffer AS STRING * 2
+END TYPE
+ON ERROR GOTO Error.Handler
+REDIM font(9900) AS almem
+REDIM SHARED image(32000) AS allocmem
+DIM SHARED index%, red%, green%, blue%, SIZE&
+TYPE allocmem2
+    redp  AS INTEGER
+    greenp  AS INTEGER
+    bluep  AS INTEGER
+END TYPE
+
+REDIM SHARED RGB(256) AS allocmem2
+SCREEN 13
+CLS
+ delay! = 0
+ WHILE ed% = 0
+ S! = TIMER
+ DO
+ I! = I! + 1
+ FOR G! = 0 TO G!: NEXT
+ LOOP UNTIL TIMER - S! > .5
+ IF I! < 310 THEN delay! = G!: ed% = 1
+ G! = G! + 1
+ I! = 0
+ S! = 0
+ WEND
+
+FOR v% = 0 TO 63
+FOR d! = 0 TO 100: NEXT
+Write.Palette 0, v%, v%, v%
+            NEXT v%
+
+LOCATE 11, 10: PRINT "ACCLIMATE SOFTWARE"
+LOCATE 13, 11: PRINT "    PRESENTS"
+ 
+FOR v% = 63 TO 0 STEP -1
+FOR d! = 0 TO 100: NEXT
+Write.Palette 0, v%, v%, v%
+            NEXT v%
+
+SLEEP 2
+
+FOR v% = 63 TO 0 STEP -1
+  FOR d! = 0 TO 100: NEXT
+Write.Palette 15, v%, v%, v%
+            NEXT v%
+CLS
+
+LOCATE 11, 15: PRINT "CODED BY"
+LOCATE 13, 13: PRINT "HOWARD BROWN"
+
+FOR v% = 0 TO 63
+ FOR d! = 0 TO 100: NEXT
+ Write.Palette 15, v%, v%, v%
+             NEXT v%
+
+SLEEP 2
+
+FOR v% = 63 TO 0 STEP -1
+  FOR d! = 0 TO 100: NEXT
+Write.Palette 15, v%, v%, v%
+            NEXT v%
+CLS
+
+LOCATE 11, 13: PRINT "SPACE FORCE"
+
+
+FOR v% = 0 TO 63
+ FOR d! = 0 TO 100: NEXT
+ Write.Palette 15, v%, v%, v%
+             NEXT v%
+
+SLEEP 2
+FOR v% = 63 TO 0 STEP -1
+FOR d! = 0 TO 100: NEXT
+Write.Palette 15, v%, v%, v%
+            NEXT v%
+CLS
+
+
+LOCATE 11, 10: PRINT "     Please Wait"
+LOCATE 12, 10: PRINT "Loading Main Graphics"
+
+FOR v% = 0 TO 63
+ FOR d! = 0 TO 100: NEXT
+ Write.Palette 15, v%, v%, v%
+             NEXT v%
+SHELL "FADEFX SAV_PAL"        'Save current VGA Palette
+IF Loadfont = 0 THEN ERROR 90
+ERASE image
+Argv% = 1
+CLS
+CLOSE
+LOCATE 11, 10: PRINT "     Please Wait"
+LOCATE 12, 10: PRINT "  Load Main Options"
+
+CHAIN "HEADQ.QBF"
+SYSTEM
+Error.Handler:
+SELECT CASE ERR
+CASE ELSE
+SCREEN 0
+WIDTH 80, 25
+CLS
+PRINT "ERROR: Can't Open File For Reading"
+COLOR 7
+END SELECT
+EXITGAME:
+SYSTEM
+
+FUNCTION Detect.JoyStick
+
+Temp% = STICK(0)
+
+IF Temp% > 0 THEN
+   Detect.JoyStick = 1
+      ELSE
+       Detect.JoyStick = 0:
+      END IF
+ 
+
+END FUNCTION
+
+SUB load.pcx (PCX$, pal%)
+
+DIM BYTE AS STRING * 1
+pcxFH% = FREEFILE
+OPEN "B", #pcxFH%, PCX$
+MAXBYTE& = SIZE&
+count& = 0
+FOR d% = 1 TO 128     'header of PCX File {128 bytes}
+  GET #pcxFH%, , BYTE
+   NEXT d%
+  strd& = SEEK(pcxFH%)       'read PCX File data and Decompress data
+  SEEK #pcxFH%, strd&
+  WHILE count& < MAXBYTE& AND NOT EOF(1)
+  GET #pcxFH%, , BYTE
+  int.byte = ASC(BYTE)
+  IF int.byte >= 192 AND int.byte <= 255 THEN      'Decompress routine
+  num.bytes = 0
+  num.bytes = int.byte - 192
+  GET #pcxFH%, , BYTE
+
+  DO WHILE num.bytes > 0 AND count& < MAXBYTE&
+  num.bytes = num.bytes - 1
+
+  Savbyte$ = Savbyte$ + BYTE
+  sv% = LEN(Savbyte$)
+  IF sv% >= 2 THEN sv% = 0: image(count&).buffer = MID$(Savbyte$, 1, 2): count& = count& + 1: Savbyte$ = "":
+  LOOP
+  ELSE
+  Savbyte$ = Savbyte$ + BYTE
+  sv% = LEN(Savbyte$)
+  IF sv% >= 2 THEN sv% = 0: image(count&).buffer = MID$(Savbyte$, 1, 2): count& = count& + 1: Savbyte$ = "":
+   
+         END IF
+             
+                 WEND
+
+
+  IF pal% THEN
+  WHILE NOT EOF(1)        'Move to end of File
+  GET #pcxFH%, , BYTE
+  WEND
+  strd& = SEEK(1)
+  strd& = strd& - 768
+  SEEK #pcxFH%, strd&
+  FOR index% = 0 TO 255     'Set Palette {RGB 256color}
+  GET #pcxFH%, , BYTE
+  red% = ASC(BYTE)
+  GET #pcxFH%, , BYTE
+  green% = ASC(BYTE)
+  GET #pcxFH%, , BYTE
+  blue% = ASC(BYTE)
+ ' Wr.Palette.Register index%, red%, green%, blue%
+           NEXT index%
+                END IF
+
+CLOSE #pcxFH%
+END SUB
+
+FUNCTION Loadfont
+  
+OPEN "B", #1, "FONT.BMP"
+FOR x = 1 TO 9900
+GET #1, , font(x).buffer
+NEXT
+  
+  '
+  ' x = 0: Y = 0
+  ' gx& = 0: gy& = 0
+  ' FOR gx& = x TO x + 30
+  ' FOR gy& = Y TO Y + 300
+  ' BYTE1% = PEEK(gx& * 320 + gy&)
+  ' v& = gx& * 320 + gy&
+  ' font(v&).buffer = LTRIM$(CHR$(BYTE1%))
+  ' NEXT
+  ' NEXT
+  ' DEF SEG
+  
+   Loadfont = 1
+END FUNCTION
+
+SUB show.pcx
+SCREEN 13
+'Fade.out 0, 63
+FOR x& = 0 TO SIZE&
+DEF SEG = VARSEG(image(1).buffer)
+BYTE = PEEK(offset& + x&)
+DEF SEG = &HA000
+POKE x&, BYTE
+NEXT
+
+END SUB
+
+SUB Wait.Retrace
+
+
+WHILE NOT b% = 4
+b% = INP(&H3DA)
+         WEND
+
+WHILE NOT b% = 4
+b% = INP(&H3DA)
+         WEND
+
+END SUB
+
+SUB Write.Palette (index%, red%, green%, blue%)
+Wait.Retrace
+OUT &H3C6, &HFF
+OUT &H3C8, index%
+OUT &H3C9, red%
+OUT &H3C9, green%
+OUT &H3C9, blue%
+END SUB
+

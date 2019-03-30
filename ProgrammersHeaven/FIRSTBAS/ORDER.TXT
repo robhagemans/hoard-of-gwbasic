@@ -1,0 +1,53 @@
+===============================================================================
+                              O R D E R    F O R M
+===============================================================================
+
+First Name ____________________________ Last Name _____________________________
+
+Company    ____________________________________________________________________
+
+Address1   ____________________________________________________________________
+
+Address2   ____________________________________________________________________
+
+City/Town  ____________________________________________________________________
+
+State      _______  Zip Code  ______________  Country _________________________
+
+Day Phone   ____________________________ Fax # ________________________________
+
+Credit Card; Master Card [ ], Visa [ ], American Express [ ], Discover [ ]
+
+          Card #    _____________________________________________ EX ____/_____
+
+          Signature ___________________________________________________________
+
+Check [ ];  Please remit in U.S. funds drawn on a U.S. Bank.
+
+                                                             Shipping
+Quan                 Description                     Price  (USA/ Int)  Total
+
+____ PowerBASIC Gazette                                $0    $0   $0      $0
+____ PowerBASIC 3 Demo (TRYPB3.EXE)                    $0    $0   $0      $0
+____ FirstBasic Registered Version                  $ 25.00  $4 / $10  ________
+____ PowerBASIC 3 for DOS                           $149.00  $6 / $28  ________
+
+____ PowerBASIC Developer Kit for Windows           $149.00  $6 / $28  ________
+____ PB/Xtra  (Programmer's Reference Collection)   $ 49.00  $4 / $10  ________
+     CDROM ____   3.5 inch disks ____
+____ QuickPak Professional for PowerBASIC           $129.00  $6 / $28  ________
+____ SoftCode for PowerBASIC (Code Generator)       $ 99.00  $6 / $28  ________
+____ SoftDemo and Flash-up Toolbox                  $ 49.00  $4 / $10  ________
+
+Total                                                                  ________
+
+Priority Shipping (USA Only)
+        [__] Overnight add $16.00, [__] Second Day add $6.00           ________
+
+        [__] COD's (USA Only) Add $5.00                                _________
+
+        Sales Tax (California Residents Only) @ 7.25%                  ________
+                                                                                                                                         Total _________
+           PowerBASIC, Inc., 316 Mid Valley Center, Carmel, CA 93923
+         408-659-8000 voice, 408-659-8008 Fax, 800-780-7707 orders only
+              75300,1742 CompuServe, sales@powerbasic.com Internet

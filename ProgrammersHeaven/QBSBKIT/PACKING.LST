@@ -1,0 +1,21 @@
+PACKING
+
+QBXIOL   PRN - documentation to DOS I/O module/printer file
+QBXCTV   PRN - documentation to SB voice module/printer file
+QBXFMI   PRN - documentation to SB/AdLib FM music module/printer file
+QBXSBC1N LIB - QuickBASIC QBXSBC library
+QBXSBC1F LIB - BASIC 7 QBXSBC library
+CTVIN    BAS - sample SB voice input/output/save to file program
+CTVSCAN  BAS - sample SB voice port/irq/detect program
+CTVOUT   BAS - sample SB voice file reader/output program
+FMIBNK   BAS - sample FM music player of STANDARD.BNK file program
+STANDARD BNK - standard instrument bank for FM music
+WATSON   VOC - voice file used by CTVOUT.BAS
+QBXCTV   BI  - SB voice module includes
+QBXIOL   BI  - DOS I/O module includes
+QBXFMI   BI  - FM interface module includes
+ORDER    FRM - order form and price list
+INSTALL  DOC - basic install instructions
+PACKING  LST - listing of included files
+SOUND    COM - SBC/AdLib FM music resident driver
+SB-SOUND COM - SBC-only FM music resident driver

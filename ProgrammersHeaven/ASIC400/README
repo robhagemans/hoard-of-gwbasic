@@ -1,0 +1,104 @@
+ASIC Copyright (c) 1993 by 80/20 Software -- All Rights Reserved
+ASIC Version 4.00 README File
+
+Your ASIC package should contain the following files:
+
+     INSTALL.EXE    ASIC installation program.  To install ASIC,
+                    change your working directory to the directory
+                    containing the ASIC4.00 files and type INSTALL.  For
+                    example, if your ASIC 4.00 files are in the root
+                    directory of the diskette in drive "A", then type:
+
+                              A:        <enter>
+                              CD\       <enter>
+                              INSTALL   <enter>
+
+     XPAND.EXE      Decompression program (required by INSTALL.EXE)
+     README         This file
+     VENDOR.DOC     Information for Shareware Distributors wishing to
+                    distribute ASIC.
+     ASIC.PAK       Includes the following compressed files:
+
+                    ASIC.EXE       ASIC Integrated Editor/Compiler
+                    ASICC.EXE      ASIC Command Line Compiler
+                    ASIC.DOC       ASIC Reference Manual
+                    ASICV400.NOT   List of New Features in ASIC Version 4.00
+                    ASIC.IDX       Index file for online keyword help
+                    ASICM.IDX      Index file for online menu help
+                    LIFE.ASI       Sample Program --demonstration ASIC
+                                   Program
+                    DBGTUTOR.ASI   Source Program for Debugger Tutorial
+                    FILEDEMO.ASI   Sample Program -- various ASIC file I/O
+                                   statements
+                    MOUSE.ASI      Sample Program -- demonstrates use of
+                                   adding mouse routines to an ASIC program
+                    CALC.ASI       Sample Program -- calculator
+                    CALLSRCH.ASI   Sample Program -- calls an assembly
+                                   language object file
+                    SRCH.ASM       Sample Program -- called by CALLSRCH.ASI
+                    ORDER.FRM      Order Form
+
+
+ASIC 4.00 is provided as shareware.  Under the shareware concept, you can
+test a program before you buy it.  If you find it suitable for your needs and
+make use of this program, you are expected to send a $20 registration fee
+(plus $5.00 shipping/handling).
+
+Feel free to distribute this software to others.  However, you may not charge
+for the distribution of this software to others, nor may you alter the
+software or this documentation.
+
+Registered users of any version of ASIC will receive a diskette containing
+the current version of ASIC, plus may purchase future updates at half of the
+normal registration price.  A printed manual is available to registered users
+for an additional $ 10.00.
+
+Refer to the ORDER.FRM File for full order information.
+
+
+Please send registration fees and suggestions to:
+
+          80/20 Software
+          P.O. Box 2952
+          Raleigh, NC  27602-2952
+          Phone:  (919) 847-6214
+
+Please mention the version of ASIC in any correspondence
+             (This is ASIC Version 4.00)
+
+You can also send questions/comments on GEnie and Compuserve via EMAIL:
+
+          Compuserve     73065,1302
+          GEnie          D.VISTI
+
+Your registration fee entitles you to use this software on a single computer.
+You are not obtaining title to the software or any copyright rights.  You may
+not sublicense, rent, lease, convey, modify, translate, convert to another
+programming language, decompile, or disassemble the software for any purpose.
+
+Site licenses are available, write for details.
+
+*****************************************************************************
+80/20 SOFTWARE DISCLAIMS ALL WARRANTIES RELATING TO THIS SOFTWARE, WHETHER
+EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO ANY IMPLIED WARRANTIES OF
+MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE, AND ALL SUCH WARRANTIES
+ARE SPECIFICALLY DISCLAIMED.  NEITHER 80/20 SOFTWARE, NOR ANYONE ELSE WHO HAS
+BEEN INVOLVED IN THE CREATION, PRODUCTION, OR DELIVERY OF THIS SOFTWARE SHALL
+BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, OR INCIDENTAL DAMAGES ARISING OUT
+OF THE USE OF OR INABILITY TO USE SUCH SUCH SOFTWARE EVEN IF 80/20 SOFTWARE
+HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR CLAIMS.  IN NO EVENT
+SHALL 80/20 SOFTWARE'S LIABILITY FOR ANY DAMAGES EVER EXCEED THE PRICE PAID
+FOR THE LICENSE TO USE THE SOFTWARE, REGARDLESS OF THE FORM OF CLAIM.  THE
+PERSON USING THE SOFTWARE BEARS ALL RISKS AS TO THE QUALITY AND PERFORMANCE
+OF THE SOFTWARE.
+     Some states do not allow the exclusion of the limit of liability for
+consequential or incidental damages, so the above limitation may not apply to
+you.
+     This agreement shall be governed by the laws of the state of North
+Carolina and shall inure to the benefit of 80/20 Software and any successors,
+administrators, heirs, and assigns.  Any action or proceeding brought by
+either party against the other arising out of or related to this agreement
+shall be brought only in a STATE or FEDERAL COURT of competent jurisdiction
+located in Wake County, North Carolina.  The parties hereby consent to in
+personam jurisdiction of said courts.
+*****************************************************************************

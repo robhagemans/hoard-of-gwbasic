@@ -1,0 +1,9 @@
+QBserial Version 3.20; Communications library
+for QuickBASIC 4.x, Basic Compiler 7.x, VBDOS
+1.x, and FOSSIL drivers. Allows programs to
+access Comm ports at rates up to 115200 baud.
+COM1-4 and non-standard addresses supported,
+on IRQ's 1-15. Interrupt driven, CTS/RTS &
+XON/XOFF flow control. Full DTR and RTS
+control, and more. Comes with sample code.
+Very easy to add to your program.

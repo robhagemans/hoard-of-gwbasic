@@ -1,0 +1,30 @@
+The following files are included in the PBWiz package:
+
+   ADDFILE.BAT        adds 4DOS-style descriptions to files
+   ARCVIEW.BAS        source code for the archive viewer demo
+   BIBLIO.TXT         bibliography of some references used in making PBWiz
+   CALC.BAS           source code for command-line calculator demo
+   CANTOUCH.VOC       sample sound file for PLAYVOC demo
+   CATALOG.TXT        catalog of other available software
+   CREATE.BAT         batch file for creating PBWiz demos
+   DEMO.BAS           source code for the Equipment and Video demo
+   DESC.SDI           short description of PBWiz for BBSes
+   FILE_ID.DIZ        long description of PBWiz for BBSes
+   GDEMO.BMP          bitmap image for VGADEMO program
+   LIBADD.EXE         utility to add modules to a library
+   LIBLIST.EXE        utility to list the contents of a library
+   LIBUPD.EXE         utility to update modules in a library
+   MINITERM.BAS       source code for mini terminal demo
+   ORDER.FRM          order form for PBWiz
+   PACKING.LST        list of files included with PBWiz (this list)
+   PBWIZ.DOC          documentation for the PowerBASIC Wizard's Library
+   PBWIZ.INC          declarations of PBWiz routine in $INCLUDE format
+   PBWIZ.NEW          information about new additions and changes
+   PBWIZ.PBL          PBWiz library for PowerBasic 3.00a
+   PBWIZ.REF          quick reference listing of PBWiz routines
+   PLAYVOC.BAS        source code for the SoundBlaster demo (play .VOC)
+   VESAINFO.BAS       source code for the VESA graphics info routines
+   VGADEMO.BAS        source code for the VGA demo
+   WHERE.BBS          BBSes which have my software & at which I can be reached
+   XMSDEMO.BAS        source code for the XMS "array" demo
+

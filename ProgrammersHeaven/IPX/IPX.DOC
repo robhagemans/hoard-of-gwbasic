@@ -1,0 +1,394 @@
+Hello.
+
+I  have been working on a NetWare space-war game (for up to six players)  for
+the  past few months, and one of the programming requirements was to be  able
+to  send and receive IPX packets. Since the project is in QuickBASIC  4.0,  I
+had to write my own IPX routines (I have routines in Pascal and "C").
+
+I  am  releasing my IPX routines into the public domain so that you need  not
+have  to write your own. I am taking a lot of time here doing this to meet  a
+need. If I put forth effort now, it may save dozens of folks time by them not
+having to figure it out themselves.
+
+This  document is intended to highlight some of the information you will need
+to know about IPX. It is NOT intended to replace better information.
+
+To begin. . . . .
+
+There  should have been seven files in the ZIP/PAK/LZH/ZOO/ARJ/ARC  file  you
+downloaded. The file files should be:
+
+          IPX.BAS             All routines in one file
+          IPXS.BAS            Sample IPX Send Code
+          IPXS.EXE            Sample Executable IPX Send
+          IPXR.BAS            Sample IPX Receive Code
+          IPXR.EXE            Sample Executable IPX Receive
+          CHAT.BAS            A Chat program using these routines
+          IPX.DOC             This Document
+
+If  you  do  not have all of these files, and would like a copy of them  all,
+call  me, David Rice, at 714-458-6000. You may also leave a message  at  Fido
+Node 102/902 (The Skeptic Tank).
+
+These  two  routines  are NOT included with the QuickBASIC  NetWare  Function
+Library I wrote previously. That library may be found on various BBSs by  the
+name  QBNW-20.ZIP,  which  includes  Print  Queues,  connection  information,
+network address retrieval, etc. If you downloaded this file thinking you were
+getting QBNW-20, well, this ain't it.
+
+Note  that  the routines here are IPX and =not= SPX. I chose to use  IPX  for
+several  reasons. The first is, it's faster than SPX. Another is, IPX packets
+have  a  slightly larger datagram area, and can thus carry more  information.
+The  third is, IPX is a "connectionless" packet protocol whereas SPX requires
+a  connection  before a packet may be sent and received. With IPX,  the  user
+need not be logged onto the network: she or he need only load IPX.COM.
+
+IPX does NOT guarantee delivery, as SPX does. When an IPX packet is received,
+its  header will contain the address of the computer that sent it. This means
+that  even though IPX does not guarantee delivery, the program you  write  to
+send and receive the packets can do the checking itself. For example:
+
+       Computers A and B are running your program.
+
+       Computer  A  sends a packet to Computer B and then  checks  the
+       packet's  INUSE  flag.  When  that  flag  turns  to  zero  (0),
+       Computer A goes into listen mode. If the INUSE flag stays  non-
+       zero  for  five or ten seconds (you decide), there  may  be  an
+       error,  and  your  program may handle that  error  as  you  the
+       programmer sees fit.
+
+       So  now  Computer  B finishes whatever it was doing,  and  goes
+       into  listen  mode. It says, "Hey! I have a  packet  here."  It
+       reads  the packet, setting the INUSE flag to zero (see  how  it
+       works?).  It  should  then  go into  Send  mode,  and  send  an
+       acknowledgment to Computer A, saying "Got it, thanks a  bunch!"
+       It  will know which computer to send it to, because the  packet
+       it received has the address in the header.
+
+Though I suspect you may send multiple IPX packets without checking to see if
+the  first arrived before sending the second, there is a good reason to  wait
+for  the  confirmation. IPX packets are not sequenced, as SPX ones  are.  The
+computer doing the "Listening" may very well receive the second packet before
+it  receives the first! We wouldn't want the space ship to blow up before the
+torpedo hits it, now would we?! Of course not!
+
+I  suggest you use the first four bytes of the Datagram (the area that  holds
+the packets' data) as a sequence field. Every time a computer sends a packet,
+add 1 to this counter. This way, the receiving computer will know that it has
+missed a packet when it reads the Datagram's sequence value and notices  that
+it incremented by 2 (or more) instead of 1.
+
+If  you  do use a Sequence field, the size of your Datagram will go from  546
+bytes to 542 bytes.
+
+IPX  packets may be fragmented. This means that if you have data that  is  in
+logical  chunks, you may specify those chunks within the ECB structure.  Your
+size limit is still 546 bytes. Why do multible fragments? Suppose you wish to
+send  in one packet several different variables, such as A$, B$, C$, and  D$.
+You could define five fragments: one for the 30-byte header, and four for the
+four variables. Behold:
+
+          TYPE ECBStructure
+             LinkAddressOff   AS Integer
+                  .
+                  .
+                  .
+             FragAddOfs1   AS INTEGER
+             FragAddSeg1   As INTEGER
+             FragSize1   AS INTEGER
+             FragAddOfs2   AS INTEGER
+             FragAddSeg2   AS INTEGER
+             FragSize2   AS INTEGER
+                  .
+                  .
+             FragAddOfs5   AS INTEGER
+             FragAddSeg5   AS INTEGER
+             FragSize5   AS INTEGER
+          END TYPE
+          '
+          DIM ECBS AS ECBStructure
+'         '
+          ECBS.FragAddOfs1 = VARPTR(IPXS)
+          ECBS.FragAddSeg1 = VARGEG(IPXS)
+          ECBS.FragSize1 = 30
+          ECBS.FragAddOfs2 = VARPTR(A$)
+          ECBS.FragAddSeg2 = VARSEG(A$)
+          ECBS.FragSize2 = LEN(A$)
+                  .
+                  .
+          ECBS.FragAddOfs5 = VARPTR(D$)
+          ECBS.FragAddSeg5 = VARSEG(D$)
+          ECBS.FragSize5 = LEN(D$)
+
+In  the send sample IPXS, the Destination Network was set to four zeros.  See
+the  code,  IPXS.DestNode. This means that the IPX packet will be distributed
+on the default network: the one that the computer is hard cabled to--- if you
+are  sending packets across bridges or otherwise to another network, YOU MUST
+KNOW THAT NETWORK'S ADDRESS AND PUT IT IN THIS FIELD.
+
+In  the send sample, IPXS, the Destination  Node Address was set to six  FFs.
+This  means the packet will be "broadcast" to all computers. If you  wish  to
+send  a packet to a specific computer, you must place that computer's address
+in IPXR.DestNode.
+
+Enhanced Program Flow:
+
+     Computer A sends a broadcast packet to DestNode FFFFFFFFFFFF,  saying
+     "Anyone out there?"
+
+      Computer  B receives the broadcast packet and sends an acknowledgment
+      to Computer A. "Yep, I'm here. What of it?"
+
+      Computer  A receives the acknowledgment packet, and MAKES A  NOTE  OF
+      ITS  ADDRESS.  From  then  on, it sends only  specifically  addressed
+      packets.
+
+      Along   comes   Computer   C.  It  sends  a  broadcast   packet   (on
+      FFFFFFFFFFFF) Saying "Anyone out there?"
+
+       Both  Computer  A  and  Computer B send  acknowledgment  packets  to
+       Computer C.
+
+       Both Computer A and Computer B make a note of Computer C's address.
+
+       Computer C makes a note of Computer A's and Computer B's address.
+
+       Now all computers know each others' address, and none need broadcast
+       on  FFFFFFFFFFFF. If a fourth computer, Computer D, comes along,  it
+       makes a broadcast on FFFFFFFFFFFF, and all computers make a note  of
+       the new computer's address, and the new computer makes a note of the
+       other computers' address.
+
+It's not difficult to keep track of all this. Just REDIM an array to hold all
+of  the Network Addresses (IPXS.DestNet) and another to hold the Network Node
+Addresses  (IPXS.DestNode), and keep track of how many computers are  running
+your computer. This is called a Distribution List.
+
+If  you're  a bright lass or lad, you will have noticed something wrong  with
+sending  packets  out as broadcasts (FFFFFFFFFFFF). If  a  computer  sends  a
+packet on a socket, it may very well be the only one to receive it! In  other
+words, it can, and will, be talking to itself. The solution, of course, is to
+use  two sockets: one to send, one to listen. However, that makes yet another
+problem! Consider:
+
+      Your program sends on Socket 1, and listens on Socket 2. THAT'S the
+      problem! Any other computer running your program will be doing  the
+      same  damn thing; listening on a socket that none send on  but  all
+      listen to, and sending on a socket all send on but none listen  to.
+      That's no way to strike up a meaningful conversation.
+
+      If  you  try and be smart, and say "I'll listen and send on  both,"
+      you'll  just end up talking to yourself again, and that's where  we
+      came into this house of mirrors!
+
+      The solution? If you must broadcast, check ALL received packets for
+      the source node, and if it came from one's own computer, ignore it!
+      That is, even though you're talking to yourself, you don't have  to
+      listen, let alone talk back.
+
+Suppose  a  computer runs your program, and it is the only one at the  moment
+running  it. This computer must wait for other computers to run your program.
+You  could  have  the computer send and receive on the same  socket:  send  a
+packet then listen for a packet. When the computer receives a packet that  is
+not  self-addressed  (Node  number), that means a new  computer  has  started
+running your program.
+
+For  the same scenario above, but using two sockets (which is a better idea),
+your  computer  could  send on one socket and listen on  another.  After  the
+computer  listens for 3 or 5 seconds, have your program SWITCH  SOCKETS,  but
+AFTER  your program issues an IXPCancelS call on the original SEND.  See  the
+CHAT.BAS program.
+
+If  one  computer wants to quit the program (for instance, his or  her  space
+ship  gets blasted to hell-an-gone), it is deemed proper etiquette  for  that
+computer  to  send a packet to all of the other computers, so that  they  may
+remove that computer from their distribution list.
+
+However,  you may wish to have one of the computers running your  program  to
+act  as  a  "server." That is, the first computer to run your  program  would
+respond to new computer's broadcasts by sending the new computer ALL  OF  THE
+OTHER COMPUTERS' ADDRESSES. All other computers would ignore broadcasts. This
+is  how  my  space wars game tells a new computer which other  computers  are
+playing  the  game. When that player exits the game, the  job  of  server  is
+passed on to another computer still playing the game.
+
+(The   above  description  does  not  describe  a  SAP  (Service  Advertising
+Protocol). SAPs are different animals completely. A SAP is much like  an  IPX
+packet,  but  it  is  sent every 60 seconds, and it adds its  name  to  every
+Bindery on every file server on the network, even over bridges and routers.)
+
+Your  program  should also keep track of unsent packets. If a packet  is  not
+sent  within  30  seconds  (give or take), you may assume  that  there  is  a
+problem: the destination computer may have exited the program. When a  packet
+has  not been delivered, your program should automatically remove it from the
+distribution list--- assume the user quit the program.
+
+You  may also want to have a "user time-out." If the program detects that the
+user  has done nothing for ten minutes, have her or his computer send a  "I'm
+Quitting  This Program" message to all of the other users, so that  they  may
+remove  that  computer from their distribution list. Then  have  her  or  his
+program quit.
+
+In  the  sample  programs, the Datagram size was set to 546  bytes.  You  may
+actually  send from 0 to 546 bytes. I just set it to 546 bytes in the  sample
+as the default.
+
+Why  would  someone send a zero-byte Datagram? Suppose in  the  program  flow
+above,  Computer  A sends a broadcast on FFFFFFFFFFFF. All this  computer  is
+interested  in  is telling the other computers currently using  your  program
+that  it  is running your program: the IPX header holds Computer A's address,
+and  Computer  A has no need to send any data in the Datagram. Likewise,  the
+acknowledgment packets need not send any data in the Datagram,  because  they
+are  only telling Computer A their addresses, which is contained in their IPX
+packet headers.
+
+If  the packet does not send any data, set the variable ECBS.FragSize  to  30
+(which is the size of the header). Likewise, if the size of the data you wish
+to send is, for instance, 30 bytes, set ECBS.FragSize to 60 (30 bytes for the
+header, and 30 bytes for the Datagram). There is no reason to send a 546 byte
+packet when you do not need to.
+
+Packet type is important. There are eight type ranges defined:
+
+          0         Unknown Type
+          1         Routing Information Packet
+          2         Echo Packet
+          3         Error Packet
+          4         Packet Exchange Packet (PXP or PEP)
+          5         Sequenced Packet Protocol Packet (SPX)
+          16-31     Experimental
+          17        NetWare Core Protocol
+
+For IPX, you must use type 0 or 4.
+
+The  sockets you use is also very important. You cannot use just any sockets,
+because  there very well may be programs your networks are using that already
+use  that socket for their processes. There are several known sockets you  do
+NOT want to use. These are (in HEX):
+
+          1         Routing information
+          2         Echo
+          3         Error
+          20-3F     Experimental
+          1-0BB8    Xerox's usage
+          0BB9--    Dynamically assignable
+          0451      Novell File Server
+          0452      Novell Service Advertising Packet
+          0453      Novell Routing
+          0455      Novell NetBIOS
+          0456      Novell Diagnostic
+
+If  you call Novell, they will assign you socket numbers, above &H8000.  Tell
+them  how  many  you  need,  and your program's name.  You  do  not  want  to
+inadvertently  step on someone else's sockets. You may wish to  ask  for  one
+more than you think you'll need, to be on the safe side.
+
+However, there's a much better way to choose a socket. Let IPX do it for you!
+If  you  set your socket to zero, IPX will assign a random socket  number  to
+your program.
+
+You  may also arbitrarily assign a socket number from within the "dynamically
+assignable" range, such as I did in IPXS and IPXR (&H5555). This is  a  range
+from &H4000 to &H7FFF.
+
+It  is  a good idea to set up SEVERAL ECBs, one for each process your program
+will  perform.  That  is,  one  for  Sending,  one  for  Listening,  one  for
+Broadcasts, one for each specific process your program will do.
+
+You  may  build  a packet and send it at a predetermined time  by  using  the
+IPXSchedule  call.  You  pass  to this routine  the  number  of  clock  ticks
+(approximately  1/18  of a second each tick) to delay. When  the  delay  time
+counts  down to zero, the packet is sent, no matter what your program happens
+to  be  doing at the time. This can be handy for performing repetitive packet
+sends.
+
+You  may  cancel  an event, whether it be a Scheduled, Send,  or  Listen,  by
+calling  IPXCancel. If the event has already occurred, you  can't  cancel  it
+(obviously).
+
+Want to know how long an IPX event took? Call IPXMarker before and then after
+performing a send or listen, then subtract the first result from the  second.
+The time will be in 1/18 of seconds, from 0 to 65,535.
+
+You  may use the call GETMYADDRESS to get the computer's network address.  It
+will return the Network and Node address, in Binary and Hex.
+
+It is considered proper to send IPX Disconnects to computers you are finished
+talking to. This will tell the other computer's network driver to abandon all
+services  it  was performing FOR YOU; it will continue to perform  all  other
+services.
+
+When  you set an address variable, the routines expect it to be a String,  in
+Binary.  For  instance, if the address is A0000F18, use the  FUNCTION  called
+HexToBinary$("A0000F18") to convert from Hex to String Binary. To go  in  the
+opposite direction, i.e. to convert a String of Binary, use TurnToHex.
+
+The  first  step  in sending or receiving an IPX packet is  to  determine  if
+IPX.COM  has  been loaded. If IPX.COM is not loaded, and you try  to  send  a
+packet,  the computer will probably lock up. EMM386.EXE will give you  a  GPE
+(General Protection Error). If this happens, you must reboot the machine.
+
+Use  the FUNCTION IPXInstalled% to see if IPX.COM is installed. It returns  a
+zero if it is =NOT= installed.
+
+Your computer may open many sockets at once. You could have your program send
+packets  on  one socket, and receive packets on another socket. If  you  call
+OPENSOCKET and receive a Status other than 0 or FF, do not attempt to send  a
+packet on that socket--- see the Novell documentation on SHELL.CFG on how  to
+increase the default socket count.
+
+After the socket is opened, you may send packets.
+
+After    each   SENDPACKET   call,   your   program   "should"   also    call
+RELENQUISHCONTROL. This allows your computer to give up some CPU time to  the
+IPX  handler. This is NOT required, however (unless your computer program  is
+acting as a server, or multi-tasking). It is just good packet etiquette.
+
+When  you  are finished with a socket, please close it with CLOSESOCKET.  The
+routines will close a socket for you when the program terminates, but  it  is
+still good practice to close it specifically in the program.
+
+Please note that in the IPXS (send) sample, the packet is sent only once, and
+then  a  loop to check the InUseFlag is entered. Do =NOT= place the  call  to
+SENDPACKET within the loop.
+
+Also note in the IPXR (receive) sample, the call to SOCKETLISTEN is =NOT=  in
+a loop.
+
+Once  your computer program issues a Send or Listen, IPX.COM will handle  the
+packet.  IPX.COM  will  modify the state of the  ECB  (Event  Control  Block)
+depending  on the status of the packet. All you need do is monitor  the  ECB,
+while IPX.COM does its best to deliver the packet, or receive the packet.
+
+If  you  plan on writing a multi-user game, you may wish to look  into  SAPs,
+where  one computer playing the game acts as the game's server, and  all  the
+other  computers  send  information to this server.  The  server  would  then
+distribute  this information to all computers playing the game: this  way,  a
+host  game-playing computer need only send and receive IPX packets  from  one
+computer (the server), while the server sends to all computers in the game.
+
+Take  the  SAP approach for your game one step further. Suppose your  program
+periodically checks each player's computer to determine the fastest  computer
+playing. Your program could assign that computer as the server. Then  when  a
+faster  computer starts to play your game, the server could  switch.  If  the
+server quits, the next fastest computer could act as the server.
+
+Use  the IPXMarker routine to determine which computer is the fastest in  IPX
+event handling: the 80486 50Mhz machine might be the fastest machine, but  if
+it  is on another network, over a bridge, gateway, or router, it may well  be
+the slowest in delivering packets!
+
+There is much more to IPX and SPX use. However, I only went through the  very
+basics in this document.
+
+Finally,  any  information in this document could be completely wrong;  also,
+the  programs I wrote could also be wrong. I take no responsibility,  and  no
+blame,  if  you find that these routines fail to work, wreak havoc with  your
+network  or love life, or get you fired from your job because your boss  says
+"That idiot programmer crashed the system again!" one too many times.
+
+Good Luck!
+
+David Rice
+July 24, 1992
+

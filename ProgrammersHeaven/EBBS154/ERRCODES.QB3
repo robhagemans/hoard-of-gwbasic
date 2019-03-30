@@ -1,0 +1,56 @@
+
+Following is a list of PowerBASIC v3.0C & QB error codes with
+their meanings:
+
+#    Message                  Notes
+-----------------------------------------------------------------------
+01   NEXT without FOR         Found a NEXT but no FOR was issued.
+02   Syntax Error             BASIC line syntax is incorrect.
+03   RETURN without GOSUB     Found a RETURN but no GOSUB was issued.
+04   Out of DATA              Looking for DATA and none left.
+05   Illegal Function call    Usually string manipulation error.
+06   Overflow                 Number too large for data type.
+07   Out of memory            Out of variable space or memory.
+08   Undefined line number    GOTO, GOSUB, ELSE (etc) not defined.
+09   Subscript out of range   Addressed an array higher than DIM'ed.
+10   Duplicate definition     Main sub prg w/same name as lib sub prg.
+11   Division by zero         A number cannot be divided into by 0.
+12   Illegal direct           NA to QB3 - Disallowed DIRECT statements.
+13   Type mismatch            Assigning incorrect data variable type.
+14   Out of string space      Time to reduce variables. (No more var space.)
+15   String too long          Exceeding the max string length.
+16   Formula too Complex      Too many nested cmds, out of memory, etc.
+17   Can't continue           NA to QB3
+18   No RESUME                Need a RESUME in error handling routine.
+19   RESUME without error     RESUME encountered but no error has occured.
+22   Missing operand          Left out a math operand in most cases.
+23   Line buffer overflow     Never saw this one in QB3.
+24   Device Timeout           Device does not respond to OPEN command.
+25   Device fault             Error encountered via OPENed device.
+26   FOR without NEXT         FOR statement never encounters a NEXT
+27   Out of paper             Seems to be the error for MOST printer probs.
+29   WHILE without WEND       WHILE issued but no WEND encountered.
+30   WEND without WHILE       Found a WEND with no WHILE issued.
+50   FIELD overflow           RANDOM file access error
+51   Internal error           oh oh - Hardware or compatibility problem.
+52   Bad file number          Access files not opened, etc.
+53   File not found           OPENed file was not found on current dir.
+54   Bad file mode            Attempt to PUT/GET from seq. file vice RANDOM.
+55   File already OPEN        Attempt to OPEN file already OPENed.
+57   Device I/O error         Communications prob between comp and device.
+58   File already exists      EBBS automatically overwrites files.
+61   Disk full                Time for another hard drive loan.
+62   Input past end           INPUT$ tryong to read more chrs than avail.
+63   Bad record number        Record dos not exist.
+64   Bad file name            Actually should be ILLEGAL filename.
+66   Direct statement         IN FILE - Only BASICA I think.
+67   Too many files           Add 'files = 40' to CONFIG.SYS file.
+68   Device unavailable       Already dating someone else or offline.
+69   Comm Buffer Overflow     Comm Buffer was overrun
+70   Disk write protect       Floppy disk has write protect tab on it.
+71   Disk not ready           Usually floppy drive door not shut.
+72   Disk media error         Physical flaw on disk detected.
+73   Advanced feature         Not sure bout this one - never seen one.
+74   Rename across disks      RENAME only allows on same disk.
+75   Path/file access error   Path and file not found or non existant.
+76   Path not found           OPEN or SUB DIR cmd could not find path.

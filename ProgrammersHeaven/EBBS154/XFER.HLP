@@ -1,0 +1,60 @@
+ 
+                  File Transfer Help for EBBS-PC:
+                  -------------------------------
+
+EBBS HQ supports the following protocols using Omen Technologies DSZ
+or GSZ protocol driver(s).
+ 
+Xmodem CRC Xmodem 1k Ymodem Batch Zmodem Ymodem-G (Only if you
+register your DSZ.GSZ copy. ($25))
+
+NOTE: Ymodem-G should ONLY be used for error correcting modems. IE:
+
+EBBS-PC supports batch downloading using ymodem batch, zmodem or
+ymodem-g. Here's how to do it:
+
+Batch downloads: Easy with EBBS-PC! Select each file for
+downloading, the choose S (Select) to put that file into the batch
+DL list. Once you have selected your files, choose B (batch DL) from
+the Xfer File menu and follow the prompts. VERY Easy!
+
+The file transfer ratio is adjustable by your sysop, so the actual
+ratio number may be different than the described default below. EBBS
+will prompt you if it is time to upload (IE: Your ratio has been
+exceeded.)
+ 
+A default download ratio is active. For every 25 kbytes you
+download, you are required to upload 1 kbyte (1,024 bytes).
+
+If you CANNOT download, then it is most likely time for you to
+upload.
+ 
+I suggest using the protocols in the following order as they are
+available to you:
+
+Zmodem - Best/Quickest overall in my opinion.
+Ymodem Batch - Good & quick, but just not as good as zmodem.
+Xmodem 1k - Similiar to ymodem batch, but no auto filename.
+Xmodem CRC - Small blocks, so slower than 1k block protocols.
+
+File searches: Searches work on the currently set xfer section.
+
+IE: If you want to search ALL available DL files, then set your
+section to ALL SECTIONS (Section Setting = !).  When prompted for
+search text, simply enter a pattern to match. IE: To search all
+sections for chess related files, you would enter:
+
+Search pattern: Chess(ENTER)
+
+Please note that the search pattern is NOT case (UPPER/lower)
+sensitive.
+
+Most other features should be fairly self explanatory and easy to
+figure. If you need further help, post a message with your
+question(s) and the Sysop and/or users would be happy to help.
+ 
+Conclusion: In general, simply be fair and upload once in a while.
+The files you download are files that others were considerate enough
+to upload.
+ 
+Ed Parry

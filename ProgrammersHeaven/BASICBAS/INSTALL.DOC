@@ -1,0 +1,42 @@
+
+
+INSTALLATION
+
+    Installation is simple.  To install:
+
+	 1. Create a directory to hold all the BasicBasic files
+
+	 2. Copy ALL supplied files to this directory.
+
+
+EXECUTION
+
+    To Execute BasicBasic under DOS you should do the following:
+
+	 1. Use Change Directory (CD) to make the directory you installed
+	    BasicBasic in the current directory.
+
+	 2. Type   BBE   followed by Enter.
+
+
+    To Execute BasicBasic under Windows you should do the following:
+
+	 1. Select RUN from the Program Manager File Menu
+
+	 2. Type the name of the directory you installed BasicBasic in
+	    followed by WBBE.
+
+	     (e.g.   C:\BASIC\WBBE)
+
+       ALTERNATELY
+
+	 You can use the Program Manager to install WBBE in a program
+	 group.  Then you just click on its icon to execute it.
+
+
+DOCUMENTATION
+
+    The BasicBasic documentation is contained in the file BB.DOC.  You can
+    either print this manual out or use the BasicBasic editor to examine it.
+
+

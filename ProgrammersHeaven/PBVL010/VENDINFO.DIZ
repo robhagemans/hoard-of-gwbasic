@@ -1,0 +1,320 @@
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³                      PB/VISION(tm) LITE v1.00                      ³
+³                 SEE BELOW FOR PRODUCT INFORMATION                  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³           This is a VENDINFO Product Information Record            ³
+³                                                                    ³
+³ This record is a means of conveying information about a software   ³
+³ product from the author to distributors and users.  It contains a  ³
+³ normal, "human-readable" section (you're reading it now), followed ³
+³ by a compressed data record.  The data record contains a great     ³
+³ deal of information in a form useable by automated tools.  This    ³
+³ allows BBSes, disk vendors, etc. to test automatically for         ³
+³ permission to distribute, and to automatically extract product     ³
+³ information for use in BBS files databases, vendor catalogs, etc.  ³
+³                                                                    ³
+³ The VENDINFO file standard is published and is freely useable.     ³
+³                                                                    ³
+³ The VENDINFO toolset includes a free end-user viewer, processing   ³
+³ tools for use by distributors (BBSes, shareware disk vendors,      ³
+³ etc.), and the editor used by author/publishers to produce these   ³
+³ records.  These tools are either free or very-low cost shareware.  ³
+³ The toolset can be obtained from many sources, including the       ³
+³ originators of VENDINFO:                                           ³
+³                                                                    ³
+³ Rams' Island Software   Voice: 303-841-2848  CompuServe: 76244,324 ³
+³ 7644 E. Lakecliff Way     BBS: 303-841-6269     FidoNet: 1:104/333 ³
+³ Parker, CO 80134-5904 USA                          RIME: RAMSISLE  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+VENDINFO standard v1.00, produced by VendEdit v1.00, 10-Feb-1994
+
+===== Product Information ==============================
+   Product:             PB/VISION(tm) LITE Interface Library for PowerBASIC 3.0
+   Version:             1.00
+   Version Date:        10-Feb-1994
+   Product Type:        Software
+   Basic Distribution Policy (see License, below, for details):
+      Shareware, freely distributable by all channels
+
+   Product Description: PB/VISION(tm) LITE v1.0 for PowerBASIC 3.0. 
+                        Create graphical and text 3D windows with 
+                        working control icons. Fully event-driven, 
+                        multi-threading, mouse aware design with as 
+                        little as 30K of overhead. Includes 
+                        PowerBASIC 3.0 compatible library, examples, 
+                        documentation, an extensive tutorial, and a 
+                        hypertext reference manual that can be 
+                        accessed while in the PowerBASIC IDE. <ASP>
+
+   Category:            BASIC
+   Keywords:            POWERBASIC GUI INTERFACE LIBRARY WINDOW BASIC
+   Required Packages:   PBVL010
+   This Package:        PBVL010
+
+   Required Configuration
+      Processor Family: Intel 80x86 (minimum 8086/8088)
+      Minimum OS:       MS-DOS 2.0
+      Standard RAM:     640K
+      Hard Drive Space: 650K
+      Required:
+         Hard drive
+         Keyboard
+      Req'd Software:   PowerBASIC 3.0 
+
+   Orders:
+      Address:          DSE Software Publishing
+                        Post Office Box 96
+                        Willits, CA 95490-0096
+                        USA
+      Phone:            707-459-4358
+      FAX:              707-459-4484
+      BBS Name:         DSE Online!
+      BBS Phone:        707-459-4484
+      Genie:            DSE.SOFTWARE
+      FidoNet:          1:125/123
+      Internet:         dse.software@genie.geis.com
+
+   Support:
+      Address:          DSE Software Publishing
+                        Post Office Box 96
+                        Willits, CA 95490-0096
+                        USA
+      Phone:            707-459-4358
+      BBS Name:         DSE Online!
+      BBS Phone:        707-459-4484
+      Genie:            DSE.SOFTWARE
+      FidoNet:          1:125/123
+      Internet:         dse.software@genie.geis.com
+
+
+===== Information for Users ("READ-ME") ================
+
+This package contains the PB/VISION(tm) LITE - GUI Interface Library for
+PowerBASIC 3.0, by DSE Software Publishing.  This document contains only
+a brief description of the package and its features, along with
+instructions for its installation.  Quite detailed documentation is
+included in the package, but it is in archived form, and is more easily
+read after installation.
+
+If you desire to create profesional programs in minimal time,
+PB/VISION(tm) is the product for you.
+
+PB/VISION(tm) LITE is a shareware program.  This evaluation version
+includes all features of the program, and is not crippled in any way.
+You may use it for up to 30 days, without charge (see ORDER_ME.TXT for
+more details).  If you like the program, and wish to continue its use
+after this evaluation period, you are required to pay for the program
+(see ORDER_ME.TXT for more details).  Any fee you may have paid to
+others (disk vendors, dealers, etc.) to obtain this evaluation version
+was a fee for their copying and distribution services, rather than a
+payment for continued use of the program.
+
+
+===== Packing List =====================================
+
+As released by the author or publisher, this package contained the
+following files in addition to this VENDINFO.DIZ:
+
+        Filename      Size     Date       Time     CRC32
+      READ_ME.1ST      216  10-Feb-1994  01:00a   EB5EF01B
+     OMBUDSMN.ASP     1608  10-Feb-1994  01:00a   22E696E6
+       MTIMER.BAS     3166  10-Feb-1994  01:00a   DDDAED24
+      SPOOLER.BAS     3063  10-Feb-1994  01:00a   ED2A678C
+     TUTOR1_1.BAS     1737  10-Feb-1994  01:00a   01E04733
+     TUTOR1_2.BAS     1652  10-Feb-1994  01:00a   C23AB539
+     TUTOR1_3.BAS     1755  10-Feb-1994  01:00a   FB5CBD9C
+     TUTOR2_1.BAS     1910  10-Feb-1994  01:00a   7336223C
+     TUTOR2_2.BAS     2840  10-Feb-1994  01:00a   D992F28F
+     TUTOR2_3.BAS     2780  10-Feb-1994  01:00a   7BC3DB9C
+     TUTOR2_4.BAS     2789  10-Feb-1994  01:00a   BFAFECC4
+     TUTOR3_1.BAS     2214  10-Feb-1994  01:00a   82211D42
+     TUTOR3_2.BAS     3107  10-Feb-1994  01:00a   CFDC29F7
+     TUTOR3_3.BAS     3683  10-Feb-1994  01:00a   A898A2F3
+     WINDEMO1.BAS     2986  10-Feb-1994  01:00a   3FFED814
+     WINDEMO2.BAS     2790  10-Feb-1994  01:00a   16E83455
+     WINDEMO3.BAS     2125  10-Feb-1994  01:00a   E2A48D6F
+     WINDEMO4.BAS     2087  10-Feb-1994  01:00a   CE79DECC
+     WINDEMO5.BAS     2009  10-Feb-1994  01:00a   A8E01EB7
+     WINDEMO6.BAS     3628  10-Feb-1994  01:00a   811E4AA6
+      READ_ME.BAT      437  10-Feb-1994  01:00a   8278413D
+        EVENT.BI       745  10-Feb-1994  01:00a   C7F8D47C
+        MOUSE.BI       716  10-Feb-1994  01:00a   B9347E2C
+       WINDOW.BI      7515  10-Feb-1994  01:00a   9FE02C59
+      FILE_ID.DIZ      393  10-Feb-1994  01:00a   FD32A17C
+      HELP_ME.DOC     4829  10-Feb-1994  01:00a   F6A8DB61
+      PBVLITE.DOC   108695  10-Feb-1994  01:00a   A6D3DBDD
+     TUTORIAL.DOC    92759  10-Feb-1994  01:00a   5032EA94
+       VENDOR.DOC      216  10-Feb-1994  01:00a   8C5E6214
+         DEMO.EXE    24606  10-Feb-1994  01:00a   F8BA6373
+      NOGRAPH.OBJ      245  10-Feb-1994  01:00a   04B037B6
+      NOMOUSE.OBJ      422  10-Feb-1994  01:00a   E0C99E24
+       NOTEXT.OBJ     1105  10-Feb-1994  01:00a   A230592F
+      PBVLITE.PBH    53061  10-Feb-1994  01:00a   D5D093BF
+      PBVLITE.PBL    53649  10-Feb-1994  01:00a   2100C573
+         DESC.SDI       50  10-Feb-1994  01:00a   524F1DF2
+       EXTRAS.TXT     2353  10-Feb-1994  01:00a   063A01CD
+     ORDER_ME.TXT     3152  10-Feb-1994  01:00a   47C10177
+       VENDOR.TXT      216  10-Feb-1994  01:00a   8C5E6214
+
+
+===== Installation =====================================
+
+The installation procedure for PB/VISION(tm) LITE is quite simple.
+Simply copy all of the included files into either your PowerBASIC
+directory.  You may also place it in an entirely different directory if
+that is your choice.  In either case, you will need about 500k of
+available disk space on the hard drive on which you plan to install
+PB/VISION(tm) LITE.
+
+It is _very_ important that you place PBVLITE.PBH in the same directory
+as the PowerBASIC IDE (PB.EXE).  This will allow you to access the
+entire PB/VISION(tm) LITE documentation directly through PowerBASIC's
+built-in help system.
+
+While in PB.EXE, to bring up our help screens while editing a program,
+place the cursor on a keyword and press <CTRL-F1>.  To then bring up the
+index to all of the PB/VISION(tm) routines.
+
+YOU'RE READY TO GO
+
+Once you've completed the installation, you should consult TUTORIAL.DOC.
+That file will tell you how to use all of the PB/VISION(tm) features,
+and will give you other information you need to properly evaluate
+PB/VISION(tm) LITE.  We hope you enjoy the program.
+
+
+===== Technical Support =============================
+
+If you have any problems, please read this file, the HELP_ME.DOC and
+other files in your DOC subdirectory, and the TUTORIAL.DOC file first.
+If you still have a question and need assistance, help is available from
+the following sources:
+
+  1. DSE Online! BBS at 707-459-4484. 24 hours @ 1200-14.4K.
+
+  2. GEnie: address messages to "DSE.SOFTWARE".  Do not send us x-modem
+  mail on GEnie.  We will not accept the file and your account will be
+  billed for it.
+
+  3. InterNet: Address messages to "dse.software@genie.geis.com"
+
+  4. CompuServe: Address to "INTERNET:dse.software@genie.geis.com"
+
+  5. If you have an urgent problem that cannot wait, you may call the
+  DSE Technical Support Department at (707) 459-4358 from 10:00 AM to
+  5:00 PM.  Calls outside these hours will not be answered.  Please have
+  the following information ready before calling:
+
+     a. Product name and serial number on your original distribution
+     disk.  Please have your serial number ready or we will be unable to
+     process your call.  Your serial number is on the diskette label.
+
+     b. Product version number. The version number can be determined by
+     running a small utiltity called VERSION.COM.
+
+     c. Computer brand, model, and the brands and model numbers of any
+     additional hardware.
+
+     d. Operating system and version number. (The version number can be
+     determined by typing VER at the DOS prompt.)
+
+     e. Contents of your AUTOEXEC.BAT file.
+
+     f. Contents of your CONFIG.SYS file.
+
+     g. You will have to have read TUTORIAL.DOC.  Our help staff may
+     quiz you ;)
+
+
+===== Warranty =========================================
+
+LIMITED WARRANTY
+
+THIS SOFTWARE AND MANUAL ARE PROVIDED FOR EVALUATION ONLY, ON AN "AS IS"
+BASIS.  DSE SOFTWARE PUBLISHING DISCLAIMS ALL WARRANTIES RELATING TO
+THIS SOFTWARE, WHETHER EXPRESSED  OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE. NEITHER DSE SOFTWARE PUBLISHING NOR ANYONE ELSE WHO HAS BEEN
+INVOLVED IN THE CREATION, PRODUCTION, OR DELIVERY OF THIS SOFTWARE SHALL
+BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, OR INCIDENTAL DAMAGES ARISING
+OUT OF THE USE OR INABILITY TO USE SUCH SOFTWARE, EVEN IF DSE SOFTWARE
+PUBLISHING HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR
+CLAIMS.  THE PERSON USING THE SOFTWARE BEARS ALL RISK AS TO THE QUALITY
+AND PERFORMANCE OF THE SOFTWARE.
+
+This agreement shall be governed by the laws of the State of California
+and shall inure to the benefit of DSE Software Publishing and any
+successors, administrators, heirs and assigns. Any action or proceeding
+brought by either party against the other arising out of or related to
+this agreement shall be brought only in a STATE or FEDERAL COURT of
+competent jurisdiction located in Mendocino County, CA. The parties
+hereby consent to in personam jurisdiction of said courts.
+
+
+===== License for Use and Distribution =================
+
+TRIAL USE LICENSE
+
+PB/VISION(tm) LITE is NOT a public domain program.  It is copyrighted by
+DSE Software Publishing.  This software and accompanying documentation
+are protected by United States copyright law and also by international
+treaty provisions.
+
+DSE Software Publishing grants you a limited license to use this
+software for evaluation purposes for a period not to exceed thirty days.
+If you continue using this software after the thirty-day evaluation
+period, you MUST make a registration payment to DSE Software Publishing.
+
+You may not use, copy, rent, lease, sell, modify, decompile,
+disassemble, otherwise reverse engineer, or transfer the licensed
+program except as provided in this agreement.  Any such unauthorized use
+shall result in immediate and automatic termination of this license. All
+rights not expressly granted here are reserved to DSE Software
+Publishing.
+
+
+LIMITED DISTRIBUTION LICENSE
+
+The following may distribute PB/VISION(tm) LITE, completely unaltered,
+without further permission...; for other cases or to distribute in
+modified form, you must consult the attached data record, which is
+hereby incorporated by reference.  Any distribution satisfying all the
+distribution requirements expressed in that data record is hereby
+authorized.
+
+Permission to distribute the PB/VISION(tm) LITE package is not
+transferable, assignable, saleable, or franchisable.  Each vendor
+wishing to distribute the package must independently satisfy the terms
+of this limited distribution license.  Vendors who do satify the
+requirement for distribution may do so without further permission from
+DSE Software Publishing.
+
+U.S. Government Information:  Use, duplication, or disclosure by the
+U.S. Government of the computer software and documentation in this
+package shall be subject to the restricted rights applicable to
+commercial computer software as set forth in subdivision (b)(3)(ii) of
+the Rights in Technical Data and Computer Software clause at
+252.227-7013 (DFARS 52.227-7013).  The Contractor/manufacturer is DSE
+SOFTWARE PUBLISHING, Post Office Box 96, Willits, CA 95490-0096.
+
+DSE Software Publishing may revoke any permissions granted here, by
+notifying you in writing.  All rights not expressly granted here are
+reserved to DSE Software Publishing.
+
+The attached VENDINFO data record is hereby incorporated by reference.
+Any distribution satisfying all the distribution requirements expressed
+in that data record is hereby authorized.  All licenses to distribute
+package are solely between the DSE Software Publishing and distributor,
+and do not involve VENDINFO or Rams' Island Software.
+
+
+===== Compressed Data Record Follows ===================
+
+PK
+   ZhJ…¾ık  œ#  	   VENDDATA.&%+ÌG÷g÷w­uJ4©S£O$X,À€J9öÜAùQ¯òNÍyÄáw«ö¸ ÒµX-îâ|wCUèK«I§&}ê%İ¶)A2MJµˆuô¤né–•k6ìØ2¤ŸV¬Ü°ró‚4ûV.H¨oïT¾Ğ À?äL—0PË1ñêßiÙ;/÷-Ùºcéœì*ùn•)Ì³ 1‡˜ïÏÁBŠeaŸ(ğ‰ í5b…	’GâCõÁ8Üğj™~d—•[6LOòŒMmÚ±aÙ‚ë–,ÈÇKçó‰¶¼›†ñ`.ˆÃ§‹FõÇ¾9Ëj²ĞOƒ¸s]‚Ùômİ9¹ö\^–%È²vËt~K²rÓ.‹Õ+®ÛÖeK7m‹Ü_2È&öN¼e[—l™çgcâ	µ×ıcç´û‡m—æA>Ú²lá zZ6ÑƒH®K‡ÖÓTº‘!À’?Dş¨w~±‚0˜hÄÜÙæùGØGjö6,cƒ¸iÏº±.EşÖsøté²áœôŸ	s)È·føå¢Éî™™Qz3>©ÿd®!=Üqš;šk½¬[·¤ˆ©1­8çÚ`íSªæÆÃ°>Ú¼p´¯ÔéfÏô”Ü¶Ùü:GÔ‚oı|Wl™ªvæÏ1¶Ù¿‹F¤	øn<·Õ '%ZÔES, '¤¢¡*-ğ«h»Â(·\ûªàP)ã o7¾¥XãVÚûU5j¥²€)ÄKQé+ÆY4xç“Ùı¹c—Mbé-
+z=‰¢“%ÓâÇ»Y°ñä7"~(Í¢™ñ|3ştr|	ëÂo‘7_&òæjñÅcV¨ÅDİ´rÇ¬»¹_gxÔ'µòÕ¤aŞO‚şlÍ¶˜ëÓÄø<³(ı•ÖdØs´ÉTŠN‡UÂ%+;,ˆ‹À1„òfåAÂY6ˆ¶íœ 	Â#XgwğÌ­òü ŸK€ÑNâËÙr9Rÿ,YôX^ÅÖ‰6¥Ç”ğYä¹yç¨[—¸é½Â-şçÿs‹Ylÿ Û?€Àf 4 ’C„š­X@àødÕ1 fü‚³
+hÃLY³ÌÊb ®a#™©jØO¯•Rµx´j2Å°9—j4èĞ"vN…J*5+È+’OdôAˆ–™!Ñ)ä?¥ÁaB­Sf„şhZôÁ+ÎÈxOÍ°è·a¨Ğ·xAæ´áƒDw6Eºà:4ˆæ×¤™fÎDÓ«NbéÏ9ˆÀ(¿	ófKš5sşÌš8 3&ó4qÒ˜ÂiÚ?ıÔ®»-âÎ8~jÖ©O¡àí.ß(Õ+^];¦Î˜2k¾ü¨édâœ»xÑ0ÙĞ=ã^IïâB›Ÿ˜&€Àn)@º#Ì!-Ö"¤¾ ¤Åÿöj‘ºË“9ñ‹È™şTŠçRYH}”ôÂ×9SfÌ˜8¼:¬nîçÄ	âÄÿÍ7yÔÁÇ€î‡Ä>AÄƒ¨Ú§nüƒ¸ãnŠ$(ãM
+,¢0v¡B °ÍÜ™gÌŒÌ˜Ùÿlw@Sè/FŠ‚laEXóoP§sGãHÎb)¨´Ébz}œ¢°i ìİ”!'%ÈtÎÅ6ñ2ÔÊy¢í›»kİ(öGK7 jbÜ1PN‡ÈV ô™ Ÿ¦Œ,›9wšû¹LfÜ+:µIŸ-ˆQäy©O›ÎÙRb>õøÂÀ›;ı àíÏÑ Èêàı¼y PK
+ 
+   ZhJ…¾ık  œ#  	                 VENDDATA.PK     *   ’    

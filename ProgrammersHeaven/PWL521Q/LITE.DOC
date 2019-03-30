@@ -1,0 +1,3892 @@
+
+
+
+
+
+
+              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+              ³                                                       ³
+              ³       P r o W i n d o w s (tm)   L I T E   5.20       ³
+              ³                                                       ³
+              ³      The Professional Windows Management Library      ³
+              ³                     Documentation                     ³
+              ³                                                       ³
+              ³    (c) Copyright 1988-1992 DSE Software Publishing    ³
+              ³        Licensed Material. All Rights Reserved.        ³
+              ³                                                       ³
+              ³         ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»         ³
+              ³         º ßßßßßßßß       ßßßßßß  ßßßßßßßßßß º         ³
+              ³         º  ßßß    ß     ßß    ßß  ßßß    ßß º         ³
+              ³         º  ßßß     ß   ßß      ß  ßßß     ß º         ³
+              ³         º  ßßß     ßß  ßß         ßßß       º         ³
+              ³         º  ßßß     ßß  ßßß        ßßß  ß    º         ³
+              ³         º  ßßß     ßß   ßßß       ßßß  ß    º         ³
+              ³         º  ßßß     ßß     ßßß     ßßßßßß    º         ³
+              ³         º  ßßß     ßß       ßßß   ßßß  ß    º         ³
+              ³         º  ßßß     ßß        ßßß  ßßß  ß    º         ³
+              ³         º  ßßß     ßß         ßß  ßßß       º         ³
+              ³         º  ßßß     ß   ß      ßß  ßßß     ß º         ³
+              ³         º  ßßß    ß    ßß    ßß   ßßß    ßß º         ³
+              ³         º ßßßßßßßß      ßßßßßß   ßßßßßßßßßß º         ³
+              ³         ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼         ³
+              ³                                                       ³
+              ³                DSE Software Publishing                ³
+              ³                  Post Office Box 96                   ³
+              ³                Willits, CA 95490-0096                 ³
+              ³                    (707) 459-4358                     ³
+              ³                                                       ³
+              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+
+                               ÚÄÄÄÄÄÄÄÄÄ¿
+                         ÚÄÄÄÄÄÁÄÄÄ¿     ³              (R)
+                       ÄÄ³         ³o    ³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                         ³   ÚÄÄÄÄÄÁÐÄÄ¿ ³  Association of
+                         ³   ³         ³ÄÙ  Shareware
+                         ÀÄÄÄ³    o    ³    Professionals
+                       ÄÄÄÄÄÄ³    º    ³ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                             ÀÄÄÄÄÐÄÄÄÄÙ    MEMBER
+
+
+
+         Microsoft(R), QuickBASIC(R), and Professional BASIC are trademarks
+         or registered trademarks belonging to Microsoft Corporation.
+         IBM(R) and PC-DOS(R) are registered trademarks belonging to
+         International Business Machines.  GEnie(SM) is a registered
+         service mark belonging to GEnie Information Services.
+         ProWindows(tm) is a trademarks of DSE Software Publishing.  
+         Other product names are trademarks or registered trademarks 
+         of thier respective holders.
+
+
+
+
+
+                          T A B L E   O F   C O N T E N T S
+
+         INTRODUCTION
+
+              Disclaimer - Agreement ......................  I
+              What is ProWindows(tm) ......................  II
+              Hardware and Software Requirements ..........  III
+              How to obtain Customer Support ..............  III
+              Why must I call the Notice() routine ........  IV
+
+
+         CHAPTER 1 - THE "EVENT DRIVER"
+
+              Event Driver Overview .......................  1.2
+              GetEvent ....................................  1.4
+              SetCalendar .................................  1.4
+              SetClock ....................................  1.4
+              SetEventDelay ...............................  1.5
+              SetUserCoords ...............................  1.5
+              QuickKey ....................................  1.6
+              useDrivers ..................................  1.6
+              Event Codes .................................  1.7
+
+
+         CHAPTER 2 - THE VIRTUAL WINDOW MANAGER
+
+              Window Manager Overview .....................  2.2
+              AllocVirtualBlock (internal) ................  2.4
+              Attr ........................................  2.4
+              BinAttr .....................................  2.4
+              ClearWindow .................................  2.5
+              CloneWindow .................................  2.5
+              CloseWindow .................................  2.5
+              Copyright ...................................  2.5
+              DeAllocVirtualBlock (internal) ..............  2.6
+              DisplayWindow ...............................  2.6
+              DrawBox .....................................  2.6
+              FillScreen ..................................  2.7
+              ForceWindow .................................  2.7
+              FREEWINDOW ..................................  2.8
+              GetScreen ...................................  2.8
+              GetVirtualPtr ...............................  2.8
+              GrabWindow ..................................  2.9
+              HideWindow ..................................  2.9
+              HotPrint ....................................  2.9
+              InitPro .....................................  2.9
+              IsBWmode ....................................  2.10
+              MainWindow ..................................  2.10
+              MakeWindow ..................................  2.11
+              ModifyWindow ................................  2.11
+              MoveWindow ..................................  2.11
+              OpenWindow ..................................  2.12
+              PopWindow ...................................  2.13
+              PopSound ....................................  2.13
+              PutScreen ...................................  2.13
+              PreInit .....................................  2.13
+              ReAlignWindow ...............................  2.14
+              RecycleMode .................................  2.14
+              RefreshAllWindows ...........................  2.15
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+
+
+              RefreshMain .................................  2.15
+              RefreshMode .................................  2.15
+              RefreshWindow ...............................  2.16
+              RemoveSound .................................  2.13
+              RemoveWindow ................................  2.16
+              ResizeWindow ................................  2.16
+              RestoreWindow (internal) ....................  2.17
+              ScanHandle (internal) .......................  2.17
+              ScanVirtualBlock (internal) .................  2.17
+              ScreenMode ..................................  2.17
+              SetBorderColor ..............................  2.18
+              SetBWmode ...................................  2.18
+              SetCompressMode (internal) ..................  2.18
+              SetMonitorColor .............................  2.18
+              SetShadow ...................................  2.19
+              SetWindow ...................................  2.19
+              SetWindowMinSize ............................  2.19
+              SetZoomSpeed ................................  2.20
+              SetZoomStyle ................................  2.20
+              ShowVLSmemory (internal) ....................  2.21
+              ShowWindow ..................................  2.21
+              sprint ......................................  2.21
+              StoreWindow (internal) ......................  2.22
+              TitleWindow .................................  2.22
+              UnAttr ......................................  2.23
+              UnBinAttr ...................................  2.23
+              UpdateScrollBars ............................  2.23
+              ValidateWindow (internal) ...................  2.23
+              VideoBoard ..................................  2.23
+              VideoPage ...................................  2.24
+              VideoPageLen ................................  2.24
+              vprint ......................................  2.24
+              WhatWindow ..................................  2.25
+              winCLS ......................................  2.25
+              winColor ....................................  2.25
+              winDeleteLine ...............................  2.26
+              winInsertLine ...............................  2.26
+              winLocate ...................................  2.26
+              winPos ......................................  2.27
+              winPrint ....................................  2.27
+              winPrintCR ..................................  2.27
+              winPrintCRLF ................................  2.28
+              winPrintLF ..................................  2.28
+              winPrintLn ..................................  2.28
+              winPrintNum .................................  2.29
+              wlocate .....................................  2.29
+              wprint ......................................  2.29
+              wcprint .....................................  2.29
+              cwprint .....................................  2.29
+              cwcprint ....................................  2.29
+
+
+         CHAPTER 3 - MOUSE ROUTINE FEATURES
+
+              Mouse Overview ..............................  5.2
+              CheckMouse ..................................  5.3
+              DoubleClick .................................  5.3
+              GetMouse ....................................  5.3
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+
+
+              GetMouseInfo ................................  5.4
+              GetMousePress ...............................  5.4
+              GetMouseRelease .............................  5.5
+              Mouse .......................................  5.5
+              MouseCursorOff ..............................  5.6
+              MouseCursorOn ...............................  5.6
+              MouseKillWindow .............................  5.6
+              SetMouse ....................................  5.7
+              SetMouseMode ................................  5.7
+              SetMouseState ...............................  5.7
+              SetMouseWindow ..............................  5.7
+              TermMouse ...................................  5.8
+
+
+         CHAPTER 4 - GLOBAL VARIABLES AND DATA TYPES
+
+              System Constants ............................  4.1
+              Data Types ..................................  4.2
+              Global Variables and Arrays .................  4.3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           I
+
+         DISCLAIMER - AGREEMENT
+
+              Users of ProWindows(tm) LITE 5.20 must accept this disclaimer
+              of warranty:
+
+              "ProWindows(tm) LITE 5.20 is supplied as is.  The author
+              disclaims all warranties, expressed or implied, including,
+              without limitation, the warranties of merchantability and of
+              fitness for any purpose.  The author assumes no liability for
+              damages, direct or consequential, which may result from the
+              use of ProWindows(tm) LITE 5.20."
+
+              ProWindows(tm) LITE 5.20 is a "shareware program" and is
+              provided at no charge to the user for evaluation.  Feel free
+              to share it with your friends, but please do not give it away
+              altered or as part of another system.  The essence of "user-
+              supported" software is to provide personal computer users
+              with quality software without high prices, and yet to provide
+              incentive for programmers to continue to develop new
+              products.  If you find this program useful and find that you
+              are using ProWindows(tm) LITE 5.20 and continue to use
+              ProWindows(tm) LITE 5.20 after a 21 day trial period, you
+              must make a registration payment of $25.20 to DSE Software
+              Publishing.  The $25.20 registration will license one copy
+              for use by a single user on any one computer at any one time,
+              but may be freely moved from one computer location to
+              another, so long as there is NO possibility of it being used
+              at one location while it is being used at another.
+
+              Commercial users of ProWindows(tm) LITE 5.20 must register
+              and pay for their copies of ProWindows(tm) LITE 5.20 within
+              21 days of first use or their license is withdrawn.  Site-
+              License arrangements may be made by contacting DSE Software
+              Publishing.
+
+              Anyone distributing ProWindows(tm) LITE 5.20 for any kind of
+              remuneration must first contact DSE Software Publishing at
+              the address below for authorization.  This authorization will
+              be automatically granted upon request and such distributors
+              may begin offering ProWindows(tm) LITE 5.20 immediately
+              (However DSE Software Publishing must still be advised so
+              that the distributor can be kept up-to-date with the latest
+              version of ProWindows(tm) LITE.
+
+              You are encouraged to pass a copy of ProWindows(tm) LITE 5.20
+              along to your friends for evaluation.  Please encourage them
+              to register their copy if they find that they can use it.
+              All registered users will receive a copy of the latest
+              version of the ProWindows(tm) LITE 5.20 system.
+
+              Registration fees should be paid to:
+
+                    DSE Software Publishing
+                    Post Office Box 96
+                    Willits, CA 95490-0096
+                    (707) 459-4358
+
+
+
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           II
+
+         WHAT IS PROWINDOWS(tm)
+
+              ProWindows(tm) is probably the most elaborate, but easy to
+              use, software development systems that money can buy.  By
+              utilizing the ProWindows(tm) libraries, development time for
+              creating intricate software packages can be cut
+              significantly.
+
+              At the very heart of ProWindows(tm) is the "Virtual Window
+              Manager".  This special driver manages every subroutine used
+              to create, print to, hide, clear, and the dozen other things
+              you can do to a window.
+
+              When you create a window, the manager automatically creates
+              storage space for the window's contents.  When your window is
+              ready to be displayed, the window manager automatically saves
+              the portion of the screen you are about to place the window
+              on.  Then, to make things even nicer, by using a specialized
+              compression algorithm, the old screen is squeezed to
+              sometimes less that 80% it's original size.  This is intended
+              to save you plenty of memory space.  Also, your compressed
+              screen is stored in "far" memory so you will save that
+              valuable "string space".
+
+              Once your windows are displayed, you can move, hide, overlap,
+              and re-size them with a simple click of a mouse (or you can
+              add keyboard commands).
+
+              The window manager can manage up to 128 concurrent windows
+              (memory permitting).
+
+              Nothing could be easier.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           III
+
+         HARDWARE AND SOFTWARE REQUIREMENTS
+
+              o  An IBM(R) PC/XT/AT or true "compatible" running MS-DOS(R)
+                 or PC-DOS(R) 2.1 or later.
+
+              o  One high-density floppy-disk drive or one floppy-disk
+                 drive and a hard disk drive.
+
+              o  512K System Memory.
+
+              o  Microsoft(R) QuickBASIC(R) 4.5, or Microsoft BASIC 6.x, or
+                 Microsoft BASIC Professional Development System 7.x.
+
+              o  Other requirements may vary with the compiler used.
+
+
+         HOW TO OBTAIN CUSTOMER SUPPORT
+
+              Registered users of ProWindows(tm) are offered almost
+              unlimited support.  Listed in order of preference, customer
+              support is offered in the following ways:
+
+              o  GE-Mail (GEnie) messages can be addressed to
+                 "DSE.SOFTWARE".  2 to 24 hour response time.
+
+              o  Voice support is available Monday through Friday, 12:00 PM
+                 to 5:00 PM (Pacific) at (707) 459-4358.
+
+              o  US Mail is by far the slowest (allow 1 to 3 weeks) but may
+                 be addressed to:
+
+                    Post-sales Support
+                    DSE Software Publishing
+                    Post Office Box 96
+                    Willits, CA 95490-0096
+
+              Enclose (or have available) the following information:
+
+                   a). Product's serial number, and release number.
+                   b). Registered user's full name.
+                   c). Registered user's full address.
+
+              If you are having technical problems, also have available a
+              complete description of your computer configuration,
+              including Brand of computer, DOS version, TSRs or Device
+              Drivers loaded, Amount of memory, add-on boards, Monitor and
+              adaptor card installed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           IV
+
+         WHY MUST I CALL THE Notice() ROUTINE?
+
+              The "evaluation" copy of ProWindows(tm) LITE 5.20 contains an
+              additional routine that you MUST call in order to make use of
+              this package.
+
+         ==================================================================
+
+         Notice - SUB
+
+         ACTION    Displays a "registration encouragement" message.
+
+         SYNTAX    Notice
+
+         REMARKS   You are required to call this routine within one (1)
+                   minute of displaying your first window.
+
+                   The purpose of this routine is to remind you that the
+                   version you now possess is an "evaluation" copy of
+                   ProWindows(tm) LITE and as stated elsewhere, you are
+                   permitted 21 days to evaluate the product before you are
+                   required to pay for it.
+
+                   When called, ProWindows(tm) displays a window containing
+                   a "registration encouragement" message.  This window
+                   works just like any other window and can be moved, re-
+                   sized, hidden, etc.
+
+                   When displayed, the global variable CurrentWindow%
+                   contains the handle of displayed window.
+
+         SEE ALSO  OpenWindow and CloseWindow
+
+         ==================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1991 DSE Software Publishing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  #####  ##   ##   ###   ###### ###### ###### ######
+                 ##   ## ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ####### ####### ######   ##   #####  ######
+                 ##      ##   ## ##   ## ##       ##   ##     ## ##
+                 ##   ## ##   ## ##   ## ##       ##   ##     ##  ##
+                  #####  ##   ## ##   ## ##       ##   ###### ##   ##
+
+                                 #####  ##   ## ######
+                                ##   ## ##   ## ##
+                                ##   ## ###  ## ##
+                                ##   ## ## # ## #####
+                                ##   ## ##  ### ##
+                                ##   ## ##   ## ##
+                                 #####  ##   ## ######
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.2
+
+         SECTION 1 - EVENT DRIVER OVERVIEW
+         =================================================================
+
+              The ProWindows GetEvent() function is the programmer's
+              interface to most library functions.
+
+              Ideally, GetEvent() should periodically take control of your
+              program to determine if any event needs to be processed.
+              When an event occurs, GetEvent() dispatches control to the
+              appropriate handler.  When an event has been completed,
+              GetEvent() returns a unique number indicating what type of
+              event took place, and then control is returned to the
+              application.  By providing the returned value back to
+              GetEvent(), you can further determine the handle of the
+              window or menu or form that was effected.
+
+              As an example, if GetEvent(0) returns the value 5, it
+              indicates that a window's hide icon was clicked, and then
+              GetEvent(5) returns the handle of the window that was
+              actually closed.
+
+              GetEvent() is also responsible for maintaining the resident
+              clock and calendar.
+
+              To make use of any function outlined in this chapter, you
+              must add the following line to your program code:
+
+                   REM $INCLUDE : 'LITE.BI'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.3
+
+         SECTION 2 - ROUTINE DESCRIPTIONS
+         =================================================================
+
+         GetEvent% - Function
+
+         ACTION    Queries the event manager.
+
+         SYNTAX    variablename% = GetEvent%(info%)
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   info%            Type of information to retrieve
+
+                   This routine actually performs two functions.  First, it
+                   takes control the program for a specified amount time
+                   (see SetEventDelay).  During this time, it waits to see
+                   if a window, menu or form is manipulated.  If an event
+                   takes place, GetEvent%() returns a code indicating the
+                   type of event that took place.  If nothing happens, a
+                   value of 17 is returned indicating a "time out".
+
+                   Second, depending on the type of event that takes place,
+                   you can pass the returned value back to GetEvent%() to
+                   get the handle of the window, menu, or form control that
+                   was manipulated.
+
+         SEE ALSO  Section 3 of this chapter.
+
+         ------------------------------------------------------------------
+
+         SetCalendar - SUB
+
+         ACTION    Installs resident calendar in the specified window.
+
+         SYNTAX    SetCalendar Handle%, row%, col%, Attrib%, status%
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          If 0, the calendar is displayed in
+                                    coordinates relative to the physical
+                                    screen, otherwise the coordinates are
+                                    relative to the the defined window.
+                   row%, col%       Screen/window coordinates of calendar.
+                   attrib%          Video attribute of calendar.
+                   status%          If false, calendar is disabled.
+
+                   Displays a perpetual calendar at the supplied
+                   coordinates.  The display format is: "MM/DD/YYYY".  If
+                   the calendar is within a window, it is only updated when
+                   it is in the top most window.
+
+         ------------------------------------------------------------------
+
+         SetClock - SUB
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.4
+
+         ACTION    Installs resident clock in specified window.
+
+         SYNTAX    SetClock Handle%, row%, col%, Attrib%, status%
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          If 0, the clock is displayed in
+                                    coordinates relative to the physical
+                                    screen, otherwise the coordinates are
+                                    relative to the defined window.
+                   row%, col%       Screen/window coordinates of clock.
+                   attrib%          Video attribute of clock.
+                   status%          If false, clock is disabled.
+
+                   Displays a perpetual clock at the supplied coordinates.
+                   The display format is: "HH:MM:SS".  If the clock is
+                   within a window, it is only updated when it is in top
+                   most window.
+
+         ------------------------------------------------------------------
+
+         SetEventDelay - SUB
+
+         ACTION    Sets maximum amount time for GetEvent() control.
+
+         SYNTAX    SetEventDelay ticks%
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   ticks%           Maximum clock ticks for control.
+
+                   This function determines the maximum amount time that
+                   GetEvent() will take control of the program.  Resolution
+                   is measured in timer ticks (18.2) milliseconds.  A value
+                   of 0 returns control immediately if no event is pending.
+
+         ------------------------------------------------------------------
+
+         SetUserCoords - SUB
+
+         ACTION    Defines an area as a mouse "hotspot".
+
+         SYNTAX    SetUserCoords Handle%, row%, col%, rows%, cols%
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          An integer between 1 and 64 defining
+                                    the handle to assign a given "hotspot".
+                   row%, col%       Screen coordinates of block.
+                   rows%, cols%     Dimensions of block.
+
+                   Defines an area of the screen as a mouse hotspot.  When
+                   a user clicks or releases the left mouse button while
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.5
+
+                   within a "hotspot", GetEvent(0) returns 22 or 24,
+                   respectively.
+
+         ------------------------------------------------------------------
+         QuickKey - SUB
+
+         ACTION    Defines a global "short cut" Key.
+
+         SYNTAX    QuickKey handle%, Keypress$
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          A unique handle to assign to the
+                                    keypress.
+                   Keypress$        A 1 or 2 byte string to watch for.
+
+                   This function allows trapping of a specific keypress.
+                   Keypress$ should be the exact string (same as would be
+                   returned by INKEY$) to watch for.  When a "hot key" is
+                   pressed, the function GetEvent() returns a value of 19.
+                   A subsequent call to GetEvent(19) will return the handle
+                   of the pressed key.
+
+         ------------------------------------------------------------------
+
+         UseDrivers - SUB
+
+         ACTION    Initializes various external drivers.
+
+         SYNTAX    useDrivers menus%, forms%, cursor%
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   menus%           NOT AVAILABLE IN LITE VERSION
+                   forms%           NOT AVAILABLE IN LITE VERSION
+                   cursor%          Set to '1' if your program will use any
+                                    "winPrint" style function calls.
+
+                   This function helps solve various QuickBASIC quirks by
+                   enabling or disabling access to certain functions and
+                   variables.  To make calls to the listed function types,
+                   you must pass a value of '1' to the particular
+                   parameter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.6
+
+         SECTION 3 - GETEVENT%() RETURN CODES
+         =================================================================
+
+         Argument    Ret. Code   Description
+         ---------   ---------   -----------------------------------------
+             0           0       No Event to process.
+                         1       Can not process keystroke.  The variable
+                                 KeyBuffer$ holds the keystroke.
+                         2       A new window was selected.
+                         3       A window was re-sized.
+                         4       A window was moved.
+                         5       A window was closed.
+                         6       Mouse was clicked on the current window's
+                                 vertical scroll bar.
+                         7       Mouse was clicked on the current window's
+                                 vertical UP button.
+                         8       Mouse was clicked on the current window's
+                                 vertical DOWN button.
+                         9       Mouse was clicked on the current window's
+                                 horizontal scroll bar.
+                        10       Mouse was clicked on the current window's
+                                 horizontal LEFT button.
+                        11       Mouse was clicked on the current window's
+                                 horizontal RIGHT button.
+                        12       A Button selected.
+                        13       Moved to new button.
+                        14       A menu item was selected.
+                        15       <CR> was pressed.
+                        16       <ESC> was pressed.
+                        17       Time out.  Means nothing happened.
+                        18       F1 was pressed. GlobalScreen% holds the
+                                 help screen queued for display.
+                        19       A quick key was pressed.
+                        20       Changed button position.
+                        21       Internal
+                        22       User defined mouse click event occurred.
+                        23       Internal
+                        24       User defined mouse release event occurred.
+                        30       Mouse was clicked on a form's vertical
+                                 scroll bar.
+                        31       Mouse was clicked on a form's vertical UP
+                                 button.
+                        32       Mouse was clicked on a form's vertical
+                                 DOWN button.
+                        33       Mouse was clicked on a form's horizontal
+                                 scroll bar.
+                        34       Mouse was clicked on a form's horizontal
+                                 LEFT button.
+                        35       Mouse was clicked on a form's horizontal
+                                 RIGHT button.
+                        36       Changed position within a pick list.
+                        37       Clicked pick list item.
+                       101       Left Arrow key was pressed.
+                       102       Right Arrow key was pressed.
+                       103       Up Arrow key was pressed.
+                       104       Down Arrow key was pressed.
+                       105       PgUp key was pressed.
+                       106       PgDn key was pressed.
+                       107       Home key was pressed.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.7
+
+         Argument    Ret. Code   Description
+         ---------   ---------   -----------------------------------------
+
+                       108       End key was pressed.
+                       109       Insert key was pressed.
+                       110       Delete key was pressed.
+                       111       Ctrl-Home was pressed.
+                       112       Ctrl-End was pressed.
+                       200       Right mouse button was clicked.
+             2           n       Returns the handle of the affected window.
+             3           n                       "
+             4           n                       "
+             5           n                       "
+             6           n       Returns new vertical scroll bar position.
+             7           n                       "
+             8           n                       "
+             9           n       Returns new horizontal scroll bar position
+            10           n                       "
+            11           n                       "
+            12           n       Returns handle of manipulated button.
+            13           n                       "
+            14           n       Returns menu item selected.
+            19           n       Returns hot key pressed.
+            21           n       Returns internal event number.
+            23           n                       "
+            22           n       Returns user event number
+            24           n                       "
+            30           n       Returns handle of manipulated button.
+            31           n                       "
+            32           n                       "
+            33           n                       "
+            34           n                       "
+            35           n                       "
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           1.8
+
+         SECTION 4 - DATA TYPES
+         =================================================================
+
+         The following data types are declared in LITE.BI.
+
+         TYPEs and Elements            Remarks
+         ----------------------------  -----------------------------------
+
+         TYPE InkeyRec
+              Length AS INTEGER        Length of Keypress$
+              ShiftState AS INTEGER    State of keyboard flags
+              KeyChar AS STRING * 1    Single byte version of Keypress$
+              KeyValue AS INTEGER      ASCII value of Keypress$
+              AltChar AS STRING * 1    Parsed (assumes ALT was pressed)
+              AltValue AS INTEGER      ALT version scancode
+              ExtChar AS STRING * 2    Two byte version of Keypress$
+              ExtValue AS INTEGER      Scan code of Keypress$
+         END TYPE
+
+
+         SELECT GLOBAL VARIABLES AND ARRAYS
+
+         NAME      /DialogData/ Keyboard AS InkeyRec
+
+         REMARKS   The "Keyboard" structure is filled from within the
+                   WindowDriver() function.  It contains 3 uniquely parsed
+                   versions of the global variable KeyBuffer$.
+
+         -----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  #####  ##   ##   ###   ###### ###### ###### ######
+                 ##   ## ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ####### ####### ######   ##   #####  ######
+                 ##      ##   ## ##   ## ##       ##   ##     ## ##
+                 ##   ## ##   ## ##   ## ##       ##   ##     ##  ##
+                  #####  ##   ## ##   ## ##       ##   ###### ##   ##
+
+                              ###### ##   ##  #####
+                                ##   ##   ## ##   ##
+                                ##   ##   ## ##   ##
+                                ##   ##   ## ##   ##
+                                ##   ## # ## ##   ##
+                                ##   ### ### ##   ##
+                                ##   ##   ##  #####
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.2
+
+         SECTION 1 - WINDOW MANAGER OVERVIEW
+         =================================================================
+
+              The ProWindows(tm) Virtual Window Manager is a set of BASIC
+              callable routines written in BASIC, C, and Assembler.  The
+              Window Manager permits you to add sophisticated windowing
+              capabilities to your applications with minimal coding.
+
+              ProWindows provides two distinct type of window control
+              functions:
+
+         STACK BASED WINDOWS
+
+              Stack based window systems are perhaps the easiest to
+              implement, but they are by far the most limited.  The concept
+              is simple: Windows are displayed on a last on first off
+              basis.  Output is limited to the top most window only.  Stack
+              based systems are not virtual, meaning that text displayed
+              with a window is not actually a part of the window, but is
+              only displayed at the same location.
+
+              PopWindow() and RemoveWindow() are classic examples of stack
+              based window routines.  PopWindow() always displays a window
+              at the top of the stack, and RemoveWindow() always removes
+              the window at the top of the stack.
+
+         HANDLE BASED VIRTUAL WINDOWS
+
+              Handle based virtual window systems are a more natural form
+              of windowing systems.  Each window is referred to by a unique
+              handle and output is directed to the current window handle.
+              Handle based windows can be moved, re-sized, hidden,
+              scrolled, re-displayed and more without affecting the window
+              contents.
+
+              OpenWindow(), DisplayWindow(), and CloseWindow() are the
+              handle based alternatives to creating windows.  OpenWindow()
+              creates a new window and notifies it's presence to the window
+              manager.  DisplayWindow() in turn brings the window to the
+              screen.  CloseWindow() finally removes the window from the
+              display, and notifies the window manager that the window has
+              been deleted.  Other routines exist to hide, move, and
+              perform other tasks to an existing window.
+
+              One often misunderstood feature of virtual windows is that
+              one does not have to be displayed to be manipulated.  It is
+              possible to write to a non-displayed window, and then at some
+              later point bring the window to the foreground.
+
+              Even though ProWindows is internally designed around a
+              virtual based system, stack based functions can be carefully
+              integrated into the same code.
+
+         CREATING WINDOW HANDLES
+
+              The process of opening and closing windows with ProWindows is
+              virtually identical to opening and closing files with BASIC.
+              As with files, windows can be opened with "Explicit" or
+              "Implicit" handles.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.3
+
+              "Explicit" handles are determined at compile time.  An
+              example of opening a window (or a file) with an Explicit
+              handle would be:
+
+                   OPEN "myfile.dat" FOR INPUT AS #1
+                   OpenWindow 1, 10, 10, attr(7,0), 1, 1, 1, Opts
+
+                   CLOSE #1
+                   CloseWindow 1
+
+              With both examples, the handle is 1.
+
+              "Implicit" handles are determined at run time.  An example of
+              opening a window (or a file) with an Implicit handle would
+              be:
+
+                   FileHandle = FREEFILE
+                   OPEN "myfile.dat" FOR INPUT AS #FileHandle
+
+                   WinHandle = FREEWINDOW
+                   OpenWindow WinHandle, 10, 10, attr(7,0), 1, 1, 1, Opts
+
+                   CLOSE #FileHandle
+                   CloseWindow WinHandle
+
+              FREEFILE is a BASIC function that returns the next available
+              file handle and FREEWINDOW is a ProWindows function that
+              returns the next available window handle.
+
+              With both windows and files, Explicit handles are usually
+              used only at main level code because it is assumed that the
+              main level code will always know what windows and files are
+              open.  "Implicit" handles are usually used in sub modules
+              because they may not have access or knowledge of main level
+              handles.  It is good programming practice to close all
+              Implicit handles BEFORE exiting module level code.
+
+              To make use of any function outlined in this chapter, you
+              must add the following line to your program code:
+
+                   REM $INCLUDE : 'LITE.BI'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.4
+
+         SECTION 2 - ROUTINE DESCRIPTIONS
+         =================================================================
+
+         AllocVirtualBlock - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    AllocVirtualBlock (handle%, size%)
+
+         REMARKS   Allocates a portion of the VirMem() array and assigns it
+                   to the given handle.
+
+         ------------------------------------------------------------------
+
+         ATTR% - Function
+
+         ACTION    Calculates and returns an integer value corresponding to
+                   supplied Foreground and Background colors.
+
+         SYNTAX    variablename% = ATTR (fore%, back%)
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   fore%            Foreground color of video attribute.
+                   back%            Background color of video attribute.
+
+                   Returns an integer ranging 0 to 255.  Valid Foreground
+                   ranges are 0 to 31.  Valid Background ranges are 0 to 7.
+
+         SEE ALSO: BASIC COLOR statement.
+
+         ------------------------------------------------------------------
+
+         BINATTR% - Function
+
+         ACTION    Calculates and returns an integer value corresponding to
+                   the Foreground and Background arguments and the
+                   Highlight and Blink flags.
+
+         SYNTAX    variablename% = BINATTR (fore%, back%, high%, blink%)
+
+         REMARKS   This function accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   fore%            Foreground color of video attribute.
+                   back%            Background color of video attribute.
+                   high%            Set if Highlighting is to be enabled.
+                   blink%           Set if Blinking is to be enabled.
+
+                   Returns an unsigned integer ranging 0 to 255.  Valid
+                   Foreground and Background ranges are 0 to 7.  Highlight
+                   and Blink are flags that should be set to 0 or 1.
+                   Always pass only INTEGER values.
+
+         SEE ALSO: BASIC COLOR statement.
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.5
+
+         ClearWindow - SUB
+
+         ACTION    Clears everything within the borders of the current
+                   window being displayed.
+
+         SYNTAX    ClearWindow
+
+         REMARKS   Removes entire contents of current window but does not
+                   remove window titles.
+
+         ------------------------------------------------------------------
+
+         CloneWindow - SUB
+
+         ACTION    Creates duplicate of a window.
+
+         SYNTAX    CloneWindow handle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          Handle of an existing virtual window.
+
+                   Creates an exact duplicate of an existing virtual window
+                   and it's contents.  The global variable CurrentWindow%
+                   is updated to the handle of the new window.  The new
+                   window is not initially displayed.
+
+         SEE ALSO  OpenWindow
+
+         ------------------------------------------------------------------
+
+         CloseWindow - SUB
+
+         ACTION    Removes and closes a virtual window.
+
+         SYNTAX    CloseWindow handle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          Handle of an existing virtual window.
+
+                   Completely eradicates an existing window.  If the window
+                   is being displayed, it is removed.  All window memory is
+                   released back to the VirMem%() array.
+
+         ------------------------------------------------------------------
+         Copyright - SUB
+
+         ACTION    Displays the ProWindows(tm) standard copyright notice.
+
+         SYNTAX    Copyright row%, col%
+
+         REMARKS   This sub accepts the following arguments:
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.6
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to display the
+                                    copyright message.
+
+                   The ProWindows licensing agreement discusses when you
+                   are actually required to call this function.
+
+         ------------------------------------------------------------------
+
+         DeAllocVirtualBlock - SUB
+
+         ACTION    Internal to WLS - DO NOT USE
+
+         SYNTAX    DeAllocVirtualBlock (handle%)
+
+         REMARKS   Deallocates portion of the VirMem() array allocated by
+                   the AllocVirtualBlock() sub.
+
+         ------------------------------------------------------------------
+
+         DisplayWindow  - SUB
+
+         ACTION    Displays a virtual window.
+
+         SYNTAX    DisplayWindow handle%, row%, col%, rows%, cols%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window to display.
+                   row%, col%       Absolute screen position to display the
+                                    window.  A 0 value will automatically
+                                    center the window.
+                   rows%, cols%     Dimension of the window.
+
+                   Displays a virtual window.  If the window is already on
+                   the display, it is brought to the top.  If the rows% and
+                   cols% are less that the actual physical dimensions of
+                   the window, the displayed contents will be truncated.
+
+         ------------------------------------------------------------------
+
+         DrawBox - SUB
+
+         ACTION    Draws a box within a virtual window.
+
+         SYNTAX    DrawBox handle%, row%, col%, rows%, cols%, attrib%,
+                           border%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to draw box in.
+                   row%, col%       Window position to start box.
+                   rows%, cols%     Dimensions of box.
+                   attrib%          Video attribute of box.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.7
+
+                   border%          Border style of box (1 thru 12)
+
+                   Draws a single box within the specified virtual window.
+                   If the window is being displayed, it is NOT
+                   automatically refreshed.  Refreshing should be done
+                   AFTER all boxes have been placed.
+
+         SEE ALSO  RefreshMain, RefreshAllWindows and RefreshWindow
+
+         ------------------------------------------------------------------
+
+         FillScreen - SUB
+
+         ACTION    Fills an area with specified attribute and character.
+
+         SYNTAX    FillScreen row%, col%, rows%, cols%, attrib%,
+                              char%, SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to start the fill.
+                   rows%, cols%     Dimensions of fill area.
+                   attrib%          Video attribute to fill with.
+                   char%            ASCII character to fill with.
+                   SNOW%            The Global Variable SNOW%
+
+                   Similar to the subroutine MakeWindow().  Fills the
+                   indicated area with an ASCII character using the
+                   indicated attribute.
+
+                   The final parameter should always be the global variable
+                   SNOW% which determines whether snow suppression will be
+                   used when filling the area.
+
+         ------------------------------------------------------------------
+
+         ForceWindow - SUB
+
+         ACTION    Fast set of the Current Window
+
+         SYNTAX    ForceWindow handle%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to set.
+
+                   Makes the specified window the main window.  All
+                   ProWindows print statements will be diverted to this
+                   window.  ForceWindow does NOT attempt to determine if
+                   the window actually exists, so use with caution.
+                   SetWindow() is the preferred method.
+
+         SEE ALSO  SetWindow
+
+         ------------------------------------------------------------------
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.8
+
+         FREEWINDOW% - FUNCTION
+
+         ACTION    Returns next available window handle
+
+         SYNTAX    variablename% = FREEWINDOW
+
+         REMARKS   Like BASIC's FREEFILE function, this function returns
+                   the next available window handle for a subsequent call
+                   to OpenWindow().
+
+         -----------------------------------------------------------------
+
+         GetScreen - SUB
+
+         ACTION    Saves an area of the screen to memory.
+
+         SYNTAX    GetScreen row%, col%, rows%, cols%, DataSeg%, DataOff%,
+                             SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to start copy.
+                   rows%, cols%     Dimensions of copy area.
+                   DataSeg%         Segment address of the storage array.
+                   DataOff%         Offset address of the storage array.
+                   SNOW%            The Global Variable SNOW%
+
+                   This subroutine bypasses the WLS and grabs a portion of
+                   the current screen at the coordinates supplied and
+                   stores it in memory.  You are responsible to allocate
+                   enough memory to store each screen.
+                   To determine the amount of memory required, use the
+                   formula:
+
+                   arraysize% = (rows% * cols%) * 2
+
+                   The final parameter should always be the global variable
+                   SNOW%.
+
+         SEE ALSO: PutScreen, BASIC Statements VARSEG and VARPTR.
+
+         ------------------------------------------------------------------
+
+         GetVirtualPtr% - FUNCTION
+
+         ACTION    Returns offset address of virtual window.
+
+         SYNTAX    variablename = GetVirtualPtr (handle%)
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window.
+
+                   Returns an integer indicating the subscript within the
+                   global array VirMem%() where the contents of the
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.9
+
+                   specified window is stored.  This can then be used with
+                   BASIC's VARSEG and VARPTR functions to determine it's
+                   location within RAM.
+
+         ------------------------------------------------------------------
+
+         GrabWindow - SUB
+
+         ACTION    Take snap shot of window and stores in window memory.
+
+         SYNTAX    GrabWindow Handle%
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window.
+
+                   GrabWindow() was added for those die-hard programmers
+                   who insist (with good cause) on using the BASIC's built-
+                   in PRINT statement.  Text can be PRINTed on a window and
+                   GrabWindow() will store the image to the window's
+                   memory.
+
+         ------------------------------------------------------------------
+
+         HideWindow - SUB
+
+         ACTION    Hide a virtual window.
+
+         SYNTAX    HideWindow handle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window to hide.
+
+                   Removes the specified virtual window from the screen.
+                   The window is NOT destroyed, and can be re-displayed
+                   using the many WLS functions.
+
+         SEE ALSO  CloseWindow, DisplayWindow, MainWindow and ShowWindow
+
+         ------------------------------------------------------------------
+
+         HotPrint - SUB
+
+         ACTION    Prints text and highlighted text.
+
+         SYNTAX    HotPrint row%, col%, attrib1%, text1$, attrib2%, text2$
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Window position to display text.
+                   attrib1%         Main text video attribute.
+                   text1$           Main text to display.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.10
+
+                   attrib2%         Sub-text video attribute.
+                   text2$           Sub-text to display.
+
+                   Displays a line of text, with a specific portion
+                   highlighted.  It's purpose is for displaying key words,
+                   and highlighting it's selector letter.  Text2$ should be
+                   a sub-string of Text1$.
+
+         ------------------------------------------------------------------
+
+         IsBWmode% - FUNCTION
+
+         ACTION    Determines color characteristic of video card
+
+         SYNTAX    variablename% = IsBWmode%
+
+         REMARKS   IsBWmode%() is a function that returns a true condition
+                   if the video adaptor is an MDA adaptor, a color adaptor
+                   in BW mode, or if the function SetBWmode() has been
+                   called.
+
+         ------------------------------------------------------------------
+
+         InitPro - SUB
+
+         ACTION    Initializes the Virtual Window Logic System.
+
+         SYNTAX    InitPro
+
+         REMARKS   Initializes all features of the Window Manager.  It
+                   should be the first executable statement within all
+                   ProWindows applications.  Failure to do so may cause
+                   your system to lock up.
+
+         ------------------------------------------------------------------
+
+         MainWindow - SUB
+
+         ACTION    Make virtual window top most window.
+
+         SYNTAX    MainWindow handle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          Handle of virtual window.
+
+                   Places the specified virtual window on top of all
+                   displayed windows.  If the window is not presently being
+                   displayed, it is displayed using the last (or default)
+                   window dimensions.  The global variable CurrentWindow%
+                   is set to Handle%.
+
+         ------------------------------------------------------------------
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.11
+
+         MakeWindow - SUB
+
+         ACTION    Displays a non-removable window.
+
+         SYNTAX    MakeWindow Row%, Col%, Rows%, Cols%, Attr%, Border%,
+                              Shadow%, Zoom%, SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to display the window.
+                   rows%, cols%     Dimensions of window.
+                   Attrib%          Video attribute of new window.
+                   Border%          Border style of new window.
+                   Shadow%          Shadow style of new window.
+                   Zoom%            Zoom style of new window.
+                   SNOW%            The Global Variable SNOW%
+
+                   MakeWindow() is functionally identical to PopWindow()
+                   except that it completely bypasses the WLS so that your
+                   existing screen is NOT saved, and can NOT be restored,
+                   and all window printing routines are NOT referenced to
+                   this screen.  All printing to this screen must be
+                   accomplished with the standard BASIC statements and/or
+                   the ProWindows functions vprint() and sprint().
+
+                   The final parameter should always be the global variable
+                   SNOW%.
+
+         ------------------------------------------------------------------
+
+         ModifyWindow - SUB
+
+         ACTION    Change icons available on a window.
+
+         SYNTAX    ModifyWindow handle%, icons%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          Handle of virtual window.
+                   icons%           Added values of icons to add/delete.
+
+                   Allows you to add/delete icons on an existing window.
+                   This function does NOT automatically refresh the window.
+
+         SEE ALSO  OpenWindow
+
+         ------------------------------------------------------------------
+
+         MoveWindow - SUB
+
+         ACTION    Move a virtual window.
+
+         SYNTAX    MoveWindow handle%, row%, col%
+
+         REMARKS   This sub accepts the following arguments:
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.12
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Handle%          Handle of virtual window.
+                   row%, col%       Screen position to move the window to.
+
+                   Moves a displayed virtual window to a new location on
+                   the screen.  The window remains at the same level.
+
+         ------------------------------------------------------------------
+
+         OpenWindow - SUB
+
+         ACTION    Creates a new virtual window.
+
+         SYNTAX    OpenWindow handle%, rows%, cols%, attrib%, border%,
+                              shadow%, zoom%, icons%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle to identify window with.
+                   rows%, cols%     Dimensions of the window.
+                   attrib%          Video attribute of new window.
+                   border%          Border style of new window (0-12).
+                   shadow%          Shadow style of new window (0-4).
+                   zoom%            Zoom style of new window (0-11).
+                   icons            Added icon values (see Section 3).
+
+                   Creates a brand new virtual window with the specified
+                   characteristics.  The window remains invisible until an
+                   appropriate display function is called.  The global
+                   variable CurrentWindow% is set to the new window's
+                   handle.
+
+         SEE ALSO  DisplayWindow, FREEWINDOW, PopWindow, and ShowWindow
+
+         ------------------------------------------------------------------
+
+         PopSound - SUB
+         RemoveSound - SUB
+
+         ACTION    Generate sound effects.
+
+         SYNTAX    PopSound
+                   RemoveSound
+
+         REMARKS   These are the actual subroutines called when the global
+                   variable SOUNDMODE% is set during the creation or
+                   removal of a pop up window.  You may call these same
+                   functions at your leisure.
+
+                   Prior to calling either subroutine, set the global
+                   variable SOUNDMODE% to:
+
+                        SOUND_MODE = 0     (no sound)
+                        SOUND_MODE = 1     (click)
+                        SOUND_MODE = 2     (beep)
+                        SOUND_MODE = 3     (glisando)
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.13
+
+                   Both functions are identical with the exception that
+                   when SOUNDMODE% is set to GLISANDO, RemoveSound() goes
+                   down scale rather than up.
+
+         ------------------------------------------------------------------
+
+         PopWindow - SUB
+
+         ACTION    Creates and displays a new window.
+
+         SYNTAX    PopWindow Row%, Col%, Rows%, Cols%, Attrib,
+                             Border%, Shadow%, Zoom%
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to display the window.
+                   rows%, cols%     Dimensions of window.
+                   attrib%          Video attribute of new window.
+                   border%          Border style of new window.
+                   shadow%          Shadow style of new window.
+                   zoom%            Zoom style of new window.
+
+                   PopWindow() is used when a stack based windowing
+                   environment is preferred.  For every window created with
+                   PopWindow(), there should later be a matching call to
+                   RemoveWindow().  The global variable CurrentWindow%
+                   holds the handle of the new window.
+
+         SEE ALSO  OpenWindow and RemoveWindow.
+
+         ------------------------------------------------------------------
+
+         PreInit - SUB
+
+         ACTION    Pre-initializes all unused arrays
+
+         SYNTAX    PreInit
+
+         REMARKS   This function solves various external variable
+                   references in the program code so that you will NOT have
+                   to include the $INCLUDE files for functions that are not
+                   being used.  Got that?
+
+                   PreInit() MUST be called prior to DIMensioning any
+                   program variables
+
+         ------------------------------------------------------------------
+
+         PutScreen - SUB
+
+         ACTION    Restores an area of the screen to stored with GetScreen.
+
+         SYNTAX    PutScreen row%, col%, rows%, cols%, DataSeg%, DataOff%,
+                             SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.14
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to restore copy.
+                   rows%, cols%     Dimensions of restore area.
+                   DataSeg%         Segment address of storage array.
+                   DataOff%         Offset address of storage array.
+                   SNOW%            The Global Variable SNOW%
+
+                   This routine restores an area of the screen saved using
+                   GetScreen(). Ideally you would restore the screen at the
+                   same coordinates you copied if from, but you may place
+                   it anywhere on the current screen if you wish.  You may
+                   also place the same screen several times in different
+                   locations as long as you have not modified the original
+                   memory.
+
+                   The final parameter should always be the global variable
+                   SNOW%.
+
+         SEE ALSO  GetScreen
+
+         ------------------------------------------------------------------
+
+         ReAlignWindow - SUB
+
+         ACTION    Adjusts view port within a virtual window.
+
+         SYNTAX    ReAlignWindow handle%, viewrow%, viewcol%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window.
+                   vrow%, vcol%     Position within the window to view.
+
+                   Adjusts the view port into a virtual window.  By
+                   adjusting the values, you can permit both vertical and
+                   horizontal scrolling of a window.
+
+         ------------------------------------------------------------------
+
+         RecycleMode - SUB
+
+         ACTION    Permit usage of excess video ram as "scratch" buffer.
+
+         SYNTAX    RecycleMode mode%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            0 to disable video recycling.
+                                    1 to enable video recycling.
+
+                   RecycleMode() allows you to utilize unused (in most
+                   applications) video display RAM as a scratch buffer for
+                   video operations.  Enabling "video recycling" will
+                   typically free up 24K (kilobytes) of system memory, and
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.15
+
+                   increase window manipulation speed.
+
+                   Video pages 0 and 1 are left to the user, but pages 2
+                   and above are assigned for use by the Window Manager's
+                   internal functions.
+
+         NOTE      Video recycling is not available on monochrome system
+                   and is automatically disabled.  If the global array
+                   VirMem%() is dimensioned large enough, this should not
+                   interfere with program operation.
+
+         ------------------------------------------------------------------
+
+         RefreshAllWindows - SUB
+
+         ACTION    Updates all windows currently being displayed.
+
+         SYNTAX    RefreshAllWindows
+
+         REMARKS   Updates the contents of all virtual windows currently
+                   being displayed.  Their positions are NOT altered.
+
+         SEE ALSO  RefreshMain and RefreshWindow.
+
+         ------------------------------------------------------------------
+
+         RefreshMain - SUB
+
+         ACTION    Refreshes the top most window.
+
+         SYNTAX    RefreshMain
+
+         REMARKS   Updates the contents of the top most window.  It is
+                   considerably faster than all other update functions.
+
+         SEE ALSO  RefreshAllWindows and RefreshWindow.
+
+         ------------------------------------------------------------------
+
+         RefreshMode - SUB
+
+         ACTION    Enables immediate updating of displayed windows.
+
+         SYNTAX    RefreshMode mode%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            0 to disable immediate updating.
+                                    1 to enable immediate updating.
+
+                   RefreshMode() allows you to turn off screen updating,
+                   and thus save considerable time, when writing large
+                   amounts of data to window(s).  After all information has
+                   been written, you can re-enable the refreshing and call
+                   any of window refreshing functions to update the
+                   display.
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.16
+
+         SEE ALSO  RefreshMain, RefreshAllWindows, and RefreshWindow.
+
+         ------------------------------------------------------------------
+
+         RefreshWindow - SUB
+
+         ACTION    Refreshes the specified window.
+
+         SYNTAX    RefreshWindow handle%
+
+         REMARKS   This sub accepts the following argument:
+
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of virtual window to refresh.
+                   Updates the contents of the specified window (and all
+                   windows on top of it).
+
+         SEE ALSO  RefreshMain and RefreshAllWindows.
+
+         ------------------------------------------------------------------
+
+         RemoveWindow - SUB
+
+         ACTION    Removes current window being displayed.
+
+         SYNTAX    RemoveWindow
+
+         REMARKS   Removes current window pointed to by a subscript of the
+                   global array wcbndx%(), specifically wcbndx%(WI%).  The
+                   screen is restored to it's original contents.
+
+         NOTE      This function is used for stack based windowing.  Each
+                   call to RemoveWindow() should correspond to a previous
+                   call to PopWindow().  Stack based Windows are removed in
+                   reverse order of the way the were created.
+                   CloseWindow() is the preferred method of removing
+                   windows.
+
+         SEE ALSO: CloseWindow, HideWindow, OpenWindow and PopWindow
+
+         ------------------------------------------------------------------
+
+         ResizeWindow - SUB
+
+         ACTION    Re-sizes displayed portion of a window.
+
+         SYNTAX    ResizeWindow handle%, rows%, cols%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to re-size.
+                   rows%, cols%     New dimensions of window.
+
+                   Re-dimensions the viewable portion of a virtual window.
+                   The internal contents of the window are NOT affected.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.17
+
+         RestoreWindow - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    RestoreWindow
+
+         REMARKS   Removes a window from the internal window stack, frees
+                   allocated memory, and updates the display.  Its workings
+                   are controlled by internal variables and it should never
+                   be called.
+
+         ------------------------------------------------------------------
+
+         ScanHandle% - FUNCTION
+
+         ACTION    Determine if a window handle is in use.
+
+         SYNTAX    variablename% = ScanHandle(handle%)
+
+         REMARKS   This function accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to detect.
+
+                   Returns handle% if the window exists, or returns 0 if
+                   the window does not exist.
+
+         ------------------------------------------------------------------
+
+         ScanVirtualBlock% - FUNCTION
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    variablename% = ScanVirtualBlock (block%)
+
+         REMARKS   Returns an integer pointing to an internal memory
+                   control block (MCB).
+
+         ------------------------------------------------------------------
+
+         ScreenMode% - FUNCTION
+
+         ACTION    Returns current DOS screen mode.
+
+         SYNTAX    variablename% = ScreenMode%
+
+         REMARKS   This function returns the current DOS screen mode.
+
+         -----------------------------------------------------------------
+
+         SetBorderColor - SUB
+
+         ACTION    Set window border coloring scheme.
+
+         SYNTAX    SetBorderColor mode%, attrib%
+
+         REMARKS   This function accepts the following argument(s):
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.18
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            0 - Use window color.
+                                    1 - Assume window background color.
+                                    2 - use attrib%.
+                   attrib%          Color of border when mode is 2.
+
+                   This routine defines the coloring scheme of window
+                   borders.  A window's border color by default is the same
+                   color as the window itself.  This routine will allow you
+                   to set a single border color for all windows, or make
+                   the border's foreground color match the background color
+                   of the window.
+
+         -----------------------------------------------------------------
+
+         SetBWmode - SUB
+
+         ACTION    Puts color adaptors into simulated monochrome mode.
+
+         SYNTAX    SetBWmode mode%
+
+         REMARKS   This function accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            0 = normal.
+                                    1 = simulate monochrome.
+
+                   Instructs all ProWindows functions to assume a simulated
+                   monochrome mode.  Colors are converted to BW equivalents
+                   based on an internal conversion table.  This colors are
+                   identical across all monitor types.
+
+         SEE ALSO  SetBWmode and SetMonitorColor.
+
+         ------------------------------------------------------------------
+
+         SetCompressMode - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    SetCompressMode mode%
+
+         REMARKS   Used by Menu Logic System (MLS) to disable screen
+                   compression on menu windows.  This causes an increase of
+                   memory usage, but speeds up display time considerably.
+                   This function is internally controlled and should never
+                   be called.
+
+         ------------------------------------------------------------------
+
+         SetMonitorColor - SUB
+
+         ACTION    Change color of simulated monochrome mode
+
+         SYNTAX    SetMonitorColor kolor%
+
+         REMARKS   This function accepts the following argument:
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.19
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   kolor%           1 = Blue
+                                    2 = Green
+                                    3 = Cyan
+                                    4 = Red
+                                    5 = Magenta
+                                    6 = Amber
+                                    7 = White
+
+                   Changes the display attribute when in a simulated
+                   monochrome mode.
+
+         SEE ALSO  IsBWmode and SetBWmode.
+
+         ------------------------------------------------------------------
+
+         SetShadow - SUB
+
+         ACTION    Set window shadow coloring scheme.
+
+         SYNTAX    SetShadow attribute%, char%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   attribute%       Value  Description
+                                    -----  -------------------------------
+                                        0  Black shadow.
+                                    1-255  Attribute color.
+                                       -1  Use window foreground color.
+                                       -2  Use window background color.
+
+                   char%            Value  Description
+                                    -----  -------------------------------
+                                    0-255  Use ASCII character.
+                                       -1  Transparent shadow.
+
+                   This routine defines the coloring scheme of window
+                   shadows.  A window's shadow color by default is flat
+                   black.  The routine will allow you to create transparent
+                   shadows that match the color of the window, or are
+                   inverse from the color of the beneath text.  The
+                   following produces the most natural looking shadow:
+
+                        SetShadow -2, -1
+
+         ------------------------------------------------------------------
+
+         SetWindow - SUB
+
+         ACTION    Sets the Current Window
+
+         SYNTAX    SetWindow handle%
+
+         REMARKS   This sub accepts the following arguments:
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.20
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to set.
+
+                   Makes the specified window the current window.  The
+                   global variable CurrentWindow% is set to handle% and all
+                   ProWindows print statements will be diverted to this
+                   window.  If the window does not exist, an error message
+                   is displayed and the program halted.
+
+         SEE ALSO  ForceWindow
+
+         ------------------------------------------------------------------
+
+         SetZoomSpeed - SUB
+
+         ACTION    Sets expansion rate of a zoomed window.
+
+         SYNTAX    SetZoomSpeed mseconds%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mseconds%        Delay in milli-seconds.
+
+                   Defines the delay time between frames of a zoomed
+                   window.  This time is constant regardless of CPU type or
+                   clock speed.  The default speed is 25 milli-seconds.
+
+         ------------------------------------------------------------------
+
+         SetZoomStyle - SUB
+
+         ACTION    Sets the virtual paging mode of zoomed windows.
+
+         SYNTAX    SetZoomStyle mode%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            0 = DO NOT USE
+                                    1 = Open Viewport
+                                    2 = Wipe
+
+                   Defines how windows look when the are zoomed onto the
+                   display.  Mode 1 opens the window onto an existing scene
+                   (like opening a door).  Mode 2 wipe the new window
+                   across the existing display.
+
+         ------------------------------------------------------------------
+
+         SetWindowMinSize - SUB
+
+         ACTION    Defines the minimum displayable dimensions of a window.
+
+         SYNTAX    SetWindowMinSize handle%, rows%, cols%
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.21
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   handle%          Handle of window to define.
+                   rows%, cols%     Minimum dimensions of window.
+
+                   Defines the minimum dimensions a window can be set to
+                   using the mouse.  This function causes self-correction
+                   of invalid dimensions.
+
+         ------------------------------------------------------------------
+
+         ShowVLSmemory - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    ShowVLSmemory.
+
+         REMARKS   Displays the number of windows being displayed, and the
+                   amounts of window stack memory and virtual window memory
+                   being used.  Displayed automatically when the global
+                   variable CreateMode% is set.
+
+         ------------------------------------------------------------------
+
+         ShowWindow - SUB
+
+         ACTION    Displays the current window.
+
+         SYNTAX    ShowWindow row%, col%, rows%, cols%, vrow%, vcol%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position to display the window.
+                   rows%, cols%     Dimensions of window.
+                   vrow%, vcol%     Veiwport position within window.
+
+                   Displays the window pointed to by the global variable
+                   CurrentWindow%.
+
+         SEE ALSO  DisplayWindow
+
+         ------------------------------------------------------------------
+
+         sprint - SUB
+
+         ACTION    Displays text on the current screen - sideways
+
+         SYNTAX    sprint row%, col%, attrib%, Text$, SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position of text to display.
+                   attrib%          Video attribute of text.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.22
+
+                   Text$            String literal to display.
+                   SNOW%            The Global Variable SNOW%
+
+                   Places text at the specified position on the current
+                   screen, vertically rather than horizontally.
+
+                   This subroutine is a low level routine that writes text
+                   directly to video memory.  The coordinates supplied are
+                   the actual screen coordinates and are NOT referenced to
+                   any current pop up window being displayed.  This routine
+                   also provides absolutely NO error correction so you must
+                   see that text does not run off the bottom of the page.
+
+                   The final parameter should always be the global variable
+                   SNOW%.
+
+         SEE ALSO  vprint
+
+         ------------------------------------------------------------------
+
+         StoreWindow - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    StoreWindow row%, col%, rows%, cols%, shadow%
+
+         REMARKS   This is a low level function that saves screen fragments
+                   in the window stack.
+
+         ------------------------------------------------------------------
+
+         TitleWindow - SUB
+
+         ACTION    Places specified text at any of eight border locations.
+
+         SYNTAX    TitleWindow titlepos%, Text$
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   titlepos%        window border location to print title.
+                   text$            String literal of title to display.
+
+                   A title is placed on the window pointed to by the global
+                   variable CurrentWindow%.  Foreground and background
+                   colors are set to the default for that particular
+                   window.
+
+                   The eight permitted title positions are :
+
+                        1 - Top Left.
+                        2 - Top Center.
+                        3 - Top Right.
+                        4 - Bottom Left.
+                        5 - Bottom Center.
+                        6 - Bottom Right.
+                        7 - Center Left Border.
+                        8 - Center Right Border.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.23
+
+         UNATTR - SUB
+
+         ACTION    Separates an integer attribute into its individual
+                   components.
+
+         SYNTAX    unattr attribute%, fore%, back%
+
+         REMARKS   The video attribute to be separated is passed in the
+                   attribute% argument, and the separated attribute is
+                   returned in foreground% and background%.
+
+         ------------------------------------------------------------------
+
+         UNBINATTR - SUB
+
+         ACTION    Separates an integer attribute into its individual
+                   components and flags.
+         SYNTAX    unbinattr attribute%, fore%, back%, highlight%, blink%
+
+         REMARKS   The video attribute to be separated is passed in the
+                   attribute% argument, and the separated attribute is
+                   returned in fore%, back%, highlight%, and blink%.
+
+         ------------------------------------------------------------------
+
+         UpdateScrollBars - SUB
+
+         ACTION    Updates a window scroll bars.
+
+         SYNTAX    UpdateScrollBars
+
+         REMARKS   Updates the position of the current windows scrollbars
+                   based on the contents of the global array elements
+                   vcb().VertPos% and vcb().VertPos%.
+
+         ------------------------------------------------------------------
+
+         ValidateWindow - SUB
+
+         ACTION    Internal to Window Manager - DO NOT USE
+
+         SYNTAX    ValidateWindow row%, col%, rows%, cols%
+
+         REMARKS   This function makes sure that all window coordinates are
+                   valid at display time.
+
+         ------------------------------------------------------------------
+
+         VideoBoard% - FUNCTION
+
+         ACTION    Returns current video adapter card type
+
+         SYNTAX    variablename% = VideoBoard%
+
+         REMARKS   This function returns the current video adapter card
+                   type.  Possible values are:
+
+                        0 = MDA
+                        1 = CGA
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.24
+
+                        2 = EGA
+                        3 = MCGA
+                        4 = VGA
+                        5 = VGA Monochrome
+
+         -----------------------------------------------------------------
+
+         VideoPage - FUNCTION
+
+         ACTION    Ruturns the current screen video page.
+
+         SYNTAX    variablename% = VideoPage%
+
+         REMARKS   This function returns the current screen video page and
+                   can range from 0 to 7 depending on the adapter type.
+
+         -----------------------------------------------------------------
+
+         VideoPageLen - FUNCTION
+
+         ACTION    Returns the current video page length.
+
+         SYNTAX    variablename% = VideoPageLen%
+
+         REMARKS   This function returns the length (in bytes) of a single
+                   video page.  This value will vary with the adapter type
+                   and the number of displayed lines.  Monochrome cards
+                   incorrectly return 16384.
+
+         -----------------------------------------------------------------
+
+         vprint - SUB
+
+         ACTION    Displays text on the current screen.
+
+         SYNTAX    vprint row%, col%, attrib%, Text$, SNOW%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Screen position of text to display.
+                   attrib%          Video attribute of text.
+                   Text$            String literal to display.
+                   SNOW%            The Global Variable SNOW%
+
+                   This subroutine is a low level routine that writes text
+                   directly to video memory.  The coordinates supplied are
+                   the actual screen coordinates and are NOT referenced to
+                   any current pop up window being displayed.  This routine
+                   also provides absolutely NO error correction so you must
+                   see that text does not run off the bottom of the page.
+
+                   The final parameter should always be the global variable
+                   SNOW%.
+
+         SEE ALSO  sprint
+
+         ------------------------------------------------------------------
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.25
+
+         WhatWindow% - FUNCTION
+
+         ACTION    Returns handle of window at given location.
+
+         SYNTAX    variablename% = WhatWindow(Row, Col)
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Internal position of any window.
+
+                   Returns the handle of the window at the given screen
+                   coordinates.
+
+         ------------------------------------------------------------------
+
+         winCLS - SUB
+
+         ACTION    Clears out the contents of the specified window.
+
+         SYNTAX    winCLS
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to clear.
+
+                   This function clears out the contents of the specified
+                   virtual window and resets the cursor to the top left
+                   position on the window.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winColor - SUB
+
+         ACTION    Changes the current working colors.
+
+         SYNTAX    winColor winHandle%, Fore%, Back%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to change colors.
+                   Fore%            The foreground color ranging 0 to 31.
+                   Back%            The background color ranging 0 to 15.
+
+                   This function sets the current working colors to the
+                   specified foreground and background attributes.  All
+                   subsequent winPrint() calls to that window will print
+                   with these attributes.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.26
+
+         winDeleteLine - SUB
+
+         ACTION    Deletes line at cursor position
+
+         SYNTAX    winDeleteLine winHandle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle where line is.
+
+                   This function deletes the line at the current window
+                   position.  If the line is within the current window
+                   viewport, the screen is automatically updated.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         wiInsertLine - SUB
+
+         ACTION    Inserts a blank line at cursor position.
+
+         SYNTAX    winInsertLine winHandle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle where to insert.
+
+                   This function inserts a blank line at the current window
+                   position.  If the line is within the current window
+                   viewport, the screen is automatically updated.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winLocate - SUB
+
+         ACTION    Repositions the cursor within a window.
+
+         SYNTAX    winLocate winHandle%, row%, col%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle.
+                   row%, col%       Window position to move cursor to.
+
+                   This function moves the cursor to the specified location
+                   within the virtual window.  If the line is within the
+                   current window viewport, the cursor is displayed,
+                   otherwise it is disabled.
+
+         SEE ALSO  CDEMO.BAS
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.27
+
+         winPos - SUB
+
+         ACTION    Returns the cursor position within a window.
+
+         SYNTAX    winPos winHandle%, row%, col%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle.
+                   row%, cols%      Current cursor position.
+
+                   This function returns the current cursor position within
+                   the specified window.
+
+         ------------------------------------------------------------------
+
+         winPrint - SUB
+
+         ACTION    Prints a line of text at the window cursor position.
+
+         SYNTAX    winPrint winHandle%, Text$
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+                   Text$            Text string to print.
+
+                   This function prints a line of text at the current
+                   cursor position.  The cursor is then advanced to the end
+                   of the printed text. If the line is within the current
+                   window viewport, the screen is automatically updated.
+
+         SEE ALSO  winColor, winPrintLn, CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winPrintCR - SUB
+
+         ACTION    Sends a carriage return to a window.
+
+         SYNTAX    winPrintCR winHandle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+
+                   This function sends a carriage return to the specified
+                   virtual window.  The cursor then moves to the beginning
+                   of the current line.  If the line is within the current
+                   window viewport, the screen is automatically updated.
+
+         SEE ALSO  CDEMO.BAS
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.28
+
+         winPrintCRLF - SUB
+
+         ACTION    Sends a carriage return / linefeed pair to a window.
+
+         SYNTAX    winPrintCRLF winHandle%
+
+         REMARKS   This sub accepts the following argument:
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+
+                   This function sends a carriage return / linefeed pair to
+                   the specified virtual window.  The cursor is advanced to
+                   the first column of the next line.  If the line is
+                   within the current window viewport, the screen is
+                   automatically updated.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winPrintLF - SUB
+
+         ACTION    Sends a linefeed to a window.
+
+         SYNTAX    winPrintLF winHandle%
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+
+                   This function sends a linefeed to the specified virtual
+                   window.  The cursor advances to the current columns
+                   position of the next line.  If the line is within the
+                   current window viewport, the screen is automatically
+                   updated.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winPrintLN - SUB
+
+         ACTION    Prints a line of text at the window cursor position.
+
+         SYNTAX    winPrintLn winHandle%, Text$
+
+         REMARKS   This sub accepts the following argument:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+                   Text$            Text string to print.
+
+                   This function prints a line of text at the current
+                   window cursor position.  The cursor is then advanced to
+                   the first column of the next line. If the line is within
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.29
+
+                   the current window viewport, the screen is automatically
+                   updated.
+
+         SEE ALSO  winColor, winPrint, CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         winPrintNum - SUB
+
+         ACTION    Prints formatted numeric data within a window.
+
+         SYNTAX    winPrintNum winHandle%, format$, Value#
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   winHandle%       Window handle to print to.
+                   format$          Numeric format (See PRINT USING)
+                   Value#           Numeric value to print.
+
+                   This function prints a formatted numeric value at the
+                   current cursor position.  The cursor is then advanced to
+                   the end of the printed text. If the line is within the
+                   current window viewport, the screen is automatically
+                   updated.
+
+         SEE ALSO  winPrint, PRINT USING, CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         wlocate - SUB
+
+         ACTION    Relocate cursor within a window
+
+         SYNTAX    wlocate row%, col%
+
+         REMARKS   This sub accepts the following arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       internal position of current window.
+
+                   Moves the cursor in reference to the internal
+                   coordinates of the current window.
+
+         SEE ALSO  CDEMO.BAS
+
+         ------------------------------------------------------------------
+
+         WPRINT   - SUB
+         CWPRINT  - SUB
+         WCPRINT  - SUB
+         CWCPRINT - SUB
+
+         ACTION    Places text in the current window.
+
+         SYNTAX    wprint row%, col%, text$
+                   cwprint row%, col%, attrib%, text$
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           2.30
+
+                   wcprint row%, text$
+                   cwcprint row%, attrib%, text$
+
+         REMARKS   These functions accept two or more of the following
+                   arguments:
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       internal position of current window.
+                   attrib%          Video attribute of text to display.
+                   Text$            String literal to display.
+
+                   These functions print text to the window pointed to by
+                   the global variable CurrentWindow%.  The window contents
+                   are NOT automatically refreshed unless the window is the
+                   top most window AND window refreshing is enabled.
+                   wprint assumes that the text is to be displayed in the
+                   default colors for that window.  cwprint allows you to
+                   specify exact colors.  wcprint and cwcprint are the same
+                   except that the text is automatically centered within
+                   the current window so you need not specify a column.
+
+         SEE ALSO  RefreshMode and RefreshWindow.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  #####  ##   ##   ###   ###### ###### ###### ######
+                 ##   ## ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ####### ####### ######   ##   #####  ######
+                 ##      ##   ## ##   ## ##       ##   ##     ## ##
+                 ##   ## ##   ## ##   ## ##       ##   ##     ##  ##
+                  #####  ##   ## ##   ## ##       ##   ###### ##   ##
+
+                        ###### ##   ## ######  ###### ######
+                          ##   ##   ## ##   ## ##     ##
+                          ##   ##   ## ##   ## ##     ##
+                          ##   ####### ######  #####  #####
+                          ##   ##   ## ## ##   ##     ##
+                          ##   ##   ## ##  ##  ##     ##
+                          ##   ##   ## ##   ## ###### ######
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.1
+
+         SECTION 1 - MOUSE OVERVIEW
+         =================================================================
+
+              Typical mouse oriented programs, like the QuickBASIC
+              environment, respond when you click the mouse in certain
+              areas of the screen.  Without a good mouse manager, writing a
+              mouse application can be quite an effort.
+
+              ProWindows makes mouse programming easy.  With a single
+              function call you can add complete event-driven mouse support
+              to your windows, menus, and input forms.
+
+              ProWindows(tm) includes two separate mouse drivers.  You can
+              select either one while customizing your library in
+              DESIGNER.EXE.
+
+              The first is the "text" mouse.  The "text" mouse uses
+              standard mouse API calls and will work with all Microsoft
+              compatible mice on any machine.
+
+              The other is a "graphic" mouse.  Call for call it is
+              identical to the "text" mouse, but internally it is larger
+              and quite more complicated.  This mouse tricks DOS into
+              thinking that it is in a graphics screen mode and therefore
+              displays a real graphics mouse cursor.  It is quite
+              impressive.
+
+              The only drawback is that you lose ASCII characters 200 to
+              208 and it only works on EGA/VGA adaptors.  If the driver
+              detects it is on a MDA/CGA adapter, it defaults to a text
+              cursor.
+
+              To make use of any function outlined in this chapter, you
+              must add the following line to your program code:
+
+                   REM $INCLUDE : 'LITE.BI'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+         ³  Portions of the graphic mouse cursor driver were written by,  ³
+         ³  and are copyrighted by, Dave Kirsch.  Thank you Mr. Kirsch    ³
+         ³  for allowing us to use your excellent routines.               ³
+         ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.2
+
+         SECTION 2 - ROUTINE DESCRIPTIONS
+         =================================================================
+
+         CheckMouse% - FUNCTION
+
+         ACTION    Determines if a mouse is installed.
+
+         SYNTAX    variablename% = CheckMouse%(Buttons%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Buttons%         Returns number of buttons on the mouse.
+
+                   Determines whether mouse hardware and software are
+                   installed.  If found, this function will return a non-
+                   zero value and the Buttons% parameter will hold the
+                   number of buttons on the mouse (2 or 3).
+
+                   When CheckMouse is called, the mouse cursor style
+                   defaults to the best available.  EGA/VGA adaptors will
+                   display a smooth moving Windows(R) style graphics mouse
+                   cursor (while in text mode) and CGA/MDA will display a
+                   text based mouse cursor.
+
+
+         ------------------------------------------------------------------
+
+         DoubleClick% - FUNCTION
+
+         ACTION    Determines if a mouse button was clicked twice.
+
+         SYNTAX    variablename% = DoubleClick%(DelayTime%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   DelayTime%       Maximum time between clicks.
+
+                   This function can determine if a mouse button was double
+                   clicked within a certain number of clock ticks (18.2
+                   ms).  The first call sets up the time, and the second
+                   call returns a positive value if the same function is
+                   called again within the given number of clock ticks.
+
+         ------------------------------------------------------------------
+
+         GetMouse - FUNCTION
+
+         ACTION    Retrieves current mouse state and coordinates.
+
+         SYNTAX    variablename% = GetMouse%(Row%, Col%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.3
+
+                   Row%, Col%       Screen coordinates of mouse cursor.
+
+                   This routine retrieves the current mouse state and
+                   coordinates.  If a mouse button(s) is pressed, this
+                   function returns the button number + 1.  The two
+                   parameter always return the mouse cursor's screen
+                   coordinates whether or not a button is pressed.
+
+         SEE ALSO  GetButtonPress, GetButtonRelease, SetMouse
+
+         ------------------------------------------------------------------
+
+         GetMouseInfo - SUB
+
+         ACTION    Retrieve information about the mouse.
+
+         SYNTAX    GetMouseInfo major%, minor%, irq%, mtype%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   major%           Mouse driver major version number.
+                   minor%             "     "    minor    "      "
+                   irq%             IRQ number mouse is installed on.
+
+                                    Value  Description
+                                    -----  ------------------------------
+                                      0    PS/2 pointing device
+                                      1    not defined
+                                      2    IRQ2
+                                      3    IRQ3
+                                     ...   ...
+                                      7    IRQ7
+
+                   mtype%           Type of mouse installed.
+
+                                    Value  Description
+                                    -----  ------------------------------
+                                      1    bus mouse
+                                      2    serial mouse
+                                      3    Microsoft InPort
+                                      4    IBM PS/2 Pointing Device port
+                                      5    Hewlett-Packard mouse
+
+                   This function returns information about the installed
+                   mouse driver.
+
+         ------------------------------------------------------------------
+
+         GetMousePress - FUNCTION
+
+         ACTION    Retrieves mouse button press information.
+
+         SYNTAX    variablename% = GetMousePress% (Button%, Presses%,
+                                                   Row%, Col%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.4
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Button%          Mouse button to check (0-2)
+                   Presses%         Number of presses since last check.
+                   Row%, Col%       Screen coordinates of last press.
+
+                   The routine returns the number of times the specified
+                   mouse button was pressed since the last time the same
+                   routine was called.  Button press data is returned in
+                   the last 3 parameters.
+
+         SEE ALSO  GetMouseRelease
+
+         ------------------------------------------------------------------
+
+         GetMouseRelease - FUNCTION
+
+         ACTION    Retrieves mouse button release information.
+
+         SYNTAX    variablename% = GetMouseRelease% (Button%, Releases%,
+                                                     Row%, Col%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Button%          Mouse button to check (0-2)
+                   Releases%        Number of Releases since last check.
+                   Row%, Col%       Screen coordinates of last press.
+
+                   The routine returns the number of times the specified
+                   mouse button was released since the last time the same
+                   routine was called.  Button press data is returned in
+                   the last 3 parameters.
+
+         SEE ALSO  GetMousePress
+
+         ------------------------------------------------------------------
+
+         Mouse - FUNCTION
+
+         ACTION    Retrieves mouse button information.
+
+         SYNTAX    variablename% = Mouse% (Button%, Cmd%)
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   Button%          Mouse button to check (0-2)
+                   Cmd%             Information to retrieve.
+
+                                    Value Description
+                                    ----- --------------------------------
+                                      1   Is button currently pressed.
+                                      2   Button clicks since last call.
+                                      3   Current mouse cursor row.
+                                      4   Current mouse cursor column.
+                                      5   Last mouse press row.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.5
+
+                                      6   Last mouse press column.
+                                      7   Last mouse release row.
+                                      8   Last mouse release column.
+                                      9   Has the mouse state changed.
+
+                   The routine returns the just about everything you ever
+                   wanted to know about your mouse but were afraid to ask.
+                   Function number 1 returns a positive value if the mouse
+                   is currently pressed.  Function 2 can then returns the
+                   number of times the button was pressed.  Function 9
+                   returns a positive value if the mouse is pressed and if
+                   it has been moved since the last call to function 9.
+
+         ------------------------------------------------------------------
+
+         MouseCursorOff - SUB
+
+         ACTION    Turns off the mouse cursor.
+
+         SYNTAX    MouseCursorOff
+
+         REMARKS   Turns off the mouse cursor.  Even though the cursor is
+                   not displayed, the cursor is still tracked and it's
+                   movement can be read by other mouse functions.
+
+         SEE ALSO  MouseCursorOn
+
+         ------------------------------------------------------------------
+
+         MouseCursorOn - SUB
+
+         ACTION    Turns on the mouse cursor.
+
+         SYNTAX    MouseCursorOn
+
+         REMARKS   Turns on the mouse cursor after an initial call to
+                   CheckMouse%() or MouseCursorOff.
+
+         SEE ALSO  CheckMouse, MouseCursorOn
+
+         ------------------------------------------------------------------
+
+         MouseKillWindow - SUB
+
+         ACTION    Hides mouse when out of bounds.
+
+         SYNTAX    MouseKillWindow row%, col%, rows%, cols%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Top left coordinate of mouse area.
+                   rows%, cols%     Dimensions of mouse area.
+
+                   This routine automatically hides the mouse cursor when
+                   it leaves the defined screen area.
+
+         NOTE      This function not availabe with graphics mouse.
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.6
+
+
+         SEE ALSO  SetMouseWindow
+
+         SetMouse - SUB
+
+         ACTION    Re-positions the mouse cursor.
+
+         SYNTAX    SetMouse row%, col%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, cols%      New position for mouse cursor.
+
+                   This routine moves the mouse cursor to a new location on
+                   the screen.
+
+         SEE ALSO  GetMouse
+
+         ------------------------------------------------------------------
+
+         SetMouseMode - SUB
+
+         ACTION    Selects the mouse style to use.
+
+         SYNTAX    SetMouseMode mode%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   mode%            Select cursor style.
+
+                   This function selects the mouse style to use.  Mode 0
+                   selects a text-based mouse cursor, and mode 1 selects a
+                   smooth moving Windows(R) style graphics mouse cursor.
+
+         SEE ALSO  CheckMouse
+
+         SetMouseState - SUB
+
+         ACTION    Turns mouse control OFF/ON
+
+         SYNTAX    SetMouseState state%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   state%           New state of the mouse.
+
+                   This routine turns on or off mouse controller. The mouse
+                   cursor, software, and hardware remain active, but
+                   ProWindows drivers no longer respond to mouse control.
+
+         ------------------------------------------------------------------
+
+         SetMouseWindow - SUB
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           3.7
+
+
+         ACTION    Confines the mouse within a given screen area.
+
+         SYNTAX    SetMouseWindow row%, col%, rows%, cols%
+
+         REMARKS   This routine accepts the following argument(s):
+
+                   Argument         Description
+                   ---------------  --------------------------------------
+                   row%, col%       Top left coordinate of mouse area.
+                   rows%, cols%     Dimensions of mouse area.
+
+                   This routine confines all mouse movement to the defined
+                   screen area.  If the cursor is outside the area when
+                   this routine is called, it is relocated to just inside
+                   the area.  To reset, re-issue this same command with the
+                   coordinates of the entire screen.
+
+         SEE ALSO  MouseKillWindow
+
+         ------------------------------------------------------------------
+
+         termMouse - SUB
+
+         ACTION    Un-installed the mouse driver.
+
+         SYNTAX    termMouse
+
+         REMARKS   This function un-installs the mouse driver.
+
+         NOTE      This function MUST be called upon exiting your program
+                   or you may get a really funny looking mouse cursor when
+                   you move the mouse.  No harm should come, it will just
+                   look funny.
+
+                   The mouse driver will automatically reset itself if you
+                   restart the program from within the environment.
+
+         ------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  #####  ##   ##   ###   ###### ###### ###### ######
+                 ##   ## ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ##   ## ##   ## ##   ##  ##   ##     ##   ##
+                 ##      ####### ####### ######   ##   #####  ######
+                 ##      ##   ## ##   ## ##       ##   ##     ## ##
+                 ##   ## ##   ## ##   ## ##       ##   ##     ##  ##
+                  #####  ##   ## ##   ## ##       ##   ###### ##   ##
+
+                           ######  #####  ##   ## ######
+                           ##     ##   ## ##   ## ##   ##
+                           ##     ##   ## ##   ## ##   ##
+                           #####  ##   ## ##   ## ######
+                           ##     ##   ## ##   ## ## ##
+                           ##     ##   ## ##   ## ##  ##
+                           ##      #####   #####  ##   ##
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           4.1
+
+         SYSTEM CONSTANTS
+         =================================================================
+
+         The following list of pre-set constants are defined in LITE.BI.
+         These constants can be added "+" and passed as the options%
+         parameter in a call to OpenWindow().
+
+         NEVER modify the values of these constants.
+
+         Pre-Set Constants   Value  Remark
+         ------------------  -----  ------------------------------------
+         OFFBUTTON               1  Place Off Icon on window
+         RESIZEBUTTON            2  Place Re-size Icon on window
+         DRAGBAR                 4  Place Drag Bar on window
+         HORZSCROLLBAR           8  Place Horiz. Scroll Bar on window
+         VERTSCROLLBAR          16  Place Vert. Scroll Bar on window
+         SELECTABLE             64  Makes window selectable with mouse
+         FLAT                  128  Create a borderless Flat window
+         AUTOCLOSE             512  Auto-close window when hidden
+         AUTOSCROLL           8192  Makes window scroll bars adjust window.
+
+         -----------------------------------------------------------------
+         USER CONSTANTS
+
+         This next set of constants can be defined by the user and should
+         be custom tailored to each application.  These constants should
+         ALWAYS at the beginning of the main module and before any $INCLUDE
+         files.
+
+         The minimum value of each constant should NEVER be less than 1.
+
+         User Set Constants  Value  Remark
+         ------------------  -----  ------------------------------------
+         MAXBUTTONS             64  ProWindows(tm) PROFESSIONAL ONLY
+         MAXOPTIONS             24  ProWindows(tm) PROFESSIONAL ONLY
+         MAXMENUS               20  ProWindows(tm) PROFESSIONAL ONLY
+         MAXWINDOWS             30  Maximum number of windows
+
+         -----------------------------------------------------------------
+
+         DATA TYPES
+
+         The following data types are declared in LITE.BI.
+
+         TYPEs and Elements            Remarks
+         ----------------------------  -----------------------------------
+         TYPE wincb
+              row AS INTEGER           Screen row of window
+              col AS INTEGER           Screen column of window
+              rows AS INTEGER          Displayed rows of window
+              cols AS INTEGER          Displayed columns of window
+              attr AS INTEGER          Default attribute of window
+              Border AS INTEGER        Border style of window
+              Shadow AS INTEGER        Shadow style of window
+              Zoom AS INTEGER          Zoom style of window
+              ptr AS INTEGER           Index into scrn%() array
+              cbytes AS INTEGER        Character bytes of compressed image
+              abytes AS INTEGER        Attribute bytes of compressed image
+         END TYPE
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           4.2
+
+         TYPE vircb
+              row AS INTEGER           Screen row to display window at
+              col AS INTEGER           Screen column to display window at
+              rows AS INTEGER          Window rows to display
+              cols AS INTEGER          Window columns to display
+              vrow AS INTEGER          Displayed offset into window
+              vcol AS INTEGER          Displayed offset into window
+              vrows AS INTEGER         Virtual rows in window
+              vcols AS INTEGER         Virtual columns in window
+              attr AS INTEGER          Attribute of virtual window
+              Border AS INTEGER        Border style of virtual window
+              Shadow AS INTEGER        Shadow style of virtual window
+              Zoom AS INTEGER          Zoom style of virtual window
+              WI AS INTEGER            Index into wcb() array
+              Options AS INTEGER       Display options of virtual window
+              TitlePos AS INTEGER      Title position of virtual window
+              Title AS STRING * 20     Title of virtual window
+              Buttons AS INTEGER       Number of buttons in virtual window
+              LastButton AS INTEGER    Last button selected
+              VertPos AS INTEGER       Vertical scroll bar position
+              HorzPos AS INTEGER       Horizontal scroll bar position
+         END TYPE
+
+         -----------------------------------------------------------------
+
+         SELECT GLOBAL VARIABLES AND ARRAYS
+
+         NAME      /VideoData/ MAXROWS AS INTEGER
+
+         REMARKS   MAXROWS% is filled by the function InitPro(), and holds
+                   the number of screen rows in the current display mode.
+
+         -----------------------------------------------------------------
+
+         NAME      /VideoData/ MAXCOLS AS INTEGER
+
+         REMARKS   MAXCOLS% is filled by the function InitPro(), and holds
+                   the number of screen columns in the current display
+                   mode.
+
+         -----------------------------------------------------------------
+
+         NAME      /VideoData/ VIDEOSEGMENT AS INTEGER
+
+         REMARKS   VIDEOSEGMENT% is filled by the function InitPro(), and
+                   holds the segment address of the beginning of display
+                   memory.
+
+         -----------------------------------------------------------------
+
+         NAME      /VideoData/ VIDEOOFFSET AS INTEGER
+         REMARKS   VIDEOOFFSET% is filled by the function InitPro(), and
+                   holds the offset address of the current video page in
+                   display memory.
+
+         -----------------------------------------------------------------
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           4.3
+
+         NAME      /WindowData/ wcb() AS wincb
+
+         REMARKS   wcb() is a stack-based array that holds information
+                   about the window currently on the screen.  The last
+                   window displayed is pointed to by: wcb(WI%).
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ scrn() AS INTEGER
+
+         REMARKS   scrn%() is an integer array that holds the individual
+                   images of the original portions of the screen where a
+                   window is being displayed.  The contents on scrn%() are
+                   highly compressed and should NEVER be modified.
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ WI AS INTEGER
+
+         REMARKS   WI% is used as a pointer into the arrays wcb() and
+                   wcbndx%().  WI% holds the internal stack position of the
+                   last window displayed.  It also queues the next window
+                   removed by the function RemoveWindow().
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ SoundMode AS INTEGER
+
+         REMARKS   SoundMode% is used to turn on sound effects when a
+                   window is first displayed or removed.
+
+                   SoundMode accepts the following values:
+
+                   Value            Description
+                   ---------------  --------------------------------------
+                   0                Disable
+                   1                Click
+                   2                Beep
+                   3                Glissando (chirp)
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ SNOW AS INTEGER
+
+         REMARKS   SNOW% is used to control flicker reduction on older CGA
+                   adaptors.  SNOW% should ALWAYS be set prior to the
+                   initial call to InitPro().  If InitPro() decides that
+                   flicker reduction is not needed, it will automatically
+                   disable it.
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ CreateMode AS INTEGER
+
+         REMARKS   Used as a debugging aid, when set, CreateMode% enables
+                   the window status display at the lower left portion of
+                   the screen.  The displayed numbers correspond to the
+                   number of windows being displayed, highest subscript of
+                   the array scrn%() being used, and the highest subscript
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           4.4
+
+                   of array VirMem%() being used.
+                   CreateMode% should ALWAYS be set during initial program
+                   development.
+
+         -----------------------------------------------------------------
+
+         NAME      /WindowData/ ERRNO AS INTEGER
+
+         REMARKS   ERRNO% will contain a non-zero value if an error
+                   occurred while loading a window, menu, or input form
+                   from the disk.
+
+         -----------------------------------------------------------------
+
+         NAME      /wprintData/ WindowSeg AS INTEGER
+
+         REMARKS   DO NOT USE
+
+         -----------------------------------------------------------------
+
+         NAME      /wprintData/ WindowOff AS INTEGER,
+
+         REMARKS   WindowOff% holds the memory offset of the window pointed
+                   to by the variable CurrentWindow%.
+
+         -----------------------------------------------------------------
+
+         NAME      /wprintData/ WindowSize AS INTEGER
+
+         REMARKS   WindowSize% holds the image width of the window pointed
+                   to by the variable CurrentWindow%.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ VirMem() AS INTEGER
+
+         REMARKS   VirMem%() is an integer array that holds the images of
+                   individual virtual windows.  The contents of a window
+                   can be modified by altering the contents of this array.
+                   Modify at your own risk.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ vcb() AS vircb
+
+         REMARKS   vcb() is an array that holds information necessary for
+                   the management of each virtual window.  It's contents
+                   should never be modified directly.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ wcbndx() AS INTEGER
+
+         REMARKS   wcbndx%() is a stack-based array that holds the handles
+                   of all virtual windows being displayed.  WI% is the
+                   pointer variable for this array.
+
+         -----------------------------------------------------------------
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+
+         ProWindows(tm) LITE - Version 5.20                           4.5
+
+         NAME      /VLSdata/ CurrentWindow AS INTEGER
+
+         REMARKS   CurrentWindow% holds the handle of the currently
+                   selected virtual window.  All ProWindows specific print
+                   functions are directed to this window.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ UpdateMode AS INTEGER
+
+         REMARKS   UpdateMode% controls whether ProWindows specific print
+                   statement are immediately executed or only when one of
+                   the Refresh functions are called.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ GlobalOptions AS INTEGER
+
+         REMARKS   GlobalOptions% hold the options used when a window is
+                   created with a call to PopWindow().  This variable
+                   should be defined prior to the call.
+
+         -----------------------------------------------------------------
+
+         NAME      /VLSdata/ FreezeFrame AS INTEGER
+
+         REMARKS   When set, FreezeFrame cancels all mouse actions to any
+                   other window than CurrentWindow%.
+
+         -----------------------------------------------------------------
+
+         /VLSdata/ VideoRecycle AS INTEGER
+
+         REMARKS   When set, VideoRecycle% forces the Window Manager to re-
+                   use normally unused portions of video ram as a scratch
+                   pad buffer.  This option can return up to 24K back to
+                   the BASIC environment.  "Video Recycling" is not
+                   available on Monochrome (MDA) adaptors, and will be
+                   automatically disabled.
+
+                   VideoRecycle% should be set prior to calling InitPro().
+
+         -----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                (c) Copyright 1988-1992 DSE Software Publishing
+
+

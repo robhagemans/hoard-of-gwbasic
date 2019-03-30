@@ -1,0 +1,31 @@
+The following files are included in the BasWiz package:
+
+   BASWIZ.DOC         documentation for The BASIC Wizard's Library
+   BASWIZ.NEW         information about new additions and changes
+   BIBLIO.TXT         bibliography of some references used in making BasWiz
+   BW$BAS.LZH/.ZIP    source code for the BASIC BasWiz routines
+   BW$FAR.LIB         library of BasWiz asm routines (PDS far string routines)
+   BW$MAIN.LIB        library of BasWiz asm routines (non-string routines)
+   BW$NEAR.LIB        library of BasWiz asm routines (near string routines)
+   CALC.BAS           command-line calculator (demonstrates Evaluate routine)
+   CALC.EXE           command-line calculator (demonstrates Evaluate routine)
+   CATALOG.TXT        catalog of other available software
+   CREATE.BAT         batch file for compiling and linking the DEMO program
+   FILE_ID.DIZ        description of BasWiz for BBSes
+   GDEMO.BAS          source code for the graphics demo
+   GDEMO.EXE          executable graphics demo
+   GDEMO.PCX          picture file used in the graphics demo
+   LIBRARY.TXT        information on how to use libraries
+   MIRRORS.BAS        source code for a graphics example program
+   PACKING.LST        list of files included with BasWiz (this list)
+   PDEMO.BAS          simple demo of BasWiz printer graphics routines
+   PDQSTUB.ASM        source to stub file for older P.D.Q. versions
+   PDQSTUB.OBJ        stub file for older versions of Crescent's P.D.Q.
+   QUESTION.TXT       answers to some common questions on QuickBASIC
+   REGISTER.TXT       registration/order form
+   ROSES.BAS          source code for an example program
+   TERM.BAS           source code for the "dumb terminal" example program
+   WDEMO.BAS          source code for the virtual windowing system demo
+   WDEMO.DAT          data file for the virtual windowing system demo
+   WDEMO.EXE          demo of the virtual windowing system
+   WHERE.BBS          BBSes which have my latest software

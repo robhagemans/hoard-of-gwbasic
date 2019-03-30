@@ -1,0 +1,2671 @@
+ 
+            >> THERE IS NO NEED TO PRINT THIS ENTIRE DOCUMENT  <<
+
+          The entire PB/VISION(tm) LITE reference manual can be
+          accessed directly through PowerBASIC's built-in help
+          system.  Copy PBVLITE.PBH in the same directory as
+          PB.EXE and then press <SHIFT-F1> until the PB/VISION(tm)
+          index appears.
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                       ³
+          ³            P B / V I S I O N (tm)   L I T E           ³
+          ³      Visual Windowing Library for PowerBASIC 3.0      ³
+          ³   >>>>>>>>>> SHAREWARE EVALUATION VERSION <<<<<<<<<   ³
+          ³                                                       ³
+          ³                     Documentation                     ³
+          ³                                                       ³
+          ³    (c) Copyright 1993-94 DSE Software Publishing      ³
+          ³                  All Rights Reserved.                 ³
+          ³                                                       ³
+          ³        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³
+          ³        ³ ßßßßßßßß\      ßßßßßß\ ßßßßßßßßßß\ ³         ³
+          ³        ³  ßßß\   ß\    ßß\   ßß\ ßßß\   ßß\ ³         ³
+          ³        ³  ßßß\    ß\  ßß\     ß\ ßßß\    ß\ ³         ³
+          ³        ³  ßßß\    ßß\ ßß\        ßßß\       ³         ³
+          ³        ³  ßßß\    ßß\ ßßß\       ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\  ßßß\      ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\    ßßß\    ßßßßßß\    ³         ³
+          ³        ³  ßßß\    ßß\      ßßß\  ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\       ßßß\ ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\        ßß\ ßßß\       ³         ³
+          ³        ³  ßßß\    ß\  ß\     ßß\ ßßß\    ß\ ³         ³
+          ³        ³  ßßß\   ß\   ßß\   ßß\  ßßß\   ßß\ ³         ³
+          ³        ³ ßßßßßßßß\     ßßßßßß\  ßßßßßßßßßß\ ³         ³
+          ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         ³
+          ³                                                       ³
+          ³                DSE Software Publishing                ³
+          ³                  Post Office Box 96                   ³
+          ³                Willits, CA 95490-0096                 ³
+          ³                    (707) 459-4358                     ³
+          ³                 FAX: (707) 459-4484                   ³
+          ³                                                       ³
+          ³        InterNet: dse.software@genie.geis.com          ³
+          ³           DSE Online! BBS - (707) 459-4484            ³
+          ³                 GEnie: DSE.SOFTWARE                   ³
+          ³                                                       ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+          PowerBASIC is a registered trademark of PowerBASIC, Inc.
+          PB/VISION(tm) and PB/WORKSHOP(tm) are trademarks of DSE
+          Software Publishing.  Other product names are trademarks
+          or registered trademarks of their respective holders.
+
+
+
+
+
+
+
+
+
+
+                                    Contents
+
+
+                  Information for Users  . . . . . . . . . . . . . . 2
+                  Warranty   . . . . . . . . . . . . . . . . . . . . 2
+                  License for Use and Distribution   . . . . . . . . 3
+                  Installation . . . . . . . . . . . . . . . . . . . 3
+                  Technical Support  . . . . . . . . . . . . . . . . 4
+
+               Chapter 1  WINDOW MANAGEMENT ROUTINES                 5
+                  App - VARIABLE . . . . . . . . . . . . . . . . . . 5
+                  AppTitle - PROCEDURE . . . . . . . . . . . . . . . 6
+                  AppClose - PROCEDURE . . . . . . . . . . . . . . . 6
+                  AppInit - PROCEDURE  . . . . . . . . . . . . . . . 6
+                  AppPause - PROCEDURE . . . . . . . . . . . . . . . 7
+                  AppRefresh - PROCEDURE . . . . . . . . . . . . . . 7
+                  AppResume - PROCEDURE  . . . . . . . . . . . . . . 7
+                  Attr% - FUNCTION . . . . . . . . . . . . . . . . . 8
+                  WinTitle - PROCEDURE . . . . . . . . . . . . . . . 8
+                  WinClose - PROCEDURE . . . . . . . . . . . . . . . 8
+                  WinCls - PROCEDURE . . . . . . . . . . . . . . . . 9
+                  WinColor - PROCEDURE . . . . . . . . . . . . . . . 9
+                  WinCopy% - FUNCTION  . . . . . . . . . . . . . .  10
+                  WinDeleteLine - PROCEDURE  . . . . . . . . . . .  10
+                  WinDrawBox - PROCEDURE . . . . . . . . . . . . .  11
+                  WinFill - PROCEDURE  . . . . . . . . . . . . . .  11
+                  WinGet - FUNCTION  . . . . . . . . . . . . . . .  12
+                  WinGetInfo - PROCEDURE . . . . . . . . . . . . .  12
+                  WinHide - PROCEDURE  . . . . . . . . . . . . . .  13
+                  WinHotPrint - PROCEDURE  . . . . . . . . . . . .  13
+                  WinInsertLine - PROCEDURE  . . . . . . . . . . .  14
+                  WinInstallCode - PROCEDURE . . . . . . . . . . .  14
+                  WinLocate - PROCEDURE  . . . . . . . . . . . . .  15
+                  WinLock - PROCEDURE  . . . . . . . . . . . . . .  15
+                  WinLockAll - PROCEDURE . . . . . . . . . . . . .  16
+                  WinLockState% - FUNCTION . . . . . . . . . . . .  16
+                  WinLockRestore - PROCEDURE . . . . . . . . . . .  16
+                  WinMain - PROCEDURE  . . . . . . . . . . . . . .  17
+                  WinMaximize - PROCEDURE  . . . . . . . . . . . .  17
+                  WinMinimize - PROCEDURE  . . . . . . . . . . . .  18
+                  WinNormalize - PROCEDURE . . . . . . . . . . . .  18
+                  WinModify - PROCEDURE  . . . . . . . . . . . . .  19
+
+                                          i
+
+
+
+
+
+
+                  WinMove - PROCEDURE  . . . . . . . . . . . . . .  19
+                  WinNext - PROCEDURE  . . . . . . . . . . . . . .  20
+                  WinOpen% - FUNCTION  . . . . . . . . . . . . . .  20
+                  WinPopup% - FUNCTION . . . . . . . . . . . . . .  22
+                  WinPrev - PROCEDURE  . . . . . . . . . . . . . .  22
+                  WinPrint - PROCEDURE . . . . . . . . . . . . . .  23
+                  WinReColor - PROCEDURE . . . . . . . . . . . . .  23
+                  WinRefresh - PROCEDURE . . . . . . . . . . . . .  24
+                  WinRefreshMode - PROCEDURE . . . . . . . . . . .  24
+                  WInResize - PROCEDURE  . . . . . . . . . . . . .  24
+                  WinScrollBarGet - PROCEDURE  . . . . . . . . . .  25
+                  WinScrollBarSet - PROCEDURE  . . . . . . . . . .  25
+                  WinShow - PROCEDURE  . . . . . . . . . . . . . .  26
+                  WinSwapColor - PROCEDURE . . . . . . . . . . . .  27
+                  WinViewPort - PROCEDURE  . . . . . . . . . . . .  27
+                  WinWrite - PROCEDURE . . . . . . . . . . . . . .  28
+                  WinWriteChar - PROCEDURE . . . . . . . . . . . .  28
+                  WinWriteLn - PROCEDURE . . . . . . . . . . . . .  28
+
+               Chapter 2  EVENT MANAGEMENT ROUTINES                 30
+                  GetEvent% - FUNCTION . . . . . . . . . . . . . .  30
+                  HotKeyAdd - PROCEDURE  . . . . . . . . . . . . .  32
+                  HotKeyToggle - PROCEDURE . . . . . . . . . . . .  32
+                  TimerInstallCode - PROCEDURE . . . . . . . . . .  32
+                  WinCtrlBox - PROCEDURE . . . . . . . . . . . . .  33
+
+               Chapter 3  MOUSE ROUTINES                            35
+                  Mouse% - FUNCTION  . . . . . . . . . . . . . . .  35
+                  MouseCursorOff - PROCEDURE . . . . . . . . . . .  36
+                  MouseCursorOn - PROCEDURE  . . . . . . . . . . .  36
+                  MouseGet% - FUNCTION . . . . . . . . . . . . . .  36
+                  MouseGetInfo - PROCEDURE . . . . . . . . . . . .  37
+                  MouseGetPress% - FUNCTION  . . . . . . . . . . .  38
+                  MouseGetRelease% - FUNCTION  . . . . . . . . . .  38
+                  MouseInit% - FUNCTION  . . . . . . . . . . . . .  39
+                  MouseSet - PROCEDURE . . . . . . . . . . . . . .  40
+                  MouseSetWindow - PROCEDURE . . . . . . . . . . .  40
+                  MouseTerm - PROCEDURE  . . . . . . . . . . . . .  41
+
+               Chapter 4  DATA TYPES USED                           42
+                  MENUCOLORTYPE - TYPE . . . . . . . . . . . . . .  42
+                  WINTYPE - TYPE . . . . . . . . . . . . . . . . .  42
+
+               Index                                                44
+
+
+
+
+
+                                         ii
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          Information for Users
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               PB/VISION(tm) LITE is a shareware program.  This evaluation
+               version includes all features of the program, and is not
+               crippled in any way. You may use it for up to 30 days,
+               without charge (see ORDER_ME.TXT for more details).  If you
+               like the program, and wish to continue its use after this
+               evaluation period, you are required to pay for the program
+               (see ORDER_ME.TXT for more details).  Any fee you may have
+               paid to others (disk vendors, dealers, etc.) to obtain this
+               evaluation version was a fee for their copying and
+               distribution services, rather than a payment for continued
+               use of the program.
+
+          Warranty
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               LIMITED WARRANTY
+
+               THIS SOFTWARE AND MANUAL ARE PROVIDED FOR EVALUATION ONLY,
+               ON  AN "AS IS" BASIS.  DSE SOFTWARE PUBLISHING DISCLAIMS ALL
+               WARRANTIES RELATING TO THIS SOFTWARE, WHETHER EXPRESSED  OR
+               IMPLIED, INCLUDING BUT NOT LIMITED TO ANY IMPLIED WARRANTIES
+               OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE.
+               NEITHER DSE SOFTWARE PUBLISHING NOR ANYONE ELSE WHO HAS BEEN
+               INVOLVED IN THE CREATION, PRODUCTION, OR DELIVERY OF THIS
+               SOFTWARE SHALL BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, OR
+               INCIDENTAL DAMAGES ARISING OUT OF THE USE OR INABILITY TO
+               USE SUCH SOFTWARE, EVEN IF DSE SOFTWARE PUBLISHING HAS BEEN
+               ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR CLAIMS.  THE
+               PERSON USING THE SOFTWARE BEARS ALL RISK AS TO THE QUALITY
+               AND PERFORMANCE OF THE SOFTWARE.
+
+               This agreement shall be governed by the laws of the State of
+               California and shall inure to the benefit of DSE Software
+               Publishing and any successors, administrators, heirs and
+               assigns. Any action or proceeding brought by either party
+               against the other arising out of or related to this
+               agreement shall be brought only in a STATE or FEDERAL COURT
+               of competent jurisdiction located in Mendocino County, CA.
+               The parties hereby consent to in personam jurisdiction of
+               said courts.
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  2
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          License for Use and Distribution
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               TRIAL USE LICENSE
+
+               PB/VISION(tm) LITE is NOT a public domain program.  It is
+               copyrighted by DSE Software Publishing.  This software and
+               accompanying documentation are protected by United States
+               copyright law and also by international treaty provisions.
+
+               DSE Software Publishing grants you a limited license to use
+               this software for evaluation purposes for a period not to
+               exceed thirty days.  If you continue using this software
+               after the thirty-day evaluation period, you MUST make a
+               registration payment to DSE Software Publishing.
+
+               You may not use, copy, rent, lease, sell, modify, decompile,
+               disassemble, otherwise reverse engineer, or transfer the
+               licensed program except as provided in this agreement.  Any
+               such unauthorized use shall result in immediate and
+               automatic termination of this license. All rights not
+               expressly granted here are reserved to DSE Software
+               Publishing.
+
+          Installation
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The installation procedure for PB/VISION(tm) LITE is quite
+               simple.  Simply copy all of the included files into either
+               your PowerBASIC directory.  You may also place it in an
+               entirely different directory if that is your choice.  In
+               either case, you will need about 650k of available disk
+               space on the hard drive on which you plan to install
+               PB/VISION(tm) LITE.
+
+               It is _very_ important that you place PBVLITE.PBH in the
+               same directory as the PowerBASIC IDE (PB.EXE).  This will
+               allow you to access the entire PB/VISION(tm) LITE
+               documentation directly through PowerBASIC's built-in help
+               system.
+
+               While in PB.EXE, to bring up our help screens, place the
+               cursor on a keyword and press <SHIFT-F1>.  To then bring up
+               the index to all of the PB/VISION(tm) routines.
+
+               YOU'RE READY TO GO
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  3
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               Once you've completed the installation, you should consult
+               TUTORIAL.DOC.  That file will tell you how to use all of the
+               PB/VISION(tm) features, and will give you other information
+               you need to properly evaluate PB/VISION(tm) LITE.  We hope
+               you enjoy the program.
+
+          Technical Support
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               If you have any problems, please read this file,
+               HELP_ME.DOC,  and TUTORIAL.DOC first.  If you still have a
+               question and need assistance, help is available from the
+               following sources:
+
+                    1.   DSE Online! BBS at 707-459-4484. 24 hours @
+                         1200-14.4K.
+
+                    2.   GEnie: address messages to "DSE.SOFTWARE".  Do not
+                         send us x-modem mail on GEnie.  We will not accept
+                         the file and your account will be billed for it.
+
+                    3.   InterNet: "dse.software@genie.geis.com"
+
+                    4.   CompuServe: "INTERNET:dse.software@genie.geis.com"
+
+                    5.   If you have an urgent problem that cannot wait,
+                         you may call the DSE Technical Support Department
+                         at (707) 459-4358 from 10:00 AM to 5:00 PM.  Calls
+                         outside these hours will not be answered.  Please
+                         have the following information ready before
+                         calling:
+
+                    a.   Computer brand, model, and the brands and mode
+                         numbers of any additional hardware.
+
+                    b.   Operating system and version number. (The version
+                         number can be determined by typing VER at the DOS
+                         prompt.)
+
+                    c.   Contents of your AUTOEXEC.BAT file.
+
+                    d.   Contents of your CONFIG.SYS file.
+
+                    e.   You will have to have read TUTORIAL.DOC.  Our help
+                         staff may quiz you ;)
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  4
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 1
+
+                             WINDOW MANAGEMENT ROUTINES
+
+          ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          App - VARIABLE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Defines PB/VISION start-up display parameters.
+
+           REMARKS: This variable has the following element(s):
+
+                    Element           Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    App.attr          Color of background fill-pattern.
+                    App.flags         Application initialization flags.
+                    App.graphicsMode  0=text, 1=graphics.
+                    App.graphicsMouse 0=text mouse, 1=graphical mouse.
+                    App.menuAttr      Color of menu bar (if enabled).
+                    App.Pattern       Background fill-pattern.
+                    App.rows          Number of lines to use on screen.
+
+                                      Value  Description
+                                      ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                        0    Use default size.
+                                       25    25 lines (all systems).
+                                       28    28 lines (VGA Only).
+                                       43    43 lines (EGA, VGA).
+                                       50    50 lines (EGA, VGA).
+
+                    App.snow          Snow removal flag (0=fast, 1=slow).
+                    App.statusAttr    Color of status bar (if enabled).
+                    App.title         Text of program title (if enabled).
+                    App.titleAttr     Color of program title (if enabled).
+
+                    Use the APP type variable to define how the display
+                    will look when APPINIT() is called.  The APP.flags
+                    element allows for one or more of the following flags:
+
+                    APP.flag       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    %MENUBAR       Make room for a menu bar.
+                    %STATUSBAR     Make room for a status bar.
+
+          SEE ALSO: APPINIT, APPTITLE
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  5
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          AppTitle - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Adds or changes a desktop title.
+
+            SYNTAX: APPTITLE kolor%, title$
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    kolor%         Color of desktop title.
+                    title$         Text of the title.
+
+                    Use APPTITLE() to add or change the title displayed on
+                    the top line of the application desktop.  The title is
+                    automatically centered.
+
+          SEE ALSO: APP, APPINIT
+
+
+          AppClose - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Shuts down all aspects of PB/VISION.
+
+            SYNTAX: APPCLOSE
+
+           REMARKS: Use APPCLOSE() prior to ending a program.  When called,
+                    APPCLOSE() hides and closes all open windows and
+                    restores the contents of default window 1 to the
+                    screen.
+
+          SEE ALSO: APPINIT
+
+          AppInit - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Initialize all aspects of PB/VISION(tm).
+
+            SYNTAX: APPINIT
+
+           REMARKS: Use APPINIT() to initialize PB/VISION(tm) with the
+                    definitions defined in the APP type variable.
+
+                    APPINIT() automatically stores the entire display
+                    contents and copies it into a predefined virtual with a
+                    window handle of 1.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  6
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          SEE ALSO: APPCLOSE, APPREFRESH, APPTITLE
+
+          AppPause - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Temporarily shuts down PB/VISION.
+
+            SYNTAX: APPPAUSE
+
+           REMARKS: Use APPPAUSE() to temporarily shut down the windowing
+                    system and restore the contents of default window 1 to
+                    the screen.  This command should be called prior using
+                    BASIC's "SHELL" command or switching to a graphics
+                    mode.
+
+          SEE ALSO: APPINIT, APPRESUME
+
+          AppRefresh - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Rebuilds the entire display.
+
+            SYNTAX: APPREFRESH
+
+           REMARKS: Use APPREFRESH() to rebuild the screen if it becomes
+                    corrupted by errant PRINT statements and such.
+
+          SEE ALSO: APPINIT
+
+          AppResume - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Restarts PB/VISION after a call to APPPAUSE().
+
+            SYNTAX: APPRESUME
+
+           REMARKS: Use APPRESUME() to restart the windowing system after a
+                    previous call to APPPAUSE().  The desktop and all open
+                    windows are restored to their original state.
+
+                    APPRESUME() does not restore the status bar or pulldown
+                    menu.  If either of these options are used, you must
+                    immediately follow the call with calls to STATUSSHOW()
+                    and/or PULLMENUSHOW().
+
+          SEE ALSO: APPINIT, APPPAUSE
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  7
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          Attr% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Returns a calculated color combination code
+
+            SYNTAX: varname% = ATTR%(fore%, back%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    fore%          Foreground attribute ranging 0-15.
+                    back%          Background attribute ranging 0-15.
+
+                    Use ATTR% to create an integer attribute to pass to
+                    procedures such as WINPRINT().  The supplied foreground
+                    and background attributes are identical to the
+                    attributes in BASIC's COLOR statement.
+
+          SEE ALSO: WINCOLOR, WINOPEN, WINPRINT
+
+              NOTE: READ THE TUTORIAL.  THERE IS A MUCH BETTER METHOD.
+
+
+          WinTitle - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Adds or changes the title in a window.
+
+            SYNTAX: WINTITLE winHandle%, kolor%, title$
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window.
+                    kolor%         Color of window title.
+                    title$         Text of the title.
+
+                    Use WINTITLE() to add or change the title of an open
+                    window.
+
+          SEE ALSO: WINOPEN, WINPOPUP
+
+          WinClose - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Closes a previously opened window.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  8
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+            SYNTAX: WINCLOSE winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+
+                    Use WINCLOSE() to close a previously opened window.
+                    All memory used by the window is returned to the
+                    PowerBASIC heap and all assigned code is removed from
+                    the event manager.
+
+          SEE ALSO: WINHIDE, WINOPEN, WINSHOW
+
+          WinCls - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Perform a "clear screen" on an open window.
+
+            SYNTAX: WINCLS winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+
+                    Use WINCLS() to clear out the contents of an open
+                    window.  Subsequent calls to WINWRITE(),
+                    WINWRITECHAR(), or WINWRITELN() will start at the top
+                    left corner of the window.
+
+                    If WINCOLOR() has been called, the window will be
+                    cleared to the specified color.
+
+          SEE ALSO: WINCOLOR, WINWRITE, WINWRITECHAR, WINWRITELN
+
+          WinColor - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Sets the color for subsequent window print commands.
+
+            SYNTAX: WINCOLOR winHandle%, kolor%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  9
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    kolor%         New color for window printing..
+
+                    Use WINCOLOR to set the color to use with subsequent
+                    calls to WINWRITE(), WINWRITECHAR(), and WINWRITELN().
+
+          SEE ALSO: ATTR, WINWRITE, WINWRITECHAR, WINWRITELN
+
+          WinCopy% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Clones (duplicates) an open window.
+
+            SYNTAX: varname% = WINCOPY (winHandle%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to duplicate.
+
+                    Use WINCOPY() to make an exact copy of an existing
+                    window.  Every aspect is copied, including the contents
+                    of the window itself.
+
+           RETURNS: This function returns the following value(s):
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    0      Could not duplicate.
+                    any    The handle of the new window.
+
+          SEE ALSO: WINOPEN, WINPOPUP
+
+          WinDeleteLine - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Deletes and scrolls up one line in a window
+
+            SYNTAX: WINDELETELINE winHandle%, LineNo%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  10
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    LineNo%        Line number to delete.
+
+                    Use WINDELETELINE() to delete a single line in a
+                    window.  All text below that line is scrolled up.
+
+          SEE ALSO: WININSERTLINE
+
+          WinDrawBox - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Tool to draw a box inside of a window.
+
+            SYNTAX: WINDRAWBOX winHandle%, row%, col%, rows%, cols%,
+                               kolor%, border%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of an existing window.
+                    row%           Row inside window to draw the box.
+                    col%           Col inside window to draw the box.
+                    rows%          Vertical dimension of box to draw.
+                    cols%          Horizontal dimension of box to draw.
+                    kolor%         Color to draw the box.
+                    border%        Border style.
+
+                    Use WINDRAWBOX() to draw a box frame inside a window.
+                    The row% and col% arguments are relative to the inside
+                    of the window.
+
+          SEE ALSO: WINFILL, WINPRINT
+
+          WinFill - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Fills a portion of a window with a color/character.
+
+            SYNTAX: WINFILL winHandle%, row%, col%, rows%, cols%,
+                            kolor%, char%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    row%           Row inside window to fill.
+                    col%           Col inside window to fill.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  11
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    rows%          Vertical dimension of area to fill.
+                    cols%          Horizontal dimension of area to fill.
+                    kolor%         Color to use for fill.
+                    char%          Character to use for fill.
+
+                    Use WINFILL() to fill an area within a window with the
+                    specified color and character.  The row% and col%
+                    arguments are relative to the inside of the window.  If
+                    a value of -1 is used for KOLOR%, the default window
+                    color is used.
+
+          SEE ALSO: WINDRAWBOX
+
+          WinGet - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Gets the handle of the top most window.
+
+            SYNTAX: varname% = WINGET%
+
+           REMARKS: Use WINGET% to get the handle of the top most window,
+                    or the handle of the window that was last affected
+                    during a call to GETEVENT().
+
+          SEE ALSO: GETEVENT
+
+          WinGetInfo - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Return complete information about an open window.
+
+            SYNTAX: WINGETINFO winHandle%, win
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of an existing window.
+                    win            A variable of type WINTYPE that holds
+                                   complete information about the window.
+
+                    Use WINGETINFO() to return information about an open
+                    window.  On return, the WIN argument, a variable of
+                    type WINTYPE, will hold the window information.
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  12
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinHide - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Hides a displayed window.
+
+            SYNTAX: WINHIDE winhandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+
+                    Use WINHIDE() to hide a displayed window.  The window
+                    can be re-displayed via the WINSHOW() procedure.
+
+              NOTE: If the %AUTOCLOSE flags was used when the window was
+                    opened, WINHIDE() will automatically call WINCLOSE()
+                    and the window will be nonrecoverable.
+
+          SEE ALSO: WINCLOSE, WINOPEN, WINPOPUP, WINSHOW
+
+          WinHotPrint - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Prints text to a window in two colors.
+
+            SYNTAX: WINHOTPRINT winHandle%, row%, col%, kolor%, text$
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    row%           Window relative row to print text.
+                    col%           Window relative column to print text.
+                    kolor%         Extended color attribute of text.
+                    text$          Text to print.
+
+                    Use WINHOTPRINT() to print text to a window in two
+                    colors.  Using an extended color code (see
+                    TUTORIAL.DOC) the default text is printed with the
+                    primary color code, and any text enclosed between two
+                    tilde characters (~) is printed with the secondary
+                    color code.
+
+                    Using a value of 0 for the COL% argument, the text will
+                    be centered on the line.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  13
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          SEE ALSO: WINPRINT
+
+           EXAMPLE: WINHOTPRINT winHandle%, 2, 4, &H1F17, "Hello, ~World!~"
+
+
+          WinInsertLine - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Inserts and scrolls down one line in a window
+
+            SYNTAX: WININSERTLINE winHandle%, LineNo%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    LineNo%        Line number to insert.
+
+                    Use WININSERTLINE() to insert a single line in a
+                    window.  All text below that line is scrolled down.
+
+          SEE ALSO: WINDELETELINE
+
+          WinInstallCode - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Assign code to a window for multitasking.
+
+            SYNTAX: WININSTALLCODE winHandle%, segptr%, offptr%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    segptr%        Segment address of procedure to task.
+                    offptr%        Offset address of procedure to task.
+
+                    Use WININSTALLCODE() to assign a predefined function to
+                    the specified window.  Whenever an event occurs that
+                    will effect that window, the given function is called
+                    with the handle and event number.
+
+          SEE ALSO: WINOPEN, WINPOPUP, WINSHOW, TIMERINSTALLCODE
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  14
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinLocate - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Relocate the cursor within window.
+
+            SYNTAX: WINLOCATE winHandle%, row%, col%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    row%           Window relative row to locate the
+                                   cursor.
+                    col%           Window relative column to locate the
+                                   cursor.
+
+                    Use WINLOCATE() to reposition the internal cursor in a
+                    window.  Subsequent calls to WINWRITE(),
+                    WINWRITECHAR(), or WINWRITELN() will print at this
+                    location.
+
+              NOTE: PB/VISION does _not_ maintain a visible cursor for each
+                    window.
+
+          SEE ALSO: WINWRITE, WINWRITECHAR, WINWRITELN
+
+          WinLock - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Locks out access to all other windows.
+
+            SYNTAX: WINLOCK winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to lock in place.
+
+                    Use WINLOCK() to lock out access to all other windows
+                    except the specified window.  The lock remains active
+                    until WINLOCK 0 is called or the window is removed or
+                    hidden.  The pulldown menu system and the status bar
+                    remain active.
+
+          SEE ALSO: WINLOCKALL, WINSHOW
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  15
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinLockAll - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Locks out access to all but the specified window.
+
+            SYNTAX: WINLOCKALL winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to lock in place.
+
+                    Use WINLOCKALL() to lock out access everything but the
+                    specified window.  The pulldown menu system and the
+                    status bar are also disabled.  The lock remains active
+                    until WINLOCKALL 0 is called.
+
+              NOTE: Closing of hiding the locked window does _not_ disable
+                    the lock.  WINLOCKALL 0 must be called.
+
+          SEE ALSO: WINLOCK, WINSHOW
+
+          WinLockState% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Returns encoded info needed by WINLOCKRESTORE()
+
+            SYNTAX: varname% = WINLOCKSTATE
+
+           REMARKS: WINLOCKSTATE() returns an encoded value that is passed
+                    to WINLOCKRESTORE() upon termination of a modal window,
+                    menu, or data entry form.  The information contained in
+                    the variable is the current state of WINLOCK() and
+                    WINLOCKALL().
+
+                    This function should be called on entry to a modal
+                    window, menu, or data entry form routine.  When exiting
+                    the routine, WINLOCKRESTORE() will re-instate any locks
+                    that were previously enabled.
+
+          SEE ALSO: WINLOCK, WINLOCKALL, WINLOCKRESTORE
+
+          WinLockRestore - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Restore the state of a locked window.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  16
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+            SYNTAX: WINLOCKRESTORE varname%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    varname%       Value returned by WINLOCKSTATE%()
+
+                    Use WINLOCKRESTORE() to return the window locking
+                    states that were present before the modal window, menu,
+                    or data entry form was displayed.
+
+          SEE ALSO: WINLOCK, WINLOCKALL, WINLOCKSTATE
+
+          WinMain - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Bring a window to the top of the screen.
+
+            SYNTAX: WINMAIN winhandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+
+                    Use WINMAIN() to quickly display an open window.  If
+                    the window is already being displayed, it will be moved
+                    to the top of the window stack.
+
+          SEE ALSO: WINOPEN, WINPOPUP, WINSHOW
+
+          WinMaximize - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Maximizes a window to full size or full screen.
+
+            SYNTAX: WINMAXIMIZE winhandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+
+                    Use WINMAXIMIZE() to re-size a window to its full
+                    virtual size.  If the size is larger than the screen,
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  17
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    the window is adjusted to fit within the confines of
+                    the screen.  To return the window to its original size,
+                    use WINNORMALIZE().
+
+                    If the window is re-sized with WINRESIZE() or with the
+                    mouse, the window is no longer considered maximized.
+
+          SEE ALSO: WINMINIMIZE, WINNORMALIZE
+
+          WinMinimize - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Minimizes a window to an icon.
+
+            SYNTAX: WINMINIMIZE winhandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+
+                    Use WINMINIMIZE() to reduce a window to the smallest
+                    possible icon.  All window controls are disabled and
+                    only a title is displayed.
+
+                    So that the window can be returned to normal via mouse
+                    control, it is recommended that you add one of the
+                    following two code fragments to your GETEVENT() loop:
+
+                         CASE 217
+                              WINNORMALIZE WINGET
+
+                    or
+
+                         CASE 217
+                              WINCTRLBOX WINGET
+
+                    To return the window to normal via software control,
+                    use WINNORMALIZE().
+
+          SEE ALSO: WINMAXIMIZE, WINNORMALIZE
+
+          WinNormalize - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Returns a window to its previous dimensions.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  18
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+            SYNTAX: WINNORMALIZE winhandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+
+                    Use WINNORMALIZE() to return a window to the state it
+                    was in before WINMINIMIZE() or WINMAXIMIZE() was
+                    called.  The window will be returned to its previous
+                    position and size.
+
+          SEE ALSO: WINMAXIMIZE, WINMINIMIZE
+
+          WinModify - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Change physical attributes of an open window
+
+            SYNTAX: WINMODIFY winHandle%, kolor%, border%, borderKolor%,
+                              TitleKolor%, flags%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+                    kolor%         New color of window text.
+                    border%        New border style (ranging 0 to 17).
+                    borderKolor%   New color of window border.
+                    TitleKolor%    New color of window title.
+                    flags%         New window flags (see WINOPEN()).
+
+                    Use WINMODIFY() to change the visible attributes of a
+                    window, after it has already been opened.
+
+          SEE ALSO: WINOPEN, WINPOPUP, WINSHOW
+
+          WinMove - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Moves a window on the screen.
+
+            SYNTAX: WINMOVE winHandle%, row%, col%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  19
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winhandle%     Handle of a valid window.
+                    row%           Vert. position to move the window to.
+                    col%           Horiz. position to move the window to.
+
+                    Use WINMOVE() to move a window from one screen location
+                    to another.  The window will maintain its relative
+                    position within the window stack.
+
+          SEE ALSO: WINSHOW
+
+          WinNext - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Brings forward the next logical window.
+
+            SYNTAX: WINNEXT
+
+           REMARKS: Use WINNEXT() to bring forward the next logical
+                    displayed window.
+
+          SEE ALSO: WINPREV
+
+          WinOpen% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Opens (creates) a new window.
+
+            SYNTAX: winhandle% = WINOPEN% (rows%, cols%, kolor%, border%,
+                                           borderKolor%, title$,
+                                           titleColor%, flags%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    rows%          Number of virtual rows in window.
+                    cols%          Number of virtual columns in window.
+                    kolor%         Color for window text.
+                    border%        Border style for window.
+                    borderKolor%   Color for window border.
+                    title$         Text to use as window title.
+                    TitleKolor%    Color for window title.
+                    flags%         Window display flags
+
+                    Use WINOPEN() to create a brand new virtual window.
+                    The ROWS% and COLS% arguments refer to the "virtual"
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  20
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    size, not the displayed size.  In PB/VISION(tm), window
+                    can be larger than what is displayed.
+
+                    The FLAGS% argument controls various display features
+                    for the window and is built by logically OR'ing
+                    constants defined in WINDOW.BI.
+
+                    The %NOCOLOR flag is of specific interest because it
+                    will reduce the memory requirements for that particular
+                    window by 50%.  All text in that window will be
+                    displayed in the default window color.
+
+                    Constant       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    %AUTOCLOSE     Forces window to close if it becomes
+                                   hidden.
+                    %AUTOSCROLL    Coordinates window scroll relative to
+                                   window viewport and allows mouse and
+                                   keyboard scrolling of window.
+                    %BOTTOMBAR     Adds an attractive bottom bar to
+                                   graphical windows that do not already
+                                   have one.
+                    %CONTROL       Add a control box icon to the window
+                                   (See WINCTRLBOX().
+                    %DRAGBAR       Add a drag bar to the window.
+                    %HSCROLLBAR    Add a horizontal scroll bar to the
+                                   window.
+                    %MINMAX        Add minimize and maximize icons to the
+                                   window.
+                    %NOHORZBORDER  Remove horizontal border from window.
+                    %NOCOLOR       Defines that all text in the window is
+                                   of one color (saves 50% memory).
+                    %NOHIDE        Does not allow window to be hidden.
+                    %NOSELECT      Disables all mouse manipulation of a
+                                   window.
+                    %NOVERTBORDER  Remove vertical border from window.
+                    %RESIZE        Add a resize icon to the window.
+                    %SHADOW        Add a shadow to the window (lower/right)
+                    %VSCROLLBAR    Add a vertical scroll bar to the window.
+
+           RETURNS: WINOPEN%() returns a valid window handle, or 0 on
+                    error. You will need to keep track of this handle for
+                    later manipulation of the window.
+
+          SEE ALSO: WINCLOSE, WINPOPUP, WINSHOW, WININSTALLCODE
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  21
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinPopup% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Opens (creates) a new window and displays it.
+
+            SYNTAX: winhandle% = WINPOPUP% (row%, col%, rows%, cols%,
+                                             kolor%, border%, borderKolor%,
+                                             title$, titleKolor%, flags%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    row%           Vert. position to display the window.
+                    col%           Horiz. position to display the window.
+                    rows%          Number of virtual rows in window.
+                    cols%          Number of virtual columns in window.
+                    kolor%         Color for window text.
+                    border%        Border style for window.
+                    borderKolor%   Color for window border.
+                    title$         Text to use as window title.
+                    TitleKolor%    Color for window title.
+                    flags%         Window display flags
+
+                    Use WINPOPUP() to create and display a brand new
+                    virtual window.  The ROWS% and COLS% arguments refer to
+                    the both the "virtual" size _and_ the displayed size.
+                    If a value of 0 is used for the ROW% and/or COL%
+                    arguments, the window will auto-center in that plane.
+
+                    This function is simply a faster way to create and
+                    display a window.
+
+           RETURNS: WINPOPUP%() returns a valid window handle, or 0 on
+                    error.  You will need to keep track of this handle for
+                    later manipulation of the window.
+
+          SEE ALSO: WINCLOSE, WINOPEN, WININSTALLCODE
+
+          WinPrev - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Brings forward the last logical window.
+
+            SYNTAX: WINPREV
+
+           REMARKS: Use WINPREV() to bring forward the last logical
+                    displayed window.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  22
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          SEE ALSO: WINNEXT
+
+          WinPrint - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Print text in an open window.
+
+            SYNTAX: WINPRINT winHandle%, row%, col%, kolor%, text$
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    row%           Window relative row to print text.
+                    col%           Window relative column to print text.
+                    Kolor%         Color of text to print.
+                    text$          Text to print.
+
+                    Use WINPRINT() to print text to a window in the color
+                    specified in the KOLOR% argument.  If a value of -1 is
+                    used, the text is printed in the default window color.
+                    Using a value of 0 for the COL% argument, the text will
+                    be centered on the line.
+
+          SEE ALSO: WINHOTPRINT, WINWRITE, WINWRITECHAR, WINWRITELN
+
+          WinReColor - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Changes color of window and all text within.
+
+            SYNTAX: WINRECOLOR winHandle%, kolor%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of a valid window.
+                    kolor%         New color for window and text.
+
+                    Use WINCOLOR to change the color of an open window and
+                    re-color all of the text in that window.
+
+          SEE ALSO: ATTR
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  23
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinRefresh - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Forces a re-display on an open window.
+
+            SYNTAX: WINREFRESH winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of the window to refresh.
+
+                    Use WINREFRESH() to update a window when automatic
+                    window refreshing has been disabled with
+                    WINREFRESHMODE().
+
+                    A side-effect of this call is that all windows on top
+                    of the window to be refreshed will also be refreshed.
+
+          SEE ALSO: WINREFRESHMODE
+
+          WinRefreshMode - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Enables or disables screen refreshing.
+
+            SYNTAX: WINREFRESHMODE mode%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    mode%          0 disables refreshing, 1 re-enables.
+
+                    Use WINREFRESHMODE() to enable or disable automatic
+                    screen refreshing of all displayed windows.  When
+                    disabled, all printing to a window does not cause an
+                    immediate update.  Use WINREFRESH() for this purpose.
+
+          SEE ALSO: WINREFRESH, WINPRINT
+
+          WInResize - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Changes the displayed size of a window.
+
+            SYNTAX: WINRESIZE winHandle%, rows%, cols%
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  24
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of the window to re-size.
+                    rows%          New vertical dimension of window.
+                    cols%          New horizontal dimension of window.
+
+                    Use WINRESIZE() to change the displayed size of an open
+                    window.  The "virtual" size is not affected.
+
+          SEE ALSO: WINOPEN, WINPOPUP
+
+          WinScrollBarGet - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Returns the position of scroll pointers in a window.
+
+            SYNTAX: WINSCROLLBARGET winHandle%, vpos%, hpos%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of the window to adjust.
+                    vpos%          Vertical scroll bar position (1-100).
+                    hpos%          Horizontal scroll bar position (1-100).
+
+                    Use WINSCROLLBARGET() to return the position of the
+                    horizontal and vertical scroll bars in a displayed
+                    window.  Window scroll bars positions are measured in
+                    percentages of 100.  If a window is re-sized, the
+                    position indicator will be updated to reflect the
+                    percentage.
+
+          SEE ALSO: WINSCROLLBARSET
+
+          WinScrollBarSet - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Changes position of scroll bar pointers in a window.
+
+            SYNTAX: WINSCROLLBARSET winHandle%, vpos%, hpos%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  25
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of the window to adjust.
+                    vpos%          Vertical scroll bar position (1-100).
+                    hpos%          Horizontal scroll bar position (1-100).
+
+                    Use WINSCROLLBARSET() to change the position of the
+                    horizontal and vertical scroll bars on a displayed
+                    window.  Window scroll bars positions are measured in
+                    percentages of 100.  If a window is re-sized, the
+                    position indicator will be updated to reflect the
+                    percentage.
+
+                    Using a value of -1 for either scroll bar will leave
+                    the position as it is.
+
+          SEE ALSO: WINSCROLLBARGET
+
+          WinShow - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Displays a window.
+
+            SYNTAX: WINSHOW winHandle%, row%, col%, rows%, cols%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to display
+                    row%           Vert. position to display the window.
+                    col%           Horiz. position to display the window.
+                    rows%          Number of window rows to display
+                    cols%          Number of window columns to display.
+
+                    Use WINSHOW() to place an open window on the screen. If
+                    the window is already being displayed, it will be
+                    brought to the top of the window stack.
+
+                    If a value of 0 is used for the ROW% and/or COL%
+                    arguments, the window will auto-center in that plane.
+                    Using 25 and 80 for the ROWS% and COLS%, respectively,
+                    will relive you of having to keep track of their actual
+                    size as windows can never be displayed in a size larger
+                    that their virtual size.
+
+          SEE ALSO: WINOPEN
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  26
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinSwapColor - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Swaps all occurrences one color with another in a
+                    window.
+
+            SYNTAX: WINSWAPCOLOR winHandle%, oldColor%, newColor%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to change.
+                    oldColor%      Color to change.
+                    newColor%      Color to change to.
+
+                    Use WINSWAPCOLOR() to change all occurrences of one
+                    color in a window to another color.
+
+          SEE ALSO: WINRECOLOR
+
+
+          WinViewPort - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Changes the view within a window.
+
+            SYNTAX: WINVIEWPORT winHandle%, row%, col%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to change view
+                    row%           Virtual row to begin view at.
+                    col%           Virtual column to begin view at.
+
+                    Use WINVIEWPORT() to change the displayed contents of a
+                    window.  Remember, in PB/VISION, windows can be larger
+                    than the displayed portion.  This function provides the
+                    means to indicate what part of the window you want to
+                    start looking at.
+
+          SEE ALSO: WINSHOW
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  27
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          WinWrite - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Writes text to an open window.
+
+            SYNTAX: WINWRITE winHandle%, text$
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to write you.
+                    text$          Text to write.
+
+                    Use WINWRITE() to write text to a window at the current
+                    internal window cursor position.  Text is always
+                    printed using the last color specified by the last call
+                    to WINCOLOR().
+
+          SEE ALSO: WINPRINT, WINWRITECHAR, WINWRITELN
+
+          WinWriteChar - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Writes a character to an open window.
+
+            SYNTAX: WINWRITECHAR winHandle%, char%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to write you.
+                    char%          ASCII character to write.
+
+                    Use WINWRITECHAR() to write an ASCII character  to a
+                    window at the current internal window cursor position.
+                    The character is always printed using the last color
+                    specified by the last call to WINCOLOR().
+
+          SEE ALSO: WINPRINT, WINWRITE, WINWRITELN
+
+          WinWriteLn - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Writes text and linefeed to an open window.
+
+            SYNTAX: WINWRITELN winHandle%, text$
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  28
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%     Handle of window to write to.
+                    text$          Text to write.
+
+                    Use WINWRITELN() to write text to a window at the
+                    current internal window cursor position and then
+                    advance the cursor to the beginning of the next line.
+                    When the cursor reaches the last line, the window is
+                    scrolled up.  Text is always printed using the last
+                    color specified by the last call to WINCOLOR().
+
+          SEE ALSO: WINPRINT, WINWRITE, WINWRITECHAR
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  29
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 2
+
+                              EVENT MANAGEMENT ROUTINES
+
+          ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          GetEvent% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Command dispatcher/monitor for keyboard/mouse events.
+
+            SYNTAX: varname% = GETEVENT%(cmd%)
+
+           REMARKS: Use GETEVENT%() to add event-driven processing to a
+                    PB/VISION(tm) application.  GETEVENT%() takes control
+                    of the application for 1 clock tick (.055 seconds) and
+                    processes any pending keystrokes or mouse clicks.  When
+                    an event occurs, the appropriate processing routines
+                    are automatically invoked.  Upon completion,
+                    GETEVENT%() returns a unique code (see below)
+                    indicating the type of event that occurred.
+
+          This function accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    cmd%           Use '0' for this version.
+
+           RETURNS: This function returns the following value(s):
+
+                    The following event codes are returned when a key has
+                    been pressed and it cannot be processed by any
+                    displayed objects.  Use KEYGET%() to retrieve the
+                    keystroke.
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    100    A key was pressed.  (Use KEYGET%() to retrieve.)
+                    101    <CR> was pressed.
+                    102    <ESC> was pressed.
+                    103    <F1> was pressed.
+                    104    <TAB> was pressed.
+                    105    <SHIFT-TAB> was pressed.
+                    106    <ALT-TAB> was pressed.
+                    107    <CTRL-TAB> was pressed.
+                    108    <ALT-SPACE> was pressed.
+                    111    <UP> cursor key was pressed.
+                    112    <DN> cursor key was pressed.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  30
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    113    <LEFT> cursor key was pressed.
+                    114    <RIGHT> cursor key was pressed.
+                    115    <PGUP> cursor key was pressed.
+                    116    <PGDN> cursor key was pressed.
+                    117    <HOME> cursor key was pressed.
+                    118    <END> cursor key was pressed.
+                    119    <INS> cursor key was pressed.
+                    120    <DEL> cursor key was pressed.
+                    121    <CTRL-PGUP> was pressed.
+                    122    <CTRL-PGDN> was pressed.
+                    123    <CTRL-HOME> was pressed.
+                    124    <CTRL-END> was pressed.
+                    125    <CTRL-INS> was pressed.
+                    126    <CTRL-DEL> was pressed.
+                    127    <CTRL-LEFT> was pressed.
+                    128    <CTRL-RIGHT> was pressed.
+                    129    <SHIFT-INS> was pressed.
+
+                    The following event codes are returned when a displayed
+                    window is manipulated with the mouse. Use WINGET%() to
+                    retrieve the handle of the window manipulated.
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    200    Window GOTFOCUS event.
+                    201    Window LOSTFOCUS event.
+                    202    Window CLICK event.
+                    203    Window CONTROLBOX event.
+                    204    Window MINIMIZE event.
+                    205    Window MAXIMIZE event.
+                    206    Window MOVE event.
+                    207    Window RESIZE event.
+                    208    Window VERTICAL SCROLL PAD event.
+                    209    Window VERTICAL SCROLL UP event.
+                    210    Window VERTICAL SCROLL DN event.
+                    211    Window HORIZONTAL SCROLL PAD event.
+                    212    Window HORIZONTAL SCROLL LEFT event.
+                    213    Window HORIZONTAL SCROLL RIGHT event.
+                    214    Window CLOSE event.
+                    215    Window HIDE event.
+                    216    Window NOCLICK event.
+                    217    Window clicked while minimized.
+                    218    Window NORMALIZE event.
+                    219    Window viewport was changed.
+
+                    250    Right mouse button clicked.
+
+          SEE ALSO: WINGET
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  31
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          HotKeyAdd - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Defines a custom user "hot key"
+
+            SYNTAX: HOTKEYADD scancode%, eventNo%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    scancode%     Keyboard scan code to use as accelerator.
+                    eventNo%      Custom event code to return to
+                    GetEvent().
+
+                    Use HOTKEYADD() to define a custom "hot key" event.
+                    When the keyboard scan code is received, the custom
+                    event number will be returned to GetEvent() or will be
+                    passed to your installed window process.
+
+          SEE ALSO: HOTKEYTOGGLE
+
+          HotKeyToggle - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Toggle the state of an individual hot key.
+
+            SYNTAX: HOTKEYTOGGLE scancode%, mode%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    scancode%     Keyboard scan code to use as accelerator.
+                    mode%         Initial mode (0=disabled, 1=enabled)
+
+                    Use HOTKEYTOGGLE() to change the state of a hot key
+                    entry.
+
+          SEE ALSO: HOTKEYADD
+
+          TimerInstallCode - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Install a background task.
+
+            SYNTAX: TIMERINSTALLCODE segptr%, offptr%
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  32
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    segptr%        Segment address of function to task.
+                    offptr%        Offset address of function to task.
+
+                    Use TIMERINSTALLCODE() to assign a background timer
+                    task.  The assigned routine will be called up to 18
+                    times per second so it should not tie up system
+                    resources for excessive periods.  The routine should
+                    resemble:
+
+                         FUNCTION YourRoutine% (BYVAL UpdateSafe%)
+                              YourRoutine% = SomeEventCode
+                         END FUNCTION
+
+                    When the assigned routine is called it is passed an
+                    integer value of 0 or 1 (in the UPDATESAFE% parameter)
+                    Only when 1 is passed is it safe to update the screen.
+                    Since the routine you assign is a function, it can
+                    return an event code back to the GETEVENT() routine if
+                    desired.  Again, the event code can only be returned
+                    when the UPDATESAFE% parameter is 1.
+
+                    To remove the routine, pass 0 for both the SEGPTR% and
+                    OFFPTR% parameter
+
+              NOTE: Possible uses for this routine include creating a
+                    background file printing routine, a "watch dog" for the
+                    serial port, scrolling banner handler, etc.
+
+          SEE ALSO: WININSTALLCODE
+
+          WinCtrlBox - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Displays a "control box" over an window.
+
+            SYNTAX: WINCTRLBOX winHandle%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    winHandle%    Handle of displayed window.
+                    menucolor     Variable of type MENUCOLORTYPE that
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  33
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                  defines the displayed attributes of the
+                                  control box window.
+
+                    Use WINCTRLBOX() to display a window "control box".
+                    The control box allows the user to close, move, re-
+                    size, minimize, or maximize the window it is assigned
+                    to.
+
+          SEE ALSO: HOTKEYADD
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  34
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 3
+
+                                   MOUSE ROUTINES
+
+          ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          Mouse% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Returns mouse button/position information.
+
+            SYNTAX: varname% = MOUSE%(button%, cmd%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    button%       Button to read.
+
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    1    Left mouse button.
+                                    2    Right mouse button.
+                                    4    Middle mouse button.
+
+                    cmd%          Mouse button property to read.
+
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    1   Is button currently pressed.
+                                    2   Button clicks since last call.
+                                    3   Current mouse cursor row.
+                                    4   Current mouse cursor column.
+                                    5   Last mouse press row.
+                                    6   Last mouse press column.
+                                    7   Last mouse release row.
+                                    8   Last mouse release column.
+                                    9   Has the mouse status changed.
+
+                    Use MOUSE%() to return specific properties of a given
+                    mouse button.  Command number 1 returns a positive
+                    value if the mouse is currently pressed.  Command 2 can
+                    then returns the number of times the button was
+                    pressed.  Command 9 returns a positive value if the
+                    mouse is pressed and if it has been moved since the
+                    last call to command 9.
+
+          SEE ALSO: MOUSEINIT
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  35
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          MouseCursorOff - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Turns the mouse cursor off.
+
+            SYNTAX: MOUSECURSOROFF
+
+           REMARKS: Use MOUSECURSOROFF() to turn off the mouse cursor.  For
+                    each call to MOUSECURSOROFF(), an equal number of calls
+                    to MOUSECURSORON() must be made.
+
+          SEE ALSO: MOUSECURSORON, MOUSETERM
+
+
+          MouseCursorOn - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Turns the mouse cursor on.
+
+            SYNTAX: MOUSECURSORON
+
+           REMARKS: Use MOUSECURSORON() to turn the mouse on after a call
+                    to MOUSEINIT() or a call to MOUSECURSOROFF().
+
+          SEE ALSO: MOUSECURSOROFF, MOUSEINIT
+
+
+          MouseGet% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Retrieves the current position of the mouse.
+
+            SYNTAX: varname = MOUSEGET%(row%, col%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument     Description
+                    ÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    row%         Current screen row is returned in here.
+                    col%         Current screen column is returned in here.
+
+                    Use MOUSEGET() to retrieve the current position of the
+                    mouse cursor.  If any mouse buttons are pressed,
+                    MOUSEGET() will also return the button value.
+
+           RETURNS: This function returns the following value(s):
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  36
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                      0    No buttons are currently pressed.
+                      1    The left mouse button is currently pressed.
+                      2    The right mouse button is currently pressed.
+                      4    The middle mouse button is currently pressed.
+
+          SEE ALSO: MOUSESET
+
+
+          MouseGetInfo - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Retrieve information about the mouse.
+
+            SYNTAX: MOUSEGETINFO major%, minor%, irq%, mtype%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    major%        Mouse driver major version number.
+                    minor%        Mouse driver minor version number.
+                    irq%          IRQ number mouse is installed on.
+
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    0    PS/2 pointing device.
+                                    1    not defined.
+                                    2    IRQ2.
+                                    3    IRQ3.
+                                   ...   ...
+                                    7    IRQ7.
+
+                    mtype%        Type of mouse installed.
+
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    1    bus mouse.
+                                    2    serial mouse.
+                                    3    Microsoft InPort.
+                                    4    IBM PS/2 Pointing Device port.
+                                    5    Hewlett-Packard mouse.
+
+                    Use MOUSEGETINFO() to retrieve complete information on
+                    an installed mouse and mouse driver.
+
+          SEE ALSO: MOUSEINIT
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  37
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          MouseGetPress% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Retrieves position of last mouse press.
+
+            SYNTAX: varname = MOUSEGETPRESS%(button%, presses%, row%, col%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    button%       Button to select.
+
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    1    Left mouse button.
+                                    2    Right mouse button.
+                                    4    Middle mouse button.
+
+                    presses%     Number of presses since last call.
+                    row%         Screen row of last button press.
+                    col%         Screen column of last button press.
+
+                    Use MOUSEGETPRESS%() to retrieve the number of mouse
+                    presses since the last call to this same function.  The
+                    ROW% and COL% will hold the position of the very last
+                    mouse press.
+
+           RETURNS: This function returns the following value(s):
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                      0    No buttons are currently pressed.
+                      1    The left mouse button is currently pressed.
+                      2    The right mouse button is currently pressed.
+                      4    The middle mouse button is currently pressed.
+
+          SEE ALSO: MOUSEGET, MOUSEGETRELEASE
+
+
+          MouseGetRelease% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Retrieves position of last mouse release.
+
+            SYNTAX: varname = MOUSEGETRELEASE%(button%, releases%, row%,
+                                               col%)
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  38
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    button%       Button to select.
+                                  Value  Description
+                                  ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                                    1    Left mouse button.
+                                    2    Right mouse button.
+                                    4    Middle mouse button.
+
+                    releases%    Number of releases since last call.
+                    row%         Screen row of last button releases.
+                    col%         Screen column of last button releases.
+
+                    Use MOUSEGETRELEASE%() to retrieve the number of mouse
+                    releases since the last call to this same function.
+                    The ROW% and COL% will hold the position of the very
+                    last mouse release.
+
+           RETURNS: This function returns the following value(s):
+
+                    Value  Description
+                    ÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                      0    No buttons are currently pressed.
+                      1    The left mouse button is currently pressed.
+                      2    The right mouse button is currently pressed.
+                      4    The middle mouse button is currently pressed.
+
+          SEE ALSO: MOUSEGET, MOUSEGETPRESS
+
+
+          MouseInit% - FUNCTION
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Initializes the mouse and returns button count.
+
+            SYNTAX: varname = MOUSEINIT%(buttons%)
+
+           REMARKS: This function accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    buttons%      Number of mouse buttons is returned here.
+
+                    Use MOUSEINIT%() to initialize the mouse under
+                    PB/VISION.  If a mouse is detected, the BUTTONS%
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  39
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    parameter will hold the number of mouse buttons
+                    available.
+
+                    To display the mouse, MOUSECURSORON() must also be
+                    called.  To set the mouse cursor style (text or
+                    graphics), see APP.GRAPHICSMOUSE.
+
+           RETURNS: Returns 0 if a mouse is not available.  Any other value
+                    indicates a mouse is present.
+
+          SEE ALSO: APP, MOUSECURSORON, MOUSETERM
+
+
+          MouseSet - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Moves the mouse to a specific screen location.
+
+            SYNTAX: MOUSESET row%, col%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    row%          Screen row to move cursor to.
+                    col%          Screen column to move cursor to.
+
+                    Use MOUSESET() to relocate the mouse cursor to a new
+                    screen location.
+
+          SEE ALSO: MOUSEGET
+
+          MouseSetWindow - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Locks mouse within given screen boundaries.
+
+            SYNTAX: MOUSESETWINDOW row%, col%, rows%, cols%
+
+           REMARKS: This procedure accepts the following argument(s):
+
+                    Argument      Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    row%          First row of mouse window
+                    col%          First column of mouse window.
+                    rows%         Vertical dimension of mouse window.
+                    cols%         Horizontal dimension of mouse window.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  40
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    Use MOUSESETWINDOW() to lock the mouse within a given
+                    location on the screen.  The cursor will not be
+                    permitted to move out of this area.  To remove the
+                    window, use the following code:
+
+                         MOUSESETWINDOW 1, 1, pbvScrnRows, pbvScrnCols
+
+          SEE ALSO: MOUSESET
+
+
+          MouseTerm - PROCEDURE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Terminates mouse operation.
+
+            SYNTAX: MOUSETERM
+
+           REMARKS: Use MOUSETERM() to terminate mouse operation.  This
+                    procedure should be called prior to the use of any of
+                    the following PowerBASIC statements:
+
+                         END
+                         CHAIN
+                         SLEEP
+
+          SEE ALSO: MOUSECURSOROFF, MOUSEINIT
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  41
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 4
+
+                                   DATA TYPES USED
+
+          ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          MENUCOLORTYPE - TYPE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Menu and List definition TYPE.
+
+           REMARKS: This TYPE has the following element(s):
+
+                    Element        Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    kolor%         Color of menu/list text.
+                    borderKolor%   Color of menu/list border.
+                    titleKolor%    Color of menu/list title.
+                    highlight%     Color of menu/list highlight bar.
+                    sepbar%        Color of menu/list separator line.
+                    cursor%        UNUSED
+                    border%        Border style for window.
+                    flags%         Help window display flags
+
+                    Use the MENUCOLORTYPE type to define how menus and
+                    lists will look when displayed.
+
+          SEE ALSO: WINCTRLBOX
+
+          WINTYPE - TYPE
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+           PURPOSE: Window definition TYPE.
+
+           REMARKS: This TYPE has the following element(s):
+
+                    Element        Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    row            Screen position where window is
+                                   displayed.
+                    col
+                    rows           Dimensions of the displayed text portion
+                                   of window.
+                    cols
+                    orows          Window text dimensions before re-sizing.
+                    ocols
+                    vrow           Starting positions of viewport into
+                                   window.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  42
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    vcol
+                    vrows          Actual virtual dimensions of window.
+                    vcols
+                    winattr        Default color attribute of window
+                                   contents.
+                    borderattr     Attribute of window border.
+                    titleattr      Attribute of window title.
+                    border         Border style.
+                    titleLen       Length of title string.
+                    Title$         Text of window title.
+                    vbarPos        Window scroll bar gauge (1% to 100%).
+                    hbarPos
+                    flags          Flags used when window opened.
+                    winmode        INTERNAL - DO NOT CHANGE.
+                    UserObject     User Object Pointer.
+                    unused2        FUTURE USE.
+                    WI             Relative window index.
+                    ObjPtr         Handle of attached window object code.
+                    internal1      INTERNAL - DO NOT CHANGE.
+                    signature      Signature of window.
+                    cpos           Encoded window cursor position (see
+                                   WINLOCATE).
+                    cattr          Current window print attribute (see
+                                   WINCOLOR).
+                    bufferHandle   Handle of window buffer.
+                    changed        Flag indicating window needs to be
+                                   refreshed.
+                    unused3        FUTURE USE.
+                    listPtr        Top of list (if list style routine).
+                    winCodePrt     Pointer to window driver.
+                    winUserPtr     Pointer to WININSTALLCODE() routine.
+                    srows          Screen dimensions of the displayed
+                                   window.
+                    scols
+
+                    Use the WINTYPE type to define how windows will look
+                    when displayed.
+
+          SEE ALSO: WINOPEN, WINPOPUP, WINGETINFO
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  43
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+
+
+
+
+
+
+                                        Index
+
+
+                 %AUTOCLOSE 21               G
+                 %AUTOSCROLL 21              GetEvent 30
+                 %BOTTOMBAR 21
+                 %CONTROL 21                 H
+                 %DRAGBAR 21                 HotKeyAdd 31
+                 %HSCROLLBAR 21              HotKeyToggle 32
+                 %MENUBAR 5
+                 %MINMAX 21                  M
+                 %NOCOLOR 21                 MENUCOLORTYPE 42
+                 %NOHIDE 21                  Mouse 35
+                 %NOHORZBORDER 21            MouseCursorOff 35
+                 %NOSELECT 21                MouseCursorOn 36
+                 %NOVERTBORDER 21            MouseGet 36
+                 %RESIZE 21                  MouseGetInfo 37
+                 %SHADOW 21                  MouseGetPress 37
+                 %STATUSBAR 5                MouseGetRelease 38
+                 %VSCROLLBAR 21              MouseInit 39
+                                             MouseSet 40
+                 A                           MouseSetWindow 40
+                 App 5                       MouseTerm 41
+                 App.attr 5
+                 App.flags 5                 T
+                 App.graphicsMode 5          TimerInstallCode 32
+                 App.graphicsMouse 5
+                 App.menuAttr 5              W
+                 App.Pattern 5               WinClose 8
+                 App.rows 5                  WinCls 9
+                 App.snow 5                  WinColor 9
+                 App.statusAttr 5            WinCopy% 10
+                 App.title 5                 WinCtrlBox 33
+                 App.titleAttr 5             WinDeleteLine 10
+                 AppClose 6                  WinDrawBox 11
+                 AppInit 6                   WinFill 11
+                 AppPause 7                  WinGet 12
+                 AppRefresh 7                WinGetInfo 12
+                 AppResume 7                 WinHide 12
+                 AppTitle 5                  WinHotPrint 13
+                 Attr% 7                     WinInsertLine 14
+                                             WinInstallCode 14
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  44
+
+
+
+          PB/VISION(tm) LITE - Version 1.00
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                 WinLocate 14                WinPrint 23
+                 WinLock 15                  WinReColor 23
+                 WinLockAll 15               WinRefresh 23
+                 WinLockRestore 16           WinRefreshMode 24
+                 WinLockState% 16            WInResize 24
+                 WinMain 17                  WinScrollBarGet 25
+                 WinMaximize  17             WinScrollBarSet  25
+                 WinMinimize  18             WinShow 26
+                 WinModify 19                WinSwapColor 26
+                 WinMove 19                  WinTitle 8
+                 WinNext 20                  WINTYPE 42
+                 WinNormalize  18            WinViewPort 27
+                 WinOpen% 20                 WinWrite 27
+                 WinPopup% 21                WinWriteChar 28
+                 WinPrev 22                  WinWriteLn 28
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-94 DSE Software Publishing                  45
+

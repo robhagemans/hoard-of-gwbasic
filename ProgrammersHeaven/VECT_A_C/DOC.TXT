@@ -1,0 +1,88 @@
+                 A Couple Notes On 3DEXP2.BAS
+                      By Rich Geldreich
+
+     3DEXP2.BAS is made in QuickBASIC 4.5, and requires at
+least a VGA adaptor to run properly(or at all, for that
+matter). It demonstrates fast, integer math rotation &
+perspective algorithms. It's really hard to believe that the
+sample program is actually written in QuickBASIC. Of course,
+if these routines were made in true assembly, the results
+would be much faster, to say the least. (Please compile the
+QB program for the best speed. DOS 5's QBASIC works fine
+too[rather slowly though...] If you don't have QBASIC or QB
+4.5, then run the already compiled 3DEXP2.EXE to get an
+idea...)
+อออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+   I am placing this program into the public domain, so use
+and abuse this program as much as you want, I don't care. All
+I ask is that you PLEASE keep my name on it! If you do change
+     it a little, then put "modifications by so & so" or
+ something. I have put a lot of work into making this program
+ fast and I don't won't to be ripped off by some lame, code-
+             stealing theif! Thank you very much.
+อออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+
+     The following is a short explanation of the perspective
+routine that 3DEXP2.BAS uses(the rotating routines are
+simple to understand once you understand the way sine and
+cosine operate...)
+
+     The perspective routine I used is (usually) very
+realistic. It actually draws a line from the point that we
+wish to put into perspective to the user- wherever this line
+crosses the "viewing" plane (or the monitor) is where we
+actually plot the point.  (make pretend that this line we
+draw is actually a light ray... it's actually quite obvious
+and easy to understand once you see it...)
+
+     Here are the formulas:
+
+Xnew = Xold + ( -Xold * Spos - Z )
+                        --------
+                        Mpos - Z
+
+Ynew = Yold + ( -Yold * Spos - Z )
+                        --------
+                        Mpos - Z
+
+Where Xold and Yold and Z are the original coordinates to be
+put into perspective; Xpos is the Z coordinate of the
+"viewing" plane and Mpos is the Z coordinate of the
+user(which is usually 0).
+
+
+For the most speed, I highly recommend that you avoid
+floating point math whenever possible. It's great for
+initialization routines, but it really sucks in tight loops
+and high speed 3-D graphics.
+
+For any questions, comments, or cool ideas, contact:
+
+Rich Geldreich
+410 Market St.
+Gloucester City, NJ 08030
+(609)-742-8752 between 4:30pm and 9:30pm Monday-Saturday
+
+
+****Last Minute Additions
+
+3DEXP2.BAS really flickers a lot... I didn't use page flipping
+because I needed 64 colors.
+
+I've also included some fast assembly code to rotate and display 
+3-D points. It's called VECT.ASM. It's documented, but not
+that much. It rotates 765 points at 12 frames per second on by 286-10.
+This jem looks really cool in the dark! VECT.ASM is public domain too! 
+Works only on VGA. The keys recognized are similar to the keys 
+used by 3DEXP2.BAS.
+
+Have fun and look both ways before crossing the street :-)
+
+
+R. Geldreich 
+June 4th, 1992A.D. 18:13:27
+
+
+
+
+

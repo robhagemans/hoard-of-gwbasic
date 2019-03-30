@@ -1,0 +1,15 @@
+L,[!AEPNQ],Look-up/edit key set,0
+l,[!ASPNQ],Look-up/no edit key set,0
+!,Search,A-Z 0-9,1
+0,F10,All,36
+1,F1,Help,1
+4,F4,Delete,16
+6,F6,Jump,26
+7,F7,Save,31
+B,Space,Toggle,36
+D,Del,Del,41
+E,дды,Edit,51
+H,Home,Front,42
+I,Ins,New,36
+Z,End,Back,48
+^,Ctrl-C,Cancel,75

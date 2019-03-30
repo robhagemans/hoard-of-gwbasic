@@ -1,0 +1,1077 @@
+This file contains various sentences that have not been put into the
+TAGALOG Files, because of any of the following reasons....
+
+ * I do not class most of the sentences as Vital for a Beginner - The main
+   Tagalog sentences/words should be good enough to start you off with.
+
+ * I class most of the sentences as more aimed at Conversation than aimed
+   at Beginners.
+
+ * Some are just sentences that were too late - I already made the Speech
+   File. So adding more sentences would have been an headache to insert!
+
+ * Some sentences are simply here to show you how you think they should be!
+   For example. That stage when you find yourself saying:
+   "Should I say `So-and-So' this way around or that way around?".
+   Here is an example:
+
+   `SUE Is Also Living Here - Si SUE Ay Dito Rin Nakatira'
+
+   You might of asked yourself "Does DITO come after Rin or after
+   Nakatira", "Before AY" or whatever.
+
+
+******************************************
+*** HOLIDAY  Related Various Sentences ***
+******************************************
+What Is Your Exchange Rate?               
+Ano Ba Ang Inyong Palitan                 
+Are You Selling [Traveller's Cheques]?    
+Nagbibili Ba Kayo Ng [Tsekeng Panlakbay]  
+Please Change This Into Small Money       
+Suklian Mo Ito Ng Barya                   
+We Are Selling [Traveller's Cheques]      
+Nagbibili Kami Ng [Tsekeng Panlakbay]     
+Please Give Me Filipino Money             
+Pakibigyan Mo Ako Ng Kuwaltang Filipino   
+This Is My Baggage/Luggage                
+Ito Ang Aking Dala-Dalahan/Maleta         
+Do You Cash [Traveller's Cheques] {Here}? 
+Nagpapalit Ba Kayo {Rito} Ng              
+[Tsekeng Panlakbay]                       
+I Would Like To Change Some Money         
+Gusto Kong Magpapalit Ng Salapi           
+I Would Like To Change/Cash My            
+[Traveller's Cheques]                     
+Gusto Kong Magpapalit Ng                  
+[Tsekeng Panlakbay] Ko                    
+I Would Like To Change Ten Pounds         
+Gusto Kong Magpapalit Ng Sampung Pounds   
+We Are Getting Off At [BLOXY Street]      
+Bumababa Kami Sa [Daang BLOXY]            
+What [Hour / Day] Are You Leaving?        
+Anong [Oras / Araw] Ka Ba Aalis           
+Good. It Is Not Crowded Here.             
+Let's Sit Here                            
+Mabuti. Hindi Siksikan Dito               
+Maupo Tayo Rito                           
+I Am Thinking Of Travelling Again         
+Iniisip Ko Ang Maglakbay Uli              
+What Will Be The Size Of The Photos?      
+Ano Ang Magiging Laki Ng Mga Litrato      
+That Is A Beautiful Photo                 
+Maganda Ang Larawang Iyan                 
+The Size Is....                           
+Ang Laki Ay....                           
+The Size Will Be....                      
+Ang Laki Ay Magiging....                  
+When Will They Be Ready? /                
+When Can I Get Them/Pick Them Up?         
+Kailan Makukuha                           
+That [???] Is A Souvenir                  
+From Manila                               
+Isang Alaala Ang [???] Iyan               
+Buhat Sa Manila                           
+Have You Got A [Map Of Manila]?           
+Mayroon Ka Bang [Mapa Ng Manila]          
+[I Am / We Are] Leaving [Soon / Tomorrow] 
+Aalis [Ako / Tayo] [Agad / Bukas]         
+Return To Your Seat                       
+Bumalik Ka Sa Upuan Mo                    
+******************************************
+** TV/CINEMA  Related Various Sentences **
+******************************************
+Has The Film Started <Yet>?               
+Nagsimula Na Ba Ang Pelikula              
+You Are Just In Time                      
+Tama Lamang Ang Iyong Pagdating           
+Where Would You Like To Sit?              
+Saan Mo Gusto Maupo                       
+Hurry, Or We Might Miss The Start.        
+(Of The Film)                             
+Madali Ka, At Baka Di Natin Abutin Ang    
+Simula                                    
+Are You Enjoying The Film?                
+Nagtatamasa Mo Ba Ang Pelikula            
+******************************************
+***  HOUSE  Related Various Sentences  ***
+******************************************
+Your Sister Is Upstairs                   
+Nasa Itaas Ang Kapatid Mo                 
+What Did You Do In The Bathroom?          
+Anong Ginawa Mo Sa Banyo                  
+I Had A Bath                              
+Nagligo Ako                               
+Turn Off The Light                        
+{Before You Go To Sleep}                  
+Patayin Mo Ang Ilaw                       
+{Bago Ka Matulog}                         
+******************************************
+COOKING/KITCHEN Related Various Sentences 
+******************************************
+Do You Eat [Squid]?                       
+Kumakain Ka Ba Ng [Pusit]                 
+Sweet And Sour Sauce                      
+Matamis At Maasim Nasarsa                 
+The Milk Is Sour Because....              
+Maasim Ang Gatas Dahil Sa....             
+Fried/Deep Fried [Chicken] With [???]     
+Pritong [Manok] Na May [???]              
+Stewed [Pork] And [Fish]                  
+Nilagang/Ginisang [Baboy] At [Isda]       
+Stewed [Chicken] With [Vinegar]           
+Ginisang/Nilagang [Manok] Na May [Suka]   
+Fried/Deep Fried Fresh [Fish]             
+Pritong Sariwang [Isda]                   
+Marinated [Chicken]                       
+Binabad [Manok]                           
+Remove The Insides Of The [Fish]          
+Alisin Ang Bituka Ng [Isda]               
+Clean The [Fish]                          
+Linisin Ang [Isda]                        
+Wash And Slice/Cut Into Thin Slices       
+Hugasan At Hiwain Ng Pahalang Na Manipis  
+This Porridge Is [Thick / Sticky]         
+[Malapot / Malagkit] Ang Porridge Ito     
+Cook Until The Sauce Has Thickened        
+Lutuin Hanggang Lumapot Ang Sabaw         
+The Fish Is Eaten With [???]              
+Ang Isda Ay Kinakain Na May [???]         
+Mix The [???]                             
+{With Two Spoons Of [???]}                
+Ihalo Ang [???]                           
+{Sa Dalawa Kutsarang [???]}               
+You Stir The [???]                        
+Haluin Mo Ang [???]                       
+Put The Seasoning Into The [???] Sauce    
+Ilagay Ang Panimpla Sa [???] Sabaw        
+Stir Well                                 
+Haluing Mabuti                            
+Do Not Mix Water With Milk                
+Huwag Mong Haluan Ng Tubig Ang Gatas      
+I Mixed [???] And [???]                   
+Naghalo Ako Ng [???] At [???]             
+Heat A Little Water                       
+Magpainit Ng Kaunting Tubig               
+Put/Add A Little Water                    
+Lagyan Ng Kaunting Tubig                  
+Dish Up (Transfer To A Plate - Not SERVE) 
+Hanguin                                   
+One Teaspoon Of [Sugar]                   
+Isa Kutsaritang [Asukal]                  
+A Few Pieces Of [???]                     
+Ilang Pirasong [???]                      
+A Little [Pepper]                         
+Kaunting [Paminta]                        
+Heat For 3-4 Cups Of Water                
+Magpainit Ng 3-4 Tasang Tubig             
+Beat The Egg                              
+Batihin Ang Itlog                         
+Transfer These To the Casserole           
+Ilipat Ang Mga Ito Sa Kaserola            
+Stew Until Tender                         
+Ilaga Hanggang Lumambot                   
+Dish Up And Garnish With [???]            
+Hanguin At Palamtian Ng [???]             
+Prepare The [Frying Pan]                  
+Ihanda Ang [Kawali]                       
+I Am Using [Fish]                         
+Gumagamit Ako Ng [Isda]                   
+You Could Use [Chicken]                   
+Maaaring Gamitin Mo Ang [Manok]           
+Add (Not STIR IN) The Seasoning And Fish  
+Ilahok Ang Panimpla At Isda               
+Pour In A Few Portions Of                 
+Whisked Egg                               
+Ibuhos Ang Konting Bahagi Ng              
+Binating Itlog                            
+Who Poured The Water Into The Glass?      
+Sino Ang Nagbuhos Ng Tubig Sa Baso        
+You Fry The Fish                          
+Iprito Mo Ang Isda                        
+Divide The [Cake]                         
+Hatiin Ang [Keyk]                         
+Divide Into Two Portions                  
+Hatiin Sa Dalawang Bahagi                 
+Soak The [???] In Vinegar                 
+Ibabad Mo Sa Suka Ang [???]               
+Skin, Wash And Slice                      
+The Onions                                
+Balatan, Hugasan At Hiwa-Hiwain           
+Ang Mga Sibuyas                           
+Add/Increase The Fried [Fish {Head}] To   
+The Sauce                                 
+Idagdag Ang Pritong [{Ulo Ng} Isda] Sa    
+Sabaw                                     
+Dip Into/With <The> Whisked Egg (Mixture) 
+Ilubog Sa Binating Itlog                  
+Trim The [???]                            
+Himayin Ang [???]                         
+I Fried Some Fish This Afternoon          
+Nagpiritu Ako Ng Isda Kaninang Tanghali   
+You Were Told To...                       
+{Steam The Fish}                          
+Sinabi Sa Iyong...                        
+{Pasingawan Mo Ang Isda}                  
+Their Cake Is Made Of/With Sugar And Egg  
+Ang Keyk Nila Ay Gawa Sa Asukal At Itlog /
+Gawa Sa Asukal At Itlog Ang Kanilang Keyk 
+Shall I Eat?                              
+Kakain Ba Ako                             
+We Eat When/If We Are Hungry              
+Kumakain Tayo Kung Tayo Ay Gutom          
+Do You Like It? (Object being pointed to) 
+Nagustuhan Mo Ba                          
+After Dinner We Are Going Home            
+Pagkatapos Ng Hapunan Ay Uuwi Na Tayo     
+******************************************
+** SENSES/ETC Related Various Sentences **
+******************************************
+Oh, Before I Forget.                      
+Oh, Bago Ko Makalimutan.                  
+Please Ask Her                            
+Pakitanong Mo Siya                        
+I Am Thinking Of Travelling Again         
+Iniisip Ko Ang Maglakbay Uli              
+We Are Going To Bed (Sleep)               
+Matutulog Kami                            
+Ask Him If They Are Coming                
+Itanong Mo Sa Kaniya Kung Sila Ay Darating
+Do Not Ask Me About The [???]             
+Huwag Mong Itanong Sa Akin Ang Ukol Sa    
+[???]                                     
+Do Not Ask Her About My [???]             
+Huwag Mong Itanong Sa Kaniya Ang Tungkol  
+Sa Aking [???]                            
+Did You Hear What He Said?                
+Narinig Mo Ba Ang Kanyang Sinabi          
+Remember What I Said                      
+Tandaan Mo Ang Sinabi Ko                  
+I Cannot See                              
+Hindi Ako Nakakakita                      
+Would You Like Me To Say/Tell?            
+Ano Ang Gusto Mo Bang Sabihin Ko          
+We Are Walking Far /                      
+Our Walk/ing Is/Was Far                   
+Malayo Ang Nilalakad Namin                
+We Walked To/Until [London]               
+Naglakad Kami Hanggang [London]           
+I Do Not See Anything                     
+Wala Akong Makita                         
+I Heard Something <Moving>                
+In The Grass                              
+May Narinig Akong Gumagalaw               
+Sa Damo                                   
+He Runs Fast                              
+Matulin Siyang Tumakbo                    
+Walk Fast                                 
+Lumakad Ka Nang Matulin                   
+Walk From Here To/Until The Church        
+Maglakad Ka Buhat Dito Hanggang Simbahan  
+You Speak Slowly                          
+Magsalita Ka Nang Dahan-Dahan             
+That Woman Has Not Finished Speaking      
+Hindi Pa Natatapos Magsalita Ang Babaing  
+Iyan                                      
+One Day, I Will Tell Her.                 
+Isang Araw, Sasabihin Ko Sa Kaniya Na     
+You Were Told To...                       
+{Steam The Fish}                          
+Sinabi Sa Iyong...                        
+{Pasingawan Mo Ang Isda}                  
+You Try To Say It Again                   
+Subukin Mong Sabihin Uli                  
+******************************************
+**  TAGALOG Related Various Sentences  ***
+******************************************
+I Do Not Understand [TAGALOG]             
+Hindi Ako Naiintindihan Ang [TAGALOG]     
+Are You Speaking <In> [TAGALOG]?          
+Nagsasalita Ba Kayo Ng [TAGALOG]          
+You Tell A Story {In TAGALOG}             
+Magkuwento Ka {Ng TAGALOG}                
+What Languages Do You Speak?              
+Ano Ang Mga Wika Mo                       
+Do You Know TAGALOG?                      
+Marunong Ba Kayo Nang TAGALOG             
+Who Is Your Teacher For/In TAGALOG?       
+Sino Ang Guro Mo Sa TAGALOG               
+SUE BLOXY Is My Teacher For/In ENGLISH    
+Si SUE BLOXY Ang Guro Ko Sa INGLES        
+What Is [Good Morning] In TAGALOG?        
+Ano Sa TAGALOG Ang [Good Morning]         
+You Speak Slowly                          
+Magsalita Ka Nang Dahan-Dahan             
+How Long Have You Been Studying           
+TAGALOG?                                  
+Gaanong Katagal Ka Nang Nag-Aaral Ng      
+TAGALOG                                   
+Are You A Filipino?                       
+Pilipino Ka Ba                            
+Where Are You Studying?                   
+Saan Ka Nag-Aaral                         
+I Am Studying At Nottingham University    
+Nag-Aaral Ako Sa Unibersidad Ng Nottingham
+He Is Studying Although He Is Old         
+Nag-Aaral Siya Kahit Matanda Na           
+Are You Still Studying TAGALOG?           
+Nag-Aaral Ka Pa Ba Ng TAGALOG             
+<For> About Six Years <Now/Already>       
+Mga Anim Na Taon Na                       
+I Started When I Was Nineteen             
+Nagsimula Ako Nang Ako Ay Labinsiyam      
+******************************************
+**   MONEY Related Various Sentences   ***
+******************************************
+She Is Pawning                            
+Her Jewels/Jewlery                        
+Isinasangla/Nagsasangla Niya              
+Ang Kaniyang Mga Alahas                   
+She Took Her Jewlery                      
+To The Pawnshop                           
+Dinala Niya Ang Kaniyang Mga Alahas       
+Sa Sanglaan                               
+I Shall Be Redeeming My Ring {On Monday}  
+Tutubusin Ko Ang Aking Sinsing {Sa Lunes} 
+You Redeem The Ring                       
+Tubusin Mo Ang Sinsing                    
+Promise Her                               
+You Will Be Paying On Monday              
+Pangakuan Mo Siyang                       
+Magbabayad Ka Sa Lunes                    
+That Is Not The Correct Change            
+Hindi Tama Ang Sukli                      
+He Paid For The [???]                     
+Binayaran Niya Ang [???]                  
+He Made Me Pay For The [???]              
+Pinabayaran Niya Sa Akin Ang [???]        
+Please Pay For The [???]                  
+Pakibayaran Mo Ang [???]                  
+Can You Pay Now?                          
+Makababayad Ka Na Ba                      
+When Will You Pay/Be Paying               
+Kailan Kayo Magbabayad                    
+Count Your Money                          
+{Before You Leave}                        
+Bilangin Mo Ang Iyong Pera                
+{Bago Ka Umalis}                          
+Count The Money For TOM                   
+Ibilang Mo Ng Pera Si TOM                 
+You Can Get/<Collect> Your [Salary] Now   
+Makukuha Mo Na Ang Iyong [Suweldo/Sahod]  
+[TOM's / Her] Money Might Get Lost        
+Baka Mawala Ang Pera [Ni TOM / Niya]      
+They Bought A [???]                       
+{For Me}                                  
+Bumili Sila Ng [???]                      
+{Para Sa Akin}                            
+They Bought A [???]                       
+{For My Mother}                           
+Bumili Sila Ng [???]                      
+{Para Sa Aking Ina}                       
+They Bought A [???]                       
+{For The Children}                        
+Bumili Sila Ng [???]                      
+{Para Sa Mga Bata}                        
+They Bought A [???]                       
+{For SUE}                                 
+Bumili Sila Ng [???]                      
+{Para Kay SUE}                            
+You Pay To - MR J Bloxy                   
+Magbayad Kayo Sa Kina - MR J Bloxy        
+He Will Pay You Back {On Wednesday}       
+Babayaran Ka Niya {Sa Miyerkoles}         
+Pay Your Debts                            
+Bayaran Mo Ang Iyong Mga Utang            
+Where Did You Get Your [Shoes] From?      
+Saan Galing Ang [Sapatos] Mo              
+He <Has> Counted The [Money / Animals]    
+Binilang Niya Ang [Salapi / Mga Hayop]    
+******************************************
+**  OCCASION Related Various Sentences  **
+******************************************
+I Do Not Know If My Family Will Come?     
+Aywan Kung Darating Ang Aking Pamilya     
+Happy Birthday                            
+Maligayang Kaarawan                       
+Congratulations                           
+Maligayang Bati                           
+Congratulations To You All                
+Maligayang Bati Sa Inyong Lahat           
+My Birthday Party Is                      
+[Next Saturday Night]                     
+Ang Aking Salu-Salo Na Kaarawan Ay        
+[Sa Susunod Na Sabado Ng Gabi]            
+My Birthday Party Is                      
+[Cancelled]                               
+Ang Aking Salu-Salo Na Kaarawan Ay        
+[Kinansela]                               
+SUE Is Greeting The Guests                
+Binabati Ni SUE Ang Mga Bisita/Panauhin   
+She Is My Guest                           
+Siya Ay Aking Bisita/Panauhin             
+Thank You For Coming                      
+Salamat Sa Inyong/Iyong Pagparito         
+This Is My Presnt/Gift To SUE             
+Ito Ay Handog Ko Ay Kay SUE               
+This Is My Presnt/Gift For Your Sister    
+Ito Ay Handog Ko Para Sa Iyong            
+Kapatid Na Lalaki                         
+This Is My Presnt/Gift For You            
+Ito Ay Handog Ko Para Sa Iyo              
+I Was Given A Present/Gift By My Neighbour
+Binigyan Ako Ng Handog Ng Aking Kapitbahay
+Make A Wish                               
+Humiling Ka                               
+******************************************
+***  NUMBER Related Various Sentences  ***
+******************************************
+Five Plus Six Equals Eleven               
+Ang Lima At Anim Ay Labing-Isa            
+My Two Brothers Are [???]?                
+Ang Dalawang Kapatid Ko Ay [???]          
+Who Is First?                             
+Sino Ba Ang Una                           
+SUE Is First                              
+Si SUE Ang Una                            
+There Are Twelve Months In A Year         
+May Labindalawang Buwan Sa Isang Taon     
+******************************************
+*READ/WRITE/ETC Related Various Sentences*
+******************************************
+I Received A Letter Yesterday             
+Tinanggap Ko Ang Isang Sulat Kahapon      
+It Was From My Friend In AMERICA          
+Ito Ay Galing Sa Aking Kaibigan Sa AMERICA
+Please Read Me This Story                 
+Pakibasa Mo Sa Akin Ang Kuwento Ito       
+Story By SUE                              
+Kuwento Ni SUE                            
+Please Write Your Name                    
+Pakisulat Mo Ang Iyong Pangalan           
+I Left The Book {On Top Of The Table}     
+Iniwan Ko Ang Aklat {Sa Ibabaw Ng Mesa}   
+I Have <Already> Written Three [Pages]    
+Nakasulat Na Ako Ng Tatlong [Pahina]      
+This Letter Has No Signature              
+Walang Lagda Ang Sulat Na Ito             
+He Is Receiving <A Copy Of> The Magazine  
+Every Monday                              
+Tumatanggap Siya Ng Magasin               
+Tuwing Lunes                              
+******************************************
+* ILL/ACCIDENT Related Various Sentences *
+******************************************
+The Baby Has A Fever                      
+Ang Bata Ay May Lagnat                    
+I Am Taking Two Pills A Day               
+Kumakain Ako Ng Dalawang Pildoras Isang   
+Araw                                      
+I Would Like To Visit A Patient           
+Nais Kong Dalawin Ang Isang Maysakit      
+What Is The Patient's Name?               
+Ano Ang Pangalan Ng Maysakit              
+SUE BLOXY. She Came In Last Night         
+Si SUE BLOXY. Ipinasok Siya Dito Kagabi   
+Let Me Check                              
+Hayaan Mong Alamin Ko                     
+You Can Only Stop (Stay) For Half An Hour 
+Kalahating Oras Lamang Ang Maaari Mong    
+Itigil                                    
+His Foot Became Painful                   
+{Because Of His [New Shoes]}              
+Sumakit Ang Paa Niya                      
+{Dahil Sa [Bagong Sapatos]}               
+What Is Wrong With You?                   
+Ano Ba Ang Iyong Dinaramdam               
+She Is In Room Six                        
+Siya Ay Nasa Silid Bilang Anim            
+She Sent For An Ambulance                 
+Nagpasundo Siya Ng Ambulasiya             
+You Should Goto A Doctor                  
+Dapat Pumunta Ka Sa Manggagamot           
+Can You Accompany The Doctor<?>           
+Maaari Mo Bang Samahan Ang Manggagamot    
+******************************************
+** DIRECTIONS Related Various Sentences **
+******************************************
+Stop At The Corner                        
+Para Sa Kanto                             
+Straight Ahead                            
+Deretso                                   
+Stop                                      
+Para / Huminto                            
+You Wait Here                             
+Magantay Ka Dito                          
+I Know We Are In The [Park]               
+Alam Kong Nasa [Plasa] Na Kami            
+******************************************
+*      DATING/LOVE Related Sentences     *
+******************************************
+SUE Is An Ideal Woman                     
+{For You}                                 
+Si SUE Ay Isang Ulirang Babae             
+{Para Sa Iyo}                             
+I Call SUE                                
+[HOT And STICKY!]                         
+Ang Tawag Ko Kay SUE Ay                   
+[Mainit At Malagkit!]                     
+Who Is Your Loved One?                    
+Sino Ang Sinta Mo                         
+I Do Not Like You Anymore!                
+Ayoko Na Sa Iyo                           
+Do You Like Him/Her?                      
+Gusto Mo Ba Siya                          
+Let's Just Sit Here                       
+Maupo Na Lamang Tayo Rito                 
+Guess <What>?                             
+Hulaan Mo?                                
+TOM Is Making Love To/Courting SUE        
+(Lit: TOM Is Loving To/Towards SUE)       
+Lumiligaw Si TOM Kay SUE                  
+He Is Handsome                            
+Guwapo Siya                               
+******************************************
+*  COMMENTS/QUESTIONS Related Sentences  *
+******************************************
+Yes Sir/Madam                             
+Opo                                       
+Yes                                       
+Oho - Used with Respected, but Familiar,  
+      People, like Family.                
+Yes                                       
+Oo  - For all other general purposes.     
+True/Truly                                
+Totoo                                     
+It Is Very True                           
+Totoong-Totoo                             
+Really, Indeed, Etc                       
+Talaga                                    
+TOM Is A Really Good Person/<Man>         
+Talagang Mabuting Tao Si TOM              
+It Seems Like Rain Today                  
+Tila Uulan Ngayon                         
+Where Is The [Toilet / Mailbox]?          
+Nasaan Ang [Kasilyas / Buson]             
+Say What You Like                         
+Sabihin Mo Kung Ano Ang Iyong Gusto       
+Give Me The [???]                         
+Ibigay Mo Sa Akin Ang [???]               
+When Are You Going To [Use / Look At] The 
+[???]?                                    
+Kailan Mo [Gagamitin / Titingnan] Ang     
+[???]                                     
+When Are You Going To [Bring/Deliver] The 
+[???]?                                    
+Kailan Mo [Dadalhin] Ang                  
+[???]                                     
+When Are You Going To [Fix/Check] The     
+[???]?                                    
+Kailan Mo [Aayusin] Ang                   
+[???]                                     
+I Am Going To [Use / Bring] It            
+{[Tomorrow Afternoon / On Thursday]}      
+[Gagamitin / Dadalhin] Ko Ito             
+{[Bukas Ng Hapon / Sa Huwebes]}           
+I Am Going To [Fix / Look At / Try] It    
+{[Next Wednesday Afternoon]}              
+[Aayusin / Titingnan / Susubukin] Ko Ito  
+{[Sa Susunod Na Miyerkoles Ng Hapon]}     
+Every Saturday Afternoon                  
+Tuwing Sabado Ng Hapon                    
+Do You Have A [Match]?                    
+Meron Bang [Posporo] (Cigarettes)         
+GoodBye/God Be With You                   
+Adyos                                     
+Excuse Me (As In: Let Me Pass Please)     
+Pakiraan                                  
+Allow Me                                  
+Ipahintulot Ninyo                         
+At Last!                                  
+Sa Wakas                                  
+Put The Baby To Sleep                     
+Patulugin Mo Ang Bata                     
+This Is My Friend SUE                     
+Ito Ang Kaibigan Kong Si SUE              
+He Is Full Of [???]!                      
+Siya Ay Puno Ng [???]                     
+Turn Off The Light                        
+{Before You Go To Sleep}                  
+Patayin Mo Ang Ilaw                       
+{Bago Ka Matulog}                         
+We Are Getting Off At [BLOXY Street]      
+Bumababa Kami Sa [Daang BLOXY]            
+Do Not Pay Attention To [Her / Me]        
+Huwag Mo [Siyang / Akong] Pansinin        
+Always/From Time To Time,...              
+Parati,...                                
+Maybe She Is Coming/Arriving Tomorrow?    
+Marahil/Siguro Siya Ay Darating Bukas     
+It Could Be True                          
+That She Is Getting Married?              
+Maaaring Totoo                            
+Na Siya Ay Mag-Aasawa Na                  
+Is TOM Bright?                            
+Marunong Ba Si TOM                        
+Which Is Their House?                     
+Alin Ba Ang Bahay Nila                    
+I Did Not Promise You <Anything>          
+Wala Akong Ipinangako Sa Iyo              
+Where Is Your Promise?                    
+Nasaan Ang Iyong Pangako                  
+SUE's Promise Is...                       
+Ang Pangako Ni SUE Ay...                  
+Promise Her                               
+You Will Be Paying On Monday              
+Pangakuan Mo Siyang                       
+Magbabayad Ka Sa Lunes                    
+The Dog Jumped Into The River             
+Tumalon Ang Aso Sa Ilog                   
+I Lowered My [Umbrella / Window] {Already}
+Ibaba Ko {Na} Ang Aking [Payong / Bintana]
+When I Was Small, I Had A Dog             
+Nang/Noong Ako Ay Maliit, Ako Ay May Aso  
+Say Which You Like                        
+Sabihin Mo Kung Alin Ang Gusto Mo         
+Where Did TOM Study?                      
+Saan Nag-Aral Si TOM                      
+TOM Got Confused                          
+{When Looking For SUE's House}            
+Nalito Si TOM                             
+{Sa Paghanap Ng Bahay Ni SUE}             
+They Shook Hands                          
+Nagkamay Sila                             
+He [Goes / Went] To Work                  
+Every Day                                 
+[Pumupunta / Nagpunta] Siya Sa Trabaho    
+Araw-Araw                                 
+We Visited A Friend                       
+Dumalaw Kami Sa Isang Kaibigan            
+The [Bloxy] Is A Very Big [Church] In The 
+East                                      
+Ang [Bloxy] Ay Isa Sa Pinakamalaking      
+[Simbahan] Sa Silangan                    
+The People Here Are...                    
+Ang Mga Tao Rito Ay...                    
+SUE Is Also Living Here                   
+Si SUE Ay Dito Rin Nakatira               
+I Am Creating A [???]                     
+Lumilikha Ako Ng Isang [???]              
+From Then On,                             
+Mula Noon,                                
+We Are Near                               
+Malapit Na Tayo                           
+....For You And Me                        
+....Para Sa Iyo At Sa Akin                
+Excuse Him {For....}                      
+Patawarin Mo Siya {Sa....}                
+SUE Is Her Name                           
+SUE Ang Pangalan Niya                     
+Cut The Grass                             
+Putlin Mo Ang Damo                        
+Do Not Move                               
+{[Their / SUE's] [Things]}                
+Huwag Mong Galawin                        
+{Ang [Mga Kagamitan] [Nila / Ni SUE]}     
+The Jar Is Full Of Water                  
+Puno Ng Tubig Ang Banga                   
+Let Me Know {If/When She Is Returning}    
+Sabihan Mo Ako {Kung Siya Ay Babalik}     
+Do Not Tell [Me] {To [Cook]}              
+Huwag Mo [Akong] Sabihan {-g [Magluto]}   
+We Are Friends                            
+Tayo Ay Magkaibigan                       
+Do Not Disappoint Your Mother             
+Huwag Mong Biguin Ang Iyong Ina           
+TOM Is Impatient                          
+Si TOM Ay Inis                            
+Place/Put The Book On The Table           
+Ilagay Mo Ang Aklat Sa Mesa               
+He Wants To Hear Your Side (Of The Story) 
+Gusto Niyang Marinig Ang Iyong Panig      
+Do Not Side With Your Son                 
+Because He Is Wrong                       
+Huwag Mong Panigan Ang Iyong Anak         
+Dahil Sa Siya Ay Mali                     
+He Has Permission To Enter/Go In          
+May Pahintulot Siyang Pumunta             
+If You Are Going Out Tomorrow             
+Buy Some [???]                            
+Kung Lalabas Ka Bukas                     
+Bumili Ka Ng [???]                        
+Describe Your [House]                     
+Ilarawan Mo Ang Iyong [Bahay]             
+What Is Your Nickname?                    
+Ano Ang Palayaw Mo                        
+My Nickname Is [???]                      
+Ang Palayaw Ko Ay [???]                   
+We Nickname Her [???]                     
+Pinalayawan Namin Siya Ng [???]           
+I Made A Mistake                          
+Nagkamali Ako                             
+Do Not Embarrass Her                      
+{In Front Of Her Friends}                 
+Huwag Mo Siyang Hiyain                    
+{Sa Harap Ng Kaniyang Mga Kaibigan}       
+I Have An Idea/Plan                       
+May Balak Ako                             
+Do Not Disobey                            
+Your Mother                               
+Huwag Mong Suwayin                        
+Ang Iyong Ina                             
+Good [Luck] To You All                    
+Magandang [Suwerte] Sa Inyong Lahat       
+Can I Ask You Something?                  
+Gusto Ko Bang Magtanong                   
+I Should Of Called First                  
+Dapat Tumawag Muna Ako                    
+What Day Is That?                         
+Anong Araw Ba Iyon                        
+We Shall Look For [Eggs]                  
+Humanap Tayo Ng [Mga Itlog]               
+What Did You Do At/In The [Library]?      
+Ano Ang Ginawa Mo Sa [Aklatan]            
+I Went Home                               
+Umuwi Ako                                 
+I Watched Television                      
+Nanood Ako Ng Telebisyon                  
+What Did You Do [Yesterday / Last Sunday]?
+Ano Ang Ginawa Mo [Kahapon / Noong Linggo]
+What Time Did You Go Home Yesterday?      
+Anong Oras Ka Umuwi Kahapon               
+I Know What You Are Thinking <Of>         
+Nalalaman Ko Ang Iniisip Mo               
+Take His Hand                             
+Kunin Ang Kanyang Kamay                   
+I Thanked TOM/I Said Thank You To TOM     
+For [Showing] Me                          
+Nagpasalamat Ako Kay TOM                  
+Sa [Pinakita] Niya Sa Akin                
+It Is Always Crowded With Traffic Here /  
+The Traffic Is Always Crowded Here        
+Laging Siksikan Dito Ang Trapiko          
+She Needs Help                            
+Kailangan Niya Ng Tulong                  
+Please Help That Woman                    
+Pakitulungan Mo Ang Babaing Iyan          
+Please Help That Old Woman                
+Pakitulungan Mo Ang Matandang Babaing Iyan
+Can I Help You?                           
+Maitutulong Ba Ako Sa Iyo                 
+I Am Going To Win This [Game / Contest]   
+Ako Ang Mananalo Sa [Larong / Paligsahang]
+Ito                                       
+I Have Won/Beaten Them All                
+Tinalo Ko Silang Lahat                    
+Judge Yourself                            
+Before Judging Others/Another             
+Hatulan Mo Ang Sarili Mo                  
+Bago Hatulan Ang Isa                      
+Oh, Before I Forget.                      
+Oh, Bago Ko Makalimutan.                  
+Never Mind                                
+Huwag Na / Hindi Bale                     
+EXIT                                      
+Labasan                                   
+ENTRANCE                                  
+Pasukan                                   
+******************************************
+* VARIOUS/CONVERSATION Related Sentences *
+******************************************
+Is Your Mother Working?                   
+Nagtatrabaho Ba Ang Iyong Ina             
+How Many Sisters Do You Have?             
+Ilan Ang Kapatid Mong Babae               
+Is SUE's Mother Working?                  
+Nagtatrabaho Ba Ang Ina Ni SUE            
+Where Does Your Sister Live?              
+Saan Nakatira Ang Iyong Kapatid Na Babae  
+Where Does SUE's Sister Live?             
+Saan Nakatira Ang Kapatid Na Babae Ni SUE 
+My Oldest Sister Is                       
+Twenty One {Years Of Age}                 
+Ang Pinakamatanda Kong Kapatid Na Babae Ay
+Dalawamput Isa {-ng Taong Gulang}         
+He Tied The [Dog] With A Rope             
+Tinalian Niya Ang [Aso] Ng Lubid          
+TOM Seldom Plays                          
+Bihirang Maglaro Si TOM                   
+Her Friend Seldom Visits Her              
+Bihirang Dumalaw Sa Kaniya                
+Ang Kaniyang Kaibigan                     
+Wash Your Hands And Face                  
+Maghugas Ka Ng Kamay At Mukha             
+Do Not Cry                                
+Huwag Kang Umiyak                         
+They Threw The [???] Into The [River]     
+Itinapon Nila Ang [???] Sa [Ilog]         
+I Am Finishing At Five In The Afternoon   
+Nagtatapos Ako Ng Ikalima Ng Hapon        
+You Are Early                             
+Maaga Ka                                  
+I Am Going To <See> Him Today             
+Pupunta Ako Sa Kanya Ngayon               
+....Until [Then / Monday].....Bye.        
+....Hanggang Sa [Muli / Lunes]....Paalam. 
+Where Is She Working?                     
+Saan Siya Nagtatrabaho                    
+Look At That Woman                        
+Tingnan Mo Ang Babaing Iyan               
+The Measurement Is [Incorrect]            
+Ang Sukat Ay [Hindi Tama]                 
+The Measurement Of Her Dress Is Incorrect 
+Ang Sukat Ng Baro Niya Ay Hindi Tama      
+Her Eye Is Swollen                        
+Ang Mata Niya Ay Maga                     
+This Is About [Books / Animals]           
+Tungkol Ito Sa [Mga Aklat / Mga Hayop]    
+The Next Is/Was/Will Be....               
+Ang Susunod Ay....                        
+There Is Nothing To Do At Night, But [???]
+Walang Magawa Sa Gabi, Kundi [???]        
+Look, TOM                                 
+Tingnan Mo, TOM                           
+It Came True                              
+Nagkatotoo Ito                            
+Why Are You Here?                         
+Bakit Ka Narito                           
+Take A Friend To [Manila]                 
+Magsama Ka Ng Kaibigan Sa [Manila]        
+Do You Have Good News?                    
+May Balita Ka Bang Mabuti                 
+Do Not Hurt Me                            
+Huwag Mo Akong Saktan                     
+She Wrote The {Plot Of The} Story         
+Isinulat Niya {Balangkas Ng} Ang Kuwento  
+The Children Are Playing In The Playground
+Naglalaro Sa Palaruan Ang Mga Bata        
+SUE Is JILL's Playmate                    
+Kalaro Ni SUE Si JILL                     
+I Do Not Know How Deep The [Pool] Is?     
+Ang Lalim Ng Sapa Ay Hindi Ko Alam        
+Can You Deepen The Hole?                  
+Maaari Mo Bang Laliman Ang Butas          
+He Has Good Intentions                    
+May Mabubuti Siyang Hangarin              
+Stop Crying                               
+Magtahan Ka / Tahan Na                    
+[Magellan] Discovered The [Philippines]   
+Natuklasan [Ni Magellan] Ang [Philippines]
+I Am Disappointed {[With You / With Her]} 
+Nabigo Ako {[Sa Iyo / Sa Kanya]}          
+I Am Disappointed {[With You / With Her]} 
+Ako Ay Nabigo {[Sa Iyo / Sa Kanya]}       
+I Am Disappointed With Your [Cooking]!!   
+Ako Ay Nabigo Sa Iyong [Luto]             
+Who Discovered <The> [???]                
+Seno Ang Nakatuklas Ng [???]              
+I Am Meeting [JILL]                       
+Tatagpuin Ko Si JILL                      
+What Are You Looking For/At?              
+Ano Ang Hinahanap [Mo] /                  
+Ano Ang [Iyong] Hinahanap                 
+What Is [She] Looking For/At?             
+Ano Ang Hinahanap [Niya] /                
+Ano Ang Kaniyang Hinahanap                
+She Hurt His Feelings                     
+Sinaktan Niya Ang Kaniyang Damdamin       
+We Would Like To See The [City]           
+Gusto Naming Makita Ang [Lunsod]          
+Where Are We Going?                       
+Saan Ba Tayo Pupunta                      
+This Is A Good Seat                       
+Mabuting Upuan Ito                        
+How Much Will It/This Cost?               
+Magkano Ba Ang Bayad Nito                 
+When Will It/This Arrive?                 
+Kailan Ba Ito Dadating                    
+May I Ask Who You Are?                    
+Maaari Ko Bang Itanong Kung Sino Kayo     
+Let Us Exchange [???]                     
+Magpalitan Tayo Ng [???]                  
+I Expect                                  
+She Is Going To The Party                 
+Inaasahan Kong                            
+Pupunta Siya Sa Salu-Salo                 
+The Car Brokedown                         
+Nasira Ang Kotse                          
+Can You Mash The Sweet Potatoes?          
+Maliligis Mo Ba Ang Kamote                
+Kneel And Pray                            
+Lumuhod At Magdasal                       
+Your Hair Is Short                        
+Mailki Ang Buhok Mo                       
+She Is My Best Friend                     
+Siya Ay Pinakamabuti Kong Kaibigan        
+You Play With TOM                         
+{Until His Mother Arrives}                
+Laruin Mo Si TOM                          
+{Hanggang Dumating Ang Kaniyang Ina}      
+Do Not Push Her                           
+Huwag Mo Siyang Itulak                    
+Do Not Push The Child                     
+Huwag Mong Itulak Ang Anak                
+Transfer/Move The Child To The Other Side 
+Ilipat Mo Ang Bata Sa Kabila              
+I Am Using Some [???]                     
+Gumagamit Ako Ng [???]                    
+This Parcel/Package Contains Books        
+Ang Balutang Ito Ay May Mga Aklat         
+How Much Is The Postage For This Letter?  
+Magkano Ba Ang Bayad Para Sa Sulat        
+What Number Are You Calling?              
+Ano Ba Ang Numero Ang Tinatawag Mo        
+How Much Is The Postage For This?         
+Magkano Ba Ang Bayad Para Sa Na Ito       
+Where Can I Mail/Post This?               
+Saan Ko Ba Maihuhulog Ito                 
+Can You Mail/Post This Letter For Me?     
+Maaari Bang Ihulog Mo Ang Sulat Ito       
+Para Sa Akin                              
+I Am Talking To [You / Her]               
+Ako Ay Nagsasalita Sa [Iyo / Kanya]       
+Who Are/Is [You / She] Talking To?        
+Seno Ang Kinaka-Usap [Mo / Nila]          
+Do Not Say That                           
+Huwag Mong Sabihin Iyan                   
+You Should Not Say That                   
+Hindi Mo Dapat Sabihin Iyan               
+Do You Believe [Me / Him]?                
+Naniniwala Ka Ba Sa [Akin / Kanya]        
+Turn Around                               
+Tumalikod Ka                              
+Close Your Eyes                           
+Pumikit Ka                                
+I Closed My Eyes                          
+Pumikit Ako                               
+He Closed His Eyes                        
+Pumikit Siya                              
+We All Closed Our Eyes                    
+Pumikit Kayo                              
+This/It Is Not New                        
+Ito Ay Hindi Bago                         
+Can You Smoke? (Is Smoking Permitted)     
+Maaari Bang Manigarilyo                   
+What Time Does The Train To PARIS Leave?  
+Anong Oras Ang Alis Ng Tren Para Sa PARIS 
+What Is The Name Of This Place?           
+Anong Tawag Sa Lugar Na Ito               
+How Many Miles Is It To MANILA?           
+Ilan Milya Ba Ito Sa MANILA               
+We Will Meet At The Market Later          
+Magkita Tayo Sa Palengke Mamaya           
+What Is This Place?                       
+Anong Lugar Ito                           
+Where Is There A Garage?                  
+Saan Ba May Garahe                        
+WARNING: Do Not Enter                     
+WARNING: Bawal Pumasok                    
+WARNING: No Smoking                       
+WARNING: Bawal Manigarilyo                
+WARNING: No Parking                       
+WARNING: Bawal Humimpil                   
+WARNING: No Waiting                       
+WARNING: Bawal Maghintay                  
+I Would Like To Speak To The Manager      
+Gusto Kong Maka-Usap Ang Katiwala         
+Wash These Clothes                        
+Ipalaba Mo Ang Mga Damit Na Ito           
+[Send / Give] Me The Bill                 
+{After Two Days}                          
+[Ipadala / Ibigay] Mo Sa Akin Ang Kuwenta 
+{Pagkatapos Ng Dalawang Araw}             
+What Is Your Age?                         
+Ano Ang Edad Mo                           
+I Would Like A [Better] Room              
+Gusto Kong [Mas-Mabuting] Silid           
+I Would Like A [Cheap] Room               
+Gusto Kong [Mas-Murang] Silid             
+I Would Like A [Large] Room               
+Gusto Kong [Mas-Malaking] Silid           
+I Would Like A [Quiet] Room               
+Gusto Kong [Tahimik Na] Silid             
+I Would Like A [Small] Room               
+Gusto Kong [Mas-Maliit Na] Silid          
+When Will These Arrive?                   
+Kailan Darating Ang Mga Ito               
+Have You A Room With A Bath?              
+May Silid/Kuwarto Bang May Paligo         
+Find Out What Happened                    
+Aalamin Mo Kung Ano Ang Nangyari          
+When Did You [Buy] That?                  
+Kailan Mo [Binili] Iyan                   
+When Did You [See/Find] That?             
+Kailan Mo [Nakita] Iyan                   
+When Did You [Hear] That?                 
+Kailan Mo [Narinig] Iyan                  
+I Like You                                
+Gusto Kita                                
+I Will Do/Get It                          
+Ako Na Lang                               
+You Do/Get It                             
+Ikaw Na Lang                              
+What A Shame/Pity                         
+Sayang                                    
+Not Yet                                   
+Wala Pa                                   
+None Of Your Business                     
+Wala Kang Pakialam                        
+What Town Is This?                        
+Anong Bayan Ito                           
+You Will Come Here Everyday               
+Paparito Ka Araw-Araw                     
+Your Mother Will Come Here Tomorrow       
+Paparito Ang Ina Mo Bukas                 
+Something Might Happen                    
+Maaaring May Mangyari                     
+I Did Not See Her At The Market           
+Hindi Ko Siya Nakita Sa Palengke          
+She Is The Fifth Child In The Family      
+Siya Ay Ika-Limang Bata Sa Pamilya        
+The Black Horse Belongs To SUE            
+Ang Itim Na Kabayo Ay Ari Ni SUE          
+Show Her The Way                          
+Ituro Mo Sa Kaniya Ang Daan               
+Point To (Show Me) The Philippines        
+Ituro Mo Ang Philippines                  
+He Pointed A Gun At Her                   
+Itinutok Niya Ang Baril Sa Kaniya         
+She Showed Me (Pointed To/Out) His Mistake
+Itinuro Niya Sa Akin Ang Kaniyang Mali    
+She Began To [Show Off]                   
+{When She Saw TOM}                        
+Nagsimula Siyang [Nagpasikat]             
+{Nang Makita Si TOM}                      
+I Called The Police                       
+{When My Watch Was Snatched}              
+Tinawag Ko Ang Pulis                      
+{Nang Agawin Ang Aking Relos}             
+The Plumber Fixed Our Tap                 
+Inayos Ng Plumero Ang Aming Tap           
+I Was A Teacher                           
+Ako Ay Naging Isang Guro                  
+Spell The Word                            
+Baybayin Mo Ang Salita                    
+The Spelling Of That Word Is Difficult    
+Mahirap Ang Ispeling Ng Salitang Iyan     
+Where Can I Drop (Mail/Deliver) This Off? 
+Saan Ko Ba Maihuhulog Ito                 
+Guess Who Is Coming?                      
+Hulaan Mo Kung Sino Ang Dumarating        
+Guess What Is In My Hand?                 
+Hulaan Mo Kung Ano Ang Nasa Kamay Ko      
+SUE Is Not A [Nice/Good Woman]            
+Hindi [Mabait Na Babae] Si SUE            
+Manila Is Not A [Cold Place]              
+Hindi [Malamig Na Lugar] Ang Manila       
+I Am Hurrying                             
+Nagmamadali Ako                           
+Come To The Front                         
+Halika Sa Harapan                         
+Come Closer                               
+Lumapit Ka                                
+Come Here                                 
+Halika Rito                               
+Move The [Table] To/On The Other Side     
+Ilapit Mo Ang [Mesa] Sa Kabila            
+

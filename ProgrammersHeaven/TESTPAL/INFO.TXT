@@ -1,0 +1,218 @@
+ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บ                                                                           บ
+บ                              TESTPAL.EXE                                  บ
+บ    Program to demonstrate palette manipulation in QBasic or QuickBasic    บ
+บ                              Version 1.0                                  บ
+บ                Copyright 1996 Robert J. Manning, author.                  บ
+บ                                                                           บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บ   The author Robert J. Manning, South Bay Computer Assistance, retains    บ
+บ   all copyright and license to this program. You may use the palettes     บ
+บ   and palette files this program generates for your programs freely, as   บ
+บ   you so desire. If you wish to register (ie, purchase) this program, I   บ
+บ   ask but one thing: I just would like to see what you end up using the   บ
+บ   palettes in! You know, programmer curiosity... ;-) I ask no money for   บ
+บ   this program, per se. It isn't worth that much! I don't consider the    บ
+บ   program freeware, as I do want something in return! So, it isn't a      บ
+บ   public domain program. If you'd rather not show me what you're using    บ
+บ   the palettes in, then mail me a dollar or send me a nice postcard!      บ
+บ                                                                           บ
+บ            Robert Manning, PO Box 2011, Lomita, CA 90717 USA              บ
+บ          Email: RobertM782@aol.com or 76022.1630@compuserve.com           บ
+บ          Pager: (310) 723-0676 (Calls will be returned collect)           บ
+บ                                                                           บ
+บ   Visit the SBCA Web Page (includes a link to the authors' FTP site) at:  บ
+บ   http://members.aol.com/robertm782/private/sbcapage.htm                  บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+   TESTPAL.EXE Program to demonstrate palette manipulation in QBasic.
+   Copyright 1996 Robert J. Manning, South Bay Computer Assistance.
+
+   This program will allow you to play with each of the 256 colors in screen
+   mode 13 (320x200x256). You can change the RGB values for each of the 256
+   colors, generate new palettes, and save the palettes to a binary file.
+   See below for info on reading the palette file into a QBasic program.
+
+   This program isn't particularly fancy, it's for the programmer who wants
+   an idea of what's going on when you use the PALETTE statement. I used a
+   version of this program when making some of my older screen shows. When
+   I first started putting them together, I fooled around quite a bit with
+   all of the color functions in QB. It took a while to figure out what
+   Micro$oft was talking about with their formula. Don't ask me why they
+   did it this way, I have no idea! It does take some trickery to decode
+   the palette value, and it took me a while to understand the value
+   they were referring to with the formula:
+
+      COLOR number = 65536 * blue + 256 * green + red
+
+   The "COLOR number" is a composite of three values, each of which is an
+   intensity of blue, green, and red. So, if you want to make black, you
+   would figure the color as:
+
+      black = 65536 * 0 + 256 * 0 + 0
+
+   Now, keep in mind that all five of the math functions must take place
+   each time you calculate a color number. Five? Yes, five.
+
+      a = 65536 * blue
+      b = 256 * green
+      c = 1 * red
+      d = a + b
+      e = d + c
+      Then of course, the assignment "COLOR number" = e
+
+   So, the calculation for black really is this:
+
+      black = (65536 * 0) + (256 * 0) + (1 * 0)
+
+   The calculation for white would be this:
+
+      white = (65536 * 63) + (256 * 63) + (1 * 63)
+
+   The calculation for all colors in between consists of varying each of
+   the RGB values from 0 to 63. So, there are a total of 262,144 seperate
+   colors that can be created (64 * 64 * 64).
+
+   Now, why is black zero? The 'Intensity' of a color for our purposes
+   can range from 0 to 63 (actually 64 values). Zero is the lowest value,
+   hence the darkest color, or the absence of color. Sixty-three is the
+   highest value, hence the brightest color. Make the blue, green, and red
+   intensities all zero, you get black. Make them all 63, you get white.
+   You can see how this happens by fooling around with the TESTPAL.EXE
+   program. I'll save the rest of this explanation, just run the program.
+
+   
+   Let's go over the program functions (I apologize for their organization,
+   I wasn't worrying about a fancy interface when I wrote this):
+
+      F7 and F8, Select color
+      -----------------------
+   Press either of these function keys to select the one color out of 256
+   that you want to mess with. F7 increments, F8 decrements. Your choice
+   is displayed next to the text "Changing color number".
+
+      F9, Save palette
+      ----------------
+   Press this key to save the currently displayed palette to a file. The
+   file can be read into other programs to be used as a palette, instead
+   of generating the palette code yourself (You can see how to make a
+   palette on one of my SBCA Programmer's Pages). To read the values into
+   an array, use the following code in your program:
+
+      DEFLNG A-Z
+      TYPE filearray
+        num AS LONG
+      END TYPE
+      DIM SHARED fa AS filearray
+      DIM SHARED col1(256) AS LONG
+      OPEN "TEST.PAL" FOR RANDOM AS #1 LEN = LEN(fa)
+      IF LOF(1) = 1024 THEN
+          FOR x = 1 TO 256
+              GET #1, x, fa
+              col1(x - 1) = fa.num
+          NEXT x
+          CLOSE #1
+          RESET
+      END IF
+
+      '(Issue the following statement to initialize this palette:)
+
+      PALETTE USING col1
+
+   Note that by default the file name is "TEST.PAL". This file, if it
+   exists in the working directory, will be read when the program is run.
+   If it doesn't exist, the program will make a palette. If you like, you
+   can save the palette to this file. Each save will over-write the file,
+   so if you want to keep what you made, exit the program and move the
+   file TEST.PAL to another directory before saving another palette.
+
+   You have my permission to use these palette files as you wish. You can
+   make a bunch of them and use them in programs to do all sorts of things.
+      
+      F10, Fade out/in
+      ----------------
+   One of my readers wrote in and wanted to know if this could be done in
+   QBasic. Well, I had to go open my mouth and say it could! <g> So, here
+   is your demonstration of how to do it in QB. Yes, it can be done!
+
+   It is slow, for several reasons. First, QBasic is slow. QuickBasic is
+   faster, but compared to some other languages and methods to do this, it
+   is an old turtle on a cold day in winter. Second, I'm using the PALETTE
+   statement, and there is a couple other ways to do this that are faster.
+   But, we're not here to hot-rod QBasic. At least, I'm not! So, I leave
+   the debate over what's the fastest way to do this to others who want to
+   debate it.
+
+   What this routine does is take the current palette, then divide each
+   color intensity out of the "COLOR number" formula above, divide again
+   by 8 (the number of intermediate fading steps I chose, it's just an
+   arbitrary value), then using the same "COLOR number" formula, load a
+   two-dimensional array with all ten palettes, and one by one assign them
+   to the 'col1' palette, and issue PALETTE USING col1. Sounds simple, no?
+
+   Keep in mind that this coded "COLOR number" is made out of long
+   integers. Since we already know that it is a composite of the sum of
+   three multiplications, we can divide and get back the original color
+   intensities. I'm not going to become a math teacher here, so if you
+   don't know how to do this, I'll sell you the source code for a nominal
+   charge (Sorry, I don't spend a thousand bucks a semester for school then
+   give away EVERYTHING I learn!)
+
+      F1=Inc Red, F2=Inc Green, F3=Inc Blue
+      -------------------------------------
+   These three functions increment one of the RGB values of the color
+   selected. Using these, you can increase the intensity of any of the
+   red, green, or blue intensities for any one color. Now you can see that
+   a single screen color is actually made from three colors.
+
+      F4=Dec Red, F5=Dec Green, F6=Dec Blue
+      -------------------------------------
+   These functions do the opposite of the above three, that is, they reduce
+   the intensity of each of the RGB values for the selected color.
+
+      F11=Generate new Palette
+      ------------------------
+   This function will make a new palette. What it does is vary the
+   intensity of the current palette. The same algorithm is used for all
+   palettes (that is, you'll always get 8 basic colors faded to 256 for
+   each one). I may put in one of my random palette routines at some point,
+   if enough people want it.
+
+      Press Enter to quit
+      -------------------
+      Self explanatory.
+
+
+   Alright, so I did say something about source code...
+   ----------------------------------------------------
+   If you're the truly curious type, or just want someone else to write
+   your code for you, I'll mail you a disk with the source code on it
+   for $10 bucks (U.S Dollars, please!). I apologize for this, if this 
+   offends anyone, it is not intended to. Compared to what it took to 
+   figure all this stuff out, code and test the program, not to mention 
+   many years of college level math, this is cheap. Besides, it's the 
+   principle of the thing! <g>
+
+   I'll spare you any more details. I truly hope that this little utility
+   program is of some use to you! If you want to make my day, send me a
+   picture postcard, and I'll consider you a registered user of the 
+   program!
+   
+   Robert Manning
+   
+ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บ                                                                           บ
+บ                              TESTPAL.EXE                                  บ
+บ    Program to demonstrate palette manipulation in QBasic or QuickBasic    บ
+บ                              Version 1.0                                  บ
+บ                Copyright 1996 Robert J. Manning, author.                  บ
+บ                                                                           บ
+บ            Robert Manning, PO Box 2011, Lomita, CA 90717 USA              บ
+บ          Email: RobertM782@aol.com or 76022.1630@compuserve.com           บ
+บ          Pager: (310) 723-0676 (Calls will be returned collect)           บ
+บ                                                                           บ
+บ   Visit the SBCA Web Page (includes a link to the authors' FTP site) at:  บ
+บ   http://members.aol.com/robertm782/private/sbcapage.htm                  บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ

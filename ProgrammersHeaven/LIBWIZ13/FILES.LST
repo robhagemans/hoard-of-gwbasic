@@ -1,0 +1,12 @@
+The following files are included in the LIBWIZ package:
+
+   ADD4DOS.BAT        a batch file to add 4DOS descriptions for LibWiz
+   CATALOG.TXT        a list of other programs I've written
+   FILES.LST          list of files included with LIBWIZ (this list)
+   LIBWIZ.DOC         manual for using the LIBWIZ utilities
+   LIBWIZ.EXE         utility for creating and managing libraries
+   LIBWIZ.NEW         information about new additions and changes
+   LIBWIZU.EXE        utility to create LIBWIZ info files for new libs
+   REGISTER.TXT       order form for registering any of my programs
+   UNLIB.EXE          extracts all .OBJ files from a .LIB library
+   WHERE.BBS          a list of BBSes I support

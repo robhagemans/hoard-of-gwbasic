@@ -1,0 +1,1993 @@
+ 
+
+
+
+
+          ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+          ³                                                       ³
+          ³            P B / V I S I O N (tm)   L I T E           ³
+          ³      Visual Windowing Library for PowerBASIC 3.0      ³
+          ³  >>>>>>>>>>  SHAREWARE EVALUATION VERSION <<<<<<<<<<  ³
+          ³                                                       ³
+          ³                       TUTORIAL                        ³
+          ³                                                       ³
+          ³    (c) Copyright 1993-94 DSE Software Publishing      ³
+          ³       Licensed Material.  All Rights Reserved.        ³
+          ³                                                       ³
+          ³        ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿         ³
+          ³        ³ ßßßßßßßß\      ßßßßßß\ ßßßßßßßßßß\ ³         ³
+          ³        ³  ßßß\   ß\    ßß\   ßß\ ßßß\   ßß\ ³         ³
+          ³        ³  ßßß\    ß\  ßß\     ß\ ßßß\    ß\ ³         ³
+          ³        ³  ßßß\    ßß\ ßß\        ßßß\       ³         ³
+          ³        ³  ßßß\    ßß\ ßßß\       ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\  ßßß\      ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\    ßßß\    ßßßßßß\    ³         ³
+          ³        ³  ßßß\    ßß\      ßßß\  ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\       ßßß\ ßßß\ ß\    ³         ³
+          ³        ³  ßßß\    ßß\        ßß\ ßßß\       ³         ³
+          ³        ³  ßßß\    ß\  ß\     ßß\ ßßß\    ß\ ³         ³
+          ³        ³  ßßß\   ß\   ßß\   ßß\  ßßß\   ßß\ ³         ³
+          ³        ³ ßßßßßßßß\     ßßßßßß\  ßßßßßßßßßß\ ³         ³
+          ³        ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ         ³
+          ³                                                       ³
+          ³                DSE Software Publishing                ³
+          ³                  Post Office Box 96                   ³
+          ³                Willits, CA 95490-0096                 ³
+          ³                    (707) 459-4358                     ³
+          ³                 FAX: (707) 459-4484                   ³
+          ³                                                       ³
+          ³        InterNet: dse.software@genie.geis.com          ³
+          ³           DSE Online! BBS - (707) 459-4484            ³
+          ³                 GEnie: DSE.SOFTWARE                   ³
+          ³                                                       ³
+          ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+
+          PowerBASIC is a registered trademark of PowerBASIC, Inc.
+          PB/VISION(tm) and PB/WORKSHOP(tm) are trademarks of DSE
+          Software Publishing.  Other product names are trademarks
+          or registered trademarks of their respective holders.
+
+
+
+
+
+
+
+
+
+
+                                    Contents
+
+
+
+               Chapter 1  WINDOWING BASICS                           2
+                  In the Beginning...  . . . . . . . . . . . . . . . 2
+                  Important Reading  . . . . . . . . . . . . . . . . 2
+                  Tutor Source Code Organization . . . . . . . . . . 2
+                  1.1  Let's get started with TUTOR1_1.BAS . . . . . 3
+                     1.1.1  What is "%ISPBU" for anyway? . . . . . . 3
+                     1.1.2  Trivial, but worth mentioning. . . . . . 3
+                     1.1.3  The "WINDOW.BI" $INCLUDE File. . . . . . 4
+                     1.1.4  Initializing the program with
+                            "AppInit()"  . . . . . . . . . . . . . . 4
+                     1.1.5  Shutting the Program down with
+                            "AppClose()" . . . . . . . . . . . . . . 4
+                  1.2  Moving on up to TUTOR1_2.BAS  . . . . . . . . 4
+                     1.2.1  What is all this "Virtual Handle" Mumbo-
+                            Jumbo? . . . . . . . . . . . . . . . . . 5
+                     1.2.2  How come WinOpen() looks so darn
+                            complex? . . . . . . . . . . . . . . . . 5
+                     1.2.3  "Colors, Colors Everywhere" or "Ooh Yuck,
+                            Hexadecimal" . . . . . . . . . . . . . . 6
+                     1.2.4  What are "Extended Colors"?  . . . . . . 7
+                     1.2.5  And now, back to WinOpen() . . . . . . . 8
+                     1.2.6  Flag Waving Windows  . . . . . . . . . . 9
+                     1.2.7  Displaying a Window  . . . . . . . . .  10
+                     1.2.8  Another way of Opening a Window  . . .  11
+                     1.2.9  Printing to a Window . . . . . . . . .  11
+                     1.2.10  Closing an open Window  . . . . . . .  12
+                  1.3  Customizing the "Desktop" . . . . . . . . .  13
+                     1.3.1  Text or Graphics . . . . . . . . . . .  13
+                     1.3.2  Changing the Desktop Color and Fill
+                            Pattern  . . . . . . . . . . . . . . .  14
+                     1.3.3  Adding a "Title Bar" . . . . . . . . .  14
+
+               Chapter 2  EVENT MANAGEMENT                          15
+                  Input, Need Input! . . . . . . . . . . . . . . .  15
+                  2.1  Your First "Event-Driven" Program . . . . .  16
+                     2.1.1  The "EVENT.BI" $INCLUDE File . . . . .  16
+                     2.1.2  Polling "GetEvent()" for Events  . . .  17
+                  2.2  Responding to the Keyboard  . . . . . . . .  17
+                     2.2.1  Responding to Alpha-Numeric keys with
+                            "KEYGET" . . . . . . . . . . . . . . .  18
+                     2.2.2  Responding to built-in Keyboard
+                            Events . . . . . . . . . . . . . . . .  18
+                     2.2.3  Getting Help with <F1> . . . . . . . .  18
+
+                                          i
+
+
+
+                  2.3  How to create "Custom" Keyboard Event
+                       Codes . . . . . . . . . . . . . . . . . . .  18
+                     2.3.1  Defining a few Custom Event Codes  . .  19
+                     2.3.2  Adding the Custom Events . . . . . . .  20
+                     2.3.3  Responding to Custom Events  . . . . .  20
+                  2.4  Of Mice and Windows . . . . . . . . . . . .  20
+                     2.4.1  Selecting the Mouse Cursor Style . . .  21
+                     2.4.2  Making your program "Mouse Aware"  . .  21
+                     2.4.3  Making Windows Mouse Aware . . . . . .  22
+                     2.4.4  Responding to "Mouse Events" . . . . .  22
+
+               Chapter 3  ADVANCED PROGRAMMING TECHNIQUES           23
+                  3.1  Multi-Threading made easy.  . . . . . . . .  23
+                     3.1.1  Assigning Code to a Window.  . . . . .  24
+                     3.1.2  Syntax of a Window Subroutine. . . . .  25
+                     3.1.3  Processing Events in a Window
+                            Subroutine.  . . . . . . . . . . . . .  26
+                     3.1.4  Returning Event Codes back to
+                            GETEVENT().  . . . . . . . . . . . . .  26
+                  3.2  Multi-Threading Continued - A Couple of New
+                       Events. . . . . . . . . . . . . . . . . . .  26
+                     3.2.1  Some New Events Codes. . . . . . . . .  27
+                  3.3  Complex Multi-Threaded Program. . . . . . .  27
+                     3.3.1  Making the Code More Readable. . . . .  27
+                     3.3.2  Initializing the Selection Window. . .  27
+                     3.3.3  Responding to Window Clicks  . . . . .  28
+                     3.3.4  Returning a Modified Event Code  . . .  28
+                  3.4  Child Menus and Forms without Overkill. . .  28
+                  3.5  Background Tasking  . . . . . . . . . . . .  29
+                  3.6  Making programs smaller with "Stub" Files. . 30
+                     3.6.1  The "NOGRAPH.OBJ" and "NOTEXT.OBJ" Stub
+                            Files. . . . . . . . . . . . . . . . .  30
+                     3.6.2  The "NOMOUSE.OBJ" Stub File  . . . . .  31
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         ii
+
+
+
+
+
+
+
+
+
+                                    Figures
+
+
+               Figure 2.1: A little "black box" called GETEVENT()  .16
+               Figure 3.1: Simplified GETEVENT() flowchart.  . . . .23
+               Figure 3.2: GETEVENT() with "Multi-Threading".  . . .24
+               Figure 3.3: "Multi-Threading" multiple objects. . . .24
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                         iii
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 1
+
+                                  WINDOWING BASICS
+
+          ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          In the Beginning...
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Welcome to the PB/VISION(tm) tutorial.  The purpose of this
+               tutorial is to gently (and humorously) guide you through the
+               learning phase of PB/VISION.  Step by step, I'll take you
+               from the simplest possible "Hello, World!" program to
+               elaborate event-driven object-oriented programs that will
+               make your friends green with envy.
+
+          Important Reading
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Before diving into it, please let me give you a word of
+               advice:  READ THIS ENTIRE TUTORIAL _BEFORE_ ATTEMPTING TO
+               WRITE YOUR OWN PROGRAMS!  Sorry, I didn't mean to shout but
+               we get a lot calls from people asking "What tutorial?", or
+               saying "I just skimmed over them".
+
+               In all seriousness, even if you do not plan on using all of
+               the library features, do not skip or quickly skim over those
+               parts.  This tutorial is designed to build on knowledge
+               learned from previous chapters.  No chapter is self-
+               contained.  If you miss even one, you are going to become
+               overwhelmed and frustrated, and you will have wasted good
+               money.
+
+               While you experienced programmers may be able to pick up on
+               things by studying and taking a hatchet to the demos, you
+               will also miss out on things that will make you say "Dang!"
+               later on.  Please, humor me, keep reading.
+
+          Tutor Source Code Organization
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Each section of this tutorial is accompanied by one or more
+               TUTOR??.BAS files.  For maximum readability, only the newest
+               concepts are commented in the source files.  You will not
+               see old comments in a new source file unless it is
+               absolutely necessary.
+
+               So that you can keep track of which part of the tutorial
+               correlates with the source file, each section of the source
+               is commented with the chapter and section.  I don't think
+               you will get lost.
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                2
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          1.1  Let's get started with TUTOR1_1.BAS
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Start up PowerBASIC and load the file named "TUTOR1_1.BAS".
+               This is as simple as it gets.  I know you're curious, so go
+               ahead and run it.  If all goes well, you should see "Hello,
+               World" plastered on a blue matte background.  If not, read
+               the "TROUBLESHOOTING" section in the documentation.  Ok,
+               press a key (any key) to get back to the source code.
+
+               By the way, all of the files were created with a tab size of
+               8.  If you have any other value, the comments are going to
+               look _real_ funny.  You can set the tab size under the
+               "Options|Environment|Tab Size" menu on the PowerBASIC
+               editor.
+
+               Ok, lets analyze this one line by line...
+
+
+          1.1.1  What is "%ISPBU" for anyway?
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The first statement reads "%ISPBU = 0".  This  little
+               constant (meaning a fixed variable) determines how the file
+               is going to be used.  You see, all of the $INCLUDE files are
+               designed so that they may be used for creating executable
+               files (.EXE) or "units" (.PBU).  If you are compiling a
+               normal program, you will use a value of 0 (zero).  If you
+               are compiling a "unit", use a value of 1 (one).
+
+               Depending on the way "%ISPBU%" is set, you are telling
+               PowerBASIC to compile some parts of the file, but not
+               others.  This is accomplished through a method called
+               "conditional compiling".  If you want to get a little more
+               familiar with the term, drag out the PowerBASIC manuals and
+               look up references for "$IF/$ELSE/$ENDIF".
+
+
+          1.1.2  Trivial, but worth mentioning.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The next two statements (lines 9 and 10) don't look very
+               important, but they are.  "DEFINT A-Z" tells PowerBASIC to
+               default to integer math, meaning that all variables are
+               assumed to be integers (unless otherwise stated so).
+               Without it, PowerBASIC will use slower "floating point" math
+               for all calculations.  Depending on the CPU, integer math is
+               up to 20 times faster than floating point.
+
+               The "$DYNAMIC" statement, tells PowerBASIC to allocate
+               memory only as needed.  Without it, all memory is allocated
+               as soon as the program starts and you might find yourself
+               short on it later.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                3
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               Simply put, these two lines guarantee that PB/VISION (and
+               PowerBASIC) will work as fast and efficiently as possible.
+               You should have these lines in every program you write, even
+               if you aren't using any PB/VISION routines.
+
+
+          1.1.3  The "WINDOW.BI" $INCLUDE File.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               On line 14 we specify the "WINDOW.BI" $INCLUDE file.  This
+               file has the definitions for all of the PB/VISION windowing
+               routines, and the commands to properly link in the PB/VISION
+               library.  Without this line, you will not be able to use any
+               PB/VISION routines.
+
+               PB/VISION is supplied with other $INCLUDE files for menu,
+               data entry, and other miscellaneous routines.  We will get
+               to these in a while.
+
+
+          1.1.4  Initializing the program with "AppInit()"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               APPINIT() is the routine that turns on PB/VISION.  When
+               called, it determines what type of equipment you have and
+               adjusts the library routines accordingly.  By default, it
+               paints the screen with a white on blue matte background.
+               This is called the "desktop".  In a few pages, I'll tell you
+               how to customize the look and feel of the desktop.  For now,
+               we will use the default.
+
+               The next couple of lines are pure PowerBASIC code to print
+               "Hello, World!" and wait for the user to press a key.  Press
+               any key and read on.
+
+
+          1.1.5  Shutting the Program down with "AppClose()"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               APPCLOSE() is the opposite of APPINIT().  When called, it
+               closes all open windows, clears off the desktop, and
+               restores the screen to the exact same state it was in when
+               the program started.
+
+               That's it for TUTOR1_1.BAS.
+
+
+          1.2  Moving on up to TUTOR1_2.BAS
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Now load and run the file named "TUTOR1_2.BAS".  In this
+               demo  we open up a window and print some text in it.  When
+               you're ready, press a key to end the demo.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                4
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          1.2.1  What is all this "Virtual Handle" Mumbo-Jumbo?
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Introduced in this section is the WINOPEN() routine, whose
+               job is to create what is known as a "handle based virtual
+               window".  That's a mighty big concept, but in all actuality,
+               it is very easy to understand.
+
+               The "handle" part is the simplest concept to grasp.  Think
+               of it as your Aunt Edna's telephone number.  When you want
+               to talk to her, you dial her number.  A window handle is the
+               same thing.  In order to "talk" to a window, you have to
+               know its "phone number".  Whenever you "open" (create) a new
+               window, it lets you know what its handle is.  In this
+               particular example, WINOPEN() assigns the window's handle to
+               a variable called "AuntEdna%".
+
+               As for the "virtual" part, well, my dictionary defines this
+               as "virtuous", but somehow I don't think that this term
+               applies here.  In windowing terminology, "virtual" means
+               that there is more to the window than the eye can see.
+               As an example, imagine a piece of paper with a hole in the
+               middle.  Now place that piece of paper over a page in an
+               open book.  All you can see is the text through the hole,
+               but if you move the book underneath you will be able to see
+               the rest of the text.  This is called "virtualization", and
+               yes, it is legal in most states.
+
+               With a "virtual" window, all you see is the text coming
+               through the hole.  In the library, there are functions that
+               exist solely to move the "book" around.  There are also
+               functions for printing to a window, scroll text within a
+               window, clearing text from a window, and all kinds of simple
+               and fancy window things.
+
+
+          1.2.2  How come WinOpen() looks so darn complex?
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               At your first glance, all those parameters being passed to
+               WINOPEN() might scare you off.  Don't let it, as it is
+               considerably easier than it looks.  Additionally, if you get
+               stuck, you can always bring up the help screen for this
+               routine by pressing <CTRL-F1> when the cursor is on function
+               or procedure name.
+
+               Let's take this routine apart.
+
+                    AuntEdna = WINOPEN(10, 40, &H10, 1, &H1F, "AUNT EDNA'S
+                                        WINDOW ", &HE0, %SHADOW)
+
+                    1. Virtual Rows..: 10
+                    2. Virtual Cols..: 40
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                5
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    3. Attribute.....: &H10   ; black on blue
+                    4. Border........: 1
+                    5. Border Color..: &H1F   ; bright white on blue
+                    6. Title.........: "AUNT EDNA'S WINDOW"
+                    7. Title Color...: &HE0   ; black on yellow
+                    8. Window flags..: %SHADOW
+
+               The first two parameters specify the "VIRTUAL ROWS" and
+               "VIRTUAL COLUMNS".  In this instance we define a window of
+               10 rows by 40 columns.  There is nothing stopping you from
+               using larger or smaller numbers.  You could in fact define a
+               window that is 80 rows by 132 columns if the desire hits
+               you.
+
+
+          1.2.3  "Colors, Colors Everywhere" or "Ooh Yuck, Hexadecimal"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Next comes the "ATTRIBUTE" parameter, whichis a hexadecimal
+               code that defines the  window color.  Ole Aunt Edna is
+               scared of hexadecimal math because she thinks it's witches'
+               math.  You know better.  In fact, it is so simple that it is
+               only going to take you 30 seconds to learn how to use them
+               if you don't know how yet.
+
+               To get you in the right frame of mind, lets start with
+               PowerBASIC's built-in "COLOR" statement.  You have used this
+               statement thousands of times.  It defines the color for the
+               next "PRINT" statement.  COLOR accepts two parameters:
+
+                    COLOR foreground%, background%
+
+               Lets take this apart:
+
+                    COLOR 7, 0          ' white on black text
+                    COLOR 1, 7          ' blue on white text
+
+               The first digit defines the foreground color, and the second
+               digit defines the background color.  Are you with me so far?
+
+               Using hexadecimal, you would simply switch the two numbers
+               and prefix them with "&H":
+
+                    &H background foreground
+
+               or:
+
+                    &H07                ' white on black text
+                    &H71                ' blue on white text
+
+               All we have done is reverse the two numbers and add a couple
+               of funny letters.  There is nothing more to it.  You may
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                6
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               already know the numbers for most of the colors, but here
+               are the numbers for all of them.
+
+                    0 = black           8 = Gray (bright black!)
+                    1 = blue            9 = bright blue
+                    2 = green           A = bright green (10)
+                    3 = cyan            B = bright cyan (11)
+                    4 = red             C = bright red (12)
+                    5 = magenta         D = bright magenta (13)
+                    6 = brown           E = yellow (14)
+                    7 = white           F = bright white (15)
+
+               Okay, okay.  Not all of them are numbers.  I sneaked (or is
+               that "snuck"?) a few letters in there too, but they work the
+               same way:
+
+                    &H1F                ' bright white on blue text
+                    &HEC                ' bright red on yellow
+
+               A word of warning on the last one (&HEC)...  Wear very dark
+               sunglasses if you make a window this color.
+
+               If you forget which number corresponds to a given color,
+               help is a keystroke away.  You can bring up the PB/VISION
+               online help by pressing <F1> and then <SHIFT-F1> while in
+               the editor.
+
+               For the faint of heart, there is a function called ATTR(),
+               and it works identically to PowerBASIC's own "COLOR"
+               statement.  It does, however, add a minimum of 25 bytes of
+               code each and every time you use it.  Most times it will add
+               even more.
+
+
+          1.2.4  What are "Extended Colors"?
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Just when you thought you knew everything about colors, I am
+               here to confuse you (not really) again.
+
+               I shouldn't be telling you this right now, but I have a
+               sneaky suspicion that you have been looking ahead at the
+               other demo programs.  If so, you might be getting confused
+               over the "extended" color codes used when calling particular
+               routines.
+
+               Some routines, such as WINHOTPRINT(), allow different parts
+               of a text string to be printed in different colors.  Lets
+               use the following as an example, which is a variation of the
+               WINPRINT() routine:
+
+                    WINHOTPRINT AuntEdna, 1, 1, &H0F07, "Hello, ~W~orld!"
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                7
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               This statement prints "Hello, World!" to a window.  What is
+               special is that the "W" in "World" is printed in a color
+               different from the rest of the text.  How is this done?  I'm
+               glad you ask, read on...
+
+               In routines that allow extended color codes, all text
+               outside the tilde (~) characters will be printed with the
+               primary color, and all text braced between two tilde
+               characters will be printed with the secondary color.
+
+               Extended color codes are created by combining two color
+               codes.  The default color is placed on the right side of the
+               code, and the secondary color is placed on the left.  It's
+               that easy!
+
+                    WINHOTPRINT AuntEdna, 1, 1, &H0F07, "Hello, ~W~orld!"
+                                                  ³³³³
+                              Secondary color ÄÄÄÄÁÙÀÁÄÄÄÄ Primary color
+                                               &H0F  &H07
+
+               If you don't supply the secondary code, the primary will be
+               used by default.
+
+
+          1.2.5  And now, back to WinOpen()
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Let's get back to WINOPEN().
+
+               AuntEdna = WINOPEN(10, 40, &H10, 1, &H1F, "", &HE0, %SHADOW)
+
+               The "BORDER" parameter (1) defines what border style is used
+               when the window is displayed.  While in standard text mode,
+               there are 17 border styles available.  When the graphical
+               mode is enabled, there is only 1 border style.
+
+               For the "BORDER COLOR", at time you may want the color of
+               the border to differ slightly (or greatly) from the text
+               color, so modify this to your hearts content.
+
+               The "TITLE" and "TITLE COLOR" work the same way.  You may
+               use up to 40 characters in a title.  Anything beyond that
+               point is chopped off.
+
+               Finally there is the window "WINDOW FLAGS" parameter.  This
+               deserves a section of its own.
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                8
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          1.2.6  Flag Waving Windows
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The "WINDOW FLAGS" parameter defines the look, feel, and
+               response of a window.  It allows you to add a shadow, scroll
+               bars, icons, and more.
+
+               To make things easier for you, all of the window flags have
+               been defined using constants (variables that don't change).
+               All you will have to remember are names, and not numbers.
+               And once again, if you forget any of the names, you can
+               always pull them up through the online help system.
+
+               In this example, only "%SHADOW" is used.   This particular
+               option places a shadow at the lower right corner of the
+               window.  There are quite a few options available, and here
+               is a list of the rest:
+
+                    Constant       Description
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄ  ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    %AUTOCLOSE     Forces window to close if it becomes
+                                   hidden.
+                    %AUTOSCROLL    Coordinates window scroll relative to
+                                   window viewport and allows mouse and
+                                   keyboard scrolling of window.
+                    %BOTTOMBAR     Adds an attractive bottom bar to
+                                   graphical windows that do not already
+                                   have one.
+                    %CONTROL       Add a control box icon to the window
+                                   (See WINCTRLBOX().
+                    %DRAGBAR       Add a drag bar to the window.
+                    %HSCROLLBAR    Add a horizontal scroll bar to the
+                                   window.
+                    %MINMAX        Add minimize and maximize icons to the
+                                   window.
+                    %NOHORZBORDER  Remove horizontal border from window.
+                    %NOCOLOR       Defines that all text in the window is
+                                   of one color (saves 50% memory).
+                    %NOHIDE        Does not allow window to be hidden.
+                    %NOSELECT      Disables all mouse manipulation of a
+                                   window.
+                    %NOVERTBORDER  Remove vertical border from window.
+                    %RESIZE        Add a resize icon to the window.
+                    %SHADOW        Add a shadow to the window (lower/right)
+                    %VSCROLLBAR    Add a vertical scroll bar to the window.
+
+               You can use a single flag or you can merge several together.
+               Don't worry if you don't understand what all the different
+               flags are for.  Each will be discussed as the tutorial
+               proceeds.
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                9
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               Let's say that you want a window to have a shadow, a
+               vertical scroll bar, and you want to drag it around with the
+               mouse.  In this instance, you would use the options:
+
+                    %SHADOW OR %VSCROLLBAR OR %DRAGBAR
+
+               You may be wondering why "OR" is used instead of the "+"
+               sign when adding options.  There is a very good reason.  The
+               "OR" key word allows you to add numbers without worrying
+               about adding the same number twice.  As an example:
+
+                    1 + 2 + 8 + 8 = 19
+
+                    1 OR 2 OR 8 OR 8 = 11
+
+               Accidentally adding the same window flag twice could cause
+               unexpected results.  Using the "OR" key word simply insures
+               that you do not waste time looking for problems caused by
+               incorrectly adding the same window flags twice.
+
+               Here's a trick to make your program much easier to read:
+               Place all of window flags in a variable and then pass that
+               variable to WINOPEN():
+
+                    FlagsForEdna% = %SHADOW OR %VSCROLLBAR OR %DRAGBAR
+
+               That's all for WINOPEN().  On to WINSHOW().
+
+
+          1.2.7  Displaying a Window
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Creating the window was the first step.  The next step is to
+               get it onto the screen.  To do this you must use WINSHOW():
+
+                    WINSHOW AuntEdna, 0, 0, 25, 80
+
+                    1. Window handle..: AuntEDna%
+                    2. Screen row.....: 0
+                    3. Screen column..: 0
+                    4. Screen rows....: 25
+                    5. Screen columns.: 80
+
+               The first parameter, "WINDOW HANDLE" refers to the handle
+               returned when the window was opened.  Remember the
+               discussion relating it to a "telephone number"?
+
+               The "SCREEN ROW" and "SCREEN COL" parameters determine were
+               the window will be displayed.  The example shown in
+               TUTOR1_2.BAS might confuse you for a second, but don't let
+               it.  When you specify a value of 0 for the row and/or
+               column, the window is centered in that particular plane.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                10
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               The "SCREEN ROW" and "SCREEN COL" parameters determine how
+               many rows and columns of the window will be displayed.  This
+               too might look a little confusing because 25 and 80 are
+               being passed and you know darn well that the window is only
+               10 rows by 40 columns.  Relax.  If you pass values larger
+               than what is true dimensions of the window, the values are
+               corrected internally.  The purpose of this feature is so
+               that during product development, you do not have to keep
+               updating the call to WINSHOW() each time you change
+               WINOPEN().
+
+
+          1.2.8  Another way of Opening a Window
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The next line introduces an alternative method of opening
+               and displaying a window.
+
+               WINPOPUP() is a routine that provides the functionality of
+               WINOPEN() and WINSHOW() in a single call,  In fact,
+               internally, that is exactly what it does.
+
+               When do you use WINPOPUP() instead of WINOPEN()?  That's
+               entirely up to you.  There are no real "rules" governing it
+               use, but there are advantages to both.
+
+               WINOPEN() is best used when you want to display a window
+               with text already printed within it.  Since windows are
+               "virtual", you can print to them long before you actually
+               display them.  This way you can get the window looking prim
+               and proper before you show it to the whole world.  It might
+               save you some embarassement if you ever decide to run for
+               office.
+
+               You can use WINPOPUP() when you want to quickly display an
+               empty window.
+
+               Once again, there are no rules.  Use which ever is more
+               convenient at the time.
+
+
+          1.2.9  Printing to a Window
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               An empty window doesn't do you much good, so a whole slew of
+               printing routines have been provided for your pleasure.
+
+               Here we use the WINPRINT() command.  Think of it as a
+               combination of PowerBASIC's "LOCATE", "COLOR", and "PRINT"
+               command.  Let's examine it:
+
+                    WINPRINT AuntEdna, 5, 10, &H1E, "Hello Aunt Edna"
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                11
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                    1. Window handle.: AuntEdna%
+                    2. Window row....: 5
+                    3. Window column.: 10
+                    4. Text color....: &H1E
+                    5. Text..........: "Hello Aunt Edna"
+
+               The "WINDOW ROW" and "WINDOW COLUMN" parameters (you already
+               know what the first is) determine the row and column where
+               printing is to start within the window.  Bear in mind, this
+               is relative to the window, and not the screen itself.  You
+               can print text anywhere you want within the confines of the
+               window.
+
+               The "COLOR" parameter works as discussed earler.  If you
+               don't understand what the "&H1E" means then you were naughty
+               and skipped the section titled "Colors, Colors Everywhere"
+               (section 1.2.3).  Go back and read it because you are going
+               to see these types of numbers throughout this tutorial.
+               This color happens to be bright yellow on blue.
+
+               If you don't want to bother keeping track of the window
+               color, you can always use a value of '-1'.  This is always
+               print in the window's default color.
+
+               The "TEXT" parameter is, well, the text itself.  Anything
+               you put in here gets sent to the window.
+
+               As I said, there are other printing routines.  The notable
+               ones are WINWRITE() and WINWRITELN().  These work somewhat
+               similar to PowerBASIC's own commands as they keep track of
+               and print at an interal window relative cursor position.
+
+                    WINLOCATE AuntEdna, 5, 10
+                    WINCOLOR AuntEdna, 14, 1
+                    WINWRITE AuntEdna, "Hello Aunt Edna"
+
+               I hope they are self-explanatory.
+
+
+          1.2.10  Closing an open Window
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               When you are finished using a window, you may close it with
+               WINCLOSE().  This performs various functions.  If the window
+               is being displayed, it is removed from the screen.  All
+               memory allocated to the window is returned to the PowerBASIC
+               memory pool.
+
+               Note that closing a window is quite different from hiding a
+               window (see WINHIDE).  When a window is hidden, it is simply
+               removed from view.  It can still be re-displayed with a call
+               to WINSHOW().  Once a window is closed, however, the window
+               is gone.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                12
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          1.3  Customizing the "Desktop"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               For the last few sections, you have been looking at programs
+               that use the default "desktop" settings.  Though they look
+               okay, you can make things look a lot better by twiddling
+               around with a few variables.
+
+               The next demo, TUTOR1_3.BAS (load it now) shows how to
+               modify the application initialization variables.  These
+               variables define the look and feel of the desktop.  Let's
+               take quick at a few:
+
+                    Variable Name      Purpose
+                    ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ   ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+                    APP.ATTR           Color of background fill-pattern.
+                    APP.GRAPHICSMODE   0=text display, 1=graphics display.
+                    APP.GRAPHICSMOUSE  0=text mouse, 1=graphics mouse.
+                    APP.PATTERN        Background fill-pattern.
+
+
+          1.3.1  Text or Graphics
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               If you haven't ran TUTOR1_3.BAS yet, please do it now.  Do
+               you notice anything different?  If you have an EGA/VGA
+               monitor, you should be seeing a much crisper, cleaner,
+               (kinder & gentler too) graphical look.
+
+               The APP.GRAPHICSMODE variable is what enabled this fine
+               feature.  When you set this variable to a value of 0, you
+               get the plain old text mode.  This is fine for regular
+               company, but not when you're entertaining foreign
+               dignitaries.  When you set it to a value of 1, you get the
+               "graphical mapping" mode that will win you friends.
+
+               "Graphical mapping" is not true graphics, but it is a
+               strikingly close approximation.  It is achieved by taking
+               control of your EGA/VGA video card and "mapping" graphical
+               icons into the standard character set.  The end result is a
+               program that looks like it is running in graphics mode, but
+               runs with the full speed of text mode.
+
+               There is one "quirk" that you will quickly discover when
+               using graphical mapping.  When you press CTRL-BREAK, or
+               single-step through your source, the border characters of
+               the PowerBASIC editor are going to look funny.  Don't worry,
+               your source will remain completely readable.  In a day or
+               so, you won't even notice it anymore.  If it does bug you
+               after a few days, you can always switch in to plain old text
+               mode while you develop your programs.
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                13
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          1.3.2  Changing the Desktop Color and Fill Pattern
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               You can also change the desktop color and fill pattern by
+               modifying the APP.ATTR and APP.PATTERN variables.  By
+               default, the attribute is &H17 (white on blue) and the fill
+               pattern character is ASCII 176 ('°').
+
+               In TUTOR1_3.BAS, the desktop color has been changed to &H9F
+               (bright white on bright blue), and the fill pattern has been
+               changed to ASCII 32 (a space character).
+
+               Why don't you take a few minutes to play around with the
+               values of these two variables.  I'll wait here till you get
+               back.
+
+
+          1.3.3  Adding a "Title Bar"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Next comes the APPTITLE() routine.  When a title is added to
+               the desktop, the entire screen is moved down one line, and
+               the title is displayed at the center of the first screen
+               line.
+
+               You can add a title at any time, but it is best to create it
+               before calling APPINIT().  This way, when the desktop is
+               initialized, the title will come up with it.  If you want to
+               add (or change) the title later on, you can do that too.
+               You will, however, have to call APPREFRESH() to update the
+               desktop with the new title.
+
+               That's it for this chapter.  Pick up your certificate at the
+               front desk and proceed to the next chapter.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                14
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 2
+
+                                  EVENT MANAGEMENT
+
+               ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+          Input, Need Input!
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Now that you are a PB/VISION windowing guru, it's time to
+               move on to ways of getting input from the user.
+
+               In any program, there is more to "input" than just asking
+               the user some questions.  Input could be the user typing
+               something on the keyboard, or using the mouse to manipulate
+               objects on the screen.
+
+               With conventional programming techniques, seamless
+               integration of the mouse and keyboard is an almost
+               impossible task.  On the opposite side, with "event-driven"
+               techniques, it becomes ridiculously easy.  You no longer
+               need to respond directly to input from the user.  You
+               instead respond to "messages" delivered to you by the "event
+               manager".  This is how it works in PB/VISION.
+
+               Event management in PB/VISION is handled entirely by a
+               routine called GETEVENT().  Ideally, GETEVENT() periodically
+               takes control of your program and determines if any "event"
+               has happened.  If any event has indeed occurred, GETEVENT()
+               returns a unique "message" indicating exactly what happened.
+
+               You might now be wondering, "What is an event?".  Using the
+               mouse to move a window is an event.  Pushing a button in a
+               form is an event.  Selecting a menu item is an event.
+               Anything you do to interact with the program is an event.
+
+               A "message" is a unique numeric value indicating what type
+               of event occurred.  Moving a window with the mouse will
+               trigger event #206.  Pressing the <ESC> key will trigger
+               event #102.  Stepping on the dogs tail with trigger a "bark
+               event".  There is an event code for every possible important
+               event.
+
+               Keep in mind that even though an event occurs, you do not
+               need to watch for it, let alone respond to it.  Most events,
+               such as moving a window (#206), are trivial and most
+               programs do not need to respond to them.
+
+               Figure 2.1 should give you an idea of the flow control that
+               GETEVENT() follows.  Don't worry, this isn't going to be on
+               the test.
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                15
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                        GETEVENT() IN
+                                              ³
+                    ÉÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ³ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ»
+                    º            ÚÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄ¿            º
+                    º  ÚÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄ¿     ÚÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄ¿  º
+                    º  ³ Poll the Keyboard ³ (a) ³  Poll the Mouse   ³  º
+                    º  ÀÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÙ     ÀÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÙ  º
+                    º            ÀÄÄÄÄ¿               ÚÄÄÄÄÙ            º
+                    º             ÚÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄ¿            º
+                    º         (b) ³     Event Decoder      ³            º
+                    º             ÀÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÙ            º
+                    º             ÚÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄ¿            º
+                    º         (c) ³    Event Dispatcher    ³            º
+                    º             ³   (processes events)   ³            º
+                    º             ³  (spits out messages)  ³            º
+                    º             ÀÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÙ            º
+                    ÈÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ³ÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍÍ¼
+                                              ³
+                                        GETEVENT() OUT
+
+                    Figure 2.1: A little "black box" called GETEVENT()
+
+               As the figure shows, on entry to GETEVENT(), the keyboard
+               and mouse are polled for activity.  Any activity is passed
+               along to an internal subroutine that determines exactly what
+               the user is attempting to do.  Once a course of action has
+               been determined, the event is dispatched to the appropriate
+               interface routine.  When that routine terminates, it returns
+               the "message" that GETEVENT() ultimately returns to you.
+
+               Strangely enough, there is even an event for a "nonevent".
+               Event ID #17 indicates that absolutely nothing happened
+               during this call to GETEVENT().
+
+
+          2.1  Your First "Event-Driven" Program
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Load the file TUTOR2_1.BAS into PowerBASIC.  This program
+               demonstrates the simplest possible "Event Loop".
+
+
+          2.1.1  The "EVENT.BI" $INCLUDE File
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Near the top of the program you will notice that another
+               $INCLUDE file has added.  To add event-driven control to
+               your programs, you must include "EVENT.BI".
+
+               Hey, what a small section!
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                16
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          2.1.2  Polling "GetEvent()" for Events
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               As you can see, it is called an "event loop" because
+               GETEVENT() must be called repeatedly (in a loop!) in order
+               for your interface to function.  If you don't call
+               GETEVENT(), nothing will happen.
+
+               When an event occurs, an event code is returned and we
+               descend through a "SELECT CASE" structure to look for code
+               to respond to that particular event.
+
+               In this example, two separate events are being watched for.
+               The first is event #102, which is triggered when the <ESC>
+               key is pressed.  When this happens, the code drops us out of
+               the loop via an "EXIT DO" statement and the program
+               terminates below.  Pretty boring, huh?
+
+               Meanwhile, to let you know that the program is in fact
+               working, the word "waiting" is continuously scrolled in the
+               open window.  Don't worry, this is not a built-in feature,
+               but just a response to a line of code written to handle
+               event #17 (the "nothing happened" event).
+
+               On with the show...
+
+
+          2.2  Responding to the Keyboard
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               As I mentioned earlier, there is an event code for just
+               about every occasion.  If you pull up the PB/VISION help
+               file in PowerBASIC's help system, you will find a list of
+               all of the included event codes.  There are predefined codes
+               for <TAB>, <SHIFT-TAB>, <F1>, and a couple dozen others.
+               When anyone of these keys are pressed, GETEVENT() will
+               return the corresponding event codes.  This is to save you
+               from having to poll the keyboard yourself and run yourself
+               silly checking for scan codes and all that other not so fun
+               stuff.
+
+               Load TUTOR2_2.BAS.  This program is written to watch for a
+               few common (and not so common) built-in event codes.  They
+               are <ESC>, <CR>, <F1>, <TAB>, <SHIFT-TAB>, <ALT-TAB>,
+               <CTRL-TAB>, and <ALT-SPACE>.  Pressing any of these keys
+               will display the event code generated, and the meaning of
+               that event.  This program will also respond to any
+               alphanumeric keys pressed.  Run the program for a few
+               minutes and come back when you're ready.
+
+               Just after the call to GETEVENT() is a line of code that
+               prints the occurring event number each time one occurs.
+               Because event #17 occurs so often, I opted to add code that
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                17
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               bypasses all occurrences of event #17.  If you place remarks
+               in front of those lines, the screen gets updated so often
+               that it gets confusing.  Try it if you want.
+
+
+          2.2.1  Responding to Alpha-Numeric keys with "KEYGET"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Whenever you press a key that GETEVENT() doesn't know what
+               to do with, event #100 is triggered.  At the same time, a
+               variable called "KEYGET%" is loaded with the value of the
+               key pressed.  If the pressed key was alphanumeric, KEYGET
+               will hold that key's ASCII value.  If any cursor or function
+               key, or any <ALT> keys are pressed, KEYGET is loaded with an
+               extended keyboard code.  You will find a list of these codes
+               in the PB/VISION help screens under "Keyboard Codes".
+
+               In the example we assume it is an ASCII character if KEYGET
+               is less than 256, otherwise it is assumed to be an extended
+               keyboard code, which we want to ignore for now.
+
+
+          2.2.2  Responding to built-in Keyboard Events
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The next group of events are the event codes for all the
+               different <TAB> key combinations and <ALT-SPACE>.  When any
+               of these keys are pressed, the program responds with a line
+               of text indicating which combination was pressed.
+
+
+          2.2.3  Getting Help with <F1>
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               To make adding a help system to your program as simple as
+               possible, the <F1> key has been set aside as the dedicated
+               "Help" key.  When you press <F1>, event #103 is triggered.
+               In a couple of chapters, I'll tell you how to add a context
+               sensitive help system that pops up whenever <F1> is pressed.
+
+               By the way, <F1> is the only function key that has a built-
+               in event code.  <F2> is _not_ going to trigger event #104 no
+               matter how hard you press it.  If you want to learn how to
+               trap other function keys, keep reading.
+
+
+          2.3  How to create "Custom" Keyboard Event Codes
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               In this section of the tutorial, I am going to teach you two
+               of the most important features of event-driven program.  The
+               first is getting input from the keyboard, and the second is
+               creating your very own custom event codes.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                18
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               With the multitude of event codes allowed, you would think
+               that our programmers labored for years to come up with them.
+               Why yes, as true as it is, there are many events that are
+               not built-in.  Pressing the "A" key while wiggling your left
+               pinky toe is one of them.  While this may be important to
+               some programmers, it is not important to most.  For us to
+               include this as part of the package would only hinder
+               programmers who don't want that feature.  By now you must be
+               wondering what in the world I am talking about.
+
+               Let's say that you want to detect when the user of your
+               program presses <ALT-X>.  In most programs this indicates
+               that you would like to terminate execution of the program.
+               Well, <ALT-X> doesn't have a event code for this key
+               combination.  WHAT ARE YOU GOING TO DO?
+
+               The answer is that you need to create a "custom event code".
+               In this section, I'll show you how to create custom keyboard
+               event codes.  Following sections will show you how to create
+               custom menu, form, and status bar event codes.
+
+               To get started, load TUTOR2_3.BAS.
+
+
+          2.3.1  Defining a few Custom Event Codes
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The first step in creating a custom event code is figuring
+               out what the event code numbers will be.  PB/VISION's
+               internal event codes never go above 1000, so seems like a
+               good starting point.
+
+               At the head of TUTOR2_3.BAS, four custom event codes are
+               defined.  Since remembering names are a lot easier than
+               remembering numbers, I have assigned the event numbers to a
+               few constants.
+
+                    %cmF3 = 1001
+                    %cmF4 = 1002
+                    %cmAltX = 1003
+                    %cmPookie = 1004
+
+               As you might expect, the custom events created in this
+               example will be triggered when the user presses <F3>, <F4>,
+               and <ALT-X>.
+
+               You must be wondering what "%cmPookie" is for.  It's to
+               prove a point.  The names you use for the constants are
+               purely arbitrary.  The "F3" in "%cmF3" does nothing to
+               affect the code.  Nothing.  It's just easier to remember.  A
+               "%cmPookie" event is triggered with <ALT-P>.  It could
+               easily be relabeled "%cmAltP".
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                19
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               Incidentally, "Pookie" was the nickname of my friend Ross's
+               sister when I was a kid in Detroit.  I think her real name
+               was Sherry.
+
+
+          2.3.2  Adding the Custom Events
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               A little further down the code is where the custom events
+               get added to  the list of events that GETEVENT() watches
+               for.  This is the purpose of HOTKEYADD().  It lets you
+               assign an event code to a particular keyboard key.  When the
+               user presses the key, it triggers the corresponding event
+               number.
+
+               The first line:
+
+                    HOTKEYADD &H3D00, %cmF3
+
+               assigns the "%cmF3" event to the <F3>.  "&H3D00" is the
+               extended keyboard code for the <F3> key.  The rest of the
+               calls work the same way.
+
+               If you want to find a list of the possible extended keyboard
+               codes, bring up the PB/VISION help system and select
+               "Keyboard Codes".
+
+
+          2.3.3  Responding to Custom Events
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               You might be wondering what these custom events will
+               accomplish.  By looking at the code, you will see that <F3>
+               prints "Hello, World!" in the top window; <F4> brings the
+               next logical window to the top; <ALT-X> terminates the
+               program; and <ALT-P> says "Hi" to my long lost friend's
+               older sister.
+
+
+          2.4  Of Mice and Windows
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               A major part of event-driven programming is the ability  to
+               use a mouse to control the interface.  That's what this
+               section is about.  To get started, load TUTOR2_4.BAS.
+
+               In this example, the windows can be dragged about the screen
+               by positioning the mouse cursor on the top line of the
+               window, and holding the left mouse button down, and moving
+               the mouse hither and yon (that means "here and there" for
+               those of you in Rio Linda).  The window can also be re-sized
+               by grabbing the bottom left edge with the mouse and moving
+               it about in the same manner.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                20
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               Moving a window with the mouse triggers event #206, re-
+               sizing one triggers event #207, and simply selecting one
+               triggers event #202.  There are other mouse/window events,
+               but you can look them up in the docs.
+
+               A word of warning to advanced programmers.  Never attempt to
+               mix in any of your own mouse routines.  It will cause your
+               computer to explode!  Just kidding!  But seriously, using
+               non-PB/VISION mouse routine will most likely cause the mouse
+               to lock up.
+
+
+          2.4.1  Selecting the Mouse Cursor Style
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Before initializing the mouse routines, you must determine
+               what type of mouse cursor you want, text or graphical.  The
+               text mouse gives you the familiar block character mouse, and
+               the graphical cursor gives you that, well, graphical look.
+
+               The purpose of the "APP.GRAPHICSMOUSE" variable is to
+               determine which one you want.  For text, use a value of 0,
+               and for graphical, use a value of 1.
+
+               During development of your program, it is best to use the
+               text mouse.  If you happen to insert a breakpoint in your
+               code while the graphical mouse is enabled, you will get an
+               ugly, though harmless, blob of characters for your mouse
+               cursor.  It's hideous and scares farm animals.  When you are
+               ready to compile your program to disk, you may then enable
+               the graphical cursor.
+
+
+          2.4.2  Making your program "Mouse Aware"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The next step is to initialize the mouse and turn it on.
+
+               MOUSEINIT() is the magic function that accomplishes this
+               feat.  When called, it will not only enable the mouse, but
+               it will tell you how many buttons are on it.  This is always
+               a good topic of discussion at cocktail parties.  The more
+               buttons you have, the more affluent you are.
+
+               If a mouse is found, MOUSEINIT() will return some positive
+               value. If it returns a value of 0, that means you don't have
+               a mouse and you probably have no idea what I am talking
+               about right now.
+
+               Once the mouse is initialized, you can make it visible with
+               a call to MOUSECURSORON().  Until then, it is invisible and
+               disabled.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                21
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               By the way, for any of this to work, you must include
+               "MOUSE.BI" in your list of $INCLUDE files (see line 10).
+
+
+          2.4.3  Making Windows Mouse Aware
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Just because a program is "mouse aware", doesn't mean the
+               windows are mouse aware.  You have to turn on a couple of
+               options in each window to let the event manager know how far
+               you will let the mouse go with the windows.
+
+               For purposes of this example, the windows should be dragable
+               and re-sizable.  Adding these traits is a simple as adding
+               the "%DRAGBAR" and "%RESIZE" flags to the list of window
+               flags.
+
+
+          2.4.4  Responding to "Mouse Events"
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Take a moment to run the program.   When you move the window
+               (event #206) the program displays some text (in the window,
+               of course) to call attention to it's unwavering fondness for
+               you.  Re-sizing the window (event #207) displays some other
+               funny statement which hasn't been determined at press time.
+               Simply clicking the window will display a third statement
+               that doesn't appear to be funny at all.
+
+               For a list of other mouse events, pull up the "Event Codes"
+               help screen in the PowerBASIC editor.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                22
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                      Chapter 3
+
+                           ADVANCED PROGRAMMING TECHNIQUES
+
+               ÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛ
+
+
+          3.1  Multi-Threading made easy.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               If you have seen the PB/WORKSHOP demo (or if you own the
+               real thing), you may be wondering how there can be so many
+               data entry forms on the screen at a single time and that all
+               of them seem to be active.
+
+               This is accomplished through "multi-threading".  STOP!
+               Don't run away.  This is a $10.00 word for a 10 cent
+               concept, a sheep in wolves clothing, something so simple
+               that even a politician could understand.  You get the point.
+               In five (maybe 10) minutes you're going to be an expert on
+               the subject.
+
+               In a normal program GETEVENT() returns every event back to
+               you right after the event occurs.  Simplifying Figure 2.1
+               shown way at the beginning of the tutorial, events are
+               processed as shown in Figure 3.1.
+
+                                   EVENT COMES IN
+                                   ÄÄÄÄÄÄÂÄÄÄÄÄÄÄ
+                                         ³
+                              ÚÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ¿
+                              ³ GETEVENT() FUNCTION ³
+                              ÀÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÙ
+                                         ³
+                                ÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ
+                                EVENT CODE COMES OUT
+
+                       Figure 3.1: Simplified GETEVENT() flowchart.
+
+               Whenever the user does something important (like selecting a
+               menu item or pressing a key), the event code is returned to
+               you immediately by GETEVENT().  Simple, right?
+
+               When you multi-thread a window, menu, or form (objects), you
+               add an intermediate function in the middle of the whole
+               process.
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                23
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                   EVENT COMES IN
+                                   ÄÄÄÄÄÄÂÄÄÄÄÄÄÄ
+                                         ³
+                               ÚÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ¿
+                               ³ YOUR FUNCTION HERE ³
+                               ÀÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÙ
+                                         ³
+                              ÚÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ¿
+                              ³ GETEVENT() FUNCTION ³
+                              ÀÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÙ
+                                         ³
+                               ÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄ
+                               EVENT CODE COMES OUT
+
+                      Figure 3.2: GETEVENT() with "Multi-Threading".
+
+               This time around, your own function gets called just before
+               GETEVENT() returns the event code.  The only time your
+               function gets called is when you act directly upon the
+               window it is assigned to.  Because of this, you can assign
+               different functions to different objects as shown in Figure
+               3.3.  Each function will only be called when you do
+               something to the object it belongs to.
+
+                                      EVENT COMES IN
+                                      ÄÄÄÄÄÄÂÄÄÄÄÄÄÄ
+                              ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+                    ÚÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄÄ¿   ÚÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄÄ¿
+                    ³  YOUR FUNCTION HERE  ³   ³ AND ANOTHER ONE HERE ³
+                    ÀÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÙ   ÀÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÙ
+                              ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+                                 ÚÄÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ¿
+                                 ³ GETEVENT() FUNCTION ³
+                                 ÀÄÄÄÄÄÄÄÄÄÄÂÄÄÄÄÄÄÄÄÄÄÙ
+                                   ÄÄÄÄÄÄÄÄÄÁÄÄÄÄÄÄÄÄÄÄ
+                                   EVENT CODE COMES OUT
+
+                     Figure 3.3: "Multi-Threading" multiple objects.
+
+               So how does this all relate when it comes to real programs?
+               That is the purpose of WININSTALLCODE(), and the subject of
+               next couple of sections.
+
+               To get started, load TUTOR3_1.BAS
+
+
+          3.1.1  Assigning Code to a Window.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Here we open a window just like all of the other windows
+               opened so far.  Nothing special so far.
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                24
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               The big step comes with WININSTALLCODE().  Here we must pass
+               it the handle of the window, as well as the address of the
+               function that will be assigned to the window.
+
+                    WININSTALLCODE win1%, CODESEG(YourRoutine),
+                                             CODEPTR(YourRoutine)
+
+                    1. Window handle........: win1%
+                    2. Routine code segment.: CODESEG(YourRoutine)
+                    3. Routine code offset..: CODEPTR(YourRoutine)
+
+               If you are not familiar with CODESEG() and CODEPTR(), these
+               are PowerBASIC routines that return the segment and offset
+               of a function, sub, or line label.
+
+               This is how the program knows what function to call when you
+               do something to a particular window.
+
+
+          3.1.2  Syntax of a Window Subroutine.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               When your subroutine gets called, several parameters are
+               passed  to it.  These are all passed by value (BYVAL).
+
+                    FUNCTION YOURROUTINE% (WinHandle%, EventNo%, Parm1%,
+                                                                   Parm2%)
+
+               The first parameter is always the window's handle.  Since is
+               it possible to assign the same function to different
+               windows, it is always nice to know which window is being
+               acted upon.
+
+               The second parameter is the event code.  This is the same
+               code that GETEVENT() would have returned had you not
+               installed the subroutine.
+
+               The last two parameters vary with the event code.  If you
+               move the window, PARM1% and PARM2% will reflect the new row
+               and column where the window was moved to.  If you re-size
+               the window, PARM1% and PARM2% will reflect the new size of
+               the window in rows and columns.  If you just click on the
+               window, they will be the row and column within the window
+               where the click occured.  Most other times, they will both
+               be 0.
+
+               It is important that you use this exact syntax for your
+               window subroutine.  You can cut and paste a generic template
+               from PB/VISION's help file by pressing SHIFT-F1 and
+               selecting "WinInstallCode() Template".
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                25
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          3.1.3  Processing Events in a Window Subroutine.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               This should look quite familiar.  Inside of your subroutine
+               you  act upon the event codes just as if they had been
+               returned by GETEVENT().  There is absolutely no difference.
+
+               Remember, the only time this subroutine gets called is when
+               this window gets acted upon.  You don't have to worry about
+               events triggered by other windows.  Also, if you have a
+               pulldown menu or status bar active, the event codes will
+               _not_ be passed to your subroutine.  They will be passed to
+               GETEVENT() as normal.
+
+
+          3.1.4  Returning Event Codes back to GETEVENT().
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               The final step is to return the event code back to
+               GETEVENT().  Since this is a function, you just return the
+               value like you would in any other function.
+
+                    YourRoutine% = EventNo%
+
+               Hmmmm.  This could be interesting.  If you want to, you
+               could even return a different event code altogether.  In
+               this example, we do just that.  Look up a few lines.  Do you
+               see the "CASE 203"?  This is the event code returned when
+               you click the control box on a window.  Here we intercept
+               this event, and reassign "EventNo = 102".  This is the event
+               code for the <ESC> key.
+
+                    CASE 203
+                         EventNo = 102
+
+                    ...
+
+                    YourRoutine% = EventNo%
+
+               This way, event code 102 is returned back to the main
+               GETEVENT() loop and it thinks someone pressed the <ESC> key.
+
+
+          3.2  Multi-Threading Continued - A Couple of New Events.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               In the next TUTOR3_2.BAS you will be introduced to a couple
+               of new event codes.
+
+               Before examining the source code, please run the demo.
+               Using the mouse, click the center of each window a couple of
+               times.   Do you notice anything different?  Keep reading.
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                26
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          3.2.1  Some New Events Codes.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               When you switch from one window to another, _two_ event
+               codes are triggered.  The first event is #200.  This event
+               lets a window know that it just got focus.  The second event
+               is the regular event code.  At the same time, in the other
+               window, event #201 is triggered.  This lets the other window
+               know that it is no longer the center of attention.
+
+
+          3.3  Complex Multi-Threaded Program.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               When it comes down to it, multi-threading is best left to
+               data entry forms and menus, but you can do some very
+               interesting things to dress up a plain old window.  That is
+               what will be done in this section.
+
+               TUTOR3_3.BAS (load it now) shows a more realistic use of
+               multi-threaded techniques to manage objects on the display.
+
+               This program displays a window from which you can make a
+               color selection.  When you select a color, the output window
+               is re-colored with that color.  This is accomplished by
+               assigning a subroutine to the selection window so that it
+               responds to mouse clicks in specific parts of the window.
+               Whenever one of the specific areas is clicked, such as on
+               one of the color tiles, the subroutine responds accordingly.
+
+
+          3.3.1  Making the Code More Readable.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               To make the program more readable, all of the code that
+               initializes the selection window has been placed in it's own
+               subroutine.  This subroutine is labeled "PENWINDOW.INIT".
+               You will find it a little lower in the program source.
+
+
+          3.3.2  Initializing the Selection Window.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               In PENWINDOW.INIT(), the selection window is opened and the
+               multi-threading subroutine, PENWINDOW.ROUTINE(), is assigned
+               to it.  The final call in PENWINDOW.INIT() simply calls the
+               assigned subroutine once with dummy values that force it to
+               initially paint the window.
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                27
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+          3.3.3  Responding to Window Clicks
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               As the program runs, clicking on the selection window will
+               trigger event #202.  As you may recall, this is the "window
+               click" event.  At this time, PENWINDOW.ROUTINE() gets called
+               with the last two parameters signifying the row and column
+               within the window where the click occurred.  In previous
+               programs these two parameters were labeled "Parm1%" and
+               "Parm2%".
+
+               A little lower in the code, the row and column get parsed
+               through a SELECT CASE structure to figure out exactly what
+               color was desired.  Next the output window gets re-colored.
+
+
+          3.3.4  Returning a Modified Event Code
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               To inform the main event loop (and you) that the color was
+               changed, a custom event code labeled "%cmColorChange" was
+               defined at the beginning of the program.  After the window
+               is re-colored, the "EventNo%" parameter is changed to
+               reflect the color change and this value gets returned back
+               to GETEVENT().  At that time, some text gets printed to the
+               output window in the new color.
+
+
+          3.4  Child Menus and Forms without Overkill.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Now onto a new subject...
+
+               There are many times you want to be able to bring up a menu
+               or form, make a selection, and then have it go just away.
+               Multi-threading is severe overkill is this case.
+
+               The best way to structure this is to put the entire second
+               object in its own subroutine.  The following routine should
+               serve as a template:
+
+                    SUB SecondObject
+
+                         saveState% = WINLOCKSTATE     ' see text below
+
+                         ' code to open and display object goes here
+
+                         WINLOCKALL WINGET             ' see text below
+
+                         DO
+
+                              SELECT CASE GETEVENT(0)
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                28
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+                                   CASE 102       ' esc key
+                                        EXIT LOOP
+
+                                   CASE ELSE
+
+                              END SELECT
+
+                         LOOP
+
+                         ' code to hide and close object goes here
+
+                         WINLOCKRESTORE saveState%     ' see text below
+
+                    END SUB
+
+               There are three very important routines that must be called
+               when bringing up a secondary object.
+
+                    1.   The WINLOCKSTATE%() function returns information
+                         about the internal state of the window management
+                         code.  You must save this information in an
+                         INTEGER variable _before_ bringing up the second
+                         object.
+
+                    2.   WINLOCKALL(WINGET) completely locks the top most
+                         object in place and does not permit selection of
+                         any other screen object.  This is called _after_
+                         the new object is displayed.
+
+                    3.   WINLOCKRESTORE() must be called after the second
+                         object has been closed.  This puts the window
+                         manager back to its original state.  You should
+                         pass it the same variable you used for
+                         WINLOCKSTATE%().
+
+
+          3.5  Background Tasking
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               For those of you developing communications programs or
+               programs that perform a lot of report printing, "Background
+               Tasking" becomes a necessity.
+
+               With communications programs it is important that you check
+               the input buffer on a regular basis.  If you do not, the
+               buffer fills up and you either lose data or communications
+               is halted.  When it comes to printing, most programs tie up
+               the computer until the printing is completed.
+
+               None of this is true if you plan your program carefully and
+               use PB/VISION's background tasking routine
+               TIMERINSTALLCODE().
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                29
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               As the name implies, TIMERINSTALLCODE() allows you to create
+               a special routine that will be called automatically up to 18
+               times per second.  While this is not a true "interrupt
+               handler" as most assembly programmers would know it, it
+               suits the purpose quite well.
+
+               To use the routine, you must first create the function that
+               will be called:
+
+                    FUNCTION MyTask% (BYVAL UpdateSafe%)
+
+                         SOUND 20000, .1          ' sound a 'tick'
+
+                         MyTask% = 0
+
+                    END FUNCTION
+
+               When PB/VISION internally calls your routine, it passes a
+               single parameter that tells whether it is safe to update the
+               screen.  If '1' is passed, it is safe to perform _any_
+               PB/VISION specific screen (desktop) operation.  If '0' is
+               passed, do not do anything that will update the screen
+               (desktop).
+
+               Since MyTask%() is a function, it can return a value.  This
+               value will be returned by GETEVENT().  If you were to change
+               the above to "MyTask% = 102", GETEVENT() would also return
+               102.  You would be left thinking a ghost pressed the <ESC>
+               key since 102 is the <ESC> key event.
+
+               There is _one_ exception to the last paragraph.  The only
+               time your routine will return a value back to GETEVENT() is
+               when the "UpdateSafe%" parameter has a value of '1'.  It is
+               ignored if "UpdateSafe%" is '0'.
+
+               MTIMER.BAS and SPOOLER.BAS are two programs that fully
+               demonstrate the mechanics of the routine.
+
+
+          3.6  Making programs smaller with "Stub" Files.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               On those rare occasions you feel you can do with the fancy-
+               schmansy graphics mapping and/or rodent control, several
+               special stub files have been included.
+
+
+          3.6.1  The "NOGRAPH.OBJ" and "NOTEXT.OBJ" Stub Files.
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               Adding this module to you program will remove all support
+               for graphics mapping and the arrow style mouse.  It will
+               trim about 8K off the size of your program.
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                30
+          PB/VISION(tm) LITE 1.00 - TUTORIAL
+          ßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßßß
+
+               To use it, just $LINK it in right below the "%ISPBU"
+               assignment in the main module of your program:
+
+                    %ISPBU = 0
+                    $LINK "NOGRAPH.OBJ"
+
+               Before the call to APPINIT() you should add:
+
+                    app.graphicsmode = 0
+                    app.graphicsmouse = 0
+
+               If you are real daring and only want to support EGA/VGA
+               graphics mapping, you can perform the exact opposit with:
+
+                    %ISPBU = 0
+                    $LINK "NOTEXT.OBJ"
+
+               and then:
+
+                    app.graphicsmode = 1
+                    app.graphicsmouse = 1
+
+
+          3.6.2  The "NOMOUSE.OBJ" Stub File
+          ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ
+
+               To remove all mouse support from PB/VISION you can link in
+               "NOMOUSE.OBJ".  It's job is to make sure that all of
+               PB/VISION's internal mouse calls have some where to go.
+               This will trim about 4K off your program size.
+
+               To use it, just $LINK it in right below the "%ISPBU"
+               assignment in the main module of your program.
+
+                    %ISPBU = 0
+                    $LINK "NOMOUSE.OBJ"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+          ÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜÜ
+          (c) Copyright 1993-1994 DSE Software Publishing                31

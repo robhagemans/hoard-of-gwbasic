@@ -1,0 +1,56 @@
+
+               ORDER FORM - PB/VISION(tm) for PowerBASIC 3.x
+    ----------------------------------------------------------------------
+      PB/VISION(tm) PROFESSIONAL DEVELOPMENT SYSTEM - INTRODUCTORY OFFER
+        Includes PB/VISION(tm) _and_ PB/WORKSHOP(tm) Visual Designer
+                      ONLY $69.95 UNTIL JULY 15, 1994
+    ------------------------------------------------------------[ASP-0294]
+
+    TO:                           FROM:
+    DSE SOFTWARE PUBLISHING       ________________________________________
+    POST OFFICE BOX 96            Name
+    WILLITS, CA 95490-0096        ________________________________________
+    USA                           Company (ONLY if ordering for a company)
+                                  ________________________________________
+    Voice: (707) 459-4358         Address
+    FAX/BBS: (707) 459-4484       ______________________  _____  _________
+                                  City                    State  Zip
+    GEnie: "DSE.SOFTWARE"         ______________________  ________________
+    FidoNet: 1:125/123            Phone                   Fax
+    InterNet: dse.software@genie.geis.com   
+
+    ================= P R O D U C T S   R E Q U E S T E D ================
+
+    ORDER    DESCRIPTION                             PRICE  QTY  EXTENDED
+    -------  --------------------------------------  -----  ---  --------
+    20810    PB/VISION(tm) Lite Edition              24.95  ___  ________
+    20811    PB/VISION(tm) Standard Edition          49.95  ___  ________
+    20815    PB/VISION(tm) Professional Edition      69.95  ___  ________
+ |> TECHREF  DOS Programmer's Technical Reference     5.00  ___  ________
+ |> SHAREBK  The Shareware Book (A Marketing Guide)   5.00  ___  ________
+ |
+ |> See EXTRAS.TXT for complete information on these titles (5.25" ONLY)
+
+    Shipping and Handling (Indicate Below) ....................  ________
+    Sales Tax (CA. Residents add 7.25%) .......................  ________
+    Total Order (United States Funds ($US FUNDS) Only) ........  ________
+
+    DISK SIZE  SHIPPING/HANDLING          SHIPPING REQUIREMENTS
+    ---------  -------------------------  --------------------------------
+    [_] 3.50"  [_] USA            $ 5.50  USA / SHIPPED 2 DAY PRIORITY
+    [_] 5.25"  [_] CANADA         $ 5.50  REQUIRES POSTAL MONEY ORDER ($US)
+               [_] OVERSEAS       $10.00  SEE "TERMS OF SALE" (below)
+
+    ========================== CREDIT CARD ORDERS ========================
+
+    [ ] VISA         -> TOTAL ORDER : $_________ <- enter total order here
+    [ ] MASTERCARD   -> CARD HOLDER : ____________________________________
+                     -> CARD NUMBER : ____________________________________
+    EACH LINE MUST ---> EXPIRATION  : ___ / ___
+     BE FILLED IN  ---> SIGNATURE   : ____________________________________
+
+    ============================ TERMS OF SALE ===========================
+
+    o  All checks must be drawn on a United States bank and in $US funds.
+    o  Purchase Orders:  Please call for authorization.
+    o  Returned check fee: $100 (for insufficient funds.

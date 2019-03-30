@@ -1,0 +1,69 @@
+
+
+			     NEW IN VERSION 1.52
+
+    - Communications support re-established
+
+
+
+			     NEW IN VERSION 1.51
+
+    - Autoloading of graphics fonts under Windows re-established
+
+
+
+			     NEW IN VERSION 1.50
+
+
+NEW COMMANDS
+
+    - PLAYSOUND supports playing .WAV files
+    - PRINTCONTROL command supports Windows printer drivers
+    - MESSAGEBOX added
+    - CREATEWINDOW added
+    - CREATEFONT supported in DOS
+    - File I/O now supports LOCK
+    - Command STRETCHBIT added
+
+
+NEW FUNCTIONS
+
+    - Function SQR added
+    - Function IRND added   <-- Nice for games
+    - Function DEVICE added
+    - Function SNDDEV added
+
+
+MISCELLANEOUS
+
+    - Support for &H (hexidecimal) data type
+    - MOD operator added
+    - Editors will supply .BAS as extension if user does not enter
+    - Runtime 30% smaller
+
+
+BUG FIXES
+
+    - Complex string arguments in user functions work correctly
+      (e.g. "AB"+a$)
+    - Arrays as elements of arrays work correctly
+      [e.g.  a(b(i),c(i,j))  ]
+    - BBE deletes extra characters in prompt line when going down a
+      file list
+    - Several bugs in editor relating to end of file fixed
+    - Windows screen 8 now loads bitmaps in correct place
+    - Documentation of Dialog command now shows number of items
+    - BBE makes sure root directory doesn't change when running
+      user program
+    - PRINT 80/34 now prints correct value
+    - BBE now works in available memory of 450k
+    - Document errors 501 and 516 out of string space
+    - Editor search point reset when new file loaded
+    - Windows version now supports 2 memory bitmaps correctly
+    - If statement now works with array and argument of array
+    - Windows now finds right length for displaying user fonts
+    - SELECTFONT now documented in manual
+    - Windows ICONs work correctly if more than 1 BasicBasic program
+      running
+
+

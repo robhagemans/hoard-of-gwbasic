@@ -1,0 +1,54 @@
+
+                             Welcome to FirstBasic
+                             FREE Newsletter Offer
+
+     Dear Programmer,
+
+          We are proud to provide you with FirstBasic version 1.0 as
+     shareware. The FirstBasic compiler lets you create fast executable
+     programs that you can freely distribute with no royalty required.
+     FirstBasic is a complete development environment with an integrated
+     editor, debugger and object linker.  It even contains an extensive
+     context-sensitive help system that makes learning FirstBasic a snap.
+     Turbo Basic, Quick Basic, QBasic, and GW Basic programmers can upgrade
+     their code to FirstBasic in no time at all.
+
+          FirstBasic will give you unlimited string space, help you
+     eliminate round-off errors, and speed-up your programs with or without
+     a math co-processor.  Dozens of built-in functions eliminate the need
+     to write involved routines for every-day tasks such as SORT, SCAN,
+     VERIFY, REPEAT, INSERT/DELETE, EXTRACT, REPLACE, REMOVE, TALLY, MIN,
+     MAX and many, many more.  New data types like extended-precision (80
+     bit) float, Quad word (64 bit) integers and Flex strings are included
+     to make your computation faster and more accurate. The built-in
+     debugger does it all; single step, breakpoints, watch variables, and
+     immediate expression evaluation and modification.
+
+          Once you have used FirstBasic, I'm sure you'll want more.  More
+     programming information, more samples, more utilities, and more
+     functionality.  By registering FirstBasic for only $25 you'll get a
+     disk which contains a new help file with an online User's Guide to
+     help you learn more about Basic programming.  And you'll get great
+     utilities such as a command line compiler and a utility which allows
+     you to customize the editor, change the screen colors, set-up your own
+     hot-keys, and more.
+
+          If you want to learn more about FirstBasic, subscribe to the
+     PowerBASIC Gazette absolutely FREE of charge.  Just complete the order
+     form (ORDER.TXT in the FirstBasic directory), send it in and we'll get
+     a PowerBASIC Gazette off to you right away.  You'll love reading about
+     the advances in PowerBASIC and the add-ons that are available to make
+     your programming quicker and easier.
+
+          Whatever you do, don't forget to subscribe to the PowerBASIC
+     Gazette -- no purchase required -- and learn how PowerBASIC continues
+     to set the BASIC programming standard.  You can mail your request, fax
+     it to (408) 659-8008, or call us toll-free at (800) 780-7707 or (408)
+     659-8000 for international callers, but please don't delay.
+
+                                   Very truly yours,
+
+                                   Robert S. Zale,  President
+
+     p.s. Don't miss out on this exceptional offer ... FirstBasic
+          registration for just $25 and the PowerBASIC Gazette for FREE!

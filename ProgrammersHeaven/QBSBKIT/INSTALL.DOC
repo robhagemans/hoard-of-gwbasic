@@ -1,0 +1,45 @@
+INSTALLATION
+
+To install QBXSBC:
+
+    QuickBASIC 4.50 users:
+
+        To get a QLB for the environment:
+
+        C>link /qu QBXSBC1N.LIB,QBXSBC1N.QLB,nul,bqlb45.lib
+
+        (4.00, 4.00b users change bqlb45 to blqb40, bqlb41.)
+
+        To link to a completed program (stand-alone):
+
+        C>bc yourprg.bas /o;
+        C>link yourprg.obj,yourprg.exe,nul,QBXSBC1N.LIB
+
+
+    BASIC 7.1 users:
+
+        To get a QLB for the environment:
+
+        C>link /qu QBXSBC1F.LIB,QBXSBC1F.QLB,nul,qbxqlb.lib
+
+        To link to a completed program (stand-alone):
+
+        C>bc yourprg.bas /o/fs;
+        C>link yourprg.obj,yourprg.exe,nul,QBXSBC1F.LIB;
+
+
+To install SOUND.COM, SB-SOUND.COM:
+
+        C>SOUND
+        C>SOUND [/Pxxx,][/Bxx]
+           where xxx = base port address (default 0388h)
+                  xx = size of event buffer in K (1-64)
+
+        C>SB-SOUND
+        C>SB-SOUND [/Pxxx,][/Bxx]
+           where xxx = base port address (default 0220h/0388h)
+                  xx = size of event buffer in K (1-64)
+        C>SB-SOUND /u
+           to uninstall the sound driver (SB-SOUND only)
+
+

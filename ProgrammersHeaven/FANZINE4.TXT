@@ -1,0 +1,1395 @@
+  --------[ T H E ]-------------------------------------------------------
+   BBB    A    SSS   IIIII  X   X 
+   B  B  A A  S   S    I     X X      THE BASIX FANZINE WRITTEN FOR
+   BBB   AAA   SS      I      X        BASIC PROGRAMMERS BY BASIC
+   B  B A   A     S    I     X X              PROGRAMMERS
+   BBB  A   A SSSS   IIIII  X   X                  
+  ------------------------------------------------------------------------
+   The BASIX for BASIC for 1996! Written by Peter Cooper of Peco Software
+  ------------------------------------------------------------------------
+			 peter@trenham.demon.co.uk  
+
+  INTRODUCTION:
+
+  I have some VERY big apologies to make. Last month, in the Christmas
+  Special, there were some really big mistakes such as missing names, 
+  unfinished last words etc.. sorry. I posted it without looking at it.
+  That was on Christmas day.... sorry 8-) Hopefully no such mistakes with
+  this fanzine. Same format as last month but better! hehe 8-)
+  The fanzine has a WWW page now as well, and a mailing list so you don't
+  miss new fanzines!  Also sorry for the delay for this fanzine to appear
+  I did not have a very good response during January but now I have enough
+  articles to place in the fanzine. Thanks for your help.
+
+______________________________________________________________________________
+| CONTENTS PAGE | The standard stuff here!    |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ SECTION ONE) - [SPECIALIZED ARTICLES]
+  - Part [a] ADVANCED\HARDER STUFF
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    1) GFX Colliding!   The regular Wrox Press article     QBasic + upwards
+    2) Char. Redefine   Redefining text mode characters    QuickBasic\PDS
+    3) 3D Programming   The first in a series of 3D tuts   PB (QB poss)
+
+  - Part [b] EASIER MORE DOWN TO EARTH STUFF
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    1) Basic Tutorials  Zooming into the third installment QBasic + up
+    2) GFX Tips+Tactic  How to load+read the display fully QBasic + up
+
+ SECTION TWO) - [ALL LEVELS ARTICLES]
+    1) Useful sources   Places to get basic stuff on inet  Any
+    2) Basic on IRC     IRC? What is it? Is basic there?   Any
+    3) Structured Progs Being stylish (and more compact!)  QBasic + up
+
+ SECTION THREE) - [YOUR SHOUT!+FUN]
+    1) Q+A              Your questions\our answers         Any
+    2) Your programs    All of your programs.. here!       Various
+    3) Zephyrs Lib      A readers look at a super lib.     QuickBasic/PDS
+
+ SECTION FOUR) - [DETAILS ABOUT THE FANZINE]
+    1) Latest developments
+    2) How do you contribute?
+    3) How do you contact the author?
+    4) Credits
+    5) Last words + next month
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION ONE -----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Specialized articles:
+
+ This section is split into two parts. Part A is for the more advanced or
+ intermediate programmer in basic and Part B is more for the beginners of
+ BASIC. This sort of layout was something people wanted. Sorry if it seems
+ rather insulting but well sorry. 
+
+______________________________________________________________________________
+| SECTION 1 PART A SUBPART 1 | GFX Colliding! |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Our regular article from Wrox Press!
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ Perhaps I had better go into a more detailed description of the book. If 
+ you ever want to see more of the companies books and samples of them then
+ check out their WWW site:   point your URL browser at:  http://www.wrox.com/
+ See more info in the Q+A section of the fanzine about what is in the book.
+
+COLLISION DETECTION
+~~~~~~~~~~~~~~~~~~~
+We could convert the previous example to check for our sprite crashing into 
+the  furniture,  but  it would be slow and tedious if the room were full of 
+armchairs. 
+
+So we must use another method for detecting collisions between sprites. One 
+way  is  to  check  certain pixels around our sprite for a change in color, 
+using  PSET,  and  react  according to the color found. If, for example our 
+spaceship encountered  an asteroid field which consisted of brown asteroids
+,  we  could  check   all  the points around the spaceship every time it is 
+moved  and,  if  a  brown pixel  was  detected,  an  explosion would occur. 
+But  checking every point  around our sprite is very time consuming. A much 
+better technique is to  check  the  most prominent points - 5 points at the 
+nose,  5  at the tail and perhaps 10 points above and 10 points below. This 
+would enable us to keep detecting while maintaining an adequate speed. 
+
+Let's  take a look at this next piece of code which you can find at work in 
+\CHAP12\CH12_5.BAS on the disk (which comes with the book):
+
+ starcolor% = 2                                  'Select green stars
+ FOR top% = Ship.X% TO Ship.X% + 10              '10 pixels above sprite
+ pixelcolortop% = POINT(top%, Ship.Y% - 1)       'Get pixels color
+ IF pixelcolortop% = starcolor% THEN             'Is it green?
+ LOCATE 1, 1                                     'If it is...
+ PRINT "Top hit!"                                '...then print this...
+ GOTO Finishdetect                               '...and exit loop
+ END IF                                          'Or else...
+ NEXT top%                                       '...try next pixel
+ FOR bottom% = Ship.X% + 5 TO Ship.X% + 15       '10 pixels below sprite
+ pixelcolorbottom% = POINT(bottom%, Ship.Y% + 10)
+ IF pixelcolorbottom% = starcolor% THEN
+ LOCATE 1, 1
+ PRINT "Bottom hit!"
+ GOTO Finishdetect
+ END IF
+ NEXT bottom%
+ FOR left% = Ship.Y% TO Ship.Y% + 5              '5 pixels left of sprite
+ pixelcolorleft% = POINT(Ship.X% - 3, left%)
+ IF pixelcolorleft% = starcolor% THEN
+ LOCATE 1, 1
+ PRINT "Left hit!"
+ GOTO Finishdetect
+ END IF
+ NEXT left%
+ FOR right% = Ship.Y% + 2 TO Ship.Y% + 7         '5 pixels right of sprite
+ pixelcolorright% = POINT(Ship.X% + 25, right%)
+ IF pixelcolorright% = starcolor% THEN
+ LOCATE 1, 1
+ PRINT "Right hit!"
+ GOTO Finishdetect
+ END IF
+ NEXT right%
+ Finishdetect:                                   'End detection
+
+The listing is fairly straightforward and has the added bonus of ending 
+detection immediately when a collision has been detected.
+
+Good collision detection is essential and the lack of it is one the 
+main reasons for games receiving poor comments from reviewers. Test
+, test and test it again.
+
+You can contact Wrox Press, the publishers of this book, at the following
+places using the following methods:
+
+ Editorial : Unit 16, 20 James Road, Tyseley, Birmingham, B28 0EE, UK
+ Marketing : 2710 W. Touhy, Chicago, Illinois, 60645, USA
+ Internet  : adrians@wrox.com   Or the Web Site: http://WWW.WROX.COM/
+
+So after the 20th February where will you be? At the bookshop! 8-)
+
+______________________________________________________________________________
+| SECTION 1 PART A SUBPART 2 |  Redefining Characters  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ This program will change ascii character 65 (A) into a small stick figure
+ So all of the As will be stick men. This program is fully tested but it may
+ be incompatable with your BIOS. (I have a very popular AMI BIOS)
+ Remember that QB4.5 or PDS7 should be loaded with the  /L  switch to have
+ QBX.QLB or QB.QLB loaded.
+ This program I am sure will interest you people out there that want to write
+ games in text mode and have your own custom characters.
+
+'$INCLUDE: 'qbx.bi'                             'Change to QB.BI for QB4.5
+DIM SHARED inregsx AS RegTypeX
+DIM SHARED outregsx AS RegTypeX
+DIM chardata AS STRING
+chardata = CHR$(60) + CHR$(66) + CHR$(66) + CHR$(129) + CHR$(129) + CHR$(66) + CHR$(24) + CHR$(24) + CHR$(126) + CHR$(24) + CHR$(24) + CHR$(24) + CHR$(36) + CHR$(36) + CHR$(195)
+inregsx.ax = &H1100
+inregsx.bx = &H1000
+inregsx.cx = &H1
+inregsx.dx = 65
+inregsx.es = SSEG(chardata)
+inregsx.bp = SADD(chardata)
+CALL InterruptX(&H10, inregsx, outregsx)
+
+ Let me step through the code and explain it...
+
+'$INCLUDE: 'qbx.bi'                             'Change to QB.BI for QB4.5
+DIM SHARED inregsx AS RegTypeX
+DIM SHARED outregsx AS RegTypeX
+DIM chardata AS STRING
+
+ This loads up the include file for your MicroSoft basic compiler and also
+ declares some variables for use by the program. 
+
+chardata = CHR$(60) + CHR$(66) + CHR$(66) + CHR$(129) + CHR$(129) + CHR$(66) + CHR$(24) + CHR$(24) + CHR$(126) + CHR$(24) + CHR$(24) + CHR$(24) + CHR$(36) + CHR$(36) + CHR$(195)
+
+ This is more interesting. This creates the shape that asc character 65 is 
+ changed to. It is made up like so (only shown the first line):
+
+  This is a grid of 8 bits for the first line. Each bit has a value doubling
+  each time.
+
+Value: 128  64    32   16   8     4   2     1
+      _________________________________________
+      |    |    |    |    |    |    |    |    |
+      |    |    |    |    |    |    |    |    |
+      |    |    |    |    |    |    |    |    |
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+  For the value 60 (the first, top line) the following bits would be set:
+
+
+Value: 128  64    32   16   8     4   2     1
+      _________________________________________
+      |    |    |XXXX|XXXX|XXXX|XXXX|    |    |
+      |    |    |XXXX|XXXX|XXXX|XXXX|    |    |
+      |    |    |XXXX|XXXX|XXXX|XXXX|    |    |
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ That is because as you can see the  4,8,16,32 valued bits are set. These
+ numbers add up to 60 and so that is what the top line of the character looks
+ like. It's hard to grasp and understand, perhaps could be the subject of a
+ tutorial some time? (binary)
+
+inregsx.ax = &H1100
+inregsx.bx = &H1000
+inregsx.cx = &H1
+inregsx.dx = 65
+
+ This section of code sets some registers for calling the interrupt. You do
+ not really need to worry about all of these but the inregsx.dx one is useful
+ The dx one selects which ASCII character you want to adjust, 65 is A, 66 is
+ B and so on, there is an ascii code for every character that you can see on
+ your screen. 
+
+inregsx.es = SSEG(chardata)
+inregsx.bp = SADD(chardata)
+CALL InterruptX(&H10, inregsx, outregsx)
+
+ This sets some other special registers to the memory segment and offset that
+ the character shape data is at. The CALL InterruptX then calls the hardware
+ interrupt that changes the shape of the ascii character in DX (65).
+
+ So now many of you can probably understand how to make any type of
+ characters you want. You have a nice grid of 8x16 to use and in that you 
+ can fit maybe a character of a house, man etc...
+
+______________________________________________________________________________
+| SECTION 1 PART A SUBPART 3 |  3D Programming  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    --------------------------------------------
+  /                                           / |
+ ---------------------------------------------  |
+ 3D Graphics in BASIC - Part I.1: Introduction /
+ ---------------------------------------------
+
+
+HEY YOU !
+
+Interrested in programming vector graphics ? Bored of painting 2 dimensional
+diagrams. Feared of using C/C++ ? Or are you a math dummie ? 
+
+No panic.
+
+Spend some time (and of course even more time at your PC) with me and join 
+me into the wonderful world of ...
+
+	3D Graphics in BASIC (yep, it's possible !!!)
+
+
+Before I fill your brain with lot of stuff like vectors, matrix, filled 
+polygons or shading techniques in the next five parts (this text included), 
+I'll introduce me to my person:
+
+I'm Christian Garms, a german chemistry student and programmer. Last year 
+I've made some nice money with Visual Basic programs in MS Excel and that's 
+why I think BASIC is the opposite of a dead programming language. I'm a
+registered PB user but the examples that will be post in this article should
+work with both QB and PB (eventually with minor modifications).
+
+For questions, REMarks or comments send an e-mail to:
+
+	garms@chemie.uni-hamburg.de
+
+
+I assume that you're not a BASIC beginner. Hope that you're at least an 
+advanced programmer because this article is not a bedtime story. 
+
+But the sweetest fruits are hidden and hard to get.
+
+Most programs will do the trick without any assembly additives to speed up 
+the code. If x86-ASM is necessary I'll write it as INLINE Assembler. 
+Sorry QB Users but I have not much time to spend for converting INLINE code 
+into suitable OBJ-Files.
+
+
+************************************************************************
+Disclaimer:
+The author, Christian Garms, is not responsible for any errors or damage
+to your computer system caused by the posted BASIC programs. 
+The BASIC programs and snippets are free for any use.
+************************************************************************
+
+
+
+    ------------------------------------------------
+  /                                              / |
+ ------------------------------------------------  |
+ 3D Graphics in BASIC - Part I.2: some basic math /
+ ------------------------------------------------
+
+The hardest part to understand of 3D graphics is the mathematical background 
+that is - politely spoken - abstract.
+But lets begin with an easier entry point. Point - that is the right object
+to start with. In our three dimensional world all points consist of three
+components, the x-, y- and z-coordinate. With these values every point is
+strongly determined in his position. But to whom ?
+That is the next thing to be dealt with: Coordinate systems ! 
+For the beginning we start with only one coordinate system, the world 
+coordinates. That means all coordinates are related to an absolut center 
+somewhere in our real world. E.g.: a value of x = 0 , y = 0 and z = 0 define 
+a point exactly in the center of our world. 
+
+For a mathematician every point in the whole 3D world is a vector. That's why
+3D graphics is also called vector graphics. 
+If we had a point Z who lies in the center of our world than the definition 
+of Z will be:
+
+	Z = (0 0 0)
+
+Any other point P with unequal values to zero of x-, y-, and z-coordinates
+would look like:
+
+	P = (<x> <y> <z>)
+
+The letters in the brackets are placeholders for the corresponding values.
+OK, lets return from the equation thicket to programming.
+For further use we should define our own TYPE of variable, a vector !
+
+**************************************************************************
+' Creating own definition
+TYPE vector
+  x AS INTEGER
+  y AS INTEGER
+  z AS INTEGER
+END TYPE
+
+' Declare p as vector
+DIM p AS vector
+
+' Sets p to the center of the world
+p.x = 0
+p.y = 0
+p.z = 0
+**************************************************************************
+Listing I-2.1
+
+Listing I-2.1 demonstrates the usage of user-defined types. User-defined 
+types makes your programs more structured and better understandable 
+than Listing I-2.2.
+Especially when you have more than one point !
+As you can see I'm using mostly integer arithmetics. That is a common trick 
+to speed up the output of 3D graphics enormously.
+
+
+**************************************************************************
+' Define point in the middle of the universe
+px% = 0
+py% = 0
+pz% = 0
+**************************************************************************
+Listing I-2.2
+
+
+
+    ------------------------------------------------
+  /                                              / |
+ ------------------------------------------------  |
+ 3D Graphics in BASIC - Part I.3: transformations  /
+ ------------------------------------------------
+
+Now we have the simpliest object: a point. The next question is: How to 
+convert a point in our 3D world - or mathematically spoken a vector - into  
+a flat pixel on the screen. 
+So here comes the moment to introduce you with a new coordinate system - the 
+eye coordinate system. I think that you, dear reader, will ask WHY. Well,
+imagine a scenery from any 3D game you have in mind. In most cases of these
+games there is a craft that you fly, drive or move and others that will be
+steered by your computer or someone else. You can look in all directions
+without steering into this directions. This would be impossible if your
+eye coordinate system is non-existant. In other words: The eye coordinate 
+system allows watching different from the world coordinate systems.
+And now the strategy to convert a point into a pixel:
+
+	1. Transformation of the world coordinates into eye coordinates
+
+	2. Transformation of eye coordinates into screen coordinates
+
+But some mathematics first. I hope you've got your machet right by your
+hand and follow me again into the equation jungle. This time it will be 
+harder than last time.
+
+Mathematicians are sometimes lazy to write complex formulas. In the case of
+transformation of a vector to a new vector in another coordinate system like
+the transformation of the world coordinate system into the eye coordinate
+system they simply write:
+
+	P_eye = P_world * T
+
+with    P_eye           eye coordinate vector
+	P_world         world coordinate vector
+	T               Transformation operator
+
+That means: transformation of coordinates is only a "simple" mathematical
+operation. But I would not go any further now because I've saved that for 
+Part II.
+This time I'll explain the transformation by an example. Once again
+you must imagine to sit in a craft in our virtual 3D game. Say you're at 
+Position x=100, y=0, z=0 and look to the center of our world. If you've 
+reset your nav computer and set the absolute position (0 0 0) to your craft 
+(the eye coordinate system) the center of the world now lies at 
+x=-100, y=0, z=0.
+In Summary: the world coordinates of a point will transformed to 
+eye coordinates via the following equations:
+
+	x_eye = x_world - eyepos_x
+	y_eye = y_world - eyepos_y
+	z_eye = z_world - eyepos_z
+
+with    x_eye           x-coordinate of the point (eye coordinate system)
+			dito with y_eye, z_eye
+	x_world         x-coordinate of the point (world coordinate system)
+			dito with y-world, z_world
+	eyepos_x        position of the watcher (relative to world center)
+			dito with eyepos_y, eyepos_z 
+
+But we gained also a three-dimensional point. How to convert this one into
+a pixel? Now the mathematician comes in action. And he won't be lazy any
+more ! He will tell you something about triangles, pyramids ... and you're
+stuck complete helpless in the thickest formula thicket you could 
+think about. If there would be a chalkboard he would easily write it full 
+just for explanations. Simple, isn't it ?
+
+Instead of molto formulos there is THE golden wisdom of every 3D-Programmer:
+  "The screen coordinates could be calculated by dividing the x- and y-
+   position through the depth (z-coordinate)"
+
+In formula speak:
+
+	x_screen = x_eye / z_eye
+	y_screen = y_eye / z_eye
+
+with    x_screen        x-coordinate of the pixel
+	y_screen        y-coordinate of the pixel
+	x_eye, y_eye,   see above
+	z_eye
+
+You gain a dimensionless number that must be fit to screen coordinates and 
+to the middle of the screen. 
+I assume that the width and the height of the screen are given so the formula
+results to:
+
+	x_screen = (x_eye / z_eye) * width + width / 2
+	y_screen = (y_eye / z_eye) * height + height / 2
+
+Now we've got all parts together to write some real 3D stuff.
+
+**************************************************************************
+' Simple 3D Object (Pyramid)
+
+' Type declarations
+TYPE vector
+  x AS INTEGER
+  y AS INTEGER
+  z AS INTEGER
+END TYPE
+
+TYPE pixel
+  x AS INTEGER
+  y AS INTEGER
+END TYPE
+
+' Variable declaration
+DIM p(3) AS vector
+DIM eye AS vector
+DIM s(3) AS pixel
+DIM maxx AS INTEGER     ' width of screen
+DIM maxy AS INTEGER     ' height of screen
+
+' Screen resolution 
+maxx = 640
+maxy = 480 
+
+' Read Object Data
+FOR i = 0 TO 3
+  READ p(i).x
+  READ p(i).y
+  READ p(i).z
+NEXT i
+
+' Definition of object
+DATA 30, 1, 1
+DATA  1,30, 1
+DATA  1, 1,30
+DATA -30,-30,-30
+
+' Set Eye position (change if desired)
+eye.x = 0
+eye.y = 0
+eye.z = 100
+
+' Calculate the eye coordinates
+FOR i = 0 TO 3
+  p(i).x = p(i).x - eye.x
+  p(i).y = p(i).y - eye.y
+  p(i).z = p(i).z - eye.z
+NEXT i
+
+' Calculate screen coordinates
+FOR i = 0 TO 3
+  s(i).x = (p(i).x / p(i).z) * maxx + maxx / 2
+  s(i).y = (p(i).y / p(i).z) * maxy + maxy / 2
+NEXT i
+
+' Draw object
+CLS
+SCREEN 12
+FOR i = 0 TO 5
+  READ pt1, pt2
+  LINE (s(pt1).x,s(pt1).y)-(s(pt2).x,s(pt2).y)
+NEXT i
+
+DATA 0, 1, 0, 2, 0, 3, 1, 2, 1, 3, 2, 3
+**************************************************************************
+Listing I-3.1
+
+OK, folks. Next time I will introduce you to animated vector graphics and
+the calclulation with matrix. Stay tuned and I hope that you enjoy this article.
+
+______________________________________________________________________________
+| SECTION 1 PART B SUBPART 1 | Basic Tutorials - Part 3 |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ BASIC Tutorials - installment 3
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Howdy! 8-) So what do you want to learn this week starting BASIC programmers?
+ I thought I'd go over a few BASICs (pun) and some useful routines. If you 
+ want to have basic tutorials on anything else then mail the fanzine and I'll 
+ be happy to type them up for you! 
+
+ Recap:
+
+  - Variables are memory stores.
+  - Variables with text in are proceeded with a  $
+  - Variables to store numbers are usually proceeded with a  %
+  
+ So the following program would take your age and store it in age%.
+
+ PRINT "Age:"
+ INPUT age%
+
+ A new format of the INPUT command:
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ In the previous example we displayed the question we wanted to ask 'Age:'
+ with a print routine. We can simplify that whole previous routine into one
+ INPUT command, look at this:
+
+ INPUT "Age:",age%
+
+ Basically what this means is that after the prompt 'Age:' is displayed then
+ read in the age and place it into age%. Look at the following:
+
+ INPUT "Name:",n$
+
+ Common-sense should tell you that that command would display 'Name:' on the
+ screen and then place whatever you type into n$. 
+
+ Looks so simple, doesn't it?
+ 
+ Other commands which are useful to use:
+ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ We can use other commands in conjunction with the INPUT and PRINT commands
+ to make it all look prettier. The first command is  CLS  . Looking at it it
+ means:
+
+	CLear the Screen    = CLS
+
+ That will clear the screen of all of its text and leave you with a clean
+ screen to place text on.
+
+ There is also another command which you will find useful. It is called  COLOR
+ and yes I know it is spelt a bit strangely but thats the American way of
+ spelling it (although I assume 90% of readers are American). 8-) Anyway
+ this command is followed by a number which dictates what colour the text will
+ be shown as:
+	0 - Black                       
+	1 - Blue                        9 - Bright Blue
+	2 - Green                       10- Bright Green 
+	3 - Cyan                        11- Bright Cyan
+	4 - Red\Brown                   12- Bright Red
+	5 - Dull Purple                 13- Bright Purple
+	6 - Brown                       14- Bright Yellow
+	7 - Dark White                  15- Bright White
+	8 - Dark Gray
+
+ You can place a COLOR command before any PRINT or INPUT command to change
+ the colour of its text. Look at this:
+
+ CLS
+ COLOR 15
+ PRINT "Details Program"
+ PRINT ""
+ COLOR 6
+ INPUT "Age?",age%
+ COLOR 14
+ INPUT "Name?",n$
+ CLS
+ COLOR 15
+ PRINT age%
+ PRINT n$
+
+ As with the INPUT command the PRINT command can also have variables 
+ attached to it for it to print. For example if the previous program could
+ actually say  'Hello [your name] You are [age] years old.', it would be
+ better. It can! Look at this example of the print command.
+
+ PRINT "Hello, ",n$
+ print "You are ",age%," years old"
+
+ If you can get your head around the working of this then you'll be a master
+ in no time.
+
+ In Closing
+ ~~~~~~~~~~
+
+ I'll be going into explaining the last piece of code in the next fanzine.
+ It'll be part 4 of the Basic Tutorials. Part 5 will cover location, loops
+ and logic. After that more tutorials will follow but in more specific
+ areas of BASIC.
+
+ Cheerio
+______________________________________________________________________________
+| SECTION 1 PART B SUBPART 2 | Graphics tips and tactics |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ This article is by James Erickson, he can be reached at:
+	ericksnj@teleport.com
+ For how long I don't know.. he changes email address a lot. 8-)
+ Cheers, James 8-)
+
+Have you ever wanted to save a graphic in BASICs Screen 13.  Or more 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+importantly load one quickly?  Well its easy!  Here's how...
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+First you'll need to draw something on the screen.. It doesn't matter
+how.   Then you need to save it.  The first step is to point to the 
+segment of the video address.  Then you want to bSAVE the graphic:
+
+DEF SEG=&HA000
+BSAVE "filename",0,64000
+
+64000 will save the entire screen.  So use that to save an entire screen.
+It works sort of like Peter Coopers putpixel.  Just multiply the y value
+by 320 and the x value and add by one.  So if you only wanted to save the 
+upper half of the screen it would be ((y*320)+x)+1.  In this case y would 
+be 99 and x would be 319.  The reason you need to add by one is when you 
+are saving the graphic it thinks of (0,0) as 1 instead of 0.  So that means
+you have to add the entire thing by one.  So once again here is the equation:
+((Y*320)+X)+1
+
+The parenthesis are not really needed, but they are good to put in.
+
+To Load the screen back up later, just do this simple thing:
+Def Seg=&HA000
+BLOAD "filename"
+
+That's it!!!
+-----------------------------------------------------------------------------
+
+Well those loading and saving routines are all well and good if you want 
+to grab the entire screen, or the upper parts, but what if you want to save
+and load a sprite?  Well that is a little more complex, but it is still 
+easy!
+
+First as usual you draw something on the screen.  Then you need to make 
+an array for your sprite.  I am not sure how you demention your array 
+based on the graphic size, because the demensions of the array can be 
+smaller then the sprite's demensions!  So if anyone knows what the equation 
+is for dimensioning an array based on the sprites dimensions then I would 
+LOVE to know.  But until then I just dimention the array according to the 
+sprite size.  So if the sprite is 20x20 the the I make the array 20x20.  
+What I do is say
+
+Dim array(20*20) or..
+Dim array(20,20)
+
+Then you need to get the image.  If you don't know how GET works then look 
+it up in you BASICs help file.
+
+Like..
+GET (1,1)-(20,20),array
+
+Now you need to point to that array like so..
+
+DEF SEG=VARSEG(array(0))
+
+Now it is safe to save it.  Like so...
+
+BSAVE "filename",Varptr(array(0)),length
+
+The equation for the length of the file does not work for saving a sprite 
+either.  it is not X*Y, so I don't know what the equation for it is.  So 
+I hope someone who knows the equation can contribute it to the fanzine.
+Meanwhile for length I usually use 16384, but if the sprite does not load 
+up all the way when you try to load it, then increase that number.
+VARPTR tells BSAVE where to look for the info.  In this case it is the
+memory location where the array is stored.
+
+OK, now that you have the image saved, you can use it in one of your
+programs.  But this time when you load up the graphic, you load it into
+an array instead of to the screen.  Don't worry it is just as fast.
+
+First dimension your array, the way you did before...
+
+Dim array(20*20) or..
+Dim array(20,20)
+
+Now point to that array again:
+
+DEF SEG=VARSEG(array(0))
+
+Now Load the graphic the same way you did before, but this time load it into
+the array.  Like so:
+
+BLOAD "filename",VARPTR(array(0))
+
+Now that it is in the array you can put it on the screen whenever you want!
+Just use PUT.  If you don't know what PUT is then look it up in the online
+help.  But here is the general idea...
+
+PUT (x,y),array,PSET
+
+I Hope I have not further confused you, but nevertheless those things work.
+----------------------------------------------------------------------------
+
+Ok, now you can load and save graphics, but what about palettes?  
+Well palettes are easy too.  But I think I'll save that for next Fanzine.
+I'll probably make a PCX to BSAVE format, some more advanced graphics 
+arrays, and some fade in and out subs as well.
+
+ I'm sure people'll be looking foward to seeing the PCX to BSAVE thing.
+ Palettes  too!  8-)  Thank you James. This sort of tutorial is exactly
+ what  the  fanzine needs. Can anyone else write tutorials? I'd love to
+ publish them... for example do you control your house with a QBasic 
+ program or little robots etc... probably not but if you do I would love
+ to hear from you.
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+-------------------------------------------------------------------------------
+- SECTION TWO -----------------------------------------------------------------
+-------------------------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ All levels articles:
+
+ This is where general BASIC info is presented. People of different levels
+ (novice,advanced etc) can use this section to their benefit.
+______________________________________________________________________________
+| SECTION 2 SUBPART 1 | Useful Resources ON THE NET!!! |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 
+ We've had some additions this week! Haev fun with this little lot of
+ lists as to where you can get BASIC stuff on the net.
+
+ FTP SITES:
+
+	SimTel Mirrors  -  you can get tonnes of Basic stuff here,
+			   look at 
+			   ftp.coast.net        (U.S.)
+			    /Simtel/msdos/basic 
+			    /Simtel/msdos/qbasic
+			   ftp.demon.co.uk      (U.K.) 
+			    /pub/simtel/msdos/basic   
+			    /pub/simtel/msdos/qbasic
+
+			   Archives of the fanzine are available on the
+			   SimTel Mirror sites now! in the BASIC directory
+
+	PCGPE (Pc Games Programmers Encyclopedia) -
+			   this is a VERY VERY good set of text files about
+			   programming (not just games), learn about sound
+			   + grafix + mouse etc. VGood. 700k though.
+			   x2ftp.oulu.fi
+			    /pub/msdos/programming/gpe
+
+	General cool Basic site -
+			   filled with loads of cool stuff, i know. i've looked
+			   FTP SITE :    users.aol.com
+					 /blood225
+
+	Games Programmers site- oulu -
+			   x2ftp.oulu.fi
+			   /pub/msdos/programming/docs
+						 /formats
+						 /gpe
+						 /...
+			   This directory /programming is a directory
+			   all for you game programmers out there, check it
+			   out. There's info on loads of file formats etc..
+			   In the /gpe directory is the programmers 
+			   encyclopedia.. loads of format and programs!
+
+ HTML\WWW SITES:
+
+  THE Basic Fanzine -  http://www.teleport.com/~ericksnj/fanzine/
+  ABC home page     -  http://users.aol.com/mhscards/abc.html
+  Jumbo shareware   -  http://www.jumbo.com/    
+  PBSOUND WWW site  -  http://www.snafu.de/~pbsound/ 
+   (Pbsound is a shareware library to use the soundblaster. It supports all
+    types and allows you to play all sorts of music formats on them + more,
+    it is for PowerBasic only)
+
+  The programming page-http://www.geocities.com/RodeoDrive/2238/
+	I run this page and it'll be good. It is not full up yet but I hope
+	to place some cool stuff on there.
+
+ If you know of any others then please tell me and it'll be added, if you 
+ actually own\run the site then please include some info about it and I'll
+ check it out. 
+
+______________________________________________________________________________
+| SECTION 2 SUBPART 2 |  Basic on IRC  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ I suppose all of you programmers have heard of IRC.. If you have then skip
+ this part and jump to the end.
+
+ IRC (Internet Relay Chat) is a system available on the internet for you
+ to type to people from all over the world in real time. You join channels
+ such as #c (aggh!) or #chatcafe and so on and there may be several people
+ there, you can then start off a conversation or join in with one that is
+ already going. It's like a worldwide real time conferencing system. Contact 
+ your internet provider to see if you have IRC access. If so then download 
+ an IRC client. This is a program that lets you do all the IRC stuff. 
+
+ For Windows:  MIRC or WS_IRC
+	       ftp://ftp.demon.co.uk/pub/ibmpc/winsock/apps/mirc
+	       ftp://ftp.funet.fi/pub/msdos/networks/irc/windows/wsirc14e.zip
+	       respectively
+
+ For DOS:      You will need a telnet connection although clients are 
+	       available. Ask your internet provider for info.
+
+ After you have that, READ THE DOCUMENTATION FULLY! Then surf along to:
+	http://unixg.ubc.ca:780/~abbott/blues/irc.html#undernet
+ and that should answer your questions (if you can log onto it)...
+
+ So now all of you regular IRCers can read on now, come back! Ok, well 
+ on the basic newsgroups there has been talk (now and then) of the #basic
+ irc channel.. I use IRC (an awful lot) and I visit this channel. There is
+ never anyone else on it! Perhaps all of us on the newsgroup could arrange
+ a time (at the weekend) when we can discuss BASIC issues. Please get back
+ to me if you want to do this or start a thread on the newsgroups discussing
+ a suitable time, it's great fun y'know... You see, the C programming
+ language has a constantly busyish irc channel and we can't really have C
+ being really more popular than BASIC , (although admittedly C has larger
+ support) 8-) But we want basic to rise as one of the most powerful and
+ supported languages. Come on programmers lets get something going! MORE
+ Web Pages, MORE IRC Channels, MORE FTP sites. 
+
+ Update: I went onto #basic the other day and two people were there. One who
+	 reads  this fanzine, I asked him.. He mentioned that we could get a
+	 bot to keep the channel open. Is there anyone who could do this for
+	 the whole basic community or who will tell how it is done? I'm sure
+	 it'd be appreciated.
+
+______________________________________________________________________________
+| SECTION 2 SUBPART 3 |  Structured Programming  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ The point of this article is to make your programs flexible, easier to read
+ and have a better style. Having your programs more structured will enable 
+ you to cross the path into the world of C, C++ and PASCAL far easier. It 
+ will make basic gurus look at your work in a different light. Anyway, that
+ aside, at least you'll have the satisfaction of knowing you can program in
+ a tidy structured way.
+
+ A good first example would be the question 'Are you sure you want to exit?'
+ at the end of a program. If you answer Y then the program would exit but 
+ if you answer N then the program will restart. You may use this method to
+ accomplish that:
+
+  'METHOD1
+  lp2:
+  'main program goes in here
+  lp1:
+  print "Are you sure you want to exit?"
+  a$ = input$(1)
+  if a$ = "Y" then system
+  if a$ = "N" then goto lp2:
+  goto lp1:
+
+ As you can see that looks better than the first method but in structured
+ programming GOTO commands are *rarely* used. I cannot even remember how to
+ do gotos in some structured languages! ;-) So how can we get rid of them?
+ Well if we go back to one of the earliest things you learn when you study
+ (and learn) BASIC, DO..WHILE loops... They can be used to return control
+ to earlier points in the program. 
+
+  'METHOD2
+  do
+	'main program goes in here
+	do
+	print "Are you sure you want to exit?"
+	a$ = input$(1)
+	loop until a$ = "Y" or a$ = "N"
+  loop until a$ = "Y"
+
+ That is a structured program although there is one thing we could amend to
+ make the program have a small boost of quality. Change the line:
+	a$ = input$(1)
+ to:
+	a$ = ucase$(input$(1))
+ So now the person doesn't have to press  Y  . They can press Y or just y.
+ Or N and n. So let me go over a few dos and don'ts (please, it doesn't mean
+ you're a bad programmer):
+
+  Use of DO..WHILE loops
+  Jumping out of FOR loops with GOTO
+  Nesting loops cleverly
+  Nesting loops very deeply
+  Use of SYSTEM and not of END
+  Unneccersary use of GOTO
+
+ Just a few points there. I hope this all helps you see that it can be
+ profitable to use more structured programming, the structured code even
+ uses less lines (of proper code) than the original method shown! 8-) In
+ processor (or graphic) intensive programs this is very important to save
+ time and have the program running at its best. Another important thing 
+ that should be used in programs is 'proper subroutines'. In BASIC the way
+ was always to go like this:
+
+  print "This will say hello"
+  GOSUB sayhello:
+  print "Bye!"
+  system
+
+  sayhello:
+  print "Hello!"
+  return
+
+ Nowadays this type of code should not be used. It originated in the first
+ early basics and has only continued to be supported due to GWBASIC and also
+ due to tradition. There is a better alternative (in QBASIC+up) now. You can
+ create and edit subroutines separate from the main module (main part of 
+ program). If you select New Sub.. from the Edit menu (in QBASIC) then a
+ dialog box will appear asking for what you want the subroutine to be called.
+ In this case we want it to be called   sayhello  so type that and press 
+ ENTER. We are then shown a new piece of program starting with 'SUB sayhello' 
+ and ending with 'END SUB'. All of your code goes between these lines. If now 
+ in here we type:
+
+ print "Hello!"
+
+ We can go back to the main program by pressing F2 and going up to the main
+ routine. If you press ENTER then it is flashed back up. If you replace
+ GOSUB sayhello with  CALL sayhello  then it will call the new procedure you
+ have created.
+
+ So it will look like this:
+
+  print "This will say hello"
+  CALL sayhello
+  print "Bye!"
+  system
+
+  SUB sayhello
+  print "Hello!"
+  END SUB
+
+ That program is easier to edit, easier to understand and more stylish than
+ the first method. If you have had any problems with this then mail me and
+ I'll give you a hand. More examples on this next issue. Cheerio!
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION THREE ---------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+ Your Shout:
+
+ Anything that is sent for use for the zine that doesn't fit into the other
+ chapters is here. It's where your questions and programs go unless they fit
+ into an article or if you actually write an article or tutor.
+
+______________________________________________________________________________
+| SECTION 3 SUBPART 1 |  Q+A  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ Q-
+ Where can I get a good QBasic Book? 
+  Nick Blomstrand + various newsgroup members
+
+ Well if you can wait until February 20th (which isn't long away) then Wrox
+ Press  will have released their 'Revolutionary Guide To QBasic'. From what
+ I  have seen of the book (from beta-testing)  I was very impressed. I have
+ recently  heard about what else is in the book and believe it or not I was
+ even more impressed! It will have techniques and tips on creating 3D style
+ landscapes  and  games, fast graphics routines, Sound Blaster programming,
+ Virtual  stack  systems and more! This book is recommended to *anyone* who
+ is  related  with  Basic. Even if you're an expert I will say you can find
+ something  in the book that you will find useful and learn from. If you're
+ a beginner then you will learn Basic right from typing QBASIC to using the
+ menu  system,  then  to  writing  simple  programs  to  loops,  jumps  and 
+ eventually games, graphics and sound. If you'd like a book for programming
+ then I suggest you point your web-browser to the  [Wrox Press WWW Site]
+
+  http://www.wrox.com/
+
+ If you wish to mail someone about the book then you can do so from the WWW
+ site or alternatively you can mail [Adrian Sill]. He is one of the editors
+ of the book and the man I correspond with and he'll be happy to answer any
+ problems you may have.
+
+  adrians@wrox.demon.co.uk  (adrians@wrox.com)
+
+ There you go problem solved! 
+
+Q- How do I go about using overlays and how do they work? 
+
+A- This mail was from a man developing a medical system. It has been used for
+   a while now but he needs to use overlays to program it now. PLEASE mail
+   us if you know how to use overlays and I'll forward onto him. 
+
+______________________________________________________________________________
+| SECTION 3 SUBPART 2 |  Your Programs  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Our first program is from Virtual Simulations. I cannot test this program              
+because I do not have PowerBasic and this fanzine is on a rush schedule. I 
+promise to get all programs tested in future. Sorry! Virtual Simulations can
+be grabbed at:      vsim@xs4all.nl    
+or from WWW page:   http://www.xs4all.nl/~vsim/
+
+' START OF PROGRAM 
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' Program Title: Clock
+'     Copyright: Virtual Simulations 1995
+'        Author: AA v Zoelen
+' Last Modified: 08-02-1996
+'       Version: 1.0
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'   Description: Just a little clock demo
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'         Notes: Public Domain. For personal use only.
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+'       History: First issue 08-02-1996
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+
+$CPU 8086                 ' program works on any CPU
+
+$OPTIMIZE SPEED           ' make fastest possible executable
+$COMPILE EXE              ' compile to an EXE
+
+$DEBUG MAP      OFF       ' turn off map file generation
+$DEBUG PBDEBUG  OFF       ' don't include pbdebug support in our executable
+
+$LIB COM        OFF       ' turn off PowerBASIC's communications library.
+$LIB CGA        OFF       ' turn off PowerBASIC's CGA graphics library.
+$LIB EGA        OFF       ' turn off PowerBASIC's EGA graphics library.
+$LIB VGA        ON        ' turn off PowerBASIC's VGA graphics library.
+$LIB HERC       OFF       ' turn off PowerBASIC's hercules graphics library.
+$LIB LPT        OFF       ' turn off PowerBASIC's printer support library.
+$LIB IPRINT     OFF       ' turn off PowerBASIC's interpreted print library.
+$LIB FULLFLOAT  OFF       ' turn off PowerBASIC's floating point support.
+
+$ERROR BOUNDS   ON        ' turn off bounds checking
+$ERROR NUMERIC  ON        ' turn off numeric checking
+$ERROR OVERFLOW ON        ' turn off overflow checking
+$ERROR STACK    ON        ' turn off stack checking
+
+$FLOAT PROCEDURE          ' use procedural floating point to optimize for
+			  ' machines without a co-processor
+
+$COM    0                 ' set communications buffer to nothing
+$STRING 2                 ' set largest string size at 1024-18 CHAR.
+$STACK  2048              ' let's use a 2k stack
+$SOUND  1                 ' smallest music buffer possible
+
+$DIM ARRAY                ' force arrays to be pre-dimensioned before they
+			  ' can be used
+$DYNAMIC                  ' all arrays will be dynamic by default
+
+$OPTION CNTLBREAK OFF     ' don't allow Ctrl-Break to exit program
+
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+DIM X              AS INTEGER
+DIM Y              AS INTEGER
+DIM Radian         AS SINGLE
+DIM Radius         AS BYTE
+DIM Count          AS BYTE
+DIM Seconds        AS BYTE
+DIM Minutes        AS BYTE
+DIM Hours          AS BYTE
+DIM ColErase       AS BYTE
+DIM ColPlate       AS BYTE
+DIM ColBox         AS BYTE
+DIM ColSec         AS BYTE
+DIM ColMin         AS BYTE
+DIM ColHour        AS BYTE
+DIM PlateDotsX(61) AS SINGLE
+DIM PlateDotsY(61) AS SINGLE
+DIM Digital        AS STRING * 1
+DIM CMDLine        AS STRING * 10
+
+CMDLine = COMMAND$
+
+SCREEN 12
+' Screen 12 have a size of 640X480 so the
+' values for X, Y and Radius should stay
+' between limits. You only need to change
+' this few values below for adjusting
+' the whole clock.
+
+X        = 100    ' X - Center location of the clock
+Y        =  50    ' Y - Center location of the clock
+Radius   = 150    ' The size of the clock
+ColErase =   1    ' Color for erase
+ColPlate =   9    ' Color for the plate of the clock
+ColBox   =   1    ' The color of the box around the clock
+ColSec   =  15    ' Color of the seconds hand
+ColMin   =   4    ' Color of the minutes hand
+ColHour  =  12    ' Color of the hours hand
+Digital  = "Y"    ' Place also a digital clock on the screen if
+		  ' the clock's radius is larger then 75.
+
+' If there is a radius value on the commandline then
+' use that one instead.
+IF CMDLine <> "" THEN Radius = VAL(CMDLine$)
+
+Radius = MAX(Radius, 13) ' The radius can't be smaller then 10
+X      = MAX(X, Radius)  ' Let the clock not go beyond the X<0 and Y<0
+Y      = MAX(Y, Radius)  ' The other sides is your responsibility. :-)
+DECR Radius, 3           ' Make the clock fit into the box.
+
+  GOSUB Plate            ' Setup and draw the plate of the clock
+
+  DO
+    IF Seconds <> VAL(RIGHT$(TIME$, 2)) THEN GOSUB UpdateHands
+  LOOP UNTIL INKEY$ <> ""
+END
+
+' DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+' SUB ROUTINES
+'
+' Update this hands of the clock every second.
+' Redraw all the hands just incase there was a pass
+' over it by the seconds hand.
+
+UpdateHands:
+
+    IF Radius > 72 AND UCASE$(Digital) = "Y" THEN
+'     Replace damaged text.
+      LOCATE INT(Y/12) , INT(X/8) - 2     ' Place also the digital time
+      PRINT TIME$                         ' on screen, but only if the
+    END IF                                ' clock is large enough.
+
+'   Erase all hands first
+    LINE (X, Y) - (X + PlateDotsX(Seconds + 1), Y + PlateDotsY(Seconds + 1)), ColErase
+    LINE (X, Y) - (X + PlateDotsX(Minutes), Y + PlateDotsY(Minutes)), ColErase
+    LINE (X, Y) - (X + (PlateDotsX(Hours)/1.2), Y + (PlateDotsY(Hours)/1.2)), ColErase
+
+'   Update the Minute hand
+    Minutes = 1 + VAL(MID$(TIME$,4, 2))
+    LINE (X, Y) - (X + PlateDotsX(Minutes), Y + PlateDotsY(Minutes)), ColMin
+
+'   Update the Hours hand
+    Hours     = VAL(LEFT$(TIME$, 2))
+    IF Hours > 12 THEN DECR Hours, 12
+    Hours = (Hours * 5) + 1 + INT(Minutes/12)
+    LINE (X, Y) - (X + (PlateDotsX(Hours)/1.2), Y + (PlateDotsY(Hours)/1.2)), ColHour
+
+'   Do seconds at the last moment to get the most actual time.
+    Seconds = VAL(RIGHT$(TIME$, 2))
+    LINE (X, Y) - (X + PlateDotsX(Seconds + 1), Y + PlateDotsY(Seconds + 1)), ColSec
+  RETURN
+
+
+Plate:
+
+' Start at 30 to get the clock in the right position
+' Translate degrees to radians and at the and swap
+' the order of the coordinates because otherwise the
+' clock is running backwards.
+
+  LINE (X - (Radius + 3), Y - (Radius + 3)) - (X + Radius + 3, Y + Radius + 3), ColBox, bf
+  LINE (X - (Radius + 3), Y - (Radius + 3)) - (X + Radius + 3, Y + Radius + 3), ColPlate, b
+
+  FOR Count = 30 TO 91
+    Radian                 = Count * 6 * (3.14159 / 180)
+    PlateDotsX(91 - Count) = SIN(Radian) * Radius
+    PlateDotsY(91 - Count) = COS(Radian) * Radius
+    IF Count / 5 = INT( Count / 5 ) THEN  ' Place every 5 min. a dot.
+	Dot = MIN(Radius / 10, 2)         ' and also for every minute.
+	IF Radius < 32 THEN Dot = 1
+      ELSE
+	Dot = 1
+	IF Radius < 32 THEN Dot = 0       ' But if the clock is to small
+    END IF                                ' then forget then minute dots.
+    IF Dot <> 0 THEN CIRCLE (X + PlateDotsX(91 - Count), Y + PlateDotsY(91 - Count)), Dot, ColPlate
+  NEXT
+
+' Get the time to start with
+
+  Minutes = VAL(MID$(TIME$, 4, 2))   ' Get the minutes
+  Hours   = VAL(LEFT$(TIME$, 2))     ' Get the Hours
+  IF Hours > 12 THEN
+    DECR Hours, 12                   ' Adjust from 24h to a 12h clock.
+    Hours   = (Hours * 5) + 1 + INT(Minutes/12)
+  END IF
+  Seconds = VAL(RIGHT$(TIME$, 2))    ' Get the seconds
+
+  RETURN
+' END OF PROGRAM
+
+I know a lot of you sent in programs but the length of this fanzine is 
+already too much I think. Your programs will be included next issue. 
+
+______________________________________________________________________________
+| SECTION 3 SUBPART 3 |  Zephyrs SVGA library  | By Marco Koegler
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+     Two weeks ago I downloaded a shareware evaluation copy of Zephyr 
+Software's SVGA library for VBDOS/QuickBasic/PDS. Knowing the limitations of 
+the BASIC environment in terms of graphics, I was very impressed with the 
+vast array of subs and functions that where provided in their product.
+     What I immediately loved about the library was, that it enables the 
+programmer to use screen modes up to 1024x768 with 256 colors.  A dream come
+true for anyone frustrated with SCREEN 12 or 13.  In order to ensure that no
+hardware conflicts will result from running the software, Zephyr has built in
+functions to check the CPU type (need at least a 386), the amount of XMS 
+memory (FULL version only), and if the graphics card is VESA compatible.  The
+library supports and detects about 20 different graphics card.  If your card  
+supports bank switching, then several video memory pages are waiting to be
+used (in hi-res).  Also a rather nifty feature, is that you can turn the video 
+output "off," do some modifications to the screen and reveal them by turning 
+the video output back on.
+     Since BASIC doesn't know how to address the higher screen resolutions, 
+the old BASIC commands, such as LINE and PSET or even PRINT won't work 
+anymore, but Zephyr has replaced them with even better and faster commands.    
+For example, with the library you would be able to determine whether you want
+to PRINT text in SET, XOR, OR, or AND mode, just like PUT for BASIC.  Besides
+boosting regular graphic commands we also have unusual routines for 3D and 2D
+graphics, sprite rotation, collision detection, and mouse functions. 
+     This has only been a small selection of highlights.  In the full 
+version you can also save a screen or GET/PUT to XMS memory save PCX files.
+The documentation of the library is excellent (a 270 KB text file filled with
+explanations and examples) and the only downside to it is its size.  The QLB
+weighs in at a whopping 110 KB, although the evaluation copy also is slightly 
+crippeled (no XMS support).  All in all I still love it and once I get some
+money together I'll buy the full version.  If you would like to check it out,
+you can reach their site at http://www.phoenix.net/~balkum!
+
+If anyone wants to chat with this guy then well go ahead, he can be found at:
+ marco@umr.edu
+He has many useful programs and stuff which will be published into the next
+fanzine. Thanks Marco.
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+- SECTION FOUR ----------------------------------------------------------------
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 
+ Details about the fanzine:
+
+  This section of the fanzine is the last. It covers topics such as how to get
+  in touch with the author,who contributed to the fanzine and my last words. 
+  There is also a new section, 'Latest Developments'. That section is for info
+  that describes new developments on the fanzine. Read it! 8-)
+
+______________________________________________________________________________
+| SECTION 4 SUBPART 1 |  Latest Developments  | EVERYBODY READ!!! FAQS!!
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+ This section is to show what new developments the fanzine is going through.
+ 
+i)   Web Site
+ The WWW site for issues of the fanzine is:
+
+	http://www.teleport.com/~ericksnj/fanzine/
+
+ii)  Mailing List
+ The fanzine now has a mailing list. It will provide you with fanzines as soon 
+ as they are released so you don't miss them. It will provide addtional info
+ too as well as the fanzine so join it! To join mail   
+ 
+				arelyea@vt.edu 
+
+ with the following line in the subject header:
+
+     subscribe basix-fanzine
+
+ Any text in the body of the message will be ignored. I hope you will use this
+ service. Who knows, if there is enough members I will stop posting to the
+ newsgroups and the people on the mailing list will be the only to get it, in
+ text form.
+
+iii) Interfaced version of the Fanzine
+ Someone has proposed that I make the fanzine interactive. Ie.. what I do is
+ write an interface with menus and mouse support and you can use it to read 
+ the fanzine and to extract code etc.. There will be a program you download
+ and then every month you will be sent a specially formatted file which
+ will be read by the interface program. Is this a good idea? 
+
+If you would like to see further developments to the fanzine then please give
+me some ideas! :-)
+______________________________________________________________________________
+| SECTION 4 SUBPART 2 |  How do you contribute?  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ So how do you contribute?
+ All you have to do is e-mail all of your source code\articles and ideas to:
+
+		peter@trenham.demon.co.uk   - with everything
+
+ The  bmag@trenham.demon.co.uk  address is up and running again so please 
+ send there with any contributions , if that fails send to peter@ .
+
+______________________________________________________________________________
+| SECTION 4 SUBPART 3 |  How do you contact the author?  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ If you have something to share with everyone then post onto the alt.lang.basic
+ or comp.lang.basic.misc newsgroups (I read the former most due to less noise). 
+ Mention the fanzine in it if you want me to read it! 8-) 
+
+______________________________________________________________________________
+| SECTION 4 SUBPART 4 |  Credits  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Greets go to (in no real order) :
+
+   The people at Wrox Press yet again,
+    for contributing a super article to the fanzine this issue, their book
+    should be out on 20th February. (basically when you read this!) 8-)
+    (adrians@wrox.demon.co.uk)
+   
+   James Erickson,
+    who's cool... 
+    (ericksnj@teleport.com)
+
+   Tony Relyea,
+    who is the maintainer of the mailing list and owns Russian-under Ware
+    ,a software company!  (arelyea@vt.edu)
+
+   Douggie Green,
+    author of the great FAQ (you must read it to answer those questions!) 
+    (douggie@blissinx.demon.co.uk)
+   
+   Other people who wrote to me and who contributed code, gave me ideas or
+   helped in any way:
+    Ben Ashley
+    Nick Blomstrand
+    Issac Grover
+    The people on #basic  (IRC)
+    John Woodgate
+    Marco Koegler
+ 
+ Remember that this fanzine relies on your contributions. Cheers, ;-)
+
+______________________________________________________________________________
+| SECTION 4 SUBPART 5 |  Last Words+Next month  |
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ agggh!! I forgot to write this bit properly last month! 8-( never mind.
+ 8-)
+
+ NEXT MONTH (March 1996):
+	SPECIALIZED ARTICLES:
+		[Advanced\Intermediate]
+		3D Programming Part 2
+		How *does* FM synthesis work?
+		[Novice]
+		Basic Tutorial 4/5 
+		What is binary and the binary operations?
+	ALL LEVELS ARTICLES:
+		Yet More WWW pages and FTP sites
+	YOUR SHOUT:
+		Update on IRC
+		Your Questions, Answers and programs
+	DETAILS ABOUT THE FANZINE:
+		How to contribute, and the usual twaddle. hehe 8-)
+		Rundown on the April 1996 fanzine.
+
+ Well, hopefully you'll see the next fanzine during March although I've got
+ hardly any work to do for the next 4-5 weeks so it may be sooner! Watch out
+ on the mailing list and newsgroups.
+
+ Last words:
+
+ It has been quite fun this time creating the fanzine. I am still deeply
+ sorry for the delay in its appearance and I'm also sorry to the people who
+ sent in stuff for this fanzine but that couldn't be published. It's just
+ that this fanzine is very large now and I'm not very organized. I'll get
+ all of the missed articles into the next issue (which I am doing now!).
+ Well thats the end of fanzine 4 now, I better not waste any more time and
+ space. Cheerio 8-)
+
+--
+from the desk of 'Fanzine'

@@ -1,0 +1,42 @@
+
+
+RB Command                                              Version 1.58
+----------                                              Aug 20, 1985
+
+Purpose:  Convert an interpreted BASIC file to an ASCII format
+          file.
+
+Syntax:   RB  filename.bas  newfile.bas
+
+Remarks:  The two file names are required. The first specifies
+          the name of an interpreted BASIC program, the second
+          is the name to be given to the new ASCII file.
+
+          Floating point numbers are not rounded but no precision
+          is lost.
+
+          RB accomplishes the same task as using the BASIC interpreter
+          to save a BASIC file in ASCII form, for example:
+
+                basic
+                load"myprog
+                save"myprog.asc",a
+                system
+
+                -or-
+
+                rb myprog.bas myprog.asc
+
+          The reasons for using RB are:
+
+                - the interpreter is not needed (not everyone gets
+                  a BASIC interpreter with their system)
+                - RB is much faster
+                - allows using BATch files for use with compilers
+
+          Written by Vernon D. Buerg for the IBM PC, and compatibles,
+          using DOS 2.0 or later. For private, personal use only.
+          Not for sale or higher.
+
+
+

@@ -1,0 +1,1163 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                               D O O R F R A M E
+                                  Version 4.5
+
+                        A BBS Doors Development Library
+                      Originally by Ted Freeman (Deceased)
+
+                            Copyright (c) July-1993
+                              by Richard Paquette
+                              All rights reserved.
+
+
+                               Support board is:
+
+                                The Livewire BBS
+                              609-235-1757 USR HST
+
+
+
+DOORFRAME v4.5 - Users Guide - Page i
+
+
+                                C O N T E N T S
+                               =================
+
+        Warranty ............................................ ii
+        Copyright notice .................................... ii
+        Distribution ........................................ ii
+        Description ......................................... ii
+        BOX.IT .............................................. 1
+        BACK.SPACE .......................................... 2
+        CLEARBUFFER ......................................... 2
+        CLREOL .............................................. 2
+        CLRMOL .............................................. 2
+        CLRSOL .............................................. 2
+        CLRSCRN ............................................. 2
+        DE.LAY .............................................. 2
+        DETECT.ANSI ......................................... 2
+        DIS.PLAY ............................................ 3
+        ENTER ............................................... 4
+        EXISTS .............................................. 4
+        EXIT.DOOR ........................................... 4
+        IN.PUT .............................................. 4
+        INITIALIZE .......................................... 5
+        LINES ............................................... 5
+        MAKE.BLT ............................................ 5
+        MAKE.BLT.CURRENT .................................... 6
+        MORE ................................................ 6
+        MUSIC ............................................... 6
+        OUT.PUT ............................................. 6
+        SEND ................................................ 6
+        SENDANSI ............................................ 7
+        SHOW.BLT ............................................ 7
+        COLOR TABLE ......................................... 8
+        CONFIGURATION FILE FORMAT ........................... 9
+        PCBOARD.SYS VARIABLES ............................... 10
+        USERS.SYS VARIABLES ................................. 12
+        DOOR.SYS VARIABLES .................................. 13
+        USERINFO.DAT VARIABLES .............................. 15
+        DORINFOx.DEF VARIABLES .............................. 16
+        CALLINFO.BBS VARIABLES .............................. 16
+        SFDOORS.DAT VARIABLES ............................... 18
+        MISCELLANEOUS NOTES ................................. 20
+
+
+DOORFRAME v4.5 - Users Guide - Page ii
+
+
+                                   Warranty
+
+    This product is provided "as is" without warranty of any kind. The entire
+    risk as to the results and  performance of the program is assumed by you.
+    Futhermore, the  author does  not warrant, guarantee, or  make any  other
+    representations regarding  the use of,  or the  results of the use of the
+    program,  and you  rely on the  program and  results  solely at  your own
+    risk.  The author  cannot and  will not accept  responsibility for system
+    damage, loss of profit, or any other special, consequential or incidental 
+    damages  resulting  from  the  use  or  inability  to  use this  product.
+
+                                   Copyright
+
+    DOORFRAME Copyright (c) 1990-93 by  Ted Freeman  is being distributed as
+    Shareware. Under this concept you may use the  SHAREWARE  (unregistered)
+    version for a reasonable period of  time for evaluation  after which you
+    must either register your copy or discontinue  usage.
+
+
+                                 Distribution
+
+    You  are encouraged to distribute DOORFRAME provided that all files
+    contained in the archive are distributed in their original and
+    unmodified state.
+
+                                  Description
+    
+    DOORFRAME is a subroutine library for developing online BBS Doors for
+    systems that are compatible with PCBOARD.SYS, USERS.SYS, DOOR.SYS,
+    CALLINFO.BBS, USERINFO.DAT, SFDOORS.DAT, GTUSER.DAT, TRIBBS.SYS, 
+    or DORINFOx.DEF for interfacing to the BBS.
+
+    DoorFrame was written for QUICKBASIC (tm) 4.5 and is not recommended for
+    use with earlier versions of the compiler. DoorFrame also utilizes some of
+    the routines contained in Tom Hanlin's PBClone library. The COM routines
+    are handled by the QBSerial I/O library.
+
+
+DOORFRAME v4.5 - Users Guide - Page 1
+
+
+                              DOORFRAME ROUTINES
+                             ====================
+
+------------------------------------------------------------------------------
+NOTE: 
+Since the subroutines are DECLAREd in DFRAME.INC (you DID $INCLUDE: it didn't 
+you?) you should not use the CALL statement. Type the name of the subroutine 
+and list it's parameters (if any) without the enclosing parentheses.
+For example:
+
+DIS.PLAY MSG$, FG%, BG%, BLINK%, BELL%, XPOS%, YPOS%, NL%, CENTER%, CAPS%, CODES%
+
+The FUNCTIONs still require the enclosing parentheses.
+------------------------------------------------------------------------------
+
+SUBROUTINE: 
+BOX.IT (SROW%,SCOL%,EROW%,ECOL%,BTYPE%,BFG%,BBG%,FFG%,FBG%,FCHAR%,SHADOW%,TITLE$,HFG%,HBG%)
+PARAMETERS: SROW%    - ROW the box is to start at. Valid numbers are 1 - 22.
+                       Accepts an INTEGER number or variable.
+            SCOL%    - COLUMN the box is to start at. Valid numbers are 1 - 79.
+                       Accepts an INTEGER number or variable.
+            EROW%    - ROW the box is to end at. Valid numbers are 2 - 23.
+                       Accepts an INTEGER number or variable.
+            ECOL%    - COLUMN the box is to end at. Valid numbers are 2 - 80.
+                       Accepts an INTEGER number or variable.
+            BTYPE%   - Type of border. Accepts an INTEGER number or variable.
+                         0 = No border (spaces all the way around).
+                         1 = Single line all the way around.
+                         2 = Double line all the way around.
+                         3 = Double line on sides, single on top and bottom.
+                         4 = Single line on sides, double on top and bottom.
+            BFG%     - Foreground color of the border. (See color table)
+                       Accepts an INTEGER number or variable.
+            BBG%     - Background color of the border. (See color table)
+                       Accepts an INTEGER number or variable.
+            FFG%     - Foreground color of the box fill characters.
+                       Accepts an INTEGER number or variable.
+            FBG%     - Background color of the box fill characters.
+                       Accepts an INTEGER number or variable.
+            FCHAR%   - ASCII number of the character to fill box with.
+                       EX: 32 = SPACE, 65 = A, 206 = Î
+            SHADOW%  - -1 = no Shadow, 0 - 7 = Background color of the Shadow. 
+                       This will put a Shadow on the right and bottom edges 
+                       of the box.
+            TITLE$   - Displays a title centered on the top border.
+                       Accepts a STRING variable or QUOTED TEXT.
+            HFG%     - Foreground color of TITLE$
+            HFG%     - Background color of TITLE$
+
+DESCRIPTION: Draws a BOX with various style borders. The inside of the
+             BOX may be filled with any ASCII character you choose. The
+             upper left corner of the screen is ROW 1, COLUMN 1 and the
+             bottom right is ROW 23, COLUMN 80.
+
+
+DOORFRAME v4.5 - Users Guide - Page 2
+
+SUBROUTINE: BACK.SPACE ROW%, COL%, NUM%
+PARAMETERS: ROW%, COL%, NUM%
+DESCRIPTION: Backspaces NUM% from the ROW% and COL% specified.
+
+SUBROUTINE: CLEARBUFFER BUFF%
+PARAMETERS: BUFF%, 0, 1, 2
+DESCRIPTION: Clears either the keyboard buffer, the communications input
+             buffer, or both.
+             0 = Clear both buffers.
+             1 = Clear communications input buffer only.
+             2 = Clear keyboard buffer only.
+
+SUBROUTINE: CLREOL
+PARAMETERS: XPOS%, YPOS%, BGC%
+DESCRIPTION: Clears from the specified row and column to the end of that
+             line. The line is cleared in whatever color is specified in
+             the BGC% parameter. NOTE: Does not work in non-ANSI.
+
+SUBROUTINE: CLRMOL XPOS%, YPOS%, LENGTH%, BGC%
+PARAMETERS: XPOS%, YPOS%, LENGTH%, BGC%
+DESCRIPTION: Clears from the specified row and column for the number of
+             columns given in LENGTH%. The line is cleared in whatever
+             color is specified in the BGC% parameter.
+             NOTE: Does not work in non-ANSI.
+
+SUBROUTINE: CLRSOL XPOS%, YPOS%, BGC%
+PARAMETERS: XPOS%, YPOS%, BGC%
+DESCRIPTION: Clears from the specified row and column to the start of that
+             line. The line is cleared in whatever color is specified in
+             the BGC% parameter. NOTE: Does not work in non-ANSI.
+
+SUBROUTINE: CLRSCRN
+PARAMETERS: BGC%
+DESCRIPTION: Clears both the LOCAL (if ON) and REMOTE displays in the back-
+             ground color of your choice. Range is 0 - 7. ANSI only.
+
+SUBROUTINE: DE.LAY (SEC%)
+PARAMETERS: SEC%, 1, 2, Etc.
+DESCRIPTION: Pauses your program for the number of seconds in SEC%. Accepts
+             INTEGER number or variable.
+
+
+SUBROUTINE: DETECT.ANSI
+PARAMETERS: None
+DESCRIPTION: This routine will determine if the remote system has ANSI
+             capability. If the remote system is ANSI compatible, the
+             GRAPHICS% variable will be set equal to -1 otherwise it is
+             set to 0. This routine does not control whether COLOR is used
+             or not, see the MODE% variable for that.
+
+
+DOORFRAME v4.5 - Users Guide - Page 3
+
+SUBROUTINE: 
+DIS.PLAY MSG$,FG%,BG%,BLINK%,BELL%,XPOS%,YPOS%,NL%,CENTER%,CAPS%, CODES%
+PARAMETERS: 
+MSG$     - Text to be printed in either variable or quoted form. 
+           Example: "Print this" or MSG$ = "Print this".
+FG%      - Foreground color (0 - 15) Of the text. Can be in INTEGER number or
+           INTEGER variable form. Example: FG% = 1, 1, BLUE (See Color Table)
+BG%      - Background color (0 - 7) of text otherwise same as FG%
+BLINK%   - Enter 1 for blinking text or 0 for normal text.
+BELL%    - Enter 1 to sound a beep on the remote or 0 for no beep. Does not 
+           beep on the local computer.
+XPOS%    - Row number for cursor positioning. Valid numbers are 0 - 23 (status
+           line is on 24 - 25). Enter 0 to disable.
+           NOTE: XPOS% is ignored when GRAPHICS% = 0.
+YPOS%    - Column number for cursor positioning. Valid numbers are 0 - 80.
+           Enter 0 to disable. Accepts INTEGER number or INTEGER variable.
+           NOTE: YPOS% is ignored when GRAPHICS% = 0.
+NL%      - Enter 1 to send a CR/LF at the end of the line. Enter 0 to position
+           the cursor after the last character.
+CENTER%  - Enter 1 to center the line or 0 for no centering.
+CAPS%    - Enter 1 to convert text to all uppercase. Enter -1 to convert text
+           to all lowercase. Enter 0 for no case conversion.
+CODES%   - 0 = No color codes in this statement.
+           1 = Color codes are present in this statement.
+
+DESCRIPTION: Displays text to both the Local (if on) and Remote screens.
+             Accepts the full ASCII charcter set (0 - 255). Supports ANSI
+             color and cursor positioning (XPOS%, YPOS%). DoorFrame features
+             auto-ANSI detection and will display in graphics mode if it
+             senses ANSI capability on the remote end.
+
+ENHANCEMENTS: There are some special symbols available to make text blink
+             in the middle of a line in any color you wish. For example:
+
+             DIS.PLAY "This will %{Blink Yellow{", LWHITE, BLACK, 0, 0,......
+
+             Note the {'s before and after Blink Yellow. They tell the routine
+             to display the text in between in yellow and blinks because 
+             of the % symbol. Without the % the text is displayed in yellow
+             but does not blink. The rest of the line is displayed in white
+             on black. The symbols and their corresponding colors are:
+                ~ = Blue,  ` = Green,  @ = Cyan,  ^ = Red,  | = Magenta
+                { = Yellow, and } = White 
+             Put a * in front of the first symbol to display in low intensity
+             colors. Ex: *}text} displays 'text' in low intensity white. And
+             %*}test} displays 'text' in low intensity white and blinks.
+             Please note that you must have called DETECT.ANSI before using
+             these symbols and the caller must be ANSI capable. Multiple codes
+             are allowed in one Dis.Play statement. See the included
+             DFDEMO.BAS file for examples on using this option.
+             If a particular Dis.Play statement does not contain any of these
+             color codes, then the Codes% parameter should contain a 0. This
+             will result in a significant increase in display speed since the
+             routine doesn't have to search for and strip these characters.
+
+DOORFRAME v4.5 - Users Guide - Page 4
+
+SUBROUTINE: ENTER
+PARAMETERS: None
+DESCRIPTION: Outputs a "Press <ENTER> to Continue" prompt and waits for the
+             response. If the caller is in graphics mode, this is centered
+             on line 23. In non-graphics mode it is centered 2 lines below
+             the last line printed.
+
+FUNCTION: EXISTS (FILENAME$ + CHR$(0))
+PARAMETERS: ASCIIZ Filename
+DESCRIPTION: Checks to see if a file exists on disk. The passed parameter
+             MUST be an ASCIIZ filename (FILENAME$ + CHR$(0)). The function
+             returns 0 if the file exists or -1 if it does not.
+             Example: IF EXISTS (MYFILE$ + CHR$(0)) = 0 THEN
+                         PRINT "The file is there!"
+                      ELSE
+                         PRINT "File not found."
+                      END IF
+
+SUBROUTINE: EXIT.DOOR (YN$)
+PARAMETERS: YN$, "Y", "N", "G"
+DESCRIPTION: VERY IMPORTANT! Always call this subroutine as the last thing
+             your program does. EXIT.DOOR updates the system files with any
+             changes that have been made, closes the files, etc.
+             You can toggle this ON, "Y" or OFF, "N" when you call EXIT.DOOR.
+             If you wish to allow the caller to log off from your Door, call
+             EXIT.DOOR "G". When you use EXIT.DOOR "G", DoorFrame returns a
+             DOS Error Level of 1 for Wildcat! systems and 62 for all others.
+
+SUBROUTINE: 
+IN.PUT LENGTH%, WAITTIME&, IFG%, IBG%, AUTOCR%, Text$, TFG%, TBG%, X%, Y%, Show%
+PARAMETERS: LENGTH%   - Desired length of input.  0 = any length.
+            WAITTIME& - Number of seconds to wait for input. If ENTER is not
+                        pressed before this times out, control is passed back
+                        to the calling routine and RESPONSE$ will contain "-1"
+            IFG%      - Foreground color of the response (INTEGER).
+            IBG%      - Background color of the response (INTEGER).
+            AUTOCR%   - 1 = Automatic CR, 0 = Wait for ENTER to be pressed.
+            Text$     - Text to display (if any). Use "" for no display.
+            TFG%      - Foreground color of Text$
+            TBG%      - Background color of Text$
+            X%        - X coordinate to display text. 0 = current coordinate.
+            Y%        - Y coordinate to display text. 0 = current coordinate.
+            Show%     - 0 = Don't display response, 1 = Display response.
+
+DESCRIPTION: 
+Gets a response from the caller which is returned in the variable RESPONSE$. 
+Passes ASCII characters in the range 32 - 127 and ignores all others unless 
+Hi.Ascii% = 1, in which case it accepts ASCII 32 - 255. IN.PUT also allows you
+to use HOT KEYS! If you are prompting for a Y/N you could do something like:
+   IN.PUT 1, 180, 12, 0, 1, "Is everything correct? (y/n) ", ,11, 0, 1, 1, 0
+   IF UCASE$(RESPONSE$) = "Y" THEN      Etc., Etc.
+As soon as the caller hit Y or N, the subroutine terminates without his having
+to hit ENTER (however IN.PUT always returns when ENTER is pressed). The
+response would not be displayed. The IN.PUT can also be used as a timed
+routine. In the example above, The routine would wait for 180 seconds. if it
+does not receive a keypress within that time, it returns to the calling routine
+and RESPONSE$ would contain a "-1". IN.PUT features word-wrap ability in both
+forward typing and while backspacing.
+
+DOORFRAME v4.5 - Users Guide - Page 5
+
+SUBROUTINE: INITIALIZE
+PARAMETERS: None
+DESCRIPTION: VERY IMPORTANT! You MUST make a call to INITIALIZE before your
+             code does anything. This subroutine opens the system files and
+             obtains all the information you will need to run your Door. It
+             first reads the configuration file you passed on the command
+             line, then it reads PCBOARD.SYS, PCBOARD.DAT, and USERS (for 
+             PCBoard) or DOOR.SYS. There are 3 variables that must be
+             populated before the call to INITIALIZE. 
+                PROGNAME$ = "Name of your Door"
+                EXENAME$ = "FILENAM"
+                VERSION$ = " v0.0"
+                INITIALIZE
+             PROGNAME$ and VERSION$ are displayed on the Status line after
+             the callers name. EXENAME$ must be populated if you plan to use
+             the high score bulletin generator. EXENAME$ is the filename of
+             your program minus the .EXE extension.
+         ->  NOTE: EXENAME$ MUST BE NO MORE THAN 7 CHARACTERS!
+
+SUBROUTINE: LINES (SROW%,SCOL%,LEN%,DIR$,ENDS%,MID%,EFG%,EBG%,MFG%,MBG%)
+PARAMETERS: SROW%    - Row the line starts at. Valid numbers are 1 - 22.
+                       Accepts an INTEGER number or variable.
+            SCOL%    - Column the line starts at. Valid numbers are 1 - 79.
+                       Accepts an INTEGER number or variable.
+            LEN%     - Length of the line. Max. of 23 for vertical, 80 horiz.
+                       Accepts an INTEGER number or variable.
+            DIR$     - "H" = horizontal. "V" = vertical. Accepts a STRING
+                       variable or quoted text.
+            ENDS%    - If you are placing the line inside a box, you can
+                       make the ends of the line match the box border.
+                       Accepts an INTEGER number or variable.
+                         0 = No ends. (straight line only)
+                         1 = Single line.
+                         2 = Double line.
+            MID%     - Type of line. 1 = Single line. 2 = Double line.
+                       Accepts an INTEGER number or variable.
+            EFG%     - Foreground color of the ends (see color table).
+                       Accepts an INTEGER number or variable.
+            EBG%     - Background color of the ends (see color table).
+                       Accepts an INTEGER number or variable.
+            MFG%     - Foreground color of the line (see color table).
+                       Accepts an INTEGER number or variable.
+            MBG%     - Background color of the line (see color table).
+                       Accepts an INTEGER number or variable.
+DESCRIPTION: Draws either a vertical or horizontal line at the specified
+             location. 
+
+SUBROUTINE: MAKE.BLT (HI.SCORE&)
+PARAMETERS: HI.SCORE&, 10, 10000, Etc.
+DESCRIPTION: This routine will write a hi-score bulletin listing the top ten
+             scores. The parameter passed must be a long integer (&). This
+             routine creates a file called FILENAME.BUL. The first line of
+             this .BUL file indicates the path to the actual BLT file. It
+             initially writes FILENAME.BLT. If you wish to have a different
+             filename (such as BLT1) you must edit this line. The filename
+             for your BLT file should be 7 characters or less because
+             DoorFrame also writes a graphics BLT and appends a G to the
+             filename. (You should also explain this to your user Sysops!)
+
+
+DOORFRAME v4.5 - Users Guide - Page 6
+
+SUBROUTINE: MAKE.BLT.CURRENT (HI.SCORE&)
+PARAMETERS: HI.SCORE&, 10, 10000, Etc.
+DESCRIPTION: Same as MAKE.BLT except it posts CURRENT scores rather than
+             highest scores.
+
+SUBROUTINE: MORE
+PARAMETERS: None
+DESCRIPTION: Outputs "Press <ENTER> to continue, or <E> to end" and waits
+             for a response. Check the variable RESPONSE$ for an "E" and
+             terminate the current routine if found. For example:
+                MORE
+                IF UCASE$(RESPONSE$) = "E" THEN
+                  Etc.. Etc.
+
+SUBROUTINE: MUSIC (TUNE$)
+PARAMETERS: MUSIC CODES
+DESCRIPTION: Outputs music to the remote system. The TUNE$ parameter
+             contains the same codes you would normally use in the BASIC
+             PLAY statement. For example:
+              TUNE$ = "t110 l8 ms d4 mn o3 g a b o4 c ... "
+              MUSIC TUNE$
+             Since not all communications programs can handle music, you
+             should ask the user if he has music capabilities. If the
+             user can't handle music he will simply see the music codes
+             come across his screen (not a pretty sight!).
+
+SUBROUTINE: OUT.PUT (LF%)
+PARAMETERS: LF%, 1, 2, Etc.
+DESCRIPTION: Outputs the specified number of CR/LF. Parameter is an INTEGER
+             number or an INTEGER variable. Ex: OUT.PUT 2
+
+
+SUBROUTINE: SEND (FILENAME$, YN%, CLR%)
+PARAMETERS: FILENAME$ - STRING variable or quoted text of file to SEND.
+            YN%       - 0 = Do not use the ENTER prompt after last page.
+                        1 = Use the ENTER prompt after last page.
+            CLR%      - 0 = Home cursor, do not clear screen.
+                        1 = Normal clear screen.
+DESCRIPTION: Sends the specified filename. This can be either an ASCII file
+             or an ANSI file. SEND first checks for the existance of the file
+             and either sends the file or reports "File not Found!". This is
+             handy for displaying Help files, Welcome screens, etc.
+       NOTE: When using The Draw to create ANSI screens, save the screen using
+             the block mode (ALT-B) as this seems to produce better results
+             than using the regular save function (ALT-S).
+
+
+
+
+DOORFRAME v4.5 - Users Guide - Page 7
+
+SUBROUTINE: SENDANSI (FILENAME$, YN%, INTER%)
+PARAMETERS: FILENAME$ - STRING variable or quoted text of file to send.
+            YN%       - 0 = Do not use the ENTER prompt after last page.
+                        1 = Use the ENTER prompt after last page.
+                        2 = Pause at end for Spacebar. Doesn't print anything
+            INTER%    - 0 = User can interrupt and exit the screen anytime.
+                        1 = User cannot interrupt file until it is finished.
+DESCRIPTION: Sends the specified ANSI file if it exists. This routine does
+             not stop until the entire file has been sent. Pressing the
+             Spacebar during display aborts the file unless Inter% is set
+             to 1.
+
+
+SUBROUTINE: SHOW.BLT (YN$)
+PARAMETERS: YN$, "Y", "N"
+DESCRIPTION: Call this routine if your Door features a Hi-score bulletin. Make
+             sure you have called MAKE.BLT first! Best place to call this
+             is just before you call EXIT.DOOR. For example:
+              MAKE.BLT HI.SCORE&
+              SHOW.BLT "Y"
+              EXIT.DOOR "Y"
+             SHOW.BLT "Y" will ask if they want to see the Bulletin.
+             SHOW.BLT "N" displays the bulletin without asking.
+
+
+DOORFRAME v4.5 - Users Guide - Page 8
+
+
+                             C O L O R  T A B L E
+                            ======================
+
+COLOR # - NAME       INTENSITY       FOREGROUND (FG%)     BACKGROUND (BG%)
+---------------------------------------------------------------------
+ 0 - BLACK              Low               X                   X
+ 1 - BLUE                "                X                   X
+ 2 - GREEN               "                X                   X
+ 3 - CYAN                "                X                   X
+ 4 - RED                 "                X                   X
+ 5 - MAGENTA             "                X                   X
+ 6 - YELLOW              "                X                   X
+ 7 - WHITE               "                X                   X
+ 8 - GRAY               High              X
+ 9 - LBLUE               "                X
+10 - LGREEN              "                X
+11 - LCYAN               "                X
+12 - LRED                "                X
+13 - LMAGENTA            "                X
+14 - LYELLOW             "                X
+15 - LWHITE              "                X
+
+The COLORs are defined as CONSTANT in the DFRAME.INC file so you may use
+either the actual color number, it's name or an INTEGER variable of your own
+choosing when CALLing the DIS.PLAY subroutine.
+
+
+DOORFRAME v4.5 - Users Guide - Page 9
+
+
+                              CONFIGURATION FILE
+                              ==================
+
+The format of the configuration file used by Doors created with DoorFrame is:
+
+C:\PCB\PCBOARD.SYS              <- For PCBoard systems using PCBOARD.SYS only
+C|\PCB\USERS.SYS                <- For PCBoard systems using USERS.SYS
+C:\BBS\CALLINFO.BBS             <- For Wildcat! systems (prior to v3.0)
+C:\BBS\GTUSER.BBS               <- For GT Power systems
+C:\BBS\USERINFO.DAT             <- For Wildcat! 3.x+ systems.
+C:\BBS\DOOR.SYS                 <- For systems that support DOOR.SYS
+C:\BBS\DORINFOx.DEF             <- For QBBS/RBBS/RA. Replace x with Node #.
+C:\BBS\SFDOORS.DAT              <- For Spitfire systems.
+C:\BBS\TRIBBS.SYS               <- For TriBBS systems.
+MicroNet                        <- BBS name
+Ted                             <- Sysop's first name
+Freeman                         <- Sysop's last name
+  .                             <- The Configuration file is left open as #1
+  .                                so you may add whatever is necessary.
+
+NOTE: See Miscellaneous Notes for info on using Environment Variables.
+
+NOTE: There are 2 additional lines necessary when using GTUSER.BBS. Since
+      this file does not provide the ComPort% and NodeNum% variables, advise
+      your Door users to add them to this .CFG file on lines 5 and 6
+      respectively. Both variables will default to 1.
+
+
+DOORFRAME v4.5 - Users Guide - Page 10
+
+                  VARIABLES AVAILABLE WHEN USING PCBOARD.SYS
+                  ==========================================
+
+        ALLOWEDBYTES&             Allowed D/L bytes from the PWRD file.
+                                  This number has already been multipled
+                                  by 1024 so it will be in actual bytes
+                                  rather than Kilobytes allowed.
+      * BAUDCONN$                 Connect rate of caller or "LOCAL"
+      * BAUDOPEN$                 Port opening BPS
+      * BBSSYS$                   Name of the BBS
+        CALLALARM%                Caller alarm status.     -1=ON, 0=OFF
+      * CALLERSLOC$               Location of CALLERSx log
+        CHATSTATUS$               Chat mode status. "U" or "A"
+      * CITY$                     Callers city and state
+      * CNAMESLOC$                Location of CNAMES
+      * COMPORT%                  COM port number
+        CONFREG$                  Conferences registered in
+        DISPLAY%                  Local display status.    -1=ON, 0=OFF
+        DOWNLOADS&                Number of downloads made
+      * ECC%                      Error corrected connect.  1=YES, 0=NO
+        EXENAME$                  Name of .EXE (Programmer supplied)
+        EXPERT$                   Expert mode - "Y" or "N"
+        EXPIRE$                   Callers expiration date
+      * FIRST$                    Callers first name
+        GRAPHICS%                 Graphics mode status.    -1=ON, 0=OFF
+                                  Determines if the caller is ANSI compatible
+                                  If your door requires the use of cursor
+                                  positioning and GRAPHICS% = 0 then you
+                                  should kick him back out of the door.
+      * HPHONE$                   Callers home phone number
+      * LASTON$                   Date caller last logged on (MM-DD-YY)
+        LEVEL&                    Callers security level
+      * LOCALUSR%                 -1 = LOCAL mode, 0 = Online
+      * LOGONHRS$                 Time caller logged on in HH:MM format
+      * LOGONMINS%                Time caller logged on in minutes
+        MODE%                     0 = Non-color, -1 = color is on. Default
+                                  is the BBS setting. You may force color
+                                  by setting this to -1.
+      * NAME$                     Callers full name
+      * NETWORK%                  1 = BBS is networked, 0 = no network
+      * NODENUM%                  Node number
+        OWNER$                    Name DoorFrame is registered to (if any).
+        PASSWORD$                 Password of caller
+        PAGEBELL%                 Page bell status.        -1=ON, 0=OFF
+        PAGELEN%                  Callers page length
+      * PCBDAT$                   Location of PCBOARD.DAT
+      * PCBOARD%                  1 = PCBoard, 0 = non-PCBoard
+        PRINTER%                  Printer status.          -1=ON, 0=OFF
+        PROGNAME$                 Name of DOOR (Programmer supplied)
+        PROTOCOL$                 Caller's default protocol (Z, X, etc.)
+        RESPONSE$                 Returned after a CALL to IN.PUT
+        SERIAL$                   Your DoorFrame serial #. String variable.
+      * SYSLOC$                   Location of system file. This contains the
+                                  path/filename of line 1 in the .CFG file.
+      * SYSOP%                    1 = SYSOP is using DOOR, 0 otherwise
+      * SYSOPFIRST$               Sysops first name
+
+
+DOORFRAME v4.5 - Users Guide - Page 11
+
+
+        SYSOPFLAG$                " ", "N"=Sysop Next, "X"=Exit to DOS
+      * SYSOPLAST$                Sysops last name
+      * SYSOPNAME$                Sysops first and last names
+        TIMEADJUST%               Use to adjust the callers remaining time
+                                  online. This variable adjusts the ELAPSED
+                                  time so if you wish to decrease his time,
+                                  give this a positive value.
+      * TIMEALWD%                 Minutes caller is allowed
+      * TIMELEFT%                 Time caller has left in minutes. Doorframe
+                                  calculates this so changing it has no effect
+      * TIMENOW%                  Current time in minutes (0 - 1440)
+      * TIMESON%                  Number of times on system
+        TIMEOUT%                  Programmer supplied keyboard timeout. 
+                                  Defaults to 300 (5 mins) if not specified. 
+                                  Has a minimum of 60 seconds. Maximum is 
+                                  32,767 since it's an integer.
+      * TIMEUSED%                 Time used so far today in minutes
+        UPLOADS&                  Number of uploads made
+      * USERCOMMENT$              User maintained comment
+      * USERSLOC$                 Location of USERS file
+      * USERNUM%                  Record number of caller
+        VERSION$                  DOOR version # (Programmer supplied)
+      * WPHONE$                   Callers work phone number
+
+NOTES: Variables marked with '*' are provided for information only.
+
+
+DOORFRAME v4.5 - Users Guide - Page 12
+
+
+                   VARIABLES AVAILABLE WHEN USING USERS.SYS
+                   ========================================
+
+        When using USERS.SYS, all variables contained in PCBOARD.SYS may
+        be used plus the following additional variables.
+
+        DAILYDNLDBYTES&          Bytes downloaded so far today.
+        DELETEFLAG%              1 = delete this record, 0 = keep
+        EXPIREDLEVEL&            Expired Security level
+        LASTCONF%                Conference number last in.
+        LASTTIMEON$              Last time caller was on
+        MSGS.LEFT%               Number of messages posted
+        MSGS.READ%               Number of messages read
+        PCB.VERSION%             PCBoard version number (i.e. 1450)
+        TOTDNLDBYTES&            Total number of BYTES downloaded
+        TOTUPLDBYTES&            Total number of BYTES uploaded
+
+NOTES: These variables are all passed back to PCBoard.
+
+
+DOORFRAME v4.5 - Users Guide - Page 13
+
+                    VARIABLES AVAILABLE WHEN USING DOOR.SYS
+                    =======================================
+
+    !   ALIAS$                    Callers alias/handle
+    ! * ANSISUPPORT$              Caller supports ANSI but in NG mode
+      * BAUDCONN$                 Connect rate of caller or "LOCAL"
+      * BAUDOPEN$                 Port opening BPS
+    ! * BBSCOLOR%                 BBS default color code (1-15)
+      * BBSSYS$                   Name of the BBS
+        BIRTHDATE$                Callers date of birth
+        CALLALARM%                Caller alarm status.     -1=ON, 0=OFF
+      * CITY$                     Callers city and state
+      * COMPORT%                  COM port number (0 - 15).
+        CONFREG$                  Conferences registered in
+        DAILY.BYTES.ALWD&         Daily download max. K limit
+        DISPLAY%                  Local display status.    -1=ON, 0=OFF
+    !   DOORS.OPENED%             Number of Doors caller has opened
+        DOWNLOADS&                Number of downloads made
+    ! * ECC%                      Error corrected connect.  1=YES, 0=NO
+        EXENAME$                  Name of .EXE (Programmer supplied)
+        EXFROM%                   Conference exited to Door from.
+        EXPERT$                   Expert mode - "Y" or "N"
+        EXPIRE$                   Callers expiration date
+    ! * EVENT$                    Event time (hh:mm)
+        GRAPHICS%                 Graphics mode status.    -1=ON, 0=OFF
+                                  Determines if the caller is ANSI compatible
+                                  If your door requires the use of cursor
+                                  positioning and GRAPHICS% = 0 then you
+                                  should kick him back out of the door.
+      * HPHONE$                   Callers home phone number
+      * LASTON$                   Date caller last logged on (MM-DD-YY)
+    !   LASTSCAN$                 Date of last directory/new files scan.
+        LEVEL&                    Callers security level
+      * LOCALUSR%                 -1 = LOCAL mode, 0 = Online
+      * LOGONHRS$                 Time caller logged on in HH:MM format
+      * LOGONMINS%                Time caller logged on in minutes
+    !   MAX.FILES%                Maximum daily files available
+    !   MINSCREDIT%               Time credits in minutes
+        MODE%                     0 = Non-color, -1 = color is on. Default
+                                  is the BBS setting. You may force color
+                                  by setting this to -1.
+    !   MSGS.LEFT%                Total messages left
+      * NAME$                     Callers full name
+    ! * NETWORK%                  1 = BBS is networked, 0 = no network
+      * NODENUM%                  Node number
+        DLTODAY&                  Files downloaded so far today
+        OWNER$                    Name DoorFrame is registered to (if any).
+        PAGEBELL%                 Page bell status.        -1=ON, 0=OFF
+        PAGELEN%                  Callers page length
+      * PARITY%                   Parity (word length?) (7 or 8)
+        PASSWORD$                 Password of caller
+      * PATHGEN$                  Path to the GEN directory
+      * PATHMAIN$                 Path to the MAIN directory
+        PRINTER%                  Printer status.          -1=ON, 0=OFF
+        PROGNAME$                 Name of DOOR (Programmer supplied)
+        PROTOCOL$                 Callers default protocol (Z, X, etc)
+        RESPONSE$                 Returned after a CALL to IN.PUT
+
+
+DOORFRAME v4.5 - Users Guide - Page 14
+
+
+        SECREM$                   Number of seconds remaining this call.
+        SERIAL$                   Your DoorFrame serial #. String variable.
+      * SYSLOC$                   Location of system file. This contains the
+                                  path/filename of line 1 in the .CFG file.
+      * SYSOP%                    1 = SYSOP is using DOOR, 0 otherwise
+      * SYSOPFIRST$               Sysops first name
+      * SYSOPLAST$                Sysops last name
+      * SYSOPNAME$                Sysops first and last names
+        TIMEADJUST%               Use to adjust the callers remaining time
+                                  online. This variable adjusts the ELAPSED
+                                  time so if you wish to decrease his time,
+                                  give this a positive value.
+    ! * TIMELASTCALL$             Time of last call (hh:mm)
+      * TIMELEFT%                 Time caller has left in minutes. Doorframe
+                                  calculates this so changing it has no effect
+      * TIMENOW%                  Current time in minutes (0 - 1440)
+        TIMEOUT%                  Programmer supplied. Defaults to 5 mins if
+                                  not specified. Has a minimum of one min.
+                                  No limit on maximum. 
+      * TIMESON%                  Number of times on system
+      * TIMEUSED%                 Time used so far today in minutes
+        TOTAL.BYTES.TODAY&        Daily download K total
+    !   TOTAL.KB.DL&              Total K bytes downloaded
+    !   TOTAL.KB.UL&              Total K bytes uploaded
+        UPLOADS&                  Number of uploads made
+    ! * USERCOMMENT$              User maintained comment
+      * USERNUM%                  Record number of caller
+        VERSION$                  DOOR version # (Programmer supplied)
+      * WPHONE$                   Callers work phone number
+NOTES: Variables marked with '*' are provided for information only.
+       Variables marked with '!' are available only in the 52 line version.
+
+
+DOORFRAME v4.5 - Users Guide - Page 15
+
+
+                  VARIABLES AVAILABLE WHEN USING USERINFO.DAT
+                  ===========================================
+
+      * ACTIVE.MENU%              0=Main, 1=Msg, 2=File, 3=Sysop
+        ALIAS$                    Callers alias/handle
+      * ANSISUPPORT$              'Y' or 'N' for ANSI enabled.
+        BANKED.TIME%              Banked time. (DLT - MaxLogOn)
+      * BAUDCONN$                 Connect rate of caller or "LOCAL"
+      * COMMAND.LINE$             Started with a CommandLine switch. Y or N.
+      * DATABITS$                 Databits, 7 or 8.
+      * DOOR.LOGOFF$              Y or N. Set to Y if caller logged off from
+                                  inside the door.
+        DOOR.DL&                  Number of files DL'ed in the door.
+        DOOR.KB&                  Downloads in K, add to daily and total bytes
+      * ECC%                      Error corrected connect.  1=YES, 0=NO
+        LASTSCAN$                 Time/date of last new files scan
+      * LOGONTIMEDATE$            Time and date caller logged on to BBS
+      * NAME$                     Callers full name
+        SEC.LEVEL.NAME$           Security level name.
+NOTES: Variables marked with '*' are provided for information only.
+       All other variables are taken from the DOOR.SYS file.
+
+
+                  VARIABLES AVAILABLE WHEN USING DORINFOx.DEF
+                  ===========================================
+
+      * BAUDRATE$                 Baud rate and parity of caller.
+                                  Ex. 2400 BAUD,N,8,1
+                                  NOTE: RBBS adds baud rate of BBS.
+      * BBSSYS$                   Name of the BBS
+      * CITY$                     Callers city and state
+      * COMPORT%                  COM port number (0 - 15).
+        DISPLAY%                  Defaults to -1 (ON).
+      * DORINFO13TH$              13th line available only on RBBS systems.
+        EXENAME$                  Name of .EXE (Programmer supplied)
+      * FIRST$                    Callers first name
+        GRAPHICS%                 Graphics mode status.    -1=ON, 0=OFF
+                                  Determines if the caller is ANSI compatible
+                                  If your door requires the use of cursor
+                                  positioning and GRAPHICS% = 0 then you
+                                  should kick him back out of the door.
+                                  Use DETECT.ANSI to determine this.
+      * LAST$                     Callers last name
+      * LASTON$                   Default 01-01-80 (not provided in DORINFO)
+        LEVEL&                    Callers security level
+      * LOCALUSR%                 -1 = LOCAL mode, 0 = Online
+        MODE%                     0 = Non-color, -1 = color is on. Default
+                                  is the BBS setting. You may force color
+                                  by setting this to -1.
+      * NAME$                     Callers full name
+        NETWORK$                  Network type. DoorFrame reads/writes as is.
+      * NODENUM%                  Number of this Node.
+        OWNER$                    Name DoorFrame is registered to (if any).
+        PROGNAME$                 Name of DOOR (Programmer supplied)
+        RESPONSE$                 Returned after a CALL to IN.PUT
+        SERIAL$                   Your DoorFrame serial #. String variable.
+
+
+DOORFRAME v4.5 - Users Guide - Page 16
+
+      * SYSLOC$                   Location of system file. This contains the
+                                  path/filename of line 1 in the .CFG file.
+      * SYSOP%                    1 = SYSOP is using DOOR, 0 otherwise
+      * SYSOPFIRST$               Sysops first name
+      * SYSOPLAST$                Sysops last name
+      * SYSOPNAME$                Sysops first and last names
+        TIMEADJUST%               Use to adjust the callers remaining time
+                                  online. This variable adjusts the ELAPSED
+                                  time so if you wish to decrease his time,
+                                  give this a positive value.
+      * TIMELEFT%                 Time caller has left in minutes. Doorframe
+                                  calculates this so changing it has no effect
+      * TIMENOW%                  Current time in minutes (0 - 1440)
+        TIMEOUT%                  Programmer supplied. Defaults to 5 mins if
+                                  not specified. Has a minimum of one min.
+                                  No limit on maximum. 
+      * TIMESON%                  Defaults to 1 (Not provided in DORINFO)
+      * TIMEUSED%                 Time used so far today in minutes
+
+NOTES: Variables marked with '*' are provided for information only.
+
+                  VARIABLES AVAILABLE WHEN USING CALLINFO.BBS
+                  ===========================================
+
+      * ALREADYCONNECTED$         "TRUE" or "FALSE"
+      * BAUDCONN$                 Connect rate of caller or "LOCAL"
+      * BBSSYS$                   Name of the BBS
+      * CITY$                     Callers city and state
+      * COMPORT%                  COM port number (0 - 15).
+        CONFREG$                  Conferences registered in (ABCD etc.)
+      * CONSOLE$                  "LOCAL" or "REMOTE"
+        DAILY.BYTES.ALWD&         Daily download max. K limit
+      * DATABITS$                 7 or 8
+        DISPLAY%                  Local display status.    -1=ON, 0=OFF
+      * DOORNUMBER$               BBS number of this door?
+        EXENAME$                  Name of .EXE (Programmer supplied)
+      * ENTERDOOR$                Time caller entered door in HH:MM format.
+      * FIRST$                    Callers first name
+        GRAPHICS%                 Graphics mode status.    -1=ON, 0=OFF
+                                  Determines if the caller is ANSI compatible
+                                  If your door requires the use of cursor
+                                  positioning and GRAPHICS% = 0 then you
+                                  should kick him back out of the door.
+                                  Use DETECT.ANSI to determine this.
+      * LAST$                     Callers last name
+        LASTMSG$                  Last message read
+      * LASTONDATE$               Date and time of last call
+        LEVEL&                    Callers security level
+      * LOCALUSR%                 -1 = LOCAL mode, 0 = Online
+      * LOGONTIMEDATE$            Time and date caller logged on to BBS
+      * LOGONHRS$                 Time caller logged on in HH:MM format
+        MODE%                     0 = Non-color, -1 = color is on. Default
+                                  is the BBS setting. You may force color
+                                  by setting this to -1.
+      * MNP$                      "MNP/ARQ Connection" or "Normal Connection"
+      * NAME$                     Callers full name
+        DLTODAY&                  Files downloaded so far today
+
+
+DOORFRAME v4.5 - Users Guide - Page 17
+
+        OWNER$                    Name DoorFrame is registered to (if any).
+        PASSWORD$                 Password of caller
+        PROGNAME$                 Name of DOOR (Programmer supplied)
+        RESPONSE$                 Returned after a CALL to IN.PUT
+        SERIAL$                   Your DoorFrame serial #. String variable.
+      * SYSLOC$                   Location of system file. This contains the
+                                  path/filename of line 1 in the .CFG file.
+      * SYSOP%                    1 = SYSOP is using DOOR, 0 otherwise
+      * SYSOPFIRST$               Sysops first name
+      * SYSOPLAST$                Sysops last name
+      * SYSOPNAME$                Sysops first and last names
+        TIMEADJUST%               Use to adjust the callers remaining time
+                                  online. This variable adjusts the ELAPSED
+                                  time so if you wish to decrease his time,
+                                  give this a positive value.
+      * TIMELEFT%                 Time caller has left in minutes. Doorframe
+                                  calculates this so changing it has no effect
+      * TIMENOW%                  Current time in minutes (0 - 1440)
+      * TIMEOFF$                  Time caller exited from the door.
+        TIMEOUT%                  Programmer supplied. Defaults to 5 mins if
+                                  not specified. Has a minimum of one min.
+                                  No limit on maximum. 
+      * TIMEUSED%                 Time used so far today in minutes
+      * USERNUM%                  Record number of caller
+
+NOTES: Variables marked with '*' are provided for information only.
+
+
+DOORFRAME v4.5 - Users Guide - Page 18
+
+
+                  VARIABLES AVAILABLE WHEN USING SFDOORS.DAT
+                  ==========================================
+
+        ANSION$                   "TRUE" or "FALSE"
+      * BAUDCONN$                 Connect rate of caller or "LOCAL"
+      * BBSDIR$                   Spitfire's home directory
+      * BBSSYS$                   Name of the BBS
+      * CITY$                     Callers city and state
+      * COMPORT%                  COM port number (0 - 15).
+        DAILY.BYTES.ALLOWED&      Maximum download BYTES per day
+        DISPLAY%                  Local display status.    -1=ON, 0=OFF
+        DLPERDAY&                 Number of downloads allowed per day
+        DLTODAY&                  Number of downloads made today
+        DOWNLOADS&                Number of downloads made
+      * ECC%                      Error corrected connect.  1=YES, 0=NO
+        EXENAME$                  Name of .EXE (Programmer supplied)
+        EXTRATIME&                Number of seconds gained since logon
+      * FIRST$                    Callers first name
+      * FRONTEND$                 "TRUE" or "FALSE" if booted from a
+                                  front end program.
+        GRAPHICS%                 Graphics mode status.    -1=ON, 0=OFF
+                                  Determines if the caller is ANSI compatible
+                                  If your door requires the use of cursor
+                                  positioning and GRAPHICS% = 0 then you
+                                  should kick him back out of the door.
+                                  Use DETECT.ANSI to determine this.
+      * HPHONE$                   Callers home phone number
+      * LAST$                     Callers last name
+        LASTMCONF$                Last message conference
+        LASTFAREA$                Last file area
+        LEVEL&                    Callers security level
+      * LOCALUSR%                 -1 = LOCAL mode, 0 = Online
+      * LOGONHRS$                 Time caller logged on in HH:MM format
+      * LOGONSECS&                Number of seconds since midnight
+                                  when caller logged on to the BBS.
+      * MAXBAUD$                  Maximum baud of the system
+        MODE%                     0 = Non-color, -1 = color is on. Default
+                                  is the BBS setting. You may force color
+                                  by setting this to -1.
+      * NAME$                     Callers full name
+      * NODENUM%                  Number of this Node.
+      * NODTELOCK$                "TRUE" or "FALSE" if configured for
+                                  software data flow control.
+        OWNER$                    Name DoorFrame is registered to (if any).
+        PASSWORD$                 Password of caller
+        PROGNAME$                 Name of DOOR (Programmer supplied)
+        RESPONSE$                 Returned after a CALL to IN.PUT
+      * SECONDS&                  Number of seconds since midnight
+                                  when caller entered the door.
+        SERIAL$                   Your DoorFrame serial #. String variable.
+      * SYSLOC$                   Location of system file. This contains the
+                                  path/filename of line 1 in the .CFG file.
+      * SYSOP%                    1 = SYSOP is using DOOR, 0 otherwise
+
+NOTES: Variables marked with '*' are provided for information only.
+
+
+DOORFRAME v4.5 - Users Guide - Page 19
+
+
+      * SYSOPFIRST$               Sysops first name
+      * SYSOPLAST$                Sysops last name
+      * SYSOPNAME$                Sysops first and last names
+        SYSOPNEXT$                "TRUE" or "FALSE"
+        TIMEADJUST%               Use to adjust the callers remaining time
+                                  online. This variable adjusts the ELAPSED
+                                  time so if you wish to decrease his time,
+                                  give this a positive value.
+      * TIMEALWD%                 Minutes caller is allowed
+      * TIMELEFT%                 Time caller has left in minutes. Doorframe
+                                  calculates this so changing it has no effect
+      * TIMENOW%                  Current time in minutes (0 - 1440)
+        TIMEOUT%                  Programmer supplied. Defaults to 5 mins if
+                                  not specified. Has a minimum of one min.
+                                  No limit on maximum. 
+      * TIMEUSED%                 Time used so far today in minutes
+
+        TOTAL.BYTES.TODAY&        BYTES downloaded so far today
+        TOTAL.KB.DL&              Total K bytes downloaded
+        TOTAL.KB.UL&              Total K bytes uploaded
+        UPLOADS&                  Number of uploads made
+      * USERNUM%                  Record number of caller
+
+NOTES: Variables marked with '*' are provided for information only.
+
+DOORFRAME v4.5 - Users Guide - Page 20
+
+                                MISCELLANEOUS NOTES
+                                ===================
+
+Check DFRAME.INC for an explanation of variables not listed above.
+
+DoorFrame requires DOS 3.x and up since all files are opened in SHARED mode.
+
+When using PCBOARD.SYS, DoorFrame also accesses the USERS file.
+
+When using USERS.SYS, DoorFrame also accesses PCBOARD.SYS, PCBOARD.DAT and the 
+USERS file.
+
+The DOOR.SYS used by DoorFrame is the standard 52 line GAP (tm) file.
+
+The CALLINFO.BBS used by DoorFrame currently contains 36 lines.
+
+Trapping errors
+---------------
+ If you wish to utilize the internal error trapping, insert the following
+ line wherever you wish the trapping to begin. I would suggest putting it
+ right after you call INITIALIZE.
+   ON ERROR GOTO ERR.ROUTINE
+
+ Then at the very end of your program insert the following:
+   ERR.ROUTINE:
+   ERRORS ERR, ERL
+   END
+
+ If ANY Basic error is encountered, it will branch to ERR.ROUTINE and call
+ the ERRORS subroutine. The error will be printed to the screen and written
+ to DFRAME.ERR. Your Door will then exit back to the BBS.
+
+The first few lines of your Door should be:
+   ' $INCLUDE: 'DFRAME.INC'
+   PROGNAME$ = "Name of the Door"
+   VERSION$ = " v1.0"
+   EXENAME$ = "FILENAM"           <- NOTE: Max of 7 letters!
+   TIMEOUT% = 240                 <- Numbers of seconds to wait for keyboard
+                                     activity. 240 will wait for 4 minutes
+                                     then send a Keyboard Timeout msg. and
+                                     exit back to the BBS. Defaults to 300.
+   OWNER$ = "Your Name"           <- For registered DoorFrame users only.
+   SERIAL$ = "99999"              <- DoorFrame will display an EVALUATION
+                                     COPY message until registered.
+   INITIALIZE
+   .
+   .
+   Your code.......
+   .
+   .
+   MAKE.BLT HI.SCORE&            <- If you want one generated.
+   SHOW.BLT                      <- If you want to show it before door closes.
+   EXIT.DOOR "Y"
+
+The configuration filename passed on the command line is OPENed as #1. This
+file is left open so you may read additional lines from the .CNF file. 
+Although it is not absolutely necessary, you should CLOSE #1 somewhere near
+the start of your program.
+
+
+DOORFRAME v4.5 - Users Guide - Page 21
+
+Using SysopKeys%
+----------------
+By setting SysopKeys% = 1 (any point after calling INITIALIZE), you can
+utilize the arrow keys for remote input. This could be used for moving
+highlight bars etc. (see the DFDEMO for an example).  Using the arrow keys
+from remote can present difficulties because the terminal program the caller
+is using may have redefined the arrow keys. Qmodem is a good example. Normally 
+the up arrow in Qmodem activates the scroll back buffer. However, if you switch
+Qmodem into DoorWay mode (ALT =), the arrow keys can be used. I do not know
+if this is possible with other terminals (feedback anyone?).  If you do
+utilize the arrow keys, you would be wise to provide an alternative method
+of input for those callers who cannot use their arrow keys.
+
+In addition, set Sysopkeys% = 1 only when arrow input is required then
+immediately set SysopKeys% = 0 since capital H, K, M, and P are also
+interpreted as arrow keys when SysopKeys% = 1.
+
+Turning off the Status lines.
+-----------------------------
+If for some reason you do not want the 2 Status lines at the bottom of the
+screen to show, you may blank those out at any time with the following.
+
+ No.Status% = 1
+ ClrScrn Black
+
+To turn the Status lines back on just set No.Status% = 0.
+
+Returning control to programmer upon carrier loss
+-------------------------------------------------
+There may be instances where the programmer needs to do some clean-up when
+a loss of carrier occurs before returning to the BBS. There are two variables
+that allow you to do this. After calling INITIALIZE, set Auto.Recycle% = 0.
+If carrier is lost, the variable NoCarrier% is set equal to 1. One way to 
+handle this is to check NoCarrier% after each In.Put, Enter, or More 
+statement. If NoCarrier% = 1, your door will NOT stop for user input. For
+example:
+
+   In.Put 0, 0, 11, 0, 1, "Prompt > ", 10, 1, 1
+   IF NoCarrier% = 1 THEN GOTO HandleIt
+
+If the door was sitting at the In.Put prompt when carrier loss occurred, it
+would immediately come out of it and process the next statement. You must be
+VERY CAREFUL when using this option. Make sure you TEST IT THOROUGHLY!!!
+
+After you have done your clean-up, be sure to call Exit.Door "Y" to terminate
+the door as you normally would.
+
+System.File% Variable
+---------------------
+The value of System.File% will tell you which BBS file is being  used 
+according to the following values:
+
+        1 = PCBOARD.SYS                    6 = DORINFOx.DEF
+        2 = USERS.SYS                      7 = SFDOORS.DAT                    
+        3 = DOOR.SYS                       8 = USERINFO.DAT
+        4 = CALLINFO.BBS                   9 = GTUSER.BBS
+        5 = Not Used                      10 = TRIBBS.SYS
+
+
+DOORFRAME v4.5 - Users Guide - Page 22
+
+Fossil Driver Support
+---------------------
+DoorFrame supports the use of Fossil drivers.  To tell your Door to use the
+Fossil driver instead of the standard COM ports, just put /FD on the command
+line when running the door. For example:
+     MYDOOR MYDOOR.CFG /FD
+indicates that a Fossil driver is present and should be used. If no Fossil
+driver is detected, DoorFrame will print a message to that effect and exit
+the door gracefully.
+
+Environment Variables
+---------------------
+DoorFrame supports COM 1-4 on the standard IRQ's - COM1/COM3 = IRQ4 and
+COM2/COM4 = IRQ3. If you wish to use a non-standard IRQ, add the IRQ
+number after the configuration filename. Let's assume your Door is
+called FOOBAR and you want to use COM1 and IRQ5. The command line
+passed to your Door would be:
+    FOOBAR FOOBAR.CFG /5  or
+    FOOBAR FOOBAR.CFG /%IRQ%  for the environment variable.
+The /5 tells DoorFrame to use IRQ5 rather than the standard IRQ4 that
+is normally used with COM1. No /x parameter is needed for the standard IRQ's.
+
+When specifying the location of the system file on line 1 of the doors .CFG
+file, you may use the environment variables %pcbdrive%, %pcbdir%, %pcbnode%,
+and %wcnodeid%. Some examples:
+ PCBoard: 
+   USERS.SYS in C:\PCB           - %pcbdrive%%pcbdir%\USERS.SYS
+   USERS.SYS in C:\PCB\NODE1     - %pcbdrive%%pcbdir%\NODE%pcbnode%\USERS.SYS
+
+ Wildcat!:
+   USERINFO.DAT in C:\WC\NODE1   - C:\WC\NODE%wcnodeid%
+
+Non-PCBoard systems may use the PCB environment variables by setting them
+in either AUTOEXEC.BAT or in the batch that runs the door. For example:
+ SET PCBDRIVE=C:
+ SET PCBDIR=\BBSDIR
+ SET PCBNODE=1
+
+

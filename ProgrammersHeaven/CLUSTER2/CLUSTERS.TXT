@@ -1,0 +1,164 @@
+                          Clusters V2.0
+
+
++--------------------------------------+
+| First, some background               |
++--------------------------------------+
+
+A "cluster" is smallest unit of disk space that can be allocated to a
+file.  When you format a disk (either a floppy or a hard disk), the
+format program marks off the clusters, and creates a "road map",
+called the file allocation table, (or FAT), that DOS uses to keep
+track of where your files are stored.  In the early days of computers,
+when DOS was designed, hard disk storage was *very* expensive;  no one
+even dreamed of the 1 gigabyte drives we have today.  So, in the
+interest of saving a little room in the operating system, DOS was
+designed so that it can only keep track of about 65,000 clusters in
+the FAT.
+
+The actual number of bytes in a cluster depends on the size of the
+hard disk partition being formatted. Pretend you only know how to cut
+a pie into eight pieces.  If you cut up a 6 inch pie, then cut up a 12
+inch pie, each pie has only eight pieces, but obviously the 12 inch
+pie has bigger pieces.  The same thing happens to hard disks.  The
+clusters on small hard disks have relatively small sizes;  on larger
+hard disks, the clusters may be very big.  For example, on a 200MB
+hard disk, the cluster size is 4K, or 4,096 bytes. On a 1.6 gigabyte
+(1600MB) hard drive, the cluster size is 32K, or eight times as big.
+
+Remember that earlier I said that a cluster is the smallest amount of
+disk space that can be given to a file. Files bigger than the cluster
+size are simply allocated as many clusters as needed to store them.  A
+2Kbyte file, for example, always takes up one cluster.  In our
+examples from just a minute ago, that means that on the 200MB hard
+drive, it is allocated 4K, leaving about 2K unused.  This unused
+portion is called "slack space".  Virtually every file on your hard
+drive will have some slack space, because none of them will neatly fit
+exactly into a multiple of the cluster size of your hard disk.  But on
+a large hard drive, that same small file (2K), is allocated a single
+cluster of 32K of space -- 30K of disk real estate is wasted!
+
+I have been using small files in my examples.  As we all know, some
+files on your system are very large. A large file wastes very little
+disk space, relatively speaking.   On a disk with 32K clusters, a file
+with 2,353,234 bytes (about 2.3MB) will have approximately 72 clusters
+allocated to it, with 26K of slack space in the last one, or a waste
+of about 0.1%.  Not bad.  The trick, though, if figuring out whether
+or not you are making good use of the space on your disk.
+
+
++-------------------------------------------+
+|  What CLUSTERS does                       |
++-------------------------------------------+
+
+The CLUSTERS utility can examine all of the files on a given drive
+hard drive (or a subdirectory), and reports the amount of space
+allocated, space used, and space wasted.  It is a great diagnostic
+tool to see how much of your hard disk is going to waste because of
+the size of it's clusters.  After examining a drive, CLUSTERS can
+optionally show you a list of the directories on the drive, with a
+breakdown done by directory. This information can help you plan how to
+arrange the files and directories in your system if you have more than
+one hard drive or partition.
+
+Using the utility is simple.  Enter the command CLUSTERS at the DOS
+prompt, and tell it which drive you would like to examine.  The
+program then looks at the drive and displays a running total of what
+it's found.  On the main screen, it will display all the possible
+cluster sizes, and how much waste you would have under each one.  The
+cluster size that your hard disk is currently using is highlighted.
+
+
++-------------------------------------------+
+|  What you should have                     |
++-------------------------------------------+
+
+The zip file CLUSTERS2.ZIP should contain the following files:
+
+    CLUSTERS.TXT   -- this file
+    CLUSTERS.EXE   -- the executable program
+    SOURCE.ZIP     -- a zip file that contains the PowerBASIC source
+                      code for clusters.
+
+    SOURCE.ZIP will contain:
+
+       CLUSTER2.BAS  --  The source code for CLUSTERS
+       PB3BOXES.PBL  --  A library of window routines used by CLUSTERS
+       PB3BOXES.BU   +
+       VERTMENU.BU   |
+       BOXMGR.BU     +-- Source for the PB3Boxes Library
+       PB3BOXES.INC  |
+       PB3BOXES.HDR  +
+       PB3BOXES.TXT  --  Readme for same
+
+
++-------------------------------------------+
+|  Legal stuff                              |
++-------------------------------------------+
+
+CLUSTERS and it's associated source code are free for use, but are not
+public domain.  That means that you are free to use, copy and
+distribute CLUSTERS, provided that:
+
+   1) You do not profit from it
+   2) All copyright notices embedded in the source code and executable
+      files remain intact.
+
+Portions of the source code for PB3BOXES are copyright PowerBASIC,
+INC, and are distributed with permission.  All other code remains
+Copyright of Nathan C. Durland III.
+
+
++------------------------------------------------+
+| How do I reduce the waste on my hard drive?    |
++------------------------------------------------+
+
+Setting up a hard disk for use with DOS, Windows, or Windows95 is a
+two stage process.  First, a utility called FDISK is used to create
+partitions on the hard disk.  DOS then assigns a drive letter to each
+partition. Generally speaking, new computers come setup with the hard
+disk configured as one large partition.  The partition is then
+formatted using the FORMAT utility.  Format examines the partition,
+and selects a cluster size based on it's size.
+
+If you discover that your hard drive is wasting a great deal of space
+because it has clusters that are too large, you must reduce the size
+of the partition using FDISK and FORMAT.  Here is a guide for
+partition and cluster sizes:
+
+          Partition size              Cluster size
+             0MB -  128MB               2048 bytes
+           129MB -  256MB               4096 bytes
+           257MB -  512MB               8192 bytes
+           513MB - 1.02GB              16284 bytes
+          1.02GB - 2.04GB             32768 bytes
+
+
++--------------------------------------------------------------------+
+|  Remember:  USING FDISK DESTROYS ALL THE DATA ON YOUR HARD DRIVE.  |
+|  Make sure you have backups before you begin.  Enlist the help of  |
+|  your computer dealer if you are unsure of how to proceed.         |
++--------------------------------------------------------------------+
+
+
+If you find this utility useful, please let me know.  My E-Mail address
+is bdurland@northnet.org, or you can FAX comments to (518) 834-9934.
+
+
++-------------------------------------------+
+|  Legal stuff                              |
++-------------------------------------------+
+
+CLUSTERS and it's associated source code are free for use, but are not
+public domain.  That means that you are free to use, copy and
+distribute CLUSTERS, provided that:
+
+   1) You do not profit from it
+   2) All copyright notices embedded in the source code and executable
+      files remain intact.
+
+Portions of the source code for PB3BOXES are copyright PowerBASIC,
+INC, and are distributed with permission.  All other code remains
+Copyright of Nathan C. Durland III.
+
+

@@ -1,0 +1,181 @@
+
+        Documentation for LOADGIF.OBJ & ERROR.OBJ v1.0
+
+        By Rich Geldreich, August 20, 1993
+
+DESCRIPTION
+
+        LoadGIF  is a fast QB/PDS/VBDOS callable assembly function which
+loads GIF format images onto the screen.
+
+FUNCTION LoadGIF
+
+        Loads a GIF format image file onto a 16 color or 256 color video
+        screen. The following parameters are expected:
+
+        MemPointer  -   Pointer to a block of memory for LoadGIF's use.
+                        Use the LoadGIFMem function to find the amount of
+                        memory required. (I've assembled LoadGIF to require
+                        about 16k of memory.)
+
+        FileOfs     -   Offset and segment of zero terminated GIF filename.
+        FileSeg
+
+        ScrType     -   Set to zero for 16 color modes.
+                        Set to one for mode 13.
+                        Set to two for the "mode x" video modes. (Meant
+                        to be used with Matt Pritchard's MODEX graphics
+                        library, but should work fine with any MODEX
+                        graphics lib.)
+
+        ScrOffset   -   Offset to use when writing to screen memory.
+                        Normally  zero  unless  you  want  to  write  to
+                        another page of video memory. The table below
+                        gives formulas for calculating a page's offset
+                        for common video modes.
+
+        ScrWidth    -   Bytes per line. See table below for screen widths of
+                        various video modes.
+
+        XRes        -   Screen's boundries. A 320x200 screen would be
+        YRes            specified as 319x199, for instance. 640x480 =
+                        639x479, etc.
+
+        X0          -   These coordinates specify a "viewing window" for
+        Y0              the GIF's image. Any points outside of this window
+        X1              will not be plotted. Useful for only displaying part
+        Y1              of the image. This window is clipped to the screen's
+                        boundries.
+
+        XOrg        -   These coordinates specify where the image's upper
+        YOrg            left hand corner will go. Negative values are valid.
+
+        AdapterType -   This parameter selects either an EGA or VGA palette.
+                        0  =  Call the EGA BIOS to set the palette.
+                              (Two bits per RGB component.)
+                        1  =  Call the VGA BIOS to set the palette.
+                              (Six bits per RGB component.)
+
+                        An EGA palette can only be specified for 16 color
+                        modes.
+
+        PalIgnore   -   If this parameter is not zero then the palette in
+                        the GIF file will not be set.
+
+        PalSeg      -   Offset & segment of where the image's palette
+        PalOfs          is to be placed in memory. If you do not wish
+                        to retrieve the image's palette, set PalSeg
+                        to zero.
+
+                        The area of memory  will  be  filled  with  3  *
+                        numcolors  bytes,  where numcolors is the number
+                        of colors stored in the  first image of the GIF.
+                        For instance, a 256 color GIF image requires 768
+                        bytes of memory for palette storage.  If you are
+                        unsure of how many colors a GIF image  contains,
+                        set  aside  the maximum amount (768 bytes) to be
+                        safe.
+
+                        Each byte stored ranges from 0-255. The order
+                        of storage is red, green, then blue.
+
+                        If no global palette existed in the GIF file, no
+                        information will be stored.
+
+        PalColors    -  The LoadGIF function returns the number of colors
+                        the GIF image contained in this variable.
+
+                        If  the  GIF  file  did  not  contain  a  global
+                        palette, then a negative value will be returned.
+                        For instance, if  the  GIF  image  contained  16
+                        colors,  but a global palette did not exist, the
+                        value returned  in  this  variable  will be -16.
+
+        LoadGIF will  return  a  -1  if  any  error  occured.   Call the
+ErrorReport function to locate the source of the error.
+
+        The following chart shows  the  parameters that should be passed
+for various video modes:
+
+    SCREEN #    ScrType     ScrOffset   ScrWidth    XRes    YRes
+    --------    --------    ----------  ---------   -----   -----
+       7           0        Page*8192      40        319     199
+
+       8           0        Page*16384     80        639     199
+
+       9           0        Page*32768     80        639     349
+
+       12          0           n/a         80        639     479
+
+       13          1           n/a        320        319     199
+
+  Mode-X 320x200   1        Page*16000     80        319     199
+
+  Mode-X 320x240   1        Page*19200     80        319     239
+
+  Mode-X 320x400   1        Page*32000     80        319     399
+
+  Mode-X 320x480   1        Page*38400     80        319     479
+
+  Mode-X 360x200   1        Page*18000     90        359     199
+
+  Mode-X 360x240   1        Page*21600     90        359     239
+
+  Mode-X 360x400   1           n/a         90        359     399
+
+  Mode-X 360x480   1           n/a         90        359     479
+
+FUNCTION ErrorReport
+
+        If the ErrorReport function  returns  a  number  from  0-99,   a
+critical  disk error occured(drive not ready,  sector not found,  etc.).
+Error codes above 99 specify  a  DOS error(102=file not found,  103=path
+not found,  etc.   See a DOS reference for a list  of  error  codes  and
+meanings).  Negative error codes specify an internal error:
+
+        -1          -   Encountered end of file before GIF terminator.
+        -2          -   Bad code in GIF file.
+        -3          -   Not a GIF file.
+        -4          -   Too many colors in GIF file for screen.
+        -5          -   Bad image descriptor or GIF too big.
+        -6          -   ScrType parameter is bad. Must be 0, 1 or 2.
+        -7          -   AdapterType parameter is bad or EGA palette
+                        specified for a 256 color VGA mode.
+
+        The ErrorReport function  does  not  clear  the  internal  error
+variable, so this function may be called repeatedly.
+
+FUNCTION LoadGIFMem
+
+        Returns  the  number of pages of memory required by LoadGIF.  (A
+page of memory is 16 bytes long.)
+
+The sample program TEST.BAS will load  a  GIF  image  specified  on  the
+command line onto the VGA's 320x200x256 video mode.
+
+NOTES
+
+        The  LoadGIF  function  was written for my own uses, and was not
+originally intented for public release.   The function is NOT a complete
+implementation of the GIF89a standard.  In other words, the function was
+not designed for general purpose use.  If you want a  full  fledged  GIF
+viewer, grab a copy of VPIC, GDS,  or CSHOW.  LoadGIF is best suited for
+displaying a set of tested, pre-chosen images.
+
+        The LoadGIF function is public domain.  Use as you wish.  I have
+included the complete assembly source code to it, just in case you  wish
+to  study  or  modify it.  Please keep in mind that I did not intend for
+anybody to see this  code,  so  don't  puke  if  you see anything really
+stupid!   Also  beware  that  I  love using self modifying code.  (Don't
+worry, I didn't use any  "unsafe"  self modifying code that gets screwed
+up by the prefetch queue.)
+
+        The file LOADGIF.QLB was linked for QuickBASIC 4.5.  You'll have
+to relink  this  file  for  PDS  or  VBDOS.   The  files LOADGIF.OBJ and
+ERROR.OBJ must be in the quick library.
+
+        Finally,  for  those of you who try to make the LoadGIF function
+callable from a language  other  than  QuickBASIC,  beware that the code
+assumes that SS=DS on entry into the LoadGIF function.  Line #517  takes
+advantage of this.
+

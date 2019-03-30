@@ -1,0 +1,15 @@
+bc calc/o;
+link calc/ex,,nul,baswiz;
+del calc.obj
+bc gdemo/o;
+link gdemo/ex,,nul,baswiz;
+del gdemo.obj
+bc mirrors/o;
+link mirrors/ex,,nul,baswiz;
+del mirrors.obj
+bc term/o;
+link term/ex,,nul,baswiz;
+del term.obj
+bc wdemo/o;
+link wdemo/ex,,nul,baswiz;
+del wdemo.obj

@@ -1,0 +1,36 @@
+
+                                  CLUSTER.BAS
+
+I origionally copied this program from the August 87'(I believe.it's been a
+while since i copied it) issue of Astronomy magazine.
+ CLUSTER.BAS is a program that allows you to create Globular Star Clusters
+and watch them evolve.Simple clusters ,with less than 10 stars,take only a
+few minutes before you see lots of movement.More complex ones may take 15
+or 20 minutes before you see much action.So start off simple at first
+
+ In this archive file you should find:
+CLUSTER.BAS-the program itself
+BASMENU.BAS-a good menu program I found that works great to run any .bas
+            programs from.
+RUN.BAT-I'm diabled and hate to type so by entering RUN you run BASMENU.
+CLUSTER.TXT-This small description.
+You need to have these files,along with BASIC.EXE & BASICA.COM,in the same
+DIR for them to work. I am using a Tandy 1000 & DOS 3.2 to run mine.
+
+ Once you get to the main menu,in CLUSTER.BAS,to get started,pick #2 to
+generate a random pattern of stars.You will be asked how many stars.To see
+fast results pick a low number 1-10. Next enter the density.Again it's
+best to stay low to see more action.10-30%
+You will now find yourself back at the main menu.Choose #8,hit enter and
+AWAY YOU GO.
+ To stop the simulation hit the space bar and follow the instructions to
+go back to the main menu.You can also enter multiple random patterns of
+stars.Such as 5-stars/25%,5-stars/50%,10-stars/90% and then run it.
+
+ There are a couple of bugs in the program.It does do most everything just
+fine. You'll see.I don't know anything about basic programing or I would
+fix the bugs.Someone who knows more probably can.
+
+ Good luck and have fun.         Henry J. BLAIS           9/27/88
+
+

@@ -1,0 +1,11 @@
+The following files are included in the BasUpd package:
+
+   ADD4DOS.BAT        batch file to add 4DOS descriptions of BasUpd files
+   BASUPD.BI          declarations for the BasUpd library
+   BASUPD.DOC         documentation for the BasUpd library
+   BASUPD.LIB         BasUpd LINK library (QB 4.5 version)
+   BASUPD.QLB         BasUpd Quick library (QB 4.5 version)
+   CATALOG.TXT        catalog of other available software
+   FILE_ID.DIZ        description of BasUpd for BBSes
+   PACKING.LST        list of files included with BasUpd (this list)
+   WHERE.BBS          BBSes where you can find the latest Hanlin software

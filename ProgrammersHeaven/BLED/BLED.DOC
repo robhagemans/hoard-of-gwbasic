@@ -1,0 +1,897 @@
+     DOCUMENTATION for BLED version 2.2
+     by Ken Goosens, 5020 Portsmouth Road, Fairfax, VA 22032
+     16 May 1993
+
+     **********************************************************************
+     * BLED is copyrighted by its author.  BLED can be freely distributed *
+     * by non-profit organizations and bulletin boards.  BLED cannot be   *
+     * distributed commercially nor included in any commercial product    *
+     * without the explicit written consent of the author.  Individuals   *
+     * are encouraged to give free copies to other individuals.           *
+     *    All rights to the code are held by the author and any use       *
+     * or modification of the code requires permission of the author.     *
+     **********************************************************************
+
+     BLED is supported by its author.  Individuals are encouraged to report
+     bugs, suggest enhancements, or, preferably, to make improvements to
+     the code available to others through the author.
+
+     BLED should be distributed with the following files:
+
+     BLED.DOC - this file
+     BLED.EXE - compiled, executable code
+     BLED.BAS - program source code
+ 
+     BLED uses assembler subroutines from the fine library ADVBAS by 
+     TOM HANLIN.  The author has paid Tom Hanlin for rights to use his
+     code.
+
+     CONTENTS
+
+     What is BLED
+     What Use is BLED
+     What are the Advantages of BLED
+     New Features of BLED
+     How Does BLED Work
+     How do you Identify Lines
+     Line Number Merging
+     Metacommands
+     How to Invoke BLED
+     How BLED Runs
+     The Major BLED Functions
+     CONFIGURE
+     FILE COMPARE
+     LINE MERGE
+     MERGE
+     Stylistic Considerations
+     How to Recompile BLED
+
+     What is BLED
+
+     BLED is  a Batch Line EDitor.  Editor - because it changes text files.
+     Line - because  it  operates  on  entire  lines  of  text  rather than
+     individual characters  or phrases.  And batch - because the changes to
+     be made are not  specified interactively,  but are  pre-specified in a
+     file describing the changes, which is created outside of BLED.
+
+
+     What Use is BLED?
+
+     BLED is  most useful when different people have to communicate changes
+     to a text file that they jointly maintain.  The typical use of BLED is
+     for producing  modifications to source code for programs.  Interactive
+     Microsoft BASIC has long had  a  MERGE  command  which  functions like
+     BLED.  It  inserts, deletes, and replaces lines based on line numbers.
+     Other public domain programs  would  compare  two  BASIC  programs and
+     produce  a  merge  file  to  convert  one to the other using the merge
+     command.  BLED  is  a  generalized  program  that  combines  these two
+     functions.
+
+
+     What are the Advantages of BLED?
+
+     o    Lines of text do not have to be numbered.
+
+     This means  that BLED  will work with source code that allows lines of
+     code to have no  numbers, including  Mircosoft QuickBASIC,  as well as
+     Pascal and other languages.
+
+     o    Comment lines are supported.
+
+     BLED comment  lines are  completely ignored  when merging.  This means
+     that documentation  can be  included right  inside a  BLED merge file.
+     One of  the disadvantages of the BASIC merge command was that the only
+     type of line possible was BASIC  code,  so  that  documentation  for a
+     merge always had to be included in a separate file.
+
+     o    Logical lines can span multiple physical lines.
+
+     One of  the more  disagreeable features of old BASIC was that a single
+     line of code (i.e. a line beginning with a  number) had  to be  on one
+     physical   line.    Newer   languages   like   QuickBASIC   support  a
+     line-continuation character (e.g the underscore) that  allows the same
+     logical line  to span  multiple physical lines.  This greatly improves
+     the readability of source  code by  allowing grouping  by indentation.
+     BLED recognizes and supports logical lines.
+
+     o    Powerful metacommands for controling merges.
+
+     QuickBasic supports only an INCLUDE of a file, and the the included
+     file cannot contain a SUB.   The BLED include has no such restriction.
+     Micosoft does not support any conditional logic at all.  BLED supports
+     up to 99 metavariables that can be set to any value and IF-THEN-ELSE
+     logic can test these variables for values and do conditional includes.
+ 
+     o    Can be run batch from DOS, or interactively.
+
+     Commands telling  BLED what  to do  can be specified as DOS arguments,
+     and BLED has a batch mode in which it will run without further prompts
+     and return  automatically to  DOS.  BLED will prompt for any arguments
+     it needs which are not specified.
+
+     o    Configurable.
+
+     BLED comes pre-set to  work  with  Microsoft  QuickBASIC,  but  can be
+     configured to work with different languages.
+
+
+     New Features of BLED
+
+     BLED 2.2 has two changes:
+
+        o   BLED works properly with line number labels that are
+            only the prefix of a line label, rather than the entire
+            label.  This allows the merge to work and descriptive
+            labels to be used.  E.g. instead of "12600" can have
+            "12600.LOCK.MESSAGES:".
+
+        o   BLED was not properly detecting the end of a block
+            in some cases, which caused erroneous error message
+            warnings.
+
+     BLED 2.1 has two new changes:
+
+        o   new command line option to remove comments from code
+
+            This allows highly commented code to be reduced in size so
+            that more memory is left for compilation.
+
+        o   maximum number of metavariables increased from 50 to 99.
+
+     BLED 2.0 has one major enhancement and fixes 5 bugs.
+
+        o   Bled now supports metacommands with file includes,
+            conditional logic, and in-line blocks.
+
+        o   The opening help now shows that the warning file
+            name can be specified.
+
+        o   The reported file size for the old version was wrong
+            and actually was the file size of the new version.
+
+        o   The ignore case option for labels in configuration now
+            works properly in the merge option.
+
+        o   The merge option now works properly with LABEL#.
+
+        o   The UP (UPTO) option now works properly in the merge
+            option.
+
+     Note:  BLED 2.0 will no longer compile with versions of Quick
+     Basic earlier than 4.0.
+
+
+     BLED 1.61 adds beeps at the end of a batch run.
+
+     BLED 1.6 fixes 3 bugs.
+
+        o   The main prompt now includes option "F" (file compare) in
+            its short list of valid responses.
+
+        o   When preserving BLED comments, a source BLED comment no
+            longer adds an extra space when converted to a BLED comment
+            in a file compare.
+
+        o   When preserving BLED comments, a merge floats bled comments
+            above the line only when the bled comment is in a continued
+            line instead of always.
+
+     This change allows BLED source comments to a line to be added just
+     above its line number, a BLED file compare to be created, and when the
+     resultant merge is applied, the BLED comments will no longer be one
+     line higher than they should be.  Now the comments will remain in
+     place.
+
+
+                         History of Other Changes
+
+     BLED 1.5 has two major enhancements, some bug fixes, and some
+     cosmetic changes.
+
+        o   A new option to support preserving BLED comments.
+
+     On a merge, BLED comment lines were always eliminated and there
+     was no way to put temporarily comments on changes as source code
+     comments.  Now there is a configuration parameter that will cause
+     BLED comment lines to be converted to a specially formatted source
+     code comment lines in a merge and, conversely, convert these special
+     source code comments to BLED comments when doing a file compare to
+     produce a merge.  This change allows programmers to work with equal
+     fecility with merges or directly on the full program and readily
+     document changes and yet easily remove these temporary comments
+     when the code is put into production.
+
+     Other changes in 1.5 included:
+
+         o   BLED is about 33% faster because it has been recompiled
+             under QUICKBASIC 2.0.
+
+         o   The automatic documentation in a file compare has been
+             enhanced to include the date and file size of the old
+             version of the code so that there is no ambiguity about
+             what version of the code the new merge goes against.
+
+         o   A bug has been fixed that caused the character used for
+             a source code remark not to be read in properly from a
+             configuration file.
+
+         o   A bug has been fixed that caused the maximum number of
+             physical lines allowed in a logical line not to be read
+             in properly from a configuration file.
+
+         o   Status line reports now use a mixture of upper and lower
+             case rather than all upper case.  This improves readability
+             and reserves all upper case words for special emphasis.
+
+         o   When a file is missing and the proper name is entered,
+             the status line is now properly restored.
+
+         o   When the user Quits in interactive mode, the cursor is
+             left at the bottom of the screen rather than in the middle
+             of previous text.
+
+         o   A parameter has been added which was in the code but missing
+             from the documentation.  Other parts of the documentation
+             have been added or made more thorough, including a statement
+             of distribution rights and how to recompile BLED.
+
+     BLED 1.4 had one major change.  Output is now internally buffered.
+     Before, every line was written out immediately.  Now up to 100 lines
+     are held internally before writing.  This dramatically reduces the
+     number of disk i/o's and reduces the head movement, usually making
+     the program faster.  My test showed a 12% improvement with RBBS.
+         The only other change is that the default maximum number of lines
+     between line numbers is now 400 rather than 200.
+
+     BLED 1.3 fixes a bug.  If a line begins with a comment other than in
+     column 1 and ends with a line continuation character (e.g. source code
+     commented out), BLED would get not correctly identify the line as a
+     comment and would get an illegal function call.
+
+     BLED 1.2 has two two features: (1) autodocumenting merge, and (2) test
+     run mode.
+
+     AUTODOCUMENTING.   When you do a file compare to produce a merge, BLED
+     produces a  header on  what files were used to make the merge and date
+     and time stamps the merge.  Also, BLED  produces a  header comment for
+     each change indicating whether the line is being INSERTED, DELETED, or
+     REPLACED (changed).  Also, for replacement lines longer than one line,
+     BLED will insert a comment marking the first different line.
+
+     TEST MODE.   There is a new "T" (for Test) parameter.  This limits the
+     run to a specificed number of logical lines in the  master file.   You
+     will not normally use this parameter.
+
+
+     How Does BLED Work?
+
+     Like a  block editor.   Think of how you would work with a full screen
+     text editor, if you  had to  work from  the top  to the  bottom of the
+     file.  You basically do two things:
+
+     o    Mark a block of lines.
+
+     o    Say what  to do  with the block - either keep, delete, or replace
+          by another block of code; or insert a block of code.
+
+     BLED has a BLOCK command to identify the block of text, followed  by a
+     disposition  command  of  KEEP,  DELETE,  REPLACE, or INSERT.  This is
+     BLED's general MERGE.
+
+
+     How do You Identify Lines?
+
+     You have to specify what blocks of lines you want to work with.  There
+     are three ways.
+
+     o    By physical line number.
+
+     The  absolute  physical  line  numbers are 1,2,3,etc. for each line of
+     text.  Relative lines can also  be  specified,  e.g. from  the current
+     position in the file forward three lines.
+
+     o    By line labels.
+
+     Line labels  are identifiers  or names  for lines.  BLED supports both
+     numeric line labels (it calls  them  label  numbers)  and alphanumeric
+     labels (simply labels).  BLED ASSUMES THAT A LINE LABEL OCCURS ONLY AS
+     THE FIRST WORD ON A LINE.  Some  languages allow  labels to  be put in
+     the  middle  of  a  physical  line,  but  this is bad practice because
+     interior labels are hard to find.
+
+     o    By strings.
+
+     Strings are just sequences of characters that can occur inside lines.
+
+     So, in BLED, a block can be identified as beginning or ending  with an
+     absolute or relative line number, a line label, or a string.  And so a
+     block can be defined as
+
+          the first five lines
+          everything between label-1 and label-2
+          from line 50 to label-1
+          from label-1 to the line with "HELP" in it
+
+
+     Line Number Merging
+
+     BLED also supports  a  more  specialized  merge  much  like  the BASIC
+     merge.  Details  are given  below.   This line merge mode is just like
+     the BASIC merge command except that  logical blocks  of physical lines
+     replace the single physical line, and comment lines are supported.
+
+     BLED  supports   the  specialized   line  number   merge  because  the
+     assumptions  greatly  simplify  the  merge  files.   No  special  BLED
+     commands are required:  no blocks, no block dispositions.  To insert a
+     line, just give it a line  number between  the original  line numbers.
+     To delete,  put only  the line  number in the merge file.  To replace,
+     use the same line number.
+
+     The BLED line number merge treats all lines between line  numbers as a
+     single block,  i.e. as  if they  are one  single logical line, even if
+     they are multiple physical  and logical  lines.   For example,  in the
+     BASIC code
+
+               200 X = X+1
+                   IF X>5 THEN_
+                     Y=0
+               210 Y = Y+1
+
+     you might  think that  you could  delete the  first line 200 by having
+     "200" alone in the merge.   In fact,  the first  three lines  would be
+     deleted rather than the first only.
+
+
+     Metacommands
+
+     Metacommands are instructions to BLED which control its merge rather
+     than being lines that are included in the merge.  A bled metacommand
+     begins with the documentation character (default of '*') followed
+     by the dollar sign '$'.   There are 4 metacommands:
+
+     (1)  SET.  Used to set the value of a bled metavariable.
+
+     The format is
+                    SET <metavariable> = <value>
+
+     For example, to set the metavariable 'ML' to 'OFF' the BLED line is
+
+                        *$ SET ML = OFF
+
+     (2)  INCLUDE.  Used to switch the lines being processed to another
+          file.
+
+     After the second file is processed, processing resumes in the original
+     file.   This way bled merges can be shared between different merges.
+     For example, if the file COM.INC has some code common to two modules,
+     rather than duplicate the code twice, and include can be used to
+     generate the full code from a bled merge.   The format is
+
+                           INCLUDE <filename>
+
+     An example is
+
+                      *$ INCLUDE C:\CCODE\COM.INC
+
+     (3)  IF-THEN-ELSE.  Used to do conditional includes.
+
+     The format is
+
+     IF <metavar> = <value> THEN <meta expression> ELSE <meta expression>
+
+     The ELSE condition is not required but will generate a warning when
+     the if-condition is false.
+
+     An example is
+
+        *$ IF ML = OFF THEN INCLUDE NOML.INC ELSE INCLUDE ML.INC
+
+     The <meta expression> can be a SET or an INCLUDE.
+
+     (4)  BLOCK IF-THEN-ELSE.  Used to do conditional logic.
+
+     BLOCK IFs allow entire blocks of in-line merges to be conditionally
+     included.   This is the only metacommand than can be on more than
+     one physical line.   The format is
+
+                    IF <metavar> = <value> THEN BLOCK
+                       ....     (antecedent block)
+                    ELSE
+                       ....     (consequent block)
+                    END IF
+
+     If it is true that <metavar> = <value> then the antecdent block
+     will be executed and the consequent block skipped.   If it is
+     false, the antecdent block will be skipped and the consequent
+     block be processed.
+
+     The antecdent and consequent blocks cannot contain a BLOCK IF,
+     but they can contain other metexpressions or regular code to be
+     merged.   For example, the code
+
+             *$ IF ML = ON THEN BLOCK
+                   100 X = INP(Y)
+                   110 GOTO 50
+             *$ ELSE
+                   100 RETURN
+                   105
+                   110
+             *$ END IF
+
+    would conditionally process one block or the other depending on the
+    value of ML.   If file MLON has in it the antecdent block and MLOFF
+    has the consequent block, the same effect could be achieved using
+ 
+              *$ IF ML = ON THEN INCLUDE MLON ELSE INCLUDE MLOFF
+
+    or
+
+             *$ IF ML = ON THEN BLOCK
+             *$    INCLUDE MLON
+             *$ ELSE
+             *$    INCLUDE MLOFF
+             *$ END IF
+
+     BLED is effect is a batch "make" utility for creating source code.
+     Using metacommands, a person can in effect select a customized
+     version of code, to reduce execution size.   Typically the
+     metavariables will be set at the top of a BLED merge and then
+     conditional logic controls what code is included.   For example,
+
+       *  Change ML to OFF if you are not using Multi-link.
+       *$ SET ML = ON
+       *  Change MULTIUSER to OFF if you are running single-user
+       *$ SET MULTIUSER = ON
+       *$ IF ML = ON THEN INCLUDE ML.INC ELSE INCLUDE ML.LIT
+       *$ IF MULTIUSER = ON THEN INCLUDE MU.INC ELSE INCLUDE MU.LIT
+
+     Current restrictions on BLED metacommands are:
+
+     (1)  At most 99 metavariables can be set.
+
+     (2)  An INCLUDE file cannot include another INCLUDE file, except
+          at the very end (chaining one include after another is okay).
+
+     (3)  Each metacommand must be on a single line, except for the
+          BLOCK IF structure.
+
+     (4)  Values of metavariables must be a single word with no blanks.
+
+
+     How to Invoke BLED
+
+     BLED is invoked at DOS by typing
+
+         BLED[/options] [spec-1] [spec-2] [spec-3] [spec-4] [spec-5]
+         where a spec has the format [drive:][\path\][filename]
+
+     Everything in  brackets is  optional and  may be omitted.  The options
+     after BLED are
+          /B   -    run batch.  Means to ask no questions and automatically
+                    return  to  DOS  when  done.   Must be used with one of
+                    following options and requires first three specs.
+
+          /F   -    file compare.  Means to produce a merge file which will
+                    transform spec-1  (old version) into spec-2.  Output is
+                    spec-3.
+
+          /L   -    line number merge.  Do a  merge of  spec-2 into spec-1,
+                    based  on   line  number  identifiers  in  both  files,
+                    outputting to spec-3.
+
+          /M   -    general merge based  on  BLED  commands.    Into spec-1
+                    merge spec-2, producing spec-3.
+
+          /T=XXX -  test mode.  Do not process all line from master (first)
+                    file.  Instead, end the  run  after  processing  XXX (a
+                    number)  of  logical  lines  in  the master file.  Used
+                    mainly for testing BLED.  So you can  run against large
+                    real files without having to create smaller samples.
+
+         /RC  -    Remove comments.  No comment lines will be written out
+                   except those containing QuickBasic metacommand to include
+                   a file ("$INCLUDE").  Lines beginning with "REM" or
+                   "'" will be omitted, and comments on the ends of lines
+                   will also be removed.
+
+     Note:  /F,/L,/M  options  are  incompatible  and  at  most  one can be
+     specified.  BLED checks  for consistency  and required  parameters and
+     will abort  with an  error message  and help.  Optional parameters not
+     specified at DOS are supplied using full screen prompts.
+
+     Spec-4 is used when you want to override the default warning file name
+     (WARNING is the default configuration value).  BLED keeps appending to
+     the warning file as long as you continue to run within it.   Each time
+     you reenter  BLED from  DOS, however,  BLED will begin overwriting the
+     warning file.  The override is useful if you want to preserve previous
+     warning files.
+
+     Spec-5  is  for  overriding  the  default  configuration  file name of
+     BLED.CFG.
+
+     Note:  the meaning of the first three file specs is different  for the
+     /F option.  Merges mean
+
+               [source file]  [merges]   [source+merge]
+
+     But for the /F option the specs mean
+
+               [old version]  [new version]  [merges]
+
+
+     How BLED Runs
+
+     BLED makes  a single pass through the original file, doing comparisons
+     to the second file.  Therefor all references to line  labels should be
+     in the  same order they occur in the original file.  BLED gives an on-
+     screen status report of what it is doing,  the files  it is  using, as
+     well as  counts of  the number  of records  it reads and writes at the
+     bottom of the screen.
+
+     The Major BLED Functions
+
+     The four major BLED functions are
+
+     o    CONFIGURE.  General configuration parameters.
+
+     o    FILE COMPARE.  Create a merge file.
+
+     o    LINE MERGE.  Merge based on line number labels.
+
+     o    MERGE.  Merge using explicit  BLED  block  and  block disposition
+          commands.
+
+     The main menu in BLED uses the first letter of each choice.
+
+
+     CONFIGURE
+
+     BLED  has  10  configuration  parameters,  which  are  stored  in  the
+     configuration file BLED.CFG.   If no  configuration file  exists, BLED
+     uses as a default parameters suitable for QuickBASIC.
+
+     (1)  Default extension for source files.  If no extension is given for
+          source files, BLED will  add this.   Default  for this  option is
+          BAS.  Source files include spec-1, and also spec-3 for merges and
+          spec-2 for file compares.
+
+     (2)  Default extension for changes to  source.    If  no  extension is
+          given for this file, BLED will add this.  Default for this option
+          is MRG.  In merges, this  applies to  spec-2.   In file compares,
+          this applies to spec-3.
+
+     (3)  Character using to begin remarks in source.  Default character is
+          the single quote (').    When  looking  for  a  line continuation
+          character at  the end  of a line, BLED will ignore all text after
+          the remark character.
+
+     (4)  BLED phrase indicating end of  block.    Used  with  INSERT BLOCK
+          command.   What follows is a block of code to be inserted.  Tells
+          BLED where the code ends.
+
+     (5)  Character beginning a line  of  BLED  documentation.    BLED will
+          completely  ignore  a  line  beginning  with  this character when
+          merging.  Allows comments or documentation  to be  included right
+          in a merge file to explain changes.  The character need not be in
+          column 1 - only the first non-blank character.   Default  is "*".
+          The  documentation  character  should  never  occur  as the first
+          character in your source text.
+
+     (6)  Character at end of  every alphanumeric  label.   Default is ":".
+          BLED assumes  that line  labels occur only as the first word in a
+          line.  Leading spaces are ignored,  so that  labels can  begin in
+          any column.   This label character is used by BLED to help locate
+          labels.  When specifying blocks in a BLED  command, you  need not
+          include the  end-character.   BLED knows,  for example, what when
+          you say "LABEL LOOPER" that "LOOPER:" is what  actually occurs in
+          the source code.
+
+     (7)  Character beginning  BLED commands.   Default  is none.  BLED can
+          distinguish its commands from source code lines by when a command
+          is needed and by key phrase.  If confusion might result, however,
+          you can specify that  BLED commands  begin with  a character that
+          will never  occur at  the beginning  of a  line of  text, such as
+          possibly "$" or "-".
+
+     (8)  Whether case is ignored in alphanumeric labels.   Default is yes,
+          so that "looper" and "LOOPER" are treated as the same.
+
+     (9)  Line continuation  character.  One way for a logical line to span
+          multiple physical lines is to insert a special  line continuation
+          character at  the end  of a  line that logically continues on the
+          following line.  Default is  "_"  (underscore).    May  differ in
+          languages other  than QuickBASIC.   Many other freeform languages
+          use  a  statement  terminator   character.      Fortran   puts  a
+          continuation  character  in  column  6, which is not supported by
+          BLED.  (BLED can still work on FORTRAN files though.)
+
+     (10) File that warning messages  are written  to.   From the  time you
+          enter BLED  until you  exit DOS,  BLED may issue warning messages
+          based on its  file  comparison  or  merge.    These  messages are
+          written to  this file  for perusal  later.  This way BLED can run
+          completely batch with no  loss of  information.   You can nullify
+          these  messages  by  making  the  file "NUL:" or send them to the
+          screen using  "SCRN:".   BLED will  report the  number of warning
+          messages during  its operation.   Sending  messages to the screen
+          will interfere with BLED's normal report  of its  progress on the
+          screen.  The default name for this warning is "WARNING".
+
+     (11) Maximum number of physical lines in a logical line.  There are
+          several functions that require BLED to hold an entire logical
+          line in memory before it can decide what to do with the line.
+          For example, a file compare requires BLED to determine whether
+          there has been any change anywhere in common line numbers.
+          There are only so many physical lines that BLED can hold in
+          memory from a master or transaction file.  The default is 400.
+          This parameter allows the user to increase that number.
+
+     (12) Preserve BLED comment lines.  It is important to be able to
+          append notes to source code to explain changes.  These can
+          be left permanently in the code by making them source code
+          comments.  But often it is desired to leave comments in the
+          text only temporily.  The only facility for doing this in
+          versions of BLED prior to 1.5 was to include special BLED
+          comment lines in a merge file which would be stripped out when
+          a merge was done.
+              For people who prefer to work with the full
+          source code rather than merges, and then to do a BLED file
+          compare against the original version to produce a BLED merge,
+          the explanations of changes got stripped and there was no good
+          way to add in temporary comments while making changes.  The
+          parameter to preserve BLED comment lines remedies these problems.
+          It will cause BLED comment lines to be kept as a specially formatted
+          source code comment in a merge.  The BLED comment lines will be
+          "floated" up to the top of the line number and the BLED comment
+          symbol (* by default) will be replaced by the source code comment
+          symbol (' by default) followed by "<" with the BLED comment symbol
+          followed by ">".  For example, "* Corrects spelling of VARIABLE"
+          becomes "'<*> Corrects spelling of VARIABLE".
+              Conversely, this parameter will cause source code comments in
+          the proper format to be converted to BLED comment lines in a
+          file compare that produces a merge.  This allows programmers who
+          work directly with the full source to insert temporary comments.
+          For example, "'<*> Moved here from line 830" becomes "* Moved here
+          from line 830".  By running this BLED generated merge with this
+          option off, so that BLED comment lines are stripped, the temporary
+          commentary goes deleted.
+              The default for this parameter is "N", so that persons desiring
+          to preserve BLED comments must edit and save the configuration.
+
+          
+     FILE COMPARE
+
+     The function  of this module is to produce a BLED merge file that will
+     convert an old version of a file to a new, modified version.  All that
+     is in the merge are the necessary changes.  This is a very complex and
+     difficult programming task which is only partially implemented  in the
+     current version.   The  file comparison will only work for source with
+     line number labels.  Essentially,  the  assumption  is  that  the line
+     number labels  are ordered  from low  to high  in both versions of the
+     file.  A comparison utility must  have  some  way  to  identify lines.
+     Ideally, this  constraint should  be relaxed  to apply to alphanumeric
+     labels with no assumptions about order.  Please send me  your ideas or
+     code changes  if you  think you  can solve this problem.  So, the ONLY
+     TYPE OF MERGE FILE THAT FILE COMPARISON WILL  PRODUCE IS  ONE FOR LINE
+     MERGING, and not for general merging.
+
+     Operationally, this  means that  if you  are not using line numbers in
+     your source code, you should make  your  code  changes  directly  in a
+     merge file, and apply the merge file to produce the modified code.  If
+     you directly change the old version, there will  be no  way to isolate
+     just the changes later.
+
+     NOTE: the BLED file compare is NOT A GENERAL FILE COMPARE.  General
+     file compares, like the DOS utility, compare two files by relative
+     byte position with a file.  BLED does a logical line by logical
+     line compare.  Apply the BLED file compare ONLY TO COMPILEABLE SOURCE
+     CODE, otherwise the result will be unpredictable.
+
+
+     LINE MERGE
+
+     This  option  is  a  generalization  of  the BASIC merge command.  The
+     assumptions are that
+
+     o    the lines of code are numbered at the beginning of a line.
+
+     o    Physical lines of text are to be blocked from a line number up to
+          the next  line number.  The merge operates only on such blocks as
+          a unit.
+
+     o    The line numbers are ordered from low to high in  both the source
+          and merge file.
+
+     o    Lines in  the source  not in the merge file are to be kept, lines
+          in the merge not in the source are to be  inserted, and  lines in
+          both are  to be  replaced by  the line  (i.e. block) in the merge
+          file.
+
+     o    Lines in the merge file with only a line number are to be deleted
+          from the source file.
+
+     o    The merge maintains the low to high line number order.
+
+
+     MERGE
+
+     The general  merge in  BLED allows  merges even when there are no line
+     numbers.  The BLED  commands are  BLOCK, INSERT,  DELETE, REPLACE, and
+     KEEP.  Each of these commands can be abbreviated by their first letter
+     (e.g "B FROM LINE 1 TO LINE 5" means "BLOCK FROM LINE  1 TO  LINE 5").
+     The syntax is
+
+     BLOCK [FROM] [linetype] lineid [TO/UPTO/THRU] [linetype] lineid
+     [block disposition] [lineid]
+
+     where [linetype] is LINE/LABEL/LABEL#/STRING.
+
+     The BLOCK  command is  for marking  a block of text in the source file
+     (spec-1).  It must specify where the block begins and ends.  The first
+     three phrases  after BLOCK  identify the beginning, the last three the
+     end.   All phrases  enclosed in  brackets are  optional.   LINE is the
+     default linetype if none is specified.
+
+     Linetype has four options.
+
+     o    LINE means the physical line number, either absolute or relative.
+
+     The lineid  distinguishes the two.  Absolute line numbers are positive
+     integers, relative line numbers  are  "*+n",  where  n  is  a positive
+     integer.
+
+     o    LABEL means an alphanumeric label.
+
+     o    LABEL# means a numeric line label (a positive integer).
+
+     o    STRING means a string of characters.
+
+     LABELS must be the first word on a line, STRINGS can occur anywhere in
+     a line.
+
+     Lineid matches with the  linetype.   LABEL and  STRING require  a word
+     with any  characters.   LABEL# requires  a positive integer.  And line
+     requires either a positive  integer, or  the string  "*+" to  mean the
+     current line  in the  text file  plus" a  positive number, or the word
+     "END" to indicate thru the end of file.
+
+     The phrase TO and UPTO are  equivalent.    They  mean  up  to  but not
+     including.    The  phrase  THRU  means  up  to and include.  TO is the
+     default if no phrase is specified.
+
+     There are  three block  dispositions: KEEP/DELETE/REPLACE.   They tell
+     BLED what  to do  with a  defined block  and therefor  make sense only
+     after a BLOCK command.  DELETE deletes the block, KEEP keeps it.
+
+          REPLACE [BLOCK/n]
+
+     This replaces a defined block with  another.   The "n"  means that the
+     next n  physical lines  go in  place of  the defined block.  And BLOCK
+     means that all following lines up  to  the  end-block  phrase  are the
+     replacements.
+
+     Another BLED command is to insert new lines.
+
+          INSERT [BLOCK/n]
+
+     This means  to insert  a block of lines at the current position in the
+     source file, i.e. just  before the  current line  that has  been read.
+     The "n"  means to  insert the  following n  physical lines.  The BLOCK
+     means to take all following lines up to the end-block phrase.
+
+     EXAMPLES
+
+        (SOURCE)                           (MERGES)
+     CALL INITIALIZE              BLOCK FROM LINE 1 TO STRING OPENFILES
+     GOSUB OPENFILES              REPLACE 1
+     LOOPER:                      CALL HELP
+     IF X=1 THEN GOTO ALLDONE:    BLOCK FROM LINE * THRU LABEL ALLDONE 
+     X = X+1                      KEEP
+     GOTO LOOPER                  INSERT BLOCK
+     ALLDONE:                     CLOSE
+     END                          ENDBLOCK
+                      (RESULT)
+                   CALL HELP
+                   GOSUB OPENFILES
+                   LOOPER:
+                   IF X=1 THEN GOTO ALLDONE:
+                   X = X+1
+                   GOTO LOOPER
+                   ALLDONE:
+                   CLOSE
+                   END
+
+              (SOURCE)                    (LINE MERGE)
+     110 IF GOT.COMMAND THEN_     115 NO.HELP = -1
+           IF NO.HELP THEN_       150 IF HELPFUL THEN_
+             PRINT "SORRY"              WHILE X>5 AND NOT EOF(2):_
+     120 GOSUB CHKFILES                   GOSUB CHECKER:_
+     150 IF HELPFUL THEN_               WEND
+            WHILE X>5:_           200
+              GOSUB CHECKER:_     220 END
+            WEND
+     200 IF X>10 THEN X=12
+
+                         (RESULT)
+                  100 IF GOT.COMMAND THEN_
+                        IF NO.HELP THEN_
+                          PRINT "SORRY"
+                  115 NO.HELP = -1
+                  120 GOSUB CHKFILES
+                  150 IF HELPFUL THEN_
+                        WHILE X>5 AND NOT EOF(2):_
+                          GOSUB CHECKER:_
+                        WEND
+                  220 END
+
+
+     Stylistic Considerations
+
+     A good merge file includes the following information at the top of the
+     file.
+
+     o    author
+
+     o    date of merge
+
+     o    what merge is to be applied to
+
+     o    how to apply the merge (line number merge, general merge?)
+
+     o    a list of the general fixes or enhancements made, listed in order
+          of most to least important coupled.
+
+     In the body of the merge the following documentation should be
+     included.
+
+     o    a line by line explanation of the changes made stating what is
+          changed and why.  The explanation should precede the line.
+
+     o    lines should be grouped together if they implement a common
+          function.
+
+                          A Model Merge File
+
+     ***************************************************************** 
+     *  EXAMPLE.MRG                                                  * 
+     *  by Ken Goosens   Jan 1, 1986                                 * 
+     *                                                               * 
+     *  to be applied to BLED.BAS version 1.1                        * 
+     *  using the general merge of BLED.EXE                          * 
+     *                                                               * 
+     *  This merge makes two changes:                                * 
+     *     (1) the defaults when no configuration exists are changed * 
+     *         to be appropriate for TURBO Pascal rather than        * 
+     *         QuickBASIC.                                           * 
+     *     (2) The warning message when no configuration file exists * 
+     *         is changed to beep and delay for 3 seconds rather     * 
+     *         than quietly and hurriedly display.                   * 
+     ***************************************************************** 
+      
+     * reset extensions for original and new files to "PAS" 
+      
+        BLOCK FROM LABEL USEDEFAULTS TO STRING ENDBLK 
+        REPLACE BLOCK 
+        USEDEFAULTS:      
+          DEORIGFILE$ = "PAS"  
+          DEBTCHCMDS$ = "MRG"  
+          DENEWFILE$  = "PAS"  
+        ENDBLOCK 
+      
+     * Change call from EXPLAIN to EXPERR 
+      
+     BLOCK FROM LABEL ERROPEN THRU STRING CALL 
+     REPLACE BLOCK 
+     ERROPEN:  
+        X$ = "Error"+STR$(ERR)+" opening file "+FF$  
+        CALL EXPERR (X$)  
+     ENDBLOCK 
+
+
+     How to Recompile BLED
+
+     BLED is written in QuickBasic 4.0 and is distributed with the source
+     code.  People wishing to modify or fix the source code can recompile
+     the code as follows.
+
+     BC BLED ,,/O/X;
+     LINK BLED,,NUL.MAP,advbas

@@ -1,0 +1,152 @@
+∞∞∞    ±±±    ≤≤≤        €ﬂﬂﬂﬂ‹                       TM
+  ∞∞∞    ±±±    ≤≤≤      €    €                    ‹
+    ∞∞∞    ±±±    ≤≤≤    €    €  ‹‹‹   ‹‹‹‹   ‹‹   ‹
+      ∞∞∞    ±±±    ≤≤≤  €ﬂﬂﬂﬂ‹ €   €  €   € €  ﬂ  €
+    ∞∞∞    ±±±    ≤≤≤    €    € €   €  €   €  ﬂﬂ‹  €
+  ∞∞∞    ±±±    ≤≤≤      €‹‹‹‹ﬂ ﬂ‹‹‹ﬂ‹ €   € ﬂ‹‹ﬂ  €
+∞∞∞    ±±±    ≤≤≤
+                         The BASIC ANSI Library v1.11
+
+
+Designed and programmed by Chris Walker.
+
+
+This document and all files included within the Bansi package are
+        (c) Copyright 1994 by Chris Walker
+                ALL RIGHTS RESERVED
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Beginning, Part 1, Disclaimers and Warranties
+-------------------------------------------------------------------------------
+Bansi Library v1.11 -- (c) Copyright 1994 by Chris Walker, ALL RIGHTS RESERVED
+-------------------------------------------------------------------------------
+DISCLAIMER -- This takes place over all warranties, written or oral.
+-------------------------------------------------------------------------------
+        I have no control over what you do with Bansi and so you can't blame
+anything on me.  I hold no responsibilty for what it does or what you make it
+do to anything -- your computer, your health (your health???), anything --  I
+have to have this in here and I am not responsible.
+-------------------------------------------------------------------------------
+Your License For Bansi
+-------------------------------------------------------------------------------
+        You now have a copy of Bansi v1.11.  You are licensed to use this
+library in any software that you write.  If this library is registered, you
+CANNOT distribute it.  You must only distribute the freeware version of the 
+library, which can be found as BANSI111.<ZIP/ARJ/ETC...).  You are not allowed
+to do any of (but not limited to) the following: disassemble, decompile, or in
+any other way reverse engineer or change/add to any of the files in this
+package or the actual package itself.  I hold the copyright to this library
+and reserve all rights to change anything in the file(s) and/ or document(s)
+and/ or package(s) and also reserve the right to give/revoke/change licenses. 
+The file BANSI111.ZIP should contain the following files:
+
+BANSI.BI      (The Bansi Include file)
+BANSI.DOC     (The Bansi Short Documentation)
+BANSI.INF     (LIBWIZ compatible .INF file)
+CATALOG.TXT   (Catalog)
+CREATE.EXE    (Create your Interpreter Library)
+DESC.SDI      (Description File)
+DISTRIB.TXT   (Distribution Sites)
+FILE_ID.DIZ   (Author's Description File)
+MANUAL.TXT    (Manual describing all the functions and subroutines)
+ORDER.FRM     (Order Form)
+PACKING.LST   (Packing List For Bansi)
+QBANSI.LIB    (The QuickBasic Bansi Library file)
+README.1ST    (The ReadMe 1st File)
+REGISTER.TXT  (The registration document)
+VBANSI.LIB    (The VB/DOS Bansi Library file)
+WHATS.NEW     (The update bulletin)
+-------------------------------------------------------------------------------
+More about your License for Bansi... {UNREGISTERED ONLY}
+-------------------------------------------------------------------------------
+        The Bansi library is free for personal use for the first 90 days.  If
+you want to use the Bansi library in your own programs, that's fine with me -
+until your license expires.  If, after the 90th day, you use this library and
+have not sent off your registration, you are breaking the law!  It is illegal
+to use this program after the 90th day without registration.  This is only a
+"Test Drive" of the program - a "Try Before You Buy" approach that lets you
+use the program for a period of time before you either decide to get rid of
+it or buy it (90 days in this case)...  I am grateful for all registrations. 
+$8 for Registration is not by any means expensive, and barely covers my costs. 
+This program is not meant to be expensive, but to be widely used and feasable
+for any programmer to use (and buy)...  I thank you for your support of this
+and my other products.
+-------------------------------------------------------------------------------
+What Bansi DOES
+-------------------------------------------------------------------------------
+        Bansi is a library consisting of many ANSI functions.  It will return
+the ANSI sequences for the corresponding functions after parameters are
+passed.  All commands are compatible with ANSI.SYS and most ANSI compatible
+(if not all) terminal programs.
+-------------------------------------------------------------------------------
+SETTING UP Bansi
+-------------------------------------------------------------------------------
+        To set up Bansi, just include the .LIB file either in the working
+directory of the program to use them in or in the QuickBasic Library
+directory.  Include the .BI file in the QuickBasic Include directory or the
+working directory of the program to use it in.
+        To create a Quick Library for QB/VB-DOS, just run the CREATE
+utility furnished with Bansi.
+-------------------------------------------------------------------------------
+Part 3, Copyrights and Registration
+-------------------------------------------------------------------------------
+*All titles of companies or products used within this package are trademarks
+        or registered trademarks of their respected companies.
+-------------------------------------------------------------------------------
+
+        Thank you for registering!
+
+Send any questions, problems, or registrations, along with a self-addressed,
+stamped envelope to:
+
+        Chris Walker
+        4345 East Greenwillow Lane
+        Idaho Falls, ID  83401-3722
+

@@ -1,0 +1,18 @@
+Welcome to The BASIC Wizard's Library!  This is a library of routines written
+in assembly language and BASIC for use with QuickBASIC and BASCOM compilers.
+The non-registered version is for QuickBASIC 4.5 only.  Registration is $35.
+
+BASWIZ provides advanced capabilities to your BASIC programs, including far
+strings (no more running out of string space), a virtual windowing system,
+telecommunications, file handling, pointers and memory management, graphics
+(MDA, Hercules, CGA, EGA, MCGA, VGA, SuperVGA, matrix & laser printers), and
+math support including fractions, BCD math, and an equation solver.
+
+The virtual windowing system gives you a combination of both window routines
+(pop-up, exploding and collapsing windows, etc) and a virtual screen handler.
+This allows you to have much more information in a window than is actually
+displayed at any one time.  Windows can be moved, resized, copied, and so on.
+
+With BCD, you can handle large or small numbers to any degree of accuracy.
+
+Graphics support includes new VGA modes: 320x400 or 360x480 with 256 colors!

@@ -1,0 +1,4 @@
+A = 10
+B = 10
+IF A <= B THEN PRINT "All IS GOOD"
+IF A >= B THEN PRINT "ALL IS GOOD"

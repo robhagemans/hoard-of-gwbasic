@@ -1,0 +1,191 @@
+                      Common Questions about QuickBASIC
+
+
+
+After spending much time on CompuServe, BIX, the FidoNet QuickBASIC echo and
+other national BASIC forums, I've noticed that there is a lot of repetition.
+People ask the same questions, time after time.  They must be good questions!
+Here is a compilation of a few of the more common questions.
+
+
+
+Question:
+   How can I disable Control-Break?
+
+Answer:
+   Programs compiled with QuickBASIC or BASCOM usually don't have to worry
+   about this.  Control-Break is disabled unless you compile with the /D
+   (debug) option.  In the event that you are doing something that QuickBASIC
+   doesn't completely control, like printing to the screen via DOS functions,
+   this protection no longer holds.  In that case, you may be able to disable
+   Break by getting DOS to check for it less frequently.  Use the command
+      BREAK OFF
+   from a batch file, or execute it from BASIC like so:
+      SHELL "COMMAND BREAK OFF"
+
+   You may also wish to try the BreakOff routine in my PBClone library.
+
+
+
+Question:
+   How can I get the error level from a SHELLed program?  How can I get my
+   program to return an error level?
+
+Answer:
+   That requires assembly language.  My PBClone library contains such
+   routines.  I believe the QB4BAS library also has those capabilities.
+
+
+
+Question:
+   How can I read the command line from BASIC?
+
+Answer:
+   The COMMAND$ function will do it for you.  Note that COMMAND$ doesn't
+   return the exact command line-- it is trimmed somewhat and capitalized.
+
+
+
+Question:
+   How can I get access to COM3 and COM4 for my communications program?
+
+Answer:
+   BASIC doesn't provide support for those comm ports.  However, there are
+   many add-on libraries which will let you do it.  Look for BasWiz, QBCOM,
+   or QBSER, among others.
+
+Question:
+   How can I get a directory listing into an array?
+
+Answer:
+   Most BASIC libraries can do this for you.  Another way to do this is to
+   put the directory listing into a file by
+      SHELL "DIR *.* >DIRLIST.TXT"
+   and then read the file into an array.  Yet another alternative is to use
+   the FILES statement on a non-displayed screen page (if you have a CGA, EGA
+   or VGA) or in invisible colors (say, black on black), then get the results
+   from the screen with the SCREEN function.
+
+
+
+Question:
+   How can I see if a file exists?
+
+Answer:
+   Most BASIC libraries can do this for you.  Or, you can use the directory
+   approach given above.  Yet another way to do it is to try to open the file
+   for input:
+
+         ON ERROR GOTO NotFound
+         OPEN File$ FOR INPUT AS #1
+         CLOSE #1
+         Found = -1
+      Done:
+         RETURN
+      NotFound:
+         Found = 0
+         RESUME Done
+
+
+
+Question:
+   I'm running out of string space.  What can I do?
+
+Answer:
+   If you have arrays, try moving them outside of the string space area.
+   Either use REDIM to dimension 'em or use the REM $DYNAMIC metacommand.  If
+   this doesn't help enough, use fixed-length strings, which are stored
+   outside the regular string area.  Still not enough room?  Well, you can
+   buy Microsoft's BASCOM 7.x "Professional Development System", which will
+   set you back about $300.  Or, you can simply use the "far string" routines
+   provided in my BasWiz library.
+
+Question:
+   I'd like to constantly display the time.  What do I do?
+
+Answer:
+   That's also available in libraries, including PBClone.  You can do it
+   yourself using an approach like this, among other ways:
+
+         ON TIMER(1) GOSUB DisplayTime
+         TIMER ON
+         ' your program goes here
+      DisplayTime:
+         OldRow = CSRLIN
+         OldCol = POS(0)
+         LOCATE 25, 70
+         PRINT TIME$;
+         LOCATE OldRow, OldCol
+         RETURN
+
+
+
+Question:
+   I need to know how many days lie in between two dates.  How do I do it?
+
+Answer:
+   As usual... this is something you can get in a library from your local
+   BBS.  Try QB4BAS.  It's quite possible to do it in BASIC, but I can never
+   remember the proper formulae... you need to account for leap years and
+   leap centuries, so it isn't as straightforward as you might guess.
+
+
+
+Question:
+   How can I use ANSI display codes?
+
+Answer:
+   You need to go through DOS display functions for that to work.  Use this:
+      OPEN "CON" FOR OUTPUT AS #1
+   This makes the DOS display functions available as file (device) number
+   one.  You can print to it using normal file statements:
+      PRINT #1, CHR$(27); "[2J";
+   The above statement will clear the screen if an ANSI driver is installed.
+   See your DOS manual for information on the available ANSI codes.  You can
+   also get this information from your friendly local BBS.
+
+   If you are using the BasWiz library, check out ANSIprint in the
+   Telecommunications section.  It handles ANSI in a virtual window and also
+   allows for "ANSI" music processing if desired.  ANSI.SYS not needed.
+
+Question:
+   How can I print the screen to the printer, in text or graphics mode?
+
+Answer:
+   One simple solution is to use CALL INTERRUPT.  Interrupt number 5 (five)
+   does the same thing as pressing PrintScreen/PrtSc on your keyboard.  It
+   will handle CGA graphics as well as text mode if GRAPHICS is installed
+   (GRAPHICS.COM or GRAPHICS.EXE is provided with DOS).
+
+   If you are just using text mode, check into the SCREEN function, which
+   allows you to read characters off the display.  If you collect each row
+   into a string and then use RTRIM$ to remove trailing blanks, it'll be
+   faster than sending all those meaningless blanks to the printer.
+
+   My BasWiz library also provides a PrintScreen routine which will work on
+   virtually any text or graphics mode, given an Epson-compatible printer.
+
+
+
+Question:
+   How can I display picture files, like GIF, PCX, MAC, MSP and so forth?
+
+Answer:
+   Well, the BasWiz library can help with MAC and PCX files.  Probably the
+   best solution for a general-purpose picture handler, though, would be to
+   get a copy of OPTIKS (usually distributed as OK followed by a version
+   number) or another picture format converter at your local BBS.  Image
+   translation tends to be somewhat difficult and slow in BASIC, and it's
+   hard to find the information needed to handle the various formats
+   available.  If you can read other languages than BASIC, you can find
+   source code for various picture handlers on your local BBS.  These are
+   often written in assembly language, C, and Pascal, which are better for
+   this specific purpose than BASIC.
+
+
+
+Have I mentioned BBSes a lot?!  If you don't have a modem, make the
+investment!  It will be well worth it, whether you are a serious programmer
+or just like to fiddle around now and then.  There are vast numbers of files
+and helpful people within reach of a telephone call of your computer!
+

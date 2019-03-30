@@ -1,0 +1,311 @@
+The application note below is supported by Microsoft QuickBASIC
+Versions 4.00, 4.00b, and 4.50 for MS-DOS and Microsoft BASIC Compiler
+Versions 6.00 and 6.00b for MS-DOS.
+
+With slight changes, this information also applies to the Microsoft
+BASIC PDS Version 7.00 for MS-DOS. References in this documentation to
+several filenames should be changed if you use CALL INTERRUPT under
+BASIC PDS 7.00, as follows:
+
+   Name Referred To               BASIC PDS 7.00 Name
+   ----------------               -------------------
+
+        QB.QLB                          QBX.QLB
+        QB.LIB                          QBX.LIB
+        QB.BI                           QBX.BI
+
+CALL INTERRUPT is a complicated statement that allows programmers
+access to low-level MS-DOS and BIOS information and control from
+QuickBASIC. Effective use of the complex CALL INTERRUPT interface
+requires understanding of the QuickBASIC programming environment, the
+BASIC language, and lower-level DOS and BIOS functions. This
+application note explains many of these necessary features, including
+the following:
+
+1. Libraries and Quick libraries
+
+2. User-defined TYPEs
+
+3. INCLUDE files
+
+4. CALL INTERRUPT input and output
+
+5. Example of CALL INTERRUPT
+
+6. Differences between CALL INTERRUPT and CALL INTERRUPTX
+
+7. References for documentation on INTERRUPTs
+
+The CALL INTERRUPT statement documented in this application note is
+supported in Microsoft QuickBASIC 4.00 and later. In QuickBASIC 2.00,
+2.01, and 3.00, CALL INT86 provides access to the BIOS and DOS
+INTERRUPTs using an array interface instead of user-defined TYPEs.
+CALL INT86 is documented on Pages 148-149 of the "Microsoft QuickBASIC
+Compiler" manual for Versions 2.00, 2.01, and 3.00. Although there are
+differences, some of the information in this application note will be
+useful to those who use QuickBASIC 2.00, 2.01, and 3.00.
+
+The CALL INTERRUPT statement is not supported in OS/2 protected mode.
+Most of the functions provided by the INTERRUPTs are available in
+protected mode, but are accessed through API (application program
+interface) calls. The INTERRUPTs will work correctly in OS/2's real
+mode, with a few exceptions.
+
+More Information:
+
+Libraries and Quick Libraries
+-----------------------------
+
+The object code for the INTERRUPT routines is located in the QB.LIB
+and QB.QLB Quick libraries, which are supplied with QuickBASIC 4.00,
+4.00b, and 4.50 and BASIC compiler 6.00 and 6.00b.
+
+The difference between libraries (.LIB) and Quick libraries (.QLB) is
+that Quick libraries are used within the QuickBASIC environment,
+whereas libraries are used (at link time) to produce executable
+programs.
+
+To load a Quick library for use with the QuickBASIC environment, you
+must enter QuickBASIC with the /L option (e.g. "QB /L QB.QLB"). This
+will allow you to make CALLs to the routines in that Quick library.
+When you choose Make EXE File from the Run menu, your program will be
+automatically linked with the library (.LIB) of the same name as your
+Quick library; in this case, it would be QB.LIB.
+
+User-Defined TYPEs
+------------------
+
+To use the CALL INTERRUPT statement, you must first create a
+user-defined TYPE to contain the registers for the INTERRUPT. The
+TYPEs defined in the INCLUDE file (QB.BI) that comes with QuickBASIC
+4.00, 4.00b, and 4.50 are as follows:
+
+TYPE RegType
+     ax    AS INTEGER
+     bx    AS INTEGER
+     cx    AS INTEGER
+     dx    AS INTEGER
+     bp    AS INTEGER
+     si    AS INTEGER
+     di    AS INTEGER
+     flags AS INTEGER
+END TYPE
+
+TYPE RegTypeX                     ' See NOTE
+     ax    AS INTEGER
+     bx    AS INTEGER
+     cx    AS INTEGER
+     dx    AS INTEGER
+     bp    AS INTEGER
+     si    AS INTEGER
+     di    AS INTEGER
+     flags AS INTEGER
+     ds    AS INTEGER
+     es    AS INTEGER
+END TYPE
+
+Note: RegTypeX is used with the CALL INTERRUPTX statement, which
+allows you to specify the DS and ES registers. For more information,
+please refer to the section below titled "Differences between CALL
+INTERRUPT and CALL INTERRUPTX."
+
+INCLUDE Files
+-------------
+
+To simplify the TYPE definition for INTERRUPTs, the INCLUDE file,
+QB.BI, is shipped with QuickBASIC 4.00 and 4.50. This file has the
+TYPE definitions (see above) and SUB DECLARations needed for
+INTERRUPTs. To use this file, the metacommand $INCLUDE must be placed
+at the beginning of your code. The syntax of this statement is as
+follows:
+
+   REM $INCLUDE: 'QB.BI'
+
+Please note the following:
+
+1. Metacommands are placed in comments (REM).
+
+2. A colon (:) follows the $INCLUDE.
+
+3. The filename (QB.BI) is enclosed in single quotation marks.
+
+CALL INTERRUPT Input and Output
+-------------------------------
+
+Besides the INTERRUPT number, there are two other parameters for the
+CALL INTERRUPT statement: the input registers and the output
+registers. Before you use these registers, you must dimension two
+variables AS the RegType defined above, as follows:
+
+   DIM inregs AS RegType, outregs AS RegType
+
+For most INTERRUPTs, you need to pass some information (function
+number, function parameters) in one or more of the registers. This
+assignment is done using the dot (.) operator, as follows:
+
+   inregs.AX = &H1A00
+
+Note that the above assignment uses the hexadecimal value -- denoted
+by the "&H"-- instead of decimal values. Most references for
+INTERRUPTs use hexadecimal numbers rather than decimal numbers.
+
+For some INTERRUPTs, it is necessary to set the high-order or
+low-order byte of a register. These bytes are usually referred to in
+the technical literature with H and L instead of X. For example, the
+high and low bytes of the BX register are BH and BL, respectively. To
+assign the registers when given high and low bytes, concatenate the
+hexadecimal values. For example, if you need to assign CH the value 2B
+hex and CL the value 3D hex, you would assign CX as follows:
+
+   inregs.CX = &H2B3D     ' High byte = &H2B    Low byte = &H3D
+
+If you are given only 1 byte (high or low), the other byte can be
+assigned 00 (two zeros). For example, you would set AH to the value 01
+hex as follows:
+
+   inregs.AX = &H0100     ' High byte = &H01    Low byte ignored(00)
+
+Note: The above statement is NOT equivalent to "inregs.AX=&H01". You
+must specify the low-order byte or the value will be stored as &H0001.
+
+Once you have set the values of the input registers, you are ready to
+make the CALL. The CALL INTERRUPT syntax is as follows:
+
+   CALL INTERRUPT(IntNum%, inregs, outregs)
+
+If an INTERRUPT returns any values, those values will be passed back
+in the outregs variable. As with inregs, values will often be passed
+in the high or low bytes of a register. The routine, BreakWord(), in
+the example section below breaks a register into the 2-byte values.
+
+With many INTERRUPTs, you need to check only a single bit (or a few
+bits) of any register. This is done using the bitwise operators AND,
+OR, XOR, and NOT. For example, the following statement will check to
+see if the third bit of AX is set:
+
+   IF (outregs.AX AND &H4) THEN     ' 4 (hex) = 100 (binary)
+     PRINT "3rd Bit is on"
+   END IF
+
+Example of CALL INTERRUPT
+-------------------------
+
+The following program gives an example of the CALL INTERRUPT and
+provides two utility SUB programs for processing output:
+
+'__________________________ INTSKEL.BAS _________________________
+'
+'     Skeleton program for calling DOS or BIOS interrupts from
+'     QuickBASIC.
+'
+'     NOTE: The QuickBASIC environment must be started with the
+'           /L option to load the default QB.QLB Quick library.
+'           This Quick library provides support for CALL INTERRUPT
+'           and CALL INTERRUPTX.
+'
+'     There are also two SUBPROGRAMS, BreakWord() and IntToBin(), that
+'     you may find useful when CALLing INTERRUPTs.
+'
+'_________________________________________________________________
+
+DEFINT A-Z
+CONST TRUE = -1
+CONST FALSE = NOT TRUE
+
+'$INCLUDE: 'QB.BI'                'Take a look at what is in this file
+
+DIM inregs AS RegType, outregs AS RegType
+
+'---------------------------------------------------------------------
+' Load Registers with the required input parameters for the call that
+' you want to make. (See any reference to DOS and/or BIOS calls.)
+'
+' Example: for Interrupt 10 Hex, function 0A Hex (BIOS Write Char)
+'          AH = OA   Note: The function number usually goes in AH
+'          AL = Character Code (ASCII)
+'          BH = Video Page Number = 0 normally
+'          BL = Color in graphics mode
+'          CX = Number of these characters to write to screen
+'--------------------------------------------------------------------
+CLS
+character% = &HFB    'Character 251 decimal, square root symbol
+functnum% = &HA00    'Remember you want function in the HIGH Byte of AX
+
+    'VERY IMPORTANT! Don't put the function number into
+    'the wrong byte of AX. Read [PROGRAM WILL HANG]
+
+inregs.ax = character% OR &HA00
+inregs.cx = 2000      'Fill the screen
+CALL interrupt(&H10, inregs, outregs)
+
+
+DEFINT A-Z
+'_____________________________________________________________________
+'
+'     BreakWord() takes an integer argument and returns two integers
+'     representing the high and low bytes of the original.
+'_____________________________________________________________________
+'
+SUB BreakWord (dataword, highbyte, lowbyte)
+
+   IF dataword < 0 THEN
+     highbyte = (dataword + 2 ^ 16) \ 256 'check for high BIT set
+   ELSE
+     highbyte = dataword \ 256            'integer divide off low byte
+   END IF
+
+   lowbyte = dataword AND 255                'AND off the top byte
+
+END SUB
+
+
+
+DEFINT A-Z
+'_____________________________________________________________________
+'
+'    IntToBin() takes an INTEGER argument and produces a
+'    binary string representation of the INTEGER.
+'_____________________________________________________________________
+'
+SUB IntToBin (byte%, bin$)
+bin$ = ""
+temp% = byte%
+
+     FOR i = 0 TO 7
+          IF temp% AND 1 THEN
+               bin$ = "1" + bin$
+          ELSE
+               bin$ = "0" + bin$
+          END IF
+           temp% = temp% \ 2
+     NEXT
+
+END SUB
+
+Differences between CALL INTERRUPT and CALL INTERRUPTX
+------------------------------------------------------
+
+The CALL INTERRUPT and CALL INTERRUPTX statements are very similar.
+Either statement allows you to make calls to DOS and BIOS INTERRUPTs.
+
+The only difference is that, with INTERRUPTX, you can specify the DS
+and ES registers. (The documentation for INTERRUPTs -- see the
+following reference section -- will state whether those registers are
+necessary. For most INTERRUPTs, they are not needed.)
+
+References for Documentation on INTERRUPTs
+------------------------------------------
+
+The following books are excellent resources for the different
+INTERRUPTs available from DOS and BIOS. Be aware that the code in
+these books is written in assembly language; however, they give the
+necessary input and output by register.
+
+1. "Advanced MS-DOS Programming, Second Edition" by Ray Duncan,
+   published by Microsoft Press (1988)
+
+2. "The New Peter Norton Programmer's Guide to the IBM PC & PS/2" by
+   Peter Norton, published by Microsoft Press (1988)
+
+Additional reference words: QB4INT.ARC S12340.EXE
+

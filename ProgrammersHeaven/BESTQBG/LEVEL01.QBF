@@ -1,0 +1,2214 @@
+DEFINT A-Z
+DECLARE SUB Detect.JoyStick ()
+DECLARE SUB joystickxy (joy1x%, joy1y%)
+DECLARE SUB joystickbuttons (buttonA%, buttonB%)
+DECLARE SUB Shipmovement ()
+DECLARE SUB Write.Palette (index%, red%, green%, blue%)
+DECLARE SUB Energy.Level ()
+DECLARE SUB centertext (sety%, mincolor%, maxcolor%, text$)
+DECLARE SUB Quitgame ()
+DECLARE FUNCTION Chkxy% ()
+DECLARE SUB Ambox (shcolor%, brcolor%)
+DECLARE SUB Update.Score ()
+DECLARE SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+DECLARE SUB setup ()
+DECLARE SUB LShiftShip ()
+DECLARE SUB Playerexp ()
+DECLARE SUB Extplayership ()
+DECLARE SUB Vipership ()
+DECLARE SUB Gameover ()
+DECLARE SUB Pause ()
+DECLARE SUB Shield.con ()
+DECLARE SUB Setdisplay ()
+DECLARE SUB Explosion.con ()
+DECLARE SUB Calbuser ()
+DECLARE SUB Calmegat.con ()
+DECLARE SUB calshft.con ()
+DECLARE SUB player.Gun ()
+DECLARE SUB buser.con ()
+DECLARE SUB Selectship.con ()
+DECLARE SUB Megatship ()
+DECLARE SUB RShiftShip ()
+
+
+'$DYNAMIC  'set arraies to dynamic to save memmory
+       REM */  set global Info variables   \*
+COMMON SHARED score%, lives%, level%, difficlty%
+COMMON SHARED Gunsel%, SelShip%, kills%
+COMMON SHARED freeships%, joyenable%, delay!, Argv%, spr1%, spr2%
+
+TYPE almem
+ buffer AS STRING * 1
+END TYPE
+COMMON SHARED font() AS almem
+
+ON ERROR GOTO Errorcode
+
+IF Argv% = 0 THEN ERROR 82 'Not To Be Run Manually
+
+REDIM SHARED bsshot%(1 TO 20)
+REDIM SHARED plshot%(1 TO 14)
+REDIM SHARED megat%(1 TO 126)
+REDIM SHARED viper%(1 TO 140)
+REDIM SHARED Shield%(1 TO 270), Shield1%(1 TO 200)
+REDIM SHARED shifter%(1 TO 79)
+REDIM SHARED Playership%(1 TO 130)
+REDIM SHARED getscr%(1 TO 12800)
+REDIM SHARED beindAmbox%(0)
+
+'REDIM font(9900) AS almem
+'OPEN "B", #1, "a:\spf\FONT.BMP"
+'FOR x = 1 TO 9900
+'GET #1, , font(x).buffer
+'NEXT
+
+
+DIM SHARED keybr$, shipx%, shipy%, savdelay!, sfx%, joy1xmax, joy1ymax, setjoydelay, JoyStickDetected
+DIM SHARED buserx%, busery%, busy1%, busy%, busx%, busx1%, calpb%, calpb1%, calpb2%
+DIM SHARED dist%, dist1%, dist2%, dist3%, hit%, hit1%, hit2%, hit3%, bushits%, bster%, ton%
+DIM SHARED pshotx%, pshotx1%, pshotx2%, pshotx3%, bullet%, speed%, shotspd%
+DIM SHARED pshoty%, pshoty1%, pshoty2%, pshoty3%, fshot%, fshot1%, fshot2%, fshot3%
+DIM SHARED Shiftx%, Shiftx1%, Shiftx2%, Shiftx3%, Shifty%, Shifty1%, Shifty2%, Shifty3%, Shift%, LShift%
+DIM SHARED Shfhits%, Shf1hits%, Shf2hits%, Shf3hits%, setshf%, Shiftt%, Shiftt1%, Shiftt2%, Shiftt3%, resett%, ontimer%
+DIM SHARED LShiftx%, LShiftx1%, LShiftx2%, LShiftx3%, LShifty%, LShifty1%, LShifty2%, LShifty3%
+DIM SHARED LShfhits%, LShf1hits%, LShf2hits%, LShf3hits%, LShiftt%, LShiftt1%, LShiftt2%, LShiftt3%
+DIM SHARED megy%, megy1%, megy2%, megy3%, megy4%, megy5%, megy6%, megy7%
+DIM SHARED megx%, megx1%, megx2%, megx3%, megx4%, megx5%, megx6%, megx7%
+DIM SHARED megt%, megt1%, megt2%, megt3%, megt4%, megt5%, megt6%, megt7%
+DIM SHARED expx%, expy%, expls%(1 TO 126), expls1%(1 TO 126)
+DIM SHARED mghit1%, mghit2%, mghit3%, mghit4%, mghit5%, mghit6%, mghit7%
+DIM SHARED exploff%, explon%, shppoint%, inc%
+DIM SHARED armor%, power%, setarmor%, Enemyy%, Enemyx%, ardply%, disable%, plyexp%
+DIM SHARED bexploff%, bexplon%, bexpx%, bexpy%, Shpexpt, putship%, drawexp%
+DIM SHARED vip%, vipx%, vipy%, vipx1%, vipy1%, vipx2%, vipy2%, viphits%, vip1hits%, vip2hits%, vipset%
+kills% = 0
+maxkills% = 220
+disable% = 1
+setjoydelay = 10
+savdelay! = delay!
+fspeed% = 15
+ontimer% = 10
+CLS
+'save the variables valued
+SAVE.lives% = lives%
+SAVE.score% = score%
+SAVE.Multipropose$ = Multipropose$
+SCREEN 13
+DEF SEG = 0
+KeyFlags = PEEK(1047)
+POKE 1047, KeyFlags AND &H10
+DEF SEG
+CLS
+CALL Detect.JoyStick
+Selectship.con
+Setdisplay
+WHILE INKEY$ <> "": WEND
+
+DO: keybr$ = INKEY$:
+Shipmovement
+FOR fps! = 0 TO delay!: NEXT
+IF gtimer% < 400 THEN gtimer% = gtimer% + 1
+IF gtimer% = 400 THEN fsp% = fsp% + 1
+IF fsp% >= fspeed% THEN
+fsp% = 0:
+IF runtimer# >= 0 THEN CALL LShiftShip: CALL RShiftShip: '8
+IF runtimer# >= 1000 THEN CALL Megatship  '7
+IF runtimer# >= 1500 THEN CALL Vipership '3
+IF runtimer# >= 2500 AND MEGRT% = 0 THEN megy1% = 2: megy2% = 2: megy3% = 2: megy4% = 2: megy5% = 2: megy6% = 2: megy7% = 2: megt1% = 0: megt2% = 0: megt3% = 0: megt4% = 0: megt5% = 0: megt6% = 0: megt7% = 0
+IF runtimer# >= 2500 AND MEGRT% = 0 THEN MEGRT% = 1: megy% = 0: mghit1% = setmeg%: mghit2% = setmeg%: mghit3% = mp: mghit4% = setmeg%: mghit5% = setmeg%: mghit6% = setmeg%: mghit7% = setmeg%
+IF runtimer# >= 3000 AND t = 0 THEN Extat% = 0: LShift% = 0: LShiftt% = 0: LShiftt1% = 0: LShiftt2% = 0: LShiftt3% = 0: LShfhits% = setshf%: LShf1hits% = setshf%: LShf2hits% = setshf%: LShf3hits% = setshf%
+IF runtimer# >= 3000 AND t = 0 THEN t = 1:  Shift% = 0: Shiftt% = 0: Shiftt1% = 0: Shiftt2% = 0: Shiftt3% = 0: Shfhits% = setshf%: Shf1hits% = setshf%: Shf2hits% = setshf%: Shf3hits% = setshf%
+IF runtimer# >= 3500 AND VIPRT% = 0 THEN VIPRT% = 1: vip% = 0: vipx% = 0: vipy% = 0: vipx1% = 0: vipx2% = 0
+IF runtimer# >= 4500 AND MEGRT1% = 0 THEN megy1% = 2: megy2% = 2: megy3% = 2: megy4% = 2: megy5% = 2: megy6% = 2: megy7% = 2: megt1% = 0: megt2% = 0: megt3% = 0: megt4% = 0: megt5% = 0: megt6% = 0: megt7% = 0
+IF runtimer# >= 4500 AND MEGRT1% = 0 THEN MEGRT1% = 1: megy% = 0: mghit1% = setmeg%: mghit2% = setmeg%: mghit3% = mp: mghit4% = setmeg%: mghit5% = setmeg%: mghit6% = setmeg%: mghit7% = setmeg%
+IF runtimer# >= 5700 AND VIPRT1% = 0 THEN VIPRT1% = 1: vip% = 0: vipx% = 0: vipy% = 0: vipx1% = 0: vipx2% = 0
+IF runtimer# >= 6000 AND t1 = 0 THEN LShift% = 0: LShiftt% = 0: LShiftt1% = 0: LShiftt2% = 0: LShiftt3% = 0: LShfhits% = setshf%: LShf1hits% = setshf%: LShf2hits% = setshf%: LShf3hits% = setshf%
+IF runtimer# >= 6000 AND t1 = 0 THEN t1 = 1: Shift% = 0: Shiftt% = 0: Shiftt1% = 0: Shiftt2% = 0: Shiftt3% = 0: Shiftt3% = 0: Shfhits% = setshf%: Shf1hits% = setshf%: Shf2hits% = setshf%: Shf3hits% = setshf%
+IF runtimer# >= 7000 AND MEGRT2% = 0 THEN megy1% = 2: megy2% = 2: megy3% = 2: megy4% = 2: megy5% = 2: megy6% = 2: megy7% = 2: megt1% = 0: megt2% = 0: megt3% = 0: megt4% = 0: megt5% = 0: megt6% = 0: megt7% = 0
+IF runtimer# >= 7000 AND MEGRT2% = 0 THEN MEGRT2% = 1: megy% = 0: mghit1% = setmeg%: mghit2% = setmeg%: mghit3% = mp: mghit4% = setmeg%: mghit5% = setmeg%: mghit6% = setmeg%: mghit7% = setmeg%
+IF runtimer# >= 8500 AND rest% = 0 THEN VIPRT1% = 0: t1 = 0: t = 0: VIPRT% = 0: MEGRT% = 0: MEGRT2% = 0: MEGRT1% = 0
+IF runtimer# >= 8500 AND rest% = 0 THEN megy1% = 2: megy2% = 2: megy3% = 2: megy4% = 2: megy5% = 2: megy6% = 2: megy7% = 2: megt1% = 0: megt2% = 0: megt3% = 0: megt4% = 0: megt5% = 0: megt6% = 0: megt7% = 0
+IF runtimer# >= 8500 AND rest% = 0 THEN megy% = 0: mghit1% = setmeg%: mghit2% = setmeg%: mghit3% = mp: mghit4% = setmeg%: mghit5% = setmeg%: mghit6% = setmeg%: mghit7% = setmeg%
+IF runtimer# >= 8500 AND rest% = 0 THEN LShift% = 0: LShiftt% = 0: LShiftt1% = 0: LShiftt2% = 0: LShiftt3% = 0: LShfhits% = setshf%: LShf1hits% = setshf%: LShf2hits% = setshf%: LShf3hits% = setshf%
+IF runtimer# >= 8500 AND rest% = 0 THEN Shift% = 0: Shiftt% = 0: Shiftt1% = 0: Shiftt2% = 0: Shiftt3% = 0: Shiftt3% = 0: Shfhits% = setshf%: Shf1hits% = setshf%: Shf2hits% = setshf%: Shf3hits% = setshf%
+IF runtimer# >= 8500 AND rest% = 0 THEN runtimer# = 0: rest% = 1: vip% = 0: vipx% = 0: vipy% = 0: vipx1% = 0: vipx2% = 0
+
+IF runtimer# >= 8500 AND difficlty% = 2 AND reset2 = 0 THEN
+runtimer# = 3001: reset2 = 1
+SLEEP
+MEGRT% = 0: VIPRT% = 0: MEGRT2% = 0
+VIPRT1% = 0: t = 0: t2 = 0
+ maxkills% = maxkills% + 110
+END IF
+
+IF runtimer# >= 8500 AND difficlty% = 3 AND reset2 = 0 THEN
+runtimer# = 0: reset2 = 1
+SLEEP
+MEGRT% = 0: VIPRT% = 0: MEGRT2% = 0
+VIPRT1% = 0: t = 0: t2 = 0
+maxkills% = maxkills% * 2
+END IF
+IF runtimer# >= 8500 AND rest% = 1 THEN CALL buser.con
+END IF
+runtimer# = runtimer# + 1
+ep = ep + 1
+IF ep = 25 THEN ep = 0: CALL Playerexp: CALL Explosion.con: CALL Extplayership
+player.Gun
+IF keybr$ = CHR$(27) THEN CALL setup
+IF UCASE$(keybr$) = "P" THEN CALL Pause
+LOOP UNTIL bster% = 11 AND bushits% <= 0 AND bexploff% = 0 OR keybr$ = CHR$(9)
+level% = 1
+calcu% = kills% * 100
+kills% = calcu% \ maxkills%
+ERASE bsshot%, plshot%, megat%, viper%
+ERASE Shield%, Shield1%, shifter%, Playership%
+ERASE getscr%, beindAmbox%
+delay! = savdelay!
+CHAIN "CLRLEVEL.QBF"
+CLS
+PRINT "ERROR CODE", ERR
+SYSTEM
+
+
+Errorcode:
+SELECT CASE ERR
+CASE 53
+CLOSE
+RESUME NEXT
+CASE 52
+CLOSE
+RESUME NEXT
+CASE ELSE
+CLS
+CLOSE
+WIDTH 80, 25
+SaveError = ERR
+RESUME Unexpected:
+END SELECT
+
+Unexpected:
+ON ERROR GOTO ReadEnd
+errline$ = "Can Not Open Error Code File"
+OPEN "ERROR.COD" FOR INPUT AS #4
+DO
+INPUT #4, errline$
+IF VAL(MID$(errline$, 1, 2)) = SaveError THEN EXIT DO
+LOOP UNTIL (EOF(4))
+ReadEnd:
+CLOSE
+PRINT ""
+PRINT ""
+PRINT " Acclimate Computer Entertainment"
+PRINT " Unexpected Error : "; errline$
+PRINT " Ending Program."
+SYSTEM
+
+REM $STATIC
+SUB Ambox (shcolor%, brcolor%)
+
+FOR Y% = 0 TO 20
+FOR x% = 0 TO 100 STEP 2
+LINE (130 - x%, 100 - Y%)-(130 + x%, 100 + Y%), shcolor%, B
+             NEXT
+             NEXT
+FOR x% = 0 TO 98
+FOR dly = 1 TO 300: NEXT
+LINE (130 - x%, 100)-(130 + x%, 100), 0, BF
+LINE (130 - x%, 100)-(130 + x%, 100), brcolor%, B
+             NEXT
+FOR Y% = 0 TO 18
+FOR dly = 1 TO 700: NEXT
+LINE (130 - x%, 100 - Y%)-(130 + x%, 100 + Y%), 0, BF
+LINE (130 - x%, 100 - Y%)-(130 + x%, 100 + Y%), brcolor%, B
+             NEXT
+
+END SUB
+
+SUB buser.con STATIC
+
+IF resett% = 1 THEN
+resett% = 0
+busy% = 30: busx% = 100 + 4: busy1% = 30: busx1% = 100 + 50
+bster% = 0
+ton% = 0
+time% = 0
+END IF
+IF NOT bster% = 11 THEN
+IF BS% = 0 THEN
+GET (159, 1)-(101, 25), getscr%
+LINE (159, 1)-(101, 25), 0, BF
+DIM buster%(1 TO 829)
+buserx% = 0: busery% = 0
+busy% = 30: busx% = 100 + 4: busy1% = 30: busx1% = 100 + 50
+bster% = 0
+ton% = 0
+time% = 0
+PSET (152, 20)
+DRAW "c42u1u1u1u1u1u1r1r1r1d1d1d1d1d1d1g1l1h1r1bu2bp42,42"
+GET (155, 14)-(152, 21), bsshot%
+PUT (152, 14), bsshot%
+bcol% = 39
+fcol% = 110
+PSET (130, 20)
+DRAW "c" + STR$(bcol%) + "l1l1l1l1l1l1l1l1l1u1u1u1u1u1l1l1u1l1u1l1u1l1u1l1u1l1l1l1l1u1u1u1u1u1u1u1r1r1u1r1r1r1u1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1d1r1r1r1r1d1r1r1d1d1d1d1d1d1d1l1l1l1l1d1l1d1l1d1l1d1l1d1l1l1d1d1d1d1d1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1"
+DRAW "d1r1d1r1d1r1d1r1r1r1d1r1r1r1r1r1u1r1r1r1u1r1u1r1u1r1u1l1bu6bl9"
+DRAW "r1r1r1r1r1e1e1e1u1u1u1u1u1l1l1l1l1l1l1l1l1l1l1l1l1d1d1d1d1d1f1f2"
+DRAW "bl16bu4d1d1d1d1d1l1l1d1d1l1l1l1l1l1l1u1l1u1u1u1u1u1u1l1u1u1u1u1u1u1u1u1r1r1r1r1r1r1r1u1r1r1r1d1d1bl-37u1u1r1r1r1d1r1r1r1r1r1r1r1d1d1d1d1d1d1d1d1l1d1d1d1d1d1d1d1l1d1l1l1l1l1l1l1u1u1l1l1u1u1u1u1u1u1u1"
+DRAW "bl-3bp" + STR$(fcol%) + "," + STR$(bcol%) + "bl15bu3c" + STR$(bcol%) + "e1e1e1e1e1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1l1f1f1f1f1f1d1d1d1d1d1f1f1f1g1g1g1g1g1g1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1r1h1h1h1h1h1h1br5"
+DRAW "p" + STR$(fcol%) + "," + STR$(bcol%) + "bu1bl5p" + STR$(fcol%) + "," + STR$(bcol%) + "bu9bp" + STR$(fcol%) + "," + STR$(bcol%) + "bl13bu-2bp" + STR$(fcol%) + "," + STR$(bcol%) + "bl11bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-2bl-16bu-8bl-4bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-7bp" + STR$(fcol%) + "," + STR$(bcol%)
+GET (159, 1)-(101, 25), buster%
+PUT (101, 1), buster%, XOR
+BS% = 1
+PUT (101, 1), getscr%, PSET
+END IF
+calpb% = pshotx% - buserx%
+IF hit% = 1 AND calpb% <= 55 AND calpb% >= -10 AND busery% <= shipy% THEN dist% = busery% + 30
+calpb1% = pshotx1% - buserx%
+IF hit1% = 1 AND calpb1% <= 55 AND calpb1% >= -10 AND busery% <= shipy% THEN dist1% = busery% + 30
+calpb2% = pshotx2% - buserx%
+IF hit2% = 1 AND calpb2% <= 55 AND calpb2% >= -10 AND busery% <= shipy% THEN dist2% = busery% + 30
+calpb3% = pshotx3% - buserx%
+IF hit3% = 1 AND calpb3% <= 55 AND calpb3% >= -10 AND busery% <= shipy% THEN dist3% = busery% + 30
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: bushits% = bushits% - 1 ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: bushits% = bushits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: bushits% = bushits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0: bushits% = bushits% - 1
+IF bushits% <= 0 AND NOT bster% = 11 THEN bster% = 11: PUT (buserx%, busery%), buster%, XOR: bexpx% = buserx% + 25: bexpy% = busery%: bexploff% = 1: busery% = 0: shppoint% = 150: CALL Explosion.con
+IF sht% = 1 THEN PUT (busx%, busy%), bsshot%, XOR
+IF sht% = 1 THEN PUT (busx% + 5, busy%), bsshot%, XOR
+IF sht% = 1 THEN PUT (busx1%, busy1%), bsshot%, XOR
+IF sht% = 1 THEN PUT (busx1% + 5, busy1%), bsshot%, XOR
+sht% = 0
+sht% = 1
+bullet% = 0
+plyerhitx% = shipx% - busx%
+plyerhitx1% = shipx% - busx1%
+plyerhity% = shipy% - busy%
+plyerhity1% = shipy% - busy1%
+IF NOT disable% = 1 AND plyerhitx% <= 6 AND plyerhitx% >= -14 AND plyerhity% <= 6 AND plyerhity% >= -14 THEN bullet% = 1: power% = 10:    Shield.con
+IF NOT disable% = 1 AND plyerhitx1% <= 6 AND plyerhitx1% >= -14 AND plyerhity1% <= 6 AND plyerhity1% >= -14 THEN bullet% = 2: power% = 10:    Shield.con
+plyerhitx% = shipx% - buserx%
+plyerhity% = shipy% - busery%
+IF NOT disable% = 1 AND plyerhitx% <= 58 AND plyerhitx% >= -14 AND plyerhity% <= 20 AND plyerhity% >= -19 THEN power% = 20:   D = 1:
+IF D = 1 AND plyerhitx% <= 22 AND shipy% >= busery% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF D = 1 AND shipx% >= buserx% AND shipy% >= busery% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND:  PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF D = 1 AND plyerhitx% <= 22 AND shipy% <= busery% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF D = 1 AND shipx% >= buserx% AND shipy% <= busery% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+busy% = busy% + 6: IF busy% >= 160 OR bullet% = 1 THEN busy% = busery% + 19: busx% = buserx% + 4: IF sfx% = 0 THEN PLAY "mbl64o1c":
+busy1% = busy1% + 6: IF busy1% >= 160 OR bullet% = 2 THEN busy1% = busery% + 19: busx1% = buserx% + 50: IF sfx% = 0 THEN PLAY "mbl64o1c":
+IF NOT bster% = 11 THEN PUT (busx%, busy%), bsshot%, XOR
+IF NOT bster% = 11 THEN PUT (busx% + 5, busy%), bsshot%, XOR
+IF NOT bster% = 11 THEN PUT (busx1%, busy1%), bsshot%, XOR
+IF NOT bster% = 11 THEN PUT (busx1% + 5, busy1%), bsshot%, XOR
+SELECT CASE bster%
+CASE 0
+IF ton% = 1 THEN PUT (buserx%, busery%), buster%, XOR
+buserx% = 100
+busery% = busery% + 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 140 THEN bster% = 1
+ton% = 1
+CASE 1
+PUT (buserx%, busery%), buster%, XOR
+buserx% = 100
+busery% = busery% - 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 10 THEN bster% = 0: time% = time% + 1
+IF time% = 1 THEN time% = 0: bster% = 2
+CASE 2
+PUT (buserx%, busery%), buster%, XOR
+buserx% = buserx% + 3
+busery% = busery% + 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 140 THEN bster% = 3:
+CASE 3
+PUT (buserx%, busery%), buster%, XOR
+buserx% = buserx% - 3
+busery% = busery% - 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 10 THEN bster% = 2: time% = time% + 1
+IF time% = 1 THEN bster% = 4: time% = 0
+CASE 4
+PUT (buserx%, busery%), buster%, XOR
+buserx% = buserx% - 3
+busery% = busery% + 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 140 THEN bster% = 5: time% = time% + 1
+CASE 5
+PUT (buserx%, busery%), buster%, XOR
+buserx% = buserx% + 3
+busery% = busery% - 5: PUT (buserx%, busery%), buster%, XOR
+IF busery% = 10 THEN bster% = 0: time% = 0
+END SELECT
+
+END IF
+END SUB
+
+SUB centertext (sety%, mincolor%, maxcolor%, text$)
+strlen = LEN(text$)
+calcu = 200 - strlen
+setx% = calcu \ 2
+settextxy setx%, sety%, mincolor%, maxcolor%, text$
+END SUB
+
+FUNCTION Chkxy STATIC
+IF shipy% >= 155 THEN shipy% = 155
+IF shipy% <= 10 THEN shipy% = 10
+IF shipx% >= 243 THEN shipx% = 243
+IF shipx% <= 10 THEN shipx% = 10
+
+
+
+END FUNCTION
+
+SUB Detect.JoyStick
+Temp% = STICK(0)
+IF Temp% > 0 THEN
+JoyStickDetected = 1
+joy1x = 0
+joy1y = 0
+
+FOR lp = 0 TO 300
+joystickxy joy1x, joy1y
+FOR a = 0 TO 10: NEXT
+IF joy1x > joy1xmax THEN joy1xmax = joy1x
+IF joy1y > joy1ymax THEN joy1ymax = joy1y
+NEXT
+
+ ELSE
+      joy1xmax = 20
+      joy1ymax = 20
+      JoyStickDetected = 0:
+      END IF
+ 
+
+IF joyenable% = 0 THEN
+      joy1xmax = 20
+      joy1ymax = 20
+      JoyStickDetected = 0:
+      END IF
+                                            
+
+
+END SUB
+
+SUB Energy.Level STATIC
+ships$ = "l1g1d1g1d1g1d1f1r1r1r1r1r1e1u1h1u1h1u1h1l1g1d1f1r1e1g1d1f1f1h1l1l1l1g1e1e1u1l1"
+SELECT CASE ardply%
+CASE 0: ardply% = 1: LINE (267, 99)-(264, 107), 0, BF
+CASE 1: ardply% = 2: LINE (269, 99)-(272, 107), 0, BF
+CASE 2: ardply% = 3: LINE (274, 99)-(277, 107), 0, BF
+CASE 3: ardply% = 4: LINE (279, 99)-(282, 107), 0, BF
+CASE 4: ardply% = 5: LINE (284, 99)-(287, 107), 0, BF
+CASE 5: ardply% = 6: LINE (289, 99)-(292, 107), 0, BF
+CASE 6: ardply% = 7: LINE (294, 99)-(297, 107), 0, BF
+CASE 7: ardply% = 8: LINE (299, 99)-(302, 107), 0, BF
+CASE 8: ardply% = 9: LINE (304, 99)-(307, 107), 0, BF
+CASE 9: ardply% = 10: plyexp% = 1: LINE (309, 99)-(312, 107), 0, BF
+END SELECT
+IF ardply% = 10 THEN
+SELECT CASE lives%
+CASE 3: lives% = 2: PSET (304, 130): DRAW "c0" + ships$
+CASE 2: lives% = 1: PSET (294, 130): DRAW "c0" + ships$
+CASE 1: lives% = 0: PSET (283, 130): DRAW "c0" + ships$
+CASE 0: lives% = 4: PSET (273, 130): DRAW "c0" + ships$
+END SELECT
+IF NOT lives% = 4 THEN
+LINE (267, 99)-(264, 107), 4, BF
+LINE (269, 99)-(272, 107), 4, BF
+LINE (274, 99)-(277, 107), 4, BF
+LINE (279, 99)-(282, 107), 4, BF
+LINE (284, 99)-(287, 107), 4, BF
+LINE (289, 99)-(292, 107), 4, BF
+LINE (294, 99)-(297, 107), 4, BF
+LINE (299, 99)-(302, 107), 4, BF
+LINE (304, 99)-(307, 107), 4, BF
+LINE (309, 99)-(312, 107), 4, BF
+ardply% = 0
+END IF
+
+END IF
+
+END SUB
+
+SUB Explosion.con STATIC
+
+IF exploff% = 1 AND explon2% <= 0 THEN exploff2% = 1: expx1% = expx%: expy1% = expy%: exploff% = 2
+
+IF exploff% = 1 AND explon1% <= 0 AND explon2% >= 0 THEN exploff1% = 1: exploff% = 2
+
+IF exploff1% = 1 THEN
+IF gt1 = 0 THEN gt1 = 1: getpt1% = shppoint%
+explon1% = explon1% + 1: IF explon1% >= 3 THEN explon1% = 0: exploff1% = 2
+PUT (expx% + 4, expy%), expls%, XOR
+PUT (expx%, expy%), expls1%, XOR
+PUT (expx% + 10, expy% - 4), expls%, XOR
+PUT (expx% + 6, expy% - 1), expls1%, XOR
+FOR I% = 110 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (expx% + 10, expy% + 4), expls1%, XOR
+PUT (expx% + 10, expy%), expls1%, XOR
+PUT (expx% + 3, expy%), expls1%, XOR
+END IF
+IF exploff1% = 2 THEN
+exploff1% = 0
+PUT (expx% + 4, expy%), expls%, XOR
+PUT (expx% + 6, expy% - 1), expls1%, XOR
+PUT (expx%, expy%), expls1%, XOR
+PUT (expx% + 10, expy% - 4), expls%, XOR
+PUT (expx% + 10, expy% + 4), expls1%, XOR
+PUT (expx% + 10, expy%), expls1%, XOR
+PUT (expx% + 3, expy%), expls1%, XOR
+gt1 = 0
+kills% = kills% + 1
+getscore% = getscore% + getpt1%
+score$ = STR$(getscore%)
+Update.Score
+kills% = kills% + 1
+END IF
+
+IF exploff2% = 1 THEN
+IF drawexp% = 0 THEN
+GET (expx1% + 18, expy1% + 12)-(expx1%, expy1%), getscr%
+LINE (expx1% + 18, expy1% + 12)-(expx1%, expy1%), 0, BF
+PSET (expx1% + 15, expy1% + 6)
+DRAW "c40u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp4,40"
+GET (expx1% + 18, expy1% + 12)-(expx1%, expy1%), expls%
+PUT (expx1%, expy1%), expls%
+PSET (expx1% + 15, expy1% + 6)
+DRAW "c4u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp40,4"
+GET (expx1% + 18, expy1% + 12)-(expx1%, expy1%), expls1%
+PUT (expx1%, expy1%), expls1%, XOR
+PUT (expx1%, expy1%), getscr%, PSET
+drawexp% = 1
+END IF
+IF gt = 0 THEN gt = 1: getpt% = shppoint%
+explon2% = explon2% + 1: IF explon2% >= 3 THEN explon2% = 0: exploff2% = 2
+PUT (expx1% + 4, expy1%), expls%, XOR
+PUT (expx1%, expy1%), expls1%, XOR
+PUT (expx1% + 10, expy1% - 4), expls1%, XOR
+PUT (expx1% + 6, expy1% - 1), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (expx1% + 10, expy1% + 4), expls1%, XOR
+PUT (expx1% + 10, expy1%), expls1%, XOR
+PUT (expx1% + 3, expy1%), expls1%, XOR
+END IF
+IF exploff2% = 2 THEN
+exploff2% = 0
+PUT (expx1% + 4, expy1%), expls%, XOR
+PUT (expx1% + 6, expy1% - 1), expls1%, XOR
+PUT (expx1%, expy1%), expls1%, XOR
+PUT (expx1% + 10, expy1% - 4), expls1%, XOR
+PUT (expx1% + 10, expy1% + 4), expls1%, XOR
+PUT (expx1% + 10, expy1%), expls1%, XOR
+PUT (expx1% + 3, expy1%), expls1%, XOR
+gt = 0
+kills% = kills% + 1
+score% = score% + getpt%
+Update.Score
+END IF
+
+
+
+'//////////////////////////////////////////////////////////////////////////////
+IF bexploff% = 1 THEN
+IF drawexp% = 0 THEN
+GET (bexpx% + 32, bexpy% + 12)-(bexpx% + 15, bexpy%), getscr%
+LINE (bexpx% + 32, bexpy% + 12)-(bexpx% + 15, bexpy%), 0, BF
+PSET (bexpx% + 30, bexpy% + 6)
+'DRAW "c4u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp4,4c90l5d5u5r12"
+DRAW "c4u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp4,4"
+DRAW "c90r1r1r1u1u1l1u1u1l1l1u1l1l1l1l1d1d1l1l1l1d1d1d1r1r1d1d1r1r1d1r1r1r1u1r1r1u1l1u1"
+GET (bexpx% + 32, bexpy% + 12)-(bexpx% + 16, bexpy%), expls%
+PUT (bexpx% + 16, bexpy%), expls%
+PSET (bexpx% + 30, bexpy% + 6)
+DRAW "c40u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp40,40"
+GET (bexpx% + 32, bexpy% + 12)-(bexpx% + 15, bexpy%), expls1%
+PUT (bexpx% + 15, bexpy%), expls1%, XOR
+
+PUT (bexpx% + 15, bexpy%), getscr%, PSET
+
+drawexp% = 1
+END IF
+
+IF gt2 = 0 THEN gt2 = 1: getpt2% = shppoint%
+bexplon% = bexplon% + 1: IF bexplon% = 7 THEN bexplon% = 0: bexploff% = 2
+PUT (bexpx% + 4, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls1%, XOR
+PUT (bexpx% + 10, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6, bexpy% - 1), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (bexpx% + 10, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 3, bexpy%), expls1%, XOR
+PUT (bexpx% + 4 - 15, bexpy% + 10), expls%, XOR
+PUT (bexpx%, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% - 4 + 10), expls1%, XOR
+PUT (bexpx% + 6 - 15, bexpy% - 1 + 10), expls1%, XOR
+FOR I% = 100 TO 130 STEP 2
+IF sfx% = 0 THEN SOUND I%, 30 / 1000
+NEXT I%
+PUT (bexpx% + 10 - 15, bexpy% + 4 + 10), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 3 - 15, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 4 - 15, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls%, XOR
+PUT (bexpx% + 10 - 15, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6 - 15, bexpy% - 1), expls1%, XOR
+FOR t = 1 TO 3000: NEXT t
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 50 / 1000
+NEXT I%
+PUT (bexpx% + 10 - 15, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy%), expls1%, XOR
+PUT (bexpx% + 3 - 15, bexpy%), expls1%, XOR
+PUT (bexpx% + 4 + 5, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls1%, XOR
+PUT (bexpx% + 10 + 5, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6 + 5, bexpy% - 1), expls1%, XOR
+FOR I% = 100 TO 130 STEP 2
+IF sfx% = 0 THEN SOUND I%, 30 / 1000
+NEXT I%
+PUT (bexpx% + 10 + 10, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10 + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 3 + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 4 - 10 + 15, bexpy% + 10), expls%, XOR
+PUT (bexpx%, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 10 - 10 + 15, bexpy% - 4 + 10), expls1%, XOR
+PUT (bexpx% + 6 - 10 + 15, bexpy% - 1 + 10), expls1%, XOR
+
+END IF
+
+IF bexploff% = 2 THEN
+bexploff% = 0
+PUT (bexpx% + 4, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls1%, XOR
+PUT (bexpx% + 10, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6, bexpy% - 1), expls1%, XOR
+PUT (bexpx% + 10, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 3, bexpy%), expls1%, XOR
+PUT (bexpx% + 4 - 15, bexpy% + 10), expls%, XOR
+PUT (bexpx%, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% - 4 + 10), expls1%, XOR
+PUT (bexpx% + 6 - 15, bexpy% - 1 + 10), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% + 4 + 10), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 3 - 15, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 4 - 15, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls%, XOR
+PUT (bexpx% + 10 - 15, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6 - 15, bexpy% - 1), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10 - 15, bexpy%), expls1%, XOR
+PUT (bexpx% + 3 - 15, bexpy%), expls1%, XOR
+
+PUT (bexpx% + 4 + 5, bexpy%), expls%, XOR
+PUT (bexpx%, bexpy%), expls1%, XOR
+PUT (bexpx% + 10 + 5, bexpy% - 4), expls1%, XOR
+PUT (bexpx% + 6 + 5, bexpy% - 1), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (bexpx% + 10 + 10, bexpy% + 4), expls1%, XOR
+PUT (bexpx% + 10 + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 3 + 10, bexpy%), expls1%, XOR
+PUT (bexpx% + 4 - 10 + 15, bexpy% + 10), expls%, XOR
+PUT (bexpx%, bexpy% + 10), expls1%, XOR
+PUT (bexpx% + 10 - 10 + 15, bexpy% - 4 + 10), expls1%, XOR
+PUT (bexpx% + 6 - 10 + 15, bexpy% - 1 + 10), expls1%, XOR
+gt2 = 0
+score% = score% + getpt2%
+kills% = kills% + 1
+Update.Score
+END IF
+END SUB
+
+SUB Extplayership STATIC
+IF onetime% = 0 THEN
+onetime% = 1
+REDIM ExtaShip%(1 TO 34)
+PSET (100, 100)
+bcol% = 27
+fcol% = 1
+DRAW "c" + STR$(bcol%) + "l1h1u1h1u1h1e1e1r1r1r1f1f1g1d1g1d1gbu2p" + STR$(fcol%) + "," + STR$(bcol%) + "c" + STR$(bcol%) + "bd2e1h1u1u1e1e1g1g1l1h1h1f1f1d1d1g1e1r1"
+GET (103, 100)-(96, 93), ExtaShip%
+PUT (96, 93), ExtaShip%
+END IF
+
+
+IF score% >= 500 AND freeships% = 0 AND t = 0 THEN putship% = 1: t = 1
+IF score% >= 1000 AND freeships% = 0 AND putship% = 0 AND t = 1 THEN t = 2: putship% = 1: Extat% = 0
+
+IF putship% = 1 THEN
+IF Extat% = 1 THEN PUT (Extax%, Extay%), ExtaShip%, XOR
+IF Extat% = 0 AND Exta% >= 0 THEN :  Extat% = 1: Extay% = 0: Extax% = shipx%:
+IF Extat% = 1 THEN Extay% = Extay% + 1
+IF Extay% >= 160 THEN Extat% = 2:
+IF Extat% = 1 THEN PUT (Extax%, Extay%), ExtaShip%, XOR
+plyerhitx4% = pshotx% - Extax%
+plyerhity4% = pshoty% - Extay%
+IF Extay% >= 20 AND Extat% = 1 AND plyerhitx4% <= 5 AND plyerhitx4% >= -8 AND plyerhity4% <= 15 AND plyerhity4% >= -5 THEN putship% = 0: Extat% = 2: PUT (Extax%, Extay%), ExtaShip%, XOR
+plyerhitx4% = pshotx1% - Extax%
+plyerhity4% = pshoty1% - Extay%
+IF Extay% >= 20 AND Extat% = 1 AND plyerhitx4% <= 5 AND plyerhitx4% >= -8 AND plyerhity4% <= 5 AND plyerhity4% >= -5 THEN putship% = 0: Extat% = 2: PUT (Extax%, Extay%), ExtaShip%, XOR
+plyerhitx4% = pshotx2% - Extax%
+plyerhity4% = pshoty2% - Extay%
+IF Extay% >= 20 AND Extat% = 1 AND plyerhitx4% <= 5 AND plyerhitx4% >= -8 AND plyerhity4% <= 5 AND plyerhity4% >= -5 THEN putship% = 0: Extat% = 2:  PUT (Extax%, Extay%), ExtaShip%, XOR
+plyerhitx4% = pshotx3% - Extax%
+plyerhity4% = pshoty3% - Extay%
+IF Extay% >= 20 AND Extat% = 1 AND plyerhitx4% <= 5 AND plyerhitx4% >= -8 AND plyerhity4% <= 5 AND plyerhity4% >= -5 THEN putship% = 0: Extat% = 2: PUT (Extax%, Extay%), ExtaShip%, XOR
+plyerhitx4% = shipx% - Extax%
+plyerhity4% = shipy% - Extay%
+IF Extat% = 1 AND plyerhitx4% <= 5 AND plyerhitx4% >= -14 AND plyerhity4% <= 11 AND plyerhity4% >= -18 THEN
+LINE (254, 195)-(8, 178), 0, BF
+centertext 183, 35, 42, "EXTRA SHIP"
+PUT (Extax%, Extay%), ExtaShip%, XOR
+IF sfx% = 0 THEN PLAY "MBl64o2abcdf"
+Extat% = 2: Extay% = 0
+freeships% = 1
+putship% = 0
+ships$ = "l1g1d1g1d1g1d1f1r1r1r1r1r1e1u1h1u1h1u1h1l1g1d1f1r1e1g1d1f1f1h1l1l1l1g1e1e1u1l1"
+SELECT CASE lives%
+CASE 0: lives% = 1: PSET (283, 130): DRAW "c1" + ships$
+CASE 1: lives% = 2: PSET (294, 130): DRAW "c1" + ships$
+CASE 2: lives% = 3: PSET (304, 130): DRAW "c1" + ships$
+END SELECT
+END IF
+END IF
+END SUB
+
+SUB joystickbuttons (buttonA, buttonB)
+buttonA = 0
+buttonB = 0
+byte = INP(&H201)
+IF (byte AND &H10) = 0 THEN buttonA = 1
+IF (byte AND &H40) = 0 THEN buttonB = 1
+
+END SUB
+
+SUB joystickxy (joy1x, joy1y)
+joy1y = 0
+joy1x = 0
+v1 = 1
+v2 = 1
+done = 2
+OUT &H201, 0
+DO WHILE NOT done = 0
+IF NOT v2 = 0 THEN joy1y = joy1y + 2
+IF NOT v1 = 0 THEN joy1x = joy1x + 2
+IF v2 = 0 AND v1 = 0 THEN done = 0
+byte = INP(&H201)
+v2 = byte AND &H2
+v1 = byte AND &H1
+LOOP
+
+
+END SUB
+
+SUB LShiftShip STATIC
+
+IF lshf% = 0 THEN
+DIM LShifter%(1 TO 79)
+PSET (15, 10)
+DRAW "c44l1l1l1l1h1h1l1g1d1d1d1d1f1f1f1f1f1r1r1r1e1e1e1e1e1u1u1u1u1h1l1g1g1l1"
+DRAW "bl3bd5c44r1r1r1f1h1u1e1e1u1h1l1l1l1l1l1g1d1f1f1d1g1bu2bl1bp32,44bl-7bp32,44bl5bu-2bl-1bp4,44c44u5bp4,44"
+GET (20, 8)-(7, 18), LShifter%
+PUT (7, 8), LShifter%, XOR
+lshf% = 1
+END IF
+
+LShift% = LShift% + 1: ' IF LShift >= 180 THEN LShift = 0: LShiftt% = 0: LShiftt1% = 0: LShiftt2% = 0: LShiftt3% = 0
+
+IF LShiftt% = 1 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+IF LShiftt% = 0 AND LShift% <= 20 THEN LShiftt% = 1: LShiftx% = 240: LShifty% = 5
+IF LShiftt% = 1 THEN LShifty% = LShifty% + 4:   LShiftx% = LShiftx% - 3
+IF LShiftt% = 1 AND LShifty% >= 160 THEN LShiftt% = 2
+IF LShiftt% = 1 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+IF LShiftt% = 3 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+IF LShiftt% = 2 AND LShifty% >= 160 THEN LShiftt% = 3
+IF LShiftt% = 3 THEN LShifty% = LShifty% - 4
+IF LShiftt% = 3 AND LShifty% <= 10 THEN LShiftt% = 4
+IF LShiftt% = 3 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+IF LShiftt% = 5 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+IF LShiftt% = 4 AND LShifty% <= 10 THEN LShiftt% = 5:
+IF LShiftt% = 5 THEN LShifty% = LShifty% + 4: LShiftx% = LShiftx% - 3
+IF LShiftt% = 5 AND LShifty% >= 160 THEN LShiftt% = 6
+IF LShiftt% = 5 THEN PUT (LShiftx%, LShifty%), LShifter%, XOR
+calpb% = pshotx% - LShiftx%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND LShifty% <= shipy% THEN dist% = LShifty% + 20
+calpb1% = pshotx1% - LShiftx%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND LShifty% <= shipy% THEN dist1% = LShifty% + 20
+calpb2% = pshotx2% - LShiftx%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND LShifty% <= shipy% THEN dist2% = LShifty% + 20
+calpb3% = pshotx3% - LShiftx%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND LShifty% <= shipy% THEN dist3% = LShifty% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: LShfhits% = LShfhits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: LShfhits% = LShfhits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: LShfhits% = LShfhits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  LShfhits% = LShfhits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF LShfhits% < 0 AND NOT LShiftt% = 6 THEN LShfhits% = setLShf%: LShiftt% = 6: PUT (LShiftx%, LShifty%), LShifter%, XOR: expx% = LShiftx%: expy% = LShifty%: exploff% = 1: LShiftx% = 300: shppoint% = 20: CALL Explosion.con
+
+
+IF LShiftt1% = 1 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+IF LShiftt1% = 0 AND LShift% >= 10 THEN LShiftt1% = 1: LShiftx1% = 240: LShifty1% = 5
+IF LShiftt1% = 1 THEN LShifty1% = LShifty1% + 4:   LShiftx1% = LShiftx1% - 3
+IF LShiftt1% = 1 AND LShifty1% >= 160 THEN LShiftt1% = 2
+IF LShiftt1% = 1 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+IF LShiftt1% = 3 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+IF LShiftt1% = 2 AND LShifty1% >= 160 THEN LShiftt1% = 3
+IF LShiftt1% = 3 THEN LShifty1% = LShifty1% - 4
+IF LShiftt1% = 3 AND LShifty1% <= 10 THEN LShiftt1% = 4
+IF LShiftt1% = 3 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+IF LShiftt1% = 5 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+IF LShiftt1% = 4 AND LShifty1% <= 10 THEN LShiftt1% = 5:
+IF LShiftt1% = 5 THEN LShifty1% = LShifty1% + 4: LShiftx1% = LShiftx1% - 3
+IF LShiftt1% = 5 AND LShifty1% >= 160 THEN LShiftt1% = 6
+IF LShiftt1% = 5 THEN PUT (LShiftx1%, LShifty1%), LShifter%, XOR
+calpb% = pshotx% - LShiftx1%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND LShifty1% <= shipy% THEN dist% = LShifty1% + 20
+calpb1% = pshotx1% - LShiftx1%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND LShifty1% <= shipy% THEN dist1% = LShifty1% + 20
+calpb2% = pshotx2% - LShiftx1%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND LShifty1% <= shipy% THEN dist2% = LShifty1% + 20
+calpb3% = pshotx3% - LShiftx1%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND LShifty1% <= shipy% THEN dist3% = LShifty1% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: LShf1hits% = LShf1hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: LShf1hits% = LShf1hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: LShf1hits% = LShf1hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  LShf1hits% = LShf1hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF LShf1hits% < 0 AND NOT LShiftt1% = 6 THEN LShf1hits% = setshf%: LShiftt1% = 6: PUT (LShiftx1%, LShifty1%), LShifter%, XOR: expx% = LShiftx1%: expy% = LShifty1%: exploff% = 1: LShiftx1% = 300: shppoint% = 20: CALL Explosion.con
+IF LShiftt2% = 1 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+IF LShiftt2% = 0 AND LShift% >= 20 THEN LShiftt2% = 1: LShiftx2% = 240: LShifty2% = 5
+IF LShiftt2% = 1 THEN LShifty2% = LShifty2% + 4:   LShiftx2% = LShiftx2% - 3
+IF LShiftt2% = 1 AND LShifty2% >= 160 THEN LShiftt2% = 2
+IF LShiftt2% = 1 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+IF LShiftt2% = 3 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+IF LShiftt2% = 2 AND LShifty2% >= 160 THEN LShiftt2% = 3
+IF LShiftt2% = 3 THEN LShifty2% = LShifty2% - 4
+IF LShiftt2% = 3 AND LShifty2% <= 10 THEN LShiftt2% = 4
+IF LShiftt2% = 3 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+IF LShiftt2% = 5 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+IF LShiftt2% = 4 AND LShifty2% <= 10 THEN LShiftt2% = 5:
+IF LShiftt2% = 5 THEN LShifty2% = LShifty2% + 4: LShiftx2% = LShiftx2% - 3
+IF LShiftt2% = 5 AND LShifty2% >= 160 THEN LShiftt2% = 6
+IF LShiftt2% = 5 THEN PUT (LShiftx2%, LShifty2%), LShifter%, XOR
+calpb% = pshotx% - LShiftx2%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND LShifty2% <= shipy% THEN dist% = LShifty2% + 20
+calpb1% = pshotx1% - LShiftx2%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND LShifty2% <= shipy% THEN dist1% = LShifty2% + 20
+calpb2% = pshotx2% - LShiftx2%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND LShifty2% <= shipy% THEN dist2% = LShifty2% + 20
+calpb3% = pshotx3% - LShiftx2%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND LShifty2% <= shipy% THEN dist3% = LShifty2% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: LShf2hits% = LShf2hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: LShf2hits% = LShf2hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: LShf2hits% = LShf2hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  LShf2hits% = LShf2hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF LShf2hits% < 0 AND NOT LShiftt2% = 6 THEN LShf2hits% = setLShf%: LShiftt2% = 6: PUT (LShiftx2%, LShifty2%), LShifter%, XOR: expx% = LShiftx2%: expy% = LShifty2%: exploff% = 1: LShiftx2% = 300: shppoint% = 20: CALL Explosion.con
+
+
+
+IF LShiftt3% = 1 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+IF LShiftt3% = 0 AND LShift% >= 30 THEN LShiftt3% = 1: LShiftx3% = 240: LShifty3% = 5
+IF LShiftt3% = 1 THEN LShifty3% = LShifty3% + 4:   LShiftx3% = LShiftx3% - 3
+IF LShiftt3% = 1 AND LShifty3% >= 160 THEN LShiftt3% = 2
+IF LShiftt3% = 1 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+IF LShiftt3% = 3 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+IF LShiftt3% = 2 AND LShifty3% >= 160 THEN LShiftt3% = 3:
+IF LShiftt3% = 3 THEN LShifty3% = LShifty3% - 4
+IF LShiftt3% = 3 AND LShifty3% <= 10 THEN LShiftt3% = 4
+IF LShiftt3% = 3 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+IF LShiftt3% = 5 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+IF LShiftt3% = 4 AND LShifty3% <= 10 THEN LShiftt3% = 5:
+IF LShiftt3% = 5 THEN LShifty3% = LShifty3% + 4: LShiftx3% = LShiftx3% - 3
+IF LShiftt3% = 5 AND LShifty3% >= 160 THEN LShiftt3% = 6
+IF LShiftt3% = 5 THEN PUT (LShiftx3%, LShifty3%), LShifter%, XOR
+calpb% = pshotx% - LShiftx3%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND LShifty3% <= shipy% THEN dist% = LShifty3% + 20
+calpb1% = pshotx1% - LShiftx3%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND LShifty3% <= shipy% THEN dist1% = LShifty3% + 20
+calpb2% = pshotx2% - LShiftx3%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND LShifty3% <= shipy% THEN dist2% = LShifty3% + 20
+calpb3% = pshotx3% - LShiftx3%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND LShifty3% <= shipy% THEN dist3% = LShifty3% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: LShf3hits% = LShf3hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: LShf3hits% = LShf3hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: LShf3hits% = LShf3hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  LShf3hits% = LShf3hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF LShf3hits% < 0 AND NOT LShiftt3% = 6 THEN LShf3hits% = setLShf%: LShiftt3% = 7: PUT (LShiftx3%, LShifty3%), LShifter%, XOR: expx% = LShiftx3%: expy% = LShifty3%: exploff% = 1: LShiftx3% = 300: shppoint% = 20: CALL Explosion.con
+
+plyerhitx% = shipx% - LShiftx%
+plyerhity% = shipy% - LShifty%
+IF NOT LShiftt% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= LShifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx% AND shipy% >= LShifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= LShifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx% AND shipy% <= LShifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - LShiftx1%
+plyerhity% = shipy% - LShifty1%
+IF NOT LShiftt1% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= LShifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx1% AND shipy% >= LShifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= LShifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx1% AND shipy% <= LShifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - LShiftx2%
+plyerhity% = shipy% - LShifty2%
+IF NOT LShiftt2% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= LShifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx2% AND shipy% >= LShifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= LShifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx2% AND shipy% <= LShifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - LShiftx3%
+plyerhity% = shipy% - LShifty3%
+IF NOT LShiftt3% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= LShifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx3% AND shipy% >= LShifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= LShifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= LShiftx3% AND shipy% <= LShifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+END SUB
+
+SUB Megatship STATIC
+IF mgt% = 0 THEN
+mgt% = 4
+GET (136, 5)-(119, 16), getscr%
+LINE (136, 5)-(119, 16), 0, BF
+PSET (128, 15)
+DRAW "c110l1l1u1l1l1u1l1u1u1u1r1u1r1r1u1r1r1r1d1r1r1d1r1d1d1d1l1d1l1l1d1l1l1l1u1l1l1u1l1l1d1d1l1d1l1l1u1u1u1u1u1u1u1u1u1u1r1r1d1r1d1d1d1r1l1r1r1u1r1r1u1r1r1r1d1r1r1d1r1r1u1u1u1r1u1r1r1d1d1d1d1d1d1d1d1d1d1l1l1u1l1u1u1l1l1bl2bu1"
+DRAW "bu0bp2,110c110r1u1l1u1l1l1l1d1l1d1r1d1r1r1r1u1r1u1bl-1bu-2bl-3bl0bp1,110bl13bp1,110"
+GET (136, 5)-(119, 16), megat%: PUT (119, 5), megat%, XOR
+PUT (119, 5), getscr%, PSET
+ELSE
+
+IF megt1% = 1 THEN PUT (megx1%, megy1%), megat%, XOR
+IF megt1% = 0 AND megy% >= 45 THEN : megt1% = 1
+IF megt1% = 1 THEN megx1% = 220: megy1% = megy1% + 3
+IF megy1% >= 165 THEN megt1% = 0
+IF megt1% = 1 THEN PUT (megx1%, megy1%), megat%, XOR
+'//////////////////////////////////////////////////////////////////////////////
+IF megt4% = 1 THEN PUT (megx4%, megy4%), megat%, XOR
+IF megt4% = 0 AND megy% >= 30 THEN : megt4% = 1
+IF megt4% = 1 THEN megx4% = 190: megy4% = megy4% + 3
+IF megy4% >= 165 THEN megt4% = 0
+IF megt4% = 1 THEN PUT (megx4%, megy4%), megat%, XOR
+'/////////////////////////////////////////////////////////////////////////////
+IF megt3% = 1 THEN PUT (megx3%, megy3%), megat%, XOR
+IF megt3% = 0 AND megy% >= 10 THEN : megt3% = 1
+IF megt3% = 1 THEN megx3% = 155: megy3% = megy3% + 3:
+IF megy3% >= 165 THEN megt3% = 0
+IF megt3% = 1 THEN PUT (megx3%, megy3%), megat%, XOR
+'/////////////////////////////////////////////////////////////////////////////
+IF megt2% = 1 THEN PUT (megx2%, megy2%), megat%, XOR
+IF megt2% = 0 AND megy% >= 30 THEN : megt2% = 1
+IF megt2% = 1 THEN megx2% = 55: megy2% = megy2% + 3
+IF megy2% >= 165 THEN megt2% = 0
+IF megt2% = 1 THEN PUT (megx2%, megy2%), megat%, XOR
+'/////////////////////////////////////////////////////////////////////////////
+IF megt5% = 1 THEN PUT (megx5%, megy5%), megat%, XOR
+IF megt5% = 0 AND megy% >= 10 THEN : megt5% = 1
+IF megt5% = 1 THEN megx5% = 85: megy5% = megy5% + 3
+IF megy5% >= 160 THEN megt5% = 0
+IF megt5% = 1 THEN PUT (megx5%, megy5%), megat%, XOR
+'/////////////////////////////////////////////////////////////////////////////
+IF megt6% = 1 THEN PUT (megx6%, megy6%), megat%, XOR
+IF megt6% = 0 AND megy% >= 45 THEN : megt6% = 1
+IF megt6% = 1 THEN megx6% = 25: megy6% = megy6% + 3
+IF megy6% >= 165 THEN megt6% = 0:
+IF megt6% = 1 THEN PUT (megx6%, megy6%), megat%, XOR
+'//////////////////////////////////////////////////////////////////////////////
+megy% = megy% + 2
+IF megt7% = 1 THEN PUT (megx7%, megy7%), megat%, XOR
+IF megt7% = 0 AND megy% >= 2 THEN : megt7% = 1
+IF megt7% = 1 THEN megx7% = 120: megy7% = megy7% + 3
+IF megy7% >= 165 THEN megt7% = 0:
+IF megt7% = 1 THEN PUT (megx7%, megy7%), megat%, XOR
+
+calpb% = pshotx% - megx1%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy1% <= shipy% THEN dist% = megy1% + 20
+calpb1% = pshotx1% - megx1%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy1% <= shipy% THEN dist1% = megy1% + 20
+calpb2% = pshotx2% - megx1%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy1% <= shipy% THEN dist2% = megy1% + 20
+calpb3% = pshotx3% - megx1%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy1% <= shipy% THEN dist3% = megy1% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit1% = mghit1% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit1% = mghit1% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit1% = mghit1% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit1% = mghit1% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit1% < 0 AND megt1% = 1 THEN megt1% = 2: PUT (megx1%, megy1%), megat%, XOR: expx% = megx1%: expy% = megy1%: megx1% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'/////////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - megx2%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy2% <= shipy% THEN dist% = megy2% + 20
+calpb1% = pshotx1% - megx2%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy2% <= shipy% THEN dist1% = megy2% + 20
+calpb2% = pshotx2% - megx2%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy2% <= shipy% THEN dist2% = megy2% + 20
+calpb3% = pshotx3% - megx2%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy2% <= shipy% THEN dist3% = megy2% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit2% = mghit2% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit2% = mghit2% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit2% = mghit2% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit2% = mghit2% - 1:     IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit2% < 0 AND megt2% = 1 THEN megt2% = 2: PUT (megx2%, megy2%), megat%, XOR: expx% = megx2%: expy% = megy2%: megx2% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'/////////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - megx3%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy3% <= shipy% THEN dist% = megy3% + 20
+calpb1% = pshotx1% - megx3%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy3% <= shipy% THEN dist1% = megy3% + 20
+calpb2% = pshotx2% - megx3%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy3% <= shipy% THEN dist2% = megy3% + 20
+calpb3% = pshotx3% - megx3%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy2% <= shipy% THEN dist3% = megy3% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit3% = mghit3% - 1:       IF sfx% = 0 THEN PLAY "mbl64o3cece"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit3% = mghit3% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit3% = mghit3% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit3% = mghit3% - 1:      IF sfx% = 0 THEN PLAY "mbl64o3cece"
+IF mghit3% < 0 AND megt3% = 1 THEN megt3% = 2: PUT (megx3%, megy3%), megat%, XOR: expx% = megx3%: expy% = megy3%: megx3% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+
+'/////////////////////////////////////////////////////////////////////////////////
+
+calpb% = pshotx% - megx4%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy4% <= shipy% THEN dist% = megy4% + 20
+calpb1% = pshotx1% - megx4%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy4% <= shipy% THEN dist1% = megy4% + 20
+calpb2% = pshotx2% - megx4%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy4% <= shipy% THEN dist2% = megy4% + 20
+calpb3% = pshotx3% - megx4%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy4% <= shipy% THEN dist3% = megy4% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit4% = mghit4% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit4% = mghit4% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit4% = mghit4% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit4% = mghit4% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit4% < 0 AND megt4% = 1 THEN megt4% = 2: PUT (megx4%, megy4%), megat%, XOR: expx% = megx4%: expy% = megy4%: megx4% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'/////////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - megx5%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy5% <= shipy% THEN dist% = megy5% + 20
+calpb1% = pshotx1% - megx5%
+IF hit% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy5% <= shipy% THEN dist1% = megy5% + 20
+calpb2% = pshotx2% - megx5%
+IF hit% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy5% <= shipy% THEN dist2% = megy5% + 20
+calpb3% = pshotx3% - megx5%
+IF calpb3% <= 10 AND calpb3% >= -10 AND megy5% <= shipy% THEN dist3% = megy5% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit5% = mghit5% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit5% = mghit5% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit5% = mghit5% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit5% = mghit5% - 1:      IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit5% < 0 AND megt5% = 1 THEN megt5% = 2: PUT (megx5%, megy5%), megat%, XOR: expx% = megx5%: expy% = megy5%: megx5% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'/////////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - megx6%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy6% <= shipy% THEN dist% = megy6% + 20
+calpb1% = pshotx1% - megx6%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy6% <= shipy% THEN dist1% = megy6% + 20
+calpb2% = pshotx2% - megx6%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy6% <= shipy% THEN dist2% = megy6% + 20
+calpb3% = pshotx3% - megx6%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy6% <= shipy% THEN dist3% = megy6% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit6% = mghit6% - 1:      IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit6% = mghit6% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit6% = mghit6% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit6% = mghit6% - 1:     IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit6% < 0 AND megt6% = 1 THEN megt6% = 2: PUT (megx6%, megy6%), megat%, XOR: expx% = megx6%: expy% = megy6%: megx6% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'/////////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - megx7%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND megy7% <= shipy% THEN dist% = megy7% + 20
+calpb1% = pshotx1% - megx7%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND megy7% <= shipy% THEN dist1% = megy7% + 20
+calpb2% = pshotx2% - megx7%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND megy7% <= shipy% THEN dist2% = megy7% + 20
+calpb3% = pshotx3% - megx7%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND megy7% <= shipy% THEN dist3% = megy7% + 20
+'********
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% > 4 THEN hit% = 0: mghit7% = mghit7% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% > 4 THEN hit1% = 0: mghit7% = mghit7% - 1:
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% > 4 THEN hit2% = 0: mghit7% = mghit7% - 1:
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% > 4 THEN hit3% = 0: mghit7% = mghit7% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF mghit7% < 0 AND megt7% = 1 THEN megt7% = 2: PUT (megx7%, megy7%), megat%, XOR: expx% = megx7%: expy% = megy7%: megx7% = 300: exploff% = 1: shppoint% = 5: CALL Explosion.con
+'//////////////////////////////////////////////////////////////////////////////////
+
+plyerhitx% = shipx% - megx1%
+plyerhity% = shipy% - megy1%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND megx1% >= megx1% AND shipy% >= megy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND megx1% >= megx1% AND shipy% <= megy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx2%
+plyerhity% = shipy% - megy2%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx2% AND shipy% >= megy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx2% AND shipy% <= megy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx3%
+plyerhity% = shipy% - megy3%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx3% AND shipy% >= megy3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx3% AND shipy% <= megy3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx4%
+plyerhity% = shipy% - megy4%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy4% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx4% AND shipy% >= megy4% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy4% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx4% AND shipy% <= megy4% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx5%
+plyerhity% = shipy% - megy5%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy5% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx5% AND shipy% >= megy5% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy5% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx5% AND shipy% <= megy5% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx6%
+plyerhity% = shipy% - megy6%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy6% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx6% AND shipy% >= megy6% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy6% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx6% AND shipy% <= megy6% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - megx7%
+plyerhity% = shipy% - megy7%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 5: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= megy7% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx7% AND shipy% >= megy7% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= megy7% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= megx7% AND shipy% <= megy7% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+END IF
+END SUB
+
+SUB Pause
+REDIM beindAmbox%(8000)
+GET (30, 80)-(230, 120), beindAmbox%
+Ambox 1, 31
+settextxy 80, 95, 42, 46, "GAME PAUSE"
+WHILE NOT UCASE$(INKEY$) = "P": WEND
+WHILE INKEY$ <> "": WEND
+PUT (30, 80), beindAmbox%, PSET
+ERASE getscr%, beindAmbox%
+END SUB
+
+SUB player.Gun STATIC
+shotspd% = 1
+
+'////////////////////////////////////////////////////////////////////
+IF fshot% = 1 THEN
+IF fst% = 1 THEN PUT (pshotx%, pshoty%), plshot%, XOR
+IF fst% = 1 THEN PUT (pshotx% + 7, pshoty%), plshot%, XOR
+IF fst% = 0 THEN fst% = 1: pshoty% = shipy% - 5: pshotx% = shipx% + 1: IF sfx% = 0 THEN PLAY "mbl64o1ceae"
+pshoty% = pshoty% - shotspd%: nextsht% = nextsht% + 1
+IF fst% = 1 AND pshoty% <= dist% THEN fshot% = 0: fst% = 0: dist% = 0
+IF fst% = 1 THEN PUT (pshotx%, pshoty%), plshot%, XOR: hit% = 1
+IF fst% = 1 THEN PUT (pshotx% + 7, pshoty%), plshot%, XOR
+END IF
+'///////////////////////////////////////////////////////////////////////
+IF fshot1% = 1 THEN
+IF fst1% = 1 THEN PUT (pshotx1%, pshoty1%), plshot%, XOR
+IF fst1% = 1 THEN PUT (pshotx1% + 7, pshoty1%), plshot%, XOR
+IF fst1% = 0 THEN fst1% = 1: pshoty1% = shipy% - 5: pshotx1% = shipx% + 1: IF sfx% = 0 THEN PLAY "mbl64o1ceae"
+pshoty1% = pshoty1% - shotspd%
+IF pshoty1% <= dist1% THEN fshot1% = 0: fst1% = 0: dist1% = 1:
+IF fst1% = 1 THEN PUT (pshotx1%, pshoty1%), plshot%, XOR: hit1% = 1
+IF fst1% = 1 THEN PUT (pshotx1% + 7, pshoty1%), plshot%, XOR
+END IF
+'////////////////////////////////////////////////////////////////////////////
+IF fshot2% = 1 THEN
+IF fst2% = 1 THEN PUT (pshotx2%, pshoty2%), plshot%, XOR
+IF fst2% = 1 THEN PUT (pshotx2% + 7, pshoty2%), plshot%, XOR
+IF fst2% = 0 THEN fst2% = 1: pshoty2% = shipy% - 5: pshotx2% = shipx% + 1:  IF sfx% = 0 THEN PLAY "mbl64o1ceae"
+pshoty2% = pshoty2% - shotspd%
+IF pshoty2% <= dist2% THEN fshot2% = 0: fst2% = 0: dist2% = 0
+IF fst2% = 1 THEN PUT (pshotx2%, pshoty2%), plshot%, XOR: hit2% = 1
+IF fst2% = 1 THEN PUT (pshotx2% + 7, pshoty2%), plshot%, XOR
+END IF
+
+IF fshot3% = 1 THEN
+IF fst3% = 1 THEN PUT (pshotx3%, pshoty3%), plshot%, XOR
+IF fst3% = 1 THEN PUT (pshotx3% + 7, pshoty3%), plshot%, XOR
+IF fst3% = 0 THEN fst3% = 1: pshoty3% = shipy% - 5: pshotx3% = shipx% + 1:  IF sfx% = 0 THEN PLAY "mbl64o1ceae"
+pshoty3% = pshoty3% - shotspd%
+IF pshoty3% <= dist3% THEN fshot3% = 0: fst3% = 0: dist3% = 0:
+IF fst3% = 1 THEN PUT (pshotx3%, pshoty3%), plshot%, XOR: hit3% = 1
+IF fst3% = 1 THEN PUT (pshotx3% + 7, pshoty3%), plshot%, XOR
+END IF
+ 
+
+
+
+
+IF JoyStickDetected = 1 THEN joystickbuttons buttonA, buttonB
+    
+   t = t + 1: IF t > 30 THEN t = 30
+  IF keybr$ = CHR$(32) AND t > 18 OR buttonA = 1 AND t > 18 THEN
+ 
+   t = 0
+  SELECT CASE sh%
+  CASE 0
+  fshot% = 1
+  sh% = 1
+  CASE 1
+  fshot1% = 1
+  sh% = 2
+  CASE 2
+  fshot2% = 1
+  sh% = 3
+  CASE 3
+  fshot3% = 1
+  sh% = 0
+  END SELECT
+  WHILE INKEY$ <> "": WEND
+END IF
+'//////////////////////////////////////////////////////////////////////////////
+  IF hit% = 1 THEN dist% = 1
+  IF hit1% = 1 THEN dist1% = 1
+  IF hit2% = 1 THEN dist2% = 1
+  IF hit3% = 1 THEN dist3% = 1
+
+END SUB
+
+SUB Playerexp STATIC
+IF plyexp% = 1 THEN
+IF drawexp% = 0 THEN
+GET (shipx% + 18, shipy% + 12)-(shipx%, shipy%), getscr%
+LINE (shipx% + 18, shipy% + 12)-(shipx%, shipy%), 0, BF
+PSET (shipx% + 15, shipy% + 6)
+DRAW "c4u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp4,4"
+DRAW "c90r1r1r1u1u1l1u1u1l1l1u1l1l1l1l1d1d1l1l1l1d1d1d1r1r1d1d1r1r1d1r1r1r1u1r1r1u1l1u1bl3p90,90"
+GET (shipx% + 18, shipy% + 12)-(shipx%, shipy%), expls%
+PUT (shipx%, shipy%), expls%
+PSET (shipx% + 15, shipy% + 6)
+DRAW "c40u1u1l1u1l1u1u1l1l1u1l1l1l1l1l1d1l1d1l1l1l1d1d1d1l1l1d1d1r1d1d1r1r1r1d1d1r1r1r1d1r1r1r1u1r1r1r1u1r1r1u1u1r1r1u1l1u1u1l1l1l1bl3bu-2bp40,40"
+GET (shipx% + 18, shipy% + 12)-(shipx%, shipy%), expls1%
+PUT (shipx%, shipy%), expls1%, XOR
+PUT (shipx%, shipy%), getscr%, PSET
+drawexp% = 1
+END IF
+'///////
+IF getsppos% = 0 AND plyexp% = 1 THEN expshipx% = shipx%: expshipy% = shipy%: getsppos% = 1: disable% = 1: PUT (shipx%, shipy%), Playership%, XOR
+Shpexpt = Shpexpt + 1: IF Shpexpt >= 5 THEN expoff% = 1
+'shipx% = 300
+PUT (expshipx% + 4, expshipy%), expls%, XOR
+PUT (expshipx%, expshipy%), expls1%, XOR
+PUT (expshipx% + 10, expshipy% - 4), expls1%, XOR
+PUT (expshipx% + 6, expshipy% - 1), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (expshipx% + 10, expshipy% + 4), expls1%, XOR
+PUT (expshipx% + 10, expshipy%), expls1%, XOR
+PUT (expshipx% + 3, expshipy%), expls1%, XOR
+PUT (expshipx% + 4 - 15, expshipy% + 10), expls%, XOR
+PUT (expshipx%, expshipy% + 10), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% - 4 + 10), expls1%, XOR
+PUT (expshipx% + 6 - 15, expshipy% - 1 + 10), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (expshipx% + 10 - 15, expshipy% + 4 + 10), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% + 10), expls1%, XOR
+PUT (expshipx% + 3 - 15, expshipy% + 10), expls1%, XOR
+FOR t = 1 TO 6750: NEXT t
+t = 0
+PUT (expshipx% + 4 - 15, expshipy%), expls%, XOR
+PUT (expshipx%, expshipy%), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% - 4), expls1%, XOR
+PUT (expshipx% + 6 - 15, expshipy% - 1), expls1%, XOR
+FOR I% = 100 TO 140 STEP 2
+IF sfx% = 0 THEN SOUND I%, 40 / 1000
+NEXT I%
+PUT (expshipx% + 10 - 15, expshipy% + 4), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy%), expls1%, XOR
+PUT (expshipx% + 3 - 15, expshipy%), expls1%, XOR
+'//////////
+IF expoff% = 1 THEN
+PUT (expshipx% + 4, expshipy%), expls%, XOR
+PUT (expshipx% + 6, expshipy% - 1), expls1%, XOR
+PUT (expshipx%, expshipy%), expls1%, XOR
+PUT (expshipx% + 10, expshipy% - 4), expls1%, XOR
+PUT (expshipx% + 10, expshipy% + 4), expls1%, XOR
+PUT (expshipx% + 10, expshipy%), expls1%, XOR
+PUT (expshipx% + 3, expshipy%), expls1%, XOR
+PUT (expshipx% + 4 - 15, expshipy% + 10), expls%, XOR
+PUT (expshipx%, expshipy% + 10), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% - 4 + 10), expls1%, XOR
+PUT (expshipx% + 6 - 15, expshipy% - 1 + 10), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% + 4 + 10), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% + 10), expls1%, XOR
+PUT (expshipx% + 3 - 15, expshipy% + 10), expls1%, XOR
+PUT (expshipx% + 4 - 15, expshipy%), expls%, XOR
+PUT (expshipx%, expshipy%), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% - 4), expls1%, XOR
+PUT (expshipx% + 6 - 15, expshipy% - 1), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy% + 4), expls1%, XOR
+PUT (expshipx% + 10 - 15, expshipy%), expls1%, XOR
+PUT (expshipx% + 3 - 15, expshipy%), expls1%, XOR
+Shpexpt = 0
+getsppos% = 0
+expoff% = 0
+ardply% = 0
+plyexp% = 0
+plstr% = 0
+ontimer% = 0
+IF lives% = 4 AND ardply% = 0 THEN
+WHILE INKEY$ <> "": WEND
+REDIM beindAmbox%(8000)
+Ambox 1, 31
+centertext 95, 35, 42, "GAME OVER"
+WHILE INKEY$ = ""
+WEND
+ERASE bsshot%, plshot%, megat%, viper%
+ERASE Shield%, Shield1%, shifter%, Playership%
+ERASE getscr%, beindAmbox%
+CHAIN "HSCORE.QBF"
+END IF
+END IF
+END IF
+IF plstr% = 1 THEN PUT (shipx%, shipy%), Playership%, XOR
+IF plstr% = 0 THEN
+plstr% = 1: shipx% = 122: shipy% = 160: disable% = 1: LINE (254, 195)-(8, 178), 0, BF
+centertext 183, 35, 42, "GET READY"
+END IF
+IF plstr% = 1 THEN
+shipy% = shipy% - 3: IF sfx% = 0 THEN SOUND 170, 2
+END IF
+IF plstr% = 1 THEN PUT (shipx%, shipy%), Playership%, XOR:
+IF plstr% = 1 AND shipy% <= 135 THEN plstr% = 2: disable% = 0:  LINE (254, 195)-(8, 178), 0, BF: centertext 183, 35, 42, "GOOD LUCK"
+blue% = blue% XOR 43
+Write.Palette 255, 0, 0, blue%
+
+
+END SUB
+
+SUB Quitgame
+REDIM beindAmbox%(8000)
+GET (30, 80)-(230, 120), beindAmbox%
+Ambox 1, 31
+settextxy 80, 95, 42, 46, "GUIT GAME Y/N"
+WHILE INKEY$ <> "": WEND
+
+WHILE CH$ = ""
+  CH$ = INKEY$
+          WEND
+PUT (30, 80), beindAmbox%, PSET
+
+IF UCASE$(CH$) = "Y" THEN
+ERASE bsshot%, plshot%, megat%, viper%
+ERASE Shield%, Shield1%, shifter%, Playership%
+ERASE getscr%, beindAmbox%
+score% = SAVE.score%
+lives% = SAVE.lives%
+Multipropose$ = SAVE.Multipropose$
+delay! = savdelay!
+CHAIN "HEADQ.QBF"
+  END IF
+
+END SUB
+
+SUB RShiftShip STATIC
+IF shf% = 0 THEN
+PSET (15, 10)
+DRAW "c44l1l1l1l1h1h1l1g1d1d1d1d1f1f1f1f1f1r1r1r1e1e1e1e1e1u1u1u1u1h1l1g1g1l1"
+DRAW "bl3bd5c44r1r1r1f1h1u1e1e1u1h1l1l1l1l1l1g1d1f1f1d1g1bu2bl1bp32,44bl-7bp32,44bl5bu-2bl-1bp4,44c44u5bp4,44"
+GET (20, 8)-(7, 18), shifter%
+PUT (7, 8), shifter%, XOR
+shf% = 1
+END IF
+
+
+Shift% = Shift% + 1: ' IF shift >= 180 THEN shift = 0: Shiftt% = 0: Shiftt1% = 0: Shiftt2% = 0: Shiftt3% = 0
+
+IF Shiftt% = 1 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF Shiftt% = 0 AND Shift% <= 20 THEN Shiftt% = 1: Shiftx% = 10: Shifty% = 5
+IF Shiftt% = 1 THEN Shifty% = Shifty% + 4:   Shiftx% = Shiftx% + 3
+IF Shiftt% = 1 AND Shifty% >= 160 THEN Shiftt% = 2
+IF Shiftt% = 1 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF Shiftt% = 3 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF Shiftt% = 2 AND Shifty% >= 160 THEN Shiftt% = 3:
+IF Shiftt% = 3 THEN Shifty% = Shifty% - 4
+IF Shiftt% = 3 AND Shifty% <= 10 THEN Shiftt% = 4
+IF Shiftt% = 3 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF Shiftt% = 5 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF Shiftt% = 4 AND Shifty% <= 10 THEN Shiftt% = 5:
+IF Shiftt% = 5 THEN Shifty% = Shifty% + 4: Shiftx% = Shiftx% + 3
+IF Shiftt% = 5 AND Shifty% >= 160 THEN Shiftt% = 6
+IF Shiftt% = 5 THEN PUT (Shiftx%, Shifty%), shifter%, XOR
+IF NOT Shiftt% = 6 THEN
+calpb% = pshotx% - Shiftx%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND Shifty% <= shipy% THEN dist% = Shifty% + 20
+calpb1% = pshotx1% - Shiftx%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND Shifty% <= shipy% THEN dist1% = Shifty% + 20
+calpb2% = pshotx2% - Shiftx%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND Shifty% <= shipy% THEN dist2% = Shifty% + 20
+calpb3% = pshotx3% - Shiftx%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND Shifty% <= shipy% THEN dist3% = Shifty% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: Shfhits% = Shfhits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: Shfhits% = Shfhits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: Shfhits% = Shfhits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  Shfhits% = Shfhits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+END IF
+IF Shfhits% < 0 AND NOT Shiftt% = 6 THEN Shfhits% = setshf%: Shiftt% = 6: PUT (Shiftx%, Shifty%), shifter%, XOR: expx% = Shiftx%: expy% = Shifty%: exploff% = 1: Shiftx% = 300: shppoint% = 20: CALL Explosion.con
+
+
+
+
+IF Shiftt1% = 1 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF Shiftt1% = 0 AND Shift% >= 10 THEN Shiftt1% = 1: Shiftx1% = 10: Shifty1% = 5
+IF Shiftt1% = 1 THEN Shifty1% = Shifty1% + 4:   Shiftx1% = Shiftx1% + 3
+IF Shiftt1% = 1 AND Shifty1% >= 160 THEN Shiftt1% = 2
+IF Shiftt1% = 1 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF Shiftt1% = 3 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF Shiftt1% = 2 AND Shifty1% >= 160 THEN Shiftt1% = 3:
+IF Shiftt1% = 3 THEN Shifty1% = Shifty1% - 4
+IF Shiftt1% = 3 AND Shifty1% <= 10 THEN Shiftt1% = 4
+IF Shiftt1% = 3 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF Shiftt1% = 5 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF Shiftt1% = 4 AND Shifty1% <= 10 THEN Shiftt1% = 5:
+IF Shiftt1% = 5 THEN Shifty1% = Shifty1% + 4: Shiftx1% = Shiftx1% + 3
+IF Shiftt1% = 5 AND Shifty1% >= 160 THEN Shiftt1% = 6
+IF Shiftt1% = 5 THEN PUT (Shiftx1%, Shifty1%), shifter%, XOR
+IF NOT Shiftt1% = 6 THEN
+calpb% = pshotx% - Shiftx1%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND Shifty1% <= shipy% THEN dist% = Shifty1% + 20
+calpb1% = pshotx1% - Shiftx1%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND Shifty1% <= shipy% THEN dist1% = Shifty1% + 20
+calpb2% = pshotx2% - Shiftx1%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND Shifty1% <= shipy% THEN dist2% = Shifty1% + 20
+calpb3% = pshotx3% - Shiftx1%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND Shifty1% <= shipy% THEN dist3% = Shifty1% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: Shf1hits% = Shf1hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: Shf1hits% = Shf1hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: Shf1hits% = Shf1hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  Shf1hits% = Shf1hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF Shf1hits% < 0 AND NOT Shiftt1% = 6 THEN Shf1hits% = setshf%: Shiftt1% = 6: PUT (Shiftx1%, Shifty1%), shifter%, XOR: expx% = Shiftx1%: expy% = Shifty1%: exploff% = 1: Shiftx1% = 300: shppoint% = 20: CALL Explosion.con
+ END IF
+IF Shiftt2% = 1 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+IF Shiftt2% = 0 AND Shift% >= 20 THEN Shiftt2% = 1: Shiftx2% = 10: Shifty2% = 5
+IF Shiftt2% = 1 THEN Shifty2% = Shifty2% + 4:   Shiftx2% = Shiftx2% + 3
+IF Shiftt2% = 1 AND Shifty2% >= 160 THEN Shiftt2% = 2
+IF Shiftt2% = 1 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+IF Shiftt2% = 3 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+IF Shiftt2% = 2 AND Shifty2% >= 160 THEN Shiftt2% = 3:
+IF Shiftt2% = 3 THEN Shifty2% = Shifty2% - 4
+IF Shiftt2% = 3 AND Shifty2% <= 10 THEN Shiftt2% = 4
+IF Shiftt2% = 3 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+IF Shiftt2% = 5 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+IF Shiftt2% = 4 AND Shifty2% <= 10 THEN Shiftt2% = 5:
+IF Shiftt2% = 5 THEN Shifty2% = Shifty2% + 4: Shiftx2% = Shiftx2% + 3
+IF Shiftt2% = 5 AND Shifty2% >= 160 THEN Shiftt2% = 6
+IF Shiftt2% = 5 THEN PUT (Shiftx2%, Shifty2%), shifter%, XOR
+calpb% = pshotx% - Shiftx2%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND Shifty2% <= shipy% THEN dist% = Shifty2% + 20
+calpb1% = pshotx1% - Shiftx2%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND Shifty2% <= shipy% THEN dist1% = Shifty2% + 20
+calpb2% = pshotx2% - Shiftx2%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND Shifty2% <= shipy% THEN dist2% = Shifty2% + 20
+calpb3% = pshotx3% - Shiftx2%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND Shifty2% <= shipy% THEN dist3% = Shifty2% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: Shf2hits% = Shf2hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: Shf2hits% = Shf2hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: Shf2hits% = Shf2hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  Shf2hits% = Shf2hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF Shf2hits% < 0 AND NOT Shiftt2% = 6 THEN Shf2hits% = setshf%: Shiftt2% = 6: PUT (Shiftx2%, Shifty2%), shifter%, XOR: expx% = Shiftx2%: expy% = Shifty2%: exploff% = 1: Shiftx2% = 300: shppoint% = 20: CALL Explosion.con
+
+
+
+IF Shiftt3% = 1 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+IF Shiftt3% = 0 AND Shift% >= 30 THEN Shiftt3% = 1: Shiftx3% = 10: Shifty3% = 5
+IF Shiftt3% = 1 THEN Shifty3% = Shifty3% + 4:   Shiftx3% = Shiftx3% + 3
+IF Shiftt3% = 1 AND Shifty3% >= 160 THEN Shiftt3% = 2
+IF Shiftt3% = 1 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+IF Shiftt3% = 3 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+IF Shiftt3% = 2 AND Shifty3% >= 160 THEN Shiftt3% = 3:
+IF Shiftt3% = 3 THEN Shifty3% = Shifty3% - 4
+IF Shiftt3% = 3 AND Shifty3% <= 10 THEN Shiftt3% = 4
+IF Shiftt3% = 3 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+IF Shiftt3% = 5 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+IF Shiftt3% = 4 AND Shifty3% <= 10 THEN Shiftt3% = 5:
+IF Shiftt3% = 5 THEN Shifty3% = Shifty3% + 4: Shiftx3% = Shiftx3% + 3
+IF Shiftt3% = 5 AND Shifty3% >= 160 THEN Shiftt3% = 6
+IF Shiftt3% = 5 THEN PUT (Shiftx3%, Shifty3%), shifter%, XOR
+calpb% = pshotx% - Shiftx3%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND Shifty3% <= shipy% THEN dist% = Shifty3% + 20
+calpb1% = pshotx1% - Shiftx3%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND Shifty3% <= shipy% THEN dist1% = Shifty3% + 20
+calpb2% = pshotx2% - Shiftx3%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND Shifty3% <= shipy% THEN dist2% = Shifty3% + 20
+calpb3% = pshotx3% - Shiftx3%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND Shifty3% <= shipy% THEN dist3% = Shifty3% + 20
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: Shf3hits% = Shf3hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: Shf3hits% = Shf3hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: Shf3hits% = Shf3hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0:  Shf3hits% = Shf3hits% - 1: IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF Shf3hits% < 0 AND NOT Shiftt3% = 6 THEN Shf3hits% = setshf%: Shiftt3% = 7: PUT (Shiftx3%, Shifty3%), shifter%, XOR: expx% = Shiftx3%: expy% = Shifty3%: exploff% = 1: Shiftx3% = 300: shppoint% = 20: CALL Explosion.con
+D = 0
+plyerhitx% = shipx% - Shiftx%
+plyerhity% = shipy% - Shifty%
+IF NOT Shiftt% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 12 AND shipy% >= Shifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx% AND shipy% >= Shifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= Shifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx% AND shipy% <= Shifty% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - Shiftx1%
+plyerhity% = shipy% - Shifty1%
+IF NOT Shiftt1% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 12 AND shipy% >= Shifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx1% AND shipy% >= Shifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 12 AND shipy% <= Shifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx1% AND shipy% <= Shifty1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - Shiftx2%
+plyerhity% = shipy% - Shifty2%
+IF NOT Shiftt2% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= Shifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx2% AND shipy% >= Shifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= Shifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx2% AND shipy% <= Shifty2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+plyerhitx% = shipx% - Shiftx3%
+plyerhity% = shipy% - Shifty3%
+IF NOT Shiftt3% = 6 AND plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 10 AND plyerhity% >= -14 THEN power% = 10: D = 1
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= Shifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx3% AND shipy% >= Shifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= Shifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= Shiftx3% AND shipy% <= Shifty3% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+
+D = 0
+END SUB
+
+SUB Selectship.con
+
+IF SelShip% = 0 THEN
+PSET (130, 154)
+fcol% = 1
+bcol% = 24
+DRAW "c" + STR$(bcol%) + "l1l1d1l1d1l1d1l1d1l1d1d1d1l1d1d1l1d1d1d1r1d1r1r1d1r1r1r1r1r1r1r1r1u1r1r1u1r1u1u1u1l1u1u1l1u1u1u1l1u1l1u1l1u1l1u1l1l1d1l1d1l1"
+DRAW "u1u1l1d1d1d1r1l1u1u1d1d1r1u1r1u1r1u1r1r1d1r1d1r1u1u1r1d1d1d1d1bl4bu-1bl1bu-1bl1u1u1r1u1r1r1d1r1d1d1r1d1d1d1l1d1l1l1l1l1u1l1u1u1u1r1u1bl1bp" + STR$(fcol%) + "," + STR$(bcol%) + "bl-2bu3bl-1bu1bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-4bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-3bl2bu-1c" + STR$(bcol%) + "g1g1g1g1e1e1e1e1d1r1r1r1r1u1f1f1f1f1"
+PSET (130, 155)
+fcol% = 1
+bcol% = 28
+DRAW "c" + STR$(bcol%) + "l1l1d1l1d1l1d1l1d1l1d1d1d1l1d1d1l1d1d1d1r1d1r1r1d1r1r1r1r1r1r1r1r1u1r1r1u1r1u1u1u1l1u1u1l1u1u1u1l1u1l1u1l1u1l1u1l1l1d1l1d1l1"
+DRAW "u1u1l1d1d1d1r1l1u1u1d1d1r1u1r1u1r1u1r1r1d1r1d1r1u1u1r1d1d1d1d1bl4bu-1bl1bu-1bl1u1u1r1u1r1r1d1r1d1d1r1d1d1d1l1d1l1l1l1l1u1l1u1u1u1r1u1bl1bp" + STR$(fcol%) + "," + STR$(bcol%) + "bl-2bu3bl-1bu1bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-4bp" + STR$(fcol%) + "," + STR$(bcol%) + "bu-3bl2bu-1c" + STR$(bcol%) + "g1g1g1g1e1e1e1e1d1r1r1r1r1u1f1f1f1f1"
+GET (136, 170)-(122, 154), Playership%
+shipx% = 122: shipy% = 154
+PSET (124, 150)
+DRAW "c4l1l1u1u1u1u1r1u1r1d1r1d1d1d1d1c42l1l1l1r1u1u1u1u1l1r1u1d1r1u1d1d1d1d1d1l1l1"
+GET (125, 150)-(122, 145), plshot%
+PUT (122, 145), plshot%, XOR
+END IF
+PUT (shipx%, shipy%), Playership%, XOR
+
+END SUB
+
+SUB Setdisplay
+    DIM bo1x%(1 TO 200)
+    x11% = 0: x12% = 0: y11% = 0: y12% = 0
+    LINE (x11%, y11%)-(x12%, y12%), 255, BF
+    GET (x11%, y11%)-(x12%, y12%), bo1x%
+  FOR ast = 1 TO 100
+        PUT (x1%, y1%), bo1x%, XOR
+        x11% = RND * 260
+        y11% = RND * 180
+        PUT (x11%, y11%), bo1x%
+                    NEXT ast
+   
+    
+    x11% = 0: x12% = 0: y11% = 0: y12% = 0
+    LINE (x11%, y11%)-(x12%, y12%), 254, BF
+    GET (x11%, y11%)-(x12%, y12%), bo1x%
+  FOR ast = 1 TO 100
+        PUT (x1%, y1%), bo1x%, XOR
+        x11% = RND * 260
+        y11% = RND * 180
+        PUT (x11%, y11%), bo1x%
+                    NEXT ast
+
+ERASE bo1x%
+'LINE (318, 199)-(1, 0), 19, B
+PSET (161, 98), 0
+DRAW "c27bu-99l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5u2l2u2l2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2"
+DRAW "r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2bu30bl-98u2d2d2d2d2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2d2"
+DRAW "d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2u2l2ul2u2l2u18"
+PSET (265, 10), 0
+DRAW "brp241,27"
+LINE (313, 5)-(263, 194), 0, BF
+PSET (161, 99), 0
+DRAW "c25bu-99l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5u2l2u2l2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2"
+DRAW "r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2bu30bl-98u2d2d2d2d2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2d2"
+DRAW "d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2u2l2ul2u2l2u18"
+PSET (160, 100), 0
+DRAW "c54bu-99l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5l5u2l2u2l2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2"
+DRAW "r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2bu30bl-98u2d2d2d2d2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2u2r2u2r2u2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2r2d2r2d2r2d2d2d2d2d2d2d2d2d2"
+DRAW "d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2d2l2d2l2d2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2l2u2l2ul2u2l2u18"
+LINE (5, 176)-(256, 197), 20, B
+PAINT (10, 180), CHR$(21) + CHR$(20) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(19) + CHR$(20) + CHR$(21) + CHR$(23) + CHR$(23), 20
+
+'Level display
+LINE (313, 8)-(263, 17), 0, BF
+LINE (314, 7)-(262, 17), 28, B
+LINE (315, 6)-(261, 18), 24, B
+LINE (313, 23)-(263, 49), 0, BF
+LINE (314, 22)-(262, 49), 28, B
+LINE (315, 21)-(261, 50), 24, B
+'Blank
+LINE (313, 54)-(263, 63), 0, BF
+LINE (314, 53)-(262, 63), 28, B
+LINE (315, 52)-(261, 64), 24, B
+LINE (313, 68)-(263, 79), 0, BF
+LINE (314, 67)-(262, 79), 28, B
+LINE (315, 66)-(261, 80), 24, B
+'Damage display
+LINE (313, 84)-(263, 93), 0, BF
+LINE (314, 83)-(262, 93), 28, B
+LINE (315, 82)-(261, 94), 24, B
+LINE (313, 98)-(263, 109), 0, BF
+LINE (314, 97)-(262, 109), 28, B
+LINE (315, 96)-(261, 110), 24, B
+'Ships disply
+LINE (313, 114)-(263, 123), 0, BF
+LINE (314, 113)-(262, 123), 28, B
+LINE (315, 112)-(261, 124), 24, B
+LINE (313, 128)-(263, 139), 0, BF
+LINE (314, 127)-(262, 139), 28, B
+LINE (315, 126)-(261, 140), 24, B
+'Score display
+LINE (313, 144)-(263, 153), 0, BF
+LINE (314, 143)-(262, 153), 28, B
+LINE (315, 142)-(261, 154), 24, B
+LINE (313, 158)-(263, 169), 0, BF
+LINE (314, 157)-(262, 169), 28, B
+LINE (315, 156)-(261, 170), 24, B
+'Blank
+LINE (313, 173)-(263, 183), 0, BF
+LINE (314, 173)-(262, 182), 28, B
+LINE (315, 172)-(261, 183), 24, B
+
+
+
+SELECT CASE difficlty%
+CASE IS <= 1
+D$ = "T-MODE"
+setarmor% = 50
+bushits% = 200
+setkil% = 5
+vipset% = 5
+setshf% = 3
+setmeg% = 1
+CASE 2
+D$ = "R-MODE"
+setarmor% = 10
+bushits% = 200
+setkil% = 7
+vipset% = 7
+setshf% = 6
+setmeg% = 3
+CASE 3
+D$ = "V-MODE"
+bushits% = 200
+setkil% = 9
+vipset% = 9
+setshf% = 9
+setmeg% = 9
+setarmor% = 5
+    END SELECT
+armor% = setarmor%
+
+settextxy 270, 9, 42, 46, "LEVEL"
+settextxy 265, 30, 42, 46, D$
+settextxy 280, 40, 42, 46, "01"
+settextxy 270, 55, 42, 46, "SHIED"
+settextxy 270, 85, 42, 46, "ARMOR"
+settextxy 270, 115, 42, 46, "SHIPS"
+settextxy 270, 145, 42, 46, "SCORE"
+
+
+
+ships$ = "l1g1d1g1d1g1d1f1r1r1r1r1r1e1u1h1u1h1u1h1l1g1d1f1r1e1g1d1f1f1h1l1l1l1g1e1e1u1l1"
+SELECT CASE lives%
+CASE 0: PSET (273, 130): DRAW "c1" + ships$
+CASE 1: PSET (273, 130): DRAW "c1" + ships$: PSET (283, 130): DRAW "c1" + ships$
+CASE 2: PSET (273, 130): DRAW "c1" + ships$: PSET (283, 130): DRAW "c1" + ships$: PSET (294, 130): DRAW "c1" + ships$
+CASE 3: PSET (273, 130): DRAW "c1" + ships$: PSET (283, 130): DRAW "c1" + ships$: PSET (294, 130): DRAW "c1" + ships$: PSET (304, 130): DRAW "c1" + ships$
+END SELECT
+
+LINE (267, 99)-(264, 107), 4, BF
+LINE (269, 99)-(272, 107), 4, BF
+LINE (274, 99)-(277, 107), 4, BF
+LINE (279, 99)-(282, 107), 4, BF
+LINE (284, 99)-(287, 107), 4, BF
+LINE (289, 99)-(292, 107), 4, BF
+LINE (294, 99)-(297, 107), 4, BF
+LINE (299, 99)-(302, 107), 4, BF
+LINE (304, 99)-(307, 107), 4, BF
+LINE (309, 99)-(312, 107), 4, BF
+
+Multio% = 30
+LShfhits% = setshf%: LShf1hits% = setshf%:
+LShf2hits% = setshf%: LShf3hits% = setshf%
+Shfhits% = setshf%: Shf1hits% = setshf%: LShf3hits% = setshf%
+Shf2hits% = setshf%: LShf3hits% = setshf%: Shf3hits% = setshf%
+LShf3hits% = setshf%
+viphits% = vipset%: vip1hits% = vipset%: vip2hits% = vipset%
+mghit1% = setmeg%: mghit2% = setmeg%: mghit3% = setmeg%:
+mghit4% = setmeg%: mghit5% = setmeg%:
+mghit6% = setmeg%: mghit7% = setmeg%
+
+END SUB
+
+'This sub program print MDT_Font on to Screen
+'in mode 13h and while not work in anther modes
+SUB settextxy (setx%, sety%, mincolor%, maxcolor%, text$)
+noise% = 1
+strlen = LEN(text$)
+'IF INSTR(1, text$, "\a") > 0 THEN a% = 1: strlen = strlen - 2: text$ = LEFT$(text$, strlen)
+setcolor% = mincolor%
+FOR readtext = 1 TO strlen
+char$ = MID$(text$, readtext, 1)
+stp% = 8
+IF char$ = "%" THEN fonty = 2: fontx = 39
+IF char$ = "-" THEN fonty = 2: fontx = 102
+IF char$ = "/" THEN fonty = 2: fontx = 116
+IF char$ = "." THEN fonty = 2: fontx = 109
+IF char$ = "0" THEN fonty = 2: fontx = 126
+IF char$ = "1" THEN fonty = 2: fontx = 134
+IF char$ = "2" THEN fonty = 2: fontx = 142
+IF char$ = "3" THEN fonty = 2: fontx = 151
+IF char$ = "4" THEN fonty = 2: fontx = 159
+IF char$ = "5" THEN fonty = 2: fontx = 169
+IF char$ = "6" THEN fonty = 2: fontx = 177
+IF char$ = "7" THEN fonty = 2: fontx = 186
+IF char$ = "8" THEN fonty = 2: fontx = 195
+IF char$ = "9" THEN fonty = 2: fontx = 204
+IF char$ = "A" THEN fonty = 12: fontx = 10
+IF char$ = "B" THEN fonty = 12: fontx = 18
+IF char$ = "C" THEN fonty = 12: fontx = 26
+IF char$ = "D" THEN fonty = 12: fontx = 37
+IF char$ = "E" THEN fonty = 12: fontx = 46
+IF char$ = "F" THEN fonty = 12: fontx = 55
+IF char$ = "G" THEN fonty = 12: fontx = 64
+IF char$ = "H" THEN fonty = 12: fontx = 73
+IF char$ = "I" THEN fonty = 12: fontx = 81: stp% = 5
+IF char$ = "J" THEN fonty = 12: fontx = 88
+IF char$ = "K" THEN fonty = 12: fontx = 97
+IF char$ = "L" THEN fonty = 12: fontx = 105
+IF char$ = "M" THEN fonty = 12: fontx = 115
+IF char$ = "N" THEN fonty = 12: fontx = 123
+IF char$ = "O" THEN fonty = 12: fontx = 133
+IF char$ = "P" THEN fonty = 12: fontx = 141
+IF char$ = "Q" THEN fonty = 12: fontx = 150
+IF char$ = "R" THEN fonty = 12: fontx = 160
+IF char$ = "S" THEN fonty = 12: fontx = 168
+IF char$ = "T" THEN fonty = 12: fontx = 178
+IF char$ = "U" THEN fonty = 12: fontx = 186
+IF char$ = "V" THEN fonty = 12: fontx = 196
+IF char$ = "W" THEN fonty = 12: fontx = 205
+IF char$ = "X" THEN fonty = 12: fontx = 214
+IF char$ = "Y" THEN fonty = 12: fontx = 222
+IF char$ = "Z" THEN fonty = 12: fontx = 231
+IF char$ = "\" THEN fonty = 12: fontx = 249
+IF char$ = " " THEN fonty = 19: fontx = 285
+x& = sety% - fonty: Y& = setx% - fontx
+Read.Font.Date:
+   DEF SEG = VARSEG(font(1).buffer)
+   offset& = VARPTR(font(1).buffer)
+   FOR gx& = fonty TO fonty + 6
+   setcolor% = setcolor% + 1
+   IF setcolor% >= maxcolor% THEN setcolor% = mincolor%
+   FOR gy& = fontx TO fontx + 6
+   DEF SEG = VARSEG(font(1).buffer)
+   byte = PEEK(gx& * 320 + gy&)
+   IF NOT byte = 0 AND NOT byte = 255 THEN
+   GOSUB Copy.To.Screen
+   END IF
+   NEXT
+   NEXT
+   setx% = setx% + stp%
+   'IF a% = 0 THEN PLAY "MFL64o2c"
+   NEXT
+    'PLAY "MFL64o1cbc"
+EXIT SUB
+
+Copy.To.Screen:
+   DEF SEG = &HA000
+   POKE x& * 320 + Y& + gx& * 320 + gy&, setcolor%
+   RETURN
+   DEF SEG
+END SUB
+
+SUB setup STATIC
+tempdly! = delay!
+GET (190, 160)-(10, 20), getscr%
+REDIM beindAmbox%(8000)
+LINE (190, 160)-(10, 20), 0, BF
+LINE (190, 160)-(10, 20), 42, B
+ret = 1
+settextxy 50, 30, 25, 30, "SET GAME PLAY"
+settextxy 20, 55, 25, 28, "GAME SPEED"
+GOSUB Set.Speed
+settextxy 20, 75, 25, 28, "SOUND FX"
+GOSUB Set.Sound
+settextxy 20, 95, 25, 28, "MUSIC"
+GOSUB Set.Music
+settextxy 20, 115, 25, 28, "RESUME GAME"
+settextxy 20, 135, 25, 28, "QUIT GAME"
+ret = 0
+WHILE INKEY$ <> "": WEND
+opt% = 1
+kps% = 0
+DO: keyb$ = INKEY$
+Setup.Input:
+IF keyb$ = CHR$(0) + "H" OR keyb$ = CHR$(0) + "P" THEN
+'PLAY "MBL30o4AE":
+IF opt% = 1 THEN settextxy 20, 55, 25, 28, "GAME SPEED"
+IF opt% = 2 THEN settextxy 20, 75, 25, 28, "SOUND FX"
+IF opt% = 3 THEN settextxy 20, 95, 25, 28, "MUSIC"
+IF opt% = 4 THEN settextxy 20, 115, 25, 28, "RESUME GAME"
+IF opt% = 5 THEN settextxy 20, 135, 25, 28, "QUIT GAME"
+IF keyb$ = CHR$(0) + "P" THEN opt% = opt% + 1: kps% = 0: IF opt% > 5 THEN opt% = 1
+IF keyb$ = CHR$(0) + "H" THEN opt% = opt% - 1: kps% = 0: IF opt% < 1 THEN opt% = 5
+WHILE INKEY$ <> "": WEND
+ END IF
+
+IF opt% = 1 AND kps% = 0 THEN settextxy 20, 55, 42, 46, "GAME SPEED": kps% = 1
+IF opt% = 2 AND kps% = 0 THEN settextxy 20, 75, 42, 46, "SOUND FX": kps% = 1
+IF opt% = 3 AND kps% = 0 THEN settextxy 20, 95, 42, 46, "MUSIC": kps% = 1
+IF opt% = 4 AND kps% = 0 THEN settextxy 20, 115, 42, 46, "RESUME GAME": kps% = 1
+IF opt% = 5 AND kps% = 0 THEN settextxy 20, 135, 42, 46, "QUIT GAME": kps% = 1
+
+
+IF keyb$ = CHR$(0) + "M" THEN PLAY "MBL64AE": Update = 2:
+IF keyb$ = CHR$(0) + "K" THEN PLAY "MBL64AE": Update = 1:
+
+
+IF opt% = 1 AND Update > 0 THEN
+LINE (184, 62)-(105, 54), 0, BF:
+IF Update = 2 THEN spd% = spd% + 1: IF spd% > 4 THEN spd% = 0
+IF Update = 1 THEN spd% = spd% - 1: IF spd% < 0 THEN spd% = 4
+Update = 0
+Set.Speed:
+SELECT CASE spd%
+CASE 0
+settextxy 115, 55, 42, 46, "NORMAL"
+tempdly! = savdelay!
+CASE 1
+settextxy 115, 55, 42, 46, "FAST"
+tempdly! = savdelay! - 100
+CASE 2
+settextxy 115, 55, 42, 46, "SLOW"
+tempdly! = savdelay! + 100
+CASE 3
+settextxy 115, 55, 42, 46, "SLOWER"
+tempdly! = savdelay! + 200
+CASE 4
+settextxy 115, 55, 42, 46, "CUSTOMIZE"
+IF ret = 1 THEN RETURN  'set display setting and return
+GET (30, 80)-(230, 120), beindAmbox%
+Ambox 1, 31
+settextxy 90, 90, 42, 46, "SET SPEED"
+
+LINE (220, 105)-(40, 110), 1, BF
+FOR va% = 40 TO delay! \ 2
+IF va% > 220 THEN va% = 220
+LINE (40, 105)-(va%, 110), 4, B, &H65F
+                 NEXT
+
+DO: keyb$ = INKEY$
+IF keyb$ = CHR$(0) + "M" THEN va% = va% + 1: IF va% > 220 THEN va% = 220
+IF keyb$ = CHR$(0) + "K" THEN va% = va% - 1: IF va% < 40 THEN va% = 40
+
+LINE (220, 105)-(va%, 110), 1, BF
+LINE (40, 105)-(va%, 110), 4, B, &H65F
+
+LOOP UNTIL keyb$ = CHR$(0) + "P" OR keyb$ = CHR$(0) + "H"
+PUT (30, 80), beindAmbox%, PSET
+tempdly! = va% * 2
+IF tempdly! = 40 THEN tempdly! = 0
+
+GOTO Setup.Input
+END SELECT
+IF ret = 1 THEN RETURN  'set display setting and return
+ END IF
+        
+IF opt% = 2 AND Update > 0 THEN
+LINE (184, 82)-(105, 74), 0, BF:
+sfx% = sfx% XOR 1
+Update = 0
+Set.Sound:
+SELECT CASE sfx%
+CASE 0
+settextxy 115, 75, 42, 46, "ON"
+CASE 1
+settextxy 115, 75, 42, 46, "OFF"
+END SELECT
+ IF ret = 1 THEN RETURN  'set display setting and return
+ END IF
+       
+IF opt% = 3 AND Update > 0 THEN
+ LINE (184, 102)-(105, 94), 0, BF:
+ mus% = mus% XOR 1
+ Update = 0
+Set.Music:
+ SELECT CASE mus%
+ CASE 0
+ settextxy 115, 95, 42, 46, "ON"
+ CASE 1
+ settextxy 115, 95, 42, 46, "OFF"
+   END SELECT
+   IF ret = 1 THEN RETURN  'set display setting and return
+    END IF
+
+IF opt% = 4 AND keyb$ = CHR$(13) OR keyb$ = CHR$(27) THEN GOTO Exit.Loop
+
+IF opt% = 5 AND keyb$ = CHR$(13) THEN Quitgame
+
+LOOP UNTIL keyb$ = CHR$(27)
+
+Exit.Loop:
+delay! = tempdly!
+PUT (10, 20), getscr%, PSET
+END SUB
+
+SUB Shield.con STATIC
+IF NOT disable% = 1 THEN
+
+GET (shipx% + 20, shipy% + 21)-(shipx% - 6, shipy% - 5), getscr%
+'///////////////////////////////////////////////////////////////////
+CIRCLE (shipx% + 7, shipy% + 8), 11, 1, , , .97
+DRAW "p0,1"
+GET (shipx% + 18, shipy% + 19)-(shipx% - 4, shipy% - 3), Shield%
+PUT (shipx% - 4, shipy% - 3), Shield%, XOR
+'////////////////////////////////////////////////////////////////////////
+CIRCLE (shipx% + 7, shipy% + 8), 9, 15, , , .9
+DRAW "p15,15"
+GET (shipx% + 16, shipy% + 17)-(shipx% - 2, shipy% - 1), Shield1%
+PUT (shipx% - 2, shipy% - 1), Shield1%
+'/////////////////////////////////////////////////////////////////////////
+IF sfx% = 0 THEN SOUND 50, 1
+PUT (shipx% - 6, shipy% - 5), getscr%, PSET
+PUT (shipx% - 4, shipy% - 4), Shield%, XOR
+PUT (shipx% - 4, shipy% - 4), Shield1%, XOR
+PUT (shipx% - 4, shipy% - 4), Shield%, XOR
+PUT (shipx% - 4, shipy% - 4), Shield1%, XOR
+IF ontimer% < 6 THEN ontimer% = ontimer% + 1
+IF ontimer% >= 5 THEN
+armor% = armor% - power%
+IF armor% <= 0 THEN
+armor% = setarmor%
+CALL Energy.Level
+LINE (254, 195)-(8, 178), 0, BF
+END IF
+END IF
+
+END IF
+
+END SUB
+
+SUB Shipmovement STATIC
+IF NOT disable% = 1 THEN
+joy1x = joy1xmax
+joy1y = joy1ymax
+ 
+IF JoyStickDetected = 1 THEN
+ joydelay = joydelay + 1
+  IF joydelay > setjoydelay THEN joystickxy joy1x, joy1y: joydelay = 0
+   END IF
+savex = shipx%
+savey = shipy%
+
+IF keybr$ = CHR$(0) + "P" OR joy1y > joy1xmax + 10 THEN
+   shipy% = shipy% + 8
+   END IF
+ 
+IF keybr$ = CHR$(0) + "H" OR joy1y < joy1xmax - 20 THEN
+   shipy% = shipy% - 8
+   END IF
+
+IF keybr$ = CHR$(0) + "M" OR joy1x > joy1xmax + 10 THEN
+   shipx% = shipx% + 8
+   END IF
+
+IF keybr$ = CHR$(0) + "K" OR joy1x < joy1xmax - 20 AND Update = 0 THEN
+   shipx% = shipx% - 8
+   END IF
+
+IF NOT savex = shipx% OR NOT savey = shipy% THEN
+PUT (savex, savey), Playership%, XOR
+WHILE Chkxy: WEND
+PUT (shipx%, shipy%), Playership%, XOR
+END IF
+END IF
+
+END SUB
+
+SUB Update.Score
+
+ Temp$ = LTRIM$(STR$(score%))
+ LINE (312, 158)-(264, 168), 0, BF
+ settextxy 270, 160, 25, 35, Temp$
+
+END SUB
+
+SUB Vipership STATIC
+
+
+IF onetime% = 0 THEN
+onetime% = 1
+REDIM getsrc%(1 TO 140)
+GET (102, 104)-(99, 99), getsrc%
+LINE (102, 104)-(99, 99), 0, BF
+PSET (100, 100)
+'DRAW "c42l1d1d1d1f1e1u1u1u1l1d1d1d1d1u1u1l1r1r1u1l1l1u1"
+DRAW "c27d1r1u1l1h1f1c27f1f1h1u1e1c43g1l1d1g1"
+DIM vipsht%(1 TO 14)
+GET (102, 104)-(99, 99), vipsht%
+PUT (99, 99), vipsht%
+PUT (99, 99), getsrc%, PSET
+'/////////////////////////////////////////////
+GET (28, 49)-(13, 33), getsrc%
+LINE (28, 49)-(13, 33), 0, BF
+PSET (15, 40)
+bcol% = 23
+fcol% = 43
+DRAW "c" + STR$(bcol%) + "e1r1e1r1r1r1r1r1r1r1r1f1f1d1d1g1g1l1l1l1l1l1l1l1l1h1l1h1h1e1h1h1u1e1e1e1e1f1f1e1f1f1e1f1f1f1f1f1d1d1g1g1g1g1g1h1g1g1h1g1g1h1h1h1h1u1e1e1f1e1r1e1h1l1u1f1f1r1r1r1r1r1r1r1r1r1l1l1l1l1l1f1f1f1h1h1h1e1e1e1g1bl8bu1bp1," + STR$(bcol%) + "bu-7bp1," + STR$(bcol%) + "bu3bl-4bp2," + STR$(bcol%) + "bu3bp2," + STR$(bcol%) + "bl-5bu-1bp2," + STR$(bcol%) + "bu-2bp2," + STR$(bcol%) + "bl10bu1bp3," + STR$(bcol%)
+GET (28, 49)-(13, 33), viper%
+PUT (13, 33), viper%, XOR
+PUT (13, 33), getsrc%, PSET
+vipx% = 6
+
+END IF
+'/////////////////////////////////////////////////////////////////////////////
+IF VIPT1% = 1 THEN PUT (vipx1%, vipy1%), viper%, XOR
+IF VIPT1% = 0 AND vip% >= 60 THEN : VIPT1% = 1
+IF VIPT1% = 1 THEN vipy1% = 60: vipx1% = vipx1% + 3
+IF vipx1% >= 245 THEN VIPT1% = 0
+IF VIPT1% = 1 THEN PUT (vipx1%, vipy1%), viper%, XOR
+']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+IF vipshtt1% = 1 THEN PUT (vipshtx1%, vipshty1% + 9), vipsht%
+IF VIPT1% = 1 AND vipshtt1% = 0 AND vipx1% >= 10 THEN vipshtt1% = 1: vipshtx1% = vipx1% - 6: vipshty1% = vipy1%
+IF vipshtt1% = 1 AND vipshty1% >= 160 THEN vipshtt1% = 0
+IF vipshtt1% = 1 THEN vipshty1% = vipshty1% + 5
+IF vipshtt1% = 1 THEN PUT (vipshtx1%, vipshty1% + 9), vipsht%
+IF vip1shtt1% = 1 THEN PUT (vip1shtx1%, vip1shty1% + 9), vipsht%
+IF VIPT1% = 1 AND vip1shtt1% = 0 AND vipx1% >= 25 THEN vip1shtt1% = 1: vip1shtx1% = vipx1% - 6: vip1shty1% = vipy1%
+IF vip1shtt1% = 1 AND vip1shty1% >= 160 THEN vip1shtt1% = 0
+IF vip1shtt1% = 1 THEN vip1shty1% = vip1shty1% + 5
+IF vip1shtt1% = 1 THEN PUT (vip1shtx1%, vip1shty1% + 9), vipsht%
+
+IF vip2shtt1% = 1 THEN PUT (vip2shtx1%, vip2shty1% + 9), vipsht%
+IF VIPT1% = 1 AND vip2shtt1% = 0 AND vipx1% >= 40 THEN vip2shtt1% = 1: vip2shtx1% = vipx1% - 6: vip2shty1% = vipy1%
+IF vip2shtt1% = 1 AND vip2shty1% >= 160 THEN vip2shtt1% = 0
+IF vip2shtt1% = 1 THEN vip2shty1% = vip2shty1% + 5
+IF vip2shtt1% = 1 THEN PUT (vip2shtx1%, vip2shty1% + 9), vipsht%
+
+IF vip3shtt1% = 1 THEN PUT (vip3shtx1%, vip3shty1% + 9), vipsht%
+IF VIPT1% = 1 AND vip3shtt1% = 0 AND vipx1% >= 54 THEN vip3shtt1% = 1: vip3shtx1% = vipx1% - 6: vip3shty1% = vipy1%
+IF vip3shtt1% = 1 AND vip3shty1% >= 160 THEN vip3shtt1% = 0
+IF vip3shtt1% = 1 THEN vip3shty1% = vip3shty1% + 5
+IF vip3shtt1% = 1 THEN PUT (vip3shtx1%, vip3shty1% + 9), vipsht%
+'/////////////////////////////////////////////////////////////////////////////
+vip% = vip% + 2:
+IF vipt% = 1 THEN PUT (vipx%, vipy%), viper%, XOR
+IF vipt% = 0 AND vip% >= 0 THEN :  vipt% = 1
+IF vipt% = 1 THEN vipy% = 35: vipx% = vipx% + 3
+IF vipx% >= 245 THEN vipt% = 0:
+IF vipt% = 1 THEN PUT (vipx%, vipy%), viper%, XOR
+']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+IF vipshtt% = 1 THEN PUT (vipshtx%, vipshty% + 9), vipsht%
+IF vipt% = 1 AND vipshtt% = 0 AND vip% >= 40 THEN vipshtt% = 1: vipshtx% = vipx% - 6: vipshty% = vipy%
+IF vipshtt% = 1 AND vipshty% >= 160 THEN vipshtt% = 0
+IF vipshtt% = 1 THEN vipshty% = vipshty% + 5
+IF vipshtt% = 1 THEN PUT (vipshtx%, vipshty% + 9), vipsht%
+']]]]]]]]]]
+IF vip1shtt% = 1 THEN PUT (vip1shtx%, vip1shty% + 9), vipsht%
+IF vipt% = 1 AND vip1shtt% = 0 AND vip% >= 50 THEN vip1shtt% = 1: vip1shtx% = vipx% - 6: vip1shty% = vipy%
+IF vip1shtt% = 1 THEN vip1shty% = vip1shty% + 5
+IF vip1shtt% = 1 AND vip1shty% >= 160 THEN vip1shtt% = 0
+IF vip1shtt% = 1 THEN PUT (vip1shtx%, vip1shty% + 9), vipsht%
+']]]]]]]]]]]
+IF vip2shtt% = 1 THEN PUT (vip2shtx%, vip2shty% + 9), vipsht%
+IF vipt% = 1 AND vip2shtt% = 0 AND vip% >= 60 THEN vip2shtt% = 1: vip2shtx% = vipx% - 6: vip2shty% = vipy%
+IF vip2shtt% = 1 AND vip2shty% >= 160 THEN vip2shtt% = 0
+IF vip2shtt% = 1 THEN vip2shty% = vip2shty% + 5
+IF vip2shtt% = 1 THEN PUT (vip2shtx%, vip2shty% + 9), vipsht%
+']]]]]]]]]]
+
+IF vip3shtt% = 1 THEN PUT (vip3shtx%, vip3shty% + 9), vipsht%
+IF vipt% = 1 AND vip3shtt% = 0 AND vip% >= 70 THEN vip3shtt% = 1: vip3shtx% = vipx% - 6: vip3shty% = vipy%
+IF vip3shtt% = 1 AND vip3shty% >= 160 THEN vip3shtt% = 0
+IF vip3shtt% = 1 THEN vip3shty% = vip3shty% + 5
+IF vip3shtt% = 1 THEN PUT (vip3shtx%, vip3shty% + 9), vipsht%
+'/////////////////////////////////////////////////////////////////////////////
+IF vipt2% = 1 THEN PUT (vipx2%, vipy2%), viper%, XOR
+IF vipt2% = 0 AND vip% >= 100 THEN : vipt2% = 1
+IF vipt2% = 1 THEN vipy2% = 90: vipx2% = vipx2% + 3
+IF vipx2% >= 245 THEN vipt2% = 0
+IF vipt2% = 1 THEN PUT (vipx2%, vipy2%), viper%, XOR
+']]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]]
+IF vipshtt2% = 1 THEN PUT (vipshtx2%, vipshty2% + 9), vipsht%
+IF vipt2% = 1 AND vipshtt2% = 0 AND vipx2% >= 10 THEN vipshtt2% = 1: vipshtx2% = vipx2% - 6: vipshty2% = vipy2%
+IF vipshtt2% = 1 AND vipshty2% >= 160 THEN vipshtt2% = 0
+IF vipshtt2% = 1 THEN vipshty2% = vipshty2% + 5
+IF vipshtt2% = 1 THEN PUT (vipshtx2%, vipshty2% + 9), vipsht%
+IF vip1shtt2% = 1 THEN PUT (vip1shtx2%, vip1shty2% + 9), vipsht%
+IF vipt2% = 1 AND vip1shtt2% = 0 AND vipx2% >= 25 THEN vip1shtt2% = 1: vip1shtx2% = vipx2% - 6: vip1shty2% = vipy2%
+IF vip1shtt2% = 1 AND vip1shty2% >= 160 THEN vip1shtt2% = 0
+IF vip1shtt2% = 1 THEN vip1shty2% = vip1shty2% + 5
+IF vip1shtt2% = 1 THEN PUT (vip1shtx2%, vip1shty2% + 9), vipsht%
+
+IF vip2shtt2% = 1 THEN PUT (vip2shtx2%, vip2shty2% + 9), vipsht%
+IF vipt2% = 1 AND vip2shtt2% = 0 AND vipx2% >= 40 THEN vip2shtt2% = 1: vip2shtx2% = vipx2% - 6: vip2shty2% = vipy2%
+IF vip2shtt2% = 1 AND vip2shty2% >= 160 THEN vip2shtt2% = 0
+IF vip2shtt2% = 1 THEN vip2shty2% = vip2shty2% + 5
+IF vip2shtt2% = 1 THEN PUT (vip2shtx2%, vip2shty2% + 9), vipsht%
+
+IF vip3shtt2% = 1 THEN PUT (vip3shtx2%, vip3shty2% + 9), vipsht%
+IF vipt2% = 1 AND vip3shtt2% = 0 AND vipx2% >= 54 THEN vip3shtt2% = 1: vip3shtx2% = vipx2% - 6: vip3shty2% = vipy2%
+IF vip3shtt2% = 1 AND vip3shty2% >= 160 THEN vip3shtt2% = 0
+IF vip3shtt2% = 1 THEN vip3shty2% = vip3shty2% + 5
+IF vip3shtt2% = 1 THEN PUT (vip3shtx2%, vip3shty2% + 9), vipsht%
+
+                             'sub Calviper
+'/////////////////////////////* * * * * * * /////////////////////////////
+calpb% = pshotx% - vipx%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND vipy% <= shipy% THEN dist% = vipy% + 25
+calpb1% = pshotx1% - vipx%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND vipy% <= shipy% THEN dist1% = vipy% + 25
+calpb2% = pshotx2% - vipx%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND vipy% <= shipy% THEN dist2% = vipy% + 25
+calpb3% = pshotx3% - vipx%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND vipy% <= shipy% THEN dist3% = vipy% + 25
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: viphits% = viphits% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: viphits% = viphits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: viphits% = viphits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0: viphits% = viphits% - 1:     IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF viphits% < 0 AND vipt% = 1 THEN viphits% = vipset%: vipt% = 2: PUT (vipx%, vipy%), viper%, XOR: expx% = vipx%: expy% = vipy%: exploff% = 1: vipx% = 300: shppoint% = 10: CALL Explosion.con
+
+plyerhitx% = shipx% - vipshtx%
+plyerhitx1% = shipx% - vip1shtx%
+plyerhitx2% = shipx% - vip2shtx%
+plyerhitx3% = shipx% - vip3shtx%
+plyerhity% = shipy% - vipshty%
+plyerhity1% = shipy% - vip1shty%
+plyerhity2% = shipy% - vip2shty%
+plyerhity3% = shipy% - vip3shty%
+IF vipshtt% = 1 AND plyerhitx% <= 5 AND plyerhitx% >= -14 AND plyerhity% <= 11 AND plyerhity% >= -8 THEN vipshtt% = 0: PUT (vipshtx%, vipshty% + 9), vipsht%: power% = 10: Shield.con
+IF vip1shtt% = 1 AND plyerhitx1% <= 5 AND plyerhitx1% >= -14 AND plyerhity1% <= 11 AND plyerhity1% >= -8 THEN vip1shtt% = 0: PUT (vip1shtx%, vip1shty% + 9), vipsht%: power% = 10: Shield.con
+IF vip2shtt% = 1 AND plyerhitx2% <= 5 AND plyerhitx2% >= -14 AND plyerhity2% <= 11 AND plyerhity2% >= -8 THEN vip2shtt% = 0: PUT (vip2shtx%, vip2shty% + 9), vipsht%: power% = 10: Shield.con
+IF vip3shtt% = 1 AND plyerhitx3% <= 5 AND plyerhitx3% >= -14 AND plyerhity3% <= 11 AND plyerhity3% >= -8 THEN vip3shtt% = 0: PUT (vip3shtx%, vip3shty% + 9), vipsht%: power% = 10: Shield.con
+plyerhitx% = shipx% - vipx%
+plyerhity% = shipy% - vipy%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 15 AND plyerhity% >= -14 THEN power% = 20: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= vipy% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx% AND shipy% >= vipy% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= vipy% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx% AND shipy% <= vipy% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+'/////////////////////////////////////////////////////////////////////////////
+calpb% = pshotx% - vipx1%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND vipy1% <= shipy% THEN dist% = vipy1% + 25
+calpb1% = pshotx1% - vipx1%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND vipy1% <= shipy% THEN dist1% = vipy1% + 25
+calpb2% = pshotx2% - vipx1%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND vipy1% <= shipy% THEN dist2% = vipy1% + 25
+calpb3% = pshotx3% - vipx1%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND vipy1% <= shipy% THEN dist3% = vipy1% + 25
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: vip1hits% = vip1hits% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: vip1hits% = vip1hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: vip1hits% = vip1hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0: vip1hits% = vip1hits% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF vip1hits% < 0 AND VIPT1% = 1 THEN vip1hits% = vipset%: VIPT1% = 2: PUT (vipx1%, vipy1%), viper%, XOR: expx% = vipx1%: expy% = vipy1%: exploff% = 1: vipx1% = 300: shppoint% = 10: CALL Explosion.con
+plyerhitx% = shipx% - vipshtx1%
+plyerhitx1% = shipx% - vip1shtx1%
+plyerhitx2% = shipx% - vip2shtx1%
+plyerhitx3% = shipx% - vip3shtx1%
+plyerhity% = shipy% - vipshty1%
+plyerhity1% = shipy% - vip1shty1%
+plyerhity2% = shipy% - vip2shty1%
+plyerhity3% = shipy% - vip3shty1%
+IF vipshtt1% = 1 AND plyerhitx% <= 5 AND plyerhitx% >= -14 AND plyerhity% <= 11 AND plyerhity% >= -8 THEN vipshtt1% = 0: PUT (vipshtx1%, vipshty1% + 9), vipsht%: power% = 10: Shield.con
+IF vip1shtt1% = 1 AND plyerhitx1% <= 5 AND plyerhitx1% >= -14 AND plyerhity1% <= 11 AND plyerhity1% >= -8 THEN vip1shtt1% = 0: PUT (vip1shtx1%, vip1shty1% + 9), vipsht%: power% = 10: Shield.con
+IF vip2shtt1% = 1 AND plyerhitx2% <= 5 AND plyerhitx2% >= -14 AND plyerhity2% <= 11 AND plyerhity2% >= -8 THEN vip2shtt1% = 0: PUT (vip2shtx1%, vip2shty1% + 9), vipsht%: power% = 10: Shield.con
+IF vip3shtt1% = 1 AND plyerhitx3% <= 5 AND plyerhitx3% >= -14 AND plyerhity3% <= 11 AND plyerhity3% >= -8 THEN vip3shtt1% = 0: PUT (vip3shtx1%, vip3shty1% + 9), vipsht%: power% = 10: Shield.con
+plyerhitx% = shipx% - vipx1%
+plyerhity% = shipy% - vipy1%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 15 AND plyerhity% >= -14 THEN power% = 20: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= vipy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx1% AND shipy% >= vipy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= vipy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx1% AND shipy% <= vipy1% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+'////////////////////////////////////////////////////////////////
+calpb% = pshotx% - vipx2%
+IF hit% = 1 AND calpb% <= 15 AND calpb% >= -10 AND vipy2% <= shipy% THEN dist% = vipy2% + 25
+calpb1% = pshotx1% - vipx2%
+IF hit1% = 1 AND calpb1% <= 15 AND calpb1% >= -10 AND vipy2% <= shipy% THEN dist1% = vipy2% + 25
+calpb2% = pshotx2% - vipx2%
+IF hit2% = 1 AND calpb2% <= 15 AND calpb2% >= -10 AND vipy2% <= shipy% THEN dist2% = vipy2% + 25
+calpb3% = pshotx3% - vipx2%
+IF hit3% = 1 AND calpb3% <= 15 AND calpb3% >= -10 AND vipy2% <= shipy% THEN dist3% = vipy2% + 25
+IF hit% = 1 AND dist% > 1 AND dist% >= pshoty% AND pshoty% >= 4 THEN hit% = 0: vip2hits% = vip2hits% - 1:     IF sfx% = 0 THEN PLAY "mbl64o3ce" ELSE
+IF hit1% = 1 AND dist1% > 1 AND dist1% >= pshoty1% AND pshoty1% >= 4 THEN hit1% = 0: vip2hits% = vip2hits% - 1 ELSE
+IF hit2% = 1 AND dist2% > 1 AND dist2% >= pshoty2% AND pshoty2% >= 4 THEN hit2% = 0: vip2hits% = vip2hits% - 1 ELSE
+IF hit3% = 1 AND dist3% > 1 AND dist3% >= pshoty3% AND pshoty3% >= 4 THEN hit3% = 0: vip2hits% = vip2hits% - 1:    IF sfx% = 0 THEN PLAY "mbl64o3ce"
+IF vip2hits% < 0 AND vipt2% = 1 THEN vip2hits% = vipset%: vipt2% = 2: PUT (vipx2%, vipy2%), viper%, XOR: expx% = vipx2%: expy% = vipy2%: exploff% = 1: vipx2% = 300: shppoint% = 10: CALL Explosion.con
+plyerhitx% = shipx% - vipshtx2%
+plyerhitx1% = shipx% - vip1shtx2%
+plyerhitx2% = shipx% - vip2shtx2%
+plyerhitx3% = shipx% - vip3shtx2%
+plyerhity% = shipy% - vipshty2%
+plyerhity1% = shipy% - vip1shty2%
+plyerhity2% = shipy% - vip2shty2%
+plyerhity3% = shipy% - vip3shty2%
+IF vipshtt2% = 1 AND plyerhitx% <= 5 AND plyerhitx% >= -14 AND plyerhity% <= 11 AND plyerhity% >= -8 THEN vipshtt2% = 0: PUT (vipshtx2%, vipshty2% + 9), vipsht%: power% = 10: Shield.con
+IF vip1shtt2% = 1 AND plyerhitx1% <= 5 AND plyerhitx1% >= -14 AND plyerhity1% <= 11 AND plyerhity1% >= -8 THEN vip1shtt2% = 0: PUT (vip1shtx2%, vip1shty2% + 9), vipsht%: power% = 10: Shield.con
+IF vip2shtt2% = 1 AND plyerhitx2% <= 5 AND plyerhitx2% >= -14 AND plyerhity2% <= 11 AND plyerhity2% >= -8 THEN vip2shtt2% = 0: PUT (vip2shtx2%, vip2shty2% + 9), vipsht%: power% = 10: Shield.con
+IF vip3shtt2% = 1 AND plyerhitx3% <= 5 AND plyerhitx3% >= -14 AND plyerhity3% <= 11 AND plyerhity3% >= -8 THEN vip3shtt2% = 0: PUT (vip3shtx2%, vip3shty2% + 9), vipsht%: power% = 10: Shield.con
+plyerhitx% = shipx% - vipx2%
+plyerhity% = shipy% - vipy2%
+IF plyerhitx% <= 14 AND plyerhitx% >= -13 AND plyerhity% <= 15 AND plyerhity% >= -14 THEN power% = 20: D = 1:
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% >= vipy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% - 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx2% AND shipy% >= vipy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipx% = shipx% + 4: shipy% = shipy% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND plyerhitx% <= 2 AND shipy% <= vipy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% - 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+IF NOT disable% = 1 AND D = 1 AND shipx% >= vipx2% AND shipy% <= vipy2% THEN : PUT (shipx%, shipy%), Playership%, XOR: shipy% = shipy% - 4: shipx% = shipx% + 4: WHILE Chkxy: WEND: PUT (shipx%, shipy%), Playership%, XOR: Shield.con
+D = 0
+
+
+
+'//////////////////////////////// * * * * * * * * *///////////////////////////
+                              'Calviper End sub
+
+
+
+END SUB
+
+SUB Write.Palette (index%, red%, green%, blue%)
+OUT &H3C6, &HFF
+OUT &H3C8, index%
+OUT &H3C9, red%
+OUT &H3C9, green%
+OUT &H3C9, blue%
+END SUB
+

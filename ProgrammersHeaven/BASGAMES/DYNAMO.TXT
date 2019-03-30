@@ -1,0 +1,47 @@
+
+        DDDD   Y   Y  NN  N  AAAA  MM    MM  OOOO        *
+        D   D   Y Y   N N N  A  A  M M  M M  O  O      -
+        D   D    Y    N N N  AAAA  M  MM  M  O  O    -    GAMES
+        D   D    Y    N  NN  A  A  M      M  OOOO  -
+        DDDD --------------------------------------    
+
+                    ---QBasic Games Library 1---
+
+This is the first in a line of software, rules and much more more from the
+new to the internet Dynamo Games.  Most of the programs in this library are
+games but there are several other programs.  Feel free to change and use 
+these programs as you like.
+
+Included in this library is: 
+Championship Challenge!  A great fantasy football PBM. Coming soon is the
+Version 1.6              Championship Challenge library including evreything
+                         you need to run a league.
+
+The Virtual Collection   Including addictive games Virtual Farm and Virtual
+                         Explorer, wanna-be giant game Virtual Magic and
+                         loads of other neat programs.
+
+Cat & Mouse              Great 2 player fun!
+
+
+TO RUN THE GAMES:
+From the dos prompt type C:\DOS\QBASIC.EXE
+Then choose OPEN from the FILE menu and find the game that you want to play.
+Then push F5 to run.
+
+To quit a program just hold down CTRL and BREAK at the same time.
+
+E-mail your ideas and opinions to:
+        Derek_Storey@compuserve.com
+
+Or look for Marquis de Carabas at the GAMEDEV forum.
+
+
+COMING SOON FROM DYNAMO GAMES:
+    The Championship Challenge Library
+        Onslaught! - Easy to learn and play battle game
+    Forgotten Legends - QBasic RPG
+        Loads of other great stuff!!!
+
+            <<<Give our programs to all your friends.>>>
+

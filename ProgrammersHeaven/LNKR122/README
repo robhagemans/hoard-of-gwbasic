@@ -1,0 +1,53 @@
+     
+          This disk is the Compiler/Linker Assistant version 1.22. It should
+     contain the following files:
+     
+                         L.EXE   -  the main program
+     
+                         L.HLP   -  the help screens
+     
+                         L.DOC   -  the documentation
+     
+                         NEW.DOC -  additions to documentation
+
+                         REGISTER.DOC  -  registration form
+     
+                         README  -  this file
+
+          Thank you for trying this program. This program is shareware, and
+     is not free. See the program documentation for details.
+     
+                                UPDATE HISTORY
+                                --------------
+     
+     03-17-90 - Initial release.
+     
+     04-30-90 - Added support for multiple data files and batch operation.
+                Compressed the help screens to decrease modem transfer
+                time. Added color configuration and text editor support.
+     
+     05-13-90 - Added a carriage return to the temporary response file to
+                accommodate LINK.EXE from BC7 PDS.
+     
+     11-27-90 - Increased the size of the data fields by 11 characters.
+                Fixed problem when paths were included in stub and library
+                file names. Updated help. Added testing for COMSPEC. Added
+                auto-conversion routines for different size data files.
+
+     06-16-91 - Added another data line for stub files. Added the "/CO"
+                command line switch for compiling only. Now displays the
+                name of module while compiling. Fixed parsing when extra
+                spaces were between stub and library names. 
+
+     07-14-91 - COMSPEC no longer required for execution of child processes.
+                Fixed bug when compiling errors occurred on last module.
+                Reduced time needed for error detection.
+
+     09-28-91 - Removed test for COMSPEC (oops!). Brush up of documentation.
+                Fixed bug on /CO switch that would allow program operation
+                without drawing the screen.
+     
+     11-23-91 - Fixed bug with /C switch caused by fixing bug to /CO switch.
+                Added user abort detection to compiling algorithm.
+
+     11-28-92   Fix bug involving dual monitor use.

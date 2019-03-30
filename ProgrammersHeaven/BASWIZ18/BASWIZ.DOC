@@ -1,0 +1,3763 @@
+                 The BASIC Wizard's Library             page 1
+                 =------------------------=
+                         Version 1.8
+
+     BasWiz  Copyright (c) 1990-1992  Thomas G. Hanlin III
+
+
+
+This software requires Library Wizard (LIBWIZxx.ZIP).
+
+This is BasWiz, a library of hundreds of assembly language and
+BASIC routines for use with QuickBasic and PDS.  The BasWiz
+collection is copyrighted and may be distributed only under the
+following conditions:
+
+   All BasWiz files must be distributed together as a unit.
+   No files may be altered, added, or deleted from this unit.
+
+You use this library at your own risk.  It has been tested by
+me on my own computer, but I will not assume any responsibility
+for any problems which BasWiz may cause you.  If you do run
+into a problem, please let me know about it, and I will do my
+best to verify and repair it.
+
+It is expected that if you find BasWiz useful, you will
+register your copy.  You may not use BasWiz routines in
+programs intended for sale unless you have registered.
+
+Registration gets you the latest version of BasWiz, complete
+with full source code.  The assembly language code is designed
+for MASM 6.0 and may require modifications other assemblers.
+
+The BasWiz library is quite large and is unwieldy for BASIC to
+handle as a unit.  It is strongly recommended that you use the
+LibWiz utility to create a customized subset of BasWiz which
+contains only the routines you expect to use.  LibWiz should be
+available at the location from which you got BasWiz.
+
+You will need to have a complete set of BasWiz .OBJ files for
+LibWiz to work.  Create a fresh subdirectory and extract the
+BASIC sources from BW$BAS.ZIP (or .LZH).  Compile them all. The
+following DOS command will do it:
+
+   FOR %x IN (*.BAS) DO BC %x /o;
+
+Now extract the .OBJ files from BW$MAIN.LIB into the same
+directory, using the UnLib utility that comes with LibWiz.
+Finally, extract the .OBJ files from BW$NEAR.LIB as well. This
+gives you a complete set of .OBJs for BasWiz, allowing LibWiz
+to create a custom BasWiz library for you.
+
+If you have PDS and wish to use far strings, compile the BASIC
+sources using the /FS/o instead of just /o, and use the .OBJs
+from BW$FAR.LIB instead of BW$NEAR.LIB.  You'll still need the
+.OBJs from BW$MAIN.LIB too, of course.
+
+Note that many routines will not work in the QB or QBX editor
+environment due to a bug in the (BASIC) SETMEM function.  Until
+Microsoft fixes this, it is best to compile with BC instead.
+
+                      Table of Contents                 page 2
+
+
+
+ Overview and Legal Info ................................... 1
+
+ BCD Math .................................................. 3
+
+ Expression Evaluator ...................................... 7
+
+ Extensions to BASIC's math ................................ 8
+
+ Far Strings .............................................. 10
+
+ File Handling ............................................ 12
+
+ Fractions ................................................ 20
+
+ Graphics
+    General Routines ...................................... 21
+    Text-mode Routines .................................... 30
+    Dual Monitor Routines ................................. 31
+    Printer Routines ...................................... 32
+    A Little Geometry ..................................... 33
+    Equations, Etc ........................................ 37
+
+ Memory Management and Pointers ........................... 40
+
+ Telecommunications ....................................... 44
+
+ Virtual Windowing System ................................. 50
+
+ Other Routines ........................................... 64
+
+ Miscellaneous Notes ...................................... 65
+
+ Error Codes .............................................. 68
+
+ Troubleshooting .......................................... 70
+
+ History & Philosophy ..................................... 73
+
+ Using BasWiz with P.D.Q. or QBTiny ....................... 75
+
+ Credits .................................................. 76
+
+                          BCD Math                      page 3
+
+
+
+Some of you may not have heard of BCD math, or at least not
+have more than a passing acquaintance with the subject.  BCD
+(short for Binary-Coded Decimal) is a way of encoding numbers.
+It differs from the normal method of handling numbers in
+several respects.  On the down side, BCD math is much slower
+than normal math and the numbers take up more memory.  However,
+the benefits may far outweigh these disadvantages, depending on
+your application: BCD math is absolutely precise within your
+desired specifications, and you can make a BCD number as large
+as you need.  If your applications don't require great range or
+precision out of numbers, normal BASIC math is probably the
+best choice. For scientific applications, accounting,
+engineering and other demanding tasks, though, BCD may be just
+the thing you need.
+
+The BCD math routines provided by BasWiz allow numbers of up to
+255 digits long (the sign counts as a digit, but the decimal
+point doesn't).  You may set the decimal point to any position
+you like, as long as there is at least one digit position to
+the left of the decimal.
+
+Since QuickBasic doesn't support BCD numbers directly, we store
+the BCD numbers in strings.  The results are not in text format
+and won't mean much if displayed.  A conversion routine allows
+you to change a BCD number to a text string in any of a variety
+of formats.
+
+Note that the BCD math handler doesn't yet track
+overflow/underflow error conditions.  If you anticipate that
+this may be a problem, it would be a good idea to screen your
+input or to make the BCD range large enough to avoid these
+errors.
+
+Let's start off by examining the routine which allows you to
+set the BCD range:
+
+   BCDSetSize LeftDigits%, RightDigits%
+
+The parameters specify the maximum number of digits to the left
+and to the right of the decimal point.  There must be at least
+one digit on the left, and the total number of digits must be
+less than 255.  The BCD strings will have a length that's one
+larger than the total number of digits, to account for the sign
+of the number.  The decimal point is implicit and doesn't take
+up any extra space.
+
+It is assumed that you will only use one size of BCD number in
+your program-- there are no provisions for handling
+mixed-length BCD numbers.  Of course, you could manage that
+yourself with a little extra work, if it seems like a useful
+capability.  If you don't use BCDSetSize, the default size of
+the BCD numbers will be 32 (20 to the left, 11 to the right, 1
+for the sign).
+
+                          BCD Math                      page 4
+
+
+
+You can get the current size settings as well:
+
+   BCDGetSize LeftDigits%, RightDigits%
+
+Of course, before doing any BCD calculations, you must have
+some BCD numbers!  The BCDSet routine takes a number in text
+string form and converts it to BCD:
+
+   TextSt$ = "1234567890.50"
+   Nr$ = BCDSet$(TextSt$)
+
+If your numbers are stored as actual numbers, you can convert
+them to a text string with BASIC's STR$ function, then to BCD.
+Leading spaces are ignored:
+
+   Nr$ = BCDSet$(STR$(AnyNum#))
+
+BCD numbers can also be converted back to text strings, of
+course.  You may specify how many digits to the right of the
+decimal to keep (the number will be truncated, not rounded). If
+the RightDigits% is positive, trailing zeros will be kept; if
+negative, trailing zeros will be removed.  There are also
+various formatting options which may be used.  Here's how it
+works:
+
+   TextSt$ = BCDFormat$(Nr$, HowToFormat%, RightDigits%)
+
+The HowToFormat% value may be any combination of the following
+(just add the numbers of the desired formats together):
+
+   0   plain number
+   1   use commas to separate thousands, etc
+   2   start number with a dollar sign
+   4   put the sign on the right side of the number
+   8   use a plus sign if the number is not negative
+
+                          BCD Math                      page 5
+
+
+
+The BCD math functions are pretty much self-explanatory, so
+I'll keep the descriptions brief.  Here are the
+single-parameter functions:
+
+   Result$ = BCDAbs$(Nr$)       ' absolute value
+   Result$ = BCDCos$(Nr$)       ' cosine function
+   Result$ = BCDCot$(Nr$)       ' cotangent function
+   Result$ = BCDCsc$(Nr$)       ' cosecant function
+   Result$ = BCDDeg2Rad$(Nr$)   ' convert degrees to radians
+   e$ = BCDe$                   ' the constant "e"
+   Result$ = BCDFact$(N%)       ' factorial
+   Result$ = BCDFrac$(Nr$)      ' return the fractional part
+   Result$ = BCDInt$(Nr$)       ' return the integer part
+   Result$ = BCDNeg$(Nr$)       ' negate a number
+   pi$ = BCDpi$                 ' the constant "pi"
+   Result$ = BCDRad2Deg$(Nr$)   ' convert radians to degrees
+   Result$ = BCDSec$(Nr$)       ' secant function
+   Result% = BCDSgn%(Nr$)       ' signum function
+   Result$ = BCDSin$(Nr$)       ' sine function
+   Result$ = BCDSqr$(Nr$)       ' square root
+   Result$ = BCDTan$(Nr$)       ' tangent function
+
+Notes on the single-parameter functions:
+
+  The signum function returns an integer based on the sign of
+  the BCD number:
+
+     -1   if the BCD number is negative
+      0   if the BCD number is zero
+      1   if the BCD number is positive
+
+  BCDpi$ is accurate to the maximum level afforded by the BCD
+  functions. BCDe$ is accurate to as many as 115 decimal
+  places.  The actual accuracy, of course, depends on the size
+  of BCD numbers you've chosen.
+
+  The trigonometric functions (cos, sin, tan, sec, csc, cot)
+  expect angles in radians.  BCDDeg2Rad and BCDRad2Deg will
+  allow you to convert back and forth between radians and
+  degrees.
+
+                          BCD Math                      page 6
+
+
+
+Here is a list of the two-parameter functions:
+
+
+   Result$ = BCDAdd$(Nr1$, Nr2$)      ' Nr1 + Nr2
+
+   Result$ = BCDSub$(Nr1$, Nr2$)      ' Nr1 - Nr2
+
+   Result$ = BCDMul$(Nr1$, Nr2$)      ' Nr1 * Nr2
+
+   Result$ = BCDDiv$(Nr1$, Nr2$)      ' Nr1 / Nr2
+
+   Result$ = BCDPower$(Nr$, Power%)   ' Nr ^ Power
+
+   Result% = BCDCompare%(Nr1$, Nr2$)  ' compare two numbers
+
+The comparison function returns an integer which reflects how
+the two numbers compare to each other:
+
+   -1   Nr1 < Nr2
+    0   Nr1 = Nr2
+    1   Nr1 > Nr2
+
+                    Expression Evaluator                page 7
+
+
+
+The expression evaluator allows you to find the result of an
+expression contained in a string.  Normal algebraic precedence
+is used, e.g. 4+3*5 evaluates to 19.  The usual numeric
+operators (*, /, +, -, ^) are supported (multiply, divide, add,
+subtract, and raise to a power).  Use of negative numbers is
+just fine, of course.  Parentheses for overriding the default
+order of operations are also supported.
+
+You may use either a double asterisk ("**") or a caret ("^")
+symbols to indicate exponentiation.
+
+The constant PI is recognized, as are the following functions:
+   ABS    absolute value        INT    integer
+   ACOS   inverse cosine        LOG    natural log
+   ASIN   inverse sine          SIN    sine
+   ATAN   inverse tangent       SQR    square root
+   COS    cosine                TAN    tangent
+   FRAC   fraction
+
+Trig functions expect angles in radians.
+
+To evaluate an expression, you pass it to the evaluator as a
+string.  You will get back either an error code or a
+single-precision result.  Try this example to see how the
+expression evaluator works:
+
+   REM $INCLUDE: 'BASWIZ.BI'
+   DEFINT A-Z
+   DO
+      INPUT "Expression? "; Expr$
+      IF LEN(Expr$) THEN
+         Evaluate Expr$, Result!, ErrCode
+         IF ErrCode THEN
+            PRINT "Invalid expression.  Error = "; ErrCode
+         ELSE
+            PRINT "Result: "; Result!
+         END IF
+      END IF
+   LOOP WHILE LEN(Expr$)
+   END
+
+An expression evaluator adds convenience to any program that
+needs to accept numbers.  Why make someone reach for a
+calculator when number crunching is what a computer does best?
+
+                 Extensions to BASIC's math             page 8
+
+
+
+For the most part, the math routines in this library is
+designed to provide alternatives to the math routines that are
+built into BASIC.  Still, BASIC's own math support is quite
+adequate for many purposes, so there's no sense in ignoring
+it.  Here are some functions which improve on BASIC's math.
+
+   Result! = ArcCosHS!(Nr!)    ' inverse hyperbolic cosine
+   Result! = ArcSinHS!(Nr!)    ' inverse hyperbolic sine
+   Result! = ArcTanHS!(Nr!)    ' inverse hyperbolic tangent
+   Result! = ArcCosS!(Nr!)     ' arc cosine  (1 >= Nr >= -1)
+   Result! = ArcSinS!(Nr!)     ' arc sine    (1 >= Nr >= -1)
+   Result! = ErfS!(Nr!)        ' error function
+   Result! = FactS!(Nr%)       ' factorial
+   Result! = CotS!(Nr!)        ' cotangent
+   Result! = CscS!(Nr!)        ' cosecant
+   Result! = SecS!(Nr!)        ' secant
+   Result! = CosHS!(Nr!)       ' hyperbolic cosine
+   Result! = SinHS!(Nr!)       ' hyperbolic sine
+   Result! = TanHS!(Nr!)       ' hyperbolic tangent
+   Result! = Deg2RadS!(Nr!)    ' convert degrees to radians
+   Result! = Rad2DegS!(Nr!)    ' convert radians to degrees
+   Result! = Cent2Fahr!(Nr!)   ' centigrade to Fahrenheit
+   Result! = Fahr2Cent!(Nr!)   ' Fahrenheit to centigrade
+   Result! = Kg2Pound!(Nr!)    ' convert kilograms to pounds
+   Result! = Pound2Kg!(Nr!)    ' convert pounds to kilograms
+   Pi! = PiS!                  ' the constant "pi"
+   e! = eS!                    ' the constant "e"
+
+   Result# = ArcCosHD#(Nr#)    ' inverse hyperbolic cosine
+   Result# = ArcSinHD#(Nr#)    ' inverse hyperbolic sine
+   Result# = ArcTanHD#(Nr#)    ' inverse hyperbolic tangent
+   Result# = ArcCosD#(Nr#)     ' arc cosine  (1 >= Nr >= -1)
+   Result# = ArcSinD#(Nr#)     ' arc sine    (1 >= Nr >= -1)
+   Result# = ErfD#(Nr#)        ' error function
+   Result# = FactD#(Nr%)       ' factorial
+   Result# = CotD#(Nr#)        ' cotangent
+   Result# = CscD#(Nr#)        ' cosecant
+   Result# = SecD#(Nr#)        ' secant
+   Result# = CosHD#(Nr#)       ' hyperbolic cosine
+   Result# = SinHD#(Nr#)       ' hyperbolic sine
+   Result# = TanHD#(Nr#)       ' hyperbolic tangent
+   Result# = Deg2RadD#(Nr#)    ' convert degrees to radians
+   Result# = Rad2DegD#(Nr#)    ' convert radians to degrees
+   Pi# = PiD#                  ' the constant "pi"
+   e# = eD#                    ' the constant "e"
+
+                 Extensions to BASIC's math             page 9
+
+
+
+   Result% = GCDI%(Nr1%, Nr2%) ' greatest common denominator
+   Result% = Power2I%(Nr%)     ' raise 2 to a specified power
+
+   Result& = GCDL&(Nr1&, Nr2&) ' greatest common denominator
+   Result& = Power2L&(Nr%)     ' raise 2 to a specified power
+
+
+
+Like BASIC's trig functions, these trig functions expect the
+angle to be in radians.  Conversion functions are provided in
+case you prefer degrees.
+
+Note that there is no ArcTanS! or ArcTanD# function for the
+simple reason that BASIC supplies an ATN function.
+
+Constants are expressed to the maximum precision available.
+
+The Power2I% and Power2L& functions are vastly quicker than the
+equivalent BASIC formulas.  If powers of two are useful to you,
+try these functions!
+
+
+
+If you are not familiar with variable postfix symbols, here's a
+brief summary:
+
+  Symbol   Meaning             Range (very approximate)
+  ------   --------            ------------------------
+    %      integer             +- 32767
+    &      long integer        +- 2 * 10^9
+    !      single precision    +- 1 * 10^38   (7-digit prec.)
+    #      double precision    +- 1 * 10^308  (15-digit prec.)
+    $      string              [0 to 32767 characters]
+
+See your BASIC manual or QuickBasic's online help for further
+details.
+
+                         Far Strings                   page 10
+
+
+
+One of the best things about BASIC is its support for
+variable-length strings.  Few other languages support such
+dynamically-allocated strings and they're a terrifically
+efficient way of using memory.  At least, they would be, except
+for one minor limitation... in every version of QuickBasic and
+BASCOM (except for the new and expensive BASCOM 7.0
+"Professional Development System"), string space is limited to
+a mere 50K-60K bytes.  As if this weren't trouble enough, this
+space is also shared with a number of other things.  Running
+out of string space is a common and painful problem.
+
+Anyway, it used to be.  The BasWiz library comes with an
+assortment of routines and functions which allow you to keep
+variable-length strings outside of BASIC's tiny string area.
+Currently, you may have up to 65,535 far strings of up to 255
+characters each, subject to available memory. Either normal
+system memory or expanded memory may be used.  Extended memory
+can also be used if you have an XMS driver (such as HIMEM.SYS)
+installed.
+
+Using far strings works almost the same way as using normal
+strings.  Rather than referring to a far string with a string
+variable name, however, you refer to it with an integer
+variable called a "handle".  To create a new far string, you
+use a handle of zero.  A new handle will be returned to you
+which will identify that string for future reference.
+
+Before you use any far strings, you must initialize the far
+string handler. When you are done using far strings, you must
+terminate the far string handler.  Normally, each of these
+actions will take place only once in your program: you
+initialize at the beginning and terminate at the end.
+
+On the next page is an example program that reads a file into
+an array of far strings, then displays it.  I'll leave out such
+niceties as error trapping to keep the example easy to follow.
+
+NOTE: The BasWiz far string handler does not support PDS far
+strings!  If you are using PDS far strings, you can't use
+BasWiz far strings.
+
+                         Far Strings                   page 11
+
+
+
+   REM $INCLUDE: 'BASWIZ.BI'
+   DEFINT A-Z
+   REDIM Text(1 TO 5000)       ' array for far string handles
+   FSInit 0                    ' initialize far string handler
+   TextLines = 0
+   OPEN "ANYFILE.TXT" FOR INPUT AS #1
+   DO UNTIL EOF(1)
+      LINE INPUT#1, TextRow$
+      Handle = 0               ' zero to create new far string
+      FSSet Handle, TextRow$   ' set the far string
+      TextLines = TextLines + 1
+      Text(TextLines) = Handle ' save the far string handle
+   LOOP
+   CLOSE
+   FOR Row = 1 TO TextLines
+      PRINT FSGet$(Text(Row))  ' display a far string
+   NEXT
+   FSDone                      ' done with far string handler
+   END
+
+If you wanted to change an existing far string, you would
+specify its existing handle for FSSet.  The handle of zero is
+used only to create new far strings, rather in the manner of
+using a new variable for the first time.
+
+Note the 0 after the FSInit call.  That specifies that main
+system memory is to be used.  If you would prefer to use EMS,
+use a 1.  If you specify EMS and none is available, BasWiz will
+fall back to conventional memory.
+
+I had intended to add XMS support, but on closer inspection, it
+appears that this would be quite slow.  Let me know how you
+feel about this, people!
+
+                        File Handling                  page 12
+
+
+
+The file handling capabilities of BASIC were improved quite a
+bit as of QuickBasic 4.0.  A binary mode was added and it
+became possible to use structured (TYPE) variables instead of
+the awkward FIELD-based random access handling.  Even today,
+however, BASIC file handling is inefficient for many tasks. It
+requires error trapping to avoid problems like open floppy
+drive doors and cannot transfer information in large quantities
+at a time.
+
+The BasWiz routines provide additional flexibility and power.
+They allow you to access files at as low or high a level as you
+wish.  Here are some of the features of BasWiz file handling:
+
+  - File sharing is automatically used if the DOS version is
+    high enough, (DOS 3.0 or later) providing effortless
+    network compatibility.
+  - Critical errors, like other errors, are detected at any
+    point you find convenient via a single function call.
+  - Optional input buffers speed up reading from files.
+  - Up to 32K of data may be read or written at one time.
+  - Files can be flushed to disk to avoid loss due to power
+    outages, etc.
+
+Files are not considered to be strongly moded by BasWiz,
+although there are a few limitations on how you can deal with
+text files as opposed to other kinds of files.  Reads and
+writes normally take place sequentially, like the INPUT and
+OUTPUT modes allowed by BASIC.  However, you can also do random
+access by moving the file pointer to anywhere in the file, just
+as with the RANDOM and BINARY modes allowed by BASIC.  These
+routines place no arbitrary limitations on the programmer.
+
+As with BASIC, files are referred to by a number after they
+are opened for access.  Unlike BASIC, the number is returned to
+you when the file is successfully opened, rather than being
+specified by you when you open the file.  This means that you
+never have to worry about a file number already being in use.
+We'll refer to the file number as a "file handle" from now on.
+
+                        File Handling                  page 13
+
+
+
+Before doing anything else, you must initialize the file
+handling routines. This is typically done only once, at the
+beginning of your program.  The FInit routine needs to know the
+number of files you want to deal with.  This can be up to 15
+files, or possibly up to 50 if you are using DOS 3.3 or higher.
+
+   FInit Files, ErrCode
+
+A file is opened for access like so:
+
+   FOpen File$, FMode$, BufferLen, Handle, ErrCode
+
+You pass the File$, FMode$, and BufferLen.  The Handle and
+ErrCode are returned to you.  The "BufferLen" is the length of
+the buffer desired for input.  This must be zero if you want to
+write to the file.  The filename is passed in File$, naturally
+enough.  There is a choice of various modes for FMode$ and
+these can be combined to some extent:
+
+   A   Append to file      used to add to an existing file
+   C   Create file         creates a new file
+   R   Read access         allows reading (input) from a file
+   T   Text mode file      allows text-mode input from a file
+   W   Write access        allows writing (output) to a file
+
+For the most part, the combinations are self-explanatory. For
+instance, it would be reasonable to open a file for read and
+write, for create and write, for append and write, or for read
+and text.  Text files always require a buffer.  If you request
+text access without specifying a buffer, a buffer of 512 bytes
+will be provided for you.  If you request create access without
+additional parameters, the file will be opened for write by
+default.
+
+You may not use a buffer if you want to write to a file. This
+includes text files, which always use a buffer, as well as
+binary files.  This is an artificial limitation which will
+change in a future version of BasWiz.  It exists now to reduce
+the internal complexity of the routines which write to the
+file, so that they do not have to account for any buffering as
+well as the current file pointer.  However, writing may be done
+to a text-type file if the file was not opened in text mode.
+We'll see how that works presently.
+
+When you are done using a particular file, you can close it,
+just as in ordinary BASIC:
+
+   FClose Handle
+
+Before your program ends, you should terminate the file
+handler.  This will close any open files as well as concluding
+use of the file routines:
+
+   FDone
+
+                        File Handling                  page 14
+
+
+
+That covers the basic set-up routines: initialize, open, close,
+and terminate.  Of more interest are the routines which
+actually deal with the file itself.  These provide assorted
+read/write services, the ability to get or set the file
+read/write pointer, size, time, and date, and the ability to
+get or set the error code for a specific file, among other
+things.  Let's take a look at the error handler first.
+
+The FInit and FOpen routines return an error code directly,
+since you need to know immediately if these have failed.  The
+other file routines do not return a direct error code,
+however.  In order to discover whether an error has occurred,
+you use the FGetError% function.  This will return an error of
+zero if there was no error, or a specific error code (listed at
+the end of this manual) if some problem occurred. The error
+code will remain the same until you reset it using FError.  The
+FError service also allows you to test your error handler by
+forcing specific error codes even when everything is fine.
+
+   PRINT "Error code: "; FGetError(Handle)
+   FError Handle, 0      ' clear the error code
+
+It is recommended that you check for errors after any file
+routine is used if there is a chance that your program will be
+executed on a floppy disk.  These are particularly prone to
+user errors (like leaving the drive door open) or running out
+of space.  If your program will only run on a hard drive, you
+may not need to check as frequently.  It's your choice. Note
+that the error code is not cleared automatically-- use FError
+to reset the error code to zero if you determine that it wasn't
+a serious error.
+
+Down to the nitty-gritty... we've seen how to open and close a
+file, how to check operations for errors, and so forth.  So how
+do we actually manipulate the file?  There are assorted
+alternatives, depending on how you want to deal with the file:
+text reads, text writes, byte-oriented reads and writes, and
+block reads and writes, not to mention handling the time, date,
+size, and read/write pointer.  We'll start off with the
+routines which read from a file.
+
+If you opened the file for text access, you must want to read
+the file a line at a time.  Each line is assumed to be less
+than 256 characters and delimited by a carriage return and
+linefeed (<CR><LF>, or ^M^J, in normal notation). In that case,
+you should use the FReadLn$ function:
+
+   St$ = FReadLn$(Handle)
+
+                        File Handling                  page 15
+
+
+
+A simple program to display a text file directly on the
+screen might look something like this in BASIC:
+
+   OPEN COMMAND$ FOR INPUT AS #1
+   WHILE NOT EOF(1)
+      LINE INPUT#1, St$
+      PRINT St$
+   WEND
+   CLOSE #1
+
+The same program using BasWiz would look something like this:
+
+   REM $INCLUDE: 'BASWIZ.BI'
+   DEFINT A-Z
+   FInit 15, ErrCode
+   FOpen COMMAND$, "RT", 0, Handle, ErrCode
+   WHILE NOT FEOF(Handle)
+      PRINT FReadLn$(Handle)
+   WEND
+   FDone
+
+In either case, we're accepting a command-line parameter which
+specifies the name of the file.  In the BasWiz example, note
+the use of the FEOF% function, which tells whether we've gone
+past the end of the file.  This works like the EOF function in
+BASIC.
+
+There are two ways of reading from binary files.  You can get
+the results as a string of a specified (maximum) length:
+
+   St$ = FRead$(Handle, Bytes)
+
+In plain BASIC, the same thing might be expressed this way:
+
+   St$ = INPUT$(Bytes, FileNumber)
+
+The other way of reading from a binary file has no equivalent
+in BASIC.  It allows you to read in up to 32K bytes at a time,
+directly into an array or TYPEd variable.  You can read the
+information into anything that doesn't contain normal strings
+(the fixed-length string type can be used, though):
+
+   Segm = VARSEG(Array(0))
+   Offs = VARPTR(Array(0))
+   FBlockRead Handle, Segm, Offs, Bytes
+
+That would read the specified number of bytes into Array(),
+starting at array element zero.
+
+                        File Handling                  page 16
+
+
+
+You can use any data type, whether single variable or array, as
+long as it is not a variable length string.  In other words,
+Vbl$ and Vbl$(0) would not work.  If you want to use a string
+with the block read, it must be a fixed-length string.  For
+example:
+
+   DIM Vbl AS STRING * 1024
+   Segm = VARSEG(Vbl)
+   Offs = VARPTR(Vbl)
+   FBlockRead Handle, Segm, Offs, Bytes
+
+It's a good idea to calculate the Segm and Offs values each
+time.  These tell FBlockRead where to store the information it
+reads.  QuickBasic may move the variable around in memory, so
+VARSEG and VARPTR should be used just before FBlockRead, to
+insure that they return current and correct information.
+
+The file output commands are similar.  File output can only be
+done if there is no input buffer.  This means that you can't
+use file output if the file was opened in text mode, either,
+since text mode always requires an input buffer. That's a
+limitation that will be removed in a future version of BasWiz.
+It is possible to do text output on a file that was opened in
+binary mode, however.  The limitation just means that you can't
+open a file for both reading and writing if you use a buffer
+(or text mode).
+
+To output (write) a string to a file, use this:
+
+   FWrite Handle, St$
+
+This is like the plain BASIC statement:
+
+   PRINT #FileNumber, St$;
+
+If you would like the string to be terminated by a carriage
+return and linefeed, use this instead:
+
+   FWriteLn Handle, St$
+
+This is like the plain BASIC statement:
+
+   PRINT #FileNumber, St$
+
+In BASIC, the difference between the two writes is controlled
+by whether you put a semicolon at the end.  With BasWiz,
+different routines are used instead.  FWrite is like PRINT with
+a semicolon and FWriteLn is like PRINT without a semicolon.
+
+                        File Handling                  page 17
+
+
+
+As well as simple string output, you can also output TYPEd
+variables and even entire arrays.  This type of output has no
+corresponding BASIC instruction, although it's somewhat similar
+to the file PUT statement.  Up to 32K can be output at a time:
+
+   Segm = VARSEG(Array(0))
+   Offs = VARPTR(Array(0))
+   FBlockWrite Handle, Segm, Offs, Bytes
+
+If you haven't already read the section on FBlockRead, go back
+a page and review it.  The same comments apply for FBlockRead:
+it can handle fixed-length strings but not old-style strings,
+and VARSEG/VARPTR should immediately precede the block I/O,
+among other things.
+
+Normally, reads and writes take place sequentially.  If you
+want to move to a specific spot in the file, though, that's
+easy.  You can do it in text mode or binary mode, whether or
+not you have a buffer, giving you additional flexibility over
+the usual BASIC file handling.  Set the location for the next
+read or write like so:
+
+   FLocate Handle, Position&
+
+The Position& specified will be where the next read or write
+takes place.  It starts at one and (since it's specified as a
+LONG integer) can go up to however many bytes are in the file.
+If you want a record position rather than a byte position, you
+can do that too.  Just convert the record number to a byte
+number, like so:
+
+   Position& = (RecordNumber& - 1&) * RecordLength& + 1&
+
+If you do not want to maintain RecordNumber and RecordLength as
+LONG integers, convert them to such by using the CLNG()
+function on them before doing the calculation.  Otherwise you
+may get an overflow error in the calculation, since QuickBasic
+will assume that the result will be an integer.
+
+You can get the current position of the file read/write pointer
+too:
+
+   Position& = FGetLocate&(Handle)
+
+Let's see... we've examined initialization and termination,
+opening and closing, reading and writing, and manipulating the
+file read/write pointer. What else could there be?  Well, how
+about checking the size of a file and getting or setting the
+file time and date?  Why, sure!  The "get" routines are pretty
+well self-explanatory:
+
+   FileSize& = FGetSize&(Handle)
+   FileTime$ = FGetTime$(Handle)
+   FileDate$ = FGetDate$(Handle)
+
+                        File Handling                  page 18
+
+
+
+Setting the time and date is equally easy.  This should be done
+just before you close the file with FClose or FDone. You may
+use any date and time delimiters you choose.  If a field is
+left blank, the appropriate value from the current time or date
+will be used.  Years may be specified in four-digit or
+two-digit format.  Two-digit years will be assumed to be in the
+20th century ("90" == "1990").  Careful there!  Your program
+should allow four-digit dates to be used or disaster will
+strike when the year 2000 rolls around.  The 21st century is
+closer than you think!
+
+   FTime Handle, FileTime$
+   FDate Handle, FileDate$
+
+There's just one more file routine.  It allows you to "flush" a
+file to disk. This insures that the file has been properly
+updated to the current point, so nothing will be lost if there
+is a power outage or similar problem.  If you do not use the
+"flush" routine, data may be lost if the program terminates
+unexpectedly.  Note that use of FFlush requires that a free
+file handle be available, before DOS 4.0.
+
+   FFlush Handle
+
+That's it for the BasWiz file handler.  As a quick review,
+let's run through the available routines, then try a couple of
+example programs.  You might also wish to examine the WDEMO.BAS
+program, which also makes use of the file routines.
+
+FInit         initialize the file handler
+FDone         end the file handler and close any open files
+
+FOpen         open a file for access (like OPEN)
+FClose        close a file (like CLOSE)
+
+FRead$        read a string from a binary file (like INPUT$)
+FReadLn$      read a string from a text file (like LINE INPUT)
+FBlockRead    read an item from a binary file
+
+FWrite        write a string to a binary file
+FWriteLn      write a string with a <CR><LF> to a binary file
+FBlockWrite   write an item to a binary file
+
+FLocate       set the read/write pointer to a given position
+FTime         set the time stamp
+FDate         set the date stamp
+FError        set the error code
+
+FGetLocate&   get the read/write pointer
+FGetTime$     get the time stamp
+FGetDate$     get the date stamp
+FGetError     get the error code
+
+FFlush        flush to disk (makes sure file is updated)
+FGetSize&     get size
+FEOF          see if the end of the file has been reached
+
+                        File Handling                  page 19
+
+
+
+So much for theory.  Let's try something practical.  A common
+problem is copying one file to another.  We'll limit this to
+text files, so we can do it in both plain BASIC and with
+BasWiz.  Although BasWiz can handle any type of file readily,
+BASIC has problems in efficiently handling variable-length
+binary files.  So, we'll do this first in BASIC, then BasWiz,
+for text files.
+
+In BASIC, a text-file copying program might look like this:
+
+   INPUT "File to copy"; FromFile$
+   INPUT "Copy file to"; ToFile$
+   OPEN FromFile$ FOR INPUT AS #1
+   OPEN ToFile$ FOR OUTPUT AS #2
+   WHILE NOT EOF(1)
+      LINE INPUT#1, St$
+      PRINT#2, St$
+   WEND
+   CLOSE
+
+With BasWiz, the same program would look more like this:
+
+   REM $INCLUDE: 'BASWIZ.BI'
+   DEFINT A-Z
+   INPUT "File to copy"; FromFile$
+   INPUT "Copy file to"; ToFile$
+   FInit 15, ErrCode
+   FOpen FromFile$, "RT", 1024, FromHandle, ErrCode
+   FOpen ToFile$, "CW", 0, ToHandle, ErrCode
+   FileTime$ = FGetTime$(FromHandle)
+   FileDate$ = FGetDate$(FromHandle)
+   WHILE NOT FEOF(FromHandle)
+      WriteLn ToHandle, ReadLn$(FromHandle)
+   WEND
+   FTime ToHandle, FileTime$
+   FDate ToHandle, FileDate$
+   FDone
+
+You might have noticed that the BasWiz version of the program
+is a bit longer than the plain BASIC version.  It has a number
+of advantages, however.  It's faster, produces smaller code
+under ordinary circumstances, and preserves the date and time
+of the original file in the copied file. Unlike BASIC, the
+BasWiz routines do not automatically add a ^Z to the end of
+text files, so the BasWiz example will not alter the original
+file.
+
+                          Fractions                    page 20
+
+
+
+Using BCD allows you to represent numbers with excellent
+precision, but at a fairly large cost in speed.  Another way to
+represent numbers with good precision is to use fractions.
+Fractions can represent numbers far more accurately than BCD,
+but can be handled much more quickly. There are some
+limitations, of course, but by now you've guessed that's always
+true!
+
+Each fraction is represented by BasWiz as an 8-byte string. The
+numerator (top part of the fraction) may be anywhere from
+-999,999,999 to 999,999,999. The denominator (the bottom part)
+may be from 1 to 999,999,999.  This allows handling a fairly
+wide range of numbers exactly.
+
+Fractions can be converted to or from numeric text strings in
+any of three formats: real number (e.g., "1.5"), plain fraction
+(e.g., "3/2"), or whole number and fraction (e.g., "1 1/2").
+Internally, the numbers are stored as a plain fraction, reduced
+to the smallest fraction possible which means the same thing
+(for instance, "5/10" will be reduced to "1/2").
+
+To convert a numeric text string into a fraction, do this:
+
+   Nr$ = FracSet$(NumSt$)
+
+To convert a fraction into a numeric text string, try this:
+
+   NumSt$ = FracFormat$(Nr$, HowToFormat%)
+
+The formatting options are:
+
+   0   convert to plain fraction
+   1   convert to whole number and fraction
+   2   convert to decimal number
+
+Here is a list of the other functions available:
+
+   Result$ = FracAbs$(Nr$)            ' absolute value
+   Result$ = FracAdd$(Nr1$, Nr2$)     ' Nr1 + Nr2
+   Result% = FracCompare%(Nr1$, Nr2$) ' compare two fractions
+   Result$ = FracDiv$(Nr1$, Nr2$)     ' Nr1 / Nr2
+   Result$ = FracMul$(Nr1$, Nr2$)     ' Nr1 * Nr2
+   Result$ = FracNeg$(Nr$)            ' - Nr
+   Result% = FracSgn%(Nr$)            ' signum function
+   Result$ = FracSub$(Nr1$, Nr2$)     ' Nr1 - Nr2
+
+Fractions are automatically reduced to allow the greatest
+possible range. Note that little range-checking is done at this
+point, so you may wish to screen any input to keep it
+reasonable.
+
+   Result     FracSgn      FracCompare
+     -1       negative #    1st < 2nd
+      0       # is zero     1st = 2nd
+      1       positive #    1st > 2nd
+
+                 Graphics: General Routines            page 21
+
+
+
+These routines are designed to work with specific graphics
+modes, so your program will only include those routines which
+apply to the modes you use.  These modes are supported:
+
+ SCREEN   Card     Graph. Res   Colors   Text Res.       Notes
+ ======   ====     ==========   ======   =============   =====
+    0      any       varies       16     varies            *0
+    1      CGA     320 x 200       4     40 x 25
+    2      CGA     640 x 200       2     80 x 25
+    3      HGA     720 x 348       2     90 x 43           *1
+    7      EGA     320 x 200      16     40 x 25
+    8      EGA     640 x 200      16     80 x 25
+    9      EGA     640 x 350      16     80 x 25/43
+   10      EGA     640 x 350       4     80 x 25/43       mono
+   11      VGA     640 x 480       2     80 x 30/60
+   12      VGA     640 x 480      16     80 x 30/60
+   13      VGA     320 x 200     256     40 x 25
+ --------------------------------------------------------------
+   N0      VGA     360 x 480     256     45 x 30           *2
+   N1      VGA     320 x 400     256     40 x 25           *2
+   N2   <printer>  480 x 640       2     60 x 80/45/40     *3
+   N4      any      80 x  50       2      6 x 10           *4
+   N5     SVGA    <user spec>    256     <varies>          *5
+   N6      MDA      80 x 25      ---     25 x 80           *6
+
+The number of rows of text available depends on the font:
+8 x 8, 8 x 14, or 8 x 16.
+
+*0  This is actually for text mode, not graphics mode.
+
+*1  Note that the BasWiz Hercules routines, unlike those
+    provided with QuickBasic, do not require the QBHERC TSR
+    to be loaded.  They are entirely self-contained.
+    However, they may need to be compiled by BC instead of
+    QB, which may refuse to deal with the video mode change.
+
+*2  This non-standard VGA mode works on most ordinary VGAs.
+
+*3  This works with printers (Epson-compatible dot matrix or
+    HP-compatible laser printers) rather than the display.  The
+    results may be previewed on a VGA, however.  See Printer
+    Routines for details.
+
+*4  This actually provides graphics in text mode.  It will
+    work on any display adapter.  80x25 text remains
+    available through PRINT.
+
+*5  This mode provides support for high-resolution 256-color
+    SuperVGA modes. You must specify the appropriate BIOS
+    mode number and resolution.  Only Tseng-based video
+    adapters are supported at this time.
+
+*6  This mode provides support for the monochrome monitor of
+    a dual-monitor system.  It works when the mono display is
+    the (theoretically) "inactive" display.
+
+                 Graphics: General Routines            page 22
+
+
+
+Compatibility: An EGA can display CGA modes. A VGA can display
+EGA and CGA modes. An MCGA can display CGA modes and two VGA
+modes: SCREEN 11 and SCREEN 13.  See "Miscellaneous Notes" for
+additional information.
+
+The routine for a specific mode is indicated by a prefix of
+"G", followed by the mode number, and then the routine name.
+For example, if you wished to plot a point in SCREEN 2 mode,
+you would use:
+
+   G2Plot X%, Y%
+
+Many of these routines correspond with existing BASIC
+instructions.  However, they are smaller and usually faster by
+22% - 64%.  See "Miscellaneous Notes" for notes on the
+differences between BASIC and the BasWiz routines.
+
+The smaller size may not be noticeable if you use the SCREEN
+statement, since that causes BASIC to link in some of its own
+graphics routines.  If you intend to use only BasWiz routines
+for graphics, you can avoid that by using the G#Mode command
+instead of SCREEN:
+
+   G#Mode Graphics%         ' 0 for SCREEN 0, else SCREEN #
+
+If you're using the mode N5 routines, you'll need to initialize
+them before calling GN5Mode.  This is done by specifying the
+BIOS mode number and the screen resolution:
+
+   GN5Init BIOSMode%, PixelsWide%, PixelsHigh%
+
+One difference between BASIC and BasWiz is that, instead of
+each "draw" command requiring a color parameter as in BASIC,
+the BasWiz library provides a separate color command:
+
+   G#Color Foreground%, Background%
+
+The "foreground" color is used by all graphics routines.  The
+background color is used by the G#Cls routine.  Both foreground
+and background colors are used in the G#Write and G#WriteLn
+routines.
+
+                 Graphics: General Routines            page 23
+
+
+
+Here is a list of the corresponding routines, first BASIC, then
+BasWiz (replace the "#" with the appropriate mode number):
+
+   ' get the color of a specified point
+   colour% = POINT(x%, y%)
+   colour% = G#GetPel(x%, y%)
+
+   ' set the color of a specified point
+   PSET (x%, y%), colour%
+   G#Color colour%, backgnd% : G#Plot x%, y%
+
+   ' draw a line of a specified color
+   LINE (x1%, y1%) - (x2%, y2%), colour%
+   G#Color colour%, backgnd% : G#Line x1%, y1%, x2%, y2%
+
+   ' draw a box frame of a specified color
+   LINE (x1%, y1%) - (x2%, y2%), colour%, B
+   G#Color colour%, backgnd% : G#Box x1%, y1%, x2%, y2%, 0
+
+   ' draw a box of a specified color and fill it in
+   LINE (x1%, y1%) - (x2%, y2%), colour%, BF
+   G#Color colour%, backgnd% : G#Box x1%, y1%, x2%, y2%, 1
+
+   ' clear the screen and home the cursor
+   CLS
+   G#Cls
+
+   ' get the current cursor position
+   Row% = CSRLIN: Column% = POS(0)
+   G#GetLocate Row%, Column%
+
+   ' set the current cursor position
+   LOCATE Row%, Column%
+   G#Locate Row%, Column%
+
+   ' display a string without a carriage return and linefeed
+   PRINT St$;
+   G#Write St$
+
+   ' display a string with a carriage return and linefeed
+   PRINT St$
+   G#WriteLn St$
+
+Note that BasWiz, unlike BASIC, allows both foreground and
+background colors for text in graphics mode.  It also displays
+text substantially faster than BASIC.  See the "Miscellaneous
+Notes" section for information on other differences in text
+printing.
+
+                 Graphics: General Routines            page 24
+
+
+
+If you need to print a number rather than a string, just use
+the BASIC function STR$ to convert it.  If you don't want a
+leading space, use this approach:
+
+   St$ = LTRIM$(STR$(Number))
+
+The BasWiz library has other routines which have no BASIC
+equivalent.  One allows you to get the current colors:
+
+   G#GetColor Foreground%, Background%
+
+Sometimes the normal text services seem unduly limited.  Text
+is displayed only at specific character positions, so it may
+not align properly with a graph, for instance.  Text is also of
+only one specific size.  These are limitations which make the
+normal text routines very fast, but for times when you need
+something a little bit more fancy, try:
+
+   G#Banner St$, X%, Y%, Xmul%, Ymul%
+
+You may display the string starting at any graphics position.
+The Xmul% and Ymul% values are multipliers, specifying how many
+times larger than normal each character should be.  Using Xmul%
+= 1 and Ymul% = 1 will give you normal-sized characters.  What
+"normal" means depends on the font in use.
+
+Since G#Banner "draws" the text onto the screen, it is a bit
+slower than the normal text services.  It also uses only the
+foreground color, so the letters go right on top of anything
+that was previously there.  Use G#Box to clear the area
+beforehand if this is a problem for you.
+
+The G#Banner routine supports several fonts.  The larger fonts
+provide a more precise character set but leave you with less
+room on the screen.  You may choose from these fonts:
+
+   Font Number     Font Size (width x height)
+        0            8 x 8    --- default
+        1            8 x 14
+        2            8 x 16
+
+Select a font like so:
+
+   BFont FontNr%
+
+If you want to find out what the current font is, can do:
+
+   FontNr% = GetBFont
+
+Besides looking more elegant, the larger fonts are easier to
+read.  They will also suffer less from being increased in size,
+although some deterioration is inevitable when magnifying these
+kinds of fonts.
+
+                 Graphics: General Routines            page 25
+
+
+
+The G#Banner routines accept CHR$(0) - CHR$(127).  No control
+code interpretation is done.  All codes are displayed directly
+to the screen.
+
+Circles and ellipses can be drawn with the Ellipse routine.
+This is similar to the BASIC CIRCLE statement.  You specify the
+center of the ellipse (X,Y), plus the X and Y radius values:
+
+   G#Ellipse CenterX%, CenterY%, XRadius%, YRadius%
+
+A circle is an ellipse with a constant radius.  So, to draw a
+circle, just set both radius values to the same value.
+
+As well as the usual points, lines, and ellipses, BasWiz also
+allows you to draw polygons: triangles, squares, pentagons,
+hexagons, all the way up to full circles!
+
+   G#Polygon X%, Y%, Radius%, Vertices%, Angle!
+
+The X% and Y% values represent the coordinates of the center of
+the polygon. The Radius% is the radius of the polygon (as if
+you were fitting it into a circle).  Vertices% is the number of
+angles (also the number of sides) for the polygon to have.
+Angle! specifies the rotation of the polygon, and
+is specified in radians.  See "A Little Geometry" for more
+information.
+
+Another routine is designed to manipulate a GET/PUT image.
+Given an image in array Original%() and a blank array of the
+same dimensions called Flipped%(), this routine copies the
+original image to the new array as a mirror image about the
+horizontal axis.  This is the same as the image you'd see if
+you turned your monitor upside-down: the resulting image is
+upside-down and backwards.
+
+   G#MirrorH Original%(), Flipped%()
+
+Don't forget to make the Flipped%() array the same DIM size as
+the original, or the picture will overflow into main memory,
+probably causing disaster!
+
+Note that G#MirrorH will only work properly on images with byte
+alignment. This means that the width of the image must be
+evenly divisible by four if SCREEN 1 is used, or evenly
+divisible by eight if SCREEN 2 is used.  EGA modes are not yet
+supported for this routine.
+
+There are more routines that work only with SCREEN 2.  One
+allows you to load a MacPaint-type image ("ReadMac" or .MAC
+files) into an array which can then be PUT onto the screen:
+
+   G2LoadMAC FileName$, Image%(), StartRow%
+
+                 Graphics: General Routines            page 26
+
+
+
+Note that a full .MAC picture is 576x720, which won't fit on
+the screen, so the image will be truncated to 576x200.  You may
+specify a starting row within the .MAC image, StartRow%, which
+may be 0-521, allowing the entire picture to be loaded in
+several parts.
+
+The Image%() must be dimensioned with 7202 elements:
+
+   DIM Array(1 TO 7202) AS INTEGER
+
+If you don't give an extension in the FileName$, an extension
+of ".MAC" will be used.  There is no checking to see if the
+file actually exists, so you may wish to do this beforehand.
+
+There is no way of knowing whether a .MAC picture is supposed
+to be black on white or white on black.  If the image doesn't
+look right when you PUT using PSET, you can switch it around by
+using PUT with PRESET instead.
+
+PC PaintBrush (.PCX) pictures can also be loaded.  These images
+can be of various sizes, so you need to dimension a dynamic
+array for them:
+
+   REM $DYNAMIC
+   DIM Image(1 TO 2) AS INTEGER
+
+The array will be set to the correct size by the loader.  It
+goes like this:
+
+   G2LoadPCX FileName$, Image%(), ErrCode%
+
+If you don't give an extension in the FileName$, an extension
+of ".PCX" will be used.  You may wish to check to see if the
+file exists beforehand. Possible errors are as follows:
+
+   -1   File is not in PCX format
+    1   Image is too large for this screen mode
+    2   Image won't work in this screen mode (too many planes)
+
+Two new routines are replacements for the GET and PUT image
+statements in BASIC.  They are on the slow side, but if you
+don't intend to use them for animation, they will serve to save
+some memory.  There are also GN5Get and GN5Put routines for use
+with 256-color SuperVGA modes.
+
+   REM $DYNAMIC
+   DIM Image(1 TO 2) AS INTEGER
+   G2Get X1%, Y1%, X2%, Y2%, Image()
+
+Note the DIMensioning of a dynamic array.  The G2Get routine
+will set the array to the appropriate size to hold the image.
+
+                 Graphics: General Routines            page 27
+
+
+
+The PUT replacement assumes that you intend to PSET the image.
+It doesn't allow for other display modes yet:
+
+   G2Put X%, Y%, Image()
+
+See "Miscellaneous Notes" for more information on using GET/PUT
+images and the directions I'll be taking with them in the
+future.  Note that SCREEN 13 is also supported, via G13Get and
+G13Put.
+
+The COLOR statement in SCREEN 1 is anomalous.  It doesn't
+really control color at all, which is why QuickBasic proper
+doesn't support colored text in this (or any graphics) mode.
+Instead, it is used for controlling the background/border color
+and palette.  Since BasWiz -does- support a true G1COLOR
+routine, there are different routines which allow you to change
+the palette and border colors. To change the background (and
+border) color, use:
+
+   G1Border Colour%
+
+There are two palette routines.  Why two?  Well, QuickBasic
+supports two CGA palettes.  One of the routines works like
+QuickBasic and can be used on any CGA, EGA or VGA display (as
+long as it's in CGA mode).  The other routine gives you a wider
+choice of palettes, but will only work on true CGAs (and some
+EGA or VGA systems that have been "locked" into CGA mode).
+
+Here's the QuickBasic-style two-palette routine for any
+CGA/EGA/VGA:
+
+   G1PaletteA PaletteNr%
+
+The PaletteNr% may be as follows:
+
+   0     (bright) Green, Red, Yellow
+   1     Cyan, Violet, White
+
+
+The more flexible six-palette routine (for CGA only) works like
+this:
+
+   G1PaletteB PaletteNr%
+
+Palettes are as follows:
+
+   0  Green, Red, Brown        4  (bright) Green, Red, Yellow
+   1  Cyan, Violet, White      5  (bright) Cyan, Violet, White
+   2  Cyan, Red, White         6  (bright) Cyan, Red, White
+
+                 Graphics: General Routines            page 28
+
+
+
+The EGA has a number of features which work in all its modes,
+so rather than giving them screen mode prefixes, they are
+simply named with an "E".  These routines allow you to get or
+set the palette, get or set the border color, and determine
+whether the higher background colors should be displayed as
+bright colors or as blinking.
+
+To get a palette color value, use:
+
+   Colour% = EGetPalette(ColorNumber%)
+
+To set the color value, use:
+
+   EPalette ColorNumber%, Colour%
+
+To get the border color:
+
+   Colour% = EGetBorder%
+
+You can probably guess how to set the border color:
+
+   EBorder Colour%
+
+Finally, the blink vs. intensity.  Actually, this is designed
+for text mode; I'm not sure whether it has any function in
+graphics modes.  The text-mode default is for blinking to be
+turned on.  With BASIC, you add 16 to the foreground color to
+make it blink.  That's a little weird, since the "blink"
+attribute is actually a part of the background color, but
+that's how BASIC views it.  You can tell the EGA to turn off
+blinking, in which case adding 16 to the foreground color makes
+the background color intense.  This doubles the number of
+available background colors.
+
+   EBlink Blink%
+
+Use -1 for blinking (default), or 0 to turn off blinking.
+
+Like the EGA, the VGA has a number of features which work in
+all its modes. Again, rather than giving them screen mode
+prefixes, we simply name them with a "V".  The current routines
+allow you to get or set the palette colors.
+
+To get a palette color value, use:
+
+   VGetPalette(ColorNumber%, Red%, Green%, Blue%)
+
+To set the color value, use:
+
+   VPalette ColorNumber%, Red%, Green%, Blue%
+
+                 Graphics: General Routines            page 29
+
+
+
+As you've probably noticed, this doesn't work the same way as
+the QuickBasic PALETTE statement.  Rather than using a formula
+to calculate a single LONG color value, like QuickBasic, the
+BasWiz library allows you to specify the color in a more
+meaningful way.  The Red%, Green%, and Blue% parameters each
+hold an intensity value (0-63).  By mixing these three, you can
+get an immense variety of shades-- over 250,000 combinations in
+all.
+
+If you need to keep track of the intensities in your program,
+I'd suggest the following TYPE definition:
+
+   TYPE VGAcolor
+      Red AS INTEGER
+      Green AS INTEGER
+      Blue AS INTEGER
+   END TYPE
+
+If space is more important than speed, you can compress that to
+half the size by using STRING * 1 instead of INTEGER.  In that
+case, you will need to use the CHR$ and ASC functions to
+convert between string and integer values.
+
+                Graphics: Text-mode Routines           page 30
+
+
+
+It may seem odd to lump text-mode handling in with graphics
+mode.  It seemed like the most logical approach, however. There
+is certainly some value in having graphics-type capabilities
+for text mode.  The ability to draw lines and boxes, use
+banner-style text, and so forth can be handy.  So, for the
+folks who don't need all the power of the virtual windowing
+system, I've added text-mode support into the "graphics"
+routines.
+
+There are some quirks to these routines, since text mode
+doesn't work the same way as graphics mode.  For one thing,
+each "pixel" is actually an entire character.  The default
+pixel is a solid block character, CHR$(219).  You can change
+this, however:
+
+   G0SetBlock Ch%      ' set ASCII code (use ASC(Ch$))
+   Ch% = G0GetBlock%   ' get ASCII code
+
+Since a pixel consists of a character with both foreground and
+background colors, the "get pixel" routine has been altered to
+accordingly:
+
+   G0GetPel X%, Y%, Ch%, Fore%, Back%
+
+Finally, let's consider the "set mode" command.  If you pass it
+a zero, the current mode will be used as-is.  This is useful in
+case you've already set up a desired mode.
+
+Any other mode number will be assumed to be a BIOS video mode
+which should be set.  If you feel like initializing the screen
+mode for some reason, it may be useful to know that 3 is the
+normal color mode (for CGA, EGA, VGA, etc) and 7 is the normal
+mono mode (for MDA and Hercules).  These provide 80x25 text.
+If you wish to take advantage of 43-row EGA or 50-row VGA text
+modes, you must set them up in advance (using the BASIC
+statements SCREEN and WIDTH) before calling G0Mode with a zero.
+
+If you have a SuperVGA or other adapter which supports unusual
+text modes, you can use the mode command to switch to the
+appropriate mode.  On my Boca SuperVGA, for example, mode &H26
+provides 80x60 text, and mode &H22 provides 132x44.  The G0
+routines are designed to support any text resolution up to
+255x255, provided that the BIOS updates the appropriate memory
+locations when a mode set is done.  This should be true for any
+special EGA or VGA-based text modes.
+
+   G0Mode ModeNr%
+
+              Graphics: Dual Monitor Routines          page 31
+
+
+
+The N6 mode support dual monitors.  To use this mode, you must
+make the color monitor the "active" display, so it can be
+handled with the usual BASIC or BasWiz display routines. The N6
+routines are designed to work with a monochrome monitor only
+when it is the (supposedly) "inactive" display in a dual
+monitor system.
+
+These routines are designed for monochrome adapters.  Either a
+plain MDA or a Hercules mono graphics adapter will do.
+
+The notes on SetBlock and GetPel from the explanation of mode 0
+on the previous page apply.  In this case, of course, they're
+GN6SetBlock and GN6GetPel, but the functionality is the same.
+
+In addition, there are two new routines which allow you to get
+and set the cursor size.  The cursor size is defined in scan
+lines, which may range from 0 (invisible) to 11 (large block):
+
+   GN6CursorSize ScanLines%
+   ScanLines% = GN6GetCursorSize%
+
+                 Graphics: Printer Routines            page 32
+
+
+
+The BasWiz printer routines allow you to work with a printer
+using the same convenient methods you'd use on a screen.  The
+image is created with the usual G# routines (using mode N2),
+but the results are kept in a buffer in memory (about 37K
+bytes) rather than being displayed directly.  The image can be
+previewed on a VGA or printed out at your convenience, to any
+printer or even a file.  The results will take up a single
+printer page, assuming the usual 8.5" x 11" paper is used.
+
+Printing a finished page works like this:
+
+   GN2Print Device$     ' for Epson-type dot matrix printers
+   GN2PrintL Device$    ' for HP-type laser printers
+
+The Device$ variable should be set to the name of the device:
+
+   LPT1    parallel printer on port 1   (PRN also works)
+   LPT2    parallel printer on port 2
+   LPT3    parallel printer on port 3
+   COM1    serial printer on port 1     (AUX also works)
+   COM2    serial printer on port 2
+
+Instead of using a device name, you can also use a file name,
+to store the results for later printing.  Output is done using
+BASIC file handling, so it would be a good idea to provide an
+ON ERROR GOTO trap in case of problems. The FREEFILE function
+is used, so you don't have to worry about conflicts with any
+files in use by your program.
+
+Getting a page layout just right can consume a lot of paper.
+Fortunately, there's a "preview" routine that allows you to
+display the results on a VGA. The display will be sideways,
+allowing the whole page to be seen at once. This will exactly
+match the printed output in N2 mode.  Here's how it works:
+
+   G11Mode 1               ' set SCREEN 11 (VGA 640x480 x2)
+   GN2Display              ' display the page
+   DO                      ' wait for a key to be pressed
+   LOOP UNTIL LEN(INKEY$)  '
+   G11Mode 0               ' set SCREEN 0 (text mode)
+
+The GN2Write and GN2WriteLn printer routines are unlike the
+display versions of the same routines in that they don't
+scroll.  These routines only handle one page at a time.
+
+Before using GN2Write or GN2WriteLn routines, you must choose a
+font with GN2Font.  These are the same fonts as used with
+G#Banner:
+
+    0     8 x 8        80 text rows
+    1     8 x 14       45 text rows
+    2     8 x 16       40 text rows
+
+The current font can be retrieved with GN2GetFont%.  The result
+will be meaningless if the font was never set with GN2Font.
+
+                 Graphics: A Little Geometry           page 33
+
+
+
+The increasing capabilities of computer graphics systems has
+left many of us in the dust.  It's great to be able to run
+dazzling applications or to doodle with a "paint" program, but
+many of us find it difficult to design appealing images of our
+own.  Becoming an artist is perhaps a bit more than most of us
+are willing to take on!  It is important to remember, however,
+that computers are wonderful number-crunchers.  With a little
+application of plane geometry, you can have the computer take
+on much of the work for you-- and after all, isn't that why we
+have computers in the first place?
+
+A complete review of plane geometry is a bit beyond the scope
+of this text. However, I'm going to run through some of the
+things I think you'll find most useful.  I'd also like to
+suggest that you might dig out your old textbooks or rummage
+through your local used book store.  It may have seemed like a
+dry subject at the time, but when you can watch the results
+growing on your computer screen, you will have a much better
+idea of how geometry can be useful to you-- and it can be
+surprisingly fun, too!
+
+In geometry talk, a "point" doesn't have any actual size.  In
+our case, we want to apply geometry to physical reality, namely
+the computer screen.  As far as we're concerned, a "point" will
+be an individual graphics dot, also called a "pel" or "pixel"
+(for "picture element").  We can safely dispense with such
+formalities for our applications, for the most part.
+
+The most important thing about a point is that it has a
+location!  Ok, that may not seem staggering, but it happens
+that there are a number of ways of specifying that location.
+The most common method is called the Cartesian coordinate
+system.  It is based on a pair of numbers: X, which represents
+the distance along a horizontal line, and Y, which represents
+the distance along a vertical line.  Consider the CGA in SCREEN
+2, for instance.  It has a coordinate system where X can be 0 -
+639 and Y can be 0 - 199.  The points are mapped on kind of an
+invisible grid.
+
+The Cartesian coordinate system makes it easy to visualize how
+a given point relates to other points on the same plane (or
+screen).  It is particularly useful for drawing lines.
+Horizontal and vertical lines become a cinch: just change the X
+value to draw horizontally, or the Y value to draw vertically.
+Squares and rectangles (or boxes) can be formed by a
+combination of such lines.  You can define an area of the
+screen in terms of an imaginary box (as GET and PUT do) with
+nice, clean boundaries.  When we get to diagonal lines, it's a
+bit more of a nuisance, but still easy enough with the proper
+formula.  That means we can do triangles too.  Curves are
+worse... when it comes to even a simple circle or ellipse, the
+calculations start to get on the messy side. For things like
+that, though, there is an alternative.
+
+                 Graphics: A Little Geometry           page 34
+
+
+
+Another way of describing the location of a point is by Polar
+coordinates. In Cartesian coordinates, the location is
+specified by its horizontal and vertical distances from the
+"origin" or reference point, (0,0).  In Polar coordinates, the
+location is specified by its distance and angle from the
+origin.  Think of it as following a map: Cartesian coordinates
+tell you how many blocks down and how many blocks over the
+point is, whereas Polar coordinates tell you in which direction
+the point is and how far away it is "as the crow flies".
+
+The Polar coordinate system is great for describing many kinds
+of curves, much better than Cartesian.  For example, a circle
+is defined as all of the points at a given (fixed) distance
+from a center point.  Polar coordinates include both a distance
+and an angle, and we've already got the distance, so all we
+need to do is plot points at all of the angles on a circle.
+Technically, there is an infinite number of angles, but since
+our points don't follow the mathematical definition (they have
+a size), we don't have to worry about that.
+
+Let me digress for a moment to talk about angles.  In BASIC,
+angles are specified in "radians".  People more often use
+"degrees".  Fortunately, it isn't hard to convert from one to
+the other.  Both may be visualized on a circle.  In radians,
+the sum of the angles in a circle is twice pi.  In degrees, the
+sum of the angles is 360.  That's something like this:
+
+
+                 90 deg, 1/2 * pi rad
+                       /---|---\
+                      /    |    \
+                     /     |     \
+       180 degrees   |___  .  ___|    0 deg, 0 rad; or...
+       pi radians    |           |  360 deg, 2 * pi rad
+                     \     |     /
+                      \    |    /
+                       \---|---/
+                 270 deg, 3/2 * pi rad
+
+
+Ok, so that's a grotesquely ugly circle!  Hopefully it shows
+the important thing, though.  Angles start at zero on the
+extreme right and get larger as they work around
+counter-clockwise.  The places marked on the "circle" are
+places where lines drawn horizontally and vertically through
+the center intersect the outside of the circle.  These serve as
+a useful reference point, especially in that they help show how
+the angles can be construed from a Cartesian viewpoint.
+
+So much for angles.  I'll go into conversion formulae, the
+value of pi, and other good junk a bit later on.  Right now,
+let's get back to our discussion of Polar coordinates.
+
+                 Graphics: A Little Geometry           page 35
+
+
+
+I've explained how the Polar system makes it easy to draw a
+circle.  Since you can vary the range of angles, it's equally
+simple to draw an arc.  If you wanted to make a pie chart, you
+might want to join the ends of the arcs to the center of the
+circle, in which case you'd keep the angle constant (at the
+ends of the arc) and plot by changing the distance from zero to
+the radius. Circles are also handy for drawing equilateral
+polygons... you know, shapes with sides of equal length:
+triangle, square, pentagon, hexagon, etc.  In this case, the
+best features of the Cartesian and Polar systems can be joined
+to accomplish something that would be difficult in either alone.
+
+The starting point for these polygons is the circle.  Imagine
+that the polygon is inside a circle, with the vertices (pointy
+ends, that is, wherever the sides meet) touching the edge of
+the circle.  These are equilateral polygons, so all of the
+sides and angles are the same size.  Each of the vertices
+touches the circle, and each does it at exactly the same
+distance from each other along the arc of the circle.
+All of this detail isn't precisely necessary, but I hope it
+makes the reasoning a bit more clear!
+
+The circle can be considered as being divided by the polygon
+into a number of arcs that corresponds to the number of
+vertices (and sides) the polygon has. Think of a triangle
+inside a circle, with the tips all touching the circle. If you
+ignore the area inside the triangle, you will see that the
+circle is divided into three equal arcs.  The same property is
+true of any equilateral polygon.  As a matter of fact, as the
+number of vertices goes up, the circle is partitioned into
+more, but smaller, arcs... so that a polygon with a large
+enough number of vertices is effectively a circle itself!
+
+Anyway, the important thing is the equal partitioning.  We
+know how many angles, be they degrees or radians, are in a
+circle.  To get the points of a polygon, then... well, we
+already know the "distance" part, that's the same as the
+radius.  The angles can be calculated by dividing the angles in
+the whole circle by the number of vertices in the desired
+polygon.  Trying that case with the triangle, assuming a radius
+of 20 (why not), and measuring in degrees, that would give us
+the Polar points (20, 0), (20, 120), (20, 240). To make this a
+triangle, we need to connect the points using lines, which is
+easy in Cartesian coordinates.  Since the computer likes
+Cartesian anyway, we just convert the Polar coordinates to
+Cartesian, draw the lines, and viola!
+
+                 Graphics: A Little Geometry           page 36
+
+
+
+That's essentially the method used by the G#Polygon routines.
+It's very simple in practice, but I haven't seen it
+elsewhere... probably because people forget about the Polar
+coordinate system, which is what makes it all come together.
+Polar coordinates also have simple equations for figures that
+look like daisies, hearts, and other unusual things.  See
+"Equations, Etc" and ROSES.BAS for more information.
+
+On a side note, the Cartesian system isn't used by all
+computers, although it's the most common.  Cartesian
+coordinates are the standard for what is called "raster"
+displays.  The Polar coordinate system is used on "vector"
+displays.  One example of a vector display that you may have
+seen is the old Asteroids video arcade game.  Vector displays
+tend to be used for drawing "framework" pictures where the
+image must be very sharp (unlike in raster images, the diagonal
+lines aren't jagged, since there's no raster "grid").
+
+In this section, I'm going to list a number of equations and so
+forth.  Some of them will be useful to you in experimenting
+with Polar coordinates.  Some of them provide formulae for
+things that are already in BasWiz, but which you might like to
+understand better.  Some of them are just for the heck of it...
+note that not all of this information may be complete enough
+for you to just use without understanding it.
+
+One problem is... if you try to draw a circle, for instance, it
+will come out looking squashed in most SCREEN modes. Remember
+we said our points, unlike mathematical points, have a size?
+In most graphics modes, the points are effectively wider than
+they are high, so a real circle looks like an ellipse.
+
+Another problem is that these equations are based on an
+origin of (0,0) which is assumed to be at the center of the
+plane.  In our case, (0,0) is at the upper right edge, which
+also makes the Y axis (vertical values) effectively
+upside-down.  This isn't necessarily a problem, but sometimes
+it is!  Adding appropriate offsets to the plotted X and Y
+coordinates often fixes it.  In the case of Y, you may need to
+subtract the value from the maximum Y value to make it appear
+right-side-up.
+
+The displayed form of these equations may contain "holes",
+usually again because the points have a size, and/or since we
+try to use integer math to speed things up.  If the screen had
+infinite resolution, this would not be a problem... meanwhile
+(!), getting around such problems takes fiddlin'.
+
+                  Graphics: Equations, Etc             page 37
+
+
+
+There are other problems, mostly due to forcing these
+simplified-universe theoretical equations into practical use.
+It's a lot easier to shoehorn in these simple equations than to
+use more accurate mathematical descriptions, though... a -lot-
+easier.  So a few minor quirks can be ignored!
+
+With those disclaimers, here's the scoop on some handy
+equations.
+
+   Polar coordinates may be expressed as (R, A), where R is
+   radius or distance from the origin, and A is the angle.
+
+   Cartesian coordinates may be expressed as (X, Y), where X is
+   the distance along the horizontal axis and Y is the distance
+   along the vertical axis.
+
+   Polar coordinates can be converted to Cartesian coordinates
+   like so:
+      X = R * COS(A): Y = R * SIN(A)
+
+   Angles may be expressed in radians or degrees.  BASIC
+   prefers radians. Radians are based on PI, with 2 * PI
+   radians in a circle.  There are 360 degrees in a circle.
+   Angles increase counter-clockwise from a 3:00 clock
+   position, which is the starting (zero) angle.  Angles can
+   wrap around: 720 degrees is the same as 360 degrees or 0
+   degrees, just as 3:00 am is at the same clock position as
+   3:00 pm.
+
+   Angles may be converted between degrees and radians, so:
+      radians = degrees * PI / 180
+      degrees = radians * 180 / PI
+
+   The value PI is approximately 3.14159265358979.  For most
+   graphics purposes, a simple 3.141593 should do quite
+   nicely.  The true value of PI is an irrational number (the
+   decimal part repeats forever, as near as anyone can tell).
+   It has been calculated out to millions of decimal points by
+   people with a scientific bent (and/or nothing better to do)!
+
+                  Graphics: Equations, Etc             page 38
+
+
+
+Line Drawing:
+
+   One of the convenient ways of expressing the formula of a
+   line (Cartesian coordinates) is:
+      Y = M * X + B
+
+   Given the starting and ending points for the line, M (the
+   slope, essentially meaning the angle of the line) can be
+   determined by:
+      M = (Y2 - Y1) / (X2 - X1)
+
+   The B value is called the Y-intercept, and indicates where
+   the line intersects with the Y-axis.  Given the ingredients
+   above, you can calculate that as:
+      B = Y1 - M * X1
+
+   With this much figured out, you can use the original formula
+   to calculate the appropriate Y values, given a FOR X = X1 TO
+   X2 sort of arrangement. If the slope is steep, however, this
+   will result in holes in the line.  In that case, it will be
+   smoother to recalculate the formula in terms of the X value
+   and run along FOR Y = Y1 TO Y2... in that case, restate it
+   as:
+      X = (Y - B) / M
+
+   Keep an eye on conditions where X1 = X2 or Y1 = Y2!  In
+   those cases, you've got a vertical or horizontal line.
+   Implement those cases by simple loops to improve speed and
+   to avoid dividing by zero.
+
+
+
+Circle Drawing:
+
+   The Cartesian formula gets messy, especially due to certain
+   aspects of the display that are not accounted for (mainly
+   that pixels, unlike theoretical points, have a size and
+   shape which is usually rectangular).  The Polar formula is
+   trivial, though.  The radius should be specified to the
+   circle routine, along with the center point.  Do a FOR
+   ANGLE! = 0 TO 2 * PI! STEP 0.5, converting the resulting
+   (Radius, Angle) coordinates to Cartesian, then adding the
+   center (X,Y) as an offset to the result.  The appropriate
+   STEP value for the loop may be determined by trial and
+   error.  Smaller values make better circles but take more
+   time.  Larger values may leave "holes" in the circle.
+
+                  Graphics: Equations, Etc             page 39
+
+
+
+Spiral Drawing:
+
+   If you use Polar coordinates, this is easy.  Just treat it
+   like a circle, but decrease the radius as you go along to
+   spiral in... or increase the radius as you go along if you
+   prefer to spiral out.
+
+
+
+Polygon Drawing:
+
+   I've already discussed that, so I'll leave it as an
+   exercise... or of course you can examine my source code if
+   you register BasWiz!  The polygon routines are in BASIC,
+   except for the line-drawing parts.
+
+
+
+Flower Drawing:
+
+   This sort of thing would be rather difficult to do using
+   strictly Cartesian methods, but with Polar coordinates, no
+   problem.  Here we calculate the radius based on the angle,
+   using something like:
+
+      FOR Angle! = 0 TO PI! * 2 STEP .01
+
+   (a low STEP value is a good idea).  The radius is calculated
+   like so:
+
+      Radius! = TotalRadius! * COS(Petals! * Angle!)
+
+   The Petals! value specifies how many petals the flower
+   should have.  If it is odd, the exact number of petals will
+   be generated; if even, twice that number will be generated.
+
+   These figures are technically called "roses", although they
+   more resemble daisies.  Try the ROSES.BAS program to see how
+   they look.
+
+
+
+Other Drawing:
+
+   Experiment!  There are all sorts of interesting things you
+   can do with the Polar coordinate system in particular. Dig
+   up those old Geometry texts or see if your Calculus books
+   review it.  If you've kept well away from math, try your
+   local library or used book store.
+
+               Memory Management and Pointers          page 40
+
+
+
+On the whole, BASIC is easily a match for any other language,
+as far as general-purpose programming goes.  There is one major
+lack, however-- a set of valuable features that is supported by
+most other languages, but was inexplicably left out of BASIC.
+Perhaps Microsoft felt it was too advanced and dangerous for a
+so-called "beginner's" language.  In truth, using pointers and
+memory management takes a little understanding of what you're
+doing-- the compiler can't protect you from all of your
+mistakes.  However, they can be extraordinarily useful for many
+things, so I have added these capabilities to BasWiz.
+
+A "pointer" is essentially just the address of an item.  It
+is useful in two respects: it allows you to pass just the
+pointer, rather than the whole item (be it a TYPEd variable,
+normal variable, entire array, or whatever) to a subprogram.
+This is faster and more memory-efficient than the alternatives.
+Secondly, a pointer combined with memory management allows you
+to allocate and deallocate memory "on the fly", in just the
+amount you need.  You don't have to worry about DIMensioning an
+array too large or too small, or even with how large each
+element of the array should be, for example.  You can determine
+that when your program -runs-, rather than at compile time, and
+set up your data structures accordingly.  You can also create a
+large variety of data structures, such as trees and linked
+lists, which would be difficult and cumbersome to emulate using
+BASIC alone.
+
+The BasWiz memory/pointer routines allow you to allocate and
+deallocate memory; fill, copy or move a block of memory; get or
+put a single character according to a pointer; and convert back
+and forth between a segment/offset address and a pointer.
+
+Pointers are kept in LONG integers, using an absolute memory
+addressing scheme.  This means that you can manipulate pointers
+just like any ordinary LONG integer, e.g. to move to the next
+memory address, just add one.  Since you can convert from a
+segment/offset address to a pointer and you can copy
+information from one pointer to another, you can move
+information back and forth between allocated memory and a TYPEd
+variable, numeric variable, or array.  You can even do things
+like set a pointer to screen memory and transfer the screen
+into a variable or vice versa!  Or implement your own "far
+string" routines, hierarchical evaluations, or any number of
+other things.  Pointers are incredibly powerful!
+
+               Memory Management and Pointers          page 41
+
+
+
+Note that there are different ways of representing the same
+segment/offset address, but only one absolute pointer
+representation.  If you need to compare two addresses, using
+pointers is terrific.  However, it's good to keep in mind that
+an segment/offset address may -appear- to change if you convert
+it to a pointer and then back to a segment/offset address.
+When you convert from a pointer to a segment and offset, the
+segment will be maximized and the offset will be minimized.
+So, for example, 0040:001C will turn into 0041:000C.
+
+Although the byte count for these routines is handled through
+a LONG integer, the routines handle a maximum of 65,520 bytes
+at a time.  In other words, a pointer can only access a bit
+less than 64K at a time.  If I get enough requests to extend
+this range, I will do so.  Meantime, that's the limit!
+
+There are two routines which take care of memory management.
+These allow you to allocate or deallocate memory.  Note that if
+you allocate too much memory, QuickBasic won't have any memory
+to work with!  Use the BASIC function "SETMEM" to see how much
+memory is available before going hog-wild.
+
+You can allocate memory like so:
+
+   MAllocate Bytes&, Ptr&, ErrCode%
+
+If there isn't enough memory available, an error code will be
+returned. Otherwise, Ptr& will point to the allocated memory.
+Memory is allocated in chunks of 16 bytes, so there may be some
+memory wasted if you choose a number of bytes that isn't evenly
+divisible by 16.
+
+When you are finished with that memory, you can free it up by
+deallocation:
+
+   MDeallocate Ptr&, ErrCode%
+
+An error code will be returned if Ptr& doesn't point to
+previously allocated memory.
+
+In the best of all possible worlds, there would be a third
+routine which would allow you to reallocate or resize a block
+of memory.  However, due to certain peculiarities of
+QuickBasic, I was unable to implement that.  You can simulate
+such a thing by allocating a new area of memory of the desired
+size, moving an appropriate amount of information from the old
+block to the new, and finally deallocating the old block.
+
+               Memory Management and Pointers          page 42
+
+
+
+Once you've allocated memory, you can move any sort of
+information in or out of it except normal strings--
+fixed-length strings, TYPEd values, arrays, or numeric values.
+To do that, you use BASIC's VARSEG and VARPTR functions on the
+variable.  Convert the resulting segment/offset address to a
+pointer:
+
+   TSeg% = VARSEG(Variable)
+   TOfs% = VARPTR(Variable)
+   VariablePtr& = MJoinPtr&(TSeg%, TOfs%)
+
+Moving the information from one pointer to another is like so:
+
+   MMove FromPtr&, ToPtr&, Bytes&
+
+For STRING or TYPEd values, you can get the number of bytes via
+the LEN function.  For numeric values, the following applies:
+
+   Type       Bytes per value
+   =======    ===============
+   INTEGER           2
+   LONG              4
+   SINGLE            4
+   DOUBLE            8
+
+The "memory move" (MMove) routine is good for more than just
+transferring information between a variable and allocated
+memory, of course.  Pointers can refer to any part of memory.
+For instance, CGA display memory starts at segment &HB800,
+offset 0, and goes on for 4000 bytes in text mode. That gives a
+pointer of &HB8000.  You can transfer from the screen to a
+variable or vice versa.  For that matter, you can scroll the
+screen up, down, left, or right by using the appropriate
+pointers.  Add two to the pointer to move it to the next
+character or 160 to move it to the next row.  As I said,
+pointers have all kinds of applications!  You don't need to
+worry about overlapping memory-- if the two pointers, combined
+with the bytes to move, overlap at some point, why, the MMove
+routine takes care of that for you.  It avoids pointer
+conflicts.  MMove is a very efficient memory copying routine.
+
+Suppose you've got a pointer and would like to convert it back
+to the segment/offset address that BASIC understands. That's no
+problem:
+
+   MSplitPtr Ptr&, TSeg%, TOfs%
+
+               Memory Management and Pointers          page 43
+
+
+
+You might also want to fill an area of memory with a specified
+byte value, perhaps making freshly-allocated memory zeroes, for
+example:
+
+   MFill Ptr&, Value%, Bytes&
+
+Finally, there may be occasions when you might want to transfer
+a single character.  Rather than going through putting the
+character into a STRING*1, getting the VARSEG/VARPTR, and using
+MJoinPtr&, there is a simpler way:
+
+   MPutChr Ptr&, Ch$
+   Ch$ = MGetChr$(Ptr&)
+
+Hopefully, this will give you some ideas to start with.  I'll
+expand on the uses of pointers and give further examples in
+future versions of BasWiz. There are many, many possible uses
+for such capabilities.  Pointers and memory management used to
+be the only real way in which BASIC could be considered
+inferior to other popular languages-- that is no more!
+
+NOTE:
+   QuickBasic may move its arrays around in memory!  Don't
+   expect the address of an array to remain constant while your
+   program is running.  Be sure to get the VARSEG/VARPTR for
+   arrays any time you're not sure they're in the same
+   location.  Among the things which can cause arrays to move
+   are use of DIM, REDIM, or ERASE, and possibly calls to SUBs
+   or FUNCTIONs.  I'm not sure if anything else may cause the
+   arrays to move, so be cautious!
+
+                     Telecommunications                page 44
+
+
+
+BASIC is unusual among languages in that it comes complete with
+built-in telecommunications support.  Unfortunately, that
+support is somewhat crude. Amongst other problems, it turns off
+the DTR when the program SHELLs or ends, making it difficult to
+write doors for BBSes or good terminal programs.  It also
+requires use of the /E switch for error trapping, since it
+generates errors when line noise is encountered, and doesn't
+provide much control.  It doesn't even support COM3 and COM4,
+which have been available for years.
+
+BasWiz rectifies these troubles.  It allows comprehensive
+control over communications, includes COM3 and COM4, and
+doesn't require error trapping. It won't fiddle with the DTR
+unless you tell it to do so.  The one limitation is that you
+may use only a single comm port at a time.
+
+Before you can use communications, you must initialize the
+communications handler.  If you didn't have BasWiz, you would
+probably use something like:
+
+   OPEN "COM1:2400,N,8,1,RS,CS,DS" AS #1
+
+With BasWiz, you do not have to set the speed, parity, and so
+forth. Communications will proceed with whatever the current
+settings are, unless you choose to specify your own settings.
+When you initialize the comm handler, you specify only the port
+number (1-4) and the size of the input and output buffers
+(1-32,767 bytes):
+
+   TCInit Port, InSize, OutSize, ErrCode
+
+The size you choose for the buffers should be guided by how
+your program will use communications.  Generally, a small
+output buffer of 128 bytes will be quite adequate.  You may
+wish to expand it up to 1,500 bytes or so if you expect to
+write file transfer protocols.  For the input buffer, you will
+want perhaps 512 bytes for normal use.  For file transfer
+protocols, perhaps 1,500 bytes would be better.  If a high baud
+rate is used, or for some other reason you might not be
+emptying the buffer frequently, you may wish to expand the
+input buffer size to 4,000 bytes or more.
+
+When you are done with the telecomm routines, you must
+terminate them.  In BASIC, this would look something like:
+
+   CLOSE #1
+
+With the BasWiz routines, though, you would use this instead:
+
+   TCDone
+
+                     Telecommunications                page 45
+
+
+
+The BasWiz "TCDone" does not drop the DTR, unlike BASIC's
+"CLOSE".  This means that the modem will not automatically be
+told to hang up.  With BasWiz, you have complete control over
+the DTR with the TCDTR routine.  Use a value of zero to drop
+the DTR or nonzero to raise the DTR:
+
+   TCDTR DTRstate
+
+You may set the speed of the comm port to any baud rate from
+1-65,535.  If you will be dealing with comm programs that were
+not written using BasWiz, you may wish to restrict that to the
+more common rates: 300, 1200, 2400, 4800, 9600, 19200, 38400,
+and 57600.
+
+   TCSpeed Baud&
+
+The parity, word length, and stop bits can also be specified.
+You may use 1-2 stop bits, 6-8 bit words, and parity settings
+of None, Even, Odd, Mark, or Space.  Nearly all BBSes use
+settings of None, 8 bit words, and 1 stop bit, although you
+will sometimes see Even, 7 bit words, and 1 stop bit.  The
+other capabilities are provided for dealing with mainframes and
+other systems which may require unusual communications
+parameters.
+
+When specifying parity, only the first character in the string
+is used, and uppercase/lowercase distinctions are ignored.
+Thus, using either "none" or "N" would specify that no parity
+is to be used.
+
+   TCParms Parity$, WordLength, StopBits
+
+If your program needs to be aware of when a carrier is present,
+it can check the carrier detect signal from the modem with the
+TCCarrier function.  This function returns zero if no carrier
+is present:
+
+   IF TCCarrier THEN
+      PRINT "Carrier detected"
+   ELSE
+      PRINT "No carrier"
+   END IF
+
+                     Telecommunications                page 46
+
+
+
+Suppose, though, that you need to know immediately when someone
+has dropped the carrier?  It wouldn't be too convenient to have
+to spot TCCarrier functions all over your program!  In that
+case, try the "ON TIMER" facility provided by BASIC for keeping
+an eye on things.  It will enable you to check the carrier at
+specified intervals and act accordingly. Here's a brief
+framework for writing such code:
+
+   ON TIMER(30) GOSUB CarrierCheck
+   TIMER ON
+   ' ...your program goes here...
+CarrierCheck:
+   IF TCCarrier THEN     ' if the carrier is present...
+      RETURN             ' ...simply resume where we left off
+   ELSE                  ' otherwise...
+      RETURN Restart     ' ...return to the "Restart" label
+   END IF
+
+To get a character from the comm port, use the TCInkey$
+function:
+
+   ch$ = TCInkey$
+
+To send a string to the comm port, use TCWrite:
+
+   TCWrite St$
+
+If you are dealing strictly with text, you may want to have a
+carriage return and a linefeed added to the end of the string.
+No problem:
+
+   TCWriteLn St$
+
+Note that the length of the output buffer affects how the
+TCWrite and TCWriteLn routines work.  They don't actually send
+string directly to the comm port.  Instead, they put the string
+into the output buffer, and it gets sent to the comm port
+whenever the comm port is ready.  If there is not enough room
+in the output buffer for the whole string, the
+TCWrite/TCWriteLn routines are forced to wait until enough
+space has been cleared for the string.  This can delay your
+program.  You can often avoid this delay simply by making the
+output buffer larger.
+
+If you'd like to know how many bytes are waiting in the input
+buffer or output buffer, there are functions which will tell
+you:
+
+   PRINT "Bytes in input buffer:"; TCInStat
+   PRINT "Bytes in output buffer:"; TCOutStat
+
+                     Telecommunications                page 47
+
+
+
+Finally, if you would like to clear the buffers for some
+reason, you can do that too.  The following routines clear the
+buffers, discarding anything which was waiting in them:
+
+   TCFlushIn
+   TCFlushOut
+
+Don't forget to use TCDone to terminate the comm handler before
+ending your program!  If you do, the computer will lock up.
+Worse, it may not lock up immediately, so forgetting TCDone can
+be very unpleasant.
+
+Finally, there is a routine which allows you to handle ANSI
+codes in a window.  Besides the IBM semi-ANSI display code
+subset, mock-ANSI music is allowed.  This routine is designed
+as a subroutine that you can access via GOSUB, since there are
+a number of variables that the routine needs to maintain that
+would be a nuisance to pass as parameters, and QuickBasic
+unfortunately can't handle SUBs in $INCLUDE files (so SHARED
+won't work). To use it, either include ANSI.BAS directly in
+your code, or use:
+
+   REM $INCLUDE: 'ANSI.BAS'
+
+Set St$ to the string to process, set Win% to the handle of the
+window to which to display, and set Music% to zero if you don't
+want sounds or -1 if you do want sounds.  Then:
+
+   GOSUB ANSIprint
+
+Note that the virtual screen tied to the window must be at
+least an 80 column by 25 row screen, since ANSI expects that
+size.  You are also advised to have an ON ERROR trap if you use
+ANSIprint with Music% = -1, just in case a "bad" music
+sequence slips through and makes BASIC unhappy.  Check for
+ERR = 5 (Illegal Function Call).  I'll add a music handler
+later to avoid this.
+
+To get some idea of how these routines all tie together in
+practice, see the TERM.BAS example program.  It provides a
+simple "dumb terminal" program to demonstrate the BasWiz comm
+handler.  Various command-line switches are allowed:
+
+   /43     use 43-line mode (EGA and VGA only)
+   /COM2   use COM2
+   /COM3   use COM3
+   /COM4   use COM4
+   /300    use 300 baud
+   /1200   use 1200 baud
+   /QUIET  ignore "ANSI" music
+
+By default, the TERM.BAS program will use COM1 at 2400 baud
+with no parity, 8 bit words and 1 stop bit.  You can exit the
+program by pressing Alt-X.
+
+                     Telecommunications                page 48
+
+
+
+The Xmodem file transfer protocol is currently supported for
+sending files only.  It automatically handles any of the usual
+variants on the Xmodem protocol: 128-byte or 1024-byte blocks,
+plus checksum or CRC error detection. In other words, it is
+compatible with Xmodem (checksum), Xmodem CRC, and Xmodem-1K
+(single-file Ymodem-like variant).
+
+There are only two routines which must be used to transfer a
+file.  The first is called once to initialize the transfer. The
+second is called repeatedly until the transfer is finished or
+aborted.  Complete status information is returned by both
+routines.  You can ignore most of this information or display
+it any way you please.
+
+The initialization routine looks like this:
+
+   StartXmodemSend Handle, Protocol$, Baud$, MaxRec, Record,
+      EstTime$, ErrCode
+
+Only the first three parameters are passed to the routine.
+These are the Handle of the file that you wish to send (use
+FOpen to get the handle) and the Protocol$ that you wish to use
+("Xmodem" or "Xmodem-1K"), and the current Baud$.  On return,
+you will get an ErrCode if the other computer did not respond,
+or MaxRec (the number of blocks to be sent), Record (the
+current block number), and EstTime$ (an estimate of the time
+required to complete the transfer.  The Protocol$ will have
+"CHK" or "CRC" added to it to indicate whether checksum or CRC
+error detection is being used, depending on which the receiver
+requested.
+
+The secondary routine looks like this:
+
+   XmodemSend Handle, Protocol$, MaxRec, Record, ErrCount,
+      ErrCode
+
+The ErrCode may be zero (no error), greater than zero (error
+reading file), or less than zero (file transfer error,
+completion or abort).  See the appendix on Error Codes for
+specific details.  The TERM.BAS example program shows how these
+routines work together in practice.
+
+The file accessed by the Xmodem routine will remain open.
+Remember to close it when the transfer is done (for whatever
+reason), using the FClose routine.
+
+                     Telecommunications                page 49
+
+
+
+A few notes on the ins and outs of telecommunications...
+
+The DTR signal is frequently used to control the modem.  When
+the DTR is "raised" or "high", the modem knows that we're ready
+to do something.  When the DTR is "dropped" or "low", the modem
+knows that we're not going to do anything.  In most cases, this
+tells it to hang up or disconnect the phone line. Some modems
+may be set to ignore the DTR, in which case it will not
+disconnect when the DTR is dropped.  Usually this can be fixed
+by changing a switch on the modem.  On some modems, a short
+software command may suffice.
+
+The DTR is generally the best way to disconnect.  The Hayes
+"ATH" command is supposed to hang up, but it doesn't work very
+well.
+
+The BasWiz comm handler makes sure the DTR is raised when
+TCInit is used.  It does not automatically drop the DTR when
+TCDone is used, so you can keep the line connected in case
+another program wants to use it.  If this is not suitable, just
+use TCDTR to drop the DTR.  Your program must always use TCDone
+before it exits, but it need only drop the DTR if you want it
+that way.
+
+If you want to execute another program via SHELL, it is ok to
+leave communications running as long as control will return to
+your program when the SHELLed program is done.  In that case,
+the input buffer will continue to receive characters from the
+comm port unless the SHELLed program provides its own comm
+support.  The output buffer will likewise continue to transmit
+characters unless overruled.
+
+An assortment of file transfer protocols will be provided in
+future versions of BasWiz.  Among the ones supported will be
+Xmodem, Xmodem-1K, Ymodem (batch), and Modem7 (batch).  I do
+not expect to support Kermit or Zmodem, since they are unduly
+complicated.  You can handle any file transfer protocol you
+like by SHELLing to an external protocol program, or of course
+you can write your own support code.
+
+                The Virtual Windowing System           page 50
+
+
+
+The virtual windowing system offers pop-up and collapsing
+windows, yes... but that is just a small fraction of what it
+provides.  When you create a window, the part that you see on
+the screen may be only a view port on a much larger window,
+called a virtual screen.  You can make virtual screens of up to
+255 rows long or 255 columns wide.  The only limitation is that
+any single virtual screen must take up less than 65,520 bytes.
+Each virtual screen is treated much like the normal screen
+display, with simple replacements for the standard PRINT,
+LOCATE, and COLOR commands.  Many other commands are provided
+for additional flexibility.  The window on the virtual screen
+may be moved, resized, or requested to display a different
+portion of the virtual screen. If you like, you may choose to
+display a frame and/or title around a window. When you open a
+new window, any windows under it are still there and can still
+be updated-- nothing is ever destroyed unless you want it that
+way! With the virtual windowing system, you get a tremendous
+amount of control for a very little bit of work.
+
+The current version of the virtual windowing system only allows
+text mode screens to be used.  All standard text modes are
+supported, however.  This includes 25x40 CGA screens, the
+standard 25x80 screen, and longer screens such as the 43x80 EGA
+screen.  The virtual windowing system is designed for computers
+that offer hardware-level compatibility with the IBM PC, which
+includes almost all MS-DOS/PC-DOS computers in use today.
+
+
+Terminology:
+-----------
+
+DISPLAY
+   The actual screen.
+
+SHADOW SCREEN
+   This is a screen kept in memory which reflects any changes
+   you make to windows.  Rather than making changes directly on
+   the actual screen, the virtual windowing system works with a
+   "shadow screen" for increased speed and flexibility.  You
+   specify when to update the display from the shadow screen.
+   This makes changes appear very smoothly.
+
+VIRTUAL SCREEN
+   This is a screen kept in memory which can be treated much
+   like the actual screen.  You may choose to make a virtual
+   screen any reasonable size. Every virtual screen will have a
+   corresponding window.
+
+WINDOW
+   This is the part of a virtual screen which is actually
+   displayed.  You might think of a window as a "view port" on
+   a virtual screen.  A window may be smaller than its virtual
+   screen or the same size.  It may have a frame or a title and
+   can be moved or resized.
+
+                The Virtual Windowing System           page 51
+
+
+
+Frankly, the virtual windowing system is one of those things
+that's more difficult to explain than to use.  It's very easy
+to use, as a matter of fact, but the basic concepts will need a
+little explanation.  Rather than launching into a tedious and
+long-winded description of the system, I'm going to take a more
+tutorial approach, giving examples and explaining as I go
+along.  Take a look at the WDEMO.BAS program for examples.
+
+Let's begin with the simplest possible scenario, where only a
+background window is created.  This looks just like a normal
+screen.
+
+   REM $INCLUDE: 'BASWIZ.BI'
+   DEFINT A-Z
+   Rows = 25: Columns = 80         ' define display size
+   WInit Rows, Columns, ErrCode    ' initialize window system
+   IF ErrCode THEN                 ' stop if we couldn't...
+      PRINT "Insufficient memory"
+      END
+   END IF
+   Handle = 0                      ' use background handle
+   WWriteLn Handle, "This is going on the background window."
+   WWriteLn Handle, "Right now, that's the full screen."
+   WUpdate                         ' update the display
+   WDone                           ' terminate window system
+
+What we just did was to display two lines on the screen--
+nothing at all fancy, but it gives you the general idea of how
+things work.  Let's take a closer look:
+
+  - We INCLUDE the BASWIZ.BI definition file to let
+    QuickBasic know that we'll be using the BasWiz routines.
+
+  - We define the size of the display using the integer
+    variables Rows and Columns (you can use any variable
+    names you want).  If you have an EGA display and had
+    previously used WIDTH ,43 to go into 43x80 mode, you'd
+    use "Rows = 43" here, for example.
+
+  - We initialize the windowing system with WInit, telling it
+    how large the display is.  It returns an error code if it
+    is unable to initialize.
+
+  - We define the Handle of the window that we want to use.
+    The "background window" is always available as handle
+    zero, so we choose "Handle = 0".
+
+  - We print two strings to the background window with
+    WWriteLn, which is like a PRINT without a semicolon on
+    the end (it moves to the next line).
+
+  - At this point, only the shadow screen has been updated.
+    We're ready to display the information, so we use WUpdate
+    to update the actual screen.
+
+  - We're all done with the program, so we end with WDone.
+
+                The Virtual Windowing System           page 52
+
+
+
+See, there's nothing to it!  We initialize the screen, print to
+it or whatever else we need to do, tell the windowing system to
+update the display, and when the program is done, we close up
+shop.
+
+The background screen is always available.  It might help to
+think of it as a virtual screen that's the size of the
+display.  The window on this virtual screen is exactly the same
+size, so the entire virtual screen is displayed. As with other
+virtual screens, you can print to it without disturbing
+anything else.  That means you can treat the background screen
+the same way regardless of whether it has other windows on top
+of it-- the other windows just "cover" the background
+information, which will still be there.
+
+This leads us to the topic of creating windows.  Both a virtual
+screen and a window are created simultaneously-- remember, a
+window is just a view port on a virtual screen. The window can
+be the same size as the virtual screen, in which case the
+entire virtual screen is visible (as with the background
+window) or it can be smaller than the virtual screen, in which
+case just a portion of the virtual screen will be visible at
+any one time.
+
+A window is created like so:
+
+   ' This is a partial program and can be inserted in the
+   ' original example after the second WWriteLn statement...
+   VRows = 43: VColumns = 80      ' define virtual screen size
+   ' create the window
+   WOpen VRows, VColumns, 1, 1, Rows, Columns, Handle, ErrCode
+   IF ErrCode THEN                ' error if we couldn't...
+      PRINT "Insufficient memory available"
+      WDone                       ' (or use an error handler)
+      END
+   END IF
+
+What we have done here is to create a virtual screen of 43 rows
+by 80 columns.  The window will be the size of the display, so
+if you are in the normal 25x80 mode, only the first 25 rows of
+the virtual screen will be visible.  If you have an EGA or VGA
+in 43x80 mode, though, the entire virtual screen will be
+visible!  So, this window lets you treat a screen the same way
+regardless of the display size.
+
+The Handle returned is used any time you want to print to this
+new window or otherwise deal with it.  If you are using many
+windows, you might want to keep an array of handles, to make it
+easier to keep track of which is which.
+
+                The Virtual Windowing System           page 53
+
+
+
+By default, a virtual screen is created with the following
+attributes:
+
+  - The cursor is at (1,1), the upper left corner of the
+    virtual screen.
+  - The cursor size is 0 (invisible).
+  - The text color is 7,0 (white foreground on a black
+    background).
+  - There is no title or frame.
+  - The window starts at (1,1) in the virtual screen, which
+    displays the area starting at the upper left corner of
+    the virtual screen.
+
+When you create a new window, it becomes the "top" window, and
+will be displayed on top of any other windows that are in the
+same part of the screen.  Remember, you can print to a window
+or otherwise deal with it, even if it's only partially visible
+or entirely covered by other windows.
+
+Don't forget WUpdate!  None of your changes are actually
+displayed until WUpdate is used.  You can make as many changes
+as you like before calling WUpdate, which will display the
+results smoothly and at lightning speed.
+
+We've created a window which is exactly the size of the
+display, but which might well be smaller than its virtual
+screen.  Let's assume that the normal 25x80 display is being
+used, in which case our virtual screen (43x80) is larger than
+the window.  We can still print to the virtual screen normally,
+but if we print below line 25, the results won't be displayed.
+What a predicament!  How do we fix this?
+
+The window is allowed to start at any given location in the
+virtual screen, so if we want to see a different portion of the
+virtual screen, all we have to do is tell the window to start
+somewhere else.  When the window is created, it starts at the
+beginning of the virtual screen, coordinate (1,1). The WView
+routine allows us to change this.
+
+In our example, we're displaying a 43x80 virtual screen in a
+25x80 window. To begin with, then, rows 1-25 of the virtual
+screen are visible.  To make rows 2-26 of the virtual screen
+visible, we simply do this:
+
+   WView Handle, 2, 1
+
+That tells the window to start at row 2, column 1 in the
+virtual screen. Sounds easy enough, doesn't it?  Well, if not,
+don't despair.  Play with it a little until you get the hang of
+it.
+
+                The Virtual Windowing System           page 54
+
+
+
+You've noticed that the window doesn't need to be the same size
+as the virtual screen.  Suppose we don't want it the same size
+as the display, either... suppose we want it in a nice box,
+sitting out of the way in a corner of the display? Well, we
+could have created it that way to begin with when we used
+WOpen.  Since we've already created it, though, let's take a
+look at the routines to change the size of a window and to move
+it elsewhere. The window can be made as small as 1x1 or as
+large as its virtual screen, and it can be moved anywhere on
+the display you want it.
+
+Let's make the window a convenient 10 rows by 20 columns:
+
+   WSize Handle, 10, 20
+
+And move it into the lower right corner of the display:
+
+   WPlace Handle, 12, 55
+
+Don't forget to call WUpdate or the changes won't be visible!
+Note also that we didn't really lose any text.  The virtual
+screen, which holds all the text, is still there. We've just
+changed the size and position of the window, which is the part
+of the virtual screen that we see, so less of the text (if
+there is any!) is visible.  If we made the window larger again,
+the text in the window would expand accordingly.
+
+If you were paying close attention, you noticed that we didn't
+place the resized window flush against the corner of the
+display.  We left a little bit of room so we can add a frame
+and a title.  Let's proceed to do just that.
+
+Window frames are displayed around the outside of a window and
+will not be displayed unless there is room to do so.  We have
+four different types of standard frames available:
+
+   0   (no frame)
+   1   single lines
+   2   double lines
+   3   single horizontal lines, double vertical lines
+   4   single vertical lines, double horizontal lines
+
+We must also choose the colors for the frame.  It usually looks
+best if the background color is the same background color as
+used by the virtual screen.  Let's go ahead and create a
+double-line frame in bright white on black:
+
+   FType = 2: Fore = 15: Back = 0
+   WFrame Handle, FType, Fore, Back
+
+                The Virtual Windowing System           page 55
+
+
+
+If you'd rather not use the default frame types, there's ample
+room to get creative!  Frames 5-9 can be defined any way you
+please.  They are null by default.  To create a new frame type,
+you must specify the eight characters needed to make the frame:
+upper left corner, upper middle columns, upper right corner,
+left middle rows, right middle rows, lower left corner, lower
+middle columns, and lower right corner.
+
+   +----------------------------------------+
+   |  Want a plain text frame like this?    |
+   |  Use the definition string "+-+||+-+"  |
+   +----------------------------------------+
+
+The above window frame would be defined something like this:
+
+   Frame = 5
+   FrameInfo$ = "+-+||+-+"
+   WUserFrame Frame, FrameInfo$
+
+Of course, you can choose any values you like.  As always, the
+names of the variables can be anything, as long as you name
+them consistently within your program.  You can even use
+constants if you prefer:
+
+   WUserFrame 5, "+-+||+-+"
+
+If you use a frame, you can also have a "shadow", which
+provides a sort of 3-D effect.  The shadow can be made up of
+any character you choose, or it can be entirely transparent, in
+which case anything under the shadow will change to the shadow
+colors.  This latter effect can be quite nice.  I've found that
+it works best for me when I use a dim foreground color with a
+black background-- a foreground color of 8 produces wonderful
+effects on machines that support it (it's "bright black", or
+dark gray; some displays will show it as entirely black,
+though, so it may not always work the way you want). For a
+transparent shadow, select CHR$(255) as the shadow character.
+You can turn the shadow off with either a null string or
+CHR$(0).
+
+   Shadow$ = CHR$(255)                  ' transparent shadow
+   Fore = 8: Back = 0                   ' dark gray on black
+   WShadow Handle, Shadow$, Fore, Back
+
+A shadow will only appear if there is also a frame, and if
+there is enough space for it on the screen.  Currently, there
+is only one type of shadow, which appears on the right and
+bottom sides of the frame.  It effectively makes the frame
+wider and longer by one character.
+
+                The Virtual Windowing System           page 56
+
+
+
+We can have a title regardless of whether a frame is present or
+not.  Like the frame, the title is displayed only if there is
+enough room for it.  If the window is too small to accommodate
+the full title, only the part of the title that fits will be
+displayed.  The maximum length of a title is 70 characters.
+Titles have their own colors.
+
+   Title$ = "Wonderful Window!"
+   Fore = 0: Back = 7
+   WTitle Handle, Title$, Fore, Back
+
+To get rid of a title, just use a null title string, for
+example:
+
+   Title$ = ""
+
+It may be convenient to set up a window that isn't always
+visible-- say, for a help window, perhaps.  The window could be
+set up in advance, then shown whenever requested using just one
+statement:
+
+   WHide Handle, Hide
+
+You can make a window invisible by using any nonzero value for
+Hide, or make it reappear by setting Hide to zero.  As always,
+the change will only take effect after WUpdate is used.
+
+When WWrite or WWriteLn gets to the end of a virtual screen,
+they normally scroll the "screen" up to make room for more
+text.  This is usually what you want, of course, but there are
+occasions when it can be a nuisance.  The automatic scrolling
+can be turned off or restored like so:
+
+   WScroll Handle, AutoScroll
+
+There are only a few more ways of dealing with windows
+themselves.  After that, I'll explain the different things you
+can do with text in windows and how to get information about a
+specific window or virtual screen.
+
+If you have a lot of windows, one window may be on top of
+another, obscuring part or all of the window(s) below.  In
+order to make sure a window is visible, all you need to do is
+to put it on top, right?  Hey, is this easy or what?!
+
+   WTop Handle
+
+You may also need to "unhide" the window if you used WHide on
+it previously.
+
+                The Virtual Windowing System           page 57
+
+
+
+Note that the background window will always be the background
+window.  You can't put handle zero, the background window, on
+top.  What?  You say you need to do that?!  Well, that's one of
+the ways you can use the WCopy routine.  WCopy copies one
+virtual screen to another one of the same size:
+
+   WCopy FromHandle, ToHandle
+
+You can copy the background window (or any other window) to
+another window. The new window can be put on top, resized,
+moved, or otherwise spindled and mutilated.  The WDEMO program
+uses this trick.
+
+We've been through how to open windows, print to them, resize
+them and move them around, among other things.  We've seen how
+to put a frame and a title on a window and pop it onto the
+display.  If you're a fan of flashy displays, though, you'd
+probably like to be able to make a window "explode" onto the
+screen or "collapse" off.  It's the little details like that
+which make a program visually exciting and
+professional-looking.  I wouldn't disappoint you by leaving
+something fun like that out!
+
+Since we're using a virtual windowing system rather than just a
+plain ol' ordinary window handler, there's an extra benefit.
+When a window explodes or collapses, it does so complete with
+its title, frame, shadow, and even its text. This adds rather
+nicely to the effect.
+
+To "explode" a window, we just set up all its parameters the
+way we normally would-- open the window, add a title or frame
+if we like, print any text that we want displayed, and set the
+screen position.  Then we use WExplode to zoom the window from
+a tiny box up to its full size:
+
+   WExplode Handle
+
+The "collapse" routine works similarly.  It should be used only
+when you are through with a window, because it closes the
+window when it's done.  The window is collapsed from its full
+size down to a tiny box, then eliminated entirely:
+
+   WCollapse Handle
+
+Note that WExplode and WCollapse automatically use WUpdate to
+update the display.  You do not need to use WUpdate yourself
+and you should make sure that the screen is the way you want it
+displayed before you call either routine.
+
+                The Virtual Windowing System           page 58
+
+
+
+The WCollapse and WExplode routines were written in BASIC, so
+you can customize them just the way you want them.
+
+That's it for the windows.  We've been through all the "tricky
+stuff".  There are a number of useful things you can do with a
+virtual screen, though, besides printing to it with WWriteLn.
+Let's take a look at what we can do.
+
+WWriteLn is fine if you want to use a "PRINT St$" sort of
+operation.  Suppose you don't want to move to a new line
+afterward, though?  In BASIC, you'd use something like "PRINT
+St$;" (with a semicolon).  With the virtual windowing system,
+you use WWrite, which is called just like WWriteLn:
+
+   WWrite Handle, St$
+
+There are also routines that work like CLS, COLOR and LOCATE:
+
+   WClear Handle
+   WColor Handle, Fore, Back
+   WLocate Handle, Row, Column
+
+The WClear routine is not quite like CLS in that it does not
+alter the cursor position.  If you want the cursor "homed", use
+WLocate.
+
+Note that the coordinates for WLocate are based on the virtual
+screen, not the window.  If you move the cursor to a location
+outside the view port provided by the window, it will
+disappear.  Speaking of disappearing cursors, you might have
+noticed that our WLocate doesn't mimic LOCATE exactly: it
+doesn't provide for controlling the cursor size.  Don't panic!
+There's another routine available for that:
+
+   WCursor Handle, CSize
+
+The CSize value may range from zero (in which case the cursor
+will be invisible) to the maximum size allowed by your display
+adapter.  This will always be at least eight.
+
+Now, since each virtual screen is treated much like the full
+display, you may be wondering what happens if the cursor is
+"on" in more than one window. Does that mean multiple cursors
+are displayed?  Well, no.  That would get a little confusing!
+Only the cursor for the top window is displayed.  If you put a
+different window on top, the cursor for that window will be
+activated and the cursor for the old top window will
+disappear.  The virtual windowing system remembers the cursor
+information for each window, but it only actually displays the
+cursor for the window that's on top.
+
+                The Virtual Windowing System           page 59
+
+
+
+
+In addition to the usual screen handling, the windowing system
+provides a number of new capabilities which you may find very
+handy. These include routines to insert and delete both
+characters and rows, which is done at the current cursor
+position within a selected virtual screen:
+
+   WDelChr Handle
+   WDelLine Handle
+   WInsChr Handle
+   WInsLine Handle
+
+These routines can also be used for scrolling.  Remember, the
+display isn't updated until you use WUpdate, and then it's
+updated all at once.  You can use any of the routines multiple
+times and the display will still be updated perfectly
+smoothly-- all the real work goes on behind the scenes!
+
+Normally, the windowing system interprets control codes
+according to the ASCII standard-- CHR$(7) beeps, CHR$(8) is a
+backspace, and so forth.  Sometimes you may want to print the
+corresponding IBM graphics character instead, though... or
+maybe you just don't use control codes and want a little more
+speed out of the windowing system.  You can turn control code
+handling on or off for any individual window:
+
+   WControl Handle, DoControl
+
+When you are done with a virtual screen and no longer need it,
+you can dispose of it like so:
+
+   WClose Handle
+
+All of the information that can be "set" can also be
+retrieved.  That's useful in general, of course, but it's also
+a great feature for writing portable subprograms.  You can
+create subprograms that will work with any virtual screen,
+since it can retrieve any information it needs to know about
+the virtual screen or its window.  That's power!
+
+                The Virtual Windowing System           page 60
+
+
+
+Here is a list of the available window information routines:
+
+   WGetColor Handle, Fore, Back
+   ' gets the current foreground and background colors
+
+   WGetControl Handle, DoControl
+   ' gets whether control codes are interpreted
+
+   WGetCursor Handle, CSize
+   ' gets the cursor size
+
+   WGetFrame Handle, Frame, Fore, Back
+   ' gets the frame type and frame colors
+
+   WGetLocate Handle, Row, Column
+   ' gets the cursor position
+
+   WGetPlace Handle, Row, Column
+   ' gets the starting position of a window on the display
+
+   WGetScroll Handle, AutoScroll
+   ' gets the status of auto-scroll
+   ' (scrolling at the end of a virtual screen)
+
+   Shadow$ = SPACE$(1)
+   WGetShadow Handle, Shadow$, Fore, Back
+   ' gets the shadow character (CHR$(0) if there's no
+   ' shadow) and colors
+
+   WGetSize Handle, Rows, Columns
+   ' gets the size of a window
+
+   Title$ = SPACE$(70)
+   WGetTitle Handle, Title$, TLen, Fore, Back
+   Title$ = LEFT$(Title$, TLen)
+   ' gets the title string (null if there's no title) and
+   ' title colors
+
+   WGetTop Handle
+   ' gets the handle of the top window
+
+   FrameInfo$ = SPACE$(8)
+   WGetUFrame$ Frame, FrameInfo$
+   ' gets the specification for a given user-defined frame
+
+   WGetView Handle, Row, Column
+   ' gets the starting position of a window within a
+   ' virtual screen
+
+   WGetVSize Handle, Rows, Columns
+   ' gets the size of a virtual screen
+
+   WHidden Handle, Hidden
+   ' tells you whether a window is visible
+
+                The Virtual Windowing System           page 61
+
+
+
+As well as displaying information in a window, you will
+frequently want to allow for getting input from the user.  Of
+course, INKEY$ will still work fine, but that's not an
+effective way of handling more than single characters.  The
+virtual windowing system includes a flexible string input
+routine which is a lot more powerful:
+
+   WInput Handle, Valid$, ExitCode$, ExtExitCode$,
+      MaxLength, St$, ExitKey$
+
+The Valid$ variable allows you to specify a list of characters
+which may be entered.  If you use a null string (""), any
+character will be accepted.
+
+ExitCode$ specifies the normal keys that can be used to exit
+input.  You'll probably want to use a carriage return,
+CHR$(13), for this most of the time. You can also specify exit
+on extended key codes like arrow keys and function keys via
+ExtExitCode$.
+
+MaxLength is the maximum length of the string you want.  Use
+zero to get the longest possible string.  The length may go up
+to the width of the virtual screen, minus one character. The
+window will be scrolled sideways as needed to accommodate the
+full length of the string.
+
+The St$ variable is used to return the entered string, but you
+can also use it to pass a default string to the routine.
+
+ExitKey$ returns the key that was used to exit input.
+
+A fairly strong set of editing capabilities is available
+through WInput. The editing keys can be overridden by ExitCode$
+or ExtExitCode$, but by default they include support for both
+the cursor keypad and WordStar:
+
+   Control-S   LeftArrow    move left once
+   Control-D   RightArrow   move right once
+   Control-V   Ins          insert <--> overstrike modes
+   Control-G   Del          delete current character
+   Control-H   Backspace    destructive backspace
+               Home         move to the start of input
+               End          move to the end of input
+
+                The Virtual Windowing System           page 62
+
+
+
+Pop-up menus have become very popular in recent years.
+Fortunately, they are a natural application for virtual
+windows!  BasWiz provides a pop-up menuing routine which allows
+you to have as many as 255 choices-- the window will be
+scrolled automatically to accommodate your "pick list", with a
+highlight bar indicating the current selection.
+
+The pop-up menu routine uses a window which you've already set
+up, so you can use any of the normal window options-- frames,
+titles, shadows, etc.  You must provide a virtual screen large
+enough to hold your entire pick list; the window itself can be
+any size at all.
+
+The pick list is passed to WMenuPopUp through a string array.
+You can dimension this array in any range that suits you.  The
+returned selection will be the relative position in the array
+(1 for the first item, etc); if the menu was aborted, 0 will be
+returned instead.
+
+The current window colors will be used for the "normal"
+colors.  You specify the desired highlight colors when calling
+the pop-up menu routine.
+
+   Result = WMenuPopUp(Handle, PickList$(), HiFore, HiBack)
+
+The mouse is not supported, since BasWiz does not yet have
+mouse routines. However, scrolling can be accomplished with any
+of the more common methods: up and down arrows, WordStar-type
+Control-E and Control-X, or Lotus-type tab and backtab.  The
+ESCape key can be used to abort without choosing an option.
+
+On exit, the menu window will remain in its final position, in
+case you wish to pop up a related window next to it or
+something similar.  Since it's just an ordinary window, you can
+use WClose or WCollapse if you prefer to get rid of it.
+
+The WMenuPopUp routine was written in BASIC, so you will find
+it easy to modify to your tastes if you register BasWiz.  It
+was written with extra emphasis on comments and clarity, since
+I know many people will want to customize this routine!
+
+                The Virtual Windowing System           page 63
+
+
+
+There are two more routines which allow the virtual windowing
+system to work on a wide variety of displays: WFixColor and
+WSnow.
+
+Chances are, as a software developer you have a color display.
+However, there are many people out there who have monochrome
+displays, whether due to preference, a low budget, or use of
+notebook-style computers with mono LCD or plasma screens.
+WFixColor allows you to develop your programs in color while
+still supporting monochrome systems.  It tells the virtual
+windowing system whether to keep the colors as specified or to
+translate them to their monochrome equivalents:
+
+   WFixColor Convert%
+
+Set Convert% to zero if you want true color (default), or to
+any other value if you want the colors to be translated to
+monochrome.  In the latter case, the translation will be done
+based on the relative brightness of the foreground and
+background colors.  The result is guaranteed to be readable on
+a monochrome system if it's readable on a color system. You
+should check the results on your system to make sure that such
+things as highlight bars still appear highlighted, however.
+
+In the case of some of the older or less carefully designed CGA
+cards, the high-speed displays of the virtual windowing system
+can cause the display to flicker annoyingly.  You can get rid
+of the flicker at the expense of slowing the display:
+
+   WSnow Remove%
+
+Set Remove% to zero if there is no problem with "snow" or
+flickering (default), or to any other value if you need "snow
+removal".  Using snow removal will slow down the display
+substantially, which may be a problem if you update (WUpdate)
+it frequently.
+
+Note that you can't detect either of these cases automatically
+with perfect reliability.  Not all CGA cards have flicker
+problems.  Also, mono displays may be attached to CGA cards and
+the computer won't know the difference.  A VGA with a "paper
+white" monitor may well think it has color, and will mostly act
+like it, but some "color" combinations can be very difficult to
+read.  While you can self-configure the program to some extent
+using the GetDisplay routine (see Other Routines), you should
+also provide command-line switches so that the user can
+override your settings. Microsoft generally uses "/B" to denote
+a monochrome ("black and white") display, so you may want to
+follow that as a standard.
+
+Finally, by popular request, there is a routine which returns
+the segment and offset of a virtual screen.  This lets you do
+things with a virtual screen that are not directly supported by
+BasWiz.  Virtual screens are laid out like normal text screens.
+
+   WGetAddress Handle, WSeg, WOfs
+
+                       Other Routines                  page 64
+
+
+
+There are a number of routines for which I couldn't find a
+specific category.
+
+To see how much expanded memory is available, use the GetEMS
+function.  It'll return zero if there is no expanded memory
+installed:
+
+   PRINT "Kbytes of expanded memory:"; GetEMS
+
+The GetDisplay routine tells what kind of display adapter is
+active and whether it's hooked up to a color monitor.  The only
+time it can't detect the monitor type is on CGA setups (it
+assumes "color").  It's a good idea to allow a "/B" switch for
+your program so the user can specify if a monochrome monitor is
+attached to a CGA.
+
+   GetDisplay Adapter, Mono
+   IF Mono THEN
+      PRINT "Monochrome monitor"
+   ELSE
+      PRINT "Color monitor"
+   END IF
+   SELECT CASE Adapter
+      CASE 1: PRINT "MDA"
+      CASE 2: PRINT "Hercules"
+      CASE 3: PRINT "CGA"
+      CASE 4: PRINT "EGA"
+      CASE 5: PRINT "MCGA"
+      CASE 6: PRINT "VGA"
+   END SELECT
+
+The ScreenSize routine returns the number of rows and columns
+on the display (text modes only):
+
+   ScreenSize Rows%, Columns%
+
+                     Miscellaneous Notes               page 65
+
+
+
+The virtual windowing system allows up to 16 windows to be open
+at a time, including the background window, which is opened
+automatically.  This is subject to available memory, of course.
+
+The far string handler allows up to 65,535 strings of up to 255
+characters each, subject to available memory.  When the handler
+needs additional memory for string storage, it allocates more
+in blocks of 16 Kbytes.  If that much memory is not available,
+an "out of memory" error will be generated (BASIC error number
+7).  You can check the size of the available memory pool using
+the SETMEM function provided by QuickBasic.
+
+The communications handler only allows one comm port to be used
+at a time.  This will change in a future version.
+
+The file handler does not allow you to combine Write mode with
+Text mode or input buffering.  This will change in a future
+version of BasWiz.
+
+A certain lack of speed is inherent in BCD math, especially
+if you require high precision.  The division, root, and trig
+routines in particular are quite slow.  I'll attempt to improve
+this in the future, but the routines are already fairly well
+optimized, so don't expect miracles.  Precision costs!
+
+The fraction routines are much faster, but they have a much
+smaller range. I'll have to do some experimenting on that. It
+may prove practical to use a subset of the BCD routines to
+provide an extended range for fractions without an unreasonable
+loss in speed.
+
+All routines are designed to be as bomb-proof as possible.
+If you pass an invalid value to a routine which does not return
+an error code, it will simply ignore the value.
+
+The EGA graphics routines are designed for use with EGAs having
+at least 256K RAM on board.  They will not operate properly on
+old 64K EGA systems.
+
+Image loading (.MAC and .PCX) is quite slow.  The bulk of the
+code is in BASIC at this point, to make it easier for me to
+extend the routines to cover other graphics modes.  They will
+be translated to assembly later.
+
+The G#Write and G#WriteLn services support three different
+fonts: 8x8, 8x14, and 8x16.  The default font is always 8x8,
+providing the highest possible text density.  QuickBasic, on
+the other hand, allows only one font with a text density of as
+close to 80x25 as possible.
+
+                     Miscellaneous Notes               page 66
+
+
+
+The G#Write and G#WriteLn services interpret ASCII control
+characters, i.e. CHR$(0) - CHR$(31), according to the more
+standard handling used by DOS rather than the esoteric
+interpretation offered by QuickBasic.  This is not exactly a
+limitation, but it could conceivably cause confusion if your
+program happens to use these characters.  The ASCII
+interpretation works as follows:
+
+    Code       Meaning
+    ====       =======
+      7        Bell       (sound a beep through the speaker)
+      8        Backspace  (eliminate the previous character)
+      9        Tab        (based on 8-character tab fields)
+     10        LineFeed   (move down one line, same column)
+     12        FormFeed   (clear the screen)
+     13        Return     (move to the start of the row)
+
+G#MirrorH will only work properly on images with byte
+alignment!  This means that the width of the image must be
+evenly divisible by four if SCREEN 1 is used, or evenly
+divisible by eight if SCREEN 2 is used.
+
+The graphics routines provide little error checking and will
+not do clipping (which ignores points outside the range of the
+graphics mode). If you specify coordinates which don't exist,
+the results will be unusual at best.  Try to keep those values
+within the proper range!
+
+A very few of the graphics routines are slower than their
+counterparts in QuickBasic.  These are mostly drawing diagonal
+lines and filling boxes.  I hope to get these better optimized
+in a future release.  The GET/PUT replacements are quite slow,
+but that's strictly temporary! I rushed 'em in by special
+request from a registered BasWiz owner.
+
+If you use PRINT in conjunction with GN4Write or GN4WriteLn, be
+sure to save the cursor position before the PRINT and restore
+it afterwards.  BASIC and BasWiz share the same cursor
+position, but each interprets it to mean something different.
+
+The GN0 (360x480x256) and GN1 (320x400x256) routines use
+nonstandard VGA modes.  The GN1 routines should work on just
+about any VGA, however.  The GN0 routines will work on many
+VGAs, but are somewhat less likely to work than the GN1
+routines due to the techniques involved.
+
+                     Miscellaneous Notes               page 67
+
+
+
+The GN0Write, GN0WriteLn, GN1Write and GN1WriteLn routines are
+somewhat slow in general and quite slow when it comes to
+scrolling the screen. These problems are related to
+peculiarities of these modes that I'm still grappling with.
+They will hopefully be improved in a future release.
+
+The G1Border routine is normally used to select the background
+(and border) color for SCREEN 1 mode.  It can also be used in
+SCREEN 2 mode, where it will change the foreground color
+instead.  Note that this may produce peculiar results if an EGA
+or VGA is used and it isn't locked into "CGA" mode, so be
+careful if your program may run on systems with displays other
+than true CGAs.
+
+GET/PUT images have a lot of possibilities that Microsoft has
+never touched on.  I'll be exploring this extensively in future
+versions.  Among other things, expect the ability to change the
+colors, rotate the image, and translate the image from one
+graphics mode format to another.  Enlarging and shrinking the
+image will also be a good bet.
+
+Note that you can GET an image in SCREEN 1 and PUT it in SCREEN
+2!  It'll be shaded instead of in colors.  This is a
+side-effect of the CGA display format.
+
+The first two elements of a GET/PUT array (assuming it's an
+integer array) tells you the size of the image.  The first
+element is the width and the second is the height, in pixels.
+Actually, that's not quite true.  Divide the first
+element by 2 for the width if the image is for SCREEN 1, or by
+8 if for SCREEN 13.
+
+
+
+It's always possible that a problem has escaped notice.  If you
+run into something that you believe to be a bug or
+incompatibility, please tell me about it, whether you've
+registered BasWiz or not.
+
+Do you like what you see?  Tell me what you like, what you
+don't like, and what you'd be interested in seeing in future
+versions!  Chances are good that I'll use your suggestions. If
+you know of a good reference book or text file, I'd like to
+hear about that too!  You can reach me through U.S. Mail or
+through several of the international BASIC conferences on
+BBSes.  See the WHERE.BBS file for places I frequent!
+
+                         Error Codes                   page 68
+
+
+
+The expression evaluator returns the following error codes:
+
+   0    No error, everything went fine
+   2    A number was expected but not found
+   4    Unbalanced parentheses
+   8    The expression string had a length of zero
+   9    The expression included an attempt to divide by zero
+
+
+
+The far string handler does not return error codes.  If an
+invalid string handle is specified for FSSet, it will be
+ignored; if for FSGet, a null string will be returned.  If you
+run out of memory for far strings, an "out of memory" error
+will be generated (BASIC error #7).  You can prevent this by
+checking available memory beforehand with the SETMEM function
+provided by QuickBasic.  Far string space is allocated as
+needed in blocks of just over 16 Kbytes, or 16,400 bytes to be
+exact.
+
+
+
+The telecommunications handler returns the following error
+codes for TCInit:
+
+   0    No error, everything A-Ok
+   1    The comm handler is already installed
+   2    Invalid comm port specified
+   3    Not enough memory available for input/output buffers
+
+
+
+The telecommunications handler returns these error codes for
+Xmodem Send:
+
+ -13    FATAL   : Unsupported transfer protocol
+ -12    FATAL   : Excessive errors
+ -11    FATAL   : Keyboard <ESC> or receiver requested CANcel
+  -5    WARNING : Checksum or CRC error
+  -1    WARNING : Time-out error (receiver didn't respond)
+   0    DONE    : No error, transfer completed ok
+  >0    ERROR   : File problem (see file error codes)
+
+                         Error Codes                   page 69
+
+
+
+The file services return the following error codes: (The
+asterisk "*" is used to identify "critical errors")
+
+   0    No error
+   1    Invalid function number (usually invalid parameter)
+   2    File not found
+   3    Path not found
+   4    Too many open files
+   5    Access denied (probably "write to read-only file")
+   6    Invalid file handle
+   7    Memory control blocks destroyed
+   8    Insufficient memory (usually RAM, sometimes disk)
+   9    Incorrect memory pointer specified
+  15    Invalid drive specified
+* 19    Tried to write on a write-protected disk
+* 21    Drive not ready
+* 23    Disk data error
+* 25    Disk seek error
+* 26    Unknown media type
+* 27    Sector not found
+* 28    Printer out of paper
+* 29    Write fault
+* 30    Read fault
+* 31    General failure
+* 32    Sharing violation
+* 33    Lock violation
+* 34    Invalid disk change
+  36    Sharing buffer overflow
+
+
+
+A "critical error" is one that would normally give you the
+dreaded prompt:
+
+   A>bort, R>etry, I>gnore, F>ail?
+
+Such errors generally require some action on the part of the
+user.  For instance, they may need to close a floppy drive door
+or replace the paper in a printer.  If a critical error occurs
+on a hard drive, it may indicate a problem in the drive
+hardware or software setup.  In that case, the problem may
+possibly be cleared up by "CHKDSK /F", which should be executed
+directly from the DOS command line (do not execute this by
+SHELL).
+
+                       Troubleshooting                 page 70
+
+
+
+Problem:
+   QB says "subprogram not defined".
+
+Solution:
+   The definition file was not included.  Your program must
+   contain the line:
+      REM $INCLUDE: 'BASWIZ.BI'
+   before any executable code in your program.  You should
+   also start QuickBasic with
+      QB /L BASWIZ
+   so it knows to use the BasWiz library.
+
+
+Problem:
+   LINK says "unresolved external reference".
+
+Solution:
+   Did you specify BasWiz as the library when you used LINK?
+   You should! The BASWIZ.LIB file must be in the current
+   directory or along a path specified by the LIB environment
+   variable (like PATH, but for LIB files).
+
+
+Problem:
+   The virtual windowing system doesn't display anything.
+
+Solution:
+   Perhaps you left out the WUpdate routine?  If so, the
+   shadow screen is not reflected to the actual screen and
+   nothing will appear.  The screen also needs to be in text
+   mode (either no SCREEN statement or SCREEN 0). Finally,
+   only the default "page zero" is supported on color
+   monitors.
+
+
+Problem:
+   The virtual windowing system causes the display to flicker
+   on CGAs.
+
+Solution:
+   Use the WSnow routine to get rid of it.  Unfortunately,
+   this will slow the display down severely.  You might want
+   to upgrade your display card!
+
+                       Troubleshooting                 page 71
+
+
+
+Problem:
+   QuickBasic doesn't get along with the Hercules display
+   routines.
+
+Solution:
+   Are you using an adapter which includes Hercules mode
+   along with EGA or VGA mode?  QuickBasic doesn't like that,
+   since it thinks you'll be using EGA or VGA mode.  Use the
+   stand-alone compiler (BC.EXE) instead of the environment
+   (QB.EXE) and you should be fine.  You might also consider
+   getting a separate Herc adapter and monochrome monitor.
+   It's possible to combine a Hercules monochrome adapter
+   with a CGA, EGA or VGA.
+
+
+Problem:
+   QB says "out of memory" (or "range out of bounds" on a DIM
+   or REDIM).
+
+Solution:
+   If you're using the memory management/pointer routines,
+   you've probably allocated too much memory!  You need to
+   leave some for QuickBasic.  Use the SETMEM function
+   provided by BASIC to determine how much memory is
+   available before allocating memory.  The amount needed by
+   QuickBasic will depend on your program.  The primary
+   memory-eaters are arrays and recursive subprograms or
+   functions.
+
+   Many of the BasWiz routines need to allocate memory,
+   including the virtual window manager, telecommunications
+   handler, and memory management system. Besides checking
+   with SETMEM to make sure there's memory to spare, don't
+   forget to check the error codes returned by these routines
+   to make sure they're working properly!
+
+
+Problem:
+   The cursor acts funny (appears when it shouldn't or vice
+   versa).
+
+Solution:
+   Try locking your EGA or VGA into a specific video mode
+   using the utility provided with your display adapter.
+   Cursor problems are usually related either to "auto mode
+   detection" or older EGAs.
+
+                       Troubleshooting                 page 72
+
+
+
+Problem:
+   The BCD trig functions return weird results.
+
+Solution:
+   Make sure you've made room in your BCD size definition for
+   some digits to the left of the decimal as well as to the
+   right!  Calculations with large numbers are needed to
+   return trig functions with high accuracy.
+
+
+Problem:
+   The G#MirrorH routine is -almost- working right, but the
+   results are truncated or wrapped to one side.
+
+Solution:
+   Make your GET image a tad wider!  The number of pixels
+   wide must be evenly divisible by four in SCREEN 1, or by
+   eight in SCREEN 2.
+
+                   History and Philosophy              page 73
+
+
+
+"History," you say.  "Philosophy.  What the heck does that have
+to do with a BASIC library?  Yuck!  Go away and leave me alone!"
+
+Ok.  This section is not strictly necessary for using BasWiz.
+If you're not interested, you can certainly avoid reading this
+without ill effects.
+
+Still here?  Thank you!  I'll try to keep it short.
+
+Back in 'bout 1984 or so, I created ADVBAS, one of the very
+first assembly language libraries for BASIC.  That was for IBM
+BASCOM 1.0, well before QuickBasic came out.  I created the
+library for my own use and ended up making a moderately
+successful shareware project out of it.
+
+ADVBAS was designed in bits and pieces that came along
+whenever I felt like adding to the library or needed a new
+capability.  The routines were designed at a low level, with
+most of the actual work needed to accomplish anything useful
+left to BASIC.  All this resulted in a decent amount of
+flexibility but also a good deal of chaos as new routines
+provided capabilities that overlapped with old routines.
+Although I tried to keep the calling sequence reasonably
+standardized, it didn't always work out that way.  Then too,
+the library was designed well before the neat capabilities of
+QuickBasic 4.0 came into being and couldn't take good advantage
+of them.
+
+The BasWiz project is a next-generation library.  It is
+designed to overcome the liabilities I've encountered with
+ADVBAS and every other library I've seen for BASIC.  Rather
+than being put together haphazardly, one routine at a time, I
+have designed BasWiz as a coordinated collection.  The virtual
+windowing system is an excellent example of this. Rather than
+having separate print routines, window routines, screen saving
+routines, virtual screen routines and all the rest, it is all
+combined into one single package.  The routines are designed at
+a high level, providing a maximum of functionality with a
+minimum of programming effort.  The gritty details are kept
+hidden inside the library where you need never deal with them.
+Consider the apparent simplicity of the far string handler!
+Many more capabilities will be added in future versions, but...
+very carefully.
+
+                   History and Philosophy              page 74
+
+
+
+This library represents the culmination of many years of
+experience in the fields of BASIC and assembly language
+programming.  I have spared no effort. It's the best I can
+offer and I hope you'll forgive me for taking some pride in my
+work!  If you find this library powerful and easy to use, I'll
+count my efforts a great success.
+
+As you might have guessed, I'm not exactly in it just for the
+money.  Nonetheless, money is always nice!  If you like BasWiz,
+please do register. That will enable me to continue to upgrade
+my equipment and reference library so I can design more
+advanced BasWiz routines.
+
+Update: BasWiz was the first to use my new approach to BASIC
+library design.  On the whole, I think, it has been successful.
+However, I have come to realize that there are elements of the
+design which don't fit together as well as I had envisioned.  I
+will be writing another library which will reach closer to my
+goals.  It will be available in late 1992 or early 1993, for
+80386 and more advanced machines only.  Of course, I will also
+continue to support BasWiz and PBClone as long as there is any
+demand for them (not a serious problem at the moment)!
+
+             Using BasWiz with P.D.Q. or QBTiny        page 75
+
+
+
+Most of the BasWiz routines will work with current versions of
+Crescent's P.D.Q. or my QBTiny library without modification.
+The major exceptions are the expression evaluator, the BCD and
+fraction math routines, and the polygon-generating graphics
+routines, due to their use of floating point math.
+
+Older versions of the P.D.Q. library do not support the SETMEM
+function, which is required by many BasWiz routines.  If your
+version of P.D.Q. is before v2.10, you must LINK in the SETMEM
+stub provided with BasWiz:
+
+   LINK program+PDQSTUB/NOD,,NUL,BASWIZ+PDQ;
+
+If you use LINK differently, that's fine.  The only thing
+necessary is to make sure "+PDQSTUB" is listed after the name
+of your program as the first LINK argument.  Use of /EX and
+other LINK parameters is no problem.  Use of other libraries,
+if any, is also supported.  I've found that, for some reason,
+P.D.Q. usually wants to be the last library listed.
+
+P.D.Q. does not support dynamic string functions.  You will
+have to add the STATIC keyword to all BasWiz string functions
+and recompile them in order to use them with P.D.Q.
+
+QBTiny does not support dynamic arrays.  You will be unable to
+use any routines which require dynamic arrays with QBTiny.
+
+                           Credits                     page 76
+
+
+
+For some of the reference works I have used in writing BasWiz,
+see the BIBLIO.TXT file.
+
+Crescent Software provided me with a copy of P.D.Q. so I could
+test for any compatibility problems between it and BasWiz.
+
+The inverse hyperbolic trig functions are based on a set of
+BASIC routines by Kerry Mitchell.
+
+The 360x480 256-color VGA mode was made possible by John
+Bridges' VGAKIT library for C.  Two of the most vital low-level
+routines are based directly on code from VGAKIT. If you use C,
+check your local BBS for this library. Last I looked,
+VGAKIT41.ZIP was the current version.
+
+The 320x400 VGA mode was made possible by Michael Abrash's
+graphics articles in Programmer's Journal.  Since the sad
+demise of P.J., Mr. Abrash's articles can be found in another
+excellent tech magazine, Dr. Dobb's Journal.
+
+Definicon Corp very kindly released a public-domain program
+called SAMPLE.C which shows how to access the 64k banks used by
+extended VGA 256-color modes. This was the key to the GN5xxx
+routines (the so-called "tech ref" section of my Boca SuperVGA
+manual referred me to IBM's VGA docs, which would be utterly
+useless in accessing these modes).
+

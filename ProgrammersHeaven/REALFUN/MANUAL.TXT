@@ -1,0 +1,236 @@
+
+
+         RealFun:  Real & Complex Math Libraries for QuickBASIC
+         MANUAL.TXT
+
+           RealFun & CompFun:  Mathematics Libraries for QuickBASIC
+                       Copyright 1991, L. Kerry Mitchell
+
+
+         Contents: I.   Introduction
+                   II.  RealFun Libraries
+                   III. CompFun Libraries
+                   IV.  Support Policy
+                   V.   General Comments
+                   VI.  Revision History
+
+
+         I.   Introduction
+
+         One of the nice things about BASIC is that it's an easy
+         language to learn and use, especially in the QuickBASIC
+         environment.  However, this ease of use comes at the expense
+         of programming power.  As it is packaged, QuickBASIC just
+         doesn't have the same number-crunching capability as
+         FORTRAN, for example.  In much of my personal programming, I
+         wanted to use functions, like hyperbolic trigonometric
+         functions, that were available in FORTRAN.  The essential
+         pieces were there (arithmetic operators and the EXP
+         function), but not in the forms I wanted.  So I set out to
+         create a set of libraries that would contain all the
+         functions I'd ever want to use, and then some.
+
+         Along the way, I realized that some of the intrinsic
+         functions in QuickBASIC don't quite function the way I'd
+         like.  For example, the modulo function (MOD) only returns
+         integers, which is not helpful if you're trying to find 1000
+         mod 3.14159.  The arctangent function (ATN) only takes one
+         argument, so you can't tell what quadrant your angle is in. 
+         Specifically, if the sides of your angle are x and y, with x
+         = -1 and y = -1, ATN(y/x) will give you the same result as
+         it would if x and y were both 1.  And of course, QuickBASIC
+         does not handle complex numbers (as such).
+
+         This package is a compilation of my efforts to make
+         QuickBASIC more powerful and more productive.  I hope you
+         find it useful.
+
+
+         II.  RealFun Libraries
+
+         The RealFun library is actually two libraries, a Quick
+         library (REALFUN.QLB) that is used during your interactive
+
+         programming session, and a stand-alone library (REALFUN.LIB)
+         that is used to create stand-alone programs.  To use them,
+         initiate QuickBASIC with the "/l" option:
+
+              C> qb/l realfun
+
+         This assumes that you keep RealFun in the same directory as
+         your QuickBASIC executable files.  For additional
+         information on loading libraries, see your QuickBASIC
+         manuals.
+
+         Once you've gotten the library loaded, you need to tell your
+         program about it.  For each function that you use, you need
+         a declaration statement at the beginning of your code.  For
+         example, to use the sind (sine of an angle in degrees)
+         function, you would need a
+
+              DECLARE FUNCTION sind (x)
+
+         at the beginning of your program.  Then, if you wanted to
+         find the sine of 35 degrees somewhere later, call the sind
+         function just as you would the intrinsic SIN function:
+
+              .
+              .
+              .
+              s35 = sind(35)
+              .
+              .
+              .
+
+         All the other functions are similarly available for your
+         use.
+
+         RealFun is composed of 38 functions.  A full list of them by
+         general topic area (sine, hyperbolic tangent, modulo, etc.)
+         can be found in the file REALTOP.TXT.  An alphabetic listing
+         by function name (sind, tanh, dmod, etc.) can be found in
+         the file REALLIST.TXT.  That's all there is to it!
+
+
+         III. CompFun Libraries
+
+         The CompFun libraries are also two libraries, a Quick
+         library (COMPFUN.QLB) that is used during your interactive
+         programming session, and a stand-alone library (COMPFUN.LIB)
+         that is used to create stand-alone programs.  To use them,
+         initiate QuickBASIC with the "/l" option:
+
+              C> qb/l compfun
+
+
+         just like intializing the RealFun libraries.
+
+         The CompFun library is a superset of the functions included
+         in RealFun, and is composed of FUNCTIONS and SUBprograms. 
+         To use the FUNCTIONs, you need to let your program know
+         about them, with the appropriate declaration(s).  For
+         example, to use the amax and amin functions (maximum and
+         minimum of 2 items in a list), you would need
+
+              DECLARE FUNCTION amax (x, y)
+              DECLARE FUNCTION amin (x, y)
+
+         at the beginning of your program.
+
+         The strength of CompFun lies in its ability to manipulate
+         complex numbers via their real and imaginary parts.  (In
+         brief, complex numbers have 2 parts, that are known as the
+         "real" and "imaginary" parts.  QuickBASIC can only handle
+         "real" numbers, that is, numbers with 1 part.  See
+         REGISTER.TXT for information regarding a tutorial on complex
+         numbers and using them with the CompFun library.)  Since
+         FUNCTIONs only return 1 number, the complex routines are
+         executed using SUBprograms, which support parameter lists. 
+         Each SUBprogram you want to use requires its own declaration
+         statement.  For example, to convert the real and imaginary
+         parts of a complex number to its magnitude and phase, use
+
+              DECLARE SUB cpolar (x, y, r, t)
+
+         at the beginning of your program, and
+
+              CALL cpolar (a, b, mag, phase)
+
+         in the body of your code.  Of course, you don't have to use
+         these same variables names, as long as they are of the
+         proper type.  In this example, the inputs are a (the real
+         part of the complex number) and b (the imaginary part).  The
+         outputs are mag (the magnitude) and phase (the phase, in
+         radians).  The file COMPTOP.TXT lists all the FUNCTIONs and
+         SUBprograms in CompFun, arranged by topic.  Also listed are
+         the input and output types (single- or double-precision,
+         integer or long), and the number of arguments.  An
+         alphabetic listing of all the routines can be found in
+         COMPLIST.TXT.
+
+         A bit of warning about dealing with complex numbers:  Any
+         function involving the trigonometric functions (sin, cos,
+         tan, sinh, cosh, tanh) or the exponentials (exp, log), the
+         so-called "transcendental" functions, will be multi-valued. 
+
+         That is to say, there is an infinity of numbers that give
+         the same answer.  This is not really a problem, but
+         something of which you need to be aware.  For example, if
+         you computed the cosine and arccosine of (-1, -3):
+
+              DECLARE SUB ccos(a, b, c, d)
+              DECLARE SUB cacos(a, b, c, d)
+              CALL ccos(-1, -3, u, v)
+              CALL cacos(u, v, x, y)
+              PRINT x, y
+
+         you'd find that x = 1 and y = 3, rather than -1 and -3.  So
+         computing the inverse of a function does not necessarily get
+         you right back where you started.
+
+
+         IV.  General Comments
+
+         The limits of these libraries are the same as the limits of
+         QuickBASIC, as far as precision, overflow, underflow, etc.
+
+         It is assumed that the user has some idea of what he/she is
+         doing, or doesn't mind crashing his/her program often.  That
+         is to say that there is no error-checking in the routines. 
+         If you try to compute cdacos(145%), your program will
+         probably die.  I decided that QuickBASIC's error-checking
+         facilities were good enough to keep your machine from
+         hanging up, and that checking for the more common errors
+         would amount to excessive overhead and adversely affect the
+         routines' performance.
+
+         Some of the calculations, especially the inverse
+         trigonometric functions, are a bit involved.  A lot of
+         effort has gone into optimizing the algorithms, but it can
+         still take a long time to do a massive calculation (like a
+         640 x 480, several thousand iteration fractal).  There's not
+         much that can be done about that; it's the nature of the
+         system.
+
+
+         V.   Support Policy
+
+         It is expected that the user of this package will have at
+         least a passing familiarity with QuickBASIC and the
+         mathematics used in the libraries.  For a tutorial on
+         complex numbers and usage of the libraries, please see
+         REGISTER.TXT and order the enhanced package.
+
+         These libraries have been tested thoroughly, but on only one
+         installation.  The modules are believed to be fully
+
+         compatible with MS-DOS 3.3 and QuickBASIC 4.5. 
+         Compatibility with earlier versions is an open question,
+         although no "tricks" or dirty programming have been used, so
+         it should be safe.  To report bugs and problems, please send
+         a short note to me at the address below.
+
+         Support in working with the package can be obtained in two
+         ways.  For 90 days after registration, you are entitled to a
+         total of 1 hour telephone support, free of charge (except
+         normal long-distance charges).  Support by mail (postal or
+         electronic) is available free of charge for 180 days after
+         registration.  To obtain help or report a bug, write or
+         call:
+
+              Kerry Mitchell
+              Creative Imagery
+              1454 Todds Lane #A-25
+              Hampton, VA 23666
+              804-827-7034
+              CompuServe:  [70152,1444]
+              Internet:  70152.1444@compuserve.com
+              Delphi:  lkmitch
+
+
+         VI.  Revision History
+
+         This is officially version 1.0 of the RealFun package.  A
+         preliminary version was released in 1990, primarily as an
+         exercise for myself.
+

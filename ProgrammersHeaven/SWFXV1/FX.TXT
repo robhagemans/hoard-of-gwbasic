@@ -1,0 +1,272 @@
+'FX Documentation version 1.1
+'Revised 1/24/97
+
+Distribution
+------------
+The shareware version of FX may be freely distributed 
+providing no changes are made to the program or its support files. 
+The Shareware version of FX should have the accompanying files:
+
+SWFX.EXE      - The shareware FX program.
+VARIOUS.SFX   - A sample sound effect file.
+PLAYSFXM.BAS  - Qbasic(r) example program.
+PLAYSFXS.BAS  - Qbasic(r) example program.
+TARGETS.BAS   - Qbasic(r) Demo game.
+FX.TXT        - This file.
+ORDERFRM.TXT  - Order form for the full FX program.
+
+Vendors please contact me (see Technical support) if you plan to
+distribute this program so I can make sure you have the most recent
+version and keep you supplied with updates.
+
+Introduction
+------------
+Thanks for downloading my program. You have the shareware version
+of 'FX' the sound FX(effects) creator.  FX allows you to program the
+sound card on your PC to make an unlimited number of sound effects
+that you easily load and play into your  Qbasic(r), QuickBASIC(r),
+Pascal or C programs.
+
+I have been making games in Qbasic(r) for a while now. QBroids, QBmatrix,
+QB Invaders and Defender are a few you have probably seen around. One thing
+that can make a program really impressive is good sound. So I have
+been looking for an easy way to add sound to my games without resorting
+to libraries or a huge number of cryptic subroutines. Just a clean easy way
+to make descent sound effects.
+
+I tried a bunch of stuff and found that using the FM portion of a sound card
+was the easiest and FASTEST way (code wise) to make good sound effects.
+Defender was the first of my programs to use this method. The only problem
+was the sub routines were big and programming the FM registers was time
+consuming.
+
+That was until now. FX uses a graphical interface to change the values
+of the registers in the FM portion of the sound card. Even without the
+slightest idea of how the FM portion of a sound card works you can make
+sound effects. Just click and listen! And besides the ease of use, FX has
+other features to make editing and using sound effects easy. All you
+need is a VGA capable PC, a Microsoft(r) compatable mouse, and a Sound Card.
+
+
+Starting FX
+-----------
+You most likely got FX zipped up so you should have these files :
+
+SWFX.EXE      - The shareware FX program.
+VARIOUS.SFX   - A sample sound effect file.
+PLAYSFXM.BAS  - Playing an .SFX file from Main.
+PLAYSFXS.BAS  - Playing an .SFX file using a Sub.
+TARGETS.BAS   - Demo game.
+FX.TXT        - This file.
+ORDERFRM.TXT  - Order form for the full FX program.
+
+If you have registered then you have this file too :
+
+FX.EXE       - Full FX version.
+
+For DOS users I recommend putting FX.EXE in a directory that is in
+specified in the path. This way the program can be started from whatever
+directory you are working in at the time and make it easy to edit the
+.SFX files you will be playing in your programs. Files are saved in the
+current working directory. Just type FX to start the program or add a
+filename to start FX and load the .SFX file. For example "FX VARIOUS".
+
+For Win95 users it is easiest to make .SFX files registered. To do this
+just double click on any .SFX file. Win95 will ask what program to open the
+file with. Find and select FX.EXE. From then on clicking on any .SFX file
+will Run FX and load the selected file.
+
+
+Using the FX interface
+----------------------
+
+The FX screen is made up of a file menu bar, scroll bars and buttons.
+
+Click on the Menu Bar text to use that feature.
+Open    - Opens an SFX file.
+Save    - Save the current file  (registered version).
+Save AS - Save current file under a new name (registered version).
+Copy    - Copies current sound effect number to another.
+Quit    - Exits program.
+
+The scroll bars can be manipulated in three ways. You can just click on
+the arrow buttons to increment or de-increment the value. Holding the
+arrow button will change the values without clicking. Or for fast
+adjustments, click inside of the scroll bar. 
+
+The Play button will play the current sound effect number. Or press the 
+right mouse button. 
+
+The Stop fx button will stop all sound effects. This will be useful
+if you produce a very annoying long lasting sound effect. 
+
+
+How the FM synthesizer works
+----------------------------
+The mono FM synthesizer contains 18 operator cells. Each operator cell
+consists of three parts :
+
+  +--------------------+
+  |    Oscillator      |
+  +---------|----------+
+  +---------|----------+
+  | Envelope Generator |
+  +---------|----------+
+  +---------|----------+
+  |  Level Controller  |
+  +---------|----------+
+            |
+          output
+
+The oscillator has these adjustable settings :
+
+The F-Number (Frequency Number 0 to 1023). See next.
+The Block(Octave 0 to 7). The Block and F-number are used to
+  adjust the frequency of the signal. The output frequency of an
+  operator can be calculated with the following formula :
+  Frequency = 50000 *F-Number * 2 ^ Block - 20
+The Frequency Multiplier (Multiplier 0 to 15) multiplies the frequency of the
+  signal generated by the value selected.
+The Frequency Vibrato (Vibrato 0=off,1=on) adds a small fluctuation in
+  the frequency of the signal.
+The Modulation Feedback (Feedback 0 to 7) sets the amount the modulator
+  output that is fed back into the input.
+The Wave Form (WaveForm 0 to 3) allows the use of different sine wave forms.
+  0 = sine wave. 1 = half sine, 2 = rectified sine , 3 = cliped sine. 
+
+The Envelope Generator has six adjustable settings. Four of which can be
+set by FX.
+
+The Attack Rate (Attack 0 to 15). The input signal begins at a level of
+  zero. Then the signal rises to it's maximum level at a rate set by this
+  value. An operator with its Attack set at zero will not produce a signal.
+The Decay Rate (Decay 0 to 15). After the input signal reaches the
+  maximum level, it drops to the sustain level at a rate set by this
+  value. A Decay rate of 0 will produce a continuous sound.
+The Sustain Level (Sustain 0 to 15). This setting sets the sustain level
+  for the signal before dropping to the release level.
+The Release Level (Release 0 to 15). This setting sets the rate at which
+  the signal drops from the sustain rate to 0.
+
+The Level Controller has three adjustable settings. Two of which can
+be set FX.
+
+The Total Level (Attenuation 0 to 63). This is the volume setting
+ of the operator. With additive synthesis, both level settings of
+ the operators determine the volume of the final signal. With FM
+ Synthesis, the final volume is determined by the level setting of
+ the carrier.
+
+The Amplitude Vibrato (Tremolo 0=off,1=on) causes a small fluctuation
+ in the intensity of the signal.
+
+The operator cells are organized into pairs, with one cell
+serving as the modulator and the other as the carrier. In FM synthesis
+mode, (Connection = 0) the modulator cell modulates the
+carrier cell, which results in an output waveform from the carrier cell.
+   +---------------+   +---------------+
+   |               |   |               |
+   |   Modulator   +---+    Carrier    +--- output
+   |     Cell      |   |     Cell      |
+   |               |   |               |
+   +---------------+   +---------------+
+           
+In Additive synthesis mode (Connection = 1) the modulator cell output
+and the carrier cell output are added together. 
+
+   +---------------+   
+   |               |   
+   |   Modulator   +--+   
+   |     Cell      |  |  
+   |               |  |  
+   +---------------+  +--- output  
+   +---------------+  |
+   |               |  |
+   |    Carrier    +--+ 
+   |     Cell      |
+   |               |
+   +---------------+   
+
+
+There are nine pairs of operators. This allows the nine sound effects to
+be played at once. By selecting different operating pairs (Channel 0 to 8)
+you can play multiple sound effects in FX and your programs.
+
+For more detailed information on the FM synthesizer. I recommend the
+book "The Sound Blaster Book" by Josha Munnik and Eric Oostendorp. Thanks
+to that book this program was made possible.
+
+
+Playing multiple sound effects simultaneously
+---------------------------------------------
+To play more than one sound at a time in a Qbasic(r) program, or FX, 
+take advantage of the FM synthesizers multiple channels. There are total 
+of nine channels which can be selected with the Channel scroll bar in FX.
+If an application needs only nine sound effects and the sound effects stop 
+on their own, then the course of action is simple, set each sound effect on
+ a different channel. The channel information is saved in the .SFX file. 
+If an application will need more than nine sound effects then some sounds 
+have to play on the same channel. My  suggestion is to have sounds that will
+ probably not happen at the same time share the same channel.
+
+Play sound effect number 19 in FX. This sound effect uses channel one.
+Play any other sound effect (except 24 and 25, they both use the same
+channel as 19) to listen to two sounds at once.
+
+
+Stopping Sounds within a program.
+---------------------------------
+
+When the Connection = 0, setting Decay to zero on the Modulator and
+the Carrier will produce a sound that is continuous. When the
+Connection = 1 , setting Decay to 0 for either operator will produce
+a continuous sound for that operator.
+
+This can be desirable like for UFO noises(24) or the helicopter sound(19) in
+the Varoius.sfx file. To stop these sounds within a Qbasic(r) program a 
+blank sound must be made using the same channel. That is, setting everything 
+to zero except perhaps the Channel which must set to the same channel of the 
+sound effect you want to stop. Setting everything to zero resets the channel.
+
+An example of this is in Various.sfx. Play effect number 24 (a continuous
+UFO sound) then play effect number 25 (reset) to stop the sound.
+
+
+Playing an .SFX file in Qbasic
+-----------------------------
+See PLAYSFXM.BAS - Playing an .SFX file from Main.
+See PLAYSFXS.BAS - Playing an .SFX file using a Sub Routine.
+See TARGETS.BAS - Fun game using FX sounds.
+
+Technical support :
+-------------------
+
+Having trouble with FX?  Let me know and I'll try to correct it. 
+
+CompuServe :74734,2203
+Internet   :TimTruman@aol.com
+AOL        :TimTruman
+
+
+Registering FX
+--------------
+
+If you like what you see and would like the full FX version:
+
+Print out the ORDERFRM.TXT file and send with a check or money order to:
+
+ Tim Truman
+ 110 Homestead Ave.
+ Springfield, MA 01151
+ USA
+
+FX will be under constant improvement. If you would like to see
+a feature added or improved let me know. If you register I will send
+you the next two revisions and any new example programs at no charge. 
+
+Thanks again, Happy FXing.
+
+
+Microsoft(r), Qbasic(r) and QuickBASIC(r) are registered trademarks of
+microsoft corporation.
+

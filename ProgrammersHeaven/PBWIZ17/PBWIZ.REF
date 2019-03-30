@@ -1,0 +1,984 @@
+AllExtMem&
+   return the total amount of extended memory installed
+
+AltPress%
+   return whether an ALT key is pressed
+
+AnsiPrint St$
+   display a string which may contain ANSI codes
+
+AntiSnow Slow%
+   make text-mode video routines slower, but prevents flicker on old CGAs
+
+ArcCosD# (Nr#)
+   return the inverse cosine of a number
+
+ArcCosHD# (Nr#)
+   return the inverse hyperbolic cosine of a number
+
+ArcCosHS! (Nr!)
+   return the inverse hyperbolic cosine of a number
+
+ArcCosS! (Nr!)
+   return the inverse cosine of a number
+
+ArcCotD# (Nr#)
+   return the inverse cotangent of a number
+
+ArcCotHD# (Nr#)
+   return the inverse hyperbolic cotangent of a number
+
+ArcCotHS! (Nr!)
+   return the inverse hyperbolic cotangent of a number
+
+ArcCotS! (Nr!)
+   return the inverse cotangent of a number
+
+ArcCscD# (Nr#)
+   return the inverse cosecant of a number
+
+ArcCscHD# (Nr#)
+   return the inverse hyperbolic cosecant of a number
+
+ArcCscHS! (Nr!)
+   return the inverse hyperbolic cosecant of a number
+
+ArcCscS! (Nr!)
+   return the inverse cosecant of a number
+
+ArcSecD# (Nr#)
+   return the inverse secant of a number
+
+ArcSecHD# (Nr#)
+   return the inverse hyperbolic secant of a number
+
+ArcSecHS! (Nr!)
+   return the inverse hyperbolic secant of a number
+
+ArcSecS! (Nr!)
+   return the inverse secant of a number
+
+ArcSinD# (Nr#)
+   return the inverse sine of a number
+
+ArcSinHD# (Nr#)
+   return the inverse hyperbolic sine of a number
+
+ArcSinHS! (Nr!)
+   return the inverse hyperbolic sine of a number
+
+ArcSinS! (Nr!)
+   return the inverse sine of a number
+
+ArcTanHD# (Nr#)
+   return the inverse hyperbolic tangent of a number
+
+ArcTanHS! (Nr!)
+   return the inverse hyperbolic tangent of a number
+
+CalcAttr% Fore%, Back%
+   convert foreground and background colors into a color/attribute
+
+CalcSize% TopRow%, LeftCol%, BottomRow%, RightCol%, SaveSize%
+   calculate the bytes needed to store a screen image, - 2
+
+CapsOn%
+   return the state of the CapsLock key toggle
+
+CDROM%
+   return whether a CD-ROM drive is installed and available
+
+CeilD# (Nr#)
+   return the smallest integer >= the specified number
+
+CeilS! (Nr!)
+   return the smallest integer >= the specified number
+
+Cent2Fahr! (Nr!)
+   convert from centigrade to Fahrenheit
+
+CheckSum% (St$)
+   calculate a simple checksum for a string
+
+Cipher St$, Password$
+   encrypt or decrypt a string
+
+CipherP St$, Password$
+   encrypt or decrypt a string, leaving encrypted strings printable
+
+ClearKbd
+   clear the keyboard buffer of any pending keys
+
+CloseA
+   close an archive which was opened by FindFirstA
+
+CommPorts%
+   return the number of serial ports installed
+
+CosHD# (Nr#)
+   return the hyperbolic cosine of a number
+
+CosHS! (Nr!)
+   return the hyperbolic cosine of a number
+
+CotD# (Nr#)
+   return the cotangent of a number
+
+CotHD# (Nr#)
+   return the hyperbolic cotangent of a number
+
+CotHS! (Nr!)
+   return the hyperbolic cotangent of a number
+
+CotS! (Nr!)
+   return the cotangent of a number
+
+CRC16 St$, HiCRC%, LoCRC%
+   return the 16-bit Xmodem-style CRC of a string
+
+Crunch$ (St$, CharList$)
+   remove adjacent duplicates of a set of characters from a string
+
+CscD# (Nr#)
+   return the cosecant of a number
+
+CscHD# (Nr#)
+   return the hyperbolic cosecant of a number
+
+CscHS! (Nr!)
+   return the hyperbolic cosecant of a number
+
+CscS! (Nr!)
+   return the cosecant of a number
+
+CtrlPress%
+   return whether a CTRL key is being pressed
+
+Date2Num& (DateSt$)
+   convert a date from string format to a number
+
+Deg2RadD# (Nr#)
+   convert from degrees to radians
+
+Deg2RadS! (Nr!)
+   convert from degrees to radians
+
+DelayV MilliSec%
+   provide a delay of roughly one millisecond, based on the video card
+
+DelimExtract$ (St$, Delimiter$, Index%)
+   extract a specified delimited substring from a string
+
+DOSCls
+   clear the screen, using DOS output and ANSI codes
+
+DOSColor Fore%, Back%
+   set the screen colors, using DOS output and ANSI codes
+
+DOSLocate Row%, Column%
+   set the cursor position, using DOS output and ANSI codes
+
+DOSPrint St$
+   display a string using DOS output
+
+DRDOS%
+   return whether DR DOS is in use
+
+EMSclose Handle%
+   close an EMS handle that was opened by EMSopen
+
+EMSexists%
+   return whether EMS memory is available
+
+EMSfree%
+   return how much EMS memory is available (in pages of 16k bytes)
+
+EMSmap Handle%, PhysPage%, VirtPage%
+   map a page of EMS memory into an area you can reach
+
+EMSopen Pages%, Handle%, ErrCode%
+   open a block of EMS memory for access (1 page = 16k bytes)
+
+EMSopt Fast%
+   allow faster access to EMS memory, given some restrictions
+
+EMSresize Handle%, Pages%, ErrCode%
+   change the size of an allocated block of EMS memory
+
+EMSseg&
+   return the segment at which you can access EMS memory by mapping it in
+
+EMStotal%
+   return the total amount of EMS memory (in pages of 16k bytes)
+
+EMSver MajorV%, MinorV%
+   return the version of the EMS driver
+
+ErfD# (Nr#)
+   return the error function for a number
+
+ErfS! (Nr!)
+   return the error function for a number
+
+Evaluate Expression$, Result!, ErrCode%
+   return the result of a numeric expression
+
+eD#
+   return the constant "e" (used in natural logarithms, etc)
+
+eS!
+   return the constant "e" (used in natural logarithms, etc)
+
+FactD# (Nr%)
+   return the factorial of a number
+
+FactS! (Nr%)
+   return the factorial of a number
+
+Fahr2Cent! (Nr!)
+   convert from Fahrenheit to centigrade
+
+FindFirstA Archive$, Filename$, ErrCode%
+   find the first file matching a wildcard spec within an archive
+
+FindFirstF Buffer$, Filename$, FAttr%, ErrCode%
+   find the first file matching a wildcard spec in a directory
+
+FindNextA ErrCode%
+   continue to find files matching a wildcard spec within an archive
+
+FindNextF Buffer$, ErrCode%
+   continue to find files matching a wildcard spec in a directory
+
+FloorD# (Nr#)
+   return the largest integer <= the specified number
+
+FloorS! (Nr!)
+   return the largest integer <= the specified number
+
+Floppies%
+   return the number of floppy drives available
+
+FloppyType DriveA%, DriveB%
+   return the drive types of the first and second floppies, if any
+
+G13Box X1%, Y1%, X2%, Y2%, Fill%
+   draw a box in 320x200 256-color VGA mode
+
+G13Cls
+   clear the screen in 320x200 256-color VGA mode
+
+G13Color Fore%, Back%
+   set the default screen colors in 320x200 256-color VGA mode
+
+G13Ellipse CenterX%, CenterY%, XRadius%, YRadius%
+   draw a circle or ellipse in 320x200 256-color VGA mode
+
+G13GetColor Fore%, Back%
+   get the default screen colors in 320x200 256-color VGA mode
+
+G13GetLocate Row%, Column%
+   get the cursor position in 320x200 256-color VGA mode
+
+G13GetPel% (X%, Y%)
+   get the color of a specified point in 320x200 256-color VGA mode
+
+G13Line X1%, Y1%, X2%, Y2%
+   draw a line in 320x200 256-color VGA mode
+
+G13Locate Row%, Column%
+   set the cursor position in 320x200 256-color VGA mode
+
+G13MakeBMP File$, X1%, Y1%, X2%, Y2%, ErrCode%
+   make a .BMP file from an image in 320x200 256-color VGA mode
+
+G13Mode Graphics%
+   switch between 320x200 256-color VGA mode and text mode
+
+G13Plot X%, Y%
+   plot a point in 320x200 256-color VGA mode and text mode
+
+G13Polygon X%, Y%, Radius%, Vertices%, Angle!
+   draw a regular polygon in 320x200 256-color VGA mode and text mode
+
+G13ShowBMP File$, X%, Y%, ErrCode%
+   show a .BMP file on screen in 320x200 256-color VGA mode
+
+G13WrCh Ch%
+   display an ASCII character in 320x200 256-color VGA mode
+
+G13Write St$
+   display a string in 320x200 256-color VGA mode
+
+G13WriteLn St$
+   display a string with a <CR><LF> in 320x200 256-color VGA mode
+
+GCDI% (Nr1%, Nr2%)
+   return the greatest common denominator of two numbers
+
+GCDL& (Nr1&, Nr2&)
+   return the greatest common denominator of two numbers
+
+Get4DOSv MajorV%, MinorV%
+   return the version of 4DOS installed, if any
+
+GetAttrF% (Buffer$)
+   return the attribute of a file matched by FindFirstF
+
+GetCRCA$
+   return the CRC of an archived file
+
+GetDateA$
+   return the date of an archived file
+
+GetDateF$ (Buffer$)
+   return the date of a file matched by FindFirstF/FindNextF
+
+GetDisplay Adapter%, Mono%
+   return the display adapter and monitor type
+
+GetDOSv MajorV%, MinorV%
+   return the DOS version
+
+GetEMSm TotalPages%, FreePages%
+   return the amount of EMS memory (in pages of 16k bytes)
+
+GetEMSv MajorV%, MinorV%
+   return the version of the EMS driver installed
+
+GetExtM&
+   return the amount of BIOS extended memory available
+
+GetNameA$
+   return the name of a file in an archive
+
+GetNameF$ (Buffer$)
+   return the name of a file matched by FindFirstF/FindNextF
+
+GetPal& (ColorNr%)
+   return the color value for a color number in 256-color modes
+
+GetPalRGB ColorNr%, RedI%, GreenI%, BlueI%
+   return the RGB values for a color number in 256-color modes
+
+GetSizeA OriginalSize&, CurrentSize&
+   return the sizes of a file in an archive
+
+GetSizeF$ (Buffer$)
+   return the size of a file matched by FindFirstF/FindNextF
+
+GetStoreA$
+   return the storage method used on a file in an archive
+
+GetTimeA$
+   return the time of a file in an archive
+
+GetTimeF$ (Buffer$)
+   return the size of a file matched by FindFirstF/FindNextF
+
+GetXMSm LargestFree&, TotalFree&
+   return the amount of XMS memory in kbytes
+
+GetXMSv MajorV%, MinorV%
+   return the version of the XMS driver
+
+GGVBox X1%, Y1%, X2%, Y2%, Fill%
+   draw a box in any VESA graphics mode
+
+GGVCls
+   clear the screen in any VESA graphics mode
+
+GGVColor Fore%, Back%
+   set the default screen colors in any VESA graphics mode
+
+GGVDone
+   close up VESA graphics routines, restore former video mode
+
+GGVEllipse CenterX%, CenterY%, XRadius%, YRadius%
+   draw a circle or ellipse in any VESA graphics mode
+
+GGVGetColor Fore%, Back%
+   get the default screen colors in any VESA graphics mode
+
+GGVGetLocate Row%, Column%
+   get the cursor position in any VESA graphics mode
+
+GGVGetPel% (X%, Y%)
+   get the color of a specified point in any VESA graphics mode
+
+GGVInit
+   initialize VESA graphics routines
+
+GGVLine X1%, Y1%, X2%, Y2%
+   draw a line in any VESA graphics mode
+
+GGVLocate Row%, Column%
+   set the cursor position in any VESA graphics mode
+
+GGVMakeBMP File$, X1%, Y1%, X2%, Y2%, ErrCode%
+   make a .BMP file from an image in any 256-color VESA graphics mode
+
+GGVMode Graphics%
+   switch into any VESA graphics mode
+
+GGVPlot X%, Y%
+   plot a point in any VESA graphics mode
+
+GGVPolygon X%, Y%, Radius%, Vertices%, Angle!
+   draw a regular polygon in any VESA graphics mode
+
+GGVShowBMP File$, X%, Y%, ErrCode%
+   show a .BMP file on screen in any 256-color VESA graphics mode
+
+GGVWrCh Ch%
+   display an ASCII character in any VESA graphics mode
+
+GGVWrite St$
+   display a string in any VESA graphics mode
+
+GGVWriteLn St$
+   display a string with a <CR><LF> in any VESA graphics mode
+
+GN0Box X1%, Y1%, X2%, Y2%, Fill%
+   draw a box in 360x480 256-color VGA mode
+
+GN0Cls
+   clear the screen in 360x480 256-color VGA mode
+
+GN0Color Fore%, Back%
+   set the default screen colors in 360x480 256-color VGA mode
+
+GN0Ellipse CenterX%, CenterY%, XRadius%, YRadius%
+   draw a circle or ellipse in 360x480 256-color VGA mode
+
+GN0GetColor Fore%, Back%
+   get the default screen colors in 360x480 256-color VGA mode
+
+GN0GetLocate Row%, Column%
+   get the cursor position in 360x480 256-color VGA mode
+
+GN0GetPel% (X%, Y%)
+   get the color of a specified point in 360x480 256-color VGA mode
+
+GN0Line X1%, Y1%, X2%, Y2%
+   draw a line in 360x480 256-color VGA mode
+
+GN0Locate Row%, Column%
+   set the cursor position in 360x480 256-color VGA mode
+
+GN0MakeBMP File$, X1%, Y1%, X2%, Y2%, ErrCode%
+   make a .BMP file from an image in 360x480 256-color VGA mode
+
+GN0Mode Graphics%
+   switch between 360x480 256-color VGA mode and text mode
+
+GN0Plot X%, Y%
+   plot a point in 360x480 256-color VGA mode
+
+GN0Polygon X%, Y%, Radius%, Vertices%, Angle!
+   draw a regular polygon in 360x480 256-color VGA mode
+
+GGVShowBMP File$, X%, Y%, ErrCode%
+   show a .BMP file on screen in 360x480 256-color VGA mode
+
+GN0WrCh Ch%
+   display an ASCII character in 360x480 256-color VGA mode
+
+GN0Write St$
+   display a string in 360x480 256-color VGA mode
+
+GN0WriteLn St$
+   display a string with a <CR><LF> in 360x480 256-color VGA mode
+
+GN5Box X1%, Y1%, X2%, Y2%, Fill%
+   draw a box in Tseng 4000 256-color SVGA mode
+
+GN5Cls
+   clear the screen in Tseng 4000 256-color SVGA mode
+
+GN5Color Fore%, Back%
+   set the default screen colors in Tseng 4000 256-color SVGA mode
+
+GN5Ellipse CenterX%, CenterY%, XRadius%, YRadius%
+   draw a circle or ellipse in Tseng 4000 256-color SVGA mode
+
+GN5GetColor Fore%, Back%
+   get the default screen colors in Tseng 4000 256-color SVGA mode
+
+GN5GetLocate Row%, Column%
+   get the cursor position in Tseng 4000 256-color SVGA mode
+
+GN5GetPel% (X%, Y%)
+   get the color of a specified point in Tseng 4000 256-color SVGA mode
+
+GN5Init ModeNr%, ScrWidth%, ScrHeight%
+   initialize Tseng 4000 256-color routines
+
+GN5Line X1%, Y1%, X2%, Y2%
+   draw a line in Tseng 4000 256-color SVGA mode
+
+GN5Locate Row%, Column%
+   set the cursor position in Tseng 4000 256-color SVGA mode
+
+GN5MakeBMP File$, X1%, Y1%, X2%, Y2%, ErrCode%
+   make a .BMP file from an image in any Tseng 4000 256-color VGA modes
+
+GN5Mode Graphics%
+   switch between text mode & any Tseng 4000 256-color SVGA mode
+
+GN5Plot X%, Y%
+   plot a point in Tseng 4000 256-color SVGA mode
+
+GN5Polygon X%, Y%, Radius%, Vertices%, Angle!
+   draw a regular polygon in Tseng 4000 256-color SVGA mode
+
+GN5ShowBMP File$, X%, Y%, ErrCode%
+   show a .BMP file on screen in any Tseng 4000 256-color VGA modes
+
+GN5WrCh Ch%
+   display an ASCII character in Tseng 4000 256-color SVGA mode
+
+GN5Write St$
+   display a string in Tseng 4000 256-color SVGA mode
+
+GN5WriteLn St$
+   display a string with a <CR><LF> in Tseng 4000 256-color SVGA mode
+
+GoodDate% (DateSt$)
+   determine whether a date is valid
+
+InsertOn%
+   return the state of the Insert key toggle
+
+JButtonA1%
+   return the state of joystick A button 1
+
+JButtonA2%
+   return the state of joystick A button 2
+
+JButtonB1%
+   return the state of joystick B button 1
+
+JButtonB2%
+   return the state of joystick B button 2
+
+JButtons A1%, A2%, B1%, B2%
+   return the state of all joystick buttons
+
+JoinRGB& (ColorValue&, RedI%, GreenI%, BlueI%)
+   combines RGB values into a single color value
+
+JPos AX%, AY%, BX%, BY%
+   return the X,Y positions of both joysticks
+
+KbdType%
+   return the keyboard type (nonzero if "enhanced" keyboard)
+
+Kg2Pound! (Nr!)
+   convert kilograms to pounds
+
+LAltPress%
+   return whether the left ALT key is pressed (for "enhanced" keyboards)
+
+LCtrlPress%
+   return whether the left CTRL key is pressed (for "enhanced" keyboards)
+
+LShiftPress%
+   return whether the left SHIFT key is pressed
+
+MatchFile% (Pattern$, Filename$)
+   determine whether a filename matches a wildcard filespec
+
+MouseCursorG CursorNr%
+   select a mouse graphics cursor
+
+MouseHide
+   make the mouse cursor invisible
+
+MouseInit%
+   return the number of mouse buttons (if any mouse) and initialize mouse
+
+MouseLButton%
+   return the state of the left mouse button
+
+MouseLClick Count%, X%, Y%
+   for left mouse button, return number of clicks & position at last click
+
+MouseLocate X%, Y%
+   set the mouse cursor position
+
+MouseLRelease Count%, X%, Y%
+   for left mouse button, return number of releases & position at last click
+
+MouseMButton%
+   return the state of the middle mouse button (if any)
+
+MouseMClick Count%, X%, Y%
+   for middle mouse button, return number of clicks & position at last click
+
+MouseMRelease Count%, X%, Y%
+   for middle mouse button, return number of releases & position at last click
+
+MouseRButton%
+   return the state of the right mouse button
+
+MouseRClick Count%, X%, Y%
+   for right mouse button, return number of clicks & position at last click
+
+MouseRRelease Count%, X%, Y%
+   for right mouse button, return number of releases & position at last click
+
+MouseShow
+   make the mouse cursor visible
+
+MouseWhereX%
+   return the X position of the mouse cursor
+
+MouseWhereY%
+   return the Y position of the mouse cursor
+
+MouseWindow X1%, Y1%, X2%, Y2%
+   restrict the range of the mouse cursor to the specified area
+
+Num2Date$ (DateNr&)
+   convert a number to a date
+
+NumOn%
+   return the state of the NumLock key toggle
+
+PCDate$
+   return the date of the BIOS ROM
+
+PCType%
+   return the type of the computer based on the BIOS (PC, XT, AT, etc)
+
+PiD#
+   return the constant "pi"
+
+PiS!
+   return the constant "pi"
+
+PopWindow TRow%,LCol%,BRow%,RCol%,Frame%,Attr%,Grow%,Shade%,TFore%,Title$
+   display a pop-up window
+
+Pound2Kg! (Nr!)
+   convert pounds to kilograms
+
+PrintScreen
+   copy the screen to the printer
+
+Processor%
+   return the type of CPU installed
+
+PrtPorts%
+   return the number of parallel ports installed
+
+RAltPress%
+   return the state of the right ALT key (for "enhanced" keyboards)
+
+Rad2DegD# (Nr#)
+   convert from radians to degrees
+
+Rad2DegS! (Nr!)
+   convert from radians to degrees
+
+RCtrlPress%
+   return the state of the right CTRL key (for "enhanced" keyboards)
+
+ReColorArea TopRow%, LefCol%, BottomRow%, RightCol%, Attr%
+   change a specified area of the screen to a specified color
+
+Reverse St$
+   reverse the order of characters in a string
+
+RInstr St$, SubSt$, Posn%
+   return the position of the last occurrence of a substring within a string
+
+RotateL% (Nr%, Count%)
+   rotate the bits in a number left
+
+RotateLL& (Nr&, Count%)
+   rotate the bits in a number left
+
+RotateR% (Nr%, Count%)
+   rotate the bits in a number right
+
+RotateRL& (Nr&, Count%)
+   rotate the bits in a number right
+
+RShiftPress%
+   return the state of the right SHIFT key
+
+SBFreeHandles%
+   return the number of available SoundBlaster XMS handles
+
+SBFreeXMS Handle%
+   release a SoundBlaster XMS handle
+
+SBGetActive FM%, DskVoice%, MemVoice%, Auxiliary%, MIDI%
+   return activation state of various SoundBlaster drivers
+
+SBGetDrivers FM%, DskVoice%, MemVoice%, Auxiliary%, MIDI%
+   return existence state of various SoundBlaster drivers
+
+SBGetVer MajorV%, MinorV%
+   return version of SBSIM SoundBlaster driver
+
+SBGetVolume Source%, LeftVol%, RightVol%
+   return SoundBlaster volume level(s)
+
+SBInitSrcFile DriverNr%, FileName$, ErrCode%
+   set up a SoundBlaster driver to access a file
+
+SBInitSrcXMS Handle%, ErrCode%
+   set up a SoundBlaster driver to access XMS
+
+SBInt%
+   return SBSIM interrupt number (if any) for SoundBlaster
+
+SBIsFree% (Handle%)
+   return whether a SoundBlaster handle is in use
+
+SBLoadXMS FileName$, Handle%, ErrCode%
+   load a file into XMS for SoundBlaster use
+
+SBMapMIDI Mapper%
+   set MIDI mapping for SoundBlaster
+
+SBPause DriverNr%
+   pause a specified SoundBlaster driver
+
+SBPlay DriverNr%
+   play something through a specified SoundBlaster driver
+
+SBResume DriverNr%
+   resume playing a paused SoundBlaster driver
+
+SBSetVolume Source%, LeftVol%, RightVol%
+   set SoundBlaster volume levels
+
+SBStatus% (DriverNr%)
+   return the state of a given SoundBlaster driver
+
+SBStop DriverNr%
+   stop play on a given SoundBlaster driver
+
+ScanKey$
+   return the key in the keyboard buffer without removing it
+
+ScreenRest0 Scr$, TRow%, LCol%, BRow%, RCol%
+   [internal] restore a block of text to the screen
+
+ScreenRestore Scr$, TopRow%, LeftCol%
+   restore a block of text to the screen
+
+ScreenSave$ TRow%, LCol%, BRow%, RCol%
+   save an area of the screen to a string
+
+ScreenSave0 Scr$, TRow%, LCol%, BRow%, RCol%
+   [internal] save an area of the screen to a string
+
+ScrollDown TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   scroll an area of the screen down or clears it
+
+ScrollLeft TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   scroll an area of the screen left or clears it
+
+ScrollOn%
+   return the state of the ScrollLock key toggle
+
+ScrollRight TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   scroll an area of the screen right or clears it
+
+ScrollUp TRow%, LCol%, BRow%, RCol%, Times%, Attr%
+   scroll an area of the screen up or clears it
+
+SecD# (Nr#)
+   return the secant of a number
+
+SecHD# (Nr#)
+   return the hyperbolic secant of a number
+
+SecHS! (Nr!)
+   return the hyperbolic secant of a number
+
+SecS! (Nr!)
+   return the secant of a number
+
+SetCaps TurnOn%
+   set the state of the CapsLock key toggle
+
+SetEnhKbd TurnOn%
+   set whether to use "enhanced" keyboard handling
+
+SetInsert TurnOn%
+   set the state of the Insert key toggle
+
+SetNum TurnOn%
+   set the state of the NumLock key toggle
+
+SetPal ColorNr%, ColorValue&
+   set the color value for a color number in 256-color modes
+
+SetPalRGB ColorNr%, RedI%, GreenI%, BlueI%
+   set the RGB values for a color number in 256-color modes
+
+SetPrtSc TurnOn%
+   set whether the PrtSc key should work
+
+SetScroll TurnOn%
+   set the state of the ScrollLock key toggle
+
+ShiftL% (Nr%, Count%)
+   shift the bits in a number left
+
+ShiftLL& (Nr&, Count%)
+   shift the bits in a number left
+
+ShiftPress%
+   return the state of the shift keys
+
+ShiftR% (Nr%, Count%)
+   shift the bits in a number right
+
+ShiftRL& (Nr&, Count%)
+   shift the bits in a number right
+
+SinHD# (Nr#)
+   return the hyperbolic sine of a number
+
+SinHS! (Nr!)
+   return the hyperbolic sine of a number
+
+SpeedKey RepDelay%, RepRate%
+   set the keyboard speed for AT-type computers
+
+SplitRGB ColorValue&, RedI%, GreenI%, BlueI%
+   splits a color value into RGB values
+
+TanHD# (Nr#)
+   return the hyperbolic tangent of a number
+
+TanHS! (Nr!)
+   return the hyperbolic tangent of a number
+
+TCCarrier%
+   return whether a carrier is detected (telecomm)
+
+TCDone
+   terminate the serial communications handler
+
+TCDTR State%
+   set the state of the DTR (telecomm)
+
+TCFlowCtl State%
+   set whether to use hardware flow control (telecomm)
+
+TCFlushIn
+   flush the telecomm input buffer
+
+TCFlushOut
+   flush the telecomm output buffer
+
+TCInit Port%, InSize%, OutSize%, ErrCode%
+   initialize the serial communications routines
+
+TCInkey$
+   retrieve an incoming (telecomm) character
+
+TCInStat%
+   return whether any characters are waiting to be retrieved (telecomm)
+
+TCOutStat%
+   return whether any characters are waiting to be sent (telecomm)
+
+TCParms Parity$, WordLength%, StopBits%
+   initialize the serial port
+
+TCSpeed Bps&
+   set the "baud rate" (telecomm)
+
+TCWrite St$
+   write a string to the telecomm output buffer
+
+TCWriteLn St$
+   write a string and a <CR><LF> to the telecomm output buffer
+
+TInstr St$, Types%, Posn%
+   return the position of the first of a given type of characters in a string
+
+TypeIn St$
+   enter a string as if you had typed it from the keyboard
+
+UnCalcAttr Attr%, Fore%, Back%
+   convert a color/attribute into foreground and background colors
+
+VesaFindFirst%
+   get info on the first VESA graphics mode available
+
+VesaFindNext%
+   get info on the first VESA graphics mode available
+
+VesaChrHeight%
+   get pixel height of character font in current VESA mode
+
+VesaChrWidth%
+   get pixel width of character font in current VESA mode
+
+VesaColors&
+   get number of colors in current VESA mode
+
+VesaIsMode%
+   get whether current VESA mode is monochrome (-1 yes, 0 no)
+
+VesaIsText%
+   get whether current VESA mode is a text mode (-1 yes, 0 no)
+
+VesaScrHeight%
+   get screen width in current VESA mode
+
+VesaScrWidth%
+   get screen height in current VESA mode
+
+VesaVersion MajorVer%, MinorVer%
+   see if VESA graphics support is available and get driver version
+
+WeekDay$ (DateSt$)
+   return the day of the week for a given date
+
+WinCheck MajorV%, MinorV%
+   return the version of Windows that is running (if any)
+
+XMSclose Handle%
+   close an area of XMS memory that was opened by XMSopen
+
+XMSexists%
+   return whether XMS memory exists
+
+XMSlfree&
+   return the size of the largest free block of XMS memory (kbytes)
+
+XMSopen KBytes&, Handle%, ErrCode%
+   open an area of XMS memory for access
+
+XMSread Handle%, Posn&, Bytes&, DSeg%, DOfs%
+   get information from XMS memory
+
+XMSresize Handle%, KBytes&, ErrCode%
+   change the size of an allocated area of XMS memory
+
+XMStfree&
+   return the total amount of XMS memory available (kbytes)
+
+XMSver MajorV%, MinorV%
+   return the version of the XMS driver installed, if any
+
+XMSwrite Handle%, Posn&, Bytes&, DSeg%, DOfs%
+   store information in XMS memory
+
+XQPrint St$, Row%, Column%, Attr%
+   display a string at very high speed
+
+XQPrintOver St$, Row%, Column%, Attr%
+   display a string at very high speed, overlaying any existing text
+

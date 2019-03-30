@@ -1,0 +1,154 @@
+REM  This is a series of "GOSUBS" for QuickBasic 2.0 for controlled input.
+REM  The routines are:
+
+REM       Border: Draws a doubleline border from 3,5 to 23,75. Option of
+REM           including title centered on row 3.
+
+REM       GeneralInput: Allows input of 1 to Length% characters. Template of þ.
+REM            Backspace redraws þ.
+
+REM       IntegerInput: As GeneralInput, but allows only numerals. Results
+REM            in string.
+
+REM       RealInput: As above but allows for input of string representation of
+REM            a Real number [Numerals plus . and -]
+
+REM       YesNo: Accepts Y,y,N,n. Results in variable YesNo$ and
+REM            print "Yes" or "No"
+
+REM       AlphaIput: accepts only letters and coverts lower case to Upper Case
+
+REM       Note: all routines require an entry [i.e., can not be empty string]
+
+REM       Hope my fellow novices can use this!
+REM            Paul Friedman CompuServe 75076,127
+
+Dot$=chr$(254):Redo$=chr$(29)+dot$+chr$(29)
+
+REM **** Example of routines *****
+
+Example:
+	Title$="Example of Input Routines":gosub Border
+
+locate 6,10:Length%=10:Print "Test of General Input: ";:gosub GeneralInput
+	general$=Temp$
+locate 8,10:Length%=4:Print "Test of IntegerInput: ";:gosub IntegerInput
+	Integer$=Temp$
+locate 10,10:Length%=7:Print "Test of RealInput: ";:gosub RealInput
+	Real$=Temp$
+locate 12,10:Length%=8:Print "Test of AlphaInput: ";:gosub AlphaInput
+	Alpha$=Temp$
+locate 14,10:Print "IS QuickBasic 2.0 buggy?  ";:gosub YesNo
+   locate 14,40
+	IF YesNo$="Y" THEN
+		print "I agree!"
+	  ELSE print "You must be used to DB3!"
+	END IF
+
+color 0,7:locate 25,33:Print "Want to rerun?";:color 7,0:print "  ";:gosub YesNo
+If YesNo$="Y" then goto Example
+
+Title$="Results":gosub Border
+locate 6,10:print "General Input: "General$
+locate 8,10:print "Integer Input: "Integer$
+locate 10,10:print "Real Input:    "Real$
+locate 12,10:print "Alpha Input:   "Alpha$
+color 0,7: locate 25,33:print "Want to Redo?";:color 7,0:print "  ";:gosub YesNo
+If YesNo$="Y" then goto Example
+
+
+
+stop
+REM   *****  End of Examples
+
+REM   *****  Note: For easyof reading, I've given the the Labels and variables     _
+REM            long names.
+
+
+
+Border:
+	CLS
+	Locate 3,5:print chr$(201);string$(69,chr$(205));chr$(187);
+	For I%=4 to 22
+		locate i%,5:print chr$(186);:locate i%,75:print chr$(186);
+	Next
+	Locate 23,5:print chr$(200);string$(69,chr$(205));chr$(188);
+	If Title$="" then
+		return
+	  ELSE locate 3,40-len(title$)\2:print title$
+		title$="":return
+	END IF
+GeneralInput:
+	Temp$="":x%=pos(0):y%=csrlin:print string$(Length%,dot$);:locate y%,x%
+	GetGen:
+		OneChr$=input$(1)
+	If OneChr$=chr$(13) and len(Temp$)>0 then
+			print space$(Length%-len(Temp$)):return
+		ELSEIF OneChr$=chr$(8) and len(Temp$)>0 then
+			Temp$=left$(Temp$,len(Temp$)-1):print redo$;:goto GetGen
+		ELSEIF len(Temp$)=Length% then
+			beep:goto GetGen
+		ELSEIF (OneChr$>=" " and OneChr$<="~") then
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetGen
+		ELSE beep:goto GetGen
+	END IF
+IntegerInput:
+	Temp$="":x%=pos(0):y%=csrlin:print string$(Length%,dot$);:locate y%,x%
+	GetInt:
+		OneChr$=input$(1)
+	If OneChr$=chr$(13) and len(Temp$)>0 then
+			print space$(Length%-len(Temp$)):return
+		ELSEIF OneChr$=chr$(8) and len(Temp$)>0 then
+			Temp$=left$(Temp$,len(Temp$)-1):print redo$;:goto GetInt
+		ELSEIF len(Temp$)=Length% then
+			beep:goto GetInt
+		ELSEIF (OneChr$>="0" and OneChr$<="9") then
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetInt
+		ELSE beep:goto GetInt
+	END IF
+AlphaInput:
+	Temp$="":x%=pos(0):y%=csrlin:print string$(Length%,dot$);:locate y%,x%
+	GetAlpha:
+		OneChr$=input$(1)
+	If OneChr$=chr$(13) and len(Temp$)>0 then
+			print space$(Length%-len(Temp$)):return
+		ELSEIF OneChr$=chr$(8) and len(Temp$)>0 then
+			Temp$=left$(Temp$,len(Temp$)-1):print redo$;:goto GetAlpha
+		ELSEIF len(Temp$)=Length% then
+			beep:goto GetAlpha
+		ELSEIF (OneChr$>="A" and OneChr$<="Z") then
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetAlpha
+		ELSEIF (OneChr$>="a" and OneChr$<="z") then
+			OneChr$=chr$(asc(OneChr$)-32)
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetAlpha
+		ELSE beep:goto GetAlpha
+	END IF
+RealInput:
+	Temp$="":x%=pos(0):y%=csrlin:print string$(Length%,dot$);:locate y%,x%
+	GetReal:
+		OneChr$=input$(1)
+	If OneChr$=chr$(13) and len(Temp$)>0 then
+			print space$(Length%-len(Temp$)):return
+		ELSEIF OneChr$=chr$(8) and len(Temp$)>0 then
+			Temp$=left$(Temp$,len(Temp$)-1):print redo$;:goto GetReal
+		ELSEIF len(Temp$)=Length% then
+			beep:goto GetReal
+		ELSEIF (OneChr$>="0" and OneChr$<="9") then
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetReal
+		ELSEIF (OneChr$="." or OneChr$="-") and Temp$="" then
+			Temp$=OneChr$:print OneChr$;:goto GetReal
+		ELSEIF (OneChr$="." and Temp$<>"" and instr(Temp$,".")=0) then
+			Temp$=Temp$+OneChr$:print OneChr$;:goto GetReal
+		ELSE beep:goto GetReal
+	END IF
+YesNo:
+	YesNo$="":print redo$;
+	GetYesNo:
+		YesNo$=input$(1)
+	If YesNo$="Y" or YesNo$="y" then
+			YesNo$="Y":print "Yes";:return
+		ELSEIF YesNo$="N" or YesNo$="n" then
+			YesNo$="N":print "No";:return
+		ELSE beep:goto GetYesNo
+	END IF
+

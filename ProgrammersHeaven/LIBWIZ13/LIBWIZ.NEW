@@ -1,0 +1,68 @@
+LIBWIZ 1.3, 04/27/91:
+
+   LibWiz now guards against identical InfName and LibName
+   parameters.  Formerly, if identical names were used, the
+   .INF file would be zapped.
+
+   If you use the excellent DOS shell 4DOS, try the ADD4DOS
+   batch file.  It makes descriptions of the LibWiz files
+   available for the DIR command-- no more having to guess what
+   a file is!
+
+   LibWiz and UnLib no longer create batch files. Instead, they
+   SHELL to the appropriate utility (LIB and/or LINK) and take
+   care of it all for you.
+
+   LibWiz no longer creates a .REF quick reference by default.
+   Use the /R switch to generate one if you want it.
+
+   LibWiz can now be made to create a .QLB file corresponding
+   to the .LIB it generates.  The DOS environment variable
+   QLBNAME is used to specify the name of the QuickLib support
+   library (BQLB40 or BQLB41 for QuickBASIC 4.0, BQLB45 for
+   QuickBASIC 4.5, or QBXQLB for BASCOM/PDS).  To have LibWiz
+   create a .QLB for QuickBASIC 4.5, for instance, you'd use
+      SET QLBNAME=BQLB45
+   which can be done at the command line or placed in your
+   AUTOEXEC.BAT file.
+
+   The manual has been reformatted to 64 columns x 60 rows, so
+   as to be formatted correctly for the widest variety of
+   printers.
+
+
+
+LIBWIZ 1.2, 12/22/91:
+
+   Improved support for BASCOM 7.x/PDS assembly language
+   libraries.
+
+   Added the ability to page through routine names.
+
+
+
+LIBWIZ 1.1, 04/01/91:
+
+   Cleared up a bug in the Category handling which caused messy
+   displays when over 18 categories were used.  The Category
+   window now scrolls as needed.
+
+   The .OBJ file scanner didn't filter out certain BASIC
+   runtime externals which may be required in routines which
+   use floating point.  This has been corrected.
+
+   LIBWIZ now supports up to 1023 routines and up to 255
+   categories per library.
+
+   To make it easier to deal with .LIBs that don't come with
+   .OBJ files, I've added the UNLIB.EXE and LIB2OBJ.BAT
+   utilities.  These will automatically extract all .OBJs from
+   a .LIB file.
+
+
+
+LIBWIZ 1.0, 03/28/91:
+
+   This is the initial release of The Library Wizard's *BASIC
+   Library Manager*, containing the LIBWIZ library manager and
+   the LIBWIZU aid to creating information files for LIBWIZ.

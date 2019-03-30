@@ -1,0 +1,8 @@
+Compiler/Linker Assistant for QuickBASIC 4.0+
+Full screen or command line make utility.
+Set your own compile/link options, saves each
+program's options separately.  Supports
+multiple modules, libraries, and stub files.
+Intelligent compiling algorithm only compiles
+modules that require recompiling. Help
+includes all BC and LINK command switches.

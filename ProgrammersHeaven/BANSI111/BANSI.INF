@@ -1,0 +1,132 @@
+Name: BACOLORTOGGLE
+Mod : BATOG.OBJ
+Decl: DECLARE SUB BAColorToggle (Tog AS STRING)
+Type: Bansi
+Desc:
+
+Name: BAINIT
+Mod : BAINIT.OBJ
+Decl: DECLARE SUB BAInit ()
+Type: Bansi
+Desc:
+
+Name: BAINITOGGLE
+Mod : BAINIT.OBJ
+Decl: DECLARE SUB BAIniToggle (Tog AS STRING)
+Type: Bansi
+Desc:
+
+Name: BATOGGLE
+Mod : BATOG.OBJ
+Decl: DECLARE SUB BAToggle (Tog AS STRING)
+Type: Bansi
+Desc:
+
+Name: BABACK
+Mod : BABACK.OBJ
+Decl: DECLARE FUNCTION BABack$ (BackNum%)
+Type: Bansi
+Desc:
+
+Name: BACLEARSCREEN
+Mod : BACLEARS.OBJ
+Decl: DECLARE FUNCTION BAClearScreen$ ()
+Type: Bansi
+Desc:
+
+Name: BACLEARSCREEN2
+Mod : BACLEARS.OBJ
+Decl: DECLARE FUNCTION BAClearScreen2$ (ClearNum%)
+Type: Bansi
+Desc:
+
+Name: BACOLOR
+Mod : BACOLOR.OBJ
+Decl: DECLARE FUNCTION BAColor$ (BAColorF%, BAColorB%)
+Type: Bansi
+Desc:
+
+Name: BACOLORSTRING
+Mod : BACOLORS.OBJ
+Decl: DECLARE FUNCTION BAColorString$ (StringToColor$, Opt$)
+Type: Bansi
+Desc:
+
+Name: BADETECT
+Mod : BADETECT.OBJ
+Decl: DECLARE FUNCTION BADetect$ ()
+Type: Bansi
+Desc:
+
+Name: BADOWN
+Mod : BADOWN.OBJ
+Decl: DECLARE FUNCTION BADown$ (DownNum%)
+Type: Bansi
+Desc:
+
+Name: BAERASELINE
+Mod : BAERASEL.OBJ
+Decl: DECLARE FUNCTION BAEraseLine$ ()
+Type: Bansi
+Desc:
+
+Name: BAINPUT
+Mod : BAINPUT.OBJ
+Decl: DECLARE FUNCTION BAInput$ (Length%, ForeGround%, BackGround%, Reserved%)
+Type: Bansi
+Desc:
+
+Name: BAINT
+Mod : BAINIT.OBJ
+Decl: DECLARE FUNCTION BAInt$ (InitQuery AS STRING)
+Type: Bansi
+Desc:
+
+Name: BAFORWARD
+Mod : BAFORWRD.OBJ
+Decl: DECLARE FUNCTION BAForward$ (ForwardNum%)
+Type: Bansi
+Desc:
+
+Name: BAMOVE
+Mod : BAMOVE.OBJ
+Decl: DECLARE FUNCTION BAMove$ (BAMoveX%, BAMoveY%)
+Type: Bansi
+Desc:
+
+Name: BAREG
+Mod : BAREG.OBJ
+Decl: DECLARE FUNCTION BAReg$ (BARegT AS STRING)
+Type: Bansi
+Desc:
+
+Name: BARESPOS
+Mod : BARESPOS.OBJ
+Decl: DECLARE FUNCTION BAResPos$ ()
+Type: Bansi
+Desc:
+
+Name: BASAVPOS
+Mod : BASAVRES.OBJ
+Decl: DECLARE FUNCTION BASavPos$ ()
+Type: Bansi
+Desc:
+
+Name: BASETMODE
+Mod : BASETMOD.OBJ
+Decl: DECLARE FUNCTION BASetMode$ (SetMode%)
+Type: Bansi
+Desc:
+
+Name: BAUP
+Mod : BAUP.OBJ
+Decl: DECLARE FUNCTION BAUp$ (UpNum%)
+Type: Bansi
+Desc:
+
+Name: BAVALTRIM
+Mod : BAVALTRM.OBJ
+Decl: DECLARE FUNCTION BAValTrim$ (BAValTrimInt%)
+Type: Bansi
+Desc:
+

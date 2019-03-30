@@ -1,0 +1,289 @@
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³              AUDIO CD TOOLKIT for QB/PDS/VBDOS v1.00               ³
+³                 SEE BELOW FOR PRODUCT INFORMATION                  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+ÚÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¿
+³           This is a VENDINFO Product Information Record            ³
+³                                                                    ³
+³ This record is a means of conveying information about a software   ³
+³ product from the author to distributors and users.  It contains a  ³
+³ normal, "human-readable" section (you're reading it now), followed ³
+³ by a compressed data record.  The data record contains a great     ³
+³ deal of information in a form useable by automated tools.  This    ³
+³ allows BBSes, disk vendors, etc. to test automatically for         ³
+³ permission to distribute, and to automatically extract product     ³
+³ information for use in BBS files databases, vendor catalogs, etc.  ³
+³                                                                    ³
+³ The VENDINFO file standard is published and is freely useable.     ³
+³                                                                    ³
+³ The VENDINFO toolset includes a free end-user viewer, processing   ³
+³ tools for use by distributors (BBSes, shareware disk vendors,      ³
+³ etc.), and the editor used by author/publishers to produce these   ³
+³ records.  These tools are either free or very-low cost shareware.  ³
+³ The toolset can be obtained from many sources, including the       ³
+³ originators of VENDINFO:                                           ³
+³                                                                    ³
+³ Rams' Island Software   Voice: 303-841-2848  CompuServe: 76244,324 ³
+³ 7644 E. Lakecliff Way     BBS: 303-841-6269     FidoNet: 1:104/333 ³
+³ Parker, CO 80134-5904 USA                          RIME: RAMSISLE  ³
+ÀÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÙ
+VENDINFO standard v1.00, produced by VendEdit v1.00, 2-Nov-1994
+
+===== Product Information ==============================
+   Product:             AUDIO CD TOOLKIT for QB/PDS/VBDOS
+   Version:             1.00
+   Version Date:        1-Nov-1994
+   Product Type:        Software
+   Basic Distribution Policy (see License, below, for details):
+      Shareware, freely distributable by all channels
+
+   Product Description: AUDIO CD TOOLBOX lets you add Music CD audio 
+                        capability to your QuickBASIC, PDS7, and 
+                        VB/DOS applications. Play individual audio 
+                        tracks, entire cd's, specific portions down 
+                        to 1/75 of second, adjust volume, eject/lock 
+                        cd tray, and more. Retrieve complete, 
+                        location and playtime information about 
+                        individual audio tracks or entire cd. 
+                        Includes SoundBlaster (not required) control 
+                        code also. Much more. <ASP>
+
+   Category:            BASIC
+   Keywords:            QUICKBASIC CD CDROM AUDIO TOOLS DSE MUSIC
+   Required Packages:   ACDKIT10
+   This Package:        ACDKIT10
+
+   Required Configuration
+      Processor Family: Intel 80x86 (minimum 8086/8088)
+      Required:
+         CD-ROM drive
+
+   Orders:
+      Address:          DSE Software Publishing
+                        Post Office Box 96
+                        Willits, CA 95490-0096
+                        USA
+      Phone:            707-459-4358
+      FAX:              707-459-4484
+      BBS Name:         DSE Online!
+      BBS Phone:        707-459-4484
+      Genie:            DSE.SOFTWARE
+      FidoNet:          1:125/123
+      Internet:         dse.software@genie.geis.com
+
+   Support:
+      Address:          DSE Software Publishing
+                        Post Office Box 96
+                        Willits, CA 95490-0096
+                        USA
+      Phone:            707-459-4358
+      FAX:              707-459-4484
+      BBS Name:         DSE Online!
+      BBS Phone:        707-459-4484
+      CompuServe:       VIA INTERNET
+      Delphi:           VIA INTERNET
+      Genie:            DSE.SOFTWARE
+      FidoNet:          1:125/123
+      Internet:         dse.software@genie.geis.com
+      Other E-mail:     dse@pacific.net
+
+
+===== Information for Users ("READ-ME") ================
+
+This package contains the AUDIO CD TOOKIT(tm) v1.00 for QuickBASIC, PDS
+7.1, and VisualBASIC for DOS, by DSE Software Publishing.  This document
+contains only a brief description of the package and its features, along
+with instructions for its installation. Quite detailed documentation is
+included in the package, but it is in archived form, and is more easily
+read after installation.
+
+AUDIO CD TOOBOX is a shareware program.  This evaluation version
+includes all features of the program, and is not crippled in any way.
+You may use it for up to 30 days, without charge (see ACDKIT.DOC for
+more details).  If you like the program, and wish to continue its use
+after this evaluation period, you are required to pay for the program
+(see ORDER_ME.DOC for more details).  Any fee you may have paid to
+others (disk vendors, dealers, etc.) to obtain this evaluation version
+was a fee for their copying and distribution services, rather than a
+payment for continued use of the program.
+
+
+===== Packing List =====================================
+
+As released by the author or publisher, this package contained the
+following files in addition to this VENDINFO.DIZ:
+
+        Filename      Size     Date       Time     CRC32
+      READ_ME.1ST      216   1-Nov-1994  01:00a   EB5EF01B
+      READ_ME.BAT      415   1-Nov-1994  01:00a   993B7B7D
+      FILE_ID.DIZ      426   1-Nov-1994  01:00a   6217AF89
+       VENDOR.DOC      216   1-Nov-1994  01:00a   8C5E6214
+      INSTALL.EXE    13046   1-Nov-1994  01:00a   97E52B90
+      INSTALL.LZX    11468   1-Nov-1994  01:00a   B1BE6D94
+          PDS.LZX    18331   1-Nov-1994  01:00a   F0055A3B
+           QB.LZX    16874   1-Nov-1994  01:00a   530FE5F3
+        VBDOS.LZX    20225   1-Nov-1994  01:00a   F55D644E
+         DESC.SDI       46   1-Nov-1994  01:00a   596F60A7
+       VENDOR.TXT      216   1-Nov-1994  01:00a   8C5E6214
+
+
+===== Installation =====================================
+
+The installation procedure for AUDIO CD TOOLKIT is quite simple.  The
+package includes a program, "INSTALL.EXE", which automates the entire
+process.  You will need about 100k of available disk space on the hard
+drive on which you plan to install AUDIO CD TOOLKIT.
+
+The exact steps you need to take will depend on how you received
+AUDIO CD TOOLKIT.
+
+
+INSTALLING FROM DISKETTES
+
+To install from diskette(s), you need to perform the following steps.
+
+   o  Place AUDIO CD TOOLKIT distribution diskette "Disk 1" in the
+      appropriate diskette drive.
+
+   o  Execute the "INSTALL.EXE" program on the distribution diskette.
+      For example, if the distribution diskette is on drive A:, type
+      the MS-DOS command, "a:install".
+
+   o  Follow the instructions presented by the installation program.
+      You will have a chance to approve installation before any changes
+      are actually made to the contents of your hard drive.  The program
+      will ask you for a destination directory, and will copy the AUDIO
+      CD TOOLKIT files to that directory. If you so direct it, the
+      installation program will install executable programs and
+      documentation in other directories of your choice.  It will make
+      no other changes; specifically, it will not modify your
+      autoexec.bat or config.sys files.
+
+
+INSTALLING FROM A HARD DRIVE
+
+If you downloaded AUDIO CD TOOLKIT from a BBS (or received it in the
+form of archive files from some other source), you will need to perform
+the following steps.
+
+   o  Extract the contents of the archive file(s) in a temporary
+      directory on your hard drive.  The procedure for doing this
+      varies, depending on the form in which you received the package.
+      In all likelihood, the fact that you are reading this text means
+      that you already have the necessary tools and knowledge to perform
+      this step.  If not, you should be able to obtain directions for
+      this from the same source from which you received the package.
+
+   o  Execute the "INSTALL.EXE" program which you have extracted.  For
+      example, if the temporary directory into which you have extracted
+      the AUDIO CD TOOLKIT package is C:\TEMPDIR, you would execute the
+      MS-DOS command, "c:\tempdir\install".
+
+   o  Follow the instructions presented by the installation program.
+      You will have a chance to approve installation before any changes
+      are actually made to the contents of your hard drive.  The program
+      will ask you for a destination directory, and will copy the AUDIO
+      CD TOOLKIT files to that directory.  If you so direct it, the
+      installation program will install executable programs and
+      documentation in other directories of your choice.  It will make
+      no other changes; specifically, it will not modify your
+      autoexec.bat or config.sys files.
+
+When you're satisfied that the installation was successful, you should
+delete the temporary directory FROM which you installed AUDIO CD TOOLKIT
+(C:\TEMPDIR, in the above discussion), including all its contents.
+
+
+YOU'RE READY TO GO
+
+Once you've complete the installation, you should consult the documents
+(filename extension "doc") which have been installed.
+
+
+===== Warranty =========================================
+
+LIMITED WARRANTY
+
+THIS SOFTWARE AND MANUAL ARE PROVIDED FOR EVALUATION ONLY, ON AN "AS IS"
+BASIS.  DSE SOFTWARE PUBLISHING DISCLAIMS ALL WARRANTIES RELATING TO
+THIS SOFTWARE, WHETHER EXPRESSED  OR IMPLIED, INCLUDING BUT NOT LIMITED
+TO ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR
+PURPOSE. NEITHER DSE SOFTWARE PUBLISHING NOR ANYONE ELSE WHO HAS BEEN
+INVOLVED IN THE CREATION, PRODUCTION, OR DELIVERY OF THIS SOFTWARE SHALL
+BE LIABLE FOR ANY INDIRECT, CONSEQUENTIAL, OR INCIDENTAL DAMAGES ARISING
+OUT OF THE USE OR INABILITY TO USE SUCH SOFTWARE, EVEN IF DSE SOFTWARE
+PUBLISHING HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES OR
+CLAIMS.  THE PERSON USING THE SOFTWARE BEARS ALL RISK AS TO THE QUALITY
+AND PERFORMANCE OF THE SOFTWARE.
+
+This agreement shall be governed by the laws of the State of California
+and shall inure to the benefit of DSE SOFTWARE PUBLISHING and any
+successors, administrators, heirs and assigns. Any action or proceeding
+brought by either party against the other arising out of or related to
+this agreement shall be brought only in a STATE or FEDERAL COURT of
+competent jurisdiction located in Mendocino County, California. The
+parties hereby consent to in personam jurisdiction of said courts.
+
+
+===== License for Use and Distribution =================
+
+TRIAL USE LICENSE
+
+AUDIO CD TOOLKIT is NOT a public domain program.  It is copyrighted by
+DSE SOFTWARE PUBLISHING.  This software and accompanying documentation
+are protected by United States copyright law and also by international
+treaty provisions.
+
+DSE SOFTWARE PUBLISHING grants you a limited license to use this
+software for evaluation purposes for a period not to exceed thirty days.
+If you continue using this software after the thirty-day evaluation
+period, you MUST make a registration payment to DSE SOFTWARE PUBLISHING.
+
+You may not use, copy, rent, lease, sell, modify, decompile,
+disassemble, otherwise reverse engineer, or transfer the licensed
+program except as provided in this agreement.  Any such unauthorized use
+shall result in immediate and automatic termination of this license. All
+rights not expressly granted here are reserved to DSE SOFTWARE
+PUBLISHING.
+
+
+LIMITED DISTRIBUTION LICENSE
+
+The following may distribute AUDIO CD TOOLKIT, completely unaltered,
+without further permission...; for other cases or to distribute in
+modified form, you must consult the attached data record, which is
+hereby incorporated by reference.  Any distribution satisfying all the
+distribution requirements expressed in that data record is hereby
+authorized.
+
+Permission to distribute the AUDIO CD TOOLKIT package is not
+transferable, assignable, saleable, or franchisable.  Each vendor
+wishing to distribute the package must independently satisfy the terms
+of this limited distribution license.
+
+U.S. Government Information:  Use, duplication, or disclosure by the
+U.S. Government of the computer software and documentation in this
+package shall be subject to the restricted rights applicable to
+commercial computer software as set forth in subdivision (b)(3)(ii) of
+the Rights in Technical Data and Computer Software clause at
+252.227-7013 (DFARS 52.227-7013).  The Contractor/manufacturer is DSE
+SOFTWARE PUBLISHING, POST OFFICE BOX 96, WILLITS, CA 95490-0096.
+
+DSE SOFTWARE PUBLISHING may revoke any permissions granted here, by
+notifying you in writing.  All rights not expressly granted here are
+reserved to DSE SOFTWARE PUBLISHING.
+
+
+===== Compressed Data Record Follows ===================
+
+PK
+   “bOõï†7  œ#  	   VENDDATA.%-M-İM ÷÷÷—­uJ4©S£O$X,À€b;6¦Ay­ñ>å<âğ[AÎ¶,ˆ´LÏNÿU¦Ø€ ƒVaıSC‰‚¤úô)Ó¥I©X#š}+dT¡/¡úÒªP¢O§ "Æt	&À°½
+ªÔ§D«¥râ»jº÷vc¬ü ‰4DÚ¸8[Á‚ïDvŠ*¹È y
+Õ/T¯0¨›¦+÷íÜ·fé,¿â×
+~Ò¡,AP÷&Ë†
+Ãº%bû/¸ëdP2‹o[wÎè–ƒã½Éãë’Mû$Á‘>/[)ñpá,jÀÇÑÓÄWÏƒ G«—›Ô«ÔÙ£QX±iÙ¦¥›¶ìœy«'úVoY7™ŸûëºSú·nJuÓ§…[—mXºe†f©gu¿N|¢/‡ğh{gğe]MÉ …>Å
+’mY:?úâ÷4£S‡YZ<¦éyHV¥•¢ÂGJ…/Œ­ZW;«õœ¿P¢^îÓ|>­İ´dë†ecÍ¤+7ÌğçäÁê¤Ø'{‚±sá–›ÖŒá´_$Ù·wİ°ÿ1_Ş¬ãë9¡»<™ø’Uƒò,¼Û}Ë¶nÛ2ÆUsyº/Ù¾™^Ì!zİÍ³’ØöŒ¯AJûrºô¾mçí–ùñÒš’¥SÉaœòTÎ€×6˜l1n¯ÀKÏd<‹ V¼øL³ªI–Ã'#W§Ì¤…@ïã—	=J·oLèãÖ9-Ùÿ‰]—w6%÷êœÏæ«»ó;Ê¬¬0Bâ‰àr=‘
+OyÓeŒ+(’ÄRê¾¦’ùq¹nNZDh¬Ü¤…-,±va,Db¹øÄ‚ŞX\]ÓöZc–zL‡3[Œ›km®ÿµ¹ş ĞşÚ?€@'Pmµ éÆ0
+…ÕÊ¬†xf¦I>j•.Ã—„I}$¬½£Wc†Õ^„Lù*!«§ˆã&UA²×¢ÿ\4[¦ŸAõ•¡OÍèsz¡oñ‚ÌiÃõŠn7ºàè;4ˆækÒÌ	³ƒh¢”äe˜ÃAÂy‚¼	ófKš5s~fMĞŒI:Mœ4&¹SÊßú©[6w††¸˜`LœšuêS(,è$şX§ZTÊûT!áË.o”êÕ R‹ø°ÖSfÍƒŸAL%£¥½Ë9!±ñÒmF{…+é.l´ip- »@èÔãÒÈ.üÓ	pš$€@ ¤aÎÅ¥¹Ö"âÂô¹¸4×Ü|\šë¡ ıE…j‰GI+¸Ûa.?0x‚ˆÀm¸$«(àÁš0(¢0@ wİYgÌj"Mzÿk“›bA€“™í¨ íoKå<àşîàşîÌ PK
+ 
+   “bOõï†7  œ#  	                 VENDDATA.PK     *   ^    

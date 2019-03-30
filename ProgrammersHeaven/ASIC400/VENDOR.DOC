@@ -1,0 +1,56 @@
+                            Vendor Information
+
+This file is provided for Shareware Distributors who wish to distribute
+ASIC.
+
+
+                            Product Information
+
+Product Name:  ASIC
+               Copyright (c) 1993 by 80/20 Software
+               All Rights Reserved
+Version:       4.00
+Category:      Programming Languages
+Keywords:      ASIC BASIC COMPILER EDITOR DEBUGGER
+
+
+Short Description:
+
+     ASIC is a "BASIC" programming language compiler for IBM PCs and
+compatibles.  It includes an integrated full screen editor, from which you
+can edit, compile, and debug your programs.  Or, at your option, you can
+use your own text editor, and compile your programs from the MS DOS command
+line.
+
+Long Description:
+
+     ASIC is a "BASIC" programming language compiler for IBM PCs and
+compatibles.  It includes an integrated full screen editor, from which you
+can edit, compile, and debug your programs.  Or, at your option, you can
+use your own text editor, and compile your programs from the MS DOS command
+line.  It supports over 80 BASIC statements, decimal, integer and string
+variables and arrays.  It will compile your programs at high speed, and the
+code it generates is fast and compact.  The syntax of each ASIC statement
+is generally a valid subset of the syntax used by BASICA and GWBASIC.
+
+                         Distribution Requirements
+
+Shareware Distributors may charge a nominal fee for distribution of ASIC.
+ASIC must be identified as shareware.  The term "shareware" must be
+explained so that users know that ASIC is copyrighted and that an
+additional fee must be paid if they use it.  This explanation should be
+displayed so that all recipients of ASIC have the opportunity to read it
+prior to obtaining ASIC.
+
+Shareware Distributors must stop distributing copies of ASIC upon written
+notification from 80/20 Software.
+
+None of the ASIC files may be modified in any way.  All ASIC files must be
+distributed together, although other files may be added.  The ASIC files
+are:
+
+               INSTALL.EXE
+               XPAND.EXE
+               README
+               VENDOR.DOC
+               ASIC.PAK

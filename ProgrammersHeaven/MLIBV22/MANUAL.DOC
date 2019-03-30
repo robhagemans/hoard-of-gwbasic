@@ -1,0 +1,1808 @@
+
+
+
+
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                                      
+                       ***************************************                
+                       *                                     *
+                       *              MLIB v2.2              *
+                       *                                     *
+                       *    Mouse library for  QuickBASIC    *
+                       *                                     *
+                       *                 4.x                 *
+                       *                                     *
+                       *     and Visual Basic for MS-DOS     *
+                       *                                     *
+                       *                                     *
+                       *    Copyright (c) 1993 TERRY VENN    *
+                       *                                     *
+                       *          All Rights Reserved        *
+                       *                                     *
+                       ***************************************
+
+
+
+
+                                      MLIB v2.2
+                         
+                            Copyright (c) 1993 TERRY VENN
+        
+                                  Shareware Version 
+                           
+
+        MLIB v2.2  is a library  containing  mouse  procedures  for use  with 
+        QuickBASIC v4.x and Visual Basic for MS-DOS.
+
+        With a few restrictions, the UNREGISTERED VERSION of  MLIB may freely 
+        be copied  and distributed directly  or electronically as a  complete 
+        package  only  and because it is  copyright  protected,  it cannot be 
+        altered or modified in any way. You, the USER, after determining  the  
+        product does have value, and wish to continue using it, are obligated 
+        to purchase the registered version.Having done this, you will receive 
+        the  current  and complete  copy of  MLIB  along with its  additional 
+        features.
+
+        As a REGISTERED  USER, you may modify the REGISTERED  VERSION of this 
+        library in any way you wish for the sole creation of executable files
+        for your  own use or for  sale for a  profit.  IN NO WAY  shall  this 
+        library in whole or in part be modified to be distributed or sold for 
+        profit where a person other than the LICENSED REGISTERED USER of MLIB 
+        can have direct access to these procedures.  The license  to use this
+        library may be transferred to a third party if all existing copies of
+        this software are also transferred.
+
+        I WILL NOT BE  HELD RESPONSIBLE  IN ANY WAY FOR ANY UNDESIRED RESULTS 
+        CAUSED BY THE USE, MISUSE, OR INABILITY TO USE MLIB.  If you run into 
+        a problem,  regardless of whether  you are a  registered USER or not, 
+        please contact  me via direct mail ( address is on the order form) or 
+        phone 1-306-379-4505, and I will do my best to rectify the problem.If 
+        a response is in order please send a SASE.  
+
+        The fee for registering MLIB v2.2 is $20 US / $25 CDN, and includes a
+        'registered' copy of  MLIB v2.2  on disk.  The fee covers the cost of
+        diskette(s), taxes, shipping and handling.
+
+        Payment must be in the  form of cheque or money order.  All US dollar 
+        cheques must be drawn on a US bank,  and all  CDN dollar cheques must 
+        be drawn on a  Canadian  bank.  There will be a  delay in  processing 
+        orders for a non-certified cheque clearance.
+
+        To place an order,  please use the order form  contained  in the file 
+        ORDER.FRM.  To produce a hard copy of this file on  your printer type 
+        the following: A:>COPY ORDER.FRM PRN
+
+        IBM  is a  Registered  Trademark of  International  Business  Machine 
+        Corporation. 
+        
+        Microsoft,  MS,  and  MS-DOS are  Registered Trademarks of  Microsoft 
+        Corporation. QuickBASIC and Visual Basic are Trademarks of  Microsoft 
+        Corporation.
+
+
+                              
+                              
+                              
+                              
+                              
+                              TABLE OF CONTENTS              
+
+
+
+
+                Miscellaneous.
+                ==========================================
+
+                Included with registered version .....  1
+                Getting started ......................  2
+                Shapes contained in library ..........  3
+                
+                ------------------------------------------
+                                                        
+                        
+                Assembly Routines.                     
+                ==========================================
+                
+                ChangePointer ........................  4
+                DClicBut .............................  5
+                DClicM ...............................  6
+                DClicOff .............................  7
+                DClicOn ..............................  8
+                DClicRate ............................  9
+                GetButtonM ...........................  10
+                GetMotionM ...........................  11
+                GetPressM ............................  12
+                GetReleaseM ..........................  13
+                GetSizeM .............................  14
+                GetSpeedM ............................  15
+                HidePointer ..........................  16
+                InitPointer ..........................  17
+                InWinM ...............................  18
+                RestoreStateM ........................  19
+                SaveStateM ...........................  20
+                SetBoundM ............................  21
+                SetHLimitM ...........................  22
+                SetPointer ...........................  23
+                SetSpeedM ............................  24
+                SetVLimitM ...........................  25
+                ShowPointer ..........................  26
+                ShowPtrM .............................  27
+                
+                ------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       
+
+       
+       
+        Included with registered version:
+        ---------------------------------------------------------------------
+
+        MANUAL.DOC - Documentation.
+                
+        MLIB  .INC - Include file.
+        
+        MLIBN .QLB - Quick library.
+                
+        MLIBN .LIB - Linking library (near string support).
+        
+        MLIBF .LIB - Linking library (far string support).
+               
+        ME    .EXE - An easy to use  mouse shape  editing  tool.  It's like a
+                     simple paint program, where you use the mouse pointer to
+                     draw a  picture of the  pointer shape on a grid,  select
+                     different colors (three of them "WOW!"), click where the
+                     hot spot will be, then save it to a SHAPE.SHP file.
+                
+                     NOTE:  ME.EXE requires VGA.
+               
+        CVTASM.EXE - If  you  have a  MASM  compatible  assembler,   use this
+                     command  line  utility  to  read a  SHAPE.SHP  file  and
+                     place  the  shape  data  along  with a  CALLname  in  an
+                     assembly  text file,  which can  then be  assembled  and
+                     added  to  MLIB.  Then  your  program  will be  able  to
+                     directly  call this  procedure  to  change  the  pointer
+                     shape.
+                
+        ASC2SHP.BAS- If you do not have VGA  then use this program to  create 
+                     your own pointer shapes (runs in text mode).
+       
+        SHP2ASC.BAS- Extracts a bit mask from a ???.SHP file, and saves it as
+                     a text file for editing (for use with ASC2SHP.BAS).
+                
+        OBJ  FILES - All the  object  files that  make up  this  library  are
+                     included  ( plus a couple of bit related functions  used 
+                     by  SHP2ASC.BAS and  ASC2SHP.BAS) for  your  convenience  
+                     in creating your own customized version of this library.
+
+                     Please  NOTE!  These  customized  libraries  may  not be
+                                    distributed in any way, they are for your 
+                                    personal use only!
+
+        
+        NOT included with registered version:
+
+                     There will  NOT  be any "MLIB" copyright notices  in the 
+                     library or in any executable files linked with MLIB.LIB.
+        
+        ---------------------------------------------------------------------
+
+                                                           
+                                                           
+                                                           Page 1
+
+
+
+       
+
+       
+       
+        Getting started.
+        ---------------------------------------------------------------------
+        
+        (1): You must have an IBM PC/XT/AT/386 or compatible,  plus Microsoft 
+             QuickBASIC 4.x or Visual Basic for MS-DOS.
+        
+        (2): To use MLIB in the QuickBASIC environment simply type QB/L MLIBN
+         
+        
+        IMPORTANT!
+        ==========
+        
+             All of the examples in this  manual are based on  QuickBASIC 4.5
+             (which uses near strings), so if you require far string support,
+             make a QUICK library by linking with MLIBF.LIB.
+             
+             The "N" appended to  MLIB identifies it as a near string library
+             and the "F" identifies it as a far string library.
+             
+             MLIBN.LIB supports near strings ONLY!
+             
+             MLIBF.LIB supports far strings ONLY!
+             
+             To create a  QUICK library for your particular  version of BASIC 
+             do the following:
+
+             If using BASIC 7.x type:
+               
+                LINK /Q MLIBF.LIB, MLIBF.QLB, NUL, QBXQLB.LIB;
+               
+                Start BASIC 7.x along with MLIB ie., QBX/L MLIBF
+             
+             If using Visual Basic for MS-DOS type:
+               
+                LINK /Q MLIBF.LIB, MLIBF.QLB, NUL, VBDOSQLB.LIB;
+               
+                Start VBDOS along with MLIB ie., VBDOS/L MLIBF
+        
+        (3): For proper operation  always use the line  '$INCLUDE: 'MLIB.INC'
+             at the beginning of your program.
+
+        (4): After the SCREEN mode has been set, CALL InitPointer(Num%), this
+             will initialize the mouse driver plus  MLIB  for this particular
+             mode.
+
+        (5): All the routines in MLIB are ready to be used. Your program can
+             safely call any of these routines whether a mouse is present or
+             not.
+        
+        ---------------------------------------------------------------------
+
+                                                           
+                                                           
+                                                                       
+                                                           Page 2
+
+
+       
+
+       
+       
+        Pointer shapes contained in library MLIB.
+        ---------------------------------------------------------------------
+
+        Change the shape of the mouse pointer (graphics mode only).
+       
+        DECLARE SUB  <shape name>
+        
+        syntax: CALL <shape name>
+        
+                ARROW0
+                HANDV0
+                HOURGLASS0
+                PEN0
+                MAGNIFYGLASS0
+                PAINTCUP0
+                MOUSE0
+                WHATCH0
+                ARROW1
+                
+        Example:
+          
+                CALL HANDV0 'Change pointer to a hand shape.
+        
+        
+        Comments:
+
+                A zero appended to a shape name denotes a color pointer, A
+                one(1) denotes inverted or non colored pointer.
+                
+                With the registered version you will be able to add new
+                shapes with  CVTASM.EXE  (if you have a MASM compatible 
+                assembler) or delete existing shapes from the library.
+
+                For a working example see: DEMO4.BAS
+       
+        ---------------------------------------------------------------------
+                                                      Assembly subroutine.
+       
+       
+                                                          
+                                                          
+                                                          
+                                                          
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 3
+
+
+      
+
+      
+      
+        ChangePointer                                            
+        ---------------------------------------------------------------------
+
+        Change the shape of the mouse pointer (graphic mode only).
+      
+        DECLARE SUB ChangePointer(Shape$, HotX%, HotY%)
+
+        Syntax: CALL   ChangePointer(Shape$, HotX%, HotY%)
+              
+                Shape$ A 64 byte string, consisting of two 32 byte  sections.
+                       The first 32 bytes is the  screen mask  which is ANDed
+                       on the  screen.  The last half  containing the  cursor
+                       mask is then  XORed over this.  A color cursor (SOLID)
+                       can have two colors, white or black, where a non color
+                       cursor (TRANS) just inverts with the colored pixels it
+                       passes over.
+                      
+                HotX%  Horizontal hot spot value ranging from 0 - 15.
+              
+                HotY%  Vertical hot spot value ranging from 0 - 15.
+
+
+        Example:
+         
+                HotX% = 0 
+                                    ' Upper left corner of new image
+                HotY% = 0
+
+                Shape$ = ArrowHead$ ' String containing the bit image.
+
+                CALL ChangePointer(Shape$, HotX%, HotY%)
+                                          
+      
+        Comments:
+
+                The mouse driver  uses the hot spot  coordinates to determine 
+                the location of the pointer.
+      
+                For a working example see: VIEWSHP.BAS
+      
+        ---------------------------------------------------------------------
+                                                      Assembly subroutine.
+      
+      
+      
+      
+
+                                                         
+                                                         
+                                                         
+                                                         
+                                                          
+                                                          
+                                                          
+                                                           Page 4
+
+
+        
+
+        
+        
+        DClicBut
+        ---------------------------------------------------------------------
+
+        Define which button DClicM will check for a double click event.
+
+        Use in conjunction with: DClicM
+
+        DEFINE SUB DClicBut(ButtonNum%)
+
+        Syntax: CALL DClicBut(ButtonNum%)
+                
+                ButtonNum%  Tells DClicM which button to check. A value of 1; 
+                            DClicM will check the left  mouse button, a value 
+                            of 2,  the right  button will be  checked,  etc., 
+                            depending  on the number of buttons the mouse may
+                            have.
+        
+                
+        Example:
+                
+                CALL DClicRate(9) 'Speed  at  which  DClicM  will  register a 
+                                  'double click. There are 18 clock ticks per 
+                                  'second.  The user  has  1/2 sec. to double 
+                                  'click.
+                CALL DClicBut(1)  'DClicM will check the left mouse button.
+
+                DO
+                
+                 CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+
+                 IF DClik% THEN CALL DClikHandler(ButtonNum%, X%, Y%)
+                
+                LOOP
+
+        Comments:
+
+        
+                For a working example see: DEMO1.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+        
+        
+        See also:
+
+                 DClicM, DClicRate, DClicOn, DClicOff
+
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 5
+
+
+
+        
+
+        
+        
+        DClicM
+        ---------------------------------------------------------------------
+
+        Poll for a mouse double click event.
+
+        Use in conjunction with: DClicBut, DClicRate, DClicOn, DClicOff
+
+        DECLARE SUB DClicM(ButtonNum%, X%, Y%, DClik%)
+
+        Syntax: CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+                
+                ButtonNum% Returns which button is currently depressed. In
+                           the case that a double click has occurred, then 
+                           ButtonNum% will return the mouse button used to 
+                           activate the double click. 1 for the left mouse  
+                           button, 2 for the right button, etc.
+
+                X%, Y%     Current  location of the mouse  pointer in pixels.
+                           In the case that a double click has occurred, then 
+                           X% and Y% will return the  location of the pointer
+                           when the event occurred, not the present location.
+
+                DClik%     Returns a -1 if a double click has occurred, else
+                           a 0.
+        Example:
+           
+                CALL DClicRate(9) 'Speed  at  which  DClicM  will  register a 
+                                  'double click. There are 18 clock ticks per 
+                                  'second.
+                                            
+                CALL DClicBut(1) 'Tell DClicM to check the left mouse button.
+
+                DO
+                
+                   CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+
+                   IF DClik% THEN CALL DClikHandler(ButtonNum%, X%, Y%)
+                
+                LOOP
+
+        Comments:
+
+                This subroutine returns the  same  information as  GetButtonM
+                if double click checking is turned off. 
+                
+                For a working example see: DEMO1.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        See also:
+
+                 DClicBut, DClicRate, DClicOn, DClicOff
+                                                           
+                                                           Page 6
+
+
+        
+
+        
+        
+        DClicOff
+        ---------------------------------------------------------------------
+
+        Turn double click off.
+
+        Use in conjunction with: DClicM
+        
+        DECLARE SUB DClicOff
+
+        Syntax: CALL DClicOff
+                
+                Default is on.
+
+        Example:
+           
+                CALL DClicRate(9) 'Speed  at  which  DClicM  will  register a 
+                                  'double click. There are 18 clock ticks per 
+                                  'second.  The user has  1/2 sec. to  double 
+                                  'click.
+                CALL DClicBut(1)  'DClicM will check the left mouse button.
+
+                CALL DClicOn      'Turn on double click checking.
+
+                DO
+                
+                   CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+
+                   IF DClik% THEN 
+                    
+                       CALL DClicOff   'Turn off double click checking.
+
+                       CALL MyHandler(ButtonNum%, X%, Y%)
+                 
+                       EXIT DO
+
+                    END IF
+                
+                LOOP
+
+        Comments:
+
+                If double click is turned off, then the information  returned 
+                by  DClicM  will be  exactly the  same as what the subroutine 
+                GetButtonM will return.
+                
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        See also:
+
+                 DClicM, DClicBut, DClicRate, DClicOn
+
+                                                           
+                                                           
+                                                           Page 7
+
+
+        
+
+        
+        
+        DClicOn
+        ---------------------------------------------------------------------
+
+        Turn double click on.
+
+        Use in conjunction with: DClicM
+        
+        DECLARE SUB DClicOn
+
+        Syntax: CALL DClicOn
+                
+                Default is on.
+
+        Example:
+           
+                CALL DClicRate(9) 'Speed at  which  DClicM  will  register  a 
+                                  'double click. There are 18 clock ticks per 
+                                  'second. The  user  has 1/2 sec. to  double 
+                                  'click.
+                CALL DClicBut(1)  'DClicM will check the left mouse button.
+
+                CALL DClicOn      'Turn on double click checking.
+
+                DO
+                
+                   CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+
+                   IF DClik% THEN CALL DClikHandler(ButtonNum%, X%, Y%)
+                
+                LOOP
+
+                
+        Comments:
+
+                If double click  is turned off by calling the  subroutine 
+                DClicOff, then the information returned by DClicM will be 
+                exactly the same as what the subroutine  GetButtonM  will 
+                return.
+
+        
+                For a working example see: DEMO1.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+        
+        
+        See also:
+
+                 DClicM, DClicBut, DClicRate, DClicOff
+
+                                                           
+                                                           
+                                                           Page 8
+
+
+
+        
+
+        
+        
+        DClicRate
+        ---------------------------------------------------------------------
+
+        Set the double click speed.
+
+        Use in conjunction with: DClicM
+
+        DECLARE SUB DClicRate(Rate%)
+
+        Syntax: CALL DClicRate(Rate%)
+                
+                Rate%  The speed at which DClicM will detect a double click.
+                       
+                       There are 18 clock ticks per second. Default is 9, 
+                       or a 1/2 second.
+        
+        Example:
+           
+                CALL DClicRate(9) 'Speed  at  which  DClicM  will  register a 
+                                  'double click. There are 18 clock ticks per 
+                                  'second.  The user  has  1/2 sec. to double 
+                                  'click.
+                CALL DClicBut(1) 'Tell DClicM to check the left mouse button.
+
+                DO
+                
+                   CALL DClicM(ButtonNum%, X%, Y%, DClik%)
+
+                   IF DClik% THEN CALL DClikHandler(ButtonNum%, X%, Y%)
+                
+                LOOP
+
+        Comments:
+
+        
+                For a working example see: DEMO1.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+        
+        
+        See also:
+
+                 DClicM, DClicBut, DClicOn, DClicOff
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 9
+
+
+
+      
+
+      
+      
+        GetButtonM
+        ---------------------------------------------------------------------
+
+        Check for a mouse button press and get the current mouse pointer
+        location.
+      
+        DECLARE SUB GetButtonM(ButtonNum%, X%, Y%)
+      
+        Syntax: CALL GetButtonM(ButtonNum%, X%, Y%)
+              
+                ButtonNum%  Returns a value of 1,2 or 3 etc,  depending  on
+                            which button was pressed and also the number of
+                            buttons the mouse may have.
+      
+                X%, Y%      Returns the present location of the mouse pointer
+                            in pixels.  This location  refers to the  virtual
+                            mouse screen coordinates, NOT to the text screen.
+                            The upper  left corner of the screen is used as a
+                            reference point (0, 0).
+        Example:            
+               
+                SCREEN 0    'Convert the virtual mouse screen coordinates
+                            'to BASIC's row/column format, in text mode.
+                DO          'Using a character block size of 8 X 8.
+
+                   CALL GetButtonM(ButtonNum%, X%, Y%)
+                
+                   Row% = (Y% \ 8) + 1
+                   Col% = (X% \ 8) + 1
+                  
+                   LOCATE 1: PRINT Row%; " X "; Col%
+                 
+                   IF ButtonNum% = 1 THEN 'User pressed the left button.
+                
+                   IF ButtonNum% = 2 THEN 'User pressed the right button.
+
+                LOOP UNTIL LEN(INKEY$)
+
+        Comments:
+
+                To convert the virtual  mouse screen  coordinates to BASIC's
+                row/column format, you must divide X%(column) and Y%(row) by
+                character block size and add 1 to each of these values.
+               
+                For a working example see: DEMO1.BAS
+      
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine
+      
+                                                          
+                                                          
+                                                          
+                                                           
+                                                           
+                                                           Page 10
+
+
+
+      
+
+      
+      
+        GetMotionM
+        ---------------------------------------------------------------------
+
+        To determine which direction the mouse pointer is moving.
+
+        DECLARE SUB GetMotionM(X%, Y%)
+       
+        Syntax: CALL GetMotionM(X%, Y%)
+              
+                X%  Returns the horizontal value.
+                 
+                Y%  Returns the vertical value.
+               
+        Example:
+                  
+                DO
+             
+                   CALL GetMotionM(X%, Y%)
+               
+                   Direction$ = ""
+               
+                   IF X% > 0 THEN Direction$ = "Right" 'If positive.
+                   IF X% < 0 THEN Direction$ = "Left " 'If negative.
+                   IF Y% > 0 THEN Direction$ = "Down " 'If positive.
+                   IF Y% < 0 THEN Direction$ = "Up   " 'If negative.
+               
+                   IF LEN(Direction$) THEN
+                    
+                      LOCATE 5
+                    
+                      PRINT Direction$
+                 
+                   END IF
+
+                LOOP UNTIL LEN(INKEY$)
+              
+        Comments:
+
+                The values returned will range from -32768 to 32768.
+                Positive values shows right or downward movement, and
+                negative values show left or upward movement.
+                 
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+      
+      
+      
+
+                                                          
+                                                          
+                                                          
+                                                           
+                                                           
+                                                           
+                                                           Page 11
+
+
+       
+
+       
+       
+        GetPressM
+        ---------------------------------------------------------------------
+
+        Get button press information for the mouse.
+
+        DECLARE SUB GetPressM(ButtonNum%, Stat%, Count%, X%, Y%)
+
+        Syntax: CALL GetPressM(ButtonNum%, Stat%, Count%, X%, Y%)
+               
+                ButtonNum%   State which mouse button to get information on.
+                             A value of 1 equals the left mouse button and 2
+                             means the right etc, depending on how many
+                             buttons the mouse may have.
+       
+                Stat%        Returns which button is currently being pressed.
+
+                Count%       Returns the number of button presses since last
+                             called.
+
+                X%, Y%       Returns the location of the mouse pointer when
+                             the button was last pressed.
+
+        Example:
+          
+                ButtonNum% = 1 'Check the left button.
+                
+                CALL GetPressM(ButtonNum%, Stat%, Count%, X%, Y%)
+                  
+                IF Count% > 1 THEN CALL MySUB(X%, Y%)
+
+        Comments:
+
+                NOTE! The values returned in X%, Y% refer to the location
+                of the pointer WHEN the mouse button was pressed, not the
+                current location. The button count is automatically reset
+                to zero each time this routine is called.
+       
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+       
+       
+       
+       
+        See also:
+
+                 GetReleaseM
+
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                           
+                                                           
+                                                           Page 12
+
+
+      
+
+      
+      
+        GetReleaseM
+        ---------------------------------------------------------------------
+
+        Get button release information for the mouse.
+
+        DECLARE SUB GetReleaseM(ButtonNum%, Stat%, Count%, X%, Y%)
+
+        Syntax: CALL GetReleaseM(ButtonNum%, Stat%, Count%, X%, Y%)
+              
+                ButtonNum%   State which mouse button to get information on.
+                             A value of 1 equals the left mouse button and 2
+                             means the right etc, depending on how many
+                             buttons the mouse may have.
+      
+                Stat%        Returns which button is currently being pressed.
+
+                Count%       Returns the number of button releases since last
+                             called.
+
+                X%, Y%       Returns the location of the mouse pointer when
+                             the button was last pressed.
+
+        Example:
+         
+                ButtonNum% = 1 'Check the left button.
+               
+                CALL GetReleaseM(ButtonNum%, Stat%, Count%, X%, Y%)
+                 
+                IF Count% > 1 THEN CALL MySUB(X%, Y%)
+
+        Comments:
+
+                NOTE! The values returned in X%, Y% refer to the location
+                of the pointer WHEN the mouse button was pressed, not the
+                current location. The button count is automatically reset
+                to zero each time this routine is called.
+      
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+      
+      
+      
+      
+        See also:
+
+                GetPressM
+
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                           
+                                                           
+                                                           Page 13
+
+
+        
+
+        
+        
+        GetSizeM
+        ---------------------------------------------------------------------
+
+        Get the size the mouse driver's environment.  
+
+        Use in conjunction with: ShowPtrM%, SaveStateM
+
+        DECLARE FUNCTION GetSizeM%
+        
+        Syntax: Size% = GetSizeM%
+                
+                Size%   Returns the size of the mouse driver's environment  
+                        (in bytes).
+
+        Example:
+           
+                Size% = GetSizeM%           'Amount of memory  needed to hold 
+                                            'the mouse driver's  environment.  
+
+                Buffer$ = SPACE$(Size% * 2) 'Pad buffer with spaces.
+                
+                ErrNum% = ShowPtrM%(Buffer$)
+
+                Buffer$ = ""                'Release memory.
+
+        Comments:
+
+                Use this function to determine buffer(s) size needed by both 
+                ShowPtrM% and SaveStateM.
+        
+                For a working example see: DEMO3.BAS
+
+        ---------------------------------------------------------------------
+                                                      Assembly function.
+        
+        
+        
+        
+        See also:
+
+                 ShowPtrM%, RestoreStateM, SaveStateM
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                                      
+                                                                      
+                                                           Page 14
+
+        
+     
+
+     
+     
+        GetSpeedM
+        ---------------------------------------------------------------------
+
+        Get the current sensitivity state of the mouse.
+
+        Use in conjunction with: SetSpeedM
+      
+        DECLARE SUB CALL GetSpeedM(H%, V%, D%)
+
+        Syntax: CALL GetSpeedM(H%, V%, D%)
+             
+                H%   Returns the current horizontal value.
+                
+                Y%   Returns the current vertical value.
+                
+                D%   Returns double speed threshold value.
+
+        Example:
+        
+                'Get and save the current sensitivity state of the mouse.
+                'Upon ending your program, pass these values to the routine
+                'SetSpeedM, which will restore the settings back to their
+                'original state.
+            
+                'Program startup.
+
+                CALL GetSpeedM(SaveH%, SaveV%, SaveD%) 'Save old setting.
+                CALL SetSpeedM(50, 50, 80)             'New setting for your
+                                                       'program's use.
+                'Program code.
+            
+                CALL SetSpeedM(SaveH%, SaveV%, SaveD%) 'Restore old setting.
+
+                'End of program.
+             
+        Comments:
+
+                Mouse sensitivity is defined as how far the pointer moves
+                per actual movement of the mouse itself. The higher the
+                values in X%, Y% the greater the sensitivity.
+                
+                For a working example see: VIEWSHP.BAS
+     
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+     
+        
+        See also:
+
+                 SetSpeedM
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 15
+
+
+      
+
+      
+      
+        HidePointer
+        ---------------------------------------------------------------------
+
+        Remove the mouse pointer from the screen.
+
+        Use in conjunction with: ShowPointer
+       
+        DECLARE SUB HidePointer
+       
+        Syntax: CALL HidePointer
+              
+
+        Example:
+         
+                CALL HidePointer
+                                          
+                PRINT "A line of text."
+              
+                Call ShowPointer
+              
+        Comments:
+
+                You  must  turn off the pointer  before doing  any drawing or
+                printing on the  screen;  this will  prevent the pointer from
+                being  overwritten.  It should also be  noted that the  mouse
+                driver  increments a counter each time the pointer is  turned
+                off,  and decrements that count for each call to turn it back
+                on.  This count  must equal zero  before the driver will turn
+                the pointer  back on.  For example;  if HidePointer is called
+                3 times,  then ShowPointer must also be called 3 times before
+                the pointer will become visible.
+               
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+      
+      
+      
+      
+        See also:
+
+                 ShowPointer, ShowMPtr
+
+                                                         
+                                                         
+                                                         
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                          
+                                                           
+                                                           
+                                                           Page 16
+
+
+        
+
+        
+        
+        InitPointer
+        ---------------------------------------------------------------------
+
+        Initialize the mouse driver to its default state.
+
+        DECLARE SUB InitPointer(MouseExist%)
+
+        Syntax: CALL InitPointer(MouseExist%)
+                
+                MouseExist%  Returns with the number of buttons on the mouse, 
+                             if a mouse driver  is detected.  If no driver is 
+                             present, a 0 is returned.
+
+        
+        Example:
+           
+                CALL InitPointer(Num%)
+
+                IF Num% THEN
+                      
+                   PRINT "This mouse has "; Num%; " buttons."
+                   
+                ELSE
+                      
+                   PRINT "Unable to detect a mouse driver."
+                   
+                END IF
+
+                
+        Comments:
+
+                IMPORTANT! - InitPointer should be called  after any  screen
+                             mode  changes and  MUST  be  initialized before 
+                             calling any other mouse routine!
+
+                             In  addition to  InitPointer  initializing  the 
+                             mouse  driver's  internal  variables,  it  also 
+                             initializes its own internal variables  used by   
+                             other mouse routines contained in this library.
+
+
+                
+                Your  program  can safely  call any of these  mouse routines 
+                whether a mouse driver has been installed or not.
+                             
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+        
+        
+                                                           
+                                                           
+                                                           
+                                                           Page 17
+
+
+        
+
+        
+        
+        InWinM
+        ---------------------------------------------------------------------
+
+        Check if pointer is in a specified area on the screen. 
+        
+        DECLARE FUNCTION InWinM(BYVAL x1%, BYVAL y1%, BYVAL x2%, BYVAL y2%)
+
+        Syntax: InIt% = InWinM(x1%, y1%, x2%, y2%)
+                
+                x1%, x2%  Left and right boundaries (in pixels).
+
+
+                y1%, y2%  Top and bottom boundaries (in pixels).
+
+                InIt%     Returns a -1 if true, else 0.
+
+        
+        Example:
+           
+                                                 'Loop until pointer is in an 
+                                                 'area starting in  the upper 
+                                                 'left corner  of the screen, 
+                                                 '100 pixels wide by 100 high.
+                                                 
+                DO
+
+                   InIt% = InWinM(0, 0, 100, 100)
+        
+                LOOP UNTIL InIt%
+
+
+
+        Comments:
+
+                BYVAL is used here for speed.             
+                
+                NOTE!   This  function will  not work  properly with a screen
+                resolution of 320 X 200.
+
+                For a working example see: DEMO4.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Function.
+        
+        
+        
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 18
+
+
+        
+
+        
+        
+        RestoreStateM
+        ---------------------------------------------------------------------
+
+        Restore mouse environment.
+
+        Use in conjunction with: GetSizeM, SaveStateM
+        
+        DECLARE SUB RestoreStateM(Buff1$, ErrNum%)
+        
+        Syntax: CALL RestoreStateM(Buff1$, ErrNum%)
+                
+                Buff1$  Buffer which contains the mouse driver's environment.  
+                        
+
+                ErrNum% Returns a -1, if Buff1$ is smaller than the mouse 
+                        environment.
+        
+        
+        Example:
+           
+                Size% = GetSizeM%                   ' Amount of memory needed to 
+                                                    ' to hold the mouse 
+                                                    ' driver's environment.  
+                Buff1$ = SPACE$(Size%)              ' Pad buffer with spaces.
+                
+                CALL SaveStateM(Buff1$, ErrNum%)    ' Save mouse state.
+
+                SHELL"XXXX"                         ' Pass control.
+
+                CALL RestoreStateM(Buff1$, ErrNum%) ' Restore state.
+
+        Comments:
+
+                Use this subroutine to restore the mouse environment after
+                it has been saved by SaveStateM.
+                
+                For a working example see: DEMO3.BAS
+
+        ---------------------------------------------------------------------
+                                                      Assembly subroutine.
+        
+        
+        
+        
+        See also:
+
+                 GetSizeM, SaveStateM 
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 19
+
+
+        
+
+        
+        
+        SaveStateM
+        ---------------------------------------------------------------------
+
+        Save the mouse driver's environment in a buffer.
+
+        Use in conjunction with: GetSizeM, RestoreStateM
+
+        DECLARE SUB SaveStateM(Buff1$, ErrNum%)
+        
+        Syntax: CALL SaveStateM(Buff1$, ErrNum%)
+                
+                Buff1$   Buffer in which the mouse driver's environment  
+                         will be saved.  
+
+                ErrNum%  Returns a -1, if Buff1$ is not large enough to hold 
+                         the mouse environment.
+        
+        
+        Example:
+           
+                Size% = GetSizeM%                   ' Amount of memory needed to 
+                                                    ' to hold the mouse 
+                                                    ' driver's environment.  
+                Buff1$ = SPACE$(Size%)              ' Pad buffer with spaces.
+                
+                CALL SaveStateM(Buff1$, ErrNum%)    ' Save mouse state.
+
+                SHELL"XXXX"                         ' Pass control.
+
+                CALL RestoreStateM(Buff1$, ErrNum%) ' Restore state.
+
+        Comments:
+
+                If your program needs to temporarily pass control to another
+                program or procedure that also uses the mouse and where the 
+                mouse state may be altered (such as a video mode change), use 
+                GetSizeM along with this subroutine, to save the mouse state
+                first before passing control. When your program has regained
+                control, use RestoreStateM to restore the driver's state.
+                
+                For a working example see: DEMO3.BAS
+
+        ---------------------------------------------------------------------
+                                                      Assembly subroutine.
+        
+        
+        
+        
+        See also:
+
+                 GetSizeM, RestoreStateM 
+
+                                                           
+                                                           
+                                                           Page 20
+
+
+        
+
+        
+        
+        SetBoundM
+        ---------------------------------------------------------------------
+
+        Confine pointer movement to a specified area on the screen.
+
+        DECLARE SUB SetBoundM(x1%, y1%, x2%, y2%)
+
+        Syntax: CALL SetBoundM(x1%, y1%, x2%, y2%)
+                
+                x1%, x2%  Left and right boundaries (in pixels).
+                
+                y1%, y2%  Top and bottom boundaries (in pixels).
+        
+        Example:
+           
+                                                 'Limit pointer  to an  area
+                                                 'starting in the upper left
+                                                 'corner of the screen,  100
+                                                 'pixels wide by 100  pixels 
+                                                 'high.
+                CALL SetBoundM(0, 0, 100, 100)
+                
+        Comments:
+
+                             
+                SetBoundM does the same thing as calling both SetHLimitM and
+                SetVLimitM, but does it with only one call. 
+        
+                For a working example see: DEMO4.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+        
+        See also:
+                 
+                SetHLimitM, SetVLimitM.                                                   
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 21
+
+
+
+    
+
+    
+    
+        SetHLimitM
+        ---------------------------------------------------------------------
+       
+        Define a left and right boundary in which the horizontal movement of
+        the mouse pointer will be confined to.
+       
+        DECLARE SUB SetHLimitM(X%, Y%)
+      
+        Syntax: CALL SetHLimitM(X%, Y%)
+            
+                X%   Minimum left limit in pixels.
+               
+                Y%   Maximum right limit in pixels.
+
+        Example:
+       
+                X1% = 0   'Create a window in which the pointer will be
+                Y1% = 100 'confined to.
+                X2% = 0  
+                Y2% = 100
+
+                CALL SetHLimitM(X1%, Y1%)
+               
+                CALL SetVLimitM(X2%, Y2%)
+                                        
+        Comments:
+
+                If the left value is greater than the right value, this
+                routine will exchange the two. The pointer will then be
+                displayed within these two limits.
+    
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+    
+    
+    
+    
+        See also:
+
+                 SetVLimitM
+
+                                                       
+                                                       
+                                                       
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                           
+                                                           
+                                                           Page 22
+
+
+        
+
+        
+        
+        SetPointer
+        ---------------------------------------------------------------------
+
+        Display the mouse pointer at a new location.
+
+        DECLARE SUB SetPointer(X%, Y%)
+        
+        Syntax: CALL SetPointer(X%, Y%)
+                
+                X%   New horizontal position, in pixels.
+
+                Y%   New vertical position, in pixels.
+
+        Example:
+           
+                X% = 0
+                       'Upper left corner of the screen.
+                Y% = 0
+                   
+                CALL SetPointer(X%, Y%)
+
+                
+        Comments:
+
+                
+                If X% or Y% are outside of any defined limit, such as off
+                the screen, the mouse driver will automatically place the
+                pointer to the nearest legal limit.
+        
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+        
+        
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 23
+
+
+    
+
+    
+    
+        SetSpeedM
+        ---------------------------------------------------------------------
+
+        Set the sensitivity state of the mouse.
+
+        Use in conjunction with: GetSpeedM
+     
+        DECLARE SUB CALL SetSpeedM(H%, V%, D%)
+
+        Syntax: CALL SetSpeedM(H%, V%, D%)
+            
+                H%   New horizontal value (1 - 100).
+               
+                Y%   New vertical value (1 - 100).
+               
+                D%   New double speed threshold (1 - 100).
+
+        Example:
+       
+                'Get and save the current  sensitivity state of the  mouse.
+                'Upon ending your program, pass these values to the routine
+                'SetSpeedM,  which will restore the  settings back to their
+                'original state.
+             
+                'Program startup.
+                                                        
+                CALL GetSpeedM(SaveH%, SaveV%, SaveD%) ' Save old setting.
+                CALL SetSpeedM(50, 50, 80)             ' New setting for your
+                                                       ' program's use.
+                'Program code.
+             
+                CALL SetSpeedM(SaveH%, SaveV%, SaveD%) ' Restore setting.
+
+                'End of program.
+            
+        Comments:
+
+                Mouse sensitivity  is defined as how far the pointer moves
+                per  actual  movement of the mouse itself.  The higher the
+                values in X%, Y% the greater the sensitivity.
+    
+                For a working example see: VIEWSHP.BAS
+    
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+    
+        
+        See also:
+
+                 GetSpeedM
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 24
+
+
+     
+
+     
+     
+        SetVLimitM
+        ---------------------------------------------------------------------
+       
+        Define an upper and lower boundary in which the vertical movement of
+        the mouse pointer will be confined to.
+
+        DECLARE SUB SetVLimitM(X%, Y%)
+       
+        Syntax: CALL SetVLimitM(X%, Y%)
+             
+                X%   Minimum upper limit in pixels.
+                
+                Y%   Maximum lower limit in pixels.
+
+        Example:
+        
+                X1% = 0   'Create a window in which the pointer will be
+                Y1% = 100 'confined to.
+                X2% = 0  
+                Y2% = 100
+
+                CALL SetHLimitM(X1%, Y1%)
+               
+                CALL SetVLimitM(X2%, Y2%)
+                                         
+        Comments:
+
+                If the upper value is greater than the lower value, this
+                routine will exchange the two. The pointer will then be
+                displayed within these two limits.
+     
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+
+
+
+
+        See also:
+
+                 SetHLimitM
+
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           
+                                                           Page 25
+
+
+     
+
+     
+     
+        ShowPointer
+        ---------------------------------------------------------------------
+
+        Display the mouse pointer on the screen.
+
+        Use in conjunction with: HidePointer
+      
+        DECLARE SUB ShowPointer
+      
+        Syntax: CALL ShowPointer
+             
+
+        Example:
+        
+                CALL HidePointer
+                                         
+                PRINT "A line of text."
+             
+                Call ShowPointer
+             
+        Comments:
+
+                You must turn off the  pointer before  doing any  drawing or
+                printing on the screen;  this will prevent the pointer  from
+                being overwritten.  It should also be  noted that  the mouse
+                driver increments a counter each time the pointer is  turned
+                off, and decrements that count for each call to turn it back
+                on. This count must  equal zero before the driver will  turn
+                the pointer back on.  For example;  if HidePointer is called
+                3 times, then ShowPointer must also be called 3 times before
+                the pointer will become visible.
+              
+        ---------------------------------------------------------------------
+                                                      Assembly Subroutine.
+     
+     
+     
+     
+        See also:
+
+                 HidePointer, ShowPtrM
+
+                                                        
+                                                        
+                                                        
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                         
+                                                          
+                                                           
+                                                           
+                                                           Page 26
+
+
+        
+
+        
+        
+        ShowPtrM
+        ---------------------------------------------------------------------
+
+        Restore the mouse pointer on the screen.
+
+        Use in conjunction with: GetSizeM
+
+        DECLARE FUNCTION ShowPtrM%(Buffer$)
+        
+        Syntax: ErrNum% = ShowPtrM%(Buffer$)
+                
+                Buffer$   ShowPtrM% needs a working space of at least twice  
+                          the size of the mouse driver's environment.  
+
+                ErrNum%   If successful a value of 0 will be returned.
+
+                          If unsuccessful a value of -1 will be returned
+                          (Buffer$ was of insufficient size).
+                          
+
+        Example:
+           
+                Size% = GetSizeM%           'Amount of memory  needed to hold 
+                                            'the mouse driver's  environment.  
+
+                Buffer$ = SPACE$(Size% * 2) 'Pad buffer with spaces.
+                
+                ErrNum% = ShowPtrM%(Buffer$)
+
+                Buffer$ = ""                'Release memory.
+
+        Comments:
+
+                The purpose of this function is to turn the  pointer on (make
+                it visible), whether it  has been previously  turned off once 
+                or multiple times.
+                
+                NOTE! This function does  take time so use when  speed is not
+                critical.
+        
+                For a working example see: DEMO2.BAS
+        
+        ---------------------------------------------------------------------
+                                                      Assembly function.
+        
+        
+        
+        
+        See also:
+
+                 GetSizeM, ShowPointer
+
+                                                           
+                                                                      
+                                                           Page 27
+

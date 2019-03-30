@@ -1,0 +1,48 @@
+                           Disk Vendor Information
+    
+         You are authorized to distribute the Compiler/Linker Assistant as
+    a part of your catalog provided you follow these guidelines:
+    
+    1. You must ensure the shareware concept is made known to potential
+       customers, and their purchase does not constitute registration of
+       this program.
+    
+    2. You must include all files in this package in unmodified form. If
+       desired, you may omit the optional files VENDOR.DOC, BBS.DOC, and
+       FILE_ID.DIZ. You may place an advertisement file with this package.
+
+    3. I do not request that you stop.
+    
+         That's it. If you drop me a letter informing me of your intent to
+    distribute this program, I will be happy to send you the latest
+    version on disk. I will then place you on my mailing list to ensure
+    you always have the newest version available.
+    
+         Send all distribution requests to:
+    
+                             Robin Duffy
+                             P.O. Box 269
+                             Bronston, KY 42518-0269
+
+                        
+    PROGRAM CATAGORIES:
+         Basic, QuickBASIC, Programming, Utilities
+    
+    SHORT DESCRIPTION:
+         Compiler/Linker Assistant for QuickBASIC 4.0+. Full screen or
+         command line make utility.
+    
+    MEDIUM DESCRIPTION:
+         The Compiler/Linker Assistant for QuickBASIC 4.0+. This make
+         utility operates either in full screen or command line modes.
+         Features multiple module support and extensive help. Save the
+         options for each program for easy rebuilding of programs.
+    
+    LONG DESCRIPTION:
+         The Compiler/Linker Assistant for QuickBASIC 4.0+. This
+         full-featured make utility will compile and link QB source code
+         in full screen interactive mode or from the DOS command line.
+         Features include multiple module, library and stub file support,
+         and intelligent compiling selection. Save the options for each
+         program separately and rebuild your code at any time. All compile
+         and link command line options are listed in the online help.

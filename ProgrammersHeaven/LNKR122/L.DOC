@@ -1,0 +1,489 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                The QuickBASIC
+
+                          Compiler/Linker Assistant
+
+                                 Version 1.2
+
+
+
+
+
+
+
+
+                      (C) Copyright 1991 by Robin Duffy.
+                             All rights reserved.
+
+            QuickBASIC is a registered trademark of Microsoft Inc.
+
+
+
+
+                     SECTION ONE: Introduction to L.EXE
+
+    1.1 Program Overview
+
+            L.EXE is a utility designed to help compile and link stand
+       alone programs from QuickBASIC 4.0+ source code. It operates much
+       like the compile options from within the environment but allows
+       total control over the compiling and linking process. After
+       setting the options YOU want, simply press one key and let L.EXE
+       do the work for you!
+
+            Why compile and link away from QuickBASIC? Good question. By
+       compiling away from the environment you can create smaller
+       programs that execute faster. For example, if your program does
+       not require use of the COM port, the code is STILL ADDED anyway.
+       Linking your program with NOCOM.OBJ (as supplied with QB 4) will
+       eliminate the extra code - if you link from the command line.
+       Another good example of this is using ON ERROR. ON ERROR has two
+       different sets of code, but both are added even if you only use
+       one of them. By setting your own options you can eliminate a lot
+       of useless code and gain speed as a benefit.
+
+            Compiling and linking from the DOS command line is fairly
+       simple if you are compiling only one module and linking with only
+       one library. Start adding modules and the process gets more
+       involved, fast. Worse yet, most "toolboxes" come as libraries you
+       must add, and there are stub files to add as well. Almost a hopeless
+       situation - until L.EXE.
+
+            Tell L.EXE what compiler options you want. Set your own
+       link options as well. Specify three (or more) libraries and
+       throw in a couple of stub files to boot. Give it the name of your
+       source file and press a key. L.EXE will give all the necessary
+       commands to compile your source code. Multiple modules? No problem.
+       L.EXE will find your MAKE file and add the needed modules automatic-
+       ally. Compiling and linking away from the QB environment need not be
+       difficult - if you have the right tool.
+
+    1.2 Requirements for L.EXE
+
+            L.EXE requires DOS 3.0 or later and at least 256K system
+       memory in order to operate. You may use L.EXE with one disk
+       drive although a hard disk is strongly recommended for best
+       operation. This program is intended to be used with BC.EXE and
+       LINK.EXE as provided with QuickBASIC 4.0 + 4.5 and has not
+       been tested with other compilers.
+
+            In addition to all this you will need your own source
+       files and your own libraries. L.EXE is meant as an interface
+       for QB only and does not provide the programs necessary for
+       compiling and linking source files. This is left up to you to
+       provide.                     
+
+    1.3 Support Files for L.EXE
+
+            During normal operation L.EXE uses and creates several files.
+       Listed below are some of these files and their respective notes.
+
+            L.HLP - This file contains the help screens for L.EXE.
+            It should be placed in the same directory as L.EXE for
+            proper operation. L.EXE can function without this file but
+            help will not be available.
+
+            *.LNK - These files are created by the program when you
+            push the F2 key (see "Program Operation" for more info).
+            These files are created in the directory where L.EXE is
+            located regardless of the current directory.
+
+            BC.EXE - The QuickBASIC compiler program versions 4.0 or 4.5.
+            L.EXE has not been tested with earlier versions.
+
+            LINK.EXE - As supplied with QuickBASIC.
+
+            *.OBJ - These are the compiled source object files and stub
+            files. BC will create these in the current directory. Link will
+            then use these to create the finished program.
+
+            *.LIB - The various library files. One is BCOM45.LIB, which
+            is used for stand-alone EXE files. Toolbox kits often come in
+            the form of libraries which can also be added.
+
+            *.BAS - Your BASIC source files.
+
+            *.MAK - If you use multiple modules QB will create a file
+            with a .MAK extension containing a list of all modules
+            included with your code. If it exists, L.EXE will read this
+            file and add the specified modules to your program
+            automatically.
+
+            There is quite a bit to keep track of while compiling and
+       linking programs. You can see that without a utility such as
+       this, creating stand-alone programs can be a grueling process. L.EXE
+       can let you to benefit from separate compiling and linking while
+       shielding you from the rigors of such a process. The next section
+       tells you how.
+
+                        SECTION TWO: Program Operation
+
+    2.1 Getting Started
+
+            To start the program type "L" (without quotes) from the DOS
+       prompt. This will start the program and display the main screen.
+       You may also use the command line switches to alter the operation of
+       the program. The command line options are:
+
+               /Q - Select quiet mode. This will turn off the alarms
+               present in L.EXE. Please note this will not silence the
+               beeps given by BC.EXE should errors occur.
+
+               /R Filename - will read a data file at start up. See the
+               section on multiple data files for more information.
+
+               /C Filename - will compile a data file in batch mode. See
+               the section on command line operation for more information.
+
+            The main screen is divided into three main sections of
+       information that you will need to enter. Some fields are optional
+       while others are required. To enter information just type it in. You
+       can use the up/down arrow keys to move from field to field. Please
+       note the text in the current field is in high intensity - this will
+       help distinguish the field you are in. While entering information
+       you may use the insert/del keys and the left/right arrows. Let's now
+       look at the top section of information.
+
+            The top section consists of path information concerning your
+       computer set up. It is necessary for L.EXE to know where you
+       keep certain items. Please enter the path to your source file
+       directory, the directory where you keep BC and LINK, your library
+       directory, and where you keep stub files. When specifying paths the
+       drive parameter is optional. For hard disk use both of the following
+       examples are valid:
+                             c:\qb\basfiles
+                             \qb\library
+
+            If you leave a path blank L.EXE will use the current directory.
+
+            L.EXE is set up to allow maximum organization of your hard
+       disk. If you are using a one or two drive system please see the
+       sections dealing will those situations under "Compiling and
+       Linking Your Program" elsewhere in this text.
+
+            The middle section is where you specify your options for BC
+       and LINK, what libraries you want to link with, and any stub files
+       you may want to add to your program. The options for BC and LINK are
+       in the form of command line switches. Specify these switches as
+       though you were giving them on the command line (ex: /o /s /t for
+       BC.EXE)
+
+            There is one field for compiler options and two for link
+       options. There are 27 different options you can specify for LINK,
+       so the extra field has been added. You may use either of the link
+       option fields or a combination of both.
+
+
+            Next specify which libraries you wish to link with. Multiple
+       libraries can be specified by separating each library in this field
+       by a space. The libraries are presented to LINK in the order you
+       give them. Giving a path with a library will override the path given
+       in the top section.
+
+            Stub files are any special purpose object files you may want to
+       add to your program. These are object files such as NOCOM.OBJ,
+       NOEM.OBJ, and SMALLERR.OBJ. By using object files such as these you
+       can dramatically shrink the size of your code. If you plan to use
+       multiple stub files be sure to separate each name in the field by a
+       space. Giving a path with a stub file will override the path given
+       in the top section.
+
+            You can fit more names in each field by not giving an extension.
+       Extensions are not necessary for any of the information you enter.
+       L.EXE, BC, and LINK know what the extensions are and will add them
+       for you.
+
+            The final section is where you tell L.EXE what source file
+       you wish to compile and the name you want to give it. The source
+       name field is designed to accept only ONE file name. If your program
+       consists of several separate modules QB will create a make file in
+       your source directory containing all the modules to your program.
+       L.EXE will read this file if it exists and add all the modules in
+       the make file to your program. The compiler options you specify will
+       be applied to all modules so they  are all compiled the same.
+       Consult your QB manual for more information about .MAK files.
+
+            In the last field place the name you wish to give your
+       program. If left blank the name will default to the same name as your
+       source file. The extension .EXE is assumed. You may also enter a path
+       to create the file in a different directory.
+
+    2.2 Multiple Data Files
+
+            L.EXE can save the information you have entered into a data
+       file. You may store a virtually unlimited number of different data
+       files. After entering data press the F2 key. L.EXE will save the
+       data into a file with the same name as your source file with the
+       extension of ".LNK" in the same directory as L.EXE. You may then
+       load this file at any time if you desire to recompile your program.
+       If the source data field is blank, the program will create a data
+       file called LINKER.LNK (the default data file).
+
+            You can load a data file into the program in one of two ways.
+       You may read a data file from the DOS command line using the command
+       line switch /R like this:
+
+                                 L /r datafile
+
+       where datafile is name of the data file to read. The extension is
+       not necessary.
+
+            You may read a data file once the program is running by
+       pressing the F3 key. This will produce a menu of the available data
+       files. Use the arrow keys to highlight a data file name and press
+       ENTER. If you have more data files than will fit on the menu, scroll
+       the menu by running the highlight bar off the menu. Press ESC if you
+       decide not to read a data file.
+
+    2.3 Help
+
+            Pressing the F1 key will activate L.EXE's help system. A
+       small menu will appear in the middle of the screen listing the
+       help topics available to you. Highlight the topic you want help
+       on and press the ENTER key to see it.
+
+            At the bottom of each help screen are listed all your
+       available options. Pressing ESC at any time will exit help and
+       return you to the main screen. Please be sure that L.HLP is in the
+       same directory as L.EXE or help will not be available!
+
+    2.4 Quiet Mode Operation
+
+            Start the program with the /Q command line switch if you do not
+        want to hear all the bells and whistles from the program. This will
+        silence everything with the exception of BC. BC.EXE is a separate
+        program and cannot be silenced by this program.
+
+    2.5 Color Configuration
+
+            You may set your own color combinations by pressing F4. This
+        will present a menu of the configurable options and two sample
+        windows. Use the arrow keys to highlight the item you wish to
+        change and press ENTER. This will produce a chart of the available
+        color combinations. Use the arrow keys to select the color
+        combination of your choice and press ENTER. You may exit the color
+        chart without selecting a color by pressing ESC.
+
+            After setting the colors you have three exiting options. Choose
+        "Exit with old colors" to ignore all the changes you have made. If
+        you select "Exit with new colors", the new colors will be in effect
+        until you exit the program. "Write colors to disk" will create a
+        file named L.CFG in the same directory as L.EXE. Doing this will
+        set new default colors that will be read by L.EXE every time it
+        starts. Use this to permanently set your new colors.
+
+    2.6 Text Editor Operation
+
+            You may run a text editor directly from L.EXE by pressing ALT-E
+        while at the main screen. This will invoke your text editor
+        directly. There are no parameters passed to the editor. After
+        exiting the editor you will be returned to the main screen.
+
+            Press Ctrl-E to configure the text editor name. This will
+        allow you to use your favorite editor to work directly with your
+        source code. Your default editor choice is saved when you save your
+        color configuration (see the above section).
+
+    2.7 Other Information
+
+            There are two other keys that have special meaning to L.EXE.
+        Pressing ESC while at the main screen will exit the program. The
+        TAB key will start the compiling/linking process, as covered in the
+        next section.
+
+            SECTION THREE: Compiling and Linking your Program
+
+    3.1 General Operation
+
+            Now that you have entered all the necessary data to create
+       your program, press the TAB key and let it fly. L.EXE will first
+       locate your source file(s) and call BC to compile them one at a time.
+       If any modules compile with errors L.EXE will detect this condition
+       and halt the process. You will then be brought back to the main
+       screen where you may be able to correct the problem and try it again.
+
+            Once a module has compiled without errors, L.EXE will clear
+        the archive bit of the source file. When compiling, L.EXE first
+        checks for the presence of an object file of the same name as the
+        source. If this object file exists, L.EXE then checks the archive
+        bit of the source code. If the archive bit is clear, L.EXE will
+        skip compiling this module and continue with the next. This
+        intelligent selection will really save time on large programs,
+        because it will compile only those modules that need compiling.
+
+            Once everything is compiled, L.EXE will call LINK.EXE to link
+       your program. L.EXE will set up the link call using the switches,
+       libraries, and stub files you specified in the information section.
+       Once again L.EXE will supervise the linking process and return to
+       the main screen should an error occur. When the new program is
+       completed L.EXE will automatically exit to DOS.
+
+    3.2 Single 5.25" Drive System:
+
+            I'm not going to kid you here. Using a single drive system
+       poses some serious limitations on your final program size. You
+       will need three blank floppy disks. Label them A, B, and C, and
+       set them up as follows:
+
+                                DISK A
+                                ------
+                                L.EXE
+                                BC.EXE
+                               LINK.EXE
+                           Your source file(s)
+
+                                DISK B
+                                ------
+                              BCOM40.LIB or
+                              BCOM45.LIB or
+                          Other run-time library
+                            Any toolbox library
+                             Any stub files
+
+                                DISK C
+                                ------
+                                BLANK
+
+
+            Start L.EXE from Disk A. Leave the paths to the source files,
+       BC and LINK blank. Set the library and object file paths to "b:"
+       (without quotes). Set the switches as you desire, but include the
+       /PAU switch for LINK. After the above is done press the TAB key to
+       start. When LINK starts you will be prompted to swap disks in drive
+       A:. When LINK asks for the disk for drive B: insert your B disk. You
+       will need to swap disks a couple of more times before the process is
+       complete.
+
+            Before LINK writes the final executable program, it will ask
+       you to place a new disk in drive A:. Insert your final blank disk
+       (DISK C) into the drive and push ENTER twice. The third disk will
+       now contain your finished program.
+
+            You can create an extra 42K of disk space if you start L.EXE
+       from a different disk and eliminate it from DISK A. Once the main
+       screen appears it is safe to remove the program diskette from the
+       drive.
+
+    3.3 Single 3.5" Drive System
+
+            This configuration will give much needed breathing room. You can
+       do the entire process from one disk. However, if you follow the
+       procedure for a 5.25" drive system (without the third blank disk) you
+       can create programs of virtually unlimited size. You will still need
+       to swap disks when prompted.
+
+    3.4 Dual Drive System (any size drives)
+
+            The procedure is basically the same as a single drive
+       system. The advantage here is no disk swapping should be needed.
+       Put DISK A in drive A: and DISK B in drive B:. For two 5.25"
+       drives I still recommend using the /PAU link option and a third
+       blank disk.
+
+    3.5 Hard Disk System
+
+            Here is where you will receive the full benefit of L.EXE's
+       services. You are encouraged to separate different type files into
+       their own subdirectories. Doing so will make finding different files
+       easier as well as cleaning your QB directory up quite nicely.
+       QuickBASIC itself can be set up to use multiple subdirectories.
+
+            Another advantage is speed. L.EXE can compile and link a program
+       about three times as fast on a hard disk as on floppies. Yet another
+       advantage is in the additions you can make to your program. Some
+       toolbox kits will not fit on a floppy disk along with a run-time
+       library. Using a hard disk means you can use two, three, or more
+       libraries and three or four stub files without fear of the "Disk Full"
+       error.
+
+            To use L.EXE on a hard disk just enter the path information
+       into the proper areas and use it. L.EXE was designed to be run from
+       its own directory on your PATH. You are free to choose the method that
+       suits you best.
+
+    3.6 Command Line Operation
+
+            L.EXE can operate in batch mode for use in batch files. This
+        requires a data file that contains enough information to compile
+        and link a program. Invoke batch mode by using the /C command line
+        switch like this:
+                                 L /c datafile
+
+        where datafile is the name of the data file describing the source
+        code to compile and link. When started in this manner, L.EXE will
+        first examine the file for accuracy, and then immediately compile
+        and link your program. Should an error occur L.EXE will set the DOS
+        ERRORLEVEL to a value of 50. You may test for this condition in the
+        batch file to determine the success of the operation.
+
+            At no time during batch operation will the main screen be
+        shown. If an error occurs, the process of compiling and linking is
+        halted and the program exits with the ERRORLEVEL set. Any error at
+        all will print an error message and exit.
+
+                        SECTION FOUR: Other Information
+
+    4.1 Site License Agreement
+
+            This program is distributed by the Shareware concept. It is
+       not free. You are granted limited license to use L.EXE on your
+       system to determine its suitability.
+
+            You are encouraged to give L.EXE to your friends and upload
+       it on your favorite BBS provided you adhere to these terms:
+
+            You cannot charge a fee for the program. You may charge a
+            distribution fee if you advise users this fee is for distri-
+            bution purposes only and not for the program itself.
+
+            You must include all the files included with this package in
+            complete and unmodified form.
+
+            If you find this utility helpful and plan to use it on your
+       system, please register your copy. Registration provides complete
+       support for this program, update notices, and the latest version on
+       disk. The registration form is in the text file REGISTER.DOC
+       included with this package.
+
+    4.2 Disclaimer
+
+            This program is supplied as-is, with no warranty of any kind
+        either written or implied. Robin Duffy can assume no liability for
+        any damages (either real or imagined) resulting from the use of
+        this software. Furthermore, I make no guarantee as to the
+        suitability of this software for any purpose.
+
+    4.3 Final Words
+
+            I would like to thank you for trying this program. BASIC has an
+        undeserved stigma of not being a real language. I, in my own little
+        way, hope to erase this stigma and reveal BASIC as a valid tool to
+        create useful applications. Perhaps a make utility such as this
+        will provide flexibility to programmers, who in turn can get the
+        most from their programs in terms of size and speed. Perhaps you
+        are one of these programmers.
+
+
+
+
+                              SUPPORT SHAREWARE!
+

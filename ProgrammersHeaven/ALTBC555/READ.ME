@@ -1,0 +1,207 @@
+       ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+       บ Assembly-Language Toolbox for QuickBASIC and VisualBASIC DOS บ
+       ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+                             By Christy Gemmell
+
+          อออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+          ABOUT SHAREWARE AND THE USE/DISTRIBUTION OF THIS SOFTWARE
+          อออออออออออออออออออออออออออออออออออออออออออออออออออออออออ
+  ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+  บ DISTRIBUTION OF *ANY* SOFTWARE, WHETHER FOR PERSONAL OR COMMERCIAL USE บ
+  บ IS STRICTLY PROHIBITED UNLESS THE PROFESSIONAL (REGISTERED) VERSION IS บ
+  บ PURCHASED! VIOLATORS WILL BE PROSECUTED TO THE FULL EXTENT OF THE LAW! บ
+  ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+Shareware distribution gives users a chance to try software before buying it.
+If you try a  Shareware  program and  continue using it,  you are expected to
+register. Individual programs differ on details  -  some request registration
+while others require it, some specify a maximum trial period.  Along with the
+registration,  you get anything from  the simple right  to continue using the
+software to an updated program with a printed manual.
+
+Copyright  LAWS  apply to both  Shareware and  Commercial  software,  and the
+copyright holder retains all rights, with a few specific exceptions as stated
+below.  Shareware authors are accomplished programmers,  just like commercial
+authors, and the programs are of comparable quality. In both cases, there are
+good programs and bad ones!  The main difference is in the method used in the
+distribution. The author specifically grants the right to copy and distribute
+the software,  either to all and sundry or to a specific group.  For example,
+some authors require  written permission before a  commercial disk vendor may
+copy their Shareware.
+
+So,  Shareware is a distribution method,  not a type of software.  You should
+find software  that suits your needs and pocketbook,  whether it's commercial
+or Shareware.  The Shareware system makes fitting your needs easier,  because
+you can try before you buy.  And because the overhead is low,  prices are low
+also.  Shareware has the ultimate money-back guarantee - if you don't use the
+product, you don't pay for it.
+
+You are granted a license to try this program for a period of 21 days. If you
+continue to use this program after the trial period is over you must register
+it by sending the registration form with remittance to either of the 2 listed
+addresses following in this document.
+
+This program may not be sold in  any form without the express written consent
+from  Christy Gemmell  -or-  CPC Consulting Company. If you  distribute  this
+program to friends or to a BBS, you *MUST* do so under it's given name!
+
+                  อออออออออออออออออออออออออออออออออออออออออ
+                  ABOUT THE ASSEMBLY LANGUAGE TOOLBOX (ALT)
+                  อออออออออออออออออออออออออออออออออออออออออ
+
+The fifth edition of the Assembly-Language Toolbox has many new features. EMS
+support has been added with a full set of routines for reading and writing to
+LIM 3.2 / 4.0 Expanded Memory.  Other routines  enable you to control the DOS
+print spooler and, thanks to Neil Carter,  it now has a complete set of Mouse
+functions.
+
+High-resolution graphics, a previously neglected area in the Toolbox, have at
+last been tackled and this release provides facilities for scrolling,panning,
+and controlling the intensity of graphics displays.  The routines for loading
+and saving high-resolution screens to  disk files have been rewritten in pure
+assembly-language and are, consequently, much smaller and faster. In addition
+I have  added routines for  drawing and scaling  high-resolution text  in any
+combination  of colours that your  video card is capable of displaying.  This
+includes computers fitted with  CGA,  MCGA,  EGA and  VGA adaptors.  Hercules
+graphics cards are not, as yet, supported.
+
+Version  5.xx adds  a few new requested features;  DOSBOX which allows you to
+SHELL and run  DOS commands  in a window  is particularly popular.  There are
+also routines  to redirect output from a  SHELLed program to the printer or a
+file,  to stuff up  to fifteen keystrokes into the keyboard typeahead buffer,
+to locate  the  DOS master  environment  and  to find  the  pathname  of  the
+currently executing program.
+
+As in previous releases, two(2) versions of the Toolbox library are included.
+The first, ALTQUICK.LIB,  is intended for  linking with  stand-alone programs
+which are run  from the DOS command line.  To do this you  must first compile
+your program using BC's /O switch, eg:
+
+                             BC /O YOURPROG.BAS;
+
+where YOURPROG.BAS is, of course, the name of your program.
+
+The  resulting object  file should then  be linked  to the library  using the
+version of LINK.EXE which came with your QuickBASIC compiler, viz:
+
+                        LINK YOURPROG,,,ALTQUICK.LIB;
+
+This will produce  an  EXEcutable program,  YOURPROG.EXE,  which  can  be run
+completely stand-alone,  without the need  for the QuickBASIC  support module
+BRUN45.EXE  to  be present  at  runtime.  It can,  therefore,  be distributed
+freely without the need for royalty payments considering that the  REGISTERED
+version of the library was used to create the Stand-Alone. *See Warning about
+this at top of this document*!
+
+ALTQUICK.QLB,  the second version of the library,  is used for the developing
+programs in the QuickBASIC environment. To load it, use the following command
+when starting up QuickBASIC:
+
+                         QB YOURPROG /L ALTQUICK.QLB
+
+Thereafter your program can call any of the Toolbox functions and procedures,
+provided that it includes the appropriate DECLARE statements at the beginning
+of its' code.
+
+DECLARE  statements are  prototype descriptions  of the  SUB programs and the
+FUNCTION procedures  which your  program will CALL.  The  QuickBASIC compiler
+uses them to determine the number of arguments that need to be passed and how
+the routines are to be called. Once declared, a library routine needs only to
+be named  for it to  be executed and becomes,  in effect, an extension to the
+QuickBASIC language. To use the Toolbox FASTPRINT routine,  for example,  add
+the following lines to your program:
+
+DECLARE SUB FastPrint (BYVAL Row%, BYVAL Col%, Message$, BYVAL Attribute%)
+FastPrint 25, 34, "Hello World!", 48
+
+This will print 'Hello World!' at the centre of the bottom screen row,  using
+black characters  on cyan background assuming that you have a colour monitor.
+Notice that you don't even have  to use a  CALL statement to invoke FastPrint
+and that the parentheses around the argument list are not required.
+
+DECLARE statements  have another use when building  stand-alone programs with
+LINK.EXE.  They tell the  linker to  attach only  the modules  containing the
+declared  library routines  to your program,  and no others.  This helps keep
+your .EXE file smaller by preventing them from being burdened with any of the
+unneccessary code.  The file  ALTQUICK.DEF  contains a  full  set  of DECLARE
+statements for all the library routines on this disk. Just paste the ones you
+need into your current program.
+
+If you have been using  a previous  version of the Toolbox,  please note that
+many of the  DECLARE statements  for  previously existing  routines have been
+changed.  In particular,  a number of  arguments which were previously passed
+by  reference  are now passed  BY VALue.  Others have  been given  additional
+parameters.  Before  you  link any existing code  to  the new version  of the
+ALTQUICK.LIB, you should check with ALTQUICK.DEF that your DECLARE statements
+are still valid.
+
+The  \HELP subdirectory contains a number of ASCII topic files which are used
+by DEMON.EXE,  a Toolbox demonstration program,  to provide context-sensitive
+help. If you are copying the Toolbox package to your hard disk, be aware that
+not all of these are  visible to normal directory listings  (see the HELPMATE
+documentation  for  more information).   You may  also need  to set up  a DOS
+environment  variable  to point  to  the subdirectory you  transfer the topic
+files to, otherwise DEMON may not find them, eg:
+
+                          SET HELP=C:\QB45\HELPTEXT
+
+With this release  I have  also provided the source code for DEMON as a guide
+to using Toolbox routines  in your own programs.  Feel free to copy or modify
+any part of it as you see fit, for demonstration or learning purposes.
+
+If you intend to use the Toolbox on a regular basis, however, you MUST
+register your copy. For a modest fee, this will bring you a copy of the
+Professional version of the Toolbox, complete with all the source code,
+object modules for building your own custom libraries and many additional
+features. Registration also entitles you to a free upgrade to Release 6 of
+the Toolbox, when it becomes available, and to subsequent releases at a
+greatly reduced price. Full Hotline support is also included, at no extra
+charge.
+
+                        อออออออออออออออออออออออออออออ
+                        FOR MORE INFORMATION CONTACT:
+                        อออออออออออออออออออออออออออออ
+
+James Kreyling      CPC Consulting Company
+                    1217 Crescent Drive
+                    Smithfield, Va. 23430
+                    U.S.A.
+
+          Tel:      (804)-357-9190 (Voice)
+                    (804)-357-9190 (FAX)
+                    (804)-PRI-VATE (Club-PC BBS Node #1)
+                    (804)-357-0357 (Club-PC BBS Node #2)
+                    (804)-622-8011 (Club-PC BBS Node #3)
+                    (804)-357-3416 (Club-PC BBS Node #4)
+
+
+Christy Gemmell     Apt.13, Beckville Building
+                    17 Glebe Street
+                    Leicester LE2 0JR
+                    England
+
+          Tel:      (044)-0533-540720
+
+                                ออออออออออออออ
+                                DID YOU KNOW ?
+                                ออออออออออออออ
+
+The  Assembly-Language  Toolbox (ALT) for QuickBASIC  is used by thousands of
+programmers in Great Britain,  Europe,  the USA and  Canada,  Australasia and
+Japan,  to build fast and powerful QuickBASIC programs.  It has been shown at
+COMDEX and was featured in the November 1990 issue of BYTE magazine.
+
+Christy Gemmell,  the author  of this package,  is also  major author  of the
+definitive textbook on  QuickBASIC programming,  the QuickBASIC BIBLE,  which
+is published  by Microsoft Press,  in association  with the  Waite Group,  at
+24.95 ($27.95 USD) ISBN 1-55615-262-0.  Its thousand  pages are  packed with
+information, tips and example programs which you wont find anywhere else.
+Look out for it in your local bookstore and grab a copy !
+
+  ษออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+  บ DISTRIBUTION OF *ANY* SOFTWARE, WHETHER FOR PERSONAL OR COMMERCIAL USE บ
+  บ IS STRICTLY PROHIBITED UNLESS THE PROFESSIONAL (REGISTERED) VERSION IS บ
+  บ PURCHASED! VIOLATORS WILL BE PROSECUTED TO THE FULL EXTENT OF THE LAW! บ
+  ศออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+

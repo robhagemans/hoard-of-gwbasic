@@ -1,0 +1,25 @@
+    BASIC error trapping
+    February 1, 1987
+    
+    
+    
+    Have  you  ever written a BASIC program error trapping routine and then 
+    sat  there  putting  in  stuff like IF ERR = 61 THEN PRINT "DISK FULL", 
+    etc.?  It  can  go  on  and  on...  I spent a little time and created a 
+    random  access  file  which  contains all of the error messages from my 
+    DOS  manual.  Each record number is the number of the error. Now I tell 
+    the  error  trapping  routine  to  open  the  error  file and print the 
+    message found in record # err.
+    
+    In  this  archive  you  will  find  the  data file (ERROR.DAT), a BASIC 
+    source  file showing an example of how to access the data (EXAMPLE.BAS) 
+    and  a  program which will display the messages if you want to see them 
+    (DEMO.EXE).  Everything  was  done for Microsoft's QuickBASIC, however, 
+    add line numbers and it will work with interpreted BASIC.
+    
+    This  file is PUBLIC DOMAIN and has not been tested extensively, so let 
+    me  know  if  you  encounter  any problems. In any case you are free to 
+    copy or modify anything you like.
+    
+                                                Al Harper
+                                 GENIE address: A.HARPER

@@ -1,0 +1,207 @@
+*****************************************************************************
+SVGAPB  A SVGA Graphics Lib For Use With PB Inc PowerBASIC 3.00c (and later)
+Copyright (c) 1993-1996 By Stephen L. Balkum and Daniel A. Sill 
+*****************************************************************************
+
+*****************************************************************************
+INTRODUCTION
+*****************************************************************************
+    SVGAPB is a Super VGA graphics library designed for use with 
+PowerBasic Inc's PowerBASIC 3.00c (and later).  It is written in 100% 
+assembly language for the best possible speed.  It provides the PowerBASIC 
+programmer with an easy interface to the high resolution/high color video 
+modes of the newer SVGA video cards.  Because there is no "standard" for VGA 
+video cards above the 320x200x256 resolution, each video card manufacturer 
+has implemented a slightly different method to access these high resolution/
+high color video modes.  This graphics library will automatically identify 
+the video card and its installed memory.  This way, the programmer may write 
+graphics programs that will work on most any SVGA card without writing 
+specific versions for each individual SVGA card.  Over 100 subroutines and 
+functions are provided.
+
+
+*****************************************************************************
+SYSTEM REQUIREMENTS
+*****************************************************************************
+        
+    This SVGA graphics library requires a 386sx or better processor (to
+take advantage of 32 bit instructions) as well as one of the following Super 
+VGA video card brands/chip sets:
+        
+        Acumos SuperVGAs
+        Avance Logic SuperVGAs
+        ATI Technologies SuperVGAs
+        Ahead SuperVGAs
+        Chips and Technologies SuperVGAs
+        Cirrus Logic SuperVGAs
+        Everex Micro Enhancer SuperVGAs
+        Genoa SuperVGAs
+        Mxic SuperVGAs
+        NCR SuperVGAs
+        Oak Technologies SuperVGAs
+        Realtek SuperVGAs
+        Paradise/Western Digital SuperVGAs
+        Primus SuperVGAs
+        Trident SuperVGAs
+        Tseng Labs SuperVGAs
+        Video 7 SuperVGAs
+        All VESA compatible SuperVGAs (version 1.00 and greater)
+
+    The maximum resolution is dependent on the video card, its 
+installed memory, and the video monitor.  Most VGA video cards support the 
+320x200x256 and 640x400x256 video modes.  512k of video memory is required 
+to support the 640x480x256 and 800x600x256 video modes.  1 meg of video 
+memory is required to support the 1024x768x256 video mode.  2 meg of video 
+memory is required to support the 1280x1024x256 video mode.
+    Also, video card manufactures are starting to provide VESA drivers 
+for their video cards. Contact the technical service department of your 
+video card manufacturer and see if they have a VESA driver available for 
+your card.
+
+Notes:
+1) Unfortunately, we currently cannot detect more than 1 Meg of video
+memory on ATI SuperVGAs.  We suggest users of 2 Meg ATI cards use the VESA
+driver with the pan option enabled (vvesa.com pan).  Any suggestions in this
+area are appreciated. 
+
+2) We have had several reports of buggy VESA had problems in the 800x600
+modes and some S3 based Number 9 cards do not support paging in correctly in
+all modes.  If the library identifies your video card as a "VESA compatible"
+and something does not work correctly, contact the manufacturer and see if
+they have a BIOS update available
+
+*****************************************************************************
+WHAT IS NOT INCLUDED
+*****************************************************************************
+    The following functions are not included with the shareware version. 
+Please note that we feel that these functions are not nessessary for the 
+evaluation of the library but do provide some incentive to register.
+
+    FILLCONVEXPOLY
+    FILLPOLY
+    PCXMAKE
+    XMSALLOCATE
+    XMSBLKGET
+    XMSBLKPUT
+    XMSCOPY
+    XMSERROR
+    XMSFREE
+    XMSGET
+    XMSPUT
+    XMSSCREENGET
+    XMSSCREENPUT
+    
+
+*****************************************************************************
+LEGAL STUFF
+*****************************************************************************
+
+NO WARRANTY / NO LIABILITIES:
+    Stephen L. Balkum, Daniel A. Sill, and Zephyr Software provide no 
+warranties, either expressed or implied, of merchantability, or fitness, 
+for a particular use or purpose of this SOFTWARE and documentation.      
+    In no event shall Stephen L. Balkum, Daniel A. Sill, and Zephyr 
+Software be held liable for any damages resulting from the use of, misuse of, 
+or inability to use, the SOFTWARE and documentation.
+
+
+COPYRIGHT:
+    This SOFTWARE is owned by Stephen L. Balkum, Daniel A. Sill and is 
+protected by both United States copyright laws, and international treaty 
+provisions. 
+
+
+U.S. GOVERNMENT RESTRICTED RIGHTS:
+    Use, duplication, or disclosure of the SOFTWARE and documentation
+by the U.S. Government is subject to the restrictions as set forth in 
+subparagraph (c)(1)(ii) of the Rights in Technical Data and Computer 
+Software clause at DFARS 252.227-7013. Contractor/manufacturer is Stephen 
+L. Balkum and Daniel A. Sill P.O. Box 7704, Austin, Texas 78713-7704
+
+
+OTHER RESTRICTIONS:
+    You may not rent, or lease, this SOFTWARE or documentation. You 
+may not network this SOFTWARE or documentation.  You may not disassemble
+or reverse engineer this SOFTWARE.  THIS SOFTWARE IS FOR EVALUATION ONLY.
+YOU ABSOLUTELY MAY NOT SELL, RENT, LEASE, GIVE AWAY ANY PROGRAMS WRITTEN 
+USING THIS SHAREWARE VERSION OF THIS SUPER VGA GRAPHICS LIBRARY.  ANYONE 
+FOUND DOING SO WILL BE PROSECUTED.
+
+
+*****************************************************************************
+REGISTRATION, UPGRADES, BUG REPORTS, ETC.
+*****************************************************************************
+
+REGISTRATION:
+    If, after evaluating this software, you would like to register it,
+the price is $35.00 for the first copy and $5 for each additional copy or
+upgrade (including alternate DOS versions). With registration you will 
+receive the registered version of the SVGAPB graphics library and the 
+following bonuses:
+
+    * Additional features such a PCX encoding, XMS support and the
+      polygon fill routines.
+    * MS Word 2.0 file Documentation (including drawings, table of contents,
+      complete index, ready to print).
+    * A text file version of the documentation (including a table of 
+      contents)
+    * A font editor (mouse/keyboard driven with source and samples)
+      that will allow you to create custom fonts (from 4x4 to 8x16)
+      as well as font object files that can be linked with your program.
+    * A mouse cursor editor (mouse/keyboard driven with source and
+      samples) that will allow you to create custom mouse cursors as
+      well as mouse cursor object files that can be linked with your
+      program.
+    * An Online PBH Help File for the Power BASIC IDE that contains 
+      information for every SVGAPB function and subroutine.
+    * Limited telephone technical support (evenings only, we will be
+      glad to help you with the use of our library, but we cannot debug
+      your code.)
+    * Discounts on upgrades and alternate DOS versions (such as the C
+      version (for MS, Symantec & Borland), the MS QuickBASIC version and the
+      MS PDS/VBDOS version).
+
+Please see the files 'ORDER.FRM' and 'CHARGEIT.FRM' for complete ordering
+    information.
+
+
+UPGRADES:
+    We will maintain a mailing list of registered users so we may
+notify you of future upgrades, discounts and products.  Should you discover
+that a new version exists and we have not notified you, please contact us
+for upgrade information and discounts.
+
+
+COMMENTS, SUGGESTION, BUG REPORTS:
+    We are very interested in what you think of our library, Please 
+send all comments, suggestions, ideas, and bug reports to:
+
+     Zephyr Software
+     P.O. Box 7704
+     Austin, Texas  78713-7704
+
+We can also be contacted through internet:
+        
+     balkum@phoenix.phoenix.net
+     sill@zeke.as.utexas.edu
+
+Our home page on the World Wide Web is:
+
+     http://www.phoenix.net/~balkum
+
+
+ABOUT SHAREWARE:
+    We are big believers in the shareware concept.  Both of us have
+purchased several shareware packages.  In keeping with the concept of 
+shareware, this software package is not vitally crippled, oversized,
+or otherwise disabled.  The only real difference between the registered 
+version and the shareware version is that the registered version will 
+have your name and a serial number encoded within it and you will be
+permitted to distribute programs written with it.
+
+Please help all shareware authors and register the software that you use.
+
+Thank you for taking the time to read this.
+
+    Stephen L. Balkum                       Daniel A. Sill
+ 

@@ -1,0 +1,275 @@
+BASWIZ 1.8, 09/01/92:
+
+   If you are a CompuServe user, you can now register BasWiz
+   online (GO SWREG).  See REGISTER.TXT for details.
+
+   The source code for the BasWiz routines which are written
+   in BASIC is now included in the shareware version.  A set of
+   near and far string libraries for the assembly language part
+   of BasWiz is also included.  This allows you to create a
+   BasWiz library for QuickBasic 4.x and PDS 6.0-7.1, rather
+   than just for QuickBasic 4.5 as in previous versions.
+
+   The file routines and virtual windowing system had a number
+   of problems with PDS far strings.  These have been fixed.
+
+   A number of routines that were in BASIC are now in assembly
+   language.  This caused the DECLARE for GCDI% to change.
+
+   The expression evaluator now supports the constant PI and a
+   variety of functions:
+     ABS, ACOS, ASIN, ATAN, COS, FRAC, INT, LOG, SIN, SQR, TAN
+
+   The N2 printer graphics mode now supports HP-compatible
+   laser printers as well as Epson-compatible dot matrix
+   printers.
+
+   A new screen mode, N6, has been added.  This provides full
+   support for dual monitor systems by allowing you to display
+   on the monochrome monitor even when it's supposedly the
+   "inactive" display.
+
+   The virtual window system now allows you to turn control
+   code interpretation on or off for any individual window.  It
+   also lets you get the memory location of virtual window data
+   in case you want to do something that the virtual windowing
+   system doesn't support directly.
+
+   Added LIB_BI.DOC, a tutorial which explains how to use
+   libraries and include files.  This is included with PBClone
+   by the kind permission of Daniel M. Smith, Jr., the author.
+
+   The documentation has been reformatted to make it easier to
+   print out, if you have the patience (about 80 pages).
+
+   If you use the excellent 4DOS command shell, try the new
+   ADD4DOS batch file-- it adds descriptions of all BasWiz
+   files which will show up when you type DIR.  No more
+   guessing about filenames!
+
+   Microsoft's simplified segment directives made it much
+   easier to create assembly language routines.  Unfortunately,
+   when you have a library as big as BasWiz, they're rather
+   counterproductive.  I've converted the BasWiz sources to
+   using the old-style full segment directives.  The added
+   flexibility this gave me provided a number of benefits:
+
+     - the .QLB library is smaller, providing more QB/QBX
+       environment space
+     - data areas have been consolidated, providing more data
+       space
+     - common code has been consolidated, reducing memory
+       requirements (and often improving the speed, since near
+       calls can be used)
+     - improved granularity
+
+   The upshot of all this is, BasWiz is smaller and faster.
+
+
+
+BASWIZ 1.7, 11/08/91:
+
+   A bug in the FracCompare% (compare fractions) function has
+   been fixed.  It wouldn't correctly compare two numbers if
+   they had different signs.
+
+   Scrolling in virtual windows had been turned OFF by
+   default.  It should have been turned ON by default.  This
+   has been corrected.
+
+   The BASIC far strings provided by the BC7 ("PDS") compiler
+   are now supported.  This means you can use BASWIZ in the QBX
+   environment.  Only the registered version provides this
+   feature, since you must recompile the BASIC sources with
+   whatever PDS version you have.
+
+   The assembly language sources have been converted from
+   OPTASM to MASM 6.0.
+
+   It has been brought to my attention that not everyone needs
+   the full power and complexity of the virtual windowing
+   system.  So, I've added mode 0 to the graphics routines.
+   This includes graphics-style support (such as line drawing
+   and banners) as well as fast text handling.  Unusual text
+   modes (e.g., 132x60 SVGA text mode) are also supported.
+
+
+
+BASWIZ 1.6, 09/11/91:
+
+   Support for extended 256-color modes has been added to allow
+   use of 640x350, 640x400, 640x480, and 1024x768 modes with
+   Tseng-based SuperVGAs that provide such modes.  Other
+   256-color modes which use the same paging scheme are also
+   supported (you may specify the BIOS mode number and
+   resolution). Since my monitor doesn't like the 800x600
+   256-color mode for some reason, I was unable to test this
+   resolution, but the routines should support it.
+
+   The various EGA/VGA character set sizes are now supported.
+   This allows use of either 25 or 43 rows in SCREEN 9 and 10,
+   and either 30 or 60 rows in SCREEN 11 and SCREEN 12.
+
+   Several graphics modes had a bug in scrolling.  It's gone.
+
+   The virtual window system had a bug in WPlace-- it wouldn't
+   work properly when the window width or height was equal to
+   the virtual screen width or height, that is, when a logical
+   dimension was the same as a physical dimension.  Umm, yeah.
+   Well, anyway, it's gone now.  Thanks to Max Kull for finding
+   this problem and helping me eliminate it.
+
+   In BasWiz 1.5, a BASOBJ.ZIP file was included which
+   contained all of the object files for BasWiz.  This has been
+   replaced with BASWIZ.LIB.  Use the utilities included with
+   LIBWIZ (separate) to extract all of the .OBJ files from the
+   library to allow you to create your own custom libraries.
+
+
+
+BASWIZ 1.5, 04/01/91:
+
+   This library is now too large for BASIC to cope with as a
+   unit.  Look for LIBWIZxx.ZIP (separate), a library manager
+   which will allow you to create custom libraries containing
+   just the routines you need.
+
+   WARNING: Using certain BasWiz routines in the QuickBasic
+   environment may cause your computer to lock up!  This is due
+   to a bug in QB's SETMEM function and does not affect
+   programs compiled by BC.  Affected routines are: file
+   handling, virtual window, telecommunications, memory
+   allocation, far string, and Epson printer graphics (GN2xxx)
+   routines.
+
+   Since my GrafWiz and MathWiz libraries have attracted
+   relatively few registrations, I've merged them with BasWiz.
+
+   The WInput routine has been modified so that a "backspace"
+   or "delete character" affects just the input field, not an
+   entire line.
+
+   Several bugs in the expression evaluator were fixed.  The
+   left-to-right precedence of subtraction now works properly.
+   Negation is now handled with more aplomb.  The expression
+   evaluator is no longer sensitive to spaces and will accept
+   "**" as a substitute for "^".  A demo, CALC.BAS, has been
+   added.  Note: QuickBasic and BASCOM have the same bug in its
+   expression evaluator that Evaluate used to have, i.e.,
+   evaluating powers before negation (for instance, -2^2 would
+   be reported as -4 instead of 4)!
+
+   A bug in the ScreenSize routine was fixed.  It will now
+   return a reliable row count for MDA, HGA and CGA displays as
+   well as more recent adapters.
+
+   The source for PrintScreen somehow got corrupted and I don't
+   have any valid backup copies.  It has been removed until I
+   can rewrite the routine.
+
+   The Hercules graphics routines have been altered.
+
+   Assorted additions have been made to the virtual windowing
+   system:
+     -- Pop-up menus with auto up/down scrolling
+     -- Shadowed windows
+     -- Hidden windows
+     -- Control over automatic scrolling
+
+   For BASIC single and double precision numbers, the following
+   routines have been added: inverse hyperbolic cosine, inverse
+   hyperbolic sine, inverse hyperbolic tangent.
+
+   The integer or fractional parts of BCD numbers can now be
+   extracted with the BCDInt$ and BCDFrac$ functions.
+
+   Support for EGA monochrome graphics (SCREEN 10) has been
+   added.
+
+   The Epson graphics routines now support three fonts via
+   GN2GetFont% and GN2Font.  The latter MUST BE USED to
+   initialize the font before using GN2Write or GN2WriteLn.
+
+   The G#Banner routines now support extended ASCII characters,
+   i.e., CHR$(128) - CHR$(255).
+
+
+
+BASWIZ 1.4, 10/10/90:
+
+   The DEMO.EXE file is no longer included, to keep the archive
+   size down. Use CREATE.BAT to create it from the DEMO.BAS and
+   BASWIZ.LIB files.
+
+   A bug in TERM.BAS was fixed.  The problem, an inconsistency
+   in the StartXmodemSend calling sequence, was also fixed in
+   the docs.  The displays in TERM.BAS have been cleaned up.
+
+   The virtual windowing system refused to display a cursor on
+   some MDA and CGA systems, evidently since they don't
+   maintain a certain status value. The fix unfortunately
+   requires hard-wiring of the necessary value if an MDA or CGA
+   is detected.  It may produce a strange cursor on those CGAs
+   which have a special hi-res text mode (except for Compaqs,
+   which I made allowances for).  If this happens to you,
+   please notify me.
+
+   The virtual windowing system can now automatically convert
+   your colors so that they will show up properly on a
+   monochrome display.  It also supports flicker suppression
+   for those CGAs on which this is a problem.
+
+   A routine that handles IBM ANSI codes using virtual windows
+   has been added.  Processing of "ANSI" music is optional.
+
+   Memory management and pointers are now supported.
+
+   The numeric expression evaluator now supports parentheses
+   for overriding the default (algebraic) order of evaluation.
+
+   A stub file has been added to allow use of Crescent's PDQ
+   library.
+
+
+
+BASWIZ 1.3, 08/13/90:
+
+   The far string handler now supports use of expanded memory
+   (EMS) as well as conventional system memory.
+
+
+
+BASWIZ 1.2, 07/08/90:
+
+   A bug in WDelChr was fixed.
+
+   An input routine was added to the virtual windowing system.
+
+   The telecommunications routines were expanded to include the
+   Xmodem file transfer protocol.  This includes automatic
+   support for all current variants on the protocol: checksum
+   and CRC error detection, 128-byte and 1024-byte packets.
+   Only uploading ("send file") is currently supported.
+
+
+
+BASWIZ 1.1, 05/26/90:
+
+   The virtual windowing system was expanded to include
+   user-defined frame types.  A bug which prevented use of MDA
+   and Hercules displays was fixed.
+
+   A bug in the telecomm routines which prevented use of other
+   than COM1 was fixed.
+
+   A comprehensive collection of file handling routines was
+   added.
+
+
+
+BASWIZ 1.0, 04/15/90:
+
+   This was the initial release of The BASIC Wizard's Library,
+   featuring virtual windows, Hercules graphics, far strings,
+   telecommunications support and a numeric expression
+   evaluator.

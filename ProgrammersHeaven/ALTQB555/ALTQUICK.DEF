@@ -1,0 +1,253 @@
+' ALTQUICK.DEF  this is a set of prototype declarations for the procedures
+'               which are included in the ASSEMBLY-LANGUAGE TOOLBOX. Include
+'               only the routines which you intend to use in your code.
+'
+'   Author:     Christy Gemmell
+'   For:        Assembly-Language Toolbox for QuickBASIC
+'   Version:    5.55
+'   Date:       25/7/1993
+'
+'   Compatible with Microsoft QuickBASIC 4.5 compiler.
+'
+'   The following prototypes refer to external procedures which are
+'   in the library files ALTQUICK.LIB and ALTQUICK.QLB. One or other
+'   of these libraries must be linked to the program which calls them.
+'
+'   ******* Note new function ANSI *****************************************
+'
+    DECLARE FUNCTION Ansi% ()
+    DECLARE FUNCTION Attrib% (FileSpec$)
+    DECLARE FUNCTION Attribute% (BYVAL Fore%, BYVAL Back%)
+    DECLARE FUNCTION BitTest% (Number%, Bit%)
+
+'   ******* Note new function BOOTDRIVE ************************************
+'
+    DECLARE FUNCTION BootDrive% ()
+    DECLARE FUNCTION CapsLock% (BYVAL Switch%)
+
+'   ******* Note new function CDROM ****************************************
+'
+    DECLARE FUNCTION CDRom% ()
+    DECLARE FUNCTION Cpu% ()
+    DECLARE FUNCTION DayNumber& (BYVAL Day%, BYVAL Month%, BYVAL Year%)
+    DECLARE FUNCTION DiskReady% (BYVAL Drive%)
+    DECLARE FUNCTION DisplayMode% ()
+    DECLARE FUNCTION DisplayPage% ()
+    DECLARE FUNCTION EmsError% ()
+    DECLARE FUNCTION EmsFrame% ()
+    DECLARE FUNCTION EmsOwned% (BYVAL Handle%)
+    DECLARE FUNCTION EmsPages% (BYVAL Switch%)
+    DECLARE FUNCTION EmsPresent% ()
+    DECLARE FUNCTION EmsVersion% ()
+    DECLARE FUNCTION FarPeek% (BYVAL Segment&, BYVAL Offset&)
+    DECLARE FUNCTION FileSize& (FileSpec$)
+    DECLARE FUNCTION FloppyDrives% ()
+    DECLARE FUNCTION FreeSpace& (BYVAL DriveNo%)
+    DECLARE FUNCTION GamesPort% ()
+    DECLARE FUNCTION Handles% ()
+    DECLARE FUNCTION HiByte% (BYVAL Number%)
+    DECLARE FUNCTION HiWord% (BYVAL Number&)
+    DECLARE FUNCTION Interval& (First&, Second&)
+    DECLARE FUNCTION KeyFlags% ()
+    DECLARE FUNCTION KeyIn% ()
+    DECLARE FUNCTION KeyStat% ()
+    DECLARE FUNCTION LastWord$ (Source$)
+    DECLARE FUNCTION LoByte% (BYVAL Number%)
+    DECLARE FUNCTION Longest$ (Original$)
+    DECLARE FUNCTION LoWord% (BYVAL Number&)
+    DECLARE FUNCTION MastrEnv% ()
+    DECLARE FUNCTION MathsChip% ()
+    DECLARE FUNCTION MouseInit% ()
+    DECLARE FUNCTION NetTest% ()
+    DECLARE FUNCTION NextWord$ (Source$)
+    DECLARE FUNCTION NumberDay% (Number&, Day%, Month%, Year%)
+    DECLARE FUNCTION NumLock% (BYVAL Switch%)
+    DECLARE FUNCTION ParallelPorts% ()
+    DECLARE FUNCTION PeekWord& (BYVAL Segment&, BYVAL Offset&)
+    DECLARE FUNCTION PrinterStat% (BYVAL Printer%)
+    DECLARE FUNCTION PrinTest% (BYVAL Printer%)
+    DECLARE FUNCTION ProgName$ ()
+    DECLARE FUNCTION RamDisk% ()
+    DECLARE FUNCTION Rand% (BYVAL Lower%, BYVAL Higher%)
+    DECLARE FUNCTION ScreenRows% ()
+    DECLARE FUNCTION ScreenWidth% ()
+    DECLARE FUNCTION ScrLock% (BYVAL Switch%)
+    DECLARE FUNCTION SerialPorts% ()
+    DECLARE FUNCTION Sharing% ()
+    DECLARE FUNCTION Soundex& (Text$)
+    DECLARE FUNCTION Spooler% ()
+    DECLARE FUNCTION SpoolSuspend% ()
+    DECLARE FUNCTION StatusLine% (Message$)
+    DECLARE FUNCTION StringScan% (Trgt$, BYVAL Size%, BYVAL Strt%, BYVAL Addr%)
+    DECLARE FUNCTION TempFile$ (BYVAL FlAttr%)
+    DECLARE FUNCTION TextVal& (Text$)
+
+'   ******* Note new function TRUENAME *************************************
+'
+    DECLARE FUNCTION TrueName$ (FileName$)
+    DECLARE FUNCTION Verify% (BYVAL Default%, BYVAL Row%, Prompt$,_
+                              BYVAL Attr%, BYVAL Mouse%)
+
+'   ******* Note new function WINDOWSUP ************************************
+'
+    DECLARE FUNCTION WindowsUp% ()
+
+'   ******* Note new function WINMODE **************************************
+'
+    DECLARE FUNCTION WinMode% ()
+
+'   ******* Note new function WINVER ***************************************
+'
+    DECLARE FUNCTION WinVer% ()
+    DECLARE FUNCTION WeekDay% (BYVAL Day%, BYVAL Month%, BYVAL Year%)
+
+'   ******* Note new function XMSIZE ***************************************
+'
+    DECLARE FUNCTION XMSize% ()
+
+    DECLARE SUB BackFill (BYVAL Row%, BYVAL Col%, BYVAL Rows%, BYVAL Cols%,_
+                          BYVAL Attr%)
+    DECLARE SUB BitReSet (Number%, Bit%)
+    DECLARE SUB BitSet (Number%, Bit%)
+    DECLARE SUB BitShl (Number&, Count%)
+    DECLARE SUB BitShr (Number&, Count%)
+    DECLARE SUB Blinking (BYVAL Switch%)
+    DECLARE SUB CgaCopy (BYVAL Switch%, Buffer$)
+    DECLARE SUB CgaScroll (BYVAL xLoc%, BYVAL yLoc%, BYVAL xPixels%,_
+                           BYVAL yPixels%, BYVAL Direction%)                 
+    DECLARE SUB CgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                         BYVAL Attr%, BYVAL Scale%)
+    DECLARE SUB Cipher (Text$, KeyWord$)
+    DECLARE SUB ClearEnd (BYVAL Switch%, BYVAL Attr%)
+    DECLARE SUB Curtains (BYVAL Speed%, BYVAL Attr%)
+    DECLARE SUB Delay (BYVAL MilliSeconds%)
+    DECLARE SUB DisablePrtSc ()
+    DECLARE SUB DOSBox (BYVAL Switch%, BYVAL Y1%, BYVAL X1%, BYVAL Y2%,_
+                        BYVAL X2%, BYVAL Attr%)
+    DECLARE SUB DwPrint (BYVAL Printer%, Buffer$, BYVAL NewLine%)
+    DECLARE SUB EmPrint (BYVAL Printer%, Buffer$, BYVAL NewLine%)
+    DECLARE SUB EmsGet (BYVAL Segment%, BYVAL Offset%, BYVAL Length%,_
+                        BYVAL Page%, BYVAL Handle%, Done%)
+    DECLARE SUB EmsMap (BYVAL Handle%, Physical%, Logical%)
+    DECLARE SUB EmsPut (BYVAL Segment%, BYVAL Offset%, BYVAL Length%,_
+                        BYVAL Page%, BYVAL Handle%, Done%)
+    DECLARE SUB EmsRelease (BYVAL Handle%)
+    DECLARE SUB EmsRequest (BYVAL Pages%, Handle%)
+    DECLARE SUB EmsReSize (BYVAL Handle%, Pages%)
+    DECLARE SUB EnablePrtSc ()
+    DECLARE SUB EnPrint (BYVAL Printer%, Buffer$, BYVAL NewLine%)
+    DECLARE SUB Explode (BYVAL Y1%, BYVAL X1%, BYVAL Y2%, BYVAL X2%,_
+                         BYVAL Attr%, BYVAL Speed%)
+    DECLARE SUB FarPoke (BYVAL Segment&, BYVAL Offset&, BYVAL Byte%)
+    DECLARE SUB FastPrint (BYVAL Row%, BYVAL Col%, Text$, BYVAL Attr%)
+    DECLARE SUB FileDate (BYVAL Switch%, DateTime$, FileSpec$)
+    DECLARE SUB GraPrint (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                          BYVAL Attr%, BYVAL Scale%)
+    DECLARE SUB HelpMate (BYVAL Colour%, Title$, BYVAL Context%, Topic$)
+    DECLARE SUB Hide (BYVAL Switch%, FileSpec$)
+    DECLARE SUB Inform (BYVAL Row%, Message$, BYVAL Attr%, BYVAL Mouse%)
+    DECLARE SUB Int2E (DosCmd$)
+    DECLARE SUB ItPrint (BYVAL Printer%, Buffer$, BYVAL NewLine%)
+    DECLARE SUB KeyFlush ()
+    DECLARE SUB LptSwap (BYVAL Printer1%, BYVAL Printer2%)
+    DECLARE SUB McgaCopy (BYVAL Switch%, SEG Array())
+    DECLARE SUB McgaScroll (BYVAL xLoc%, BYVAL yLoc%, BYVAL xPixels%,_
+                            BYVAL yPixels%, BYVAL Direction%)                 
+    DECLARE SUB MCgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                          BYVAL Attr%, BYVAL Scale%)
+    DECLARE SUB MisTake (BYVAL Row%, Message$, BYVAL Attr%, BYVAL Mouse%)
+    DECLARE SUB MouseBorder (BYVAL x1%, BYVAL y1%, BYVAL x2%, BYVAL y2%)
+    DECLARE SUB MouseHide ()
+    DECLARE SUB MouseMickey (horizontal%, vertical%)
+    DECLARE SUB MouseNow (leftButton%, rightButton%, xMouse%, yMouse%)
+    DECLARE SUB MousePressLeft (leftCount%, xMouse%, yMouse%)
+    DECLARE SUB MousePressRight (rightCount%, xMouse%, yMouse%)
+    DECLARE SUB MousePut (BYVAL xMouse%, BYVAL yMouse%)
+    DECLARE SUB MouseRelLeft (leftCount%, xMouse%, yMouse%)
+    DECLARE SUB MouseRelRight (rightCount%, xMouse%, yMouse%)
+    DECLARE SUB MouseRestore ()
+    DECLARE SUB MouseSave ()
+    DECLARE SUB MouseShow ()
+    DECLARE SUB MouseSpeed (BYVAL horizontal%, BYVAL vertical%)
+    DECLARE SUB MouseWarp (BYVAL threshold%)
+    DECLARE SUB ParkHeads ()
+    DECLARE SUB Pause (BYVAL Ticks%)
+    DECLARE SUB PerCentBox (BYVAL Switch%, Message$, BYVAL Attr%,_
+                            BYVAL PerCent%)
+    DECLARE SUB PokeWord (BYVAL Segment&, BYVAL Offset&, BYVAL Word&)
+    DECLARE SUB PopUp (BYVAL Row%, BYVAL Col%, BYVAL Hght%, BYVAL Wdth%,_
+                       BYVAL Attr%, BYVAL Brdr%, BYVAL Shdw%, BYVAL Zoom%)
+    DECLARE SUB PrintSet (BYVAL Row%, BYVAL Col%, BYVAL Attr%,_
+                          BYVAL Printer%, BYVAL Mouse%)
+    DECLARE SUB Prn2File (BYVAL Switch%, FileSpec$)
+
+'   ******* Note new routine REBOOT ****************************************
+'
+    DECLARE SUB ReBoot (BYVAL Switch%)
+    DECLARE SUB ReDirect (BYVAL Switch%, FileSpec$)
+    DECLARE SUB ReSeed (BYVAL Seed&)
+    DECLARE SUB ScreenDump ()
+    DECLARE SUB Scroll (BYVAL Dir%, BYVAL Y1%, BYVAL X1%, BYVAL Y2%,_
+                        BYVAL X2%, BYVAL Units%, BYVAL Attr%)
+    DECLARE SUB Secure (BYVAL Switch%, FileSpec$)
+    DECLARE SUB Share (BYVAL Switch%, FileSpec$)
+    DECLARE SUB ShutUp (BYVAL Speed%)
+    DECLARE SUB SpoolDelete (FileSpec$)
+    DECLARE SUB SpoolFlush ()
+    DECLARE SUB SpoolList (Buffer$)
+    DECLARE SUB SpoolReStart ()
+    DECLARE SUB SpoolSubmit (FileSpec$)
+    DECLARE SUB StringSort (BYVAL Dir%, BYVAL Size%, BYVAL Addr%)
+    DECLARE SUB StuffBuffer (Buffer$)
+    DECLARE SUB UlPrint (BYVAL Printer%, Buffer$, BYVAL NewLine%)
+    DECLARE SUB VGADim (BYVAL Intensity%)
+    DECLARE SUB VGALoad (FileSpec$)
+    DECLARE SUB VGAPan (BYVAL X%, BYVAL Y%)
+    DECLARE SUB VGASave (FileSpec$)
+    DECLARE SUB VgaText (BYVAL xLoc%, BYVAL yLoc%, Text$,_
+                         BYVAL Attr%, BYVAL Scale%)
+
+    DECLARE FUNCTION BinDec& (Binary$)
+    DECLARE FUNCTION CapItal$ (Original$)
+
+'   ******* Note new function CARDTEST *************************************
+'
+	DECLARE FUNCTION CardTest% (CardNumber$)
+    DECLARE FUNCTION Centre$ (Text$, MaxWidth%)
+    DECLARE FUNCTION DateInput$ (Default$, Context%, Topic$, HotKey%)
+    DECLARE FUNCTION DaysBetween& (Date1$, Date2$)
+    DECLARE FUNCTION DecBin$ (Decimal&)
+    DECLARE FUNCTION DosVersion$ ()
+    DECLARE FUNCTION FindFile$ (FileSpec$, Attr%, Mouse%)
+    DECLARE FUNCTION GetFlag% (Flag%)
+    DECLARE FUNCTION GrAttrib% (ForeGround%, BackGround%)
+    DECLARE FUNCTION IsDir% (Test$)
+    DECLARE FUNCTION LegalName% (FileSpec$)
+    DECLARE FUNCTION LineUp$ (Num#, Places%, Comma%, Length%, Currency$)
+    DECLARE FUNCTION LongDate$(Day%, Month%, Year%)
+    DECLARE FUNCTION Match% (Start%, Search$, Pattern$)
+    DECLARE FUNCTION RevInput$ (Max%, Visible%, Default$, Legal$, Ctx%,_
+                                Topic$, Mask%, HotKey%)
+    DECLARE FUNCTION RootName$ (Path$, Extension%)
+    DECLARE FUNCTION Round$ (Number#, Places%)
+    DECLARE FUNCTION Salute$ (Original$)
+    DECLARE FUNCTION ScreenMode% ()
+    DECLARE FUNCTION StripQuote$ (Source$)
+    DECLARE FUNCTION UnPad$ (Text$, Length%)
+    DECLARE SUB BarMenu (P1%, P2%, P3%, Menu$(), P5%, P6%,_
+                         P7%, P8$, Mouse%, HotKeys%)
+    DECLARE SUB CheckPrinter (Printer%, Ready%)
+    DECLARE SUB Media (Set%, Drive$, Volume$, Serial$, FileSy$)
+    DECLARE SUB Panel (Row%, Col%, Rows%, Cols%, Border%, Attr%)
+    DECLARE SUB PickList (Selected%, Title$, Array() AS STRING, Attr%, Mouse%)
+    DECLARE SUB SetFlag (Flag%, Setting%)
+    DECLARE SUB SortFile (PathName$, OffSet%, FieldLen%, RecordLen%, Done%)
+    DECLARE SUB SplitName (Source$, Title$, Initial$, SurName$)
+    DECLARE SUB VerMenu (P1%, P2%, P3%, P4%, P5%, P6$, Menu$(),_
+                         P8%, P9%, P10%, P11%, P12$, Mouse%, HotKeys%)
+    DECLARE SUB VideoMode (Colour%, MaxRes%, VideoRam%)
+
+' 旼컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴커
+' �     (c) 1988,1993 By Christy Gemmell and Singular SoftWare             �
+' 읕컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴컴켸
+

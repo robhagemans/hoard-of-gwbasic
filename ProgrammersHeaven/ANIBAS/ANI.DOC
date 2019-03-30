@@ -1,0 +1,161 @@
+ษอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออป
+บ                                                           บ
+บ        Û   Û ÛÛÛÛ ÛÛÛ  ÛÛÛ     ÛÛÛÛ ÛÛÛ ÛÛÛ Û   ÛÛÛ       บ
+บ        Û   Û Û  Û Û  Û Û  Û    Û     Û  Û   Û   Û  Û      บ
+บ        Û   Û ÛÛÛÛ ÛÛÛ  ÛÛÛ     ÛÛÛ   Û  ÛÛ  Û   Û  Û      บ
+บ        Û Û Û Û  Û Û  Û Û       Û     Û  Û   Û   Û  Û      บ
+บ         ÛÛÛ  Û  Û Û  Û Û       Û    ÛÛÛ ÛÛÛ ÛÛÛ ÛÛÛ       บ
+บ                                                           บ
+บ           ÛÛÛÛ Û  Û ÛÛÛ Û   Û ÛÛÛÛ ÛÛÛ ÛÛÛÛ ÛÛÛ           บ
+บ           Û  Û ÛÛ Û  Û  ÛÛ ÛÛ Û  Û  Û  Û  Û Û  Û          บ
+บ           ÛÛÛÛ Û ÛÛ  Û  Û Û Û ÛÛÛÛ  Û  Û  Û ÛÛÛ           บ
+บ           Û  Û Û  Û  Û  Û   Û Û  Û  Û  Û  Û Û  Û          บ
+บ           Û  Û Û  Û ÛÛÛ Û   Û Û  Û  Û  ÛÛÛÛ Û  Û          บ
+บ                                                           บ
+บ                     By Rich Geldreich                     บ
+บ                      December 3, 1991                     บ
+บ                                                           บ
+บ                        Version 1.0                        บ
+บ                                                           บ
+ศอออออออออออออออออออออออออออออออออออออออออออออออออออออออออออผ
+
+
+     Thank you for downloading me!!!
+
+     This program is modeled after the program "Gravitational
+Grid" by Patrick D. Grengs II. His program appeared in the
+October 1988 issue of the Rainbow Magazine. This is the
+uncompiled, QuickBASIC 4.5 version. If you don't have QB, then I
+suggest you get the compiled version.
+
+     Warp Field Animator uses trigonometry to plot animated
+or high resolution displays of warped fields or checker
+boards. The program should(no guarantees, though) be able to
+handle EGA only computers, but I can't find a computer with
+EGA only so I couldn't test out that aspect of the program.
+Also, the program assumes that if you have VGA capability,
+then you also have EGA capability.
+     To run the program, you must start QuickBASIC up with the
+/ah option:
+c:\qb45\QB /AH  <---(the /ah option may not be needed???)
+
+
+     Then, load the program in from the file menu and press
+Shift+F5 to execute it.
+
+     If you get an error message from QB, then you don't
+have EGA or VGA capability(which means the program won't
+work), or you don't have enough free RAM memory for the
+program or data structures. The uncompiled version run in the
+QuickBASIC environment takes up a lot of memory- try compiling it
+if QB gives the dreaded "Out of Memory" error, and running it
+from DOS.
+
+     Basically, here is what you have to do to see an
+animated grid:
+     1. Adjust the parameters, if you want to. The parameters
+are set to a default state when the program begins.
+     2. Select the influences with the keyboard. If you don't
+select any influences, the grid will appear normal(and very
+bland). The four types of influences are: right tornado, left
+tornado, upward "blip", and downward "blip" (or hole).
+     3. Plot the screen(s). This will calculate, draw, and
+animate the field. Note, that if the high resolution mode(VGA
+only) is selected via the parameters menu, the field will
+only be a single frame.
+
+               The main menu has three options:
+
+Adjust Parameters:  Allows the modifying of the default
+                    parameters.
+Select Influences:  Allows the user to select points of
+                    influences on the grid.
+Calculate and Plot Screen(s):  Usually the last option
+                    selected: Calculates, plots, and shows
+                    the finished screen(s).
+
+          Information on the Adjust Parameters menu:
+
+X Step: The number of pixels(dots) between each block
+horizontally. The larger this number, the lower the detail.
+Normally 10 pixels.
+
+Y Step: The number of pixels between each block vertically.
+Again, the larger this number, the lower the detail. Normally
+10 pixels.
+
+Maximum Angle of Rotation: This option affects only
+tornados(and not the trailer park type!). The larger the
+number, the more the tornado will turn. Normally 90 degrees.
+
+Type of Screen: Animated(EGA or VGA) or High Resolution(VGA
+only).
+
+Type of Filling: This option affects the filling process of
+the grid. Note that the special filling algorithm is VERY
+slow compared to the normal filling algorithm. Use it only on
+very complex grids that don't fill good with the Normal
+option. The shades option(VGA only) creates very nice looking
+color bars which "warp" with the picture. Looks pretty good.
+
+Type of gravity: This option selects which algorithm the
+program will use to generate the upward and downward
+influences. Linear is like a sphere, and normal is like a
+smooth bump. I like Linear myself, because it affects the
+grid more, and it calculates quicker.
+
+             Information on Selecting Influences
+
+     When this option is selected, full instructions on what
+keys to use will be shown. You may select up to 10 influences
+on the grid: but beware, the more influences you select the
+longer it will take to calculate! When you select the 10th
+influence, you will be returned to the main menu.
+
+
+
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                       Important Note                      !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+   WHILE WATCHING AN ANIMATED FIELD, USE THE LEFT AND RIGHT
+  ARROW KEYS TO CHANGE THE TIME BETWEEN EACH FRAME!!! IF THE
+ PAGE FLIPPING IS TOO QUICK(WHICH IT PROBABLY WILL BE), THEN
+            USE THE ARROW KEYS TO SLOW IT DOWN!!!
+
+
+                       Note to Scumbags...
+     Please don't be a scumbag and change the program without
+"due process." (who knows what due process is!!) Wouldn't you be
+mad if somebody stole your hard work and took all the credit for
+it?
+
+     If you have any questions, complaints, or comments, then
+I write/call me at...
+
+Rich Geldreich
+410 Market St.
+Gloucester City, New Jersey 08030
+(609)-456-0721
+
+I'll be more than glad to listen to anything you have to say(good
+or bad!).
+
+
+          Notes on Saving the High Resolution Screen
+     If you would like to save the high resolution screen,
+then I recommend a TSR utility which saves whatever the
+screen is showing(usually in the GIF format) when certain
+key(s) are pressed. I did have a saving feature, but it was
+just too slow in QuickBASIC to be practical. A TSR utility is
+the easiest solution.
+
+     I hope you enjoy this program as much as I enjoyed
+making it!
+
+                             Z E E K
+                                &
+                              R A Y
+
+                          December, 1991
+ 

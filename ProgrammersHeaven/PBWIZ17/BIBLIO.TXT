@@ -1,0 +1,77 @@
+This constitutes a bibliography of some of the references used
+in creating the PBWiz library. They are listed in no particular
+order. I might note that many of these references contain
+incorrect information on one point or another and that they
+frequently contradict each other. Such are the joys of assembly
+programming. Comments reflect my personal opinions on the text.
+
+
+
+"The New Peter Norton Programmer's Guide to the IBM PC &
+PS/2".  2nd Ed, 1988, by Peter Norton and Richard Wilton.
+Microsoft Press.
+-- Often contains inadequate detail and is unusually
+error-prone. Some of the information is unique to this source,
+however, so it has its value.
+
+"Microsoft Mouse Programmer's Reference".  2nd Ed, 1991.
+Microsoft Press.
+-- Bizarrely, the primary examples are for interpreted BASIC
+(BASICA or GWBASIC). However, there are matching examples for
+QuickBASIC, C, and MASM. This is a comprehensive reference. You
+do have to be careful about using many of the routines, as older
+mouse drivers are common, and they don't support all of the
+newer routines. Unfortunately, no information is provided as to
+the release date of any of the mouse functions...
+
+"COMPUTE!'s Mapping the IBM PC and PCjr".  1985, COMPUTE!
+Publications, Inc.
+-- An old but indispensable reference. The memory map, port
+reference, and low-level support chip information are very good.
+
+"Programmer's Guide to PC & PS/2 Video Systems".  1987, by
+Richard Wilton. Microsoft Press.
+-- A terrific reference on video from MDA to VGA. The example
+program for putting the Hercules adapter into graphics mode is
+rather buggy, however.
+
+"Supercharged Bit-Mapped Graphics".  1992, by Steve Rimmer.
+Windcrest Books (an imprint of Tab Books, which in turn is a
+division of McGraw-Hill, Inc).
+-- A quite decent text on various image formats, including .BMP,
+.MAC, .PCX, .GIF and others. Source listings in C and assembly
+language.
+
+"Power Graphics Programming".  1989, by Michael Abrash.  Que
+Corporation.
+-- Terrific book, well written, a "must have" if you are
+interested in programming the EGA and/or VGA at a low level.
+Superb.
+
+"The MS-DOS Encyclopedia".  1988.  Microsoft Press.
+-- Encyclopedic it is. Every serious assembly programmer should
+have a copy. Covers DOS itself, DOS interrupts, communications,
+TSRs, and lots of handy articles by the best in the business.
+The BIOS is ignored, however. It covers through DOS 3.0 and is
+getting a bit dated, but is still a good thing to have.
+
+"The Programmer's PC Sourcebook".  2nd Ed, 1991, by Thom
+Hogan.  Microsoft Press.
+-- An astonishing collection of data and tables. With
+comprehensive scope but no depth, this reference can tease by
+providing insufficient detail. Still, a priceless work. Get one
+immediately, or two if you have a friend.
+
+"Algorithms & Data Structures".  1986, by Niklaus Wirth.
+Prentice-Hall, Inc.
+-- Terse text with rather ghastly Modula-2 source listings. One
+of the few places where sorting and data structures are covered
+even moderately well, however. If you need to do sorts or
+b-trees, it's a mandatory text.
+
+"Sound Blaster: The Official Book".  1993.  McGraw-Hill, Inc.
+-- Not as complete as one might like. Most of the book is concerned with
+   idiot-level end-user stuff. An appendix details the hardware interface in
+   an ineffectual manner, and the SB software drivers in a manner which is
+   mostly sufficient for technical folks.
+

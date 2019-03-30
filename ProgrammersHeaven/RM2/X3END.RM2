@@ -1,0 +1,279 @@
+DECLARE SUB TClip (XX!, YY!, S%(), CLP!)
+DECLARE SUB Pause (tm!)
+DECLARE SUB FONT (Msg$, LXP!, LYP!, FC!, BC!, S!, ST!, VT!)
+COMMON SHARED OLXP, OLYP
+RANDOMIZE TIMER
+FOR sv = 1 TO 10: XX$ = XX$ + CHR$(SCREEN(1, sv)): NEXT sv: NM1$ = RTRIM$(XX$)
+SCREEN 13
+CLS
+DIM a%(32001), C%(163, 14), D%(129, 5), CC(17, 17)
+OPEN "RM2.DAT" FOR INPUT AS #1: FOR svv = 0 TO 14: FOR sv = 0 TO 163: INPUT #1, C%(sv, svv): NEXT sv, svv: FOR svv = 0 TO 2: FOR sv = 0 TO 129: INPUT #1, D%(sv, svv): NEXT sv, svv: CLOSE #1
+FOR svv = 0 TO 2: FOR sv = 0 TO 129: READ D%(sv, svv + 3): NEXT sv, svv
+
+FOR sv = 0 TO 9: PUT (151, 135), D%(0, ABS(sv AND 1) * 3), PSET: Pause .2: SOUND 40, .1: NEXT sv
+FOR sv = 0 TO 140 STEP 5: LINE (160 - sv, 25)-(160 + sv, 25), 32: FOR svv = 1 TO 5: LINE (160 - sv - svv, 25 - svv)-(160 + sv + svv, 25 + svv), 31 - svv, B: NEXT svv: NEXT sv
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "WELL,  MY DEATH HAS CERTAINLY", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "BEEN AVENGED!                ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "LET US NOW THANK THOSE GREAT ", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "CHILDREN OF MINE WHO HELPED! ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1): LINE (0, 0)-(319, 45), 0, BF
+
+FOR ssv = 0 TO 7
+PUT (151, 135), D%(0, 5 - ABS(ssv AND 1)), PSET: PUT (71 + 160 * ABS(ssv AND 1), 90), C%(0, ssv), PSET: FOR svy = 0 TO 17: FOR svx = 0 TO 17: CC(svx, svy) = POINT(svx + 71 + 160 * ABS(ssv AND 1), svy + 90): NEXT svx, svy
+FOR svy = 0 TO 17: FOR svx = 0 TO 17: LINE (71 + 160 * ABS(ssv AND 1) - 9 + svx * 2, 90 - 9 + svy * 2)-(71 + 160 * ABS(ssv AND 1) - 9 + svx * 2 + 1, 90 - 9 + svy * 2 + 1), CC(svx, svy), BF: NEXT svx, svy
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+READ XX$: FONT XX$, -2, 22, 44, 16, 4, 2, 1
+Pause 2: LINE (0, 0)-(319, 45), 0, BF
+FOR sv = 18 TO 0 STEP -1: LINE (71 + (ABS(ssv AND 1)) * 160 + 9 - sv, 90 + 9 - sv)-(71 + (ABS(ssv AND 1)) * 160 + 9 + sv, 90 + 9 + sv), 0, B: Pause ABS(sv AND 1) * .01: NEXT sv
+NEXT ssv
+
+PUT (151, 135), D%(0, 3), PSET
+FOR sv = 0 TO 140 STEP 5: LINE (160 - sv, 25)-(160 + sv, 25), 32: FOR svv = 1 TO 5: LINE (160 - sv - svv, 25 - svv)-(160 + sv + svv, 25 + svv), 31 - svv, B: NEXT svv: NEXT sv
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "AH, YOU'RE STILL WATCHING THIS?", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "UMM... YES!  OF COURSE YOU ARE!", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "NOW, LETS TAKE A LOOK AT SOME", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "OF MY COMPANIONS...          ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1): LINE (0, 0)-(319, 45), 0, BF
+
+FOR ssv = 0 TO 1
+PUT (151, 135), D%(0, 5 - ABS(ssv AND 1)), PSET: PUT (71 + 160 * ABS(ssv AND 1), 90), C%(0, ssv + 9), PSET: FOR svy = 0 TO 17: FOR svx = 0 TO 17: CC(svx, svy) = POINT(svx + 71 + 160 * ABS(ssv AND 1), svy + 90): NEXT svx, svy
+FOR svy = 0 TO 17: FOR svx = 0 TO 17: LINE (71 + 160 * ABS(ssv AND 1) - 9 + svx * 2, 90 - 9 + svy * 2)-(71 + 160 * ABS(ssv AND 1) - 9 + svx * 2 + 1, 90 - 9 + svy * 2 + 1), CC(svx, svy), BF: NEXT svx, svy
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+READ XX$: FONT XX$, -2, 22, 44, 16, 4, 2, 1
+Pause 2: LINE (0, 0)-(319, 45), 0, BF
+FOR sv = 18 TO 0 STEP -1: LINE (71 + (ABS(ssv AND 1)) * 160 + 9 - sv, 90 + 9 - sv)-(71 + (ABS(ssv AND 1)) * 160 + 9 + sv, 90 + 9 + sv), 0, B: Pause ABS(sv AND 1) * .01: NEXT sv
+NEXT ssv
+
+PUT (151, 135), D%(0, 3), PSET
+FOR sv = 0 TO 140 STEP 5: LINE (160 - sv, 25)-(160 + sv, 25), 32: FOR svv = 1 TO 5: LINE (160 - sv - svv, 25 - svv)-(160 + sv + svv, 25 + svv), 31 - svv, B: NEXT svv: NEXT sv
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "WHO ARE THEY?  JUST SOME FRIENDS", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "OF MINE.  THEY'LL HELP YOU TOO!", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "HOW?  JUST CALL THEIR NAME!", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "SO, LET'S SEE WHO WE DEFEATED...", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1): LINE (0, 0)-(319, 45), 0, BF
+
+FOR ssv = 0 TO 2
+PUT (151, 135), D%(0, 5 - ABS(ssv AND 1)), PSET: PUT (71 + 160 * ABS(ssv AND 1), 90), C%(0, ssv + 11 + ABS(ssv = 2)), PSET: FOR svy = 0 TO 17: FOR svx = 0 TO 17: CC(svx, svy) = POINT(svx + 71 + 160 * ABS(ssv AND 1), svy + 90): NEXT svx, svy
+FOR svy = 0 TO 17: FOR svx = 0 TO 17: LINE (71 + 160 * ABS(ssv AND 1) - 9 + svx * 2, 90 - 9 + svy * 2)-(71 + 160 * ABS(ssv AND 1) - 9 + svx * 2 + 1, 90 - 9 + svy * 2 + 1), CC(svx, svy), BF: NEXT svx, svy
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+READ XX$: FONT XX$, -2, 22, 44, 16, 4, 2, 1
+Pause 2: LINE (0, 0)-(319, 45), 0, BF
+FOR sv = 18 TO 0 STEP -1: LINE (71 + (ABS(ssv AND 1)) * 160 + 9 - sv, 90 + 9 - sv)-(71 + (ABS(ssv AND 1)) * 160 + 9 + sv, 90 + 9 + sv), 0, B: Pause ABS(sv AND 1) * .01: NEXT sv
+NEXT ssv
+
+PUT (151, 135), D%(0, 3), PSET
+FOR sv = 0 TO 140 STEP 5: LINE (160 - sv, 25)-(160 + sv, 25), 32: FOR svv = 1 TO 5: LINE (160 - sv - svv, 25 - svv)-(160 + sv + svv, 25 + svv), 31 - svv, B: NEXT svv: NEXT sv
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "OH!  I SUPPOSE YOU WANT TO KNOW ", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "WHO ????? IS.                  ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "I COULD TELL YOU SOMETHING ", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "CORNY, LIKE HE REPRESENTS...", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "...THE EVIL IN ALL OUR HEARTS,", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "BUT HE'S REALLY JUST SOME...", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "...WELL, HE'S JUST SOME EVIL", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "SKELETON DUDE!              ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "ANYWAYS, THANK YOU, " + NM1$ + ".", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "THE HOUSE OF MORTIS NEEDS AN", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+FOR sv = 0 TO 15: LINE (20, 25 - sv)-(300, 25 + sv), 32, B: FOR svv = 1 TO 5: LINE (20 - svv, 25 - sv - svv)-(300 + svv, 25 + sv + svv), 31 - svv, B: NEXT svv: NEXT sv
+FONT "GHOST: ", 25, 15, 44, 56, 4, 2, 1: FONT "HEIR, AND WHO BETTER THAN YOU", -1, 15, 31, 57, 4, 2, 1
+FONT "       ", 25, 22, 44, 56, 4, 2, 1: FONT "TO BE IT?  TAKE CARE...     ", -1, 22, 31, 57, 4, 2, 1
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1): LINE (0, 0)-(319, 45), 0, BF
+Pause 1: FOR sv = 0 TO 8: PUT (151, 135), D%(0, ABS(sv AND 1) * 3), PSET: Pause .2: SOUND 40, .1: NEXT sv
+LINE (151, 135)-(151 + 15, 135 + 15), 0, BF: Pause .5: FOR sv = 319 TO 0 STEP -1: LINE (sv, 0)-(319 - sv, 199), 21 + (sv / 319) * 10: NEXT sv: FOR sv = 0 TO 199: LINE (0, sv)-(319, 199 - sv), 21 + (sv / 319) * 10: NEXT sv: FOR sv = 319 TO 0 STEP -1 _
+: LINE (sv, 0)-(319 - sv, 199), 0: NEXT sv: FOR sv = 0 TO 199: LINE (0, sv)-(319, 199 - sv), 0: NEXT sv: Pause 1: CLS
+
+FOR svv = 0 TO 5
+IF svv = 0 THEN FOR sv = 4 TO 15: PALETTE sv - 3, CINT(sv * 4.2) + CINT(sv * 4.2 / 4 * 3) * 256 + CINT(sv * 4.2 / 2) * 65536: NEXT sv
+READ XX$: DEF SEG = VARSEG(a%(0)): BLOAD XX$, VARPTR(a%(0)): DEF SEG : TClip 0, 4, a%(), 8: IF svv = 1 THEN PALETTE
+FONT "CREDITS", -2, 50, 40, 55, 4, 2, 1: READ XX$
+FONT "^u" + XX$, -2, 90, 44, 112, 4, 2, 1: READ XX$
+FONT XX$, -2, 100, 45, 122, 4, 2, 1
+Pause 4
+NEXT svv
+
+CLS
+LINE (48, 35)-(271, 50), 117, BF
+PW$ = MID$("SOLAR LUNAR SUPER NOVA", INT(RND * 4) * 6 + 1, 5)
+FONT "HINT:  AT THE CHARACTER SELECT MENU,", -2, 20, 44, 55, 4, 2, 1
+FONT "TYPE " + PW$ + ".", -2, 40, 16, 44, 4, 2, 1
+FONT "REMEMBER!  WRITE TO AEDES AT...", -2, 90, 44, 112, 4, 2, 1
+FONT "AEDES@AOL.COM", -2, 100, 45, 122, 4, 2, 1
+Pause 2: FONT "THANX FOR PLAYING!", -2, 150, 40, 55, 4, 2, 1: Pause 1: FONT "THE END...", -2, 160, 31, 32, 4, 2, 1: Pause 3
+SCREEN 12: SCREEN 0: CLS : PRINT : PRINT "  Actually, in addition to those WONDERFUL credits,": PRINT "  the following were some of my advice givers in no particular order:"
+PRINT : PRINT : COLOR 15: PRINT "  Clem Fudge": PRINT "  Zaerefornn": PRINT "  Pinto": PRINT "  Kirsten (real name)": PRINT "  Don (real name)"
+COLOR 7: PRINT : PRINT "  Note:  These are online handles, not necessarily of AOL, like me."
+COLOR 31: PRINT : PRINT : PRINT : PRINT "  <Press any key>"
+DO: LOOP UNTIL INKEY$ = "": a$ = INPUT$(1)
+RUN "RMORTIS2"
+
+DATA &H80,&H10,&H0,&H0,&H1900,&H1919,&H1919,&H19,&H0,&H0,&H0,&H0,&H1919,&H1D1D,&H1D1D,&H1919,&H0,&H0,&H0,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H0,&H0,&H1900,&H1D19,&H1E10,&H101E,&H191D,&H19,&H0,&H0,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H0,&H0,&H0,&H1919,&H101D,&H1D10,&H1919,&H0,&H0,&H1800,&H1C18,&H1A1C,&H1D1A,&H191D,&H1919,&H1719,&H17,&H1818,&H1C1C,&H1C1C,&H1B1C,&H1B1B,&H1A1A,&H1919,&H1717,&H1818,&H1C1C,&H1C1C,&H1B1B,&H1A1B,&H1A1A,&H1919,&H1717,&H1818,&H1C19,&H1B1C,&H1B1B,&H1A1B,&H1A1A,&H1719,&H1717,&H1818,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H1717,&H181F,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H1D17,&H1E1E,&H1C00,&H1C1C,&H1B1B,&H1A1B,&H1919,&H19,&H1D1E,&H0,&H1C00,&H1B1C,&H1B1B,&H1A1B,&H191A,&H19,&H0,&H0,&H0,&H1B1C,&H1B1B,&H1A1B,&H191A,&H0,&H0,&H0,&H0,&H1C00,&H1B1B,&H1A1B,&H1A,&H0,&H0
+DATA &H80,&H10,&H0,&H0,&H1900,&H1919,&H1919,&H19,&H0,&H0,&H0,&H0,&H1919,&H1D1D,&H1D1D,&H1919,&H0,&H1D1E,&H0,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H1D17,&H0,&H1900,&H1D19,&H101E,&H1E1E,&H1910,&H19,&H1717,&H0,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H1717,&H0,&H0,&H1919,&H1E1D,&H1D10,&H1919,&H0,&H1717,&H1800,&H1C18,&H1A1C,&H1D1A,&H191D,&H1919,&H1719,&H1717,&H1818,&H1C1C,&H1C1C,&H1B1C,&H1B1B,&H1A1A,&H1919,&H1717,&H1818,&H1C1C,&H1C1C,&H1B1B,&H1A1B,&H1A1A,&H1919,&H17,&H1818,&H1C19,&H1B1C,&H1B1B,&H1A1B,&H1A1A,&H1719,&H0,&H1818,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H0,&H181F,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H0,&H1E1E,&H1C00,&H1C1C,&H1B1B,&H1A1B,&H1919,&H19,&H0,&H0,&H1C00,&H1B1C,&H1B1B,&H1A1B,&H191A,&H19,&H0,&H0,&H1C1C,&H1B1C,&H1B1B,&H1A1B,&H191A,&H0,&H0,&H1C00,&H1C1C,&H1C1C,&H1B1B,&H1A1B,&H1A,&H0,&H0
+DATA &H80,&H10,&H0,&H0,&H1900,&H1919,&H1919,&H19,&H0,&H0,&H1E1F,&H0,&H1919,&H1D1D,&H1D1D,&H1919,&H0,&H0,&H1E18,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H0,&H1818,&H1900,&H1019,&H1E1E,&H1E10,&H191D,&H19,&H0,&H1818,&H1900,&H1D19,&H1E1E,&H1E1E,&H191D,&H19,&H0,&H1818,&H0,&H1919,&H101D,&H1D1E,&H1919,&H0,&H0,&H1818,&H1C18,&H1A1C,&H1D1A,&H191D,&H1919,&H1719,&H17,&H1818,&H1C1C,&H1C1C,&H1B1C,&H1B1B,&H1A1A,&H1919,&H1717,&H1800,&H1C1C,&H1C1C,&H1B1B,&H1A1B,&H1A1A,&H1919,&H1717,&H0,&H1C19,&H1B1C,&H1B1B,&H1A1B,&H1A1A,&H1719,&H1717,&H0,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H1717,&H0,&H0,&H1818,&H1717,&H1616,&H1515,&H0,&H1D17,&H0,&H1C00,&H1C1C,&H1B1B,&H1A1B,&H1919,&H19,&H1D1E,&H0,&H1C00,&H1B1C,&H1B1B,&H1A1B,&H191A,&H19,&H0,&H0,&H0,&H1B1C,&H1B1B,&H1A1B,&H191A,&H1A1A,&H0,&H0,&H0,&H0,&H1B1B,&H1A1B,&H1A1A,&H1A1A,&H1A
+DATA "RIGOR","MORTIS","RYAN","AEDES","MINERVA","SIEZURE","RAIDEN","PIRANHA"
+DATA "ALLEGRO","SILO","DUBHE","MERAK","?????"
+DATA "INTRO1.RM2","MAIN PROGRAMMER","AARON KUHUSKI","RTOP.RM2","GRAPHICS","AARON KUHUSKI"
+DATA "RTOP2.RM2","MUSIC","NOBODY","L03.RLV","EVERYTHING","AARON KUHUSKI"
+DATA "L06.RLV","SO WHY DO CREDITS?","NO REASON","L08.RLV","REMEMBER!  WRITE TO AEDES AT...","AEDES@AOL.COM"
+
+SUB FONT (Msg$, LXP, LYP, FC, BC, S, ST, VT)
+IF LXP = -1 THEN LXP = OLXP
+IF LYP = -1 THEN LYP = OLYP
+IF LXP = -2 THEN
+M$ = ""
+FOR sv = 1 TO LEN(Msg$)
+IF MID$(Msg$, sv, 1) = "^" THEN sv = sv + 1 ELSE M$ = M$ + MID$(Msg$, sv, 1)
+NEXT sv
+LXP = INT((320 - LEN(M$) * 7) / 2)
+END IF
+IF LYP = -2 THEN LYP = CINT(((39 - 5) / 2) * 5)
+U = -1: OLXP = LXP: OLYP = LYP
+a$ = STR$(LXP): b$ = STR$(LYP): BC$ = STR$(BC): FC$ = STR$(FC): S$ = STR$(S)
+Msg$ = UCASE$(Msg$)
+FOR sv = 1 TO LEN(Msg$)
+SELECT CASE MID$(Msg$, sv, 1)
+CASE "A"
+M1$ = "u2e2f2l4r4d2"
+CASE "B"
+M1$ = "u4r3fgl2r2fgl3"
+CASE "C"
+M1$ = "brr3l3hu2er3"
+CASE "D"
+M1$ = "u4r3fd2gl3"
+CASE "E"
+M1$ = "u4r4l4d2r2l2d2r4"
+CASE "F"
+M1$ = "u4r4l4d2r2"
+CASE "G"
+M1$ = "brr3l3hu2er3l3gd2fr3u2l2"
+CASE "H"
+M1$ = "u4d2r4u2d4"
+CASE "I"
+M1$ = "r4l2u4l2r4"
+CASE "J"
+M1$ = "brhfr2eu3"
+CASE "K"
+M1$ = "u4d3e3g2f2"
+CASE "L"
+M1$ = "u4d4r4"
+CASE "M"
+M1$ = "u4f2e2d4"
+CASE "N"
+M1$ = "u4f4u4"
+CASE "O"
+M1$ = "brhu2er2fd2gl2"
+CASE "P"
+M1$ = "u4r3fgl3"
+CASE "Q"
+M1$ = "brhu2er2fd2dhfl3"
+CASE "R"
+M1$ = "u4r3fgl3r2f2"
+CASE "S"
+M1$ = "r3ehl2her3"
+CASE "T"
+M1$ = "br2u4l2r4"
+CASE "U"
+M1$ = "brhu3d3fr2eu3"
+CASE "V"
+M1$ = "br2h2u2d2f2e2u2"
+CASE "W"
+M1$ = "buu3d3fefeu3"
+CASE "X"
+M1$ = "e4g2f2h4"
+CASE "Y"
+M1$ = "br2u2e2g2h2f2"
+CASE "Z"
+M1$ = "r4l4e4l4"
+CASE ":"
+M1$ = "br2rulbu2rul"
+CASE "."
+M1$ = "br2r"
+CASE "!"
+M1$ = "br2rbu2u2ld2"
+CASE "?"
+M1$ = "br2rbu2lrehl2g"
+CASE ","
+M1$ = "relur"
+CASE "'"
+M1$ = "brbu2relur"
+CASE "/"
+M1$ = "e4"
+CASE "("
+M1$ = "br3hu2e"
+CASE ")"
+M1$ = "breu2h"
+CASE "1"
+M1$ = "brr2lu4l"
+CASE "2"
+M1$ = "r4l4uer2ehl3"
+CASE "3"
+M1$ = "bufr2eheul4"
+CASE "4"
+M1$ = "br3u4g3r4"
+CASE "5"
+M1$ = "r3ehl3u2r4"
+CASE "6"
+M1$ = "bufr2ehl3uer3"
+CASE "7"
+M1$ = "br2ue2ul4"
+CASE "8"
+M1$ = "bufr2ehl2her2f"
+CASE "9"
+M1$ = "brr2eu2hl2gfr2"
+CASE "0"
+M1$ = "bufr2eu2hl2gd2bre2"
+CASE ">"
+M1$ = "bubrhu2rdbr2urdgf"
+CASE "<"
+M1$ = "bueu2ldbr3urd2g"
+CASE "-"
+M1$ = "bu2brr2"
+CASE "@"
+M1$ = "brr3l3hu2er3d2l2u"
+CASE "^"
+IF MID$(Msg$, sv + 1, 1) = "N" THEN LYP = LYP + 5 + VT: LXP = OLXP: b$ = STR$(LYP): a$ = STR$(LXP)
+IF MID$(Msg$, sv + 1, 1) = "U" THEN U = -U
+M1$ = "": sv = sv + 1: LXP = LXP - 5 - ST
+CASE ELSE
+END SELECT
+IF U = 1 THEN DRAW "s" + S$ + "bm" + a$ + "," + b$ + "c" + BC$ + "bd5brr" + STR$(4 + ST) + "bm" + a$ + "," + b$ + "c" + FC$ + "bd6r" + STR$(4 + ST)
+DRAW "s" + S$ + "bm" + a$ + "," + b$ + "c" + BC$ + "bd4br" + M1$ + "bm" + a$ + "," + b$ + "c" + FC$ + "bd5" + M1$
+LXP = LXP + 5 + ST
+a$ = STR$(LXP): b$ = STR$(LYP)
+M1$ = ""
+NEXT sv
+LYP = LYP + 5 + VT
+OLXP = LXP: OLYP = LYP
+END SUB
+
+SUB Pause (tm)
+tmr = TIMER + tm
+DO UNTIL TIMER >= tmr
+LOOP
+END SUB
+
+SUB TClip (XX, YY, S%(), CLP) STATIC
+OS1% = S%((S%(0) / 16) * CLP): OS2% = S%((S%(0) / 16) * CLP + 1)
+S%(1) = S%(1) - CLP
+S%((S%(0) / 16) * CLP) = S%(0): S%((S%(0) / 16) * CLP + 1) = S%(1)
+PUT (XX, YY), S%((S%(0) / 16) * CLP), PSET
+S%((S%(0) / 16) * CLP) = OS1%: S%((S%(0) / 16) * CLP + 1) = OS2%: S%(1) = S%(1) + CLP
+END SUB
+

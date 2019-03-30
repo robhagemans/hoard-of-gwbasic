@@ -1,0 +1,114 @@
+
+
+TsrBasic, a Terminate and Stay Resident BASIC Interpreter
+Version 2.2, Copyright 1990-1992 The Stuart Group, Inc.
+
+
+1.0   Files
+
+The TsrBasic package consists of the following files:
+
+  CALC.BAS     - a popup demo program
+  CHANGES.DOC  - new features for version 2.2
+  CLOCK.BAS    - an interval timer demo program
+  GRAPH.DLL    - graphics dynamic link library
+  MSHERC.COM   - hercules graphics support
+  NOTEPAD.BAS  - another popup demo program		
+  PRINT.BAS    - a popup printer manager demo program
+  README.DOC   - this file
+  SAVER.BAS    - a keyboard inactivity demo program
+  TSRBASIC.DOC - the documentation
+  TSRBASIC.EXE - the interpreter
+  WEBB.BAS     - a graphics demo program
+
+
+2.0   Running TsrBasic
+
+Please read this entire file before using TsrBasic.
+
+Make sure TSRBASIC.EXE and GRAPH.DLL are in your current
+directory or in a directory included in your DOS PATH.
+
+If you have a Hercules compatible graphics adapter and 
+would like to use TsrBasic graphics then run MSHERC.COM
+before you start TsrBasic.
+
+To start TsrBasic, just type TSRBASIC at the DOS prompt.
+See the documentation for more information on command line
+options.
+
+To suspend from TsrBasic back to DOS, enter the SUSPEND
+statement at the TsrBasic prompt. This makes TsrBasic
+terminate and stay resident. To return to TsrBasic from
+DOS or any other application, type control-shift-b.
+
+To unload TsrBasic from memory, enter the QUIT command.
+
+
+3.0   Demo Programs
+
+To run a demo program, type the following, starting at
+the DOS prompt:
+
+  tsrbasic
+  load calc
+  run
+
+or
+
+  tsrbasic
+  load clock
+  run
+
+Look at the source to the demo programs for more information
+on how they operate and the commands they can accept. Note that 
+both CALC.BAS and NOTEPAD.BAS are popup programs that can be put
+into the background by pressing the ESCAPE key and recalled
+by pressing control-shift-b.
+
+To terminate a TsrBasic program type control-c. To terminate
+the interpreter, type QUIT.
+
+
+4.0  Registration
+
+TsrBasic is a shareware product. Registration costs $30.00. In
+addition to supporting the development of TsrBasic and other quality
+programs, this fee entitles you to a copy of the source to TsrBasic.
+The source consists of about 10,000 lines of Microsoft C 5.1 and about
+160 lines of Microsoft Assembler 5.1. It is available on 360 kb diskette.
+
+Registration is easy. Just send a note saying that you wish to
+register TsrBasic, Version 2.2, along with a check or money order
+for $30.00 to:
+     
+  The Stuart Group, Inc.
+  P.O. Box 30
+  Jamestown, CO 80455
+
+International orders are welcome. Please send an international
+money order, payable in U.S. dollars.
+
+The TsrBasic package, consisting of executable programs, demo
+programs, and documentation may be copied and distributed, either
+without charge or for a nominal fee, provided it is distributed
+intact and without modification.
+
+The source to TsrBasic may not be distributed in any form without
+written permission from The Stuart Group, Inc. 
+
+
+5.0   Disclaimer
+
+TsrBasic is distributed as is with no warranty, for use at your
+own risk. Note that most TSR's, including TsrBasic, use undocumented
+features of DOS. The use of these undocumented features may lead to
+unpredictable results. The Stuart Group, Inc. shall not be liable for
+any direct, consequential, or incidental damages arising out of the
+use of this product.
+
+
+
+
+
+

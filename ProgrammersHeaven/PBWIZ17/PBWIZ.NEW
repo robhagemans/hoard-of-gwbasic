@@ -1,0 +1,194 @@
+PBWiz 1.7, 06/21/93:
+
+   Revised the BASIC files and documentation to take advantage
+   of the seamless external syntax (implicit CALLs). The old
+   CALL format is also still supported, of course.
+
+   The Archive routines now support ARJ self-extracting .EXEs.
+
+   Added joystick support, telecomm handling, and SoundBlaster
+   support (via the SBSIM driver). Added new demos MINITERM.BAS
+   and PLAYVOC.BAS for the latter two units.
+
+
+
+PBWiz 1.6, 02/25/93:
+
+   This version of PBWiz requires PowerBasic 3.0. If you have an
+   earlier version of PowerBasic, either upgrade it or use PBWiz
+   1.5. This release of PBWiz makes extensive use of the new
+   PowerBasic features, including libraries (.PBL files)-- no
+   more .OBJ and .PBU files to have to remember!
+
+   Added several utilities to help manage libraries. These are
+   shells which require PBLIB.EXE to do the real work. Their
+   function is to make PBLIB more powerful. Type the name of the
+   utility with no parameters for a help screen.
+      LIBADD       add modules to a library
+      LIBUPD       update modules in a library
+      LIBLIST      list the contents of a library
+
+   The .EXE form of the demo programs is no longer included, to
+   help keep the library a reasonable size for downloading. The
+   CREATE.BAT program will create the demos for you.
+
+   Added a demo which shows how to use the XMS routines for
+   array storage. XMSDEMO uses an array of long integers, but
+   the technique is applicable to other data types as well.
+
+   Fixed a bug in the GN5GetPel routine. Altered PopWindow to
+   avoid a bug in some versions of PowerBasic:
+      ELSEIF Frame AND 1 THEN
+   was being evaluated incorrectly. Adding parens fixed it:
+      ELSEIF (Frame AND 1) THEN
+
+   The graphics routines have been greatly improved:
+      - Get and set the palette in 256-color modes
+      - VESA support for wide SuperVGA compatibility
+      - Read and write 256-color pictures in .BMP format
+      - Improved VGADEMO.BAS shows use of .BMP viewer
+      - Added VESAINFO.BAS to show info about SVGA modes
+      - Sped up the G#Write and G#WriteLn routines
+
+   The math extension unit has been expanded with additional
+   trigonometric functions.
+
+   Added a short description file, DESC.SDI, for the BBSes that
+   support it. This complements the longer FILE_ID.DIZ.
+
+   The order form has been renamed from REGISTER.TXT to
+   ORDER.FRM, since that seems to be a more common convention.
+
+   The archive scanner now supports the new PKZIP 2.0 format
+   "deflated", and can scan the self-extracting .EXE files
+   created by ZIP2EXE.
+
+
+
+PBWiz 1.5, 10/05/92:
+
+   Added support for 256-color SuperVGA modes on any adapter
+   with the Tseng 4000 chipset (most SVGAs). You can use any
+   mode supported by your adapter and monitor. The unit has been
+   tested with modes from 640x350 to 1024x768 resolution.
+
+
+
+PBWiz 1.4, 09/02/92:
+
+   PBWiz can now be registered online by CompuServe members (use
+   GO SWREG). PBWiz is registration I.D. #209.
+
+   Added the DIRMGR unit, which lets you scan disk directories.
+   You can specify search attributes and filenames with full
+   path and wildcard capabilities. For matched files, you can
+   obtain the file name, attribute, time, date, and size.
+   Directory recursion is also supported.
+
+   The archive scanner can now scan self-extracting .EXE files
+   created by LHARC in addition to the usual archive formats.
+
+   The expression evaluator now supports the constant PI and a
+   variety of functions:
+     ABS, ACOS, ASIN, ATAN, COS, FRAC, INT, LOG, SIN, SQR, TAN
+
+   A command-line calculator has been added to show off the
+   expression evaluator. See CALC.BAS and CALC.EXE.
+
+   The Processor% function can now tell 80486s from 80386s.
+
+   The VARCDEMO program has been renamed to ARCVIEW.
+
+
+
+PBWiz 1.3, 06/30/92:
+
+   Added a unit for ANSI emulation. This unit allows you to use
+   ANSI codes without requiring ANSI.SYS or a similar display
+   driver.
+
+   Functions which return the number of serial and parallel
+   ports installed have been added to the equipment unit.
+
+   A special fast print routine has been added to the video
+   unit. It skips spaces rather than displaying them, making it
+   easy to overlay existing text.
+
+   Ceiling and floor functions have been added to the math
+   extensions unit.
+
+   If you're using the excellent 4DOS command shell, try the new
+   ADD4DOS.BAT file. It will add directory descriptions to the
+   PBWiz files-- no more guessing about file names!
+
+
+
+PBWiz 1.2, 03/01/92:
+
+   Inexplicably, I managed to leave many of the DECLAREs for the
+   MOUSE unit out of the previous releases. There was also an
+   error in one of the DECLAREs for the equipment unit. These
+   have been fixed.
+
+   I've added a demo to show the use of the equipment and video
+   unit. Type "DEMO" to take a look. I've also added a demo for
+   the archive viewing routines. Type "VARCDEMO filename" for a
+   plain list, or add the "/V" option for a detailed view of the
+   archive.
+
+   The various $INCLUDE files have been gathered together into a
+   single file, PBWIZ.INC, for convenience. I've also added a
+   quick reference of the routines, PBWIZ.REF.
+
+   A display unit has been added. This includes scrolling in any
+   direction, DOS/ANSI output (print, cls, color, locate),
+   save/restore any part of a screen, fast and flexible string
+   displays, recoloring of selected areas, and pop-up windows.
+
+   The EXTMATH.PBU unit has been split in two: EXTMATHA.OBJ &
+   EXTMATHB.PBU. This allowed me to add a number of
+   assembly-language routines to the math unit, including bit
+   shifts and rotatations.
+
+   The EQUIPMEN.OBJ unit has been extended to return the BIOS
+   date and PC type information. It can now also tell you
+   whether DR DOS is being used instead of MS-DOS.
+
+   There have been some changes to WHERE.BBS. Of particular note
+   to PowerBASIC users is that The Bard's Lair (Dave Navarro's
+   board) is gone. Dave has moved to The Consultant BBS, as have
+   I. See the WHERE.BBS file for more info.
+
+
+
+PBWIZ 1.1, 01/10/92:
+
+   The documentation has been reformatted. Ample room has been
+   left for margins in case you'd like to create a bound manual.
+
+   A brief demo program has been added to demonstrate the use of
+   PBWiz. It shows the 256-color graphics modes in action. Type
+   VGADEMO to try it out.
+
+   Two sets of memory routines have been added, giving you
+   access to EMS and XMS memory. The older EMS 3.x and EEMS
+   standards are supported as well as the current EMS 4.0.
+
+   Comprehensive keyboard control has been added. Get the states
+   of any alt, control, or shift key; get or set CapsLock,
+   Insert, NumLock, ScrollLock; access 101-key "enhanced"
+   keyboards; put a string into the keyboard buffer; speed up
+   the keyboard; take control of the PrintScreen key; see what a
+   key is without actually getting it; more.
+
+
+
+PBWIZ 1.0, 12/03/91:
+
+   This is the initial release of The PowerBASIC Wizard's
+   Library, featuring extended math support, a numeric
+   expression evaluator, mouse support, string handling,
+   equipment information routines, time/date manipulation,
+   viewing archives (ARC, ARJ, LZH, PAK, ZIP, ZOO), and VGA
+   graphics (320x200 and 360x480 in 256 colors).
+

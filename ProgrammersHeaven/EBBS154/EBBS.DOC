@@ -1,0 +1,206 @@
+
+EBBS-PC copyrighted by Ed Parry (1985-1994)
+
+INTRODUCTION
+
+This is quick intro to EBBS-PC for those wishing to jump right in.
+EBBS-PC is intuitive and is very easy to setup, use, maintain and
+run.
+
+SUGGESTED SETUP
+
+You should have at least a 512k machine with a hard drive on it and
+at least a 1200 baud modem set up correctly. Anything bigger and
+better will only enhance your EBBS system.
+
+EBBS works fine on monochrome or color, but color is suggested to
+get the nice ANSI screen's. EGA/VGAers can use the extended line
+setting to get 43+ lines on screen at once as well.
+
+SETUP will come in a second. First some miscellaneous info:
+
+Quick List of FEATURES:
+
+EBBS-PC has a nice array of features, and this update (v1.5x)
+really enhanced the list. Here's a few interesting feature's:
+
+ 1) User selectable ANSI/Non ANSI modes.
+ 2) Multi downloading via ymodem batch or zmodem.
+ 3) Some DOOR modules.
+ 4) 26 message bases.
+ 5) 26 file transfer sections.
+ 6) 300 - 115 kbaud support. (IE: High Speed modem support.)
+ 7) COM0: (local!) & COM1: - COM4: support.
+ 8) Standard X, Y & Zmodem file transfers using DSZ driver.
+ 9) Improved, easier configuration. (Similiar to CONFIG.SYS!)
+10) 43/50 (etc) line mode support.
+11) Code has been optimized, resulting in faster execution.
+12) Self maintains 95% of itself. No message base packing, etc.
+13) Powerful, fast and easy to use line editor.
+14) Full complement of useful Sysop functions & event modules.
+15) Instant userfile searches using btree search algorythm.
+16) Powerful, fast and easy EMAIL features.
+17) Error trapping to avoid 99% of all crash related problems.
+18) Infinite user levels.
+19) FILE_DIZ.ID in ZIP/ARJ's displayed before DL.
+20) Powerful PSUDEO Shell for local/remote Sysop.
+21) Powerful userfile & xferfile editor.
+22) Online full screen ANSI editor.
+
+Plus MUCH more...
+
+These is a simple list of some of EBBS' general and enhanced
+features.  Basically, EBBS-PC is very intuitive, has online help
+menu's at every prompt, operates at a high degree of efficiency,
+is very easy to setup, use and maintain and offers features of
+systems costing hundreds of dollars.
+
+TIP'S & NOTES:
+
+ 1) EBBS is now compiled and converted to PowerBASIC v3.0.
+ 2) EBBS L will boot EBBS in local ONLY mode. (No modem init)
+ 3) DOS Psudeo Shell only works for local sysop(s) or User #1.
+ 4) Userfile editor only work's for U#1 or local sysop(s).
+ 5) Remote Sysop can read U#1 email from MAIN MENU.
+ 6) Remote Sysop can read FEEDBACK from the Sysop Menu.
+ 7) A rash of new support EVENT modules now exist. Use them
+    to keep the userfile current, the xferfile clean, etc.
+ 8) I STILL suggest an external modem. Internal's working 24 hours
+    per day STILL seem to have heat (lockup) prob's.
+ 9) When encoutnering bugs, keep a detailed list and report
+    them. To fix 'em, I need to duplicate the problem.
+10) Keep a list of questions handy. Write them down AS they arise.
+    Then contact me on EBBS HQ (818-891-9350) and drop me feedback. I
+    answer my mail twice daily, so a semi immediate answer is always
+    handy.
+11) Use ? to show a list of msg/xfer area's when editing the
+    level of users. (Tip: ESCape will home/delete line.)
+
+WHY POWERBASIC v3.0?
+
+This is THEE BASIC these day's! When v3.0 came out, it offered a
+rash of new feature's that makes it VERY attractive to ALL BASIC
+programmers. It uses XMS/EMS/VMS to allow you to handle VERY
+LARGE BASIC source files! It offer's alot of new feature's (the
+COM1-COM4 and 115k baud support ALWAYS attracted me), and it is
+still STRONGLY supported. If you want to modify EBBS-PC, this is
+a MUST have product!
+
+EBBS-PC source is currently about 103k and it compiles to machine
+language on my 386/20SX in about 15 seconds. Not too bad at all!
+It reports I STILL have 170k or memory (approx) to add more mods,
+so future updates are a possibility.
+
+EBBS-PC no longer requires an external RUN TIME LIBRARY.
+
+EXTERNALLY REQUIRED FILES/PROGRAMS
+
+DSZ - This program is used exclusively in EBBS-PC for it's file
+transfers.  It can be found on most any PC based Bulletin Board System
+as well as on my EBBS HQ system.
+
+PKUNZIP - This file decompresses the EBBSxxxx.ZIP file.
+
+THEDRAW - I used this to come up with all the EBBS ANSI menu's.
+
+DR - This is an ANSI DIR command by Chris Smeets. Very nice.
+
+SANS - This is a font I created with FONTEDIT. Change EVGAFont = SANS
+       in your EBBSCFG.DAT file to use it and 43/50 line mode.
+
+       NOTE: For NO FONT (IE: Mono or CGA) simply enter NONE for the
+             FONT name in the EBBSCFG.DAT file.
+
+
+QUICK START
+
+If you are fairly good at intuitive logical programs, you can
+probably get EBBS up & running quickly.
+
+Here's some basic's to get you online fast:
+
+LET'S GET ONLINE
+
+Make sure COMMAND.COM, DSZ.EXE (or GSZ.EXE), DR.EXE, etc.as well as
+any other EBBS specific programs are in your path.
+
+1) UNZIP the EBBS*.ZIP file into it's own directory, right below the
+root directory. I suggest (and use) "C:\EBBS".
+
+For example:
+
+C:\>MD EBBS
+
+C:\>CD EBBS
+
+C:\EBBS>PKUNZIP C:\TEMP\EBBS*
+
+2) Load and edit the EBBSCFG.DAT file.  This is your config file.
+Make sure to set up EBBS paths correctly, rename the system, setup
+your prefferred system defaults, etc.  Don't forget to resave the
+EBBSCFG.DAT file after you edit it.
+
+3) Make SURE you use the SUB DIRECTORY creator (MAKEDIRS.EXE) to
+make all your EBBS sub-directories. It will check your EBBSCFG.DAT
+file, so make sure you edited that before running MAKEDIRS.EXE.
+
+4) Write any bulletins, text files, etc.  Don't worry, EBBS will
+give you a simple error message if a bulletin or text file is not
+found, and will tell the name and path it was looking for!  For
+example, after a user logs on EBBS will display the OPENING BULLETIN
+file. (Called OB on disk.) If this file is not found, EBBS will
+indicate so by printing "C:\EBBS\OB" file not found." All you need
+to do now, is create the OB file and make sure it is in your EBBS
+sub directory and it will display properly next time.
+
+5) Add yourself in as the first user. This is an important step.  Do
+not confuse yourself as the first user, with yourself as the System
+Operator.  EBBS treats these both differently. A system Operator
+does just that. Operates and maintains the system.  EBBS will NOT
+keep high message counters, last logon date, etc. info the System
+Operator. It WILL keep this (and other) info on you as user number
+one however.
+
+6) LIST all the files in the file transfer sections. This will
+create the XFERFILE.DAT random files needs to administrate the
+file transfer section.
+
+7) Post the first message in each message base.  This will initiate
+each message base, create the message base index file, etc.
+
+8) That's it - go online!  You can fine tune along the way.
+
+VITAL INFORMATION
+
+1) When editing a userfile, entering a "?" for the level(s)
+   will display the users current access.
+
+2) In the modem RESET and CONFIG strings, a tilde ("~") equals
+   a one second delay and the vertical bar ("|") equals RETURN.
+
+3) F10 ReRUN's EBBS-PC when online. Alt-F10 exit's to DOS.
+
+4) Text Files: Add their names into the TM file, then rename the actual
+   TEXT file to include the extension of .TXT and place it in the TEXT
+   sub directory.
+
+5) Patterns: When searching for user names, you can enter partial's
+   as the search pattern.  Example: "Ed Par" will find "Ed Parry".
+   This works for sending email, logging on, user editing, etc.
+
+If you have specific questions, drop me feedback on my system.  I answer
+all my mail regularly about 6pm on weekday's, and several times
+throughout the day on weekends.
+
+DONATION'S:
+
+If you like and use EBBS-PC, donation's are always appreciated.
+
+Donator's sending $20.00 or more will receive unlimited
+downloading priviledges for life on my EBBS HQ system.
+
+Ed Parry/EBBS-PC
+8711 Langdon Ave. #8
+Sepulveda,  CA  91343
+818-891-9350: EBBS HQ - Up to 14.4kbaud
+

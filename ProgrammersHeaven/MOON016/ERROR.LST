@@ -1,0 +1,61 @@
+Moonrock errors (fatal)
+-----------------------
+  1  MCB corrupt
+  2  invalid pointer to free
+  3  overflow on calculation
+  4  invalid file handle
+  5  out of near memory
+  6  invalid function call
+  7  array element out of bounds
+  8  read past end of file
+  9  not open for text read
+ 10  error entering protected mode
+ 11  divide overflow / divide by zero
+ 12  segment boundary overrun
+ 13  unsupported graphics mode
+
+DOS errors:
+-----------
+100  unknown critical error
+101  function number invalid
+102  file not found
+103  path not found
+104  too many open files (no handles available)
+105  access denied
+106  invalid handle
+107  DOS memory control block destroyed
+108  insufficient memory
+109  memory block address invalid
+110  environment invalid (usually >32K in length)
+111  format invalid
+112  access code invalid
+113  data invalid
+115  invalid drive
+116  attempted to remove current directory
+117  not same device
+118  no more files
+
+
+DOS critical errors:
+--------------------
+119  write-protection violation attempted
+120  unknown unit for driver
+121  drive not ready
+122  unknown command given to driver
+123  data error (bad CRC)
+124  bad device driver request structure length
+125  seek error
+126  unknown media type
+127  sector not found
+128  printer out of paper
+129  write fault
+130  read fault
+131  general failure
+132  (DOS 3+) sharing violation
+133  (DOS 3+) lock violation
+134  invalid disk change
+135  (DOS 3+) FCB unavailable
+136  (DOS 3+) sharing buffer overflow
+137  (DOS 4+) code page mismatch
+138  (DOS 4+) out of input
+139  (DOS 4+) insufficient disk space
