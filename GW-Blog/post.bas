@@ -1,0 +1,178 @@
+5000 REM ===============================
+5001 REM Build a post page
+5002 REM INPUT - SFL$ File list
+5003 REM         TIT$ Title list
+5004 REM         LC List length
+5005 REM         FINDEX File to build
+5006 REM         DIREC$ Posts src dir
+5007 REM         HDRFILE$ Header template
+5008 REM         FTRFILE$ Footer template
+5009 REM         OUTFILE$ Output file
+5010 REM         LBL$ Template labels
+5011 REM         REPL$ Template 
+5012 REM               replacements
+5013 REM         ILBL Length of template
+5014 REM              labels
+5009 REM ===============================
+5020 OPEN OUTFILE$ FOR OUTPUT AS #13
+
+5030 REM Header template right now
+5040 TMPLATE$ = HDRFILE$
+5045 OUTFILE$ = "HDR.TMP"
+5050 FOR I = 1 TO ILBL
+5060     IF LBL$[I] = "title" THEN REPL$[I] = TIT$[FINDEX]
+5070     IF LBL$[I] <> "next" THEN 5100
+5080     IF FINDEX < LC THEN LINKURL$ = SFL$[FINDEX+1]:LINKLBL$ = "Next: "+TIT$[FINDEX+1]:GOSUB 19000 ELSE LINKHTML$=""
+5090     REPL$[I] = LINKHTML$
+5100     IF LBL$[I] <> "previous" THEN 5130
+5110     IF FINDEX > 1 THEN LINKURL$ = SFL$[FINDEX-1]:LINKLBL$ = "Previous: "+TIT$[FINDEX-1]:GOSUB 19000 ELSE LINKHTML$=""
+5120     REPL$[I] = LINKHTML$
+5130     IF LBL$[I] <> "date" THEN 5150
+5140     REPL$[I] = LEFT$(POSTS$[FINDEX],4) + "-" + MID$(POSTS$[FINDEX],5,2) + "-" + MID$(POSTS$[FINDEX],7,2)
+5150 NEXT I
+5160 GOSUB 18000
+5170 OPEN OUTFILE$ FOR INPUT AS #4
+5180 WHILE NOT EOF(4)
+5182     LINE INPUT#4, ONEL$
+5184     PRINT#13, ONEL$
+5186 WEND
+5190 CLOSE #4
+5195 SHELL "DEL "+OUTFILE$
+
+5500 REM Process textile now
+5510 TFILE$ = DIREC$ + "\" + SFL$[FINDEX]
+5520 HFILE$ = "WORK.TMP"
+5530 GOSUB 10000
+5540 OPEN "WORK.TMP" FOR INPUT AS #1
+5550 WHILE NOT EOF(1)
+5560     LINE INPUT#1, ONEL$
+5570     PRINT#13, ONEL$
+5580 WEND
+5590 CLOSE #1
+5600 SHELL "DEL WORK.TMP"
+
+5700 REM Process the footer
+5710 TMPLATE$ = FTRFILE$
+5715 OUTFILE$ = "FTR.TMP"
+5720 GOSUB 18000
+5725 OPEN OUTFILE$ FOR INPUT AS #4
+5730 WHILE NOT EOF(4)
+5735     LINE INPUT#4, ONEL$
+5740     PRINT#13, ONEL$
+5745 WEND
+5750 CLOSE #4
+5755 SHELL "DEL "+OUTFILE$
+
+5770 REM And close our post!
+5780 CLOSE #13
+5790 RETURN
+
+6000 REM ===============================
+6001 REM Build a regular page
+6002 REM INPUT - TFILE$ Page file
+6003 REM         PTITL$ Page title
+6004 REM         HDRFILE$ Header template
+6005 REM         FTRFILE$ Footer template
+6006 REM         OUTFILE$ Output file
+6007 REM         LBL$ Template labels
+6008 REM         REPL$ Template 
+6009 REM               replacements
+6010 REM         ILBL Length of template
+6011 REM              labels
+6012 REM ===============================
+6020 OPEN OUTFILE$ FOR OUTPUT AS #13
+
+6030 REM Header template right now
+6040 TMPLATE$ = HDRFILE$
+6045 OUTFILE$ = "HDR.TMP"
+6050 FOR I = 1 TO ILBL
+6060     IF LBL$[I] = "title" THEN REPL$[I] = PTITL$
+6065     IF LBL$[I] = "previous" OR LBL$[I] = "next" THEN REPL$[I] = ""
+6070 NEXT I
+6080 GOSUB 18000
+6082 OPEN OUTFILE$ FOR INPUT AS #4
+6084 WHILE NOT EOF(4)
+6086     LINE INPUT#4, ONEL$
+6088     PRINT#13, ONEL$
+6090 WEND
+6092 CLOSE #4
+6094 SHELL "DEL "+OUTFILE$
+
+6100 REM Process textile now
+6110 HFILE$ = "WORK.TMP"
+6120 GOSUB 10000
+6130 OPEN "WORK.TMP" FOR INPUT AS #1
+6140 WHILE NOT EOF(1)
+6150     LINE INPUT#1, ONEL$
+6160     PRINT#13, ONEL$
+6170 WEND
+6180 CLOSE #1
+6190 SHELL "DEL WORK.TMP"
+
+6200 REM Process the footer
+6210 TMPLATE$ = FTRFILE$
+6215 OUTFILE$ = "FTR.TMP"
+6220 GOSUB 18000
+6225 OPEN OUTFILE$ FOR INPUT AS #4
+6230 WHILE NOT EOF(4)
+6235     LINE INPUT#4, ONEL$
+6240     PRINT#13, ONEL$
+6245 WEND
+6250 CLOSE #4
+6255 SHELL "DEL "+OUTFILE$
+
+6260 REM And close our post!
+6270 CLOSE #13
+6280 RETURN
+
+6500 REM ===============================
+6501 REM Build a regular page with
+6502 REM known text
+6503 REM INPUT - HTMLTEXT$ Page content
+6504 REM         PTITL$ Page title
+6505 REM         HDRFILE$ Header template
+6506 REM         FTRFILE$ Footer template
+6507 REM         OUTFILE$ Output file
+6508 REM         LBL$ Template labels
+6509 REM         REPL$ Template 
+6510 REM               replacements
+6511 REM         ILBL Length of template
+6512 REM              labels
+6513 REM ===============================
+6520 OPEN OUTFILE$ FOR OUTPUT AS #13
+
+6530 REM Header template right now
+6540 TMPLATE$ = HDRFILE$
+6545 OUTFILE$ = "HDR.TMP"
+6550 FOR I = 1 TO ILBL
+6560     IF LBL$[I] = "title" THEN REPL$[I] = PTITL$
+6562     IF LBL$[I] = "next" THEN REPL$[I] = ""
+6565     IF LBL$[I] = "previous" THEN REPL$[I] = ""
+6567     IF LBL$[I] = "date" THEN REPL$[I] = ""
+6570 NEXT I
+6580 GOSUB 18000
+6582 OPEN OUTFILE$ FOR INPUT AS #4
+6584 WHILE NOT EOF(4)
+6586     LINE INPUT#4, ONEL$
+6588     PRINT#13, ONEL$
+6590 WEND
+6592 CLOSE #4
+6594 SHELL "DEL "+OUTFILE$
+
+6600 PRINT#13, HTMLTEXT$
+
+6605 REM Process the footer
+6610 TMPLATE$ = FTRFILE$
+6615 OUTFILE$ = "FTR.TMP"
+6620 GOSUB 18000
+6625 OPEN OUTFILE$ FOR INPUT AS #4
+6630 WHILE NOT EOF(4)
+6635     LINE INPUT#4, ONEL$
+6640     PRINT#13, ONEL$
+6645 WEND
+6650 CLOSE #4
+6655 SHELL "DEL "+OUTFILE$
+
+6660 REM And close 
+6670 CLOSE #13
+6680 RETURN
