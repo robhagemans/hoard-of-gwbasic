@@ -19,3 +19,27 @@
 [submodule "RetroBasicCode"]
 	path = RetroBasicCode
 	url = https://github.com/yoann-darche/RetroBasicCode.git
+[submodule "kingdom"]
+	path = kingdom
+	url = https://github.com/Pilcrow182/kingdom.git
+[submodule "assorted/LeventSA"]
+	path = assorted/LeventSA
+	url = https://github.com/LeventSA/GW-Basic-Menu.git
+[submodule "assorted/pmachapman"]
+	path = assorted/pmachapman
+	url = https://github.com/pmachapman/basic-samples.git
+[submodule "assorted/MohammedMaaz"]
+	path = assorted/MohammedMaaz
+	url = https://github.com/MohammedMaaz/GW-Basic-programs.git
+[submodule "assorted/jonatasdemello"]
+	path = assorted/jonatasdemello
+	url = https://github.com/jonatasdemello/gwbasic.git
+[submodule "assorted/ShravanJ"]
+	path = assorted/ShravanJ
+	url = https://github.com/ShravanJ/gwbasic.git
+[submodule "assorted/falcor781"]
+	path = assorted/falcor781
+	url = https://github.com/falcor781/GWBasic.git
+[submodule "assorted/t2farrell"]
+	path = assorted/t2farrell
+	url = https://github.com/t2farrell/classic-gwbasic.git
