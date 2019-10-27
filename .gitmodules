@@ -43,3 +43,6 @@
 [submodule "assorted/t2farrell"]
 	path = assorted/t2farrell
 	url = https://github.com/t2farrell/classic-gwbasic.git
+[submodule "GW-BASIC-3D"]
+	path = GW-BASIC-3D
+	url = https://github.com/bolner/GW-BASIC-3D.git
