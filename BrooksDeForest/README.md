@@ -49,7 +49,7 @@ Single-file games
 | `grayhnd.bas`  | Grayhound Racer | 1989  | Betting - 256k - 320x200x16  <br><img src="screenshots/grayhnd.jpg" width=320px>
 | `blackjck.bas` | Max Blackjack   | 1989  | Card Game - 256k - 160x200x16  <br><img src="screenshots/blackjck.jpg" width=320px>
 | `tactile.bas`  | Tactile         | 1989  | Strategy Board Game - 256k - 320x200x4 <br><img src="screenshots/tactile.jpg" width=320px>
-| `quasar.bas`   | Quasar          | 1990  | Space, Vector Game - 256k - 320x200x16 (joystick) <br><img src="screenshots/quasar.jpg width=320px>
+| `quasar.bas`   | Quasar          | 1990  | Space, Vector Game - 256k - 320x200x16 (joystick) <br><img src="screenshots/quasar.jpg" width=320px>
 | `bomber.bas`   | Air Attack      | 1988  | Kids Arcade Game - 256k - 320x200x16 <br><img src="screenshots/airattack_screen3.jpg" width=320px>
 | `snakes.bas`   | Snakes          | 1988  | Top Down Collector - 256k - 320x200x16 <br><img src="screenshots/snakes_screen2.jpg" width=320px>
 
