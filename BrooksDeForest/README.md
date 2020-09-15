@@ -44,14 +44,14 @@ Single-file games
 
 | File           | Name            | Year  | Description
 | -------------- | --------------- | ----- | --------------------------
-| `breakoff.bas` | Breakoff        | 1989  | Arcade - 256k - 160x200x16 (joystick)
-| `wgolf2.bas`   | World Golf 2    | 1990  | Sports Simulation - 256k - 160x200x16 (joystick)
-| `grayhnd.bas`  | Grayhound Racer | 1989  | Betting - 256k - 320x200x16
-| `blackjck.bas` | Max Blackjack   | 1989  | Card Game - 256k - 160x200x16
-| `tactile.bas`  | Tactile         | 1989  | Strategy Board Game - 256k - 320x200x4
-| `quasar.bas`   | Quasar          | 1990  | Space, Vector Game - 256k - 320x200x16 (joystick)
-| `bomber.bas`   | Air Attack      | 1988  | Kids Arcade Game - 256k - 320x200x16
-| `snakes.bas`   | Snakes          | 1988  | Top Down Collector - 256k - 320x200x16
+| `breakoff.bas` | Breakoff        | 1989  | Arcade - 256k - 160x200x16 (joystick) ![](screenshots/breakoff.jpg)
+| `wgolf2.bas`   | World Golf 2    | 1990  | Sports Simulation - 256k - 160x200x16 (joystick) ![](screenshots/worldgolf2.jpg)
+| `grayhnd.bas`  | Grayhound Racer | 1989  | Betting - 256k - 320x200x16  ![](screenshots/grayhnd.jpg)
+| `blackjck.bas` | Max Blackjack   | 1989  | Card Game - 256k - 160x200x16  ![](screenshots/blackjck.jpg)
+| `tactile.bas`  | Tactile         | 1989  | Strategy Board Game - 256k - 320x200x4 ![](screenshots/tactile.jpg)
+| `quasar.bas`   | Quasar          | 1990  | Space, Vector Game - 256k - 320x200x16 (joystick) ![](screenshots/quasar.jpg)
+| `bomber.bas`   | Air Attack      | 1988  | Kids Arcade Game - 256k - 320x200x16 ![](screenshots/airattack_screen3.jpg)
+| `snakes.bas`   | Snakes          | 1988  | Top Down Collector - 256k - 320x200x16 ![](screenshots/snakes_screen2.jpg)  
 
 
 Other programs
@@ -62,7 +62,9 @@ Other programs
 | `bob.bas`      | Bob                       | 1990/1 | 'AI' conversation program
 | `supermap.bas` | Super Mapper              | 1990   | Generates 3D wireframe landscapes
 | `vidfus.bas`   | Video Fusion              | 1990   | Vector graphics protocol editor for BBSes
-| `rxmas.bas`    | The Really Big Rufus Xmas | 1989   | Animated Christmas Screen
+| `rxmas.bas`    | The Really Big Rufus Xmas | 1989   | Animated Christmas Screen ![](screenshots/rxmasscreen1.jpg)
+
+
 
 General Applications
 --------------------
