@@ -46,3 +46,6 @@
 [submodule "GW-BASIC-3D"]
 	path = GW-BASIC-3D
 	url = https://github.com/bolner/GW-BASIC-3D.git
+[submodule "MiniNec"]
+	path = MiniNec
+	url = https://github.com/Kees-PA3KJ/MiniNec.git
